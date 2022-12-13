@@ -1,12 +1,18 @@
 import React from 'react';
 import './App.css';
-import { CssVarsProvider } from '@mui/joy/styles';
-import Sheet from '@mui/joy/Sheet';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 export default function App() {
   return (
-    <CssVarsProvider>
-      <Sheet variant="outlined">Welcome!</Sheet>
-    </CssVarsProvider>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <main>This app is using the dark mode</main>
+    </ThemeProvider>
   );
 }
