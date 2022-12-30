@@ -1,6 +1,5 @@
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MailIcon from '@mui/icons-material/Mail';
-import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {
   AppBar,
@@ -14,7 +13,7 @@ import { Box } from '@mui/system';
 import React from 'react';
 import { Typography } from '@mui/material';
 
-export const MyAppBar: React.FC<unknown> = () => {
+export const VLAppBar: React.FC<unknown> = () => {
   const [anchor, setAnchor] = React.useState<null | HTMLElement>(null);
 
   const isMenuOpen = Boolean(anchor);
@@ -40,12 +39,12 @@ export const MyAppBar: React.FC<unknown> = () => {
         vertical: 'top',
         horizontal: 'right',
       }}
+      color={''}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My Account</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      <MenuItem onClick={handleMenuClose}><Typography color={'black'}>My Account</Typography></MenuItem>
+      <MenuItem onClick={handleMenuClose}><Typography color={'black'}>Logout</Typography></MenuItem>
     </Menu>
   );
 
@@ -53,22 +52,13 @@ export const MyAppBar: React.FC<unknown> = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ display: { sx: 'none', sm: 'block' } }}
           >
-            Verse Ledger
+            Verse Ledger Image Here
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

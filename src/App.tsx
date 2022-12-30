@@ -1,10 +1,20 @@
 import React from 'react';
 import './App.css';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
-import { MyMenu } from './Common/MyMenu';
-import { MyAppBar } from './Common/MyAppBar';
+import { VLAppBar } from './Common/AppBar';
+import { Home } from './Features/Home/Home';
 const darkTheme = createTheme({
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        colorPrimary: {
+          backgroundColor: '#003964',
+        },
+      },
+    },
+  },
   palette: {
     background: {
       default: '#002744',
@@ -22,32 +32,30 @@ const darkTheme = createTheme({
       600: '#002F53',
       700: '#002744',
       800: '#002039',
-      900: '#001B2F'
+      900: '#001B2F',
     },
     secondary: {
       main: '#019be5',
       dark: '#006db3',
-      light: '#63ccff'
+      light: '#63ccff',
     },
     text: {
       primary: '#EAF7FF',
       secondary: '#D9ECFF',
-      disabled: '#BBD5FF'
-    }
+      disabled: '#BBD5FF',
+    },
   },
 });
 export default function App() {
   return (
     <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <MyAppBar />
-      <main>This app is using the dark mode</main>
-      <MyMenu
-        body="This is some Text"
-        buttonText="I Agree"
-        header="Do you agree to the thing"
-        onSubmit={() => alert('You have agreed!')}
-      />
+      <Router>
+        <CssBaseline />
+        <VLAppBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
     </ThemeProvider>
   );
 }
