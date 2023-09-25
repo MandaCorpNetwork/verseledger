@@ -2,9 +2,11 @@ import React from 'react';
 import './App.css';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { SnackbarProvider } from 'notistack';
 import CssBaseline from '@mui/material/CssBaseline';
 import { VLAppBar } from './Common/AppBar';
-import { Home } from './Features/Home/Home';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Home } from './Routes/Home/Home';
 const darkTheme = createTheme({
   components: {
     MuiAppBar: {
@@ -46,16 +48,15 @@ const darkTheme = createTheme({
     },
   },
 });
+import { routingInfo } from "./Routes/Router";
+const router = createBrowserRouter(routingInfo);
 export default function App() {
   return (
     <ThemeProvider theme={darkTheme}>
-      <Router>
+      <SnackbarProvider maxSnack={4}>
         <CssBaseline />
-        <VLAppBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </Router>
+        <RouterProvider router={router} />
+      </SnackbarProvider>
     </ThemeProvider>
   );
 }
