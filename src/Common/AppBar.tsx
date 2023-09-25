@@ -12,39 +12,28 @@ import {
 import { Box } from '@mui/system';
 import React from 'react';
 import { Typography } from '@mui/material';
+import {
+  usePopupState,
+  bindTrigger,
+  bindMenu,
+  PopupState,
+} from 'material-ui-popup-state/hooks';
 
 export const VLAppBar: React.FC<unknown> = () => {
-  const [anchor, setAnchor] = React.useState<null | HTMLElement>(null);
-
-  const isMenuOpen = Boolean(anchor);
-  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchor(event.currentTarget);
-  };
-  const handleMenuClose = () => {
-    setAnchor(null);
-  };
-
+  const profilePopupState: PopupState = usePopupState({
+    variant: 'popover',
+    popupId: 'profileNav',
+  });
   const menuId = 'primary-account-menu';
 
   const renderMenu = (
-    <Menu
-      anchorEl={anchor}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      color={''}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}><Typography color={'black'}>My Account</Typography></MenuItem>
-      <MenuItem onClick={handleMenuClose}><Typography color={'black'}>Logout</Typography></MenuItem>
+    <Menu {...bindMenu(profilePopupState)}>
+      <MenuItem onClick={profilePopupState.close}>
+        <Typography color={'black'}>My Account</Typography>
+      </MenuItem>
+      <MenuItem onClick={profilePopupState.close}>
+        <Typography color={'black'}>Logout</Typography>
+      </MenuItem>
     </Menu>
   );
 
@@ -76,7 +65,7 @@ export const VLAppBar: React.FC<unknown> = () => {
               aria-label="show 23 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={23} color='error'>
+              <Badge badgeContent={23} color="error">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -84,10 +73,9 @@ export const VLAppBar: React.FC<unknown> = () => {
               size="large"
               edge="end"
               aria-label="account of current user"
-              aria-controls={menuId}
               aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
               color="inherit"
+              {...bindTrigger(profilePopupState)}
             >
               <AccountCircleIcon />
             </IconButton>
