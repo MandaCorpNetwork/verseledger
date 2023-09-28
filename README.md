@@ -6,6 +6,8 @@ Pre-requisits:
 
 [Bun (Linux Only)](https://bun.sh/)
 
+[Flyway](https://www.red-gate.com/products/flyway/community/download/)
+
 # Install
 
 ## Windows
