@@ -1,0 +1,30 @@
+services:
+  client:
+    build: /src/client/
+    image: verseledger-client
+    profiles:
+      - local
+    ports:
+      - "3030:3030"
+  server:
+    build: ./src/server/
+    image: verseledger-server
+    profiles:
+      - local
+    ports:
+      - "3131:3131"
+  db:
+    profiles:
+      - local
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: 'verseledger'
+      MYSQL_USER: 'verseledgerDBUser'
+      MYSQL_PASSWORD: 'verseledgerDBPassword'
+      MYSQL_ROOT_PASSWORD: 'verseledgerDBRootPassword'
+    ports:
+      - "3306:3306"
+    volumes:
+      - un-db:/var/lib/mysql
+volumes:
+  un-db:

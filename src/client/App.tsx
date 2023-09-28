@@ -1,12 +1,9 @@
 import React from 'react';
 import './App.css';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import CssBaseline from '@mui/material/CssBaseline';
-import { VLAppBar } from './Common/AppBar';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Home } from './Routes/Home/Home';
 const darkTheme = createTheme({
   components: {
     MuiAppBar: {
