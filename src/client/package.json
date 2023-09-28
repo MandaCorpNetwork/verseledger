@@ -19,11 +19,8 @@
     "redux-thunk": "^2.4.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "lint": "npx eslint . --fix",
-    "eject": "react-scripts eject"
+    "start": "vite",
+    "lint": "npx eslint . --fix"
   },
   "browserslist": {
     "production": [
