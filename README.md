@@ -32,3 +32,16 @@ $ cd src/server && bun install && cd ../client && bun install && cd ../..
 ```bash
 $ docker-compose --profile local up --build
 ```
+
+# ENV
+
+Server requires a `.env` file or ENV_VARS to function.
+Place this file in the server root
+
+Vars Needed:
+
+```
+DISCORD_OAUTH_CLIENT_ID=String
+DISCORD_OAUTH_CLIENT_SECRET=String
+AUTH_REDIRECT=http://localhost:3131
+``````
