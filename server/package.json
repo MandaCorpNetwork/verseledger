@@ -1,5 +1,5 @@
 {
-  "name": "un-server",
+  "name": "verseledger-server",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
