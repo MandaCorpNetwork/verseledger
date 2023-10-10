@@ -52,7 +52,7 @@ export const cookie = (options: CookieOptions = {}) => {
                 : false
 
             if (isStringKey === false)
-                for (let i = 0; i < secret.length; i++) {
+                for (let i = 0; i < (secret as string).length; i++) {
                     const temp = unsign(value, secret[i])
 
                     if (temp) {

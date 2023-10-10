@@ -14,17 +14,17 @@ Pre-requisits:
 
 ```bash
 # Yarn
-$ cd src/server && yarn install && cd ../client && yarn install && cd ../..
+$ cd ./server && yarn install && cd ../client && yarn install && cd ../..
 # NPM
-$ cd src/server && npm i && cd ../client && npm i && cd ../..
+$ cd ./server && npm i && cd ../client && npm i && cd ../..
 # PNPM
-$ cd src/server && pnpm i && cd ../client && pnpm i && cd ../..
+$ cd ./server && pnpm i && cd ../client && pnpm i && cd ../..
 ```
 
 ## Linux (Requires [Bun](https://bun.sh) Runtime)
 
 ```bash
-$ cd src/server && bun install && cd ../client && bun install && cd ../..
+$ cd ./server && bun install && cd ../client && bun install && cd ../..
 ```
 
 # How to Start

@@ -1,5 +1,5 @@
 import type { Elysia } from 'elysia';
-import { buildUrl, isTokenValid, redirect } from './utils';
+import { buildUrl, getJWTValues, isTokenValid, redirect } from './utils';
 
 export type TOAuth2Request<Profile extends string> = {
   /**
@@ -24,7 +24,7 @@ export type TOAuth2Request<Profile extends string> = {
    *  fetch("https://api.github.com/user", { headers })
    * }
    */
-  tokenHeaders: (profile: Profile) => Promise<{ Authorization: string }>;
+  tokenHeaders: () => Promise<{ Authorization: string }>;
 };
 
 /**
@@ -222,7 +222,7 @@ const oauth2 = <Profiles extends string>({
           redirect_uri: buildRedirectUri(req.params),
           response_type: 'code',
           response_mode: 'query',
-          state: state.generate(req, req.params.name)
+          state: state.generate(req, (req.params as any).name)
         };
 
         const authUrl = buildUrl(
@@ -249,7 +249,7 @@ const oauth2 = <Profiles extends string>({
           state: string;
         };
 
-        if (!state.check(req, req.params.name, callbackState)) {
+        if (!state.check(req, (req.params as any).name, callbackState)) {
           throw new Error('State missmatch');
         }
 
@@ -299,15 +299,13 @@ const oauth2 = <Profiles extends string>({
         token.expires_in = token.expires_in ?? 3600;
         token.created_at = Date.now() / 1000;
 
-        storage.set(req, req.params.name, token);
+
 
         const _user = await fetch(`https://discord.com/api/v10/users/@me`, { headers: { Authorization: `Bearer ${token?.access_token}` } });
 
         const jsonBody = await (_user as any).json() as Record<string, string>
 
-        console.log(jsonBody);
-
-        (req as any).setCookie('auth', await (req as any).unjwt.sign({ ...jsonBody, token }), { httpsOnly: true, maxAge: 7 * 86_400 })
+        (req as any).setCookie('auth', await (req as any).vljwt.sign({ ...jsonBody, token }), { httpsOnly: true, maxAge: 7 * 86_400 })
 
         req.set.headers['Location'] = '/'
 
@@ -324,7 +322,7 @@ const oauth2 = <Profiles extends string>({
           return context;
         }
 
-        await storage.delete(req, req.params.name);
+        (req.cookie as any).auth?.remove?.();
 
         return redirect(redirectTo as string);
       });
@@ -333,7 +331,7 @@ const oauth2 = <Profiles extends string>({
       return {
         async authorized(...profiles: Profiles[]) {
           for (const profile of profiles) {
-            if (!isTokenValid(await storage.get(ctx, profile))) {
+            if (!await isTokenValid(ctx)) {
               return false;
             }
           }
@@ -362,8 +360,10 @@ const oauth2 = <Profiles extends string>({
           return result;
         },
 
-        async tokenHeaders(profile: Profiles) {
-          const token = await storage.get(ctx, profile);
+        async tokenHeaders() {
+          const prof = await getJWTValues(ctx);
+          if (!prof) return false
+          const {token} = prof
           return { Authorization: `Bearer ${token?.access_token}` };
         }
       } as TOAuth2Request<Profiles>;

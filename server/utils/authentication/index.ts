@@ -1,7 +1,7 @@
 import oauth2, { TOAuth2AccessToken, discord } from '../oauth';
 import { randomBytes } from 'crypto';
 
-let globalState = randomBytes(8).toString('hex');
+let globalState = randomBytes(16).toString('hex');
 let globalToken: TOAuth2AccessToken = null as unknown as TOAuth2AccessToken
 
 
@@ -10,7 +10,7 @@ export const authentication = oauth2({
   profiles: {
     discord: {
       provider: discord(),
-      scope: ['email identify guilds.members.read role_connections.write']
+      scope: ['email identify']
     }
   },
   storage: {
@@ -24,8 +24,7 @@ export const authentication = oauth2({
     async get(req, name) {
       switch (name) {
         case 'discord':
-          return globalToken
-          break
+          return req?.cookie?.auth
       }
     },
     async set(req, name, token) {

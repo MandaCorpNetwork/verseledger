@@ -31,18 +31,26 @@ export function buildUrl(
   return _url.href;
 }
 
-export function redirect(location: string, headers: Record<string, string|null> = {}) {
+export function redirect(location: string, headers: Record<string, string | null> = {}) {
   return new Response('', {
     status: 302,
     statusText: 'Found',
     headers: { ...headers, Location: location }
   });
 }
-
-export function isTokenValid(token?: TOAuth2AccessToken) {
-  if (!token) {
+export async function getJWTValues(ctx?: any) {
+  const tokenString = ctx?.cookie?.auth
+  //const prof =
+  if (!tokenString) {
     return false;
   }
+  return ctx?.vljwt?.verify(tokenString);
+}
+
+export async function isTokenValid(ctx?: any) {
+  const prof = await getJWTValues(ctx)
+  if (!prof) return false
+  const { token } = prof
   const now = Date.now() / 1000;
   const expiry = token.created_at + token.expires_in;
   return now < expiry;
