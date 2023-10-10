@@ -33,6 +33,10 @@ $ cd ./server && bun install && cd ../client && bun install && cd ../..
 $ docker-compose --profile local up --build
 ```
 
+```bash
+$ yarn start:local
+```
+
 # ENV
 
 Server requires a `.env` file or ENV_VARS to function.
