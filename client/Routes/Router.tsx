@@ -1,3 +1,4 @@
+import React from 'react';
 import { Outlet, RouteObject } from 'react-router-dom';
 import { VLAppBar } from '../Common/AppBar';
 import ErrorPage from './ErrorPage';
@@ -19,8 +20,8 @@ export const routingInfo: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <></>
-      }
-    ]
+        element: <></>,
+      },
+    ],
   },
 ];

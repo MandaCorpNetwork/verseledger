@@ -1,137 +1,134 @@
-import { Elysia, Handler } from 'elysia'
+import { Elysia, Handler } from 'elysia';
 
-import { serialize, parse, type CookieSerializeOptions } from 'cookie'
-import { sign, unsign } from 'cookie-signature'
+import { serialize, parse, type CookieSerializeOptions } from 'cookie';
+import { sign, unsign } from 'cookie-signature';
 
 export interface SetCookieOptions extends CookieSerializeOptions {
-    // Should cookie be signed or not
-    signed?: boolean
+  // Should cookie be signed or not
+  signed?: boolean;
 }
 
 export interface CookieOptions extends SetCookieOptions {
-    /**
-     * Secret key for signing cookie
-     *
-     * If array is passed, will use Key Rotation.
-     *
-     * Key rotation is when an encryption key is retired
-     * and replaced by generating a new cryptographic key.
-     */
-    secret?: string | string[]
+  /**
+   * Secret key for signing cookie
+   *
+   * If array is passed, will use Key Rotation.
+   *
+   * Key rotation is when an encryption key is retired
+   * and replaced by generating a new cryptographic key.
+   */
+  secret?: string | string[];
 }
 
 export interface CookieRequest {
-    cookie: Record<string, string>
-    setCookie: (name: string, value: string, options?: SetCookieOptions) => void
-    removeCookie: (name: string) => void
+  cookie: Record<string, string>;
+  setCookie: (name: string, value: string, options?: SetCookieOptions) => void;
+  removeCookie: (name: string) => void;
 }
 
 export const cookie = (options: CookieOptions = {}) => {
-    const { signed, secret: secretKey, ...defaultOptions } = options
+  const { signed, secret: secretKey, ...defaultOptions } = options;
 
-    const secret = !secretKey
-        ? undefined
-        : typeof secretKey === 'string'
-        ? secretKey
-        : secretKey[0]
+  const secret = !secretKey
+    ? undefined
+    : typeof secretKey === 'string'
+    ? secretKey
+    : secretKey[0];
 
-    const isStringKey = typeof secret === 'string'
+  const isStringKey = typeof secret === 'string';
 
-    return new Elysia({
-        // For deduplication to work you need to define a plugin name (or anything)
-        name: '@elysiajs/cookie',
-        // (optional) define seed, if not provided plugin will only be defined once
-        seed: options
-    })
-        .decorate('unsignCookie', ((value: string) => {
-            if (!secret)
-                throw new Error('No secret is provided to cookie plugin')
+  return new Elysia({
+    // For deduplication to work you need to define a plugin name (or anything)
+    name: '@elysiajs/cookie',
+    // (optional) define seed, if not provided plugin will only be defined once
+    seed: options,
+  })
+    .decorate('unsignCookie', ((value: string) => {
+      if (!secret) throw new Error('No secret is provided to cookie plugin');
 
-            let unsigned: false | string = isStringKey
-                ? unsign(value, secret)
-                : false
+      let unsigned: false | string = isStringKey
+        ? unsign(value, secret)
+        : false;
 
-            if (isStringKey === false)
-                for (let i = 0; i < (secret as string).length; i++) {
-                    const temp = unsign(value, secret[i])
+      if (isStringKey === false)
+        for (let i = 0; i < (secret as string).length; i++) {
+          const temp = unsign(value, secret[i]);
 
-                    if (temp) {
-                        unsigned = temp
-                        break
-                    }
-                }
+          if (temp) {
+            unsigned = temp;
+            break;
+          }
+        }
 
-            return {
-                valid: unsigned !== false,
-                value: unsigned || undefined
-            }
-        }) as (value: string) =>
-            | {
-                  valid: true
-                  value: string
-              }
-            | {
-                  valid: false
-                  value: undefined
-              })
-        .derive((context) => {
-            let _cookie: Record<string, string>
-
-            const getCookie = () => {
-                if (_cookie) return _cookie
-
-                try {
-                    const headerCookie = context.request.headers.get('cookie')
-
-                    _cookie = headerCookie ? parse(headerCookie) : {}
-                } catch (error) {
-                    _cookie = {}
-                }
-
-                return _cookie
-            }
-
-            return {
-                get cookie() {
-                    return getCookie()
-                },
-                setCookie(name, value, { signed = false, ...options } = {}) {
-                    if (signed) {
-                        if (!secret)
-                            throw new Error(
-                                'No secret is provided to cookie plugin'
-                            )
-
-                        value = sign(value, secret)
-                    }
-
-                    if (!Array.isArray(context.set.headers['Set-Cookie']))
-                        // @ts-ignore
-                        context.set.headers['Set-Cookie'] = []
-
-                    // @ts-ignore
-                    context.set.headers['Set-Cookie'].push(
-                        serialize(name, value, {
-                            path: '/',
-                            ...defaultOptions,
-                            ...options
-                        })
-                    )
-
-                    if (!_cookie) getCookie()
-                    _cookie[name] = value
-                },
-                removeCookie(name: string) {
-                    if (!getCookie()[name]) return
-
-                    context.set.headers['Set-Cookie'] = serialize(name, '', {
-                        expires: new Date('Thu, Jan 01 1970 00:00:00 UTC')
-                    })
-
-                    delete _cookie[name]
-                }
-            } as CookieRequest
+      return {
+        valid: unsigned !== false,
+        value: unsigned || undefined,
+      };
+    }) as (value: string) =>
+      | {
+          valid: true;
+          value: string;
+        }
+      | {
+          valid: false;
+          value: undefined;
         })
-}
+    .derive((context) => {
+      let _cookie: Record<string, string>;
 
-export default cookie
+      const getCookie = () => {
+        if (_cookie) return _cookie;
+
+        try {
+          const headerCookie = context.request.headers.get('cookie');
+
+          _cookie = headerCookie ? parse(headerCookie) : {};
+        } catch (error) {
+          _cookie = {};
+        }
+
+        return _cookie;
+      };
+
+      return {
+        get cookie() {
+          return getCookie();
+        },
+        setCookie(name, value, { signed = false, ...options } = {}) {
+          if (signed) {
+            if (!secret)
+              throw new Error('No secret is provided to cookie plugin');
+
+            value = sign(value, secret);
+          }
+
+          if (!Array.isArray(context.set.headers['Set-Cookie']))
+            // @ts-ignore
+            context.set.headers['Set-Cookie'] = [];
+
+          // @ts-ignore
+          context.set.headers['Set-Cookie'].push(
+            serialize(name, value, {
+              path: '/',
+              ...defaultOptions,
+              ...options,
+            }),
+          );
+
+          if (!_cookie) getCookie();
+          _cookie[name] = value;
+        },
+        removeCookie(name: string) {
+          if (!getCookie()[name]) return;
+
+          context.set.headers['Set-Cookie'] = serialize(name, '', {
+            expires: new Date('Thu, Jan 01 1970 00:00:00 UTC'),
+          });
+
+          delete _cookie[name];
+        },
+      } as CookieRequest;
+    });
+};
+
+export default cookie;

@@ -45,7 +45,7 @@ const darkTheme = createTheme({
     },
   },
 });
-import { routingInfo } from "./Routes/Router";
+import { routingInfo } from './Routes/Router';
 const router = createBrowserRouter(routingInfo);
 export default function App() {
   return (

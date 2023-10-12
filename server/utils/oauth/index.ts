@@ -152,7 +152,7 @@ const oauth2 = <Profiles extends string>({
   logout,
   host,
   redirectTo,
-  storage
+  storage,
 }: TPluginParams<Profiles>) => {
   if (!login) {
     login = '/login/:name';
@@ -177,7 +177,7 @@ const oauth2 = <Profiles extends string>({
   const protocol = host.startsWith('localhost') ? 'http' : 'https';
 
   function resolveProvider({
-    name
+    name,
   }: TOAuth2ProviderContext<Profiles>['params']): TOAuth2Profile | Response {
     if (!(name in globalProfiles)) {
       return new Response('', { status: 404, statusText: 'Not Found' });
@@ -199,7 +199,7 @@ const oauth2 = <Profiles extends string>({
   }
 
   function buildRedirectUri({
-    name
+    name,
   }: TOAuth2ProviderContext<Profiles>['params']) {
     return buildUri(authorized as string, name, true);
   }
@@ -222,13 +222,13 @@ const oauth2 = <Profiles extends string>({
           redirect_uri: buildRedirectUri(req.params),
           response_type: 'code',
           response_mode: 'query',
-          state: state.generate(req, (req.params as any).name)
+          state: state.generate(req, (req.params as any).name),
         };
 
         const authUrl = buildUrl(
           provider.auth.url,
           { ...authParams, ...provider.auth.params },
-          scope
+          scope,
         );
 
         return redirect(authUrl);
@@ -259,17 +259,17 @@ const oauth2 = <Profiles extends string>({
           redirect_uri: buildRedirectUri(req.params),
           grant_type: 'authorization_code',
           // ! google requires decoded auth code
-          code: decodeURIComponent(code)
+          code: decodeURIComponent(code),
         };
 
         const params = new URLSearchParams({
           ...tokenParams,
-          ...provider.token.params
+          ...provider.token.params,
         });
 
         // ! required for reddit
         const credentials = btoa(
-          provider.clientId + ':' + provider.clientSecret
+          provider.clientId + ':' + provider.clientSecret,
         );
 
         const response = await fetch(provider.token.url, {
@@ -277,9 +277,9 @@ const oauth2 = <Profiles extends string>({
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             Accept: 'application/json',
-            Authorization: `Basic ${credentials}`
+            Authorization: `Basic ${credentials}`,
           },
-          body: params.toString()
+          body: params.toString(),
         });
 
         if (
@@ -289,7 +289,7 @@ const oauth2 = <Profiles extends string>({
           throw new Error(
             `${response.status}: ${
               response.statusText
-            }: ${await response.text()}`
+            }: ${await response.text()}`,
           );
         }
 
@@ -299,19 +299,26 @@ const oauth2 = <Profiles extends string>({
         token.expires_in = token.expires_in ?? 3600;
         token.created_at = Date.now() / 1000;
 
+        const _user = await fetch(`https://discord.com/api/v10/users/@me`, {
+          headers: { Authorization: `Bearer ${token?.access_token}` },
+        });
 
+        const jsonBody = (await (_user as any).json()) as Record<
+          string,
+          string
+        >;
 
-        const _user = await fetch(`https://discord.com/api/v10/users/@me`, { headers: { Authorization: `Bearer ${token?.access_token}` } });
+        (req as any).setCookie(
+          'auth',
+          await (req as any).vljwt.sign({ ...jsonBody, token }),
+          { httpsOnly: true, maxAge: 7 * 86_400 },
+        );
 
-        const jsonBody = await (_user as any).json() as Record<string, string>
-
-        (req as any).setCookie('auth', await (req as any).vljwt.sign({ ...jsonBody, token }), { httpsOnly: true, maxAge: 7 * 86_400 })
-
-        req.set.headers['Location'] = '/'
+        req.set.headers['Location'] = '/';
 
         req.set.status = 302;
 
-        return 'Found'
+        return 'Found';
       })
 
       // >>> LOGOUT <<<
@@ -331,7 +338,7 @@ const oauth2 = <Profiles extends string>({
       return {
         async authorized(...profiles: Profiles[]) {
           for (const profile of profiles) {
-            if (!await isTokenValid(ctx)) {
+            if (!(await isTokenValid(ctx))) {
               return false;
             }
           }
@@ -353,7 +360,7 @@ const oauth2 = <Profiles extends string>({
             result[profile] = {
               login: buildLoginUri(profile),
               callback: buildRedirectUri({ name: profile }),
-              logout: buildLogoutUri(profile)
+              logout: buildLogoutUri(profile),
             };
           }
 
@@ -362,10 +369,10 @@ const oauth2 = <Profiles extends string>({
 
         async tokenHeaders() {
           const prof = await getJWTValues(ctx);
-          if (!prof) return false
-          const {token} = prof
+          if (!prof) return false;
+          const { token } = prof;
           return { Authorization: `Bearer ${token?.access_token}` };
-        }
+        },
       } as TOAuth2Request<Profiles>;
     });
   };

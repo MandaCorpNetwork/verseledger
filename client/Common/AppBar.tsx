@@ -24,7 +24,7 @@ export const VLAppBar: React.FC<unknown> = () => {
     variant: 'popover',
     popupId: 'profileNav',
   });
-  const menuId = 'primary-account-menu';
+  //const menuId = 'primary-account-menu';
 
   const renderMenu = (
     <Menu {...bindMenu(profilePopupState)}>
