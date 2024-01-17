@@ -1,7 +1,7 @@
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import React from "react";
-import { useRouteError } from "react-router-dom";
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import React from 'react';
+import { useRouteError } from 'react-router-dom';
 
 const ErrorPage: React.FC = () => {
   const error = useRouteError() as { error: Error } & Error;
@@ -11,8 +11,8 @@ const ErrorPage: React.FC = () => {
       spacing={0}
       direction="column"
       alignItems="center"
-      style={{ minHeight: "100vh" }}
-      sx={{ marginTop: "3em" }}
+      style={{ minHeight: '100vh' }}
+      sx={{ marginTop: '3em' }}
     >
       <Grid item>
         <Typography variant="h1">Oops!</Typography>

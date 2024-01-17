@@ -12,7 +12,7 @@ type TDiscordParams<Prompt extends string> = {
 };
 
 export function discord<Prompt extends string>({
-  prompt
+  prompt,
 }: TDiscordParams<Prompt> = {}): TOAuth2Provider {
   const authParams: TDiscordParams<Prompt> = {};
 
@@ -26,13 +26,13 @@ export function discord<Prompt extends string>({
 
     auth: {
       url: 'https://discord.com/api/oauth2/authorize',
-      params: authParams
+      params: authParams,
     },
 
     token: {
       url: 'https://discord.com/api/oauth2/token',
-      params: {}
-    }
+      params: {},
+    },
   };
 
   return provider;

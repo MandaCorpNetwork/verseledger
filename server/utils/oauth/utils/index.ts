@@ -1,13 +1,13 @@
 import type {
   TOAuth2UrlParams,
   TOAuth2Scope,
-  TOAuth2AccessToken
+  TOAuth2AccessToken,
 } from '../index';
 
 export function env(name: string) {
   if (!(name in process.env)) {
     throw new Error(
-      `.env variable '${name}' is required but could not be found`
+      `.env variable '${name}' is required but could not be found`,
     );
   }
   return process.env[name];
@@ -16,7 +16,7 @@ export function env(name: string) {
 export function buildUrl(
   url: string,
   params: TOAuth2UrlParams,
-  scope?: TOAuth2Scope
+  scope?: TOAuth2Scope,
 ) {
   const _url = new URL(url);
 
@@ -31,15 +31,18 @@ export function buildUrl(
   return _url.href;
 }
 
-export function redirect(location: string, headers: Record<string, string | null> = {}) {
+export function redirect(
+  location: string,
+  headers: Record<string, string | null> = {},
+) {
   return new Response('', {
     status: 302,
     statusText: 'Found',
-    headers: { ...headers, Location: location }
+    headers: { ...headers, Location: location },
   });
 }
 export async function getJWTValues(ctx?: any) {
-  const tokenString = ctx?.cookie?.auth
+  const tokenString = ctx?.cookie?.auth;
   //const prof =
   if (!tokenString) {
     return false;
@@ -48,9 +51,9 @@ export async function getJWTValues(ctx?: any) {
 }
 
 export async function isTokenValid(ctx?: any) {
-  const prof = await getJWTValues(ctx)
-  if (!prof) return false
-  const { token } = prof
+  const prof = await getJWTValues(ctx);
+  if (!prof) return false;
+  const { token } = prof;
   const now = Date.now() / 1000;
   const expiry = token.created_at + token.expires_in;
   return now < expiry;
