@@ -8,6 +8,7 @@
     "@mui/icons-material": "^5.14.8",
     "@mui/material": "^5.14.8",
     "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^1.6.7",
     "material-ui-popup-state": "^5.0.9",
     "notistack": "^3.0.1",
     "react": "^18.2.0",
@@ -20,6 +21,7 @@
   },
   "scripts": {
     "start": "vite",
+    "test": "vitest",
     "lint": "npx prettier . --write && npx eslint . --fix"
   },
   "browserslist": {
@@ -35,8 +37,6 @@
     ]
   },
   "devDependencies": {
-    "@svgr/plugin-jsx": "^8.1.0",
-    "@svgr/plugin-svgo": "^8.1.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
