@@ -5,13 +5,6 @@
     "url": "git+https://github.com/MandaCorpNetwork/verseledger-app.git"
   },
   "scripts": {
-    "start:local": "docker-compose --profile local up --build",
     "lint": ""
-  },
-  "devDependencies": {
-    "eslint": "^8.51.0",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "^3.0.3"
   }
 }
