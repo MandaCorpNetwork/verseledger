@@ -16,32 +16,31 @@ const darkTheme = createTheme({
   },
   palette: {
     background: {
-      default: '#002744',
+      default: '#000113',
     },
     primary: {
-      main: '#1976d2',
-      light: '#63a4ff',
-      dark: '#004ba0',
-      50: '#B4DEFF',
-      100: '#95D1FF',
-      200: '#6BBFFF',
-      300: '#2FA5FF',
-      400: '#007BDA',
-      500: '#003964',
-      600: '#002F53',
-      700: '#002744',
-      800: '#002039',
-      900: '#001B2F',
+      main: '#0e318d',
+      dark: '#081d44',
+      light: '#2196f3',
     },
     secondary: {
-      main: '#019be5',
-      dark: '#006db3',
-      light: '#63ccff',
+      main: '#18fcfc',
+      dark: '#065691',
+      light: '#79c0f4',
     },
     text: {
-      primary: '#EAF7FF',
-      secondary: '#D9ECFF',
-      disabled: '#BBD5FF',
+      primary: '#d3fafe',
+      secondary: '#2196f3',
+      disabled: '#00013',
+    },
+    info: {
+      main: '#ff8d0f'
+    },
+    success: {
+      main: '#08c90b'
+    },
+    warning: {
+      main: '#ed0008'
     },
   },
 });
