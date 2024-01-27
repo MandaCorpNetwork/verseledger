@@ -20,6 +20,7 @@ import {
 } from 'material-ui-popup-state/hooks';
 //import { VerseLogo } from './VerseLogo';
 
+//import { useHistory } from 'react-router-dom'; Implement on Line 41 Fix
 
 export const VLAppBar: React.FC<unknown> = () => {
   const profilePopupState: PopupState = usePopupState({
@@ -31,7 +32,7 @@ export const VLAppBar: React.FC<unknown> = () => {
   const renderMenu = (
     <Menu {...bindMenu(profilePopupState)}>
       <MenuItem onClick={profilePopupState.close}>
-        <Typography color={'black'}>My Account</Typography>
+        <Typography sx={{color:(theme) => theme.palette.mode == 'dark' ? 'red' : 'black'}}>My Account</Typography>
       </MenuItem>
       <MenuItem onClick={profilePopupState.close}>
         <Typography color={'black'}>Logout</Typography>
@@ -43,6 +44,12 @@ export const VLAppBar: React.FC<unknown> = () => {
     const i = Math.floor(Math.random() * 11);
     return `../Assets/VerseLogos/verselogo-${i}.png`;
   }
+
+  /*const history = useHistory();
+  function handleClick() {
+    history.push('/');
+  }*/
+  //Needs Hook to call VLAppBar inside the router-dom
 
   return (
     <Box sx={{ flexGrow: 1 }}>
