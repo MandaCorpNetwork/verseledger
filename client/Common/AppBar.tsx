@@ -39,7 +39,10 @@ export const VLAppBar: React.FC<unknown> = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar 
+        position="static"
+        sx={{ bgcolor: 'primary.dark'}}
+      >
         <Toolbar>
           <Typography
             variant="h6"
@@ -54,7 +57,7 @@ export const VLAppBar: React.FC<unknown> = () => {
             <IconButton
               size="large"
               aria-label="show 4 new messages"
-              color="inherit"
+              color="secondary"
             >
               <Badge badgeContent={4} color="error">
                 <MailIcon />
@@ -63,7 +66,7 @@ export const VLAppBar: React.FC<unknown> = () => {
             <IconButton
               size="large"
               aria-label="show 23 new notifications"
-              color="inherit"
+              color="secondary"
             >
               <Badge badgeContent={23} color="error">
                 <NotificationsIcon />
@@ -74,7 +77,7 @@ export const VLAppBar: React.FC<unknown> = () => {
               edge="end"
               aria-label="account of current user"
               aria-haspopup="true"
-              color="inherit"
+              color="secondary"
               {...bindTrigger(profilePopupState)}
             >
               <AccountCircleIcon />
