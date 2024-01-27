@@ -40,6 +40,9 @@ const darkTheme = createTheme({
       main: '#08c90b'
     },
     warning: {
+      main: '#ff8d0f'
+    },
+    error: {
       main: '#ed0008'
     },
   },
