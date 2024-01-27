@@ -50,7 +50,7 @@ export const VLAppBar: React.FC<unknown> = () => {
             component="div"
             sx={{ display: { sx: 'none', sm: 'block' } }}
           >
-            Verse Ledger Image Here
+            <img src='../Assets/VL-Logo-temp.png' alt='VL Logo Temp' />
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
