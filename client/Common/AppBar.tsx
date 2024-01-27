@@ -18,6 +18,7 @@ import {
   bindMenu,
   PopupState,
 } from 'material-ui-popup-state/hooks';
+//import { useHistory } from 'react-router-dom'; Implement on Line 41 Fix
 
 export const VLAppBar: React.FC<unknown> = () => {
   const profilePopupState: PopupState = usePopupState({
@@ -29,13 +30,19 @@ export const VLAppBar: React.FC<unknown> = () => {
   const renderMenu = (
     <Menu {...bindMenu(profilePopupState)}>
       <MenuItem onClick={profilePopupState.close}>
-        <Typography color={'black'}>My Account</Typography>
+        <Typography sx={{color:(theme) => theme.palette.mode == 'dark' ? 'red' : 'black'}}>My Account</Typography>
       </MenuItem>
       <MenuItem onClick={profilePopupState.close}>
         <Typography color={'black'}>Logout</Typography>
       </MenuItem>
     </Menu>
   );
+
+  /*const history = useHistory();
+  function handleClick() {
+    history.push('/');
+  }*/
+  //Needs Hook to call VLAppBar inside the router-dom
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -50,7 +57,7 @@ export const VLAppBar: React.FC<unknown> = () => {
             component="div"
             sx={{ display: { sx: 'none', sm: 'block' } }}
           >
-            <img src='../Assets/VL-Logo-temp.png' alt='VL Logo Temp' />
+            <img src='../Assets/VL-Logo-temp.png' alt='VL Logo Temp' /*onClick={handleClick} Implement on Line 41 Fix*/ />
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
