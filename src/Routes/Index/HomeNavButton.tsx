@@ -1,5 +1,5 @@
 import { useTheme } from '@emotion/react';
-import { Box, Typography, alpha } from '@mui/material';
+import { alpha, Box, Typography } from '@mui/material';
 import React from 'react';
 
 type HomeNavButtonProps = {

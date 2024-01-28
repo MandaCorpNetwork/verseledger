@@ -1,5 +1,6 @@
-import React from 'react';
 import { Box } from '@mui/material';
+import React from 'react';
+
 import { HomeNavButton } from './HomeNavButton';
 
 export const Home: React.FC<unknown> = () => {

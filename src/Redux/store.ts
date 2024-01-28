@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
+
 import { isDev } from '../Utils/isDev';
 import { coreReducer } from './reducers';
 
