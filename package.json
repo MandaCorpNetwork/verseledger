@@ -22,7 +22,7 @@
   "scripts": {
     "dev": "vite",
     "test": "vitest",
-    "lint": "eslint ./src --fix && prettier ./src --write"
+    "lint": "npx eslint ./src --fix && npx prettier ./src --write"
   },
   "browserslist": {
     "production": [
