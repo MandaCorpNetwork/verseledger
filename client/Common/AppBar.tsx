@@ -37,9 +37,13 @@ export const VLAppBar: React.FC<unknown> = () => {
     </Menu>
   );
 
-  const logos = import.meta.glob('../Assets/AppBar/VerseLedgerLogo/*.png').then((logoID) => const logos = logoID.default)
-
-  //Testing for Batch Image import
+  /*const verseLogo = () => {
+    for (let i = 0; i<10; i++) {
+      fileName.push(`verselogo-${i}.png`)
+    }
+    return fileName;
+  };*/
+  //Testing for Batch Image import with random selector
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -51,7 +55,7 @@ export const VLAppBar: React.FC<unknown> = () => {
             component="div"
             sx={{ display: { sx: 'none', sm: 'block' } }}
           >
-            <img src={logos[0]} alt="Logo" style={{ height: '40px', marginRight: '16px' }} />
+            {/*<img src={verseLogo()} alt="Logo" style={{ height: '40px', marginRight: '16px' }} />*/}
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
