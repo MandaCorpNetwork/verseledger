@@ -5,7 +5,7 @@ import { VitePWA, VitePWAOptions } from 'vite-plugin-pwa';
 const appManifest: Partial<VitePWAOptions> = {};
 
 export default defineConfig({
-  root: './',
+  root: './src',
   plugins: [react({ tsDecorators: true }), VitePWA(appManifest)],
   server: {
     port: 3030,

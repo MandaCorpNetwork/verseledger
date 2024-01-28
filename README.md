@@ -48,4 +48,4 @@ Vars Needed:
 DISCORD_OAUTH_CLIENT_ID=String
 DISCORD_OAUTH_CLIENT_SECRET=String
 AUTH_REDIRECT=http://localhost:3131
-``````
+```

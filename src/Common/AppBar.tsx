@@ -1,23 +1,16 @@
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MailIcon from '@mui/icons-material/Mail';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import {
-  AppBar,
-  Badge,
-  IconButton,
-  Menu,
-  MenuItem,
-  Toolbar,
-} from '@mui/material';
-import { Box } from '@mui/system';
-import React from 'react';
+import MailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { AppBar, Badge, IconButton, Menu, MenuItem, Toolbar } from '@mui/material';
 import { Typography } from '@mui/material';
+import { Box } from '@mui/system';
 import {
-  usePopupState,
-  bindTrigger,
   bindMenu,
+  bindTrigger,
   PopupState,
+  usePopupState,
 } from 'material-ui-popup-state/hooks';
+import React from 'react';
 
 export const VLAppBar: React.FC<unknown> = () => {
   const profilePopupState: PopupState = usePopupState({
@@ -51,11 +44,7 @@ export const VLAppBar: React.FC<unknown> = () => {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton
-              size="large"
-              aria-label="show 4 new messages"
-              color="inherit"
-            >
+            <IconButton size="large" aria-label="show 4 new messages" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon />
               </Badge>

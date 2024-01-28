@@ -1,9 +1,10 @@
-import React from 'react';
 import './App.css';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { SnackbarProvider } from 'notistack';
+
 import CssBaseline from '@mui/material/CssBaseline';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { SnackbarProvider } from 'notistack';
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const darkTheme = createTheme({
   components: {
     MuiAppBar: {
