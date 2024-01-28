@@ -33,6 +33,7 @@ export const VLAppBar: React.FC<unknown> = () => {
     <Menu {...bindMenu(profilePopupState)}>
       <MenuItem onClick={profilePopupState.close}>
         <Typography sx={{color:(theme) => theme.palette.mode == 'dark' ? 'red' : 'black'}}>My Account</Typography>
+        <Typography sx={{color:(theme) => theme.palette.mode == 'dark' ? 'red' : 'black'}}>My Account</Typography>
       </MenuItem>
       <MenuItem onClick={profilePopupState.close}>
         <Typography color={'black'}>Logout</Typography>
@@ -57,6 +58,10 @@ export const VLAppBar: React.FC<unknown> = () => {
         position="static"
         sx={{ bgcolor: 'primary.dark'}}
       >
+      <AppBar 
+        position="static"
+        sx={{ bgcolor: 'primary.dark'}}
+      >
         <Toolbar>
           <Typography
             variant="h6"
@@ -73,6 +78,7 @@ export const VLAppBar: React.FC<unknown> = () => {
               size="large"
               aria-label="show 4 new messages"
               color="secondary"
+              color="secondary"
             >
               <Badge badgeContent={4} color="error">
                 <MailIcon />
@@ -81,6 +87,7 @@ export const VLAppBar: React.FC<unknown> = () => {
             <IconButton
               size="large"
               aria-label="show 23 new notifications"
+              color="secondary"
               color="secondary"
             >
               <Badge badgeContent={23} color="error">
@@ -92,6 +99,7 @@ export const VLAppBar: React.FC<unknown> = () => {
               edge="end"
               aria-label="account of current user"
               aria-haspopup="true"
+              color="secondary"
               color="secondary"
               {...bindTrigger(profilePopupState)}
             >
