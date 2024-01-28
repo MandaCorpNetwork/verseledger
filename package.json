@@ -1,5 +1,5 @@
 {
-  "name": "verseledger-client",
+  "name": "verseledger-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
