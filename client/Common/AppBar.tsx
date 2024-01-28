@@ -40,7 +40,7 @@ export const VLAppBar: React.FC<unknown> = () => {
   );
 
   function logoRandom() {
-    const i = Math.floor(Math.random() * 10);
+    const i = Math.floor(Math.random() * 11);
     return `../Assets/VerseLogos/verselogo-${i}.png`;
   }
 
