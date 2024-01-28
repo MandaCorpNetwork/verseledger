@@ -57,7 +57,7 @@ export const VLAppBar: React.FC<unknown> = () => {
       <AppBar 
         position="static"
         sx={{ bgcolor: 'primary.dark'}}
-      >
+      />
       <AppBar 
         position="static"
         sx={{ bgcolor: 'primary.dark'}}
@@ -78,7 +78,6 @@ export const VLAppBar: React.FC<unknown> = () => {
               size="large"
               aria-label="show 4 new messages"
               color="secondary"
-              color="secondary"
             >
               <Badge badgeContent={4} color="error">
                 <MailIcon />
@@ -87,7 +86,6 @@ export const VLAppBar: React.FC<unknown> = () => {
             <IconButton
               size="large"
               aria-label="show 23 new notifications"
-              color="secondary"
               color="secondary"
             >
               <Badge badgeContent={23} color="error">
@@ -99,7 +97,6 @@ export const VLAppBar: React.FC<unknown> = () => {
               edge="end"
               aria-label="account of current user"
               aria-haspopup="true"
-              color="secondary"
               color="secondary"
               {...bindTrigger(profilePopupState)}
             >
