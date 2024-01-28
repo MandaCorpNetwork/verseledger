@@ -18,6 +18,8 @@ import {
   bindMenu,
   PopupState,
 } from 'material-ui-popup-state/hooks';
+//import { VerseLogo } from './VerseLogo';
+
 
 export const VLAppBar: React.FC<unknown> = () => {
   const profilePopupState: PopupState = usePopupState({
@@ -37,13 +39,10 @@ export const VLAppBar: React.FC<unknown> = () => {
     </Menu>
   );
 
-  /*const verseLogo = () => {
-    for (let i = 0; i<10; i++) {
-      fileName.push(`verselogo-${i}.png`)
-    }
-    return fileName;
-  };*/
-  //Testing for Batch Image import with random selector
+  function logoRandom() {
+    const i = Math.floor(Math.random() * 10);
+    return `../Assets/VerseLogos/verselogo-${i}.png`;
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -55,7 +54,8 @@ export const VLAppBar: React.FC<unknown> = () => {
             component="div"
             sx={{ display: { sx: 'none', sm: 'block' } }}
           >
-            {/*<img src={verseLogo()} alt="Logo" style={{ height: '40px', marginRight: '16px' }} />*/}
+            {/*{VerseLogo()}*/}
+            <img src={logoRandom()} alt="Verse Logo" />
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
