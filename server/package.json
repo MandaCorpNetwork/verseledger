@@ -21,8 +21,5 @@
     "elysia-helmet": "^1.0.1",
     "elysia-rate-limit": "^1.2.0",
     "elysia-session": "^0.0.5"
-  },
-  "scripts": {
-    "start": "bun index.ts"
   }
 }
