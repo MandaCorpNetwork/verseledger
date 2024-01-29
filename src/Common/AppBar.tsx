@@ -11,6 +11,8 @@ import {
   usePopupState,
 } from 'material-ui-popup-state/hooks';
 import React from 'react';
+//import { VerseLogo } from './VerseLogo';
+//import { useHistory } from 'react-router-dom'; Implement on Line 41 Fix
 
 export const VLAppBar: React.FC<unknown> = () => {
   const profilePopupState: PopupState = usePopupState({
@@ -30,9 +32,14 @@ export const VLAppBar: React.FC<unknown> = () => {
     </Menu>
   );
 
+  function logoRandom() {
+    const i = Math.floor(Math.random() * 11);
+    return `../Assets/VerseLogos/verselogo-${i}.png`;
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" sx={{ bgcolor: 'primary.dark'}}>
         <Toolbar>
           <Typography
             variant="h6"
@@ -40,7 +47,8 @@ export const VLAppBar: React.FC<unknown> = () => {
             component="div"
             sx={{ display: { sx: 'none', sm: 'block' } }}
           >
-            Verse Ledger Image Here
+            {/*{VerseLogo()}*/}
+            <img src={logoRandom()} alt="Verse Logo" />
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
