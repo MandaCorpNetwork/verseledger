@@ -27,11 +27,21 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = (props) => {
         '&:hover': {
           width: '20em',
           height: '10em',
+          cursor: 'pointer',
         },
         '&:hover > .nav-button-text': {
           fontWeight: '800',
           color: theme.palette.text.secondary,
           fontSize: '1.2em',
+        },
+        '&:onClick': {
+          width: '18em',
+          height: '8em',
+        },
+        '&:onClick > .nav-button-text': {
+          fontWeight: '600',
+          color: theme.palette.text.secondary,
+          fontSize: '1em',
         }
       }}
     >
