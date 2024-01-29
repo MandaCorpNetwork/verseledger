@@ -8,6 +8,6 @@ export default defineConfig({
   root: './src',
   plugins: [react({ tsDecorators: true }), VitePWA(appManifest)],
   server: {
-    port: 3030,
+    port: 3000,
   },
 });
