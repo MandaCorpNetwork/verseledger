@@ -35,16 +35,16 @@ const darkTheme = createTheme({
       disabled: '#00013',
     },
     info: {
-      main: '#ff8d0f'
+      main: '#ff8d0f',
     },
     success: {
-      main: '#08c90b'
+      main: '#08c90b',
     },
     warning: {
-      main: '#ff8d0f'
+      main: '#ff8d0f',
     },
     error: {
-      main: '#ed0008'
+      main: '#ed0008',
     },
   },
 });

@@ -39,7 +39,7 @@ export const VLAppBar: React.FC<unknown> = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ bgcolor: 'primary.dark'}}>
+      <AppBar position="static" sx={{ bgcolor: 'primary.dark' }}>
         <Toolbar>
           <Typography
             variant="h6"
