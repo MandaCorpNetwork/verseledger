@@ -1,13 +1,12 @@
 /// <reference types="vite/client" />
-import React from 'react';
 import './main.scss';
 
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { backgroundVideo } from './main.scss';
 
 import App from './App';
-import backgroundvideo from './Assets/media/backgroundvideo.webm';
+import backgroundvideo from './Assets/media/MenuPage/backgroundvideo.webm';
 import store from './Redux/store.js';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
