@@ -32,7 +32,7 @@ const darkTheme = createTheme({
     text: {
       primary: '#d3fafe',
       secondary: '#2196f3',
-      disabled: '#00013',
+      disabled: '#020226',
     },
     info: {
       main: '#ff8d0f',

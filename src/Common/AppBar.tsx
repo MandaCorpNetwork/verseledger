@@ -34,7 +34,7 @@ export const VLAppBar: React.FC<unknown> = () => {
 
   function logoRandom() {
     const i = Math.floor(Math.random() * 11);
-    return `../Assets/VerseLogos/verselogo-${i}.png`;
+    return `../Assets/media/VerseLogos/verselogo-${i}.png`;
   }
 
   return (
