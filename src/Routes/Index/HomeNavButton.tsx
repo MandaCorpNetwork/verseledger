@@ -29,12 +29,18 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({ title, videoSource
     setIsHovered(false);
   };
 
+  //Might try adding a useEffect hook to try and change the width before testing the video changing. Trying to test to see if the Hover check is even working.
+  /*const [boxWidth, setBoxWidth] = useState('18em');
+  useEffect(() => {
+    setBoxWidth(isHovered? '24em' : '18em');
+  }, [isHovered]);*/
+
   return (
     <Transition in={isHovered} timeout={1000} onEnter={handleEnter} onExit={handleExit}>
       {(state) => {
+        const width = state === 'entered' ? '24em' : '18em';
         return (
           <Box
-            width={state === 'entered' ? '24em' : '18em'}
             height="7em"
             marginTop="1em"
             marginLeft="1em"
@@ -44,6 +50,7 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({ title, videoSource
               zIndex: -15,
               border: '5px ridge #065691',
               borderRadius: '.4em',
+              width: { width },
             }}
             display="flex"
           >
