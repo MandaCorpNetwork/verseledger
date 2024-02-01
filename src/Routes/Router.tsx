@@ -12,7 +12,6 @@ export const routingInfo: RouteObject[] = [
       <>
         <VLAppBar />
         <Outlet />
-        <Home />
       </>
     ),
     errorElement: (
@@ -23,7 +22,7 @@ export const routingInfo: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <></>,
+        element: <Home />,
       },
     ],
   },
