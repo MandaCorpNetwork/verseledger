@@ -4,7 +4,7 @@ import './Home.scss';
 import { useTheme } from '@emotion/react';
 import { alpha, Box, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { Transition } from 'react-transition-group';
+import { SwitchTransition, Transition } from 'react-transition-group';
 
 type HomeNavButtonProps = {
   title: string;
@@ -32,35 +32,37 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({ title, videoSource
   return (
     <Transition in={isHovered} timeout={1000} onEnter={handleEnter} onExit={handleExit}>
       {(state) => {
-        <Box
-          width={state === 'entered' ? '24em' : '18em'}
-          height="7em"
-          marginTop="1em"
-          marginLeft="1em"
-          sx={{
-            position: 'relative',
-            backgroundColor: alpha(theme.palette.primary.main, 0.5),
-            zIndex: -15,
-            border: '5px ridge #065691',
-            borderRadius: '.4em',
-          }}
-          display="flex"
-        >
-          <video loop muted id="menu-video">
-            <source src={videoSource} type="video/webm" />
-          </video>
-          <Typography
-            variant="body1"
-            alignSelf="flex-end"
-            marginLeft="auto"
-            marginTop="auto"
-            padding=".5em"
-            fontSize="1.1em"
-            sx={{ color: theme.palette.text.primary }}
+        return (
+          <Box
+            width={state === 'entered' ? '24em' : '18em'}
+            height="7em"
+            marginTop="1em"
+            marginLeft="1em"
+            sx={{
+              position: 'relative',
+              backgroundColor: alpha(theme.palette.primary.main, 0.5),
+              zIndex: -15,
+              border: '5px ridge #065691',
+              borderRadius: '.4em',
+            }}
+            display="flex"
           >
-            {title}
-          </Typography>
-        </Box>;
+            <video loop muted id="menu-video">
+              <source src={videoSource} type="video/webm" />
+            </video>
+            <Typography
+              variant="body1"
+              alignSelf="flex-end"
+              marginLeft="auto"
+              marginTop="auto"
+              padding=".5em"
+              fontSize="1.1em"
+              sx={{ color: theme.palette.text.primary }}
+            >
+              {title}
+            </Typography>
+          </Box>
+        );
       }}
     </Transition>
   );
