@@ -1,4 +1,4 @@
-#menu-video {
+.menu-video {
     overflow: hidden;
     position: absolute;
     object-fit: cover;
@@ -7,3 +7,18 @@
     z-index: -15;
 }
 
+#button {
+    width: 20em;
+    border: 5px ridge #065691;
+    transition: 250ms ease-in-out;
+    
+}
+
+#button:hover {
+    width: 24em;
+    border: 5px ridge #79c0f4;
+}
+
+#button:active {
+    border: 5px ridge #18fcfc;
+}
