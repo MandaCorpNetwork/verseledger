@@ -27,6 +27,7 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
     video.pause();
     video.currentTime = 0;
   };
+  //Hovering animation
 
   return (
     <Button
