@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
 import FleetLoop from '../../../../Assets/media/ContractLedger/FleetLoop.webm?url';
 import LogisticsLoop from '../../../../Assets/media/ContractLedger/LogiLoop.webm?url';
@@ -9,8 +9,18 @@ import ProxyLoop from '../../../../Assets/media/ContractLedger/ProxyLoop.webm?ur
 import RRRLoop from '../../../../Assets/media/ContractLedger/RRRLoop.webm?url';
 import SalvageLoop from '../../../../Assets/media/ContractLedger/SalvLoop.webm?url';
 import SecurityLoop from '../../../../Assets/media/ContractLedger/SecLoop.webm?url';
-import { ContractLedgerQuickNav } from './ContractLedgerQuickNav';
 import { ContractLedgerLoopButton } from './ContractLedgerLoopButton';
+import {
+  FleetSubTypes,
+  IndustrySubTypes,
+  LogisiticsSubTypes,
+  MedicalSubTypes,
+  ProxySubTypes,
+  RRRSubTypes,
+  SalvageSubTypes,
+  SecuritySubTypes,
+} from './ContractLedgerLoopSubType';
+import { ContractLedgerQuickNav } from './ContractLedgerQuickNav';
 
 export const ContractLedgerTablePage: React.FC<unknown> = () => {
   return (

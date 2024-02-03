@@ -10,21 +10,18 @@ export const ContractLedgerQuickNav: React.FC<ContractLedgerQuickNavProps> = ({
 }) => {
   return (
     <Button
+      variant="contained"
       sx={{
         color: 'text.primary',
         width: '12em',
         height: '3em',
-        border: '5px ridge',
-        borderColor: 'primary.dark',
-        borderRadius: '.4em',
         bgcolor: 'primary.dark',
         marginLeft: '1em',
         '&:hover': {
-          borderColor: 'primary.light',
+          bgcolor: 'primary.main',
         },
         '&:active': {
           color: 'text.secondary',
-          borderColor: 'primary.main',
         },
       }}
     >
