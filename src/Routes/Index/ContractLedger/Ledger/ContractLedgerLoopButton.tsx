@@ -1,20 +1,15 @@
-/// <reference types="vite/client" />
-import './ContractSplashLoop.scss';
-
+///<reference types="vite/client" />
+import './ContractLedgerLoopButton.scss';
 import { Button, Typography } from '@mui/material';
+import  React, { useState } from 'react';
 import { useTheme } from '@emotion/react';
-import React, { useState } from 'react';
 
-type SplashLoopButtonProps = {
+type ContractLedgerLoopButtonProps = {
   title: string;
   videoSource: string;
-  to: string;
 };
 
-export const ContractSplashLoopButton: React.FC<SplashLoopButtonProps> = ({
-  title,
-  videoSource,
-}) => {
+export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> = ({ title, videoSource }) => {
   // eslint-disable-next-line
   const theme = useTheme() as any;
 
@@ -35,35 +30,37 @@ export const ContractSplashLoopButton: React.FC<SplashLoopButtonProps> = ({
 
   return (
     <Button
-      id="splash-loop-button"
+      id="contract-loop-button"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       sx={{
         color: 'text.primary',
-        width: '22em',
-        height: '11em',
+        width: '18em',
+        height: '5em',
         display: 'flex',
-        border: '5px ridge #065691',
+        border: '5px ridge',
+        borderColor: 'text.disabled',
         borderRadius: '.4em',
         zIndex: '3',
+        marginTop: '1em',
         '&:hover': {
           border: '5px ridge #79c0f4',
+          height: '8em',
         },
         '&:active': {
-          border: '5px ridge #18fcfc',
           color: 'text.secondary',
+          borderColor: 'primary.main',
         },
       }}
     >
-      <video loop muted id={videoSource} className="splash-video">
+      <video loop muted id={videoSource} className="loop-video">
         <source src={videoSource} type="video/webm" />
       </video>
       <Typography
         sx={{
-          fontWeight: 'bold',
-          fontSize: '1.4em',
-          letterSpacing: '0.04em',
-          zindex: '4',
+          fontWeight: 700,
+          fontSize: '1.2em',
+          color: 'text.primary',
         }}
       >
         {title}
