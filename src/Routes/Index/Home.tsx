@@ -13,7 +13,7 @@ export const Home: React.FC<unknown> = () => {
     <Box marginTop={'3em'}>
       <HomeNavButton
         title="Contract Ledger"
-        to="/ledger/contract"
+        to="/contract/splash"
         videoSource={JobsLoop}
       />
       <HomeNavButton
