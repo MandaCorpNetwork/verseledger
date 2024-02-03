@@ -5,6 +5,7 @@ import { VLAppBar } from '../Common/AppBar';
 import ErrorPage from './ErrorPage';
 import { ContractLedgerSplash } from './Index/ContractLedger/Splash/ContractLedgerSplash';
 import { Home } from './Index/Home';
+import { ContractLedgerTablePage } from './Index/ContractLedger/Ledger/ContractLedgerTablePage';
 export const routingInfo: RouteObject[] = [
   {
     path: '/',
@@ -28,6 +29,10 @@ export const routingInfo: RouteObject[] = [
       {
         path: '/contract/splash',
         element: <ContractLedgerSplash />,
+      },
+      {
+        path: '/contract/ledger',
+        element: <ContractLedgerTablePage />,
       },
     ],
   },
