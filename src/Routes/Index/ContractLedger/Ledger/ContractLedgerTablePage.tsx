@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import FleetLoop from '../../../../Assets/media/ContractLedger/FleetLoop.webm?url';
 import LogisticsLoop from '../../../../Assets/media/ContractLedger/LogiLoop.webm?url';
@@ -23,6 +23,38 @@ import {
 import { ContractLedgerQuickNav } from './ContractLedgerQuickNav';
 
 export const ContractLedgerTablePage: React.FC<unknown> = () => {
+  const [selectedType, setSelectedType] = useState('');
+  //Universal Loop Selection for Contract Gameloops
+
+  const subTypeSelected = () => {
+    switch (selectedType) {
+      case 'Logistics':
+        return LogisiticsSubTypes;
+      case 'Medical':
+        return MedicalSubTypes;
+      case 'Salvage':
+        return SalvageSubTypes;
+      case 'Security':
+        return SecuritySubTypes;
+      case 'Industry':
+        return IndustrySubTypes;
+      case 'RRR':
+        return RRRSubTypes;
+      case 'Fleet':
+        return FleetSubTypes;
+      case 'Proxy':
+        return ProxySubTypes;
+      default:
+        return null;
+    }
+  };
+  //Sub-Type Selection for Contract Gameloops
+
+  useEffect(() => {
+    console.log('Selected Type:', selectedType);
+  }, [selectedType]);
+  //Console Log for Selected Loop for testing
+
   return (
     <Box>
       <Box sx={{ marginTop: '1.5em' }}>
@@ -33,23 +65,55 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
       <Box
         id="Contract-Table-Page"
         sx={{
-          marginTop:'1em'
+          marginTop: '1em',
         }}
       >
         <Box sx={{ marginLeft: '1.5em' }}>
           {/*Gameplay Loop Contract Type (Left Hand Side)*/}
-          <ContractLedgerLoopButton title="Logistics" videoSource={LogisticsLoop} />
-          <ContractLedgerLoopButton title="Medical" videoSource={MedicalLoop} />
-          <ContractLedgerLoopButton title="Security" videoSource={SecurityLoop} />
-          <ContractLedgerLoopButton title="Salvage" videoSource={SalvageLoop} />
-          <ContractLedgerLoopButton title="Industry" videoSource={IndustryLoop} />
-          <ContractLedgerLoopButton title="RRR" videoSource={RRRLoop} />
-          <ContractLedgerLoopButton title="Fleet" videoSource={FleetLoop} />
-          <ContractLedgerLoopButton title="Proxy" videoSource={ProxyLoop} />
+          <ContractLedgerLoopButton
+            title="Logistics"
+            videoSource={LogisticsLoop}
+            onClick={() => setSelectedType('Logistics')}
+          />
+          <ContractLedgerLoopButton
+            title="Medical"
+            videoSource={MedicalLoop}
+            onClick={() => setSelectedType('Medical')}
+          />
+          <ContractLedgerLoopButton
+            title="Security"
+            videoSource={SecurityLoop}
+            onClick={() => setSelectedType('Security')}
+          />
+          <ContractLedgerLoopButton
+            title="Salvage"
+            videoSource={SalvageLoop}
+            onClick={() => setSelectedType('Salvage')}
+          />
+          <ContractLedgerLoopButton
+            title="Industry"
+            videoSource={IndustryLoop}
+            onClick={() => setSelectedType('Industry')}
+          />
+          <ContractLedgerLoopButton
+            title="RRR"
+            videoSource={RRRLoop}
+            onClick={() => setSelectedType('RRR')}
+          />
+          <ContractLedgerLoopButton
+            title="Fleet"
+            videoSource={FleetLoop}
+            onClick={() => setSelectedType('Fleet')}
+          />
+          <ContractLedgerLoopButton
+            title="Proxy"
+            videoSource={ProxyLoop}
+            onClick={() => setSelectedType('Proxy')}
+          />
         </Box>
         <Box>
           <h2>Contract Table Display Section</h2>
-          <Box id="Contract-SubType-Radios"></Box>
+          <Box id="Contract-SubType-Radios">{subTypeSelected()}</Box>
           <Box>
             <h3>Filters, Sortby & Search</h3>
           </Box>

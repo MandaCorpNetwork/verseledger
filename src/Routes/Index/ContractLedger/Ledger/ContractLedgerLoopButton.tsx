@@ -7,9 +7,10 @@ import { useTheme } from '@emotion/react';
 type ContractLedgerLoopButtonProps = {
   title: string;
   videoSource: string;
+  onClick: () => void;
 };
 
-export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> = ({ title, videoSource }) => {
+export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> = ({ title, videoSource, onClick }) => {
   // eslint-disable-next-line
   const theme = useTheme() as any;
 
@@ -34,6 +35,7 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
       id="contract-loop-button"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={onClick}
       sx={{
         color: 'text.primary',
         width: '18em',
