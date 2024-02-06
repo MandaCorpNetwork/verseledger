@@ -1,8 +1,27 @@
-import { AccessTime, Group, AutoAwesomeMotion, SatelliteAlt, StarBorder } from '@mui/icons-material';
-import { Box, FormControl, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent, SvgIcon, TextField, Typography, Menu } from '@mui/material';
+import {
+  AccessTime,
+  Group,
+  AutoAwesomeMotion,
+  SatelliteAlt,
+  StarBorder,
+} from '@mui/icons-material';
+import {
+  Box,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  SvgIcon,
+  TextField,
+  Typography,
+  Menu,
+  Checkbox,
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
-import {default as UECTransparent} from '../../../../Assets/media/UECTransparent.svg?url';
+import { default as UECTransparent } from '../../../../Assets/media/UECTransparent.svg?url';
 
 export const ContractLedgerTableTools: React.FC<unknown> = () => {
   const [sortBy, setSortBy] = useState('');
@@ -13,23 +32,23 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
   //Sort By Dropdown
 
   const AccessTimeFilterMenuItems = [
-    {title: '>10 Minutes'},
-    {title: '10-30 Minutes'},
-    {title: '30-60 Minutes'},
-    {title: '1-5 Hours'},
-    {title: '5-12 Hours'},
-    {title: '12-24 Hours'},
-    {title: '24+ Hours'}
+    { title: '>10 Minutes' },
+    { title: '10-30 Minutes' },
+    { title: '30-60 Minutes' },
+    { title: '1-5 Hours' },
+    { title: '5-12 Hours' },
+    { title: '12-24 Hours' },
+    { title: '24+ Hours' },
   ];
   const [anchorE1, setAnchorE1] = useState(null);
-  const handleClick = e => {
+  const handleClick = (e) => {
     setAnchorE1(e.currentTarget);
   };
   const handleClose = () => {
     setAnchorE1(null);
   };
 
-  const nativeOnChange = e => {
+  const nativeOnChange = (e) => {
     const detail = {
       selectedIndex: e.target.selectedIndex,
     };
@@ -38,11 +57,11 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
     e.target.dispatchEvent(new CustomEvent('itemClick', { detail }));
   };
 
-  const itemClick = e => {
-    console.log("Item Clicked:" + e.detail);
+  const itemClick = (e) => {
+    console.log('Item Clicked:' + e.detail);
   };
 
-  return(
+  return (
     <Box>
       <Box>
         <h4>SearchBar</h4>
@@ -55,49 +74,61 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
       </Box>
       <Box sx={{ marginTop: '1.5em' }}>
         <h4>Filter Buttons</h4>
-        <IconButton sx={{ color: 'text.primary', width: '55px'}} >
-          <AutoAwesomeMotion sx={{ color: 'secondary.main', width: '55px'}}/>
+        <IconButton sx={{ color: 'text.primary', width: '55px' }}>
+          <AutoAwesomeMotion sx={{ color: 'secondary.main', width: '55px' }} />
         </IconButton>
         <IconButton sx={{ color: 'text.primary' }}>
-          <AccessTime 
+          <AccessTime
             onClick={handleClick}
-            sx={{ color: 'secondary.main', width: '55px'}}
+            sx={{ color: 'secondary.main', width: '55px' }}
           />
-          <Menu 
+          <Menu
             id="test-menu"
             anchorE1={anchorE1}
             keepMounted
             open={Boolean(anchorE1)}
             onClose={handleClose}
+            MenuListProps={{
+              sx: { backgroundColor: 'primary.main' },
+            }}
           >
-            {AccessTimeFilterMenuItems.map(item => (
+            {AccessTimeFilterMenuItems.map((item) => (
               <MenuItem key={item.title} value={item.title} onClick={handleClose}>
-              {item.title}
+                <Checkbox />
+                {item.title}
               </MenuItem>
             ))}
           </Menu>
         </IconButton>
-        <IconButton sx={{ color: 'text.primary', width: '55px'}}>
-          <Group sx={{ color: 'secondary.main', width: '55px'}}/>
+        <IconButton sx={{ color: 'text.primary', width: '55px' }}>
+          <Group sx={{ color: 'secondary.main', width: '55px' }} />
         </IconButton>
-        <IconButton sx={{ color: 'text.primary', width: '55px'}}>
-          <Typography sx={{ color: 'secondary.main', fontSize: '1.5em'}}>¤</Typography>
+        <IconButton sx={{ color: 'text.primary', width: '55px' }}>
+          <Typography sx={{ color: 'secondary.main', fontSize: '1.5em' }}>¤</Typography>
         </IconButton>
-        <IconButton sx={{ color: 'text.primary', width: '55px'}}>
-          <SatelliteAlt sx={{ color: 'secondary.main', width: '55px'}}/>
+        <IconButton sx={{ color: 'text.primary', width: '55px' }}>
+          <SatelliteAlt sx={{ color: 'secondary.main', width: '55px' }} />
         </IconButton>
-        <IconButton sx={{ color: 'text.primary', width: '55px'}}>
-          <StarBorder sx={{ color: 'secondary.main', width: '55px'}}/>
+        <IconButton sx={{ color: 'text.primary', width: '55px' }}>
+          <StarBorder sx={{ color: 'secondary.main', width: '55px' }} />
         </IconButton>
       </Box>
-      <Box sx={{ marginTop: '1.5em' }}><h4>SortBy Drop Down</h4>
-      <FormControl>
+      <Box sx={{ marginTop: '1.5em' }}>
+        <h4>SortBy Drop Down</h4>
+        <FormControl>
           <InputLabel id="Contract-Table-Sort-By">Sort By</InputLabel>
           <Select
             label="Sort By"
             variant="outlined"
             value={sortBy}
             onChange={handleSort}
+            inputProps={{
+              MenuProps: {
+                MenuListProps: {
+                  sx: { backgroundColor: 'primary.main' },
+                },
+              },
+            }}
             sx={{ color: 'text.secondary', width: '15em' }}
           >
             <MenuItem value="none">None</MenuItem>
@@ -109,7 +140,7 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
             <MenuItem value="time-left">Time Left</MenuItem>
           </Select>
         </FormControl>
-        </Box>
+      </Box>
     </Box>
   );
 };
