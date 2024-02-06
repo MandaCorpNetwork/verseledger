@@ -1,27 +1,24 @@
 import {
   AccessTime,
-  Group,
   AutoAwesomeMotion,
+  Group,
   SatelliteAlt,
   StarBorder,
 } from '@mui/icons-material';
 import {
   Box,
+  Checkbox,
   FormControl,
   IconButton,
   InputLabel,
+  Menu,
   MenuItem,
   Select,
   SelectChangeEvent,
-  SvgIcon,
   TextField,
   Typography,
-  Menu,
-  Checkbox,
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-
-import { default as UECTransparent } from '../../../../Assets/media/UECTransparent.svg?url';
+import React, { useState } from 'react';
 
 export const ContractLedgerTableTools: React.FC<unknown> = () => {
   const [sortBy, setSortBy] = useState('');
@@ -32,6 +29,7 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
   //Sort By Dropdown
 
   const AccessTimeFilterMenuItems = [
+    { title: 'All' },
     { title: '>10 Minutes' },
     { title: '10-30 Minutes' },
     { title: '30-60 Minutes' },
@@ -41,14 +39,22 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
     { title: '24+ Hours' },
   ];
   const [anchorE1, setAnchorE1] = useState(null);
-  const handleClick = (e) => {
+  const [checked, setChecked] = useState([]);
+  const [selectAll, setSelectAll] = useState(true);
+  const handleClick = (e: { currentTarget: React.SetStateAction<null> }) => {
     setAnchorE1(e.currentTarget);
   };
   const handleClose = () => {
     setAnchorE1(null);
   };
 
-  const nativeOnChange = (e) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const nativeOnChange = (e: {
+    target: {
+      selectedIndex: number;
+      dispatchEvent: (arg0: CustomEvent<{ selectedIndex: unknown }>) => void;
+    };
+  }) => {
     const detail = {
       selectedIndex: e.target.selectedIndex,
     };
@@ -57,8 +63,31 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
     e.target.dispatchEvent(new CustomEvent('itemClick', { detail }));
   };
 
-  const itemClick = (e) => {
-    console.log('Item Clicked:' + e.detail);
+  const handleItemClick = (title: string) => {
+    const updatedChecked = toggleItem(title);
+    setChecked(updatedChecked);
+  };
+
+  const toggleItem = (title: string) => {
+    const currentIndex = checked.indexOf(title);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(title);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+    console.log(checked);
+  };
+
+  const handleSelectAll = () => {
+    setSelectAll((prev) => !prev);
+
+    if (selectAll) {
+      setChecked(allTitles);
+    } else {
+      setChecked([]);
+    }
   };
 
   return (
@@ -93,7 +122,11 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
             }}
           >
             {AccessTimeFilterMenuItems.map((item) => (
-              <MenuItem key={item.title} value={item.title} onClick={handleClose}>
+              <MenuItem
+                key={item.title}
+                value={item.title}
+                onClick={() => handleItemClick(item.title)}
+              >
                 <Checkbox />
                 {item.title}
               </MenuItem>
