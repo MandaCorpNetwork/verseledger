@@ -21,6 +21,7 @@ import {
   SecuritySubTypes,
 } from './ContractLedgerLoopSubType';
 import { ContractLedgerQuickNav } from './ContractLedgerQuickNav';
+import { ContractLedgerTableTools } from './ContractLedgerTableTools';
 
 export const ContractLedgerTablePage: React.FC<unknown> = () => {
   const [selectedType, setSelectedType] = useState('');
@@ -116,6 +117,7 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
           <Box id="Contract-SubType-Radios">{subTypeSelected()}</Box>
           <Box>
             <h3>Filters, Sortby & Search</h3>
+            <ContractLedgerTableTools />
           </Box>
           <Box>
             <h3>Contract Cards</h3>
