@@ -39,7 +39,7 @@ export const AccessTimeFilterMenuDropdown: React.FC<unknown> = () => {
 
   const handleAll = () => {
     setChecked((prev) => {
-      if (selectAll || prev.length === 0) {
+      if (!selectAll || checked.length !== menuValues.length) {
         return menuValues;
       } else {
         return [];
@@ -50,7 +50,7 @@ export const AccessTimeFilterMenuDropdown: React.FC<unknown> = () => {
 
   useEffect(() => {
     console.log('AccessTimeFilterValues: ', checked);
-  }, [checked]);
+  });
 
   return (
     <Button sx={{ color: 'text.primary' }}>
@@ -66,7 +66,7 @@ export const AccessTimeFilterMenuDropdown: React.FC<unknown> = () => {
         }}
       >
         <MenuItem value={'all'} onClick={handleAll}>
-          <Checkbox checked={selectAll || checked.length === menuValues.length} />
+          <Checkbox checked={checked.includes('all')} />
           <Typography>{'All'}</Typography>
         </MenuItem>
         <MenuItem value={'10minutes'} onClick={() => handleCheck('10minutes')}>
