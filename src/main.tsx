@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
-       {/*<video autoPlay loop muted id="videobg"> 
+      {/*<video autoPlay loop muted id="videobg"> 
         <source src={backgroundvideo}></source>
 </video> */}
     </Provider>
