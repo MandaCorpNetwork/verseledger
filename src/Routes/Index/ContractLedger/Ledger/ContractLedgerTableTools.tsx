@@ -17,8 +17,10 @@ import {
   SelectChangeEvent,
   TextField,
   Typography,
+  Button
 } from '@mui/material';
 import React, { useState } from 'react';
+import { AccessTimeFilterMenuDropdown } from '../Global/AccessTimeFilterMenuDropdown';
 
 export const ContractLedgerTableTools: React.FC<unknown> = () => {
   const [sortBy, setSortBy] = useState('');
@@ -27,68 +29,6 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
     setSortBy(event.target.value);
   };
   //Sort By Dropdown
-
-  const AccessTimeFilterMenuItems = [
-    { title: 'All' },
-    { title: '>10 Minutes' },
-    { title: '10-30 Minutes' },
-    { title: '30-60 Minutes' },
-    { title: '1-5 Hours' },
-    { title: '5-12 Hours' },
-    { title: '12-24 Hours' },
-    { title: '24+ Hours' },
-  ];
-  const [anchorE1, setAnchorE1] = useState(null);
-  const [checked, setChecked] = useState([]);
-  const [selectAll, setSelectAll] = useState(true);
-  const handleClick = (e: { currentTarget: React.SetStateAction<null> }) => {
-    setAnchorE1(e.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorE1(null);
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const nativeOnChange = (e: {
-    target: {
-      selectedIndex: number;
-      dispatchEvent: (arg0: CustomEvent<{ selectedIndex: unknown }>) => void;
-    };
-  }) => {
-    const detail = {
-      selectedIndex: e.target.selectedIndex,
-    };
-    e.target.selectedIndex = 0;
-
-    e.target.dispatchEvent(new CustomEvent('itemClick', { detail }));
-  };
-
-  const handleItemClick = (title: string) => {
-    const updatedChecked = toggleItem(title);
-    setChecked(updatedChecked);
-  };
-
-  const toggleItem = (title: string) => {
-    const currentIndex = checked.indexOf(title);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(title);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-    console.log(checked);
-  };
-
-  const handleSelectAll = () => {
-    setSelectAll((prev) => !prev);
-
-    if (selectAll) {
-      setChecked(allTitles);
-    } else {
-      setChecked([]);
-    }
-  };
 
   return (
     <Box>
@@ -106,33 +46,7 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
         <IconButton sx={{ color: 'text.primary', width: '55px' }}>
           <AutoAwesomeMotion sx={{ color: 'secondary.main', width: '55px' }} />
         </IconButton>
-        <IconButton sx={{ color: 'text.primary' }}>
-          <AccessTime
-            onClick={handleClick}
-            sx={{ color: 'secondary.main', width: '55px' }}
-          />
-          <Menu
-            id="test-menu"
-            anchorE1={anchorE1}
-            keepMounted
-            open={Boolean(anchorE1)}
-            onClose={handleClose}
-            MenuListProps={{
-              sx: { backgroundColor: 'primary.main' },
-            }}
-          >
-            {AccessTimeFilterMenuItems.map((item) => (
-              <MenuItem
-                key={item.title}
-                value={item.title}
-                onClick={() => handleItemClick(item.title)}
-              >
-                <Checkbox />
-                {item.title}
-              </MenuItem>
-            ))}
-          </Menu>
-        </IconButton>
+        <AccessTimeFilterMenuDropdown />
         <IconButton sx={{ color: 'text.primary', width: '55px' }}>
           <Group sx={{ color: 'secondary.main', width: '55px' }} />
         </IconButton>
