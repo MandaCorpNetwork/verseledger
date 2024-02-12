@@ -1,11 +1,9 @@
 import { AutoAwesomeMotion } from '@mui/icons-material';
-import { Autocomplete, Button, Checkbox, Menu, MenuItem, Typography, TextField } from '@mui/material';
+import { Autocomplete, Button, Checkbox, Menu, MenuItem, Typography, TextField, ListSubheader } from '@mui/material';
 import React, { MouseEventHandler, useEffect, useState } from 'react';
 
 export const SubTypeDropdownFilter: React.FC<unknown> = () => {
   const [anchorE1, setAnchorE1] = useState(null);
-  const [checked, setChecked] = useState<string[]>([]);
-  const [selectAll, setSelectAll] = useState(false);
 
   const handleClick: MouseEventHandler<SVGSVGElement> = (e: {
     currentTarget: React.SetStateAction<null>;
@@ -17,56 +15,19 @@ export const SubTypeDropdownFilter: React.FC<unknown> = () => {
   };
 
   const menuValues = [
-    'all',
-    'transport',
-    'hauling',
-    'manage',
-    'trauma',
-    'on-call',
-    'escort',
-    'bounty',
-    'qrf',
-    'asset-protection',
-    'attache',
-    'collections',
-    'procurement',
-    'mining',
-    'refining',
-    'manufacturing',
-    'scouting',
-    'rearm',
-    'refuel',
-    'repair',
-    'crewman',
-    'outsourcing',
-    'middleman',
-    'other'
+    { type: 'all', values: ['all'] },
+    { type: 'logistics', values: ['transport', 'hauling', 'manage'] },
+    { type: 'medical', values: ['trauma', 'on-call'] },
+    {
+      type: 'security',
+      values: ['escort', 'bounty', 'qrf', 'asset-protection', 'attache'],
+    },
+    { type: 'salvage', values: ['collection', 'procurement'] },
+    { type: 'industry', values: [ 'mining', 'refining', 'manufacturing', 'scouting'] },
+    { type: 'rrr', values: ['rearm', 'refuel', 'repair'] },
+    { type: 'fleet', values: ['crewman', 'outsourcing']},
+    { type: 'proxy', values: ['middleman', 'other'] },
   ];
-
-  const handleCheck = (value: string) => {
-    setChecked((prev) => {
-      if (prev.includes(value)) {
-        return prev.filter((item) => item !== value);
-      } else {
-        return [...prev, value];
-      }
-    });
-  };
-
-  const handleAll = () => {
-    setChecked((prev) => {
-      if (!selectAll || checked.length !== menuValues.length) {
-        return menuValues;
-      } else {
-        return [];
-      }
-    });
-    setSelectAll((prev) => !prev);
-  };
-
-  useEffect(() => {
-    console.log('AccessTimeFilterValues: ', checked);
-  });
 
   return (
     <Button sx={{ color: 'text.primary' }}>
@@ -75,9 +36,25 @@ export const SubTypeDropdownFilter: React.FC<unknown> = () => {
         renderInput={(params) => (
           <TextField { ...params} label='Sub Types' placeholder='Sub Type' />
         )}
+        options={menuValues}
+        getOptionLabel={(option) => option.type}
+        renderOption={(option) => (
+          <div>
+            <ListSubheader>{option.type}</ListSubheader>
+            {option.values.map((value) => (
+              <MenuItem key={value} value={value}>
+                {value}
+                <Checkbox />
+              </MenuItem>
+            ))}
+          </div>
+        )}
+        open={Boolean(anchorE1)}
+        onClose={handleClose}
+        anchorEl={anchorE1}
       ></Autocomplete>
     </Button>
   );
 };
 
-//Needs to pull the different subtypes of Contract Types from ContractLedgerLoopSubType.tsx possibly to render in all categories as ListSubheaders with their corresponding subtypes, and when a LoopButton is clicked on only the ListSubheader that corresponds should be rendered.
+//Needs to pull the different subtypes of Contract Types from menuValues to render in all type names as ListSubheaders with their corresponding subtypes pulling from the values rendering in as menuitems
