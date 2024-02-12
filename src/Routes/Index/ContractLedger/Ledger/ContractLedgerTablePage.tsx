@@ -10,16 +10,6 @@ import RRRLoop from '../../../../Assets/media/ContractLedger/RRRLoop.webm?url';
 import SalvageLoop from '../../../../Assets/media/ContractLedger/SalvLoop.webm?url';
 import SecurityLoop from '../../../../Assets/media/ContractLedger/SecLoop.webm?url';
 import { ContractLedgerLoopButton } from './ContractLedgerLoopButton';
-import {
-  FleetSubTypes,
-  IndustrySubTypes,
-  LogisiticsSubTypes,
-  MedicalSubTypes,
-  ProxySubTypes,
-  RRRSubTypes,
-  SalvageSubTypes,
-  SecuritySubTypes,
-} from './ContractLedgerLoopSubType';
 import { ContractLedgerQuickNav } from './ContractLedgerQuickNav';
 import { ContractLedgerTableTools } from './ContractLedgerTableTools';
 
@@ -114,7 +104,6 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
         </Box>
         <Box>
           <h2>Contract Table Display Section</h2>
-          <Box id="Contract-SubType-Radios">{subTypeSelected()}</Box>
           <Box>
             <h3>Filters, Sortby & Search</h3>
             <ContractLedgerTableTools />
