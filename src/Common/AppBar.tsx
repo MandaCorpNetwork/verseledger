@@ -22,6 +22,18 @@ export const VLAppBar: React.FC<unknown> = () => {
   });
   //const menuId = 'primary-account-menu';
 
+  const [anchorE1, setAnchorE1] = useState(null);
+
+  const handleClick: MouseEventHandler<SVGSVGElement> = (e: {
+    currentTarget: React.SetStateAction<null>;
+  }) => {
+    setAnchorE1(e.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorE1(null);
+  };
+  //Location Button Dropdown Interaction
+
   const renderMenu = (
     <Menu {...bindMenu(profilePopupState)}>
       <MenuItem onClick={profilePopupState.close}>
