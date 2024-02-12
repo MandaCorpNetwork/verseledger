@@ -11,6 +11,7 @@ import {
   usePopupState,
 } from 'material-ui-popup-state/hooks';
 import React from 'react';
+import Station from '../Assets/media/Station.svg?url'
 //import { VerseLogo } from './VerseLogo';
 //import { useHistory } from 'react-router-dom'; Implement on Line 41 Fix
 
@@ -51,6 +52,11 @@ export const VLAppBar: React.FC<unknown> = () => {
             <img src={logoRandom()} alt="Verse Logo" />
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
+          <IconButton
+            sx={{ marginRight: '25%' }}
+          >
+            <img src={Station} alt="Location-Select" />
+          </IconButton>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new messages" color="inherit">
               <Badge badgeContent={4} color="error">
