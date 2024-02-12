@@ -1,4 +1,4 @@
-import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import { FormControlLabel, ListSubheader, Radio, RadioGroup, MenuItem, Checkbox } from '@mui/material';
 import React from 'react';
 
 export const LogisiticsSubTypes = (
@@ -62,8 +62,10 @@ export const FleetSubTypes = (
 );
 
 export const ProxySubTypes = (
-  <RadioGroup>
-    <FormControlLabel value="Middleman" control={<Radio />} label="Middleman" />
-    <FormControlLabel value="Other" control={<Radio />} label="Other" />
-  </RadioGroup>
+  <div>
+  <ListSubheader>Proxy</ListSubheader>
+  <MenuItem value="middleman" label ="Middleman"> <Checkbox /></MenuItem>
+  <MenuItem value="other" label ="Other"> <Checkbox /></MenuItem>
+  </div>
 );
+
