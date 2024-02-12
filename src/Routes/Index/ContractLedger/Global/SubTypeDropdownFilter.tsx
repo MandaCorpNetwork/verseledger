@@ -1,5 +1,5 @@
 import { AutoAwesomeMotion } from '@mui/icons-material';
-import { Button, Checkbox, Menu, MenuItem, Typography } from '@mui/material';
+import { Autocomplete, Button, Checkbox, Menu, MenuItem, Typography, TextField } from '@mui/material';
 import React, { MouseEventHandler, useEffect, useState } from 'react';
 
 export const SubTypeDropdownFilter: React.FC<unknown> = () => {
@@ -71,49 +71,13 @@ export const SubTypeDropdownFilter: React.FC<unknown> = () => {
   return (
     <Button sx={{ color: 'text.primary' }}>
       <AutoAwesomeMotion onClick={handleClick} sx={{ color: 'secondary.main', width: '55px' }} />
-      <Menu
-        id="test-menu"
-        keepMounted
-        open={Boolean(anchorE1)}
-        anchorEl={anchorE1}
-        onClose={handleClose}
-        MenuListProps={{
-          sx: { backgroundColor: 'primary.main' },
-        }}
-      >
-        <MenuItem value={'all'} onClick={handleAll}>
-          <Checkbox checked={checked.includes('all')} />
-          <Typography>{'All'}</Typography>
-        </MenuItem>
-        <MenuItem value={'10minutes'} onClick={() => handleCheck('10minutes')}>
-          <Checkbox checked={checked.includes('10minutes')} />
-          <Typography>{'> 10 Minutes'}</Typography>
-        </MenuItem>
-        <MenuItem value={'10-30minutes'} onClick={() => handleCheck('10-30minutes')}>
-          <Checkbox checked={checked.includes('10-30minutes')} />
-          <Typography>{'10-30 Minutes'}</Typography>
-        </MenuItem>
-        <MenuItem value={'30-60minutes'} onClick={() => handleCheck('30-60minutes')}>
-          <Checkbox checked={checked.includes('30-60minutes')} />
-          <Typography>{'30-60 Minutes'}</Typography>
-        </MenuItem>
-        <MenuItem value={'1-5hours'} onClick={() => handleCheck('1-5hours')}>
-          <Checkbox checked={checked.includes('1-5hours')} />
-          <Typography>{'1-5 Hours'}</Typography>
-        </MenuItem>
-        <MenuItem value={'5-12hours'} onClick={() => handleCheck('5-12hours')}>
-          <Checkbox checked={checked.includes('5-12hours')} />
-          <Typography>{'5-12 Hours'}</Typography>
-        </MenuItem>
-        <MenuItem value={'12-24hours'} onClick={() => handleCheck('12-24hours')}>
-          <Checkbox checked={checked.includes('12-24hours')} />
-          <Typography>{'12-24 Hours'}</Typography>
-        </MenuItem>
-        <MenuItem value={'24plushours'} onClick={() => handleCheck('24plushours')}>
-          <Checkbox checked={checked.includes('24plushours')} />
-          <Typography>{'24+ Hours'}</Typography>
-        </MenuItem>
-      </Menu>
+      <Autocomplete
+        renderInput={(params) => (
+          <TextField { ...params} label='Sub Types' placeholder='Sub Type' />
+        )}
+      ></Autocomplete>
     </Button>
   );
 };
+
+//Needs to pull the different subtypes of Contract Types from ContractLedgerLoopSubType.tsx possibly to render in all categories as ListSubheaders with their corresponding subtypes, and when a LoopButton is clicked on only the ListSubheader that corresponds should be rendered.
