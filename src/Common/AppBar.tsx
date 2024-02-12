@@ -1,7 +1,7 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { AppBar, Badge, IconButton, Menu, MenuItem, Toolbar } from '@mui/material';
+import { AppBar, Badge, IconButton, Menu, MenuItem, Toolbar, TextField } from '@mui/material';
 import { Typography, Popover, Autocomplete } from '@mui/material';
 import { Box } from '@mui/system';
 import {
@@ -10,7 +10,7 @@ import {
   PopupState,
   usePopupState,
 } from 'material-ui-popup-state/hooks';
-import React from 'react';
+import React, { MouseEventHandler, useState } from 'react';
 import Station from '../Assets/media/Station.svg?url';
 //import { VerseLogo } from './VerseLogo';
 //import { useHistory } from 'react-router-dom'; Implement on Line 41 Fix
@@ -24,7 +24,7 @@ export const VLAppBar: React.FC<unknown> = () => {
 
   const [anchorE1, setAnchorE1] = useState(null);
 
-  const handleClick: MouseEventHandler<SVGSVGElement> = (e: {
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (e: {
     currentTarget: React.SetStateAction<null>;
   }) => {
     setAnchorE1(e.currentTarget);
@@ -64,7 +64,7 @@ export const VLAppBar: React.FC<unknown> = () => {
             <img src={logoRandom()} alt="Verse Logo" />
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton sx={{ marginRight: '25%' }}>
+          <IconButton sx={{ marginRight: '25%' }} onClick={handleClick}>
             <img src={Station} alt="Location-Select" />
             <Popover
               id="test-menu"
@@ -82,7 +82,6 @@ export const VLAppBar: React.FC<unknown> = () => {
               }}
             >
               <Autocomplete
-                multiple
                 limitTags={2}
                 options={locationTestDB}
                 getOptionLabel={(option) => option.location}
