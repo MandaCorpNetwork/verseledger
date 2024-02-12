@@ -1,7 +1,7 @@
 import { AutoAwesomeMotion } from '@mui/icons-material';
 import {
   Autocomplete,
-  Button,
+  IconButton,
   Checkbox,
   Menu,
   MenuItem,
@@ -40,7 +40,7 @@ export const SubTypeDropdownFilter: React.FC<unknown> = () => {
   ];
 
   return (
-    <Button sx={{ color: 'text.primary' }}>
+    <IconButton sx={{ color: 'text.primary' }}>
       <AutoAwesomeMotion
         onClick={handleClick}
         sx={{ color: 'secondary.main', width: '55px' }}
@@ -79,7 +79,7 @@ export const SubTypeDropdownFilter: React.FC<unknown> = () => {
           )}
         ></Autocomplete>
       </Popover>
-    </Button>
+    </IconButton>
   );
 };
 

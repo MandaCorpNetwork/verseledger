@@ -1,5 +1,5 @@
 import { Group } from '@mui/icons-material';
-import { Button, Checkbox, Menu, MenuItem, Typography } from '@mui/material';
+import { IconButton, Checkbox, Menu, MenuItem, Typography } from '@mui/material';
 import React, { MouseEventHandler, useEffect, useState } from 'react';
 
 export const ContractOwnerTypeFilterMenuDropdown: React.FC<unknown> = () => {
@@ -52,7 +52,7 @@ export const ContractOwnerTypeFilterMenuDropdown: React.FC<unknown> = () => {
   });
 
   return (
-    <Button sx={{ color: 'text.primary' }}>
+    <IconButton sx={{ color: 'text.primary' }}>
       <Group onClick={handleClick} sx={{ color: 'secondary.main', width: '55px' }} />
       <Menu
         id="test-menu"
@@ -93,6 +93,6 @@ export const ContractOwnerTypeFilterMenuDropdown: React.FC<unknown> = () => {
           <Typography>{'Conglomerant'}</Typography>
         </MenuItem>
       </Menu>
-    </Button>
+    </IconButton>
   );
 };
