@@ -1,5 +1,5 @@
 import { AccessTime } from '@mui/icons-material';
-import { Button, Checkbox, Menu, MenuItem, Typography } from '@mui/material';
+import { IconButton, Checkbox, Menu, MenuItem, Typography } from '@mui/material';
 import React, { MouseEventHandler, useEffect, useState } from 'react';
 
 export const AccessTimeFilterMenuDropdown: React.FC<unknown> = () => {
@@ -53,7 +53,7 @@ export const AccessTimeFilterMenuDropdown: React.FC<unknown> = () => {
   });
 
   return (
-    <Button sx={{ color: 'text.primary' }}>
+    <IconButton sx={{ color: 'text.primary' }}>
       <AccessTime onClick={handleClick} sx={{ color: 'secondary.main', width: '55px' }} />
       <Menu
         id="test-menu"
@@ -98,6 +98,6 @@ export const AccessTimeFilterMenuDropdown: React.FC<unknown> = () => {
           <Typography>{'24+ Hours'}</Typography>
         </MenuItem>
       </Menu>
-    </Button>
+    </IconButton>
   );
 };

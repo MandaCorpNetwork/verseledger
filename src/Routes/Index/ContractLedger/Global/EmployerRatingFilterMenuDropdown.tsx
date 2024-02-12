@@ -1,5 +1,5 @@
 import { StarBorder } from '@mui/icons-material';
-import { Button, Popover, Typography, Slider } from '@mui/material';
+import { IconButton, Popover, Typography, Slider } from '@mui/material';
 import React, { MouseEventHandler, useEffect, useState } from 'react';
 
 export const EmployerRatingFilterMenuDropdown: React.FC<unknown> = () => {
@@ -22,7 +22,7 @@ export const EmployerRatingFilterMenuDropdown: React.FC<unknown> = () => {
   };
 
   return (
-    <Button sx={{ color: 'text.primary' }}>
+    <IconButton sx={{ color: 'text.primary' }}>
       <StarBorder onClick={handleClick} sx={{ color: 'secondary.main', width: '55px' }} />
       <Popover
         id="test-menu"
@@ -57,6 +57,6 @@ export const EmployerRatingFilterMenuDropdown: React.FC<unknown> = () => {
           />
         </div>
       </Popover>
-    </Button>
+    </IconButton>
   );
 };
