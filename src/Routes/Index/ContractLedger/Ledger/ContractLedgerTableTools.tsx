@@ -1,7 +1,5 @@
 import {
-  AccessTime,
   AutoAwesomeMotion,
-  Group,
   SatelliteAlt,
   StarBorder,
 } from '@mui/icons-material';
@@ -21,6 +19,11 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { AccessTimeFilterMenuDropdown } from '../Global/AccessTimeFilterMenuDropdown';
+import { ContractOwnerTypeFilterMenuDropdown } from '../Global/ContractOwnerTypeFilterMenuDropdown';
+import { EmployerRatingFilterMenuDropdown } from '../Global/EmployerRatingFilterMenuDropdown';
+import { LocationFilterMenuDropdown } from '../Global/LocationFilterMenuDropdown';
+import { UECRangeDropdownFilter } from '../Global/UECRangeDropdownFilter';
+import { SubTypeDropdownFilter } from '../Global/SubTypeDropdownFilter';
 
 export const ContractLedgerTableTools: React.FC<unknown> = () => {
   const [sortBy, setSortBy] = useState('');
@@ -43,22 +46,12 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
       </Box>
       <Box sx={{ marginTop: '1.5em' }}>
         <h4>Filter Buttons</h4>
-        <IconButton sx={{ color: 'text.primary', width: '55px' }}>
-          <AutoAwesomeMotion sx={{ color: 'secondary.main', width: '55px' }} />
-        </IconButton>
+        <SubTypeDropdownFilter />
         <AccessTimeFilterMenuDropdown />
-        <IconButton sx={{ color: 'text.primary', width: '55px' }}>
-          <Group sx={{ color: 'secondary.main', width: '55px' }} />
-        </IconButton>
-        <IconButton sx={{ color: 'text.primary', width: '55px' }}>
-          <Typography sx={{ color: 'secondary.main', fontSize: '1.5em' }}>¤</Typography>
-        </IconButton>
-        <IconButton sx={{ color: 'text.primary', width: '55px' }}>
-          <SatelliteAlt sx={{ color: 'secondary.main', width: '55px' }} />
-        </IconButton>
-        <IconButton sx={{ color: 'text.primary', width: '55px' }}>
-          <StarBorder sx={{ color: 'secondary.main', width: '55px' }} />
-        </IconButton>
+        <ContractOwnerTypeFilterMenuDropdown />
+        <UECRangeDropdownFilter />
+        <LocationFilterMenuDropdown />
+        <EmployerRatingFilterMenuDropdown />
       </Box>
       <Box sx={{ marginTop: '1.5em' }}>
         <h4>SortBy Drop Down</h4>
