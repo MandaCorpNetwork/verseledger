@@ -2,7 +2,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { AppBar, Badge, IconButton, Menu, MenuItem, Toolbar } from '@mui/material';
-import { Typography } from '@mui/material';
+import { Typography, Popover, Autocomplete } from '@mui/material';
 import { Box } from '@mui/system';
 import {
   bindMenu,
@@ -11,7 +11,7 @@ import {
   usePopupState,
 } from 'material-ui-popup-state/hooks';
 import React from 'react';
-import Station from '../Assets/media/Station.svg?url'
+import Station from '../Assets/media/Station.svg?url';
 //import { VerseLogo } from './VerseLogo';
 //import { useHistory } from 'react-router-dom'; Implement on Line 41 Fix
 
@@ -52,10 +52,33 @@ export const VLAppBar: React.FC<unknown> = () => {
             <img src={logoRandom()} alt="Verse Logo" />
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton
-            sx={{ marginRight: '25%' }}
-          >
+          <IconButton sx={{ marginRight: '25%' }}>
             <img src={Station} alt="Location-Select" />
+            <Popover
+              id="test-menu"
+              keepMounted
+              open={Boolean(anchorE1)}
+              anchorEl={anchorE1}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            >
+              <Autocomplete
+                multiple
+                limitTags={2}
+                options={locationTestDB}
+                getOptionLabel={(option) => option.location}
+                renderInput={(params) => (
+                  <TextField {...params} label="Locations" placeholder="Location" />
+                )}
+              />
+            </Popover>
           </IconButton>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new messages" color="inherit">
@@ -89,3 +112,12 @@ export const VLAppBar: React.FC<unknown> = () => {
     </Box>
   );
 };
+
+const locationTestDB = [
+  { star: 'Stanton', body: 'Hurston', location: 'Loreville' },
+  { star: 'Stanton', body: 'Hurston', location: 'Everus Harbor' },
+  { star: 'Stanton', body: 'Aberdeen', location: 'Klecher' },
+  { star: 'Stanton', body: 'Hurston', location: `Cutter's Rig` },
+  { star: 'Stanton', body: 'Hurston', location: `Finn's Folly` },
+  { star: 'Stanton', body: 'Hurston', location: 'HDES Calthrope' },
+];
