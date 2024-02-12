@@ -1,14 +1,13 @@
 import { AutoAwesomeMotion } from '@mui/icons-material';
 import {
   Autocomplete,
-  IconButton,
   Checkbox,
-  Menu,
-  MenuItem,
-  Typography,
-  TextField,
+  IconButton,
   ListSubheader,
+  MenuItem,
   Popover,
+  TextField,
+  Typography,
 } from '@mui/material';
 import React, { MouseEventHandler, useEffect, useState } from 'react';
 
@@ -38,6 +37,18 @@ export const SubTypeDropdownFilter: React.FC<unknown> = () => {
     { type: 'fleet', values: ['crewman', 'outsourcing'] },
     { type: 'proxy', values: ['middleman', 'other'] },
   ];
+
+  /*const menuOptions = menuValues.map((option) => {
+    return {
+      subheader: option.type,
+      menuItems: option.values.map(v => (
+        <MenuItem key={v} value={v}>
+          {v}
+        <Checkbox />
+        </MenuItem>
+      ));
+    };
+  });*/
 
   return (
     <IconButton sx={{ color: 'text.primary' }}>
