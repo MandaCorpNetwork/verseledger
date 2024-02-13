@@ -1,8 +1,9 @@
 ///<reference types="vite/client" />
 import './ContractLedgerLoopButton.scss';
-import { Button, Typography } from '@mui/material';
-import  React, { useState } from 'react';
+
 import { useTheme } from '@emotion/react';
+import { Button, Typography } from '@mui/material';
+import React, { useState } from 'react';
 
 type ContractLedgerLoopButtonProps = {
   title: string;
@@ -10,7 +11,11 @@ type ContractLedgerLoopButtonProps = {
   onClick: () => void;
 };
 
-export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> = ({ title, videoSource, onClick }) => {
+export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> = ({
+  title,
+  videoSource,
+  onClick,
+}) => {
   // eslint-disable-next-line
   const theme = useTheme() as any;
 

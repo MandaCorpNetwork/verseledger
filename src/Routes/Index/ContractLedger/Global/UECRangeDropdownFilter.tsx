@@ -1,4 +1,11 @@
-import { IconButton, Menu, MenuItem, Typography, TextField, InputAdornment } from '@mui/material';
+import {
+  IconButton,
+  InputAdornment,
+  Menu,
+  MenuItem,
+  TextField,
+  Typography,
+} from '@mui/material';
 import React, { MouseEventHandler, useState } from 'react';
 
 export const UECRangeDropdownFilter: React.FC<unknown> = () => {
@@ -34,17 +41,15 @@ export const UECRangeDropdownFilter: React.FC<unknown> = () => {
         <MenuItem>
           <TextField
             InputProps={{
-              startAdornment: <InputAdornment position="start">¤
-              </InputAdornment>,
+              startAdornment: <InputAdornment position="start">¤</InputAdornment>,
             }}
           />
         </MenuItem>
         <Typography>To</Typography>
         <MenuItem>
-          <TextField 
+          <TextField
             InputProps={{
-              startAdornment: <InputAdornment position="start">¤
-              </InputAdornment>,
+              startAdornment: <InputAdornment position="start">¤</InputAdornment>,
             }}
           />
         </MenuItem>
