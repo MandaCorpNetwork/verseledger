@@ -1,6 +1,6 @@
-import { SatelliteAlt, CheckIcon, CloseIcon, MultipleStop } from "@mui/icons-material";
-import { IconButton, Box, Autocomplete, TextField, Popover } from "@mui/material";
-import React, { MouseEventHandler, useEffect, useState, InputWrapper } from 'react';
+import { CheckIcon, CloseIcon, MultipleStop, SatelliteAlt } from '@mui/icons-material';
+import { Autocomplete, Box, IconButton, Popover, TextField } from '@mui/material';
+import React, { InputWrapper, MouseEventHandler, useEffect, useState } from 'react';
 
 export const LocationFilterMenuDropdown: React.FC<unknown> = () => {
   const [anchorE1, setAnchorE1] = useState(null);
@@ -17,29 +17,32 @@ export const LocationFilterMenuDropdown: React.FC<unknown> = () => {
 
   return (
     <IconButton sx={{ color: 'text.primary' }}>
-      <SatelliteAlt onClick={handleClick} sx={{ color: 'secondary.main', width: '55px' }} />
+      <SatelliteAlt
+        onClick={handleClick}
+        sx={{ color: 'secondary.main', width: '55px' }}
+      />
       <Popover
-                id="test-menu"
-                keepMounted
-                open={Boolean(anchorE1)}
-                anchorEl={anchorE1}
-                onClose={handleClose}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'center',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'center',
-                }}
-        >
-        <Autocomplete 
+        id="test-menu"
+        keepMounted
+        open={Boolean(anchorE1)}
+        anchorEl={anchorE1}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <Autocomplete
           multiple
           limitTags={2}
           options={locationTestDB}
           getOptionLabel={(option) => option.location}
           renderInput={(params) => (
-            <TextField { ...params} label='Locations' placeholder='Location' />
+            <TextField {...params} label="Locations" placeholder="Location" />
           )}
         />
       </Popover>

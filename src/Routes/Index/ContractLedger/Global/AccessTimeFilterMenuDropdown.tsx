@@ -1,5 +1,5 @@
 import { AccessTime } from '@mui/icons-material';
-import { IconButton, Checkbox, Menu, MenuItem, Typography } from '@mui/material';
+import { Checkbox, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import React, { MouseEventHandler, useEffect, useState } from 'react';
 
 export const AccessTimeFilterMenuDropdown: React.FC<unknown> = () => {

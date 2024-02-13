@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
 import { Box } from '@mui/material';
 import React from 'react';
 
@@ -11,6 +12,9 @@ import { HomeNavButton } from './HomeNavButton';
 export const Home: React.FC<unknown> = () => {
   return (
     <Box marginTop={'3em'}>
+      <video autoPlay loop muted id="videobg">
+        <source src={backgroundvideo}></source>
+      </video>
       <HomeNavButton
         title="Contract Ledger"
         to="/contract/splash"

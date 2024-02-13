@@ -3,9 +3,9 @@ import { Outlet, RouteObject } from 'react-router-dom';
 
 import { VLAppBar } from '../Common/AppBar';
 import ErrorPage from './ErrorPage';
+import { ContractLedgerTablePage } from './Index/ContractLedger/Ledger/ContractLedgerTablePage';
 import { ContractLedgerSplash } from './Index/ContractLedger/Splash/ContractLedgerSplash';
 import { Home } from './Index/Home';
-import { ContractLedgerTablePage } from './Index/ContractLedger/Ledger/ContractLedgerTablePage';
 export const routingInfo: RouteObject[] = [
   {
     path: '/',

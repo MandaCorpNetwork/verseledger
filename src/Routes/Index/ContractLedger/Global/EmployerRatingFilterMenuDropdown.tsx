@@ -1,5 +1,5 @@
 import { StarBorder } from '@mui/icons-material';
-import { IconButton, Popover, Typography, Slider } from '@mui/material';
+import { IconButton, Popover, Slider, Typography } from '@mui/material';
 import React, { MouseEventHandler, useEffect, useState } from 'react';
 
 export const EmployerRatingFilterMenuDropdown: React.FC<unknown> = () => {
