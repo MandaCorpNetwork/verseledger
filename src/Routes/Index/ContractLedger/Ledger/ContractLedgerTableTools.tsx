@@ -2,7 +2,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import {
   Box,
   Button,
-  Popover,
+  Collapse,
   FormControl,
   InputLabel,
   MenuItem,
@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, { useState, useRef, MouseEvent } from 'react';
+import React, { MouseEvent, useRef, useState } from 'react';
 
 import { AccessTimeFilterMenuDropdown } from '../Global/AccessTimeFilterMenuDropdown';
 import { ContractOwnerTypeFilterMenuDropdown } from '../Global/ContractOwnerTypeFilterMenuDropdown';
@@ -19,7 +19,6 @@ import { EmployerRatingFilterMenuDropdown } from '../Global/EmployerRatingFilter
 import { LocationFilterMenuDropdown } from '../Global/LocationFilterMenuDropdown';
 import { SubTypeDropdownFilter } from '../Global/SubTypeDropdownFilter';
 import { UECRangeDropdownFilter } from '../Global/UECRangeDropdownFilter';
-
 
 export const ContractLedgerTableTools: React.FC<unknown> = () => {
   const [sortBy, setSortBy] = useState('');
@@ -32,11 +31,7 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
   const toolsRef = useRef<HTMLDivElement>(null);
 
   const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+    setOpen(prevOpen => !prevOpen);
   };
 
   return (
@@ -53,6 +48,7 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
         marginTop: '.5em',
         alignItems: 'center',
         justifyContent: 'space-between',
+        position: 'relative',
       }}
     >
       <Button
@@ -69,21 +65,32 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
         <FilterAltIcon />
         <Typography>Filter</Typography>
       </Button>
-      <Popover
+      <Collapse
         id="Contract-Table-Filter-Drawer"
         key="Contract-Table-Filter-Drawer"
-        sx={{ marginTop: '1.5em', display: 'flex' }}
-        onClose={handleClose}
-        open={open}
-        anchorEl={toolsRef.current}
+        in={open}
+        sx={{
+          position: 'absolute',
+          top: '100%',
+          width: '100%',
+        }}
       >
-        <SubTypeDropdownFilter />
-        <AccessTimeFilterMenuDropdown />
-        <ContractOwnerTypeFilterMenuDropdown />
-        <UECRangeDropdownFilter />
-        <LocationFilterMenuDropdown />
-        <EmployerRatingFilterMenuDropdown />
-      </Popover>
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'row',
+            marginTop: '1em',
+          }}
+        >
+          <SubTypeDropdownFilter />
+          <AccessTimeFilterMenuDropdown />
+          <ContractOwnerTypeFilterMenuDropdown />
+          <UECRangeDropdownFilter />
+          <LocationFilterMenuDropdown />
+          <EmployerRatingFilterMenuDropdown />
+        </Box>
+      </Collapse>
       <Typography variant="h4">Contract Ledger</Typography>
       <Box
         id="Contract-Table-Search-Sort-Box"
