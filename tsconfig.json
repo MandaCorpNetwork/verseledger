@@ -19,6 +19,17 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+
+    /* Pathing */
+    "baseUrl": "./src/",
+    "paths": {
+      "@/*": ["./*"],
+      "@Assets/*": ["./Assets/*"],
+      "@Redux/*": ["./Redux/*"],
+      "@Routes/*": ["./Routes/*"],
+      "@Utils/*": ["./Utils/*"],
+      "@Common/*": ["./Common/*"]
+    }
   },
   "include": ["src", "tsconfig.json", "tsconfig.node.json"],
   "references": [{ "path": "./tsconfig.node.json" }],

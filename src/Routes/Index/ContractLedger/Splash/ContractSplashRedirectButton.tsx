@@ -3,7 +3,7 @@ import React from 'react';
 
 type SplashRedirectButtonProps = {
   title: string;
-}
+};
 export const ContractSplashRedirectButton: React.FC<SplashRedirectButtonProps> = ({
   title,
 }) => {
@@ -21,19 +21,21 @@ export const ContractSplashRedirectButton: React.FC<SplashRedirectButtonProps> =
         marginBottom: '5%',
         bgcolor: 'primary.dark',
         '&:hover': {
-          borderColor:'secondary.light',
+          borderColor: 'secondary.light',
         },
         '&:active': {
           color: 'text.secondary',
-          borderColor:'secondary.main',
-        }
+          borderColor: 'secondary.main',
+        },
       }}
     >
       <Typography
         sx={{
           fontWeight: 700,
         }}
-      >{title}</Typography>
+      >
+        {title}
+      </Typography>
     </Button>
   );
 };

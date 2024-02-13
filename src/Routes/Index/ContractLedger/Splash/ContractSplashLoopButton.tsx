@@ -1,8 +1,8 @@
 /// <reference types="vite/client" />
 import './ContractSplashLoop.scss';
 
-import { Button, Typography } from '@mui/material';
 import { useTheme } from '@emotion/react';
+import { Button, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
 type SplashLoopButtonProps = {
