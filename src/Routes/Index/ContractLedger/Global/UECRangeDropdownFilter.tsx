@@ -1,59 +1,20 @@
-import {
-  IconButton,
-  InputAdornment,
-  Menu,
-  MenuItem,
-  TextField,
-  Typography,
-} from '@mui/material';
-import React, { MouseEventHandler, useState } from 'react';
+import { Box, InputAdornment, TextField, Typography } from '@mui/material';
+import React from 'react';
 
 export const UECRangeDropdownFilter: React.FC<unknown> = () => {
-  const [anchorE1, setAnchorE1] = useState(null);
-
-  const handleClick: MouseEventHandler<SVGSVGElement> = (e: {
-    currentTarget: React.SetStateAction<null>;
-  }) => {
-    setAnchorE1(e.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorE1(null);
-  };
-
   return (
-    <IconButton sx={{ color: 'text.primary' }}>
-      <Typography
-        onClick={handleClick}
-        sx={{ color: 'secondary.main', fontSize: '1.5em' }}
-      >
-        ¤
-      </Typography>
-      <Menu
-        id="test-menu"
-        keepMounted
-        open={Boolean(anchorE1)}
-        anchorEl={anchorE1}
-        onClose={handleClose}
-        MenuListProps={{
-          sx: { backgroundColor: 'primary.main' },
+    <Box>
+      <TextField
+        InputProps={{
+          startAdornment: <InputAdornment position="start">¤</InputAdornment>,
         }}
-      >
-        <MenuItem>
-          <TextField
-            InputProps={{
-              startAdornment: <InputAdornment position="start">¤</InputAdornment>,
-            }}
-          />
-        </MenuItem>
-        <Typography>To</Typography>
-        <MenuItem>
-          <TextField
-            InputProps={{
-              startAdornment: <InputAdornment position="start">¤</InputAdornment>,
-            }}
-          />
-        </MenuItem>
-      </Menu>
-    </IconButton>
+      />
+      <Typography>To</Typography>
+      <TextField
+        InputProps={{
+          startAdornment: <InputAdornment position="start">¤</InputAdornment>,
+        }}
+      />
+    </Box>
   );
 };
