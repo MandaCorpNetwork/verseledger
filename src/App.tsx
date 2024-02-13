@@ -14,10 +14,31 @@ const darkTheme = createTheme({
         },
       },
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          borderColor: '#0E318D',
+        },
+        root: {
+          '&:hover $notchedOutline': {
+            borderColor: '#0E318D',
+          },
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        iconOutlined: {
+          fill: '#0E318D',
+        },
+      },
+    },
   },
+
   palette: {
     background: {
       default: '#000113',
+      //default: 'white', //Theme Test Switch
     },
     primary: {
       main: '#0e318d',

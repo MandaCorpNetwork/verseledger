@@ -57,10 +57,11 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
         id="Contract-Table-Page"
         sx={{
           marginTop: '1em',
+          display: 'flex',
+          flexDirection: 'row',
         }}
       >
-        <Box sx={{ marginLeft: '1.5em' }}>
-          {/*Gameplay Loop Contract Type (Left Hand Side)*/}
+        <Box id="Game-Loop-Filters-Box" sx={{ marginLeft: '1.5em', maxWidth: '20%' }}>
           <ContractLedgerLoopButton
             title="Logistics"
             videoSource={LogisticsLoop}
@@ -102,19 +103,7 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
             onClick={() => setSelectedType('Proxy')}
           />
         </Box>
-        <Box>
-          <h2>Contract Table Display Section</h2>
-          <Box>
-            <h3>Filters, Sortby & Search</h3>
-            <ContractLedgerTableTools />
-          </Box>
-          <Box>
-            <h3>Contract Cards</h3>
-          </Box>
-        </Box>
-        <Box>
-          <h2>Contract Info Display</h2>
-        </Box>
+        <ContractLedgerTableTools />
       </Box>
     </Box>
   );

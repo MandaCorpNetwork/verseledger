@@ -1,96 +1,54 @@
-import { AutoAwesomeMotion } from '@mui/icons-material';
-import {
-  Autocomplete,
-  Checkbox,
-  IconButton,
-  ListSubheader,
-  MenuItem,
-  Popover,
-  TextField,
-  Typography,
-} from '@mui/material';
-import React, { MouseEventHandler, useEffect, useState } from 'react';
+import { Autocomplete, Checkbox, MenuItem, TextField } from '@mui/material';
+import React from 'react';
 
 export const SubTypeDropdownFilter: React.FC<unknown> = () => {
-  const [anchorE1, setAnchorE1] = useState(null);
-
-  const handleClick: MouseEventHandler<SVGSVGElement> = (e: {
-    currentTarget: React.SetStateAction<null>;
-  }) => {
-    setAnchorE1(e.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorE1(null);
-  };
-
   const menuValues = [
-    { type: 'all', values: ['all'] },
-    { type: 'logistics', values: ['transport', 'hauling', 'manage'] },
-    { type: 'medical', values: ['trauma', 'on-call'] },
-    {
-      type: 'security',
-      values: ['escort', 'bounty', 'qrf', 'asset-protection', 'attache'],
-    },
-    { type: 'salvage', values: ['collection', 'procurement'] },
-    { type: 'industry', values: ['mining', 'refining', 'manufacturing', 'scouting'] },
-    { type: 'rrr', values: ['rearm', 'refuel', 'repair'] },
-    { type: 'fleet', values: ['crewman', 'outsourcing'] },
-    { type: 'proxy', values: ['middleman', 'other'] },
+    { type: 'all', value: 'all' },
+    { type: 'logistics', value: 'transport' },
+    { type: 'logistics', value: 'hauling' },
+    { type: 'logistics', value: 'manage' },
+    { type: 'medical', value: 'trauma' },
+    { type: 'medical', value: 'on-call' },
+    { type: 'security', values: 'escort' },
+    { type: 'security', value: 'bounty' },
+    { type: 'security', value: 'qrf' },
+    { type: 'security', value: 'asset-protection' },
+    { type: 'security', value: 'attache' },
+    { type: 'salvage', value: 'collection' },
+    { type: 'salvage', value: 'procurement' },
+    { type: 'industry', value: 'mining' },
+    { type: 'industry', value: 'refining' },
+    { type: 'industry', value: 'manufacturing' },
+    { type: 'industry', value: 'scouting' },
+    { type: 'RRR', value: 'refuel' },
+    { type: 'RRR', value: 'rearm' },
+    { type: 'RRR', value: 'repair' },
+    { type: 'fleet', value: 'crewman' },
+    { type: 'fleet', value: 'outsourcing' },
+    { type: 'proxy', value: 'middleman' },
+    { type: 'proxy', value: 'other' },
   ];
 
-  /*const menuOptions = menuValues.map((option) => {
-    return {
-      subheader: option.type,
-      menuItems: option.values.map(v => (
-        <MenuItem key={v} value={v}>
-          {v}
-        <Checkbox />
-        </MenuItem>
-      ));
-    };
-  });*/
-
   return (
-    <IconButton sx={{ color: 'text.primary' }}>
-      <AutoAwesomeMotion
-        onClick={handleClick}
-        sx={{ color: 'secondary.main', width: '55px' }}
-      />
-      <Popover
-        id="test-menu"
-        keepMounted
-        open={Boolean(anchorE1)}
-        anchorEl={anchorE1}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-      >
-        <Autocomplete
-          renderInput={(params) => (
-            <TextField {...params} label="Sub Types" placeholder="Sub Type" />
-          )}
-          options={menuValues}
-          getOptionLabel={(option) => option.type}
-          renderOption={(option) => (
-            <div>
-              <ListSubheader>{option.type}</ListSubheader>
-              {option.values?.map((value) => (
-                <MenuItem key={value} value={value}>
-                  {value}
-                  <Checkbox />
-                </MenuItem>
-              ))}
-            </div>
-          )}
-        ></Autocomplete>
-      </Popover>
-    </IconButton>
+    <Autocomplete
+      sx={{ width: 300, color: '#020226' }}
+      multiple
+      options={menuValues}
+      renderInput={(params) => (
+        <TextField {...params} label="Sub Types" placeholder="Sub Type" />
+      )}
+      groupBy={(option) =>
+        (option.type)?.charAt(0).toUpperCase() + (option.type)?.slice(1)}
+      getOptionLabel={(option) =>
+        (option.value)?.charAt(0).toUpperCase() + (option.value)?.slice(1)
+      }
+      renderOption={(props, option, { selected }) => (
+        <MenuItem {...props} sx={{ display: 'flex' }}>
+          {option.value}
+          <Checkbox sx={{ justifyContent: 'flex-end' }} checked={selected} />
+        </MenuItem>
+      )}
+    />
   );
 };
 
