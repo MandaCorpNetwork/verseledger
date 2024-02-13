@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, { MouseEvent, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { AccessTimeFilterMenuDropdown } from '../Global/AccessTimeFilterMenuDropdown';
 import { ContractOwnerTypeFilterMenuDropdown } from '../Global/ContractOwnerTypeFilterMenuDropdown';
@@ -31,7 +31,7 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
   const toolsRef = useRef<HTMLDivElement>(null);
 
   const handleClick = () => {
-    setOpen(prevOpen => !prevOpen);
+    setOpen((prevOpen) => !prevOpen);
   };
 
   return (
@@ -80,7 +80,12 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
             width: '100%',
             display: 'flex',
             flexDirection: 'row',
-            marginTop: '1em',
+            padding: '1em',
+            zIndex: '50',
+            bgcolor: 'primary.dark',
+            opacity: '.8',
+            border: '2px ridge',
+            borderColor: 'primary.main',
           }}
         >
           <SubTypeDropdownFilter />
