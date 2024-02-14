@@ -41,6 +41,7 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
+      data-testid="contract-loop-button"
       sx={{
         color: 'text.primary',
         width: '18em',

@@ -1,55 +1,62 @@
-import { Autocomplete, Checkbox, MenuItem, TextField } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
 export const SubTypeDropdownFilter: React.FC<unknown> = () => {
   const menuValues = [
-    { type: 'all', value: 'all' },
-    { type: 'logistics', value: 'transport' },
-    { type: 'logistics', value: 'hauling' },
-    { type: 'logistics', value: 'manage' },
-    { type: 'medical', value: 'trauma' },
-    { type: 'medical', value: 'on-call' },
-    { type: 'security', values: 'escort' },
-    { type: 'security', value: 'bounty' },
-    { type: 'security', value: 'qrf' },
-    { type: 'security', value: 'asset-protection' },
-    { type: 'security', value: 'attache' },
-    { type: 'salvage', value: 'collection' },
-    { type: 'salvage', value: 'procurement' },
-    { type: 'industry', value: 'mining' },
-    { type: 'industry', value: 'refining' },
-    { type: 'industry', value: 'manufacturing' },
-    { type: 'industry', value: 'scouting' },
-    { type: 'RRR', value: 'refuel' },
-    { type: 'RRR', value: 'rearm' },
-    { type: 'RRR', value: 'repair' },
-    { type: 'fleet', value: 'crewman' },
-    { type: 'fleet', value: 'outsourcing' },
-    { type: 'proxy', value: 'middleman' },
-    { type: 'proxy', value: 'other' },
+    { type: 'all', value: 'all', label: 'All' },
+    { type: 'logistics', value: 'transport', label: 'Transport' },
+    { type: 'logistics', value: 'hauling', label: 'Hauling' },
+    { type: 'logistics', value: 'manage', label: 'Manage' },
+    { type: 'medical', value: 'trauma', label: 'Trauma' },
+    { type: 'medical', value: 'on-call', label: 'On-Call' },
+    { type: 'security', value: 'escort', label: 'Escort' },
+    { type: 'security', value: 'bounty', label: 'Bounty' },
+    { type: 'security', value: 'qrf', label: 'QRF' },
+    { type: 'security', value: 'asset-protection', label: 'Asset Protection' },
+    { type: 'security', value: 'attache', label: 'Attache' },
+    { type: 'salvage', value: 'collection', label: 'Collection' },
+    { type: 'salvage', value: 'procurement', label: 'Procurement' },
+    { type: 'industry', value: 'mining', label: 'Mining' },
+    { type: 'industry', value: 'refining', label: 'Refining' },
+    { type: 'industry', value: 'manufacturing', label: 'Manufacturing' },
+    { type: 'industry', value: 'scouting', label: 'Scouting' },
+    { type: 'RRR', value: 'refuel', label: 'Refuel' },
+    { type: 'RRR', value: 'rearm', label: 'Rearm' },
+    { type: 'RRR', value: 'repair', label: 'Repair' },
+    { type: 'fleet', value: 'crewman', label: 'Crewman' },
+    { type: 'fleet', value: 'outsourcing', label: 'Outsourcing' },
+    { type: 'proxy', value: 'middleman', label: 'Middleman' },
+    { type: 'proxy', value: 'other', label: 'Other' },
   ];
 
   return (
     <Autocomplete
-      sx={{ width: 300, color: '#020226' }}
       multiple
+      limitTags={1}
       options={menuValues}
       renderInput={(params) => (
-        <TextField {...params} label="Sub Types" placeholder="Sub Type" />
+        <TextField {...params} label="Sub Types" multiline={false} />
       )}
-      groupBy={(option) =>
-        (option.type)?.charAt(0).toUpperCase() + (option.type)?.slice(1)}
-      getOptionLabel={(option) =>
-        (option.value)?.charAt(0).toUpperCase() + (option.value)?.slice(1)
-      }
+      groupBy={(option) => option.type?.charAt(0).toUpperCase() + option.type?.slice(1)}
       renderOption={(props, option, { selected }) => (
         <MenuItem {...props} sx={{ display: 'flex' }}>
-          {option.value}
-          <Checkbox sx={{ justifyContent: 'flex-end' }} checked={selected} />
+          {option.label}
+          {selected && (
+            <CheckIcon
+              sx={{
+                color: 'secondary.main',
+                ml: 'auto',
+                opacity: 0.6,
+                fontSize: '1.2em',
+              }}
+            />
+          )}
         </MenuItem>
       )}
+      sx={{
+        width: '20%',
+      }}
     />
   );
 };
-
-//Needs to pull the different subtypes of Contract Types from menuValues to render in all type names as ListSubheaders with their corresponding subtypes pulling from the values rendering in as menuitems
