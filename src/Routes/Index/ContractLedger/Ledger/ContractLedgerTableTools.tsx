@@ -83,16 +83,19 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
             padding: '1em',
             zIndex: '50',
             bgcolor: 'primary.dark',
-            opacity: '.8',
+            opacity: '.65',
             border: '2px ridge',
             borderColor: 'primary.main',
+            justifyContent: 'space-between',
+            gap: '1em',
+            flexWrap: 'wrap',
           }}
         >
           <SubTypeDropdownFilter />
           <AccessTimeFilterMenuDropdown />
           <ContractOwnerTypeFilterMenuDropdown />
-          <UECRangeDropdownFilter />
           <LocationFilterMenuDropdown />
+          <UECRangeDropdownFilter />
           <EmployerRatingFilterMenuDropdown />
         </Box>
       </Collapse>

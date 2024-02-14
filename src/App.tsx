@@ -33,6 +33,74 @@ const darkTheme = createTheme({
         },
       },
     },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'rgb(14, 49, 141, .8)',
+        },
+      },
+    },
+    MuiAutocomplete: {
+      styleOverrides: {
+        groupLabel: {
+          backgroundColor: 'rgb(14, 49, 141, .8)',
+        },
+        listbox: {
+          '&::-webkit-scrollbar': {
+            width: '10px',
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'rgb(8, 29, 68)',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            borderRadius: '20px',
+            background: 'rgb(121, 192, 244, .5)',
+          },
+          '&[aria-expanded="true"]': {
+            backdropFilter: 'blur(10px)',
+          },
+        },
+        option: {
+          color: 'rgb(211, 250, 254, .5)',
+          '&[aria-selected="true"]': {
+            backgroundColor: 'rgb(14, 49, 141, .8)',
+            color: 'rgb(211, 250, 254)',
+          },
+          '&:hover': {
+            backgroundColor: 'rgb(8, 29, 68, .5)',
+          },
+        },
+        clearIndicator: {
+          color: 'rgb(33, 150, 243)',
+          '&:hover': {
+            color: '#18FCFC',
+          },
+        },
+        popupIndicator: {
+          color: 'rgb(33, 150, 243)',
+          '&:hover': {
+            color: '#18FCFC',
+          },
+        },
+        tag: {
+          backgroundColor: 'rgb(14, 49, 141, .8)',
+          color: 'rgb(211, 250, 254, .8)',
+          '& .MuiChip-deleteIcon': {
+            color: 'rgb(211, 250, 254, .8)',
+          },
+          '&:hover': {
+            '& .MuiChip-deleteIcon': {
+              color: 'rgb(211, 250, 254)',
+            },
+          },
+        },
+        input: {
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#0e318d',
+          },
+        },
+      },
+    },
   },
 
   palette: {
