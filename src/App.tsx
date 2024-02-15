@@ -14,6 +14,15 @@ const darkTheme = createTheme({
         },
       },
     },
+    
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          position: 'absolute',
+          top: 'calc(100%)',
+        },
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         notchedOutline: {
@@ -133,7 +142,7 @@ const darkTheme = createTheme({
       main: '#ff8d0f',
     },
     error: {
-      main: '#ed0008',
+      main: '#ff0008',
     },
   },
 });

@@ -54,7 +54,7 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
         marginTop: '1em',
         '&:hover': {
           border: '5px ridge #79c0f4',
-          height: '8em',
+          width: '20em',
         },
         '&:active': {
           color: 'text.secondary',

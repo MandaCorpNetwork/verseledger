@@ -2,7 +2,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
-export const AccessTimeFilterMenuDropdown: React.FC<unknown> = () => {
+export const AccessTimeDropdownFilter: React.FC<unknown> = () => {
   const menuValues = [
     { value: 'all', label: 'All' },
     { value: '10minutes', label: '10 Minutes' },
