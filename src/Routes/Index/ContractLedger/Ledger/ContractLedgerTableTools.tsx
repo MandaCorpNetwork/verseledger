@@ -13,12 +13,12 @@ import {
 } from '@mui/material';
 import React, { useRef, useState } from 'react';
 
-import { AccessTimeFilterMenuDropdown } from '../Global/AccessTimeFilterMenuDropdown';
-import { ContractOwnerTypeFilterMenuDropdown } from '../Global/ContractOwnerTypeFilterMenuDropdown';
-import { EmployerRatingFilterMenuDropdown } from '../Global/EmployerRatingFilterMenuDropdown';
-import { LocationFilterMenuDropdown } from '../Global/LocationFilterMenuDropdown';
-import { SubTypeDropdownFilter } from '../Global/SubTypeDropdownFilter';
-import { UECRangeDropdownFilter } from '../Global/UECRangeDropdownFilter';
+import { AccessTimeDropdownFilter } from '@/Components/AccessTimeDropdownFilter';
+import { ContractOwnerTypeDropdownFilter } from '@/Components/ContractOwnerTypeDropdownFilter';
+import { EmployerRatingSliderFilter } from '@/Components/EmployerRatingSliderFilter';
+import { LocationDropdownFilter } from '@/Components/LocationDropdownFilter';
+import { SubTypeDropdownFilter } from '@/Components/SubTypeDropdownFilter';
+import { UECRangeInputFilter } from '@/Components/UECRangeInputFilter';
 
 export const ContractLedgerTableTools: React.FC<unknown> = () => {
   const [sortBy, setSortBy] = useState('');
@@ -63,7 +63,7 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
         }}
       >
         <FilterAltIcon />
-        <Typography>Filter</Typography>
+        <Typography sx={{ fontWeight: 'bold' }}>Filter</Typography>
       </Button>
       <Collapse
         id="Contract-Table-Filter-Drawer"
@@ -92,11 +92,11 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
           }}
         >
           <SubTypeDropdownFilter />
-          <AccessTimeFilterMenuDropdown />
-          <ContractOwnerTypeFilterMenuDropdown />
-          <LocationFilterMenuDropdown />
-          <UECRangeDropdownFilter />
-          <EmployerRatingFilterMenuDropdown />
+          <AccessTimeDropdownFilter />
+          <ContractOwnerTypeDropdownFilter />
+          <LocationDropdownFilter />
+          <UECRangeInputFilter />
+          <EmployerRatingSliderFilter />
         </Box>
       </Collapse>
       <Typography variant="h4">Contract Ledger</Typography>

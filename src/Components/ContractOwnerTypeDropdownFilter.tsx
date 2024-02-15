@@ -2,7 +2,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
-export const ContractOwnerTypeFilterMenuDropdown: React.FC<unknown> = () => {
+export const ContractOwnerTypeDropdownFilter: React.FC<unknown> = () => {
   const menuValues = [
     { value: 'all', label: 'All' },
     { value: 'individual', label: 'Individual' },

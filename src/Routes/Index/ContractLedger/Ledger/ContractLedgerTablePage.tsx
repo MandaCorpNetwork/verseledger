@@ -9,8 +9,8 @@ import ProxyLoop from '../../../../Assets/media/ContractLedger/ProxyLoop.webm?ur
 import RRRLoop from '../../../../Assets/media/ContractLedger/RRRLoop.webm?url';
 import SalvageLoop from '../../../../Assets/media/ContractLedger/SalvLoop.webm?url';
 import SecurityLoop from '../../../../Assets/media/ContractLedger/SecLoop.webm?url';
-import { ContractLedgerLoopButton } from './ContractLedgerLoopButton';
-import { ContractLedgerQuickNav } from './ContractLedgerQuickNav';
+import { ContractLedgerLoopButton } from '@/Components/ContractLedgerLoopButton';
+import { ContractLedgerQuickNav } from '../../../../Components/ContractLedgerQuickNav';
 import { ContractLedgerTableTools } from './ContractLedgerTableTools';
 
 export const ContractLedgerTablePage: React.FC<unknown> = () => {
@@ -61,7 +61,7 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
           flexDirection: 'row',
         }}
       >
-        <Box id="Game-Loop-Filters-Box" sx={{ marginLeft: '1.5em', maxWidth: '20%' }}>
+        <Box id="Game-Loop-Filters-Box" sx={{ marginLeft: '1.5em', width: '15%' }}>
           <ContractLedgerLoopButton
             title="Logistics"
             videoSource={LogisticsLoop}
