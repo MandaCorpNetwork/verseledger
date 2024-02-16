@@ -40,12 +40,9 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
       ref={toolsRef}
       sx={{
         display: 'flex',
-        border: '2px ridge ',
-        borderColor: 'primary.main',
+        border: '3px ridge ',
+        borderColor: 'text.disabled',
         height: '4.5em',
-        width: '50%',
-        marginLeft: '5%',
-        marginTop: '.5em',
         alignItems: 'center',
         justifyContent: 'space-between',
         position: 'relative',
@@ -73,6 +70,8 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
           position: 'absolute',
           top: '100%',
           width: '100%',
+          zIndex: '50',
+          backdropFilter: 'blur(10px)',
         }}
       >
         <Box
@@ -83,9 +82,7 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
             padding: '1em',
             zIndex: '50',
             bgcolor: 'primary.dark',
-            opacity: '.65',
-            border: '2px ridge',
-            borderColor: 'primary.main',
+            opacity: '.9',
             justifyContent: 'space-between',
             gap: '1em',
             flexWrap: 'wrap',

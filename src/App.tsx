@@ -7,6 +7,16 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const darkTheme = createTheme({
   components: {
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          padding: '0',
+          '&:last-child': {
+            paddingBottom: '0',
+          },
+        },
+      },
+    },
     MuiAppBar: {
       styleOverrides: {
         colorPrimary: {
@@ -14,7 +24,14 @@ const darkTheme = createTheme({
         },
       },
     },
-    
+    MuiToggleButton: {
+      styleOverrides: {
+        root: {
+          borderColor: '#18fcfc',
+          backgroundColor: '#0E318D',
+        },
+      },
+    },
     MuiFormHelperText: {
       styleOverrides: {
         root: {
