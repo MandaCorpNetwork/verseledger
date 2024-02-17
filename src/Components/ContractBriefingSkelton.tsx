@@ -40,7 +40,7 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
           <Skeleton
             id="Profile-Picture"
             variant="circular"
-            animation="pulse"
+            animation="wave"
             width={50}
             height={50}
             sx={{ ml: 'auto', bgcolor: 'primary.dark' }}
@@ -48,7 +48,7 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
           <Skeleton
             id="Rating"
             variant="rectangular"
-            animation="pulse"
+            animation="wave"
             width={60}
             height={20}
             sx={{ ml: 'auto', mr: 'auto', mt: 'auto', mb: '5%', bgcolor: 'primary.dark' }}
@@ -56,7 +56,7 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
           <Skeleton
             id="UserName"
             variant="text"
-            animation="pulse"
+            animation="wave"
             width={90}
             height={50}
             sx={{ ml: 'auto', mr: 'auto', bgcolor: 'primary.dark' }}
@@ -79,7 +79,7 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
           <Skeleton
             id="MainOrgLogo"
             variant="rectangular"
-            animation="pulse"
+            animation="wave"
             width={50}
             height={50}
             sx={{ ml: '20%', mr: '20%', bgcolor: 'primary.dark' }}
@@ -87,7 +87,7 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
           <Skeleton
             id="Rank"
             variant="text"
-            animation="pulse"
+            animation="wave"
             width={60}
             height={30}
             sx={{ m: 'auto', bgcolor: 'primary.dark' }}
@@ -95,7 +95,7 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
           <Skeleton
             id="Role"
             variant="text"
-            animation="pulse"
+            animation="wave"
             width={60}
             height={30}
             sx={{ m: 'auto', bgcolor: 'primary.dark' }}
@@ -115,7 +115,7 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
             id="Contract-Title"
             variant="h1"
             //This is actually matching the call fine in the DOM, please ignore.
-            animation="pulse"
+            animation="wave"
             width={200}
             height={50}
             sx={{ bgcolor: 'primary.dark', mt: '1em', mr: '1em' }}
@@ -125,7 +125,7 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
           <Skeleton
             id="Contract-Type"
             variant="text"
-            animation="pulse"
+            animation="wave"
             width={80}
             height={40}
             sx={{ bgcolor: 'primary.dark', zindex: '10', position: 'absolute' }}
@@ -133,174 +133,246 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
           <Skeleton
             id="Contract-SubType"
             variant="text"
-            animation="pulse"
+            animation="wave"
             width={80}
             height={40}
             sx={{ bgcolor: 'primary.dark', zindex: '20', mt: '2em' }}
           />
         </Box>
-        <Box id="Contract-Pay-Box" sx={{ display: 'flex', flexDirection: 'column'}}>
-        <Skeleton
-          id="ContractPayStructure"
-          variant="text"
-          animation="pulse"
-          width={100}
-          height={60}
-          sx={{ bgcolor: 'primary.dark', zIndex: '10', position: 'absolute' }}
-        />
-        <Skeleton
-          id="DefaultContractPay"
-          variant="text"
-          animation="pulse"
-          width={100}
-          height={60}
-          sx={{ bgcolor: 'primary.dark', mt: '2.8em' }}
-        />
+        <Box id="Contract-Pay-Box" sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Skeleton
+            id="ContractPayStructure"
+            variant="text"
+            animation="wave"
+            width={100}
+            height={60}
+            sx={{ bgcolor: 'primary.dark', zIndex: '10', position: 'absolute' }}
+          />
+          <Skeleton
+            id="DefaultContractPay"
+            variant="text"
+            animation="wave"
+            width={100}
+            height={60}
+            sx={{ bgcolor: 'primary.dark', mt: '2.8em' }}
+          />
+        </Box>
       </Box>
+      <Box
+        id="ContractDetails-Box"
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          width: '100%',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Box
+          id="ContractStatus-Box"
+          sx={{ display: 'flex', flexDirection: 'column', ml: '1em' }}
+        >
+          <Skeleton
+            id="ContractDuration"
+            variant="text"
+            animation="wave"
+            width={100}
+            height={75}
+            sx={{ bgcolor: 'primary.dark' }}
+          />
+          <Skeleton
+            id="ContractStatus"
+            variant="text"
+            animation="wave"
+            width={100}
+            height={75}
+            sx={{ bgcolor: 'primary.dark' }}
+          />
+          <Skeleton
+            id="ContractStartTime"
+            variant="text"
+            animation="wave"
+            width={100}
+            height={75}
+            sx={{ bgcolor: 'primary.dark' }}
+          />
+        </Box>
+        <Box
+          id="AcceptedContractor-Box"
+          sx={{
+            mr: '1em',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            mt: '1em',
+          }}
+        >
+          <Box
+            sx={{
+              bgcolor: 'background.default',
+              alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              padding: '.5em',
+            }}
+          >
+            <Skeleton
+              id="Contractors-Header"
+              variant="text"
+              animation="wave"
+              width={80}
+              sx={{ bgcolor: 'primary.dark', mb: '.5em' }}
+            />
+            <Skeleton
+              id="Contractor-Display-Block"
+              variant="rounded"
+              animation="wave"
+              width={150}
+              height={30}
+              sx={{ bgcolor: 'primary.dark' }}
+            />
+          </Box>
+        </Box>
+        <Box
+          id="ShipQueue-Box"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            mr: '1em',
+            justifyContent: 'center',
+            alignItems: 'center',
+            bgcolor: 'text.disabled',
+          }}
+        >
+          <Box
+            sx={{
+              bgcolor: 'background.default',
+              alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              padding: '.5em',
+            }}
+          >
+            <Skeleton
+              id="ShipQueue-Header"
+              variant="text"
+              animation="wave"
+              width={60}
+              sx={{ bgcolor: 'primary.dark' }}
+            />
+            <Skeleton
+              id="Ship-Box"
+              variant="text"
+              animation="wave"
+              width={130}
+              height={40}
+              sx={{ bgcolor: 'primary.dark' }}
+            />
+            <Skeleton
+              id="Ship-Box"
+              variant="text"
+              animation="wave"
+              width={130}
+              height={40}
+              sx={{ bgcolor: 'primary.dark' }}
+            />
+            <Skeleton
+              id="Ship-Box"
+              variant="text"
+              animation="wave"
+              width={130}
+              height={40}
+              sx={{ bgcolor: 'primary.dark' }}
+            />
+          </Box>
+        </Box>
       </Box>
-      <Box id="ContractDetails-Box" sx={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
-      <Box id="ContractStatus-Box" sx={{ display: 'flex', flexDirection: 'column', ml: '1em' }}>
-        <Skeleton
-          id="ContractDuration"
-          variant="text"
-          animation="pulse"
-          width={100}
-          height={75}
-          sx={{ bgcolor: 'primary.dark' }}
-        />
-        <Skeleton
-          id="ContractStatus"
-          variant="text"
-          animation="pulse"
-          width={100}
-          height={75}
-          sx={{ bgcolor: 'primary.dark'}}
-        />
-        <Skeleton
-          id="ContractStartTime"
-          variant="text"
-          animation="pulse"
-          width={100}
-          height={75}
-          sx={{ bgcolor: 'primary.dark' }}
-        />
-      </Box>
-      <Box id="AcceptedContractor-Box" sx={{ mr: '1em', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', mt: '1em' }}>
-        <Skeleton
-          id="Contractors-Header"
-          variant="text"
-          animation="pulse"
-          width={80}
-          sx={{ bgcolor: 'primary.dark', mb: '.5em' }}
-        />
-        <Skeleton
-          id="Contractor-Display-Block"
-          variant="rounded"
-          animation="pulse"
-          width={150}
-          height={30}
-          sx={{ bgcolor: 'primary.dark' }}
-        />
-      </Box>
-      <Box id="ShipQueue-Box" sx={{ display: 'flex', flexDirection: 'column', mr: '1em', justifyContent: 'center', alignItems: 'center' }}>
-        <Skeleton
-          id="ShipQueue-Header"
-          variant="text"
-          animation="pulse"
-          width={60}
-          sx={{ bgcolor: 'primary.dark' }}
-        />
-        <Skeleton
-          id="Ship-Box"
-          variant="text"
-          animation="pulse"
-          width={130}
-          height={40}
-          sx={{ bgcolor: 'primary.dark' }}
-        />
-                <Skeleton
-          id="Ship-Box"
-          variant="text"
-          animation="pulse"
-          width={130}
-          height={40}
-          sx={{ bgcolor: 'primary.dark' }}
-        />
-                <Skeleton
-          id="Ship-Box"
-          variant="text"
-          animation="pulse"
-          width={130}
-          height={40}
-          sx={{ bgcolor: 'primary.dark' }}
-        />
-      </Box>
-      </Box>
-      <Box id="ContractExpandedInfo-Box" sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
-      <Box id="ContractBriefing-Box" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '60%', ml: '1em' }}>
-        <Skeleton
-          id="ContractBriefing-Header"
-          variant="text"
-          animation="pulse"
-          width={70}
-          height={40}
-          sx={{ bgcolor: 'primary.dark' }}
-        />
-        <Skeleton
-          id="Brief-Text"
-          variant="text"
-          animation="pulse"
-          width={300}
-          sx={{ bgcolor: 'primary.dark' }}
-        />
-        <Skeleton
-          id="Brief-Text"
-          variant="text"
-          animation="pulse"
-          width={300}
-          sx={{ bgcolor: 'primary.dark' }}
-        />
-        <Skeleton
-          id="Brief-Text"
-          variant="text"
-          animation="pulse"
-          width={300}
-          sx={{ bgcolor: 'primary.dark' }}
-        />
-        <Skeleton
-          id="Brief-Text"
-          variant="text"
-          animation="pulse"
-          width={300}
-          sx={{ bgcolor: 'primary.dark' }}
-        />
-        <Skeleton
-          id="Brief-Text"
-          variant="text"
-          animation="pulse"
-          width={300}
-          sx={{ bgcolor: 'primary.dark' }}
-        />
-        <Skeleton
-          id="Brief-Text"
-          variant="text"
-          animation="pulse"
-          width={300}
-          sx={{ bgcolor: 'primary.dark' }}
-        />
-      </Box>
-      <Box id="Bid-Button-Box" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end'}}>
-        <Skeleton
-          id="Bid-Button"
-          variant="rounded"
-          animation="pulse"
-          width={100}
-          height={30}
-          sx={{ bgcolor: 'primary.dark', mb: '2em', mr: '1.5em' }}
-        />
-      </Box>
+      <Box
+        id="ContractExpandedInfo-Box"
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          width: '100%',
+        }}
+      >
+        <Box
+          id="ContractBriefing-Box"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: '60%',
+            ml: '1em',
+            bgcolor: 'background.default',
+            mb: '1em',
+          }}
+        >
+          <Skeleton
+            id="ContractBriefing-Header"
+            variant="text"
+            animation="wave"
+            width={70}
+            height={40}
+            sx={{ bgcolor: 'primary.dark' }}
+          />
+          <Skeleton
+            id="Brief-Text"
+            variant="text"
+            animation="wave"
+            width={250}
+            sx={{ bgcolor: 'primary.dark' }}
+          />
+          <Skeleton
+            id="Brief-Text"
+            variant="text"
+            animation="wave"
+            width={250}
+            sx={{ bgcolor: 'primary.dark' }}
+          />
+          <Skeleton
+            id="Brief-Text"
+            variant="text"
+            animation="wave"
+            width={250}
+            sx={{ bgcolor: 'primary.dark' }}
+          />
+          <Skeleton
+            id="Brief-Text"
+            variant="text"
+            animation="wave"
+            width={250}
+            sx={{ bgcolor: 'primary.dark' }}
+          />
+          <Skeleton
+            id="Brief-Text"
+            variant="text"
+            animation="wave"
+            width={250}
+            sx={{ bgcolor: 'primary.dark' }}
+          />
+          <Skeleton
+            id="Brief-Text"
+            variant="text"
+            animation="wave"
+            width={250}
+            sx={{ bgcolor: 'primary.dark' }}
+          />
+        </Box>
+        <Box
+          id="Bid-Button-Box"
+          sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+        >
+          <Skeleton
+            id="Bid-Button"
+            variant="rounded"
+            animation="wave"
+            width={100}
+            height={30}
+            sx={{ bgcolor: 'primary.dark', mb: '2em', mr: '1.5em' }}
+          />
+        </Box>
       </Box>
     </Box>
   );
 };
-
