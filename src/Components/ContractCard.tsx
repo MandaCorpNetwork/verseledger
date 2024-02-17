@@ -1,16 +1,15 @@
 import {
+  Avatar,
   Box,
   Card,
-  CardActions,
   CardContent,
-  Typography,
-  Avatar,
-  Tooltip,
   Chip,
   CircularProgress,
-  SvgIcon,
+  Tooltip,
+  Typography,
 } from '@mui/material';
-import TestAttacheIcon from '@/assets/icons/TestAttacheIcon';
+
+import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
 
 type ContractCardProps = {
   contractTitle: string;
@@ -27,7 +26,6 @@ type ContractCardProps = {
 };
 
 const subTypeIcon = TestAttacheIcon;
-
 export const ContractCard: React.FC<ContractCardProps> = ({
   contractTitle,
   contractOwner,
@@ -41,8 +39,31 @@ export const ContractCard: React.FC<ContractCardProps> = ({
   type,
   subType,
 }) => {
+
+  const LocationChip = (props) => {
+    return (
+      <Chip
+        {...props}
+        label="location test"
+        size="small"
+        sx={{
+          width: '5em',
+          backgroundColor: 'primary.light',
+          margin: '.1em',
+        }}
+      />
+    );
+  };
+
   return (
-    <Card sx={{ height: '10em', width: '15em', padding: '.5em' }}>
+    <Card
+      sx={{
+        height: '10em',
+        width: '15em',
+        padding: '.5em',
+        backgroundColor: 'primary.dark',
+      }}
+    >
       <CardContent
         sx={{
           display: 'flex',
@@ -52,11 +73,15 @@ export const ContractCard: React.FC<ContractCardProps> = ({
         }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <SvgIcon>
-            <img src={subTypeIcon} alt="" />
-          </SvgIcon>
+          <Tooltip title="Test Type | Test SubType">
+            <img src={TestAttacheIcon} alt="" width="30" />
+          </Tooltip>
           <Tooltip title="Test Owner">
-            <Avatar src={contractOwnerPicture} sx={{ mt: 'auto', mb: 'auto' }} />
+            <Avatar
+              src={contractOwnerPicture}
+              sizes="small"
+              sx={{ mt: 'auto', mb: 'auto' }}
+            />
           </Tooltip>
           <Tooltip title="Test Type & SubType">
             <Typography></Typography>
@@ -75,10 +100,10 @@ export const ContractCard: React.FC<ContractCardProps> = ({
             Test Title
           </Typography>
           <Box sx={{ flexGrow: 1, pl: '15%', pt: '10%' }}>
-            <Chip label="Star" size="small" />
-            <Chip label="Planet" size="small" />
-            <Chip label="Moon" size="small" />
-            <Chip label="Location" size="small" />
+            <LocationChip />
+            <LocationChip />
+            <LocationChip />
+            <LocationChip />
           </Box>
           <Box
             sx={{

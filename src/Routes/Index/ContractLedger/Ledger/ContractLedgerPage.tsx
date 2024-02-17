@@ -14,6 +14,7 @@ import SecurityLoop from '../../../../Assets/media/ContractLedger/SecLoop.webm?u
 import { ContractLedgerQuickNav } from '../../../../Components/ContractLedgerQuickNav';
 import { ContractLedgerContractsViewer } from './ContractLedgerContractsViewer';
 import { ContractLedgerTableTools } from './ContractLedgerTableTools';
+import { ContractBriefingDisplay } from './ContractBriefingDisplay';
 
 export const ContractLedgerTablePage: React.FC<unknown> = () => {
   const [selectedType, setSelectedType] = useState('');
@@ -63,7 +64,10 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
           flexDirection: 'row',
         }}
       >
-        <Box id="Game-Loop-Filters-Box" sx={{ marginLeft: '1.5em', width: '15%' }}>
+        <Box
+          id="Game-Loop-Filters-Box"
+          sx={{ marginLeft: '1.5em', width: '18%', overflow: 'hidden' }}
+        >
           <ContractLedgerLoopButton
             title="Logistics"
             videoSource={LogisticsLoop}
@@ -116,6 +120,17 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
         >
           <ContractLedgerTableTools />
           <ContractLedgerContractsViewer />
+        </Box>
+        <Box 
+          id="Contract-Briefing-Box"
+          sx={{
+            flexGrow: 1,
+            ml: '2%',
+            mr: '1em',
+            width: '30%',
+          }}
+        >
+          <ContractBriefingDisplay />
         </Box>
       </Box>
     </Box>
