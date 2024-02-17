@@ -7,6 +7,11 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const darkTheme = createTheme({
   components: {
+    MuiSkeleton: {
+      styleOverrides: {
+        root: {},
+      },
+    },
     MuiCardContent: {
       styleOverrides: {
         root: {
