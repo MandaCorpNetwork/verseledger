@@ -60,7 +60,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
         height: '10em',
         width: '15em',
         padding: '.5em',
-        backgroundColor: 'primary.dark',
+        backgroundColor: 'text.disabled',
       }}
     >
       <CardContent
@@ -109,9 +109,11 @@ export const ContractCard: React.FC<ContractCardProps> = ({
               display: 'inline',
               marginLeft: 'auto',
               marginTop: 'auto',
-              bgcolor: 'text.disabled',
+              bgcolor: 'background.dafault',
               padding: '.3em',
               borderRadius: '.3em',
+              border: '1px solid',
+              borderColor: 'text.light',
             }}
           >
             <Typography component="span">¤</Typography>

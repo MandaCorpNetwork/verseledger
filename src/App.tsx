@@ -9,7 +9,14 @@ const darkTheme = createTheme({
   components: {
     MuiSkeleton: {
       styleOverrides: {
-        root: {},
+        wave: {
+          '&:after': {
+            animation: 'animation-wiooy9 2s linear 0.5s infinite',
+            background:
+              'linear-gradient( 90deg, transparent, rgba(24, 252, 252, 0.1), transparent )', //(Check this color later for more vibrance to the skeleton animation)
+              //'linear-gradient( 90deg, transparent, rgba(211, 250, 254, 0.08), transparent )',
+          },
+        },
       },
     },
     MuiCardContent: {
@@ -68,6 +75,8 @@ const darkTheme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: 'rgb(14, 49, 141, .8)',
+          boxShadow:
+          '.5px 2px 3px -1px rgba(24,252,252,0.2), 0px 1px 3px 0px rgba(24,252,252,0.14), 0px 1.3px 3px 0px rgba(24,252,252,0.12)',
         },
       },
     },

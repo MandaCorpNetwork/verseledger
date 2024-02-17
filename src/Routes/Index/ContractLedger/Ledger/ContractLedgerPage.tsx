@@ -94,7 +94,7 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
             onClick={() => setSelectedType('Industry')}
           />
           <ContractLedgerLoopButton
-            title="RRR"
+            title="Rearm Refuel Repair"
             videoSource={RRRLoop}
             onClick={() => setSelectedType('RRR')}
           />
