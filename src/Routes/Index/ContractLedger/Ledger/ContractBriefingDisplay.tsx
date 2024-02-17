@@ -17,7 +17,8 @@ export const ContractBriefingDisplay: React.FC<unknown> = () => {
         flexWrap: 'wrap',
       }}
     >
-      <ContractBriefingViewer />
+      <ContractBriefingSkelton />
+      {/*<ContractBriefingViewer />*/}
     </Box>
-  )
+  );
 };

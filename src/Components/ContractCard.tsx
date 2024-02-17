@@ -2,7 +2,7 @@ import {
   Avatar,
   Box,
   Card,
-  CardContent,
+  CardActionArea,
   Chip,
   CircularProgress,
   Tooltip,
@@ -10,8 +10,10 @@ import {
 } from '@mui/material';
 
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
+import React from 'react';
 
 type ContractCardProps = {
+  contractId: number;
   contractTitle: string;
   contractOwner: string;
   contractOwnerPicture: string;
@@ -26,6 +28,7 @@ type ContractCardProps = {
 };
 
 export const ContractCard: React.FC<ContractCardProps> = ({
+  contractId,
   contractTitle,
   contractOwner,
   contractOwnerPicture,
@@ -37,8 +40,8 @@ export const ContractCard: React.FC<ContractCardProps> = ({
   payStructure,
   type,
   subType,
+  setOpenProp,
 }) => {
-
   const LocationChip = (props) => {
     return (
       <Chip
@@ -54,21 +57,33 @@ export const ContractCard: React.FC<ContractCardProps> = ({
     );
   };
 
+  const [open, setOpen] = React.useState(false);
+  const [openCardId, setOpenCardId] = React.useState(0);
+
+  const handleCardClick = () => {
+    setOpenProp(true);
+    setOpenCardId(contractId);
+  };
+
   return (
     <Card
       sx={{
         height: '10em',
         width: '15em',
-        padding: '.5em',
         backgroundColor: 'text.disabled',
+        '&:hover': {
+          boxShadow: '0 0 0 4px #0e318d',
+        },
       }}
     >
-      <CardContent
+      <CardActionArea
+        onClick={handleCardClick}
         sx={{
           display: 'flex',
           flexDirection: 'columns',
           height: '100%',
           width: '100%',
+          padding: '.5em',
         }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -122,7 +137,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
             </Tooltip>
           </Box>
         </Box>
-      </CardContent>
+      </CardActionArea>
     </Card>
   );
 };
