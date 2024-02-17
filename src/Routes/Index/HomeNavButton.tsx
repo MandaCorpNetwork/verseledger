@@ -19,7 +19,7 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({ title, videoSource
   //Hover Animation
   const [isHovered, setIsHovered] = useState(false);
   const [fontSize, setFontSize] = useState('1em');
-  const [fontWeight, setFontWeight] = useState('400');
+  const [fontWeight, setFontWeight] = useState('600');
   //Added fontSize to ensure the fontsize changes from Button hover and not Typography hover, as well as FontWeight
 
   const handleMouseEnter = () => {
@@ -27,7 +27,7 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({ title, videoSource
     const video = document.getElementById(videoSource) as HTMLVideoElement;
     video.play();
     setFontSize('1.2em');
-    setFontWeight('bold');
+    setFontWeight('700');
   };
 
   const handleMouseLeave = () => {
@@ -36,11 +36,7 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({ title, videoSource
     video.pause();
     video.currentTime = 0;
     setFontSize('1em');
-    setFontWeight('bold');
-
-    setTimeout(() => {
-      setFontWeight('400');
-    }); //Resets the fontWeight onMouseLeave
+    setFontWeight('600');
   };
 
   //Click Animations
