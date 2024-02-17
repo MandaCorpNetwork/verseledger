@@ -25,7 +25,6 @@ type ContractCardProps = {
   subType: string;
 };
 
-const subTypeIcon = TestAttacheIcon;
 export const ContractCard: React.FC<ContractCardProps> = ({
   contractTitle,
   contractOwner,
