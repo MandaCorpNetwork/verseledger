@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
-import { ContractLedgerLoopButton } from '@/Components/ContractLedgerLoopButton';
+import { ContractLedgerLoopButton } from '@/Components/Contracts/ContractLedgerLoopButton';
 
 import FleetLoop from '../../../../Assets/media/ContractLedger/FleetLoop.webm?url';
 import LogisticsLoop from '../../../../Assets/media/ContractLedger/LogiLoop.webm?url';
@@ -11,10 +11,10 @@ import ProxyLoop from '../../../../Assets/media/ContractLedger/ProxyLoop.webm?ur
 import RRRLoop from '../../../../Assets/media/ContractLedger/RRRLoop.webm?url';
 import SalvageLoop from '../../../../Assets/media/ContractLedger/SalvLoop.webm?url';
 import SecurityLoop from '../../../../Assets/media/ContractLedger/SecLoop.webm?url';
-import { ContractLedgerQuickNav } from '../../../../Components/ContractLedgerQuickNav';
+import { ContractLedgerQuickNav } from '../../../../Components/Contracts/ContractLedgerQuickNav';
+import { ContractBriefingDisplay } from './ContractBriefingDisplay';
 import { ContractLedgerContractsViewer } from './ContractLedgerContractsViewer';
 import { ContractLedgerTableTools } from './ContractLedgerTableTools';
-import { ContractBriefingDisplay } from './ContractBriefingDisplay';
 
 export const ContractLedgerTablePage: React.FC<unknown> = () => {
   const [selectedType, setSelectedType] = useState('');
@@ -121,7 +121,7 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
           <ContractLedgerTableTools />
           <ContractLedgerContractsViewer />
         </Box>
-        <Box 
+        <Box
           id="Contract-Briefing-Box"
           sx={{
             flexGrow: 1,

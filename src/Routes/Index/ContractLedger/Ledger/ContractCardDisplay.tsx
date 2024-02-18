@@ -1,12 +1,21 @@
-import { Box, Backdrop } from '@mui/material';
-import { ContractCard } from '@/Components/ContractCard';
+import { Backdrop, Box } from '@mui/material';
 import { auto } from '@popperjs/core';
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import { ContractCard } from '@/Components/Contracts/ContractCard';
+import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
+import { fetchContracts } from '@/Redux/Slices/Contracts/contractThunks';
+import { selectContracts } from '@/Redux/Slices/Contracts/contractSelectors';
 
 export const ContractCardDisplay: React.FC<unknown> = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const dispatch = useAppDispatch();
+  const contracts = useAppSelector((root) => selectContracts(root));
+  useEffect(() => {
+    dispatch(fetchContracts());
+  }, []);
 
   const [open, setOpen] = React.useState(false);
 
@@ -26,25 +35,22 @@ export const ContractCardDisplay: React.FC<unknown> = () => {
       <Backdrop
         open={open}
         onClick={handleClose}
-        sx={{ zIndex: '100', position: 'absolute', backgroundColor: 'rgba(0, 1, 19, 0.8)' }}
+        sx={{
+          zIndex: '100',
+          position: 'absolute',
+          backgroundColor: 'rgba(0, 1, 19, 0.8)',
+        }}
       />
-      {open && (
+      {/*{open && (
         <Modal>
-          <ContractCard />
+          <ContractCard id={} />
         </Modal>
-      )}
-      <ContractCard setOpenProp={(isOpen) => setOpen(isOpen)} />
-      <ContractCard />
-      <ContractCard />
-      <ContractCard />
-      <ContractCard />
-      <ContractCard />
-      <ContractCard />
-      <ContractCard />
-      <ContractCard />
-      <ContractCard />
-      <ContractCard />
-      <ContractCard />
+      )}*/}
+      {contracts.map((contract) => {
+        return (
+          <ContractCard contract={contract} key={contract.id} setOpenProp={(isOpen) => setOpen(isOpen)} />
+        );
+      })}
     </Box>
   );
 };

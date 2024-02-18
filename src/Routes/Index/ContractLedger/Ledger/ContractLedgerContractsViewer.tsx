@@ -1,6 +1,8 @@
 import { Box } from '@mui/material';
 import React from 'react';
-import { CardorTableViewToggle } from '@/Components/Card-TableViewToggle';
+
+import { CardorTableViewToggle } from '@/Components/Contracts/Card-TableViewToggle';
+
 import { ContractCardDisplay } from './ContractCardDisplay';
 
 export const ContractLedgerContractsViewer: React.FC<unknown> = () => {
