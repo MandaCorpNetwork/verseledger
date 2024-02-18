@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
-import { ContractBriefingSkelton } from '@/Components/ContractBriefingSkelton';
-import { ContractBriefingViewer } from '@/Components/ContractBriefingViewer';
+
+import { ContractBriefingSkelton } from '@/Components/Contracts/ContractBriefingSkelton';
+import { ContractBriefingViewer } from '@/Components/Contracts/ContractBriefingViewer';
 
 export const ContractBriefingDisplay: React.FC<unknown> = () => {
   return (
@@ -17,8 +18,8 @@ export const ContractBriefingDisplay: React.FC<unknown> = () => {
         flexWrap: 'wrap',
       }}
     >
-      <ContractBriefingSkelton />
-      {/*<ContractBriefingViewer />*/}
+      <ContractBriefingViewer />
+      {/* <ContractBriefingSkelton /> */}
     </Box>
   );
 };

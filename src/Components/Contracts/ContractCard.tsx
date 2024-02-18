@@ -8,45 +8,69 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-
-import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
 import React from 'react';
 
+import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
+import TestProfile from '@/Assets/media/TestProfile.png?url';
+import type { IContract } from '@/../verseledger-backend/src/interfaces/IContract'
 type ContractCardProps = {
-  contractId: number;
-  contractTitle: string;
-  contractOwner: string;
-  contractOwnerPicture: string;
-  contractOwnerRating: number;
-  createDate: Date;
-  bidTime: number;
-  location: string;
-  defaultPay: string;
-  payStructure: string;
-  type: string;
-  subType: string;
+  contract: IContract;
 };
 
 export const ContractCard: React.FC<ContractCardProps> = ({
-  contractId,
-  contractTitle,
-  contractOwner,
-  contractOwnerPicture,
-  contractOwnerRating,
-  createDate,
-  bidTime,
-  location,
-  defaultPay,
-  payStructure,
-  type,
-  subType,
-  setOpenProp,
+  contract
 }) => {
+  console.log('loading', contract)
+  const SunChip = (props) => {
+    return (
+      <Chip
+        {...props}
+        label="Sun"
+        size="small"
+        sx={{
+          width: '5em',
+          backgroundColor: 'primary.light',
+          margin: '.1em',
+        }}
+      />
+    );
+  };
+
+  const PlanetChip = (props) => {
+    return (
+      <Chip
+        {...props}
+        label="Planet"
+        size="small"
+        sx={{
+          width: '5em',
+          backgroundColor: 'primary.light',
+          margin: '.1em',
+        }}
+      />
+    );
+  };
+
+  const MoonChip = (props) => {
+    return (
+      <Chip
+        {...props}
+        label="Moon"
+        size="small"
+        sx={{
+          width: '5em',
+          backgroundColor: 'primary.light',
+          margin: '.1em',
+        }}
+      />
+    );
+  };
+
   const LocationChip = (props) => {
     return (
       <Chip
         {...props}
-        label="location test"
+        label={contract.location}
         size="small"
         sx={{
           width: '5em',
@@ -58,11 +82,9 @@ export const ContractCard: React.FC<ContractCardProps> = ({
   };
 
   const [open, setOpen] = React.useState(false);
-  const [openCardId, setOpenCardId] = React.useState(0);
 
   const handleCardClick = () => {
     setOpenProp(true);
-    setOpenCardId(contractId);
   };
 
   return (
@@ -87,18 +109,15 @@ export const ContractCard: React.FC<ContractCardProps> = ({
         }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Tooltip title="Test Type | Test SubType">
+          <Tooltip title={`${contract.type} | ${contract.subtype}`}>
             <img src={TestAttacheIcon} alt="" width="30" />
           </Tooltip>
           <Tooltip title="Test Owner">
             <Avatar
-              src={contractOwnerPicture}
+              src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.reddit.com%2Fuser%2Frandomasianmale%2Fcomments%2Fl9z6l7%2Fpop_cat_transparent_part_1%2F&psig=AOvVaw2X2w5SQZGST98_f2nCP9dp&ust=1708327805932000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCNDh-pKvtIQDFQAAAAAdAAAAABAE"
               sizes="small"
               sx={{ mt: 'auto', mb: 'auto' }}
             />
-          </Tooltip>
-          <Tooltip title="Test Type & SubType">
-            <Typography></Typography>
           </Tooltip>
           <CircularProgress color="secondary" sx={{ mt: 'auto' }} />
         </Box>
@@ -111,13 +130,15 @@ export const ContractCard: React.FC<ContractCardProps> = ({
               fontWeight: '600',
             }}
           >
-            Test Title
+            {contract.title}
           </Typography>
           <Box sx={{ flexGrow: 1, pl: '15%', pt: '10%' }}>
-            <LocationChip />
-            <LocationChip />
-            <LocationChip />
-            <LocationChip />
+            <SunChip />
+            <PlanetChip />
+            <MoonChip />
+            <Tooltip title={contract.location}>
+              <LocationChip />
+            </Tooltip>
           </Box>
           <Box
             sx={{
@@ -131,9 +152,17 @@ export const ContractCard: React.FC<ContractCardProps> = ({
               borderColor: 'text.light',
             }}
           >
-            <Typography component="span">¤</Typography>
-            <Tooltip title="Test Pay Structure">
-              <Typography component="span">5,555</Typography>
+            <Tooltip title={contract.payStructure}>
+              <Typography component="span">
+                ¤
+                {new Intl.NumberFormat('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  maximumFractionDigits: 0,
+                })
+                  .format(contract.pay)
+                  .substring(1)}
+              </Typography>
             </Tooltip>
           </Box>
         </Box>
