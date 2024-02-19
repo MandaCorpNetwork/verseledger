@@ -10,17 +10,21 @@ import {
 } from '@mui/material';
 import React from 'react';
 
+import type { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
 import TestProfile from '@/Assets/media/TestProfile.png?url';
-import type { IContract } from '@/../verseledger-backend/src/interfaces/IContract'
 type ContractCardProps = {
   contract: IContract;
+  onClick?: () => void;
 };
 
-export const ContractCard: React.FC<ContractCardProps> = ({
-  contract
-}) => {
-  console.log('loading', contract)
+export const ContractCard: React.FC<ContractCardProps> = ({ contract, onClick }) => {
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
+  };
+
   const SunChip = (props) => {
     return (
       <Chip
@@ -81,14 +85,9 @@ export const ContractCard: React.FC<ContractCardProps> = ({
     );
   };
 
-  const [open, setOpen] = React.useState(false);
-
-  const handleCardClick = () => {
-    setOpenProp(true);
-  };
-
   return (
     <Card
+      onClick={handleClick}
       sx={{
         height: '10em',
         width: '15em',
@@ -99,7 +98,6 @@ export const ContractCard: React.FC<ContractCardProps> = ({
       }}
     >
       <CardActionArea
-        onClick={handleCardClick}
         sx={{
           display: 'flex',
           flexDirection: 'columns',

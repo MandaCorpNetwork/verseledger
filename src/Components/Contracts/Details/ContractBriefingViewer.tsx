@@ -334,8 +334,20 @@ export const ContractBriefingViewer: React.FC<ContractBriefingViewerProps> = ({
         </Box>
         <Box
           id="Bid-Button-Box"
-          sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            flexDirection: 'column',
+          }}
         >
+          <Button
+            id="Close-Button"
+            variant="contained"
+            sx={{ bgcolor: 'primary.dark', mb: '1em', mr: '1.5em' }}
+          >
+            close
+          </Button>
           <Button
             id="Bid-Button"
             variant="contained"

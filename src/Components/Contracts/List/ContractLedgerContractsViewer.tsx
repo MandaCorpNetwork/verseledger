@@ -1,9 +1,9 @@
 import { Box } from '@mui/material';
 import React from 'react';
 
-import { CardorTableViewToggle } from '@/Components/Contracts/Card-TableViewToggle';
+import { CardorTableViewToggle } from '@/Components/Contracts/List/CardView/Card-TableViewToggle';
 
-import { ContractCardDisplay } from './ContractCardDisplay';
+import { ContractCardDisplay } from './CardView/ContractCardDisplay';
 
 export const ContractLedgerContractsViewer: React.FC<unknown> = () => {
   return (
@@ -27,16 +27,6 @@ export const ContractLedgerContractsViewer: React.FC<unknown> = () => {
           flexGrow: 1,
           display: 'flex',
           overflow: 'auto',
-          '&::-webkit-scrollbar': {
-            width: '10px',
-          },
-          '&::-webkit-scrollbar-track': {
-            background: 'rgb(8, 29, 68)',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            borderRadius: '20px',
-            background: 'rgb(121, 192, 244, .5)',
-          },
         }}
       >
         <ContractCardDisplay />

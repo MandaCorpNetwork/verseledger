@@ -13,12 +13,12 @@ import {
 } from '@mui/material';
 import React, { useRef, useState } from 'react';
 
-import { AccessTimeDropdownFilter } from '@/Components/Contracts/AccessTimeDropdownFilter';
-import { ContractOwnerTypeDropdownFilter } from '@/Components/Contracts/ContractOwnerTypeDropdownFilter';
-import { EmployerRatingSliderFilter } from '@/Components/Contracts/EmployerRatingSliderFilter';
-import { LocationDropdownFilter } from '@/Components/Contracts/LocationDropdownFilter';
-import { SubTypeDropdownFilter } from '@/Components/Contracts/SubTypeDropdownFilter';
-import { UECRangeInputFilter } from '@/Components/Contracts/UECRangeInputFilter';
+import { AccessTimeDropdownFilter } from '@/Components/Contracts/Filters/AccessTimeDropdownFilter';
+import { ContractOwnerTypeDropdownFilter } from '@/Components/Contracts/Filters/ContractOwnerTypeDropdownFilter';
+import { EmployerRatingSliderFilter } from '@/Components/Contracts/Filters/EmployerRatingSliderFilter';
+import { LocationDropdownFilter } from '@/Components/Contracts/Filters/LocationDropdownFilter';
+import { SubTypeDropdownFilter } from '@/Components/Contracts/Filters/SubTypeDropdownFilter';
+import { UECRangeInputFilter } from '@/Components/Contracts/Filters/UECRangeInputFilter';
 
 export const ContractLedgerTableTools: React.FC<unknown> = () => {
   const [sortBy, setSortBy] = useState('');

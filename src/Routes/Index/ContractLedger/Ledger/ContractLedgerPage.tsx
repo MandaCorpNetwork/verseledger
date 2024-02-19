@@ -12,9 +12,9 @@ import RRRLoop from '../../../../Assets/media/ContractLedger/RRRLoop.webm?url';
 import SalvageLoop from '../../../../Assets/media/ContractLedger/SalvLoop.webm?url';
 import SecurityLoop from '../../../../Assets/media/ContractLedger/SecLoop.webm?url';
 import { ContractLedgerQuickNav } from '../../../../Components/Contracts/ContractLedgerQuickNav';
-import { ContractBriefingDisplay } from './ContractBriefingDisplay';
-import { ContractLedgerContractsViewer } from './ContractLedgerContractsViewer';
-import { ContractLedgerTableTools } from './ContractLedgerTableTools';
+import { ContractBriefingDisplay } from '../../../../Components/Contracts/Details/ContractBriefingDisplay';
+import { ContractLedgerTableTools } from '../../../../Components/Contracts/Filters/ContractLedgerTableTools';
+import { ContractLedgerContractsViewer } from '../../../../Components/Contracts/List/ContractLedgerContractsViewer';
 
 export const ContractLedgerTablePage: React.FC<unknown> = () => {
   const [selectedType, setSelectedType] = useState('');
