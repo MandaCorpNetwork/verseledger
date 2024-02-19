@@ -1,5 +1,7 @@
-import { isDev } from '@/Helpers/isDev';
 import axios from 'axios';
+
+import { isDev } from '@/Helpers/isDev';
+
 import AuthService from './AuthService';
 
 class NetworkService {

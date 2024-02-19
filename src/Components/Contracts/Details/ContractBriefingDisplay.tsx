@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 
-import { ContractBriefingSkelton } from '@/Components/Contracts/ContractBriefingSkelton';
-import { ContractBriefingViewer } from '@/Components/Contracts/ContractBriefingViewer';
+import { ContractBriefingSkelton } from '@/Components/Contracts/Details/ContractBriefingSkelton';
+import { ContractBriefingViewer } from '@/Components/Contracts/Details/ContractBriefingViewer';
 
 export const ContractBriefingDisplay: React.FC<unknown> = () => {
   return (
