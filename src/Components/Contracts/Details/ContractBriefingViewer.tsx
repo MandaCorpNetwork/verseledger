@@ -5,49 +5,17 @@ import {
   Button,
   Divider,
   Rating,
-  Skeleton,
   Typography,
 } from '@mui/material';
+import React from 'react';
 
-type ContractBriefingViewerProps = {
-  Title: string;
-  Type: string;
-  SubType: string;
-  Owner: string;
-  OwnerPicture: string;
-  OwnerRating: number;
-  OwnerOrg: string;
-  OwnerRank: string;
-  OwnerRole: string;
-  PayStructure: string;
-  DefaultPay: string;
-  Duration: number;
-  StartTime: number;
-  Status: string;
-  AcceptedContractors: string;
-  FleetAllocation: string;
-  BriefingText: string;
+import type { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
+
+type BriefingViewerProps = {
+  contract: IContract;
 };
 
-export const ContractBriefingViewer: React.FC<ContractBriefingViewerProps> = ({
-  Title,
-  Type,
-  SubType,
-  Owner,
-  OwnerPicture,
-  OwnerRating,
-  OwnerOrg,
-  OwnerRank,
-  OwnerRole,
-  PayStructure,
-  DefaultPay,
-  Duration,
-  StartTime,
-  Status,
-  AcceptedContractors,
-  FleetAllocation,
-  BriefingText,
-}) => {
+export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract }) => {
   return (
     <Box
       sx={{
@@ -86,7 +54,7 @@ export const ContractBriefingViewer: React.FC<ContractBriefingViewerProps> = ({
         >
           <Avatar
             id="Profile-Picture"
-            src={OwnerPicture}
+            src="https://images.unsplash.com/photo-1502685104226-ee32"
             sx={{ ml: 'auto', bgcolor: 'primary.dark' }}
           />
           <Rating
@@ -144,7 +112,7 @@ export const ContractBriefingViewer: React.FC<ContractBriefingViewerProps> = ({
       >
         <Box id="Title-Box" sx={{ display: 'flex', mb: '0' }}>
           <Typography id="Title" variant="h5" sx={{ mt: '1em', mr: '1em' }}>
-            Contract Title
+            {contract.title}
           </Typography>
         </Box>
         <Box id="Type-Box" sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -236,7 +204,7 @@ export const ContractBriefingViewer: React.FC<ContractBriefingViewerProps> = ({
               Accepted Contractor
             </Typography>
             <Box id="Contractor-Display-Block" sx={{}}>
-              <AvatarGroup alt="Accepted Contractors" src={AcceptedContractors} max={5} />
+              <AvatarGroup max={5} />
             </Box>
           </Box>
         </Box>
@@ -259,12 +227,7 @@ export const ContractBriefingViewer: React.FC<ContractBriefingViewerProps> = ({
               padding: '.5em',
             }}
           >
-            <Typography
-              id="ShipQueue-Header"
-              variant="subtitle1"
-              animation="wave"
-              sx={{}}
-            >
+            <Typography id="ShipQueue-Header" sx={{}}>
               Ship Queue
             </Typography>
             <Box id="Ship-Box" sx={{ bgcolor: 'primary.dark', display: 'flex' }}>
@@ -322,13 +285,7 @@ export const ContractBriefingViewer: React.FC<ContractBriefingViewerProps> = ({
           >
             Briefing
           </Typography>
-          <Typography
-            id="Brief-Text"
-            variant="body2"
-            animation="wave"
-            width={250}
-            sx={{}}
-          >
+          <Typography id="Brief-Text" sx={{}}>
             This is where the paragraph of text will go.
           </Typography>
         </Box>

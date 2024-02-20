@@ -13,6 +13,7 @@ import React from 'react';
 import type { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
 import TestProfile from '@/Assets/media/TestProfile.png?url';
+
 type ContractCardProps = {
   contract: IContract;
   onClick?: () => void;
