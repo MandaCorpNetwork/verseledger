@@ -49,6 +49,17 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
   }, [selectedType]);
   //Console Log for Selected Loop for testing
 
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const handleContractPick = (id: number | null) => {
+    setSelectedId(id);
+  };
+  useEffect(() => {
+    console.log(`SelectedId: ${selectedId}`);
+  }, [selectedId]);
+  //Contract Selection for selecting a certain Contract
+  const handleContractClose = () => {
+    setSelectedId(null);
+  };
   return (
     <Box>
       <Box sx={{ marginTop: '1.5em' }}>
@@ -119,7 +130,11 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
           }}
         >
           <ContractLedgerTableTools />
-          <ContractLedgerContractsViewer />
+          <ContractLedgerContractsViewer
+            selectedId={selectedId}
+            selectedIdSetter={handleContractPick}
+            contractOnClose={handleContractClose}
+          />
         </Box>
         <Box
           id="Contract-Briefing-Box"
@@ -130,7 +145,7 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
             width: '30%',
           }}
         >
-          <ContractBriefingDisplay />
+          <ContractBriefingDisplay selectedId={selectedId} />
         </Box>
       </Box>
     </Box>

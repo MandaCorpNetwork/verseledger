@@ -1,21 +1,22 @@
 import { Box } from '@mui/material';
-import React, { useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { CardorTableViewToggle } from '@/Components/Contracts/List/CardView/Card-TableViewToggle';
 import { PickedContractModal } from '@/Components/Contracts/List/CardView/PickedContractModal';
-import { selectContracts } from '@/Redux/Slices/Contracts/contractSelectors';
-import { fetchContracts } from '@/Redux/Slices/Contracts/contractThunks';
 
 import { ContractCardDisplay } from './CardView/ContractCardDisplay';
-export const ContractContext = React.createContext(null);
 
-export const ContractLedgerContractsViewer: React.FC<unknown> = () => {
-  const [selectedId, setSelectedId] = useState<number | null>(null);
-  const handleContractPick = (id: number | null) => {
-    setSelectedId(id);
-  };
-  //Contract Selection for selecting a certain Contract
+type ContractLedgerContractsViewerProps = {
+  selectedId: number | null;
+  selectedIdSetter: (id: number | null) => void;
+  contractOnClose: () => void;
+};
 
+export const PickedContractContext = React.createContext<number | null>(null);
+
+export const ContractLedgerContractsViewer: React.FC<
+  ContractLedgerContractsViewerProps
+> = ({ selectedId, selectedIdSetter, contractOnClose }) => {
   return (
     <Box
       id="Contract-Viewer-Box"
@@ -32,7 +33,9 @@ export const ContractLedgerContractsViewer: React.FC<unknown> = () => {
       <Box id="Contract-Display-Toggle-Box" sx={{ padding: '.5em', marginLeft: 'auto' }}>
         <CardorTableViewToggle />
       </Box>
-      <PickedContractModal selectedId={selectedId} />
+      <PickedContractContext.Provider value={selectedId}>
+        <PickedContractModal selectedId={selectedId} onClose={contractOnClose} />
+      </PickedContractContext.Provider>
       <Box
         id="Contract-Display-Box"
         sx={{
@@ -52,7 +55,8 @@ export const ContractLedgerContractsViewer: React.FC<unknown> = () => {
           },
         }}
       >
-        <ContractCardDisplay onPick={handleContractPick} />
+
+        <ContractCardDisplay onPick={selectedIdSetter} />
       </Box>
     </Box>
   );
