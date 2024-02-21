@@ -3,6 +3,7 @@ import React from 'react';
 
 import { ContractCard } from '@/Components/Contracts/List/CardView/ContractCard';
 import { useAppSelector } from '@/Redux/hooks';
+import { pickContract } from '@/Redux/Slices/Contracts/contractSelectors';
 
 type PickedContractModalProps = {
   selectedId: number | null;
@@ -11,9 +12,7 @@ type PickedContractModalProps = {
 export const PickedContractModal: React.FC<PickedContractModalProps> = ({
   selectedId,
 }) => {
-  const pickedContract = useAppSelector((root) =>
-    root.contracts.find((c) => c.id === selectedId),
-  );
+  const pickedContract = useAppSelector((root) => pickContract(root, selectedId));
 
   return (
     <>
