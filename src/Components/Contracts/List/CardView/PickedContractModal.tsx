@@ -1,18 +1,23 @@
-import { Modal } from '@mui/material';
-import React from 'react';
-
+import { Modal, Box, Button } from '@mui/material';
+import React, { useEffect } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
 import { ContractCard } from '@/Components/Contracts/List/CardView/ContractCard';
 import { useAppSelector } from '@/Redux/hooks';
 import { pickContract } from '@/Redux/Slices/Contracts/contractSelectors';
 
 type PickedContractModalProps = {
   selectedId: number | null;
+  onClose: () => void;
 };
 
 export const PickedContractModal: React.FC<PickedContractModalProps> = ({
   selectedId,
+  onClose,
 }) => {
   const pickedContract = useAppSelector((root) => pickContract(root, selectedId));
+  useEffect(() => {
+    console.log(`PickedContractModal: ${selectedId}`);
+  }, [selectedId]);
 
   return (
     <>
@@ -39,7 +44,10 @@ export const PickedContractModal: React.FC<PickedContractModalProps> = ({
             },
           }}
         >
-          <ContractCard contract={pickedContract} />
+          <Box>
+            <Button endIcon={<CloseIcon />} onClick={onClose}>Close</Button>
+            <ContractCard contract={pickedContract} />
+          </Box>
         </Modal>
       )}
     </>

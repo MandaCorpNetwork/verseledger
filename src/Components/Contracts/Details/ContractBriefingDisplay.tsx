@@ -1,10 +1,22 @@
 import { Box } from '@mui/material';
+import React, { useEffect } from 'react';
 
 import { ContractBriefingSkelton } from '@/Components/Contracts/Details/ContractBriefingSkelton';
 import { ContractBriefingViewer } from '@/Components/Contracts/Details/ContractBriefingViewer';
+import { useAppSelector } from '@/Redux/hooks';
+import { pickContract } from '@/Redux/Slices/Contracts/contractSelectors';
 
-export const ContractBriefingDisplay: React.FC<unknown> = () => {
+type ContractBriefingDisplayProps = {
+  selectedId: number | null;
+};
 
+export const ContractBriefingDisplay: React.FC<ContractBriefingDisplayProps> = ({
+  selectedId,
+}) => {
+  const pickedContract = useAppSelector((root) => pickContract(root, selectedId));
+  useEffect(() => {
+    console.log(`ContractBriefingDisplay: ${selectedId}`);
+  }, [selectedId]);
   return (
     <Box
       sx={{
@@ -19,8 +31,11 @@ export const ContractBriefingDisplay: React.FC<unknown> = () => {
         flexWrap: 'wrap',
       }}
     >
-        <ContractBriefingViewer />
-      {/* <ContractBriefingSkelton /> */}
+      {pickedContract ? (
+        <ContractBriefingViewer contract={pickedContract} />
+      ) : (
+        <ContractBriefingSkelton />
+      )}
     </Box>
   );
 };
