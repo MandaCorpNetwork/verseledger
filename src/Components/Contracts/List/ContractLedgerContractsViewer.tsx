@@ -15,7 +15,6 @@ export const ContractLedgerContractsViewer: React.FC<unknown> = () => {
     setSelectedId(id);
   };
   //Contract Selection for selecting a certain Contract
-  const [selectedContract, setSelectedContract] = useState<Contract | null>(null);
 
   return (
     <Box

@@ -10,12 +10,21 @@ import {
 import React from 'react';
 
 import type { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
+import { useAppSelector } from '@/Redux/hooks';
 
 type BriefingViewerProps = {
   contract: IContract;
+  selectedId: number | null;
 };
 
-export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract }) => {
+export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({
+  contract,
+  selectedId,
+}) => {
+  const pickedContract = useAppSelector((root) =>
+    root.contracts.find((c) => c.id === selectedId),
+  );
+
   return (
     <Box
       sx={{
@@ -63,7 +72,8 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
             sx={{ ml: 'auto', mr: 'auto', mt: 'auto', mb: '5%' }}
           />
           <Typography id="UserName" sx={{ ml: 'auto', mr: 'auto' }}>
-            UserName
+            {/* Test Area Using Contract.title */}
+            {contract?.title}
           </Typography>
         </Box>
         <Divider
@@ -112,7 +122,7 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
       >
         <Box id="Title-Box" sx={{ display: 'flex', mb: '0' }}>
           <Typography id="Title" variant="h5" sx={{ mt: '1em', mr: '1em' }}>
-            {contract.title}
+            {pickedContract?.title}
           </Typography>
         </Box>
         <Box id="Type-Box" sx={{ display: 'flex', flexDirection: 'column' }}>

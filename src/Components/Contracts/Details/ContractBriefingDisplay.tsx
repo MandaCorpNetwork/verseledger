@@ -1,22 +1,10 @@
 import { Box } from '@mui/material';
 
-import type { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
 import { ContractBriefingSkelton } from '@/Components/Contracts/Details/ContractBriefingSkelton';
 import { ContractBriefingViewer } from '@/Components/Contracts/Details/ContractBriefingViewer';
-import { useAppSelector } from '@/Redux/hooks';
 
-type PickedContractBriefing = {
-  selectedId: number | null;
-  contract: IContract;
-};
+export const ContractBriefingDisplay: React.FC<unknown> = () => {
 
-export const ContractBriefingDisplay: React.FC<PickedContractBriefing> = ({
-  selectedId,
-  contract,
-}) => {
-  const pickedContract = useAppSelector((root) =>
-    root.contracts.find((c) => c.id === selectedId),
-  );
   return (
     <Box
       sx={{
@@ -31,7 +19,7 @@ export const ContractBriefingDisplay: React.FC<PickedContractBriefing> = ({
         flexWrap: 'wrap',
       }}
     >
-      {pickedContract && <ContractBriefingViewer contract={pickedContract} />}
+        <ContractBriefingViewer />
       {/* <ContractBriefingSkelton /> */}
     </Box>
   );
