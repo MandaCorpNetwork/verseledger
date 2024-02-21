@@ -10,21 +10,12 @@ import {
 import React from 'react';
 
 import type { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
-import { useAppSelector } from '@/Redux/hooks';
 
 type BriefingViewerProps = {
   contract: IContract;
-  selectedId: number | null;
 };
 
-export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({
-  contract,
-  selectedId,
-}) => {
-  const pickedContract = useAppSelector((root) =>
-    root.contracts.find((c) => c.id === selectedId),
-  );
-
+export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract }) => {
   return (
     <Box
       sx={{
@@ -72,8 +63,7 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({
             sx={{ ml: 'auto', mr: 'auto', mt: 'auto', mb: '5%' }}
           />
           <Typography id="UserName" sx={{ ml: 'auto', mr: 'auto' }}>
-            {/* Test Area Using Contract.title */}
-            {contract?.title}
+            UserName
           </Typography>
         </Box>
         <Divider
@@ -122,15 +112,15 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({
       >
         <Box id="Title-Box" sx={{ display: 'flex', mb: '0' }}>
           <Typography id="Title" variant="h5" sx={{ mt: '1em', mr: '1em' }}>
-            {pickedContract?.title}
+            {contract.title}
           </Typography>
         </Box>
         <Box id="Type-Box" sx={{ display: 'flex', flexDirection: 'column' }}>
           <Typography id="Type" variant="subtitle1" sx={{}}>
-            Contract Type
+            {contract.type}
           </Typography>
           <Typography id="SubType" variant="caption" sx={{}}>
-            Contract SubType
+            {contract.subtype}
           </Typography>
         </Box>
         <Box id="Pay-Box" sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -139,7 +129,7 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({
               Pay Structure
             </Typography>
             <Typography id="PayStructure-Text" variant="subtitle2" sx={{}}>
-              Pay Structure Text
+              {contract.payStructure}
             </Typography>
           </Box>
           <Box>

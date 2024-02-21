@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { IContract } from '../../../../../verseledger-backend/src/interfaces/IContract';
 import { fetchContracts } from './contractThunks';
+
 const initialState: Array<IContract> = [];
 const contractsReducer = createSlice({
   name: 'contracts',
