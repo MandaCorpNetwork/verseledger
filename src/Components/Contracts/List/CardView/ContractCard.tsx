@@ -9,10 +9,11 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
+import { CountdownTimer } from '@/Components/CountdownTimer';
 
 import type { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
-import TestProfile from '@/Assets/media/TestProfile.png?url';
+import TestProfile from '@/Assets/TestProfile.png?url';
 
 type ContractCardProps = {
   contract: IContract;
@@ -73,16 +74,18 @@ export const ContractCard: React.FC<ContractCardProps> = ({ contract, onClick })
 
   const LocationChip = (props) => {
     return (
-      <Chip
-        {...props}
-        label={contract.location}
-        size="small"
-        sx={{
-          width: '5em',
-          backgroundColor: 'primary.light',
-          margin: '.1em',
-        }}
-      />
+      <Tooltip title={contract.location}>
+        <Chip
+          {...props}
+          label={contract.location}
+          size="small"
+          sx={{
+            width: '5em',
+            backgroundColor: 'primary.light',
+            margin: '.1em',
+          }}
+        />
+      </Tooltip>
     );
   };
 
@@ -107,37 +110,48 @@ export const ContractCard: React.FC<ContractCardProps> = ({ contract, onClick })
           padding: '.5em',
         }}
       >
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '20%',
+            height: '100%',
+          }}
+        >
           <Tooltip title={`${contract.type} | ${contract.subtype}`}>
             <img src={TestAttacheIcon} alt="" width="30" />
           </Tooltip>
           <Tooltip title="Test Owner">
-            <Avatar
-              src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.reddit.com%2Fuser%2Frandomasianmale%2Fcomments%2Fl9z6l7%2Fpop_cat_transparent_part_1%2F&psig=AOvVaw2X2w5SQZGST98_f2nCP9dp&ust=1708327805932000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCNDh-pKvtIQDFQAAAAAdAAAAABAE"
-              sizes="small"
-              sx={{ mt: 'auto', mb: 'auto' }}
-            />
+            <Avatar src={TestProfile} sizes="small" sx={{ mt: 'auto', mb: 'auto' }} />
           </Tooltip>
-          <CircularProgress color="secondary" sx={{ mt: 'auto' }} />
+          <Box sx={{ mt: 'auto', position: 'relative', mb: '.2em' }}>
+            <CountdownTimer
+              targetDate={contract.bidEnd}
+              updateDate={contract.updatedAt}
+              timerUse={'Bidding'}
+            />
+          </Box>
         </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Typography
-            variant="h6"
-            sx={{
-              paddingLeft: '.5em',
-              overflow: 'hidden',
-              fontWeight: '600',
-            }}
-          >
-            {contract.title}
-          </Typography>
-          <Box sx={{ flexGrow: 1, pl: '15%', pt: '10%' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
+          <Tooltip title={contract.title}>
+            <Typography
+              variant="h6"
+              sx={{
+                paddingLeft: '.5em',
+                overflow: 'hidden',
+                fontWeight: '600',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {contract.title}
+            </Typography>
+          </Tooltip>
+          <Box sx={{ flexGrow: 1, pl: '15%', pt: '10%', mb: '5%' }}>
             <SunChip />
             <PlanetChip />
             <MoonChip />
-            <Tooltip title={contract.location}>
-              <LocationChip />
-            </Tooltip>
+            <LocationChip />
           </Box>
           <Box
             sx={{

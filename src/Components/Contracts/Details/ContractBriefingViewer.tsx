@@ -137,7 +137,7 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
               Contract Pay
             </Typography>
             <Typography id="DefaultContractPay-Text" variant="subtitle2" sx={{}}>
-              Contract Pay Text
+              {contract.pay}
             </Typography>
           </Box>
         </Box>
@@ -298,13 +298,6 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
             flexDirection: 'column',
           }}
         >
-          <Button
-            id="Close-Button"
-            variant="contained"
-            sx={{ bgcolor: 'primary.dark', mb: '1em', mr: '1.5em' }}
-          >
-            close
-          </Button>
           <Button
             id="Bid-Button"
             variant="contained"
