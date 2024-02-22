@@ -45,7 +45,7 @@ export const PickedContractModal: React.FC<PickedContractModalProps> = ({
           }}
         >
           <Box>
-            <Button endIcon={<CloseIcon />} onClick={onClose}>Close</Button>
+            <Button endIcon={<CloseIcon />} onClick={onClose} sx={{ color: 'text.secondary', mb: '10%' }}>Close</Button>
             <ContractCard contract={pickedContract} />
           </Box>
         </Modal>
