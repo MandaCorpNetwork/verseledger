@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import { CountdownTimer } from '@/Components/CountdownTimer';
+import { CountdownTimer } from '@/Components/Global/CountdownTimer';
 
 import type { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
