@@ -59,6 +59,9 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
         const distance = targetStart - now;
         //Calculates the distance between the current time and the targetDate
 
+        const formatTime = (val) => `0${val}`.slice(-2);
+        //Formats the time to be in a 2 digit format
+
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -81,7 +84,7 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
           setCountDown(`${hours}:${minutes}`);
           setCountDownFormat('HH:MM');
           setCountDownHelper(`${hours} Hours ${minutes} Minutes`);
-        } else if (days == 0 && hours == 0) {
+        } else if (days == 0 && hours <= 0) {
           setCountDown(`${minutes}`);
           setCountDownFormat('Minutes');
           setCountDownHelper(`${minutes} Minutes`);
@@ -89,7 +92,7 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
           setCountDown(`${minutes}:${seconds}`);
           setCountDownFormat('MM:SS');
           setCountDownHelper(`${minutes} Minutes ${seconds} Seconds`);
-        } else if (minutes < 0 && minutes > 0) {
+        } else if (minutes < 0 && seconds > 0) {
           setCountDown(`${seconds}`);
           setCountDownFormat('Seconds');
           setCountDownHelper(`${seconds} Seconds`);
