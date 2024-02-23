@@ -33,16 +33,13 @@ export const ContractLedgerContractsViewer: React.FC<
       <Box id="Contract-Display-Toggle-Box" sx={{ padding: '.5em', marginLeft: 'auto' }}>
         <CardorTableViewToggle />
       </Box>
-      <PickedContractContext.Provider value={selectedId}>
-        <PickedContractModal selectedId={selectedId} onClose={contractOnClose} />
-      </PickedContractContext.Provider>
       <Box
         id="Contract-Display-Box"
         sx={{
           flexGrow: 1,
           display: 'flex',
           position: 'relative',
-          overflow: selectedId ? 'hidden' : 'auto',
+          overflow: 'auto',
           '&::-webkit-scrollbar': {
             width: '10px',
           },

@@ -1,26 +1,33 @@
+//ContractCard is the Contract Displayer Item that is mapped for the contracts pulled from the database. It is displayed in the ContractCardDisplay component.
+//This is a low level amount of information for a contract
+//This Contract passes it's ID to the ContractCardDisplay when clicked and sets itself to selected to display it's full information in the ContractBriefingViewer
 import {
   Avatar,
   Box,
   Card,
   CardActionArea,
   Chip,
-  CircularProgress,
   Tooltip,
   Typography,
 } from '@mui/material';
 import React from 'react';
-import { CountdownTimer } from '@/Components/Global/CountdownTimer';
 
 import type { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
 import TestProfile from '@/Assets/TestProfile.png?url';
+import { CountdownTimer } from '@/Components/Global/CountdownTimer';
 
 type ContractCardProps = {
   contract: IContract;
   onClick?: () => void;
+  isSelected: boolean;
 };
 
-export const ContractCard: React.FC<ContractCardProps> = ({ contract, onClick }) => {
+export const ContractCard: React.FC<ContractCardProps> = ({
+  contract,
+  onClick,
+  isSelected,
+}) => {
   const handleClick = () => {
     if (onClick) {
       onClick();
@@ -35,7 +42,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({ contract, onClick })
         size="small"
         sx={{
           width: '5em',
-          backgroundColor: 'primary.light',
+          backgroundColor: 'primary.main',
           margin: '.1em',
         }}
       />
@@ -50,7 +57,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({ contract, onClick })
         size="small"
         sx={{
           width: '5em',
-          backgroundColor: 'primary.light',
+          backgroundColor: 'primary.main',
           margin: '.1em',
         }}
       />
@@ -65,7 +72,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({ contract, onClick })
         size="small"
         sx={{
           width: '5em',
-          backgroundColor: 'primary.light',
+          backgroundColor: 'primary.main',
           margin: '.1em',
         }}
       />
@@ -81,7 +88,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({ contract, onClick })
           size="small"
           sx={{
             width: '5em',
-            backgroundColor: 'primary.light',
+            backgroundColor: 'primary.main',
             margin: '.1em',
           }}
         />
@@ -96,6 +103,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({ contract, onClick })
         height: '10em',
         width: '15em',
         backgroundColor: 'text.disabled',
+        boxShadow: isSelected ? '0 0 0 4px #18fcfc' : '',
         '&:hover': {
           boxShadow: '0 0 0 4px #0e318d',
         },

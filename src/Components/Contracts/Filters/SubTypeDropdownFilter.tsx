@@ -2,7 +2,15 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
-export const SubTypeDropdownFilter: React.FC<unknown> = () => {
+type SubTypeFilterProps = {
+  searchParams: URLSearchParams;
+  setSearchParams: (searchParams: URLSearchParams) => void;
+};
+
+export const SubTypeDropdownFilter: React.FC<SubTypeFilterProps> = ({
+  searchParams,
+  setSearchParams,
+}) => {
   const menuValues = [
     { type: 'all', value: 'all', label: 'All' },
     { type: 'logistics', value: 'transport', label: 'Transport' },
@@ -30,11 +38,19 @@ export const SubTypeDropdownFilter: React.FC<unknown> = () => {
     { type: 'proxy', value: 'other', label: 'Other' },
   ];
 
+  const handleChange = (event, newValue: string[]) => {
+    const values = newValue.map((option) => option.value);
+    const newParams = new URLSearchParams();
+    newParams.set('subType', values.join(','));
+    setSearchParams(newParams);
+  };
+
   return (
     <Autocomplete
       multiple
       limitTags={1}
       options={menuValues}
+      onChange={handleChange}
       renderInput={(params) => (
         <TextField {...params} label="Sub Types" multiline={false} />
       )}

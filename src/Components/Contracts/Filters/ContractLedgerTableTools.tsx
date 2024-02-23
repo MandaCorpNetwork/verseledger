@@ -12,6 +12,7 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { AccessTimeDropdownFilter } from '@/Components/Contracts/Filters/AccessTimeDropdownFilter';
 import { ContractOwnerTypeDropdownFilter } from '@/Components/Contracts/Filters/ContractOwnerTypeDropdownFilter';
@@ -21,6 +22,7 @@ import { SubTypeDropdownFilter } from '@/Components/Contracts/Filters/SubTypeDro
 import { UECRangeInputFilter } from '@/Components/Contracts/Filters/UECRangeInputFilter';
 
 export const ContractLedgerTableTools: React.FC<unknown> = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [sortBy, setSortBy] = useState('');
 
   const handleSort = (event: SelectChangeEvent) => {
@@ -88,12 +90,30 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
             flexWrap: 'wrap',
           }}
         >
-          <SubTypeDropdownFilter />
-          <AccessTimeDropdownFilter />
-          <ContractOwnerTypeDropdownFilter />
-          <LocationDropdownFilter />
-          <UECRangeInputFilter />
-          <EmployerRatingSliderFilter />
+          <SubTypeDropdownFilter
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+          />
+          <AccessTimeDropdownFilter
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+          />
+          <ContractOwnerTypeDropdownFilter
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+          />
+          <LocationDropdownFilter
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+          />
+          <UECRangeInputFilter
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+          />
+          <EmployerRatingSliderFilter
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+          />
         </Box>
       </Collapse>
       <Typography variant="h4">Contract Ledger</Typography>

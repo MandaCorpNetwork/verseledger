@@ -2,7 +2,15 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
-export const ContractOwnerTypeDropdownFilter: React.FC<unknown> = () => {
+type ContractOwnerFilterProps = {
+  searchParams: URLSearchParams;
+  setSearchParams: (searchParams: URLSearchParams) => void;
+};
+
+export const ContractOwnerTypeDropdownFilter: React.FC<ContractOwnerFilterProps> = ({
+  searchParams,
+  setSearchParams,
+}) => {
   const menuValues = [
     { value: 'all', label: 'All' },
     { value: 'individual', label: 'Individual' },
@@ -12,11 +20,20 @@ export const ContractOwnerTypeDropdownFilter: React.FC<unknown> = () => {
     { value: '200-500members', label: '200-500 Members' },
     { value: '500plusmembers', label: '500+ Members' },
   ];
+
+  const handleChange = (event, newValue: string[]) => {
+    const values = newValue.map((option) => option.value);
+    const newParams = new URLSearchParams();
+    newParams.set('contractOwner', values.join(','));
+    setSearchParams(newParams);
+  };
+
   return (
     <Autocomplete
       multiple
       limitTags={1}
       options={menuValues}
+      onChange={handleChange}
       renderInput={(params) => (
         <TextField {...params} label="Contract Owner" multiline={false} />
       )}
