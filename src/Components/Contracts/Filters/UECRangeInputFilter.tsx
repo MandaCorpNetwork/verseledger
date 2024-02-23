@@ -11,7 +11,14 @@ interface NumberInputProps {
   error: boolean;
 }
 
-export const UECRangeInputFilter: React.FC<NumberInputProps> = () => {
+type UECRangeFilterProps = {
+  searchParams: URLSearchParams;
+  setSearchParams: (searchParams: URLSearchParams) => void;
+};
+
+interface UECRangeProps extends NumberInputProps, UECRangeFilterProps {}
+
+export const UECRangeInputFilter: React.FC<UECRangeProps> = ({ searchParams, setSearchParams }) => {
   const [lowerValue, setLowerValue] = useState<number | null>(0);
   const [higherValue, setHigherValue] = useState<number | null>(0);
   const [isInvalid, setIsInvalid] = useState(false);
@@ -20,14 +27,21 @@ export const UECRangeInputFilter: React.FC<NumberInputProps> = () => {
     setIsInvalid(lowerValue! > higherValue!);
   };
 
+  const lower = searchParams.get('lower');
+  const higher = searchParams.get('higher');
+
   const handleLowerValueChange = (value: number | null) => {
     setLowerValue(value);
     rangeValidation(value, higherValue);
+    searchParams.set('lowerPay', value?.toString() || '');
+    setSearchParams(searchParams);
   };
 
   const handleHigherValueChange = (value: number | null) => {
     setHigherValue(value);
     rangeValidation(lowerValue, value);
+    searchParams.set('higherPay', value?.toString() || '');
+    setSearchParams(searchParams);
   };
 
   const LowerNumberTextField = (props) => {
