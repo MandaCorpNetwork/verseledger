@@ -17,8 +17,10 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({ onPick
     dispatch(fetchContracts());
   }, []);
   //Contract Array Loader
+  const [isSelected, setIsSelected] = React.useState<number | null>(null);
   const handlePick = (id: number | null) => {
     onPick(id);
+    setIsSelected(id);
   };
 
   return (
@@ -40,6 +42,7 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({ onPick
             contract={contract}
             key={contract.id}
             onClick={() => handlePick(contract.id)}
+            isSelected={isSelected === contract.id}
           />
         );
       })}
