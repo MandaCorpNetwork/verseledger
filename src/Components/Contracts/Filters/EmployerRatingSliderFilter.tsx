@@ -2,6 +2,11 @@ import StarIcon from '@mui/icons-material/Star';
 import { Box, Slider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
+type EmployerRatingFilterProps = {
+  searchParams: URLSearchParams;
+  setSearchParams: (searchParams: URLSearchParams) => void;
+};
+
 const RatingSliderMarks = [
   { value: 1, label: <StarIcon sx={{ fontSize: '1.2em' }} /> },
   { value: 2 },
@@ -21,11 +26,21 @@ const RatingSliderMarks = [
   },
 ];
 
-export const EmployerRatingSliderFilter: React.FC<unknown> = () => {
+export const EmployerRatingSliderFilter: React.FC<EmployerRatingFilterProps> = ({
+  searchParams,
+  setSearchParams,
+}) => {
   const [rating, setRating] = useState<number[]>([1, 5]);
+
+  const min = searchParams.get('minRating');
+  const max = searchParams.get('maxRating');
 
   const handleSlide = (event: Event, newValue: number | number[]) => {
     setRating(newValue as number[]);
+    searchParams.set('minRating', newValue.toString());
+    searchParams.set('maxRating', newValue.toString());
+
+    setSearchParams(searchParams);
   };
   //Current Slide Handler - needs updated to setSearchPerams
 
