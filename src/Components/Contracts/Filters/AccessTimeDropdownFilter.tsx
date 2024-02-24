@@ -2,10 +2,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
-type AccessTimeFilterProps = {
-  searchParams: URLSearchParams;
-  setSearchParams: (searchParams: URLSearchParams) => void;
-};
+import { useFilters } from '@/Components/Contracts/Filters/useFilters';
 
 const menuValues = [
   { value: 'all', label: 'All' },
@@ -18,16 +15,15 @@ const menuValues = [
   { value: '24plushours', label: '24+ Hours' },
 ];
 
-export const AccessTimeDropdownFilter: React.FC<AccessTimeFilterProps> = ({
-  searchParams, //eslint-disable-line
-  setSearchParams,
-}) => {
-  const handleChange = (event, newValue: string[]) => {
-    const values = newValue.map((option) => option.value)
-    const newParams = new URLSearchParams();
-    newParams.set('accessTime', values.join(','));
-    setSearchParams(newParams);
+export const AccessTimeDropdownFilter: React.FC<unknown> = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [filters, setFilters] = useFilters();
+  const handleChange = (event: React.SyntheticEvent, newValue: { value: string }[]) => {
+    const values = newValue.map((option) => option.value);
+    // @ts-expect-error TS2322: Type 'string[]' is not assignable to type 'string | undefined', works as expected
+    setFilters('accessTime', values);
   };
+  //const accessTime = filters.get('accessTime');
 
   return (
     <Autocomplete
@@ -59,3 +55,8 @@ export const AccessTimeDropdownFilter: React.FC<AccessTimeFilterProps> = ({
     />
   );
 };
+//Could also use JSON.stringify on the values array before passing to setFilters. This would allow passing the whole array rather than a string.
+
+//May want to limit or sanitize the joined string length to avoid overly long URLs.
+
+//Can split the comma-separated string back into an array when reading the filter value

@@ -22,7 +22,6 @@ import { SubTypeDropdownFilter } from '@/Components/Contracts/Filters/SubTypeDro
 import { UECRangeInputFilter } from '@/Components/Contracts/Filters/UECRangeInputFilter';
 
 export const ContractLedgerTableTools: React.FC<unknown> = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
   const [sortBy, setSortBy] = useState('');
 
   const handleSort = (event: SelectChangeEvent) => {
@@ -90,30 +89,12 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
             flexWrap: 'wrap',
           }}
         >
-          <SubTypeDropdownFilter
-            searchParams={searchParams}
-            setSearchParams={setSearchParams}
-          />
-          <AccessTimeDropdownFilter
-            searchParams={searchParams}
-            setSearchParams={setSearchParams}
-          />
-          <ContractOwnerTypeDropdownFilter
-            searchParams={searchParams}
-            setSearchParams={setSearchParams}
-          />
-          <LocationDropdownFilter
-            searchParams={searchParams}
-            setSearchParams={setSearchParams}
-          />
-          <UECRangeInputFilter
-            searchParams={searchParams}
-            setSearchParams={setSearchParams}
-          />
-          <EmployerRatingSliderFilter
-            searchParams={searchParams}
-            setSearchParams={setSearchParams}
-          />
+          <SubTypeDropdownFilter />
+          <AccessTimeDropdownFilter />
+          <ContractOwnerTypeDropdownFilter />
+          <LocationDropdownFilter />
+          <UECRangeInputFilter />
+          <EmployerRatingSliderFilter />
         </Box>
       </Collapse>
       <Typography variant="h4">Contract Ledger</Typography>

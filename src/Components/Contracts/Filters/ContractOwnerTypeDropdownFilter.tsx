@@ -2,32 +2,27 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
-type ContractOwnerFilterProps = {
-  searchParams: URLSearchParams;
-  setSearchParams: (searchParams: URLSearchParams) => void;
-};
+import { useFilters } from '@/Components/Contracts/Filters/useFilters';
 
-export const ContractOwnerTypeDropdownFilter: React.FC<ContractOwnerFilterProps> = ({
-  searchParams,
-  setSearchParams,
-}) => {
-  const menuValues = [
-    { value: 'all', label: 'All' },
-    { value: 'individual', label: 'Individual' },
-    { value: '1-5members', label: '1-5 Members' },
-    { value: '5-50members', label: '5-50 Members' },
-    { value: '50-200members', label: '50-200 Members' },
-    { value: '200-500members', label: '200-500 Members' },
-    { value: '500plusmembers', label: '500+ Members' },
-  ];
+const menuValues = [
+  { value: 'all', label: 'All' },
+  { value: 'individual', label: 'Individual' },
+  { value: '1-5members', label: '1-5 Members' },
+  { value: '5-50members', label: '5-50 Members' },
+  { value: '50-200members', label: '50-200 Members' },
+  { value: '200-500members', label: '200-500 Members' },
+  { value: '500plusmembers', label: '500+ Members' },
+];
 
-  const handleChange = (event, newValue: string[]) => {
+export const ContractOwnerTypeDropdownFilter: React.FC<unknown> = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [filters, setFilters] = useFilters();
+  const handleChange = (event: React.SyntheticEvent, newValue: { value: string }[]) => {
     const values = newValue.map((option) => option.value);
-    const newParams = new URLSearchParams();
-    newParams.set('contractOwner', values.join(','));
-    setSearchParams(newParams);
+    // @ts-expect-error TS2322: Type 'string[]' is not assignable to type 'string | undefined', works as expected
+    setFilters('contractOwnerType', values);
   };
-
+  //const accessTime = filters.get('accessTime');
   return (
     <Autocomplete
       multiple

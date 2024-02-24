@@ -2,6 +2,8 @@ import { Box, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { NumericFormat } from 'react-number-format';
 
+import { useFilters } from '@/Components/Contracts/Filters/useFilters';
+
 interface NumberInputProps {
   value: number | null;
   onChange: (value: number | null) => void;
@@ -11,37 +13,28 @@ interface NumberInputProps {
   error: boolean;
 }
 
-type UECRangeFilterProps = {
-  searchParams: URLSearchParams;
-  setSearchParams: (searchParams: URLSearchParams) => void;
-};
-
-interface UECRangeProps extends NumberInputProps, UECRangeFilterProps {}
-
-export const UECRangeInputFilter: React.FC<UECRangeProps> = ({ searchParams, setSearchParams }) => {
+export const UECRangeInputFilter: React.FC<NumberInputProps> = () => {
   const [lowerValue, setLowerValue] = useState<number | null>(0);
   const [higherValue, setHigherValue] = useState<number | null>(0);
   const [isInvalid, setIsInvalid] = useState(false);
+  const [filters, setFilters] = useFilters();
 
   const rangeValidation = (lowerValue: number | null, higherValue: number | null) => {
     setIsInvalid(lowerValue! > higherValue!);
   };
 
-  const lower = searchParams.get('lower');
-  const higher = searchParams.get('higher');
-
   const handleLowerValueChange = (value: number | null) => {
     setLowerValue(value);
     rangeValidation(value, higherValue);
-    searchParams.set('lowerPay', value?.toString() || '');
-    setSearchParams(searchParams);
+    // @ts-expect-error TS2322: Type 'number | null' is not assignable to type 'string | undefined
+    setFilters('ueclow', value);
   };
 
   const handleHigherValueChange = (value: number | null) => {
     setHigherValue(value);
     rangeValidation(lowerValue, value);
-    searchParams.set('higherPay', value?.toString() || '');
-    setSearchParams(searchParams);
+    // @ts-expect-error TS2322: Type 'number | null' is not assignable to type 'string | undefined
+    setFilters('uechigh', value);
   };
 
   const LowerNumberTextField = (props) => {
