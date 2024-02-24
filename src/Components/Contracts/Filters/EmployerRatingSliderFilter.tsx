@@ -2,10 +2,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { Box, Slider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-type EmployerRatingFilterProps = {
-  searchParams: URLSearchParams;
-  setSearchParams: (searchParams: URLSearchParams) => void;
-};
+import { useFilters } from '@/Components/Contracts/Filters/useFilters';
 
 const RatingSliderMarks = [
   { value: 1, label: <StarIcon sx={{ fontSize: '1.2em' }} /> },
@@ -26,21 +23,15 @@ const RatingSliderMarks = [
   },
 ];
 
-export const EmployerRatingSliderFilter: React.FC<EmployerRatingFilterProps> = ({
-  searchParams,
-  setSearchParams,
-}) => {
+export const EmployerRatingSliderFilter: React.FC<unknown> = () => {
   const [rating, setRating] = useState<number[]>([1, 5]);
-
-  const min = searchParams.get('minRating');
-  const max = searchParams.get('maxRating');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [filters, setFilters] = useFilters();
 
   const handleSlide = (event: Event, newValue: number | number[]) => {
     setRating(newValue as number[]);
-    searchParams.set('minRating', newValue.toString());
-    searchParams.set('maxRating', newValue.toString());
-
-    setSearchParams(searchParams);
+    // @ts-expect-error TS2322: Type 'number[]' is not assignable to type 'string | undefined',
+    setFilters('employerRating', newValue as number[]);
   };
   //Current Slide Handler - needs updated to setSearchPerams
 

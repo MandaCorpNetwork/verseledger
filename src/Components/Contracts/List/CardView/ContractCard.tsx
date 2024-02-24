@@ -105,7 +105,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
         backgroundColor: 'text.disabled',
         boxShadow: isSelected ? '0 0 0 4px #18fcfc' : '',
         '&:hover': {
-          boxShadow: '0 0 0 4px #0e318d',
+          boxShadow: isSelected ? '0 0 0 4px #d3fafe' : '0 0 0 4px #0e318d',
         },
       }}
     >

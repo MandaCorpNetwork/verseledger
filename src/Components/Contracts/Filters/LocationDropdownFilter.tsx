@@ -2,28 +2,12 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
-type LocationFilterProps = {
-  searchParams: URLSearchParams;
-  setSearchParams: (searchParams: URLSearchParams) => void;
-};
-
-export const LocationDropdownFilter: React.FC<LocationFilterProps> = ({
-  searchParams,
-  setSearchParams,
-}) => {
-  const handleChange = (event, newValue: string[]) => {
-    const values = newValue.map((option) => option.label);
-    const newParams = new URLSearchParams();
-    newParams.set('location', values.join(','));
-    setSearchParams(newParams);
-  };
-
+export const LocationDropdownFilter: React.FC<unknown> = () => {
   return (
     <Autocomplete
       multiple
       limitTags={1}
       options={locationTestDB}
-      onChange={handleChange}
       renderInput={(params) => (
         <TextField
           {...params}

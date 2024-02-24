@@ -1,0 +1,30 @@
+/*import { TextField } from '@mui/material';
+import { NumericFormat, NumericFormatProps } from 'react-number-format';
+
+export const UECInputField: React.FC<unknown> = () => {
+
+  const NumberTextField = (props) => {
+    return (
+      <TextField
+        {...props}
+        sx={{ width: '30%', display: 'flex' }}
+        variant="outlined"
+        label={label}
+        helperText="Enter a UEC"
+      />
+    );
+  };
+  return (
+    <NumericFormat
+      prefix="¤"
+      suffix="UEC"
+      thousandSeparator=","
+      decimalScale={0}
+      allowNegative={false}
+      defaultValue={null}
+      customInput={NumberTextField}
+      onValueChange={(values) => {handler(values.floatValue)}}
+    />
+  );
+};
+*/
