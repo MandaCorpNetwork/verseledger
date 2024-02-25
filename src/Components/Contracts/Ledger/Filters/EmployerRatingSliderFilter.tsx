@@ -2,7 +2,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { Box, Slider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-import { useFilters } from '@/Components/Contracts/Filters/useFilters';
+import { useFilters } from '@/Utils/Hooks/useFilters';
 
 const RatingSliderMarks = [
   { value: 1, label: <StarIcon sx={{ fontSize: '1.2em' }} /> },

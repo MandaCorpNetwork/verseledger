@@ -85,7 +85,7 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
           setCountDown(`${minutes}`);
           setCountDownFormat('Minutes');
           setCountDownHelper(`${minutes} Minutes`);
-        } else if (minutes < 2 && minutes > 0) {
+        } else if (minutes <= 2 && minutes > 0) {
           setCountDown(`${minutes}:${seconds}`);
           setCountDownFormat('MM:SS');
           setCountDownHelper(`${minutes} Minutes ${seconds} Seconds`);

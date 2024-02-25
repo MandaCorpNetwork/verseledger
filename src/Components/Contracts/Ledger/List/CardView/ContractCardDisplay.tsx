@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import React, { useEffect } from 'react';
 
-import { ContractCard } from '@/Components/Contracts/List/CardView/ContractCard';
+import { ContractCard } from '@/Components/Contracts/Ledger/List/CardView/ContractCard';
 import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
 import { selectContracts } from '@/Redux/Slices/Contracts/contractSelectors';
 import { fetchContracts } from '@/Redux/Slices/Contracts/contractThunks';
@@ -15,7 +15,7 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({ onPick
   const contracts = useAppSelector((root) => selectContracts(root));
   useEffect(() => {
     dispatch(fetchContracts());
-  }, []);
+  });
   //Contract Array Loader
   const [isSelected, setIsSelected] = React.useState<number | null>(null);
   const handlePick = (id: number | null) => {

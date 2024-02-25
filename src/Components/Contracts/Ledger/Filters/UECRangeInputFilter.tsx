@@ -2,7 +2,7 @@ import { Box, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { NumericFormat } from 'react-number-format';
 
-import { useFilters } from '@/Components/Contracts/Filters/useFilters';
+import { useFilters } from '@/Utils/Hooks/useFilters';
 
 interface NumberInputProps {
   value: number | null;

@@ -1,24 +1,31 @@
-///<reference types="vite/client" />
-import './ContractLedgerLoopButton.scss';
+/// <reference types="vite/client" />
+import './ContractSplashLoop.scss';
 
 import { useTheme } from '@emotion/react';
 import { Button, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-type ContractLedgerLoopButtonProps = {
+type SplashLoopButtonProps = {
   title: string;
   videoSource: string;
-  onClick: () => void;
+  to: string;
 };
 
-export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> = ({
+export const ContractSplashLoopButton: React.FC<SplashLoopButtonProps> = ({
   title,
   videoSource,
-  onClick,
+  to,
 }) => {
   // eslint-disable-next-line
   const theme = useTheme() as any;
 
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(to);
+  };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -33,43 +40,39 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
     video.pause();
     video.currentTime = 0;
   };
-  //Hovering animation
 
   return (
     <Button
-      id="contract-loop-button"
+      id="splash-loop-button"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={onClick}
-      data-testid="contract-loop-button"
+      onClick={handleClick}
       sx={{
         color: 'text.primary',
-        width: '18em',
-        height: '5em',
+        width: '22em',
+        height: '11em',
         display: 'flex',
-        border: '5px ridge',
-        borderColor: 'text.disabled',
+        border: '5px ridge #065691',
         borderRadius: '.4em',
         zIndex: '3',
-        marginTop: '1em',
         '&:hover': {
           border: '5px ridge #79c0f4',
-          width: '20em',
         },
         '&:active': {
+          border: '5px ridge #18fcfc',
           color: 'text.secondary',
-          borderColor: 'primary.main',
         },
       }}
     >
-      <video loop muted id={videoSource} className="loop-video">
+      <video loop muted id={videoSource} className="splash-video">
         <source src={videoSource} type="video/webm" />
       </video>
       <Typography
         sx={{
-          fontWeight: 700,
-          fontSize: '1.2em',
-          color: 'text.primary',
+          fontWeight: 'bold',
+          fontSize: '1.4em',
+          letterSpacing: '0.04em',
+          zindex: '4',
         }}
       >
         {title}

@@ -11,6 +11,7 @@ import {
   usePopupState,
 } from 'material-ui-popup-state/hooks';
 import React, { MouseEventHandler, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Station from '../Assets/media/Station.svg?url';
 //import { VerseLogo } from './VerseLogo';
 //import { useHistory } from 'react-router-dom'; Implement on Line 41 Fix
@@ -49,20 +50,19 @@ export const VLAppBar: React.FC<unknown> = () => {
     const i = Math.floor(Math.random() * 11);
     return `../Assets/media/VerseLogos/verselogo-${i}.png`;
   }
+  const navigate = useNavigate();
+  function handleLogoClick() {
+    navigate('/');
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ bgcolor: 'primary.dark' }}>
         <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { sx: 'none', sm: 'block' } }}
-          >
+          <IconButton component="div" sx={{}} onClick={handleLogoClick}>
             {/*{VerseLogo()}*/}
             <img src={logoRandom()} alt="Verse Logo" />
-          </Typography>
+          </IconButton>
           <Box sx={{ flexGrow: 1 }} />
           <IconButton sx={{ marginRight: '25%' }} onClick={handleClick}>
             <img src={Station} alt="Location-Select" />

@@ -1,8 +1,7 @@
 import { Box } from '@mui/material';
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React from 'react';
 
-import { CardorTableViewToggle } from '@/Components/Contracts/List/CardView/Card-TableViewToggle';
-import { PickedContractModal } from '@/Components/Contracts/List/CardView/PickedContractModal';
+import { CardorTableViewToggle } from '@/Components/Contracts/Ledger/List/CardView/Card-TableViewToggle';
 
 import { ContractCardDisplay } from './CardView/ContractCardDisplay';
 
@@ -16,6 +15,7 @@ export const PickedContractContext = React.createContext<number | null>(null);
 
 export const ContractLedgerContractsViewer: React.FC<
   ContractLedgerContractsViewerProps
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 > = ({ selectedId, selectedIdSetter, contractOnClose }) => {
   return (
     <Box
@@ -52,7 +52,6 @@ export const ContractLedgerContractsViewer: React.FC<
           },
         }}
       >
-
         <ContractCardDisplay onPick={selectedIdSetter} />
       </Box>
     </Box>

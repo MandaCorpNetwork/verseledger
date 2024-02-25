@@ -14,12 +14,12 @@ import {
 import React, { useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { AccessTimeDropdownFilter } from '@/Components/Contracts/Filters/AccessTimeDropdownFilter';
-import { ContractOwnerTypeDropdownFilter } from '@/Components/Contracts/Filters/ContractOwnerTypeDropdownFilter';
-import { EmployerRatingSliderFilter } from '@/Components/Contracts/Filters/EmployerRatingSliderFilter';
-import { LocationDropdownFilter } from '@/Components/Contracts/Filters/LocationDropdownFilter';
-import { SubTypeDropdownFilter } from '@/Components/Contracts/Filters/SubTypeDropdownFilter';
-import { UECRangeInputFilter } from '@/Components/Contracts/Filters/UECRangeInputFilter';
+import { AccessTimeDropdownFilter } from '@/Components/Contracts/Ledger/Filters/AccessTimeDropdownFilter';
+import { ContractOwnerTypeDropdownFilter } from '@/Components/Contracts/Ledger/Filters/ContractOwnerTypeDropdownFilter';
+import { EmployerRatingSliderFilter } from '@/Components/Contracts/Ledger/Filters/EmployerRatingSliderFilter';
+import { LocationDropdownFilter } from '@/Components/Contracts/Ledger/Filters/LocationDropdownFilter';
+import { SubTypeDropdownFilter } from '@/Components/Contracts/Ledger/Filters/SubTypeDropdownFilter';
+import { UECRangeInputFilter } from '@/Components/Contracts/Ledger/Filters/UECRangeInputFilter';
 
 export const ContractLedgerTableTools: React.FC<unknown> = () => {
   const [sortBy, setSortBy] = useState('');

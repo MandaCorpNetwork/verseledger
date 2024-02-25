@@ -2,7 +2,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
-import { useFilters } from '@/Components/Contracts/Filters/useFilters';
+import { useFilters } from '@/Utils/Hooks/useFilters';
 
 const menuValues = [
   { value: 'all', label: 'All' },
