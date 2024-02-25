@@ -1,9 +1,10 @@
 /// <reference types="vite/client" />
-import './Home.scss';
+import '@/Routes/Index/Home/Home.scss';
 
 import { useTheme } from '@emotion/react';
 import { Button, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 
 type HomeNavButtonProps = {
@@ -12,7 +13,7 @@ type HomeNavButtonProps = {
   videoSource: string;
 };
 
-export const HomeNavButton: React.FC<HomeNavButtonProps> = ({ title, videoSource }) => {
+export const HomeNavButton: React.FC<HomeNavButtonProps> = ({ title, videoSource, to }) => {
   // eslint-disable-next-line
   const theme = useTheme() as any;
 
@@ -41,9 +42,11 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({ title, videoSource
 
   //Click Animations
   const [color, setColor] = useState(theme.palette.text.primary);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setColor(theme.palette.text.secondary);
+    navigate(to);
 
     setTimeout(() => {
       setColor(theme.palette.text.primary);

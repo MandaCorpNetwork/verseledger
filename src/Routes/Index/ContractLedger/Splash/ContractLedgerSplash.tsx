@@ -10,8 +10,8 @@ import ProxyLoop from '../../../../Assets/media/ContractLedger/ProxyLoop.webm?ur
 import RRRLoop from '../../../../Assets/media/ContractLedger/RRRLoop.webm?url';
 import SalvageLoop from '../../../../Assets/media/ContractLedger/SalvLoop.webm?url';
 import SecurityLoop from '../../../../Assets/media/ContractLedger/SecLoop.webm?url';
-import { ContractSplashLoopButton } from './ContractSplashLoopButton';
-import { ContractSplashRedirectButton } from './ContractSplashRedirectButton';
+import { ContractSplashLoopButton } from '../../../../Components/Contracts/Splash/ContractSplashLoopButton';
+import { ContractSplashRedirectButton } from '../../../../Components/Contracts/Splash/ContractSplashRedirectButton';
 
 export const ContractLedgerSplash: React.FC<unknown> = () => {
   return (
@@ -40,7 +40,7 @@ export const ContractLedgerSplash: React.FC<unknown> = () => {
         <ContractSplashLoopButton
           title="Medical"
           videoSource={MedicalLoop}
-          to-="/contract/ledger"
+          to="/contract/ledger"
         />
         <ContractSplashLoopButton
           title="Security"

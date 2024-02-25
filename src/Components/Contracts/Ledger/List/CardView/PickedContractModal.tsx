@@ -1,7 +1,7 @@
 import { Modal, Box, Button } from '@mui/material';
 import React, { useEffect } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
-import { ContractCard } from '@/Components/Contracts/List/CardView/ContractCard';
+import { ContractCard } from '@/Components/Contracts/Ledger/List/CardView/ContractCard';
 import { useAppSelector } from '@/Redux/hooks';
 import { pickContract } from '@/Redux/Slices/Contracts/contractSelectors';
 
