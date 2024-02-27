@@ -8,7 +8,7 @@ type CreateContractProps = {
 
 export const CreateContract: React.FC<CreateContractProps> = ({ open }) => {
   return (
-    <Modal open={open} onClose={close}>
+    <Modal open={open} onClose={close} sx={{ backdropFilter: 'blur(5px)' }}>
       <Box
         data-id="Create-Contract-Screen-Contianer"
         sx={{
@@ -22,7 +22,7 @@ export const CreateContract: React.FC<CreateContractProps> = ({ open }) => {
         <Box
           data-id="Create-Contract-Box"
           sx={{
-            bgcolor: 'primary.dark',
+            bgcolor: 'rgba(8, 29, 68, 0.6)',
             display: 'flex',
             padding: '2em',
           }}

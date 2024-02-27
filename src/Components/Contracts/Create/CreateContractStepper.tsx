@@ -26,6 +26,10 @@ import { stepConnectorClasses } from '@mui/material/StepConnector';
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
 
+import { ContractTypeForm } from './StepperForms/ContractTypeForm';
+import { SubTypeBriefingForm } from './StepperForms/SubType-BriefingForm';
+import { TimeInfoForm } from './StepperForms/TimeInfoForm';
+
 type CreateContractStepperProps = {
   passClose: () => void;
   passSubmit: () => void;
@@ -174,11 +178,47 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
 
   const isLastStep = activeStep === createSteps.length - 1;
 
+  const [selectedType, setSelectedType] = React.useState('');
+
+  const handleTypeSelect = (type: string) => {
+    setSelectedType(type);
+  };
+
+  const getStepComponent = (step: number) => {
+    switch (step) {
+      case 0:
+        return <ContractTypeForm typeSelect={handleTypeSelect} />;
+      case 1:
+        return <SubTypeBriefingForm selectedType={selectedType} />;
+      case 2:
+        return <TimeInfoForm />;
+      case 3:
+        return <LocationsForm />;
+      case 4:
+        return <FleetForm />;
+      case 5:
+        return <ContractorsForm />;
+      case 6:
+        return <PayrollForm />;
+      case 7:
+        return <TitleForm />;
+    }
+  };
+
   return (
-    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+    <Box
+      sx={{
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Box sx={{ mb: '1em' }}>{getStepComponent(activeStep)}</Box>
       <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
         {createSteps.map((label) => (
-          <Step key={label}>
+          <Step key={label}> 
             <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
           </Step>
         ))}
