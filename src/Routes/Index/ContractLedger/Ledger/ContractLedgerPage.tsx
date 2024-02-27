@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
+import { CreateContract } from '@/Components/Contracts/Create/CreateContract';
 import { ContractLedgerLoopButton } from '@/Components/Contracts/Ledger/Filters/ContractLedgerLoopButton';
 
 import FleetLoop from '../../../../Assets/media/ContractLedger/FleetLoop.webm?url';
@@ -31,13 +32,20 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
 
   const [selectedType, setSelectedType] = useState<string>('');
 
+  const [isCreateContractOpen, setIsCreateContractOpen] = useState(false);
+
+  const openCreateContract = () => {
+    setIsCreateContractOpen(true);
+  };
+
   return (
     <Box>
       <Box sx={{ marginTop: '1.5em' }}>
         {/*QuickNav Buttons (Top Left) */}
         <ContractLedgerQuickNav title="Contract Manager" />
-        <ContractLedgerQuickNav title="Create Contract" />
+        <ContractLedgerQuickNav title="Create Contract" onClick={openCreateContract} />
       </Box>
+      <CreateContract open="true" />
       <Box
         id="Contract-Table-Page"
         sx={{

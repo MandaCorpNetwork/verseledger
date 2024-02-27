@@ -7,6 +7,16 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const darkTheme = createTheme({
   components: {
+    MuiStepLabel: {
+      styleOverrides: {
+        root: {
+          
+        },
+        label: {
+          fontSize: '.8em',
+        },
+      },
+    },
     MuiSkeleton: {
       styleOverrides: {
         wave: {
