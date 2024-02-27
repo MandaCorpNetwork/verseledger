@@ -9,9 +9,7 @@ const darkTheme = createTheme({
   components: {
     MuiStepLabel: {
       styleOverrides: {
-        root: {
-          
-        },
+        root: {},
         label: {
           fontSize: '.8em',
         },
