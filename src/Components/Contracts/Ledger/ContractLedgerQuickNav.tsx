@@ -3,14 +3,17 @@ import React from 'react';
 
 type ContractLedgerQuickNavProps = {
   title: string;
+  onClick: () => void;
 };
 
 export const ContractLedgerQuickNav: React.FC<ContractLedgerQuickNavProps> = ({
   title,
+  onClick,
 }) => {
   return (
     <Button
       variant="contained"
+      onClick={onClick}
       sx={{
         color: 'text.primary',
         width: '12em',

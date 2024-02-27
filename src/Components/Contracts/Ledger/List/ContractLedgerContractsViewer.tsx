@@ -1,4 +1,5 @@
-import { Box } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { Box, Button } from '@mui/material';
 import React from 'react';
 
 import { CardorTableViewToggle } from '@/Components/Contracts/Ledger/List/CardView/Card-TableViewToggle';
@@ -10,8 +11,6 @@ type ContractLedgerContractsViewerProps = {
   selectedIdSetter: (id: number | null) => void;
   contractOnClose: () => void;
 };
-
-export const PickedContractContext = React.createContext<number | null>(null);
 
 export const ContractLedgerContractsViewer: React.FC<
   ContractLedgerContractsViewerProps
@@ -30,8 +29,29 @@ export const ContractLedgerContractsViewer: React.FC<
         position: 'relative',
       }}
     >
-      <Box id="Contract-Display-Toggle-Box" sx={{ padding: '.5em', marginLeft: 'auto' }}>
-        <CardorTableViewToggle />
+      <Box
+        id="Contract-Display-View-Tools-Box"
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          padding: '1em',
+          alignItems: 'center',
+        }}
+      >
+        <Box data-id="Contract-Deselect-Button-Box" sx={{ mr: 'auto'}}>
+          <Button
+            label="Close"
+            onClick={contractOnClose}
+            variant="text"
+            endIcon={<CloseIcon />}
+            sx={{ color: 'text.secondary' }}
+          >
+            Close
+          </Button>
+        </Box>
+        <Box data-id="Contract-Display-View-Toggle-Box" sx={{ ml: 'auto' }}>
+          <CardorTableViewToggle />
+        </Box>
       </Box>
       <Box
         id="Contract-Display-Box"
