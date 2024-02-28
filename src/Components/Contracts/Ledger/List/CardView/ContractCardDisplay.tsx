@@ -15,7 +15,7 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({ onPick
   const contracts = useAppSelector((root) => selectContracts(root));
   useEffect(() => {
     dispatch(fetchContracts());
-  });
+  }, []);
   //Contract Array Loader
   const [isSelected, setIsSelected] = React.useState<number | null>(null);
   const handlePick = (id: number | null) => {
