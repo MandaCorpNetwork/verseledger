@@ -10,7 +10,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { DateCalendar, TimeClock } from '@mui/x-date-pickers';
+import { DateCalendar, DigitalClock } from '@mui/x-date-pickers';
 import * as dayjs from 'dayjs';
 import React from 'react';
 
@@ -92,7 +92,7 @@ const SelectTimeButton: React.FC<SelectTimeProps> = ({ onDateChange, onTimeChang
               }}
             />
           )}
-          {view === 'time' && <TimeClock ampm={false} onChange={handleTimeChange} />}
+          {view === 'time' && <DigitalClock ampm={false} onChange={handleTimeChange} />}
         </Box>
       </Popper>
     </>
@@ -106,7 +106,7 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = () => {
 
   const format = (date: Date | null) => {
     if (date) {
-      return dayjs(date).format('MM/DD/YY');
+      return dayjs(date).format('MM/DD/YY HH:mm');
     } else {
       return '';
     }
@@ -130,7 +130,6 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = () => {
         <QuickTimeButton time="8 hr" />
         <TextField
           label="Bid Time"
-          defaultValue="Total Bid Time"
           inputProps={{ readOnly: true }}
           value={format(selectedBidTime)}
           sx={{
@@ -154,7 +153,6 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = () => {
         <QuickTimeButton time="8 hr" />
         <TextField
           label="Duration"
-          defaultValue="Contract Duration"
           inputProps={{ readOnly: true }}
           value={format(selectedDuration)}
           sx={{
@@ -173,7 +171,6 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = () => {
         <FormControlLabel control={<Radio />} label="After Bidding" />
         <TextField
           label="Start Time"
-          defaultValue="Contract Start"
           inputProps={{ readOnly: true }}
           value={format(selectedStartTime)}
           sx={{

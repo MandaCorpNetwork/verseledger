@@ -1,8 +1,5 @@
-export function addDates(date1: Date, date2: Date) {
-  const date1Num = date1.getTime();
-  const date2Num = date2.getTime();
+import dayjs from 'dayjs';
 
-  const combined = date1Num + date2Num;
-
-  return new Date(combined);
+export function addDates(date1: dayjs.Dayjs, date2: dayjs.Dayjs) {
+  return date1.add(date2.valueOf(), 'ms');
 }
