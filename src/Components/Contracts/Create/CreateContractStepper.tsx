@@ -29,6 +29,7 @@ import * as React from 'react';
 import { ContractTypeForm } from './StepperForms/ContractTypeForm';
 import { SubTypeBriefingForm } from './StepperForms/SubType-BriefingForm';
 import { TimeInfoForm } from './StepperForms/TimeInfoForm';
+import { LocationsForm } from './StepperForms/LocationsForm';
 
 type CreateContractStepperProps = {
   passClose: () => void;
