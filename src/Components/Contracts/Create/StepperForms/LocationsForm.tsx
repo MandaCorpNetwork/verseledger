@@ -10,7 +10,7 @@ import {
   MenuItem,
   TextField,
 } from '@mui/material';
-import React, { ReactElement } from 'react';
+import React from 'react';
 
 interface LocationSelection {
   label: string;

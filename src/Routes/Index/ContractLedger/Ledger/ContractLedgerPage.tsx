@@ -45,7 +45,10 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
         <ContractLedgerQuickNav title="Contract Manager" />
         <ContractLedgerQuickNav title="Create Contract" onClick={openCreateContract} />
       </Box>
-      <CreateContract open={true} />
+      <CreateContract
+        open={isCreateContractOpen}
+        onClose={() => setIsCreateContractOpen(false)}
+      />
       <Box
         id="Contract-Table-Page"
         sx={{

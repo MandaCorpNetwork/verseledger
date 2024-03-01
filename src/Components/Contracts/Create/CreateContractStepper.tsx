@@ -26,17 +26,21 @@ import { stepConnectorClasses } from '@mui/material/StepConnector';
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
 
+import { ContractorsForm } from './ContractorsForrm';
 import { ContractTypeForm } from './StepperForms/ContractTypeForm';
+import { FleetForm } from './StepperForms/FleetForm';
+import { LocationsForm } from './StepperForms/LocationsForm';
+import { PayrollForm } from './StepperForms/PayrollForm';
 import { SubTypeBriefingForm } from './StepperForms/SubType-BriefingForm';
 import { TimeInfoForm } from './StepperForms/TimeInfoForm';
-import { LocationsForm } from './StepperForms/LocationsForm';
+import { TitleForm } from './StepperForms/TitleForm';
 
 type CreateContractStepperProps = {
   passClose: () => void;
   passSubmit: () => void;
 };
 
-const ColorlibConnector = styled(StepConnector)((theme) => ({
+const ColorlibConnector = styled(StepConnector)(() => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
     top: 22,
   },
@@ -62,7 +66,7 @@ const ColorlibConnector = styled(StepConnector)((theme) => ({
 
 const ColorlibStepIconRoot = styled('div')<{
   ownerState: { completed?: boolean; active?: boolean };
-}>(({ theme, ownerState }) => ({
+}>(({ ownerState }) => ({
   backgroundColor: '#065691',
   backgroundImage:
     'linear-gradient( 136deg, rgb(6,86,145) 0%, rgb(8,29,68) 50%, rgb(0,1,19) 100%)',
@@ -216,14 +220,14 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
         alignItems: 'center',
       }}
     >
-      <Box sx={{ mb: '1em' }}>{getStepComponent(activeStep)}</Box>
       <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
         {createSteps.map((label) => (
-          <Step key={label}> 
+          <Step key={label}>
             <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
+      <Box sx={{ mb: '1em' }}>{getStepComponent(activeStep)}</Box>
       <Box sx={{ display: 'flex', mt: '1em' }}>
         <StepButton onClick={passClose} icon={<CancleCreateIcon />} />
         <StepButton
