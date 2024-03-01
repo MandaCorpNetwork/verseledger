@@ -4,11 +4,12 @@ import { CreateContractStepper } from './CreateContractStepper';
 
 type CreateContractProps = {
   open: boolean;
+  onClose: () => void;
 };
 
-export const CreateContract: React.FC<CreateContractProps> = ({ open }) => {
+export const CreateContract: React.FC<CreateContractProps> = ({ open, onClose }) => {
   return (
-    <Modal open={open} onClose={close} sx={{ backdropFilter: 'blur(5px)' }}>
+    <Modal open={open} onClose={onClose} sx={{ backdropFilter: 'blur(5px)' }}>
       <Box
         data-id="Create-Contract-Screen-Contianer"
         sx={{
@@ -28,7 +29,7 @@ export const CreateContract: React.FC<CreateContractProps> = ({ open }) => {
           }}
         >
           <Box>
-            <CreateContractStepper />
+            <CreateContractStepper passClose={onClose} />
           </Box>
         </Box>
       </Box>
