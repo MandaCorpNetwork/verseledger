@@ -1,15 +1,8 @@
 //ContractCard is the Contract Displayer Item that is mapped for the contracts pulled from the database. It is displayed in the ContractCardDisplay component.
 //This is a low level amount of information for a contract
 //This Contract passes it's ID to the ContractCardDisplay when clicked and sets itself to selected to display it's full information in the ContractBriefingViewer
-import {
-  Avatar,
-  Box,
-  Card,
-  CardActionArea,
-  Chip,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { Avatar, Box, Card, CardActionArea, Tooltip, Typography } from '@mui/material';
+import Chip, { ChipProps } from '@mui/material/Chip';
 import React from 'react';
 
 import type { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
@@ -34,7 +27,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
     }
   };
 
-  const SunChip = (props) => {
+  const SunChip: React.FC<ChipProps> = (props) => {
     return (
       <Chip
         {...props}
@@ -49,7 +42,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
     );
   };
 
-  const PlanetChip = (props) => {
+  const PlanetChip: React.FC<ChipProps> = (props) => {
     return (
       <Chip
         {...props}
@@ -64,7 +57,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
     );
   };
 
-  const MoonChip = (props) => {
+  const MoonChip: React.FC<ChipProps> = (props) => {
     return (
       <Chip
         {...props}
@@ -79,7 +72,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
     );
   };
 
-  const LocationChip = (props) => {
+  const LocationChip: React.FC<ChipProps> = (props) => {
     return (
       <Tooltip title={contract.location}>
         <Chip
