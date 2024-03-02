@@ -1,23 +1,20 @@
 import { Box } from '@mui/material';
-import React, { useEffect } from 'react';
+import React from 'react';
 
+import { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
 import { ContractCard } from '@/Components/Contracts/Ledger/List/CardView/ContractCard';
-import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
-import { selectContracts } from '@/Redux/Slices/Contracts/contractSelectors';
-import { fetchContracts } from '@/Redux/Slices/Contracts/contractThunks';
 
 type ContractCardDisplayProps = {
   onPick: (id: number | null) => void;
+  contracts: IContract[];
 };
 
-export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({ onPick }) => {
-  const dispatch = useAppDispatch();
-  const contracts = useAppSelector((root) => selectContracts(root));
-  useEffect(() => {
-    dispatch(fetchContracts());
-  }, []);
-  //Contract Array Loader
+export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
+  onPick,
+  contracts,
+}) => {
   const [isSelected, setIsSelected] = React.useState<number | null>(null);
+
   const handlePick = (id: number | null) => {
     onPick(id);
     setIsSelected(id);

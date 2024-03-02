@@ -1,8 +1,11 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { CardorTableViewToggle } from '@/Components/Contracts/Ledger/List/Card-TableViewToggle';
+import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
+import { selectContracts } from '@/Redux/Slices/Contracts/contractSelectors';
+import { fetchContracts } from '@/Redux/Slices/Contracts/contractThunks';
 
 import { ContractCardDisplay } from './CardView/ContractCardDisplay';
 import { ContractTableView } from './TableView/ContractTableView';
@@ -13,10 +16,15 @@ type ContractLedgerContractsViewerProps = {
   contractOnClose: () => void;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const ContractLedgerContractsViewer: React.FC<
   ContractLedgerContractsViewerProps
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 > = ({ selectedId, selectedIdSetter, contractOnClose }) => {
+  const dispatch = useAppDispatch();
+  const contracts = useAppSelector((root) => selectContracts(root));
+  useEffect(() => {
+    dispatch(fetchContracts());
+  }, []);
   const [view, setView] = React.useState('ContractCardView');
   return (
     <Box
@@ -74,9 +82,9 @@ export const ContractLedgerContractsViewer: React.FC<
         }}
       >
         {view === 'ContractCardView' ? (
-          <ContractCardDisplay onPick={selectedIdSetter} />
+          <ContractCardDisplay onPick={selectedIdSetter} contracts={contracts} />
         ) : (
-          <ContractTableView />
+          <ContractTableView onPick={selectedIdSetter} contracts={contracts} />
         )}
       </Box>
     </Box>
