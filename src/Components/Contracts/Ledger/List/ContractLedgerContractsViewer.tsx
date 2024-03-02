@@ -2,9 +2,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button } from '@mui/material';
 import React from 'react';
 
-import { CardorTableViewToggle } from '@/Components/Contracts/Ledger/List/CardView/Card-TableViewToggle';
+import { CardorTableViewToggle } from '@/Components/Contracts/Ledger/List/Card-TableViewToggle';
 
 import { ContractCardDisplay } from './CardView/ContractCardDisplay';
+import { ContractTableView } from './TableView/ContractTableView';
 
 type ContractLedgerContractsViewerProps = {
   selectedId: number | null;
@@ -16,6 +17,7 @@ export const ContractLedgerContractsViewer: React.FC<
   ContractLedgerContractsViewerProps
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 > = ({ selectedId, selectedIdSetter, contractOnClose }) => {
+  const [view, setView] = React.useState('ContractCardView');
   return (
     <Box
       id="Contract-Viewer-Box"
@@ -38,9 +40,8 @@ export const ContractLedgerContractsViewer: React.FC<
           alignItems: 'center',
         }}
       >
-        <Box data-id="Contract-Deselect-Button-Box" sx={{ mr: 'auto'}}>
+        <Box data-id="Contract-Deselect-Button-Box" sx={{ mr: 'auto' }}>
           <Button
-            label="Close"
             onClick={contractOnClose}
             variant="text"
             endIcon={<CloseIcon />}
@@ -50,7 +51,7 @@ export const ContractLedgerContractsViewer: React.FC<
           </Button>
         </Box>
         <Box data-id="Contract-Display-View-Toggle-Box" sx={{ ml: 'auto' }}>
-          <CardorTableViewToggle />
+          <CardorTableViewToggle onViewChange={setView} />
         </Box>
       </Box>
       <Box
@@ -72,7 +73,11 @@ export const ContractLedgerContractsViewer: React.FC<
           },
         }}
       >
-        <ContractCardDisplay onPick={selectedIdSetter} />
+        {view === 'ContractCardView' ? (
+          <ContractCardDisplay onPick={selectedIdSetter} />
+        ) : (
+          <ContractTableView />
+        )}
       </Box>
     </Box>
   );

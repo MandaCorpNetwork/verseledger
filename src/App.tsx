@@ -47,7 +47,7 @@ const darkTheme = createTheme({
     MuiToggleButton: {
       styleOverrides: {
         root: {
-          borderColor: '#18fcfc',
+          borderColor: '#065691',
           backgroundColor: '#0E318D',
         },
       },
