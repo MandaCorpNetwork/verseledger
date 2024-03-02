@@ -148,7 +148,7 @@ type BackIconProps = {
 
 const BackIcon: React.FC<BackIconProps> = ({ isDisabled }) => {
   const textColor = isDisabled ? 'text.disabled' : 'text.primary';
-  const iconColor = isDisabled ? 'disabled' : 'text';
+  const iconColor = isDisabled ? 'disabled' : 'inherit';
 
   return (
     <Box sx={{ display: 'flex' }}>

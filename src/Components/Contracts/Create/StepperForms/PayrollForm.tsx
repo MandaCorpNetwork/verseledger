@@ -26,11 +26,14 @@ const formDetails = {
   WeightedTimedPay: <WeightedTimedPayControl />,
 };
 
+type PayrollDetailsKey = keyof typeof formDetails;
+
 export const PayrollForm: React.FC = () => {
-  const [selectedPayType, setSelectedPayType] = React.useState('');
+  const [selectedPayType, setSelectedPayType] =
+    React.useState<PayrollDetailsKey>('FlatRate');
 
   const handlePayrollChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedPayType(event.target.value);
+    setSelectedPayType(event.target.value as PayrollDetailsKey);
   };
 
   return (

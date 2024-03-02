@@ -1,5 +1,5 @@
 import { Box, Modal } from '@mui/material';
-import { useState } from 'react';
+
 import { CreateContractStepper } from './CreateContractStepper';
 
 type CreateContractProps = {
@@ -29,7 +29,7 @@ export const CreateContract: React.FC<CreateContractProps> = ({ open, onClose })
           }}
         >
           <Box>
-            <CreateContractStepper passClose={onClose} />
+            <CreateContractStepper passClose={onClose} passSubmit={() => {}} />
           </Box>
         </Box>
       </Box>

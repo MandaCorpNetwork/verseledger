@@ -2,22 +2,12 @@ import { AddCircleOutline } from '@mui/icons-material';
 import { Box, FormControl, FormControlLabel, IconButton, TextField } from '@mui/material';
 import React from 'react';
 
-const addPayClass = () => {
-  return (
-    <FormControl>
-      <FormControlLabel control={<TextField />} label="Pay Class" />
-      <FormControlLabel control={<TextField />} label="Pay Class Percentage" />
-      <TextField
-        label="Expected Pay"
-        InputProps={{ readOnly: true }}
-        defaultValue="No Expectation"
-      />
-    </FormControl>
-  );
-};
+interface PayClass {
+  id: number;
+}
 
 export const WeightedPoolControl: React.FC = () => {
-  const [payClasses, setPayClasses] = React.useState([]);
+  const [payClasses, setPayClasses] = React.useState<PayClass[]>([]);
 
   const handleAddingClass = () => {
     setPayClasses((prevClasses) => {
@@ -25,7 +15,8 @@ export const WeightedPoolControl: React.FC = () => {
         alert('You cannot add more than 8 pay classes.');
         return prevClasses;
       }
-      return [...prevClasses, addPayClass()];
+      const newClass = { id: prevClasses.length + 1 };
+      return [...prevClasses, newClass];
     });
   };
 
@@ -40,7 +31,17 @@ export const WeightedPoolControl: React.FC = () => {
           defaultValue="No Expectation"
         />
       </FormControl>
-      {payClasses.map((payClass) => payClass)}
+      {payClasses.map((payClass) => (
+        <FormControl key={payClass.id}>
+          <FormControlLabel control={<TextField />} label="Pay Class" />
+          <FormControlLabel control={<TextField />} label="Pay Class Amount" />
+          <TextField
+            label="Expected Pay"
+            InputProps={{ readOnly: true }}
+            defaultValue="No Expectation"
+          />
+        </FormControl>
+      ))}
       <IconButton onClick={handleAddingClass}>
         <AddCircleOutline color="secondary" />
       </IconButton>

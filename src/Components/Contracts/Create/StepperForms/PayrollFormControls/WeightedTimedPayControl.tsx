@@ -9,20 +9,12 @@ import {
   TextField,
 } from '@mui/material';
 import React from 'react';
-import { Form } from 'react-router-dom';
-
-const addPayClass = () => {
-  return (
-    <FormControl>
-      <FormControlLabel control={<TextField />} label="Class Name" />
-      <FormControlLabel control={<TextField />} label="Class Pay" />
-      <FormControlLabel control={<Select label="Pay Rate" />} label="Pay Rate" />
-    </FormControl>
-  );
-};
+interface PayClass {
+  id: number;
+}
 
 export const WeightedTimedPayControl: React.FC = () => {
-  const [payClasses, setPayClasses] = React.useState([]);
+  const [payClasses, setPayClasses] = React.useState<PayClass[]>([]);
 
   const handleAddingClass = () => {
     setPayClasses((prevClasses) => {
@@ -30,7 +22,8 @@ export const WeightedTimedPayControl: React.FC = () => {
         alert('You cannot add more than 8 pay classes.');
         return prevClasses;
       }
-      return [...prevClasses, addPayClass()];
+      const newClass = { id: prevClasses.length + 1 };
+      return [...prevClasses, newClass];
     });
   };
 
@@ -45,7 +38,13 @@ export const WeightedTimedPayControl: React.FC = () => {
         <FormControlLabel control={<TextField />} label="Class Pay" />
         <FormControlLabel control={<Select label="Pay Rate" />} label="Pay Rate" />
       </FormControl>
-      {payClasses.map((payClass) => payClass)}
+      {payClasses.map((payClass) => (
+        <FormControl key={payClass.id}>
+          <FormControlLabel control={<TextField />} label="Class Name" />
+          <FormControlLabel control={<TextField />} label="Class Pay" />
+          <FormControlLabel control={<Select label="Pay Rate" />} label="Pay Rate" />
+        </FormControl>
+      ))}
       <IconButton onClick={handleAddingClass}>
         <AddCircleOutline color="secondary" />
       </IconButton>
