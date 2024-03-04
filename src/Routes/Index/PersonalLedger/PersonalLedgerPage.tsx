@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 
 import { AppToolBar } from '@/Components/Personal/AppToolBar';
+import { OverviewTool } from '@/Components/Personal/Overview/OverviewTool';
 
 export const PersonalLedgerPage: React.FC<unknown> = () => {
   return (
@@ -15,6 +16,12 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
         width: '100%',
       }}
     >
+      <Box
+        data-id="ToolDisplay"
+        sx={{ width: '100%', flexGrow: 1, margin: '1%', padding: '1em' }}
+      >
+        <OverviewTool />
+      </Box>
       <Box sx={{ mt: 'auto', mb: '1%' }}>
         <AppToolBar />
       </Box>
