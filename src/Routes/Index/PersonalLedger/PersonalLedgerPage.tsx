@@ -18,7 +18,7 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
     >
       <Box
         data-id="ToolDisplay"
-        sx={{ width: '100%', flexGrow: 1, margin: '1%', padding: '1em' }}
+        sx={{ width: '100%', height: '80%', margin: '1%', padding: '1em' }}
       >
         <OverviewTool />
       </Box>
