@@ -1,4 +1,13 @@
+import '@mui/material/Divider';
+
 import { createTheme } from '@mui/material/styles';
+
+declare module '@mui/material/Divider' {
+  interface DividerPropsVariantOverrides {
+    ToolTitle: true;
+    ComponentTitle: true;
+  }
+}
 
 export const verseOSTheme = createTheme({
   components: {
@@ -7,7 +16,19 @@ export const verseOSTheme = createTheme({
         {
           props: { variant: 'ToolTitle' },
           style: {
-            border: '#18fcfc',
+            borderColor: '#18fcfc',
+            boxShadow:
+              ' 0 0 4px rgba(255, 141, 15, 0.2), 0 0 0 2px rgba(24, 252, 252, .4), 0 0 0 1px rgba(24, 252, 252, .6)',
+            width: 'calc(100% - 30%)',
+          },
+        },
+        {
+          props: { variant: 'ComponentTitle' },
+          style: {
+            borderColor: '#18fcfc',
+            boxShadow:
+              ' 0 0 3px rgba(121, 192, 244, 0.25), 0 0 0 1px rgba(24, 252, 252, .5)',
+            width: 'calc(100% - 30%)',
           },
         },
       ],
@@ -158,35 +179,35 @@ export const verseOSTheme = createTheme({
 
   palette: {
     background: {
-      default: '#000113',
+      default: 'rgb(0, 1, 19)',
       //default: 'white', //Theme Test Switch
     },
     primary: {
-      main: '#0e318d',
-      dark: '#081d44',
-      light: '#2196f3',
+      main: 'rgb(14, 49, 141)',
+      dark: 'rgb(8, 29, 68)',
+      light: 'rgb(33, 150, 243)',
     },
     secondary: {
-      main: '#18fcfc',
-      dark: '#065691',
-      light: '#79c0f4',
+      main: 'rgb(24, 252, 252)',
+      dark: 'rgb(6, 86, 145)',
+      light: 'rgb(121, 192, 244)',
     },
     text: {
-      primary: '#d3fafe',
-      secondary: '#2196f3',
-      disabled: '#020226',
+      primary: 'rgb(211, 250, 254)',
+      secondary: 'rgb(33, 150, 243)',
+      disabled: 'rgb(2, 2, 38)',
     },
     info: {
-      main: '#ff8d0f',
+      main: 'rgb(255, 141, 15)',
     },
     success: {
-      main: '#08c90b',
+      main: 'rgb(8, 201, 11)',
     },
     warning: {
-      main: '#ff8d0f',
+      main: 'rgb(255, 141, 15)',
     },
     error: {
-      main: '#ff0008',
+      main: 'rgb(255, 0, 8)',
     },
   },
 });
