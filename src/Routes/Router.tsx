@@ -6,6 +6,7 @@ import ErrorPage from './ErrorPage';
 import { ContractLedgerTablePage } from './Index/ContractLedger/Ledger/ContractLedgerPage';
 import { ContractLedgerSplash } from './Index/ContractLedger/Splash/ContractLedgerSplash';
 import { Home } from './Index/Home/Home';
+import { PersonalLedgerPage } from './Index/PersonalLedger/PersonalLedgerPage';
 export const routingInfo: RouteObject[] = [
   {
     path: '/',
@@ -33,6 +34,10 @@ export const routingInfo: RouteObject[] = [
       {
         path: '/contract/ledger',
         element: <ContractLedgerTablePage />,
+      },
+      {
+        path: '/ledger/personal',
+        element: <PersonalLedgerPage />,
       },
     ],
   },

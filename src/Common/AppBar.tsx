@@ -1,8 +1,16 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { AppBar, Badge, IconButton, Menu, MenuItem, Toolbar, TextField } from '@mui/material';
-import { Typography, Popover, Autocomplete } from '@mui/material';
+import {
+  AppBar,
+  Badge,
+  IconButton,
+  Menu,
+  MenuItem,
+  TextField,
+  Toolbar,
+} from '@mui/material';
+import { Autocomplete, Popover, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import {
   bindMenu,
@@ -12,6 +20,8 @@ import {
 } from 'material-ui-popup-state/hooks';
 import React, { MouseEventHandler, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import Ship from '../Assets/media/Ship.svg?url';
 import Station from '../Assets/media/Station.svg?url';
 //import { VerseLogo } from './VerseLogo';
 //import { useHistory } from 'react-router-dom'; Implement on Line 41 Fix
@@ -64,7 +74,14 @@ export const VLAppBar: React.FC<unknown> = () => {
             <img src={logoRandom()} alt="Verse Logo" />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton sx={{ marginRight: '25%' }} onClick={handleClick}>
+          <IconButton>
+            <img
+              src={Ship}
+              alt="Ship-Select"
+              style={{ width: '100px', height: '25px' }}
+            />
+          </IconButton>
+          <IconButton sx={{ marginRight: '10%' }} onClick={handleClick}>
             <img src={Station} alt="Location-Select" />
             <Popover
               id="test-menu"
