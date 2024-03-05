@@ -11,6 +11,15 @@ declare module '@mui/material/Divider' {
 
 export const verseOSTheme = createTheme({
   components: {
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          '&.Mui-disabled': {
+            color: 'rgb(8, 29, 68)',
+          },
+        },
+      },
+    },
     MuiDivider: {
       variants: [
         {
