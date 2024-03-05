@@ -11,9 +11,30 @@ declare module '@mui/material/Divider' {
 
 export const verseOSTheme = createTheme({
   components: {
+    MuiSlider: {
+      styleOverrides: {
+        root: {
+          color: 'rgb(24, 252, 252)',
+          '&.Mui-disabled': {
+            color: 'rgb(8, 29, 68)',
+          },
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          color: 'rgb(24, 252, 252)',
+          '&.Mui-disabled': {
+            color: 'rgb(8, 29, 68)',
+          },
+        },
+      },
+    },
     MuiIconButton: {
       styleOverrides: {
         root: {
+          color: 'rgb(24, 252, 252)',
           '&.Mui-disabled': {
             color: 'rgb(8, 29, 68)',
           },
