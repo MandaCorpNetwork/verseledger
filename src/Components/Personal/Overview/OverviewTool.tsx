@@ -1,9 +1,25 @@
-import { Box, Divider, Typography } from '@mui/material';
+import { PowerSettingsNew } from '@mui/icons-material';
+import { Box, Divider, IconButton, Typography } from '@mui/material';
 
 import { ActiveToolsOverview } from '@/Components/Personal/Overview/ActiveTools';
 import { OverviewNotification } from '@/Components/Personal/Overview/NotificationTool';
+import { RadioFrequenciesTool } from '@/Components/Personal/Overview/RadioFrequenciesTool';
+import { useState } from 'react';
 
 export const OverviewTool: React.FC<unknown> = () => {
+  const [radioOff, setRadioOff] = useState<boolean>(true);
+
+  const RadioIcon = () => {
+    if (!radioOff) {
+      return <PowerSettingsNew color="success" fontSize="large" />;
+    } else {
+      return <PowerSettingsNew color="error" fontSize="large" />;
+    }
+  };
+
+  const toggleRadio = () => {
+    setRadioOff(!radioOff);
+  };
   return (
     <Box
       data-id="OverviewToolContainer"
@@ -65,7 +81,7 @@ export const OverviewTool: React.FC<unknown> = () => {
         </Box>
       </Box>
       <Box
-        data-id="ActiveToolsToolContainer"
+        data-id="RadioFrequenciesToolContainer"
         sx={{
           border: '3px solid',
           borderColor: 'primary.dark',
@@ -74,27 +90,29 @@ export const OverviewTool: React.FC<unknown> = () => {
           p: '1em',
           ml: '1em',
           width: '35%',
-          height: '40%',
+          height: '30%',
         }}
       >
-        <Box data-id="ActiveToolsToolTitle">
-          <Typography variant="h4">Active Tools</Typography>
+        <Box data-id="RadioFrequenciesToolTitle">
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Typography variant="h4">Radio Frequencies</Typography>
+            <IconButton onClick={toggleRadio} sx={{ ml: 'auto' }}>
+              <RadioIcon />
+            </IconButton>
+          </Box>
           <Divider variant="ComponentTitle" />
         </Box>
         <Box
+          data-id="RadioFrequenciesToolContent"
           sx={{
             display: 'flex',
-            flexGrow: 1,
             justifyContent: 'center',
             alignItems: 'center',
+            flexGrow: 1,
           }}
         >
-          <ActiveToolsOverview />
+          <RadioFrequenciesTool isDisabled={radioOff} />
         </Box>
-      </Box>
-      <Box>
-        <Typography variant="h4">Radio Frequencies</Typography>
-        <Divider variant="ComponentTitle" />
       </Box>
       <Box>
         <Typography variant="h4">Location Explorer</Typography>
