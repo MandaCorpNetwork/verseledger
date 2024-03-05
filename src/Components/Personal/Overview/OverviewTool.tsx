@@ -1,5 +1,6 @@
 import { Box, Divider, Typography } from '@mui/material';
 
+import { ActiveToolsOverview } from '@/Components/Personal/Overview/ActiveTools';
 import { OverviewNotification } from '@/Components/Personal/Overview/NotificationTool';
 
 export const OverviewTool: React.FC<unknown> = () => {
@@ -79,6 +80,16 @@ export const OverviewTool: React.FC<unknown> = () => {
         <Box data-id="ActiveToolsToolTitle">
           <Typography variant="h4">Active Tools</Typography>
           <Divider variant="ComponentTitle" />
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexGrow: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <ActiveToolsOverview />
         </Box>
       </Box>
       <Box>
