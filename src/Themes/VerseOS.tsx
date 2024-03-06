@@ -120,7 +120,6 @@ export const verseOSTheme = createTheme({
       styleOverrides: {
         notchedOutline: {
           borderColor: '#0E318D',
-          height: '100%',
         },
         root: {
           '&:hover $notchedOutline': {
