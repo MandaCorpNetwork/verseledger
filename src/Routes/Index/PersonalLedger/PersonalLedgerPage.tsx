@@ -14,11 +14,19 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
         justifyContent: 'center',
         height: 'calc(100vh - 64px)',
         width: '100%',
+        padding: '1em',
       }}
     >
       <Box
         data-id="ToolDisplay"
-        sx={{ width: '100%', height: '80%', margin: '1%', padding: '1em' }}
+        sx={{
+          width: '100%',
+          height: '85%',
+          margin: '1%',
+          padding: '1em',
+          border: '3px solid',
+          borderColor: 'primary.main',
+        }}
       >
         <OverviewTool />
       </Box>
