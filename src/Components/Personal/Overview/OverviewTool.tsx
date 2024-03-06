@@ -1,11 +1,11 @@
-import { PowerSettingsNew } from '@mui/icons-material';
+import { PowerSettingsNew, Sync } from '@mui/icons-material';
 import { Box, Divider, IconButton, Typography } from '@mui/material';
 import { useState } from 'react';
 
+import { LocationExplorerTool } from '@/Components/Personal/Overview/LocationExplorerTool';
 //import { ActiveToolsOverview } from '@/Components/Personal/Overview/ActiveTools';
 import { OverviewNotification } from '@/Components/Personal/Overview/NotificationTool';
 import { RadioFrequenciesTool } from '@/Components/Personal/Overview/RadioFrequenciesTool';
-import { LocationExplorerTool } from '@/Components/Personal/Overview/LocationExplorerTool';
 
 export const OverviewTool: React.FC<unknown> = () => {
   const [radioOff, setRadioOff] = useState<boolean>(true);
@@ -153,17 +153,22 @@ export const OverviewTool: React.FC<unknown> = () => {
               borderColor: 'primary.dark',
               display: 'flex',
               flexDirection: 'column',
-              p: '1em',
+              p: '.5em',
               margin: '1em',
               width: '100%',
               height: '45%',
             }}
           >
-            <Box data-id="LocationExplorerToolTitle">
-              <Typography variant="h5">Location Explorer</Typography>
+            <Box data-id="LocationExplorerToolTitle" sx={{ height: '10%', p: '.5em' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography variant="h5">Location Explorer</Typography>
+                <IconButton sx={{ ml: 'auto' }}>
+                  <Sync />
+                </IconButton>
+              </Box>
               <Divider variant="ComponentTitle" />
             </Box>
-            <Box data-id="LocationExplorerToolContent">
+            <Box data-id="LocationExplorerToolContent" sx={{ height: '90%' }}>
               <LocationExplorerTool />
             </Box>
           </Box>
