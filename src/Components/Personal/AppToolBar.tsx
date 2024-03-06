@@ -1,6 +1,7 @@
 import {
   Apps,
   Diamond,
+  Explore,
   Rocket,
   RocketLaunch,
   TextSnippet,
@@ -44,6 +45,7 @@ export const AppToolBar: React.FC<unknown> = () => {
     { key: 'contracts', icon: <TextSnippet key="text-snippet" fontSize="large" /> },
     { key: 'shipmanage', icon: <Rocket key="rocket" fontSize="large" /> },
     { key: 'fleetmanage', icon: <RocketLaunch key="rocket-launch" fontSize="large" /> },
+    { key: 'explore', icon: <Explore key="explore" fontSize="large" /> },
     { key: 'logistics', icon: <Widgets key="widgets" fontSize="large" /> },
     { key: 'mining', icon: <Diamond key="diamond" fontSize="large" /> },
   ];

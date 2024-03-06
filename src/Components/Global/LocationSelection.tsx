@@ -8,7 +8,7 @@ export const LocationSelection: React.FC<unknown> = () => {
         options={locationTestDB}
         getOptionLabel={(option) => option.location}
         renderInput={(params) => (
-          <TextField {...params} label="Locations" placeholder="Location" />
+          <TextField {...params} label="Set Location" placeholder="Location" />
         )}
       />
     </>
