@@ -4,6 +4,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import {
   AppBar,
   Badge,
+  Button,
   IconButton,
   Menu,
   MenuItem,
@@ -20,6 +21,8 @@ import {
 } from 'material-ui-popup-state/hooks';
 import React, { MouseEventHandler, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { LocationSelection } from '@/Components/Global/LocationSelection';
 
 import Ship from '../Assets/media/Ship.svg?url';
 import Station from '../Assets/media/Station.svg?url';
@@ -81,7 +84,7 @@ export const VLAppBar: React.FC<unknown> = () => {
               style={{ width: '100px', height: '25px' }}
             />
           </IconButton>
-          <IconButton sx={{ marginRight: '10%' }} onClick={handleClick}>
+          <Button sx={{ marginRight: '10%' }} onClick={handleClick}>
             <img src={Station} alt="Location-Select" />
             <Popover
               id="test-menu"
@@ -98,16 +101,9 @@ export const VLAppBar: React.FC<unknown> = () => {
                 horizontal: 'center',
               }}
             >
-              <Autocomplete
-                limitTags={2}
-                options={locationTestDB}
-                getOptionLabel={(option) => option.location}
-                renderInput={(params) => (
-                  <TextField {...params} label="Locations" placeholder="Location" />
-                )}
-              />
+              <LocationSelection />
             </Popover>
-          </IconButton>
+          </Button>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new messages" color="inherit">
               <Badge badgeContent={4} color="error">
@@ -140,12 +136,3 @@ export const VLAppBar: React.FC<unknown> = () => {
     </Box>
   );
 };
-
-const locationTestDB = [
-  { star: 'Stanton', body: 'Hurston', location: 'Loreville' },
-  { star: 'Stanton', body: 'Hurston', location: 'Everus Harbor' },
-  { star: 'Stanton', body: 'Aberdeen', location: 'Klecher' },
-  { star: 'Stanton', body: 'Hurston', location: `Cutter's Rig` },
-  { star: 'Stanton', body: 'Hurston', location: `Finn's Folly` },
-  { star: 'Stanton', body: 'Hurston', location: 'HDES Calthrope' },
-];
