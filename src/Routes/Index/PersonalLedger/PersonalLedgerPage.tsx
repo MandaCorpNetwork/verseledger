@@ -21,7 +21,7 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
         data-id="ToolDisplay"
         sx={{
           width: '100%',
-          height: '85%',
+          height: '90%',
           margin: '1%',
           padding: '1em',
           border: '3px solid',

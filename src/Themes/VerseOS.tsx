@@ -24,7 +24,6 @@ export const verseOSTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          color: 'rgb(24, 252, 252)',
           '&.Mui-disabled': {
             color: 'rgb(8, 29, 68)',
           },

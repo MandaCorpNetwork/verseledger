@@ -6,6 +6,7 @@ import { LocationExplorerTool } from '@/Components/Personal/Overview/LocationExp
 //import { ActiveToolsOverview } from '@/Components/Personal/Overview/ActiveTools';
 import { OverviewNotification } from '@/Components/Personal/Overview/NotificationTool';
 import { RadioFrequenciesTool } from '@/Components/Personal/Overview/RadioFrequenciesTool';
+import { ShipStatus } from '@/Components/Personal/Overview/ShipStatus';
 
 export const OverviewTool: React.FC<unknown> = () => {
   const [radioOff, setRadioOff] = useState<boolean>(true);
@@ -185,8 +186,16 @@ export const OverviewTool: React.FC<unknown> = () => {
               height: '45%',
             }}
           >
-            <Typography variant="h5">Ship Status</Typography>
-            <Divider variant="ComponentTitle" />
+            <Box data-id="ShipStatusToolTitle" sx={{ height: '10%' }}>
+              <Typography variant="h5">Ship Status</Typography>
+              <Divider variant="ComponentTitle" />
+            </Box>
+            <Box
+              data-id="ShipStatusToolContent"
+              sx={{ height: '85%', mt: '1em', p: '.5em' }}
+            >
+              <ShipStatus />
+            </Box>
           </Box>
         </Box>
       </Box>
