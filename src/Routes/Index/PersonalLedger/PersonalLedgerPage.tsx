@@ -1,9 +1,23 @@
 import { Box } from '@mui/material';
+import React from 'react';
 
 import { AppToolBar } from '@/Components/Personal/AppToolBar';
-import { OverviewTool } from '@/Components/Personal/Overview/OverviewTool';
+import { ContractsApp } from '@/Components/Personal/Contracts/ContractsApp';
+import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
 
 export const PersonalLedgerPage: React.FC<unknown> = () => {
+  const [selectedApp, setSelectedApp] = React.useState<string>('Overview');
+
+  const appRenderer = () => {
+    switch (selectedApp) {
+      case 'Overview':
+        return <OverviewApp />;
+      case 'Contracts':
+        return <ContractsApp />;
+      default:
+        return <OverviewApp />;
+    }
+  };
   return (
     <Box
       data-id="PersonalLedgerPage"
@@ -28,10 +42,10 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
           borderColor: 'primary.main',
         }}
       >
-        <OverviewTool />
+        {appRenderer()}
       </Box>
       <Box sx={{ mt: 'auto', mb: '1%' }}>
-        <AppToolBar />
+        <AppToolBar selectedApp={selectedApp} setSelectedApp={setSelectedApp} />
       </Box>
     </Box>
   );

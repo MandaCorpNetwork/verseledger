@@ -37,22 +37,28 @@ const IconButtonWithDivider: React.FC<IconButtonWithDividerProps> = ({
   </>
 );
 
-export const AppToolBar: React.FC<unknown> = () => {
-  const [selectedTool, setSelectedTool] = React.useState<string>('overview');
+type AppToolBarProps = {
+  selectedApp: string;
+  setSelectedApp: React.Dispatch<React.SetStateAction<string>>;
+};
 
+export const AppToolBar: React.FC<AppToolBarProps> = ({
+  selectedApp,
+  setSelectedApp,
+}) => {
   const icons = [
-    { key: 'overview', icon: <Apps key="apps" fontSize="large" /> },
-    { key: 'contracts', icon: <TextSnippet key="text-snippet" fontSize="large" /> },
-    { key: 'shipmanage', icon: <Rocket key="rocket" fontSize="large" /> },
-    { key: 'fleetmanage', icon: <RocketLaunch key="rocket-launch" fontSize="large" /> },
-    { key: 'explore', icon: <Explore key="explore" fontSize="large" /> },
-    { key: 'logistics', icon: <Widgets key="widgets" fontSize="large" /> },
-    { key: 'mining', icon: <Diamond key="diamond" fontSize="large" /> },
+    { key: 'Overview', icon: <Apps key="apps" fontSize="large" /> },
+    { key: 'Contracts', icon: <TextSnippet key="text-snippet" fontSize="large" /> },
+    { key: 'Shipmanage', icon: <Rocket key="rocket" fontSize="large" /> },
+    { key: 'Fleetmanage', icon: <RocketLaunch key="rocket-launch" fontSize="large" /> },
+    { key: 'Explore', icon: <Explore key="explore" fontSize="large" /> },
+    { key: 'Logistics', icon: <Widgets key="widgets" fontSize="large" /> },
+    { key: 'Mining', icon: <Diamond key="diamond" fontSize="large" /> },
   ];
 
-  const handleToolChange = (iconKey: string) => {
-    if (selectedTool === iconKey) return;
-    setSelectedTool(iconKey);
+  const handleAppChange = (iconKey: string) => {
+    if (selectedApp === iconKey) return;
+    setSelectedApp(iconKey);
   };
 
   return (
@@ -68,8 +74,8 @@ export const AppToolBar: React.FC<unknown> = () => {
           <IconButtonWithDivider
             color="secondary"
             key={item.key}
-            isSelected={selectedTool === item.key}
-            onClick={() => handleToolChange(item.key)}
+            isSelected={selectedApp === item.key}
+            onClick={() => handleAppChange(item.key)}
           >
             {item.icon}
           </IconButtonWithDivider>
@@ -78,9 +84,9 @@ export const AppToolBar: React.FC<unknown> = () => {
             color="secondary"
             key={item.key}
             sx={{
-              color: selectedTool === item.key ? 'secondary.main' : 'secondary.dark',
+              color: selectedApp === item.key ? 'secondary.main' : 'secondary.dark',
             }}
-            onClick={() => handleToolChange(item.key)}
+            onClick={() => handleAppChange(item.key)}
           >
             {item.icon}
           </IconButton>
