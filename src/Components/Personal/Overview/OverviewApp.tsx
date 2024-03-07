@@ -8,7 +8,7 @@ import { OverviewNotification } from '@/Components/Personal/Overview/Notificatio
 import { RadioFrequenciesTool } from '@/Components/Personal/Overview/RadioFrequenciesTool';
 import { ShipStatus } from '@/Components/Personal/Overview/ShipStatus';
 
-export const OverviewTool: React.FC<unknown> = () => {
+export const OverviewApp: React.FC<unknown> = () => {
   const [radioOff, setRadioOff] = useState<boolean>(true);
 
   const RadioIcon = () => {
