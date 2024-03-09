@@ -21,7 +21,15 @@ import { LocationDropdownFilter } from '@/Components/Contracts/Ledger/Filters/Lo
 import { SubTypeDropdownFilter } from '@/Components/Contracts/Ledger/Filters/SubTypeDropdownFilter';
 import { UECRangeInputFilter } from '@/Components/Contracts/Ledger/Filters/UECRangeInputFilter';
 
-export const ContractLedgerTableTools: React.FC<unknown> = () => {
+type ContractTableToolsProps = {
+  title: string;
+  titleSize: 'h4' | 'h5' | 'h6';
+};
+
+export const ContractTableTools: React.FC<ContractTableToolsProps> = ({
+  title,
+  titleSize,
+}) => {
   const [sortBy, setSortBy] = useState('');
 
   const handleSort = (event: SelectChangeEvent) => {
@@ -97,7 +105,7 @@ export const ContractLedgerTableTools: React.FC<unknown> = () => {
           <EmployerRatingSliderFilter />
         </Box>
       </Collapse>
-      <Typography variant="h4">Contract Ledger</Typography>
+      <Typography variant={titleSize}>{title}</Typography>
       <Box
         id="Contract-Table-Search-Sort-Box"
         sx={{ display: 'flex', flexDirection: 'row', marginRight: '1em' }}

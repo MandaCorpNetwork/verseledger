@@ -10,16 +10,17 @@ import { fetchContracts } from '@/Redux/Slices/Contracts/contractThunks';
 import { ContractCardDisplay } from './CardView/ContractCardDisplay';
 import { ContractTableView } from './TableView/ContractTableView';
 
-type ContractLedgerContractsViewerProps = {
+type ContractsViewerProps = {
   selectedId: number | null;
   selectedIdSetter: (id: number | null) => void;
   contractOnClose: () => void;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const ContractLedgerContractsViewer: React.FC<
-  ContractLedgerContractsViewerProps
-> = ({ selectedId, selectedIdSetter, contractOnClose }) => {
+export const ContractsViewer: React.FC<ContractsViewerProps> = ({
+  selectedIdSetter,
+  contractOnClose,
+}) => {
   const dispatch = useAppDispatch();
   const contracts = useAppSelector((root) => selectContracts(root));
   useEffect(() => {
