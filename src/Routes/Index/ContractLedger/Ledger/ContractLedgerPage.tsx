@@ -14,8 +14,8 @@ import SalvageLoop from '../../../../Assets/media/ContractLedger/SalvLoop.webm?u
 import SecurityLoop from '../../../../Assets/media/ContractLedger/SecLoop.webm?url';
 import { ContractLedgerQuickNav } from '../../../../Components/Contracts/Ledger/ContractLedgerQuickNav';
 import { ContractBriefingDisplay } from '../../../../Components/Contracts/Ledger/Details/ContractBriefingDisplay';
-import { ContractLedgerTableTools } from '../../../../Components/Contracts/Ledger/Filters/ContractLedgerTableTools';
-import { ContractLedgerContractsViewer } from '../../../../Components/Contracts/Ledger/List/ContractLedgerContractsViewer';
+import { ContractTableTools } from '../../../../Components/Contracts/Ledger/Filters/ContractTableTools';
+import { ContractsViewer } from '../../../../Components/Contracts/Ledger/List/ContractsViewer';
 
 export const ContractLedgerTablePage: React.FC<unknown> = () => {
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -119,8 +119,8 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
             marginLeft: '5%',
           }}
         >
-          <ContractLedgerTableTools />
-          <ContractLedgerContractsViewer
+          <ContractTableTools />
+          <ContractsViewer
             selectedId={selectedId}
             selectedIdSetter={handleContractPick}
             contractOnClose={handleContractClose}

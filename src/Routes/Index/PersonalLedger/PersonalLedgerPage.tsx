@@ -6,7 +6,7 @@ import { ContractsApp } from '@/Components/Personal/Contracts/ContractsApp';
 import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
 
 export const PersonalLedgerPage: React.FC<unknown> = () => {
-  const [selectedApp, setSelectedApp] = React.useState<string>('Overview');
+  const [selectedApp, setSelectedApp] = React.useState<string>('Contracts');
 
   const appRenderer = () => {
     switch (selectedApp) {
@@ -15,7 +15,7 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
       case 'Contracts':
         return <ContractsApp />;
       default:
-        return <OverviewApp />;
+        return <ContractsApp />;
     }
   };
   return (
@@ -37,7 +37,7 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
           width: '100%',
           height: '90%',
           margin: '1%',
-          padding: '1em',
+          padding: '.5em',
           border: '3px solid',
           borderColor: 'primary.main',
         }}
