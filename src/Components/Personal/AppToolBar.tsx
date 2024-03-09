@@ -2,7 +2,6 @@ import {
   Apps,
   Diamond,
   Explore,
-  Rocket,
   RocketLaunch,
   TextSnippet,
   Widgets,
@@ -49,7 +48,6 @@ export const AppToolBar: React.FC<AppToolBarProps> = ({
   const icons = [
     { key: 'Overview', icon: <Apps key="apps" fontSize="large" /> },
     { key: 'Contracts', icon: <TextSnippet key="text-snippet" fontSize="large" /> },
-    { key: 'Shipmanage', icon: <Rocket key="rocket" fontSize="large" /> },
     { key: 'Fleetmanage', icon: <RocketLaunch key="rocket-launch" fontSize="large" /> },
     { key: 'Explore', icon: <Explore key="explore" fontSize="large" /> },
     { key: 'Logistics', icon: <Widgets key="widgets" fontSize="large" /> },

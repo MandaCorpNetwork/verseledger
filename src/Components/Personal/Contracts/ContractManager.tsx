@@ -160,57 +160,57 @@ export const ContractManager: React.FC<unknown> = () => {
         sx={{ display: 'flex', flexDirection: 'row', width: '100%', height: '50%' }}
       >
         <Box sx={{ width: '80%' }}>
-        <TabContext value={contractManagerTab}>
-          <TabList onChange={handleContractManageView}>
-            <Tab label="Contractors" value="contractors" />
-            <Tab label="Fleet Allocation" value="fleet" />
-            <Tab label="Payroll" value="payroll" />
-          </TabList>
-          <TabPanel
-            value="contractors"
-            sx={{
-              overflow: 'auto',
-              height: '100%',
-              '&::-webkit-scrollbar': {
-                width: '5px',
-              },
-              '&::-webkit-scrollbar-track': {
-                background: 'rgb(8, 29, 68)',
-                borderRadius: '15px',
-              },
-              '&::-webkit-scrollbar-thumb': {
-                borderRadius: '15px',
-                background: 'rgb(121, 192, 244, .5)',
-              },
-            }}
-          >
-            <ContractorsManager />
-          </TabPanel>
-          <TabPanel
-            value="fleet"
-            sx={{
-              overflow: 'auto',
-              height: '100%',
-              '&::-webkit-scrollbar': {
-                width: '5px',
-              },
-              '&::-webkit-scrollbar-track': {
-                background: 'rgb(8, 29, 68)',
-                borderRadius: '15px',
-              },
-              '&::-webkit-scrollbar-thumb': {
-                borderRadius: '15px',
-                background: 'rgb(121, 192, 244, .5)',
-              },
-            }}
-          >
-            <FleetAllocation />
-          </TabPanel>
-          <TabPanel value="payroll" sx={{ height: '100%' }}>
-            <PayrollPanel />
-          </TabPanel>
+          <TabContext value={contractManagerTab}>
+            <TabList onChange={handleContractManageView}>
+              <Tab label="Contractors" value="contractors" />
+              <Tab label="Fleet Allocation" value="fleet" />
+              <Tab label="Payroll" value="payroll" />
+            </TabList>
+            <TabPanel
+              value="contractors"
+              sx={{
+                overflow: 'auto',
+                height: '100%',
+                '&::-webkit-scrollbar': {
+                  width: '5px',
+                },
+                '&::-webkit-scrollbar-track': {
+                  background: 'rgb(8, 29, 68)',
+                  borderRadius: '15px',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  borderRadius: '15px',
+                  background: 'rgb(121, 192, 244, .5)',
+                },
+              }}
+            >
+              <ContractorsManager />
+            </TabPanel>
+            <TabPanel
+              value="fleet"
+              sx={{
+                overflow: 'auto',
+                height: '100%',
+                '&::-webkit-scrollbar': {
+                  width: '5px',
+                },
+                '&::-webkit-scrollbar-track': {
+                  background: 'rgb(8, 29, 68)',
+                  borderRadius: '15px',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  borderRadius: '15px',
+                  background: 'rgb(121, 192, 244, .5)',
+                },
+              }}
+            >
+              <FleetAllocation />
+            </TabPanel>
+            <TabPanel value="payroll" sx={{ height: '100%' }}>
+              <PayrollPanel />
+            </TabPanel>
           </TabContext>
-          </Box>
+        </Box>
         <Box data-id="ContractController" sx={{ width: '20%' }}>
           <Button>Start Contract</Button>
           <Button>Complete Contract</Button>
