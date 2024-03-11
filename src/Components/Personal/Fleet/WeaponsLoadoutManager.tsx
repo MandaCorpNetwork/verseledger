@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@mui/material';
+import { Box, Button, Table, TableBody,TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 
 function createWeapon(
   id: number,
@@ -47,7 +38,7 @@ const weaponRows = [
   createWeapon(6, 'Turret', 3, 'Scorpian', 220, 'balistic'),
 ];
 
-export const WeaponsLoadoutOverview: React.FC<unknown> = () => {
+export const WeaponsLoadoutManager: React.FC<unknown> = () => {
   return (
     <TableContainer
       component={Box}
@@ -103,4 +94,4 @@ export const WeaponsLoadoutOverview: React.FC<unknown> = () => {
       </Table>
     </TableContainer>
   );
-};
+}
