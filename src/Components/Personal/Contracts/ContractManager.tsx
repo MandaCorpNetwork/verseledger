@@ -2,7 +2,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Button, Chip, Tab, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 
-import { PlayerDisplay } from '@/Components/Global/PlayerDisplay';
+import { PlayerDisplay } from '@/Common/PlayerDisplay';
 import { ContractLocationCard } from '@/Components/Personal/Contracts/ContractLocationCard';
 import { ContractorsManager } from '@/Components/Personal/Contracts/ContractorsManager';
 import { FleetAllocation } from '@/Components/Personal/Contracts/FleetAllocation';

@@ -3,11 +3,13 @@ import React from 'react';
 
 import { AppToolBar } from '@/Components/Personal/AppToolBar';
 import { ContractsApp } from '@/Components/Personal/Contracts/ContractsApp';
+import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
 import { FleetManagerApp } from '@/Components/Personal/Fleet/FleetManagerApp';
+import { LogisticsApp } from '@/Components/Personal/Logistics/LogisticsApp';
 import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
 
 export const PersonalLedgerPage: React.FC<unknown> = () => {
-  const [selectedApp, setSelectedApp] = React.useState<string>('Fleetmanage');
+  const [selectedApp, setSelectedApp] = React.useState<string>('Explore');
 
   const appRenderer = () => {
     switch (selectedApp) {
@@ -17,6 +19,10 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
         return <ContractsApp />;
       case 'Fleetmanage':
         return <FleetManagerApp />;
+      case 'Explore':
+        return <ExploreApp />;
+      case 'Logistics':
+        return <LogisticsApp />;
       default:
         return <ContractsApp />;
     }

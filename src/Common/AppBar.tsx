@@ -22,7 +22,7 @@ import {
 import React, { MouseEventHandler, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { LocationSelection } from '@/Components/Global/LocationSelection';
+import { LocationSelection } from '@/Common/LocationSelection';
 
 import Ship from '../Assets/media/Ship.svg?url';
 import Station from '../Assets/media/Station.svg?url';

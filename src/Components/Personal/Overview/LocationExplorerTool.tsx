@@ -1,25 +1,8 @@
-import { Box, Button, TextField, Tooltip } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import React from 'react';
 
-import { LocationSelection } from '@/Components/Global/LocationSelection';
-
-type TimeFieldProps = {
-  label: string;
-};
-
-const TimeField: React.FC<TimeFieldProps> = ({ label }) => {
-  return (
-    <Tooltip title="Local System Time" arrow>
-      <TextField
-        label={label}
-        size="small"
-        InputProps={{ readOnly: true }}
-        value={label}
-        sx={{ width: '10em', margin: '.5em' }}
-      />
-    </Tooltip>
-  );
-};
+import { LocationSelection } from '@/Common/LocationSelection';
+import { ReadOnlyField } from '@/Common/ReadOnlyField';
 
 export const LocationExplorerTool: React.FC<unknown> = () => {
   return (
@@ -42,9 +25,9 @@ export const LocationExplorerTool: React.FC<unknown> = () => {
         <LocationSelection />
       </Box>
       <Box data-id="LocationTimeDataContainer">
-        <TimeField label="Local Time" />
-        <TimeField label="StarRise Time" />
-        <TimeField label="StarSet Time" />
+        <ReadOnlyField label="Local Time" />
+        <ReadOnlyField label="StarRise Time" />
+        <ReadOnlyField label="StarSet Time" />
       </Box>
       <Box
         data-id="NearbyTablesContainer"
