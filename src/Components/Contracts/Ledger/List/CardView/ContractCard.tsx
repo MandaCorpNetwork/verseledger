@@ -8,7 +8,7 @@ import React from 'react';
 import type { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
 import TestProfile from '@/Assets/TestProfile.png?url';
-import { CountdownTimer } from '@/Components/Global/CountdownTimer';
+import { CountdownTimer } from '@/Common/CountdownTimer';
 
 type ContractCardProps = {
   contract: IContract;

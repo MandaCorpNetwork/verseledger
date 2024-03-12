@@ -10,7 +10,7 @@ import {
 import React from 'react';
 
 import type { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
-import { PlayerDisplay } from '@/Components/Global/PlayerDisplay';
+import { PlayerDisplay } from '@/Common/PlayerDisplay';
 
 type BriefingViewerProps = {
   contract: IContract;
