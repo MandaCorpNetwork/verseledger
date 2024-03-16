@@ -1,4 +1,13 @@
-import { Button, TableContainer, Box, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
+import {
+  Box,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 
 function createComponent(
   id: number,
@@ -81,4 +90,4 @@ export const ComponentsLoadoutManager: React.FC<unknown> = () => {
       </Table>
     </TableContainer>
   );
-}
+};

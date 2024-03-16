@@ -7,9 +7,10 @@ import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
 import { FleetManagerApp } from '@/Components/Personal/Fleet/FleetManagerApp';
 import { LogisticsApp } from '@/Components/Personal/Logistics/LogisticsApp';
 import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
+import { RefiningApp } from '@/Components/Personal/Refining/RefiningApp';
 
 export const PersonalLedgerPage: React.FC<unknown> = () => {
-  const [selectedApp, setSelectedApp] = React.useState<string>('Explore');
+  const [selectedApp, setSelectedApp] = React.useState<string>('Refining');
 
   const appRenderer = () => {
     switch (selectedApp) {
@@ -23,6 +24,8 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
         return <ExploreApp />;
       case 'Logistics':
         return <LogisticsApp />;
+      case 'Refining':
+        return <RefiningApp />;
       default:
         return <ContractsApp />;
     }
@@ -59,11 +62,3 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
     </Box>
   );
 };
-
-/* Needed
-  AppBar
-  Overview Page
-  Contracts Manager
-  Fleet Manager
-  Ship Manager
-*/
