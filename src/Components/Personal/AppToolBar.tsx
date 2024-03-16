@@ -1,6 +1,6 @@
 import {
   Apps,
-  Diamond,
+  AutoAwesome,
   Explore,
   RocketLaunch,
   TextSnippet,
@@ -51,7 +51,7 @@ export const AppToolBar: React.FC<AppToolBarProps> = ({
     { key: 'Fleetmanage', icon: <RocketLaunch key="rocket-launch" fontSize="large" /> },
     { key: 'Explore', icon: <Explore key="explore" fontSize="large" /> },
     { key: 'Logistics', icon: <Widgets key="widgets" fontSize="large" /> },
-    { key: 'Mining', icon: <Diamond key="diamond" fontSize="large" /> },
+    { key: 'Refining', icon: <AutoAwesome key="awesome" fontSize="large" /> },
   ];
 
   const handleAppChange = (iconKey: string) => {

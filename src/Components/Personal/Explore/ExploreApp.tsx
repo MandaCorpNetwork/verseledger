@@ -1,6 +1,5 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { Gauge, SparkLineChart } from '@mui/x-charts';
-import { gaugeClasses } from '@mui/x-charts/Gauge';
 
 import { LocationSelection } from '@/Common/LocationSelection';
 import { ReadOnlyField } from '@/Common/ReadOnlyField';
