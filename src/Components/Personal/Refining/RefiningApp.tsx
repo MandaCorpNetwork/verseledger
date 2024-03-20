@@ -1,8 +1,8 @@
 import { Box, Button, Select, Typography } from '@mui/material';
 
 import { LocationSelection } from '@/Common/LocationSelection';
-import { WorkOrderCard } from '@/Components/Personal/Refining/WorkOrderCard';
 import { CreateOrderCard } from '@/Components/Personal/Refining/CreateOrderCard';
+import { WorkOrderCard } from '@/Components/Personal/Refining/WorkOrderCard';
 
 export const RefiningApp: React.FC<unknown> = () => {
   return (
@@ -39,7 +39,7 @@ export const RefiningApp: React.FC<unknown> = () => {
           </Box>
         </Box>
         <Box>
-          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
             <CreateOrderCard />
             <WorkOrderCard />
           </Box>
