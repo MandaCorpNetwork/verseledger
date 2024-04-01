@@ -11,7 +11,7 @@
     "@mui/x-data-grid": "^6.19.6",    
     "@mui/x-charts": "^7.0.0-beta.6",
     "@mui/x-date-pickers": "^6.19.5",
-    "@reduxjs/toolkit": "2.2.2",
+    "@reduxjs/toolkit": "2.2.3",
     "axios": "1.6.8",
     "csstype": "3",
     "date-fns": "^3.3.1",
