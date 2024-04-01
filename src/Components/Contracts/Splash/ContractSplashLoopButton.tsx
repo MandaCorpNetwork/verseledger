@@ -1,9 +1,10 @@
 /// <reference types="vite/client" />
 import './ContractSplashLoop.scss';
 
-import { Button, Typography } from '@mui/material';
 import { useTheme } from '@emotion/react';
+import { Button, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type SplashLoopButtonProps = {
   title: string;
@@ -14,10 +15,17 @@ type SplashLoopButtonProps = {
 export const ContractSplashLoopButton: React.FC<SplashLoopButtonProps> = ({
   title,
   videoSource,
+  to,
 }) => {
   // eslint-disable-next-line
   const theme = useTheme() as any;
 
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(to);
+  };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -38,6 +46,7 @@ export const ContractSplashLoopButton: React.FC<SplashLoopButtonProps> = ({
       id="splash-loop-button"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
       sx={{
         color: 'text.primary',
         width: '22em',
@@ -52,7 +61,7 @@ export const ContractSplashLoopButton: React.FC<SplashLoopButtonProps> = ({
         '&:active': {
           border: '5px ridge #18fcfc',
           color: 'text.secondary',
-        }
+        },
       }}
     >
       <video loop muted id={videoSource} className="splash-video">
@@ -65,7 +74,9 @@ export const ContractSplashLoopButton: React.FC<SplashLoopButtonProps> = ({
           letterSpacing: '0.04em',
           zindex: '4',
         }}
-      >{title}</Typography>
+      >
+        {title}
+      </Typography>
     </Button>
   );
 };

@@ -1,8 +1,17 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { AppBar, Badge, IconButton, Menu, MenuItem, Toolbar } from '@mui/material';
-import { Typography } from '@mui/material';
+import {
+  AppBar,
+  Badge,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  TextField,
+  Toolbar,
+} from '@mui/material';
+import { Autocomplete, Popover, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import {
   bindMenu,
@@ -10,7 +19,13 @@ import {
   PopupState,
   usePopupState,
 } from 'material-ui-popup-state/hooks';
-import React from 'react';
+import React, { MouseEventHandler, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { LocationSelection } from '@/Common/LocationSelection';
+
+import Ship from '../Assets/media/Ship.svg?url';
+import Station from '../Assets/media/Station.svg?url';
 //import { VerseLogo } from './VerseLogo';
 //import { useHistory } from 'react-router-dom'; Implement on Line 41 Fix
 
@@ -20,6 +35,18 @@ export const VLAppBar: React.FC<unknown> = () => {
     popupId: 'profileNav',
   });
   //const menuId = 'primary-account-menu';
+
+  const [anchorE1, setAnchorE1] = useState(null);
+
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (e: {
+    currentTarget: React.SetStateAction<null>;
+  }) => {
+    setAnchorE1(e.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorE1(null);
+  };
+  //Location Button Dropdown Interaction
 
   const renderMenu = (
     <Menu {...bindMenu(profilePopupState)}>
@@ -36,21 +63,47 @@ export const VLAppBar: React.FC<unknown> = () => {
     const i = Math.floor(Math.random() * 11);
     return `../Assets/media/VerseLogos/verselogo-${i}.png`;
   }
+  const navigate = useNavigate();
+  function handleLogoClick() {
+    navigate('/');
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ bgcolor: 'primary.dark' }}>
         <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { sx: 'none', sm: 'block' } }}
-          >
+          <IconButton component="div" sx={{}} onClick={handleLogoClick}>
             {/*{VerseLogo()}*/}
             <img src={logoRandom()} alt="Verse Logo" />
-          </Typography>
+          </IconButton>
           <Box sx={{ flexGrow: 1 }} />
+          <IconButton>
+            <img
+              src={Ship}
+              alt="Ship-Select"
+              style={{ width: '100px', height: '25px' }}
+            />
+          </IconButton>
+          <Button sx={{ marginRight: '10%' }} onClick={handleClick}>
+            <img src={Station} alt="Location-Select" />
+            <Popover
+              id="test-menu"
+              keepMounted
+              open={Boolean(anchorE1)}
+              anchorEl={anchorE1}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            >
+              <LocationSelection />
+            </Popover>
+          </Button>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new messages" color="inherit">
               <Badge badgeContent={4} color="error">

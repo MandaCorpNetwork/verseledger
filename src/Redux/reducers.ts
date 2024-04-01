@@ -1,3 +1,6 @@
 import { combineReducers } from 'redux';
 
-export const coreReducer = combineReducers({});
+import contractsReducer from './Slices/Contracts/contracts.reducer';
+export const coreReducer = combineReducers({
+  contracts: contractsReducer.reducer,
+});
