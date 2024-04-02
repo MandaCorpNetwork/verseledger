@@ -1,23 +1,23 @@
-import { Box, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  FilledTextFieldProps,
+  OutlinedTextFieldProps,
+  StandardTextFieldProps,
+  TextField,
+  TextFieldVariants,
+  Typography,
+} from '@mui/material';
 import React, { useState } from 'react';
+import { JSX } from 'react/jsx-runtime';
 import { NumericFormat } from 'react-number-format';
 
 import { useFilters } from '@/Utils/Hooks/useFilters';
 
-interface NumberInputProps {
-  value: number | null;
-  onChange: (value: number | null) => void;
-  id: string;
-  label: string;
-  helperText: string;
-  error: boolean;
-}
-
-export const UECRangeInputFilter: React.FC<NumberInputProps> = () => {
+export const UECRangeInputFilter: React.FC = () => {
   const [lowerValue, setLowerValue] = useState<number | null>(0);
   const [higherValue, setHigherValue] = useState<number | null>(0);
   const [isInvalid, setIsInvalid] = useState(false);
-  const [filters, setFilters] = useFilters();
+  const [, setFilters] = useFilters();
 
   const rangeValidation = (lowerValue: number | null, higherValue: number | null) => {
     setIsInvalid(lowerValue! > higherValue!);
@@ -37,7 +37,12 @@ export const UECRangeInputFilter: React.FC<NumberInputProps> = () => {
     setFilters('uechigh', value);
   };
 
-  const LowerNumberTextField = (props) => {
+  const LowerNumberTextField = (
+    props: JSX.IntrinsicAttributes & { variant?: TextFieldVariants | undefined } & Omit<
+        FilledTextFieldProps | OutlinedTextFieldProps | StandardTextFieldProps,
+        'variant'
+      >,
+  ) => {
     return (
       <TextField
         {...props}
@@ -50,7 +55,12 @@ export const UECRangeInputFilter: React.FC<NumberInputProps> = () => {
     );
   };
 
-  const HigherNumberTextField = (props) => {
+  const HigherNumberTextField = (
+    props: JSX.IntrinsicAttributes & { variant?: TextFieldVariants | undefined } & Omit<
+        FilledTextFieldProps | OutlinedTextFieldProps | StandardTextFieldProps,
+        'variant'
+      >,
+  ) => {
     return (
       <TextField
         {...props}
@@ -83,7 +93,7 @@ export const UECRangeInputFilter: React.FC<NumberInputProps> = () => {
           allowNegative={false}
           decimalScale={0}
           defaultValue={null}
-          onValueChange={(values) => handleLowerValueChange(values.floatValue)}
+          onValueChange={(values) => handleLowerValueChange(values.floatValue ?? null)}
         />
         <Typography variant="button" sx={{ margin: '1em', fontWeight: 'bold' }}>
           To
@@ -95,7 +105,7 @@ export const UECRangeInputFilter: React.FC<NumberInputProps> = () => {
           allowNegative={false}
           decimalScale={0}
           defaultValue={null}
-          onValueChange={(values) => handleHigherValueChange(values.floatValue)}
+          onValueChange={(values) => handleHigherValueChange(values.floatValue ?? null)}
         />
       </Box>
     </Box>

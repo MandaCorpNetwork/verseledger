@@ -1,5 +1,3 @@
-import { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
-
 import type { RootState } from '../../store';
 
 export const selectContracts = (state: RootState) => {

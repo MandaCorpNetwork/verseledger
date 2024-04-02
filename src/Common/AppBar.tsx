@@ -8,10 +8,9 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  TextField,
   Toolbar,
 } from '@mui/material';
-import { Autocomplete, Popover, Typography } from '@mui/material';
+import { Popover, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import {
   bindMenu,
@@ -19,7 +18,7 @@ import {
   PopupState,
   usePopupState,
 } from 'material-ui-popup-state/hooks';
-import React, { MouseEventHandler, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { LocationSelection } from '@/Common/LocationSelection';
@@ -36,11 +35,9 @@ export const VLAppBar: React.FC<unknown> = () => {
   });
   //const menuId = 'primary-account-menu';
 
-  const [anchorE1, setAnchorE1] = useState(null);
+  const [anchorE1, setAnchorE1] = useState<HTMLElement | null>(null);
 
-  const handleClick: MouseEventHandler<HTMLButtonElement> = (e: {
-    currentTarget: React.SetStateAction<null>;
-  }) => {
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     setAnchorE1(e.currentTarget);
   };
   const handleClose = () => {

@@ -1,7 +1,8 @@
 import { AddBox } from '@mui/icons-material';
 import { Box, IconButton, Typography } from '@mui/material';
-import { PayrollItem } from '@/Components/Personal/Contracts/payrollItem';
 import React from 'react';
+
+import { PayrollItem } from '@/Components/Personal/Contracts/payrollItem';
 
 export const PayrollCostTool: React.FC<unknown> = () => {
   const contractorPay = Object.values(testContractorPay);

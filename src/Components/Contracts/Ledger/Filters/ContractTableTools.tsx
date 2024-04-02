@@ -12,7 +12,6 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useRef, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 
 import { AccessTimeDropdownFilter } from '@/Components/Contracts/Ledger/Filters/AccessTimeDropdownFilter';
 import { ContractOwnerTypeDropdownFilter } from '@/Components/Contracts/Ledger/Filters/ContractOwnerTypeDropdownFilter';

@@ -14,5 +14,5 @@ export const WorkOrderCard: React.FC<unknown> = () => {
       <Typography>SCU/SCU</Typography>
       <Button>Collect</Button>
     </Box>
-  )
-}
+  );
+};

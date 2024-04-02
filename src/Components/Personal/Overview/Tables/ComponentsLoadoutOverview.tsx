@@ -90,4 +90,4 @@ export const ComponentsLoadoutOverview: React.FC<unknown> = () => {
       </Table>
     </TableContainer>
   );
-}
+};

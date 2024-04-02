@@ -1,12 +1,4 @@
-import {
-  Avatar,
-  AvatarGroup,
-  Box,
-  Button,
-  Divider,
-  Rating,
-  Typography,
-} from '@mui/material';
+import { AvatarGroup, Box, Button, Typography } from '@mui/material';
 import React from 'react';
 
 import type { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';

@@ -16,8 +16,6 @@ import React from 'react';
 
 import { addDates } from '@/Utils/utilityFunction';
 
-type TimeInfoFormProps = {};
-
 type QuickTimeButtonProps = {
   time: string;
 };
@@ -99,7 +97,7 @@ const SelectTimeButton: React.FC<SelectTimeProps> = ({ onDateChange, onTimeChang
   );
 };
 
-export const TimeInfoForm: React.FC<TimeInfoFormProps> = () => {
+export const TimeInfoForm: React.FC = () => {
   const [selectedBidTime, setSelectedBidTime] = React.useState<Date | null>(null);
   const [selectedStartTime, setSelectedStartTime] = React.useState<Date | null>(null);
   const [selectedDuration, setSelectedDuration] = React.useState<Date | null>(null);
@@ -120,7 +118,9 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = () => {
         <SelectTimeButton
           onDateChange={setSelectedBidTime}
           onTimeChange={(newTime) => {
-            setSelectedBidTime((prev) => (prev ? addDates(prev, newTime) : newTime));
+            setSelectedBidTime((prev) =>
+              prev ? addDates(dayjs(prev), dayjs(newTime)).toDate() : newTime,
+            );
           }}
         />
         <QuickTimeButton time="30 min" />
@@ -143,7 +143,9 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = () => {
         <SelectTimeButton
           onDateChange={setSelectedDuration}
           onTimeChange={(newTime) => {
-            setSelectedDuration((prev) => (prev ? addDates(prev, newTime) : newTime));
+            setSelectedDuration((prev) =>
+              prev ? addDates(dayjs(prev), dayjs(newTime)).toDate() : newTime,
+            );
           }}
         />
         <QuickTimeButton time="30 min" />
@@ -166,8 +168,11 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = () => {
         <SelectTimeButton
           onDateChange={setSelectedStartTime}
           onTimeChange={(newTime) => {
-            setSelectedStartTime((prev) => (prev ? addDates(prev, newTime) : newTime));
-          }} />
+            setSelectedStartTime((prev) =>
+              prev ? addDates(dayjs(prev), dayjs(newTime)).toDate() : newTime,
+            );
+          }}
+        />
         <FormControlLabel control={<Radio />} label="After Bidding" />
         <TextField
           label="Start Time"

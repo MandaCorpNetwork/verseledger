@@ -9,8 +9,8 @@ type ManageShipProps = {
   isOwned: boolean;
 };
 
-const Ship: React.FC<ManageShipProps> = ({ shipName, model, owner, isOwned }) => {
-  const [shipApprovalStatus, setShipApprovalStatus] = useState<string | null>(null);
+const Ship: React.FC<ManageShipProps> = ({ shipName, model, owner }) => {
+  const [shipApprovalStatus] = useState<string | null>(null);
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
       <Button>{shipName}</Button>
@@ -49,6 +49,7 @@ export const FleetAllocation: React.FC<unknown> = () => {
             model={ship.model}
             owner={ship.owner}
             isOwned={ship.isOwned}
+            id={ship.id}
           />
         ))}
       </Box>

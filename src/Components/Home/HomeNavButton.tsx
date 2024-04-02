@@ -13,12 +13,16 @@ type HomeNavButtonProps = {
   videoSource: string;
 };
 
-export const HomeNavButton: React.FC<HomeNavButtonProps> = ({ title, videoSource, to }) => {
+export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
+  title,
+  videoSource,
+  to,
+}) => {
   // eslint-disable-next-line
   const theme = useTheme() as any;
 
   //Hover Animation
-  const [isHovered, setIsHovered] = useState(false);
+  const [, setIsHovered] = useState(false);
   const [fontSize, setFontSize] = useState('1em');
   const [fontWeight, setFontWeight] = useState('600');
   //Added fontSize to ensure the fontsize changes from Button hover and not Typography hover, as well as FontWeight
@@ -54,7 +58,7 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({ title, videoSource
   };
 
   return (
-    <Transition in={handleMouseEnter} timeout={800} out={handleMouseLeave} delay={1000}>
+    <Transition timeout={800} delay={1000}>
       <Button
         id="button"
         onMouseEnter={handleMouseEnter}

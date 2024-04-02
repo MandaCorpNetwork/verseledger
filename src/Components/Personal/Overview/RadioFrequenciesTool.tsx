@@ -1,4 +1,4 @@
-import './RadioFrequencies.CSS';
+import './RadioFrequencies.css';
 
 import {
   Language,
@@ -17,10 +17,11 @@ type RadioFrequenciesProps = {
 };
 
 export const RadioFrequenciesTool: React.FC<RadioFrequenciesProps> = ({ isDisabled }) => {
-  const [volume, setVolume] = useState<number | number[]>(30);
+  const [volume, setVolume] = useState<number>(30);
   const [isMuted, setIsMuted] = useState<boolean>(false);
 
-  const handleVolumeChange = (event: Event, newVolume: number | number[]) => {
+  const handleVolumeChange = (_: Event, value: number | number[]) => {
+    const newVolume = Array.isArray(value) ? value[0] : value;
     setVolume(newVolume);
   };
 
@@ -109,7 +110,7 @@ export const RadioFrequenciesTool: React.FC<RadioFrequenciesProps> = ({ isDisabl
           <VolumeIcon />
         </IconButton>
         <Slider
-          value={volume}
+          value={volume as number}
           disabled={isMuted || isDisabled}
           onChange={handleVolumeChange}
           color="secondary"
