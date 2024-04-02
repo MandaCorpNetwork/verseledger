@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import { DateCalendar, DigitalClock } from '@mui/x-date-pickers';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import React from 'react';
 
 import { addDates } from '@/Utils/utilityFunction';

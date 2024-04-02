@@ -7,6 +7,9 @@ const appManifest: Partial<VitePWAOptions> = {};
 
 export default defineConfig({
   root: './src',
+  build: {
+    outDir: '../build',
+  },
   plugins: [react({ tsDecorators: true }), VitePWA(appManifest), tsconfigPaths()],
   server: {
     port: 3000,
