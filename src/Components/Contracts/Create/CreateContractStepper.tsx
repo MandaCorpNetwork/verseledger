@@ -184,9 +184,9 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
     contractType: '',
     subType: '',
     briefing: '',
-    bidEnd: '',
-    startDate: '',
-    endDate: '',
+    bidEnd: null,
+    startDate: null,
+    endDate: null,
     emergency: false,
     locations: [],
     fleet: [],
@@ -199,7 +199,7 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
   });
   // Create Contract Form Data State
 
-  const handleContractDataChange = (field, value) => {
+  const handleContractDataChange = (field: keyof typeof contractData, value: any) => {
     setContractData((prev) => ({ ...prev, [field]: value }));
   };
   // Handle Form Data Change
@@ -238,7 +238,9 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
           />
         );
       case 2:
-        return <TimeInfoForm />;
+        return (
+          <TimeInfoForm formData={contractData} onFormChange={handleContractDataChange} />
+        );
       case 3:
         return <LocationsForm />;
       case 4:

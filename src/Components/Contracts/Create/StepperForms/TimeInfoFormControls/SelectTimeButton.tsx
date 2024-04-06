@@ -1,14 +1,17 @@
-import { Schedule } from "@mui/icons-material";
+import { Schedule } from '@mui/icons-material';
 import { Box, IconButton, Popper } from '@mui/material';
-import { DateCalendar, DigitalClock } from "@mui/x-date-pickers";
-import React from "react";
+import { DateCalendar, DigitalClock } from '@mui/x-date-pickers';
+import React from 'react';
 
 type SelectTimeProps = {
   onDateChange: (newDate: Date) => void;
   onTimeChange: (newTime: Date) => void;
 };
 
-export const SelectTimeButton: React.FC<SelectTimeProps> = ({ onDateChange, onTimeChange }) => {
+export const SelectTimeButton: React.FC<SelectTimeProps> = ({
+  onDateChange,
+  onTimeChange,
+}) => {
   const [anchorEl, setAnchorE1] = React.useState<null | HTMLElement>(null);
   const openCalendar = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorE1(anchorEl ? null : event.currentTarget);
