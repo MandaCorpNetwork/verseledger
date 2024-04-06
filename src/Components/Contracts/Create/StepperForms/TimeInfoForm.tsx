@@ -11,6 +11,7 @@ import {
 import dayjs from 'dayjs';
 import React from 'react';
 
+import { EmergencyOverlay } from './TimeInfoFormControls/EmergencyOverlay';
 import { QuickTimeButton } from './TimeInfoFormControls/QuickTimeButton';
 import { SelectTimeButton } from './TimeInfoFormControls/SelectTimeButton';
 
@@ -19,8 +20,9 @@ type TimeInfoFormProps = {
     bidEnd: Date;
     startDate: Date;
     endDate: Date;
+    emergency: boolean;
   };
-  onFormChange: (field: string, value: Date | null) => void;
+  onFormChange: (field: string, value: Date | boolean | null) => void;
 };
 
 export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChange }) => {
@@ -103,6 +105,10 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
     }
   };
 
+  const toggleEmergencyMode = () => {
+    onFormChange('emergency', !formData.emergency);
+  };
+
   return (
     <Box data-id="timeInfo-container">
       <FormLabel color="secondary" sx={{ fontWeight: 'bold' }}>
@@ -111,137 +117,152 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
       <Box data-id="timeInfo-form" sx={{ display: 'flex', flexDirection: 'row' }}>
         <Box
           data-id="timeInfo-form-controls"
-          sx={{ display: 'flex', flexDirection: 'column', mt: 'auto', mb: 'auto' }}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            mt: 'auto',
+            mb: 'auto',
+          }}
         >
           <Box
-            data-id="bidTime-form"
+            data-id="timeInfo-form-wrapper"
             sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
+              position: 'relative',
+              width: '100%',
+              height: '100%',
             }}
           >
-            <FormLabel>Bid Time:</FormLabel>
-            <SelectTimeButton
-              onDateChange={setSelectedBidTime}
-              onTimeChange={(newTime) =>
-                handleTimeChange(newTime, setSelectedBidTime, 'bidEnd')
-              }
-            />
-            <QuickTimeButton
-              time="30 min"
-              onClick={() =>
-                handleQuickTimeSelection('30 minute', setSelectedBidTime, 'bidEnd')
-              }
-            />
-            <QuickTimeButton
-              time="1 hr"
-              onClick={() =>
-                handleQuickTimeSelection('1 hour', setSelectedBidTime, 'bidEnd')
-              }
-            />
-            <QuickTimeButton
-              time="2 hr"
-              onClick={() =>
-                handleQuickTimeSelection('2 hour', setSelectedBidTime, 'bidEnd')
-              }
-            />
-            <QuickTimeButton
-              time="4 hr"
-              onClick={() =>
-                handleQuickTimeSelection('4 hour', setSelectedBidTime, 'bidEnd')
-              }
-            />
-            <QuickTimeButton
-              time="8 hr"
-              onClick={() =>
-                handleQuickTimeSelection('8 hour', setSelectedBidTime, 'bidEnd')
-              }
-            />
-          </Box>
-          <Box
-            data-id="startTime-form"
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
-          >
-            <FormLabel>Start Time:</FormLabel>
+            {formData.emergency && <EmergencyOverlay />}
             <Box
-              data-id="startTime-form-controls"
+              data-id="bidTime-form"
               sx={{
-                justifySelf: 'center',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
+              <FormLabel>Bid Time:</FormLabel>
               <SelectTimeButton
-                onDateChange={setSelectedStartTime}
+                onDateChange={setSelectedBidTime}
                 onTimeChange={(newTime) =>
-                  handleTimeChange(newTime, setSelectedStartTime, 'startDate')
+                  handleTimeChange(newTime, setSelectedBidTime, 'bidEnd')
                 }
               />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    color="secondary"
-                    checked={afterBiddingChecked}
-                    onChange={handleAfterBiddingChange}
-                  />
+              <QuickTimeButton
+                time="30 min"
+                onClick={() =>
+                  handleQuickTimeSelection('30 minute', setSelectedBidTime, 'bidEnd')
                 }
-                label="After Bidding"
-                sx={{
-                  color: 'text.secondary',
-                }}
+              />
+              <QuickTimeButton
+                time="1 hr"
+                onClick={() =>
+                  handleQuickTimeSelection('1 hour', setSelectedBidTime, 'bidEnd')
+                }
+              />
+              <QuickTimeButton
+                time="2 hr"
+                onClick={() =>
+                  handleQuickTimeSelection('2 hour', setSelectedBidTime, 'bidEnd')
+                }
+              />
+              <QuickTimeButton
+                time="4 hr"
+                onClick={() =>
+                  handleQuickTimeSelection('4 hour', setSelectedBidTime, 'bidEnd')
+                }
+              />
+              <QuickTimeButton
+                time="8 hr"
+                onClick={() =>
+                  handleQuickTimeSelection('8 hour', setSelectedBidTime, 'bidEnd')
+                }
               />
             </Box>
-          </Box>
-          <Box
-            data-id="endTime-form"
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <FormLabel>End Time:</FormLabel>
-            <SelectTimeButton
-              onDateChange={setSelectedEndTime}
-              onTimeChange={(newTime) =>
-                handleTimeChange(newTime, setSelectedEndTime, 'endDate')
-              }
-            />
-            <QuickTimeButton
-              time="30 min"
-              onClick={() =>
-                handleQuickTimeSelection('30 minute', setSelectedEndTime, 'endDate')
-              }
-            />
-            <QuickTimeButton
-              time="1 hr"
-              onClick={() =>
-                handleQuickTimeSelection('1 hour', setSelectedEndTime, 'endDate')
-              }
-            />
-            <QuickTimeButton
-              time="2 hr"
-              onClick={() =>
-                handleQuickTimeSelection('2 hour', setSelectedEndTime, 'endDate')
-              }
-            />
-            <QuickTimeButton
-              time="4 hr"
-              onClick={() =>
-                handleQuickTimeSelection('4 hour', setSelectedEndTime, 'endDate')
-              }
-            />
-            <QuickTimeButton
-              time="8 hr"
-              onClick={() =>
-                handleQuickTimeSelection('8 hour', setSelectedEndTime, 'endDate')
-              }
-            />
+            <Box
+              data-id="startTime-form"
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <FormLabel>Start Time:</FormLabel>
+              <Box
+                data-id="startTime-form-controls"
+                sx={{
+                  justifySelf: 'center',
+                }}
+              >
+                <SelectTimeButton
+                  onDateChange={setSelectedStartTime}
+                  onTimeChange={(newTime) =>
+                    handleTimeChange(newTime, setSelectedStartTime, 'startDate')
+                  }
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      color="secondary"
+                      checked={afterBiddingChecked}
+                      onChange={handleAfterBiddingChange}
+                    />
+                  }
+                  label="After Bidding"
+                  sx={{
+                    color: 'text.secondary',
+                  }}
+                />
+              </Box>
+            </Box>
+            <Box
+              data-id="endTime-form"
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <FormLabel>End Time:</FormLabel>
+              <SelectTimeButton
+                onDateChange={setSelectedEndTime}
+                onTimeChange={(newTime) =>
+                  handleTimeChange(newTime, setSelectedEndTime, 'endDate')
+                }
+              />
+              <QuickTimeButton
+                time="30 min"
+                onClick={() =>
+                  handleQuickTimeSelection('30 minute', setSelectedEndTime, 'endDate')
+                }
+              />
+              <QuickTimeButton
+                time="1 hr"
+                onClick={() =>
+                  handleQuickTimeSelection('1 hour', setSelectedEndTime, 'endDate')
+                }
+              />
+              <QuickTimeButton
+                time="2 hr"
+                onClick={() =>
+                  handleQuickTimeSelection('2 hour', setSelectedEndTime, 'endDate')
+                }
+              />
+              <QuickTimeButton
+                time="4 hr"
+                onClick={() =>
+                  handleQuickTimeSelection('4 hour', setSelectedEndTime, 'endDate')
+                }
+              />
+              <QuickTimeButton
+                time="8 hr"
+                onClick={() =>
+                  handleQuickTimeSelection('8 hour', setSelectedEndTime, 'endDate')
+                }
+              />
+            </Box>
           </Box>
         </Box>
         <Box
@@ -280,7 +301,12 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
           mt: '.5em',
         }}
       >
-        <Button variant="contained" color="error" startIcon={<NotificationsActive />}>
+        <Button
+          variant="contained"
+          color="error"
+          startIcon={<NotificationsActive />}
+          onClick={toggleEmergencyMode}
+        >
           <Typography>Emergency</Typography>
         </Button>
       </Box>
