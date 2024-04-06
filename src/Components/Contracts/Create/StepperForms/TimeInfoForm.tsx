@@ -1,10 +1,12 @@
-import { NotificationsActive } from '@mui/icons-material';
+import { Clear, NotificationsActive } from '@mui/icons-material';
 import {
   Box,
   Button,
   Checkbox,
   FormControlLabel,
   FormLabel,
+  IconButton,
+  InputAdornment,
   TextField,
   Typography,
 } from '@mui/material';
@@ -20,7 +22,7 @@ type TimeInfoFormProps = {
     bidEnd: Date;
     startDate: Date;
     endDate: Date;
-    emergency: boolean;
+    emergency: boolean | string;
   };
   onFormChange: (field: string, value: Date | boolean | null) => void;
 };
@@ -30,6 +32,19 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
   const [selectedStartTime, setSelectedStartTime] = React.useState<Date | null>(null);
   const [selectedEndTime, setSelectedEndTime] = React.useState<Date | null>(null);
 
+  // Time Validation Functions
+  function isTimeAfter(time1, time2) {
+    const dayjsTime1 = dayjs(time1);
+    const dayjsTime2 = dayjs(time2);
+    return dayjsTime1.isAfter(dayjsTime2);
+  }
+
+  function isTimeBefore(time1, time2) {
+    const dayjsTime1 = dayjs(time1);
+    const dayjsTime2 = dayjs(time2);
+    return dayjsTime1.isBefore(dayjsTime2);
+  }
+
   // Handling Time Change from the SelectTimeButton
   const handleTimeChange = (
     newTime: Date,
@@ -37,6 +52,14 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
     fieldName: keyof typeof formData,
   ) => {
     setTimeState((prevDateTime) => {
+      if (
+        fieldName === 'startDate' &&
+        formData.endDate &&
+        !isTimeAfter(newTime, formData.endDate)
+      ) {
+        console.error('Start Date must be after end Time.');
+        return prevDateTime;
+      }
       if (prevDateTime) {
         const updatedDateTime = dayjs(prevDateTime)
           .hour(dayjs(newTime).hour())
@@ -56,6 +79,7 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
   // Handling Time Change from the QuickTimeButton
   type AllowedUnitType = 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second';
 
+  // Quick Time Selection Handler
   const handleQuickTimeSelection = (
     duration: string,
     setTimeState: React.Dispatch<React.SetStateAction<Date | null>>,
@@ -107,6 +131,11 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
 
   const toggleEmergencyMode = () => {
     onFormChange('emergency', !formData.emergency);
+    if (!formData.emergency) {
+      onFormChange('endDate', null);
+      onFormChange('startDate', null);
+      onFormChange('bidEnd', null);
+    }
   };
 
   return (
@@ -188,7 +217,31 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
                 alignItems: 'center',
               }}
             >
-              <FormLabel>Start Time:</FormLabel>
+              <Box
+                data-id="startTime-form-title-wrapper"
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <FormLabel>Start Time:</FormLabel>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      color="secondary"
+                      checked={afterBiddingChecked}
+                      onChange={handleAfterBiddingChange}
+                      disabled={formData.bidEnd === null}
+                    />
+                  }
+                  label="After Bidding"
+                  sx={{
+                    color: 'text.secondary',
+                  }}
+                />
+              </Box>
               <Box
                 data-id="startTime-form-controls"
                 sx={{
@@ -201,18 +254,39 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
                     handleTimeChange(newTime, setSelectedStartTime, 'startDate')
                   }
                 />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      color="secondary"
-                      checked={afterBiddingChecked}
-                      onChange={handleAfterBiddingChange}
-                    />
+                <QuickTimeButton
+                  time="30 min"
+                  onClick={() =>
+                    handleQuickTimeSelection(
+                      '30 minute',
+                      setSelectedStartTime,
+                      'startDate',
+                    )
                   }
-                  label="After Bidding"
-                  sx={{
-                    color: 'text.secondary',
-                  }}
+                />
+                <QuickTimeButton
+                  time="1 hr"
+                  onClick={() =>
+                    handleQuickTimeSelection('1 hour', setSelectedStartTime, 'startDate')
+                  }
+                />
+                <QuickTimeButton
+                  time="2 hr"
+                  onClick={() =>
+                    handleQuickTimeSelection('2 hour', setSelectedStartTime, 'startDate')
+                  }
+                />
+                <QuickTimeButton
+                  time="4 hr"
+                  onClick={() =>
+                    handleQuickTimeSelection('4 hour', setSelectedStartTime, 'startDate')
+                  }
+                />
+                <QuickTimeButton
+                  time="8 hr"
+                  onClick={() =>
+                    handleQuickTimeSelection('8 hour', setSelectedStartTime, 'startDate')
+                  }
                 />
               </Box>
             </Box>
@@ -272,21 +346,34 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
           <TextField
             label="Bid Time"
             inputProps={{ readOnly: true }}
-            value={format(formData.bidEnd)}
+            value={formData.bidEnd ? format(formData.bidEnd) : 'Manual Bid End'}
             color="secondary"
             sx={{}}
           />
           <TextField
             label="Start Time"
-            inputProps={{ readOnly: true }}
-            value={format(formData.startDate)}
+            InputProps={{
+              readOnly: true,
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => {
+                      onFormChange('startDate', null);
+                    }}
+                  >
+                    <Clear fontSize="large" color="error" />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            value={formData.startDate ? format(formData.startDate) : 'Manual Start'}
             color="secondary"
             sx={{}}
           />
           <TextField
             label="End Time"
             inputProps={{ readOnly: true }}
-            value={format(formData.endDate)}
+            value={formData.endDate ? format(formData.endDate) : 'Manual End'}
             color="secondary"
             sx={{}}
           />

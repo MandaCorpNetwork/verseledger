@@ -224,7 +224,7 @@ export const verseOSTheme = createTheme({
     text: {
       primary: 'rgb(211, 250, 254)',
       secondary: 'rgb(33, 150, 243)',
-      disabled: 'rgb(2, 2, 38)',
+      disabled: 'rgb(0, 30, 100)',
     },
     info: {
       main: 'rgb(255, 141, 15)',
@@ -237,6 +237,10 @@ export const verseOSTheme = createTheme({
     },
     error: {
       main: 'rgb(255, 0, 8)',
+    },
+    action: {
+      disabled: 'rgb(0, 30, 100)',
+      disabledBackground: 'rgb(0, 30, 100)',
     },
   },
 });

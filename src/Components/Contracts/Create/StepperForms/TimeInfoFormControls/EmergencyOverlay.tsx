@@ -7,6 +7,7 @@ export const EmergencyOverlay: React.FC<unknown> = () => {
         width: '100%',
         height: '100%',
         backdropFilter: 'blur(5px)',
+        backgroundColor: 'rgba(255, 0, 8, 0.5)',
         borderTop: '2px solid',
         borderBottom: '2px solid',
         borderColor: 'error.main',
@@ -21,10 +22,12 @@ export const EmergencyOverlay: React.FC<unknown> = () => {
           '0%, 100%': {
             background:
               'linear-gradient(45deg, rgba(255, 0, 8, 0.5), rgba(128, 0, 0, 0.6))',
+            backdropFilter: 'blur(5px)',
           },
           '50%': {
             background:
-              'linear-gradient(45deg, rgba(255, 0, 8, 0.65), rgba(128, 0, 0, 0.7))',
+              'linear-gradient(45deg, rgba(255, 0, 8, 0.8), rgba(128, 0, 0, 0.7))',
+            backdropFilter: 'blur(20px)',
           },
         },
         backgroundSize: '200% 200%',
