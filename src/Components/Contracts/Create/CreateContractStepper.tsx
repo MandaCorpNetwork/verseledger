@@ -184,6 +184,18 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
     contractType: '',
     subType: '',
     briefing: '',
+    bidEnd: '',
+    startDate: '',
+    endDate: '',
+    emergency: false,
+    locations: [],
+    fleet: [],
+    minRating: 0,
+    maxContractors: 0,
+    contractorInvitees: [],
+    allowBiddingAfterDeadline: false,
+    payrollStructure: '',
+    contractTitle: '',
   });
   // Create Contract Form Data State
 

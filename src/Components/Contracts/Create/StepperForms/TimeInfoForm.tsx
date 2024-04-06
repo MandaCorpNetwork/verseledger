@@ -1,101 +1,20 @@
-import { NotificationsActive, Schedule } from '@mui/icons-material';
+import { NotificationsActive } from '@mui/icons-material';
 import {
   Box,
   Button,
   FormControlLabel,
   FormLabel,
-  IconButton,
-  Popper,
   Radio,
   TextField,
   Typography,
 } from '@mui/material';
-import { DateCalendar, DigitalClock } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import React from 'react';
 
 import { addDates } from '@/Utils/utilityFunction';
 
-type QuickTimeButtonProps = {
-  time: string;
-};
-
-const QuickTimeButton: React.FC<QuickTimeButtonProps> = ({ time }) => {
-  return <Button variant="contained">{time}</Button>;
-};
-
-type SelectTimeProps = {
-  onDateChange: (newDate: Date) => void;
-  onTimeChange: (newTime: Date) => void;
-};
-
-const SelectTimeButton: React.FC<SelectTimeProps> = ({ onDateChange, onTimeChange }) => {
-  const [anchorEl, setAnchorE1] = React.useState<null | HTMLElement>(null);
-  const openCalendar = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorE1(anchorEl ? null : event.currentTarget);
-  };
-  const [view, setView] = React.useState('date');
-  const handleDateChange = (newDate: Date) => {
-    onDateChange(newDate);
-    setView('time');
-  };
-  const handleTimeChange = (newTime: Date) => {
-    onTimeChange(newTime);
-    setAnchorE1(null);
-    setView('date');
-  };
-  return (
-    <>
-      <IconButton color="secondary" size="large" onClick={openCalendar}>
-        <Schedule />
-      </IconButton>
-      <Popper
-        open={Boolean(anchorEl)}
-        anchorEl={anchorEl}
-        disablePortal={true}
-        sx={{ zIndex: '5', bgcolor: 'rgba(0, 29, 68, 1)', backdropFilter: 'blur(5px)' }}
-      >
-        <Box>
-          {view === 'date' && (
-            <DateCalendar
-              showDaysOutsideCurrentMonth
-              fixedWeekNumber={6}
-              disablePast={true}
-              onChange={handleDateChange}
-              slotProps={{
-                leftArrowIcon: {
-                  color: 'secondary',
-                },
-                rightArrowIcon: {
-                  color: 'secondary',
-                },
-                switchViewButton: {
-                  color: 'secondary',
-                },
-                day: {
-                  sx: {
-                    color: 'secondary.main',
-                    '&.Mui-selected': {
-                      backgroundColor: 'primary.main',
-                      color: 'secondary.main',
-                    },
-                    '&.Mui-selected:focus': {
-                      backgroundColor: 'primary.main',
-                    },
-                    '&.MuiPickersDay-dayOutsideMonth': {
-                      color: 'primary.main',
-                    },
-                  },
-                },
-              }}
-            />
-          )}
-          {view === 'time' && <DigitalClock ampm={false} onChange={handleTimeChange} />}
-        </Box>
-      </Popper>
-    </>
-  );
-};
+import { QuickTimeButton } from './TimeInfoFormControls/QuickTimeButton';
+import { SelectTimeButton } from './TimeInfoFormControls/SelectTimeButton';
 
 export const TimeInfoForm: React.FC = () => {
   const [selectedBidTime, setSelectedBidTime] = React.useState<Date | null>(null);
@@ -111,80 +30,126 @@ export const TimeInfoForm: React.FC = () => {
   };
 
   return (
-    <Box>
-      <FormLabel>Time Info</FormLabel>
-      <Box>
-        <FormLabel>Bid Time:</FormLabel>
-        <SelectTimeButton
-          onDateChange={setSelectedBidTime}
-          onTimeChange={(newTime) => {
-            setSelectedBidTime((prev) =>
-              prev ? addDates(dayjs(prev), dayjs(newTime)).toDate() : newTime,
-            );
-          }}
-        />
-        <QuickTimeButton time="30 min" />
-        <QuickTimeButton time="1 hr" />
-        <QuickTimeButton time="2 hr" />
-        <QuickTimeButton time="4 hr" />
-        <QuickTimeButton time="8 hr" />
-        <TextField
-          label="Bid Time"
-          inputProps={{ readOnly: true }}
-          value={format(selectedBidTime)}
-          sx={{
-            width: '10em',
-            height: '1.5em',
-          }}
-        />
+    <Box data-id="timeInfo-container">
+      <FormLabel color="secondary" sx={{ fontWeight: 'bold' }}>
+        Time Info
+      </FormLabel>
+      <Box data-id="timeInfo-form" sx={{ display: 'flex', flexDirection: 'row' }}>
+        <Box
+          data-id="timeInfo-form-controls"
+          sx={{ display: 'flex', flexDirection: 'column', mt: 'auto', mb: 'auto' }}
+        >
+          <Box
+            data-id="bidTime-form"
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <FormLabel>Bid Time:</FormLabel>
+            <SelectTimeButton
+              onDateChange={setSelectedBidTime}
+              onTimeChange={(newTime) => {
+                setSelectedBidTime((prev) =>
+                  prev ? addDates(dayjs(prev), dayjs(newTime)).toDate() : newTime,
+                );
+              }}
+            />
+            <QuickTimeButton time="30 min" />
+            <QuickTimeButton time="1 hr" />
+            <QuickTimeButton time="2 hr" />
+            <QuickTimeButton time="4 hr" />
+            <QuickTimeButton time="8 hr" />
+          </Box>
+          <Box
+            data-id="startTime-form"
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+          >
+            <FormLabel>Start Time:</FormLabel>
+            <Box
+              data-id="startTime-form-controls"
+              sx={{
+                justifySelf: 'center',
+              }}
+            >
+              <SelectTimeButton
+                onDateChange={setSelectedStartTime}
+                onTimeChange={(newTime) => {
+                  setSelectedStartTime((prev) =>
+                    prev ? addDates(dayjs(prev), dayjs(newTime)).toDate() : newTime,
+                  );
+                }}
+              />
+              <FormControlLabel control={<Radio />} label="After Bidding" />
+            </Box>
+          </Box>
+          <Box
+            data-id="endTime-form"
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <FormLabel>End Time:</FormLabel>
+            <SelectTimeButton
+              onDateChange={setSelectedDuration}
+              onTimeChange={(newTime) => {
+                setSelectedDuration((prev) =>
+                  prev ? addDates(dayjs(prev), dayjs(newTime)).toDate() : newTime,
+                );
+              }}
+            />
+            <QuickTimeButton time="30 min" />
+            <QuickTimeButton time="1 hr" />
+            <QuickTimeButton time="2 hr" />
+            <QuickTimeButton time="4 hr" />
+            <QuickTimeButton time="8 hr" />
+          </Box>
+        </Box>
+        <Box
+          data-id="timeInfo-form-output"
+          sx={{ display: 'flex', flexDirection: 'column', ml: '.5em', gap: '.5em' }}
+        >
+          <TextField
+            label="Bid Time"
+            inputProps={{ readOnly: true }}
+            value={format(selectedBidTime)}
+            color="secondary"
+            sx={{}}
+          />
+          <TextField
+            label="Start Time"
+            inputProps={{ readOnly: true }}
+            value={format(selectedStartTime)}
+            color="secondary"
+            sx={{}}
+          />
+          <TextField
+            label="End Time"
+            inputProps={{ readOnly: true }}
+            value={format(selectedDuration)}
+            color="secondary"
+            sx={{}}
+          />
+        </Box>
       </Box>
-      <Box>
-        <FormLabel>Duration:</FormLabel>
-        <SelectTimeButton
-          onDateChange={setSelectedDuration}
-          onTimeChange={(newTime) => {
-            setSelectedDuration((prev) =>
-              prev ? addDates(dayjs(prev), dayjs(newTime)).toDate() : newTime,
-            );
-          }}
-        />
-        <QuickTimeButton time="30 min" />
-        <QuickTimeButton time="1 hr" />
-        <QuickTimeButton time="2 hr" />
-        <QuickTimeButton time="4 hr" />
-        <QuickTimeButton time="8 hr" />
-        <TextField
-          label="Duration"
-          inputProps={{ readOnly: true }}
-          value={format(selectedDuration)}
-          sx={{
-            width: '10em',
-            height: '1.5em',
-          }}
-        />
-      </Box>
-      <Box>
-        <FormLabel>Start Time:</FormLabel>
-        <SelectTimeButton
-          onDateChange={setSelectedStartTime}
-          onTimeChange={(newTime) => {
-            setSelectedStartTime((prev) =>
-              prev ? addDates(dayjs(prev), dayjs(newTime)).toDate() : newTime,
-            );
-          }}
-        />
-        <FormControlLabel control={<Radio />} label="After Bidding" />
-        <TextField
-          label="Start Time"
-          inputProps={{ readOnly: true }}
-          value={format(selectedStartTime)}
-          sx={{
-            width: '10em',
-            height: '1.5em',
-          }}
-        />
-      </Box>
-      <Box>
+      <Box
+        data-id="timeInfo-form-emergency"
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          mt: '.5em',
+        }}
+      >
         <Button variant="contained" color="error" startIcon={<NotificationsActive />}>
           <Typography>Emergency</Typography>
         </Button>
