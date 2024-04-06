@@ -180,6 +180,18 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
   passClose,
   passSubmit,
 }) => {
+  const [contractData, setContractData] = React.useState({
+    contractType: '',
+    subType: '',
+    briefing: '',
+  });
+  // Create Contract Form Data State
+
+  const handleContractDataChange = (field, value) => {
+    setContractData((prev) => ({ ...prev, [field]: value }));
+  };
+  // Handle Form Data Change
+
   const [activeStep, setActiveStep] = React.useState(0);
   // Check Current Step
 
@@ -196,19 +208,16 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
   const isLastStep = activeStep === createSteps.length - 1;
   // Check if the stepper is at the last step for the submit button
 
-  const [selectedType, setSelectedType] = React.useState('');
-  // Selected Type from the Contract Type Form: Reason Below Next Step
-
-  const handleTypeSelect = (type: string) => {
-    setSelectedType(type);
-  };
-  // Check Selected Type from the Contract Type Form to iterate options for SubType Form
-
   // Create Contract Stepper Switch
   const getStepComponent = (step: number) => {
     switch (step) {
       case 0:
-        return <ContractTypeForm typeSelect={handleTypeSelect} />;
+        return (
+          <ContractTypeForm
+            formData={contractData}
+            onFormChange={handleContractDataChange}
+          />
+        );
       case 1:
         return <SubTypeBriefingForm selectedType={selectedType} />;
       case 2:

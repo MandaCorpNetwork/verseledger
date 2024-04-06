@@ -6,12 +6,19 @@ import {
   Radio,
   RadioGroup,
 } from '@mui/material';
-import { useState } from 'react';
 
 type ContractTypeFormProps = {
-  typeSelect: (type: string) => void;
+  formData: {
+    contractType: string;
+  };
+  onFormChange: (field: string, value: string) => void;
 };
-export const ContractTypeForm: React.FC<ContractTypeFormProps> = ({ typeSelect }) => {
+// formData set by ContractTypeForm = contractType
+
+export const ContractTypeForm: React.FC<ContractTypeFormProps> = ({
+  formData,
+  onFormChange,
+}) => {
   const options = [
     {
       label: 'Logistics',
@@ -50,13 +57,12 @@ export const ContractTypeForm: React.FC<ContractTypeFormProps> = ({ typeSelect }
       value: 'Proxy',
     },
   ];
-
-  const [selectedType, setSelectedType] = useState('');
+  // Types of Contracts
 
   const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedType(event.target.value);
-    typeSelect(event.target.value);
+    onFormChange('contractType', event.target.value);
   };
+  // Handle Select Change
 
   return (
     <Box>
@@ -71,7 +77,7 @@ export const ContractTypeForm: React.FC<ContractTypeFormProps> = ({ typeSelect }
           Contract Type
         </FormLabel>
         <RadioGroup
-          value={selectedType}
+          value={formData.contractType}
           onChange={handleSelect}
           sx={{
             display: 'grid',
@@ -86,7 +92,9 @@ export const ContractTypeForm: React.FC<ContractTypeFormProps> = ({ typeSelect }
               control={<Radio color="secondary" />}
               sx={{
                 color:
-                  selectedType === option.value ? 'secondary.main' : 'text.secondary',
+                  formData.contractType === option.value
+                    ? 'secondary.main'
+                    : 'text.secondary',
               }}
             />
           ))}
