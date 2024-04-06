@@ -40,6 +40,7 @@ type CreateContractStepperProps = {
   passSubmit: () => void;
 };
 
+// Stepper Component Line Styling
 const ColorlibConnector = styled(StepConnector)(() => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
     top: 22,
@@ -64,6 +65,7 @@ const ColorlibConnector = styled(StepConnector)(() => ({
   },
 }));
 
+// Stepper Component Icon Styling
 const ColorlibStepIconRoot = styled('div')<{
   ownerState: { completed?: boolean; active?: boolean };
 }>(({ ownerState }) => ({
@@ -92,6 +94,7 @@ const ColorlibStepIconRoot = styled('div')<{
   }),
 }));
 
+// Stepper Component Icon Controller
 function ColorlibStepIcon(props: StepIconProps) {
   const { active, completed, className } = props;
 
@@ -113,6 +116,7 @@ function ColorlibStepIcon(props: StepIconProps) {
   );
 }
 
+// Create Contract Form Pages
 const createSteps = [
   'Contract Type',
   'SubType & Briefing',
@@ -124,6 +128,7 @@ const createSteps = [
   'Title',
 ];
 
+// Create Contract Cancel Button Component
 const CancleCreateIcon: React.FC = () => {
   return (
     <Box sx={{ display: 'flex' }}>
@@ -133,6 +138,7 @@ const CancleCreateIcon: React.FC = () => {
   );
 };
 
+// Create Contract Next Button Component
 const NextIcon: React.FC = () => {
   return (
     <Box sx={{ display: 'flex' }}>
@@ -145,7 +151,9 @@ const NextIcon: React.FC = () => {
 type BackIconProps = {
   isDisabled: boolean;
 };
+// Checks if the stepper is at the first step and disables the back button
 
+// Create Contract Back Button Component
 const BackIcon: React.FC<BackIconProps> = ({ isDisabled }) => {
   const textColor = isDisabled ? 'text.disabled' : 'text.primary';
   const iconColor = isDisabled ? 'disabled' : 'inherit';

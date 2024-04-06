@@ -1,4 +1,5 @@
-import { Box, Modal } from '@mui/material';
+import { Box, Modal, Typography } from '@mui/material';
+import React from 'react';
 
 import { CreateContractStepper } from './CreateContractStepper';
 
@@ -9,9 +10,9 @@ type CreateContractProps = {
 
 export const CreateContract: React.FC<CreateContractProps> = ({ open, onClose }) => {
   return (
-    <Modal open={open} onClose={onClose} sx={{ backdropFilter: 'blur(5px)' }}>
+    <Modal open={true} onClose={onClose} sx={{ backdropFilter: 'blur(5px)' }}>
       <Box
-        data-id="Create-Contract-Screen-Contianer"
+        data-id="CreateContract-Container"
         sx={{
           display: 'flex',
           height: '100%',
@@ -21,14 +22,25 @@ export const CreateContract: React.FC<CreateContractProps> = ({ open, onClose })
         }}
       >
         <Box
-          data-id="Create-Contract-Box"
+          data-id="CreateContract-Wrapper"
           sx={{
             bgcolor: 'rgba(8, 29, 68, 0.6)',
             display: 'flex',
             padding: '2em',
+            borderRadius: '10px',
+            flexDirection: 'column',
+            borderTop: '2px solid',
+            borderBottom: '2px solid',
+            borderColor: 'primary.main',
           }}
         >
-          <Box>
+          <Typography
+            variant="h4"
+            sx={{ fontWeight: 'bold', mb: '1em', color: 'text.secondary' }}
+          >
+            Create Contract
+          </Typography>
+          <Box data-id="ContractForm-Container">
             <CreateContractStepper passClose={onClose} passSubmit={() => {}} />
           </Box>
         </Box>
