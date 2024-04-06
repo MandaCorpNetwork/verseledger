@@ -27,10 +27,10 @@ import { styled } from '@mui/material/styles';
 import * as React from 'react';
 
 import { ContractorsForm } from './ContractorsForrm';
-import { ContractTypeForm } from './StepperForms/ContractTypeForm';
 import { FleetForm } from './StepperForms/FleetForm';
 import { LocationsForm } from './StepperForms/LocationsForm';
 import { PayrollForm } from './StepperForms/PayrollForm';
+import { ContractTypeForm } from './StepperForms/PayrollFormControls/ContractTypeForm';
 import { SubTypeBriefingForm } from './StepperForms/SubType-BriefingForm';
 import { TimeInfoForm } from './StepperForms/TimeInfoForm';
 import { TitleForm } from './StepperForms/TitleForm';
@@ -166,6 +166,7 @@ const BackIcon: React.FC<BackIconProps> = ({ isDisabled }) => {
   );
 };
 
+// Create Contract Submit Button Component
 const SubmitIcon: React.FC = () => {
   return (
     <Box sx={{ display: 'flex' }}>
@@ -180,23 +181,30 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
   passSubmit,
 }) => {
   const [activeStep, setActiveStep] = React.useState(0);
+  // Check Current Step
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
+  // Next Step Controller
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+  // Back Step Controller
 
   const isLastStep = activeStep === createSteps.length - 1;
+  // Check if the stepper is at the last step for the submit button
 
   const [selectedType, setSelectedType] = React.useState('');
+  // Selected Type from the Contract Type Form: Reason Below Next Step
 
   const handleTypeSelect = (type: string) => {
     setSelectedType(type);
   };
+  // Check Selected Type from the Contract Type Form to iterate options for SubType Form
 
+  // Create Contract Stepper Switch
   const getStepComponent = (step: number) => {
     switch (step) {
       case 0:
@@ -220,22 +228,47 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
 
   return (
     <Box
+      data-id="CreateContractFormContainer"
       sx={{
         width: '100%',
+        height: '500px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
       }}
     >
-      <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
+      <Stepper
+        data-id="CreateContractStepper"
+        alternativeLabel
+        activeStep={activeStep}
+        connector={<ColorlibConnector />}
+        sx={{
+          mb: 'auto',
+        }}
+      >
         {createSteps.map((label) => (
           <Step key={label}>
             <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
-      <Box sx={{ mb: '1em' }}>{getStepComponent(activeStep)}</Box>
+      <Box
+        data-id="CreateContractStepContainer"
+        sx={{
+          mb: 'auto',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderTop: '2px solid',
+          borderBottom: '2px solid',
+          borderColor: 'primary.main',
+          borderRadius: '6px',
+          padding: '1em',
+          bgcolor: 'rgba(0, 1, 19, .25)',
+        }}
+      >
+        {getStepComponent(activeStep)}
+      </Box>
       <Box sx={{ display: 'flex', mt: '1em' }}>
         <StepButton onClick={passClose} icon={<CancleCreateIcon />} />
         <StepButton
