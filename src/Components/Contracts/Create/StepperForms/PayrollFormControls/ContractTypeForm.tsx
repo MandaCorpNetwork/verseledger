@@ -61,14 +61,33 @@ export const ContractTypeForm: React.FC<ContractTypeFormProps> = ({ typeSelect }
   return (
     <Box>
       <FormControl>
-        <FormLabel>Contract Type</FormLabel>
-        <RadioGroup value={selectedType} onChange={handleSelect}>
+        <FormLabel
+          color="secondary"
+          sx={{
+            fontWeight: 'bold',
+            mb: '.5em',
+          }}
+        >
+          Contract Type
+        </FormLabel>
+        <RadioGroup
+          value={selectedType}
+          onChange={handleSelect}
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+          }}
+        >
           {options.map((option) => (
             <FormControlLabel
               key={option.value}
               value={option.value}
               label={option.label}
-              control={<Radio />}
+              control={<Radio color="secondary" />}
+              sx={{
+                color:
+                  selectedType === option.value ? 'secondary.main' : 'text.secondary',
+              }}
             />
           ))}
         </RadioGroup>
