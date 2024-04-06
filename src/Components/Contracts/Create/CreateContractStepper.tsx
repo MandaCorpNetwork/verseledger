@@ -31,7 +31,7 @@ import { FleetForm } from './StepperForms/FleetForm';
 import { LocationsForm } from './StepperForms/LocationsForm';
 import { PayrollForm } from './StepperForms/PayrollForm';
 import { ContractTypeForm } from './StepperForms/PayrollFormControls/ContractTypeForm';
-import { SubTypeBriefingForm } from './StepperForms/SubType-BriefingForm';
+import { SubTypeBriefingForm } from './StepperForms/PayrollFormControls/SubType-BriefingForm';
 import { TimeInfoForm } from './StepperForms/TimeInfoForm';
 import { TitleForm } from './StepperForms/TitleForm';
 
@@ -219,7 +219,12 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
           />
         );
       case 1:
-        return <SubTypeBriefingForm selectedType={selectedType} />;
+        return (
+          <SubTypeBriefingForm
+            formData={contractData}
+            onFormChange={handleContractDataChange}
+          />
+        );
       case 2:
         return <TimeInfoForm />;
       case 3:

@@ -9,9 +9,17 @@ import {
 } from '@mui/material';
 
 type SubTypeBriefingFormProps = {
-  selectedType: string;
+  formData: {
+    contractType: string;
+    subType: string;
+    briefing: string;
+  };
+  onFormChange: (field: string, value: string) => void;
 };
+// formData set by SubType&BriefingForm = subType, briefing
+// Pulls contractType to determine which subType options to display
 
+// SubType options Array
 const options = [
   {
     type: 'Logistics',
@@ -157,31 +165,71 @@ const options = [
 ];
 
 export const SubTypeBriefingForm: React.FC<SubTypeBriefingFormProps> = ({
-  selectedType,
+  formData,
+  onFormChange,
 }) => {
-  const subTypeDisplay = options.find((opt) => opt.type === selectedType)?.subTypes;
+  // subType Options Display Controller
+  const subTypeDisplay = options.find(
+    (opt) => opt.type === formData.contractType,
+  )?.subTypes;
+
+  // Pass subType selection to the formData state
+  const handleSubTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onFormChange('subType', event.target.value);
+  };
+
+  // Pass briefing to the formData state
+  const handleBriefingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onFormChange('briefing', event.target.value);
+  };
 
   return (
-    <Box>
-      <FormLabel>SubType & Briefing</FormLabel>
-      <Box>
-        <FormControl>
-          <FormLabel>SubType</FormLabel>
-          <RadioGroup>
+    <Box
+      data-id="subType-briefing-container"
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minWidth: '400px',
+      }}
+    >
+      <Box data-id="subTypeandBriefing-form">
+        <FormControl sx={{ display: 'flex' }}>
+          <FormLabel color="secondary" sx={{ fontWeight: 'bold' }}>
+            SubType
+          </FormLabel>
+          <RadioGroup
+            value={formData.subType}
+            onChange={handleSubTypeChange}
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              mb: '.5em',
+            }}
+          >
             {subTypeDisplay?.map((subType) => (
               <FormControlLabel
                 key={subType.value}
                 value={subType.value}
                 label={subType.label}
-                control={<Radio />}
+                control={<Radio color="secondary" />}
+                sx={{
+                  color:
+                    formData.subType === subType.value
+                      ? 'secondary.main'
+                      : 'text.secondary',
+                }}
               />
             ))}
           </RadioGroup>
+          <TextField
+            multiline={true}
+            rows={4}
+            onChange={handleBriefingChange}
+            label="Briefing"
+            color="secondary"
+            fullWidth
+          />
         </FormControl>
-      </Box>
-      <Box>
-        <FormLabel>Briefing</FormLabel>
-        <TextField multiline={true} rows={5} />
       </Box>
     </Box>
   );
