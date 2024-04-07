@@ -1,11 +1,16 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "../verseledger-backend"
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "path": ".",
+    },
+    {
+      "path": "../verseledger-backend",
+    },
+  ],
+  "settings": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+  },
 }
