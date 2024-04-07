@@ -10,7 +10,7 @@ type CreateContractProps = {
 
 export const CreateContract: React.FC<CreateContractProps> = ({ open, onClose }) => {
   return (
-    <Modal open={open} onClose={onClose} sx={{ backdropFilter: 'blur(5px)' }}>
+    <Modal open={true} onClose={onClose} sx={{ backdropFilter: 'blur(5px)' }}>
       <Box
         data-id="CreateContract-Container"
         sx={{
