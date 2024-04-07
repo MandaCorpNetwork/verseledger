@@ -3,12 +3,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import { isDev } from '../Utils/isDev';
 import { coreReducer } from './reducers';
 
-const store = configureStore({
-  reducer: coreReducer,
-  devTools: isDev(),
-});
-
-export default store;
-export type AppStore = typeof store;
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export const setupStore = (preloadState?: Partial<RootState>) =>
+  configureStore({
+    reducer: coreReducer,
+    preloadedState: preloadState,
+    devTools: isDev(),
+  });
+export type RootState = ReturnType<typeof coreReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore['dispatch'];
