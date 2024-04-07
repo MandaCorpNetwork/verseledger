@@ -28,6 +28,15 @@ type TimeInfoFormProps = {
 };
 
 export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChange }) => {
+  // Date Formatter
+  const format = (date: Date | null) => {
+    if (date) {
+      return dayjs(date).format('MM/DD/YY HH:mm');
+    } else {
+      return '';
+    }
+  };
+
   // Time Validation Functions
   function isTimeAfter(time1: Date, time2: Date) {
     const dayjsTime1 = dayjs(time1);
@@ -42,10 +51,13 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
   }
 
   const [heldDate, setHeldDate] = React.useState<Date | null>(null);
+  // Temporary storage of selected date from SelectTimeButton
   const [isBidEndManual, setIsBidEndManual] = React.useState(false);
   const [isStartDateManual, setIsStartDateManual] = React.useState(false);
   const [isEndDateManual, setIsEndDateManual] = React.useState(false);
-  // Handling Time Change from the SelectTimeButton
+  // Flag for manually set date, passed to QuickTimeSelectButton disabling the group
+
+  // Handling Time Change from the SelectTimeButton & dataForm.field manualSelect Flag
   const handleTimeChange = (newTime: Date, fieldName: keyof typeof formData) => {
     if (!heldDate) {
       console.error('No date was selected.');
@@ -53,11 +65,14 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
     }
     const dateSelected = dayjs(heldDate);
     const timeSelected = dayjs(newTime);
+    // Converts the date selected to dayjs object
 
     const combinedDateTime = dateSelected
       .set('hour', timeSelected.hour())
       .set('minute', timeSelected.minute());
-    // Passes in the date to formData
+    // Combines the date and time selected into one dayjs object
+
+    // Switch for the field name to determine which flag to set for manualSelect
     switch (fieldName) {
       case 'bidEnd':
         setIsBidEndManual(true);
@@ -72,12 +87,16 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
         console.error('Invalid field name', fieldName);
         break;
     }
+
+    // Pass the combinedDateTime to the formData state
     onFormChange(fieldName, combinedDateTime.toDate());
     setHeldDate(null);
+    // Reset the heldDate state
   };
 
   // Handling Time Change from the QuickTimeButton
   type AllowedUnitType = 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second';
+  // List of allowed units for the QuickTimeButton
   const [selectedBidEndQuickTime, setSelectedBidEndQuickTime] = React.useState<
     string | null
   >(null);
@@ -87,6 +106,7 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
   const [selectedEndDateQuickTime, setSelectedEndDateQuickTime] = React.useState<
     string | null
   >(null);
+  // Temporary storage of selected time from QuickTimeButton Styling
 
   // Quick Time Selection Handler
   const handleQuickTimeSelection = (
@@ -94,6 +114,7 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
     fieldName: keyof typeof formData,
   ) => {
     const [amount, unit] = duration.split(' ');
+    // Separates the duration into an amount and unit
 
     // UnitType Error Handler
     if (!['year', 'month', 'week', 'day', 'hour', 'minute', 'second'].includes(unit)) {
@@ -107,6 +128,7 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
     onFormChange(fieldName, newTime);
     // Passes in the date to formData
 
+    // QuickTimeButton Styling Handler
     switch (fieldName) {
       case 'bidEnd':
         setSelectedBidEndQuickTime(duration);
@@ -130,31 +152,29 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
     const isChecked = event.target.checked;
     setAfterBiddingChecked(isChecked);
     setSelectedStartDateQuickTime(null);
+    // Reset the QuickTimeButton styling
 
+    // If after bidding is checked, set the start date to be 1 second after the bid end time
     if (isChecked && formData.bidEnd) {
       const newStartTime = dayjs(formData.bidEnd).add(1, 'second').toDate();
       onFormChange('startDate', newStartTime);
     }
   };
 
+  // Handling Time Change from the Before Bidding Checkbox
   React.useEffect(() => {
     if (afterBiddingChecked && formData.bidEnd && formData.startDate) {
       const expectedStartTime = dayjs(formData.bidEnd).add(1, 'second').toDate();
+      // If after bidding is checked, set the start date to be 1 second after the bid end time
 
       if (!dayjs(formData.startDate).isSame(expectedStartTime)) {
         setAfterBiddingChecked(false);
       }
+      // If the start date is not the expected start time, uncheck the after bidding checkbox
     }
   });
 
-  const format = (date: Date | null) => {
-    if (date) {
-      return dayjs(date).format('MM/DD/YY HH:mm');
-    } else {
-      return '';
-    }
-  };
-
+  // Handling Time Change from the Emergency Mode Checkbox
   const toggleEmergencyMode = () => {
     onFormChange('emergency', !formData.emergency);
     if (!formData.emergency) {
@@ -165,13 +185,13 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
   };
 
   return (
-    <Box data-id="timeInfo-container">
+    <Box data-testid="timeInfo-container">
       <FormLabel color="secondary" sx={{ fontWeight: 'bold' }}>
         Time Info
       </FormLabel>
-      <Box data-id="timeInfo-form" sx={{ display: 'flex', flexDirection: 'row' }}>
+      <Box data-testid="timeInfo-form" sx={{ display: 'flex', flexDirection: 'row' }}>
         <Box
-          data-id="timeInfo-form-controls"
+          data-testid="timeInfo-form-controls"
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -180,7 +200,7 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
           }}
         >
           <Box
-            data-id="timeInfo-form-wrapper"
+            data-testid="timeInfo-form-wrapper"
             sx={{
               position: 'relative',
               width: '100%',
@@ -189,7 +209,7 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
           >
             {formData.emergency && <EmergencyOverlay />}
             <Box
-              data-id="bidTime-form"
+              data-testid="bidTime-form"
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
@@ -234,7 +254,7 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
               />
             </Box>
             <Box
-              data-id="startTime-form"
+              data-testid="startTime-form"
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
@@ -242,7 +262,7 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
               }}
             >
               <Box
-                data-id="startTime-form-title-wrapper"
+                data-testid="startTime-form-title-wrapper"
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -251,31 +271,16 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
                 }}
               >
                 <FormLabel>Start Time:</FormLabel>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      color="secondary"
-                      checked={afterBiddingChecked}
-                      onChange={handleAfterBiddingChange}
-                      disabled={formData.bidEnd === null}
-                    />
-                  }
-                  label="After Bidding"
-                  sx={{
-                    color: 'text.secondary',
-                  }}
-                />
               </Box>
               <Box
-                data-id="startTime-form-controls"
+                data-testid="startTime-form-controls"
                 sx={{
                   justifySelf: 'center',
                 }}
               >
                 <SelectTimeButton
-                  onTimeChange={(selectedDate) =>
-                    handleTimeChange(selectedDate, 'startDate')
-                  }
+                  onDateChange={(newDate) => setHeldDate(newDate)}
+                  onTimeChange={(newTime) => handleTimeChange(newTime, 'startDate')}
                 />
                 <QuickTimeButton
                   time="30 min"
@@ -310,7 +315,7 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
               </Box>
             </Box>
             <Box
-              data-id="endTime-form"
+              data-testid="endTime-form"
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
@@ -320,7 +325,8 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
             >
               <FormLabel>End Time:</FormLabel>
               <SelectTimeButton
-                onTimeChange={(selectedDate) => handleTimeChange(selectedDate, 'endDate')}
+                onDateChange={(newDate) => setHeldDate(newDate)}
+                onTimeChange={(newTime) => handleTimeChange(newTime, 'endDate')}
               />
               <QuickTimeButton
                 time="30 min"
@@ -356,7 +362,7 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
           </Box>
         </Box>
         <Box
-          data-id="timeInfo-form-output"
+          data-testid="timeInfo-form-output"
           sx={{ display: 'flex', flexDirection: 'column', ml: '.5em' }}
         >
           <TextField
@@ -396,9 +402,9 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
               isTimeAfter(formData.bidEnd, formData.endDate)
                 ? 'Concept of time eledues you.'
                 : formData.bidEnd && isTimeAfter(formData.bidEnd, formData.startDate)
-                  ? 'Bid End comes before Start Time'
+                  ? 'BidTime after StartTime'
                   : formData.bidEnd && isTimeAfter(formData.bidEnd, formData.endDate)
-                    ? 'Bid End comes before End Time'
+                    ? 'BidTime after EndTime'
                     : ''
             }
             sx={{ mb: '1em', width: '200px' }}
@@ -441,9 +447,9 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
               isTimeAfter(formData.startDate, formData.endDate)
                 ? 'Concept of time eludes you.'
                 : formData.bidEnd && isTimeBefore(formData.startDate, formData.bidEnd)
-                  ? 'Start Time comes after Bid End Time'
+                  ? 'StartTime before BidTime'
                   : formData.endDate && isTimeAfter(formData.startDate, formData.endDate)
-                    ? 'Start Time must be before End Time'
+                    ? 'StartTime after EndTime'
                     : ''
             }
             sx={{ mt: '.7em', mb: '1em', width: '200px' }}
@@ -485,33 +491,79 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
               isTimeBefore(formData.endDate, formData.startDate)
                 ? 'Concept of time eludes you.'
                 : formData.bidEnd && isTimeBefore(formData.endDate, formData.bidEnd)
-                  ? 'End Time comes after Bid End Time'
+                  ? 'EndTime before BidTime'
                   : formData.startDate &&
                       isTimeBefore(formData.endDate, formData.startDate)
-                    ? 'End Time must be after Start Time'
+                    ? 'EndTime before StartTime'
                     : ''
             }
-            sx={{ mt: '.7em', mb: '1em', width: '200px' }}
+            sx={{ mt: '.7em', mb:'.5em', width: '200px' }}
           />
         </Box>
       </Box>
       <Box
-        data-id="timeInfo-form-emergency"
+        data-testid="timeInfo-form-emergency"
         sx={{
           display: 'flex',
-          justifyContent: 'center',
+          justifyContent: 'left',
           alignItems: 'center',
           mt: '.5em',
+          ml: '.5em',
+          mb: '.2em',
         }}
       >
+        <FormControlLabel
+          data-testid="afterbidding-checkbox"
+          control={
+            <Checkbox
+              color="secondary"
+              checked={afterBiddingChecked}
+              onChange={handleAfterBiddingChange}
+              disabled={formData.bidEnd === null}
+            />
+          }
+          label="Start After Bidding"
+          sx={{
+            color: 'text.secondary',
+          }}
+        />
         <Button
           variant="contained"
           color="error"
           startIcon={<NotificationsActive />}
           onClick={toggleEmergencyMode}
+          sx={{
+            ml: '1em',
+          }}
         >
           <Typography>Emergency</Typography>
         </Button>
+        {formData.emergency && (
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              ml: '2em',
+              alignItems: 'center',
+              borderLeft: '1px solid',
+              borderRight: '1px solid',
+              borderColor: 'warning.main',
+              borderRadius: '5px',
+              pl: '.5em',
+              pr: '.5em',
+              pb: '.2em',
+              pt: '.2em',
+              backgroundColor: 'rgba(255, 141, 15, .1)',
+            }}
+          >
+            <Typography variant="body2" sx={{ color: 'warning.main' }}>
+              Emergency being active disables some settings.
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'warning.main' }}>
+              Contract start defaults to manual.
+            </Typography>
+          </Box>
+        )}
       </Box>
     </Box>
   );
