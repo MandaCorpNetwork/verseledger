@@ -242,7 +242,12 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
           <TimeInfoForm formData={contractData} onFormChange={handleContractDataChange} />
         );
       case 3:
-        return <LocationsForm />;
+        return (
+          <LocationsForm
+            formData={contractData}
+            onFormChange={handleContractDataChange}
+          />
+        );
       case 4:
         return <FleetForm />;
       case 5:
