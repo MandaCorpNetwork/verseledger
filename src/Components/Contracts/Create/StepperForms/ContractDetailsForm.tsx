@@ -1,18 +1,11 @@
-import {
-  Box,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-  TextField,
-} from '@mui/material';
+import { Autocomplete, Box, FormControl, FormLabel, TextField } from '@mui/material';
 
-type SubTypeBriefingFormProps = {
+type ContractDetailsForm = {
   formData: {
     contractType: string;
     subType: string;
     briefing: string;
+    title: string;
   };
   onFormChange: (field: string, value: string) => void;
 };
@@ -164,14 +157,16 @@ const options = [
   },
 ];
 
-export const SubTypeBriefingForm: React.FC<SubTypeBriefingFormProps> = ({
+export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
   formData,
   onFormChange,
 }) => {
-  // subType Options Display Controller
-  const subTypeDisplay = options.find(
-    (opt) => opt.type === formData.contractType,
-  )?.subTypes;
+  const flatOptions = options.flatMap((option) =>
+    option.subTypes.map((subType) => ({
+      label: subType.label,
+      group: option.type,
+    })),
+  );
 
   // Pass subType selection to the formData state
   const handleSubTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -194,33 +189,25 @@ export const SubTypeBriefingForm: React.FC<SubTypeBriefingFormProps> = ({
     >
       <Box data-id="subTypeandBriefing-form">
         <FormControl sx={{ display: 'flex' }}>
-          <FormLabel color="secondary" sx={{ fontWeight: 'bold' }}>
-            SubType
-          </FormLabel>
-          <RadioGroup
-            value={formData.subType}
-            onChange={handleSubTypeChange}
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              mb: '.5em',
-            }}
-          >
-            {subTypeDisplay?.map((subType) => (
-              <FormControlLabel
-                key={subType.value}
-                value={subType.value}
-                label={subType.label}
-                control={<Radio color="secondary" />}
-                sx={{
-                  color:
-                    formData.subType === subType.value
-                      ? 'secondary.main'
-                      : 'text.secondary',
-                }}
-              />
-            ))}
-          </RadioGroup>
+          <FormLabel color="secondary" sx={{ fontWeight: 'bold' }}></FormLabel>
+          <TextField label="Title" size="small" />
+          <Autocomplete
+            multiple
+            
+            data-testid="CreateContract-Subtype_AutoComplete"
+            options={flatOptions}
+            groupBy={(option) => option.group}
+            getOptionLabel={(option) => option.label}
+            renderInput={(params) => (
+              <TextField {...params} label="SubType" size="small" />
+            )}
+            onChange={(event, value) => onFormChange('subType', value.label)}
+            value={flatOptions.find(
+              (option) => option.label === formData.subType || null,
+            )}
+            fullWidth
+            sx={{ mt: 2 }}
+          />
           <TextField
             multiline={true}
             rows={4}
@@ -228,6 +215,7 @@ export const SubTypeBriefingForm: React.FC<SubTypeBriefingFormProps> = ({
             label="Briefing"
             color="secondary"
             fullWidth
+            size="small"
           />
         </FormControl>
       </Box>

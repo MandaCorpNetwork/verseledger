@@ -1,39 +1,33 @@
 import {
   AccessTime,
-  Close,
-  Gamepad,
+  ArrowBackIos,
+  ArrowForwardIos,
+  Cancel,
   Group,
-  NavigateBefore,
-  NavigateNext,
   Payments,
-  Rocket,
   SatelliteAlt,
   Send,
   Subtitles,
-  Title,
 } from '@mui/icons-material';
 import {
   Box,
+  Button,
   Step,
-  StepButton,
   StepConnector,
   StepIconProps,
   StepLabel,
   Stepper,
-  Typography,
 } from '@mui/material';
 import { stepConnectorClasses } from '@mui/material/StepConnector';
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
 
 import { ContractorsForm } from './ContractorsForm';
-import { ContractTypeForm } from './StepperForms/ContractTypeForm';
-import { FleetForm } from './StepperForms/FleetForm';
+//import { FleetForm } from './StepperForms/FleetForm';
 import { LocationsForm } from './StepperForms/LocationsForm';
 import { PayrollForm } from './StepperForms/PayrollForm';
-import { SubTypeBriefingForm } from './StepperForms/SubType-BriefingForm';
+import { SubTypeBriefingForm } from './StepperForms/ContractDetailsForm';
 import { TimeInfoForm } from './StepperForms/TimeInfoForm';
-import { TitleForm } from './StepperForms/TitleForm';
 
 type CreateContractStepperProps = {
   passClose: () => void;
@@ -99,14 +93,11 @@ function ColorlibStepIcon(props: StepIconProps) {
   const { active, completed, className } = props;
 
   const icons: { [index: string]: React.ReactElement } = {
-    1: <Gamepad />,
-    2: <Subtitles />,
-    3: <AccessTime />,
-    4: <SatelliteAlt />,
-    5: <Rocket />,
-    6: <Group />,
-    7: <Payments />,
-    8: <Title />,
+    1: <Subtitles />,
+    2: <AccessTime />,
+    3: <SatelliteAlt />,
+    4: <Group />,
+    5: <Payments />,
   };
 
   return (
@@ -118,71 +109,19 @@ function ColorlibStepIcon(props: StepIconProps) {
 
 // Create Contract Form Pages
 const createSteps = [
-  'Contract Type',
-  'SubType & Briefing',
+  'Contract Details',
   'Time Information',
   'Locations',
-  'Fleet',
   'Contractors',
   'Payroll',
-  'Title',
 ];
-
-// Create Contract Cancel Button Component
-const CancleCreateIcon: React.FC = () => {
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <Close />
-      <Typography>Cancel</Typography>
-    </Box>
-  );
-};
-
-// Create Contract Next Button Component
-const NextIcon: React.FC = () => {
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <Typography sx={{}}>Next</Typography>
-      <NavigateNext />
-    </Box>
-  );
-};
-
-type BackIconProps = {
-  isDisabled: boolean;
-};
-// Checks if the stepper is at the first step and disables the back button
-
-// Create Contract Back Button Component
-const BackIcon: React.FC<BackIconProps> = ({ isDisabled }) => {
-  const textColor = isDisabled ? 'text.disabled' : 'text.primary';
-  const iconColor = isDisabled ? 'disabled' : 'inherit';
-
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <NavigateBefore color={iconColor} />
-      <Typography sx={{ color: `${textColor}` }}>Back</Typography>
-    </Box>
-  );
-};
-
-// Create Contract Submit Button Component
-const SubmitIcon: React.FC = () => {
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <Typography>Submit</Typography>
-      <Send />
-    </Box>
-  );
-};
 
 export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
   passClose,
   passSubmit,
 }) => {
   const [contractData, setContractData] = React.useState({
-    contractType: '',
-    subType: '',
+    subtypeTag: [],
     briefing: '',
     bidEnd: null,
     startDate: null,
@@ -230,44 +169,33 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
     switch (step) {
       case 0:
         return (
-          <ContractTypeForm
+          <SubTypeBriefingForm
             formData={contractData}
             onFormChange={handleContractDataChange}
           />
         );
       case 1:
         return (
-          <SubTypeBriefingForm
-            formData={contractData}
-            onFormChange={handleContractDataChange}
-          />
-        );
-      case 2:
-        return (
           <TimeInfoForm formData={contractData} onFormChange={handleContractDataChange} />
         );
-      case 3:
+      case 2:
         return (
           <LocationsForm
             formData={contractData}
             onFormChange={handleContractDataChange}
           />
         );
-      case 4:
-        return <FleetForm />;
-      case 5:
+      case 3:
         return (
           <ContractorsForm
             formData={contractData}
             onFormChange={handleContractDataChange}
           />
         );
-      case 6:
+      case 4:
         return (
           <PayrollForm formData={contractData} onFormChange={handleContractDataChange} />
         );
-      case 7:
-        return <TitleForm />;
     }
   };
 
@@ -314,17 +242,48 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
       >
         {getStepComponent(activeStep)}
       </Box>
-      <Box sx={{ display: 'flex', mt: '1em' }}>
-        <StepButton onClick={passClose} icon={<CancleCreateIcon />} />
-        <StepButton
+      <Box sx={{ display: 'flex', mt: '1em', width: '100%' }}>
+        <Button
+          data-testid="CreateContract-Cancel_Button"
+          variant="contained"
+          onClick={passClose}
+          endIcon={<Cancel />}
+          sx={{
+            mr: 'auto',
+          }}
+        >
+          Cancel
+        </Button>
+        <Button
+          data-testid="CreateContract-Back_Button"
+          variant="contained"
           onClick={handleBack}
+          startIcon={<ArrowBackIos />}
           disabled={activeStep === 0}
-          icon={<BackIcon isDisabled={activeStep === 0} />}
-        />
+          sx={{
+            mr: '1em',
+          }}
+        >
+          Back
+        </Button>
         {!isLastStep ? (
-          <StepButton onClick={handleNext} icon={<NextIcon />} />
+          <Button
+            data-testid="CreateContract-Next_Button"
+            variant="contained"
+            onClick={handleNext}
+            endIcon={<ArrowForwardIos />}
+          >
+            Next
+          </Button>
         ) : (
-          <StepButton onClick={passSubmit} icon={<SubmitIcon />} />
+          <Button
+            data-testid=""
+            variant="contained"
+            onClick={passSubmit}
+            endIcon={<Send />}
+          >
+            Submit
+          </Button>
         )}
       </Box>
     </Box>
