@@ -1,6 +1,8 @@
 import React from 'react';
 import { Outlet, RouteObject } from 'react-router-dom';
 
+import { DiscordLoginUtility } from '@/Utils/discordLogin';
+
 import { VLAppBar } from '../Common/AppBar';
 import ErrorPage from './ErrorPage';
 import { ContractLedgerTablePage } from './Index/ContractLedger/Ledger/ContractLedgerPage';
@@ -25,6 +27,10 @@ export const routingInfo: RouteObject[] = [
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: '/oauth/discord/callback',
+        element: <DiscordLoginUtility />,
       },
       {
         path: '/contract/ledger',
