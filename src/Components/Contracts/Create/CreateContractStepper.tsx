@@ -26,12 +26,12 @@ import { stepConnectorClasses } from '@mui/material/StepConnector';
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
 
-import { ContractorsForm } from './ContractorsForrm';
+import { ContractorsForm } from './ContractorsForm';
+import { ContractTypeForm } from './StepperForms/ContractTypeForm';
 import { FleetForm } from './StepperForms/FleetForm';
 import { LocationsForm } from './StepperForms/LocationsForm';
 import { PayrollForm } from './StepperForms/PayrollForm';
-import { ContractTypeForm } from './StepperForms/PayrollFormControls/ContractTypeForm';
-import { SubTypeBriefingForm } from './StepperForms/PayrollFormControls/SubType-BriefingForm';
+import { SubTypeBriefingForm } from './StepperForms/SubType-BriefingForm';
 import { TimeInfoForm } from './StepperForms/TimeInfoForm';
 import { TitleForm } from './StepperForms/TitleForm';
 
@@ -189,9 +189,8 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
     endDate: null,
     emergency: false,
     locations: [],
-    fleet: [],
     minRating: 0,
-    maxContractors: 0,
+    maxContractors: null,
     contractorInvitees: [],
     allowBiddingAfterDeadline: false,
     payrollStructure: '',
@@ -199,10 +198,13 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
   });
   // Create Contract Form Data State
 
-  const handleContractDataChange = (field: keyof typeof contractData, value: any) => {
+  const handleContractDataChange = (
+    field: keyof typeof contractData,
+    value: boolean | string | number | Date | Array,
+  ) => {
     setContractData((prev) => ({ ...prev, [field]: value }));
   };
-  // Handle Form Data Change
+  // Handle Form Simple Data Change
 
   const [activeStep, setActiveStep] = React.useState(0);
   // Check Current Step
@@ -251,7 +253,12 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
       case 4:
         return <FleetForm />;
       case 5:
-        return <ContractorsForm />;
+        return (
+          <ContractorsForm
+            formData={contractData}
+            onFormChange={handleContractDataChange}
+          />
+        );
       case 6:
         return <PayrollForm />;
       case 7:

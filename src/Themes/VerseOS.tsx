@@ -204,6 +204,26 @@ export const verseOSTheme = createTheme({
         },
       },
     },
+    MuiRating: {
+      styleOverrides: {
+        iconFilled: {
+          color: 'rgb(24, 252, 252)',
+        },
+        iconEmpty: {
+          color: 'rgb(6, 86, 145)',
+        },
+      },
+    },
+    MuiSwitch: {
+      styleOverrides: {
+        switchBase: {
+          color: 'rgb(121, 192, 244)',
+        },
+        track: {
+          backgroundColor: 'rgb(6, 86, 145)',
+        },
+      },
+    },
   },
 
   palette: {
