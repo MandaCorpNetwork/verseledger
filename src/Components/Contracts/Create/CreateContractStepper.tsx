@@ -193,7 +193,10 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
     maxContractors: null,
     contractorInvitees: [],
     allowBiddingAfterDeadline: false,
+    bonusPay: false,
+    allowBargaining: false,
     payrollStructure: '',
+    payAmount: 0,
     contractTitle: '',
   });
   // Create Contract Form Data State
@@ -260,7 +263,9 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
           />
         );
       case 6:
-        return <PayrollForm />;
+        return (
+          <PayrollForm formData={contractData} onFormChange={handleContractDataChange} />
+        );
       case 7:
         return <TitleForm />;
     }
