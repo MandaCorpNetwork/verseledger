@@ -1,4 +1,4 @@
-import { Autocomplete, Box, FormControl, FormLabel, TextField } from '@mui/material';
+import { Autocomplete, Box, FormControl, FormLabel, TextField, Typography } from '@mui/material';
 
 type ContractDetailsForm = {
   formData: {
@@ -183,41 +183,63 @@ export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
       data-id="subType-briefing-container"
       sx={{
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         minWidth: '400px',
       }}
     >
+      <Box
+        data-id="TypeDisplay_Container"
+        sx={{
+          width: '200px',
+          borderTop: '2px solid',
+          borderBottom: '2px solid',
+          borderRadius: '10px',
+          borderColor: 'secondary.main',
+          display: 'flex',
+          flexDirection: 'column',
+          ml: '1em',
+          mr: '1.5em',
+          pt: '.5em',
+          pb: '.5em',
+          alignItems: 'center',
+        }}
+      >
+        <Typography variant="h6">Contract Types</Typography>
+        <Box data-id="TypeDisplay_ScrollBox"></Box>
+      </Box>
       <Box data-id="subTypeandBriefing-form">
-        <FormControl sx={{ display: 'flex' }}>
-          <FormLabel color="secondary" sx={{ fontWeight: 'bold' }}></FormLabel>
-          <TextField label="Title" size="small" />
-          <Autocomplete
-            multiple
-            
-            data-testid="CreateContract-Subtype_AutoComplete"
-            options={flatOptions}
-            groupBy={(option) => option.group}
-            getOptionLabel={(option) => option.label}
-            renderInput={(params) => (
-              <TextField {...params} label="SubType" size="small" />
-            )}
-            onChange={(event, value) => onFormChange('subType', value.label)}
-            value={flatOptions.find(
-              (option) => option.label === formData.subType || null,
-            )}
-            fullWidth
-            sx={{ mt: 2 }}
-          />
-          <TextField
-            multiline={true}
-            rows={4}
-            onChange={handleBriefingChange}
-            label="Briefing"
-            color="secondary"
-            fullWidth
-            size="small"
-          />
-        </FormControl>
+        <Box>
+          <FormControl sx={{ display: 'flex' }}>
+            <FormLabel color="secondary" sx={{ fontWeight: 'bold' }}></FormLabel>
+            <TextField label="Title" />
+            <Autocomplete
+              multiple
+              limitTage={3}
+              data-testid="CreateContract-Subtype_AutoComplete"
+              options={flatOptions}
+              groupBy={(option) => option.group}
+              getOptionLabel={(option) => option.label}
+              renderInput={(params) => (
+                <TextField {...params} label="SubType" size="small" />
+              )}
+              onChange={(event, value) => onFormChange('subType', value.label)}
+              value={flatOptions.find(
+                (option) => option.label === formData.subType || null,
+              )}
+              fullWidth
+              sx={{ mt: 2 }}
+            />
+            <TextField
+              multiline={true}
+              rows={4}
+              onChange={handleBriefingChange}
+              label="Briefing"
+              color="secondary"
+              fullWidth
+              size="small"
+            />
+          </FormControl>
+        </Box>
       </Box>
     </Box>
   );
