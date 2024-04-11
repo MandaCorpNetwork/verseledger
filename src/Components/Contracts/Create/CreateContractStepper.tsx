@@ -23,10 +23,10 @@ import { styled } from '@mui/material/styles';
 import * as React from 'react';
 
 import { ContractorsForm } from './ContractorsForm';
+import { SubTypeBriefingForm } from './StepperForms/ContractDetailsForm';
 //import { FleetForm } from './StepperForms/FleetForm';
 import { LocationsForm } from './StepperForms/LocationsForm';
 import { PayrollForm } from './StepperForms/PayrollForm';
-import { SubTypeBriefingForm } from './StepperForms/ContractDetailsForm';
 import { TimeInfoForm } from './StepperForms/TimeInfoForm';
 
 type CreateContractStepperProps = {
@@ -250,6 +250,10 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
           endIcon={<Cancel />}
           sx={{
             mr: 'auto',
+            borderLeft: '3px solid',
+            borderRight: '3px solid',
+            borderColor: 'secondary.main',
+            borderRadius: '5px',
           }}
         >
           Cancel
@@ -262,6 +266,10 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
           disabled={activeStep === 0}
           sx={{
             mr: '1em',
+            borderLeft: '3px solid',
+            borderRight: '3px solid',
+            borderColor: 'secondary.main',
+            borderRadius: '5px',
           }}
         >
           Back
@@ -272,6 +280,12 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
             variant="contained"
             onClick={handleNext}
             endIcon={<ArrowForwardIos />}
+            sx={{
+              borderLeft: '3px solid',
+              borderRight: '3px solid',
+              borderColor: 'secondary.main',
+              borderRadius: '5px',
+            }}
           >
             Next
           </Button>
@@ -281,6 +295,12 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
             variant="contained"
             onClick={passSubmit}
             endIcon={<Send />}
+            sx={{
+              borderLeft: '3px solid',
+              borderRight: '3px solid',
+              borderColor: 'secondary.main',
+              borderRadius: '5px',
+            }}
           >
             Submit
           </Button>

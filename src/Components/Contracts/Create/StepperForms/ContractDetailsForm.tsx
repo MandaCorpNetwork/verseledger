@@ -1,9 +1,16 @@
-import { Autocomplete, Box, FormControl, FormLabel, TextField, Typography } from '@mui/material';
+import {
+  Autocomplete,
+  Box,
+  FormControl,
+  FormLabel,
+  TextField,
+  Typography,
+} from '@mui/material';
+// import ArchetypeDisplay from '@/Common/ArchetypeDisplayBox';
 
 type ContractDetailsForm = {
   formData: {
-    contractType: string;
-    subType: string;
+    subTypeTag: string;
     briefing: string;
     title: string;
   };
@@ -169,8 +176,43 @@ export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
   );
 
   // Pass subType selection to the formData state
-  const handleSubTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onFormChange('subType', event.target.value);
+  const handleSubTypeChange = (
+    event: React.SyntheticEvent,
+    newValue: { label: string; group: string }[],
+  ) => {
+    const selectedSubTypes = newValue.map((item) => item.label);
+    onFormChange('subTypeTag', selectedSubTypes.join(', '));
+  };
+
+  const renderSelectedGroups = () => {
+    const selectedLabels = formData.subTypeTag ? formData.subTypeTag.split(', ') : [];
+    const selectedGroups = flatOptions
+      .filter((option) => selectedLabels.includes(option.label))
+      .map((option) => option.group);
+    const uniqueGroups = Array.from(new Set(selectedGroups));
+
+    return uniqueGroups.map((group, index) => (
+      <Box
+        key={index}
+        sx={{
+          borderLeft: '2px solid',
+          borderRight: '2px solid',
+          borderColor: 'primary.main',
+          borderRadius: '5px',
+          pl: '.5em',
+          pr: '.5em',
+          mb: '.5em',
+          backgroundColor: 'rgba(33, 150, 243, .1)',
+        }}
+      >
+        <Typography
+          variant="body2"
+          sx={{ fontWeight: 'bold', color: 'text.secondary', textAlign: 'center' }}
+        >
+          {group}
+        </Typography>
+      </Box>
+    ));
   };
 
   // Pass briefing to the formData state
@@ -204,17 +246,24 @@ export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
           alignItems: 'center',
         }}
       >
-        <Typography variant="h6">Contract Types</Typography>
-        <Box data-id="TypeDisplay_ScrollBox"></Box>
+        <Typography variant="h6" sx={{ color: 'secondary.main', mb: '.5em' }}>
+          Contract Types
+        </Typography>
+        <Box data-id="TypeDisplay_ScrollBox">{renderSelectedGroups()}</Box>
       </Box>
       <Box data-id="subTypeandBriefing-form">
         <Box>
-          <FormControl sx={{ display: 'flex' }}>
+          <FormControl sx={{ display: 'flex', alignItems: 'center' }}>
             <FormLabel color="secondary" sx={{ fontWeight: 'bold' }}></FormLabel>
-            <TextField label="Title" />
+            <TextField
+              label="Title"
+              color="secondary"
+              inputProps={{ maxLength: 32 }}
+              sx={{ maxWidth: '250px' }}
+            />
             <Autocomplete
               multiple
-              limitTage={3}
+              limitTags={3}
               data-testid="CreateContract-Subtype_AutoComplete"
               options={flatOptions}
               groupBy={(option) => option.group}
@@ -222,12 +271,18 @@ export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
               renderInput={(params) => (
                 <TextField {...params} label="SubType" size="small" />
               )}
-              onChange={(event, value) => onFormChange('subType', value.label)}
-              value={flatOptions.find(
-                (option) => option.label === formData.subType || null,
-              )}
+              onChange={(event, newValue) => {
+                handleSubTypeChange(event, newValue);
+              }}
+              value={
+                formData.subTypeTag
+                  ? flatOptions.filter((option) =>
+                      formData.subTypeTag.split(', ').includes(option.label),
+                    )
+                  : []
+              }
               fullWidth
-              sx={{ mt: 2 }}
+              sx={{ mt: 2, mb: '1em', maxWidth: '300px' }}
             />
             <TextField
               multiline={true}
@@ -237,6 +292,9 @@ export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
               color="secondary"
               fullWidth
               size="small"
+              sx={{
+                width: '300px',
+              }}
             />
           </FormControl>
         </Box>
