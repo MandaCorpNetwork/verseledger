@@ -6,12 +6,19 @@ import {
   Radio,
   RadioGroup,
 } from '@mui/material';
-import { useState } from 'react';
 
 type ContractTypeFormProps = {
-  typeSelect: (type: string) => void;
+  formData: {
+    contractType: string;
+  };
+  onFormChange: (field: string, value: string) => void;
 };
-export const ContractTypeForm: React.FC<ContractTypeFormProps> = ({ typeSelect }) => {
+// formData set by ContractTypeForm = contractType
+
+export const ContractTypeForm: React.FC<ContractTypeFormProps> = ({
+  formData,
+  onFormChange,
+}) => {
   const options = [
     {
       label: 'Logistics',
@@ -50,25 +57,45 @@ export const ContractTypeForm: React.FC<ContractTypeFormProps> = ({ typeSelect }
       value: 'Proxy',
     },
   ];
-
-  const [selectedType, setSelectedType] = useState('');
+  // Types of Contracts
 
   const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedType(event.target.value);
-    typeSelect(event.target.value);
+    onFormChange('contractType', event.target.value);
   };
+  // Handle Select Change
 
   return (
     <Box>
       <FormControl>
-        <FormLabel>Contract Type</FormLabel>
-        <RadioGroup value={selectedType} onChange={handleSelect}>
+        <FormLabel
+          color="secondary"
+          sx={{
+            fontWeight: 'bold',
+            mb: '.5em',
+          }}
+        >
+          Contract Type
+        </FormLabel>
+        <RadioGroup
+          value={formData.contractType}
+          onChange={handleSelect}
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+          }}
+        >
           {options.map((option) => (
             <FormControlLabel
               key={option.value}
               value={option.value}
               label={option.label}
-              control={<Radio />}
+              control={<Radio color="secondary" />}
+              sx={{
+                color:
+                  formData.contractType === option.value
+                    ? 'secondary.main'
+                    : 'text.secondary',
+              }}
             />
           ))}
         </RadioGroup>

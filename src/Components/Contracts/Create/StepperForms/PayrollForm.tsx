@@ -1,142 +1,209 @@
 import {
   Box,
+  Checkbox,
   FormControl,
   FormControlLabel,
   FormLabel,
   Radio,
   RadioGroup,
+  Switch,
+  Typography,
 } from '@mui/material';
 import React from 'react';
 
 import { FlatRateControl } from './PayrollFormControls/FlatRateControl';
+/*
 import { ParticipationPoolControl } from './PayrollFormControls/ParticipationPoolControl';
 import { PoolControl } from './PayrollFormControls/PoolControl';
 import { SteppedFlatRateControl } from './PayrollFormControls/SteppedFlatRateControl';
 import { TimedPayControl } from './PayrollFormControls/TimedPayControl';
 import { WeightedPoolControl } from './PayrollFormControls/WeightedPoolControl';
 import { WeightedTimedPayControl } from './PayrollFormControls/WeightedTimedPayControl';
+*/
 
-const formDetails = {
-  FlatRate: <FlatRateControl />,
-  TimedPay: <TimedPayControl />,
-  Pool: <PoolControl />,
-  ParticipationPool: <ParticipationPoolControl />,
-  SteppedFlatRate: <SteppedFlatRateControl />,
-  WeightedPool: <WeightedPoolControl />,
-  WeightedTimedPay: <WeightedTimedPayControl />,
-};
+interface CustomFormControlProps {
+  value: string;
+  disabled?: boolean;
+}
 
-type PayrollDetailsKey = keyof typeof formDetails;
-
-export const PayrollForm: React.FC = () => {
-  const [selectedPayType, setSelectedPayType] =
-    React.useState<PayrollDetailsKey>('FlatRate');
-
-  const handlePayrollChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedPayType(event.target.value as PayrollDetailsKey);
-  };
-
+const RadioControl: React.FC<CustomFormControlProps> = ({ value, disabled = true }) => {
   return (
-    <Box>
-      <FormLabel>Payroll Type</FormLabel>
-      <FormControl>
-        <RadioGroup value={selectedPayType} onChange={handlePayrollChange}>
-          <FormLabel>Simple</FormLabel>
-          <FormControlLabel control={<Radio />} label="FlatRate" value="FlatRate" />
-          <FormControlLabel control={<Radio />} label="TimedPay" value="TimedPay" />
-          <FormControlLabel control={<Radio />} label="Pool" value="Pool" />
-          <FormLabel>Complex</FormLabel>
-          <FormControlLabel
-            control={<Radio />}
-            label="Participation Pool"
-            value="ParticipationPool"
-          />
-          <FormControlLabel
-            control={<Radio />}
-            label="Stepped FlatRate"
-            value="SteppedFlatRate"
-          />
-          <FormControlLabel
-            control={<Radio />}
-            label="Weighted Pool"
-            value="WeightedPool"
-          />
-          <FormControlLabel
-            control={<Radio />}
-            label="Weighted TimedPay"
-            value="WeightedTimedPay"
-          />
-        </RadioGroup>
-      </FormControl>
-      <FormControl>
-        <FormLabel>Payroll Details</FormLabel>
-        {selectedPayType && formDetails[selectedPayType]}
-      </FormControl>
-    </Box>
+    <FormControlLabel
+      control={<Radio size="small" color="secondary" />}
+      label={value}
+      value={value}
+      disabled={disabled}
+      componentsProps={{
+        typography: {
+          variant: 'body2',
+          color: 'text.main',
+        },
+      }}
+      sx={{ m: '0', p: '0' }}
+    />
   );
 };
 
-/*
-  PayRoll Types:
-  Simple-
-    FlatRate: √
-      - Default Pay 
-      - Allow Bargaining 
-    TimedPay:
-      - Default Pay
-      - Payment Rate
-      - Allow Bargaining
-    Pool:
-      - Max Percentage Available
-      - Allow Bargaining
-      - Expected Pay Per Contractor
-  Complex-
-    Participation Pool:
-      - Time based percentage decides the pool percentage taken
-      - Expected Pay per Contractor at Total Duration
-    Stepped FlatRate:
-      - FlatRates that are increased by an assigned Pay Class
-      - Add Pay Class
-      - Pay Class Amount
-    Weighted Pool:
-      - Class Name
-      - Class Percentage
-      - Add Class
-      - Expected Pay Per Class
-    Weighted TimedPay:
-      - Overall Payment Rate | Class Based Rate
-      - Class Name
-      - Class Pay
-      - Class Pay Rate
-      - Add Class
-  Bonuses-
-    Game Provided Bonuses:
-      - Game Provided Bonuses are based on shared game contracts
-    Player Provided Bonuses:
-      Simple:
-        - Bonuses Will Show Available
-        Pool:
-          - Bonus Pool from -
-            - Total Pool
-              - Bonus Pool Percentage
-              - Expected Bonus From Total
-            - Independent Pool
-              - Expected Bonus From Bonus Pool
-      Complex:
-        Participation Pool Class:
-          - Adds a class system to the participation pool that allows for a bonus taken from the top of the pay with the remainder going to everyone based on participation.
-        Weighted Pool:
-          - Bonus Pool From
-            - Total Pool
-              - Bonus Pool Percentage
-            - Independent Pool
-              - Class Based Bonuses or Independent Bonuses
-                Classes:
-                  Classes That Recieve Bonuses:
-                    Even Share or Weighted Share:
-                      Weighted Share:
-                        Percentage of pool per Class
-    Expected Pay:
-      Expected Total
-      Expected Bonus Pool
-*/
+type PayrollFormProps = {
+  formData: {
+    payrollStructure: string;
+    payAmount: number;
+    bonusPay: boolean;
+    allowBargaining: boolean;
+  };
+  onFormChange: (field: string, value: string | number | null | boolean) => void;
+};
+
+export const PayrollForm: React.FC<PayrollFormProps> = ({ formData, onFormChange }) => {
+  const [isComplex, setIsComplex] = React.useState(false);
+  const [selectedPayType, setSelectedPayType] = React.useState('FlatRate');
+
+  const handleStructureTypeSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsComplex(event.target.checked);
+  };
+
+  const handlePayStructureChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newPayType = event.target.value;
+    setSelectedPayType(newPayType);
+    onFormChange('payrollStructure', newPayType);
+  };
+
+  const handleBonusPayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onFormChange('bonusPay', event.target.checked);
+  };
+
+  const handleAllowBargainingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onFormChange('allowBargaining', event.target.checked);
+  };
+  const renderPayrollSetupComponent = () => {
+    switch (selectedPayType) {
+      case 'FlatRate':
+        return <FlatRateControl formData={formData} onFormChange={onFormChange} />;
+      case 'TimedPay':
+        return null;
+      case 'Pool':
+        return null;
+      case 'ParticipationPool':
+        return null;
+      case 'SteppedFlatRate':
+        return null;
+      case 'WeightedPool':
+        return null;
+      case 'WeightedTimePay':
+        return null;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <Box
+      data-testid="PayrollSetup__Container"
+      sx={{ display: 'flex', flexDirection: 'column', width: '600px' }}
+    >
+      <FormLabel sx={{ fontWeight: 'bold' }}>Payroll Setup</FormLabel>
+      <Box
+        data-testid="PayrollSetup__Form-Wrapper"
+        sx={{ display: 'flex', flexDirection: 'row' }}
+      >
+        <FormControl
+          sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+        >
+          <Box
+            data-testid="PayrollStructure__Switch-Wrapper"
+            sx={{ display: 'flex', alignItems: 'center' }}
+          >
+            <Typography
+              variant="body2"
+              sx={{
+                color: isComplex ? 'text.disabled' : 'secondary.main',
+                fontWeight: 'bold',
+              }}
+            >
+              Simple
+            </Typography>
+            <Switch
+              checked={isComplex}
+              onChange={handleStructureTypeSwitch}
+              color="secondary"
+              inputProps={{ 'aria-label': 'controlled' }}
+              size="small"
+            />
+            <Typography
+              variant="body2"
+              sx={{
+                color: isComplex ? 'secondary.main' : 'text.disabled',
+                fontWeight: 'bold',
+              }}
+            >
+              Complex
+            </Typography>
+          </Box>
+          {!isComplex ? (
+            <RadioGroup value={selectedPayType} onChange={handlePayStructureChange}>
+              <RadioControl value="FlatRate" disabled={false} />
+              <RadioControl value="TimedPay" />
+              <RadioControl value="Pool" />
+            </RadioGroup>
+          ) : (
+            <RadioGroup value={selectedPayType} onChange={handlePayStructureChange}>
+              <RadioControl value="ParticipationPool" />
+              <RadioControl value="SteppedFlatRate" />
+              <RadioControl value="WeightedPool" />
+              <RadioControl value="WeightedTimedPay" />
+            </RadioGroup>
+          )}
+        </FormControl>
+        <Box
+          data-testid="PayrollSetup__Wrapper"
+          sx={{ display: 'flex', ml: 'auto', mr: 'auto' }}
+        >
+          <FormControl>
+            <FormLabel
+              sx={{ mb: 'auto', fontSize: '.9em', fontWeight: 'bold' }}
+              color="secondary"
+            >
+              Payroll Details
+            </FormLabel>
+            {renderPayrollSetupComponent()}
+          </FormControl>
+        </Box>
+      </Box>
+      <Box>
+        <FormControlLabel
+          control={
+            <Checkbox
+              size="small"
+              color="secondary"
+              checked={formData.bonusPay}
+              onChange={handleBonusPayChange}
+            />
+          }
+          label="Bonus Pay"
+          componentsProps={{
+            typography: {
+              variant: 'body2',
+            },
+          }}
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              size="small"
+              color="secondary"
+              checked={formData.allowBargaining}
+              onChange={handleAllowBargainingChange}
+            />
+          }
+          label="Allow Bargaining"
+          componentsProps={{
+            typography: {
+              variant: 'body2',
+              color: 'primary.main',
+            },
+          }}
+        />
+      </Box>
+    </Box>
+  );
+};
