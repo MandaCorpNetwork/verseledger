@@ -212,7 +212,7 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
       }}
     >
       <Stepper
-        data-id="CreateContractStepper"
+        data-testid="CreateContractForm__Stepper"
         alternativeLabel
         activeStep={activeStep}
         connector={<ColorlibConnector />}
