@@ -5,8 +5,6 @@ import { useState } from 'react';
 import { PlayerDisplay } from '@/Common/PlayerDisplay';
 import { ContractLocationCard } from '@/Components/Personal/Contracts/ContractLocationCard';
 import { ContractorsManager } from '@/Components/Personal/Contracts/ContractorsManager';
-import { FleetAllocation } from '@/Components/Personal/Contracts/FleetAllocation';
-import { PayrollPanel } from '@/Components/Personal/Contracts/PayrollPanel';
 
 type ContractDataFieldProps = {
   label: string;
@@ -163,8 +161,6 @@ export const ContractManager: React.FC<unknown> = () => {
           <TabContext value={contractManagerTab}>
             <TabList onChange={handleContractManageView}>
               <Tab label="Contractors" value="contractors" />
-              <Tab label="Fleet Allocation" value="fleet" />
-              <Tab label="Payroll" value="payroll" />
             </TabList>
             <TabPanel
               value="contractors"
@@ -185,29 +181,6 @@ export const ContractManager: React.FC<unknown> = () => {
               }}
             >
               <ContractorsManager />
-            </TabPanel>
-            <TabPanel
-              value="fleet"
-              sx={{
-                overflow: 'auto',
-                height: '100%',
-                '&::-webkit-scrollbar': {
-                  width: '5px',
-                },
-                '&::-webkit-scrollbar-track': {
-                  background: 'rgb(8, 29, 68)',
-                  borderRadius: '15px',
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  borderRadius: '15px',
-                  background: 'rgb(121, 192, 244, .5)',
-                },
-              }}
-            >
-              <FleetAllocation />
-            </TabPanel>
-            <TabPanel value="payroll" sx={{ height: '100%' }}>
-              <PayrollPanel />
             </TabPanel>
           </TabContext>
         </Box>

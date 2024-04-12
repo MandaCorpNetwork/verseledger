@@ -1,11 +1,4 @@
-import {
-  Apps,
-  AutoAwesome,
-  Explore,
-  RocketLaunch,
-  TextSnippet,
-  Widgets,
-} from '@mui/icons-material';
+import { Apps, Explore, TextSnippet } from '@mui/icons-material';
 import { ButtonGroup, Divider, IconButton } from '@mui/material';
 import { IconButtonProps } from '@mui/material/IconButton';
 import React from 'react';
@@ -48,10 +41,7 @@ export const AppToolBar: React.FC<AppToolBarProps> = ({
   const icons = [
     { key: 'Overview', icon: <Apps key="apps" fontSize="large" /> },
     { key: 'Contracts', icon: <TextSnippet key="text-snippet" fontSize="large" /> },
-    { key: 'Fleetmanage', icon: <RocketLaunch key="rocket-launch" fontSize="large" /> },
     { key: 'Explore', icon: <Explore key="explore" fontSize="large" /> },
-    { key: 'Logistics', icon: <Widgets key="widgets" fontSize="large" /> },
-    { key: 'Refining', icon: <AutoAwesome key="awesome" fontSize="large" /> },
   ];
 
   const handleAppChange = (iconKey: string) => {

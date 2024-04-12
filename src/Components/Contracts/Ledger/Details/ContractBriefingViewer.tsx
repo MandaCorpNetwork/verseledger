@@ -143,54 +143,6 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
             </Box>
           </Box>
         </Box>
-        <Box
-          id="ShipQueue-Box"
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            mr: '1em',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Box
-            sx={{
-              bgcolor: 'background.default',
-              alignItems: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-              padding: '.5em',
-            }}
-          >
-            <Typography id="ShipQueue-Header" sx={{}}>
-              Ship Queue
-            </Typography>
-            <Box id="Ship-Box" sx={{ bgcolor: 'primary.dark', display: 'flex' }}>
-              <Typography id="Ship" variant="subtitle2" sx={{}}>
-                Ship
-              </Typography>
-              <Typography id="CrewCount" variant="subtitle2" sx={{}}>
-                0/0
-              </Typography>
-            </Box>
-            <Box id="Ship-Box" sx={{ bgcolor: 'primary.dark', display: 'flex' }}>
-              <Typography id="Ship" variant="subtitle2" sx={{}}>
-                Ship
-              </Typography>
-              <Typography id="CrewCount" variant="subtitle2" sx={{}}>
-                0/0
-              </Typography>
-            </Box>
-            <Box id="Ship-Box" sx={{ bgcolor: 'primary.dark', display: 'flex' }}>
-              <Typography id="Ship" variant="subtitle2" sx={{}}>
-                Ship
-              </Typography>
-              <Typography id="CrewCount" variant="subtitle2" sx={{}}>
-                0/0
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
       </Box>
       <Box
         id="ContractExpandedInfo-Box"

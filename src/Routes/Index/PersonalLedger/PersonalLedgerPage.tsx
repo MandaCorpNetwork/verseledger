@@ -4,10 +4,7 @@ import React from 'react';
 import { AppToolBar } from '@/Components/Personal/AppToolBar';
 import { ContractsApp } from '@/Components/Personal/Contracts/ContractsApp';
 import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
-import { FleetManagerApp } from '@/Components/Personal/Fleet/FleetManagerApp';
-import { LogisticsApp } from '@/Components/Personal/Logistics/LogisticsApp';
 import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
-import { RefiningApp } from '@/Components/Personal/Refining/RefiningApp';
 
 export const PersonalLedgerPage: React.FC<unknown> = () => {
   const [selectedApp, setSelectedApp] = React.useState<string>('Refining');
@@ -18,14 +15,8 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
         return <OverviewApp />;
       case 'Contracts':
         return <ContractsApp />;
-      case 'Fleetmanage':
-        return <FleetManagerApp />;
       case 'Explore':
         return <ExploreApp />;
-      case 'Logistics':
-        return <LogisticsApp />;
-      case 'Refining':
-        return <RefiningApp />;
       default:
         return <ContractsApp />;
     }

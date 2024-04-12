@@ -113,7 +113,6 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
         <Box id="Title-Box" sx={{ display: 'flex', mb: '0' }}>
           <Skeleton
             id="Contract-Title"
-            variant="h1"
             //This is actually matching the call fine in the DOM, please ignore.
             animation="wave"
             width={200}
@@ -229,59 +228,6 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
               animation="wave"
               width={150}
               height={30}
-              sx={{ bgcolor: 'primary.dark' }}
-            />
-          </Box>
-        </Box>
-        <Box
-          id="ShipQueue-Box"
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            mr: '1em',
-            justifyContent: 'center',
-            alignItems: 'center',
-            bgcolor: 'text.disabled',
-          }}
-        >
-          <Box
-            sx={{
-              bgcolor: 'background.default',
-              alignItems: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-              padding: '.5em',
-            }}
-          >
-            <Skeleton
-              id="ShipQueue-Header"
-              variant="text"
-              animation="wave"
-              width={60}
-              sx={{ bgcolor: 'primary.dark' }}
-            />
-            <Skeleton
-              id="Ship-Box"
-              variant="text"
-              animation="wave"
-              width={130}
-              height={40}
-              sx={{ bgcolor: 'primary.dark' }}
-            />
-            <Skeleton
-              id="Ship-Box"
-              variant="text"
-              animation="wave"
-              width={130}
-              height={40}
-              sx={{ bgcolor: 'primary.dark' }}
-            />
-            <Skeleton
-              id="Ship-Box"
-              variant="text"
-              animation="wave"
-              width={130}
-              height={40}
               sx={{ bgcolor: 'primary.dark' }}
             />
           </Box>
