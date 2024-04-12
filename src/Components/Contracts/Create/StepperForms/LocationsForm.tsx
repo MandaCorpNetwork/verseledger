@@ -78,7 +78,7 @@ export const LocationsForm: React.FC<LocationFormProps> = ({
         }}
       >
         <Autocomplete
-          data-testid="LocationForm-LocationAutocomplete"
+          data-testid="LocationForm__LocationAutocomplete"
           options={locationTestDB}
           getOptionLabel={(option) => option.label}
           renderInput={(params) => (
