@@ -49,7 +49,7 @@ export const LocationsForm: React.FC<LocationFormProps> = ({
   onFormChange,
 }) => {
   const handleAddLocation = (
-    event: React.SyntheticEvent<Element, Event>,
+    _: React.SyntheticEvent<Element, Event>,
     newValue: LocationProps | null,
   ) => {
     if (newValue) {
