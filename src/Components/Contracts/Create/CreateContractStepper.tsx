@@ -201,7 +201,7 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
 
   return (
     <Box
-      data-id="CreateContractFormContainer"
+      data-testid="CreateContractForm__Container"
       sx={{
         width: '100%',
         height: '500px',
