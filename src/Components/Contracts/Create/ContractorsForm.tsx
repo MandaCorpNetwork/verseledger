@@ -102,7 +102,7 @@ export const ContractorsForm: React.FC<ContractorSettingProps> = ({
 
   return (
     <Box
-      data-testid="ContractorSettings-Form"
+      data-testid="ContractorSettings__Form"
       sx={{ display: 'flex', flexDirection: 'column', ml: '1em', mr: '1em' }}
     >
       <FormLabel color="secondary" sx={{ fontWeight: 'bold', mb: '.5em' }}>
