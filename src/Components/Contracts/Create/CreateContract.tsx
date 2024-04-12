@@ -22,7 +22,7 @@ export const CreateContract: React.FC<CreateContractProps> = ({ open, onClose })
         }}
       >
         <Box
-          data-id="CreateContract-Wrapper"
+          data-testid="CreateContract__Wrapper"
           sx={{
             bgcolor: 'rgba(8, 29, 68, 0.6)',
             display: 'flex',
