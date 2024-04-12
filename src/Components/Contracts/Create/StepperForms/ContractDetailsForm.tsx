@@ -177,7 +177,7 @@ export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
 
   // Pass subType selection to the formData state
   const handleSubTypeChange = (
-    event: React.SyntheticEvent,
+    _: React.SyntheticEvent<Element, Event>,
     newValue: { label: string; group: string }[],
   ) => {
     const selectedSubTypes = newValue.map((item) => item.label);
@@ -222,7 +222,7 @@ export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
 
   return (
     <Box
-      data-id="subType-briefing-container"
+      data-testid="subType-briefing-container"
       sx={{
         display: 'flex',
         flexDirection: 'row',
@@ -230,7 +230,7 @@ export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
       }}
     >
       <Box
-        data-id="TypeDisplay_Container"
+        data-testid="TypeDisplay_Container"
         sx={{
           width: '200px',
           borderTop: '2px solid',
@@ -251,7 +251,7 @@ export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
         </Typography>
         <Box data-id="TypeDisplay_ScrollBox">{renderSelectedGroups()}</Box>
       </Box>
-      <Box data-id="subTypeandBriefing-form">
+      <Box data-testid="subTypeandBriefing-form">
         <Box>
           <FormControl sx={{ display: 'flex', alignItems: 'center' }}>
             <FormLabel color="secondary" sx={{ fontWeight: 'bold' }}></FormLabel>
@@ -264,7 +264,7 @@ export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
             <Autocomplete
               multiple
               limitTags={3}
-              data-testid="CreateContract-Subtype_AutoComplete"
+              data-testid="CreateContract__Subtype-AutoComplete"
               options={flatOptions}
               groupBy={(option) => option.group}
               getOptionLabel={(option) => option.label}

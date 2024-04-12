@@ -201,7 +201,7 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
 
   return (
     <Box
-      data-id="CreateContractFormContainer"
+      data-testid="CreateContractForm__Container"
       sx={{
         width: '100%',
         height: '500px',
@@ -212,7 +212,7 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
       }}
     >
       <Stepper
-        data-id="CreateContractStepper"
+        data-testid="CreateContractForm__Stepper"
         alternativeLabel
         activeStep={activeStep}
         connector={<ColorlibConnector />}
@@ -227,7 +227,7 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
         ))}
       </Stepper>
       <Box
-        data-id="CreateContractStepContainer"
+        data-testid="CreateContractForm__Stepper-Container"
         sx={{
           mb: 'auto',
           alignItems: 'center',
@@ -244,7 +244,7 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
       </Box>
       <Box sx={{ display: 'flex', mt: '1em', width: '100%' }}>
         <Button
-          data-testid="CreateContract-Cancel_Button"
+          data-testid="CreateContractForm__Cancel-Button"
           variant="contained"
           onClick={passClose}
           endIcon={<Cancel />}
@@ -259,7 +259,7 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
           Cancel
         </Button>
         <Button
-          data-testid="CreateContract-Back_Button"
+          data-testid="CreateContractForm__Back-Button"
           variant="contained"
           onClick={handleBack}
           startIcon={<ArrowBackIos />}
@@ -276,7 +276,7 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
         </Button>
         {!isLastStep ? (
           <Button
-            data-testid="CreateContract-Next_Button"
+            data-testid="CreateContractForm__Next-Button"
             variant="contained"
             onClick={handleNext}
             endIcon={<ArrowForwardIos />}
@@ -291,7 +291,7 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
           </Button>
         ) : (
           <Button
-            data-testid=""
+            data-testid="CreateContractForm__Submit-Button"
             variant="contained"
             onClick={passSubmit}
             endIcon={<Send />}

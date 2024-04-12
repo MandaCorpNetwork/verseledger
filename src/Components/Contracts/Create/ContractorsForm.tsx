@@ -48,7 +48,7 @@ export const ContractorsForm: React.FC<ContractorSettingProps> = ({
     null,
   );
 
-  const handleRatingChange = (event: React.SyntheticEvent, newValue: number | null) => {
+  const handleRatingChange = (_: React.SyntheticEvent, newValue: number | null) => {
     if (isRatingDisabled) {
       onFormChange('minRating', 0);
     }
@@ -64,7 +64,7 @@ export const ContractorsForm: React.FC<ContractorSettingProps> = ({
   };
 
   const handleAllowAfterBidSwitch = (
-    event: React.SyntheticEvent<Element, Event>,
+    _: React.SyntheticEvent<Element, Event>,
     checked: boolean,
   ) => {
     onFormChange('allowBiddingAfterDeadline', checked);
@@ -102,7 +102,7 @@ export const ContractorsForm: React.FC<ContractorSettingProps> = ({
 
   return (
     <Box
-      data-testid="ContractorSettings-Form"
+      data-testid="ContractorSettings__Form"
       sx={{ display: 'flex', flexDirection: 'column', ml: '1em', mr: '1em' }}
     >
       <FormLabel color="secondary" sx={{ fontWeight: 'bold', mb: '.5em' }}>
@@ -110,7 +110,7 @@ export const ContractorsForm: React.FC<ContractorSettingProps> = ({
       </FormLabel>
       <FormControl sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <FormControlLabel
-          data-testid="contractorRating-switch"
+          data-testid="ContractorSettings__Form__ratingSwitch"
           control={
             <Switch
               color="secondary"
@@ -364,7 +364,7 @@ export const ContractorsForm: React.FC<ContractorSettingProps> = ({
               onUserSelect={handleUserSelect}
             />
             <Box
-              data-id="Invitee-ScrollBox_Wrapper"
+              data-testid="InviteUserPopup__Scrollbox-wrapper"
               sx={{
                 m: '.5em',
                 borderTop: '2px solid',

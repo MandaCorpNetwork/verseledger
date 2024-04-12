@@ -12,7 +12,7 @@ export const CreateContract: React.FC<CreateContractProps> = ({ open, onClose })
   return (
     <Modal open={open} onClose={onClose} sx={{ backdropFilter: 'blur(5px)' }}>
       <Box
-        data-id="CreateContract-Container"
+        data-testid="CreateContract__Container"
         sx={{
           display: 'flex',
           height: '100%',
@@ -22,7 +22,7 @@ export const CreateContract: React.FC<CreateContractProps> = ({ open, onClose })
         }}
       >
         <Box
-          data-id="CreateContract-Wrapper"
+          data-testid="CreateContract__Wrapper"
           sx={{
             bgcolor: 'rgba(8, 29, 68, 0.6)',
             display: 'flex',
@@ -40,7 +40,7 @@ export const CreateContract: React.FC<CreateContractProps> = ({ open, onClose })
           >
             Create Contract
           </Typography>
-          <Box data-id="ContractForm-Container">
+          <Box data-testid="ContractForm__Container-Stepper">
             <CreateContractStepper passClose={onClose} passSubmit={() => {}} />
           </Box>
         </Box>

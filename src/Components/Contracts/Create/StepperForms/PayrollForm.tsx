@@ -98,19 +98,19 @@ export const PayrollForm: React.FC<PayrollFormProps> = ({ formData, onFormChange
 
   return (
     <Box
-      data-id="PayrollSetup-Container"
+      data-testid="PayrollSetup__Container"
       sx={{ display: 'flex', flexDirection: 'column', width: '600px' }}
     >
       <FormLabel sx={{ fontWeight: 'bold' }}>Payroll Setup</FormLabel>
       <Box
-        data-id="PayrollSetup-Form_Wrapper"
+        data-testid="PayrollSetup__Form-Wrapper"
         sx={{ display: 'flex', flexDirection: 'row' }}
       >
         <FormControl
           sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
         >
           <Box
-            data-id="PayrollStructure_Switch_Wrapper"
+            data-testid="PayrollStructure__Switch-Wrapper"
             sx={{ display: 'flex', alignItems: 'center' }}
           >
             <Typography
@@ -155,7 +155,7 @@ export const PayrollForm: React.FC<PayrollFormProps> = ({ formData, onFormChange
           )}
         </FormControl>
         <Box
-          data-id="PayrollSetup_Wrapper"
+          data-testid="PayrollSetup__Wrapper"
           sx={{ display: 'flex', ml: 'auto', mr: 'auto' }}
         >
           <FormControl>

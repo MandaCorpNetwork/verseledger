@@ -71,12 +71,12 @@ export const UserSearch: React.FC<UserSearchProps> = ({
   return (
     <Box>
       <Autocomplete
-        data-testid={`invite-user-autocomplete`}
-        onChange={(event, newValue) => {
+        data-testid="UserSearch__invite-user-autocomplete"
+        onChange={(_, newValue) => {
           onUserSelect(newValue);
         }}
         inputValue={inputValue}
-        onInputChange={(event, newInputValue) => {
+        onInputChange={(_, newInputValue) => {
           setInputValue(newInputValue);
         }}
         options={options}

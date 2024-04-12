@@ -49,7 +49,7 @@ export const LocationsForm: React.FC<LocationFormProps> = ({
   onFormChange,
 }) => {
   const handleAddLocation = (
-    event: React.SyntheticEvent<Element, Event>,
+    _: React.SyntheticEvent<Element, Event>,
     newValue: LocationProps | null,
   ) => {
     if (newValue) {
@@ -78,7 +78,7 @@ export const LocationsForm: React.FC<LocationFormProps> = ({
         }}
       >
         <Autocomplete
-          data-testid="LocationForm-LocationAutocomplete"
+          data-testid="LocationForm__LocationAutocomplete"
           options={locationTestDB}
           getOptionLabel={(option) => option.label}
           renderInput={(params) => (
@@ -111,7 +111,7 @@ export const LocationsForm: React.FC<LocationFormProps> = ({
         />
       </Box>
       <Box
-        data-testid="LocationForm-Locations-Container"
+        data-testid="LocationForm__Locations-Container"
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -126,7 +126,7 @@ export const LocationsForm: React.FC<LocationFormProps> = ({
         }}
       >
         <Box
-          data-testid="LocationForm-StartandEndLocation-Container"
+          data-testid="LocationForm__StartandEndLocation-Container"
           sx={{
             display: 'flex',
             flexDirection: 'row',
@@ -137,14 +137,14 @@ export const LocationsForm: React.FC<LocationFormProps> = ({
           }}
         >
           <TextField
-            data-testid="LocationForm-StartingLocation__Output"
+            data-testid="LocationForm__StartingLocation-Output"
             label="Starting Location"
             InputProps={{
               readOnly: true,
               startAdornment:
                 formData.locations.length > 0 ? (
                   <Chip
-                    data-testid="LocationForm-StartLocationChip"
+                    data-testid="LocationForm__StartLocationChip"
                     label={formData.locations[0].label}
                     size="small"
                     color="secondary"
@@ -160,7 +160,7 @@ export const LocationsForm: React.FC<LocationFormProps> = ({
             }}
           />
           <TextField
-            data-testid="LocationForm-EndLocation__Output"
+            data-testid="LocationForm__EndLocation-Output"
             label="Final Location"
             InputProps={{
               readOnly: true,
@@ -189,7 +189,7 @@ export const LocationsForm: React.FC<LocationFormProps> = ({
           />
         </Box>
         <Box
-          data-testid="LocationForm-OtherLocations-Container"
+          data-testid="LocationForm__OtherLocations-Container"
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -200,7 +200,7 @@ export const LocationsForm: React.FC<LocationFormProps> = ({
           }}
         >
           <TextField
-            data-testid="LocationForm-OtherLocations__Output"
+            data-testid="LocationForm__OtherLocations-Output"
             fullWidth
             color={formData.emergency ? 'secondary' : 'warning'}
             label="Other Locations"
@@ -213,7 +213,7 @@ export const LocationsForm: React.FC<LocationFormProps> = ({
                     .slice(0, otherDisplayLimit)
                     .map((location, index) => (
                       <Chip
-                        data-testid={`LocationForm-Location${index + 1}Chip`}
+                        data-testid={`LocationForm__Location-Chip-${index + 1}`}
                         key={index}
                         size="small"
                         color="secondary"
