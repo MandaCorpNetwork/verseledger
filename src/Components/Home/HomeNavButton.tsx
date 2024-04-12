@@ -30,18 +30,32 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
   const handleMouseEnter = () => {
     setIsHovered(true);
     const video = document.getElementById(videoSource) as HTMLVideoElement;
-    video.play();
     setFontSize('1.2em');
     setFontWeight('700');
+    const isPlaying =
+      video.currentTime > 0 &&
+      !video.paused &&
+      !video.ended &&
+      video.readyState > video.HAVE_CURRENT_DATA;
+    if (!isPlaying) {
+      video.play();
+    }
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
     const video = document.getElementById(videoSource) as HTMLVideoElement;
-    video.pause();
-    video.currentTime = 0;
     setFontSize('1em');
     setFontWeight('600');
+    const isPlaying =
+      video.currentTime > 0 &&
+      !video.paused &&
+      !video.ended &&
+      video.readyState > video.HAVE_CURRENT_DATA;
+    if (isPlaying) {
+      video.pause();
+      video.currentTime = 0;
+    }
   };
 
   //Click Animations
@@ -61,6 +75,7 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
     <Transition timeout={800} delay={1000}>
       <Button
         id="button"
+        data-testid={`HomeNavButton__${to}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={handleClick}
