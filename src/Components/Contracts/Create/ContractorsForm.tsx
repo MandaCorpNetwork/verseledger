@@ -42,7 +42,7 @@ export const ContractorsForm: React.FC<ContractorSettingProps> = ({
   onFormChange,
 }) => {
   const [isRatingDisabled, setIsRatingDisabled] = React.useState(true);
-  const [isMaxContractorsDisabled, setIsMaxContractorsDiisabled] = React.useState(true);
+  const [isMaxContractorsDisabled, setIsMaxContractorsDisabled] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
   const [inviteListAnchorEl, setInviteListAnchorEl] = React.useState<HTMLElement | null>(
     null,
@@ -144,7 +144,7 @@ export const ContractorsForm: React.FC<ContractorSettingProps> = ({
               color="secondary"
               size="small"
               checked={!isMaxContractorsDisabled}
-              onChange={() => setIsMaxContractorsDiisabled(!isMaxContractorsDisabled)}
+              onChange={() => setIsMaxContractorsDisabled(!isMaxContractorsDisabled)}
             />
           }
           label="Limit Contractors"
