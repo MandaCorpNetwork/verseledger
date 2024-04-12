@@ -222,7 +222,7 @@ export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
 
   return (
     <Box
-      data-id="subType-briefing-container"
+      data-testid="subType-briefing-container"
       sx={{
         display: 'flex',
         flexDirection: 'row',
