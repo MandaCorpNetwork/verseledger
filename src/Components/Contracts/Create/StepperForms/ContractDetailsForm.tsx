@@ -251,7 +251,7 @@ export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
         </Typography>
         <Box data-id="TypeDisplay_ScrollBox">{renderSelectedGroups()}</Box>
       </Box>
-      <Box data-id="subTypeandBriefing-form">
+      <Box data-testid="subTypeandBriefing-form">
         <Box>
           <FormControl sx={{ display: 'flex', alignItems: 'center' }}>
             <FormLabel color="secondary" sx={{ fontWeight: 'bold' }}></FormLabel>
