@@ -213,7 +213,7 @@ export const LocationsForm: React.FC<LocationFormProps> = ({
                     .slice(0, otherDisplayLimit)
                     .map((location, index) => (
                       <Chip
-                        data-testid={`LocationForm-Location${index + 1}Chip`}
+                        data-testid={`LocationForm__Location-Chip-${index + 1}`}
                         key={index}
                         size="small"
                         color="secondary"
