@@ -9,11 +9,11 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 //import backgroundvideo from './Assets/media/MenuPage/backgroundvideo.webm';
-import store from './Redux/store.js';
+import { setupStore } from './Redux/store.js';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={setupStore()}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <App />
       </LocalizationProvider>

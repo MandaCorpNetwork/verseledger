@@ -28,9 +28,11 @@
       "@Redux/*": ["./Redux/*"],
       "@Routes/*": ["./Routes/*"],
       "@Utils/*": ["./Utils/*"],
-      "@Common/*": ["./Common/*"]
+      "@Common/*": ["./Common/*"],
+      "@Backend/*": ["../../verseledger-backend/src/*"],
     }
   },
   "include": ["src", "tsconfig.json", "tsconfig.node.json"],
+  "exclude": ["cypress", "cypress.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }],
 }
