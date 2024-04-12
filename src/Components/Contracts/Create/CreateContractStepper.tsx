@@ -259,7 +259,7 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
           Cancel
         </Button>
         <Button
-          data-testid="CreateContract-Back_Button"
+          data-testid="CreateContractForm__Back-Button"
           variant="contained"
           onClick={handleBack}
           startIcon={<ArrowBackIos />}
