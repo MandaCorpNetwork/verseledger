@@ -264,7 +264,7 @@ export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
             <Autocomplete
               multiple
               limitTags={3}
-              data-testid="CreateContract-Subtype_AutoComplete"
+              data-testid="CreateContract__Subtype-AutoComplete"
               options={flatOptions}
               groupBy={(option) => option.group}
               getOptionLabel={(option) => option.label}
