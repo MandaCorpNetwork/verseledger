@@ -227,7 +227,7 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
         ))}
       </Stepper>
       <Box
-        data-id="CreateContractStepContainer"
+        data-testid="CreateContractForm__Stepper-Container"
         sx={{
           mb: 'auto',
           alignItems: 'center',
