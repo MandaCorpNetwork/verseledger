@@ -110,7 +110,7 @@ export const ContractorsForm: React.FC<ContractorSettingProps> = ({
       </FormLabel>
       <FormControl sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <FormControlLabel
-          data-testid="contractorRating-switch"
+          data-testid="ContractorSettings__Form__ratingSwitch"
           control={
             <Switch
               color="secondary"
