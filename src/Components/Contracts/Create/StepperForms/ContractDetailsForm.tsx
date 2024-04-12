@@ -230,7 +230,7 @@ export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
       }}
     >
       <Box
-        data-id="TypeDisplay_Container"
+        data-testid="TypeDisplay_Container"
         sx={{
           width: '200px',
           borderTop: '2px solid',
