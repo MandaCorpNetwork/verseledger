@@ -12,7 +12,7 @@ export const CreateContract: React.FC<CreateContractProps> = ({ open, onClose })
   return (
     <Modal open={open} onClose={onClose} sx={{ backdropFilter: 'blur(5px)' }}>
       <Box
-        data-id="CreateContract-Container"
+        data-testid="CreateContract__Container"
         sx={{
           display: 'flex',
           height: '100%',
