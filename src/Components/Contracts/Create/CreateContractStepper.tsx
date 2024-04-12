@@ -276,7 +276,7 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
         </Button>
         {!isLastStep ? (
           <Button
-            data-testid="CreateContract-Next_Button"
+            data-testid="CreateContractForm__Next-Button"
             variant="contained"
             onClick={handleNext}
             endIcon={<ArrowForwardIos />}
