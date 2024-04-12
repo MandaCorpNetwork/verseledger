@@ -364,7 +364,7 @@ export const ContractorsForm: React.FC<ContractorSettingProps> = ({
               onUserSelect={handleUserSelect}
             />
             <Box
-              data-id="Invitee-ScrollBox_Wrapper"
+              data-testid="InviteUserPopup__Scrollbox-wrapper"
               sx={{
                 m: '.5em',
                 borderTop: '2px solid',
