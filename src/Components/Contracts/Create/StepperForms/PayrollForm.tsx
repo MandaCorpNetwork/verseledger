@@ -110,7 +110,7 @@ export const PayrollForm: React.FC<PayrollFormProps> = ({ formData, onFormChange
           sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
         >
           <Box
-            data-id="PayrollStructure_Switch_Wrapper"
+            data-testid="PayrollStructure__Switch-Wrapper"
             sx={{ display: 'flex', alignItems: 'center' }}
           >
             <Typography
