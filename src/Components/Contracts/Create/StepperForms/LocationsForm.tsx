@@ -189,7 +189,7 @@ export const LocationsForm: React.FC<LocationFormProps> = ({
           />
         </Box>
         <Box
-          data-testid="LocationForm-OtherLocations-Container"
+          data-testid="LocationForm__OtherLocations-Container"
           sx={{
             display: 'flex',
             flexDirection: 'column',
