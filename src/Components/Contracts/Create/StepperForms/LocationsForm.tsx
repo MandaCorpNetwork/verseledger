@@ -160,7 +160,7 @@ export const LocationsForm: React.FC<LocationFormProps> = ({
             }}
           />
           <TextField
-            data-testid="LocationForm-EndLocation__Output"
+            data-testid="LocationForm__EndLocation-Output"
             label="Final Location"
             InputProps={{
               readOnly: true,
