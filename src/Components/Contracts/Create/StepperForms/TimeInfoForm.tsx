@@ -497,7 +497,7 @@ export const TimeInfoForm: React.FC<TimeInfoFormProps> = ({ formData, onFormChan
                     ? 'EndTime before StartTime'
                     : ''
             }
-            sx={{ mt: '.7em', mb:'.5em', width: '200px' }}
+            sx={{ mt: '.7em', mb: '.5em', width: '200px' }}
           />
         </Box>
       </Box>
