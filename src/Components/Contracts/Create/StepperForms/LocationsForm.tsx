@@ -144,7 +144,7 @@ export const LocationsForm: React.FC<LocationFormProps> = ({
               startAdornment:
                 formData.locations.length > 0 ? (
                   <Chip
-                    data-testid="LocationForm-StartLocationChip"
+                    data-testid="LocationForm__StartLocationChip"
                     label={formData.locations[0].label}
                     size="small"
                     color="secondary"
