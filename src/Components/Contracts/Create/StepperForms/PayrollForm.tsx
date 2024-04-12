@@ -155,7 +155,7 @@ export const PayrollForm: React.FC<PayrollFormProps> = ({ formData, onFormChange
           )}
         </FormControl>
         <Box
-          data-id="PayrollSetup_Wrapper"
+          data-testid="PayrollSetup__Wrapper"
           sx={{ display: 'flex', ml: 'auto', mr: 'auto' }}
         >
           <FormControl>
