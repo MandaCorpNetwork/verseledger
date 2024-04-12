@@ -244,7 +244,7 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
       </Box>
       <Box sx={{ display: 'flex', mt: '1em', width: '100%' }}>
         <Button
-          data-testid="CreateContract-Cancel_Button"
+          data-testid="CreateContractForm__Cancel-Button"
           variant="contained"
           onClick={passClose}
           endIcon={<Cancel />}
