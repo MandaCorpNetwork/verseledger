@@ -64,7 +64,7 @@ export const ContractorsForm: React.FC<ContractorSettingProps> = ({
   };
 
   const handleAllowAfterBidSwitch = (
-    event: React.SyntheticEvent<Element, Event>,
+    _: React.SyntheticEvent<Element, Event>,
     checked: boolean,
   ) => {
     onFormChange('allowBiddingAfterDeadline', checked);
