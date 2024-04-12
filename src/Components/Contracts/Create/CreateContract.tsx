@@ -40,7 +40,7 @@ export const CreateContract: React.FC<CreateContractProps> = ({ open, onClose })
           >
             Create Contract
           </Typography>
-          <Box data-id="ContractForm-Container">
+          <Box data-testid="ContractForm__Container-Stepper">
             <CreateContractStepper passClose={onClose} passSubmit={() => {}} />
           </Box>
         </Box>
