@@ -291,7 +291,7 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
           </Button>
         ) : (
           <Button
-            data-testid=""
+            data-testid="CreateContractForm__Submit-Button"
             variant="contained"
             onClick={passSubmit}
             endIcon={<Send />}
