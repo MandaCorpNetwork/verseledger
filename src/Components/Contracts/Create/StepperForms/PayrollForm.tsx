@@ -98,7 +98,7 @@ export const PayrollForm: React.FC<PayrollFormProps> = ({ formData, onFormChange
 
   return (
     <Box
-      data-id="PayrollSetup-Container"
+      data-testid="PayrollSetup__Container"
       sx={{ display: 'flex', flexDirection: 'column', width: '600px' }}
     >
       <FormLabel sx={{ fontWeight: 'bold' }}>Payroll Setup</FormLabel>
