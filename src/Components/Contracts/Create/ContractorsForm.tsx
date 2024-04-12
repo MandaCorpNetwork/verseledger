@@ -48,7 +48,7 @@ export const ContractorsForm: React.FC<ContractorSettingProps> = ({
     null,
   );
 
-  const handleRatingChange = (event: React.SyntheticEvent, newValue: number | null) => {
+  const handleRatingChange = (_: React.SyntheticEvent, newValue: number | null) => {
     if (isRatingDisabled) {
       onFormChange('minRating', 0);
     }
