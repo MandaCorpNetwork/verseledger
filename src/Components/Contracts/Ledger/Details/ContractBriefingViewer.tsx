@@ -6,9 +6,13 @@ import { PlayerDisplay } from '@/Common/PlayerDisplay';
 
 type BriefingViewerProps = {
   contract: IContract;
+  onBidButtonClick: () => void;
 };
 
-export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract }) => {
+export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({
+  contract,
+  onBidButtonClick,
+}) => {
   return (
     <Box
       sx={{
@@ -236,6 +240,7 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
           <Button
             id="Bid-Button"
             variant="contained"
+            onClick={onBidButtonClick}
             sx={{ bgcolor: 'primary.dark', mb: '2em', mr: '1.5em' }}
           >
             submit bid

@@ -6,6 +6,8 @@ import { ContractBriefingViewer } from '@/Components/Contracts/Ledger/Details/Co
 import { useAppSelector } from '@/Redux/hooks';
 import { pickContract } from '@/Redux/Slices/Contracts/contractSelectors';
 
+import { ContractBid } from './ContractBid';
+
 type ContractBriefingDisplayProps = {
   selectedId: number | null;
 };
@@ -17,6 +19,15 @@ export const ContractBriefingDisplay: React.FC<ContractBriefingDisplayProps> = (
   useEffect(() => {
     console.log(`ContractBriefingDisplay: ${selectedId}`);
   }, [selectedId]);
+  const [isBidDialogOpen, setIsBidDialogOpen] = React.useState(false);
+
+  const handleOpenBidDialog = () => {
+    setIsBidDialogOpen(true);
+  };
+
+  const handleCloseBidDialog = () => {
+    setIsBidDialogOpen(false);
+  };
   return (
     <Box
       sx={{
@@ -31,11 +42,16 @@ export const ContractBriefingDisplay: React.FC<ContractBriefingDisplayProps> = (
         flexWrap: 'wrap',
       }}
     >
+      <ContractBid />
       {pickedContract ? (
-        <ContractBriefingViewer contract={pickedContract} />
+        <ContractBriefingViewer
+          contract={pickedContract}
+          onBidButtonClick={handleOpenBidDialog}
+        />
       ) : (
         <ContractBriefingSkelton />
       )}
+      <ContractBid open={isBidDialogOpen} onClose={handleCloseBidDialog} />
     </Box>
   );
 };

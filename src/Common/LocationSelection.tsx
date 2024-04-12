@@ -1,9 +1,18 @@
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, AutocompleteProps, TextField } from '@mui/material';
 
-export const LocationSelection: React.FC<unknown> = () => {
+type LocationOption = {
+  star: string;
+  body: string;
+  location: string;
+};
+
+type LocationSelectionProps = AutocompleteProps<LocationOption, false, false, false>;
+
+export const LocationSelection: React.FC<LocationSelectionProps> = (props) => {
   return (
     <>
       <Autocomplete
+        {...props}
         limitTags={2}
         options={locationTestDB}
         getOptionLabel={(option) => option.location}
