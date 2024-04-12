@@ -200,7 +200,7 @@ export const LocationsForm: React.FC<LocationFormProps> = ({
           }}
         >
           <TextField
-            data-testid="LocationForm-OtherLocations__Output"
+            data-testid="LocationForm__OtherLocations-Output"
             fullWidth
             color={formData.emergency ? 'secondary' : 'warning'}
             label="Other Locations"
