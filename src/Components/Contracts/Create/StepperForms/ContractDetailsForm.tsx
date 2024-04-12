@@ -177,7 +177,7 @@ export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
 
   // Pass subType selection to the formData state
   const handleSubTypeChange = (
-    event: React.SyntheticEvent,
+    _: React.SyntheticEvent<Element, Event>,
     newValue: { label: string; group: string }[],
   ) => {
     const selectedSubTypes = newValue.map((item) => item.label);
