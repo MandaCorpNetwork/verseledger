@@ -4,7 +4,6 @@ import { Outlet, RouteObject } from 'react-router-dom';
 import { VLAppBar } from '../Common/AppBar';
 import ErrorPage from './ErrorPage';
 import { ContractLedgerTablePage } from './Index/ContractLedger/Ledger/ContractLedgerPage';
-import { ContractLedgerSplash } from './Index/ContractLedger/Splash/ContractLedgerSplash';
 import { Home } from './Index/Home/Home';
 import { PersonalLedgerPage } from './Index/PersonalLedger/PersonalLedgerPage';
 export const routingInfo: RouteObject[] = [
@@ -26,10 +25,6 @@ export const routingInfo: RouteObject[] = [
       {
         index: true,
         element: <Home />,
-      },
-      {
-        path: '/contract/splash',
-        element: <ContractLedgerSplash />,
       },
       {
         path: '/contract/ledger',

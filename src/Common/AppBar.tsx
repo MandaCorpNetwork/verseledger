@@ -23,10 +23,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { LocationSelection } from '@/Common/LocationSelection';
 
-import Ship from '../Assets/media/Ship.svg?url';
 import Station from '../Assets/media/Station.svg?url';
-//import { VerseLogo } from './VerseLogo';
-//import { useHistory } from 'react-router-dom'; Implement on Line 41 Fix
 
 export const VLAppBar: React.FC<unknown> = () => {
   const profilePopupState: PopupState = usePopupState({
@@ -74,13 +71,6 @@ export const VLAppBar: React.FC<unknown> = () => {
             <img src={logoRandom()} alt="Verse Logo" />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton>
-            <img
-              src={Ship}
-              alt="Ship-Select"
-              style={{ width: '100px', height: '25px' }}
-            />
-          </IconButton>
           <Button sx={{ marginRight: '10%' }} onClick={handleClick}>
             <img src={Station} alt="Location-Select" />
             <Popover
