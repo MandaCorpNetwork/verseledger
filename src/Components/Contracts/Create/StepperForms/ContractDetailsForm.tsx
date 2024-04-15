@@ -19,7 +19,7 @@ type ContractDetailsForm = {
 // SubType options Array
 const options = [
   {
-    type: 'Logistics',
+    archetype: 'Logistics',
     subTypes: [
       {
         label: 'Transport',
@@ -36,7 +36,7 @@ const options = [
     ],
   },
   {
-    type: 'Medical',
+    archetype: 'Medical',
     subTypes: [
       {
         label: 'Trauma',
@@ -49,7 +49,7 @@ const options = [
     ],
   },
   {
-    type: 'Security',
+    archetype: 'Security',
     subTypes: [
       {
         label: 'Escort',
@@ -74,7 +74,7 @@ const options = [
     ],
   },
   {
-    type: 'Salvage',
+    archetype: 'Salvage',
     subTypes: [
       {
         label: 'Collection',
@@ -87,7 +87,7 @@ const options = [
     ],
   },
   {
-    type: 'Industry',
+    archetype: 'Industry',
     subTypes: [
       {
         label: 'Mining',
@@ -108,7 +108,7 @@ const options = [
     ],
   },
   {
-    type: 'RRR',
+    archetype: 'RRR',
     subTypes: [
       {
         label: 'Refuel',
@@ -125,7 +125,7 @@ const options = [
     ],
   },
   {
-    type: 'Fleet',
+    archetype: 'Fleet',
     subTypes: [
       {
         label: 'Crewman',
@@ -138,7 +138,7 @@ const options = [
     ],
   },
   {
-    type: 'Exploration',
+    archetype: 'Exploration',
     subTypes: [
       {
         label: 'Exploration',
@@ -147,7 +147,7 @@ const options = [
     ],
   },
   {
-    type: 'Proxy',
+    archetype: 'Proxy',
     subTypes: [
       {
         label: 'Middleman',
@@ -168,7 +168,7 @@ export const SubTypeBriefingForm: React.FC<ContractDetailsForm> = ({
   const flatOptions = options.flatMap((option) =>
     option.subTypes.map((subType) => ({
       label: subType.label,
-      group: option.type,
+      group: option.archetype,
     })),
   );
 
