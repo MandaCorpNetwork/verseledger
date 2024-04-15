@@ -33,7 +33,7 @@ const ContractDataField: React.FC<ContractDataFieldProps> = ({ label, value }) =
 export const ContractManager: React.FC<unknown> = () => {
   const [contractManagerTab, setContractManagerTab] = useState<string>('payroll');
 
-  const handleContractManageView = (event: React.SyntheticEvent, newValue: string) => {
+  const handleContractManageView = (_event: React.SyntheticEvent, newValue: string) => {
     setContractManagerTab(newValue);
   };
   return (

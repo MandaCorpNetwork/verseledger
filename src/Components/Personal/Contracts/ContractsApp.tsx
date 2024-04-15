@@ -10,7 +10,7 @@ import { ContractManager } from './ContractManager';
 export const ContractsApp: React.FC<unknown> = () => {
   const [browserView, setBrowserView] = React.useState<string>('employed');
 
-  const handleBrowserChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleBrowserChange = (_event: React.SyntheticEvent, newValue: string) => {
     setBrowserView(newValue);
   };
 
@@ -47,7 +47,15 @@ export const ContractsApp: React.FC<unknown> = () => {
           </Box>
           <Box data-id="ContractBrowserContent">
             <ContractTableTools title="Contract Browser" titleSize="h6" />
-            <ContractsViewer />
+            <ContractsViewer
+              selectedId={null}
+              selectedIdSetter={function (): void {
+                throw new Error('Function not implemented.');
+              }}
+              contractOnClose={function (): void {
+                throw new Error('Function not implemented.');
+              }}
+            />
           </Box>
         </TabContext>
       </Box>

@@ -1,12 +1,12 @@
 import { Box } from '@mui/material';
 import React from 'react';
 
-import { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
 import { ContractCard } from '@/Components/Contracts/Ledger/List/CardView/ContractCard';
 
 type ContractCardDisplayProps = {
   onPick: (id: number | null) => void;
-  contracts: IContract[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  contracts: any[];
 };
 
 export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({

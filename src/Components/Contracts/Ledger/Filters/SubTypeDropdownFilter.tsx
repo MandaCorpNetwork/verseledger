@@ -33,8 +33,8 @@ const menuValues = [
 
 export const SubTypeDropdownFilter: React.FC<unknown> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [filters, setFilters] = useFilters();
-  const handleChange = (event: React.SyntheticEvent, newValue: { value: string }[]) => {
+  const [_filters, setFilters] = useFilters();
+  const handleChange = (_event: React.SyntheticEvent, newValue: { value: string }[]) => {
     const values = newValue.map((option) => option.value);
     // @ts-expect-error TS2322: Type 'string[]' is not assignable to type 'string | undefined', works as expected
     setFilters('subType', values);

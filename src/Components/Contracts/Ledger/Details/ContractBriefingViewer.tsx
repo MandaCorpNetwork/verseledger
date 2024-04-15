@@ -1,11 +1,11 @@
 import { AvatarGroup, Box, Button, Typography } from '@mui/material';
 import React from 'react';
 
-import type { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
 import { PlayerDisplay } from '@/Common/PlayerDisplay';
 
 type BriefingViewerProps = {
-  contract: IContract;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  contract: any;
 };
 
 export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract }) => {

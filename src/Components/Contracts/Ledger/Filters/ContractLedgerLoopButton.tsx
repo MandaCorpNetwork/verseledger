@@ -1,7 +1,6 @@
 ///<reference types="vite/client" />
 import './ContractLedgerLoopButton.scss';
 
-import { useTheme } from '@emotion/react';
 import { Button, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
@@ -20,11 +19,8 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
   selectedType,
   setSelectedType,
 }) => {
-  // eslint-disable-next-line
-  const theme = useTheme() as any;
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isHovered, setIsHovered] = useState(false);
+  const [_isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -40,7 +36,7 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
   };
   //Hovering animation
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [filters, setFilters] = useFilters();
+  const [_filters, setFilters] = useFilters();
   const isSelected = selectedType === title;
 
   const handleClick = () => {

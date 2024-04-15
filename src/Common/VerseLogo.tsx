@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const VerseLogo = () => {
   /*const fetchLogo = (fileName, i) => {
     for (let i = 0; i<10; i++) {

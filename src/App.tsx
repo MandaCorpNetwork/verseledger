@@ -3,7 +3,6 @@ import './App.css';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
-import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { routingInfo } from './Routes/Router';

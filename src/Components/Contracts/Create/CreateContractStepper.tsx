@@ -120,8 +120,9 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
   passClose,
   passSubmit,
 }) => {
-  const [contractData, setContractData] = React.useState({
-    subtypeTag: [],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [contractData, setContractData] = React.useState<any>({
+    title: '',
     briefing: '',
     bidEnd: null,
     startDate: null,
@@ -140,11 +141,9 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
   });
   // Create Contract Form Data State
 
-  const handleContractDataChange = (
-    field: keyof typeof contractData,
-    value: boolean | string | number | Date | Array,
-  ) => {
-    setContractData((prev) => ({ ...prev, [field]: value }));
+  const handleContractDataChange = (field: string, value: unknown) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setContractData((prev: any) => ({ ...prev, [field]: value }));
   };
   // Handle Form Simple Data Change
 

@@ -1,11 +1,10 @@
-import type { IContract } from '@Backend/interfaces/IContract';
 import { describe, expect, it } from 'vitest';
 
 import { pickContract } from './contractSelectors';
 
 describe('contractSelectors.ts', () => {
   it('can pick a contract by id', () => {
-    const contracts: Array<IContract> = [
+    const contracts = [
       {
         id: 1,
         title: '',
@@ -17,7 +16,7 @@ describe('contractSelectors.ts', () => {
         bonus: false,
         type: 'Logistics',
         subtype: 'Transport',
-      } as IContract,
+      },
       {
         id: 2,
         title: '',
@@ -29,7 +28,7 @@ describe('contractSelectors.ts', () => {
         bonus: false,
         type: 'Logistics',
         subtype: 'Transport',
-      } as IContract,
+      },
     ];
     expect(pickContract({ contracts }, 2)).toEqual(contracts[1]);
   });

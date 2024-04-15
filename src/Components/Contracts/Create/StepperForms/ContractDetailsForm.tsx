@@ -9,11 +9,8 @@ import {
 // import ArchetypeDisplay from '@/Common/ArchetypeDisplayBox';
 
 type ContractDetailsForm = {
-  formData: {
-    subTypeTag: string;
-    briefing: string;
-    title: string;
-  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  formData: any;
   onFormChange: (field: string, value: string) => void;
 };
 // formData set by SubType&BriefingForm = subType, briefing

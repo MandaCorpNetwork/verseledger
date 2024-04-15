@@ -1,4 +1,3 @@
-import React from 'react';
 import { Outlet, RouteObject } from 'react-router-dom';
 
 import { DiscordLoginUtility } from '@/Utils/discordLogin';

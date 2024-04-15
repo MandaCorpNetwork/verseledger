@@ -1,10 +1,9 @@
 import { Box, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import dayjs from 'dayjs';
 
-import type { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
-
 type ContractRowProps = {
-  contracts: IContract[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  contracts: any[];
   onPick: (id: number | null) => void;
 };
 

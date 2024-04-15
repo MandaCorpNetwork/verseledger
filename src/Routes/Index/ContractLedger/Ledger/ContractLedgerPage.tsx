@@ -119,7 +119,7 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
             marginLeft: '5%',
           }}
         >
-          <ContractTableTools />
+          <ContractTableTools title={''} titleSize={'h4'} />
           <ContractsViewer
             selectedId={selectedId}
             selectedIdSetter={handleContractPick}
