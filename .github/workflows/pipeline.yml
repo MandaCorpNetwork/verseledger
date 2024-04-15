@@ -6,10 +6,20 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
+        with:
+          repository: MandaCorpNetwork/verseledger-backend
+          path: verseledger-backend
+      - uses: actions/checkout@v4
+        with:
+          repository: MandaCorpNetwork/verseledger-frontend
+          path: verseledger-frontend
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
+      - run: cd verseledger-backend
+      - run: npm ci
+      - run: cd ../verseledger-frontend
       - run: npm ci
       - run: npm run lint:check
   vitest:
@@ -18,9 +28,19 @@ jobs:
       - eslint
     steps:
       - uses: actions/checkout@v4
+        with:
+          repository: MandaCorpNetwork/verseledger-backend
+          path: verseledger-backend
+      - uses: actions/checkout@v4
+        with:
+          repository: MandaCorpNetwork/verseledger-frontend
+          path: verseledger-frontend
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
+      - run: cd verseledger-backend
+      - run: npm ci
+      - run: cd ../verseledger-frontend
       - run: npm ci
       - run: npm run test
