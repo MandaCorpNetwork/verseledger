@@ -19,7 +19,7 @@ export const ContractsApp: React.FC<unknown> = () => {
 
   return (
     <Box
-      data-id="ContractsApp"
+      data-testid="ContractsManager__AppContainer"
       sx={{
         display: 'flex',
         flexDirection: 'row',
@@ -31,7 +31,7 @@ export const ContractsApp: React.FC<unknown> = () => {
       }}
     >
       <Box
-        data-id="ContractBrowserContainer"
+        data-testid="ContractManager__ContractListContainer"
         sx={{
           display: 'flex',
           height: '100%',
@@ -41,7 +41,7 @@ export const ContractsApp: React.FC<unknown> = () => {
       >
         <TabContext value={browserView}>
           <Box
-            data-id="ContractBrowserTabs"
+            data-testid="ContractManager__TabContainer"
             sx={{
               mb: '1em',
               pt: '.2em',
@@ -56,20 +56,38 @@ export const ContractsApp: React.FC<unknown> = () => {
             }}
           >
             <TabList
+              data-testid="ContractManager__TabList"
               orientation="horizontal"
               onChange={handleBrowserChange}
               indicatorColor="secondary"
               textColor="secondary"
               variant="fullWidth"
             >
-              <Tab label="Accepted" value="employed" />
-              <Tab label="Pending" value="pending" />
-              <Tab label="Offers" value="offers" />
-              <Tab label="Owned" value="owned" />
-              <Tab label="History" value="closed" />
+              <Tab
+                data-testid="ContractManager__AcceptedTab"
+                label="Accepted"
+                value="employed"
+              />
+              <Tab
+                data-testid="ContractManager__PendingTab"
+                label="Pending"
+                value="pending"
+              />
+              <Tab
+                data-testid="ContractManager__OffersTab"
+                label="Offers"
+                value="offers"
+              />
+              <Tab data-testid="ContractManger__OwnedTab" label="Owned" value="owned" />
+              <Tab
+                data-testid="ContractManager__HistoryTab"
+                label="History"
+                value="closed"
+              />
             </TabList>
           </Box>
           <Box
+            data-testid="ContractManager__ContractListContainer"
             sx={{
               display: 'flex',
               flexDirection: 'column',
@@ -81,9 +99,11 @@ export const ContractsApp: React.FC<unknown> = () => {
             }}
           >
             <Box
+              data-testid="ContractManager-ContractList__SearchToolsContainer"
               sx={{ width: '100%', display: 'flex', flexDirection: 'row', mt: '.5em' }}
             >
               <Collapse
+                data-testid="ContractManager-ContractList-SearchTools__TransformationWrapper"
                 in={searchToolsOpen}
                 timeout={200}
                 sx={{
@@ -93,6 +113,7 @@ export const ContractsApp: React.FC<unknown> = () => {
                 }}
               >
                 <Box
+                  data-testid="ContractManager-ContractList-SearchTools__SearchToolsWrapper"
                   sx={{
                     display: 'flex',
                     flexDirection: 'row',
@@ -102,15 +123,28 @@ export const ContractsApp: React.FC<unknown> = () => {
                     flexGrow: 1,
                   }}
                 >
-                  <IconButton sx={{ mr: 'auto' }}>
+                  <IconButton
+                    data-testid="ContractManager-ContractList-SearchTools__FiltersButton"
+                    sx={{ mr: 'auto' }}
+                  >
                     <FilterAlt />
                   </IconButton>
-                  <Select size="small" />
-                  <TextField size="small" />
+                  <Select
+                    data-testid="ContractManager-ContractList-SearchTools__SortBySelect"
+                    size="small"
+                  />
+                  <TextField
+                    data-testid="ContractManager-ContractList-SearchTools__SearchContractsField"
+                    size="small"
+                  />
                 </Box>
               </Collapse>
-              <Box sx={{ display: 'flex', ml: 'auto' }}>
+              <Box
+                data-testid="ContractManager-ContractList-SearchTools__SearchToolsExpansionWrapper"
+                sx={{ display: 'flex', ml: 'auto' }}
+              >
                 <IconButton
+                  data-testid="ContractManager-ContractList-SearchTools__SearchToolsExpansionButton"
                   onClick={toggleSearchTools}
                   sx={{
                     transform: !searchToolsOpen ? 'rotate(90deg)' : 'rotate(0deg)',
@@ -125,7 +159,7 @@ export const ContractsApp: React.FC<unknown> = () => {
         </TabContext>
       </Box>
       <Box
-        data-id="ContractManagerContainer"
+        data-testid="ContractManagerContainer"
         sx={{
           display: 'flex',
           height: '100%',
@@ -140,3 +174,28 @@ export const ContractsApp: React.FC<unknown> = () => {
     </Box>
   );
 };
+
+// Placeholder Hardcoded Contract Data for styling search
+
+const tempContractData = [
+  {
+    id: 1,
+    title: 'Contract Title',
+    pay: 10000,
+  },
+  {
+    id: 2,
+    title: 'Contract Title',
+    pay: 10000,
+  },
+  {
+    id: 3,
+    title: 'Contract Title',
+    pay: 10000,
+  },
+  {
+    id: 4,
+    title: 'Contract Title',
+    pay: 10000,
+  },
+];
