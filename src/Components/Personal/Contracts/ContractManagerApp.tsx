@@ -1,13 +1,17 @@
+//ContractManagerApp.tsx
 import { ArrowBackIosNew, FilterAlt } from '@mui/icons-material';
 import { TabContext, TabList } from '@mui/lab';
 import { Box, Collapse, IconButton, Select, Tab, TextField } from '@mui/material';
 import React from 'react';
 
 import { ContractManager } from './ContractManager';
+import { ContractManagerFilterList } from './ContractManagerFiltersList';
 
-export const ContractsApp: React.FC<unknown> = () => {
+export const ContractManagerApp: React.FC<unknown> = () => {
   const [browserView, setBrowserView] = React.useState<string>('employed');
   const [searchToolsOpen, setSearchToolsOpen] = React.useState<boolean>(false);
+  const [filtersListOpen, setFiltersListOpen] = React.useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
   const handleBrowserChange = (_event: React.SyntheticEvent, newValue: string) => {
     setBrowserView(newValue);
@@ -15,6 +19,12 @@ export const ContractsApp: React.FC<unknown> = () => {
 
   const toggleSearchTools = () => {
     setSearchToolsOpen(!searchToolsOpen);
+  };
+
+  const toggleFilterList = (event: React.MouseEvent<HTMLElement>) => {
+    const target = anchorEl ? null : event.currentTarget;
+    setAnchorEl(target);
+    setFiltersListOpen(!filtersListOpen);
   };
 
   return (
@@ -125,10 +135,12 @@ export const ContractsApp: React.FC<unknown> = () => {
                 >
                   <IconButton
                     data-testid="ContractManager-ContractList-SearchTools__FiltersButton"
+                    onClick={toggleFilterList}
                     sx={{ mr: 'auto' }}
                   >
                     <FilterAlt />
                   </IconButton>
+                  <ContractManagerFilterList isOpen={filtersListOpen} anchor={anchorEl} />
                   <Select
                     data-testid="ContractManager-ContractList-SearchTools__SortBySelect"
                     size="small"

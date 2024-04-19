@@ -13,12 +13,12 @@ import {
 } from '@mui/material';
 import React, { useRef, useState } from 'react';
 
-import { AccessTimeDropdownFilter } from '@/Components/Contracts/Ledger/Filters/AccessTimeDropdownFilter';
-import { ContractOwnerTypeDropdownFilter } from '@/Components/Contracts/Ledger/Filters/ContractOwnerTypeDropdownFilter';
-import { EmployerRatingSliderFilter } from '@/Components/Contracts/Ledger/Filters/EmployerRatingSliderFilter';
-import { LocationDropdownFilter } from '@/Components/Contracts/Ledger/Filters/LocationDropdownFilter';
-import { SubTypeDropdownFilter } from '@/Components/Contracts/Ledger/Filters/SubTypeDropdownFilter';
-import { UECRangeInputFilter } from '@/Components/Contracts/Ledger/Filters/UECRangeInputFilter';
+import { AccessTimeDropdownFilter } from '@/Common/Filters/AccessTimeDropdownFilter';
+import { ContractOwnerTypeDropdownFilter } from '@/Common/Filters/ContractOwnerTypeDropdownFilter';
+import { EmployerRatingSliderFilter } from '@/Common/Filters/EmployerRatingSliderFilter';
+import { LocationsFilter } from '@/Common/Filters/LocationsFilter';
+import { SubTypeFilter } from '@/Common/Filters/SubTypeFilter';
+import { UECRangeFilter } from '@/Common/Filters/UECRangeFilter';
 
 type ContractTableToolsProps = {
   title: string;
@@ -96,11 +96,11 @@ export const ContractTableTools: React.FC<ContractTableToolsProps> = ({
             flexWrap: 'wrap',
           }}
         >
-          <SubTypeDropdownFilter />
+          <SubTypeFilter />
           <AccessTimeDropdownFilter />
           <ContractOwnerTypeDropdownFilter />
-          <LocationDropdownFilter />
-          <UECRangeInputFilter />
+          <LocationsFilter />
+          <UECRangeFilter />
           <EmployerRatingSliderFilter />
         </Box>
       </Collapse>

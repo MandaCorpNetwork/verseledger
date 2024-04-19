@@ -2,7 +2,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
-export const LocationDropdownFilter: React.FC<unknown> = () => {
+export const LocationsFilter: React.FC<unknown> = () => {
   return (
     <Autocomplete
       multiple

@@ -13,7 +13,7 @@ import { NumericFormat } from 'react-number-format';
 
 import { useFilters } from '@/Utils/Hooks/useFilters';
 
-export const UECRangeInputFilter: React.FC = () => {
+export const UECRangeFilter: React.FC = () => {
   const [lowerValue, setLowerValue] = useState<number | null>(0);
   const [higherValue, setHigherValue] = useState<number | null>(0);
   const [isInvalid, setIsInvalid] = useState(false);
