@@ -1,3 +1,4 @@
+// useFilters.tsx
 import { useSearchParams } from 'react-router-dom';
 
 export const useFilters = () => {

@@ -2,16 +2,34 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
-export const LocationsFilter: React.FC<unknown> = () => {
+type LocationFilterProps = {
+  value: string[];
+  onChange: (value: string[]) => void;
+  size: 'small' | 'medium';
+};
+
+export const LocationsFilter: React.FC<LocationFilterProps> = ({
+  value,
+  onChange,
+  size,
+}) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: { label: string }[]) => {
+    onChange(newValue.map((option) => option.label));
+  };
+
   return (
     <Autocomplete
       multiple
-      limitTags={1}
+      renderTags={() => null}
+      value={locationTestDB.filter((option) => value.includes(option.label))}
       options={locationTestDB}
+      size={size}
+      onChange={handleChange}
       renderInput={(params) => (
         <TextField
           {...params}
           label="Locations"
+          multiline={false}
           /* For Loading when pulling from DB for locations
           InputProps={{
             ...params.InputProps,
@@ -40,9 +58,6 @@ export const LocationsFilter: React.FC<unknown> = () => {
           )}
         </MenuItem>
       )}
-      sx={{
-        width: '20%',
-      }}
     />
   );
 };

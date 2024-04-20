@@ -1,11 +1,9 @@
+// SubTypeFilter.tsx
 import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
-import { useFilters } from '@/Utils/Hooks/useFilters';
-
 const menuValues = [
-  { archetype: 'all', value: 'all', label: 'All' },
   { archetype: 'logistics', value: 'transport', label: 'Transport' },
   { archetype: 'logistics', value: 'hauling', label: 'Hauling' },
   { archetype: 'logistics', value: 'manage', label: 'Manage' },
@@ -31,22 +29,34 @@ const menuValues = [
   { archetype: 'proxy', value: 'other', label: 'Other' },
 ];
 
-export const SubTypeFilter: React.FC<unknown> = () => {
+type SubTypeFilterProps = {
+  value: string[];
+  onChange: (value: string[]) => void;
+  size: 'small' | 'medium';
+};
+
+export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({
+  value,
+  onChange,
+  size,
+}) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [filters, setFilters] = useFilters();
+  //const [filters, setFilters] = useFilters();
   const handleChange = (event: React.SyntheticEvent, newValue: { value: string }[]) => {
-    const values = newValue.map((option) => option.value);
-    // @ts-expect-error TS2322: Type 'string[]' is not assignable to type 'string | undefined', works as expected
-    setFilters('subType', values);
+    //const values = newValue.map((option) => option.value);
+    //setFilters('subType', values);
+    onChange(newValue.map((option) => option.value));
   };
-  //const accessTime = filters.get('accessTime');
 
   return (
     <Autocomplete
       multiple
-      limitTags={1}
+      renderTags={() => null}
+      autoHighlight
       options={menuValues}
+      value={menuValues.filter((option) => value.includes(option.value))}
       onChange={handleChange}
+      size={size}
       renderInput={(params) => (
         <TextField {...params} label="Sub Types" multiline={false} />
       )}
@@ -68,9 +78,6 @@ export const SubTypeFilter: React.FC<unknown> = () => {
           )}
         </MenuItem>
       )}
-      sx={{
-        width: '20%',
-      }}
     />
   );
 };
