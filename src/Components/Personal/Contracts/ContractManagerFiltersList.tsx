@@ -18,7 +18,7 @@ type FilterListSelectionProps = {
 const FilterListSelection: React.FC<FilterListSelectionProps> = ({ filterName }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
   const [open, setOpen] = React.useState(false);
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [selectedFilters, setSelectedFilters] = useState<string[] | number[]>([]);
   const [leaveTimeoutId, setLeaveTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
   const getFilterComponent = (filterName: string) => {
