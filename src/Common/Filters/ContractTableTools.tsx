@@ -18,7 +18,7 @@ import { ContractOwnerTypeDropdownFilter } from '@/Common/Filters/ContractOwnerT
 import { EmployerRatingSliderFilter } from '@/Common/Filters/EmployerRatingSliderFilter';
 import { LocationsFilter } from '@/Common/Filters/LocationsFilter';
 import { SubTypeFilter } from '@/Common/Filters/SubTypeFilter';
-import { UECRangeFilter } from '@/Common/Filters/DELETEuecrange';
+import { UECRangeFilter } from '@/Common/Filters/UECRangeFilter';
 
 type ContractTableToolsProps = {
   title: string;

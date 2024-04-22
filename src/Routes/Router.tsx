@@ -32,15 +32,11 @@ export const routingInfo: RouteObject[] = [
         element: <DiscordLoginUtility />,
       },
       {
-        path: '/oauth/discord/callback',
-        element: <DiscordLoginUtility />,
-      },
-      {
         path: '/contract',
         element: <ContractLedgerTablePage />,
       },
       {
-        path: '/personal',
+        path: '/ledger/personal',
         element: <PersonalLedgerPage />,
       },
     ],

@@ -18,7 +18,7 @@ export const Home: React.FC<unknown> = () => {
       </video>
       <HomeNavButton
         title="Contract Ledger"
-        to="/contract/ledger"
+        to="/ledger/contract"
         videoSource={JobsLoop}
       />
       <HomeNavButton
