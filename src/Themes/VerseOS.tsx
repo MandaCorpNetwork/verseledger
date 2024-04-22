@@ -11,6 +11,17 @@ declare module '@mui/material/Divider' {
 
 export const verseOSTheme = createTheme({
   components: {
+    MuiInputBase: {
+      styleOverrides: {
+        input: {
+          '&[type="number"]::-webkit-outer-spin-button, &[type="number"]::-webkit-inner-spin-button':
+            {
+              '-webkit-appearance': 'none',
+              margin: 0,
+            },
+        },
+      },
+    },
     MuiSlider: {
       styleOverrides: {
         root: {

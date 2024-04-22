@@ -6,15 +6,17 @@ import React from 'react';
 
 import { ContractManager } from './ContractManager';
 import { ContractManagerFilterList } from './ContractManagerFiltersList';
+import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
+import { QueryNames } from '@/Common/Filters/QueryNames';
 
 export const ContractManagerApp: React.FC<unknown> = () => {
-  const [browserView, setBrowserView] = React.useState<string>('employed');
   const [searchToolsOpen, setSearchToolsOpen] = React.useState<boolean>(false);
   const [filtersListOpen, setFiltersListOpen] = React.useState<boolean>(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const [filters, _setFilters, overwriteURLQuery] = useURLQuery();
 
   const handleBrowserChange = (_event: React.SyntheticEvent, newValue: string) => {
-    setBrowserView(newValue);
+    overwriteURLQuery({ [QueryNames.ContractManagerTab]: newValue });
   };
 
   const toggleSearchTools = () => {
@@ -49,7 +51,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           flexDirection: 'column',
         }}
       >
-        <TabContext value={browserView}>
+        <TabContext value={filters.get(QueryNames.ContractManagerTab) ?? 'employed'}>
           <Box
             data-testid="ContractManager__TabContainer"
             sx={{
@@ -189,25 +191,25 @@ export const ContractManagerApp: React.FC<unknown> = () => {
 
 // Placeholder Hardcoded Contract Data for styling search
 
-const tempContractData = [
-  {
-    id: 1,
-    title: 'Contract Title',
-    pay: 10000,
-  },
-  {
-    id: 2,
-    title: 'Contract Title',
-    pay: 10000,
-  },
-  {
-    id: 3,
-    title: 'Contract Title',
-    pay: 10000,
-  },
-  {
-    id: 4,
-    title: 'Contract Title',
-    pay: 10000,
-  },
-];
+// const tempContractData = [
+//   {
+//     id: 1,
+//     title: 'Contract Title',
+//     pay: 10000,
+//   },
+//   {
+//     id: 2,
+//     title: 'Contract Title',
+//     pay: 10000,
+//   },
+//   {
+//     id: 3,
+//     title: 'Contract Title',
+//     pay: 10000,
+//   },
+//   {
+//     id: 4,
+//     title: 'Contract Title',
+//     pay: 10000,
+//   },
+// ];

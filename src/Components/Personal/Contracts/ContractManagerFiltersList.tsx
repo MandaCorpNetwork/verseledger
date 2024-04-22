@@ -1,10 +1,13 @@
 // ContractMangerFiltersList.tsx
 import { LocationsFilter } from '@Common/Filters/LocationsFilter';
 import { SubTypeFilter } from '@Common/Filters/SubTypeFilter';
-import { UECRangeFilter } from '@Common/Filters/UECRangeFilter';
 import { PlayArrow } from '@mui/icons-material';
 import { Badge, Box, Chip, Paper, Popper, Typography } from '@mui/material';
 import React, { useState } from 'react';
+
+import { QueryNames } from '@/Common/Filters/QueryNames';
+import { UECRangeFilter } from '@/Common/Filters/UECRangeFilter';
+import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 type ContractManagerFilterListProps = {
   isOpen: boolean;
@@ -18,33 +21,47 @@ type FilterListSelectionProps = {
 const FilterListSelection: React.FC<FilterListSelectionProps> = ({ filterName }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
   const [open, setOpen] = React.useState(false);
-  const [selectedFilters, setSelectedFilters] = useState<string[] | number[]>([]);
+  const [filters] = useURLQuery();
   const [leaveTimeoutId, setLeaveTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
   const getFilterComponent = (filterName: string) => {
     switch (filterName) {
       case 'Archytype':
-        return (
-          <SubTypeFilter
-            value={selectedFilters}
-            onChange={setSelectedFilters}
-            size="small"
-          />
-        );
+        return <SubTypeFilter size="small" />;
       case 'Locations':
-        return (
-          <LocationsFilter
-            value={selectedFilters}
-            onChange={setSelectedFilters}
-            size="small"
-          />
-        );
-      case 'PriceRange':
-        return <UECRangeFilter />;
+        return <LocationsFilter size="small" />;
+      case 'Pay Range':
+        return <UECRangeFilter size="small" innerSpace="dense" />;
     }
   };
 
   const filterComponent = getFilterComponent(filterName);
+
+  const getFilterCount = (filterName: string) => {
+    switch (filterName) {
+      case 'Archytype':
+        return filters.getAll(QueryNames.SubType).length;
+      case 'Locations':
+        return filters.getAll(QueryNames.Locations).length;
+      // case 'PriceRange':
+      //   return filters.getAll(QueryNames.UECRange).length;
+      default:
+        return 0;
+    }
+  };
+
+  const getFilterValues = (filterName: string) => {
+    switch (filterName) {
+      case 'Archytype':
+        return filters.getAll(QueryNames.SubType);
+      case 'Locations':
+        return filters.getAll(QueryNames.Locations);
+      // case 'PriceRange':
+      //   return filters.getAll(QueryNames.UECRange);
+      default:
+        return [];
+    }
+  };
 
   const handleMouseEnter = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (leaveTimeoutId) {
@@ -63,9 +80,12 @@ const FilterListSelection: React.FC<FilterListSelectionProps> = ({ filterName })
     setLeaveTimeoutId(timeoutId);
   };
 
+  const filterValues = getFilterValues(filterName);
+  const isFiltersSet = filterValues.length > 1;
+
   return (
     <Badge
-      badgeContent={selectedFilters.length}
+      badgeContent={getFilterCount(filterName)}
       color="error"
       max={99}
       overlap="circular"
@@ -78,8 +98,7 @@ const FilterListSelection: React.FC<FilterListSelectionProps> = ({ filterName })
           alignItems: 'center',
           cursor: 'pointer',
           border: '2px solid',
-          borderColor:
-            open || selectedFilters.length > 1 ? 'secondary.main' : 'text.disabled',
+          borderColor: open || isFiltersSet ? 'secondary.main' : 'text.disabled',
           borderRadius: '5px',
           m: '.2em',
           p: '.5em',
@@ -118,26 +137,22 @@ const FilterListSelection: React.FC<FilterListSelectionProps> = ({ filterName })
                   borderColor: 'secondary.dark',
                   borderRadius: '5px',
                   padding: '.5em',
-                  justifyContent: selectedFilters.length < 1 ? 'center' : '',
-                  alignItems: selectedFilters.length < 1 ? 'center' : '',
+                  justifyContent: !isFiltersSet ? 'center' : '',
+                  alignItems: !isFiltersSet ? 'center' : '',
                 }}
               >
-                {selectedFilters.length < 1 ? (
+                {!isFiltersSet ? (
                   <Typography variant="body2">No Filters Set</Typography>
                 ) : (
-                  selectedFilters.map((filter, index) => (
+                  filterValues.map((value, index) => (
                     <Chip
                       key={index}
-                      label={filter.charAt(0).toUpperCase() + filter.slice(1)}
+                      label={value.charAt(0).toUpperCase() + value.slice(1)}
                       size={'small'}
                       variant="outlined"
                       color="secondary"
                       sx={{ m: '.2em' }}
-                      onDelete={() =>
-                        setSelectedFilters((currentFilters) =>
-                          currentFilters.filter((f) => f !== filter),
-                        )
-                      }
+                      //onDelete={}
                     />
                   ))
                 )}

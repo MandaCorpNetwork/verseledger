@@ -4,7 +4,7 @@ import './ContractLedgerLoopButton.scss';
 import { Button, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-import { useFilters } from '@/Utils/Hooks/useFilters';
+import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 type ContractLedgerLoopButtonProps = {
   title: string;
@@ -36,7 +36,7 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
   };
   //Hovering animation
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_filters, setFilters] = useFilters();
+  const [_filters, setFilters] = useURLQuery();
   const isSelected = selectedType === title;
 
   const handleClick = () => {

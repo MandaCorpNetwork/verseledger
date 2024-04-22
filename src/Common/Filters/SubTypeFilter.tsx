@@ -3,6 +3,10 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
+import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
+
+import { QueryNames } from './QueryNames';
+
 const menuValues = [
   { archetype: 'logistics', value: 'transport', label: 'Transport' },
   { archetype: 'logistics', value: 'hauling', label: 'Hauling' },
@@ -30,23 +34,20 @@ const menuValues = [
 ];
 
 type SubTypeFilterProps = {
-  value: string[];
-  onChange: (value: string[]) => void;
   size: 'small' | 'medium';
 };
 
-export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({
-  value,
-  onChange,
-  size,
-}) => {
+export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
+  const [filters, setFilters] = useURLQuery();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //const [filters, setFilters] = useFilters();
   const handleChange = (event: React.SyntheticEvent, newValue: { value: string }[]) => {
-    //const values = newValue.map((option) => option.value);
-    //setFilters('subType', values);
-    onChange(newValue.map((option) => option.value));
+    setFilters(
+      QueryNames.SubType,
+      newValue.map((v) => v.value),
+    );
   };
+
+  const currentFilterValues = filters.getAll(QueryNames.SubType);
 
   return (
     <Autocomplete
@@ -54,7 +55,7 @@ export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({
       renderTags={() => null}
       autoHighlight
       options={menuValues}
-      value={menuValues.filter((option) => value.includes(option.value))}
+      value={menuValues.filter((i) => currentFilterValues.includes(i.value))}
       onChange={handleChange}
       size={size}
       renderInput={(params) => (

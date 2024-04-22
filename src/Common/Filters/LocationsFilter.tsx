@@ -2,26 +2,30 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
+import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
+
+import { QueryNames } from './QueryNames';
+
 type LocationFilterProps = {
-  value: string[];
-  onChange: (value: string[]) => void;
   size: 'small' | 'medium';
 };
 
-export const LocationsFilter: React.FC<LocationFilterProps> = ({
-  value,
-  onChange,
-  size,
-}) => {
+export const LocationsFilter: React.FC<LocationFilterProps> = ({ size }) => {
+  const [filters, setFilters] = useURLQuery();
   const handleChange = (event: React.SyntheticEvent, newValue: { label: string }[]) => {
-    onChange(newValue.map((option) => option.label));
+    setFilters(
+      QueryNames.Locations,
+      newValue.map((v) => v.label),
+    );
   };
+
+  const currentFilterValues = filters.getAll(QueryNames.Locations);
 
   return (
     <Autocomplete
       multiple
       renderTags={() => null}
-      value={locationTestDB.filter((option) => value.includes(option.label))}
+      value={locationTestDB.filter((v) => currentFilterValues.includes(v.label))}
       options={locationTestDB}
       size={size}
       onChange={handleChange}

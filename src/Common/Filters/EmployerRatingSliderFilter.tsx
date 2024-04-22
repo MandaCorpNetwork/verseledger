@@ -2,7 +2,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { Box, Slider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-import { useFilters } from '@/Utils/Hooks/useFilters';
+import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 const RatingSliderMarks = [
   { value: 1, label: <StarIcon sx={{ fontSize: '1.2em' }} /> },
@@ -26,7 +26,7 @@ const RatingSliderMarks = [
 export const EmployerRatingSliderFilter: React.FC<unknown> = () => {
   const [rating, setRating] = useState<number[]>([1, 5]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_filters, setFilters] = useFilters();
+  const [_filters, setFilters] = useURLQuery();
 
   const handleSlide = (_event: Event, newValue: number | number[]) => {
     setRating(newValue as number[]);

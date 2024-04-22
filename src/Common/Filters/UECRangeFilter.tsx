@@ -1,113 +1,81 @@
-import {
-  Box,
-  FilledTextFieldProps,
-  OutlinedTextFieldProps,
-  StandardTextFieldProps,
-  TextField,
-  TextFieldVariants,
-  Typography,
-} from '@mui/material';
-import React, { useState } from 'react';
-import { JSX } from 'react/jsx-runtime';
-import { NumericFormat } from 'react-number-format';
+import { Box, InputAdornment, TextField } from '@mui/material';
+import React from 'react';
 
-import { useFilters } from '@/Utils/Hooks/useFilters';
+import { QueryNames } from '@/Common/Filters/QueryNames';
+import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
-export const UECRangeFilter: React.FC = () => {
-  const [lowerValue, setLowerValue] = useState<number | null>(0);
-  const [higherValue, setHigherValue] = useState<number | null>(0);
-  const [isInvalid, setIsInvalid] = useState(false);
-  const [, setFilters] = useFilters();
+type UECRangeFilterProps = {
+  size: 'small' | 'medium';
+  innerSpace: 'dense' | 'normal';
+};
 
-  const rangeValidation = (lowerValue: number | null, higherValue: number | null) => {
-    setIsInvalid(lowerValue! > higherValue!);
+export const UECRangeFilter: React.FC<UECRangeFilterProps> = ({ size, innerSpace }) => {
+  const [filters, setFilters] = useURLQuery();
+
+  const handleMinChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilters(QueryNames.UECRangeMin, String(event.target.value));
   };
 
-  const handleLowerValueChange = (value: number | null) => {
-    setLowerValue(value);
-    rangeValidation(value, higherValue);
-    // @ts-expect-error TS2322: Type 'number | null' is not assignable to type 'string | undefined
-    setFilters('ueclow', value);
+  const handleMaxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilters(QueryNames.UECRangeMax, String(event.target.value));
   };
 
-  const handleHigherValueChange = (value: number | null) => {
-    setHigherValue(value);
-    rangeValidation(lowerValue, value);
-    // @ts-expect-error TS2322: Type 'number | null' is not assignable to type 'string | undefined
-    setFilters('uechigh', value);
-  };
+  const currentMinValue = filters.get(QueryNames.UECRangeMin);
 
-  const LowerNumberTextField = (
-    props: JSX.IntrinsicAttributes & { variant?: TextFieldVariants | undefined } & Omit<
-        FilledTextFieldProps | OutlinedTextFieldProps | StandardTextFieldProps,
-        'variant'
-      >,
-  ) => {
-    return (
-      <TextField
-        {...props}
-        sx={{ width: '30%', display: 'flex' }}
-        variant="outlined"
-        label="Least Amount"
-        error={isInvalid}
-        helperText={isInvalid ? 'Invalid Range' : ''}
-      />
-    );
-  };
+  const currentMaxValue = filters.get(QueryNames.UECRangeMax);
 
-  const HigherNumberTextField = (
-    props: JSX.IntrinsicAttributes & { variant?: TextFieldVariants | undefined } & Omit<
-        FilledTextFieldProps | OutlinedTextFieldProps | StandardTextFieldProps,
-        'variant'
-      >,
-  ) => {
-    return (
-      <TextField
-        {...props}
-        sx={{ width: '30%', display: 'flex' }}
-        variant="outlined"
-        label="Highest Amount"
-        error={isInvalid}
-        helperText={isInvalid ? 'Invalid Range' : ''}
-      />
-    );
-  };
+  const minError =
+    currentMaxValue !== null &&
+    currentMinValue !== null &&
+    Number(currentMinValue) > Number(currentMaxValue);
+
+  const maxError =
+    currentMinValue !== null &&
+    currentMaxValue !== null &&
+    Number(currentMaxValue) < Number(currentMinValue);
 
   return (
-    <Box
-      id="UEC-Range-Filter-Box"
-      sx={{ display: 'flex', flexDirection: 'column', marginLeft: '5%' }}
-    >
-      <Typography sx={{ fontWeight: 'bold', padding: '.2em' }}>Price Range</Typography>
-      <Box
-        id="UEC-Range-Selection"
+    <Box sx={{ display: 'flex', gap: 1 }}>
+      <TextField
+        type="number"
+        onChange={handleMinChange}
+        value={currentMinValue}
+        size={size}
+        label="Minimum UEC"
+        color="secondary"
+        margin={innerSpace}
+        error={minError}
+        helperText={minError ? 'Make Min less than Max' : null}
         sx={{
-          display: 'flex',
-          alignItems: 'center',
+          width: size === 'small' ? '135px' : 'auto',
         }}
-      >
-        <NumericFormat
-          prefix="¤"
-          customInput={LowerNumberTextField}
-          thousandSeparator=","
-          allowNegative={false}
-          decimalScale={0}
-          defaultValue={null}
-          onValueChange={(values) => handleLowerValueChange(values.floatValue ?? null)}
-        />
-        <Typography variant="button" sx={{ margin: '1em', fontWeight: 'bold' }}>
-          To
-        </Typography>
-        <NumericFormat
-          prefix="¤"
-          customInput={HigherNumberTextField}
-          thousandSeparator=","
-          allowNegative={false}
-          decimalScale={0}
-          defaultValue={null}
-          onValueChange={(values) => handleHigherValueChange(values.floatValue ?? null)}
-        />
-      </Box>
+        InputProps={{
+          startAdornment:
+            currentMinValue === null ? null : (
+              <InputAdornment position="start">¤</InputAdornment>
+            ),
+        }}
+      />
+      <TextField
+        type="number"
+        onChange={handleMaxChange}
+        value={currentMaxValue}
+        size={size}
+        label="Maximum UEC"
+        color="secondary"
+        margin={innerSpace}
+        error={maxError}
+        helperText={maxError ? 'Make Max more than Min' : null}
+        sx={{
+          width: size === 'small' ? '135px' : 'auto',
+        }}
+        InputProps={{
+          startAdornment:
+            currentMaxValue === null ? null : (
+              <InputAdornment position="start">¤</InputAdornment>
+            ),
+        }}
+      />
     </Box>
   );
 };

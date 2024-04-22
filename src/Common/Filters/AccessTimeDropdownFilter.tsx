@@ -2,7 +2,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
-import { useFilters } from '@/Utils/Hooks/useFilters';
+import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 const menuValues = [
   { value: 'all', label: 'All' },
@@ -17,7 +17,7 @@ const menuValues = [
 
 export const AccessTimeDropdownFilter: React.FC<unknown> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_filters, setFilters] = useFilters();
+  const [_filters, setFilters] = useURLQuery();
   const handleChange = (_event: React.SyntheticEvent, newValue: { value: string }[]) => {
     const values = newValue.map((option) => option.value);
     // @ts-expect-error TS2322: Type 'string[]' is not assignable to type 'string | undefined', works as expected
