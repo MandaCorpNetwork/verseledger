@@ -22,7 +22,7 @@ export const FilterListSelection: React.FC<FilterListSelectionProps> = ({
 
   const getFilterComponent = (filterName: string) => {
     switch (filterName) {
-      case 'Archytype':
+      case 'SubType':
         return <SubTypeFilter size="small" />;
       case 'Locations':
         return <LocationsFilter size="small" />;
@@ -35,7 +35,7 @@ export const FilterListSelection: React.FC<FilterListSelectionProps> = ({
 
   const getFilterCount = (filterName: string) => {
     switch (filterName) {
-      case 'Archytype':
+      case 'SubType':
         return filters.getAll(QueryNames.SubType).length;
       case 'Locations':
         return filters.getAll(QueryNames.Locations).length;
@@ -51,7 +51,7 @@ export const FilterListSelection: React.FC<FilterListSelectionProps> = ({
 
   const getFilterValues = (filterName: string) => {
     switch (filterName) {
-      case 'Archytype':
+      case 'SubType':
         return filters.getAll(QueryNames.SubType);
       case 'Locations':
         return filters.getAll(QueryNames.Locations);
