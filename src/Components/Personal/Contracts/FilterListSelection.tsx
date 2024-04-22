@@ -80,7 +80,7 @@ export const FilterListSelection: React.FC<FilterListSelectionProps> = ({
   };
 
   const filterValues = getFilterValues(filterName);
-  const isFiltersSet = filterValues.length > 1;
+  const isFiltersSet = (filterValues.length = 0);
 
   return (
     <Badge

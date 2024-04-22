@@ -1,13 +1,14 @@
 //ContractManagerApp.tsx
 import { ArrowBackIosNew, FilterAlt } from '@mui/icons-material';
 import { TabContext, TabList } from '@mui/lab';
-import { Box, Collapse, IconButton, Select, Tab, TextField } from '@mui/material';
+import { Badge, Box, Collapse, IconButton, Select, Tab, TextField } from '@mui/material';
 import React from 'react';
+
+import { QueryNames } from '@/Common/Filters/QueryNames';
+import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { ContractManager } from './ContractManager';
 import { ContractManagerFilterList } from './ContractManagerFiltersList';
-import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
-import { QueryNames } from '@/Common/Filters/QueryNames';
 
 export const ContractManagerApp: React.FC<unknown> = () => {
   const [searchToolsOpen, setSearchToolsOpen] = React.useState<boolean>(false);
@@ -28,6 +29,12 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     setAnchorEl(target);
     setFiltersListOpen(!filtersListOpen);
   };
+
+  const filterCount =
+    filters.getAll(QueryNames.SubType).length +
+    filters.getAll(QueryNames.Locations).length +
+    (filters.has(QueryNames.UECRangeMax) ? 1 : 0) +
+    (filters.has(QueryNames.UECRangeMin) ? 1 : 0);
 
   return (
     <Box
@@ -135,13 +142,19 @@ export const ContractManagerApp: React.FC<unknown> = () => {
                     flexGrow: 1,
                   }}
                 >
-                  <IconButton
-                    data-testid="ContractManager-ContractList-SearchTools__FiltersButton"
-                    onClick={toggleFilterList}
-                    sx={{ mr: 'auto' }}
+                  <Badge
+                    badgeContent={filterCount}
+                    color="error"
+                    variant="dot"
+                    overlap="circular"
                   >
-                    <FilterAlt />
-                  </IconButton>
+                    <IconButton
+                      data-testid="ContractManager-ContractList-SearchTools__FiltersButton"
+                      onClick={toggleFilterList}
+                    >
+                      <FilterAlt />
+                    </IconButton>
+                  </Badge>
                   <ContractManagerFilterList isOpen={filtersListOpen} anchor={anchorEl} />
                   <Select
                     data-testid="ContractManager-ContractList-SearchTools__SortBySelect"
