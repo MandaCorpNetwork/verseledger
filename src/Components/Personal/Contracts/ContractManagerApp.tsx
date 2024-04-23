@@ -9,12 +9,13 @@ import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { ContractManager } from './ContractManager';
 import { ContractManagerFilterList } from './ContractManagerFiltersList';
+import { SortBySelect } from '@/Common/Filters/SortBySelect';
 
 export const ContractManagerApp: React.FC<unknown> = () => {
   const [searchToolsOpen, setSearchToolsOpen] = React.useState<boolean>(false);
   const [filtersListOpen, setFiltersListOpen] = React.useState<boolean>(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-  const [filters, _setFilters, overwriteURLQuery] = useURLQuery();
+  const [filters, setFilters, overwriteURLQuery] = useURLQuery();
 
   const handleBrowserChange = (_event: React.SyntheticEvent, newValue: string) => {
     overwriteURLQuery({ [QueryNames.ContractManagerTab]: newValue });
@@ -25,7 +26,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   };
 
   const toggleFilterList = (event: React.MouseEvent<HTMLElement>) => {
-    const target = anchorEl ? null : event.currentTarget;
+    const target = anchorEl ? null : (event.currentTarget as HTMLButtonElement);
     setAnchorEl(target);
     setFiltersListOpen(!filtersListOpen);
   };
@@ -35,6 +36,29 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     filters.getAll(QueryNames.Locations).length +
     (filters.has(QueryNames.UECRangeMax) ? 1 : 0) +
     (filters.has(QueryNames.UECRangeMin) ? 1 : 0);
+
+  const sortOptions = [
+    {
+      label: 'Pay',
+      value: 'pay',
+    },
+    {
+      label: 'Title',
+      value: 'title',
+    },
+    {
+      label: 'Status',
+      value: 'status',
+    },
+    {
+      label: 'Location',
+      value: 'location',
+    },
+    {
+      label: 'Time Left',
+      value: 'timeleft',
+    },
+  ];
 
   return (
     <Box
@@ -156,9 +180,10 @@ export const ContractManagerApp: React.FC<unknown> = () => {
                     </IconButton>
                   </Badge>
                   <ContractManagerFilterList isOpen={filtersListOpen} anchor={anchorEl} />
-                  <Select
-                    data-testid="ContractManager-ContractList-SearchTools__SortBySelect"
+                  <SortBySelect
                     size="small"
+                    sortOptions={sortOptions}
+                    containerSize="small"
                   />
                   <TextField
                     data-testid="ContractManager-ContractList-SearchTools__SearchContractsField"

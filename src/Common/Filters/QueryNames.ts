@@ -1,5 +1,6 @@
 export enum QueryNames {
   SortBy = 'sort',
+  SortDirection = 'sortDir',
   SearchQuery = 'search',
   ContractManagerTab = 'cmTab',
   SubType = 'st',
