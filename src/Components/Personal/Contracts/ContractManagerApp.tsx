@@ -1,21 +1,22 @@
 //ContractManagerApp.tsx
 import { ArrowBackIosNew, FilterAlt } from '@mui/icons-material';
 import { TabContext, TabList } from '@mui/lab';
-import { Badge, Box, Collapse, IconButton, Select, Tab, TextField } from '@mui/material';
+import { Badge, Box, Collapse, IconButton, Tab } from '@mui/material';
 import React from 'react';
 
 import { QueryNames } from '@/Common/Filters/QueryNames';
+import { SearchBar } from '@/Common/Filters/SearchBar';
+import { SortBySelect } from '@/Common/Filters/SortBySelect';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { ContractManager } from './ContractManager';
 import { ContractManagerFilterList } from './ContractManagerFiltersList';
-import { SortBySelect } from '@/Common/Filters/SortBySelect';
 
 export const ContractManagerApp: React.FC<unknown> = () => {
   const [searchToolsOpen, setSearchToolsOpen] = React.useState<boolean>(false);
   const [filtersListOpen, setFiltersListOpen] = React.useState<boolean>(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-  const [filters, setFilters, overwriteURLQuery] = useURLQuery();
+  const [filters, , overwriteURLQuery] = useURLQuery();
 
   const handleBrowserChange = (_event: React.SyntheticEvent, newValue: string) => {
     overwriteURLQuery({ [QueryNames.ContractManagerTab]: newValue });
@@ -185,9 +186,10 @@ export const ContractManagerApp: React.FC<unknown> = () => {
                     sortOptions={sortOptions}
                     containerSize="small"
                   />
-                  <TextField
-                    data-testid="ContractManager-ContractList-SearchTools__SearchContractsField"
+                  <SearchBar
                     size="small"
+                    label="Search Contracts"
+                    placeholder="Title, Contractors, Ships..."
                   />
                 </Box>
               </Collapse>

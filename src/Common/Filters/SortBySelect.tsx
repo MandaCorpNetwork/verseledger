@@ -2,7 +2,6 @@ import { KeyboardDoubleArrowDown, KeyboardDoubleArrowUp } from '@mui/icons-mater
 import {
   FormControl,
   IconButton,
-  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
@@ -52,15 +51,13 @@ export const SortBySelect: React.FC<SortBySelectProps> = ({
 
   const SortDirectionButton: React.FC = () => {
     return (
-      <InputAdornment position="end">
-        <IconButton onClick={toggleSortDirection} size={size}>
-          {sortDirection === 'desc' ? (
-            <KeyboardDoubleArrowDown fontSize={size} />
-          ) : (
-            <KeyboardDoubleArrowUp fontSize={size} />
-          )}
-        </IconButton>
-      </InputAdornment>
+      <IconButton onClick={toggleSortDirection} size={size}>
+        {sortDirection === 'desc' ? (
+          <KeyboardDoubleArrowDown fontSize={size} />
+        ) : (
+          <KeyboardDoubleArrowUp fontSize={size} />
+        )}
+      </IconButton>
     );
   };
   return (
@@ -75,11 +72,9 @@ export const SortBySelect: React.FC<SortBySelectProps> = ({
         label="Sort By"
         onChange={handleSortChange}
         sx={{ minWidth: '100px' }}
-        inputProps={{
-          input: {
-            startAdornment: <SortDirectionButton />,
-          },
-        }}
+        startAdornment={
+          filters.has(QueryNames.SortBy) !== false && <SortDirectionButton />
+        }
       >
         <MenuItem value="">None</MenuItem>
         {sortOptions.map((option) => (
