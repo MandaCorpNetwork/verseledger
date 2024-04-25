@@ -7,6 +7,7 @@ import { QueryNames } from '@/Common/Filters/QueryNames';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { ContractManager } from './ContractManager';
+import { ContractManagerContractList } from './ContractManagerContractList';
 import { ContractManagerSearchTools } from './ContractManagerSearchTools';
 
 export const ContractManagerApp: React.FC<unknown> = () => {
@@ -30,7 +31,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
       }}
     >
       <Box
-        data-testid="ContractManager__ContractListContainer"
+        data-testid="ContractManager__ContractBrowserContainer"
         sx={{
           display: 'flex',
           height: '100%',
@@ -52,6 +53,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
               borderRadius: '10px',
               borderColor: 'secondary.main',
               alignSelf: 'center',
+              height: '10%',
             }}
           >
             <TabList
@@ -86,7 +88,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
             </TabList>
           </Box>
           <Box
-            data-testid="ContractManager__ContractListContainer"
+            data-testid="ContractManager__ContractListWrapper"
             sx={{
               display: 'flex',
               flexDirection: 'column',
@@ -94,10 +96,11 @@ export const ContractManagerApp: React.FC<unknown> = () => {
               borderBottom: '2px solid',
               borderRadius: '10px',
               borderColor: 'secondary.main',
-              flexGrow: 1,
+              height: '90%',
             }}
           >
             <ContractManagerSearchTools />
+            <ContractManagerContractList />
           </Box>
         </TabContext>
       </Box>
@@ -117,28 +120,3 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     </Box>
   );
 };
-
-// Placeholder Hardcoded Contract Data for styling search
-
-// const tempContractData = [
-//   {
-//     id: 1,
-//     title: 'Contract Title',
-//     pay: 10000,
-//   },
-//   {
-//     id: 2,
-//     title: 'Contract Title',
-//     pay: 10000,
-//   },
-//   {
-//     id: 3,
-//     title: 'Contract Title',
-//     pay: 10000,
-//   },
-//   {
-//     id: 4,
-//     title: 'Contract Title',
-//     pay: 10000,
-//   },
-// ];

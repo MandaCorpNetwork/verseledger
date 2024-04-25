@@ -22,7 +22,7 @@ import { stepConnectorClasses } from '@mui/material/StepConnector';
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
 
-import { ContractorsForm } from './ContractorsForm';
+import { ContractorsForm } from './StepperForms/ContractorsForm';
 import { SubTypeBriefingForm } from './StepperForms/ContractDetailsForm';
 //import { FleetForm } from './StepperForms/FleetForm';
 import { LocationsForm } from './StepperForms/LocationsForm';
