@@ -10,7 +10,7 @@ export const CardorTableViewToggle: React.FC<CardorTableViewToggleProps> = ({
   onViewChange,
 }) => {
   const [view, setView] = React.useState('ContractCardView');
-  const handleViewChange = (event: React.MouseEvent<HTMLElement>, view: string) => {
+  const handleViewChange = (_event: React.MouseEvent<HTMLElement>, view: string) => {
     if (view !== null) {
       setView(view);
       onViewChange(view);

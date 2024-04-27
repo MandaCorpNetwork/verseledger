@@ -5,13 +5,13 @@ import { Avatar, Box, Card, CardActionArea, Tooltip, Typography } from '@mui/mat
 import Chip, { ChipProps } from '@mui/material/Chip';
 import React from 'react';
 
-import type { IContract } from '@/../../verseledger-backend/src/interfaces/IContract';
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
 import TestProfile from '@/Assets/testprofile.png?url';
 import { CountdownTimer } from '@/Common/CountdownTimer';
 
 type ContractCardProps = {
-  contract: IContract;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  contract: any;
   onClick?: () => void;
   isSelected: boolean;
 };

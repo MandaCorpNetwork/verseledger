@@ -1,20 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { IContract } from '../../../../../verseledger-backend/src/interfaces/IContract';
 import { fetchContracts } from './contractThunks';
 
-const initialState: Array<IContract> = [];
 const contractsReducer = createSlice({
   name: 'contracts',
-  initialState,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  initialState: [] as any[],
   reducers: {
     noop() {
       return [];
     },
   },
   extraReducers(builder) {
-    builder.addCase(fetchContracts.fulfilled, (state, action) => {
-      return action.payload;
+    builder.addCase(fetchContracts.fulfilled, (_state, action) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return action.payload as any;
     });
   },
 });

@@ -38,7 +38,7 @@ const ActiveToolOverviewIcon: React.FC<ActiveToolOverviewIconProps> = ({
 
 export const ActiveToolsOverview: React.FC<unknown> = () => {
   // eslint-disable-next-line
-  const [badgeCounts, setBadgeCounts] = useState<BadgeCounts>({
+  const [badgeCounts, _setBadgeCounts] = useState<BadgeCounts>({
     contracts: 2,
     logistics: 5,
     mining: 3,

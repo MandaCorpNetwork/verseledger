@@ -26,9 +26,9 @@ const RatingSliderMarks = [
 export const EmployerRatingSliderFilter: React.FC<unknown> = () => {
   const [rating, setRating] = useState<number[]>([1, 5]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [filters, setFilters] = useFilters();
+  const [_filters, setFilters] = useFilters();
 
-  const handleSlide = (event: Event, newValue: number | number[]) => {
+  const handleSlide = (_event: Event, newValue: number | number[]) => {
     setRating(newValue as number[]);
     // @ts-expect-error TS2322: Type 'number[]' is not assignable to type 'string | undefined',
     setFilters('employerRating', newValue as number[]);

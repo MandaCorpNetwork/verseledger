@@ -5,11 +5,11 @@ type ContractorProps = {
   id: number;
   name: string;
   profilePicture: string;
-  isAccepted: boolean;
-  isRejected: boolean;
-  isDismissed: boolean;
-  role: string;
-  pay: string;
+  // isAccepted: boolean;
+  // isRejected: boolean;
+  // isDismissed: boolean;
+  // role: string;
+  // pay: string;
 };
 
 const Contractor: React.FC<ContractorProps> = ({ name, profilePicture }) => {
