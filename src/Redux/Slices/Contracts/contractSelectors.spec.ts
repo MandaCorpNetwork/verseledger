@@ -4,8 +4,8 @@ import { pickContract } from './contractSelectors';
 
 describe('contractSelectors.ts', () => {
   it('can pick a contract by id', () => {
-    const contracts = [
-      {
+    const contracts = {
+      1: {
         id: 1,
         title: '',
         owner_id: 0,
@@ -17,7 +17,7 @@ describe('contractSelectors.ts', () => {
         type: 'Logistics',
         subtype: 'Transport',
       },
-      {
+      2: {
         id: 2,
         title: '',
         owner_id: 0,
@@ -29,7 +29,8 @@ describe('contractSelectors.ts', () => {
         type: 'Logistics',
         subtype: 'Transport',
       },
-    ];
-    expect(pickContract({ contracts }, 2)).toEqual(contracts[1]);
+    };
+    expect(pickContract({ contracts }, 2)).toEqual(contracts[2]);
+    expect(pickContract({ contracts }, 1)).toEqual(contracts[1]);
   });
 });
