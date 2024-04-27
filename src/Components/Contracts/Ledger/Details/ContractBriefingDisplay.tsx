@@ -13,7 +13,9 @@ type ContractBriefingDisplayProps = {
 export const ContractBriefingDisplay: React.FC<ContractBriefingDisplayProps> = ({
   selectedId,
 }) => {
-  const pickedContract = useAppSelector((root) => pickContract(root, selectedId));
+  const pickedContract = useAppSelector((root) =>
+    pickContract(root, selectedId as number),
+  );
   useEffect(() => {
     console.log(`ContractBriefingDisplay: ${selectedId}`);
   }, [selectedId]);
