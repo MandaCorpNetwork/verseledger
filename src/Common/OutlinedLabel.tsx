@@ -17,7 +17,7 @@ export const OutlinedLabel: React.FC<OutlinedLabelProps> = ({
   startAdornment,
   maxWidth,
 }) => {
-  const output = `${startAdornment} ${value}`;
+  const output = startAdornment ? `${startAdornment} ${value}` : `${value}`;
   return (
     <FormControl size={size}>
       <InputLabel>{label}</InputLabel>
@@ -35,6 +35,7 @@ export const OutlinedLabel: React.FC<OutlinedLabelProps> = ({
               width: `${String(output).length}ch`,
               maxWidth: maxWidth,
               py: '.25em',
+              textAlign: 'center',
             },
           }}
         />

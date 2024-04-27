@@ -1,41 +1,71 @@
-import { Avatar, Box, Divider, Rating, Typography } from '@mui/material';
+import { Avatar, Box, ButtonBase, Divider, Rating, Typography } from '@mui/material';
 
-export const PlayerDisplay: React.FC<unknown> = () => {
+type PlayerDisplayProps = {
+  userId: number;
+};
+
+export const UserDisplay: React.FC<PlayerDisplayProps> = () => {
+  //const avatarPhoto = 123;
   return (
     <Box
-      data-id="PlayerDisplayContainer"
+      data-id="UserDisplayContainer"
       sx={{
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        height: '100%',
-        width: '100%',
+        alignItems: 'center',
       }}
     >
-      <Box
-        id="Player-Data"
+      <ButtonBase
+        data-testid="UserDisplay__PlayerDataButton"
         sx={{
           display: 'flex',
           flexDirection: 'row',
-          flexWrap: 'wrap',
           justifyContent: 'center',
           bgcolor: 'background.default',
+          py: '.5em',
+          px: '1em',
+          borderLeft: '2px solid',
+          borderRight: '2px solid',
+          borderRadius: '5px',
+          borderColor: 'secondary.dark',
+          transition: 'background-color 300ms',
+          '&:hover': {
+            borderColor: 'secondary.light',
+          },
+          '&:active': {
+            borderColor: 'secondary.main',
+          },
+          '& .MuiTouchRipple-child': {
+            backgroundColor: 'secondary.dark',
+          },
         }}
       >
         <Avatar
-          id="Profile-Picture"
-          src="https://images.unsplash.com/photo-1502685104226-ee32"
-          sx={{ ml: 'auto', bgcolor: 'primary.dark' }}
+          data-testid="UserDisplay-PlayerData__Avatar"
+          srcSet="https://images.unsplash.com/photo-1502685104226-ee32"
+          //alt={user.userName}
+          sx={{ bgcolor: 'primary.dark', width: 55, height: 55 }}
         />
-        <Rating
-          id="Rating"
-          name="Rating"
-          sx={{ ml: 'auto', mr: 'auto', mt: 'auto', mb: '5%' }}
-        />
-        <Typography id="UserName" sx={{ ml: 'auto', mr: 'auto' }}>
-          UserName
-        </Typography>
-      </Box>
+        <Box
+          data-testid="UserDisplay-PlayerData__InfoWrapper"
+          sx={{ display: 'flex', flexDirection: 'column', ml: '.5em' }}
+        >
+          <Rating
+            data-testid="UserDisplay-PlayerData__UserRating"
+            name="Rating"
+            value={3}
+            readOnly
+            sx={{ ml: 'auto', mr: 'auto', mt: 'auto', mb: '5%' }}
+          />
+          <Typography
+            data-testid="UserDisplay-PlayerData__UsernameText"
+            sx={{ ml: 'auto', mr: 'auto' }}
+          >
+            UserName
+          </Typography>
+        </Box>
+      </ButtonBase>
       <Divider
         variant="middle"
         color="secondary"

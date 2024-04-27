@@ -1,7 +1,7 @@
 import { AvatarGroup, Box, Button, Typography } from '@mui/material';
 import React from 'react';
 
-import { PlayerDisplay } from '@/Common/PlayerDisplay';
+import { UserDisplay } from '@/Common/PlayerDisplay';
 
 type BriefingViewerProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -35,7 +35,7 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
           bgcolor: 'background.default',
         }}
       >
-        <PlayerDisplay />
+        <UserDisplay />
       </Box>
       <Box
         id="Contract-Header-Box"

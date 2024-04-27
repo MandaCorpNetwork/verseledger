@@ -24,6 +24,7 @@ import { useNavigate } from 'react-router-dom';
 import { LocationSelection } from '@/Common/LocationSelection';
 
 import Station from '../Assets/media/Station.svg?url';
+import { FleetIcon } from './definitions/CustomIcons';
 
 export const VLAppBar: React.FC<unknown> = () => {
   const profilePopupState: PopupState = usePopupState({
@@ -70,6 +71,7 @@ export const VLAppBar: React.FC<unknown> = () => {
             {/*{VerseLogo()}*/}
             <img src={logoRandom()} alt="Verse Logo" />
           </IconButton>
+          <FleetIcon color="secondary" fontSize="large" />
           <Box sx={{ flexGrow: 1 }} />
           <Button sx={{ marginRight: '10%' }} onClick={handleClick}>
             <img src={Station} alt="Location-Select" />

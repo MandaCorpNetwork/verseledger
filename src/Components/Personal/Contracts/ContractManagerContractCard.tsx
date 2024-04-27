@@ -53,6 +53,9 @@ export const ContractManagerContractCard: React.FC<ContractManagerCardProps> = (
           backgroundColor: 'rgba(6,86,145,.4)',
           borderColor: 'secondary.light',
         },
+        '& .MuiTouchRipple-child': {
+          backgroundColor: 'secondary.dark',
+        },
       }}
       onClick={handleClick}
     >

@@ -2,16 +2,18 @@ import { Box } from '@mui/material';
 
 //import { IContract } from '@Backend/interfaces/IContract';
 import { ContractManagerContractCard } from './ContractManagerContractCard';
+import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
 
 type ContractManagerListProps = {
   //contracts: IContract[];
 };
 
-export const ContractManagerContractList: React.FC<ContractManagerListProps> = (
-  {
-    //contracts
-  },
-) => {
+export const ContractManagerContractList: React.FC<ContractManagerListProps> = () => {
+  // const dispatch = useAppDispatch();
+  // const contracts = useAppSelector((root) => selectContracts(root));
+  // React.useEffect(() => {
+  //   dispatch(fetchContracts());
+  // }, []);
   return (
     <Box
       data-testid="ContractManager__ContractListWrapper"

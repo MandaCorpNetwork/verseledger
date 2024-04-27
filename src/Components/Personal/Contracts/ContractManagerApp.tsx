@@ -6,7 +6,7 @@ import React from 'react';
 import { QueryNames } from '@/Common/Filters/QueryNames';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
-import { ContractManager } from './ContractManager';
+import { SelectedContractManager } from './SelectedContractManager';
 import { ContractManagerContractList } from './ContractManagerContractList';
 import { ContractManagerSearchTools } from './ContractManagerSearchTools';
 
@@ -109,13 +109,15 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         sx={{
           display: 'flex',
           height: '100%',
-          width: '50%',
-          border: '3px solid',
-          borderColor: 'primary.dark',
+          width: '65%',
+          borderTop: '3px solid',
+          borderBottom: '3px solid',
+          borderColor: 'secondary.main',
+          borderRadius: '10px',
           padding: '.5em',
         }}
       >
-        <ContractManager />
+        <SelectedContractManager />
       </Box>
     </Box>
   );
