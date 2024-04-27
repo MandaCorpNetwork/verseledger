@@ -1,20 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { fetchContracts } from './contractThunks';
-
 const contractsReducer = createSlice({
   name: 'contracts',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  initialState: [] as any[],
+  initialState: {} as Record<number, Contract>,
   reducers: {
     noop() {
-      return [];
+      return {};
+    },
+    insert(state, contract) {
+      return (state[contract.payload.id as number] = contract.payload);
     },
   },
   extraReducers(builder) {
     builder.addCase(fetchContracts.fulfilled, (_state, action) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return action.payload as any;
+      for (const contract of action.payload as any[]) {
+        _state[contract.id as number] = contract;
+      }
     });
   },
 });

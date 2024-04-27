@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 
 import { CardorTableViewToggle } from '@/Components/Contracts/Ledger/List/Card-TableViewToggle';
 import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
-import { selectContracts } from '@/Redux/Slices/Contracts/contractSelectors';
+import { selectContractsArray } from '@/Redux/Slices/Contracts/contractSelectors';
 import { fetchContracts } from '@/Redux/Slices/Contracts/contractThunks';
 
 import { ContractCardDisplay } from './CardView/ContractCardDisplay';
@@ -22,7 +22,7 @@ export const ContractsViewer: React.FC<ContractsViewerProps> = ({
   contractOnClose,
 }) => {
   const dispatch = useAppDispatch();
-  const contracts = useAppSelector((root) => selectContracts(root));
+  const contracts = useAppSelector((root) => selectContractsArray(root));
   useEffect(() => {
     dispatch(fetchContracts());
   }, []);
