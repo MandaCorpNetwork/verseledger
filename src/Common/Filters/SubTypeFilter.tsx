@@ -5,7 +5,7 @@ import React from 'react';
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
-import { QueryNames } from './QueryNames';
+import { QueryNames } from '../definitions/QueryNames';
 
 const menuValues = [
   { archetype: 'logistics', value: 'transport', label: 'Transport' },

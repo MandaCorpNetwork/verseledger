@@ -1,7 +1,7 @@
 // useFilters.tsx
 import { useSearchParams } from 'react-router-dom';
 
-import { QueryNames } from '@/Common/Filters/QueryNames';
+import { QueryNames } from '@/Common/definitions/QueryNames';
 
 export const useURLQuery = () => {
   const [searchParams, setSearchParams] = useSearchParams();

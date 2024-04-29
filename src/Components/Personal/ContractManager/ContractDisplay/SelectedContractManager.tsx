@@ -2,8 +2,8 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Button, Chip, Tab, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 
-import { SalvageIcon, SecurityIcon } from '@/Common/definitions/CustomIcons';
-import { QueryNames } from '@/Common/Filters/QueryNames';
+import { SalvageIcon, SecurityIcon } from '@/Common/Filters/CustomIcons';
+import { QueryNames } from '@/Common/definitions/QueryNames';
 import { LocationChip } from '@/Common/LocationChip';
 import { UserDisplay } from '@/Common/PlayerDisplay';
 import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/ContractorsManager';

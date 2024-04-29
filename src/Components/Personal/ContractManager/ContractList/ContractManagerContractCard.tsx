@@ -3,7 +3,7 @@ import React from 'react';
 
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
 import { CountdownTimer } from '@/Common/CountdownTimer';
-import { QueryNames } from '@/Common/Filters/QueryNames';
+import { QueryNames } from '@/Common/definitions/QueryNames';
 import { OutlinedLabel } from '@/Common/OutlinedLabel';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 

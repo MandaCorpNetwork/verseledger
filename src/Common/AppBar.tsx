@@ -24,7 +24,7 @@ import { useNavigate } from 'react-router-dom';
 import { LocationSelection } from '@/Common/LocationSelection';
 
 import Station from '../Assets/media/Station.svg?url';
-import { FleetIcon } from './definitions/CustomIcons';
+import { FleetIcon } from './Filters/CustomIcons';
 
 export const VLAppBar: React.FC<unknown> = () => {
   const profilePopupState: PopupState = usePopupState({

@@ -4,7 +4,7 @@ import React from 'react';
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
-import { QueryNames } from './QueryNames';
+import { QueryNames } from '../definitions/QueryNames';
 
 type LocationFilterProps = {
   size: 'small' | 'medium';

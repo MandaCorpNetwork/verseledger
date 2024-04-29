@@ -3,12 +3,12 @@ import { TabContext, TabList } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
 import React from 'react';
 
-import { QueryNames } from '@/Common/Filters/QueryNames';
+import { QueryNames } from '@/Common/definitions/QueryNames';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
+import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
 import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
 import { ContractManagerSearchTools } from './ContractList/ContractManagerSearchTools';
-import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
 
 export const ContractManagerApp: React.FC<unknown> = () => {
   const [filters, , overwriteURLQuery] = useURLQuery();
