@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 
 import { AppToolBar } from '@/Components/Personal/AppToolBar';
-import { ContractManagerApp } from '@/Components/Personal/Contracts/ContractManagerApp';
+import { ContractManagerApp } from '@/Components/Personal/ContractManager/ContractManagerApp';
 import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
 import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
 

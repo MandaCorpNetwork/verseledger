@@ -7,6 +7,7 @@ type OutlinedLabelProps = {
   value: string | number;
   startAdornment?: string;
   maxWidth?: string;
+  color?: string;
 };
 
 export const OutlinedLabel: React.FC<OutlinedLabelProps> = ({
@@ -16,6 +17,7 @@ export const OutlinedLabel: React.FC<OutlinedLabelProps> = ({
   value,
   startAdornment,
   maxWidth,
+  color,
 }) => {
   const output = startAdornment ? `${startAdornment} ${value}` : `${value}`;
   return (
@@ -36,6 +38,7 @@ export const OutlinedLabel: React.FC<OutlinedLabelProps> = ({
               maxWidth: maxWidth,
               py: '.25em',
               textAlign: 'center',
+              color: { color },
             },
           }}
         />

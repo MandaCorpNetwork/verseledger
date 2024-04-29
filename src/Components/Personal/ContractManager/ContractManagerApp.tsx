@@ -6,9 +6,9 @@ import React from 'react';
 import { QueryNames } from '@/Common/Filters/QueryNames';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
-import { SelectedContractManager } from './SelectedContractManager';
-import { ContractManagerContractList } from './ContractManagerContractList';
-import { ContractManagerSearchTools } from './ContractManagerSearchTools';
+import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
+import { ContractManagerSearchTools } from './ContractList/ContractManagerSearchTools';
+import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
 
 export const ContractManagerApp: React.FC<unknown> = () => {
   const [filters, , overwriteURLQuery] = useURLQuery();

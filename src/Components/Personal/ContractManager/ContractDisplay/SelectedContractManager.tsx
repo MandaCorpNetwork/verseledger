@@ -2,15 +2,14 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Button, Chip, Tab, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 
+import { SalvageIcon, SecurityIcon } from '@/Common/definitions/CustomIcons';
 import { QueryNames } from '@/Common/Filters/QueryNames';
+import { LocationChip } from '@/Common/LocationChip';
 import { UserDisplay } from '@/Common/PlayerDisplay';
-import { ContractLocationCard } from '@/Components/Personal/Contracts/ContractLocationCard';
-import { ContractorsManager } from '@/Components/Personal/Contracts/ContractorsManager';
+import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/ContractorsManager';
 import { useAppSelector } from '@/Redux/hooks';
 import { pickContract } from '@/Redux/Slices/Contracts/contractSelectors';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
-import { SalvageIcon, SecurityIcon } from '@/Common/definitions/CustomIcons';
-import { LocationChip } from '@/Common/LocationChip';
 
 type ContractDataFieldProps = {
   label: string;
@@ -454,7 +453,7 @@ export const SelectedContractManager: React.FC<unknown> = () => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            width: '45%',
+            width: '48%',
             height: '100%',
             ml: 'auto',
             mr: 'auto',
@@ -491,19 +490,7 @@ export const SelectedContractManager: React.FC<unknown> = () => {
                 <TabPanel
                   value="contractors"
                   sx={{
-                    overflow: 'auto',
                     height: '100%',
-                    '&::-webkit-scrollbar': {
-                      width: '5px',
-                    },
-                    '&::-webkit-scrollbar-track': {
-                      background: 'rgb(8, 29, 68)',
-                      borderRadius: '15px',
-                    },
-                    '&::-webkit-scrollbar-thumb': {
-                      borderRadius: '15px',
-                      background: 'rgb(121, 192, 244, .5)',
-                    },
                   }}
                 >
                   <ContractorsManager />

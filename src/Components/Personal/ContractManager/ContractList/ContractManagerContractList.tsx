@@ -1,8 +1,9 @@
 import { Box } from '@mui/material';
 
+import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
+
 //import { IContract } from '@Backend/interfaces/IContract';
 import { ContractManagerContractCard } from './ContractManagerContractCard';
-import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
 
 type ContractManagerListProps = {
   //contracts: IContract[];
