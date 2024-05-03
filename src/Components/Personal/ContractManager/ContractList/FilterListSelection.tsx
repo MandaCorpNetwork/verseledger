@@ -2,8 +2,8 @@ import { PlayArrow } from '@mui/icons-material';
 import { Badge, Box, Chip, Paper, Popper, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
+import { QueryNames } from '@/Common/Definitions/QueryNames';
 import { LocationsFilter } from '@/Common/Filters/LocationsFilter';
-import { QueryNames } from '@/Common/definitions/QueryNames';
 import { SubTypeFilter } from '@/Common/Filters/SubTypeFilter';
 import { UECRangeFilter } from '@/Common/Filters/UECRangeFilter';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';

@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
+import { QueryNames } from '../Definitions/QueryNames';
+
 const RatingSliderMarks = [
   { value: 1, label: <StarIcon sx={{ fontSize: '1.2em' }} /> },
   { value: 2 },
@@ -31,7 +33,7 @@ export const EmployerRatingSliderFilter: React.FC<unknown> = () => {
   const handleSlide = (_event: Event, newValue: number | number[]) => {
     setRating(newValue as number[]);
     // @ts-expect-error TS2322: Type 'number[]' is not assignable to type 'string | undefined',
-    setFilters('employerRating', newValue as number[]);
+    setFilters(QueryNames.EmployerRating, newValue as number[]);
   };
   //Current Slide Handler - needs updated to setSearchPerams
 

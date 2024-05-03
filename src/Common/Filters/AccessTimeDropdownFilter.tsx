@@ -4,6 +4,8 @@ import React from 'react';
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
+import { QueryNames } from '../Definitions/QueryNames';
+
 const menuValues = [
   { value: 'all', label: 'All' },
   { value: '10minutes', label: '10 Minutes' },
@@ -20,8 +22,7 @@ export const AccessTimeDropdownFilter: React.FC<unknown> = () => {
   const [_filters, setFilters] = useURLQuery();
   const handleChange = (_event: React.SyntheticEvent, newValue: { value: string }[]) => {
     const values = newValue.map((option) => option.value);
-    // @ts-expect-error TS2322: Type 'string[]' is not assignable to type 'string | undefined', works as expected
-    setFilters('accessTime', values);
+    setFilters(QueryNames.TimeRemaining, values);
   };
   //const accessTime = filters.get('accessTime');
 
@@ -29,6 +30,7 @@ export const AccessTimeDropdownFilter: React.FC<unknown> = () => {
     <Autocomplete
       multiple
       limitTags={1}
+      renderTags={() => null}
       options={menuValues}
       onChange={handleChange}
       renderInput={(params) => (
@@ -49,9 +51,6 @@ export const AccessTimeDropdownFilter: React.FC<unknown> = () => {
           )}
         </MenuItem>
       )}
-      sx={{
-        width: '20%',
-      }}
     />
   );
 };

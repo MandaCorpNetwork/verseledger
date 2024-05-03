@@ -3,7 +3,7 @@ import { ClearOutlined } from '@mui/icons-material';
 import { IconButton, Paper, Popper, Tooltip } from '@mui/material';
 import React from 'react';
 
-import { QueryNames } from '@/Common/definitions/QueryNames';
+import { QueryNames } from '@/Common/Definitions/QueryNames';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { FilterListSelection } from './FilterListSelection';

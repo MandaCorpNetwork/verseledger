@@ -1,7 +1,7 @@
 import { Box, InputAdornment, TextField } from '@mui/material';
 import React from 'react';
 
-import { QueryNames } from '@/Common/definitions/QueryNames';
+import { QueryNames } from '@/Common/Definitions/QueryNames';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 type UECRangeFilterProps = {

@@ -8,4 +8,6 @@ export enum QueryNames {
   UECRangeMin = 'minUEC',
   UECRangeMax = 'maxUEC',
   SelectedContract = 'contractID',
+  EmployerRating = 'rating',
+  TimeRemaining = 'time',
 }

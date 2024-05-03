@@ -1,8 +1,8 @@
 import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
-import { ContractLedgerLoopButton } from '@/Common/Filters/ContractLedgerLoopButton';
 import { CreateContract } from '@/Components/Contracts/Create/CreateContract';
+import { ContractLedgerLoopButton } from '@/Components/Contracts/Ledger/ContractLedgerLoopButton';
 
 import FleetLoop from '../../../../Assets/media/ContractLedger/FleetLoop.webm?url';
 import LogisticsLoop from '../../../../Assets/media/ContractLedger/LogiLoop.webm?url';
@@ -12,12 +12,12 @@ import ProxyLoop from '../../../../Assets/media/ContractLedger/ProxyLoop.webm?ur
 import RRRLoop from '../../../../Assets/media/ContractLedger/RRRLoop.webm?url';
 import SalvageLoop from '../../../../Assets/media/ContractLedger/SalvLoop.webm?url';
 import SecurityLoop from '../../../../Assets/media/ContractLedger/SecLoop.webm?url';
-import { ContractTableTools } from '../../../../Common/Filters/ContractTableTools';
 import { ContractLedgerQuickNav } from '../../../../Components/Contracts/Ledger/ContractLedgerQuickNav';
 import { ContractBriefingDisplay } from '../../../../Components/Contracts/Ledger/Details/ContractBriefingDisplay';
 import { ContractsViewer } from '../../../../Components/Contracts/Ledger/List/ContractsViewer';
+import { ContractTableTools } from '../../../../Components/Contracts/Ledger/List/ContractTableTools';
 
-export const ContractLedgerTablePage: React.FC<unknown> = () => {
+export const ContractLedgerPage: React.FC<unknown> = () => {
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const handleContractPick = (id: number | null) => {
     setSelectedId(id);
@@ -119,7 +119,7 @@ export const ContractLedgerTablePage: React.FC<unknown> = () => {
             marginLeft: '5%',
           }}
         >
-          <ContractTableTools title={''} titleSize={'h4'} />
+          <ContractTableTools />
           <ContractsViewer
             selectedId={selectedId}
             selectedIdSetter={handleContractPick}

@@ -1,11 +1,10 @@
 // SubTypeFilter.tsx
+import { QueryNames } from '@Common/Definitions/QueryNames';
 import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
-
-import { QueryNames } from '../definitions/QueryNames';
 
 const menuValues = [
   { archetype: 'logistics', value: 'transport', label: 'Transport' },
