@@ -1,5 +1,5 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Button, Chip, Tab, TextField, Typography } from '@mui/material';
+import { Box, Button, Chip, IconButton, Tab, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 
 import { SalvageIcon, SecurityIcon } from '@/Common/CustomIcons';
@@ -10,6 +10,8 @@ import { ContractorsManager } from '@/Components/Personal/ContractManager/Contra
 import { useAppSelector } from '@/Redux/hooks';
 import { pickContract } from '@/Redux/Slices/Contracts/contractSelectors';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
+import { OpenInFull, UnfoldLess } from '@mui/icons-material';
+import React from 'react';
 
 type ContractDataFieldProps = {
   label: string;
@@ -35,6 +37,26 @@ const ContractDataField: React.FC<ContractDataFieldProps> = ({ label, value }) =
     </>
   );
 };
+
+// const ExpandButton: React.FC<unknown> = () => {
+//   const [isExpanded, setIsExpanded] = React.useState(false);
+
+//   const toggleExpand = () => {
+//     setIsExpanded(!isExpanded);
+//   };
+
+//   return (
+//     <IconButton
+//       onClick={toggleExpand}
+//       size="small"
+//       sx={{
+//         backgroundColor: 'rgba(14,49,141,.25)',
+//       }}
+//     >
+//       {isExpanded ? <OpenInFull fontSize="small" /> : <UnfoldLess fontSize="small" />}
+//     </IconButton>
+//   );
+// };
 
 export const SelectedContractManager: React.FC<unknown> = () => {
   //const [filters] = useURLQuery();

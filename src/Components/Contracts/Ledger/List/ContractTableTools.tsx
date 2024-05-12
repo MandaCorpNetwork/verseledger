@@ -1,12 +1,5 @@
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import {
-  Badge,
-  Box,
-  Button,
-  Collapse,
-  SelectChangeEvent,
-  Typography,
-} from '@mui/material';
+import { Badge, Box, Button, Collapse, Typography } from '@mui/material';
 import React, { useRef, useState } from 'react';
 
 import { QueryNames } from '@/Common/Definitions/QueryNames';
