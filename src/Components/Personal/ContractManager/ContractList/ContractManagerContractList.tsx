@@ -50,11 +50,11 @@ export const ContractManagerContractList: React.FC<ContractManagerListProps> = (
 };
 
 export type TempContractProps = {
-  id: number;
+  id: string;
   title: string;
   pay: number;
   subType: string;
-  ownerID: number;
+  ownerid: string;
   bidEnd: Date;
   ownerName: string;
 };

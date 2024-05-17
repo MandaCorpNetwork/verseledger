@@ -19,7 +19,7 @@ import { ContractTableTools } from '../../../../Components/Contracts/Ledger/List
 
 export const ContractLedgerPage: React.FC<unknown> = () => {
   const [selectedId, setSelectedId] = useState<number | null>(null);
-  const handleContractPick = (id: number | null) => {
+  const handleContractPick = (id: string | null) => {
     setSelectedId(id);
   };
   useEffect(() => {

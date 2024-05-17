@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 type ContractRowProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   contracts: any[];
-  onPick: (id: number | null) => void;
+  onPick: (id: string | null) => void;
 };
 
 interface Column {

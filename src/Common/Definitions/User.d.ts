@@ -1,5 +1,5 @@
 interface User extends ITimestamped {
-  id: number;
+  id: string;
   rsi_handle: string | null;
   profile: string | null;
 }

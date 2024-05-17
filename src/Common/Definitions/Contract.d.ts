@@ -1,7 +1,7 @@
 interface Contract extends ITimestamped {
-  id: number;
+  id: string;
   title: string;
-  owner_id: number;
+  owner_id: string;
   location: string;
   bidEnd: Date | null;
   pay: number;

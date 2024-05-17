@@ -1,6 +1,5 @@
 type User = {
-  id: number;
+  id: string;
   handle: string;
   pfp: string;
-  rating: number;
 };

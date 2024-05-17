@@ -1,4 +1,4 @@
-type ContractorCounter = ContractorBid & {
+type ContractorCounter = ContractBid & {
   counterStartTime: Date;
   counterEndTime: Date;
   counterLocations: Array<unknown>;

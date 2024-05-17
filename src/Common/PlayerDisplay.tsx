@@ -1,7 +1,7 @@
 import { Avatar, Box, ButtonBase, Divider, Rating, Typography } from '@mui/material';
 
 type PlayerDisplayProps = {
-  userId: number;
+  userid: string;
 };
 
 export const UserDisplay: React.FC<PlayerDisplayProps> = () => {

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { OutlinedLabel } from '@/Common/OutlinedLabel';
 
 type ContractorProps = {
-  id: number;
+  id: string;
   userName: string;
   profilePicture: string;
   pay: string;

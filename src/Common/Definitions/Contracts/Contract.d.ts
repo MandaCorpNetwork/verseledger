@@ -1,20 +1,21 @@
-type ContractModel = {
-  id: number;
-  owner: number; //ReadOnly
+type IContract = {
+  id: string;
+  owner_id: User['id']; //ReadOnly
   title: string;
   subType: string;
   briefing: string;
-  bidTime: Date;
-  startTime: Date;
-  endTime: Date;
+  bidDate: Date;
+  startDate: Date | null;
+  endDate: Date | null;
   isEmergency: boolean;
   locations: Array<unknown>;
   ratingLimit: number;
-  contractorLimit: number;
+  contractorLimit: number | null;
   payStructure: string;
   isBargaining: boolean;
   isBonusPay: boolean;
   defaultPay: number;
+  status: string; //TODO: Update
   createdAt: Date;
   updatedAt: Date;
 };

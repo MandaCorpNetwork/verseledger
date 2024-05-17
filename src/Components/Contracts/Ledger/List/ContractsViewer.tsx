@@ -11,8 +11,8 @@ import { ContractCardDisplay } from './CardView/ContractCardDisplay';
 import { ContractTableView } from './TableView/ContractTableView';
 
 type ContractsViewerProps = {
-  selectedId: number | null;
-  selectedIdSetter: (id: number | null) => void;
+  selectedid: string | null;
+  selectedIdSetter: (id: string | null) => void;
   contractOnClose: () => void;
 };
 

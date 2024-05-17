@@ -1,5 +1,5 @@
 type Location = {
-  id: number;
+  id: string;
   star: string;
   planet: string;
   moon: string;
