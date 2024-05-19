@@ -2,37 +2,35 @@ import axios from 'axios';
 
 import { isDev } from '@/Helpers/isDev';
 
-import AuthService from './AuthService';
-
 class NetworkService {
-  public async HEAD<R>(url: string) {
+  public async HEAD<R>(url: string, headers?: Record<string, string>) {
     const isLocal = this.isLocalUrl(url);
     return axios.head<R>(isLocal ? this.resolveApiUri(url) : url, {
-      headers: isLocal ? AuthService.authHeaders() : {},
+      headers,
     });
   }
-  public async GET<R>(url: string) {
+  public async GET<R>(url: string, headers?: Record<string, string>) {
     const isLocal = this.isLocalUrl(url);
     return axios.get<R>(isLocal ? this.resolveApiUri(url) : url, {
-      headers: isLocal ? AuthService.authHeaders() : {},
+      headers,
     });
   }
-  public async PUT<R, T>(url: string, body: T) {
+  public async PUT<R, T>(url: string, body: T, headers?: Record<string, string>) {
     const isLocal = this.isLocalUrl(url);
     return axios.put<R>(isLocal ? this.resolveApiUri(url) : url, body, {
-      headers: isLocal ? AuthService.authHeaders() : {},
+      headers,
     });
   }
-  public async POST<R, T>(url: string, body: T) {
+  public async POST<R, T>(url: string, body: T, headers?: Record<string, string>) {
     const isLocal = this.isLocalUrl(url);
     return axios.post<R>(isLocal ? this.resolveApiUri(url) : url, body, {
-      headers: isLocal ? AuthService.authHeaders() : {},
+      headers,
     });
   }
-  public async DELETE<R>(url: string) {
+  public async DELETE<R>(url: string, headers?: Record<string, string>) {
     const isLocal = this.isLocalUrl(url);
     return axios.delete<R>(isLocal ? this.resolveApiUri(url) : url, {
-      headers: isLocal ? AuthService.authHeaders() : {},
+      headers,
     });
   }
   public isLocalUrl(url: string) {

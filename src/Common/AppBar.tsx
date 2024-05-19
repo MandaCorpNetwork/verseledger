@@ -22,11 +22,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { LocationSelection } from '@/Common/LocationSelection';
+import { useAppSelector } from '@/Redux/hooks';
+import { selectCurrentUser, selectIsLoggedIn } from '@/Redux/Slices/Auth/authSelectors';
 
 import Station from '../Assets/media/Station.svg?url';
 import { FleetIcon } from './CustomIcons';
 
 export const VLAppBar: React.FC<unknown> = () => {
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const currentUser = useAppSelector(selectCurrentUser);
   const profilePopupState: PopupState = usePopupState({
     variant: 'popover',
     popupId: 'profileNav',
@@ -94,30 +98,43 @@ export const VLAppBar: React.FC<unknown> = () => {
             </Popover>
           </Button>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new messages" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 23 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={23} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-haspopup="true"
-              color="inherit"
-              {...bindTrigger(profilePopupState)}
-            >
-              <AccountCircleIcon />
-            </IconButton>
+            {isLoggedIn ? (
+              <>
+                <IconButton size="large" aria-label="show 4 new messages" color="inherit">
+                  <Badge badgeContent={4} color="error">
+                    <MailIcon />
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  size="large"
+                  aria-label="show 23 new notifications"
+                  color="inherit"
+                >
+                  <Badge badgeContent={23} color="error">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-haspopup="true"
+                  color="inherit"
+                  {...bindTrigger(profilePopupState)}
+                >
+                  <AccountCircleIcon />
+                </IconButton>
+              </>
+            ) : (
+              <>
+                <Button
+                  href="https://discord.com/oauth2/authorize?client_id=1160393986440179823&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth%2Fdiscord%2Fcallback&scope=identify
+"
+                >
+                  Login
+                </Button>
+              </>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
