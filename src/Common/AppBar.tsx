@@ -3,6 +3,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import {
   AppBar,
+  Avatar,
   Badge,
   Button,
   IconButton,
@@ -18,19 +19,31 @@ import {
   PopupState,
   usePopupState,
 } from 'material-ui-popup-state/hooks';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { LocationSelection } from '@/Common/LocationSelection';
-import { useAppSelector } from '@/Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
+import { fetchCurrentUser } from '@/Redux/Slices/Auth/Actions/fetchCurrentUser';
 import { selectCurrentUser, selectIsLoggedIn } from '@/Redux/Slices/Auth/authSelectors';
+import { AuthUtil } from '@/Utils/AuthUtil';
+import { URLUtil } from '@/Utils/URLUtil';
 
 import Station from '../Assets/media/Station.svg?url';
-import { FleetIcon } from './CustomIcons';
 
 export const VLAppBar: React.FC<unknown> = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const currentUser = useAppSelector(selectCurrentUser);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (isLoggedIn) return;
+    const accessToken = AuthUtil.getAccessToken();
+    if (AuthUtil.isValidToken(accessToken)) {
+      dispatch(fetchCurrentUser());
+    }
+  }, [isLoggedIn, dispatch]);
   const profilePopupState: PopupState = usePopupState({
     variant: 'popover',
     popupId: 'profileNav',
@@ -75,7 +88,6 @@ export const VLAppBar: React.FC<unknown> = () => {
             {/*{VerseLogo()}*/}
             <img src={logoRandom()} alt="Verse Logo" />
           </IconButton>
-          <FleetIcon color="secondary" fontSize="large" />
           <Box sx={{ flexGrow: 1 }} />
           <Button sx={{ marginRight: '10%' }} onClick={handleClick}>
             <img src={Station} alt="Location-Select" />
@@ -122,14 +134,18 @@ export const VLAppBar: React.FC<unknown> = () => {
                   color="inherit"
                   {...bindTrigger(profilePopupState)}
                 >
-                  <AccountCircleIcon />
+                  <Avatar src={currentUser?.pfp}></Avatar>
                 </IconButton>
               </>
             ) : (
               <>
                 <Button
-                  href="https://discord.com/oauth2/authorize?client_id=1160393986440179823&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth%2Fdiscord%2Fcallback&scope=identify
-"
+                  onClick={() => {
+                    const loginURL = `https://discord.com/oauth2/authorize?client_id=1160393986440179823&response_type=code&redirect_uri=${encodeURIComponent(URLUtil.frontendHost)}%2Foauth%2Fdiscord%2Fcallback&scope=identify`;
+                    localStorage.setItem('returnPath', window.location.pathname);
+                    window.location = loginURL as unknown as Location;
+                  }}
+                  color="secondary"
                 >
                   Login
                 </Button>

@@ -1,6 +1,6 @@
 import { Outlet, RouteObject } from 'react-router-dom';
 
-import { DiscordLoginUtility } from '@/Utils/discordLogin';
+import { DiscordLoginUtility } from '@/Utils/discordLoginUtility';
 
 import { VLAppBar } from '../Common/AppBar';
 import ErrorPage from './ErrorPage';
