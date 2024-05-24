@@ -1,4 +1,6 @@
-export const VerseLogo = () => {
+import React from 'react';
+
+const VerseLogo = () => {
   /*const fetchLogo = (fileName, i) => {
     for (let i = 0; i<10; i++) {
       fileName.push(`verselogo-${i}.png`)
@@ -8,7 +10,7 @@ export const VerseLogo = () => {
 
   function logoRandom() {
     const i = Math.floor(Math.random() * 10);
-    return `../Assets/VerseLogos/verselogo-${i}.png`;
+    return `../Assets/media/VerseLogos/verselogo-${i}.png`;
   }
 
   return (
@@ -16,3 +18,5 @@ export const VerseLogo = () => {
     /*<img src={fetchLogo} alt="Verse Logo" />*/
   );
 };
+
+export default React.memo(VerseLogo);

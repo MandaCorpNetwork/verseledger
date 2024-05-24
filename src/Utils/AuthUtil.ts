@@ -1,4 +1,5 @@
 import { jwtDecode } from 'jwt-decode';
+
 import { Logger } from './Logger';
 
 type JwtPayload = {

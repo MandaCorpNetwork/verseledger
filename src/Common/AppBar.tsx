@@ -1,4 +1,3 @@
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import {
@@ -30,6 +29,7 @@ import { AuthUtil } from '@/Utils/AuthUtil';
 import { URLUtil } from '@/Utils/URLUtil';
 
 import Station from '../Assets/media/Station.svg?url';
+import VerseLogo from './VerseLogo';
 
 export const VLAppBar: React.FC<unknown> = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
@@ -71,10 +71,6 @@ export const VLAppBar: React.FC<unknown> = () => {
     </Menu>
   );
 
-  function logoRandom() {
-    const i = Math.floor(Math.random() * 11);
-    return `../Assets/media/VerseLogos/verselogo-${i}.png`;
-  }
   const navigate = useNavigate();
   function handleLogoClick() {
     navigate('/');
@@ -85,8 +81,7 @@ export const VLAppBar: React.FC<unknown> = () => {
       <AppBar position="static" sx={{ bgcolor: 'primary.dark' }}>
         <Toolbar>
           <IconButton component="div" sx={{}} onClick={handleLogoClick}>
-            {/*{VerseLogo()}*/}
-            <img src={logoRandom()} alt="Verse Logo" />
+            <VerseLogo />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
           <Button sx={{ marginRight: '10%' }} onClick={handleClick}>
