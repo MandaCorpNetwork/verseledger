@@ -32,7 +32,7 @@ import { URLUtil } from '@/Utils/URLUtil';
 
 import Station from '../Assets/media/Station.svg?url';
 import { PlayerCard } from './PlayerCard';
-import { UserSettings } from './Settings';
+import { UserSettings } from './UserSettings';
 import VerseLogo from './VerseLogo';
 
 export const VLAppBar: React.FC<unknown> = () => {
