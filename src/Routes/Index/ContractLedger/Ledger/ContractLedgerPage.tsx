@@ -117,6 +117,10 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
             flexDirection: 'column',
             width: '50%',
             marginLeft: '5%',
+            borderTop: '3px solid',
+            borderBottom: '3px solid',
+            borderRadius: '10px',
+            borderColor: 'secondary.main',
           }}
         >
           <ContractTableTools />

@@ -59,8 +59,6 @@ export const ContractTableTools: React.FC<unknown> = () => {
       ref={toolsRef}
       sx={{
         display: 'flex',
-        border: '3px ridge ',
-        borderColor: 'text.disabled',
         height: '4.5em',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -73,9 +71,6 @@ export const ContractTableTools: React.FC<unknown> = () => {
           variant="outlined"
           onClick={handleClick}
           startIcon={<FilterAltIcon />}
-          sx={{
-            marginLeft: '3em',
-          }}
         >
           Filter
         </Button>
@@ -115,7 +110,6 @@ export const ContractTableTools: React.FC<unknown> = () => {
           <CLFilterDropdown filter="Pay Range" label="Contract Pay Range" />
         </Box>
       </Collapse>
-      <Typography></Typography>
       <Box
         id="Contract-Table-Search-Sort-Box"
         sx={{ display: 'flex', flexDirection: 'row', marginRight: '1em' }}

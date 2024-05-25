@@ -31,8 +31,6 @@ export const ContractsViewer: React.FC<ContractsViewerProps> = ({
     <Box
       id="Contract-Viewer-Box"
       sx={{
-        border: '3px ridge ',
-        borderColor: 'text.disabled',
         height: '70vh',
         marginTop: '1em',
         display: 'flex',
