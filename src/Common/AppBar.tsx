@@ -1,3 +1,4 @@
+import { Feedback } from '@mui/icons-material';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import {
@@ -29,11 +30,17 @@ import { AuthUtil } from '@/Utils/AuthUtil';
 import { URLUtil } from '@/Utils/URLUtil';
 
 import Station from '../Assets/media/Station.svg?url';
+import { PlayerCard } from './PlayerCard';
+import { UserSettings } from './Settings';
 import VerseLogo from './VerseLogo';
+import { FeedbackDialog } from './FeedbackDialog';
 
 export const VLAppBar: React.FC<unknown> = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const currentUser = useAppSelector(selectCurrentUser);
+  const [playerCardOpen, setPlayerCardOpen] = React.useState(false);
+  const [userSettingsOpen, setUserSettingsOpen] = React.useState(false);
+  const [feedbackOpen, setFeedbackOpen] = React.useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -44,11 +51,38 @@ export const VLAppBar: React.FC<unknown> = () => {
       dispatch(fetchCurrentUser());
     }
   }, [isLoggedIn, dispatch]);
+
   const profilePopupState: PopupState = usePopupState({
     variant: 'popover',
     popupId: 'profileNav',
   });
   //const menuId = 'primary-account-menu';
+
+  const handlePlayerCardOpen = () => {
+    profilePopupState.close;
+    setPlayerCardOpen(true);
+  };
+
+  const handlePlayerCardClose = () => {
+    setPlayerCardOpen(false);
+  };
+
+  const handleUserSettingsOpen = () => {
+    profilePopupState.close;
+    setUserSettingsOpen(true);
+  };
+
+  const handleUserSettingsClose = () => {
+    setUserSettingsOpen(false);
+  };
+
+  const handleFeedbackOpen = () => {
+    setFeedbackOpen(true);
+  };
+
+  const handleFeedbackClose = () => {
+    setFeedbackOpen(false);
+  };
 
   const [anchorE1, setAnchorE1] = useState<HTMLElement | null>(null);
 
@@ -62,11 +96,14 @@ export const VLAppBar: React.FC<unknown> = () => {
 
   const renderMenu = (
     <Menu {...bindMenu(profilePopupState)}>
-      <MenuItem onClick={profilePopupState.close}>
-        <Typography color={'black'}>My Account</Typography>
+      <MenuItem onClick={handlePlayerCardOpen}>
+        <Typography>Player Card</Typography>
+      </MenuItem>
+      <MenuItem onClick={handleUserSettingsOpen}>
+        <Typography>Settings</Typography>
       </MenuItem>
       <MenuItem onClick={profilePopupState.close}>
-        <Typography color={'black'}>Logout</Typography>
+        <Typography>Logout</Typography>
       </MenuItem>
     </Menu>
   );
@@ -107,6 +144,9 @@ export const VLAppBar: React.FC<unknown> = () => {
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             {isLoggedIn ? (
               <>
+                <IconButton size="large" color="inherit" onClick={handleFeedbackOpen}>
+                  <Feedback />
+                </IconButton>
                 <IconButton size="large" aria-label="show 4 new messages" color="inherit">
                   <Badge badgeContent={4} color="error">
                     <MailIcon />
@@ -150,6 +190,9 @@ export const VLAppBar: React.FC<unknown> = () => {
         </Toolbar>
       </AppBar>
       {renderMenu}
+      <PlayerCard open={playerCardOpen} onClose={handlePlayerCardClose} />
+      <UserSettings open={userSettingsOpen} onClose={handleUserSettingsClose} />
+      <FeedbackDialog open={feedbackOpen} onClose={handleFeedbackClose} />
     </Box>
   );
 };

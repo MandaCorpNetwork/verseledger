@@ -8,9 +8,10 @@ import JobsLoop from '@/Assets/media/MenuPage/JobsLoop.webm?url';
 import MarketLoop from '@/Assets/media/MenuPage/MarketLoop.webm?url';
 import OrgLoop from '@/Assets/media/MenuPage/OrgLoop.webm?url';
 import VerseNews from '@/Assets/media/MenuPage/VerseNews.webm?url';
+import { Discord, Patreon, Paypal } from '@/Common/CustomIcons';
 
 import { HomeNavButton } from '../../../Components/Home/HomeNavButton';
-import { Discord, Patreon, Paypal } from '@/Common/CustomIcons';
+import { PlayerCard } from '@/Common/PlayerCard';
 
 export const Home: React.FC<unknown> = () => {
   return (
@@ -59,6 +60,7 @@ export const Home: React.FC<unknown> = () => {
             <Discord fontSize="large" />
           </IconButton>
         </Box>
+        <PlayerCard />
       </Box>
     </Box>
   );
