@@ -1,4 +1,5 @@
 import '@mui/material/Divider';
+import '@mui/material/Button';
 
 import { createTheme } from '@mui/material/styles';
 
@@ -9,7 +10,50 @@ declare module '@mui/material/Divider' {
   }
 }
 
+declare module '@mui/material/Button' {
+  interface ButtonPropsVariantOverrides {
+    popupButton: true;
+  }
+}
+
 export const verseOSTheme = createTheme({
+  palette: {
+    background: {
+      default: 'rgb(0, 1, 19)',
+      //default: 'white', //Theme Test Switch
+    },
+    primary: {
+      main: 'rgb(14, 49, 141)',
+      dark: 'rgb(8, 29, 68)',
+      light: 'rgb(33, 150, 243)',
+    },
+    secondary: {
+      main: 'rgb(24, 252, 252)',
+      dark: 'rgb(6, 86, 145)',
+      light: 'rgb(121, 192, 244)',
+    },
+    text: {
+      primary: 'rgb(211, 250, 254)',
+      secondary: 'rgb(33, 150, 243)',
+      disabled: 'rgb(0, 30, 100)',
+    },
+    info: {
+      main: 'rgb(255, 141, 15)',
+    },
+    success: {
+      main: 'rgb(8, 201, 11)',
+    },
+    warning: {
+      main: 'rgb(255, 141, 15)',
+    },
+    error: {
+      main: 'rgb(255, 0, 8)',
+    },
+    action: {
+      disabled: 'rgb(0, 56, 180)',
+      disabledBackground: 'rgb(0, 30, 100)',
+    },
+  },
   components: {
     MuiInputBase: {
       styleOverrides: {
@@ -33,13 +77,23 @@ export const verseOSTheme = createTheme({
       },
     },
     MuiButton: {
-      styleOverrides: {
-        root: {
-          '&.Mui-disabled': {
-            color: 'rgb(8, 29, 68)',
+      variants: [
+        {
+          props: { variant: 'popupButton' },
+          style: {
+            color: 'rgb(24,252,252)',
+            borderLeft: '3px solid',
+            borderRight: '3px solid',
+            borderColor: 'rgb(24,252,252)',
+            borderRadius: '5px',
+            backgroundColor: 'rgb(14,49,141)',
+            '&.Mui-disabled': {
+              borderColor: 'rgb(6,86,145)',
+              backgroundColor: 'rgb(0,30,100)',
+            },
           },
         },
-      },
+      ],
     },
     MuiIconButton: {
       styleOverrides: {
@@ -234,44 +288,6 @@ export const verseOSTheme = createTheme({
           backgroundColor: 'rgb(6, 86, 145)',
         },
       },
-    },
-  },
-
-  palette: {
-    background: {
-      default: 'rgb(0, 1, 19)',
-      //default: 'white', //Theme Test Switch
-    },
-    primary: {
-      main: 'rgb(14, 49, 141)',
-      dark: 'rgb(8, 29, 68)',
-      light: 'rgb(33, 150, 243)',
-    },
-    secondary: {
-      main: 'rgb(24, 252, 252)',
-      dark: 'rgb(6, 86, 145)',
-      light: 'rgb(121, 192, 244)',
-    },
-    text: {
-      primary: 'rgb(211, 250, 254)',
-      secondary: 'rgb(33, 150, 243)',
-      disabled: 'rgb(0, 30, 100)',
-    },
-    info: {
-      main: 'rgb(255, 141, 15)',
-    },
-    success: {
-      main: 'rgb(8, 201, 11)',
-    },
-    warning: {
-      main: 'rgb(255, 141, 15)',
-    },
-    error: {
-      main: 'rgb(255, 0, 8)',
-    },
-    action: {
-      disabled: 'rgb(0, 30, 100)',
-      disabledBackground: 'rgb(0, 30, 100)',
     },
   },
 });

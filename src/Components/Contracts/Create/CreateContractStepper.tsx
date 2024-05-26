@@ -259,16 +259,12 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
         </Button>
         <Button
           data-testid="CreateContractForm__Back-Button"
-          variant="contained"
+          variant="popupButton"
           onClick={handleBack}
           startIcon={<ArrowBackIos />}
           disabled={activeStep === 0}
           sx={{
             mr: '1em',
-            borderLeft: '3px solid',
-            borderRight: '3px solid',
-            borderColor: 'secondary.main',
-            borderRadius: '5px',
           }}
         >
           Back
@@ -276,15 +272,9 @@ export const CreateContractStepper: React.FC<CreateContractStepperProps> = ({
         {!isLastStep ? (
           <Button
             data-testid="CreateContractForm__Next-Button"
-            variant="contained"
+            variant="popupButton"
             onClick={handleNext}
             endIcon={<ArrowForwardIos />}
-            sx={{
-              borderLeft: '3px solid',
-              borderRight: '3px solid',
-              borderColor: 'secondary.main',
-              borderRadius: '5px',
-            }}
           >
             Next
           </Button>
