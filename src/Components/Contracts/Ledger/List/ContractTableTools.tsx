@@ -1,5 +1,5 @@
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import { Badge, Box, Button, Collapse, Typography } from '@mui/material';
+import { FilterAlt } from '@mui/icons-material';
+import { Badge, Box, Collapse, IconButton, Typography } from '@mui/material';
 import React, { useRef, useState } from 'react';
 
 import { QueryNames } from '@/Common/Definitions/QueryNames';
@@ -72,15 +72,15 @@ export const ContractTableTools: React.FC<unknown> = () => {
         borderRadius: '5px',
       }}
     >
-      <Badge badgeContent={filterCount} color="error" variant="dot" overlap="rectangular">
-        <Button
+      <Badge badgeContent={filterCount} color="error" variant="dot" overlap="circular">
+        <IconButton
           data-testid="ContractLedger-ContractBrowser-TableTools__FilterButton"
-          variant="outlined"
+          variant="contained"
           onClick={handleClick}
-          startIcon={<FilterAltIcon />}
+          color="secondary"
         >
-          Filter
-        </Button>
+          <FilterAlt />
+        </IconButton>
       </Badge>
       <Collapse
         data-testid="ContractLedger-ContractBrowser-TableTools__FilterDrawer"
