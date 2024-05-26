@@ -81,7 +81,6 @@ export const verseOSTheme = createTheme({
         {
           props: { variant: 'popupButton' },
           style: {
-            color: 'rgb(24,252,252)',
             borderLeft: '3px solid',
             borderRight: '3px solid',
             borderColor: 'rgb(24,252,252)',
