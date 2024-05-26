@@ -1,4 +1,7 @@
 import { Box } from '@mui/material';
+import { POPUP_CREATE_CONTRACT } from '@Popups/CreateContract/CreateContract';
+import { useAppDispatch } from '@Redux/hooks';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { useEffect, useState } from 'react';
 
 import { CreateContract } from '@/Components/Contracts/Create/CreateContract';
@@ -19,6 +22,7 @@ import { ContractTableTools } from '../../../../Components/Contracts/Ledger/List
 
 export const ContractLedgerPage: React.FC<unknown> = () => {
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const dispatch = useAppDispatch();
   const handleContractPick = (id: string | null) => {
     setSelectedId(id);
   };
@@ -35,7 +39,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   const [isCreateContractOpen, setIsCreateContractOpen] = useState(false);
 
   const openCreateContract = () => {
-    setIsCreateContractOpen(true);
+    dispatch(openPopup(POPUP_CREATE_CONTRACT));
   };
 
   return (

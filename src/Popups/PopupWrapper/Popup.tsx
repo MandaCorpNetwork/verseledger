@@ -4,11 +4,13 @@ import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { PropsWithChildren, useCallback } from 'react';
 
 type VLPopupProps = PropsWithChildren<{
+  minWidth?: string;
+  maxWidth?: string;
   title: string;
-  submitText?: string;
+  submitText?: string | React.ReactNode;
   submitDisabled?: boolean;
   onSubmit?: () => void;
-  cancelText?: string;
+  cancelText?: string | React.ReactNode;
   cancelDisabled?: boolean;
   onCancel?: () => void;
   onClose?: () => boolean | void;
@@ -29,9 +31,10 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
     submitText = 'Submit',
     cancelText = 'Cancel',
     state = 0,
-    'data-testid': testid,
+    'data-testid': testid = 'form',
     onClose,
     name,
+    minWidth,
   } = props;
   const dispatch = useAppDispatch();
   const onCloseDefault = useCallback(() => {
@@ -40,10 +43,25 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
   return (
     <Dialog
       open={true}
-      sx={{ backdropFilter: 'blur(10px)' }}
       data-testid={`VLPopup__${testid}__Root`}
       data-popupstate={state}
       onClose={onClose ?? onCloseDefault}
+      sx={{
+        backdropFilter: 'blur(10px)',
+      }}
+      PaperProps={{
+        sx: {
+          bgcolor: 'rgba(8, 29, 68, 0.6)',
+          display: 'flex',
+          padding: '2em',
+          borderRadius: '10px',
+          flexDirection: 'column',
+          borderTop: '2px solid',
+          borderBottom: '2px solid',
+          borderColor: 'primary.main',
+          minWidth,
+        },
+      }}
     >
       <DialogTitle variant="h5" data-testid={`VLPopup__${testid}__Title`}>
         {title}
@@ -55,7 +73,7 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
         {onCancel && (
           <Button
             data-testid={`VLPopup__${testid}__Cancel`}
-            color="secondary"
+            variant="popupButton"
             disabled={cancelDisabled}
             onClick={onCancel}
           >
@@ -65,8 +83,7 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
         {onSubmit && (
           <Button
             data-testid={`VLPopup__${testid}__Submit`}
-            variant="contained"
-            color="secondary"
+            variant="popupButton"
             disabled={submitDisabled}
             onClick={onSubmit}
           >

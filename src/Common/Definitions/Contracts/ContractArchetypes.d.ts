@@ -1,3 +1,1 @@
-type ContractArchetype = {
-  
-}
+type ContractArchetype = {};
