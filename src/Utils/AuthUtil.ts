@@ -58,7 +58,7 @@ export class AuthUtil {
     const token = AuthUtil._decodeToken(tokenString);
     return AuthUtil._isValidToken(token);
   }
-  public static isRefreshToken(tokenString: string) {
+  public static isRefreshToken(tokenString: string | null) {
     const token = AuthUtil._decodeToken(tokenString);
     const isValid = AuthUtil._isValidToken(token);
     if (!isValid) return false;
@@ -79,5 +79,11 @@ export class AuthUtil {
   }
   public static setRefreshToken(refreshToken: string) {
     localStorage.setItem('RefreshToken', refreshToken);
+  }
+  public static removeAccessToken() {
+    localStorage.removeItem('AccessToken');
+  }
+  public static removeRefreshToken() {
+    localStorage.removeItem('RefreshToken');
   }
 }

@@ -1,8 +1,8 @@
+import { loginWithDiscord } from '@Redux/Slices/Auth/Actions/loginWithDiscord';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import { loginWithDiscord } from '@/Hooks/loginWithDiscord';
 import { useAppDispatch } from '@/Redux/hooks';
 import { fetchCurrentUser } from '@/Redux/Slices/Auth/Actions/fetchCurrentUser';
 
