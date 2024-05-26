@@ -9,7 +9,7 @@ interface User {
 }
 
 interface UserSearchProps extends Pick<TextFieldProps, 'color' | 'size' | 'variant'> {
-  width: string;
+  width?: string;
   onUserSelect: (selectedUser: User | null) => void;
 }
 

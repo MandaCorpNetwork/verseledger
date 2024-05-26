@@ -21,7 +21,7 @@ export const PlayerCardPopup: React.FC = () => {
   );
 
   return (
-    <VLPopup name={POPUP_PLAYER_CARD} title="">
+    <VLPopup name={POPUP_PLAYER_CARD} title="" data-testid="PlayerCard">
       <Box>
         <Box sx={{ display: 'flex' }}>
           <Avatar

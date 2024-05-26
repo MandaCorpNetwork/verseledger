@@ -1,11 +1,19 @@
 import { Avatar, Box, ButtonBase, Divider, Rating, Typography } from '@mui/material';
+import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
+import { useAppDispatch } from '@Redux/hooks';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 
 type PlayerDisplayProps = {
   userid: string;
 };
 
 export const UserDisplay: React.FC<PlayerDisplayProps> = () => {
-  //const avatarPhoto = 123;
+  const dispatch = useAppDispatch();
+
+  const handlePlayerCardOpen = () => {
+    dispatch(openPopup(POPUP_PLAYER_CARD));
+  };
+
   return (
     <Box
       data-id="UserDisplayContainer"
@@ -18,6 +26,7 @@ export const UserDisplay: React.FC<PlayerDisplayProps> = () => {
     >
       <ButtonBase
         data-testid="UserDisplay__PlayerDataButton"
+        onClick={handlePlayerCardOpen}
         sx={{
           display: 'flex',
           flexDirection: 'row',

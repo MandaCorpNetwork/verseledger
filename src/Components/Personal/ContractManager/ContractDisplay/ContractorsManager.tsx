@@ -1,7 +1,11 @@
 import { Avatar, Box, Button, Chip, Tooltip, Typography } from '@mui/material';
+import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
+import { useAppDispatch } from '@Redux/hooks';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useState } from 'react';
 
 import { OutlinedLabel } from '@/Common/OutlinedLabel';
+import { POPUP_USER_INVITE } from '@Popups/UserInvite/UserInvite';
 
 type ContractorProps = {
   id: string;
@@ -16,6 +20,12 @@ const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, pay }
   const handleAccept = () => setContractorBidStatus('Accepted');
   const handleReject = () => setContractorBidStatus('Rejected');
   const handleDismiss = () => setContractorBidStatus('Dismissed');
+
+  const dispatch = useAppDispatch();
+
+  const handlePlayerCardOpen = () => {
+    dispatch(openPopup(POPUP_PLAYER_CARD));
+  };
 
   return (
     <Box
@@ -43,6 +53,7 @@ const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, pay }
             color="secondary"
             variant="outlined"
             clickable={true}
+            onClick={handlePlayerCardOpen}
             sx={{
               width: '115px',
             }}
@@ -147,6 +158,12 @@ const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, pay }
 
 export const ContractorsManager: React.FC<unknown> = () => {
   const contractors = Object.values(testContractorsDB);
+
+  const dispatch = useAppDispatch();
+  const handleOpenInvite = () => {
+    dispatch(openPopup(POPUP_USER_INVITE));
+  };
+
   return (
     <Box
       data-testid="SelectedContract-ContractManagement__ContractorsTabWrapper"
@@ -212,6 +229,7 @@ export const ContractorsManager: React.FC<unknown> = () => {
           variant="outlined"
           size="small"
           color="secondary"
+          onClick={handleOpenInvite}
         >
           Invite
         </Button>
