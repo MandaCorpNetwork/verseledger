@@ -24,7 +24,7 @@ export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => 
   const DrawerList = (
     <Box>
       <List>
-        {settingsList.map((text, index) => (
+        {settingsList.map((text) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemText primary={text} />
