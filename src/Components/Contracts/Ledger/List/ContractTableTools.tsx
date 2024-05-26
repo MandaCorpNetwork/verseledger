@@ -59,10 +59,17 @@ export const ContractTableTools: React.FC<unknown> = () => {
       ref={toolsRef}
       sx={{
         display: 'flex',
-        height: '4.5em',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         position: 'relative',
+        backgroundColor: 'rgba(14,49,141,.25)',
+        mt: '.5em',
+        py: '.5em',
+        mx: '1em',
+        borderTop: '2px solid',
+        borderBottom: '2px solid',
+        borderColor: 'primary.main',
+        borderRadius: '5px',
       }}
     >
       <Badge badgeContent={filterCount} color="error" variant="dot" overlap="rectangular">
@@ -110,16 +117,19 @@ export const ContractTableTools: React.FC<unknown> = () => {
           <CLFilterDropdown filter="Pay Range" label="Contract Pay Range" />
         </Box>
       </Collapse>
+      <Typography variant="h5" sx={{ color: 'text.secondary' }}>
+        Contract Browser
+      </Typography>
       <Box
         id="Contract-Table-Search-Sort-Box"
-        sx={{ display: 'flex', flexDirection: 'row', marginRight: '1em' }}
+        sx={{ display: 'flex', flexDirection: 'row' }}
       >
         <Box id="Contract-Table-Sort-By-Box" sx={{ marginRight: '1em' }}>
-          <SortBySelect size="medium" sortOptions={sortOptions} containerSize="medium" />
+          <SortBySelect size="small" sortOptions={sortOptions} containerSize="small" />
         </Box>
         <Box id="Contract-Table-SearchBar-Box">
           <SearchBar
-            size="medium"
+            size="small"
             label="Search Contracts"
             placeholder="Title, Contractors, Ships..."
           />
