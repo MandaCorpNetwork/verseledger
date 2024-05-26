@@ -5,7 +5,7 @@ import React from 'react';
 
 import { SalvageIcon, SecurityIcon } from '@/Common/CustomIcons';
 import { LocationChip } from '@/Common/LocationChip';
-import { UserDisplay } from '@/Common/PlayerDisplay';
+import { UserDisplay } from '@/Common/UserDisplay';
 import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/ContractorsManager';
 
 type ContractDataFieldProps = {
@@ -98,7 +98,6 @@ export const SelectedContractManager: React.FC<unknown> = () => {
             width: '30%',
           }}
         >
-          <UserDisplay userId={null} />
         </Box>
         <Box
           data-testid="SelectedContract__OverviewInfoContainer"

@@ -1,17 +1,20 @@
 import { Avatar, Box, ButtonBase, Divider, Rating, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
-import { useAppDispatch } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { selectUserById } from '@Redux/Slices/Users/contractSelectors';
 
-type PlayerDisplayProps = {
+type UserDisplayProps = {
   userid: string;
 };
 
-export const UserDisplay: React.FC<PlayerDisplayProps> = () => {
+export const UserDisplay: React.FC<UserDisplayProps> = ({ userid }) => {
   const dispatch = useAppDispatch();
 
+  const user = useAppSelector((state) => selectUserById(state, userid));
+
   const handlePlayerCardOpen = () => {
-    dispatch(openPopup(POPUP_PLAYER_CARD));
+    dispatch(openPopup(POPUP_PLAYER_CARD, { userid }));
   };
 
   return (
@@ -52,7 +55,7 @@ export const UserDisplay: React.FC<PlayerDisplayProps> = () => {
       >
         <Avatar
           data-testid="UserDisplay-PlayerData__Avatar"
-          srcSet="https://images.unsplash.com/photo-1502685104226-ee32"
+          src={user.pfp}
           //alt={user.userName}
           sx={{ bgcolor: 'primary.dark', width: 55, height: 55 }}
         />
@@ -71,7 +74,7 @@ export const UserDisplay: React.FC<PlayerDisplayProps> = () => {
             data-testid="UserDisplay-PlayerData__UsernameText"
             sx={{ ml: 'auto', mr: 'auto' }}
           >
-            UserName
+            {user.handle}
           </Typography>
         </Box>
       </ButtonBase>

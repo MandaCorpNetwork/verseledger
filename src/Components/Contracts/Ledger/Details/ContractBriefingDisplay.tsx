@@ -22,8 +22,10 @@ export const ContractBriefingDisplay: React.FC<ContractBriefingDisplayProps> = (
   return (
     <Box
       sx={{
-        border: '3px ridge ',
-        borderColor: 'text.disabled',
+        borderTop: '3px solid',
+        borderBottom: '3px solid',
+        borderColor: 'secondary.main',
+        borderRadius: '10px',
         padding: '1em',
         height: '100%',
         width: '100%',

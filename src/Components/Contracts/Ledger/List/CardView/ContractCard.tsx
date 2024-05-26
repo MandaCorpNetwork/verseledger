@@ -3,18 +3,83 @@
 //This Contract passes it's ID to the ContractCardDisplay when clicked and sets itself to selected to display it's full information in the ContractBriefingViewer
 import { Avatar, Box, Card, CardActionArea, Tooltip, Typography } from '@mui/material';
 import Chip, { ChipProps } from '@mui/material/Chip';
+import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { selectUserById } from '@Redux/Slices/Users/contractSelectors';
 import React from 'react';
 
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
-import TestProfile from '@/Assets/testprofile.png?url';
 import { CountdownTimer } from '@/Common/CountdownTimer';
 
 type ContractCardProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  contract: any;
+  contract: IContract;
   onClick?: () => void;
   isSelected: boolean;
 };
+
+const SunChip: React.FC<ChipProps> = (props) => {
+  return (
+    <Chip
+      {...props}
+      label="Sun"
+      size="small"
+      sx={{
+        width: '5em',
+        backgroundColor: 'primary.main',
+        margin: '.1em',
+      }}
+    />
+  );
+};
+
+const PlanetChip: React.FC<ChipProps> = (props) => {
+  return (
+    <Chip
+      {...props}
+      label="Planet"
+      size="small"
+      sx={{
+        width: '5em',
+        backgroundColor: 'primary.main',
+        margin: '.1em',
+      }}
+    />
+  );
+};
+
+const MoonChip: React.FC<ChipProps> = (props) => {
+  return (
+    <Chip
+      {...props}
+      label="Moon"
+      size="small"
+      sx={{
+        width: '5em',
+        backgroundColor: 'primary.main',
+        margin: '.1em',
+      }}
+    />
+  );
+};
+
+// const LocationChip: React.FC<ChipProps> = (props) => {
+//   return (
+//     <Tooltip title={contract.locations}>
+//       <Chip
+//         {...props}
+//         label={contract.location}
+//         size="small"
+//         sx={{
+//           width: '5em',
+//           backgroundColor: 'primary.main',
+//           margin: '.1em',
+//         }}
+//       />
+//     </Tooltip>
+//   );
+// };
 
 export const ContractCard: React.FC<ContractCardProps> = ({
   contract,
@@ -27,67 +92,14 @@ export const ContractCard: React.FC<ContractCardProps> = ({
     }
   };
 
-  const SunChip: React.FC<ChipProps> = (props) => {
-    return (
-      <Chip
-        {...props}
-        label="Sun"
-        size="small"
-        sx={{
-          width: '5em',
-          backgroundColor: 'primary.main',
-          margin: '.1em',
-        }}
-      />
-    );
-  };
+  const dispatch = useAppDispatch();
 
-  const PlanetChip: React.FC<ChipProps> = (props) => {
-    return (
-      <Chip
-        {...props}
-        label="Planet"
-        size="small"
-        sx={{
-          width: '5em',
-          backgroundColor: 'primary.main',
-          margin: '.1em',
-        }}
-      />
-    );
-  };
+  const user = useAppSelector((state) => selectUserById(state, contract.owner_id));
 
-  const MoonChip: React.FC<ChipProps> = (props) => {
-    return (
-      <Chip
-        {...props}
-        label="Moon"
-        size="small"
-        sx={{
-          width: '5em',
-          backgroundColor: 'primary.main',
-          margin: '.1em',
-        }}
-      />
-    );
-  };
-
-  const LocationChip: React.FC<ChipProps> = (props) => {
-    return (
-      <Tooltip title={contract.location}>
-        <Chip
-          {...props}
-          label={contract.location}
-          size="small"
-          sx={{
-            width: '5em',
-            backgroundColor: 'primary.main',
-            margin: '.1em',
-          }}
-        />
-      </Tooltip>
-    );
-  };
+  const handleAvatarClick = React.useCallback(() => {
+    const userid = user.id;
+    dispatch(openPopup(POPUP_PLAYER_CARD, { userid }));
+  }, [user]);
 
   return (
     <Card
@@ -119,15 +131,20 @@ export const ContractCard: React.FC<ContractCardProps> = ({
             height: '100%',
           }}
         >
-          <Tooltip title={`${contract.type} | ${contract.subtype}`}>
+          <Tooltip title={`${contract.subType}`}>
             <img src={TestAttacheIcon} alt="" width="30" />
           </Tooltip>
-          <Tooltip title="Test Owner">
-            <Avatar src={TestProfile} sizes="small" sx={{ mt: 'auto', mb: 'auto' }} />
+          <Tooltip title={user.handle} arrow>
+            <Avatar
+              src={user.pfp}
+              sizes="small"
+              sx={{ mt: 'auto', mb: 'auto' }}
+              onClick={handleAvatarClick}
+            />
           </Tooltip>
           <Box sx={{ mt: 'auto', position: 'relative', mb: '.2em' }}>
             <CountdownTimer
-              targetDate={contract.bidEnd}
+              targetDate={contract.bidDate}
               updateDate={contract.updatedAt}
               timerUse={'Bidding'}
             />
@@ -152,7 +169,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
             <SunChip />
             <PlanetChip />
             <MoonChip />
-            <LocationChip />
+            {/*<LocationChip />*/}
           </Box>
           <Box
             sx={{
@@ -174,7 +191,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
                   currency: 'USD',
                   maximumFractionDigits: 0,
                 })
-                  .format(contract.pay)
+                  .format(contract.defaultPay)
                   .substring(1)}
               </Typography>
             </Tooltip>

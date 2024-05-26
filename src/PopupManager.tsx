@@ -3,7 +3,11 @@ import {
   POPUP_CREATE_CONTRACT,
 } from '@Popups/CreateContract/CreateContract';
 import { FeedbackPopup, POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
-import { PlayerCardPopup, POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
+import {
+  PlayerCardPopup,
+  PlayerCardPopupProps,
+  POPUP_PLAYER_CARD,
+} from '@Popups/PlayerCard/PlayerCard';
 import { POPUP_USER_INVITE, UserInvitePopup } from '@Popups/UserInvite/UserInvite';
 import { useAppSelector } from '@Redux/hooks';
 import { selectPopup } from '@Redux/Slices/Popups/popups.selectors';
@@ -24,7 +28,9 @@ export const PopupManager: React.FC = () => {
     <>
       {feedbackPopup.open && <FeedbackPopup />}
       {createContractPopup.open && <CreateContractPopup />}
-      {playerCardPopup.open && <PlayerCardPopup />}
+      {playerCardPopup.open && (
+        <PlayerCardPopup {...(playerCardPopup.props as PlayerCardPopupProps)} />
+      )}
       {userInvitePopup.open && <UserInvitePopup />}
     </>
   );
