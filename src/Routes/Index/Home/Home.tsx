@@ -9,7 +9,6 @@ import MarketLoop from '@/Assets/media/MenuPage/MarketLoop.webm?url';
 import OrgLoop from '@/Assets/media/MenuPage/OrgLoop.webm?url';
 import VerseNews from '@/Assets/media/MenuPage/VerseNews.webm?url';
 import { Discord, Patreon, Paypal } from '@/Common/CustomIcons';
-import { PlayerCard } from '@/Common/PlayerCard';
 
 import { HomeNavButton } from '../../../Components/Home/HomeNavButton';
 
@@ -60,7 +59,6 @@ export const Home: React.FC<unknown> = () => {
             <Discord fontSize="large" />
           </IconButton>
         </Box>
-        <PlayerCard />
       </Box>
     </Box>
   );

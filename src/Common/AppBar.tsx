@@ -13,6 +13,8 @@ import {
 } from '@mui/material';
 import { Popover, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import { POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
+import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import {
   bindMenu,
@@ -31,14 +33,12 @@ import { AuthUtil } from '@/Utils/AuthUtil';
 import { URLUtil } from '@/Utils/URLUtil';
 
 import Station from '../Assets/media/Station.svg?url';
-import { PlayerCard } from './PlayerCard';
 import { UserSettings } from './UserSettings';
 import VerseLogo from './VerseLogo';
 
 export const VLAppBar: React.FC<unknown> = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const currentUser = useAppSelector(selectCurrentUser);
-  const [playerCardOpen, setPlayerCardOpen] = React.useState(false);
   const [userSettingsOpen, setUserSettingsOpen] = React.useState(false);
 
   const dispatch = useAppDispatch();
@@ -59,11 +59,7 @@ export const VLAppBar: React.FC<unknown> = () => {
 
   const handlePlayerCardOpen = () => {
     profilePopupState.close;
-    setPlayerCardOpen(true);
-  };
-
-  const handlePlayerCardClose = () => {
-    setPlayerCardOpen(false);
+    dispatch(openPopup(POPUP_PLAYER_CARD));
   };
 
   const handleUserSettingsOpen = () => {
@@ -76,7 +72,7 @@ export const VLAppBar: React.FC<unknown> = () => {
   };
 
   const handleFeedbackOpen = () => {
-    dispatch(openPopup('feedback'));
+    dispatch(openPopup(POPUP_FEEDBACK));
   };
 
   const [anchorE1, setAnchorE1] = useState<HTMLElement | null>(null);
@@ -185,7 +181,6 @@ export const VLAppBar: React.FC<unknown> = () => {
         </Toolbar>
       </AppBar>
       {renderMenu}
-      <PlayerCard open={playerCardOpen} onClose={handlePlayerCardClose} />
       <UserSettings open={userSettingsOpen} onClose={handleUserSettingsClose} />
     </Box>
   );
