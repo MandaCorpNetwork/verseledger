@@ -25,7 +25,7 @@ type FeedbackDialogProps = {
   onClose: () => void;
 };
 
-export const FeedbackDialog: React.FC<FeedbackDialogProps> = ({ open, onClose}) => {
+export const FeedbackDialog: React.FC<FeedbackDialogProps> = ({ open, onClose }) => {
   const [formView, setFormView] = React.useState(false);
 
   const handleOpenForm = () => {
@@ -114,7 +114,9 @@ export const FeedbackDialog: React.FC<FeedbackDialogProps> = ({ open, onClose}) 
         <IconButton sx={{ mr: 'auto' }}>
           <GitHub />
         </IconButton>
-        <Button color="secondary" onClick={onClose}>Cancel</Button>
+        <Button color="secondary" onClick={onClose}>
+          Cancel
+        </Button>
         {!formView ? (
           <Button color="secondary" onClick={handleOpenForm}>
             Next

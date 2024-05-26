@@ -1,17 +1,12 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Button, Chip, IconButton, Tab, TextField, Typography } from '@mui/material';
+import { Box, Button, Chip, Tab, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
+import React from 'react';
 
 import { SalvageIcon, SecurityIcon } from '@/Common/CustomIcons';
-import { QueryNames } from '@/Common/definitions/QueryNames';
 import { LocationChip } from '@/Common/LocationChip';
 import { UserDisplay } from '@/Common/PlayerDisplay';
 import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/ContractorsManager';
-import { useAppSelector } from '@/Redux/hooks';
-import { pickContract } from '@/Redux/Slices/Contracts/contractSelectors';
-import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
-import { OpenInFull, UnfoldLess } from '@mui/icons-material';
-import React from 'react';
 
 type ContractDataFieldProps = {
   label: string;

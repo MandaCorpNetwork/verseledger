@@ -1,5 +1,5 @@
 import { Close } from '@mui/icons-material';
-import { Box, Dialog, DialogTitle, IconButton, Typography } from '@mui/material';
+import { Dialog, DialogTitle, IconButton, Typography } from '@mui/material';
 
 type UserSettingsProps = {
   open: boolean;

@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import { Popover, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import {
   bindMenu,
   bindTrigger,
@@ -33,14 +34,12 @@ import Station from '../Assets/media/Station.svg?url';
 import { PlayerCard } from './PlayerCard';
 import { UserSettings } from './Settings';
 import VerseLogo from './VerseLogo';
-import { FeedbackDialog } from './FeedbackDialog';
 
 export const VLAppBar: React.FC<unknown> = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const currentUser = useAppSelector(selectCurrentUser);
   const [playerCardOpen, setPlayerCardOpen] = React.useState(false);
   const [userSettingsOpen, setUserSettingsOpen] = React.useState(false);
-  const [feedbackOpen, setFeedbackOpen] = React.useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -77,11 +76,7 @@ export const VLAppBar: React.FC<unknown> = () => {
   };
 
   const handleFeedbackOpen = () => {
-    setFeedbackOpen(true);
-  };
-
-  const handleFeedbackClose = () => {
-    setFeedbackOpen(false);
+    dispatch(openPopup('feedback'));
   };
 
   const [anchorE1, setAnchorE1] = useState<HTMLElement | null>(null);
@@ -169,7 +164,7 @@ export const VLAppBar: React.FC<unknown> = () => {
                   color="inherit"
                   {...bindTrigger(profilePopupState)}
                 >
-                  <Avatar src={currentUser?.pfp}></Avatar>
+                  <Avatar src={currentUser?.pfp as string}></Avatar>
                 </IconButton>
               </>
             ) : (
@@ -192,7 +187,6 @@ export const VLAppBar: React.FC<unknown> = () => {
       {renderMenu}
       <PlayerCard open={playerCardOpen} onClose={handlePlayerCardClose} />
       <UserSettings open={userSettingsOpen} onClose={handleUserSettingsClose} />
-      <FeedbackDialog open={feedbackOpen} onClose={handleFeedbackClose} />
     </Box>
   );
 };

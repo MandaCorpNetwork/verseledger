@@ -23,16 +23,18 @@
     /* Pathing */
     "baseUrl": "./src/",
     "paths": {
-      "@/*": ["./*"],
       "@Assets/*": ["./Assets/*"],
+      "@Backend/*": ["../../verseledger-backend/src/*"],
+      "@Common/*": ["./Common/*"],
+      "@Popups/*": ["./Popups/*"],
       "@Redux/*": ["./Redux/*"],
       "@Routes/*": ["./Routes/*"],
       "@Utils/*": ["./Utils/*"],
-      "@Common/*": ["./Common/*"],
-      "@Backend/*": ["../../verseledger-backend/src/*"],
+      "@store": ["./Redux/store"],
+      "@/*": ["./*"]
     }
   },
   "include": ["src", "tsconfig.json", "tsconfig.node.json"],
   "exclude": ["cypress", "cypress.config.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

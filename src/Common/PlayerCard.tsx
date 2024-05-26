@@ -1,5 +1,4 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
-import { Close } from '@mui/icons-material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import {
   Avatar,
