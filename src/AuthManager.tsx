@@ -23,7 +23,7 @@ export const AuthManager: React.FC = () => {
   }, []);
   useEffect(() => {
     checkKeys();
-    const interval = setInterval(checkKeys, 1000 * 60 * 10);
+    const interval = setInterval(checkKeys, 1000 * 60);
     return () => clearInterval(interval);
   }, []);
   return <></>;
