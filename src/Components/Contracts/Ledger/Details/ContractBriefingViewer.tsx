@@ -1,24 +1,26 @@
+import { SalvageIcon } from '@Common/CustomIcons';
+import { LocationChip } from '@Common/LocationChip';
+import { ExpandLess, ExpandMore, HelpOutline } from '@mui/icons-material';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
 import {
-  AvatarGroup,
   Box,
   Button,
   Chip,
   IconButton,
   InputAdornment,
-  OutlinedInput,
+  Tab,
+  Tabs,
   TextField,
   Tooltip,
   Typography,
 } from '@mui/material';
+import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
+import { useAppDispatch } from '@Redux/hooks';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 
 import { UserDisplay } from '@/Common/UserDisplay';
-import { SalvageIcon } from '@Common/CustomIcons';
-import { ExpandLess, ExpandMore, HelpOutline } from '@mui/icons-material';
-import { useAppDispatch } from '@Redux/hooks';
-import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
-import { LocationChip } from '@Common/LocationChip';
+import { ContractorsPanel } from './ContractorsPanel';
 
 type BriefingViewerProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,6 +33,14 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
   const [briefingExpanded, setBriefingExpanded] = React.useState(true);
   const [payExpanded, setPayExpanded] = React.useState(true);
   const [locationsExpanded, setLocationsExpanded] = React.useState(true);
+  const [activeDataTab, setActiveDataTab] = React.useState('contractors');
+
+  const handleTabChange = React.useCallback(
+    (value: string) => {
+      setActiveDataTab(value);
+    },
+    [activeDataTab],
+  );
 
   const toggleBriefingExpand = React.useCallback(() => {
     setBriefingExpanded(!briefingExpanded);
@@ -206,6 +216,8 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
             flexDirection: 'column',
             width: '45%',
             mt: '2em',
+            alignContent: 'center',
+            justifyContent: 'space-around',
           }}
         >
           <Box
@@ -444,6 +456,53 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
             </Typography>
             <LocationChip label="Other" />
           </Box>
+        </Box>
+      </Box>
+      <Box
+        data-testid="ContractViewer-ContractBriefing__ActiveDataContainer"
+        sx={{
+          mt: '2em',
+          width: '100%',
+          p: '.5em',
+          maxHeight: '25%',
+        }}
+      >
+        <Box
+          data-testid="ContractViewer-ContractBriefing-ActiveData__TabWrapper"
+          sx={{
+            borderLeft: '2px solid',
+            borderRight: '2px solid',
+            borderRadius: '5px',
+            borderColor: 'secondary.main',
+            px: '1em',
+            py: '.2em',
+            width: '100%',
+          }}
+        >
+          <Tabs
+            variant="fullWidth"
+            value={activeDataTab}
+            onChange={handleTabChange}
+            textColor="secondary"
+            indicatorColor="secondary"
+          >
+            <Tab label="Contractors" value="contractors" />
+            <Tab label="Ships" value="ships" />
+          </Tabs>
+        </Box>
+        <Box
+          data-testid="ContractViewer-ContractBriefing-ActiveData__PanelContainer"
+          sx={{
+            width: '100%',
+            height: '100%',
+            borderTop: '2px solid',
+            borderBottom: '2px solid',
+            borderColor: 'primary.main',
+            borderRadius: '5px',
+            mt: '.5em',
+          }}
+        >
+          {activeDataTab == 'contractors' ? <ContractorsPanel /> : 'whoops'}
         </Box>
       </Box>
     </Box>

@@ -2,14 +2,14 @@ type IContract = {
   id: string;
   owner_id: User['id']; //ReadOnly
   title: string;
-  subType: string;
+  subType: Array<unknown>;
   briefing: string;
-  bidDate: Date;
+  bidDate: Date | null;
   startDate: Date | null;
   endDate: Date | null;
   isEmergency: boolean;
   locations: Array<unknown>;
-  ratingLimit: number;
+  ratingLimit: number | null;
   contractorLimit: number | null;
   payStructure: string;
   isBargaining: boolean;
