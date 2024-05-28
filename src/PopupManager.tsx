@@ -3,6 +3,11 @@ import {
   POPUP_CREATE_CONTRACT,
 } from '@Popups/CreateContract/CreateContract';
 import { FeedbackPopup, POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
+import {
+  LocationInfoPopup,
+  LocationInfoProps,
+  POPUP_LOCATION_INFO,
+} from '@Popups/Info/Locations';
 import { PayStructuresPopup, POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import {
   PlayerCardPopup,
@@ -28,6 +33,9 @@ export const PopupManager: React.FC = () => {
   const payStructuresPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_PAY_STRUCTURES),
   );
+  const locationInfoPopup = useAppSelector((state) =>
+    selectPopup(state, POPUP_LOCATION_INFO),
+  );
   return (
     <>
       {feedbackPopup.open && <FeedbackPopup />}
@@ -37,6 +45,9 @@ export const PopupManager: React.FC = () => {
       )}
       {userInvitePopup.open && <UserInvitePopup />}
       {payStructuresPopup.open && <PayStructuresPopup />}
+      {locationInfoPopup.open && (
+        <LocationInfoPopup {...(locationInfoPopup.props as LocationInfoProps)} />
+      )}
     </>
   );
 };

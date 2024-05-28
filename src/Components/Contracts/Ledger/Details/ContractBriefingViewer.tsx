@@ -7,6 +7,7 @@ import {
   InputAdornment,
   OutlinedInput,
   TextField,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import React from 'react';
@@ -17,6 +18,7 @@ import { ExpandLess, ExpandMore, HelpOutline } from '@mui/icons-material';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
+import { LocationChip } from '@Common/LocationChip';
 
 type BriefingViewerProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -28,6 +30,7 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
 
   const [briefingExpanded, setBriefingExpanded] = React.useState(true);
   const [payExpanded, setPayExpanded] = React.useState(true);
+  const [locationsExpanded, setLocationsExpanded] = React.useState(true);
 
   const toggleBriefingExpand = React.useCallback(() => {
     setBriefingExpanded(!briefingExpanded);
@@ -36,6 +39,10 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
   const togglePayExpand = React.useCallback(() => {
     setPayExpanded(!payExpanded);
   }, [payExpanded]);
+
+  const toggleLocationsExpand = React.useCallback(() => {
+    setLocationsExpanded(!locationsExpanded);
+  }, [locationsExpanded]);
 
   const statusChipColor = React.useCallback(() => {
     if (contract.status == 'BIDDING') {
@@ -189,6 +196,7 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
           display: 'flex',
           flexDirection: 'row',
           width: '100%',
+          justifyContent: 'space-around',
         }}
       >
         <Box
@@ -295,31 +303,146 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
                 flexDirection: 'row',
               }}
             >
-              <TextField
-                size="small"
-                label="Pay Structure"
-                value={contract.payStructure}
-                color="secondary"
-                margin="dense"
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end" onClick={handlePayStructurePopup}>
-                      <HelpOutline color="secondary" fontSize="small" />
-                    </InputAdornment>
-                  ),
-                }}
-                sx={{
-                  mr: '.5em',
-                }}
-              />
-              <TextField
-                size="small"
-                label="Default Pay"
-                value={contract.defaultPay}
-                color="secondary"
-                margin="dense"
-              />
+              <Tooltip title={contract.payStructure} arrow>
+                <TextField
+                  size="small"
+                  label="Pay Structure"
+                  value={contract.payStructure}
+                  color="secondary"
+                  margin="dense"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end" onClick={handlePayStructurePopup}>
+                        <HelpOutline color="secondary" fontSize="small" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    mr: '.5em',
+                  }}
+                />
+              </Tooltip>
+              <Tooltip title={`¤${contract.defaultPay}`} arrow>
+                <TextField
+                  size="small"
+                  label="Default Pay"
+                  value={contract.defaultPay}
+                  color="secondary"
+                  margin="dense"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Typography color="secondary">¤</Typography>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Tooltip>
             </Box>
+          </Box>
+        </Box>
+        <Box
+          data-testid="ContractViewer-ContractBriefing__LocationContainer"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            borderTop: '2px solid',
+            borderBottom: '2px solid',
+            borderRadius: '5px',
+            borderColor: 'primary.main',
+            p: '.5em',
+            width: '45%',
+            mt: '2em',
+          }}
+        >
+          <Typography
+            data-testid="ContractViewer-ContractBriefing__LocationTitle"
+            variant="body2"
+            sx={{
+              backgroundColor: 'rgba(14,49,141,.25)',
+              borderRadius: '10px',
+              pl: '1em',
+              fontWeight: 'bold',
+            }}
+          >
+            Locations
+            <IconButton
+              data-testid="ContractViewer-ContractBriefing-Locations_LocationsExpansionButton"
+              size="small"
+              onClick={toggleLocationsExpand}
+            >
+              {locationsExpanded ? (
+                <ExpandMore fontSize="small" />
+              ) : (
+                <ExpandLess fontSize="small" />
+              )}
+            </IconButton>
+          </Typography>
+          <Box
+            data-testid="ContractViewer-ContractBriefing-Locations__StartLocationWrapper"
+            sx={{
+              backgroundColor: 'rgba(14,49,141,.25)',
+              borderRadius: '10px',
+              mt: '.5em',
+              mx: '.5em',
+              p: '.2em',
+            }}
+          >
+            <Typography
+              data-testid="ContractViewer-ContractBriefing-Locations-StartLocation__Title"
+              variant="body2"
+              align="center"
+              sx={{
+                fontWeight: 'bold',
+              }}
+            >
+              Start Location
+            </Typography>
+            <LocationChip label="Start" />
+          </Box>
+          <Box
+            data-testid="ContractViewer-ContractBriefing-Locations__EndLocationWrapper"
+            sx={{
+              backgroundColor: 'rgba(14,49,141,.25)',
+              borderRadius: '10px',
+              mt: '.5em',
+              mx: '.5em',
+              justifyContent: 'center',
+            }}
+          >
+            <Typography
+              data-testid="ContractViewer-ContractBriefing-Locations-StartLocation__Title"
+              variant="body2"
+              align="center"
+              sx={{
+                fontWeight: 'bold',
+              }}
+            >
+              End Location
+            </Typography>
+            <LocationChip label="End" />
+          </Box>
+          <Box
+            data-testid="ContractViewer-ContractBriefing-Locations__OtherLocationsWrapper"
+            sx={{
+              backgroundColor: 'rgba(14,49,141,.25)',
+              borderRadius: '10px',
+              mt: '.5em',
+              mx: '.5em',
+              justifyContent: 'center',
+            }}
+          >
+            <Typography
+              data-testid="ContractViewer-ContractBriefing-Locations-StartLocation__Title"
+              variant="body2"
+              align="center"
+              sx={{
+                fontWeight: 'bold',
+              }}
+            >
+              Other Locations
+            </Typography>
+            <LocationChip label="Other" />
           </Box>
         </Box>
       </Box>
