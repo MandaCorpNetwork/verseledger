@@ -47,7 +47,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
       data-testid="ContractManager__PageContainer"
       sx={{
         width: '100%',
-        height: ''
+        height: '100',
       }}
     >
       <Box sx={{ marginTop: '1.5em' }}>
@@ -65,6 +65,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
           marginTop: '1em',
           display: 'flex',
           flexDirection: 'row',
+          height: '100%',
         }}
       >
         <Box

@@ -20,6 +20,7 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 
 import { UserDisplay } from '@/Common/UserDisplay';
+
 import { ContractorsPanel } from './ContractorsPanel';
 
 type BriefingViewerProps = {
@@ -505,6 +506,19 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
         >
           {activeDataTab == 'contractors' ? <ContractorsPanel /> : 'whoops'}
         </Box>
+      </Box>
+      <Box
+        data-testid="ContractViewer-ContractBriefing__BottomBox"
+        sx={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'row',
+        }}
+      >
+        <Box
+          data-testid="ContractViewer-ContractBriefing__ContractTimeContainer"
+        >Time Remaining</Box>
+        <Button>Submit Bid</Button>
       </Box>
     </Box>
   );
