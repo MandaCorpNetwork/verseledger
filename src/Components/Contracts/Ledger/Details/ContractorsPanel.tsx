@@ -1,6 +1,30 @@
-import { Box, Typography } from '@mui/material';
+import { Contractors } from '@Popups/CreateContract/pages/Contractors';
+import { Avatar, Box, Chip, Typography } from '@mui/material';
+
+type ContractorProps = {
+  id: string;
+  userName: string;
+  profilePicture: string;
+  ship?: string;
+};
+
+const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, ship }) => {
+  return (
+    <Box data-testid="ActiveData-ContractorPanel-ContractorList__ContractorWrapper">
+      <Chip
+        data-testid="ActiveData-ContractorPanel-ContractorList-Contractor__UserChip"
+        avatar={<Avatar src={profilePicture} />}
+        label={userName}
+        color="secondary"
+        variant="outlined"
+      />
+      <Typography>{ship}</Typography>
+    </Box>
+  );
+};
 
 export const ContractorsPanel: React.FC = () => {
+  const contractors = Object.values(testContractorsDB);
   return (
     <Box
       data-testid="ContractBriefing-ActiveData-ContractorPanel__Wrapper"
@@ -20,7 +44,6 @@ export const ContractorsPanel: React.FC = () => {
           flexDirection: 'row',
           width: '100%',
           justifyContent: 'space-around',
-          alignContent: 'center',
         }}
       >
         <Typography
@@ -28,12 +51,145 @@ export const ContractorsPanel: React.FC = () => {
           variant="body2"
           sx={{
             my: 'auto',
-            fontWeigth: 'bold',
+            fontWeight: 'bold',
             color: 'text.secondary',
           }}
-        >Active Contractors: X</Typography>
-        <Typography>Contractor Limit: X</Typography>
+        >
+          Active Contractors: X
+        </Typography>
+        <Typography
+          data-testid="ContractBriefing-ActiveData-ContractorPanel-CountBar__ContractorLimitCount"
+          variant="body2"
+          sx={{
+            my: 'auto',
+            fontWeight: 'bold',
+            color: 'text.secondary',
+          }}
+        >
+          Contractor Limit: X
+        </Typography>
+      </Box>
+      <Box
+        data-testid="ContractBriefing-ActiveData-ContractorPanel__ContractorListWrapper"
+        sx={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        {contractors.map((contractor) => (
+          <Contractor
+            key={contractors.id}
+            id={contractors.id}
+            userName={contractors.name}
+            profilePicture={contractors.profilePicture}
+            ship="InDev"
+          />
+        ))}
       </Box>
     </Box>
   );
+};
+
+const testContractorsDB = {
+  1: {
+    id: 1,
+    name: 'Test User',
+    profilePicture: '@/Assets/testprofile.png',
+    isAccepted: false,
+    isRejected: false,
+    isDismissed: false,
+    role: 'null',
+    pay: 'null',
+  },
+  2: {
+    id: 2,
+    name: 'Test User 2',
+    profilePicture: '@/Assets/testprofile.png',
+    isAccepted: false,
+    isRejected: false,
+    isDismissed: false,
+    role: 'null',
+    pay: 'null',
+  },
+  3: {
+    id: 3,
+    name: 'Test User 3',
+    profilePicture: '@/Assets/testprofile.png',
+    isAccepted: false,
+    isRejected: false,
+    isDismissed: false,
+    role: 'null',
+    pay: 'null',
+  },
+  4: {
+    id: 4,
+    name: 'Test User 4',
+    profilePicture: '@/Assets/testprofile.png',
+    isAccepted: false,
+    isRejected: false,
+    isDismissed: false,
+    role: 'null',
+    pay: 'null',
+  },
+  5: {
+    id: 5,
+    name: 'Test User 5',
+    profilePicture: '@/Assets/testprofile.png',
+    isAccepted: false,
+    isRejected: false,
+    isDismissed: false,
+    role: 'null',
+    pay: 'null',
+  },
+  6: {
+    id: 6,
+    name: 'Test User 6',
+    profilePicture: '@/Assets/testprofile.png',
+    isAccepted: false,
+    isRejected: false,
+    isDismissed: false,
+    role: 'null',
+    pay: 'null',
+  },
+  7: {
+    id: 7,
+    name: 'Test User 7',
+    profilePicture: '@/Assets/testprofile.png',
+    isAccepted: false,
+    isRejected: false,
+    isDismissed: false,
+    role: 'null',
+    pay: 'null',
+  },
+  8: {
+    id: 8,
+    name: 'Test User 8',
+    profilePicture: '@/Assets/testprofile.png',
+    isAccepted: false,
+    isRejected: false,
+    isDismissed: false,
+    role: 'null',
+    pay: 'null',
+  },
+  9: {
+    id: 9,
+    name: 'Test User 9',
+    profilePicture: '@/Assets/testprofile.png',
+    isAccepted: false,
+    isRejected: false,
+    isDismissed: false,
+    role: 'null',
+    pay: 'null',
+  },
+  10: {
+    id: 10,
+    name: 'Test User 10',
+    profilePicture: '@/Assets/testprofile.png',
+    isAccepted: false,
+    isRejected: false,
+    isDismissed: false,
+    role: 'null',
+    pay: 'null',
+  },
 };
