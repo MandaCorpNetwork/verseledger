@@ -1,5 +1,5 @@
-import { Contractors } from '@Popups/CreateContract/pages/Contractors';
 import { Avatar, Box, Chip, Typography } from '@mui/material';
+import { Contractors } from '@Popups/CreateContract/pages/Contractors';
 
 type ContractorProps = {
   id: string;
@@ -27,7 +27,7 @@ export const ContractorsPanel: React.FC = () => {
   const contractors = Object.values(testContractorsDB);
   return (
     <Box
-      data-testid="ContractBriefing-ActiveData-ContractorPanel__Wrapper"
+      data-testid="ContractBriefing-ActiveData-ContractorPanel__Container"
       sx={{
         display: 'flex',
         flexDisplay: 'column',
@@ -36,56 +36,85 @@ export const ContractorsPanel: React.FC = () => {
       }}
     >
       <Box
-        data-testid="ContractBriefing-ActiveData-ContractorPanel__CountBarWrapper"
-        sx={{
-          backgroundColor: 'rgba(14,49,141,.25)',
-          borderRadius: '10px',
-          display: 'flex',
-          flexDirection: 'row',
-          width: '100%',
-          justifyContent: 'space-around',
-        }}
-      >
-        <Typography
-          data-testid="ContractBriefing-ActiveData-ContractorPanel-CountBar__ActiveContractorsCount"
-          variant="body2"
-          sx={{
-            my: 'auto',
-            fontWeight: 'bold',
-            color: 'text.secondary',
-          }}
-        >
-          Active Contractors: X
-        </Typography>
-        <Typography
-          data-testid="ContractBriefing-ActiveData-ContractorPanel-CountBar__ContractorLimitCount"
-          variant="body2"
-          sx={{
-            my: 'auto',
-            fontWeight: 'bold',
-            color: 'text.secondary',
-          }}
-        >
-          Contractor Limit: X
-        </Typography>
-      </Box>
-      <Box
-        data-testid="ContractBriefing-ActiveData-ContractorPanel__ContractorListWrapper"
+        data-testid="ContractBriefing-ActiveData-ContractorPanel__Wrapper"
         sx={{
           width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
+          height: '100%',
+          p: '.5em',
         }}
       >
-        {contractors.map((contractor) => (
-          <Contractor
-            key={contractors.id}
-            id={contractors.id}
-            userName={contractors.name}
-            profilePicture={contractors.profilePicture}
-            ship="InDev"
-          />
-        ))}
+        <Box
+          data-testid="ContractBriefing-ActiveData-ContractorPanel__CountBarContainer"
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            height: '10%',
+          }}
+        >
+          <Box
+            data-testid="ContractBriefing-ActiveData-ContractorPanel__CountBarWrapper"
+            sx={{
+              display: 'inherit',
+              flexDirection: 'inherit',
+              justifyContent: 'space-around',
+              width: '100%',
+              backgroundColor: 'rgba(14,49,141,.25)',
+              borderRadius: '10px',
+            }}
+          >
+            <Typography
+              data-testid="ContractBriefing-ActiveData-ContractorPanel-CountBar__ActiveContractorsCount"
+              variant="body2"
+              sx={{
+                my: 'auto',
+                fontWeight: 'bold',
+                color: 'text.secondary',
+              }}
+            >
+              Active Contractors: X
+            </Typography>
+            <Typography
+              data-testid="ContractBriefing-ActiveData-ContractorPanel-CountBar__ContractorLimitCount"
+              variant="body2"
+              sx={{
+                my: 'auto',
+                fontWeight: 'bold',
+                color: 'text.secondary',
+              }}
+            >
+              Contractor Limit: X
+            </Typography>
+          </Box>
+        </Box>
+        <Box
+          data-testid="ContractBriefing-ActiveData-ContratorPanel__ContractorListContainer"
+          sx={{
+            width: '100%',
+            height: '90%',
+            overflow: 'auto',
+            mt: '.5em',
+          }}
+        >
+          <Box
+            data-testid="ContractBriefing-ActiveData-ContractorPanel-ContractorList__Wrapper"
+            sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            {contractors.map((contractor) => (
+              <Contractor
+                key={contractors.id}
+                id={contractors.id}
+                userName={contractors.name}
+                profilePicture={contractors.profilePicture}
+                ship="InDev"
+              />
+            ))}
+          </Box>
+        </Box>
       </Box>
     </Box>
   );

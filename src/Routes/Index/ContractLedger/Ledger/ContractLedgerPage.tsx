@@ -43,7 +43,13 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   };
 
   return (
-    <Box>
+    <Box
+      data-testid="ContractManager__PageContainer"
+      sx={{
+        width: '100%',
+        height: ''
+      }}
+    >
       <Box sx={{ marginTop: '1.5em' }}>
         {/*QuickNav Buttons (Top Left) */}
         <ContractLedgerQuickNav title="Contract Manager" onClick={() => {}} />

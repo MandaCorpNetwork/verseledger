@@ -82,6 +82,7 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
+        height: '100%',
       }}
     >
       <Box
@@ -463,8 +464,8 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
         sx={{
           mt: '2em',
           width: '100%',
+          height: '35%',
           p: '.5em',
-          maxHeight: '25%',
         }}
       >
         <Box
@@ -494,7 +495,7 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
           data-testid="ContractViewer-ContractBriefing-ActiveData__PanelContainer"
           sx={{
             width: '100%',
-            height: '100%',
+            height: '50%',
             borderTop: '2px solid',
             borderBottom: '2px solid',
             borderColor: 'primary.main',
