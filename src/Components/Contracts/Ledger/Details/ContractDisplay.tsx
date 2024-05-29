@@ -136,6 +136,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
+        p: '.5em',
       }}
     >
       <Box
@@ -144,14 +145,23 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           display: 'flex',
           flexDirection: 'row',
           width: '100%',
+          height: '20%',
         }}
       >
-        <UserDisplay userid={contract.owner_id} />
+        <Box
+          data-testid="ContractDisplay__UserDisplayWrapper"
+          sx={{
+            width: '40%',
+          }}
+        >
+          <UserDisplay userid={contract.owner_id} />
+        </Box>
         <Box
           data-testid="ContractDisplay-TopBox__TitleContainer"
           sx={{
             display: 'flex',
             flexDirection: 'column',
+            width: '50%',
           }}
         >
           <Box

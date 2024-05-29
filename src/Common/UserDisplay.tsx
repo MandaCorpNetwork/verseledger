@@ -33,59 +33,65 @@ export const UserDisplay: React.FC<UserDisplayProps> = ({ userid }) => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        maxWidth: '100%',
       }}
     >
-      <ButtonBase
-        data-testid="UserDisplay__PlayerDataButton"
-        onClick={handlePlayerCardOpen}
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          bgcolor: 'background.default',
-          py: '.5em',
-          px: '1em',
-          borderLeft: '2px solid',
-          borderRight: '2px solid',
-          borderRadius: '5px',
-          borderColor: 'secondary.dark',
-          transition: 'background-color 300ms',
-          '&:hover': {
-            borderColor: 'secondary.light',
-          },
-          '&:active': {
+      <Tooltip title={user?.handle} arrow>
+        <ButtonBase
+          data-testid="UserDisplay__PlayerDataButton"
+          onClick={handlePlayerCardOpen}
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            bgcolor: 'background.default',
+            maxWidth: '100%',
+            py: '.5em',
+            px: '1em',
+            borderLeft: '2px solid',
+            borderRight: '2px solid',
+            borderRadius: '5px',
             borderColor: 'secondary.main',
-          },
-          '& .MuiTouchRipple-child': {
-            backgroundColor: 'secondary.dark',
-          },
-        }}
-      >
-        <Avatar
-          data-testid="UserDisplay-PlayerData__Avatar"
-          src={user?.pfp}
-          //alt={user.userName}
-          sx={{ bgcolor: 'primary.dark', width: 55, height: 55 }}
-        />
-        <Box
-          data-testid="UserDisplay-PlayerData__InfoWrapper"
-          sx={{ display: 'flex', flexDirection: 'column', ml: '.5em' }}
+            transition: 'background-color 300ms',
+            '&:hover': {
+              borderColor: 'secondary.dark',
+            },
+            '&:active': {
+              borderColor: 'secondary.main',
+            },
+            '& .MuiTouchRipple-child': {
+              backgroundColor: 'secondary.dark',
+            },
+          }}
         >
-          <Rating
-            data-testid="UserDisplay-PlayerData__UserRating"
-            name="Rating"
-            value={3}
-            readOnly
-            sx={{ ml: 'auto', mr: 'auto', mt: 'auto', mb: '5%' }}
+          <Avatar
+            data-testid="UserDisplay-PlayerData__Avatar"
+            src={user?.pfp}
+            //alt={user.userName}
+            sx={{ bgcolor: 'primary.dark', width: 55, height: 55 }}
           />
-          <Typography
-            data-testid="UserDisplay-PlayerData__UsernameText"
-            sx={{ ml: 'auto', mr: 'auto' }}
+          <Box
+            data-testid="UserDisplay-PlayerData__InfoWrapper"
+            sx={{ display: 'flex', flexDirection: 'column', ml: '.5em', width: '70%' }}
           >
-            {user?.handle}
-          </Typography>
-        </Box>
-      </ButtonBase>
+            <Rating
+              data-testid="UserDisplay-PlayerData__UserRating"
+              name="Rating"
+              size="small"
+              value={3}
+              readOnly
+              sx={{ ml: 'auto', mr: 'auto', mt: 'auto', mb: '5%' }}
+            />
+            <Typography
+              data-testid="UserDisplay-PlayerData__UsernameText"
+              noWrap
+              sx={{ ml: 'auto', mr: 'auto', maxWidth: '100%' }}
+            >
+              {user?.handle}
+            </Typography>
+          </Box>
+        </ButtonBase>
+      </Tooltip>
       <Divider
         variant="middle"
         color="secondary"
