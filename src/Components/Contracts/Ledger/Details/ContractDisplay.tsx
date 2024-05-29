@@ -285,6 +285,8 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           display: 'flex',
           flexDirection: 'row',
           width: '100%',
+          maxHeight: '35%',
+          mt: '1em',
           justifyContent: 'space-around',
         }}
       >
@@ -294,9 +296,8 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             display: 'flex',
             flexDirection: 'column',
             width: '45%',
-            mt: '2em',
             alignContent: 'center',
-            justifyContent: 'space-around',
+            maxHeight: '100%',
           }}
         >
           <Box
@@ -308,8 +309,9 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               borderBottom: '2px solid',
               borderRadius: '5px',
               borderColor: 'primary.main',
-              p: '.5em',
+              px: '.5em',
               width: '100%',
+              maxHeight: '50%',
             }}
           >
             <Typography
@@ -320,6 +322,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 borderRadius: '10px',
                 pl: '1em',
                 fontWeight: 'bold',
+                my: '.5em',
               }}
             >
               Briefing
@@ -335,19 +338,36 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 )}
               </IconButton>
             </Typography>
-            <Typography
-              data-testid="ContractDisplay-PayandBriefing__BriefingContent"
-              variant="body2"
-              hidden={!briefingExpanded}
+            <Box
+              data-testid="ContractDisplay-Briefing__ContentsWrapper"
               sx={{
                 backgroundColor: 'rgba(14,49,141,.25)',
                 borderRadius: '10px',
                 px: '1em',
-                mt: '.5em',
+                maxHeight: '100%',
+                overflow: 'auto',
+                mb: '.2em',
+                '&::-webkit-scrollbar': {
+                  width: '10px',
+                },
+                '&::-webkit-scrollbar-track': {
+                  background: 'rgb(8, 29, 68)',
+                  borderRadius: '10px',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  borderRadius: '20px',
+                  background: 'rgb(121, 192, 244, .5)',
+                },
               }}
             >
-              {contract.briefing}
-            </Typography>
+              <Typography
+                data-testid="ContractDisplay-PayandBriefing__BriefingContent"
+                variant="body2"
+                hidden={!briefingExpanded}
+              >
+                {contract.briefing}
+              </Typography>
+            </Box>
           </Box>
           <Box
             data-testid="ContractDisplay-PayandBriefing__PayWrapper"
