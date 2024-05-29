@@ -35,7 +35,7 @@ export const verseOSTheme = createTheme({
     text: {
       primary: 'rgb(211, 250, 254)',
       secondary: 'rgb(33, 150, 243)',
-      disabled: 'rgb(0, 30, 100)',
+      disabled: 'rgb(0, 73, 130)',
     },
     info: {
       main: 'rgb(255, 141, 15)',
@@ -50,7 +50,7 @@ export const verseOSTheme = createTheme({
       main: 'rgb(255, 0, 8)',
     },
     action: {
-      disabled: 'rgb(0, 56, 180)',
+      disabled: 'rgb(0, 73, 130)',
       disabledBackground: 'rgb(0, 30, 100)',
     },
   },
@@ -201,7 +201,7 @@ export const verseOSTheme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          backgroundColor: 'rgb(14, 49, 141, .8)',
+          backgroundColor: 'rgb(14, 49, 141, .5)',
           boxShadow:
             '.5px 2px 3px -1px rgba(24,252,252,0.2), 0px 1px 3px 0px rgba(24,252,252,0.14), 0px 1.3px 3px 0px rgba(24,252,252,0.12)',
         },
