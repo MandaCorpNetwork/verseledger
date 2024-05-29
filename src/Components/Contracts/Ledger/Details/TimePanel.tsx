@@ -1,5 +1,9 @@
-import { useAppSelector } from '@Redux/hooks';
 import { Box, LinearProgress, Typography } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
+import { pickContract } from '@Redux/Slices/Contracts/contractSelectors';
+import dayjs from 'dayjs';
+import Duration from 'dayjs/plugin/duration';
+import RelativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
 
 type TimePanel = {
@@ -7,9 +11,25 @@ type TimePanel = {
 };
 
 export const BidPanel: React.FC<TimePanel> = ({ contractId }) => {
-  const pickedContract = useAppSelector((root) =>
-    pickedContract(root, contractId as string),
-  );
+  const contract = useAppSelector((root) => pickContract(root, contractId as string));
+
+  const formattedBidEnd = dayjs(contract.bidEnd).format('DD MMM, YY @ HH:mm');
+
+  const fetchBidEnd = React.useCallback(() => {
+    if (contract.bidEnd == null) return null;
+    const bidEnd = new Date(contract.bidEnd);
+    return bidEnd;
+  }, [contract]);
+
+  const timeRemaining = React.useCallback(() => {
+    const bidEnd = fetchBidEnd();
+    if (bidEnd == null) {
+      return 'Bidding Open';
+    }
+    const remainder = dayjs().to(bidEnd);
+    return remainder;
+  }, [fetchBidEnd]);
+
   const bidProgress = 20;
   return (
     <Box
@@ -31,14 +51,14 @@ export const BidPanel: React.FC<TimePanel> = ({ contractId }) => {
           variant="body2"
           sx={{ fontWeight: 'bold', color: 'text.secondary' }}
         >
-          Bid Time Remaining: X
+          Bid Time Remaining:{timeRemaining()}
         </Typography>
         <Typography
           align="center"
           variant="body2"
           sx={{ fontWeight: 'bold', color: 'text.secondary' }}
         >
-          Bid End Date: X
+          Bid End Date: {formattedBidEnd}
         </Typography>
       </Box>
       <Box
