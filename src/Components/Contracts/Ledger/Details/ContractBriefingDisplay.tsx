@@ -7,14 +7,14 @@ import { useAppSelector } from '@/Redux/hooks';
 import { pickContract } from '@/Redux/Slices/Contracts/contractSelectors';
 
 type ContractBriefingDisplayProps = {
-  selectedid: string | null;
+  selectedId: string | null;
 };
 
 export const ContractBriefingDisplay: React.FC<ContractBriefingDisplayProps> = ({
   selectedId,
 }) => {
   const pickedContract = useAppSelector((root) =>
-    pickContract(root, selectedId as number),
+    pickContract(root, selectedId as string),
   );
   useEffect(() => {
     console.log(`ContractBriefingDisplay: ${selectedId}`);
