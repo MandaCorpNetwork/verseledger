@@ -14,8 +14,8 @@ import SalvageLoop from '@/Assets/media/ContractLedger/SalvLoop.webm?url';
 import SecurityLoop from '@/Assets/media/ContractLedger/SecLoop.webm?url';
 import { ContractLedgerLoopButton } from '@/Components/Contracts/Ledger/ContractLedgerLoopButton';
 import { ContractLedgerQuickNav } from '@/Components/Contracts/Ledger/ContractLedgerQuickNav';
-import { ContractBriefingDisplay } from '@/Components/Contracts/Ledger/Details/ContractBriefingDisplay';
-import { ContractsViewer } from '@/Components/Contracts/Ledger/List/ContractsViewer';
+import { ContractDisplayContainer } from '@/Components/Contracts/Ledger/Details/ContractDisplayContainer';
+import { ContractsBrowser } from '@/Components/Contracts/Ledger/List/ContractBrowser';
 import { ContractTableTools } from '@/Components/Contracts/Ledger/List/ContractTableTools';
 
 export const ContractLedgerPage: React.FC<unknown> = () => {
@@ -141,7 +141,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
           }}
         >
           <ContractTableTools />
-          <ContractsViewer
+          <ContractsBrowser
             selectedId={selectedId}
             selectedIdSetter={handleContractPick}
             contractOnClose={handleContractClose}
@@ -154,7 +154,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
             width: '30%',
           }}
         >
-          <ContractBriefingDisplay selectedId={selectedId} />
+          <ContractDisplayContainer selectedId={selectedId} />
         </Box>
       </Box>
     </Box>

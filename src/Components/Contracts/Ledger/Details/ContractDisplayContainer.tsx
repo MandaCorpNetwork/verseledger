@@ -1,8 +1,7 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 
-import { ContractBriefingSkelton } from '@/Components/Contracts/Ledger/Details/ContractBriefingSkelton';
-import { ContractBriefingViewer } from '@/Components/Contracts/Ledger/Details/ContractBriefingViewer';
+import { ContractDisplay } from '@/Components/Contracts/Ledger/Details/ContractDisplay';
 import { useAppSelector } from '@/Redux/hooks';
 import { pickContract } from '@/Redux/Slices/Contracts/contractSelectors';
 
@@ -36,9 +35,16 @@ export const ContractDisplayContainer: React.FC<ContractDisplayContainer> = ({
       }}
     >
       {pickedContract ? (
-        <ContractBriefingViewer contract={pickedContract} />
+        <ContractDisplay contract={pickedContract} />
       ) : (
-        <ContractBriefingSkelton />
+        <Box
+          data-testid="ContractLedger-ContractDisplayContainer__EmptyContract"
+          sx={{ my: 'auto', mx: 'auto' }}
+        >
+          <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'text.secondary' }}>
+            Select Contract
+          </Typography>
+        </Box>
       )}
     </Box>
   );

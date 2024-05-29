@@ -1,4 +1,4 @@
-mport CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button } from '@mui/material';
 import React, { useEffect } from 'react';
 
@@ -17,7 +17,7 @@ type ContractsViewerProps = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const ContractsViewer: React.FC<ContractsViewerProps> = ({
+export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   selectedIdSetter,
   contractOnClose,
   selectedId,
