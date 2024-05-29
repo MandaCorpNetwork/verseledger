@@ -24,12 +24,12 @@ import { UserDisplay } from '@/Common/UserDisplay';
 import { ContractorsPanel } from './ActiveDataPanel';
 import { BidPanel, EndPanel, StartPanel } from './TimePanel';
 
-type BriefingViewerProps = {
+type ContractDisplayProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   contract: IContract;
 };
 
-export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract }) => {
+export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) => {
   const dispatch = useAppDispatch();
 
   const [briefingExpanded, setBriefingExpanded] = React.useState(true);
@@ -222,7 +222,7 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
                   variant="outlined"
                   size="small"
                   color="secondary"
-                  label={contract.subtype}
+                  label={contract.subType}
                 />
               </Box>
             </Box>

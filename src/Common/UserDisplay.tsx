@@ -1,4 +1,12 @@
-import { Avatar, Box, ButtonBase, Divider, Rating, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  ButtonBase,
+  Divider,
+  Rating,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
@@ -27,22 +35,22 @@ export const UserDisplay: React.FC<UserDisplayProps> = ({ userid }) => {
         alignItems: 'center',
       }}
     >
-      <ButtonBase
-        data-testid="UserDisplay__PlayerDataButton"
-        onClick={handlePlayerCardOpen}
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          bgcolor: 'background.default',
-          py: '.5em',
-          px: '1em',
-          borderLeft: '2px solid',
-          borderRight: '2px solid',
-          borderRadius: '5px',
+        <ButtonBase
+          data-testid="UserDisplay__PlayerDataButton"
+          onClick={handlePlayerCardOpen}
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            bgcolor: 'background.default',
+            py: '.5em',
+            px: '1em',
+            borderLeft: '2px solid',
+            borderRight: '2px solid',
+            borderRadius: '5px',
           borderColor: 'secondary.dark',
-          transition: 'background-color 300ms',
-          '&:hover': {
+            transition: 'background-color 300ms',
+            '&:hover': {
             borderColor: 'secondary.light',
           },
           '&:active': {
@@ -53,31 +61,31 @@ export const UserDisplay: React.FC<UserDisplayProps> = ({ userid }) => {
           },
         }}
       >
-        <Avatar
-          data-testid="UserDisplay-PlayerData__Avatar"
-          src={user?.pfp}
-          //alt={user.userName}
-          sx={{ bgcolor: 'primary.dark', width: 55, height: 55 }}
-        />
-        <Box
-          data-testid="UserDisplay-PlayerData__InfoWrapper"
-          sx={{ display: 'flex', flexDirection: 'column', ml: '.5em' }}
-        >
-          <Rating
-            data-testid="UserDisplay-PlayerData__UserRating"
-            name="Rating"
-            value={3}
-            readOnly
-            sx={{ ml: 'auto', mr: 'auto', mt: 'auto', mb: '5%' }}
+          <Avatar
+            data-testid="UserDisplay-PlayerData__Avatar"
+            src={user?.pfp}
+            //alt={user.userName}
+            sx={{ bgcolor: 'primary.dark', width: 55, height: 55 }}
           />
-          <Typography
-            data-testid="UserDisplay-PlayerData__UsernameText"
-            sx={{ ml: 'auto', mr: 'auto' }}
+          <Box
+            data-testid="UserDisplay-PlayerData__InfoWrapper"
+          sx={{ display: 'flex', flexDirection: 'column', ml: '.5em' }}
           >
-            {user?.handle}
-          </Typography>
-        </Box>
-      </ButtonBase>
+            <Rating
+              data-testid="UserDisplay-PlayerData__UserRating"
+              name="Rating"
+              value={3}
+              readOnly
+              sx={{ ml: 'auto', mr: 'auto', mt: 'auto', mb: '5%' }}
+            />
+            <Typography
+              data-testid="UserDisplay-PlayerData__UsernameText"
+            sx={{ ml: 'auto', mr: 'auto' }}
+            >
+              {user?.handle}
+            </Typography>
+          </Box>
+        </ButtonBase>
       <Divider
         variant="middle"
         color="secondary"

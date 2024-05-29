@@ -6,11 +6,11 @@ import { ContractBriefingViewer } from '@/Components/Contracts/Ledger/Details/Co
 import { useAppSelector } from '@/Redux/hooks';
 import { pickContract } from '@/Redux/Slices/Contracts/contractSelectors';
 
-type ContractBriefingDisplayProps = {
+type ContractDisplayContainer = {
   selectedId: string | null;
 };
 
-export const ContractBriefingDisplay: React.FC<ContractBriefingDisplayProps> = ({
+export const ContractDisplayContainer: React.FC<ContractDisplayContainer> = ({
   selectedId,
 }) => {
   const pickedContract = useAppSelector((root) =>
