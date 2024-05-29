@@ -24,7 +24,6 @@ import { UserDisplay } from '@/Common/UserDisplay';
 
 import { ContractorsPanel } from './ActiveDataPanel';
 import { BidPanel, EndPanel, StartPanel } from './TimePanel';
-import { ReadOnlyField } from '@Common/ReadOnlyField';
 
 const SmallTabs = styled(Tabs)({
   minHeight: '10px',
@@ -270,12 +269,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 >
                   Contract SubTypes
                 </Typography>
-                <Chip
-                  variant="outlined"
-                  size="small"
-                  color="secondary"
-                  label={contract.subType}
-                />
+                <Chip variant="outlined" size="small" color="secondary" label="SubType" />
               </Box>
             </Box>
           </Box>
@@ -643,30 +637,53 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            borderTop: '2px solid',
-            borderBottom: '2px solid',
-            borderRadius: '5px',
-            borderColor: 'primary.main',
             p: '.5em',
-            width: '75%',
+            width: '70%',
           }}
         >
-          <SmallTabs
-            variant="fullWidth"
-            value={timeTab}
-            onChange={handleTimeTabChange}
-            textColor="secondary"
-            indicatorColor="secondary"
+          <Box
+            data-testid="ContractDisplay-ContractTime__TabWrapper"
+            sx={{
+              borderRight: '2px solid',
+              borderLeft: '2px solid',
+              borderRadius: '5px',
+              borderColor: 'secondary.main',
+              px: '.5em',
+            }}
           >
-            <SmallTab label="Bid" value="bid" />
-            <SmallTab label="Start" value="start" />
-            <SmallTab label="End" value="end" />
-          </SmallTabs>
-          <Box data-testid="ContractDisplay-ContractTime__PanelWrapper">
+            <SmallTabs
+              variant="fullWidth"
+              value={timeTab}
+              onChange={handleTimeTabChange}
+              textColor="secondary"
+              indicatorColor="secondary"
+            >
+              <SmallTab label="Bid" value="bid" />
+              <SmallTab label="Start" value="start" />
+              <SmallTab label="End" value="end" />
+            </SmallTabs>
+          </Box>
+          <Box
+            data-testid="ContractDisplay-ContractTime__PanelWrapper"
+            sx={{
+              borderTop: '2px solid',
+              borderBottom: '2px solid',
+              borderRadius: '5px',
+              borderColor: 'primary.main',
+              height: '90%',
+              mt: '.5em',
+            }}
+          >
             {contractTimePanel(timeTab)}
           </Box>
         </Box>
-        <Box data-testid="ContractDisplay__SubmitBidButton">
+        <Box
+          data-testid="ContractDisplay__SubmitBidButtonWrapper"
+          sx={{
+            ml: 'auto',
+            mt: 'auto',
+          }}
+        >
           <Button variant="contained" color="secondary" onClick={handleSubmitBidPopup}>
             Submit Bid
           </Button>
