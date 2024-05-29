@@ -18,7 +18,7 @@ const ErrorPage: React.FC = () => {
         <Typography variant="h1">Oops!</Typography>
         <Typography>Sorry, an error has occured.</Typography>
         <Typography variant="subtitle1">
-          {error.error.message ?? error.message}
+          {error?.error?.message ?? error?.message ?? 'Something went Wrong'}
         </Typography>
       </Grid>
     </Grid>

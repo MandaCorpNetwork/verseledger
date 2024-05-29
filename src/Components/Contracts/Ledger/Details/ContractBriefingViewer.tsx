@@ -222,7 +222,7 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
                   variant="outlined"
                   size="small"
                   color="secondary"
-                  label={contract.subType}
+                  label={contract.subtype}
                 />
               </Box>
             </Box>

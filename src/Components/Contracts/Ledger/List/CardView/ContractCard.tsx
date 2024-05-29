@@ -97,7 +97,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
   const user = useAppSelector((state) => selectUserById(state, contract.owner_id));
 
   const handleAvatarClick = React.useCallback(() => {
-    const userid = user.id;
+    const userid = user?.id;
     dispatch(openPopup(POPUP_PLAYER_CARD, { userid }));
   }, [user]);
 
@@ -131,12 +131,12 @@ export const ContractCard: React.FC<ContractCardProps> = ({
             height: '100%',
           }}
         >
-          <Tooltip title={`${contract.subType}`}>
+          <Tooltip title={`${contract.subtype}`}>
             <img src={TestAttacheIcon} alt="" width="30" />
           </Tooltip>
-          <Tooltip title={user.handle} arrow>
+          <Tooltip title={user?.handle} arrow>
             <Avatar
-              src={user.pfp}
+              src={user?.pfp}
               sizes="small"
               sx={{ mt: 'auto', mb: 'auto' }}
               onClick={handleAvatarClick}

@@ -10,7 +10,7 @@ const contractsReducer = createSlice({
       return {};
     },
     insert(state, contract) {
-      return (state[contract.payload.id as number] = contract.payload);
+      state[contract.payload.id as number] = contract.payload;
     },
   },
   extraReducers(builder) {

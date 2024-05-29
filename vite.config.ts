@@ -1,5 +1,6 @@
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { VitePWA, VitePWAOptions } from 'vite-plugin-pwa';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
@@ -10,7 +11,12 @@ export default defineConfig({
   build: {
     outDir: '../build',
   },
-  plugins: [react({ tsDecorators: true }), VitePWA(appManifest), tsconfigPaths()],
+  plugins: [
+    react({ tsDecorators: true }),
+    VitePWA(appManifest),
+    tsconfigPaths(),
+    nodePolyfills(),
+  ],
   server: {
     port: 3000,
   },

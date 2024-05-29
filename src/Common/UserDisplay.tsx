@@ -55,7 +55,7 @@ export const UserDisplay: React.FC<UserDisplayProps> = ({ userid }) => {
       >
         <Avatar
           data-testid="UserDisplay-PlayerData__Avatar"
-          src={user.pfp}
+          src={user?.pfp}
           //alt={user.userName}
           sx={{ bgcolor: 'primary.dark', width: 55, height: 55 }}
         />
@@ -74,7 +74,7 @@ export const UserDisplay: React.FC<UserDisplayProps> = ({ userid }) => {
             data-testid="UserDisplay-PlayerData__UsernameText"
             sx={{ ml: 'auto', mr: 'auto' }}
           >
-            {user.handle}
+            {user?.handle}
           </Typography>
         </Box>
       </ButtonBase>

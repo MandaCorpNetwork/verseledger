@@ -103,8 +103,8 @@ export const CreateContractPopup: React.FC = () => {
           formData.title.trim() != '' &&
           formData.briefing != null &&
           formData.briefing.trim() != '' &&
-          formData.subType != null &&
-          formData.subType.trim() != ''
+          formData.subtype != null &&
+          formData.subtype.trim() != ''
         );
       case 1:
       case 2:

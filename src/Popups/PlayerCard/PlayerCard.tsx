@@ -38,9 +38,9 @@ export const PlayerCardPopup: React.FC<PlayerCardPopupProps> = ({ userid }) => {
         <Box sx={{ display: 'flex' }}>
           {user ? (
             <>
-              <Avatar src={user.pfp} sx={{ width: 55, height: 55 }} alt={user.handle} />
+              <Avatar src={user?.pfp} sx={{ width: 55, height: 55 }} alt={user?.handle} />
               <Box sx={{ ml: '.5em' }}>
-                <Typography align="center">{user.handle}</Typography>
+                <Typography align="center">{user?.handle}</Typography>
                 <Rating readOnly value={4} />
               </Box>
             </>

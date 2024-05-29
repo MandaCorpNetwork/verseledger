@@ -11,5 +11,5 @@ export const selectIsLoggedIn = createSelector([selectAuthObject], (authObject) 
 });
 
 export const selectCurrentUser = createSelector([selectAuthObject], (authObject) => {
-  return authObject.currentUser;
+  return authObject.isLoggedIn ? authObject.currentUser : null;
 });
