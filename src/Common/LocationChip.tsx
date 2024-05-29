@@ -15,16 +15,14 @@ export const LocationChip: React.FC<LocationChipProps> = ({ label }) => {
     dispatch(openPopup(POPUP_LOCATION_INFO, { label }));
   };
   return (
-    <>
-      <Chip
-        data-testid="LocationChip"
-        label={label}
-        color="secondary"
-        variant="outlined"
-        icon={<Place />}
-        size="small"
-        onClick={handleLocationInfoPopup}
-      />
-    </>
+    <Chip
+      data-testid="LocationChip"
+      label={label}
+      color="secondary"
+      variant="outlined"
+      icon={<Place />}
+      size="small"
+      onClick={handleLocationInfoPopup}
+    ></Chip>
   );
 };

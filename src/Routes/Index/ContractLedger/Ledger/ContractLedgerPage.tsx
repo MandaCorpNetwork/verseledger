@@ -120,6 +120,12 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
               setSelectedType={setSelectedType}
             />
             <ContractLedgerLoopButton
+              title="Exploration"
+              videoSource={RRRLoop}
+              selectedType={selectedType}
+              setSelectedType={setSelectedType}
+            />
+            <ContractLedgerLoopButton
               title="Proxy"
               videoSource={ProxyLoop}
               selectedType={selectedType}

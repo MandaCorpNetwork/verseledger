@@ -24,6 +24,7 @@ import { UserDisplay } from '@/Common/UserDisplay';
 
 import { ContractorsPanel } from './ActiveDataPanel';
 import { BidPanel, EndPanel, StartPanel } from './TimePanel';
+import { ReadOnlyField } from '@Common/ReadOnlyField';
 
 const SmallTabs = styled(Tabs)({
   minHeight: '10px',
@@ -378,8 +379,9 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               borderBottom: '2px solid',
               borderRadius: '5px',
               borderColor: 'primary.main',
-              p: '.5em',
+              px: '.5em',
               width: '100%',
+              maxHeight: '50%',
               mt: '1em',
             }}
           >
@@ -390,6 +392,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 backgroundColor: 'rgba(14,49,141,.25)',
                 borderRadius: '10px',
                 pl: '1em',
+                my: '.5em',
                 fontWeight: 'bold',
               }}
             >
@@ -406,50 +409,54 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 )}
               </IconButton>
             </Typography>
-            <Box
-              data-testid="ContractDisplay-PayandBriefing_PayInfoWrapper"
-              hidden={!payExpanded}
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-              }}
-            >
-              <Tooltip title={contract.payStructure} arrow>
-                <TextField
-                  size="small"
-                  label="Pay Structure"
-                  value={contract.payStructure}
-                  color="secondary"
-                  margin="dense"
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end" onClick={handlePayStructurePopup}>
-                        <HelpOutline color="secondary" fontSize="small" />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    mr: '.5em',
-                  }}
-                />
-              </Tooltip>
-              <Tooltip title={`¤${contract.defaultPay}`} arrow>
-                <TextField
-                  size="small"
-                  label="Default Pay"
-                  value={contract.defaultPay}
-                  color="secondary"
-                  margin="dense"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Typography color="secondary">¤</Typography>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Tooltip>
-            </Box>
+            {payExpanded ? (
+              <Box
+                data-testid="ContractDisplay-PayandBriefing_PayInfoWrapper"
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  mb: '.5em',
+                }}
+              >
+                <Tooltip title={contract.payStructure} arrow>
+                  <TextField
+                    size="small"
+                    label="Pay Structure"
+                    value={contract.payStructure}
+                    color="secondary"
+                    margin="dense"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end" onClick={handlePayStructurePopup}>
+                          <HelpOutline color="secondary" fontSize="small" />
+                        </InputAdornment>
+                      ),
+                    }}
+                    sx={{
+                      mr: '.5em',
+                    }}
+                  />
+                </Tooltip>
+                <Tooltip title={`¤${contract.defaultPay}`} arrow>
+                  <TextField
+                    size="small"
+                    label="Default Pay"
+                    value={contract.defaultPay}
+                    color="secondary"
+                    margin="dense"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Typography color="secondary">¤</Typography>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Tooltip>
+              </Box>
+            ) : (
+              <></>
+            )}
           </Box>
         </Box>
         <Box
@@ -457,103 +464,121 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            borderTop: '2px solid',
-            borderBottom: '2px solid',
-            borderRadius: '5px',
-            borderColor: 'primary.main',
-            p: '.5em',
             width: '45%',
-            mt: '1em',
+            maxHeight: '100%',
           }}
         >
-          <Typography
-            data-testid="ContractDisplay__LocationTitle"
-            variant="body2"
-            sx={{
-              backgroundColor: 'rgba(14,49,141,.25)',
-              borderRadius: '10px',
-              pl: '1em',
-              fontWeight: 'bold',
-            }}
-          >
-            Locations
-            <IconButton
-              data-testid="ContractDisplay-Locations_LocationsExpansionButton"
-              size="small"
-              onClick={toggleLocationsExpand}
-            >
-              {locationsExpanded ? (
-                <ExpandMore fontSize="small" />
-              ) : (
-                <ExpandLess fontSize="small" />
-              )}
-            </IconButton>
-          </Typography>
           <Box
-            data-testid="ContractDisplay-Locations__StartLocationWrapper"
+            data-testid="ContractDisplay__LocationWrapper"
             sx={{
-              backgroundColor: 'rgba(14,49,141,.25)',
-              borderRadius: '10px',
-              mt: '.5em',
-              mx: '.5em',
-              p: '.2em',
+              borderTop: '2px solid',
+              borderBottom: '2px solid',
+              borderRadius: '5px',
+              borderColor: 'primary.main',
+              width: '100%',
             }}
           >
             <Typography
-              data-testid="ContractDisplay-Locations-StartLocation__Title"
+              data-testid="ContractDisplay__LocationTitle"
               variant="body2"
-              align="center"
               sx={{
+                backgroundColor: 'rgba(14,49,141,.25)',
+                borderRadius: '10px',
+                pl: '1em',
                 fontWeight: 'bold',
+                m: '.5em',
               }}
             >
-              Start Location
+              Locations
+              <IconButton
+                data-testid="ContractDisplay-Locations_LocationsExpansionButton"
+                size="small"
+                onClick={toggleLocationsExpand}
+              >
+                {locationsExpanded ? (
+                  <ExpandMore fontSize="small" />
+                ) : (
+                  <ExpandLess fontSize="small" />
+                )}
+              </IconButton>
             </Typography>
-            <LocationChip label="Start" />
-          </Box>
-          <Box
-            data-testid="ContractDisplay-Locations__EndLocationWrapper"
-            sx={{
-              backgroundColor: 'rgba(14,49,141,.25)',
-              borderRadius: '10px',
-              mt: '.5em',
-              mx: '.5em',
-              justifyContent: 'center',
-            }}
-          >
-            <Typography
-              data-testid="ContractDisplay-Locations-StartLocation__Title"
-              variant="body2"
-              align="center"
-              sx={{
-                fontWeight: 'bold',
-              }}
-            >
-              End Location
-            </Typography>
-            <LocationChip label="End" />
-          </Box>
-          <Box
-            data-testid="ContractDisplay-Locations__OtherLocationsWrapper"
-            sx={{
-              backgroundColor: 'rgba(14,49,141,.25)',
-              borderRadius: '10px',
-              mt: '.5em',
-              mx: '.5em',
-              justifyContent: 'center',
-            }}
-          >
-            <Typography
-              data-testid="ContractDisplay-Locations-StartLocation__Title"
-              variant="body2"
-              align="center"
-              sx={{
-                fontWeight: 'bold',
-              }}
-            >
-              Other Locations
-            </Typography>
-            <LocationChip label="Other" />
+            {locationsExpanded ? (
+              <Box
+                data-testid="ContractDisplay-Locations__LocationsListWrapper"
+                sx={{
+                  mb: '.5em',
+                  width: '100%',
+                }}
+              >
+                <Box
+                  data-testid="ContractDisplay-Locations__StartLocationWrapper"
+                  sx={{
+                    backgroundColor: 'rgba(14,49,141,.25)',
+                    borderRadius: '10px',
+                    mx: '.5em',
+                    p: '.2em',
+                  }}
+                >
+                  <Typography
+                    data-testid="ContractDisplay-Locations-StartLocation__Title"
+                    variant="body2"
+                    align="center"
+                    sx={{
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Start Location
+                  </Typography>
+                  <LocationChip label="Start" />
+                </Box>
+                <Box
+                  data-testid="ContractDisplay-Locations__EndLocationWrapper"
+                  sx={{
+                    backgroundColor: 'rgba(14,49,141,.25)',
+                    borderRadius: '10px',
+                    mt: '.5em',
+                    mx: '.5em',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Typography
+                    data-testid="ContractDisplay-Locations-StartLocation__Title"
+                    variant="body2"
+                    align="center"
+                    sx={{
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    End Location
+                  </Typography>
+                  <LocationChip label="End" />
+                </Box>
+                <Box
+                  data-testid="ContractDisplay-Locations__OtherLocationsWrapper"
+                  sx={{
+                    backgroundColor: 'rgba(14,49,141,.25)',
+                    borderRadius: '10px',
+                    mt: '.5em',
+                    mx: '.5em',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Typography
+                    data-testid="ContractDisplay-Locations-StartLocation__Title"
+                    variant="body2"
+                    align="center"
+                    sx={{
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Other Locations
+                  </Typography>
+                  <LocationChip label="Other" />
+                </Box>
+              </Box>
+            ) : (
+              <></>
+            )}
           </Box>
         </Box>
       </Box>
