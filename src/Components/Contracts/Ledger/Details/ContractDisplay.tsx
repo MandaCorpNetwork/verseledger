@@ -7,6 +7,7 @@ import {
   Chip,
   IconButton,
   InputAdornment,
+  styled,
   Tab,
   Tabs,
   TextField,
@@ -23,6 +24,16 @@ import { UserDisplay } from '@/Common/UserDisplay';
 
 import { ContractorsPanel } from './ActiveDataPanel';
 import { BidPanel, EndPanel, StartPanel } from './TimePanel';
+
+const SmallTabs = styled(Tabs)({
+  minHeight: '10px',
+});
+
+const SmallTab = styled(Tab)({
+  minHeight: '10px',
+  height: '10px',
+  fontSize: '.8em',
+});
 
 type ContractDisplayProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -508,16 +519,16 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             width: '100%',
           }}
         >
-          <Tabs
+          <SmallTabs
             variant="fullWidth"
             value={activeDataTab}
             onChange={handleActiveTabChange}
             textColor="secondary"
             indicatorColor="secondary"
           >
-            <Tab label="Contractors" value="contractors" />
-            <Tab label="Ships" value="ships" />
-          </Tabs>
+            <SmallTab label="Contractors" value="contractors" />
+            <SmallTab label="Ships" value="ships" />
+          </SmallTabs>
         </Box>
         <Box
           data-testid="ContractViewer-ContractBriefing-ActiveData__PanelContainer"
@@ -556,17 +567,17 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             width: '75%',
           }}
         >
-          <Tabs
+          <SmallTabs
             variant="fullWidth"
             value={timeTab}
             onChange={handleTimeTabChange}
             textColor="secondary"
             indicatorColor="secondary"
           >
-            <Tab label="Bid" value="bid" />
-            <Tab label="Start" value="start" />
-            <Tab label="End" value="end" />
-          </Tabs>
+            <SmallTab label="Bid" value="bid" />
+            <SmallTab label="Start" value="start" />
+            <SmallTab label="End" value="end" />
+          </SmallTabs>
           <Box data-testid="ContractViewer-ContractBriefing-ContractTime__PanelWrapper">
             {contractTimePanel(timeTab)}
           </Box>
