@@ -139,6 +139,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         height: '100%',
         width: '100%',
         p: '.5em',
+        gap: '1em',
       }}
     >
       <Box
@@ -287,7 +288,6 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           flexDirection: 'row',
           width: '100%',
           maxHeight: '35%',
-          mt: '1em',
           justifyContent: 'space-around',
         }}
       >
@@ -585,10 +585,10 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       <Box
         data-testid="ContractDisplay__ActiveDataContainer"
         sx={{
-          mt: '1em',
           width: '100%',
-          height: '35%',
+          minHeight: '20%',
           p: '.5em',
+          my: '.5em',
         }}
       >
         <Box
@@ -611,14 +611,14 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             indicatorColor="secondary"
           >
             <SmallTab label="Contractors" value="contractors" />
-            <SmallTab label="Ships" value="ships" />
+            <SmallTab label="Ships" value="ships" disabled />
           </SmallTabs>
         </Box>
         <Box
           data-testid="ContractDisplay-ActiveData__PanelContainer"
           sx={{
             width: '100%',
-            height: '50%',
+            height: '90%',
             borderTop: '2px solid',
             borderBottom: '2px solid',
             borderColor: 'primary.main',
@@ -633,9 +633,9 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         data-testid="ContractDisplay__BottomBox"
         sx={{
           width: '100%',
+          minHeight: '20%',
           display: 'flex',
           flexDirection: 'row',
-          mt: '2em',
         }}
       >
         <Box

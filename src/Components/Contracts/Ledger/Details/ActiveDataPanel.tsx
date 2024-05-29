@@ -1,8 +1,6 @@
 import { Avatar, Box, Chip, Typography } from '@mui/material';
-import { Contractors } from '@Popups/CreateContract/pages/Contractors';
 
 type ContractorProps = {
-  id: string;
   userName: string;
   profilePicture: string;
   ship?: string;
@@ -10,15 +8,48 @@ type ContractorProps = {
 
 const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, ship }) => {
   return (
-    <Box data-testid="ActiveData-ContractorPanel-ContractorList__ContractorWrapper">
-      <Chip
-        data-testid="ActiveData-ContractorPanel-ContractorList-Contractor__UserChip"
-        avatar={<Avatar src={profilePicture} />}
-        label={userName}
-        color="secondary"
-        variant="outlined"
-      />
-      <Typography>{ship}</Typography>
+    <Box
+      data-testid="ActiveData-ContractorPanel-ContractorList__ContractorContainer"
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        my: '.2em',
+      }}
+    >
+      <Box
+        data-testid="ActiveData-ContractorPanel-ContractorList__ContractorWrapper"
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          backgroundColor: 'rgba(14,49,141,.25)',
+          borderRadius: '10px',
+          p: '.2em',
+          width: '50%',
+          justifyContent: 'space-around',
+          alignContent: 'center',
+        }}
+      >
+        <Chip
+          data-testid="ActiveData-ContractorPanel-ContractorList-Contractor__UserChip"
+          avatar={<Avatar src={profilePicture} />}
+          label={userName}
+          color="secondary"
+          variant="outlined"
+        />
+        <Box
+          sx={{
+            my: 'auto',
+          }}
+        >
+          <Typography
+            variant="body2"
+            sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+          >
+            Ship: {ship}
+          </Typography>
+        </Box>
+      </Box>
     </Box>
   );
 };
@@ -49,7 +80,8 @@ export const ContractorsPanel: React.FC = () => {
             display: 'flex',
             flexDirection: 'row',
             width: '100%',
-            height: '10%',
+            backgroundColor: 'rgba(14,49,141,.25)',
+            borderRadius: '10px',
           }}
         >
           <Box
@@ -59,15 +91,13 @@ export const ContractorsPanel: React.FC = () => {
               flexDirection: 'inherit',
               justifyContent: 'space-around',
               width: '100%',
-              backgroundColor: 'rgba(14,49,141,.25)',
-              borderRadius: '10px',
+              alignContent: 'center',
             }}
           >
             <Typography
               data-testid="ContractBriefing-ActiveData-ContractorPanel-CountBar__ActiveContractorsCount"
               variant="body2"
               sx={{
-                my: 'auto',
                 fontWeight: 'bold',
                 color: 'text.secondary',
               }}
@@ -78,7 +108,6 @@ export const ContractorsPanel: React.FC = () => {
               data-testid="ContractBriefing-ActiveData-ContractorPanel-CountBar__ContractorLimitCount"
               variant="body2"
               sx={{
-                my: 'auto',
                 fontWeight: 'bold',
                 color: 'text.secondary',
               }}
@@ -91,9 +120,20 @@ export const ContractorsPanel: React.FC = () => {
           data-testid="ContractBriefing-ActiveData-ContratorPanel__ContractorListContainer"
           sx={{
             width: '100%',
-            height: '90%',
+            height: '85%',
             overflow: 'auto',
             mt: '.5em',
+            '&::-webkit-scrollbar': {
+              width: '10px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: 'rgb(8, 29, 68)',
+              borderRadius: '10px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              borderRadius: '20px',
+              background: 'rgb(121, 192, 244, .5)',
+            },
           }}
         >
           <Box
@@ -104,10 +144,9 @@ export const ContractorsPanel: React.FC = () => {
               flexDirection: 'column',
             }}
           >
-            {contractors.map((contractor) => (
+            {contractors.map((contractors) => (
               <Contractor
                 key={contractors.id}
-                id={contractors.id}
                 userName={contractors.name}
                 profilePicture={contractors.profilePicture}
                 ship="InDev"
