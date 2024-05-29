@@ -131,7 +131,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
 
   return (
     <Box
-      data-testid="ContractViewer__Container"
+      data-testid="ContractDisplay__Container"
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -139,7 +139,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       }}
     >
       <Box
-        data-testid="ContractViewer__TopBox"
+        data-testid="ContractDisplay__TopBox"
         sx={{
           display: 'flex',
           flexDirection: 'row',
@@ -148,14 +148,14 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       >
         <UserDisplay userid={contract.owner_id} />
         <Box
-          data-testid="ContractViewer-TopBox__TitleContainer"
+          data-testid="ContractDisplay-TopBox__TitleContainer"
           sx={{
             display: 'flex',
             flexDirection: 'column',
           }}
         >
           <Box
-            data-testid="ContractViewer-Info__TitleBoxWrapper"
+            data-testid="ContractDisplay-Info__TitleBoxWrapper"
             sx={{
               display: 'flex',
               flexDirection: 'column',
@@ -169,7 +169,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             }}
           >
             <Box
-              data-testid="ContractViewer-Info__TitleBar"
+              data-testid="ContractDisplay-Info__TitleBar"
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
@@ -186,7 +186,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               <SalvageIcon fontSize="large" />
             </Box>
             <Box
-              data-testid="ContractViewer__DetailsContainer"
+              data-testid="ContractDisplay__DetailsContainer"
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
@@ -194,7 +194,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               }}
             >
               <Box
-                data-testid="ContractViewer-Info-Details__StatusWrapper"
+                data-testid="ContractDisplay-Info-Details__StatusWrapper"
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -207,7 +207,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 }}
               >
                 <Typography
-                  data-testid="ContractViewer-Info-Details__StatusTitle"
+                  data-testid="ContractDisplay-Info-Details__StatusTitle"
                   align="center"
                   variant="body2"
                   sx={{ fontWeight: 'bold' }}
@@ -222,7 +222,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 />
               </Box>
               <Box
-                data-testid="ContractViewer-Info-Details__SubTypeWrapper"
+                data-testid="ContractDisplay-Info-Details__SubTypeWrapper"
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -234,7 +234,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 }}
               >
                 <Typography
-                  data-testid="ContractViewer-Info-Details__SubTypeTitle"
+                  data-testid="ContractDisplay-Info-Details__SubTypeTitle"
                   align="center"
                   variant="body2"
                   sx={{
@@ -255,7 +255,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         </Box>
       </Box>
       <Box
-        data-testid="ContractViewer__MiddleBox"
+        data-testid="ContractDisplay__MiddleBox"
         sx={{
           display: 'flex',
           flexDirection: 'row',
@@ -264,7 +264,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         }}
       >
         <Box
-          data-testid="ContractViewer__PayandBriefingContainer"
+          data-testid="ContractDisplay__PayandBriefingContainer"
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -275,7 +275,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           }}
         >
           <Box
-            data-testid="ContractViewer-PayandBriefing__BriefingWrapper"
+            data-testid="ContractDisplay-PayandBriefing__BriefingWrapper"
             sx={{
               display: 'flex',
               flexDirection: 'inherit',
@@ -288,7 +288,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             }}
           >
             <Typography
-              data-testid="ContractViewer-PayandBriefing__BriefingTitle"
+              data-testid="ContractDisplay-PayandBriefing__BriefingTitle"
               variant="body2"
               sx={{
                 backgroundColor: 'rgba(14,49,141,.25)',
@@ -299,7 +299,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             >
               Briefing
               <IconButton
-                data-testid="ContractViewer-PayandBriefing__BriefingExpansionButton"
+                data-testid="ContractDisplay-PayandBriefing__BriefingExpansionButton"
                 size="small"
                 onClick={toggleBriefingExpand}
               >
@@ -311,7 +311,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               </IconButton>
             </Typography>
             <Typography
-              data-testid="ContractViewer-PayandBriefing__BriefingContent"
+              data-testid="ContractDisplay-PayandBriefing__BriefingContent"
               variant="body2"
               hidden={!briefingExpanded}
               sx={{
@@ -325,7 +325,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             </Typography>
           </Box>
           <Box
-            data-testid="ContractViewer-PayandBriefing__PayWrapper"
+            data-testid="ContractDisplay-PayandBriefing__PayWrapper"
             sx={{
               display: 'flex',
               flexDirection: 'inherit',
@@ -339,7 +339,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             }}
           >
             <Typography
-              data-testid="ContractViewer-PayandBriefing__PayTitle"
+              data-testid="ContractDisplay-PayandBriefing__PayTitle"
               variant="body2"
               sx={{
                 backgroundColor: 'rgba(14,49,141,.25)',
@@ -350,7 +350,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             >
               Pay
               <IconButton
-                data-testid="ContractViewer-PayandBriefing_PayExpansionButton"
+                data-testid="ContractDisplay-PayandBriefing_PayExpansionButton"
                 size="small"
                 onClick={togglePayExpand}
               >
@@ -362,7 +362,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               </IconButton>
             </Typography>
             <Box
-              data-testid="ContractViewer-PayandBriefing_PayInfoWrapper"
+              data-testid="ContractDisplay-PayandBriefing_PayInfoWrapper"
               hidden={!payExpanded}
               sx={{
                 display: 'flex',
@@ -408,7 +408,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           </Box>
         </Box>
         <Box
-          data-testid="ContractViewer__LocationContainer"
+          data-testid="ContractDisplay__LocationContainer"
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -422,7 +422,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           }}
         >
           <Typography
-            data-testid="ContractViewer__LocationTitle"
+            data-testid="ContractDisplay__LocationTitle"
             variant="body2"
             sx={{
               backgroundColor: 'rgba(14,49,141,.25)',
@@ -433,7 +433,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           >
             Locations
             <IconButton
-              data-testid="ContractViewer-Locations_LocationsExpansionButton"
+              data-testid="ContractDisplay-Locations_LocationsExpansionButton"
               size="small"
               onClick={toggleLocationsExpand}
             >
@@ -445,7 +445,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             </IconButton>
           </Typography>
           <Box
-            data-testid="ContractViewer-Locations__StartLocationWrapper"
+            data-testid="ContractDisplay-Locations__StartLocationWrapper"
             sx={{
               backgroundColor: 'rgba(14,49,141,.25)',
               borderRadius: '10px',
@@ -455,7 +455,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             }}
           >
             <Typography
-              data-testid="ContractViewer-Locations-StartLocation__Title"
+              data-testid="ContractDisplay-Locations-StartLocation__Title"
               variant="body2"
               align="center"
               sx={{
@@ -467,7 +467,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             <LocationChip label="Start" />
           </Box>
           <Box
-            data-testid="ContractViewer-Locations__EndLocationWrapper"
+            data-testid="ContractDisplay-Locations__EndLocationWrapper"
             sx={{
               backgroundColor: 'rgba(14,49,141,.25)',
               borderRadius: '10px',
@@ -477,7 +477,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             }}
           >
             <Typography
-              data-testid="ContractViewer-Locations-StartLocation__Title"
+              data-testid="ContractDisplay-Locations-StartLocation__Title"
               variant="body2"
               align="center"
               sx={{
@@ -489,7 +489,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             <LocationChip label="End" />
           </Box>
           <Box
-            data-testid="ContractViewer-Locations__OtherLocationsWrapper"
+            data-testid="ContractDisplay-Locations__OtherLocationsWrapper"
             sx={{
               backgroundColor: 'rgba(14,49,141,.25)',
               borderRadius: '10px',
@@ -499,7 +499,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             }}
           >
             <Typography
-              data-testid="ContractViewer-Locations-StartLocation__Title"
+              data-testid="ContractDisplay-Locations-StartLocation__Title"
               variant="body2"
               align="center"
               sx={{
@@ -513,7 +513,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         </Box>
       </Box>
       <Box
-        data-testid="ContractViewer__ActiveDataContainer"
+        data-testid="ContractDisplay__ActiveDataContainer"
         sx={{
           mt: '1em',
           width: '100%',
@@ -522,7 +522,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         }}
       >
         <Box
-          data-testid="ContractViewer-ActiveData__TabWrapper"
+          data-testid="ContractDisplay-ActiveData__TabWrapper"
           sx={{
             borderLeft: '2px solid',
             borderRight: '2px solid',
@@ -545,7 +545,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           </SmallTabs>
         </Box>
         <Box
-          data-testid="ContractViewer-ActiveData__PanelContainer"
+          data-testid="ContractDisplay-ActiveData__PanelContainer"
           sx={{
             width: '100%',
             height: '50%',
@@ -560,7 +560,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         </Box>
       </Box>
       <Box
-        data-testid="ContractViewer__BottomBox"
+        data-testid="ContractDisplay__BottomBox"
         sx={{
           width: '100%',
           display: 'flex',
@@ -569,7 +569,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         }}
       >
         <Box
-          data-testid="ContractViewer__ContractTimeContainer"
+          data-testid="ContractDisplay__ContractTimeContainer"
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -592,11 +592,11 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             <SmallTab label="Start" value="start" />
             <SmallTab label="End" value="end" />
           </SmallTabs>
-          <Box data-testid="ContractViewer-ContractTime__PanelWrapper">
+          <Box data-testid="ContractDisplay-ContractTime__PanelWrapper">
             {contractTimePanel(timeTab)}
           </Box>
         </Box>
-        <Box data-testid="ContractViewer__SubmitBidButton">
+        <Box data-testid="ContractDisplay__SubmitBidButton">
           <Button variant="contained" color="secondary" onClick={handleSubmitBidPopup}>
             Submit Bid
           </Button>
