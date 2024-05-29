@@ -79,7 +79,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
     (panel: string) => {
       switch (panel) {
         case 'bid':
-          return <BidPanel />;
+          return <BidPanel contractId={contract.id} />;
         case 'start':
           return <StartPanel />;
         case 'end':

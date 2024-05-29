@@ -1,11 +1,56 @@
-import { Box, Typography } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
+import { Box, LinearProgress, Typography } from '@mui/material';
 import React from 'react';
 
-export const BidPanel: React.FC<unknown> = () => {
+type TimePanel = {
+  contractId: string | null;
+};
+
+export const BidPanel: React.FC<TimePanel> = ({ contractId }) => {
+  const pickedContract = useAppSelector((root) =>
+    pickedContract(root, contractId as string),
+  );
+  const bidProgress = 20;
   return (
-    <Box data-testid="ContractTime-Panel__BidTimeWrapper">
-      <Typography>Bid Time Remaining: X</Typography>
-      <Typography>Bid End Date: X</Typography>
+    <Box
+      data-testid="ContractTime-Panel__BidTimeContainer"
+      sx={{
+        width: '100%',
+        height: '100%',
+        alignContent: 'center',
+      }}
+    >
+      <Box
+        data-testid="ContractTime-Panel-BidTime__TextWrapper"
+        sx={{
+          width: '100%',
+        }}
+      >
+        <Typography
+          align="center"
+          variant="body2"
+          sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+        >
+          Bid Time Remaining: X
+        </Typography>
+        <Typography
+          align="center"
+          variant="body2"
+          sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+        >
+          Bid End Date: X
+        </Typography>
+      </Box>
+      <Box
+        data-testid="ContractTime-Panel-BidTime__ProgressWrapper"
+        sx={{
+          width: '50%',
+          mx: 'auto',
+          mt: '.5em',
+        }}
+      >
+        <LinearProgress variant="determinate" value={bidProgress} />
+      </Box>
     </Box>
   );
 };
