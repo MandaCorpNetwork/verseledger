@@ -91,6 +91,20 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
     [timeTab],
   );
 
+  const activeDataPanel = React.useCallback(
+    (panel: string) => {
+      switch (panel) {
+        case 'contractors':
+          return <ContractorsPanel />;
+        case 'ships':
+          return;
+        default:
+          return;
+      }
+    },
+    [activeDataTab],
+  );
+
   const statusChipColor = React.useCallback(() => {
     if (contract.status == 'BIDDING') {
       return 'secondary';
@@ -542,7 +556,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             mt: '.5em',
           }}
         >
-          {activeDataTab == 'contractors' ? <ContractorsPanel /> : 'whoops'}
+          {activeDataPanel(activeDataTab)}
         </Box>
       </Box>
       <Box

@@ -152,6 +152,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
           sx={{
             ml: '1em',
             width: '30%',
+            height: '100%',
           }}
         >
           <ContractDisplayContainer selectedId={selectedId} />
