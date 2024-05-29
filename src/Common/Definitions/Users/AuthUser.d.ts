@@ -1,8 +1,8 @@
 type AuthUser = {
   id: string;
   discord_id: string;
-  handle: string | null;
-  pfp: string | null;
+  handle: string;
+  pfp: string;
   createdAt: string;
   updatedAt: string;
 };

@@ -97,8 +97,7 @@ export const SelectedContractManager: React.FC<unknown> = () => {
             justifyContent: 'center',
             width: '30%',
           }}
-        >
-        </Box>
+        ></Box>
         <Box
           data-testid="SelectedContract__OverviewInfoContainer"
           sx={{

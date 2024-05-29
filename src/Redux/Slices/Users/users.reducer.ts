@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { fetchCurrentUser } from '../Auth/Actions/fetchCurrentUser';
 import { fetchContracts } from '../Contracts/contractThunks';
 const usersReducer = createSlice({
   name: 'users',
@@ -19,6 +20,10 @@ const usersReducer = createSlice({
         if (owner == null) continue;
         _state[owner.id as string] = owner;
       }
+    });
+    builder.addCase(fetchCurrentUser.fulfilled, (_state, action) => {
+      const currentUser = action.payload as AuthUser;
+      _state[currentUser.id] = currentUser;
     });
   },
 });

@@ -515,9 +515,9 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
           flexDirection: 'row',
         }}
       >
-        <Box
-          data-testid="ContractViewer-ContractBriefing__ContractTimeContainer"
-        >Time Remaining</Box>
+        <Box data-testid="ContractViewer-ContractBriefing__ContractTimeContainer">
+          Time Remaining
+        </Box>
         <Button>Submit Bid</Button>
       </Box>
     </Box>
