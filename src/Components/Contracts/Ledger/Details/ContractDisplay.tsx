@@ -136,6 +136,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
+        width: '100%',
         p: '.5em',
       }}
     >
@@ -146,12 +147,14 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           flexDirection: 'row',
           width: '100%',
           height: '20%',
+          justifyContent: 'space-around',
         }}
       >
         <Box
           data-testid="ContractDisplay__UserDisplayWrapper"
           sx={{
             width: '40%',
+            alignContent: 'center',
           }}
         >
           <UserDisplay userid={contract.owner_id} />
@@ -161,7 +164,8 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            width: '50%',
+            width: '55%',
+            height: '100%',
           }}
         >
           <Box
@@ -175,7 +179,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               borderColor: 'primary.main',
               p: '.5em',
               ml: '1em',
-              minWidth: '250px',
+              width: '100%',
             }}
           >
             <Box
@@ -187,13 +191,22 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 borderRadius: '10px',
                 p: '.2em',
                 justifyContent: 'space-around',
+                width: '100%',
               }}
             >
-              <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                {contract.title}
-              </Typography>
+              <Tooltip title={contract.title} arrow>
+                <Typography
+                  variant="h6"
+                  noWrap
+                  sx={{ fontWeight: 'bold', maxWidth: '80%' }}
+                >
+                  {contract.title}
+                </Typography>
+              </Tooltip>
               <Box sx={{ flexGrow: '1', display: 'flex' }} />
-              <SalvageIcon fontSize="large" />
+              <Tooltip title="Archetype">
+                <SalvageIcon fontSize="large" />
+              </Tooltip>
             </Box>
             <Box
               data-testid="ContractDisplay__DetailsContainer"
@@ -201,6 +214,8 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 display: 'flex',
                 flexDirection: 'row',
                 mt: '.5em',
+                width: '100%',
+                justifyContent: 'space-around',
               }}
             >
               <Box
