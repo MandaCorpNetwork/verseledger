@@ -1,5 +1,5 @@
 import { FilterAlt } from '@mui/icons-material';
-import { Badge, Box, Collapse, IconButton, Typography } from '@mui/material';
+import { Badge, Box, Button, Collapse, Typography } from '@mui/material';
 import React, { useRef, useState } from 'react';
 
 import { QueryNames } from '@/Common/Definitions/QueryNames';
@@ -55,7 +55,7 @@ export const ContractTableTools: React.FC<unknown> = () => {
 
   return (
     <Box
-      data-testid="ContractLedger-ContractBrowser__TableToolsContainer"
+      data-testid="ContractLedger-ColumnTwo__TableToolsContainer"
       ref={toolsRef}
       sx={{
         display: 'flex',
@@ -63,7 +63,7 @@ export const ContractTableTools: React.FC<unknown> = () => {
         justifyContent: 'space-around',
         position: 'relative',
         backgroundColor: 'rgba(14,49,141,.25)',
-        mt: '.5em',
+        mt: '1em',
         py: '.5em',
         mx: '1em',
         borderTop: '2px solid',
@@ -72,18 +72,30 @@ export const ContractTableTools: React.FC<unknown> = () => {
         borderRadius: '5px',
       }}
     >
-      <Badge badgeContent={filterCount} color="error" variant="dot" overlap="circular">
-        <IconButton
-          data-testid="ContractLedger-ContractBrowser-TableTools__FilterButton"
-          variant="contained"
+      <Badge
+        data-testid="ContractLedger-TableTools__FilterBadge"
+        badgeContent={filterCount}
+        color="error"
+        variant="dot"
+        overlap="rectangular"
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <Button
+          data-testid="ContractLedger-TableTools__FilterButton"
           onClick={handleClick}
           color="secondary"
+          variant="outlined"
+          startIcon={<FilterAlt />}
+          size="small"
         >
-          <FilterAlt />
-        </IconButton>
+          Filters
+        </Button>
       </Badge>
       <Collapse
-        data-testid="ContractLedger-ContractBrowser-TableTools__FilterDrawer"
+        data-testid="ContractLedger-TableTools__FilterDrawer"
         key="Contract-Table-Filter-Drawer"
         in={open}
         sx={{
@@ -95,7 +107,7 @@ export const ContractTableTools: React.FC<unknown> = () => {
         }}
       >
         <Box
-          data-testid="ContractLedger-ContractBrowser-TableTools-FilterDrawer__FilterDisplayContainer"
+          data-testid="ContractLedger-TableTools-FilterDrawer__FilterDisplayContainer"
           sx={{
             width: '100%',
             display: 'flex',
@@ -117,17 +129,24 @@ export const ContractTableTools: React.FC<unknown> = () => {
           <CLFilterDropdown filter="Pay Range" label="Contract Pay Range" />
         </Box>
       </Collapse>
-      <Typography variant="h5" sx={{ color: 'text.secondary' }}>
+      <Typography
+        data-testid="ContractLedger-TableTools__Title"
+        variant="h5"
+        sx={{ color: 'text.secondary' }}
+      >
         Contract Browser
       </Typography>
       <Box
-        id="Contract-Table-Search-Sort-Box"
+        data-testid="ContractLedger-TableTools__SortandSearchWrapper"
         sx={{ display: 'flex', flexDirection: 'row' }}
       >
-        <Box id="Contract-Table-Sort-By-Box" sx={{ marginRight: '1em' }}>
+        <Box
+          data-testid="ContractLedger-TableTools-SortandSearch__SortByWrapper"
+          sx={{ marginRight: '1em' }}
+        >
           <SortBySelect size="small" sortOptions={sortOptions} containerSize="small" />
         </Box>
-        <Box id="Contract-Table-SearchBar-Box">
+        <Box data-testid="ContractLedger-TableTools-SortandSearch__SearchWrapper">
           <SearchBar
             size="small"
             label="Search Contracts"

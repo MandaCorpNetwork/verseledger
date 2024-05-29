@@ -1,7 +1,6 @@
 import { SalvageIcon } from '@Common/CustomIcons';
 import { LocationChip } from '@Common/LocationChip';
 import { ExpandLess, ExpandMore, HelpOutline } from '@mui/icons-material';
-import { TabContext, TabList, TabPanel } from '@mui/lab';
 import {
   Box,
   Button,
@@ -14,6 +13,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
+import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBid';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
@@ -21,7 +21,8 @@ import React from 'react';
 
 import { UserDisplay } from '@/Common/UserDisplay';
 
-import { ContractorsPanel } from './ContractorsPanel';
+import { ContractorsPanel } from './ActiveDataPanel';
+import { BidPanel, EndPanel, StartPanel } from './TimePanel';
 
 type BriefingViewerProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -35,12 +36,20 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
   const [payExpanded, setPayExpanded] = React.useState(true);
   const [locationsExpanded, setLocationsExpanded] = React.useState(true);
   const [activeDataTab, setActiveDataTab] = React.useState('contractors');
+  const [timeTab, setTimeTab] = React.useState('bid');
 
-  const handleTabChange = React.useCallback(
-    (value: string) => {
+  const handleActiveTabChange = React.useCallback(
+    (event: React.SyntheticEvent, value: string) => {
       setActiveDataTab(value);
     },
     [activeDataTab],
+  );
+
+  const handleTimeTabChange = React.useCallback(
+    (event: React.SyntheticEvent, value: string) => {
+      setTimeTab(value);
+    },
+    [timeTab],
   );
 
   const toggleBriefingExpand = React.useCallback(() => {
@@ -54,6 +63,22 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
   const toggleLocationsExpand = React.useCallback(() => {
     setLocationsExpanded(!locationsExpanded);
   }, [locationsExpanded]);
+
+  const contractTimePanel = React.useCallback(
+    (panel: string) => {
+      switch (panel) {
+        case 'bid':
+          return <BidPanel />;
+        case 'start':
+          return <StartPanel />;
+        case 'end':
+          return <EndPanel />;
+        default:
+          return;
+      }
+    },
+    [timeTab],
+  );
 
   const statusChipColor = React.useCallback(() => {
     if (contract.status == 'BIDDING') {
@@ -75,14 +100,16 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
     dispatch(openPopup(POPUP_PAY_STRUCTURES));
   };
 
+  const handleSubmitBidPopup = () => {
+    dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID));
+  };
+
   return (
     <Box
       data-testid="ContractViewer-ContractBriefing__Container"
       sx={{
-        flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
-        overflow: 'hidden',
         height: '100%',
       }}
     >
@@ -366,7 +393,7 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
             borderColor: 'primary.main',
             p: '.5em',
             width: '45%',
-            mt: '2em',
+            mt: '1em',
           }}
         >
           <Typography
@@ -463,7 +490,7 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
       <Box
         data-testid="ContractViewer-ContractBriefing__ActiveDataContainer"
         sx={{
-          mt: '2em',
+          mt: '1em',
           width: '100%',
           height: '35%',
           p: '.5em',
@@ -484,7 +511,7 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
           <Tabs
             variant="fullWidth"
             value={activeDataTab}
-            onChange={handleTabChange}
+            onChange={handleActiveTabChange}
             textColor="secondary"
             indicatorColor="secondary"
           >
@@ -513,12 +540,42 @@ export const ContractBriefingViewer: React.FC<BriefingViewerProps> = ({ contract
           width: '100%',
           display: 'flex',
           flexDirection: 'row',
+          mt: '2em',
         }}
       >
-        <Box data-testid="ContractViewer-ContractBriefing__ContractTimeContainer">
-          Time Remaining
+        <Box
+          data-testid="ContractViewer-ContractBriefing__ContractTimeContainer"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            borderTop: '2px solid',
+            borderBottom: '2px solid',
+            borderRadius: '5px',
+            borderColor: 'primary.main',
+            p: '.5em',
+            width: '75%',
+          }}
+        >
+          <Tabs
+            variant="fullWidth"
+            value={timeTab}
+            onChange={handleTimeTabChange}
+            textColor="secondary"
+            indicatorColor="secondary"
+          >
+            <Tab label="Bid" value="bid" />
+            <Tab label="Start" value="start" />
+            <Tab label="End" value="end" />
+          </Tabs>
+          <Box data-testid="ContractViewer-ContractBriefing-ContractTime__PanelWrapper">
+            {contractTimePanel(timeTab)}
+          </Box>
         </Box>
-        <Button>Submit Bid</Button>
+        <Box data-testid="ContractViewer-ContractBriefing__SubmitBidButton">
+          <Button variant="contained" color="secondary" onClick={handleSubmitBidPopup}>
+            Submit Bid
+          </Button>
+        </Box>
       </Box>
     </Box>
   );

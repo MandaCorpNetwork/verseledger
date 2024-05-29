@@ -1,7 +1,15 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
 import { Discord } from '@Common/CustomIcons';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Avatar, Box, IconButton, Rating, Tab, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  IconButton,
+  Rating,
+  Skeleton,
+  Tab,
+  Typography,
+} from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserById } from '@Redux/Slices/Users/contractSelectors';
@@ -28,11 +36,20 @@ export const PlayerCardPopup: React.FC<PlayerCardPopupProps> = ({ userid }) => {
     <VLPopup name={POPUP_PLAYER_CARD} title="" data-testid="PlayerCard">
       <Box>
         <Box sx={{ display: 'flex' }}>
-          <Avatar src={user.pfp} sx={{ width: 55, height: 55 }} alt={user.handle} />
-          <Box sx={{ ml: '.5em' }}>
-            <Typography align="center">{user.handle}</Typography>
-            <Rating readOnly value={4} />
-          </Box>
+          {user ? (
+            <>
+              <Avatar src={user.pfp} sx={{ width: 55, height: 55 }} alt={user.handle} />
+              <Box sx={{ ml: '.5em' }}>
+                <Typography align="center">{user.handle}</Typography>
+                <Rating readOnly value={4} />
+              </Box>
+            </>
+          ) : (
+            <>
+              <Skeleton variant="circular" sx={{ width: 55, height: 55 }} />
+              <Skeleton sx={{ ml: '.5em', width: '100px' }} />
+            </>
+          )}
         </Box>
         <Box>
           <IconButton>

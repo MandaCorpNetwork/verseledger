@@ -12,7 +12,6 @@ import ProxyLoop from '@/Assets/media/ContractLedger/ProxyLoop.webm?url';
 import RRRLoop from '@/Assets/media/ContractLedger/RRRLoop.webm?url';
 import SalvageLoop from '@/Assets/media/ContractLedger/SalvLoop.webm?url';
 import SecurityLoop from '@/Assets/media/ContractLedger/SecLoop.webm?url';
-import { CreateContract } from '@/Components/Contracts/Create/CreateContract';
 import { ContractLedgerLoopButton } from '@/Components/Contracts/Ledger/ContractLedgerLoopButton';
 import { ContractLedgerQuickNav } from '@/Components/Contracts/Ledger/ContractLedgerQuickNav';
 import { ContractBriefingDisplay } from '@/Components/Contracts/Ledger/Details/ContractBriefingDisplay';
@@ -38,98 +37,103 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
 
   const [selectedType, setSelectedType] = useState<string>('');
 
-  const [isCreateContractOpen, setIsCreateContractOpen] = useState(false);
-
   const openCreateContract = useCallback(() => {
     dispatch(openPopup(POPUP_CREATE_CONTRACT));
   }, [dispatch]);
 
   return (
     <Box
-      data-testid="ContractManager__PageContainer"
+      data-testid="ContractLedger__PageContainer"
       sx={{
         width: '100%',
-        height: '100',
+        height: 'calc(100vh - 64px)',
+        overflow: 'hidden',
       }}
     >
-      <Box sx={{ marginTop: '1.5em' }}>
-        {/*QuickNav Buttons (Top Left) */}
-        <ContractLedgerQuickNav title="Contract Manager" onClick={() => {}} />
-        <ContractLedgerQuickNav title="Create Contract" onClick={openCreateContract} />
-      </Box>
-      <CreateContract
-        open={isCreateContractOpen}
-        onClose={() => setIsCreateContractOpen(false)}
-      />
       <Box
-        id="Contract-Table-Page"
+        data-testid="ContractLedger__LedgerWrapper"
         sx={{
-          marginTop: '1em',
+          py: '1em',
           display: 'flex',
           flexDirection: 'row',
           height: '100%',
         }}
       >
         <Box
-          id="Game-Loop-Filters-Box"
-          sx={{ marginLeft: '1.5em', width: '18%', overflow: 'hidden' }}
+          data-testid="ContractLedger__ColumnOneContainer"
+          sx={{ marginLeft: '1em', width: '18%', overflow: 'hidden' }}
         >
-          <ContractLedgerLoopButton
-            title="Logistics"
-            videoSource={LogisticsLoop}
-            selectedType={selectedType}
-            setSelectedType={setSelectedType}
-          />
-          <ContractLedgerLoopButton
-            title="Medical"
-            videoSource={MedicalLoop}
-            selectedType={selectedType}
-            setSelectedType={setSelectedType}
-          />
-          <ContractLedgerLoopButton
-            title="Security"
-            videoSource={SecurityLoop}
-            selectedType={selectedType}
-            setSelectedType={setSelectedType}
-          />
-          <ContractLedgerLoopButton
-            title="Salvage"
-            videoSource={SalvageLoop}
-            selectedType={selectedType}
-            setSelectedType={setSelectedType}
-          />
-          <ContractLedgerLoopButton
-            title="Industry"
-            videoSource={IndustryLoop}
-            selectedType={selectedType}
-            setSelectedType={setSelectedType}
-          />
-          <ContractLedgerLoopButton
-            title="Rearm Refuel Repair"
-            videoSource={RRRLoop}
-            selectedType={selectedType}
-            setSelectedType={setSelectedType}
-          />
-          <ContractLedgerLoopButton
-            title="Fleet"
-            videoSource={FleetLoop}
-            selectedType={selectedType}
-            setSelectedType={setSelectedType}
-          />
-          <ContractLedgerLoopButton
-            title="Proxy"
-            videoSource={ProxyLoop}
-            selectedType={selectedType}
-            setSelectedType={setSelectedType}
-          />
+          <Box data-testid="ContractLedger-ColumnOne__QuickNavWrapper">
+            {/*QuickNav Buttons (Top Left) */}
+            <ContractLedgerQuickNav
+              title="Contract Manager"
+              onClick={() => {}}
+              testid="ContractManager"
+            />
+            <ContractLedgerQuickNav
+              title="Create Contract"
+              onClick={openCreateContract}
+              testid="CreateContract"
+            />
+          </Box>
+          <Box data-testid="ContractLedger-ColumnOne__ArchetypeButtonWrapper">
+            <ContractLedgerLoopButton
+              title="Logistics"
+              videoSource={LogisticsLoop}
+              selectedType={selectedType}
+              setSelectedType={setSelectedType}
+            />
+            <ContractLedgerLoopButton
+              title="Medical"
+              videoSource={MedicalLoop}
+              selectedType={selectedType}
+              setSelectedType={setSelectedType}
+            />
+            <ContractLedgerLoopButton
+              title="Security"
+              videoSource={SecurityLoop}
+              selectedType={selectedType}
+              setSelectedType={setSelectedType}
+            />
+            <ContractLedgerLoopButton
+              title="Salvage"
+              videoSource={SalvageLoop}
+              selectedType={selectedType}
+              setSelectedType={setSelectedType}
+            />
+            <ContractLedgerLoopButton
+              title="Industry"
+              videoSource={IndustryLoop}
+              selectedType={selectedType}
+              setSelectedType={setSelectedType}
+            />
+            <ContractLedgerLoopButton
+              title="Rearm Refuel Repair"
+              videoSource={RRRLoop}
+              selectedType={selectedType}
+              setSelectedType={setSelectedType}
+            />
+            <ContractLedgerLoopButton
+              title="Fleet"
+              videoSource={FleetLoop}
+              selectedType={selectedType}
+              setSelectedType={setSelectedType}
+            />
+            <ContractLedgerLoopButton
+              title="Proxy"
+              videoSource={ProxyLoop}
+              selectedType={selectedType}
+              setSelectedType={setSelectedType}
+            />
+          </Box>
         </Box>
         <Box
-          id="Contract-Browser-Box"
+          data-testid="ContractLedger__ColumnTwo"
           sx={{
             display: 'flex',
             flexDirection: 'column',
             width: '50%',
-            marginLeft: '5%',
+            height: '100%',
             borderTop: '3px solid',
             borderBottom: '3px solid',
             borderRadius: '10px',
@@ -144,11 +148,9 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
           />
         </Box>
         <Box
-          id="Contract-Briefing-Box"
+          data-testid="ContractLedger__ColumnThree"
           sx={{
-            flexGrow: 1,
-            ml: '2%',
-            mr: '1em',
+            ml: '1em',
             width: '30%',
           }}
         >

@@ -11,6 +11,6 @@ export const selectContractsArray = createSelector([selectUsers], (users) => {
 export const selectUserById = createSelector(
   [selectUsers, (_, id: string) => id],
   (users, id: string) => {
-    return users[id];
+    return users[id] as User | null;
   },
 );

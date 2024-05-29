@@ -1,3 +1,4 @@
+import { POPUP_SUBMIT_CONTRACT_BID, SubmitContractBid } from '@Popups/Contracts/ContractBid';
 import {
   CreateContractPopup,
   POPUP_CREATE_CONTRACT,
@@ -36,6 +37,9 @@ export const PopupManager: React.FC = () => {
   const locationInfoPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_LOCATION_INFO),
   );
+  const submitContractBidPopup = useAppSelector((state) =>
+    selectPopup(state, POPUP_SUBMIT_CONTRACT_BID),
+  );
   return (
     <>
       {feedbackPopup.open && <FeedbackPopup />}
@@ -48,6 +52,7 @@ export const PopupManager: React.FC = () => {
       {locationInfoPopup.open && (
         <LocationInfoPopup {...(locationInfoPopup.props as LocationInfoProps)} />
       )}
+      {submitContractBidPopup.open && <SubmitContractBid />}
     </>
   );
 };

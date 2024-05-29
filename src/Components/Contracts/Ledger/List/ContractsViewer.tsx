@@ -20,20 +20,23 @@ type ContractsViewerProps = {
 export const ContractsViewer: React.FC<ContractsViewerProps> = ({
   selectedIdSetter,
   contractOnClose,
+  selectedId,
 }) => {
   const dispatch = useAppDispatch();
+  const [view, setView] = React.useState('ContractCardView');
+
   const contracts = useAppSelector((root) => selectContractsArray(root));
   useEffect(() => {
     dispatch(fetchContracts());
   }, []);
-  const [view, setView] = React.useState('ContractCardView');
+
   return (
     <Box
-      id="Contract-Viewer-Box"
+      data-testid="ContractLedger-ColumnTwo__ContractBrowserContainer"
       sx={{
-        height: '70vh',
         my: '1em',
         mx: '1em',
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
@@ -45,7 +48,7 @@ export const ContractsViewer: React.FC<ContractsViewerProps> = ({
       }}
     >
       <Box
-        id="Contract-Display-View-Tools-Box"
+        data-testid="ContractLedger-ContractBrowser__ContractListToolsWrapper"
         sx={{
           display: 'flex',
           flexDirection: 'row',
@@ -53,15 +56,20 @@ export const ContractsViewer: React.FC<ContractsViewerProps> = ({
           alignItems: 'center',
         }}
       >
-        <Box data-id="Contract-Deselect-Button-Box" sx={{ mr: 'auto' }}>
-          <Button
-            onClick={contractOnClose}
-            variant="text"
-            endIcon={<CloseIcon />}
-            sx={{ color: 'text.secondary' }}
-          >
-            Close
-          </Button>
+        <Box
+          data-testid="ContractLedger-ContractBrowser-ContractListTools__CloseContractWrapper"
+          sx={{ mr: 'auto' }}
+        >
+          {selectedId && (
+            <Button
+              onClick={contractOnClose}
+              variant="text"
+              endIcon={<CloseIcon />}
+              color="secondary"
+            >
+              Close
+            </Button>
+          )}
         </Box>
         <Box data-id="Contract-Display-View-Toggle-Box" sx={{ ml: 'auto' }}>
           <CardorTableViewToggle onViewChange={setView} />
