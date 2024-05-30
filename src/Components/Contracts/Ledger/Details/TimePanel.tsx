@@ -101,23 +101,52 @@ export const StartPanel: React.FC<TimePanelProps> = ({ contractId }) => {
   }, [contract, bidEnd, setIsBidEnd, isBidEnd]);
 
   const timeToStart = React.useCallback(() => {
-    console.log(startDate);
     const tillStart = startDate.toNow(true);
-    console.log(tillStart);
     return tillStart;
   }, [startDate]);
 
   const tillStartProgress = React.useCallback(() => {
     const now = dayjs();
-    const createdTime = dayjs(contract?.createdTime);
+    const createdTime = dayjs(contract?.createdAt);
     const totalTime = startDate.diff(createdTime);
     const elapsedTime = now.diff(createdTime);
     const progress = (elapsedTime / totalTime) * 100;
+    console.log(`${createdTime} createdTime`);
+    console.log(`${startDate} start`);
+    console.log(`${totalTime} total`);
+    console.log(`${elapsedTime} elapsed`);
+    console.log(`${progress} progress`);
     return Math.round(progress);
   }, [contract, startDate]);
 
-  dayjs.extend(duration);
-  const contractDuration = dayjs.duration(endDate.diff(startDate, 'h'));
+  const contractDurationCalc = () => {
+    dayjs.extend(duration);
+    const totalDuration = dayjs.duration(endDate.diff(startDate));
+
+    const days = Math.floor(totalDuration.asDays());
+    const hours = Math.floor(totalDuration.asHours()) % 24;
+    const minutes = Math.floor(totalDuration.asMinutes()) % 60;
+
+    if (days > 1) {
+      return `${days} Days`;
+    } else if (days == 0 && hours > 1 && minutes > 1) {
+      return `${hours} Hours & ${minutes} Minutes`;
+    } else if (hours >= 1 && minutes >= 1) {
+      return `${hours} Hours & ${minutes} Minutes`;
+    } else if (hours > 1 && minutes <= 0) {
+      return `${hours} Hours`;
+    } else if (hours == 1 && minutes <= 0) {
+      return `${hours} Hour`;
+    } else if (hours <= 0 && minutes > 1) {
+      return `${minutes} Minutes`;
+    } else if (minutes >= 1) {
+      return `${minutes} Minute`;
+    } else {
+      return `Manually Ending`;
+    }
+  };
+
+  const contractDuration = contractDurationCalc();
 
   const timeRemaining = React.useCallback(() => {
     const tillEnd = dayjs().to(endDate, true);
@@ -126,7 +155,7 @@ export const StartPanel: React.FC<TimePanelProps> = ({ contractId }) => {
 
   const contractProgress = React.useCallback(() => {
     const now = dayjs();
-    const totalTime = startDate.diff(endDate);
+    const totalTime = endDate.diff(startDate);
     const elapsedTime = now.diff(startDate);
     const progress = (elapsedTime / totalTime) * 100;
     return Math.round(progress);
@@ -176,6 +205,7 @@ export const StartPanel: React.FC<TimePanelProps> = ({ contractId }) => {
               <Tooltip title={`Progress: ${contractProgress()}%`} arrow>
                 <LinearProgress
                   data-testid="ContractTime-Panel-StartTime-Progress__ContractDuration"
+                  variant="determinate"
                   value={contractProgress()}
                 />
               </Tooltip>
@@ -209,10 +239,10 @@ export const StartPanel: React.FC<TimePanelProps> = ({ contractId }) => {
             >
               <Tooltip
                 data-testid="ContractTime-Panel-StartTime-Progress__TillStart"
-                title={`Starting: ${tillStartProgress()}`}
+                title={`${tillStartProgress()}% to Start Time`}
                 arrow
               >
-                <LinearProgress value={tillStartProgress()} />
+                <LinearProgress variant="determinate" value={tillStartProgress()} />
               </Tooltip>
             </Box>
           </>
@@ -226,7 +256,7 @@ export const EndPanel: React.FC<TimePanelProps> = ({ contractId }) => {
   const contract = useAppSelector((root) => pickContract(root, contractId as string));
   const [isBidStart, setBidStart] = React.useState(false);
   const endDate = dayjs(contract?.endDate);
-  const createdDate = dayjs(contract?.createdDate);
+  const createdDate = dayjs(contract?.createdAt);
 
   React.useEffect(() => {
     const status = contract?.status;
@@ -248,7 +278,7 @@ export const EndPanel: React.FC<TimePanelProps> = ({ contractId }) => {
 
   const contractProgress = React.useCallback(() => {
     const now = dayjs();
-    const totalTime = createdDate.diff(endDate);
+    const totalTime = endDate.diff(createdDate);
     const elapsedTime = now.diff(createdDate);
     const progress = (elapsedTime / totalTime) * 100;
     return Math.round(progress);
@@ -301,7 +331,7 @@ export const EndPanel: React.FC<TimePanelProps> = ({ contractId }) => {
           }}
         >
           <Tooltip title={`${contractProgress()}%`} arrow>
-            <LinearProgress value={contractProgress()} />
+            <LinearProgress variant="determinate" value={contractProgress()} />
           </Tooltip>
         </Box>
       </Box>
