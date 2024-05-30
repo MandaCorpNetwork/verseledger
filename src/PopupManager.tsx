@@ -1,4 +1,7 @@
-import { POPUP_SUBMIT_CONTRACT_BID, SubmitContractBid } from '@Popups/Contracts/ContractBid';
+import {
+  POPUP_SUBMIT_CONTRACT_BID,
+  SubmitContractBid,
+} from '@Popups/Contracts/ContractBid';
 import {
   CreateContractPopup,
   POPUP_CREATE_CONTRACT,
@@ -16,6 +19,7 @@ import {
   POPUP_PLAYER_CARD,
 } from '@Popups/PlayerCard/PlayerCard';
 import { POPUP_USER_INVITE, UserInvitePopup } from '@Popups/UserInvite/UserInvite';
+import { POPUP_VERIFY_USER, VerifyUserPopup } from '@Popups/VerifyPopup/VerifyUser';
 import { useAppSelector } from '@Redux/hooks';
 import { selectPopup } from '@Redux/Slices/Popups/popups.selectors';
 import React from 'react';
@@ -24,6 +28,9 @@ export const PopupManager: React.FC = () => {
   const feedbackPopup = useAppSelector((state) => selectPopup(state, POPUP_FEEDBACK));
   const createContractPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_CREATE_CONTRACT),
+  );
+  const verifyUserPopup = useAppSelector((state) =>
+    selectPopup(state, POPUP_VERIFY_USER),
   );
   const playerCardPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_PLAYER_CARD),
@@ -42,6 +49,7 @@ export const PopupManager: React.FC = () => {
   );
   return (
     <>
+      {verifyUserPopup.open && <VerifyUserPopup />}
       {feedbackPopup.open && <FeedbackPopup />}
       {createContractPopup.open && <CreateContractPopup />}
       {playerCardPopup.open && (

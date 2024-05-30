@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthUtil } from '@Utils/AuthUtil';
 
+import { fetchCheckVerificationCode } from './Actions/checkVerificationCode';
 import { fetchCurrentUser } from './Actions/fetchCurrentUser';
 import { updateTokens } from './Actions/updateTokens';
 const authReducer = createSlice({
@@ -18,6 +19,11 @@ const authReducer = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(fetchCurrentUser.fulfilled, (_state, action) => {
+      _state.currentUser = action.payload as AuthUser;
+      _state.isLoggedIn = true;
+      _state.lastUpdated = Date.now();
+    });
+    builder.addCase(fetchCheckVerificationCode.fulfilled, (_state, action) => {
       _state.currentUser = action.payload as AuthUser;
       _state.isLoggedIn = true;
       _state.lastUpdated = Date.now();

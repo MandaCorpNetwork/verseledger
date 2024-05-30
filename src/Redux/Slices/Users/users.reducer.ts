@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { fetchCheckVerificationCode } from '../Auth/Actions/checkVerificationCode';
 import { fetchCurrentUser } from '../Auth/Actions/fetchCurrentUser';
 import { fetchContracts } from '../Contracts/contractThunks';
 const usersReducer = createSlice({
@@ -22,6 +23,10 @@ const usersReducer = createSlice({
       }
     });
     builder.addCase(fetchCurrentUser.fulfilled, (_state, action) => {
+      const currentUser = action.payload as AuthUser;
+      _state[currentUser.id] = currentUser;
+    });
+    builder.addCase(fetchCheckVerificationCode.fulfilled, (_state, action) => {
       const currentUser = action.payload as AuthUser;
       _state[currentUser.id] = currentUser;
     });

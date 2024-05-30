@@ -1,7 +1,6 @@
-type User = {
+type UserVerification = {
   id: string;
   handle: string;
   displayName: string;
-  verified: boolean;
   pfp: string;
 };

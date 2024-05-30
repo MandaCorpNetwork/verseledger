@@ -4,6 +4,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import {
   Avatar,
   Box,
+  Button,
   IconButton,
   Rating,
   Skeleton,
@@ -11,9 +12,13 @@ import {
   Typography,
 } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
+import { POPUP_VERIFY_USER } from '@Popups/VerifyPopup/VerifyUser';
 import { useAppSelector } from '@Redux/hooks';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { selectUserById } from '@Redux/Slices/Users/contractSelectors';
 import React from 'react';
+
+import { useAppDispatch } from '@/Redux/hooks';
 
 export const POPUP_PLAYER_CARD = 'playerCard';
 
@@ -24,6 +29,8 @@ export type PlayerCardPopupProps = {
 export const PlayerCardPopup: React.FC<PlayerCardPopupProps> = ({ userid }) => {
   const user = useAppSelector((state) => selectUserById(state, userid));
   const [tabValue, setTabValue] = React.useState('orgs');
+
+  const dispatch = useAppDispatch();
 
   const handleTabChange = React.useCallback(
     (_event: React.SyntheticEvent, newValue: string) => {
@@ -36,7 +43,7 @@ export const PlayerCardPopup: React.FC<PlayerCardPopupProps> = ({ userid }) => {
     <VLPopup name={POPUP_PLAYER_CARD} title="" data-testid="PlayerCard">
       <Box>
         <Box sx={{ display: 'flex' }}>
-          {user ? (
+          {user?.id ? (
             <>
               <Avatar src={user?.pfp} sx={{ width: 55, height: 55 }} alt={user?.handle} />
               <Box sx={{ ml: '.5em' }}>
@@ -54,6 +61,14 @@ export const PlayerCardPopup: React.FC<PlayerCardPopupProps> = ({ userid }) => {
             </>
           )}
         </Box>
+        {user != null && user.verified === false && (
+          <Button
+            variant="popupButton"
+            onClick={() => dispatch(openPopup(POPUP_VERIFY_USER))}
+          >
+            Verify RSI Account
+          </Button>
+        )}
         <Box>
           <IconButton>
             <img src={Spectrum} alt="Spectrum" />
