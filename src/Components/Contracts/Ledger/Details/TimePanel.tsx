@@ -2,15 +2,14 @@ import { Box, LinearProgress, Tooltip, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { pickContract } from '@Redux/Slices/Contracts/contractSelectors';
 import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
 
-type TimePanel = {
+type TimePanelProps = {
   contractId: string | null;
 };
 
-export const BidPanel: React.FC<TimePanel> = ({ contractId }) => {
+export const BidPanel: React.FC<TimePanelProps> = ({ contractId }) => {
   const contract = useAppSelector((root) => pickContract(root, contractId as string));
   const bidTime = dayjs(contract?.bidDate);
 
@@ -77,7 +76,7 @@ export const BidPanel: React.FC<TimePanel> = ({ contractId }) => {
   );
 };
 
-export const StartPanel: React.FC<TimePanel> = ({ contractId }) => {
+export const StartPanel: React.FC<TimePanelProps> = ({ contractId }) => {
   const contract = useAppSelector((root) => pickContract(root, contractId as string));
   const [isBidEnd, setIsBidEnd] = React.useState(false);
 
@@ -97,7 +96,6 @@ export const StartPanel: React.FC<TimePanel> = ({ contractId }) => {
         setIsBidEnd(true);
       } else clearInterval(interval);
     }, 1000);
-    console.log(isBidEnd);
     return () => clearInterval(interval);
   }, [contract, bidEnd, setIsBidEnd, isBidEnd]);
 
@@ -223,20 +221,89 @@ export const StartPanel: React.FC<TimePanel> = ({ contractId }) => {
   );
 };
 
-export const EndPanel: React.FC<unknown> = () => {
+export const EndPanel: React.FC<TimePanelProps> = ({ contractId }) => {
+  const contract = useAppSelector((root) => pickContract(root, contractId as string));
+  const [isBidStart, setBidStart] = React.useState(false);
+  const endDate = dayjs(contract?.endDate);
+  const createdDate = dayjs(contract?.createdDate);
+
+  React.useEffect(() => {
+    const status = contract?.status;
+    if (status !== 'INPROGRESS') return;
+    const interval = setInterval(() => {
+      if (status == 'INPROGRESS') {
+        setBidStart(true);
+      } else {
+        clearInterval(interval);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [contract, setBidStart]);
+
+  const tillEnd = React.useCallback(() => {
+    const remainder = dayjs().to(endDate, true);
+    return remainder;
+  }, [endDate]);
+
+  const contractProgress = React.useCallback(() => {
+    const now = dayjs();
+    const totalTime = createdDate.diff(endDate);
+    const elapsedTime = now.diff(createdDate);
+    const progress = (elapsedTime / totalTime) * 100;
+    return Math.round(progress);
+  }, [createdDate, endDate]);
+
+  const formattedEndDate = endDate.format('DD MMM, YY @ HH:mm');
+
   return (
-    <Box data-testid="ContractTime-Panel__EndTimeWrapper">
-      <Typography>Time Till End: X</Typography>
-      <Typography>Contract End Date: X</Typography>
+    <Box
+      data-testid="ContractTime-Panel__EndTimeContainer"
+      sx={{
+        width: '100%',
+        height: '100%',
+        alignContent: 'center',
+      }}
+    >
+      <Box
+        data-testid="ContractTime-Panel-EndTime__TextWrapper"
+        sx={{
+          width: '100%',
+        }}
+      >
+        {isBidStart ? (
+          <Typography
+            data-testid="ContractTime-Panel-StartTime__ContractLength"
+            align="center"
+            variant="body2"
+            sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+          >
+            Time Till End: {tillEnd()}
+          </Typography>
+        ) : (
+          <></>
+        )}
+
+        <Typography
+          data-testid="ContractTime-Panel-StartTime__ContractLength"
+          align="center"
+          variant="body2"
+          sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+        >
+          Contract End Date: {formattedEndDate}
+        </Typography>
+        <Box
+          data-testid="ContractTime-Panel-StartTime__ProgressWrapper"
+          sx={{
+            width: '50%',
+            mx: 'auto',
+            mt: '.5em',
+          }}
+        >
+          <Tooltip title={`${contractProgress()}%`} arrow>
+            <LinearProgress color="secondary" value={contractProgress()} />
+          </Tooltip>
+        </Box>
+      </Box>
     </Box>
   );
 };
-/*
-Time between %
-So Contract Update
-Bid End
-Total time is duration between update and Bid
-Time elapsed is distance from Update to now
-Progress is Elapsed/Total
-
-*/
