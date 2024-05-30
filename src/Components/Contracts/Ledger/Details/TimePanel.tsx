@@ -1,4 +1,4 @@
-import { Box, LinearProgress, Typography } from '@mui/material';
+import { Box, LinearProgress, Tooltip, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { pickContract } from '@Redux/Slices/Contracts/contractSelectors';
 import dayjs from 'dayjs';
@@ -12,18 +12,25 @@ type TimePanel = {
 
 export const BidPanel: React.FC<TimePanel> = ({ contractId }) => {
   const contract = useAppSelector((root) => pickContract(root, contractId as string));
+  const bidTime = dayjs(contract.bidDate);
 
-  const formattedBidEnd = dayjs(contract.bidDate).format('DD MMM, YY @ HH:mm');
+  const formattedBidEnd = bidTime.format('DD MMM, YY @ HH:mm');
 
   const timeRemaining = React.useCallback(() => {
-    const bidTime = dayjs(contract.bidDate);
-    console.log(bidTime);
     dayjs.extend(relativeTime);
-    const remainder = dayjs().to(bidTime);
+    const remainder = dayjs().to(bidTime, true);
     return remainder;
-  }, [contract]);
+  }, [contract, bidTime]);
 
-  const bidProgress = 20;
+  const timeProgress = React.useCallback(() => {
+    const now = dayjs();
+    const updatedTime = dayjs(contract.updatedAt);
+    const totalTime = bidTime.diff(updatedTime);
+    const elapsedTime = now.diff(updatedTime);
+    const progress = (elapsedTime / totalTime) * 100;
+    return Math.round(progress);
+  }, [contract, bidTime]);
+
   return (
     <Box
       data-testid="ContractTime-Panel__BidTimeContainer"
@@ -62,7 +69,9 @@ export const BidPanel: React.FC<TimePanel> = ({ contractId }) => {
           mt: '.5em',
         }}
       >
-        <LinearProgress variant="determinate" value={bidProgress} />
+        <Tooltip title={`${timeProgress()}%`} arrow>
+          <LinearProgress variant="determinate" value={timeProgress()} />
+        </Tooltip>
       </Box>
     </Box>
   );
@@ -86,3 +95,12 @@ export const EndPanel: React.FC<unknown> = () => {
     </Box>
   );
 };
+/*
+Time between %
+So Contract Update
+Bid End
+Total time is duration between update and Bid
+Time elapsed is distance from Update to now
+Progress is Elapsed/Total
+
+*/
