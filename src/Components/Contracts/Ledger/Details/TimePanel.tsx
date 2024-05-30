@@ -12,7 +12,7 @@ type TimePanel = {
 
 export const BidPanel: React.FC<TimePanel> = ({ contractId }) => {
   const contract = useAppSelector((root) => pickContract(root, contractId as string));
-  const bidTime = dayjs(contract.bidDate);
+  const bidTime = dayjs(contract?.bidDate);
 
   const formattedBidEnd = bidTime.format('DD MMM, YY @ HH:mm');
 
@@ -77,12 +77,74 @@ export const BidPanel: React.FC<TimePanel> = ({ contractId }) => {
   );
 };
 
-export const StartPanel: React.FC<unknown> = () => {
+export const StartPanel: React.FC<TimePanel> = ({ contractId }) => {
+  const contract = useAppSelector((root) => pickContract(root, contractId as string));
+  const [isBidEnd, setIsBidEnd] = React.useState(false);
+
+  const bidEnd = dayjs(contract?.bidDate);
+
+  React.useEffect(() => {
+    if (contract?.bidDate == null) return;
+    const interval = set
+    const now = dayjs();
+    if (now >= bidEnd) {
+      setIsBidEnd(true);
+    }
+    return;
+  });
+
   return (
-    <Box data-testid="ContractTime-Panel__StartTimeWrapper">
-      <Typography>Time Till Start: X</Typography>
-      <Typography>Contract Start Date: X</Typography>
-      <Typography>Contract Time Remaining: X</Typography>
+    <Box
+      data-testid="ContractTime-Panel__StartTimeContainer"
+      sx={{
+        width: '100%',
+        height: '100%',
+        alignContent: 'center',
+      }}
+    >
+      <Box
+        data-testid="ContractTime-Panel-BidTime__TextWrapper"
+        sx={{
+          width: '100%',
+        }}
+      >
+        {isBidEnd ? (
+          <></>
+        ) : (
+          <Typography
+            align="center"
+            variant="body2"
+            sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+          >
+            Time Till Start: X
+          </Typography>
+        )}
+        <Typography
+          align="center"
+          variant="body2"
+          sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+        >
+          Contract Start Date: X
+        </Typography>
+        {isBidEnd ? (
+          <Typography
+            align="center"
+            variant="body2"
+            sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+          >
+            Contract Time Remaining: X
+          </Typography>
+        ) : (
+          <></>
+        )}
+        <Typography
+          align="center"
+          variant="body2"
+          sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+        >
+          Contract Time Remaining: X
+        </Typography>
+      </Box>
     </Box>
   );
 };

@@ -17,6 +17,7 @@ import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { useAppDispatch } from '../../Redux/hooks';
+import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
 
 export const POPUP_VERIFY_USER = 'verifyCard';
 
@@ -66,7 +67,7 @@ export const VerifyUserPopup: React.FC = () => {
     >
       {popupState === 'checking' && (
         <Box sx={{ display: 'flex', width: '100%', height: '200px', margin: 'auto' }}>
-          <CircularProgress sx={{ width: '100%', margin: 'auto' }} />
+          <LoadingWheel />
         </Box>
       )}
       {popupState === 'createToken' && (
