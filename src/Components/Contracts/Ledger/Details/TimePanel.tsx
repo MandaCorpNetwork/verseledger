@@ -82,16 +82,55 @@ export const StartPanel: React.FC<TimePanel> = ({ contractId }) => {
   const [isBidEnd, setIsBidEnd] = React.useState(false);
 
   const bidEnd = dayjs(contract?.bidDate);
+  const startDate = dayjs(contract?.startDate);
+  const endDate = dayjs(contract?.endDate);
+
+  const formattedStartDate = startDate.format('DD MMM, YY @ HH:mm');
+
+  console.log(contract);
 
   React.useEffect(() => {
     if (contract?.bidDate == null) return;
-    const interval = set
+    const interval = setInterval(() => {
+      const now = dayjs();
+      if (now >= bidEnd) {
+        setIsBidEnd(true);
+      } else clearInterval(interval);
+    }, 1000);
+    console.log(isBidEnd);
+    return () => clearInterval(interval);
+  }, [contract, bidEnd, setIsBidEnd, isBidEnd]);
+
+  const timeToStart = React.useCallback(() => {
+    console.log(startDate);
+    const tillStart = startDate.toNow(true);
+    console.log(tillStart);
+    return tillStart;
+  }, [startDate]);
+
+  const tillStartProgress = React.useCallback(() => {
     const now = dayjs();
-    if (now >= bidEnd) {
-      setIsBidEnd(true);
-    }
-    return;
-  });
+    const createdTime = dayjs(contract?.createdTime);
+    const totalTime = startDate.diff(createdTime);
+    const elapsedTime = now.diff(createdTime);
+    const progress = (elapsedTime / totalTime) * 100;
+    return Math.round(progress);
+  }, [contract, startDate]);
+
+  const contractLength = startDate.diff(endDate);
+
+  const timeRemaining = React.useCallback(() => {
+    const tillEnd = dayjs().to(endDate, true);
+    return tillEnd;
+  }, [endDate]);
+
+  const contractProgress = React.useCallback(() => {
+    const now = dayjs();
+    const totalTime = startDate.diff(endDate);
+    const elapsedTime = now.diff(startDate);
+    const progress = (elapsedTime / totalTime) * 100;
+    return Math.round(progress);
+  }, [startDate, endDate]);
 
   return (
     <Box
@@ -103,47 +142,82 @@ export const StartPanel: React.FC<TimePanel> = ({ contractId }) => {
       }}
     >
       <Box
-        data-testid="ContractTime-Panel-BidTime__TextWrapper"
+        data-testid="ContractTime-Panel-StartTime__TextWrapper"
         sx={{
           width: '100%',
         }}
       >
         {isBidEnd ? (
-          <></>
+          <>
+            <Typography
+              data-testid="ContractTime-Panel-StartTime__StartDate"
+              align="center"
+              variant="body2"
+              sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+            >
+              Contract Start Date: {formattedStartDate}
+            </Typography>
+            <Typography
+              data-testid="ContractTime-Panel-StartTime__TimeTillStart"
+              align="center"
+              variant="body2"
+              sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+            >
+              Contract Time Remaining: {timeRemaining()}
+            </Typography>
+            <Box
+              data-testid="ContractTime-Panel-StartTime__ProgressWrapper"
+              sx={{
+                width: '50%',
+                mx: 'auto',
+                mt: '.5em',
+              }}
+            >
+              <Tooltip title={`Progress: ${contractProgress()}%`} arrow>
+                <LinearProgress
+                  data-testid="ContractTime-Panel-StartTime-Progress__ContractDuration"
+                  color="secondary"
+                  value={contractProgress()}
+                />
+              </Tooltip>
+            </Box>
+          </>
         ) : (
-          <Typography
-            align="center"
-            variant="body2"
-            sx={{ fontWeight: 'bold', color: 'text.secondary' }}
-          >
-            Time Till Start: X
-          </Typography>
+          <>
+            <Typography
+              data-testid="ContractTime-Panel-StartTime__TimeTillStart"
+              align="center"
+              variant="body2"
+              sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+            >
+              Time Till Start: {timeToStart()}
+            </Typography>
+            <Typography
+              data-testid="ContractTime-Panel-StartTime__ContractLength"
+              align="center"
+              variant="body2"
+              sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+            >
+              Contract Length: {contractLength}
+            </Typography>
+            <Box
+              data-testid="ContractTime-Panel-StartTime__ProgressWrapper"
+              sx={{
+                width: '50%',
+                mx: 'auto',
+                mt: '.5em',
+              }}
+            >
+              <Tooltip
+                data-testid="ContractTime-Panel-StartTime-Progress__TillStart"
+                title={`Starting: ${tillStartProgress()}`}
+                arrow
+              >
+                <LinearProgress color="secondary" value={tillStartProgress()} />
+              </Tooltip>
+            </Box>
+          </>
         )}
-        <Typography
-          align="center"
-          variant="body2"
-          sx={{ fontWeight: 'bold', color: 'text.secondary' }}
-        >
-          Contract Start Date: X
-        </Typography>
-        {isBidEnd ? (
-          <Typography
-            align="center"
-            variant="body2"
-            sx={{ fontWeight: 'bold', color: 'text.secondary' }}
-          >
-            Contract Time Remaining: X
-          </Typography>
-        ) : (
-          <></>
-        )}
-        <Typography
-          align="center"
-          variant="body2"
-          sx={{ fontWeight: 'bold', color: 'text.secondary' }}
-        >
-          Contract Time Remaining: X
-        </Typography>
       </Box>
     </Box>
   );
