@@ -19,68 +19,6 @@ type ContractCardProps = {
   isSelected: boolean;
 };
 
-const SunChip: React.FC<ChipProps> = (props) => {
-  return (
-    <Chip
-      {...props}
-      label="Sun"
-      size="small"
-      sx={{
-        width: '5em',
-        backgroundColor: 'primary.main',
-        margin: '.1em',
-      }}
-    />
-  );
-};
-
-const PlanetChip: React.FC<ChipProps> = (props) => {
-  return (
-    <Chip
-      {...props}
-      label="Planet"
-      size="small"
-      sx={{
-        width: '5em',
-        backgroundColor: 'primary.main',
-        margin: '.1em',
-      }}
-    />
-  );
-};
-
-const MoonChip: React.FC<ChipProps> = (props) => {
-  return (
-    <Chip
-      {...props}
-      label="Moon"
-      size="small"
-      sx={{
-        width: '5em',
-        backgroundColor: 'primary.main',
-        margin: '.1em',
-      }}
-    />
-  );
-};
-
-// const LocationChip: React.FC<ChipProps> = (props) => {
-//   return (
-//     <Tooltip title={contract.locations}>
-//       <Chip
-//         {...props}
-//         label={contract.location}
-//         size="small"
-//         sx={{
-//           width: '5em',
-//           backgroundColor: 'primary.main',
-//           margin: '.1em',
-//         }}
-//       />
-//     </Tooltip>
-//   );
-// };
-
 export const ContractCard: React.FC<ContractCardProps> = ({
   contract,
   onClick,
@@ -107,7 +45,6 @@ export const ContractCard: React.FC<ContractCardProps> = ({
       sx={{
         height: '10em',
         width: '15em',
-        backgroundColor: 'text.disabled',
         boxShadow: isSelected ? '0 0 0 4px #18fcfc' : '',
         '&:hover': {
           boxShadow: isSelected ? '0 0 0 4px #d3fafe' : '0 0 0 4px #0e318d',
@@ -131,9 +68,6 @@ export const ContractCard: React.FC<ContractCardProps> = ({
             height: '100%',
           }}
         >
-          <Tooltip title={`${contract.subtype}`}>
-            <img src={TestAttacheIcon} alt="" width="30" />
-          </Tooltip>
           <Tooltip title={user?.handle} arrow>
             <Avatar
               src={user?.pfp}
@@ -142,13 +76,6 @@ export const ContractCard: React.FC<ContractCardProps> = ({
               onClick={handleAvatarClick}
             />
           </Tooltip>
-          <Box sx={{ mt: 'auto', position: 'relative', mb: '.2em' }}>
-            <CountdownTimer
-              targetDate={contract.bidDate}
-              updateDate={contract.updatedAt}
-              timerUse={'Bidding'}
-            />
-          </Box>
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
           <Tooltip title={contract.title}>
@@ -166,10 +93,6 @@ export const ContractCard: React.FC<ContractCardProps> = ({
             </Typography>
           </Tooltip>
           <Box sx={{ flexGrow: 1, pl: '15%', pt: '10%', mb: '5%' }}>
-            <SunChip />
-            <PlanetChip />
-            <MoonChip />
-            {/*<LocationChip />*/}
           </Box>
           <Box
             sx={{

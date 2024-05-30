@@ -95,7 +95,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
     (panel: string) => {
       switch (panel) {
         case 'contractors':
-          return <ContractorsPanel />;
+          return <ContractorsPanel contract={contract} />;
         case 'ships':
           return;
         default:

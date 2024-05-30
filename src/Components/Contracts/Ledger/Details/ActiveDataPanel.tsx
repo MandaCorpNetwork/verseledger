@@ -54,7 +54,11 @@ const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, ship 
   );
 };
 
-export const ContractorsPanel: React.FC = () => {
+type ContractorPanelProps = {
+  contract: IContract;
+};
+
+export const ContractorsPanel: React.FC<ContractorPanelProps> = ({ contract }) => {
   const contractors = Object.values(testContractorsDB);
   return (
     <Box
@@ -112,7 +116,8 @@ export const ContractorsPanel: React.FC = () => {
                 color: 'text.secondary',
               }}
             >
-              Contractor Limit: X
+              Contractor Limit:{' '}
+              {contract.contractorLimit ? contract.contractorLimit : 'No Limit'}
             </Typography>
           </Box>
         </Box>

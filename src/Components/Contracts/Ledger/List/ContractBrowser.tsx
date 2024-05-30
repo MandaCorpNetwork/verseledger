@@ -24,6 +24,17 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const [view, setView] = React.useState('ContractCardView');
+  const [isSelected, setIsSelected] = React.useState<string | null>(null);
+
+  const handleSelect = (id: string | null) => {
+    setIsSelected(id);
+    selectedIdSetter(id);
+  };
+
+  const handleClose = () => {
+    contractOnClose();
+    setIsSelected(null);
+  };
 
   const contracts = useAppSelector((root) => selectContractsArray(root));
   useEffect(() => {
@@ -62,7 +73,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
         >
           {selectedId && (
             <Button
-              onClick={contractOnClose}
+              onClick={handleClose}
               variant="text"
               endIcon={<CloseIcon />}
               color="secondary"
@@ -95,7 +106,11 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
         }}
       >
         {view === 'ContractCardView' ? (
-          <ContractCardDisplay onPick={selectedIdSetter} contracts={contracts} />
+          <ContractCardDisplay
+            onPick={handleSelect}
+            contracts={contracts}
+            isSelected={isSelected}
+          />
         ) : (
           <ContractTableView onPick={selectedIdSetter} contracts={contracts} />
         )}
