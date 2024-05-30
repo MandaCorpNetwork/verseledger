@@ -1,16 +1,15 @@
 //ContractCard is the Contract Displayer Item that is mapped for the contracts pulled from the database. It is displayed in the ContractCardDisplay component.
 //This is a low level amount of information for a contract
 //This Contract passes it's ID to the ContractCardDisplay when clicked and sets itself to selected to display it's full information in the ContractBriefingViewer
+import { FleetIcon, RRRIcon, SalvageIcon, SecurityIcon } from '@Common/CustomIcons';
+import { LocationChip } from '@Common/LocationChip';
+import { LocalHospital } from '@mui/icons-material';
 import { Avatar, Box, Card, CardActionArea, Tooltip, Typography } from '@mui/material';
-import Chip, { ChipProps } from '@mui/material/Chip';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { selectUserById } from '@Redux/Slices/Users/contractSelectors';
 import React from 'react';
-
-import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
-import { CountdownTimer } from '@/Common/CountdownTimer';
 
 type ContractCardProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,46 +44,54 @@ export const ContractCard: React.FC<ContractCardProps> = ({
       sx={{
         height: '10em',
         width: '15em',
-        boxShadow: isSelected ? '0 0 0 4px #18fcfc' : '',
+        bgcolor: 'action.disabledBackground',
+        boxShadow: isSelected ? '0 0 10px 2px #18fcfc' : '',
+        transition: 'box-shadow 0.3s ease-in-out',
         '&:hover': {
-          boxShadow: isSelected ? '0 0 0 4px #d3fafe' : '0 0 0 4px #0e318d',
+          boxShadow: isSelected ? '0 0 10px 2px #d3fafe' : '0 0 10px 2px #0e318d',
         },
       }}
     >
       <CardActionArea
         sx={{
           display: 'flex',
-          flexDirection: 'columns',
+          flexDirection: 'column',
           height: '100%',
           width: '100%',
-          padding: '.5em',
+          padding: '1em',
         }}
       >
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column',
-            width: '20%',
-            height: '100%',
+            flexDirection: 'row',
+            width: '90%',
+            alignItems: 'center',
+            mb: 'auto',
           }}
         >
           <Tooltip title={user?.handle} arrow>
             <Avatar
               src={user?.pfp}
               sizes="small"
-              sx={{ mt: 'auto', mb: 'auto' }}
               onClick={handleAvatarClick}
+              sx={{
+                mr: '.5em',
+                mt: 'auto',
+                mb: 'auto',
+                '&:hover': {
+                  boxShadow: '0 0 10px 2px #0e318d',
+                },
+              }}
             />
           </Tooltip>
-        </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
           <Tooltip title={contract.title}>
             <Typography
-              variant="h6"
+              variant="body1"
+              align="center"
               sx={{
-                paddingLeft: '.5em',
                 overflow: 'hidden',
-                fontWeight: '600',
+                fontWeight: 'bold',
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',
               }}
@@ -92,18 +99,57 @@ export const ContractCard: React.FC<ContractCardProps> = ({
               {contract.title}
             </Typography>
           </Tooltip>
-          <Box sx={{ flexGrow: 1, pl: '15%', pt: '10%', mb: '5%' }}>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            width: '80%',
+            flexGrow: '1',
+            my: '.5em',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+          }}
+        >
+          <Tooltip title="SubType Icon Placeholder" arrow>
+            <FleetIcon fontSize="large" sx={{ color: 'primary.light' }} />
+          </Tooltip>
+          <Tooltip title="SubType Icon Placeholder" arrow>
+            <SecurityIcon fontSize="large" sx={{ color: 'primary.light' }} />
+          </Tooltip>
+          <Tooltip title="SubType Icon Placeholder" arrow>
+            <LocalHospital fontSize="large" sx={{ color: 'primary.light' }} />
+          </Tooltip>
+          <Tooltip title="SubType Icon Placeholder" arrow>
+            <RRRIcon fontSize="large" sx={{ color: 'primary.light' }} />
+          </Tooltip>
+          <Tooltip title="SubType Icon Placeholder" arrow>
+            <SalvageIcon fontSize="large" sx={{ color: 'primary.light' }} />
+          </Tooltip>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Box sx={{ mx: 'auto' }}>
+            <LocationChip label="Location" />
           </Box>
           <Box
             sx={{
               display: 'inline',
-              marginLeft: 'auto',
+              direction: 'row',
               marginTop: 'auto',
-              bgcolor: 'background.dafault',
+              ml: 'auto',
+              bgcolor: 'rgba(0,1,19,.35)',
               padding: '.3em',
               borderRadius: '.3em',
               border: '1px solid',
-              borderColor: 'text.light',
+              borderColor: 'text.secondary',
             }}
           >
             <Tooltip title={contract.payStructure}>

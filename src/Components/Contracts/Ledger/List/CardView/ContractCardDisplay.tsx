@@ -15,7 +15,6 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
   contracts,
   isSelected,
 }) => {
-
   return (
     <Box
       id="Contract-Card-Display-Box"

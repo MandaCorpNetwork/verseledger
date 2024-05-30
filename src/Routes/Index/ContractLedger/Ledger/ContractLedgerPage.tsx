@@ -19,7 +19,7 @@ import { ContractsBrowser } from '@/Components/Contracts/Ledger/List/ContractBro
 import { ContractTableTools } from '@/Components/Contracts/Ledger/List/ContractTableTools';
 
 export const ContractLedgerPage: React.FC<unknown> = () => {
-  const [selectedId, setSelectedId] = useState<Contract['id'] | null>(null);
+  const [selectedId, setSelectedId] = useState<IContract['id'] | null>(null);
   const dispatch = useAppDispatch();
   const handleContractPick = useCallback(
     (id: string | null) => {
