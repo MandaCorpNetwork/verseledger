@@ -2,6 +2,7 @@ import { Box, LinearProgress, Tooltip, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { pickContract } from '@Redux/Slices/Contracts/contractSelectors';
 import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
 
@@ -115,7 +116,8 @@ export const StartPanel: React.FC<TimePanelProps> = ({ contractId }) => {
     return Math.round(progress);
   }, [contract, startDate]);
 
-  const contractLength = startDate.diff(endDate);
+  dayjs.extend(duration);
+  const contractDuration = dayjs.duration(endDate.diff(startDate, 'h'));
 
   const timeRemaining = React.useCallback(() => {
     const tillEnd = dayjs().to(endDate, true);
@@ -174,7 +176,6 @@ export const StartPanel: React.FC<TimePanelProps> = ({ contractId }) => {
               <Tooltip title={`Progress: ${contractProgress()}%`} arrow>
                 <LinearProgress
                   data-testid="ContractTime-Panel-StartTime-Progress__ContractDuration"
-                  color="secondary"
                   value={contractProgress()}
                 />
               </Tooltip>
@@ -196,7 +197,7 @@ export const StartPanel: React.FC<TimePanelProps> = ({ contractId }) => {
               variant="body2"
               sx={{ fontWeight: 'bold', color: 'text.secondary' }}
             >
-              Contract Length: {contractLength}
+              Contract Length: {contractDuration}
             </Typography>
             <Box
               data-testid="ContractTime-Panel-StartTime__ProgressWrapper"
@@ -211,7 +212,7 @@ export const StartPanel: React.FC<TimePanelProps> = ({ contractId }) => {
                 title={`Starting: ${tillStartProgress()}`}
                 arrow
               >
-                <LinearProgress color="secondary" value={tillStartProgress()} />
+                <LinearProgress value={tillStartProgress()} />
               </Tooltip>
             </Box>
           </>
@@ -300,7 +301,7 @@ export const EndPanel: React.FC<TimePanelProps> = ({ contractId }) => {
           }}
         >
           <Tooltip title={`${contractProgress()}%`} arrow>
-            <LinearProgress color="secondary" value={contractProgress()} />
+            <LinearProgress value={contractProgress()} />
           </Tooltip>
         </Box>
       </Box>

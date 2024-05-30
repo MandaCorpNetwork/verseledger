@@ -81,9 +81,9 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         case 'bid':
           return <BidPanel contractId={contract.id} />;
         case 'start':
-          return <StartPanel />;
+          return <StartPanel contractId={contract.id} />;
         case 'end':
-          return <EndPanel />;
+          return <EndPanel contractId={contract.id} />;
         default:
           return;
       }
