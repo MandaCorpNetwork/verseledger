@@ -1,3 +1,4 @@
+import { UserChip } from '@Common/UserChip';
 import {
   Box,
   styled,
@@ -12,7 +13,7 @@ import dayjs from 'dayjs';
 
 type ContractRowProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  contracts: any[];
+  contracts: IContract[];
   onPick: (id: string | null) => void;
   isSelected: string | null;
 };
@@ -82,7 +83,9 @@ export const ContractTableView: React.FC<ContractRowProps> = ({ contracts, onPic
               <TableCell>{contract.title}</TableCell>
               <TableCell>{contract.type}</TableCell>
               <TableCell>{contract.subtype}</TableCell>
-              <TableCell>{contract.owner}</TableCell>
+              <TableCell>
+                <UserChip userid={contract.owner_id} size="medium" />
+              </TableCell>
               <TableCell>{contract.pay}</TableCell>
               <TableCell>{contract.location}</TableCell>
               <TableCell>
