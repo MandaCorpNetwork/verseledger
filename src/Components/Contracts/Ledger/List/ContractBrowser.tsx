@@ -23,7 +23,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   selectedId,
 }) => {
   const dispatch = useAppDispatch();
-  const [view, setView] = React.useState('ContractCardView');
+  const [view, setView] = React.useState('ContractTableView');
   const [isSelected, setIsSelected] = React.useState<string | null>(null);
 
   const handleSelect = (id: string | null) => {
@@ -56,6 +56,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
         borderBottom: '2px solid',
         borderColor: 'primary.main',
         borderRadius: '5px',
+        overflow: 'hidden',
       }}
     >
       <Box
@@ -112,7 +113,11 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
             isSelected={isSelected}
           />
         ) : (
-          <ContractTableView onPick={selectedIdSetter} contracts={contracts} />
+          <ContractTableView
+            onPick={selectedIdSetter}
+            contracts={contracts}
+            isSelected={isSelected}
+          />
         )}
       </Box>
     </Box>

@@ -2,7 +2,6 @@ import { Avatar, Box, ButtonBase, Chip, Tooltip, Typography } from '@mui/materia
 import React from 'react';
 
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
-import { CountdownTimer } from '@/Common/CountdownTimer';
 import { QueryNames } from '@/Common/Definitions/QueryNames';
 import { OutlinedLabel } from '@/Common/OutlinedLabel';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
@@ -107,13 +106,6 @@ export const ContractManagerContractCard: React.FC<ContractManagerCardProps> = (
               value={contract.pay}
               startAdornment="¤"
               maxWidth="100px"
-            />
-          </Box>
-          <Box>
-            <CountdownTimer
-              targetDate={contract.bidEnd}
-              updateDate={contract.updatedAt}
-              timerUse={'Bidding'}
             />
           </Box>
         </Box>

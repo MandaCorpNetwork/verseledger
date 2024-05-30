@@ -1,3 +1,4 @@
+//ToDo-- Need to change out the boxes that expand and collapse w/ Mui Collapse Component for better transition effects
 import { SalvageIcon } from '@Common/CustomIcons';
 import { LocationChip } from '@Common/LocationChip';
 import { ExpandLess, ExpandMore, HelpOutline } from '@mui/icons-material';

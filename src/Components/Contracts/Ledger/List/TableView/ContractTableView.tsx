@@ -1,10 +1,20 @@
-import { Box, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import {
+  Box,
+  styled,
+  Table,
+  TableBody,
+  TableCell,
+  tableCellClasses,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 import dayjs from 'dayjs';
 
 type ContractRowProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   contracts: any[];
   onPick: (id: string | null) => void;
+  isSelected: string | null;
 };
 
 interface Column {
@@ -24,12 +34,32 @@ const columns: readonly Column[] = [
   { id: 'bidTime', label: 'Bid Time', minWidth: 100 },
 ];
 
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.action.disabledBackground,
+  },
+}));
+
 export const ContractTableView: React.FC<ContractRowProps> = ({ contracts, onPick }) => {
   return (
-    <Box>
+    <Box
+      data-testid="ContractLedger-ContractBrowser__TableViewContainer"
+      sx={{
+        padding: '1em',
+        height: '100%',
+      }}
+    >
       <Table stickyHeader>
         <TableHead>
-          <TableRow>
+          <TableRow
+            sx={{
+              '& th': {
+                padding: '.5em',
+                color: 'secondary.main',
+                textAlign: 'center',
+              },
+            }}
+          >
             {columns.map((column) => (
               <TableCell
                 key={column.id}

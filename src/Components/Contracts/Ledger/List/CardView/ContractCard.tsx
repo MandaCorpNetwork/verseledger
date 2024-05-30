@@ -3,7 +3,7 @@
 //This Contract passes it's ID to the ContractCardDisplay when clicked and sets itself to selected to display it's full information in the ContractBriefingViewer
 import { FleetIcon, RRRIcon, SalvageIcon, SecurityIcon } from '@Common/CustomIcons';
 import { LocationChip } from '@Common/LocationChip';
-import { LocalHospital } from '@mui/icons-material';
+import { EmergencyShare, LocalHospital } from '@mui/icons-material';
 import { Avatar, Box, Card, CardActionArea, Tooltip, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -45,13 +45,37 @@ export const ContractCard: React.FC<ContractCardProps> = ({
         height: '10em',
         width: '15em',
         bgcolor: 'action.disabledBackground',
-        boxShadow: isSelected ? '0 0 10px 2px #18fcfc' : '',
+        overflow: 'visible',
+        boxShadow:
+          isSelected && contract.isEmergency
+            ? '0 0 10px 2px red'
+            : isSelected
+              ? '0 0 10px 2px #18fcfc'
+              : '',
         transition: 'box-shadow 0.3s ease-in-out',
         '&:hover': {
-          boxShadow: isSelected ? '0 0 10px 2px #d3fafe' : '0 0 10px 2px #0e318d',
+          boxShadow: contract.isEmergency
+            ? '0 0 10px 2px #ff4d4d'
+            : isSelected
+              ? '0 0 10px 2px #d3fafe'
+              : '0 0 10px 2px #0e318d',
         },
       }}
     >
+      {contract.isEmergency && (
+        <EmergencyShare
+          color="error"
+          fontSize="large"
+          sx={{
+            position: 'absolute',
+            display: 'flex',
+            top: '-10px',
+            left: '90%',
+            opacity: isSelected ? '1' : '.7',
+            transition: 'opacity 0.3s ease-in-out',
+          }}
+        />
+      )}
       <CardActionArea
         sx={{
           display: 'flex',

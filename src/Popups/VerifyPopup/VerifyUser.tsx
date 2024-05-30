@@ -1,3 +1,4 @@
+import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
 import {
   Avatar,
   Box,
@@ -17,7 +18,6 @@ import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { useAppDispatch } from '../../Redux/hooks';
-import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
 
 export const POPUP_VERIFY_USER = 'verifyCard';
 

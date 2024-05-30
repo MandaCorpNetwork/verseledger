@@ -55,6 +55,7 @@ export const verseOSTheme = createTheme({
     },
   },
   components: {
+    
     MuiInputBase: {
       styleOverrides: {
         input: {
