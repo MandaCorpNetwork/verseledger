@@ -1,4 +1,13 @@
-import { Avatar, Box, Button, FormControl, TextField, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Button,
+  CircularProgress,
+  FormControl,
+  Link,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { fetchCheckVerificationCode } from '@Redux/Slices/Auth/Actions/checkVerificationCode';
 import { fetchCreateVerificationCode } from '@Redux/Slices/Auth/Actions/createVerificationCode';
@@ -55,7 +64,11 @@ export const VerifyUserPopup: React.FC = () => {
       title="Verify Account Ownership"
       data-testid="VerifyCard"
     >
-      {popupState === 'checking' && <></>}
+      {popupState === 'checking' && (
+        <Box sx={{ display: 'flex', width: '100%', height: '200px', margin: 'auto' }}>
+          <CircularProgress sx={{ width: '100%', margin: 'auto' }} />
+        </Box>
+      )}
       {popupState === 'createToken' && (
         <FormControl sx={{ width: '100%' }}>
           <TextField
@@ -111,7 +124,16 @@ export const VerifyUserPopup: React.FC = () => {
             Not You? Change RSI Handle
           </Button>
           <Typography sx={{ mt: '1em' }}>
-            Please add the following code to your RSI Short Bio.
+            Please add the following code to your{' '}
+            <Link
+              sx={{ color: 'text.secondary' }}
+              rel="noopener noreferrer"
+              href="https://robertsspaceindustries.com/account/profile"
+              target="_blank"
+            >
+              RSI Short Bio
+            </Link>
+            .
           </Typography>
           <Typography variant="subtitle2">
             You can delete it after you are verified.
