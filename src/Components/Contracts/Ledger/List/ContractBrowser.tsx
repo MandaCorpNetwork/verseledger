@@ -23,7 +23,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   selectedId,
 }) => {
   const dispatch = useAppDispatch();
-  const [view, setView] = React.useState('ContractTableView');
+  const [view, setView] = React.useState('ContractCardView');
   const [isSelected, setIsSelected] = React.useState<string | null>(null);
 
   const handleSelect = (id: string | null) => {

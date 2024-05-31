@@ -59,7 +59,7 @@ export const VLAppBar: React.FC<unknown> = () => {
 
   const handlePlayerCardOpen = () => {
     profilePopupState.close;
-    dispatch(openPopup(POPUP_PLAYER_CARD, { userid: currentUser.id }));
+    dispatch(openPopup(POPUP_PLAYER_CARD, { userid: currentUser?.id }));
   };
 
   const handleUserSettingsOpen = () => {

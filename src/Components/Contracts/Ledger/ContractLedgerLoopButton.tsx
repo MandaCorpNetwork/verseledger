@@ -12,7 +12,7 @@ type ContractLedgerLoopButtonProps = {
   videoSource: string;
   selectedType: string;
   setSelectedType: (type: string) => void;
-  sx: SxProps<typeof verseOSTheme>;
+  sx?: SxProps<typeof verseOSTheme>;
 };
 
 export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> = ({

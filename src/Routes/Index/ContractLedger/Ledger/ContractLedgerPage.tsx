@@ -1,7 +1,25 @@
-import { Box, Collapse, Drawer, IconButton, Portal, Tooltip } from '@mui/material';
+//Will work with MuiTransitions for the dock - https://mui.com/material-ui/transitions/
+import {
+  FleetIcon,
+  LogisticsIcon,
+  RRRIcon,
+  SalvageIcon,
+  SecurityIcon,
+} from '@Common/CustomIcons';
+//import { QueryNames } from '@Common/Definitions/QueryNames';
+import {
+  AddCircle,
+  Explore,
+  Factory,
+  KeyboardDoubleArrowRight,
+  LocalHospital,
+  VisibilityOff,
+} from '@mui/icons-material';
+import { Box, Collapse, IconButton, Tooltip } from '@mui/material';
 import { POPUP_CREATE_CONTRACT } from '@Popups/CreateContract/CreateContract';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+//import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import FleetLoop from '@/Assets/media/ContractLedger/FleetLoop.webm?url';
@@ -17,24 +35,6 @@ import { ContractLedgerQuickNav } from '@/Components/Contracts/Ledger/ContractLe
 import { ContractDisplayContainer } from '@/Components/Contracts/Ledger/Details/ContractDisplayContainer';
 import { ContractsBrowser } from '@/Components/Contracts/Ledger/List/ContractBrowser';
 import { ContractTableTools } from '@/Components/Contracts/Ledger/List/ContractTableTools';
-import {
-  AddCircle,
-  Build,
-  Explore,
-  Factory,
-  KeyboardDoubleArrowRight,
-  LocalHospital,
-  VisibilityOff,
-} from '@mui/icons-material';
-import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import {
-  FleetIcon,
-  LogisticsIcon,
-  RRRIcon,
-  SalvageIcon,
-  SecurityIcon,
-} from '@Common/CustomIcons';
-import { QueryNames } from '@Common/Definitions/QueryNames';
 
 export const ContractLedgerPage: React.FC<unknown> = () => {
   const [selectedId, setSelectedId] = useState<IContract['id'] | null>(null);
@@ -76,27 +76,27 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
     { title: 'Proxy', videoSource: ProxyLoop },
   ];
 
-  const [, setFilters] = useURLQuery();
+  //const [, setFilters] = useURLQuery();
 
   const archetypeIcon = [
-    { title: 'Logistics', icon: <LogisticsIcon /> },
-    { title: 'Medical', icon: <LocalHospital /> },
-    { title: 'Security', icon: <SecurityIcon /> },
-    { title: 'Salvage', icon: <SalvageIcon /> },
-    { title: 'Industry', icon: <Factory /> },
-    { title: 'Rearm Refuel Repair', icon: <RRRIcon /> },
-    { title: 'Fleet', icon: <FleetIcon /> },
-    { title: 'Exploration', icon: <Explore /> },
-    { title: 'Proxy', icon: <VisibilityOff /> },
+    { title: 'Logistics', icon: <LogisticsIcon fontSize="large" /> },
+    { title: 'Medical', icon: <LocalHospital fontSize="large" /> },
+    { title: 'Security', icon: <SecurityIcon fontSize="large" /> },
+    { title: 'Salvage', icon: <SalvageIcon fontSize="large" /> },
+    { title: 'Industry', icon: <Factory fontSize="large" /> },
+    { title: 'Rearm Refuel Repair', icon: <RRRIcon fontSize="large" /> },
+    { title: 'Fleet', icon: <FleetIcon fontSize="large" /> },
+    { title: 'Exploration', icon: <Explore fontSize="large" /> },
+    { title: 'Proxy', icon: <VisibilityOff fontSize="large" /> },
   ];
 
-  const handleArchetypeIconClick = React.useCallback(
-    (filter: typeof QueryNames, title: string) => {
-      setFilters(filter, title);
-      setSelectedType(title);
-    },
-    [setFilters, setSelectedType],
-  );
+  // const handleArchetypeIconClick = React.useCallback(
+  //   (filter: typeof QueryNames, title: string) => {
+  //     setFilters(filter, title);
+  //     setSelectedType(title);
+  //   },
+  //   [setFilters, setSelectedType],
+  // );
 
   return (
     <Box
@@ -118,7 +118,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
         }}
       >
         <Collapse
-          collapsedSize="40px"
+          collapsedSize="50px"
           in={isExpanded}
           orientation="horizontal"
           sx={{
@@ -133,15 +133,22 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
           <IconButton onClick={handleDrawerOpen}>
             <KeyboardDoubleArrowRight fontSize="large" />
           </IconButton>
-          <IconButton onClick={openCreateContract} sx={{ display: isExpanded ? 'none' : 'flex' }}>
-            <AddCircle fontSize="large" />
-          </IconButton>
+          <Tooltip title="Create Contract" placement="right">
+            <IconButton
+              onClick={openCreateContract}
+              sx={{ display: isExpanded ? 'none' : 'flex' }}
+            >
+              <AddCircle fontSize="large" />
+            </IconButton>
+          </Tooltip>
           <Box
             data-testid="ContractLedger-ColumnOne__QuickNavWrapper"
             sx={{
               width: '100%',
               justifyContent: 'center',
               display: isExpanded ? 'flex' : 'none',
+              opacity: isExpanded ? 1 : 0,
+              transition: 'opacity 2s ease-in-out 1s',
             }}
           >
             <ContractLedgerQuickNav
@@ -163,32 +170,55 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
               ml: isExpanded ? '.5em' : '',
               display: 'flex',
               flexDirection: 'column',
+              alignItems: 'center',
             }}
           >
             {archetypeIcon.map((icon) => {
               return (
-                <Tooltip key={icon.title} title={icon.title}>
-                  <IconButton
-                    onClick={() => {}}
-                    sx={{ display: isExpanded ? 'none' : 'flex' }}
-                  >
-                    {icon.icon}
-                  </IconButton>
-                </Tooltip>
+                <Box
+                  key={icon.title}
+                  sx={{
+                    display: isExpanded ? 'none' : 'flex',
+                    transform: isExpanded ? 'translateX(-100%)' : 'translateX(0)',
+                    opacity: isExpanded ? 0 : 1,
+                    transition:
+                      'transform 0.8s ease-in-out, opacity 0.5s ease-in-out 1s, display 1s ease-in-out',
+                  }}
+                >
+                  <Tooltip title={icon.title} placement="right">
+                    <IconButton
+                      onClick={() => {}}
+                      sx={{
+                        color:
+                          selectedType == icon.title ? 'secondary.main' : 'primary.main',
+                      }}
+                    >
+                      {icon.icon}
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               );
             })}
             {archetypeButton.map((button) => (
-              <ContractLedgerLoopButton
+              <Box
                 key={button.title}
-                title={button.title}
-                videoSource={button.videoSource}
-                selectedType={selectedType}
-                setSelectedType={setSelectedType}
                 sx={{
                   display: isExpanded ? 'flex' : 'none',
                   mb: '1',
+                  mr: '1em',
+                  transform: isExpanded ? 'translateX(0)' : 'translateX(-100%)',
+                  transition:
+                    'transform 0.3s ease-in-out 2s, opacity 0.5s ease-in-out 0.3s, display 1s ease-in-out',
+                  opacity: isExpanded ? 1 : 0,
                 }}
-              />
+              >
+                <ContractLedgerLoopButton
+                  title={button.title}
+                  videoSource={button.videoSource}
+                  selectedType={selectedType}
+                  setSelectedType={setSelectedType}
+                />
+              </Box>
             ))}
           </Box>
         </Collapse>
@@ -203,6 +233,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
             borderBottom: '3px solid',
             borderRadius: '10px',
             borderColor: 'secondary.main',
+            flex: '1',
           }}
         >
           <ContractTableTools />
