@@ -93,11 +93,7 @@ const BidTimeDisplay: React.FC<BidTimeDisplayProps> = ({ contract }) => {
   );
 };
 
-export const ContractTableView: React.FC<ContractRowProps> = ({
-  contract,
-  onPick,
-  isSelected,
-}) => {
+export const ContractTableView: React.FC<ContractRowProps> = ({ contract, onPick }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(50);
 
@@ -109,8 +105,6 @@ export const ContractTableView: React.FC<ContractRowProps> = ({
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-  const selected = (id: string | null) => isSelected == id;
 
   return (
     <Box
