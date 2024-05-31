@@ -1,9 +1,10 @@
 ///<reference types="vite/client" />
 import './ContractLedgerLoopButton.scss';
 
-import { Button, Typography } from '@mui/material';
+import { Button, SxProps, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
+import { verseOSTheme } from '@/Themes/VerseOS';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 type ContractLedgerLoopButtonProps = {
@@ -11,6 +12,7 @@ type ContractLedgerLoopButtonProps = {
   videoSource: string;
   selectedType: string;
   setSelectedType: (type: string) => void;
+  sx: SxProps<typeof verseOSTheme>;
 };
 
 export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> = ({
@@ -18,6 +20,7 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
   videoSource,
   selectedType,
   setSelectedType,
+  sx,
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_isHovered, setIsHovered] = useState(false);
@@ -41,7 +44,7 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
 
   const handleClick = () => {
     // @ts-expect-error TS2322: Type 'string' is not assignable to type 'string | undefined',
-    setFilters('contractType', title);
+    setFilters('archetype', title);
     setSelectedType(title);
 
     const video = document.getElementById(videoSource) as HTMLVideoElement;
@@ -63,22 +66,25 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
       data-testid="contract-loop-button"
       sx={{
         color: 'text.primary',
-        width: isSelected ? '20em' : '18em',
+        // width: isSelected ? '20em' : '18em',
+        width: '18em',
         height: '5em',
         display: 'flex',
         border: '5px ridge',
-        borderColor: isSelected ? 'primary.main' : 'text.disabled',
+        borderColor: isSelected ? 'primary.main' : 'primary.dark',
         borderRadius: '.4em',
         zIndex: '3',
         marginTop: '1em',
         '&:hover': {
-          border: '5px ridge #79c0f4',
-          width: '20em',
+          border: '5px ridge',
+          borderColor: 'primary.light',
+          //width: '20em',
         },
         '&:active': {
           color: 'text.secondary',
           borderColor: 'primary.main',
         },
+        ...sx,
       }}
     >
       <video loop muted id={videoSource} className="loop-video">

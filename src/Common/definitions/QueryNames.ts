@@ -10,4 +10,5 @@ export enum QueryNames {
   SelectedContract = 'contractID',
   EmployerRating = 'rating',
   TimeRemaining = 'time',
+  Archetype = 'archetype',
 }

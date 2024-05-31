@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Collapse, Drawer, IconButton, Portal, Tooltip } from '@mui/material';
 import { POPUP_CREATE_CONTRACT } from '@Popups/CreateContract/CreateContract';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
@@ -17,9 +17,28 @@ import { ContractLedgerQuickNav } from '@/Components/Contracts/Ledger/ContractLe
 import { ContractDisplayContainer } from '@/Components/Contracts/Ledger/Details/ContractDisplayContainer';
 import { ContractsBrowser } from '@/Components/Contracts/Ledger/List/ContractBrowser';
 import { ContractTableTools } from '@/Components/Contracts/Ledger/List/ContractTableTools';
+import {
+  AddCircle,
+  Build,
+  Explore,
+  Factory,
+  KeyboardDoubleArrowRight,
+  LocalHospital,
+  VisibilityOff,
+} from '@mui/icons-material';
+import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import {
+  FleetIcon,
+  LogisticsIcon,
+  RRRIcon,
+  SalvageIcon,
+  SecurityIcon,
+} from '@Common/CustomIcons';
+import { QueryNames } from '@Common/Definitions/QueryNames';
 
 export const ContractLedgerPage: React.FC<unknown> = () => {
   const [selectedId, setSelectedId] = useState<IContract['id'] | null>(null);
+  const [isExpanded, setExpanded] = useState(false);
   const dispatch = useAppDispatch();
   const handleContractPick = useCallback(
     (id: string | null) => {
@@ -41,11 +60,49 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
     dispatch(openPopup(POPUP_CREATE_CONTRACT));
   }, [dispatch]);
 
+  const handleDrawerOpen = () => {
+    setExpanded(!isExpanded);
+  };
+
+  const archetypeButton = [
+    { title: 'Logistics', videoSource: LogisticsLoop },
+    { title: 'Medical', videoSource: MedicalLoop },
+    { title: 'Security', videoSource: SecurityLoop },
+    { title: 'Salvage', videoSource: SalvageLoop },
+    { title: 'Industry', videoSource: IndustryLoop },
+    { title: 'Rearm Refuel Repair', videoSource: RRRLoop },
+    { title: 'Fleet', videoSource: FleetLoop },
+    { title: 'Exploration', videoSource: RRRLoop },
+    { title: 'Proxy', videoSource: ProxyLoop },
+  ];
+
+  const [, setFilters] = useURLQuery();
+
+  const archetypeIcon = [
+    { title: 'Logistics', icon: <LogisticsIcon /> },
+    { title: 'Medical', icon: <LocalHospital /> },
+    { title: 'Security', icon: <SecurityIcon /> },
+    { title: 'Salvage', icon: <SalvageIcon /> },
+    { title: 'Industry', icon: <Factory /> },
+    { title: 'Rearm Refuel Repair', icon: <RRRIcon /> },
+    { title: 'Fleet', icon: <FleetIcon /> },
+    { title: 'Exploration', icon: <Explore /> },
+    { title: 'Proxy', icon: <VisibilityOff /> },
+  ];
+
+  const handleArchetypeIconClick = React.useCallback(
+    (filter: typeof QueryNames, title: string) => {
+      setFilters(filter, title);
+      setSelectedType(title);
+    },
+    [setFilters, setSelectedType],
+  );
+
   return (
     <Box
       data-testid="ContractLedger__PageContainer"
       sx={{
-        width: '100%',
+        width: '100vw',
         height: 'calc(100vh - 64px)',
         overflow: 'hidden',
       }}
@@ -57,88 +114,90 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
           display: 'flex',
           flexDirection: 'row',
           height: '100%',
+          width: '100%',
         }}
       >
-        <Box
-          data-testid="ContractLedger__ColumnOneContainer"
-          sx={{ marginLeft: '1em', width: '18%', overflow: 'hidden' }}
+        <Collapse
+          collapsedSize="40px"
+          in={isExpanded}
+          orientation="horizontal"
+          sx={{
+            height: '100%',
+            width: isExpanded ? '600px' : '30px',
+            backgroundColor: 'primary.dark',
+            borderTopRightRadius: '10px',
+            borderBottomRightRadius: '10px',
+            mr: '1em',
+          }}
         >
-          <Box data-testid="ContractLedger-ColumnOne__QuickNavWrapper">
-            {/*QuickNav Buttons (Top Left) */}
+          <IconButton onClick={handleDrawerOpen}>
+            <KeyboardDoubleArrowRight fontSize="large" />
+          </IconButton>
+          <IconButton onClick={openCreateContract} sx={{ display: isExpanded ? 'none' : 'flex' }}>
+            <AddCircle fontSize="large" />
+          </IconButton>
+          <Box
+            data-testid="ContractLedger-ColumnOne__QuickNavWrapper"
+            sx={{
+              width: '100%',
+              justifyContent: 'center',
+              display: isExpanded ? 'flex' : 'none',
+            }}
+          >
             <ContractLedgerQuickNav
-              title="Contract Manager"
+              title="Manage"
               onClick={() => {}}
               testid="ContractManager"
             />
             <ContractLedgerQuickNav
-              title="Create Contract"
+              title="Create"
               onClick={openCreateContract}
               testid="CreateContract"
             />
           </Box>
-          <Box data-testid="ContractLedger-ColumnOne__ArchetypeButtonWrapper">
-            <ContractLedgerLoopButton
-              title="Logistics"
-              videoSource={LogisticsLoop}
-              selectedType={selectedType}
-              setSelectedType={setSelectedType}
-            />
-            <ContractLedgerLoopButton
-              title="Medical"
-              videoSource={MedicalLoop}
-              selectedType={selectedType}
-              setSelectedType={setSelectedType}
-            />
-            <ContractLedgerLoopButton
-              title="Security"
-              videoSource={SecurityLoop}
-              selectedType={selectedType}
-              setSelectedType={setSelectedType}
-            />
-            <ContractLedgerLoopButton
-              title="Salvage"
-              videoSource={SalvageLoop}
-              selectedType={selectedType}
-              setSelectedType={setSelectedType}
-            />
-            <ContractLedgerLoopButton
-              title="Industry"
-              videoSource={IndustryLoop}
-              selectedType={selectedType}
-              setSelectedType={setSelectedType}
-            />
-            <ContractLedgerLoopButton
-              title="Rearm Refuel Repair"
-              videoSource={RRRLoop}
-              selectedType={selectedType}
-              setSelectedType={setSelectedType}
-            />
-            <ContractLedgerLoopButton
-              title="Fleet"
-              videoSource={FleetLoop}
-              selectedType={selectedType}
-              setSelectedType={setSelectedType}
-            />
-            <ContractLedgerLoopButton
-              title="Exploration"
-              videoSource={RRRLoop}
-              selectedType={selectedType}
-              setSelectedType={setSelectedType}
-            />
-            <ContractLedgerLoopButton
-              title="Proxy"
-              videoSource={ProxyLoop}
-              selectedType={selectedType}
-              setSelectedType={setSelectedType}
-            />
+          <Box
+            data-testid="ContractLedger-ColumnOne__ArchetypeButtonWrapper"
+            sx={{
+              width: '100%',
+              mr: isExpanded ? '.5em' : '',
+              ml: isExpanded ? '.5em' : '',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            {archetypeIcon.map((icon) => {
+              return (
+                <Tooltip key={icon.title} title={icon.title}>
+                  <IconButton
+                    onClick={() => {}}
+                    sx={{ display: isExpanded ? 'none' : 'flex' }}
+                  >
+                    {icon.icon}
+                  </IconButton>
+                </Tooltip>
+              );
+            })}
+            {archetypeButton.map((button) => (
+              <ContractLedgerLoopButton
+                key={button.title}
+                title={button.title}
+                videoSource={button.videoSource}
+                selectedType={selectedType}
+                setSelectedType={setSelectedType}
+                sx={{
+                  display: isExpanded ? 'flex' : 'none',
+                  mb: '1',
+                }}
+              />
+            ))}
           </Box>
-        </Box>
+        </Collapse>
         <Box
           data-testid="ContractLedger__ColumnTwo"
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            width: '50%',
+            minWidth: '50%',
             height: '100%',
             borderTop: '3px solid',
             borderBottom: '3px solid',
