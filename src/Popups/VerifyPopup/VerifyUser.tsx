@@ -3,7 +3,6 @@ import {
   Avatar,
   Box,
   Button,
-  CircularProgress,
   FormControl,
   Link,
   TextField,
@@ -67,7 +66,7 @@ export const VerifyUserPopup: React.FC = () => {
     >
       {popupState === 'checking' && (
         <Box sx={{ display: 'flex', width: '100%', height: '200px', margin: 'auto' }}>
-          <LoadingWheel />
+          <LoadingWheel boxSX={{ margin: 'auto', height: '200px' }} />
         </Box>
       )}
       {popupState === 'createToken' && (

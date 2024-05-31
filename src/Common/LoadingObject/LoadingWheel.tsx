@@ -1,19 +1,26 @@
 import VLLogo from '@Assets/media/VerseLogos/verselogo-0.png?url';
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, SxProps } from '@mui/material';
+
+import { verseOSTheme } from '../../Themes/VerseOS';
 
 type LoadingWheelProps = {
   testid?: string;
   controlType?: 'determinate' | 'indeterminate';
   logoSize?: number;
   wheelSize?: number;
+  boxSX?: SxProps<typeof verseOSTheme>;
+  logoSX?: SxProps<typeof verseOSTheme>;
 };
 
-export const LoadingWheel: React.FC<LoadingWheelProps> = ({
-  testid,
-  controlType = 'indeterminate',
-  logoSize = 23,
-  wheelSize = 45,
-}) => {
+export const LoadingWheel: React.FC<LoadingWheelProps> = (props) => {
+  const {
+    testid,
+    controlType = 'indeterminate',
+    logoSize = 23,
+    wheelSize = 45,
+    boxSX,
+    logoSX,
+  } = props;
   return (
     <Box
       data-testid={`VLLoading__${testid}__${controlType}`}
@@ -23,6 +30,7 @@ export const LoadingWheel: React.FC<LoadingWheelProps> = ({
         alignItems: 'center',
         justifyContent: 'center',
         margin: 'auto',
+        ...boxSX,
       }}
     >
       <svg width={0} height={0}>
@@ -42,6 +50,7 @@ export const LoadingWheel: React.FC<LoadingWheelProps> = ({
           'svg circle': {
             stroke: 'url(#loadingWheelColor)',
           },
+          ...logoSX,
         }}
       />
       <img src={VLLogo} alt="" height={logoSize} style={{ position: 'absolute' }} />
