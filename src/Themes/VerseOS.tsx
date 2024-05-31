@@ -2,6 +2,7 @@ import '@mui/material/Divider';
 import '@mui/material/Button';
 
 import { createTheme } from '@mui/material/styles';
+import { NightlightRoundOutlined } from '@mui/icons-material';
 
 declare module '@mui/material/Divider' {
   interface DividerPropsVariantOverrides {
@@ -55,7 +56,30 @@ export const verseOSTheme = createTheme({
     },
   },
   components: {
-    
+    MuiTable: {
+      styleOverrides: {
+        root: {
+          boxShadow: '0 0 15px 2px #0e318d',
+        },
+      },
+    },
+    MuiTableRow: {
+      styleOverrides: {
+        head: {
+          '& th': {
+            padding: '.5em',
+            color: 'rgb(24,252,252)',
+            textAlign: 'center',
+            borderBottom: '2px solid rgb(121, 192, 244)',
+          },
+        },
+        hover: {
+          '& th': {
+            boxShadow: 'red',
+          },
+        },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
         input: {

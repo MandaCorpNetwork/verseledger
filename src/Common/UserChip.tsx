@@ -25,7 +25,7 @@ export const UserChip: React.FC<UserChipProps> = ({ userid, size }) => {
         variant="outlined"
         size={size}
         onClick={handlePlayerCardOpen}
-        label={user?.handle}
+        label={user?.displayName}
         avatar={<Avatar src={user?.pfp} />}
         sx={{
           maxWidth: '150px',

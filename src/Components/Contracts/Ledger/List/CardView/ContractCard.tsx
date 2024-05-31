@@ -3,6 +3,7 @@
 //This Contract passes it's ID to the ContractCardDisplay when clicked and sets itself to selected to display it's full information in the ContractBriefingViewer
 import { FleetIcon, RRRIcon, SalvageIcon, SecurityIcon } from '@Common/CustomIcons';
 import { LocationChip } from '@Common/LocationChip';
+import { PayDisplay } from '@Common/PayDisplay';
 import { EmergencyShare, LocalHospital } from '@mui/icons-material';
 import { Avatar, Box, Card, CardActionArea, Tooltip, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
@@ -163,32 +164,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
           <Box sx={{ mx: 'auto' }}>
             <LocationChip label="Location" />
           </Box>
-          <Box
-            sx={{
-              display: 'inline',
-              direction: 'row',
-              marginTop: 'auto',
-              ml: 'auto',
-              bgcolor: 'rgba(0,1,19,.35)',
-              padding: '.3em',
-              borderRadius: '.3em',
-              border: '1px solid',
-              borderColor: 'text.secondary',
-            }}
-          >
-            <Tooltip title={contract.payStructure}>
-              <Typography component="span">
-                ¤
-                {new Intl.NumberFormat('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
-                  maximumFractionDigits: 0,
-                })
-                  .format(contract.defaultPay)
-                  .substring(1)}
-              </Typography>
-            </Tooltip>
-          </Box>
+          <PayDisplay value={contract.defaultPay} variant={contract.payStructure} />
         </Box>
       </CardActionArea>
     </Card>

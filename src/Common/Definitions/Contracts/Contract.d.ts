@@ -11,7 +11,7 @@ type IContract = {
   locations: Array<unknown>;
   ratingLimit: number | null;
   contractorLimit: number | null;
-  payStructure: string;
+  payStructure: PayStructure;
   isBargaining: boolean;
   isBonusPay: boolean;
   defaultPay: number;

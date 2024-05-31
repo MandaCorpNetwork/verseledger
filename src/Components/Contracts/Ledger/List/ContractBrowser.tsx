@@ -115,7 +115,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
         ) : (
           <ContractTableView
             onPick={selectedIdSetter}
-            contracts={contracts}
+            contract={contracts}
             isSelected={isSelected}
           />
         )}

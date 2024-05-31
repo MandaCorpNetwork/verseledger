@@ -1,4 +1,4 @@
-type ContractType =
+type ContractArchetype =
   | 'Logistics'
   | 'Medical'
   | 'Security'
