@@ -2,7 +2,7 @@ type IContract = {
   id: string;
   owner_id: User['id']; //ReadOnly
   title: string;
-  subType: Array<unknown>;
+  subType: ContractSubType;
   briefing: string;
   bidDate: Date | null;
   startDate: Date | null;

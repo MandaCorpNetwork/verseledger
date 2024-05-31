@@ -6,14 +6,16 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Tooltip,
   Typography,
 } from '@mui/material';
 import dayjs from 'dayjs';
-import React from 'react';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import React from 'react';
 
 type ContractRowProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -59,7 +61,7 @@ const CreatedTimeDisplay: React.FC<CreatedTimeDisplayProps> = ({ contract }) => 
 
   return (
     <Tooltip title={createdTimeStamp}>
-      <Typography>{createdRelativeTimestamp}</Typography>
+      <Typography variant="body2">{createdRelativeTimestamp}</Typography>
     </Tooltip>
   );
 };
@@ -81,73 +83,137 @@ const BidTimeDisplay: React.FC<BidTimeDisplayProps> = ({ contract }) => {
   }, [bidDate]);
   return (
     <Tooltip title={bidTimeStamp}>
-      <Typography>{bidRealtiveTimestamp()}</Typography>
+      <Typography
+        variant="body2"
+        sx={{ color: bidRealtiveTimestamp() == 'Bidding Closed' ? 'warning.main' : '' }}
+      >
+        {bidRealtiveTimestamp()}
+      </Typography>
     </Tooltip>
   );
 };
 
-const titleDisplay = () => {};
-
 export const ContractTableView: React.FC<ContractRowProps> = ({ contract, onPick }) => {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(50);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
   return (
     <Box
       data-testid="ContractLedger-ContractBrowser__TableViewContainer"
       sx={{
         p: '1em',
         height: '100%',
+        width: '100%',
       }}
     >
-      <Table stickyHeader>
-        <TableHead>
-          <TableRow>
-            {columns.map((column) => (
-              <TableCell
-                key={column.id}
-                align={column.align}
-                style={{
-                  minWidth: column.minWidth,
-                }}
-                component="th"
-              >
-                {column.label}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {contract.map((contract) => (
-            <TableRow
-              key={contract.id}
-              hover
-              onClick={() => onPick(contract.id)}
-              sx={{
-                cursor: 'pointer',
-                '&:nth-of-type(odd)': {
-                  backgroundColor: 'primary.dark',
-                },
-              }}
-            >
-              <TableCell sx={{ textAlign: 'center' }}>{contract.title}</TableCell>
-              <TableCell sx={{ textAlign: 'center' }}>{contract.subType}</TableCell>
-              <TableCell sx={{ textAlign: 'center' }}>
-                <UserChip userid={contract.owner_id} size="medium" />
-              </TableCell>
-              <TableCell sx={{ textAlign: 'center' }}>
-                <PayDisplay value={contract.defaultPay} variant={contract.payStructure} />
-              </TableCell>
-              <TableCell sx={{ textAlign: 'center' }}>
-                <LocationChip label="Location" />
-              </TableCell>
-              <TableCell sx={{ textAlign: 'center' }}>
-                <CreatedTimeDisplay contract={contract} />
-              </TableCell>
-              <TableCell>
-                <BidTimeDisplay contract={contract} />
-              </TableCell>
+      <TableContainer
+        sx={{
+          maxHeight: '90%',
+          boxShadow: '0 0 15px 2px #0e318d',
+          mx: 'auto',
+          '&::-webkit-scrollbar': {
+            width: '10px',
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'rgb(8, 29, 68)',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            borderRadius: '20px',
+            background: 'rgb(121, 192, 244, .5)',
+          },
+        }}
+      >
+        <Table stickyHeader>
+          <TableHead>
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{
+                    minWidth: column.minWidth,
+                  }}
+                  component="th"
+                >
+                  {column.label}
+                </TableCell>
+              ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {contract
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((contract) => (
+                <TableRow
+                  key={contract.id}
+                  hover
+                  onClick={() => onPick(contract.id)}
+                  sx={{
+                    cursor: 'pointer',
+                    '&:nth-of-type(odd)': {
+                      backgroundColor: 'primary.dark',
+                    },
+                  }}
+                >
+                  <TableCell sx={{ textAlign: 'center' }}>
+                    <Typography
+                      sx={{
+                        maxWidth: '100%',
+                        fontWeight: 'bold',
+                        color: 'text.secondary',
+                      }}
+                    >
+                      {contract.title}
+                    </Typography>
+                  </TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{contract.subType}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>
+                    <UserChip userid={contract.owner_id} size="medium" />
+                  </TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>
+                    <PayDisplay
+                      value={contract.defaultPay}
+                      variant={contract.payStructure}
+                    />
+                  </TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>
+                    <LocationChip label="Location" />
+                  </TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>
+                    <CreatedTimeDisplay contract={contract} />
+                  </TableCell>
+                  <TableCell>
+                    <BidTimeDisplay contract={contract} />
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[50, 100, 200]}
+        component={Box}
+        count={contract.length}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        sx={{
+          borderBottomLeftRadius: '10px',
+          borderBottomRightRadius: '10px',
+          boxShadow: '0 0 15px 2px #0e318d',
+          backgroundColor: 'rgba(0,1,19,.5)',
+        }}
+      />
     </Box>
   );
 };

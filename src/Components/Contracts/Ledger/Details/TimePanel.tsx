@@ -156,7 +156,7 @@ export const StartPanel: React.FC<TimePanelProps> = ({ contractId }) => {
   const contractProgress = React.useCallback(() => {
     const now = dayjs();
     const totalTime = endDate.diff(startDate);
-    const elapsedTime = now.diff(startDate);
+    const elapsedTime = startDate.diff(now);
     const progress = (elapsedTime / totalTime) * 100;
     return Math.round(progress);
   }, [startDate, endDate]);
