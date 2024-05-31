@@ -53,6 +53,7 @@ export const verseOSTheme = createTheme({
       disabled: 'rgb(0, 73, 130)',
       disabledBackground: 'rgb(0, 30, 100)',
     },
+    divider: 'rgb(24, 252, 252)',
   },
   components: {
     MuiTable: {
@@ -66,15 +67,22 @@ export const verseOSTheme = createTheme({
       styleOverrides: {
         head: {
           '& th': {
-            backgroundColor: 'rgba(0,1,19,)',
+            backgroundColor: 'rgba(0,1,19)',
             color: 'rgb(24,252,252)',
             textAlign: 'center',
             borderBottom: '2px solid rgb(121, 192, 244)',
           },
         },
-        hover: {
-          '& th': {
-            boxShadow: 'red',
+        root: {
+          '&.MuiTableRow-hover:hover': {
+            backgroundColor: 'rgb(8, 22, 80)',
+            boxShadow: '0 0 10px 2px rgb(33, 150, 243)',
+          },
+          '&.Mui-selected, &.Mui-selected:hover': {
+            backgroundColor: 'red',
+          },
+          '&.MuiTableRow-selected': {
+            backgroundColor: 'red',
           },
         },
       },
