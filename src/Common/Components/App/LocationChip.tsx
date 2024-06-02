@@ -6,9 +6,11 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 
 type LocationChipProps = {
   label?: string;
+  onDelete?: () => void;
 };
 
-export const LocationChip: React.FC<LocationChipProps> = ({ label }) => {
+export const LocationChip: React.FC<LocationChipProps> = (props) => {
+  const { label, onDelete } = props;
   const dispatch = useAppDispatch();
 
   const handleLocationInfoPopup = () => {
@@ -23,6 +25,7 @@ export const LocationChip: React.FC<LocationChipProps> = ({ label }) => {
       icon={<Place />}
       size="small"
       onClick={handleLocationInfoPopup}
+      onDelete={onDelete}
     ></Chip>
   );
 };

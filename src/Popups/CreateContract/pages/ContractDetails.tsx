@@ -19,6 +19,7 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
+
 import { EmergencyOverlay } from '../EmergencyOverlay';
 
 const options = [
