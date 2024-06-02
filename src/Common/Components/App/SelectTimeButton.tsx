@@ -36,15 +36,13 @@ export const SelectTimeButton: React.FC<SelectTimeProps> = ({
       <Popover
         open={Boolean(anchorEl)}
         onClose={() => setAnchorE1(null)}
-        anchorEl={anchorEl}
-        disablePortal={true}
         anchorOrigin={{
-          vertical: 'bottom',
+          vertical: 'center',
           horizontal: 'center',
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
+          vertical: 'center',
+          horizontal: 'center',
         }}
         sx={{
           backdropFilter: 'blur(5px)',
@@ -94,7 +92,6 @@ export const SelectTimeButton: React.FC<SelectTimeProps> = ({
           {view === 'time' && (
             <DigitalClock
               ampm={false}
-              disablePast={true}
               onChange={handleTimeChange}
               sx={{
                 '&::-webkit-scrollbar': {

@@ -19,6 +19,7 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
+import { EmergencyOverlay } from '../EmergencyOverlay';
 
 const options = [
   {
@@ -218,6 +219,7 @@ export const ContractDetails: React.FC<{
     >
       <Box data-testid="subTypeandBriefing-form">
         <Box>
+          {formData.isEmergency && <EmergencyOverlay />}
           <FormControl sx={{ display: 'flex', alignItems: 'left', width: '100%' }}>
             <FormLabel color="secondary" sx={{ fontWeight: 'bold' }}></FormLabel>
             <TextField
