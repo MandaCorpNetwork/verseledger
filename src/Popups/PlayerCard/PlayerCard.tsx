@@ -1,5 +1,5 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
-import { Discord } from '@Common/CustomIcons';
+import { Discord } from '@Common/Definitions/CustomIcons';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import {
   Avatar,

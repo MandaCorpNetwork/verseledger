@@ -5,7 +5,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useState } from 'react';
 
-import { OutlinedLabel } from '@/Common/OutlinedLabel';
+import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
 
 type ContractorProps = {
   id: string;

@@ -1,9 +1,29 @@
-import { Autocomplete, Box, FormControl, FormLabel, TextField } from '@mui/material';
+import {
+  FleetIcon,
+  LogisticsIcon,
+  RRRIcon,
+  SalvageIcon,
+  SecurityIcon,
+} from '@Common/Definitions/CustomIcons';
+import { Explore, Factory, LocalHospital, VisibilityOff } from '@mui/icons-material';
+import {
+  Autocomplete,
+  Box,
+  Chip,
+  FormControl,
+  FormLabel,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
+import { useAppDispatch } from '@Redux/hooks';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 
 const options = [
   {
     archetype: 'Logistics',
+    archetypeIcon: <LogisticsIcon color="secondary" />,
     subTypes: [
       {
         label: 'Transport',
@@ -21,6 +41,7 @@ const options = [
   },
   {
     archetype: 'Medical',
+    archetypeIcon: <LocalHospital color="secondary" />,
     subTypes: [
       {
         label: 'Trauma',
@@ -34,6 +55,7 @@ const options = [
   },
   {
     archetype: 'Security',
+    archetypeIcon: <SecurityIcon color="secondary" />,
     subTypes: [
       {
         label: 'Escort',
@@ -59,6 +81,7 @@ const options = [
   },
   {
     archetype: 'Salvage',
+    archeTypeIcon: <SalvageIcon color="secondary" />,
     subTypes: [
       {
         label: 'Collection',
@@ -72,6 +95,7 @@ const options = [
   },
   {
     archetype: 'Industry',
+    archeTypeIcon: <Factory color="secondary" />,
     subTypes: [
       {
         label: 'Mining',
@@ -93,6 +117,7 @@ const options = [
   },
   {
     archetype: 'RRR',
+    archeTypeIcon: <RRRIcon color="secondary" />,
     subTypes: [
       {
         label: 'Refuel',
@@ -110,6 +135,7 @@ const options = [
   },
   {
     archetype: 'Fleet',
+    archetypeIcon: <FleetIcon color="secondary" />,
     subTypes: [
       {
         label: 'Crewman',
@@ -123,23 +149,29 @@ const options = [
   },
   {
     archetype: 'Exploration',
+    archeTypeIcon: <Explore color="secondary" />,
     subTypes: [
       {
-        label: 'Exploration',
-        value: 'Exploration',
+        label: 'Locate',
+        value: 'Locate',
+      },
+      {
+        label: 'Charting',
+        value: 'Charting',
       },
     ],
   },
   {
     archetype: 'Proxy',
+    archeTypeIcon: <VisibilityOff color="secondary" />,
     subTypes: [
       {
         label: 'Middleman',
         value: 'Middleman',
       },
       {
-        label: 'Other',
-        value: 'Other',
+        label: 'Redacted',
+        value: 'Redacted',
       },
     ],
   },
@@ -155,7 +187,25 @@ export const ContractDetails: React.FC<{
   formData: IContract;
   setFormData: React.Dispatch<React.SetStateAction<IContract>>;
 }> = (props) => {
+  const dispatch = useAppDispatch();
   const { formData, setFormData } = props;
+  const [archetype, setArchetype] = React.useState<string | null>(null);
+
+  const handleArchetypeOpen = () => {
+    dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetype }));
+  };
+
+  const handleTypeSelect = React.useCallback(
+    (newValue: string) => {
+      const selectedOption = options.find((option) =>
+        option.subTypes.some((subType) => subType.value === newValue),
+      );
+      if (selectedOption) {
+        setArchetype(selectedOption.archetype);
+      }
+    },
+    [setArchetype],
+  );
   return (
     <Box
       data-testid="subType-briefing-container"
@@ -163,6 +213,7 @@ export const ContractDetails: React.FC<{
         display: 'flex',
         flexDirection: 'row',
         minWidth: '400px',
+        mt: '1em',
       }}
     >
       <Box data-testid="subTypeandBriefing-form">
@@ -187,7 +238,8 @@ export const ContractDetails: React.FC<{
                 <TextField {...params} label="SubType" size="small" />
               )}
               onChange={(_e, newValue) => {
-                setFormData({ ...formData, subtype: newValue ?? '' });
+                setFormData({ ...formData, subType: newValue ?? '' });
+                handleTypeSelect(newValue ?? '');
               }}
               fullWidth
               sx={{ mt: 2, mb: '1em', maxWidth: '300px' }}
@@ -208,6 +260,56 @@ export const ContractDetails: React.FC<{
               }}
             />
           </FormControl>
+        </Box>
+      </Box>
+      <Box
+        data-testid="Archetype__DisplayContainer"
+        sx={{
+          alignItems: 'center',
+          display: 'flex',
+          width: '50%',
+          justifyContent: 'center',
+          ml: '1em',
+          maxHeight: '100%',
+        }}
+      >
+        <Box
+          data-testid="Archetype__DisplayWrapper"
+          sx={{
+            borderTop: '2px solid',
+            borderBottom: '2px solid',
+            borderRadius: '5px',
+            borderColor: 'secondary.main',
+            p: '.5em',
+          }}
+        >
+          <Typography>Contract Archetype</Typography>
+          <Box
+            data-testid="Archetype__ChipWrapper"
+            sx={{
+              border: '1px solid',
+              borderColor: 'primary.main',
+              borderRadius: '5px',
+              p: '.5em',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              minHeight: '150px',
+            }}
+          >
+            {!archetype && <Typography>Select SubType</Typography>}
+            {archetype && (
+              <Chip
+                icon={
+                  options.find((option) => option.archetype === archetype)?.archetypeIcon
+                }
+                label={archetype}
+                variant="outlined"
+                color="secondary"
+                onClick={handleArchetypeOpen}
+              />
+            )}
+          </Box>
         </Box>
       </Box>
     </Box>

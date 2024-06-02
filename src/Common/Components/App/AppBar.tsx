@@ -1,3 +1,5 @@
+import Station from '@Assets/media/Station.svg?url';
+import { LocationSelection } from '@Common/Components/App/LocationSelection';
 import { Feedback } from '@mui/icons-material';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -25,15 +27,13 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { LocationSelection } from '@/Common/LocationSelection';
 import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
 import { fetchCurrentUser } from '@/Redux/Slices/Auth/Actions/fetchCurrentUser';
 import { selectCurrentUser, selectIsLoggedIn } from '@/Redux/Slices/Auth/authSelectors';
 import { AuthUtil } from '@/Utils/AuthUtil';
 import { URLUtil } from '@/Utils/URLUtil';
 
-import Station from '../Assets/media/Station.svg?url';
-import { UserSettings } from './UserSettings';
+import { UserSettings } from '../Users/UserSettings';
 import VerseLogo from './VerseLogo';
 
 export const VLAppBar: React.FC<unknown> = () => {

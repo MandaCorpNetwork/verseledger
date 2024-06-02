@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-import { Discord, Patreon, Paypal } from './CustomIcons';
+import { Discord, Patreon, Paypal } from '../../Definitions/CustomIcons';
 
 type UnderConstructionProps = {
   isOpen: boolean;

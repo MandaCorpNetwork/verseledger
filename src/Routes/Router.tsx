@@ -2,7 +2,7 @@ import { Outlet, RouteObject } from 'react-router-dom';
 
 import { DiscordLoginUtility } from '@/Utils/discordLoginUtility';
 
-import { VLAppBar } from '../Common/AppBar';
+import { VLAppBar } from '../Common/Components/App/AppBar';
 import ErrorPage from './ErrorPage';
 import { ContractLedgerPage } from './Index/ContractLedger/Ledger/ContractLedgerPage';
 import { Home } from './Index/Home/Home';

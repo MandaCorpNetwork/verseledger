@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 
-import { UnderConstruction } from '@/Common/UnderContruction';
+import { UnderConstruction } from '@Common/Components/App/UnderContruction';
 
 type HomeNavButtonProps = {
   title: string;

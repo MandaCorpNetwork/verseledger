@@ -1,8 +1,8 @@
 import { Box, Button, TextField } from '@mui/material';
 import React from 'react';
 
-import { LocationSelection } from '@/Common/LocationSelection';
-import { ReadOnlyField } from '@/Common/ReadOnlyField';
+import { LocationSelection } from '@Common/Components/App/LocationSelection';
+import { ReadOnlyField } from '@Common/Components/App/ReadOnlyField';
 
 export const LocationExplorerTool: React.FC<unknown> = () => {
   return (

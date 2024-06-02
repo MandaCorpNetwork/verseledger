@@ -1,5 +1,5 @@
 import Feedback from '@Assets/media/Feedback.webm?url';
-import { Discord } from '@Common/CustomIcons';
+import { Discord } from '@Common/Definitions/CustomIcons';
 import { GitHub } from '@mui/icons-material';
 import {
   Box,

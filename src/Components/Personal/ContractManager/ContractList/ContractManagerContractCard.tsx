@@ -3,7 +3,7 @@ import React from 'react';
 
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
 import { QueryNames } from '@/Common/Definitions/QueryNames';
-import { OutlinedLabel } from '@/Common/OutlinedLabel';
+import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 //import type { IContract } from '@Backend/interfaces/IContract';

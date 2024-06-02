@@ -1,6 +1,6 @@
-import { LocationChip } from '@Common/LocationChip';
-import { PayDisplay } from '@Common/PayDisplay';
-import { UserChip } from '@Common/UserChip';
+import { LocationChip } from '@Common/Components/App/LocationChip';
+import { PayDisplay } from '@Common/Components/App/PayDisplay';
+import { UserChip } from '@Common/Components/Users/UserChip';
 import {
   Box,
   Table,

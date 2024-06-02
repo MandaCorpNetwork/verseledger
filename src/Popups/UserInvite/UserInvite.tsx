@@ -1,4 +1,4 @@
-import { UserSearch } from '@Common/UserSearch';
+import { UserSearch } from '@Common/Components/Users/UserSearch';
 import { Box, Chip } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';

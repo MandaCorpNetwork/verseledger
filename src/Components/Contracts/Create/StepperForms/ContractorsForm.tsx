@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-import { UserSearch } from '@/Common/UserSearch';
+import { UserSearch } from '@Common/Components/Users/UserSearch';
 
 type InviteeProps = {
   name: string;

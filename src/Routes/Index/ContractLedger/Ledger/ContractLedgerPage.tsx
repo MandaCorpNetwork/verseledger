@@ -5,7 +5,7 @@ import {
   RRRIcon,
   SalvageIcon,
   SecurityIcon,
-} from '@Common/CustomIcons';
+} from '@Common/Definitions/CustomIcons';
 //import { QueryNames } from '@Common/Definitions/QueryNames';
 import {
   AddCircle,

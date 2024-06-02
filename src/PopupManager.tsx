@@ -8,6 +8,11 @@ import {
 } from '@Popups/CreateContract/CreateContract';
 import { FeedbackPopup, POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
 import {
+  ArchetypeInfoPopup,
+  ArchetypeInfoProps,
+  POPUP_ARCHETYPE_INFO,
+} from '@Popups/Info/Archetypes';
+import {
   LocationInfoPopup,
   LocationInfoProps,
   POPUP_LOCATION_INFO,
@@ -44,6 +49,9 @@ export const PopupManager: React.FC = () => {
   const locationInfoPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_LOCATION_INFO),
   );
+  const archetypeInfoPopup = useAppSelector((state) =>
+    selectPopup(state, POPUP_ARCHETYPE_INFO),
+  );
   const submitContractBidPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_SUBMIT_CONTRACT_BID),
   );
@@ -59,6 +67,9 @@ export const PopupManager: React.FC = () => {
       {payStructuresPopup.open && <PayStructuresPopup />}
       {locationInfoPopup.open && (
         <LocationInfoPopup {...(locationInfoPopup.props as LocationInfoProps)} />
+      )}
+      {archetypeInfoPopup.open && (
+        <ArchetypeInfoPopup {...(archetypeInfoPopup.props as ArchetypeInfoProps)} />
       )}
       {submitContractBidPopup.open && <SubmitContractBid />}
     </>

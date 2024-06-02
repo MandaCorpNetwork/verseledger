@@ -21,6 +21,6 @@ type ContractSubType =
   | 'Crewman'
   | 'Outsourcing'
   | 'Locate'
-  | 'Chartting'
+  | 'Charting'
   | 'Middleman'
-  | 'Other';
+  | 'Redacted';
