@@ -267,7 +267,7 @@ export const ContractDetails: React.FC<{
         sx={{
           alignItems: 'center',
           display: 'flex',
-          width: '50%',
+          width: '100%',
           justifyContent: 'center',
           ml: '1em',
           maxHeight: '100%',
@@ -280,10 +280,13 @@ export const ContractDetails: React.FC<{
             borderBottom: '2px solid',
             borderRadius: '5px',
             borderColor: 'secondary.main',
-            p: '.5em',
+            py: '.5em',
+            px: '1em',
           }}
         >
-          <Typography>Contract Archetype</Typography>
+          <Typography sx={{ fontWeight: 'bold', color: 'text.secondary', mb: '.5em' }}>
+            Contract Archetype
+          </Typography>
           <Box
             data-testid="Archetype__ChipWrapper"
             sx={{
@@ -294,7 +297,7 @@ export const ContractDetails: React.FC<{
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              minHeight: '150px',
+              py: '.5em',
             }}
           >
             {!archetype && <Typography>Select SubType</Typography>}
