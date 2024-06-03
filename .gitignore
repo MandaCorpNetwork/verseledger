@@ -5,3 +5,4 @@ build
 verseledger-app.sql
 report.html
 report.json
+dist

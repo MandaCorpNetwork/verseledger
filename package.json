@@ -7,18 +7,21 @@
     "apps/*"
   ],
   "scripts": {
+    "dev": "concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client dev\" \"manypkg run server dev\"",
     "postinstall": "preconstruct dev && manypkg check",
-    "clean": "manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules"
+    "clean": "manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules",
+    "resetdb": "cd scripts && setup-local-db.bat",
+    "migrate": "./.flyway/flyway -X -configFiles=./flyway.user.toml -environment=vl-db migrate"
   },
   "dependencies": {
     "@changesets/cli": "^2.27.5",
     "@manypkg/cli": "^0.21.4",
     "@preconstruct/cli": "^2.8.4",
-    "concurrently": "8.2.2"
+    "concurrently": "8.2.2",
+    "flywaydb-cli": "^0.9.0"
   },
   "preconstruct": {
     "packages": [
-      "services/*",
       "apps/*"
     ]
   }
