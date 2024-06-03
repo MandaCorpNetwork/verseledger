@@ -8,6 +8,7 @@ export enum IdPrefix {
   Bid = 'B-',
   Organization = 'O-',
   Membership = 'M-',
+  Location = 'L-',
 }
 
 export class IdUtil {
@@ -22,7 +23,8 @@ export class IdUtil {
     if (id.startsWith(IdPrefix.Contract)) return OwnerType.Contract;
     if (id.startsWith(IdPrefix.Bid)) return OwnerType.User;
     if (id.startsWith(IdPrefix.Organization)) return OwnerType.Org;
-    if (id.startsWith(IdPrefix.Membership)) return OwnerType.Org;
+    if (id.startsWith(IdPrefix.Membership)) return OwnerType.Membership;
+    if (id.startsWith(IdPrefix.Location)) return OwnerType.Location;
     return OwnerType.INVALID;
   }
 
@@ -55,6 +57,9 @@ export class IdUtil {
   }
   public static generateMembershipID() {
     return IdUtil.generateId(IdPrefix.Membership);
+  }
+  public static generateLocationID() {
+    return IdUtil.generateId(IdPrefix.Location);
   }
   public static expressRegex(type: IdPrefix = IdPrefix.System) {
     return `${type}[a-z0-9]{24}`;

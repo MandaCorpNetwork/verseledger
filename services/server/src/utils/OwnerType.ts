@@ -5,5 +5,6 @@ export enum OwnerType {
   Bid = 'Bid',
   Org = 'Organization',
   Membership = 'Membership',
+  Location = 'Location',
   INVALID = 'INVALID',
 }

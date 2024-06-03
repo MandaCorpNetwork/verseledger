@@ -21,6 +21,7 @@ import { PayStructure } from '@/interfaces/PayStructure';
 import { ContractService } from '@Services/contracts.service';
 import { NextFunction } from 'express';
 import { NetworkError } from '@Errors/NetworkError';
+import { IdPrefix, IdUtil } from '@/utils/IdUtil';
 
 @controller('/v1/users')
 export class UsersController extends BaseHttpController {
@@ -32,7 +33,10 @@ export class UsersController extends BaseHttpController {
     super();
   }
 
-  @httpGet('/:id(\\d+)', TYPES.VerifiedUserMiddleware)
+  @httpGet(
+    `/:id(${IdUtil.expressRegex(IdPrefix.User)})`,
+    TYPES.VerifiedUserMiddleware,
+  )
   public async getUser(@requestParam('id') id: string) {
     const user = await this.userService.getUser(id);
     if (user == null) return this.notFound();
