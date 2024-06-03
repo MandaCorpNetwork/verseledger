@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "Verseledger",
+			"path": "."
+		},
+		{
+			"name": "Client",
+			"path": "services/client"
+		},
+		{
+			"name": "Server",
+			"path": "services/server"
+		}
+	],
+	"settings": {}
+}
