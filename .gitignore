@@ -1,3 +1,7 @@
-node_modules/
+node_modules
 .env
-build/
+flyway.user.toml
+build
+verseledger-app.sql
+report.html
+report.json

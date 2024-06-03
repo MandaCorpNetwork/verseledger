@@ -1,0 +1,88 @@
+CREATE TABLE `users` (
+  `id` VARCHAR(26) NOT NULL,
+  `handle` varchar(32) COMMENT 'robertspaceindustries community id' NULL,
+  `displayName` varchar(32) COMMENT 'robertspaceindustries community id' NULL,
+  `discord_id` varchar(20) NULL COMMENT 'auth',
+  `pfp` text COMMENT 'profile picture url',
+  `verified` BOOLEAN DEFAULT 0,
+  `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+CREATE TABLE IF NOT EXISTS `organizations` (
+  `id` VARCHAR(26) NOT NULL,
+  `title` VARCHAR(32) NOT NULL,
+  `rsi_handle` VARCHAR(32) NOT NULL COMMENT 'robertspaceindustries organization community id',
+  `owner_id` VARCHAR(26) NOT NULL,
+  `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `organizations_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+CREATE TABLE IF NOT EXISTS `organization_members` (
+  `id` VARCHAR(26) NOT NULL,
+  `user_id` VARCHAR(26) NOT NULL,
+  `org_id` VARCHAR(26) NOT NULL,
+  `role` VARCHAR(32) NOT NULL,
+  `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `organization_members_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `organization_members_ibfk_2` FOREIGN KEY (`org_id`) REFERENCES `organizations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+CREATE TABLE IF NOT EXISTS `contracts` (
+  `id` VARCHAR(26) NOT NULL,
+  `title` VARCHAR(32) NOT NULL,
+  `subtype` VARCHAR(32),
+  `briefing` TEXT NOT NULL,
+  `owner_org_id` VARCHAR(26),
+  `owner_user_id` VARCHAR(26),
+  `bidDate` DATETIME NULL,
+  `startDate` DATETIME NULL,
+  `endDate` DATETIME NULL,
+  `isEmergency` BOOLEAN NOT NULL DEFAULT 0,
+  `ratingLimit` FLOAT,
+  `contractorLimit` TINYINT UNSIGNED,
+  `payStructure` VARCHAR(32) NOT NULL,
+  `isBargaining` BOOLEAN NOT NULL DEFAULT 0,
+  `isBonusPay` BOOLEAN NOT NULL DEFAULT 0,
+  `defaultPay` DOUBLE NOT NULL DEFAULT 0,
+  `status` ENUM('BIDDING', 'INPROGRESS', 'COMPLETED', 'CANCELED') NOT NULL DEFAULT 'BIDDING',
+  `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `contracts_ibfk_1` FOREIGN KEY (`owner_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `contracts_ibfk_2` FOREIGN KEY (`owner_org_id`) REFERENCES `organizations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+CREATE TABLE IF NOT EXISTS `contract_bids` (
+  `id` VARCHAR(26) NOT NULL,
+  `contract_id` VARCHAR(26) NOT NULL,
+  `user_id` VARCHAR(26) NOT NULL,
+  `status` ENUM('PENDING', 'ACCEPTED', 'REJECTED') NOT NULL DEFAULT 'PENDING',
+  `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `contract_bids_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `contract_bids_ibfk_2` FOREIGN KEY (`contract_id`) REFERENCES `contracts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+CREATE TABLE IF NOT EXISTS `invalid_tokens` (
+  `id` VARCHAR(26) NOT NULL,
+  `user_id` VARCHAR(26) NOT NULL,
+  `token_id` VARCHAR(26) NOT NULL,
+  `expires` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `invalid_tokens_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+CREATE TABLE `user_validation` (
+  `id` VARCHAR(26) NOT NULL,
+  `user_id` VARCHAR(26) NOT NULL,
+  `handle` varchar(32) COMMENT 'robertspaceindustries community id',
+  `pfp` TEXT COMMENT 'robertspaceindustries community pfp',
+  `expiresAt` DATETIME NOT NULL,
+  `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `user_validation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);

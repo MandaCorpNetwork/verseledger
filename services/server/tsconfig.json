@@ -1,0 +1,40 @@
+{
+  "display": "Default",
+  "compilerOptions": {
+    "lib": ["ES6"],
+    "target": "ES6",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "CommonJS",
+    "outDir": "./build",
+    "rootDir": "./src",
+    "composite": false,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": false,
+    "isolatedModules": true,
+    "moduleResolution": "Node",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "preserveWatchOutput": true,
+    "skipLibCheck": true,
+    "strict": true,
+
+    /* Pathing */
+    "baseUrl": "./src/",
+    "paths": {
+      "@Controllers/*": ["./controllers/*"],
+      "@Constant/*": ["./constant/*"],
+      "@Errors/*": ["./errors/*"],
+      "@Services/*": ["./services/*"],
+      "@Models/*": ["./database/models/*"],
+      "@Interfaces/*": ["./interfaces/*"],
+      "@Middleware/*": ["./middleware/*"],
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["src/"],
+  "exclude": ["node_modules/"]
+}
