@@ -1,9 +1,12 @@
 type Location = {
   id: string;
-  star: string;
-  planet: string;
-  moon: string;
-  location: string;
-  label: string;
-  coordinate: string;
+  name: string;
+  parent: string;
+  category: string;
+  short_name: string;
+  waypoint_name: string;
+  x: number;
+  y: number;
+  z: number;
+  QT: boolean;
 };
