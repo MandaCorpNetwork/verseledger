@@ -23,8 +23,8 @@ export const Locations: React.FC<{
         <FormControl>
           <Autocomplete
             data-testid="LocationForm_LocationAutocomplete"
-            options={locationTestDB}
-            getOptionLabel={(option) => option.label}
+            options={}
+            getOptionLabel={(option) => .shortname}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -103,16 +103,3 @@ export const Locations: React.FC<{
     </Box>
   );
 };
-const locationTestDB = [
-  { star: 'Stanton', body: 'Hurston', location: 'Loreville', label: 'Loreville' },
-  { star: 'Stanton', body: 'Hurston', location: 'Everus Harbor', label: 'Everus Harbor' },
-  { star: 'Stanton', body: 'Aberdeen', location: 'Klecher', label: 'Klecher' },
-  { star: 'Stanton', body: 'Hurston', location: `Cutter's Rig`, label: `Cutter's Rig` },
-  { star: 'Stanton', body: 'Hurston', location: `Finn's Folly`, label: `Finn's Folly` },
-  {
-    star: 'Stanton',
-    body: 'Hurston',
-    location: 'HDES Calthrope',
-    label: 'HDES Calthrope',
-  },
-];
