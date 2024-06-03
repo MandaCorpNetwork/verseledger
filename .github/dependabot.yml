@@ -4,3 +4,11 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+  - package-ecosystem: 'npm'
+    directory: '/apps/client'
+    schedule:
+      interval: 'weekly'
+  - package-ecosystem: 'npm'
+    directory: '/services/server'
+    schedule:
+      interval: 'weekly'
