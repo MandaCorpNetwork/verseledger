@@ -8,7 +8,7 @@ type IContract = {
   startDate: Date | null;
   endDate: Date | null;
   isEmergency: boolean;
-  locations: Array<unknown>;
+  locations: Array<Location['id']>;
   ratingLimit: number | null;
   contractorLimit: number | null;
   payStructure: PayStructure;

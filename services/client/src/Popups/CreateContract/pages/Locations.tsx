@@ -21,28 +21,7 @@ export const Locations: React.FC<{
     >
       <Box>
         <FormControl>
-          <Autocomplete
-            data-testid="LocationForm_LocationAutocomplete"
-            options={}
-            getOptionLabel={(option) => .shortname}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Location Selection"
-                color="secondary"
-                size="small"
-              />
-            )}
-            renderOption={(props, option, { selected }) => (
-              <MenuItem {...props} sx={{ display: 'flex' }}>
-                {option.label}
-              </MenuItem>
-            )}
-            onChange={(_e, newValue) => {
-              setFormData({ ...formData, locations: newValue ?? '' });
-            }}
-            sx={{ width: '200px' }}
-          />
+          
           <Box
             data-testid="LocationForm__Locations-Container"
             sx={{
