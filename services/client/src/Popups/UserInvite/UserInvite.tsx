@@ -1,5 +1,6 @@
-import { UserSearch } from '@Common/Components/Users/UserSearch';
-import { Box, Chip } from '@mui/material';
+import { UserSearch } from '@Common/Components/App/UserSearch';
+import { UserChip } from '@Common/Components/Users/UserChip';
+import { Box } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
@@ -26,9 +27,10 @@ export const UserInvitePopup: React.FC = () => {
         <UserSearch width="250px" onUserSelect={handleAddUser} />
       </Box>
       <Box>
-        {selectedUsers.map((user) => (
-          <Chip key={user} />
-        ))}
+        {selectedUsers !== null &&
+          selectedUsers.map((user) => (
+            <UserChip key={user} userid={user.userid} size="small" />
+          ))}
       </Box>
     </VLPopup>
   );

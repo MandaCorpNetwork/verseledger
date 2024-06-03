@@ -1,4 +1,4 @@
-import { Autocomplete, Box } from "@mui/material";
+import { Autocomplete, Box } from '@mui/material';
 
 type LocationSearchProps = {
   location: Location;
