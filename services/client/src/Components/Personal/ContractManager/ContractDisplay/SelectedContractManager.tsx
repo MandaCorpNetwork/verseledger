@@ -1,11 +1,11 @@
+import { LocationChip } from '@Common/Components/App/LocationChip';
+import { UserDisplay } from '@Common/Components/Users/UserDisplay';
+import { SalvageIcon, SecurityIcon } from '@Common/Definitions/CustomIcons';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Button, Chip, Tab, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import React from 'react';
 
-import { SalvageIcon, SecurityIcon } from '@Common/Definitions/CustomIcons';
-import { LocationChip } from '@Common/Components/App/LocationChip';
-import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/ContractorsManager';
 
 type ContractDataFieldProps = {

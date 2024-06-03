@@ -1,11 +1,10 @@
+import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
 import { Avatar, Box, Button, Chip, Tooltip, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { POPUP_USER_INVITE } from '@Popups/UserInvite/UserInvite';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useState } from 'react';
-
-import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
 
 type ContractorProps = {
   id: string;

@@ -107,6 +107,7 @@ export const CreateContractPopup: React.FC = () => {
           formData.subType.trim() != ''
         );
       case 1:
+        return true;
       case 2:
       case 3:
       case 4:

@@ -1,8 +1,7 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
-import { Gauge, SparkLineChart } from '@mui/x-charts';
-
 import { LocationSelection } from '@Common/Components/App/LocationSelection';
 import { ReadOnlyField } from '@Common/Components/App/ReadOnlyField';
+import { Box, Button, TextField, Typography } from '@mui/material';
+import { Gauge, SparkLineChart } from '@mui/x-charts';
 
 export const ExploreApp: React.FC<unknown> = () => {
   return (

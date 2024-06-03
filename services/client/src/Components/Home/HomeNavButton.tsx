@@ -1,13 +1,12 @@
 /// <reference types="vite/client" />
 import '@/Routes/Index/Home/Home.scss';
 
+import { UnderConstruction } from '@Common/Components/App/UnderContruction';
 import { useTheme } from '@emotion/react';
 import { Button, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
-
-import { UnderConstruction } from '@Common/Components/App/UnderContruction';
 
 type HomeNavButtonProps = {
   title: string;

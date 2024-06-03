@@ -1,14 +1,14 @@
 //ContractCard is the Contract Displayer Item that is mapped for the contracts pulled from the database. It is displayed in the ContractCardDisplay component.
 //This is a low level amount of information for a contract
 //This Contract passes it's ID to the ContractCardDisplay when clicked and sets itself to selected to display it's full information in the ContractBriefingViewer
+import { LocationChip } from '@Common/Components/App/LocationChip';
+import { PayDisplay } from '@Common/Components/App/PayDisplay';
 import {
   FleetIcon,
   RRRIcon,
   SalvageIcon,
   SecurityIcon,
 } from '@Common/Definitions/CustomIcons';
-import { LocationChip } from '@Common/Components/App/LocationChip';
-import { PayDisplay } from '@Common/Components/App/PayDisplay';
 import { EmergencyShare, LocalHospital } from '@mui/icons-material';
 import { Avatar, Box, Card, CardActionArea, Tooltip, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';

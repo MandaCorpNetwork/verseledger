@@ -1,3 +1,4 @@
+import { UserSearch } from '@Common/Components/Users/UserSearch';
 import { GroupAddOutlined } from '@mui/icons-material';
 import {
   Avatar,
@@ -16,8 +17,6 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-
-import { UserSearch } from '@Common/Components/Users/UserSearch';
 
 type InviteeProps = {
   name: string;
