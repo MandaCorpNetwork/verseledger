@@ -1,4 +1,5 @@
 import '@mui/material/Divider';
+import '@mui/material/Button';
 
 import { createTheme } from '@mui/material/styles';
 
@@ -9,8 +10,94 @@ declare module '@mui/material/Divider' {
   }
 }
 
+declare module '@mui/material/Button' {
+  interface ButtonPropsVariantOverrides {
+    popupButton: true;
+  }
+}
+
 export const verseOSTheme = createTheme({
+  palette: {
+    background: {
+      default: 'rgb(0, 1, 19)',
+      //default: 'white', //Theme Test Switch
+    },
+    primary: {
+      main: 'rgb(14, 49, 141)',
+      dark: 'rgb(8, 22, 80)',
+      light: 'rgb(33, 150, 243)',
+    },
+    secondary: {
+      main: 'rgb(24, 252, 252)',
+      dark: 'rgb(6, 86, 145)',
+      light: 'rgb(121, 192, 244)',
+    },
+    text: {
+      primary: 'rgb(211, 250, 254)',
+      secondary: 'rgb(33, 150, 243)',
+      disabled: 'rgb(0, 73, 130)',
+    },
+    info: {
+      main: 'rgb(255, 141, 15)',
+    },
+    success: {
+      main: 'rgb(8, 201, 11)',
+    },
+    warning: {
+      main: 'rgb(255, 141, 15)',
+    },
+    error: {
+      main: 'rgb(255, 0, 8)',
+    },
+    action: {
+      disabled: 'rgb(0, 73, 130)',
+      disabledBackground: 'rgb(0, 30, 100)',
+    },
+    divider: 'rgb(24, 252, 252)',
+  },
   components: {
+    MuiTable: {
+      styleOverrides: {
+        root: {
+          boxShadow: '0 0 15px 2px #0e318d',
+        },
+      },
+    },
+    MuiTableRow: {
+      styleOverrides: {
+        head: {
+          '& th': {
+            backgroundColor: 'rgba(0,1,19)',
+            color: 'rgb(24,252,252)',
+            textAlign: 'center',
+            borderBottom: '2px solid rgb(121, 192, 244)',
+          },
+        },
+        root: {
+          '&.MuiTableRow-hover:hover': {
+            backgroundColor: 'rgb(8, 22, 80)',
+            boxShadow: '0 0 10px 2px rgb(33, 150, 243)',
+          },
+          '&.Mui-selected, &.Mui-selected:hover': {
+            backgroundColor: 'red',
+          },
+          '&.MuiTableRow-selected': {
+            backgroundColor: 'red',
+          },
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        input: {
+          '&[type="number"]::-webkit-outer-spin-button, &[type="number"]::-webkit-inner-spin-button':
+            {
+              '-webkit-appearance': 'none',
+              margin: 0,
+            },
+        },
+      },
+    },
     MuiSlider: {
       styleOverrides: {
         root: {
@@ -22,13 +109,22 @@ export const verseOSTheme = createTheme({
       },
     },
     MuiButton: {
-      styleOverrides: {
-        root: {
-          '&.Mui-disabled': {
-            color: 'rgb(8, 29, 68)',
+      variants: [
+        {
+          props: { variant: 'popupButton' },
+          style: {
+            borderLeft: '3px solid',
+            borderRight: '3px solid',
+            borderColor: 'rgb(24,252,252)',
+            borderRadius: '5px',
+            backgroundColor: 'rgb(14,49,141)',
+            '&.Mui-disabled': {
+              borderColor: 'rgb(6,86,145)',
+              backgroundColor: 'rgb(0,30,100)',
+            },
           },
         },
-      },
+      ],
     },
     MuiIconButton: {
       styleOverrides: {
@@ -138,6 +234,7 @@ export const verseOSTheme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: 'rgb(14, 49, 141, .8)',
+          backdropFilter: 'blur(10px)',
           boxShadow:
             '.5px 2px 3px -1px rgba(24,252,252,0.2), 0px 1px 3px 0px rgba(24,252,252,0.14), 0px 1.3px 3px 0px rgba(24,252,252,0.12)',
         },
@@ -223,44 +320,6 @@ export const verseOSTheme = createTheme({
           backgroundColor: 'rgb(6, 86, 145)',
         },
       },
-    },
-  },
-
-  palette: {
-    background: {
-      default: 'rgb(0, 1, 19)',
-      //default: 'white', //Theme Test Switch
-    },
-    primary: {
-      main: 'rgb(14, 49, 141)',
-      dark: 'rgb(8, 29, 68)',
-      light: 'rgb(33, 150, 243)',
-    },
-    secondary: {
-      main: 'rgb(24, 252, 252)',
-      dark: 'rgb(6, 86, 145)',
-      light: 'rgb(121, 192, 244)',
-    },
-    text: {
-      primary: 'rgb(211, 250, 254)',
-      secondary: 'rgb(33, 150, 243)',
-      disabled: 'rgb(0, 30, 100)',
-    },
-    info: {
-      main: 'rgb(255, 141, 15)',
-    },
-    success: {
-      main: 'rgb(8, 201, 11)',
-    },
-    warning: {
-      main: 'rgb(255, 141, 15)',
-    },
-    error: {
-      main: 'rgb(255, 0, 8)',
-    },
-    action: {
-      disabled: 'rgb(0, 30, 100)',
-      disabledBackground: 'rgb(0, 30, 100)',
     },
   },
 });

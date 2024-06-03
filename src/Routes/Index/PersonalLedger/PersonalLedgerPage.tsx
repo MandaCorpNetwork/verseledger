@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 
 import { AppToolBar } from '@/Components/Personal/AppToolBar';
-import { ContractsApp } from '@/Components/Personal/Contracts/ContractsApp';
+import { ContractManagerApp } from '@/Components/Personal/ContractManager/ContractManagerApp';
 import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
 import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
 
@@ -14,11 +14,11 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
       case 'Overview':
         return <OverviewApp />;
       case 'Contracts':
-        return <ContractsApp />;
+        return <ContractManagerApp />;
       case 'Explore':
         return <ExploreApp />;
       default:
-        return <ContractsApp />;
+        return <ContractManagerApp />;
     }
   };
   return (

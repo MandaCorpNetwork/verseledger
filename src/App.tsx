@@ -5,6 +5,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import { AuthManager } from './AuthManager';
+import { PopupManager } from './PopupManager';
 import { routingInfo } from './Routes/Router';
 import { verseOSTheme } from './Themes/VerseOS';
 
@@ -16,6 +18,8 @@ export default function App() {
       <SnackbarProvider maxSnack={4}>
         <CssBaseline />
         <RouterProvider router={router} />
+        <PopupManager />
+        <AuthManager />
       </SnackbarProvider>
     </ThemeProvider>
   );

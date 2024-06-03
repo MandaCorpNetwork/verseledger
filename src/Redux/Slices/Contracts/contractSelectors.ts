@@ -10,8 +10,8 @@ export const selectContractsArray = createSelector([selectContracts], (contracts
 });
 
 export const pickContract = createSelector(
-  [selectContracts, (_, id: number) => id],
-  (contracts, id: number) => {
+  [selectContracts, (_, id: string) => id],
+  (contracts, id: string) => {
     return contracts[id];
   },
 );

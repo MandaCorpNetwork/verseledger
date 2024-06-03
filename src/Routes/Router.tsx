@@ -1,10 +1,10 @@
 import { Outlet, RouteObject } from 'react-router-dom';
 
-import { DiscordLoginUtility } from '@/Utils/discordLogin';
+import { DiscordLoginUtility } from '@/Utils/discordLoginUtility';
 
-import { VLAppBar } from '../Common/AppBar';
+import { VLAppBar } from '../Common/Components/App/AppBar';
 import ErrorPage from './ErrorPage';
-import { ContractLedgerTablePage } from './Index/ContractLedger/Ledger/ContractLedgerPage';
+import { ContractLedgerPage } from './Index/ContractLedger/Ledger/ContractLedgerPage';
 import { Home } from './Index/Home/Home';
 import { PersonalLedgerPage } from './Index/PersonalLedger/PersonalLedgerPage';
 export const routingInfo: RouteObject[] = [
@@ -32,8 +32,8 @@ export const routingInfo: RouteObject[] = [
         element: <DiscordLoginUtility />,
       },
       {
-        path: '/contract/ledger',
-        element: <ContractLedgerTablePage />,
+        path: '/ledger/contract',
+        element: <ContractLedgerPage />,
       },
       {
         path: '/ledger/personal',

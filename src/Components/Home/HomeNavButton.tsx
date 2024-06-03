@@ -7,16 +7,20 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 
+import { UnderConstruction } from '@Common/Components/App/UnderContruction';
+
 type HomeNavButtonProps = {
   title: string;
-  to: string;
+  to?: string;
   videoSource: string;
+  inDev?: boolean;
 };
 
 export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
   title,
   videoSource,
   to,
+  inDev,
 }) => {
   // eslint-disable-next-line
   const theme = useTheme() as any;
@@ -26,6 +30,7 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
   const [fontSize, setFontSize] = useState('1em');
   const [fontWeight, setFontWeight] = useState('600');
   //Added fontSize to ensure the fontsize changes from Button hover and not Typography hover, as well as FontWeight
+  const [isDialogOpen, setDialogOpen] = React.useState(false);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -64,50 +69,63 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
 
   const handleClick = () => {
     setColor(theme.palette.text.secondary);
-    navigate(to);
-
+    if (inDev) {
+      setDialogOpen(true);
+    }
+    if (to) {
+      navigate(to);
+    } else {
+      console.error('Navigation target undefined');
+    }
     setTimeout(() => {
       setColor(theme.palette.text.primary);
     }, 300); //Resets color after 300ms
   };
 
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
   return (
-    <Transition timeout={800} delay={1000}>
-      <Button
-        id="button"
-        data-testid={`HomeNavButton__${to}`}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onClick={handleClick}
-        sx={{
-          position: 'relative',
-          borderRadius: '.4em',
-          height: '8em',
-          marginTop: '1em',
-          marginLeft: '1em',
-          display: 'flex',
-        }}
-      >
-        <video loop muted className="menu-video" id={videoSource}>
-          <source src={videoSource} type="video/webm" />
-        </video>
-        <Typography
-          id="button-title"
-          variant="body1"
-          alignSelf="flex-end"
-          marginLeft="auto"
-          marginTop="auto"
-          padding=".5em"
+    <>
+      <Transition timeout={800} delay={1000}>
+        <Button
+          id="button"
+          data-testid={`HomeNavButton__${to}`}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onClick={handleClick}
           sx={{
-            fontWeight: fontWeight,
-            color: color,
-            fontSize: fontSize,
-            transition: '250ms ease-in-out',
+            position: 'relative',
+            borderRadius: '.4em',
+            height: '8em',
+            marginTop: '1em',
+            marginLeft: '1em',
+            display: 'flex',
           }}
         >
-          {title}
-        </Typography>
-      </Button>
-    </Transition>
+          <video loop muted className="menu-video" id={videoSource}>
+            <source src={videoSource} type="video/webm" />
+          </video>
+          <Typography
+            id="button-title"
+            variant="body1"
+            alignSelf="flex-end"
+            marginLeft="auto"
+            marginTop="auto"
+            padding=".5em"
+            sx={{
+              fontWeight: fontWeight,
+              color: color,
+              fontSize: fontSize,
+              transition: '250ms ease-in-out',
+            }}
+          >
+            {title}
+          </Typography>
+        </Button>
+      </Transition>
+      <UnderConstruction isOpen={isDialogOpen} handleClose={handleDialogClose} />
+    </>
   );
 };

@@ -1,0 +1,187 @@
+import Station from '@Assets/media/Station.svg?url';
+import { LocationSelection } from '@Common/Components/App/LocationSelection';
+import { Feedback } from '@mui/icons-material';
+import MailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import {
+  AppBar,
+  Avatar,
+  Badge,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+} from '@mui/material';
+import { Popover, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import { POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
+import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import {
+  bindMenu,
+  bindTrigger,
+  PopupState,
+  usePopupState,
+} from 'material-ui-popup-state/hooks';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
+import { fetchCurrentUser } from '@/Redux/Slices/Auth/Actions/fetchCurrentUser';
+import { selectCurrentUser, selectIsLoggedIn } from '@/Redux/Slices/Auth/authSelectors';
+import { AuthUtil } from '@/Utils/AuthUtil';
+import { URLUtil } from '@/Utils/URLUtil';
+
+import { UserSettings } from '../Users/UserSettings';
+import VerseLogo from './VerseLogo';
+
+export const VLAppBar: React.FC<unknown> = () => {
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const currentUser = useAppSelector(selectCurrentUser);
+  const [userSettingsOpen, setUserSettingsOpen] = React.useState(false);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (isLoggedIn) return;
+    const accessToken = AuthUtil.getAccessToken();
+    if (AuthUtil.isValidToken(accessToken)) {
+      dispatch(fetchCurrentUser());
+    }
+  }, [isLoggedIn, dispatch]);
+
+  const profilePopupState: PopupState = usePopupState({
+    variant: 'popover',
+    popupId: 'profileNav',
+  });
+  //const menuId = 'primary-account-menu';
+
+  const handlePlayerCardOpen = () => {
+    profilePopupState.close;
+    dispatch(openPopup(POPUP_PLAYER_CARD, { userid: currentUser?.id }));
+  };
+
+  const handleUserSettingsOpen = () => {
+    profilePopupState.close;
+    setUserSettingsOpen(true);
+  };
+
+  const handleUserSettingsClose = () => {
+    setUserSettingsOpen(false);
+  };
+
+  const handleFeedbackOpen = () => {
+    dispatch(openPopup(POPUP_FEEDBACK));
+  };
+
+  const [anchorE1, setAnchorE1] = useState<HTMLElement | null>(null);
+
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    setAnchorE1(e.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorE1(null);
+  };
+  //Location Button Dropdown Interaction
+
+  const renderMenu = (
+    <Menu {...bindMenu(profilePopupState)}>
+      <MenuItem onClick={handlePlayerCardOpen}>
+        <Typography>Player Card</Typography>
+      </MenuItem>
+      <MenuItem onClick={handleUserSettingsOpen}>
+        <Typography>Settings</Typography>
+      </MenuItem>
+      <MenuItem onClick={profilePopupState.close}>
+        <Typography>Logout</Typography>
+      </MenuItem>
+    </Menu>
+  );
+
+  const navigate = useNavigate();
+  function handleLogoClick() {
+    navigate('/');
+  }
+
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" sx={{ bgcolor: 'primary.dark' }}>
+        <Toolbar>
+          <IconButton component="div" sx={{}} onClick={handleLogoClick}>
+            <VerseLogo />
+          </IconButton>
+          <Box sx={{ flexGrow: 1 }} />
+          <Button sx={{ marginRight: '10%' }} onClick={handleClick}>
+            <img src={Station} alt="Location-Select" />
+            <Popover
+              id="test-menu"
+              keepMounted
+              open={Boolean(anchorE1)}
+              anchorEl={anchorE1}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            >
+              <LocationSelection />
+            </Popover>
+          </Button>
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            {isLoggedIn ? (
+              <>
+                <IconButton size="large" color="inherit" onClick={handleFeedbackOpen}>
+                  <Feedback />
+                </IconButton>
+                <IconButton size="large" aria-label="show 4 new messages" color="inherit">
+                  <Badge badgeContent={4} color="error">
+                    <MailIcon />
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  size="large"
+                  aria-label="show 23 new notifications"
+                  color="inherit"
+                >
+                  <Badge badgeContent={23} color="error">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-haspopup="true"
+                  color="inherit"
+                  {...bindTrigger(profilePopupState)}
+                >
+                  <Avatar src={currentUser?.pfp as string}></Avatar>
+                </IconButton>
+              </>
+            ) : (
+              <>
+                <Button
+                  onClick={() => {
+                    const loginURL = `https://discord.com/oauth2/authorize?client_id=1160393986440179823&response_type=code&redirect_uri=${encodeURIComponent(URLUtil.frontendHost)}%2Foauth%2Fdiscord%2Fcallback&scope=identify`;
+                    localStorage.setItem('returnPath', window.location.pathname);
+                    window.location = loginURL as unknown as Location;
+                  }}
+                  color="secondary"
+                >
+                  Login
+                </Button>
+              </>
+            )}
+          </Box>
+        </Toolbar>
+      </AppBar>
+      {renderMenu}
+      <UserSettings open={userSettingsOpen} onClose={handleUserSettingsClose} />
+    </Box>
+  );
+};

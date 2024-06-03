@@ -1,17 +1,25 @@
 //ContractCard is the Contract Displayer Item that is mapped for the contracts pulled from the database. It is displayed in the ContractCardDisplay component.
 //This is a low level amount of information for a contract
 //This Contract passes it's ID to the ContractCardDisplay when clicked and sets itself to selected to display it's full information in the ContractBriefingViewer
+import {
+  FleetIcon,
+  RRRIcon,
+  SalvageIcon,
+  SecurityIcon,
+} from '@Common/Definitions/CustomIcons';
+import { LocationChip } from '@Common/Components/App/LocationChip';
+import { PayDisplay } from '@Common/Components/App/PayDisplay';
+import { EmergencyShare, LocalHospital } from '@mui/icons-material';
 import { Avatar, Box, Card, CardActionArea, Tooltip, Typography } from '@mui/material';
-import Chip, { ChipProps } from '@mui/material/Chip';
+import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { selectUserById } from '@Redux/Slices/Users/contractSelectors';
 import React from 'react';
-
-import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
-import TestProfile from '@/Assets/testprofile.png?url';
-import { CountdownTimer } from '@/Common/CountdownTimer';
 
 type ContractCardProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  contract: any;
+  contract: IContract;
   onClick?: () => void;
   isSelected: boolean;
 };
@@ -27,67 +35,14 @@ export const ContractCard: React.FC<ContractCardProps> = ({
     }
   };
 
-  const SunChip: React.FC<ChipProps> = (props) => {
-    return (
-      <Chip
-        {...props}
-        label="Sun"
-        size="small"
-        sx={{
-          width: '5em',
-          backgroundColor: 'primary.main',
-          margin: '.1em',
-        }}
-      />
-    );
-  };
+  const dispatch = useAppDispatch();
 
-  const PlanetChip: React.FC<ChipProps> = (props) => {
-    return (
-      <Chip
-        {...props}
-        label="Planet"
-        size="small"
-        sx={{
-          width: '5em',
-          backgroundColor: 'primary.main',
-          margin: '.1em',
-        }}
-      />
-    );
-  };
+  const user = useAppSelector((state) => selectUserById(state, contract.owner_id));
 
-  const MoonChip: React.FC<ChipProps> = (props) => {
-    return (
-      <Chip
-        {...props}
-        label="Moon"
-        size="small"
-        sx={{
-          width: '5em',
-          backgroundColor: 'primary.main',
-          margin: '.1em',
-        }}
-      />
-    );
-  };
-
-  const LocationChip: React.FC<ChipProps> = (props) => {
-    return (
-      <Tooltip title={contract.location}>
-        <Chip
-          {...props}
-          label={contract.location}
-          size="small"
-          sx={{
-            width: '5em',
-            backgroundColor: 'primary.main',
-            margin: '.1em',
-          }}
-        />
-      </Tooltip>
-    );
-  };
+  const handleAvatarClick = React.useCallback(() => {
+    const userid = user?.id;
+    dispatch(openPopup(POPUP_PLAYER_CARD, { userid }));
+  }, [user]);
 
   return (
     <Card
@@ -95,52 +50,78 @@ export const ContractCard: React.FC<ContractCardProps> = ({
       sx={{
         height: '10em',
         width: '15em',
-        backgroundColor: 'text.disabled',
-        boxShadow: isSelected ? '0 0 0 4px #18fcfc' : '',
+        bgcolor: 'action.disabledBackground',
+        overflow: 'visible',
+        boxShadow:
+          isSelected && contract.isEmergency
+            ? '0 0 10px 2px red'
+            : isSelected
+              ? '0 0 10px 2px #18fcfc'
+              : '',
+        transition: 'box-shadow 0.3s ease-in-out',
         '&:hover': {
-          boxShadow: isSelected ? '0 0 0 4px #d3fafe' : '0 0 0 4px #0e318d',
+          boxShadow: contract.isEmergency
+            ? '0 0 10px 2px #ff4d4d'
+            : isSelected
+              ? '0 0 10px 2px #d3fafe'
+              : '0 0 10px 2px #0e318d',
         },
       }}
     >
+      {contract.isEmergency && (
+        <EmergencyShare
+          color="error"
+          fontSize="large"
+          sx={{
+            position: 'absolute',
+            display: 'flex',
+            top: '-10px',
+            left: '90%',
+            opacity: isSelected ? '1' : '.7',
+            transition: 'opacity 0.3s ease-in-out',
+          }}
+        />
+      )}
       <CardActionArea
         sx={{
           display: 'flex',
-          flexDirection: 'columns',
+          flexDirection: 'column',
           height: '100%',
           width: '100%',
-          padding: '.5em',
+          padding: '1em',
         }}
       >
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column',
-            width: '20%',
-            height: '100%',
+            flexDirection: 'row',
+            width: '90%',
+            alignItems: 'center',
+            mb: 'auto',
           }}
         >
-          <Tooltip title={`${contract.type} | ${contract.subtype}`}>
-            <img src={TestAttacheIcon} alt="" width="30" />
-          </Tooltip>
-          <Tooltip title="Test Owner">
-            <Avatar src={TestProfile} sizes="small" sx={{ mt: 'auto', mb: 'auto' }} />
-          </Tooltip>
-          <Box sx={{ mt: 'auto', position: 'relative', mb: '.2em' }}>
-            <CountdownTimer
-              targetDate={contract.bidEnd}
-              updateDate={contract.updatedAt}
-              timerUse={'Bidding'}
+          <Tooltip title={user?.handle} arrow>
+            <Avatar
+              src={user?.pfp}
+              sizes="small"
+              onClick={handleAvatarClick}
+              sx={{
+                mr: '.5em',
+                mt: 'auto',
+                mb: 'auto',
+                '&:hover': {
+                  boxShadow: '0 0 10px 2px #0e318d',
+                },
+              }}
             />
-          </Box>
-        </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
+          </Tooltip>
           <Tooltip title={contract.title}>
             <Typography
-              variant="h6"
+              variant="body1"
+              align="center"
               sx={{
-                paddingLeft: '.5em',
                 overflow: 'hidden',
-                fontWeight: '600',
+                fontWeight: 'bold',
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',
               }}
@@ -148,37 +129,47 @@ export const ContractCard: React.FC<ContractCardProps> = ({
               {contract.title}
             </Typography>
           </Tooltip>
-          <Box sx={{ flexGrow: 1, pl: '15%', pt: '10%', mb: '5%' }}>
-            <SunChip />
-            <PlanetChip />
-            <MoonChip />
-            <LocationChip />
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            width: '80%',
+            flexGrow: '1',
+            my: '.5em',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+          }}
+        >
+          <Tooltip title="SubType Icon Placeholder" arrow>
+            <FleetIcon fontSize="large" sx={{ color: 'primary.light' }} />
+          </Tooltip>
+          <Tooltip title="SubType Icon Placeholder" arrow>
+            <SecurityIcon fontSize="large" sx={{ color: 'primary.light' }} />
+          </Tooltip>
+          <Tooltip title="SubType Icon Placeholder" arrow>
+            <LocalHospital fontSize="large" sx={{ color: 'primary.light' }} />
+          </Tooltip>
+          <Tooltip title="SubType Icon Placeholder" arrow>
+            <RRRIcon fontSize="large" sx={{ color: 'primary.light' }} />
+          </Tooltip>
+          <Tooltip title="SubType Icon Placeholder" arrow>
+            <SalvageIcon fontSize="large" sx={{ color: 'primary.light' }} />
+          </Tooltip>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Box sx={{ mx: 'auto' }}>
+            <LocationChip label="Location" />
           </Box>
-          <Box
-            sx={{
-              display: 'inline',
-              marginLeft: 'auto',
-              marginTop: 'auto',
-              bgcolor: 'background.dafault',
-              padding: '.3em',
-              borderRadius: '.3em',
-              border: '1px solid',
-              borderColor: 'text.light',
-            }}
-          >
-            <Tooltip title={contract.payStructure}>
-              <Typography component="span">
-                ¤
-                {new Intl.NumberFormat('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
-                  maximumFractionDigits: 0,
-                })
-                  .format(contract.pay)
-                  .substring(1)}
-              </Typography>
-            </Tooltip>
-          </Box>
+          <PayDisplay value={contract.defaultPay} variant={contract.payStructure} />
         </Box>
       </CardActionArea>
     </Card>

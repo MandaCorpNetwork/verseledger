@@ -1,41 +1,27 @@
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import React from 'react';
 
 type ContractLedgerQuickNavProps = {
   title: string;
   onClick: () => void;
+  testid: string;
 };
 
 export const ContractLedgerQuickNav: React.FC<ContractLedgerQuickNavProps> = ({
   title,
   onClick,
+  testid,
 }) => {
   return (
     <Button
+      data-testid={`QuickNav__${testid}Button`}
       variant="contained"
       onClick={onClick}
-      sx={{
-        color: 'text.primary',
-        width: '12em',
-        height: '3em',
-        bgcolor: 'primary.dark',
-        marginLeft: '1em',
-        '&:hover': {
-          bgcolor: 'primary.main',
-        },
-        '&:active': {
-          color: 'text.secondary',
-        },
-      }}
+      size="small"
+      color="secondary"
+      sx={{ fontSize: '.7em', fontWeight: 'bold', mr: '.5em' }}
     >
-      <Typography
-        sx={{
-          fontSize: '.9em',
-          fontWeight: 700,
-        }}
-      >
-        {title}
-      </Typography>
+      {title}
     </Button>
   );
 };
