@@ -15,7 +15,7 @@
     "test:client": "yarn manypkg run client test",
     "test:server": "yarn manypkg run server test",
     "resetdb": "cd scripts && setup-local-db.bat",
-    "migrate": "./.flyway/flyway -X -configFiles=./flyway.user.toml -environment=vl-db migrate"
+    "migrate": "./.flyway/flyway -configFiles=./flyway.user.toml -environment=vl-db migrate"
   },
   "dependencies": {
     "@changesets/cli": "^2.27.5",
