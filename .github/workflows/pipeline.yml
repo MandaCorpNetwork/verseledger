@@ -10,8 +10,8 @@ jobs:
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: ./.yarn/releases/yarn-1.22.22.cjs install --frozen-lockfile
-      - run: ./.yarn/releases/yarn-1.22.22.cjs lint:check
+      - run: .yarn/releases/yarn-1.22.22.cjs install --frozen-lockfile
+      - run: .yarn/releases/yarn-1.22.22.cjs lint:check
   test:
     runs-on: self-hosted
     needs:
@@ -22,5 +22,5 @@ jobs:
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: ./.yarn/releases/yarn-1.22.22.cjs install --frozen-lockfile
-      - run: ./.yarn/releases/yarn-1.22.22.cjs test
+      - run: .yarn/releases/yarn-1.22.22.cjs install --frozen-lockfile
+      - run: .yarn/releases/yarn-1.22.22.cjs test
