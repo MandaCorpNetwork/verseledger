@@ -183,7 +183,7 @@ export const ContractTableView: React.FC<ContractRowProps> = ({ contract, onPick
                     />
                   </TableCell>
                   <TableCell sx={{ textAlign: 'center' }}>
-                    <LocationChip label="Location" />
+                    <LocationChip locationId="Location" />
                   </TableCell>
                   <TableCell sx={{ textAlign: 'center' }}>
                     <CreatedTimeDisplay contract={contract} />

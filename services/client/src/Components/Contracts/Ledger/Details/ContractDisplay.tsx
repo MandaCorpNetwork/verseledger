@@ -523,7 +523,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   >
                     Start Location
                   </Typography>
-                  <LocationChip label="Start" />
+                  <LocationChip locationId="Start" />
                 </Box>
                 <Box
                   data-testid="ContractDisplay-Locations__EndLocationWrapper"
@@ -545,7 +545,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   >
                     End Location
                   </Typography>
-                  <LocationChip label="End" />
+                  <LocationChip locationId="End" />
                 </Box>
                 <Box
                   data-testid="ContractDisplay-Locations__OtherLocationsWrapper"
@@ -567,7 +567,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   >
                     Other Locations
                   </Typography>
-                  <LocationChip label="Other" />
+                  <LocationChip locationId="Other" />
                 </Box>
               </Box>
             ) : (

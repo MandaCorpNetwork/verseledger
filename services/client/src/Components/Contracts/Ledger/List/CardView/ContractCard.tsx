@@ -167,7 +167,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
           }}
         >
           <Box sx={{ mx: 'auto' }}>
-            <LocationChip label="Location" />
+            <LocationChip locationId="Location" />
           </Box>
           <PayDisplay value={contract.defaultPay} variant={contract.payStructure} />
         </Box>

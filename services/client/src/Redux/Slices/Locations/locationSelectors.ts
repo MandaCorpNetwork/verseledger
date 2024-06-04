@@ -8,9 +8,9 @@ export const selectLocationsArray = createSelector([selectLocations], (locations
   return Object.values(locations);
 });
 
-export const pickLocation = createSelector(
+export const selectLocationById = createSelector(
   [selectLocations, (_, id: string) => id],
   (locations, id: string) => {
-    return locations[id];
+    return locations[id] as StarMapLocation | null;
   },
 );
