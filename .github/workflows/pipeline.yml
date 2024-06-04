@@ -10,8 +10,8 @@ jobs:
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: yarn install --frozen-lockfile
-      - run: yarn lint:check
+      - run: npx yarn install --frozen-lockfile
+      - run: npx yarn lint:check
   test:
     runs-on: self-hosted
     needs:
@@ -22,5 +22,5 @@ jobs:
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: yarn install --frozen-lockfile
-      - run: yarn test
+      - run: npx yarn install --frozen-lockfile
+      - run: npx yarn test
