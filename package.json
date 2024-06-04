@@ -12,6 +12,7 @@
     "clean": "yarn manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules",
     "test": "yarn test:server && yarn test:client",
     "lint": "yarn manypkg run server lint && yarn manypkg run vl-shared lint && manypkg run client lint",
+    "lint:check": "yarn manypkg run server lint:check && yarn manypkg run vl-shared lint:check && manypkg run client lint:check",
     "test:client": "yarn manypkg run client test",
     "test:server": "yarn manypkg run server test",
     "resetdb": "cd scripts && setup-local-db.bat",
