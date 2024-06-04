@@ -1,6 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button } from '@mui/material';
-import { fetchContracts } from '@Redux/Slices/Contracts/actions/contractThunks';
+import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetchContracts';
 import React, { useEffect } from 'react';
 
 import { CardorTableViewToggle } from '@/Components/Contracts/Ledger/List/Card-TableViewToggle';

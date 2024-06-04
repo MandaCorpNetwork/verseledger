@@ -7,8 +7,8 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations';
 import { selectLocationsArray } from '@Redux/Slices/Locations/locationSelectors';
-import { fetchLocations } from '@Redux/Slices/Locations/locationThunks';
 import React from 'react';
 
 const filterOptions = createFilterOptions<StarMapLocation>({

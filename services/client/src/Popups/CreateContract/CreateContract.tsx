@@ -92,7 +92,9 @@ export const CreateContractPopup: React.FC = () => {
   const onCancel = useCallback(() => {
     setPage(Math.max(page - 1, 0));
   }, [page]);
-  const [formData, setFormData] = useState<IContract>({} as IContract);
+  const [formData, setFormData] = useState<IContract>({
+    locations: [] as string[],
+  } as IContract);
   const isSubmitEnabled = React.useMemo(() => {
     console.log(formData);
     switch (page) {
