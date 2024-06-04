@@ -1,11 +1,11 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button } from '@mui/material';
+import { fetchContracts } from '@Redux/Slices/Contracts/actions/contractThunks';
 import React, { useEffect } from 'react';
 
 import { CardorTableViewToggle } from '@/Components/Contracts/Ledger/List/Card-TableViewToggle';
 import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
 import { selectContractsArray } from '@/Redux/Slices/Contracts/contractSelectors';
-import { fetchContracts } from '@/Redux/Slices/Contracts/contractThunks';
 
 import { ContractCardDisplay } from './CardView/ContractCardDisplay';
 import { ContractTableView } from './TableView/ContractTableView';

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { fetchCheckVerificationCode } from '../Auth/Actions/checkVerificationCode';
 import { fetchCurrentUser } from '../Auth/Actions/fetchCurrentUser';
-import { fetchContracts } from '../Contracts/contractThunks';
+import { fetchContracts } from '../Contracts/actions/fetchContracts';
 const usersReducer = createSlice({
   name: 'users',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

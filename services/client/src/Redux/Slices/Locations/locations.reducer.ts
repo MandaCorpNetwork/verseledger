@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchLocations } from './locationThunks';
+import { fetchLocations } from './actions/fetchLocations';
 const locationsReducer = createSlice({
   name: 'locations',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

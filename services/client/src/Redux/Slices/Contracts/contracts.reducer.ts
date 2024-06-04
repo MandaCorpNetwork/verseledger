@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchContracts } from './contractThunks';
+import { fetchContracts } from './actions/fetchContracts';
 const contractsReducer = createSlice({
   name: 'contracts',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
