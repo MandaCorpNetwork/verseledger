@@ -4,7 +4,7 @@ import { fetchContracts } from './contractThunks';
 const contractsReducer = createSlice({
   name: 'contracts',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  initialState: {} as Record<Contract['id'], Contract>,
+  initialState: {} as Record<IContract['id'], IContract>,
   reducers: {
     noop() {
       return {};

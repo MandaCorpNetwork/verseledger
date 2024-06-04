@@ -21,7 +21,6 @@ export const Locations: React.FC<{
     >
       <Box>
         <FormControl>
-          
           <Box
             data-testid="LocationForm__Locations-Container"
             sx={{

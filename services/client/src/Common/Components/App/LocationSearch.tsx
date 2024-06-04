@@ -5,16 +5,11 @@ type LocationSearchProps = {
   onLocationSelect: (locationId: Location | null) => void;
 };
 
-export const LocationSearch: React.FC<LocationSearchProps> = (props)  => {
-  const {
-    location,
-    onLocationSelect,
-  } = props;
+export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
+  const { location, onLocationSelect } = props;
   return (
     <Box>
-      <Autocomplete
-        data-testid="LocationSearch"
-        />
+      <Autocomplete data-testid="LocationSearch" />
     </Box>
   );
-}
+};

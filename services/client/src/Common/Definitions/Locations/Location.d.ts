@@ -1,4 +1,4 @@
-type Location = {
+type StarMapLocation = {
   id: string;
   name: string;
   parent: string;
