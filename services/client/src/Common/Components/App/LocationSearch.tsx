@@ -18,10 +18,11 @@ const filterOptions = createFilterOptions<StarMapLocation>({
 
 type LocationSearchProps = {
   onLocationSelect: (locationId: StarMapLocation | null) => void;
+  width?: string;
 };
 
 export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
-  const { onLocationSelect } = props;
+  const { onLocationSelect, width } = props;
   const [inputValue, setInputValue] = React.useState<StarMapLocation | null>(null);
 
   const dispatch = useAppDispatch();
@@ -85,6 +86,9 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
               {params.children}
             </li>
           );
+        }}
+        sx={{
+          width: width,
         }}
       />
     </Box>

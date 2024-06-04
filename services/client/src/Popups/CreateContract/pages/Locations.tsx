@@ -1,4 +1,5 @@
 import { LocationChip } from '@Common/Components/App/LocationChip';
+import { LocationSearch } from '@Common/Components/App/LocationSearch';
 import { Autocomplete, Box, Chip, FormControl, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
@@ -8,7 +9,9 @@ export const Locations: React.FC<{
 }> = (props) => {
   const { formData, setFormData } = props;
 
-  const handleRemoveLocation = (locationToRemove: string) => {};
+  const handleLocationSelect = React.useCallback(() => {
+    setFormData({ ...formData, locations: })
+  }, [])
 
   return (
     <Box
@@ -20,6 +23,9 @@ export const Locations: React.FC<{
       }}
     >
       <Box>
+        <Box>
+          <LocationSearch />
+        </Box>
         <FormControl>
           <Box
             data-testid="LocationForm__Locations-Container"
@@ -49,10 +55,10 @@ export const Locations: React.FC<{
                 label="Starting Location"
                 InputProps={{
                   readOnly: true,
-                  startAdornment:
-                    formData.locations.length > 0 ? (
-                      <LocationChip label={formData.locations[0]} onDelete={() => {}} />
-                    ) : null,
+                  // startAdornment:
+                  //   formData.locations.length > 0 ? (
+                  //     <LocationChip label={formData.locations[0]} onDelete={() => {}} />
+                  //   ) : null,
                 }}
                 sx={{
                   width: '150px',
@@ -64,10 +70,10 @@ export const Locations: React.FC<{
                 label="Starting Location"
                 InputProps={{
                   readOnly: true,
-                  startAdornment:
-                    formData.locations.length > 0 ? (
-                      <LocationChip label={formData.locations[0]} onDelete={() => {}} />
-                    ) : null,
+                  // startAdornment:
+                  //   formData.locations.length > 0 ? (
+                  //     <LocationChip label={formData.locations[0]} onDelete={() => {}} />
+                  //   ) : null,
                 }}
                 sx={{
                   width: '150px',
