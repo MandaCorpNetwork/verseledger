@@ -22,6 +22,7 @@ import { ContractService } from '@Services/contracts.service';
 import { NextFunction } from 'express';
 import { NetworkError } from '@Errors/NetworkError';
 import { IdPrefix, IdUtil } from '@/utils/IdUtil';
+import { BadRequestError } from '@Errors/BadRequest';
 
 @controller('/v1/users')
 export class UsersController extends BaseHttpController {
@@ -150,5 +151,12 @@ export class UsersController extends BaseHttpController {
       console.log(error);
       nextFunc(error);
     }
+  }
+
+  @httpGet('/search', TYPES.VerifiedUserMiddleware)
+  public async search(@queryParam('handle') search: string) {
+    if (search == null || search.trim() == '')
+      throw new BadRequestError('"handle" can not be Empty');
+    return this.userService.search(search);
   }
 }

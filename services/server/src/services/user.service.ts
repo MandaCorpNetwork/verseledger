@@ -103,4 +103,26 @@ export class UserService {
       throw new Error('Token not found in Short Bio');
     }
   }
+
+  public async search(name: string) {
+    const isHandle = name[0] === '@';
+    const handle = isHandle ? name.slice(1) : name;
+    const multiSearch = {
+      [Op.or]: {
+        handle: { [Op.like]: `%${handle}%` },
+        displayName: { [Op.like]: `%${handle}%` },
+      },
+    };
+    const handleSearch = {
+      [Op.or]: {
+        handle: { [Op.like]: `%${handle}%` },
+      },
+    };
+    const users = User.findAll({
+      limit: 8,
+      order: [['handle', 'ASC']],
+      where: { ...(isHandle ? handleSearch : multiSearch), verified: true },
+    });
+    return users;
+  }
 }
