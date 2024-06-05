@@ -1,6 +1,7 @@
 //ToDo-- Need to change out the boxes that expand and collapse w/ Mui Collapse Component for better transition effects
-import { SalvageIcon } from '@Common/Definitions/CustomIcons';
 import { LocationChip } from '@Common/Components/App/LocationChip';
+import { UserDisplay } from '@Common/Components/Users/UserDisplay';
+import { SalvageIcon } from '@Common/Definitions/CustomIcons';
 import { ExpandLess, ExpandMore, HelpOutline } from '@mui/icons-material';
 import {
   Box,
@@ -20,8 +21,6 @@ import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
-
-import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 
 import { ContractorsPanel } from './ActiveDataPanel';
 import { BidPanel, EndPanel, StartPanel } from './TimePanel';
@@ -524,7 +523,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   >
                     Start Location
                   </Typography>
-                  <LocationChip label="Start" />
+                  <LocationChip locationId="Start" />
                 </Box>
                 <Box
                   data-testid="ContractDisplay-Locations__EndLocationWrapper"
@@ -546,7 +545,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   >
                     End Location
                   </Typography>
-                  <LocationChip label="End" />
+                  <LocationChip locationId="End" />
                 </Box>
                 <Box
                   data-testid="ContractDisplay-Locations__OtherLocationsWrapper"
@@ -568,7 +567,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   >
                     Other Locations
                   </Typography>
-                  <LocationChip label="Other" />
+                  <LocationChip locationId="Other" />
                 </Box>
               </Box>
             ) : (

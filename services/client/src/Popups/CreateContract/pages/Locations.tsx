@@ -1,5 +1,6 @@
 import { LocationChip } from '@Common/Components/App/LocationChip';
-import { Autocomplete, Box, Chip, FormControl, MenuItem, TextField } from '@mui/material';
+import { LocationSearch } from '@Common/Components/App/LocationSearch';
+import { Box, FormControl, TextField, Typography } from '@mui/material';
 import React from 'react';
 
 export const Locations: React.FC<{
@@ -8,7 +9,26 @@ export const Locations: React.FC<{
 }> = (props) => {
   const { formData, setFormData } = props;
 
-  const handleRemoveLocation = (locationToRemove: string) => {};
+  const handleLocationSelect = React.useCallback(
+    (selectedLocation: StarMapLocation | null) => {
+      if (selectedLocation == null) return;
+      setFormData((formData) => ({
+        ...formData,
+        locations: [...formData.locations, selectedLocation.id],
+      }));
+    },
+    [setFormData],
+  );
+
+  const handleRemoveLocation = React.useCallback(
+    (locationId: string) => {
+      setFormData((formData) => ({
+        ...formData,
+        locations: formData.locations.filter((id) => id !== locationId),
+      }));
+    },
+    [setFormData],
+  );
 
   return (
     <Box
@@ -19,30 +39,11 @@ export const Locations: React.FC<{
         flexDirection: 'column',
       }}
     >
-      <Box>
+      <Box sx={{ mx: 'auto' }}>
+        <Box>
+          <LocationSearch onLocationSelect={handleLocationSelect} width="320px" />
+        </Box>
         <FormControl>
-          <Autocomplete
-            data-testid="LocationForm_LocationAutocomplete"
-            options={locationTestDB}
-            getOptionLabel={(option) => option.label}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Location Selection"
-                color="secondary"
-                size="small"
-              />
-            )}
-            renderOption={(props, option, { selected }) => (
-              <MenuItem {...props} sx={{ display: 'flex' }}>
-                {option.label}
-              </MenuItem>
-            )}
-            onChange={(_e, newValue) => {
-              setFormData({ ...formData, locations: newValue ?? '' });
-            }}
-            sx={{ width: '200px' }}
-          />
           <Box
             data-testid="LocationForm__Locations-Container"
             sx={{
@@ -68,12 +69,16 @@ export const Locations: React.FC<{
             >
               <TextField
                 data-testid="LocationForm__StartingLocation-Output"
-                label="Starting Location"
+                label="Start Location"
+                color="secondary"
                 InputProps={{
                   readOnly: true,
                   startAdornment:
                     formData.locations.length > 0 ? (
-                      <LocationChip label={formData.locations[0]} onDelete={() => {}} />
+                      <LocationChip
+                        locationId={formData.locations[0]}
+                        onDelete={handleRemoveLocation}
+                      />
                     ) : null,
                 }}
                 sx={{
@@ -83,12 +88,16 @@ export const Locations: React.FC<{
               />
               <TextField
                 data-testid="LocationForm__EndingLocation-Output"
-                label="Starting Location"
+                label="End Location"
+                color="secondary"
                 InputProps={{
                   readOnly: true,
                   startAdornment:
-                    formData.locations.length > 0 ? (
-                      <LocationChip label={formData.locations[0]} onDelete={() => {}} />
+                    formData.locations.length > 1 ? (
+                      <LocationChip
+                        locationId={formData.locations[formData.locations.length - 1]}
+                        onDelete={handleRemoveLocation}
+                      />
                     ) : null,
                 }}
                 sx={{
@@ -97,22 +106,61 @@ export const Locations: React.FC<{
                 }}
               />
             </Box>
+            {formData.locations.length > 2 && (
+              <Box
+                data-testid="LocationForm__OtherLocation-Output"
+                sx={{
+                  borderTop: '2px solid',
+                  borderBottom: '2px solid',
+                  borderRadius: '5px',
+                  borderColor: 'primary.main',
+                  my: '.5em',
+                  mx: '20%',
+                  py: '.5em',
+                  px: '.2em',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                  Other Locations
+                </Typography>
+                <Box
+                  data-testid="LocationForm__OtherLocation-List"
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '.5em',
+                    maxHeight: '150px',
+                    overflowY: 'auto',
+                    p: '.5em',
+                    '&::-webkit-scrollbar': {
+                      width: '10px',
+                    },
+                    '&::-webkit-scrollbar-track': {
+                      background: 'rgb(8, 29, 68)',
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                      borderRadius: '20px',
+                      background: 'rgb(121, 192, 244, .5)',
+                    },
+                  }}
+                >
+                  {formData.locations.slice(1, -1).map((locationId) => (
+                    <LocationChip
+                      locationId={locationId}
+                      onDelete={handleRemoveLocation}
+                      key={locationId}
+                    />
+                  ))}
+                </Box>
+              </Box>
+            )}
           </Box>
         </FormControl>
       </Box>
     </Box>
   );
 };
-const locationTestDB = [
-  { star: 'Stanton', body: 'Hurston', location: 'Loreville', label: 'Loreville' },
-  { star: 'Stanton', body: 'Hurston', location: 'Everus Harbor', label: 'Everus Harbor' },
-  { star: 'Stanton', body: 'Aberdeen', location: 'Klecher', label: 'Klecher' },
-  { star: 'Stanton', body: 'Hurston', location: `Cutter's Rig`, label: `Cutter's Rig` },
-  { star: 'Stanton', body: 'Hurston', location: `Finn's Folly`, label: `Finn's Folly` },
-  {
-    star: 'Stanton',
-    body: 'Hurston',
-    location: 'HDES Calthrope',
-    label: 'HDES Calthrope',
-  },
-];

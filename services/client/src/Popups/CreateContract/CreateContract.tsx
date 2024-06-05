@@ -84,7 +84,7 @@ const ColorlibConnector = styled(StepConnector)(() => ({
 }));
 export const CreateContractPopup: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(3);
   const onSubmit = useCallback(() => {
     if (page >= 4) dispatch(closePopup(POPUP_CREATE_CONTRACT));
     setPage(Math.min(page + 1, steps.length));
@@ -92,7 +92,9 @@ export const CreateContractPopup: React.FC = () => {
   const onCancel = useCallback(() => {
     setPage(Math.max(page - 1, 0));
   }, [page]);
-  const [formData, setFormData] = useState<IContract>({} as IContract);
+  const [formData, setFormData] = useState<IContract>({
+    locations: [] as string[],
+  } as IContract);
   const isSubmitEnabled = React.useMemo(() => {
     console.log(formData);
     switch (page) {
@@ -107,7 +109,9 @@ export const CreateContractPopup: React.FC = () => {
           formData.subType.trim() != ''
         );
       case 1:
+        return true;
       case 2:
+        return formData.locations != null && formData.locations.length != 0;
       case 3:
       case 4:
     }

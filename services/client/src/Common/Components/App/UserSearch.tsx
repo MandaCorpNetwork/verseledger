@@ -24,28 +24,6 @@ export const UserSearch: React.FC<UserSearchProps> = ({
   const [options, setOptions] = React.useState<User[]>([]);
   const [loading, setLoading] = React.useState(false);
 
-  // User Query Result Fetcher
-  /*React.useEffect(() => {
-    const fetchOptions = async () => {
-      setLoading(true);
-      // API Call
-      //const data = await response.json();
-      setOptions(data);
-      setLoading(false);
-    };
-
-    // Debounce input and reduce number of calls
-    const timer = setTimeout(() => {
-      if (inputValue.trim() !== '') {
-        fetchOptions();
-      } else {
-        setOptions([]);
-      }
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [inputValue]);
-*/
   // UserList Test Fetcher for Component Build
   React.useEffect(() => {
     setLoading(true);
