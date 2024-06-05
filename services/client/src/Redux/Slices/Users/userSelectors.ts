@@ -14,3 +14,14 @@ export const selectUserById = createSelector(
     return users[id] as User | null;
   },
 );
+
+export const searchUsers = createSelector(
+  [selectUsers, (_, searchTerm: string) => searchTerm],
+  (users, searchTerm: string) => {
+    return Object.values(users).filter(
+      (user) =>
+        user.handle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.displayName.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+  },
+);

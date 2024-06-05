@@ -1,13 +1,10 @@
 import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
-import { Autocomplete, Box, CircularProgress, MenuItem, TextField } from '@mui/material';
+import { Autocomplete, Box, MenuItem, TextField } from '@mui/material';
 import { TextFieldProps } from '@mui/material/TextField';
+import { useAppSelector } from '@Redux/hooks';
+import { searchUsers } from '@Redux/Slices/Users/userSelectors';
 //import { useAnimatedLoadingText } from '@Utils/Hooks/animatedLoadingText';
 import React from 'react';
-
-interface User {
-  name: string;
-  avatar: string;
-}
 
 interface UserSearchProps extends Pick<TextFieldProps, 'color' | 'size' | 'variant'> {
   width?: string;
@@ -26,20 +23,29 @@ export const UserSearch: React.FC<UserSearchProps> = ({
   const [loading, setLoading] = React.useState(false);
 
   // UserList Test Fetcher for Component Build
-  React.useEffect(() => {
+  const handleSearch = (searchTerm: string) => {
     setLoading(true);
-
-    if (inputValue.trim().length > 0) {
-      const filteredOptions = setOptions(filteredOptions);
-    } else {
-      setOptions([]);
-    }
-
+    const searchResults = useAppSelector((state) => searchUsers(state, searchTerm));
+    setOptions(searchResults);
     setLoading(false);
-  }, [inputValue]);
+  };
+
+  React.useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      if (inputValue.trim().length > 0) {
+        handleSearch(inputValue);
+      } else {
+        setOptions([]);
+        setLoading(false);
+      }
+    }, 100);
+
+    return () => clearTimeout(delayDebounce);
+  }, [inputValue, handleSearch]);
 
   const handleInputFocus = () => {
     setInputValue(''); // Clear input value
+    setLoading(false);
   };
 
   //const loadingText = useAnimatedLoadingText();
@@ -66,8 +72,8 @@ export const UserSearch: React.FC<UserSearchProps> = ({
           )
         }
         autoHighlight
-        getOptionLabel={(option) => option.name}
-        isOptionEqualToValue={(option, value) => option.name === value.name}
+        getOptionLabel={(option) => option.handle}
+        isOptionEqualToValue={(option, value) => option.handle === value.handle}
         loading={loading}
         renderInput={(params) => (
           <TextField
@@ -81,7 +87,13 @@ export const UserSearch: React.FC<UserSearchProps> = ({
               ...params.InputProps,
               endAdornment: (
                 <React.Fragment>
-                  {loading ? <LoadingWheel /> : null}
+                  {loading ? (
+                    <LoadingWheel
+                      logoSize={18}
+                      wheelSize={33}
+                      boxSX={{ marginRight: '.5em' }}
+                    />
+                  ) : null}
                   {params.InputProps.endAdornment}
                 </React.Fragment>
               ),
@@ -90,7 +102,7 @@ export const UserSearch: React.FC<UserSearchProps> = ({
         )}
         renderOption={(props, option) => (
           <MenuItem {...props} sx={{ display: 'flex' }}>
-            {option.name}
+            {option.handle}
           </MenuItem>
         )}
         sx={{

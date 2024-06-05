@@ -1,6 +1,6 @@
+import { UserSearch } from '@Common/Components/App/UserSearch';
 import {
   Box,
-  Button,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -9,27 +9,21 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { POPUP_USER_INVITE } from '@Popups/UserInvite/UserInvite';
-import { useAppDispatch } from '@Redux/hooks';
-import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 export const Contractors: React.FC<{
   formData: IContract;
   setFormData: React.Dispatch<React.SetStateAction<IContract>>;
 }> = (props) => {
-  //@ts-expect-error unused currently
-  const { formData, setFormData } = props; //eslint-disable-line @typescript-eslint/no-unused-vars
+  const { formData, setFormData } = props;
   const [ratingDisabled, setRatingDisabled] = React.useState(true);
-  const dispatch = useAppDispatch();
-
-  const handleInviteButton = React.useCallback(() => {
-    dispatch(openPopup(POPUP_USER_INVITE));
-  }, []);
-
   const handleRatingToggle = React.useCallback(() => {
     setRatingDisabled((ratingDisabled) => !ratingDisabled);
   }, [setRatingDisabled, ratingDisabled]);
+
+  const handleUserInvite = React.useCallback(() => {
+    return;
+  }, []);
 
   return (
     <Box data-testid="Contractors__Container" sx={{ mt: '1em' }}>
@@ -86,15 +80,12 @@ export const Contractors: React.FC<{
             data-testid="ContractorsForm__InviteContainer"
             sx={{ display: 'flex', flexDirection: 'column' }}
           >
-            <Button
-              data-testid="ContractorsForm-Invite__InviteButton"
-              onClick={handleInviteButton}
-              variant="contained"
+            <UserSearch
+              width="200px"
               size="small"
               color="secondary"
-            >
-              Invite Contractor
-            </Button>
+              onUserSelect={handleUserInvite}
+            />
             <Box
               data-testid="ContractorsForm-Invite__InviteListContainer"
               sx={{
