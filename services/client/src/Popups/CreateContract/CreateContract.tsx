@@ -12,6 +12,7 @@ import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { useCallback, useState } from 'react';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { ContractDetails } from './pages/ContractDetails';
 import { Contractors } from './pages/Contractors';
@@ -105,8 +106,8 @@ export const CreateContractPopup: React.FC = () => {
           formData.title.trim() != '' &&
           formData.briefing != null &&
           formData.briefing.trim() != '' &&
-          formData.subType != null &&
-          formData.subType.trim() != ''
+          formData.subtype != null &&
+          formData.subtype.trim() != ''
         );
       case 1:
         return true;

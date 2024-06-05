@@ -19,6 +19,7 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { EmergencyOverlay } from '../EmergencyOverlay';
 
@@ -241,7 +242,7 @@ export const ContractDetails: React.FC<{
                 <TextField {...params} label="SubType" size="small" />
               )}
               onChange={(_e, newValue) => {
-                setFormData({ ...formData, subType: newValue ?? '' });
+                setFormData({ ...formData, subtype: newValue ?? '' });
                 handleTypeSelect(newValue ?? '');
               }}
               fullWidth

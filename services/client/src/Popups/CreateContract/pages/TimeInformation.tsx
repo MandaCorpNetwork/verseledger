@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React from 'react';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 export const TimeInformation: React.FC<{
   formData: IContract;

@@ -1,5 +1,5 @@
 import { Avatar, Box, Chip, Typography } from '@mui/material';
-
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 type ContractorProps = {
   userName: string;
   profilePicture: string;

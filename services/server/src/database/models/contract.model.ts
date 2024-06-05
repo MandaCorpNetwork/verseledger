@@ -13,7 +13,7 @@ import {
 } from 'sequelize-typescript';
 
 import type { IContract } from '@Interfaces/IContract';
-import { PayStructure } from '@Interfaces/PayStructure';
+import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { ContractSubType } from '@Interfaces/ContractSubType';
 import { ContractStatus } from '@Interfaces/ContractStatus';
 import { User } from './user.model';
@@ -104,7 +104,7 @@ export class Contract extends Model implements IContract {
   declare contractorLimit: number;
 
   @Column({ type: DataType.STRING(32) })
-  declare payStructure: PayStructure;
+  declare payStructure: IContractPayStructure;
 
   @Column({ type: DataType.BOOLEAN, defaultValue: false })
   declare isBargaining: boolean;

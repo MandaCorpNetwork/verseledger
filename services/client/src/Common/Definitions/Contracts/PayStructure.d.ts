@@ -1,1 +1,1 @@
-type PayStructure = 'POOL' | 'FLATRATE' | 'HOURLY';
+// type PayStructure = 'POOL' | 'FLATRATE' | 'HOURLY';

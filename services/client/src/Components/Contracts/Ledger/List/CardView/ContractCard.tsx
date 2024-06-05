@@ -16,6 +16,7 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { selectUserById } from '@Redux/Slices/Users/userSelectors';
 import React from 'react';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 type ContractCardProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
