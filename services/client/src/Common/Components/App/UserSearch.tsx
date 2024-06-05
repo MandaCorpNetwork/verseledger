@@ -1,3 +1,4 @@
+import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
 import { Autocomplete, Box, CircularProgress, MenuItem, TextField } from '@mui/material';
 import { TextFieldProps } from '@mui/material/TextField';
 //import { useAnimatedLoadingText } from '@Utils/Hooks/animatedLoadingText';
@@ -29,10 +30,7 @@ export const UserSearch: React.FC<UserSearchProps> = ({
     setLoading(true);
 
     if (inputValue.trim().length > 0) {
-      const filteredOptions = userList.filter((user) =>
-        user.name.toLowerCase().includes(inputValue.toLowerCase()),
-      );
-      setOptions(filteredOptions);
+      const filteredOptions = setOptions(filteredOptions);
     } else {
       setOptions([]);
     }
@@ -59,9 +57,13 @@ export const UserSearch: React.FC<UserSearchProps> = ({
         }}
         options={options}
         noOptionsText={
-          //loading
-          //  ? loadingText :
-          inputValue.trim().length > 0 ? 'No Users found' : 'Enter User'
+          loading ? (
+            <LoadingWheel />
+          ) : inputValue.trim().length > 0 ? (
+            'No Users found'
+          ) : (
+            'Enter User'
+          )
         }
         autoHighlight
         getOptionLabel={(option) => option.name}
@@ -79,7 +81,7 @@ export const UserSearch: React.FC<UserSearchProps> = ({
               ...params.InputProps,
               endAdornment: (
                 <React.Fragment>
-                  {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                  {loading ? <LoadingWheel /> : null}
                   {params.InputProps.endAdornment}
                 </React.Fragment>
               ),
@@ -98,19 +100,3 @@ export const UserSearch: React.FC<UserSearchProps> = ({
     </Box>
   );
 };
-
-const userList: User[] = [
-  { name: 'Abb', avatar: '/static/images/avatar/1.jpg' },
-  { name: 'Tooba', avatar: '/static/images/avatar/2.jpg' },
-  { name: 'Net', avatar: '/static/images/avatar/3.jpg' },
-  { name: 'Feul', avatar: '/static/images/avatar/4.jpg' },
-  { name: 'Kool', avatar: '/static/images/avatar/5.jpg' },
-  { name: 'Nrum', avatar: '/static/images/avatar/6.jpg' },
-  { name: 'Trum', avatar: '/static/images/avatar/1.jpg' },
-  { name: 'Lioo', avatar: '/static/images/avatar/2.jpg' },
-  { name: 'Uii', avatar: '/static/images/avatar/2.jpg' },
-  { name: 'Ioo', avatar: '/static/images/avatar/2.jpg' },
-  { name: 'ThreeCrown', avatar: '/static/images/avatar/2.jpg' },
-  { name: 'Skippa', avatar: '/static/images/avatar/2.jpg' },
-  { name: 'Snow_E', avatar: '/static/images/avatar/2.jpg' },
-];
