@@ -13,7 +13,8 @@ export const Contractors: React.FC<{
   formData: IContract;
   setFormData: React.Dispatch<React.SetStateAction<IContract>>;
 }> = (props) => {
-  const { formData, setFormData } = props;
+  //@ts-expect-error unused currently
+  const { formData, setFormData } = props; //eslint-disable-line @typescript-eslint/no-unused-vars
   return (
     <Box data-testid="Contractors__Container" sx={{ mt: '1em' }}>
       <Box>

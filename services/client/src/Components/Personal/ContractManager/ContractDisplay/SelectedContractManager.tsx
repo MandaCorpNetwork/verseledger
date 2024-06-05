@@ -1,5 +1,4 @@
-import { LocationChip } from '@Common/Components/App/LocationChip';
-import { UserDisplay } from '@Common/Components/Users/UserDisplay';
+// import { LocationChip } from '@Common/Components/App/LocationChip';
 import { SalvageIcon, SecurityIcon } from '@Common/Definitions/CustomIcons';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Button, Chip, Tab, TextField, Typography } from '@mui/material';
@@ -286,7 +285,7 @@ export const SelectedContractManager: React.FC<unknown> = () => {
                 }}
               >
                 <Typography>Start Location</Typography>
-                <LocationChip />
+                {/* <LocationChip /> */}
               </Box>
               <Box
                 data-testid="SelectedContract-Locations__EndLocationWrapper"
@@ -302,7 +301,7 @@ export const SelectedContractManager: React.FC<unknown> = () => {
                 }}
               >
                 <Typography>End Location</Typography>
-                <LocationChip />
+                {/* <LocationChip /> */}
               </Box>
             </Box>
             <Box
@@ -326,7 +325,7 @@ export const SelectedContractManager: React.FC<unknown> = () => {
                   flexDirection: 'row',
                 }}
               >
-                <LocationChip />
+                {/* <LocationChip /> */}
               </Box>
             </Box>
           </Box>
