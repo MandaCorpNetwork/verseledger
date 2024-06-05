@@ -13,7 +13,6 @@ import { EnvService } from '@Services/env.service';
 import { AuthProvider } from './authProviders/auth.provider';
 import { NetworkError } from '@Errors/NetworkError';
 import { NotFoundError } from '@Errors/NotFoundError';
-
 export const createServer = () => {
   bindContainer(container);
   const env = new EnvService();

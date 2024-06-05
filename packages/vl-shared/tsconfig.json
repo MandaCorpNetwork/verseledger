@@ -1,11 +1,11 @@
 {
   "display": "Default",
   "compilerOptions": {
-    "lib": ["ESNext"],
-    "target": "ESNext",
+    "lib": ["ES6"],
+    "target": "ES6",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "module": "CommonJS",
+    "module": "ESNext",
     "outDir": "./build",
     "rootDir": "./src",
     "composite": false,
@@ -24,16 +24,6 @@
 
     /* Pathing */
     "baseUrl": "./src/",
-    "paths": {
-      "@Controllers/*": ["./controllers/*"],
-      "@Constant/*": ["./constant/*"],
-      "@Errors/*": ["./errors/*"],
-      "@Services/*": ["./services/*"],
-      "@Models/*": ["./database/models/*"],
-      "@Interfaces/*": ["./interfaces/*"],
-      "@Middleware/*": ["./middleware/*"],
-      "@/*": ["./*"]
-    }
   },
   "include": ["src/"],
   "exclude": ["node_modules/"]

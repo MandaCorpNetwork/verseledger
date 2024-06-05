@@ -4,29 +4,33 @@
   "private": true,
   "workspaces": [
     "services/*",
-    "apps/*"
+    "packages/*"
   ],
   "scripts": {
     "dev": "concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client dev\" \"manypkg run server dev\"",
     "postinstall": "preconstruct dev && manypkg check",
     "clean": "yarn manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules",
     "test": "yarn test:server && yarn test:client",
-    "lint": "yarn manypkg run server lint && manypkg run client lint",
+    "lint": "yarn manypkg run server lint && yarn manypkg run vl-shared lint && manypkg run client lint",
+    "lint:check": "yarn manypkg run server lint:check && yarn manypkg run vl-shared lint:check && manypkg run client lint:check",
     "test:client": "yarn manypkg run client test",
     "test:server": "yarn manypkg run server test",
     "resetdb": "cd scripts && setup-local-db.bat",
     "migrate": "./.flyway/flyway -configFiles=./flyway.user.toml -environment=vl-db migrate"
   },
   "dependencies": {
-    "@changesets/cli": "^2.27.5",
-    "@manypkg/cli": "^0.21.4",
-    "@preconstruct/cli": "^2.8.4",
+    "@babel/core": "7.24.6",
+    "@babel/preset-env": "7.24.6",
+    "@babel/preset-typescript": "^7.24.6",
+    "@changesets/cli": "2.27.5",
+    "@manypkg/cli": "0.21.4",
+    "@preconstruct/cli": "2.8.4",
     "concurrently": "8.2.2",
-    "flywaydb-cli": "^0.9.0"
+    "flywaydb-cli": "0.9.0"
   },
   "preconstruct": {
     "packages": [
-      "apps/*"
+      "packages/*"
     ]
   }
 }

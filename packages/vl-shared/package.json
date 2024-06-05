@@ -1,0 +1,20 @@
+{
+  "name": "vl-shared",
+  "version": "1.0.0",
+  "main": "dist/vl-shared.cjs.js",
+  "types": "dist/vl-shared.cjs.d.ts",
+  "private": true,
+  "scripts": {
+    "lint": "tsc --noEmit && npx eslint ./src --fix && npx prettier ./src --write",
+    "lint:check": "tsc --noEmit && npx eslint ./src"
+  },
+  "dependencies": {
+    "@typescript-eslint/parser": "7.8.0",
+    "zod": "3.23.8"
+  },
+  "preconstruct": {
+    "entrypoints": [
+      "./index.ts"
+    ]
+  }
+}
