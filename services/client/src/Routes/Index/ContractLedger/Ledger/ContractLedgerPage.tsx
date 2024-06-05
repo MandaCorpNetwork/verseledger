@@ -21,6 +21,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 //import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import React, { useCallback, useEffect, useState } from 'react';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import FleetLoop from '@/Assets/media/ContractLedger/FleetLoop.webm?url';
 import LogisticsLoop from '@/Assets/media/ContractLedger/LogiLoop.webm?url';

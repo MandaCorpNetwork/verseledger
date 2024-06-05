@@ -2,7 +2,7 @@ import { LocationChip } from '@Common/Components/App/LocationChip';
 import { LocationSearch } from '@Common/Components/App/LocationSearch';
 import { Box, FormControl, TextField, Typography } from '@mui/material';
 import React from 'react';
-
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 export const Locations: React.FC<{
   formData: IContract;
   setFormData: React.Dispatch<React.SetStateAction<IContract>>;

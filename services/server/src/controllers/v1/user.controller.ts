@@ -17,7 +17,7 @@ import { VLAuthPrincipal } from '@/authProviders/VL.principal';
 import { User } from '@/database/models/user.model';
 import { Organization } from '@/database/models/organization.model';
 import { OrganizationMember } from '@/database/models/organization_member.model';
-import { PayStructure } from '@/interfaces/PayStructure';
+import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { ContractService } from '@Services/contracts.service';
 import { NextFunction } from 'express';
 import { NetworkError } from '@Errors/NetworkError';
@@ -73,7 +73,7 @@ export class UsersController extends BaseHttpController {
       owner_id: o.id,
       bidDate: new Date(),
       ratingLimit: 0,
-      payStructure: PayStructure.FLATRATE,
+      payStructure: ContractPayStructure.FLATRATE,
       defaultPay: 0,
       status: 'BIDDING',
     });
@@ -84,7 +84,7 @@ export class UsersController extends BaseHttpController {
       owner_id: u.id,
       bidDate: new Date(),
       ratingLimit: 0,
-      payStructure: PayStructure.FLATRATE,
+      payStructure: ContractPayStructure.FLATRATE,
       defaultPay: 0,
       status: 'BIDDING',
     });

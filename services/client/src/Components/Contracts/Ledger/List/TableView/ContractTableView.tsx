@@ -16,6 +16,7 @@ import {
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
+import { IContract, IContractTimestamped } from 'vl-shared/src/schemas/ContractSchema';
 
 type ContractRowProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,7 +55,7 @@ type CreatedTimeDisplayProps = {
 };
 
 const CreatedTimeDisplay: React.FC<CreatedTimeDisplayProps> = ({ contract }) => {
-  const createdDate = dayjs(contract.createdAt);
+  const createdDate = dayjs((contract as IContractTimestamped).createdAt);
   const createdTimeStamp = createdDate.format('D/M/YY HH:mm');
   dayjs.extend(relativeTime);
   const createdRelativeTimestamp = dayjs().to(createdDate);
@@ -172,7 +173,7 @@ export const ContractTableView: React.FC<ContractRowProps> = ({ contract, onPick
                       {contract.title}
                     </Typography>
                   </TableCell>
-                  <TableCell sx={{ textAlign: 'center' }}>{contract.subType}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{contract.subtype}</TableCell>
                   <TableCell sx={{ textAlign: 'center' }}>
                     <UserChip userid={contract.owner_id} size="medium" />
                   </TableCell>

@@ -1,4 +1,4 @@
-import type { PayStructure } from './PayStructure';
+import type { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { ITimestamped } from './ITimestamped';
 import { ContractStatus } from './ContractStatus';
 export interface IContract extends ITimestamped {
@@ -13,7 +13,7 @@ export interface IContract extends ITimestamped {
   isEmergency: boolean;
   ratingLimit: number;
   contractorLimit: number | null;
-  payStructure: PayStructure;
+  payStructure: IContractPayStructure;
   isBargaining: boolean;
   isBonusPay: boolean;
   defaultPay: number;
