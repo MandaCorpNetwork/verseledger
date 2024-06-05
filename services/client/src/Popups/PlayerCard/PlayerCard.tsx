@@ -15,7 +15,7 @@ import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_VERIFY_USER } from '@Popups/VerifyPopup/VerifyUser';
 import { useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { selectUserById } from '@Redux/Slices/Users/contractSelectors';
+import { selectUserById } from '@Redux/Slices/Users/userSelectors';
 import React from 'react';
 
 import { useAppDispatch } from '@/Redux/hooks';
