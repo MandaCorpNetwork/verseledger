@@ -20,6 +20,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 
 import { EmergencyOverlay } from '../EmergencyOverlay';
 
@@ -242,8 +243,11 @@ export const ContractDetails: React.FC<{
                 <TextField {...params} label="SubType" size="small" />
               )}
               onChange={(_e, newValue) => {
-                setFormData({ ...formData, subtype: newValue ?? '' });
-                handleTypeSelect(newValue ?? '');
+                setFormData({
+                  ...formData,
+                  subtype: (newValue as IContractSubType) ?? '',
+                });
+                handleTypeSelect((newValue as IContractSubType) ?? '');
               }}
               fullWidth
               sx={{ mt: 2, mb: '1em', maxWidth: '300px' }}
