@@ -19,7 +19,7 @@ import React from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
-import { FlatRatePayroll, PoolPayroll } from './DefaultPay/Simple';
+import { FlatRatePayroll, PoolPayroll, TimedPayroll } from './DefaultPay/Simple';
 
 type RadioControlProps = {
   value: string;
@@ -67,7 +67,7 @@ export const Payroll: React.FC<{
       case 'FLATRATE':
         return <FlatRatePayroll formData={formData} onChange={handleSetDefaultPay} />;
       case 'HOURLY':
-        return;
+        return <TimedPayroll formData={formData} onChange={handleSetDefaultPay} />;
       case 'POOL':
         return (
           <PoolPayroll
