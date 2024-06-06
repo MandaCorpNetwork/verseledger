@@ -3,7 +3,6 @@ import { Autocomplete, Box, MenuItem, TextField } from '@mui/material';
 import { TextFieldProps } from '@mui/material/TextField';
 import { useAppSelector } from '@Redux/hooks';
 import { searchUsers } from '@Redux/Slices/Users/userSelectors';
-//import { useAnimatedLoadingText } from '@Utils/Hooks/animatedLoadingText';
 import React from 'react';
 
 interface UserSearchProps extends Pick<TextFieldProps, 'color' | 'size' | 'variant'> {
@@ -47,8 +46,6 @@ export const UserSearch: React.FC<UserSearchProps> = ({
     setInputValue(''); // Clear input value
     setLoading(false);
   };
-
-  //const loadingText = useAnimatedLoadingText();
 
   return (
     <Box>
