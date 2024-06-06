@@ -95,6 +95,7 @@ export const CreateContractPopup: React.FC = () => {
   }, [page]);
   const [formData, setFormData] = useState<IContract>({
     locations: [] as string[],
+    payStructure: 'FLATRATE',
   } as IContract);
   const isSubmitEnabled = React.useMemo(() => {
     console.log(formData);

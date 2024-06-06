@@ -182,7 +182,6 @@ export const Payroll: React.FC<{
             {!isComplex ? (
               <RadioGroup
                 value={formData.payStructure}
-                defaultValue="FLATRATE"
                 onChange={(e) => {
                   setFormData({
                     ...formData,
