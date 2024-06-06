@@ -85,7 +85,7 @@ const ColorlibConnector = styled(StepConnector)(() => ({
 }));
 export const CreateContractPopup: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [page, setPage] = useState(3);
+  const [page, setPage] = useState(4);
   const onSubmit = useCallback(() => {
     if (page >= 4) dispatch(closePopup(POPUP_CREATE_CONTRACT));
     setPage(Math.min(page + 1, steps.length));
@@ -116,6 +116,7 @@ export const CreateContractPopup: React.FC = () => {
       case 3:
         return true;
       case 4:
+        return formData.payStructure != null && formData.defaultPay != null;
     }
     return false;
   }, [formData, page]);
@@ -131,7 +132,7 @@ export const CreateContractPopup: React.FC = () => {
       cancelDisabled={page <= 0}
       onSubmit={onSubmit}
       submitDisabled={!isSubmitEnabled}
-      submitText={page >= 4 ? 'Send' : 'Next'}
+      submitText={page >= 4 ? 'Submit' : 'Next'}
     >
       <Box data-testid="ContractForm__Container-Stepper">
         <Stepper activeStep={page} connector={<ColorlibConnector />} alternativeLabel>
