@@ -19,6 +19,8 @@ import React from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
+import { FlatRatePayroll, PoolPayroll } from './DefaultPay/Simple';
+
 type RadioControlProps = {
   value: string;
   label: string;
@@ -48,6 +50,7 @@ export const Payroll: React.FC<{
 }> = (props) => {
   const { formData, setFormData } = props;
   const [isComplex, setIsComplex] = React.useState(false);
+  const [evenSplit, setEvenSplit] = React.useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -58,6 +61,53 @@ export const Payroll: React.FC<{
   const handleStuctureTypeSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsComplex(event.target.checked);
   };
+
+  const renderDefaultPayComponent = () => {
+    switch (formData.payStructure) {
+      case 'FLATRATE':
+        return <FlatRatePayroll formData={formData} onChange={handleSetDefaultPay} />;
+      case 'HOURLY':
+        return;
+      case 'POOL':
+        return (
+          <PoolPayroll
+            formData={formData}
+            onChange={handleSetDefaultPay}
+            evenSplit={evenSplit}
+            setEvenSplit={handleEvenSplitToggle}
+          />
+        );
+      default:
+        return;
+    }
+  };
+
+  const handleSetDefaultPay = React.useCallback(
+    (value: number) => {
+      setFormData((formData) => ({
+        ...formData,
+        defaultPay: value,
+      }));
+    },
+    [setFormData],
+  );
+
+  const handleEvenSplitToggle = React.useCallback(() => {
+    if (evenSplit) {
+      setEvenSplit(false);
+      setFormData((formData) => ({
+        ...formData,
+        defaultPay: 5,
+      }));
+    }
+    if (!evenSplit) {
+      setEvenSplit(true);
+      setFormData((formData) => ({
+        ...formData,
+        defaultPay: 50,
+      }));
+    }
+  }, [evenSplit, setEvenSplit, setFormData]);
 
   return (
     <Box
@@ -132,6 +182,7 @@ export const Payroll: React.FC<{
             {!isComplex ? (
               <RadioGroup
                 value={formData.payStructure}
+                defaultValue="FLATRATE"
                 onChange={(e) => {
                   setFormData({
                     ...formData,
@@ -170,18 +221,16 @@ export const Payroll: React.FC<{
           </Box>
         </Box>
       </FormControl>
-      <FormControl>
-        <Box
-          data-testid="Payrollform-DefaultPay__Container"
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <Box>
-            <FormLabel color="secondary">Default Pay</FormLabel>
-          </Box>
-        </Box>
+      <FormControl
+        data-testid="Payroll-DefaultPay__Form"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+        }}
+      >
+        <FormLabel color="secondary">Default Pay</FormLabel>
+        <Box data-testid="Payroll-DefaultPay__Wrapper">{renderDefaultPayComponent()}</Box>
       </FormControl>
       <FormControl>
         <Box
