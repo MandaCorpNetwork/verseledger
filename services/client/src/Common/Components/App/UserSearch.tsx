@@ -1,5 +1,5 @@
 import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
-import { Autocomplete, Box, MenuItem, TextField } from '@mui/material';
+import { Autocomplete, Box, debounce, MenuItem, TextField } from '@mui/material';
 import { TextFieldProps } from '@mui/material/TextField';
 import { useAppSelector } from '@Redux/hooks';
 import { searchUsers } from '@Redux/Slices/Users/userSelectors';
@@ -22,24 +22,25 @@ export const UserSearch: React.FC<UserSearchProps> = ({
   const [loading, setLoading] = React.useState(false);
 
   // UserList Test Fetcher for Component Build
-  const handleSearch = (searchTerm: string) => {
-    setLoading(true);
-    const searchResults = useAppSelector((state) => searchUsers(state, searchTerm));
-    setOptions(searchResults);
-    setLoading(false);
-  };
+  const handleSearch = React.useCallback(
+    debounce((searchTerm: string) => {
+      setLoading(true);
+      const searchResults = useAppSelector((state) => searchUsers(state, searchTerm));
+      console.log(searchResults);
+      setOptions(searchResults);
+      setLoading(false);
+    }, 100),
+    [useAppSelector, searchUsers],
+  );
 
   React.useEffect(() => {
-    const delayDebounce = setTimeout(() => {
-      if (inputValue.trim().length > 0) {
-        handleSearch(inputValue);
-      } else {
-        setOptions([]);
-        setLoading(false);
-      }
-    }, 100);
-
-    return () => clearTimeout(delayDebounce);
+    if (inputValue.trim().length > 0) {
+      handleSearch(inputValue);
+      console.log(inputValue);
+    } else {
+      setOptions([]);
+      setLoading(false);
+    }
   }, [inputValue, handleSearch]);
 
   const handleInputFocus = () => {

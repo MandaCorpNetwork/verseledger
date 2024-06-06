@@ -114,6 +114,7 @@ export const CreateContractPopup: React.FC = () => {
       case 2:
         return formData.locations != null && formData.locations.length != 0;
       case 3:
+        return true;
       case 4:
     }
     return false;

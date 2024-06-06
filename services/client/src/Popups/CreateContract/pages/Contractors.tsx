@@ -17,8 +17,13 @@ export const Contractors: React.FC<{
 }> = (props) => {
   const { formData, setFormData } = props;
   const [ratingDisabled, setRatingDisabled] = React.useState(true);
+
   const handleRatingToggle = React.useCallback(() => {
     setRatingDisabled((ratingDisabled) => !ratingDisabled);
+    setFormData((formData) => ({
+      ...formData,
+      ratingLimit: undefined,
+    }));
   }, [setRatingDisabled, ratingDisabled]);
 
   const handleUserInvite = React.useCallback(() => {
@@ -31,9 +36,20 @@ export const Contractors: React.FC<{
         <FormControl
           sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}
         >
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Box
+            data-testid="ContractorsForm__SettingsWrapper"
+            sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+          >
             <FormLabel color="secondary">Contractor Settings</FormLabel>
-            <Box>
+            <Box
+              data-testid="ContractorsForm-Settings__RatingWrapper"
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                my: '0.5em',
+              }}
+            >
               <FormControlLabel
                 data-testid="ContractorsForm-Settings__RatingSwitch"
                 control={<Switch color="secondary" size="small" />}
@@ -47,34 +63,68 @@ export const Contractors: React.FC<{
                   },
                 }}
               />
-              <Rating disabled={ratingDisabled} name="read-only" defaultValue={3} />
+              <Rating
+                disabled={ratingDisabled}
+                name="read-only"
+                value={formData.ratingLimit}
+                onChange={(e, newValue) => {
+                  setFormData((formData) => ({
+                    ...formData,
+                    ratingLimit: newValue ?? 0,
+                  }));
+                }}
+              />
             </Box>
-            <TextField
-              data-testid="ContractorsForm-Settings__MaxContractors"
-              label="Max Contractors"
-              color="secondary"
-              size="small"
-              variant="filled"
+            <Box
+              data-testid="ContractorsForm-Settings__MaxContractorsWrapper"
               sx={{
-                width: '150px',
-                '& .MuiFilledInput-root': {
-                  backgroundColor: 'primary.dark',
-                  '&.Mui-disabled': {
-                    backgroundColor: 'rgba(0, 30, 100, 0.2)',
+                mx: 'auto',
+                my: '0.5em',
+              }}
+            >
+              <TextField
+                data-testid="ContractorsForm-Settings__MaxContractors"
+                label="Max Contractors"
+                color="secondary"
+                size="small"
+                variant="filled"
+                type="number"
+                value={formData.contractorLimit}
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    contractorLimit: +e.currentTarget.value ?? 0,
+                  });
+                }}
+                sx={{
+                  width: '125px',
+                  '& .MuiFilledInput-root': {
+                    backgroundColor: 'primary.dark',
+                    '&.Mui-disabled': {
+                      backgroundColor: 'rgba(0, 30, 100, 0.2)',
+                    },
                   },
-                },
-              }}
-            />
-            <FormControlLabel
-              control={<Switch color="secondary" size="small" />}
-              label="Allow Bidding After Deadline"
-              componentsProps={{
-                typography: {
-                  variant: 'body2',
-                  color: 'text.secondary',
-                },
-              }}
-            />
+                }}
+                InputLabelProps={{
+                  sx: {
+                    fontSize: '.8em',
+                    m: 'auto',
+                  },
+                }}
+              />
+            </Box>
+            {/* <Box>
+              <FormControlLabel
+                control={<Switch color="secondary" size="small" />}
+                label="Allow Bidding After Deadline"
+                componentsProps={{
+                  typography: {
+                    variant: 'body2',
+                    color: 'text.secondary',
+                  },
+                }}
+              />
+            </Box> */}
           </Box>
           <Box
             data-testid="ContractorsForm__InviteContainer"
