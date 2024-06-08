@@ -1,7 +1,7 @@
 import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
 import { Autocomplete, Box, debounce, MenuItem, TextField } from '@mui/material';
 import { TextFieldProps } from '@mui/material/TextField';
-import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { useAppDispatch } from '@Redux/hooks';
 import { fetchSearchUsers } from '@Redux/Slices/Users/Actions/fetchSearchUsers';
 import React from 'react';
 
@@ -27,10 +27,11 @@ export const UserSearch: React.FC<UserSearchProps> = ({
     debounce(async (searchTerm: string) => {
       setLoading(true);
       try {
-        const searchResults = await dispatch(fetchSearchUsers(searchTerm)).unwrap;
+        const searchResults = await dispatch(fetchSearchUsers(searchTerm)).unwrap();
         setOptions(searchResults);
       } catch (error) {
         console.error('Error fetching users', error);
+        setOptions([]);
       } finally {
         setLoading(false);
       }
@@ -41,12 +42,11 @@ export const UserSearch: React.FC<UserSearchProps> = ({
   React.useEffect(() => {
     if (inputValue.trim().length > 0) {
       handleSearch(inputValue);
-      console.log(inputValue);
     } else {
       setOptions([]);
       setLoading(false);
     }
-  }, [inputValue, handleSearch]);
+  }, [inputValue]);
 
   const handleInputFocus = () => {
     setInputValue(''); // Clear input value
