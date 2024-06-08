@@ -1,5 +1,5 @@
 import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
-import { Autocomplete, Box, debounce, MenuItem, TextField } from '@mui/material';
+import { Autocomplete, Avatar, Box, debounce, MenuItem, TextField } from '@mui/material';
 import { TextFieldProps } from '@mui/material/TextField';
 import { useAppDispatch } from '@Redux/hooks';
 import { fetchSearchUsers } from '@Redux/Slices/Users/Actions/fetchSearchUsers';
@@ -105,6 +105,7 @@ export const UserSearch: React.FC<UserSearchProps> = ({
         )}
         renderOption={(props, option) => (
           <MenuItem {...props} sx={{ display: 'flex' }}>
+            <Avatar src={option.pfp} sx={{ width: 25, height: 25, mr: '.5em' }} />
             {option.handle}
           </MenuItem>
         )}

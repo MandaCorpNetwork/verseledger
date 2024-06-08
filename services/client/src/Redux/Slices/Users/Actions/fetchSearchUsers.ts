@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AuthUtil } from '@Utils/AuthUtil';
 
 import NetworkService from '@/Services/NetworkService';
 
@@ -7,7 +8,10 @@ export const FETCH_SEARCH_USERS = 'GET /v1/users/search';
 export const fetchSearchUsers = createAsyncThunk<User[], string>(
   FETCH_SEARCH_USERS,
   async (searchTerm: string) => {
-    const response = await NetworkService.GET(`/v1/users/search?handle=${searchTerm}`);
+    const response = await NetworkService.GET(
+      `/v1/users/search?handle=${searchTerm}`,
+      AuthUtil.getAccessHeader(),
+    );
     return response.data as User[];
   },
 );
