@@ -127,7 +127,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   };
 
   const handleSubmitBidPopup = () => {
-    dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, contract));
+    dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
   };
 
   return (
