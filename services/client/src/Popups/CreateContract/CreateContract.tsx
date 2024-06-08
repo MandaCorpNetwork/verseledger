@@ -19,6 +19,7 @@ import { Contractors } from './pages/Contractors';
 import { Locations } from './pages/Locations';
 import { Payroll } from './pages/Payroll';
 import { TimeInformation } from './pages/TimeInformation';
+import { postNewContract } from '@Redux/Slices/Contracts/actions/postNewContract';
 
 //import { FleetForm } from './StepperForms/FleetForm';
 
@@ -88,7 +89,10 @@ export const CreateContractPopup: React.FC = () => {
   const [page, setPage] = useState(4);
 
   const onSubmit = useCallback(() => {
-    if (page >= 4) dispatch(closePopup(POPUP_CREATE_CONTRACT));
+    if (page >= 4) {
+      dispatch(closePopup(POPUP_CREATE_CONTRACT));
+      dispatch(postNewContract(formData));
+    }
     setPage(Math.min(page + 1, steps.length));
   }, [page]);
 
