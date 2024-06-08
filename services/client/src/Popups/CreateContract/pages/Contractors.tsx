@@ -1,4 +1,5 @@
 import { UserSearch } from '@Common/Components/App/UserSearch';
+import { UserChip } from '@Common/Components/Users/UserChip';
 import {
   Box,
   FormControl,
@@ -15,8 +16,10 @@ import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 export const Contractors: React.FC<{
   formData: IContract;
   setFormData: React.Dispatch<React.SetStateAction<IContract>>;
+  invites: Array<User>;
+  setInvites: (selectedUser: User | null) => void;
 }> = (props) => {
-  const { formData, setFormData } = props;
+  const { formData, setFormData, invites, setInvites } = props;
   const [ratingDisabled, setRatingDisabled] = React.useState(true);
 
   const handleRatingToggle = React.useCallback(() => {
@@ -26,10 +29,6 @@ export const Contractors: React.FC<{
       ratingLimit: undefined,
     }));
   }, [setRatingDisabled, ratingDisabled]);
-
-  const handleUserInvite = React.useCallback(() => {
-    return;
-  }, []);
 
   return (
     <Box data-testid="Contractors__Container" sx={{ mt: '1em' }}>
@@ -135,7 +134,7 @@ export const Contractors: React.FC<{
               width="200px"
               size="small"
               color="secondary"
-              onUserSelect={handleUserInvite}
+              onUserSelect={setInvites}
             />
             <Box
               data-testid="ContractorsForm-Invite__InviteListContainer"
@@ -159,9 +158,17 @@ export const Contractors: React.FC<{
                 Invited Contractors
               </Typography>
               <Box data-testid="ContractorsForm-Invite__InviteListWrapper">
-                <Typography variant="body2" align="center" sx={{ color: 'gray' }}>
-                  No Invites
-                </Typography>
+                {invites.length > 0 ? (
+                  invites.map((invitee) => (
+                    <Box key={invitee.id}>
+                      <UserChip userid={invitee.id} size="small" />
+                    </Box>
+                  ))
+                ) : (
+                  <Typography variant="body2" align="center" sx={{ color: 'gray' }}>
+                    No Invites
+                  </Typography>
+                )}
               </Box>
             </Box>
           </Box>

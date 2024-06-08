@@ -86,17 +86,30 @@ const ColorlibConnector = styled(StepConnector)(() => ({
 export const CreateContractPopup: React.FC = () => {
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(4);
+
   const onSubmit = useCallback(() => {
     if (page >= 4) dispatch(closePopup(POPUP_CREATE_CONTRACT));
     setPage(Math.min(page + 1, steps.length));
   }, [page]);
+
   const onCancel = useCallback(() => {
     setPage(Math.max(page - 1, 0));
   }, [page]);
+
   const [formData, setFormData] = useState<IContract>({
     locations: [] as string[],
     payStructure: 'FLATRATE',
   } as IContract);
+
+  //Placeholder State For Contract Bids Backend
+  const [invites, setInvites] = React.useState<User[]>([]);
+
+  const handleUserInvite = React.useCallback((selectedUser: User | null) => {
+    if (selectedUser) {
+      setInvites((invites) => [...invites, selectedUser]);
+    }
+  }, []);
+
   const isSubmitEnabled = React.useMemo(() => {
     console.log(formData);
     switch (page) {
@@ -121,6 +134,7 @@ export const CreateContractPopup: React.FC = () => {
     }
     return false;
   }, [formData, page]);
+
   return (
     <VLPopup
       minWidth="800px"
@@ -159,7 +173,14 @@ export const CreateContractPopup: React.FC = () => {
         {page === 0 && <ContractDetails formData={formData} setFormData={setFormData} />}
         {page === 1 && <TimeInformation formData={formData} setFormData={setFormData} />}
         {page === 2 && <Locations formData={formData} setFormData={setFormData} />}
-        {page === 3 && <Contractors formData={formData} setFormData={setFormData} />}
+        {page === 3 && (
+          <Contractors
+            formData={formData}
+            setFormData={setFormData}
+            invites={invites}
+            setInvites={handleUserInvite}
+          />
+        )}
         {page === 4 && <Payroll formData={formData} setFormData={setFormData} />}
       </Box>
     </VLPopup>
