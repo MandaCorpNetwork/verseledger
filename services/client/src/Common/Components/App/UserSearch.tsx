@@ -1,8 +1,8 @@
 import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
 import { Autocomplete, Box, debounce, MenuItem, TextField } from '@mui/material';
 import { TextFieldProps } from '@mui/material/TextField';
-import { useAppSelector } from '@Redux/hooks';
-import { searchUsers } from '@Redux/Slices/Users/userSelectors';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { fetchSearchUsers } from '@Redux/Slices/Users/Actions/fetchSearchUsers';
 import React from 'react';
 
 interface UserSearchProps extends Pick<TextFieldProps, 'color' | 'size' | 'variant'> {
@@ -20,17 +20,22 @@ export const UserSearch: React.FC<UserSearchProps> = ({
   const [inputValue, setInputValue] = React.useState('');
   const [options, setOptions] = React.useState<User[]>([]);
   const [loading, setLoading] = React.useState(false);
+  const dispatch = useAppDispatch();
 
   // UserList Test Fetcher for Component Build
   const handleSearch = React.useCallback(
-    debounce((searchTerm: string) => {
+    debounce(async (searchTerm: string) => {
       setLoading(true);
-      const searchResults = useAppSelector((state) => searchUsers(state, searchTerm));
-      console.log(searchResults);
-      setOptions(searchResults);
-      setLoading(false);
+      try {
+        const searchResults = await dispatch(fetchSearchUsers(searchTerm)).unwrap;
+        setOptions(searchResults);
+      } catch (error) {
+        console.error('Error fetching users', error);
+      } finally {
+        setLoading(false);
+      }
     }, 100),
-    [useAppSelector, searchUsers],
+    [dispatch],
   );
 
   React.useEffect(() => {
