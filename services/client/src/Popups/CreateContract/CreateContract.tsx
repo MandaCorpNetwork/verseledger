@@ -86,7 +86,7 @@ const ColorlibConnector = styled(StepConnector)(() => ({
 }));
 export const CreateContractPopup: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [page, setPage] = useState(4);
+  const [page, setPage] = useState(0);
 
   const onSubmit = useCallback(() => {
     if (page >= 4) {
