@@ -10,6 +10,7 @@ import { stepConnectorClasses } from '@mui/material/StepConnector';
 import { styled } from '@mui/material/styles';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
+import { postNewContract } from '@Redux/Slices/Contracts/actions/postNewContract';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { useCallback, useState } from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -19,7 +20,6 @@ import { Contractors } from './pages/Contractors';
 import { Locations } from './pages/Locations';
 import { Payroll } from './pages/Payroll';
 import { TimeInformation } from './pages/TimeInformation';
-import { postNewContract } from '@Redux/Slices/Contracts/actions/postNewContract';
 
 //import { FleetForm } from './StepperForms/FleetForm';
 

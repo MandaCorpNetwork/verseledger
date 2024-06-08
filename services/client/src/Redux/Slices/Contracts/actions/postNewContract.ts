@@ -8,6 +8,7 @@ export const POST_NEW_CONTRACT = 'POST v1/contracts';
 
 export const postNewContract = createAsyncThunk(
   POST_NEW_CONTRACT,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async (contractData: IContract, { getState }) => {
     try {
       const response = await NetworkService.POST(
