@@ -8,13 +8,23 @@ import {
   SecurityIcon,
 } from '@Common/Definitions/CustomIcons';
 import {
+  ArrowLeft,
+  ArrowRight,
   Explore,
   Factory,
   HelpOutline,
   LocalHospital,
   VisibilityOff,
 } from '@mui/icons-material';
-import { Box, Chip, Divider, InputAdornment, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Chip,
+  Divider,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
@@ -187,6 +197,7 @@ export type ContractBidProps = {
 };
 
 export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
+  const [negotiateForm] = React.useState<Array<unknown> | null>(null);
   const dispatch = useAppDispatch();
 
   const archetypeObj = options.find((option) =>
@@ -216,6 +227,13 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
   }, [contract.status]);
 
   const statusColor = statusChipColor();
+
+  const handleSubmitBid = React.useCallback(() => {
+    if (negotiateForm == null) {
+      
+    }
+    return;
+  }, []);
 
   return (
     <VLPopup
@@ -381,11 +399,38 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                 Non-Negotiable
               </Typography>
             </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <Typography>Contractor Pay</Typography>
-                <Box>
+            <Box
+              data-testid="ContractBid-ContractorInfo-Static__TopContainer"
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+              }}
+            >
+              <Box
+                data-testid="ContractBid-ContractorInfo-Static__PayWrapper"
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                }}
+              >
+                <Typography
+                  data-testid="ContractBid-ContractorInfo-Static__PayTitle"
+                  variant="body2"
+                  align="center"
+                  sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+                >
+                  Contractor Pay
+                </Typography>
+                <Box
+                  data-testid="ContractBid-ContractorInfo-Static__PayStructureWrapper"
+                  sx={{
+                    mx: 'auto',
+                  }}
+                >
                   <TextField
+                    data-testid="ContractBid-ContractorInfo-Static__PayStructure"
                     size="small"
                     label="Pay Structure"
                     value={contract.payStructure}
@@ -399,10 +444,13 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                       ),
                     }}
                     sx={{
-                      mr: '.5em',
+                      maxWidth: '130px',
                     }}
                   />
+                </Box>
+                <Box data-testid="ContractBid-ContractorInfo-Static__DefaultPayWrapper">
                   <TextField
+                    data-testid="ContractBid-ContractorInfo-Static__DefaultPay"
                     size="small"
                     label="Default Pay"
                     value={contract.defaultPay}
@@ -415,94 +463,225 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                         </InputAdornment>
                       ),
                     }}
+                    sx={{
+                      maxWidth: '130px',
+                    }}
                   />
                 </Box>
               </Box>
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <Typography>Contractors</Typography>
-                <Typography>
-                  Max Contractors: <Typography>{contract.contractorLimit}</Typography>
+              <Box
+                data-testid="ContractBid-ContractorInfo-Static__ContractorsWrapper"
+                sx={{ display: 'flex', flexDirection: 'column' }}
+              >
+                <Typography
+                  data-testid="ContractBid-ContractorInfo-Static-Contractors__Title"
+                  variant="body2"
+                  align="center"
+                  sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+                >
+                  Contractors
                 </Typography>
-                <Typography>
-                  Active Contractors: <Typography>X</Typography>
+                <Typography
+                  data-testid="ContractBid-ContractorInfo-Static-Contractors__MaxContractors__Title"
+                  variant="body2"
+                  align="center"
+                  sx={{
+                    display: 'inline-flex',
+                    fontWeight: 'bold',
+                    fontSize: '.80em',
+                    color: 'text.secondary',
+                    alignItems: 'center',
+                    mt: '.5em',
+                  }}
+                >
+                  Max Contractors:&nbsp;
+                  <Typography
+                    data-testid="ContractBid-ContractorInfo-Static-Contractors__MaxContractors__Count"
+                    variant="body2"
+                    sx={{
+                      fontWeight: 'bold',
+                      color: 'secondary.main',
+                    }}
+                  >
+                    {contract.contractorLimit}
+                  </Typography>
+                </Typography>
+                <Typography
+                  data-testid="ContractBid-ContractorInfo-Static-Contractors__ActiveContractors__Title"
+                  variant="body2"
+                  align="center"
+                  sx={{
+                    display: 'inline-flex',
+                    fontWeight: 'bold',
+                    fontSize: '.80em',
+                    color: 'text.secondary',
+                    alignItems: 'center',
+                    mt: '.5em',
+                  }}
+                >
+                  Active Contractors:&nbsp;
+                  <Typography
+                    data-testid="ContractBid-ContractorInfo-Static-Contractors__ActiveContractors__Count"
+                    variant="body2"
+                    sx={{
+                      fontWeight: 'bold',
+                      color: 'secondary.main',
+                    }}
+                  >
+                    X
+                  </Typography>
                 </Typography>
               </Box>
             </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Typography>Locations</Typography>
+            <Box
+              data-testid="ContractBid-ContractorInfo-Static__LocationsWrapper"
+              sx={{ display: 'flex', flexDirection: 'column' }}
+            >
+              <Typography
+                data-testid="ContractBid-ContractorInfo-Static-Locations__Title"
+                variant="body2"
+                align="center"
+                sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+              >
+                Locations
+              </Typography>
               <Box
-                data-testid="ContractDisplay-Locations__LocationsListWrapper"
+                data-testid="ContractBid-ContractorInfo-Static-Locations__ListWrapper"
                 sx={{
-                  mb: '.5em',
+                  mt: '.5em',
                   width: '100%',
                 }}
               >
-                <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                <Box
+                  data-testid="ContractBid-ContractorInfo-Static-Locations__TopContainer"
+                  sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}
+                >
                   <Box
-                    data-testid="ContractDisplay-Locations__StartLocationWrapper"
+                    data-testid="ContractBid-ContractorInfo-Static-Locations__StartWrapper"
                     sx={{
                       backgroundColor: 'rgba(14,49,141,.25)',
                       borderRadius: '10px',
                       mx: '.5em',
                       p: '.2em',
+                      display: 'flex',
+                      flexDirection: 'column',
                     }}
                   >
                     <Typography
-                      data-testid="ContractDisplay-Locations-StartLocation__Title"
+                      data-testid="ContractBid-ContractorInfo-Static-Locations-Start__Title"
                       variant="body2"
                       align="center"
                       sx={{
-                        fontWeight: 'bold',
+                        color: 'text.secondary',
                       }}
                     >
                       Start Location
                     </Typography>
-                    <LocationChip locationId="Start" />
+                    <Box
+                      data-testid="ContractBid-ContractorInfo-Static-Locations-Start__ChipWrapper"
+                      sx={{ mx: 'auto' }}
+                    >
+                      <LocationChip locationId="Start" />
+                    </Box>
                   </Box>
                   <Box
-                    data-testid="ContractDisplay-Locations__EndLocationWrapper"
+                    data-testid="ContractBid-ContractorInfo-Static-Locations__EndWrapper"
                     sx={{
                       backgroundColor: 'rgba(14,49,141,.25)',
                       borderRadius: '10px',
-                      mt: '.5em',
+                      p: '.2em',
                       mx: '.5em',
                       justifyContent: 'center',
+                      display: 'flex',
+                      flexDirection: 'column',
                     }}
                   >
                     <Typography
-                      data-testid="ContractDisplay-Locations-StartLocation__Title"
+                      data-testid="ContractBid-ContractorInfo-Static-Locations-End__Title"
                       variant="body2"
                       align="center"
                       sx={{
-                        fontWeight: 'bold',
+                        color: 'text.secondary',
                       }}
                     >
                       End Location
                     </Typography>
-                    <LocationChip locationId="End" />
+                    <Box
+                      data-testid="ContractBid-ContractorInfo-Static-Locations-End__ChipWrapper"
+                      sx={{ mx: 'auto' }}
+                    >
+                      <LocationChip locationId="End" />
+                    </Box>
                   </Box>
                 </Box>
                 <Box
-                  data-testid="ContractDisplay-Locations__OtherLocationsWrapper"
+                  data-testid="ContractBid-ContractorInfo-Static-Locations__OtherContainer"
                   sx={{
-                    backgroundColor: 'rgba(14,49,141,.25)',
-                    borderRadius: '10px',
                     mt: '.5em',
                     mx: '.5em',
-                    justifyContent: 'center',
                   }}
                 >
-                  <Typography
-                    data-testid="ContractDisplay-Locations-StartLocation__Title"
-                    variant="body2"
-                    align="center"
+                  <Box
+                    data-testid="ContractBid-ContractorInfo-Static-Locations-Other__Wrapper"
                     sx={{
-                      fontWeight: 'bold',
+                      backgroundColor: 'rgba(14,49,141,.25)',
+                      borderRadius: '10px',
+                      justifyContent: 'center',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      maxWidth: '75%',
+                      mx: 'auto',
+                      p: '.2em',
                     }}
                   >
-                    Other Locations
-                  </Typography>
-                  <LocationChip locationId="Other" />
+                    <Typography
+                      data-testid="ContractBid-ContractorInfo-Static-Other__Title"
+                      variant="body2"
+                      align="center"
+                      sx={{
+                        color: 'text.secondary',
+                        mb: '.2em',
+                      }}
+                    >
+                      Other Locations
+                    </Typography>
+                    <Box
+                      data-testid="ContractBid-ContractorInfo-Static-Other__ListWrapper"
+                      sx={{ width: '100%', display: 'flex', flexDirection: 'row' }}
+                    >
+                      <IconButton
+                        data-testid="ContractBid-ContractorInfo-Static-Locations-List__BackButton"
+                        size="small"
+                        sx={{
+                          ml: '1em',
+                        }}
+                      >
+                        <ArrowLeft />
+                      </IconButton>
+                      <Box
+                        data-testid="ContractBid-ContractorInfo-Static-Other__ChipWrapper"
+                        sx={{ mx: 'auto', display: 'inline-flex', alignItems: 'center' }}
+                      >
+                        <Typography
+                          data-testid="ContractBid-ContractorInfo-Static-Other__Index"
+                          variant="body2"
+                          sx={{ color: 'text.secondary' }}
+                        >
+                          X.&nbsp;
+                        </Typography>
+                        <LocationChip locationId="Other" />
+                      </Box>
+                      <IconButton
+                        data-testid="ContractBid-ContractorInfo-Static-Locations-List__ForwardButton"
+                        size="small"
+                        sx={{
+                          mr: '1em',
+                        }}
+                      >
+                        <ArrowRight />
+                      </IconButton>
+                    </Box>
+                  </Box>
                 </Box>
               </Box>
             </Box>
