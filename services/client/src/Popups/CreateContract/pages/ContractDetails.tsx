@@ -242,7 +242,10 @@ export const ContractDetails: React.FC<{
                 <TextField {...params} label="SubType" size="small" />
               )}
               onChange={(_e, newValue) => {
-                setFormData({ ...formData, subtype: newValue ?? '' });
+                setFormData({
+                  ...formData,
+                  subtype: (newValue as ContractSubType) ?? '',
+                });
                 handleTypeSelect(newValue ?? '');
               }}
               fullWidth
