@@ -29,7 +29,8 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
-import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { postContractBid } from '@Redux/Slices/Contracts/actions/postContractBid';
+import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -230,8 +231,9 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
 
   const handleSubmitBid = React.useCallback(() => {
     if (negotiateForm == null) {
-      
+      dispatch(postContractBid(contract.id));
     }
+    dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
     return;
   }, []);
 
@@ -240,7 +242,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
       name={POPUP_SUBMIT_CONTRACT_BID}
       title="Submit Bid"
       submitText="Submit Bid"
-      onSubmit={() => {}}
+      onSubmit={handleSubmitBid}
       data-testid="ContractBid"
     >
       <Box data-testid="ContractBid__Wrapper">
