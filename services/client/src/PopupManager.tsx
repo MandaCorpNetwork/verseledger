@@ -1,4 +1,5 @@
 import {
+  ContractBidProps,
   POPUP_SUBMIT_CONTRACT_BID,
   SubmitContractBid,
 } from '@Popups/Contracts/ContractBid';
@@ -71,7 +72,9 @@ export const PopupManager: React.FC = () => {
       {archetypeInfoPopup.open && (
         <ArchetypeInfoPopup {...(archetypeInfoPopup.props as ArchetypeInfoProps)} />
       )}
-      {submitContractBidPopup.open && <SubmitContractBid />}
+      {submitContractBidPopup.open && (
+        <SubmitContractBid {...(submitContractBidPopup.props as ContractBidProps)} />
+      )}
     </>
   );
 };
