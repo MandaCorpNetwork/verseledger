@@ -1,12 +1,18 @@
-import { Autocomplete, Box, CircularProgress, MenuItem, TextField } from '@mui/material';
+import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
+import {
+  Autocomplete,
+  Avatar,
+  Box,
+  debounce,
+  MenuItem,
+  TextField,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import { TextFieldProps } from '@mui/material/TextField';
-//import { useAnimatedLoadingText } from '@Utils/Hooks/animatedLoadingText';
+import { useAppDispatch } from '@Redux/hooks';
+import { fetchSearchUsers } from '@Redux/Slices/Users/Actions/fetchSearchUsers';
 import React from 'react';
-
-interface User {
-  name: string;
-  avatar: string;
-}
 
 interface UserSearchProps extends Pick<TextFieldProps, 'color' | 'size' | 'variant'> {
   width?: string;
@@ -23,28 +29,38 @@ export const UserSearch: React.FC<UserSearchProps> = ({
   const [inputValue, setInputValue] = React.useState('');
   const [options, setOptions] = React.useState<User[]>([]);
   const [loading, setLoading] = React.useState(false);
+  const dispatch = useAppDispatch();
 
   // UserList Test Fetcher for Component Build
-  React.useEffect(() => {
-    setLoading(true);
+  const handleSearch = React.useCallback(
+    debounce(async (searchTerm: string) => {
+      setLoading(true);
+      try {
+        const searchResults = await dispatch(fetchSearchUsers(searchTerm)).unwrap();
+        setOptions(searchResults);
+      } catch (error) {
+        console.error('Error fetching users', error);
+        setOptions([]);
+      } finally {
+        setLoading(false);
+      }
+    }, 100),
+    [dispatch],
+  );
 
+  React.useEffect(() => {
     if (inputValue.trim().length > 0) {
-      const filteredOptions = userList.filter((user) =>
-        user.name.toLowerCase().includes(inputValue.toLowerCase()),
-      );
-      setOptions(filteredOptions);
+      handleSearch(inputValue);
     } else {
       setOptions([]);
+      setLoading(false);
     }
-
-    setLoading(false);
   }, [inputValue]);
 
   const handleInputFocus = () => {
     setInputValue(''); // Clear input value
+    setLoading(false);
   };
-
-  //const loadingText = useAnimatedLoadingText();
 
   return (
     <Box>
@@ -59,13 +75,17 @@ export const UserSearch: React.FC<UserSearchProps> = ({
         }}
         options={options}
         noOptionsText={
-          //loading
-          //  ? loadingText :
-          inputValue.trim().length > 0 ? 'No Users found' : 'Enter User'
+          loading ? (
+            <LoadingWheel />
+          ) : inputValue.trim().length > 0 ? (
+            'No Users found'
+          ) : (
+            'Enter User'
+          )
         }
         autoHighlight
-        getOptionLabel={(option) => option.name}
-        isOptionEqualToValue={(option, value) => option.name === value.name}
+        getOptionLabel={(option) => option.handle}
+        isOptionEqualToValue={(option, value) => option.handle === value.handle}
         loading={loading}
         renderInput={(params) => (
           <TextField
@@ -79,7 +99,13 @@ export const UserSearch: React.FC<UserSearchProps> = ({
               ...params.InputProps,
               endAdornment: (
                 <React.Fragment>
-                  {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                  {loading ? (
+                    <LoadingWheel
+                      logoSize={18}
+                      wheelSize={33}
+                      boxSX={{ marginRight: '.5em' }}
+                    />
+                  ) : null}
                   {params.InputProps.endAdornment}
                 </React.Fragment>
               ),
@@ -88,7 +114,10 @@ export const UserSearch: React.FC<UserSearchProps> = ({
         )}
         renderOption={(props, option) => (
           <MenuItem {...props} sx={{ display: 'flex' }}>
-            {option.name}
+            <Avatar src={option.pfp} sx={{ width: 25, height: 25, mr: '.5em' }} />
+            <Tooltip title={option.handle}>
+              <Typography variant="body2" noWrap>{`@${option.handle}`}</Typography>
+            </Tooltip>
           </MenuItem>
         )}
         sx={{
@@ -98,19 +127,3 @@ export const UserSearch: React.FC<UserSearchProps> = ({
     </Box>
   );
 };
-
-const userList: User[] = [
-  { name: 'Abb', avatar: '/static/images/avatar/1.jpg' },
-  { name: 'Tooba', avatar: '/static/images/avatar/2.jpg' },
-  { name: 'Net', avatar: '/static/images/avatar/3.jpg' },
-  { name: 'Feul', avatar: '/static/images/avatar/4.jpg' },
-  { name: 'Kool', avatar: '/static/images/avatar/5.jpg' },
-  { name: 'Nrum', avatar: '/static/images/avatar/6.jpg' },
-  { name: 'Trum', avatar: '/static/images/avatar/1.jpg' },
-  { name: 'Lioo', avatar: '/static/images/avatar/2.jpg' },
-  { name: 'Uii', avatar: '/static/images/avatar/2.jpg' },
-  { name: 'Ioo', avatar: '/static/images/avatar/2.jpg' },
-  { name: 'ThreeCrown', avatar: '/static/images/avatar/2.jpg' },
-  { name: 'Skippa', avatar: '/static/images/avatar/2.jpg' },
-  { name: 'Snow_E', avatar: '/static/images/avatar/2.jpg' },
-];

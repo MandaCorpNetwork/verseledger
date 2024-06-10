@@ -10,6 +10,7 @@ import { stepConnectorClasses } from '@mui/material/StepConnector';
 import { styled } from '@mui/material/styles';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
+import { postNewContract } from '@Redux/Slices/Contracts/actions/postNewContract';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { useCallback, useState } from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -85,17 +86,34 @@ const ColorlibConnector = styled(StepConnector)(() => ({
 }));
 export const CreateContractPopup: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [page, setPage] = useState(3);
+  const [page, setPage] = useState(0);
+
   const onSubmit = useCallback(() => {
-    if (page >= 4) dispatch(closePopup(POPUP_CREATE_CONTRACT));
+    if (page >= 4) {
+      dispatch(closePopup(POPUP_CREATE_CONTRACT));
+      dispatch(postNewContract(formData));
+    }
     setPage(Math.min(page + 1, steps.length));
   }, [page]);
+
   const onCancel = useCallback(() => {
     setPage(Math.max(page - 1, 0));
   }, [page]);
+
   const [formData, setFormData] = useState<IContract>({
     locations: [] as string[],
+    payStructure: 'FLATRATE',
   } as IContract);
+
+  //Placeholder State For Contract Bids Backend
+  const [invites, setInvites] = React.useState<User[]>([]);
+
+  const handleUserInvite = React.useCallback((selectedUser: User | null) => {
+    if (selectedUser) {
+      setInvites((invites) => [...invites, selectedUser]);
+    }
+  }, []);
+
   const isSubmitEnabled = React.useMemo(() => {
     console.log(formData);
     switch (page) {
@@ -114,10 +132,13 @@ export const CreateContractPopup: React.FC = () => {
       case 2:
         return formData.locations != null && formData.locations.length != 0;
       case 3:
+        return true;
       case 4:
+        return formData.payStructure != null && formData.defaultPay != null;
     }
     return false;
   }, [formData, page]);
+
   return (
     <VLPopup
       minWidth="800px"
@@ -130,7 +151,7 @@ export const CreateContractPopup: React.FC = () => {
       cancelDisabled={page <= 0}
       onSubmit={onSubmit}
       submitDisabled={!isSubmitEnabled}
-      submitText={page >= 4 ? 'Send' : 'Next'}
+      submitText={page >= 4 ? 'Submit' : 'Next'}
     >
       <Box data-testid="ContractForm__Container-Stepper">
         <Stepper activeStep={page} connector={<ColorlibConnector />} alternativeLabel>
@@ -156,7 +177,14 @@ export const CreateContractPopup: React.FC = () => {
         {page === 0 && <ContractDetails formData={formData} setFormData={setFormData} />}
         {page === 1 && <TimeInformation formData={formData} setFormData={setFormData} />}
         {page === 2 && <Locations formData={formData} setFormData={setFormData} />}
-        {page === 3 && <Contractors formData={formData} setFormData={setFormData} />}
+        {page === 3 && (
+          <Contractors
+            formData={formData}
+            setFormData={setFormData}
+            invites={invites}
+            setInvites={handleUserInvite}
+          />
+        )}
         {page === 4 && <Payroll formData={formData} setFormData={setFormData} />}
       </Box>
     </VLPopup>
