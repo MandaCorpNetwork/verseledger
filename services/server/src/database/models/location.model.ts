@@ -1,5 +1,6 @@
 import {
   AllowNull,
+  BelongsToMany,
   Column,
   DataType,
   Default,
@@ -8,6 +9,8 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { IdUtil } from '@/utils/IdUtil';
+import { ContractLocation } from './contract_locations.model';
+import { Contract } from './contract.model';
 
 @Table({ tableName: 'locations', timestamps: true })
 export class Location extends Model {
@@ -52,6 +55,9 @@ export class Location extends Model {
 
   @Column({ type: DataType.BOOLEAN })
   declare QT: boolean;
+
+  @BelongsToMany(() => Contract, { through: () => ContractLocation, uniqueKey: 'location_id' })
+  declare contracts: Contract[];
 
   declare readonly createdAt: Date;
   declare readonly updatedAt: Date;
