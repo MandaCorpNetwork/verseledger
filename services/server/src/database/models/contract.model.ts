@@ -24,6 +24,7 @@ import { NonAttribute } from 'sequelize';
 import { Organization } from './organization.model';
 import { OwnerType } from '@/utils/OwnerType';
 import { Location } from './location.model';
+import { ContractLocation } from './contract_locations.model';
 @Scopes(() => ({
   bids: { include: [{ model: ContractBid, as: 'Bids', include: ['User'] }] },
   owner: { include: [{ model: User, as: 'Owner' }] },
@@ -129,8 +130,8 @@ export class Contract extends Model implements IContract {
   @HasMany(() => ContractBid, 'contract_id')
   declare Bids: Awaited<ContractBid>[];
 
-  @BelongsToMany(() => Location, 'contract_location')
-  declare Locations: Awaited<Location>[];
+  @BelongsToMany(() => Location, { through: () => ContractLocation, uniqueKey: 'contract_id' })
+  declare locations: Location[];
 
   declare createdAt: Date;
   declare updatedAt: Date;
