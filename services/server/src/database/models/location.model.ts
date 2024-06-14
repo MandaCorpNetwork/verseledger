@@ -56,8 +56,11 @@ export class Location extends Model {
   @Column({ type: DataType.BOOLEAN })
   declare QT: boolean;
 
-  @BelongsToMany(() => Contract, { through: () => ContractLocation, uniqueKey: 'location_id' })
-  declare contracts: Contract[];
+  @BelongsToMany(() => Contract, {
+    through: () => ContractLocation,
+    uniqueKey: 'location_id',
+  })
+  declare Contracts: Contract[];
 
   declare readonly createdAt: Date;
   declare readonly updatedAt: Date;

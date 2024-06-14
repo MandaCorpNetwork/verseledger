@@ -1,6 +1,12 @@
-import { LogisticsIcon, SecurityIcon, SalvageIcon, RRRIcon, FleetIcon } from "@Common/Definitions/CustomIcons";
-import { Explore, Factory, LocalHospital, VisibilityOff } from "@mui/icons-material";
-import { Box, Chip } from "@mui/material";
+import {
+  FleetIcon,
+  LogisticsIcon,
+  RRRIcon,
+  SalvageIcon,
+  SecurityIcon,
+} from '@Common/Definitions/CustomIcons';
+import { Explore, Factory, LocalHospital, VisibilityOff } from '@mui/icons-material';
+import { Box, Chip } from '@mui/material';
 
 const options = [
   {
@@ -158,11 +164,11 @@ const options = [
     ],
   },
 ];
-
+console.log(options);
 export const ArchetypeChip: React.FC<unknown> = () => {
   return (
     <Box>
-      <Chip  />
+      <Chip />
     </Box>
   );
 };

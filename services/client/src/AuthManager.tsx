@@ -7,6 +7,7 @@ import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import { useCallback, useEffect } from 'react';
 import { useSubscription } from 'react-stomp-hooks';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 export const AuthManager: React.FC = () => {
   const dispatch = useAppDispatch();

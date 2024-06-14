@@ -9,7 +9,7 @@ export const POPUP_PAY_STRUCTURES = 'payStructures';
 export const PayStructuresPopup: React.FC = () => {
   const [payTypeTab, setPayTypeTab] = React.useState('flat');
 
-  const handlePayTabChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handlePayTabChange = (_event: React.SyntheticEvent, newValue: string) => {
     setPayTypeTab(newValue);
   };
 

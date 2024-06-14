@@ -14,6 +14,7 @@ import { postNewContract } from '@Redux/Slices/Contracts/actions/postNewContract
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { useCallback, useState } from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { ContractDetails } from './pages/ContractDetails';
 import { Contractors } from './pages/Contractors';
@@ -101,7 +102,7 @@ export const CreateContractPopup: React.FC = () => {
   }, [page]);
 
   const [formData, setFormData] = useState<IContract>({
-    locations: [] as string[],
+    Locations: [] as ILocation[],
     payStructure: 'FLATRATE',
   } as IContract);
 
@@ -130,7 +131,7 @@ export const CreateContractPopup: React.FC = () => {
       case 1:
         return true;
       case 2:
-        return formData.locations != null && formData.locations.length != 0;
+        return formData.Locations != null && formData.Locations?.length != 0;
       case 3:
         return true;
       case 4:

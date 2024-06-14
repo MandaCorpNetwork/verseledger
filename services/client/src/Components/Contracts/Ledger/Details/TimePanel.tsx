@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
+import { IContractTimestamped } from 'vl-shared/src/schemas/ContractSchema';
 
 type TimePanelProps = {
   contractId: string | null;
@@ -24,7 +25,7 @@ export const BidPanel: React.FC<TimePanelProps> = ({ contractId }) => {
 
   const timeProgress = React.useCallback(() => {
     const now = dayjs();
-    const updatedTime = dayjs(contract.updatedAt);
+    const updatedTime = dayjs((contract as IContractTimestamped).updatedAt);
     const totalTime = bidTime.diff(updatedTime);
     const elapsedTime = now.diff(updatedTime);
     const progress = (elapsedTime / totalTime) * 100;
@@ -107,7 +108,7 @@ export const StartPanel: React.FC<TimePanelProps> = ({ contractId }) => {
 
   const tillStartProgress = React.useCallback(() => {
     const now = dayjs();
-    const createdTime = dayjs(contract?.createdAt);
+    const createdTime = dayjs((contract as IContractTimestamped)?.createdAt);
     const totalTime = startDate.diff(createdTime);
     const elapsedTime = now.diff(createdTime);
     const progress = (elapsedTime / totalTime) * 100;
@@ -256,7 +257,7 @@ export const EndPanel: React.FC<TimePanelProps> = ({ contractId }) => {
   const contract = useAppSelector((root) => pickContract(root, contractId as string));
   const [isBidStart, setBidStart] = React.useState(false);
   const endDate = dayjs(contract?.endDate);
-  const createdDate = dayjs(contract?.createdAt);
+  const createdDate = dayjs((contract as IContractTimestamped)?.createdAt);
 
   React.useEffect(() => {
     const status = contract?.status;

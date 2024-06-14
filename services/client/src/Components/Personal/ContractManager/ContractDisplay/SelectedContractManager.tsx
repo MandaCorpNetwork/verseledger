@@ -60,7 +60,7 @@ export const SelectedContractManager: React.FC<unknown> = () => {
 
   const [contractManagerTab, setContractManagerTab] = useState<string>('contractors');
 
-  const handleContractManageView = (event: React.SyntheticEvent, newValue: string) => {
+  const handleContractManageView = (_event: React.SyntheticEvent, newValue: string) => {
     setContractManagerTab(newValue);
   };
   return (
