@@ -6,4 +6,5 @@ export const TYPES = {
   AuthMiddleware: Symbol.for('AuthMiddleware'),
   VerifiedUserMiddleware: Symbol.for('VerifiedUserMiddleware'),
   StompService: Symbol.for('StompService'),
+  TestingMiddleware: Symbol.for('TestingMiddleware'),
 };

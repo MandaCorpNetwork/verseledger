@@ -17,7 +17,8 @@
     "test:server": "yarn manypkg run server test",
     "resetdb": "cd scripts && setup-local-db.bat",
     "migrate": "./.flyway/flyway -configFiles=./flyway.user.toml -environment=vl-db migrate",
-    "cypress:develop": "yarn manypkg run client cypress open --browser chrome"
+    "cypress:develop": "yarn manypkg run client cypress open --browser chrome",
+    "cypress": "yarn manypkg run client cypress run --browser chrome"
   },
   "dependencies": {
     "@babel/core": "7.24.6",

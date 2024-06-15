@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import './database/connection';
+import { setupModels } from './database/connection';
 import { json, urlencoded, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import '@Controllers/v1';
@@ -16,6 +16,7 @@ import { NotFoundError } from '@Errors/NotFoundError';
 export const createServer = () => {
   bindContainer(container);
   const env = new EnvService();
+  setupModels(env);
   const server = new InversifyExpressServer(
     container,
     null,

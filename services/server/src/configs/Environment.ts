@@ -47,6 +47,12 @@ export const envConfig = {
     optional: true,
     default: 3030,
   },
+  AUTH_SECRET: {
+    type: 'string',
+    description: "openssl rand -base64 172 | tr -d '\\n'",
+    optional: false,
+    default: null,
+  },
 } as const;
 
 export type EnvironmentConfig = {

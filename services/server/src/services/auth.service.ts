@@ -12,9 +12,13 @@ export class AuthService {
     let decoded!: string | jwt.JwtPayload;
     try {
       //TODO: CHANGE THIS SECRET
-      decoded = jwt.verify(token, '%%PLACEHOLDER_TOKEN%%', {
-        algorithms: ['HS512'],
-      });
+      decoded = jwt.verify(
+        token,
+        Buffer.from(this._envars.AUTH_SECRET, 'base64'),
+        {
+          algorithms: ['HS512'],
+        },
+      );
     } catch (_) {
       return null;
     }
@@ -29,9 +33,13 @@ export class AuthService {
     let decoded!: string | jwt.JwtPayload;
     try {
       //TODO: CHANGE THIS SECRET
-      decoded = jwt.verify(token, '%%PLACEHOLDER_TOKEN%%', {
-        algorithms: ['HS512'],
-      });
+      decoded = jwt.verify(
+        token,
+        Buffer.from(this._envars.AUTH_SECRET, 'base64'),
+        {
+          algorithms: ['HS512'],
+        },
+      );
     } catch (_) {
       return null;
     }
@@ -51,17 +59,21 @@ export class AuthService {
   async signUser(user: string) {
     const jwtid = IdUtil.generateSystemID();
     return {
-      accessToken: jwt.sign({ id: user }, '%%PLACEHOLDER_TOKEN%%', {
-        algorithm: 'HS512',
-        jwtid,
-        audience: 'verseledger.space',
-        issuer: 'api.verseledger.space',
-        expiresIn: '1h',
-        subject: String(user),
-      }),
+      accessToken: jwt.sign(
+        { id: user },
+        Buffer.from(this._envars.AUTH_SECRET, 'base64'),
+        {
+          algorithm: 'HS512',
+          jwtid,
+          audience: 'verseledger.space',
+          issuer: 'api.verseledger.space',
+          expiresIn: '1h',
+          subject: String(user),
+        },
+      ),
       refreshToken: jwt.sign(
         { id: user, refresh: true },
-        '%%PLACEHOLDER_TOKEN%%',
+        Buffer.from(this._envars.AUTH_SECRET, 'base64'),
         {
           algorithm: 'HS512',
           jwtid,

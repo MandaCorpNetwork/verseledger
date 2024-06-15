@@ -16,6 +16,8 @@ export class EnvService implements EnvironmentConfig {
   public MYSQL_PORT!: number;
 
   public EXPRESS_PORT!: number;
+
+  public AUTH_SECRET!: string;
   // SERVICE CODE
   constructor() {
     const env = process.env;
