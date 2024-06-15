@@ -22,7 +22,7 @@ export const FlatRatePayroll: React.FC<{
         type="number"
         color="secondary"
         value={formData.defaultPay}
-        onChange={(e) => onChange(+e.currentTarget.value)}
+        onChange={(e) => onChange(+e.target.value)}
         InputProps={{ startAdornment: '¤' }}
         sx={{
           width: '150px',
