@@ -25,7 +25,7 @@ export const Locations: React.FC<{
     (locationId: string) => {
       setFormData((formData) => ({
         ...formData,
-        Locations: formData.Locations?.filter(({ id }) => id !== locationId),
+        Locations: formData.Locations?.filter((id) => id !== locationId),
       }));
     },
     [setFormData],
@@ -153,7 +153,7 @@ export const Locations: React.FC<{
                     },
                   }}
                 >
-                  {formData.Locations?.slice(1, -1).map(({ id }) => (
+                  {formData.Locations?.slice(1, -1).map((id) => (
                     <LocationChip
                       locationId={id}
                       onDelete={handleRemoveLocation}

@@ -105,7 +105,9 @@ export const CreateContractPopup: React.FC = () => {
     Locations: [],
     payStructure: 'FLATRATE',
     contractorLimit: 1,
-    defaultPay: 25,
+    defaultPay: 1,
+    //DOES NOT WORK WITHOUT MANUALLY SETTING DEFAULT PAY
+    //BUG NEEDS FIXED
   } as unknown as ICreateContractBody);
 
   //Placeholder State For Contract Bids Backend
