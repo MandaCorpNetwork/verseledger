@@ -28,6 +28,7 @@ import { ContractLocation } from './contract_locations.model';
 @Scopes(() => ({
   bids: { include: [{ model: ContractBid, as: 'Bids', include: ['User'] }] },
   owner: { include: [{ model: User, as: 'Owner' }] },
+  locations: { include: [{ model: Location, as: 'Locations' }] },
 }))
 @DefaultScope(() => ({
   attributes: {
@@ -130,8 +131,11 @@ export class Contract extends Model implements IContract {
   @HasMany(() => ContractBid, 'contract_id')
   declare Bids: Awaited<ContractBid>[];
 
-  @BelongsToMany(() => Location, { through: () => ContractLocation, uniqueKey: 'contract_id' })
-  declare locations: Location[];
+  @BelongsToMany(() => Location, {
+    through: () => ContractLocation,
+    uniqueKey: 'contract_id',
+  })
+  declare Locations: Awaited<Location>[];
 
   declare createdAt: Date;
   declare updatedAt: Date;

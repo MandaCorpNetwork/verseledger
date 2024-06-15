@@ -12,7 +12,7 @@ type LocationFilterProps = {
 
 export const LocationsFilter: React.FC<LocationFilterProps> = ({ size }) => {
   const [filters, setFilters] = useURLQuery();
-  const handleChange = (event: React.SyntheticEvent, newValue: { label: string }[]) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: { label: string }[]) => {
     setFilters(
       QueryNames.Locations,
       newValue.map((v) => v.label),

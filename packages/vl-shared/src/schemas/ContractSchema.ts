@@ -2,6 +2,8 @@ import { z } from "zod";
 import { ITimestamped, TimestampedSchema } from "./TimestampedSchema";
 import { ContractSubTypeSchema } from "./ContractSubTypeSchema";
 import { ContractPayStructureSchema } from "./ContractPayStructureSchema";
+import { LocationSchema } from "./LocationSchema";
+import { UserSchema } from "./UserSchema";
 
 export const ContractSchema = z.object({
   id: z.string().max(26),
@@ -13,7 +15,6 @@ export const ContractSchema = z.object({
   startDate: z.coerce.date().optional(),
   endDate: z.coerce.date().optional(),
   isEmergency: z.boolean().default(false),
-  locations: z.array(z.string()),
   ratingLimit: z.number().int().optional(),
   contractorLimit: z.number().int().positive().max(255),
   payStructure: ContractPayStructureSchema,
@@ -21,9 +22,14 @@ export const ContractSchema = z.object({
   isBonusPay: z.boolean().default(false),
   defaultPay: z.number().positive(),
   status: z.string(),
+  Locations: z.array(LocationSchema).optional(),
 });
 
 export type IContract = z.infer<typeof ContractSchema>;
+
+const ContractWithOwnerSchema = ContractSchema.extend({ Owner: UserSchema });
+
+export type IContractWithOwner = z.infer<typeof ContractWithOwnerSchema>;
 
 export const ContractTimestampedSchema = z.union([
   ContractSchema,
@@ -32,9 +38,10 @@ export const ContractTimestampedSchema = z.union([
 
 export type IContractTimestamped = IContract & ITimestamped; // To allow type mixing
 
-const CreateContractBodySchema = ContractSchema.omit({
+export const CreateContractBodySchema = ContractSchema.omit({
   id: true,
   owner_id: true,
   status: true,
-});
+  Locations: true,
+}).extend({ Locations: z.array(z.string()).optional() });
 export type ICreateContractBody = z.infer<typeof CreateContractBodySchema>;

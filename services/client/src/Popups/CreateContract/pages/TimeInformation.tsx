@@ -29,7 +29,7 @@ export const TimeInformation: React.FC<{
         const startDate = bidDate.add(10, 'second').toDate();
         setFormData({ ...formData, startDate: startDate ?? null });
       } else {
-        setFormData({ ...formData, startDate: null });
+        setFormData({ ...formData, startDate: undefined });
       }
       return newChecked;
     });
@@ -96,7 +96,7 @@ export const TimeInformation: React.FC<{
             <TextField
               label="Bid Date"
               color="secondary"
-              value={formatDate(formData.bidDate)}
+              value={formatDate(formData.bidDate as Date)}
               inputProps={{ style: { textAlign: 'center' } }}
               InputProps={{
                 readOnly: true,
@@ -115,7 +115,7 @@ export const TimeInformation: React.FC<{
             <TextField
               label="Start Date"
               color="secondary"
-              value={formatDate(formData.startDate)}
+              value={formatDate(formData.startDate as Date)}
               inputProps={{ style: { textAlign: 'center' } }}
               InputProps={{
                 readOnly: true,
@@ -134,7 +134,7 @@ export const TimeInformation: React.FC<{
             <TextField
               label="End Date"
               color="secondary"
-              value={formatDate(formData.endDate)}
+              value={formatDate(formData.endDate as Date)}
               inputProps={{ style: { textAlign: 'center' } }}
               InputProps={{
                 readOnly: true,

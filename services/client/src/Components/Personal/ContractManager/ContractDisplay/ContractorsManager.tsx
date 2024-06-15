@@ -267,8 +267,8 @@ export const ContractorsManager: React.FC<unknown> = () => {
 };
 
 const testContractorsDB = {
-  1: {
-    id: 1,
+  '1': {
+    id: '1',
     name: 'Test User',
     profilePicture: '@/Assets/testprofile.png',
     isAccepted: false,
@@ -277,8 +277,8 @@ const testContractorsDB = {
     role: 'null',
     pay: 'null',
   },
-  2: {
-    id: 2,
+  '2': {
+    id: '2',
     name: 'Test User 2',
     profilePicture: '@/Assets/testprofile.png',
     isAccepted: false,
@@ -287,8 +287,8 @@ const testContractorsDB = {
     role: 'null',
     pay: 'null',
   },
-  3: {
-    id: 3,
+  '3': {
+    id: '3',
     name: 'Test User 3',
     profilePicture: '@/Assets/testprofile.png',
     isAccepted: false,
@@ -297,8 +297,8 @@ const testContractorsDB = {
     role: 'null',
     pay: 'null',
   },
-  4: {
-    id: 4,
+  '4': {
+    id: '4',
     name: 'Test User 4',
     profilePicture: '@/Assets/testprofile.png',
     isAccepted: false,
@@ -307,8 +307,8 @@ const testContractorsDB = {
     role: 'null',
     pay: 'null',
   },
-  5: {
-    id: 5,
+  '5': {
+    id: '5',
     name: 'Test User 5',
     profilePicture: '@/Assets/testprofile.png',
     isAccepted: false,
@@ -317,8 +317,8 @@ const testContractorsDB = {
     role: 'null',
     pay: 'null',
   },
-  6: {
-    id: 6,
+  '6': {
+    id: '6',
     name: 'Test User 6',
     profilePicture: '@/Assets/testprofile.png',
     isAccepted: false,
@@ -327,8 +327,8 @@ const testContractorsDB = {
     role: 'null',
     pay: 'null',
   },
-  7: {
-    id: 7,
+  '7': {
+    id: '7',
     name: 'Test User 7',
     profilePicture: '@/Assets/testprofile.png',
     isAccepted: false,
@@ -337,8 +337,8 @@ const testContractorsDB = {
     role: 'null',
     pay: 'null',
   },
-  8: {
-    id: 8,
+  '8': {
+    id: '8',
     name: 'Test User 8',
     profilePicture: '@/Assets/testprofile.png',
     isAccepted: false,
@@ -347,8 +347,8 @@ const testContractorsDB = {
     role: 'null',
     pay: 'null',
   },
-  9: {
-    id: 9,
+  '9': {
+    id: '9',
     name: 'Test User 9',
     profilePicture: '@/Assets/testprofile.png',
     isAccepted: false,
@@ -357,8 +357,8 @@ const testContractorsDB = {
     role: 'null',
     pay: 'null',
   },
-  10: {
-    id: 10,
+  '10': {
+    id: '10',
     name: 'Test User 10',
     profilePicture: '@/Assets/testprofile.png',
     isAccepted: false,

@@ -51,14 +51,14 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const [timeTab, setTimeTab] = React.useState('bid');
 
   const handleActiveTabChange = React.useCallback(
-    (event: React.SyntheticEvent, value: string) => {
+    (_event: React.SyntheticEvent, value: string) => {
       setActiveDataTab(value);
     },
     [activeDataTab],
   );
 
   const handleTimeTabChange = React.useCallback(
-    (event: React.SyntheticEvent, value: string) => {
+    (_event: React.SyntheticEvent, value: string) => {
       setTimeTab(value);
     },
     [timeTab],

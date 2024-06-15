@@ -1,4 +1,4 @@
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` VARCHAR(26) NOT NULL,
   `handle` varchar(32) COMMENT 'robertspaceindustries community id' NULL,
   `displayName` varchar(32) COMMENT 'robertspaceindustries community id' NULL,

@@ -14,7 +14,7 @@ export const Locations: React.FC<{
       if (selectedLocation == null) return;
       setFormData((formData) => ({
         ...formData,
-        locations: [...formData.locations, selectedLocation.id],
+        locations: [...(formData.Locations ?? []), selectedLocation.id],
       }));
     },
     [setFormData],
@@ -24,7 +24,7 @@ export const Locations: React.FC<{
     (locationId: string) => {
       setFormData((formData) => ({
         ...formData,
-        locations: formData.locations.filter((id) => id !== locationId),
+        locations: formData.Locations?.filter(({ id }) => id !== locationId),
       }));
     },
     [setFormData],
@@ -74,9 +74,9 @@ export const Locations: React.FC<{
                 InputProps={{
                   readOnly: true,
                   startAdornment:
-                    formData.locations.length > 0 ? (
+                    (formData.Locations?.length ?? 0) > 0 ? (
                       <LocationChip
-                        locationId={formData.locations[0]}
+                        locationId={formData.Locations?.[0]?.id as string}
                         onDelete={handleRemoveLocation}
                       />
                     ) : null,
@@ -93,9 +93,12 @@ export const Locations: React.FC<{
                 InputProps={{
                   readOnly: true,
                   startAdornment:
-                    formData.locations.length > 1 ? (
+                    (formData.Locations?.length ?? 0) > 1 ? (
                       <LocationChip
-                        locationId={formData.locations[formData.locations.length - 1]}
+                        locationId={
+                          formData.Locations?.[(formData.Locations?.length ?? 0) - 1]
+                            ?.id as string
+                        }
                         onDelete={handleRemoveLocation}
                       />
                     ) : null,
@@ -106,7 +109,7 @@ export const Locations: React.FC<{
                 }}
               />
             </Box>
-            {formData.locations.length > 2 && (
+            {(formData.Locations?.length ?? 0) > 2 && (
               <Box
                 data-testid="LocationForm__OtherLocation-Output"
                 sx={{
@@ -148,11 +151,11 @@ export const Locations: React.FC<{
                     },
                   }}
                 >
-                  {formData.locations.slice(1, -1).map((locationId) => (
+                  {formData.Locations?.slice(1, -1).map(({ id }) => (
                     <LocationChip
-                      locationId={locationId}
+                      locationId={id}
                       onDelete={handleRemoveLocation}
-                      key={locationId}
+                      key={id}
                     />
                   ))}
                 </Box>

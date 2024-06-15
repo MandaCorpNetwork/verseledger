@@ -13,11 +13,10 @@ import { ContractService } from '@Services/contracts.service';
 import { NextFunction } from 'express';
 import { BodyError } from '@/errors/BodyError';
 import { VLAuthPrincipal } from '@/authProviders/VL.principal';
-import { CreateContractValidator } from '@/validators/contract.validator';
 import { IdUtil } from '@/utils/IdUtil';
 import { BadParameterError } from '@Errors/BadParameter';
 import { NotFoundError } from '@Errors/NotFoundError';
-
+import { CreateContractBodySchema } from 'vl-shared/src/schemas/ContractSchema';
 @controller('/v1/contracts')
 export class ContractController extends BaseHttpController {
   constructor(
@@ -34,7 +33,8 @@ export class ContractController extends BaseHttpController {
   ) {
     try {
       const dto = body;
-      const model = CreateContractValidator.strict().parse(dto);
+      const model = CreateContractBodySchema.strict().parse(dto);
+      console.log(model);
       try {
         const newContract = await this.contractService.createContract({
           ...model,

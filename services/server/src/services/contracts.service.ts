@@ -1,22 +1,19 @@
 import { inject, injectable } from 'inversify';
 import { Contract } from '@Models/contract.model';
 import { ContractBid } from '@Models/contract_bid.model';
-import { User } from '@Models/user.model';
+// import { User } from '@Models/user.model';
 import { StompService } from './stomp.service';
 import { TYPES } from '@/constant/types';
 import { NotFoundError } from '@Errors/NotFoundError';
 import { BadRequestError } from '@Errors/BadRequest';
+import { Location } from '@Models/location.model';
+import { ContractLocation } from '@Models/contract_locations.model';
 
 @injectable()
 export class ContractService {
   @inject(TYPES.StompService) private stomp!: StompService;
   public async getContracts() {
-    return Contract.findAll({
-      include: [
-        { model: User, as: 'Owner' },
-        { model: ContractBid, as: 'Bids', include: ['User'] },
-      ],
-    });
+    return Contract.scope(['locations', 'owner', 'bids']).findAll();
   }
   public async getContract(
     contractId: string,
@@ -28,7 +25,15 @@ export class ContractService {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     contract: any & { owner_id: number },
   ) {
-    const newContract = await Contract.create(contract);
+    const newTempContract = await Contract.create(contract);
+    const locations = contract.Locations ?? ([] as Array<string>);
+    for (const location of locations)
+      await this.addLocationToContract(newTempContract, location);
+    const newContract = (await Contract.scope([
+      'locations',
+      'owner',
+      'bids',
+    ]).findByPk(newTempContract.id)) as Contract;
     this.stomp.client.publish({
       destination: '/topic/newContract',
       body: JSON.stringify(newContract.toJSON()),
@@ -42,6 +47,15 @@ export class ContractService {
     });
     if (bid == null) throw new NotFoundError(bidId);
     return bid;
+  }
+
+  public async addLocationToContract(
+    contract: Contract | string,
+    location: Location | string,
+  ) {
+    const contract_id = typeof contract === 'string' ? contract : contract.id;
+    const location_id = typeof location === 'string' ? location : location.id;
+    return ContractLocation.create({ location_id, contract_id });
   }
 
   public async createBid(contractId: string, userId: string) {

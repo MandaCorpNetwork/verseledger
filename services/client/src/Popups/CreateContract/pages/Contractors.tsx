@@ -67,7 +67,7 @@ export const Contractors: React.FC<{
                 disabled={ratingDisabled}
                 name="read-only"
                 value={formData.ratingLimit}
-                onChange={(e, newValue) => {
+                onChange={(_e, newValue) => {
                   setFormData((formData) => ({
                     ...formData,
                     ratingLimit: newValue ?? 0,
