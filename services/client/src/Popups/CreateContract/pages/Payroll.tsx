@@ -89,7 +89,7 @@ export const Payroll: React.FC<{
         defaultPay: value,
       }));
     },
-    [setFormData],
+    [setFormData, formData],
   );
 
   const handleEvenSplitToggle = React.useCallback(() => {
