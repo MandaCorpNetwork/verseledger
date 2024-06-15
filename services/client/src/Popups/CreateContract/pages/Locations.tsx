@@ -15,7 +15,7 @@ export const Locations: React.FC<{
       if (selectedLocation == null) return;
       setFormData((formData) => ({
         ...formData,
-        locations: [...(formData.Locations ?? []), selectedLocation.id],
+        Locations: [...(formData.Locations ?? []), selectedLocation],
       }));
     },
     [setFormData],
@@ -25,7 +25,7 @@ export const Locations: React.FC<{
     (locationId: string) => {
       setFormData((formData) => ({
         ...formData,
-        locations: formData.Locations?.filter(({ id }) => id !== locationId),
+        Locations: formData.Locations?.filter(({ id }) => id !== locationId),
       }));
     },
     [setFormData],
