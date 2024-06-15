@@ -63,6 +63,7 @@ export const PlayerCardPopup: React.FC<PlayerCardPopupProps> = ({ userid }) => {
         </Box>
         {user != null && user.verified === false && (
           <Button
+            data-testid="PlayerCardPopup__Verify"
             variant="popupButton"
             onClick={() => dispatch(openPopup(POPUP_VERIFY_USER))}
           >

@@ -88,13 +88,15 @@ export const VLAppBar: React.FC<unknown> = () => {
   const renderMenu = (
     <Menu {...bindMenu(profilePopupState)}>
       <MenuItem onClick={handlePlayerCardOpen}>
-        <Typography>Player Card</Typography>
+        <Typography data-testid="AppBar__CurrentUserMenu__PlayerCard">
+          Player Card
+        </Typography>
       </MenuItem>
       <MenuItem onClick={handleUserSettingsOpen}>
-        <Typography>Settings</Typography>
+        <Typography data-testid="AppBar__CurrentUserMenu__Settings">Settings</Typography>
       </MenuItem>
       <MenuItem onClick={profilePopupState.close}>
-        <Typography>Logout</Typography>
+        <Typography data-testid="AppBar__CurrentUserMenu__Logout">Logout</Typography>
       </MenuItem>
     </Menu>
   );
@@ -153,6 +155,7 @@ export const VLAppBar: React.FC<unknown> = () => {
                   </Badge>
                 </IconButton>
                 <IconButton
+                  data-testid="AppBar__CurrentUserButton"
                   size="large"
                   edge="end"
                   aria-label="account of current user"
