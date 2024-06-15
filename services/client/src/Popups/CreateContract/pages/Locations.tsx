@@ -2,11 +2,11 @@ import { LocationChip } from '@Common/Components/App/LocationChip';
 import { LocationSearch } from '@Common/Components/App/LocationSearch';
 import { Box, FormControl, TextField, Typography } from '@mui/material';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 export const Locations: React.FC<{
-  formData: IContract;
-  setFormData: React.Dispatch<React.SetStateAction<IContract>>;
+  formData: ICreateContractBody;
+  setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
 }> = (props) => {
   const { formData, setFormData } = props;
 
@@ -15,7 +15,7 @@ export const Locations: React.FC<{
       if (selectedLocation == null) return;
       setFormData((formData) => ({
         ...formData,
-        Locations: [...(formData.Locations ?? []), selectedLocation],
+        Locations: [...(formData.Locations ?? []), selectedLocation.id as string],
       }));
     },
     [setFormData],
@@ -77,7 +77,7 @@ export const Locations: React.FC<{
                   startAdornment:
                     (formData.Locations?.length ?? 0) > 0 ? (
                       <LocationChip
-                        locationId={formData.Locations?.[0]?.id as string}
+                        locationId={formData.Locations?.[0] as string}
                         onDelete={handleRemoveLocation}
                       />
                     ) : null,
@@ -97,8 +97,9 @@ export const Locations: React.FC<{
                     (formData.Locations?.length ?? 0) > 1 ? (
                       <LocationChip
                         locationId={
-                          formData.Locations?.[(formData.Locations?.length ?? 0) - 1]
-                            ?.id as string
+                          formData.Locations?.[
+                            (formData.Locations?.length ?? 0) - 1
+                          ] as string
                         }
                         onDelete={handleRemoveLocation}
                       />

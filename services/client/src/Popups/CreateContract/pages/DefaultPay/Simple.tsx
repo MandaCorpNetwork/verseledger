@@ -7,10 +7,10 @@ import {
   TextField,
 } from '@mui/material';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
 export const FlatRatePayroll: React.FC<{
-  formData: IContract;
+  formData: ICreateContractBody;
   onChange: (value: number) => void;
 }> = (props) => {
   const { formData, onChange } = props;
@@ -22,7 +22,7 @@ export const FlatRatePayroll: React.FC<{
         type="number"
         color="secondary"
         value={formData.defaultPay}
-        onChange={(e) => onChange(Number(e.target.value))}
+        onChange={(e) => onChange(+e.target.value)}
         InputProps={{ startAdornment: '¤' }}
         sx={{
           width: '150px',
@@ -33,7 +33,7 @@ export const FlatRatePayroll: React.FC<{
 };
 
 export const PoolPayroll: React.FC<{
-  formData: IContract;
+  formData: ICreateContractBody;
   onChange: (value: number) => void;
   evenSplit: boolean;
   setEvenSplit: (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
@@ -78,7 +78,7 @@ export const PoolPayroll: React.FC<{
 };
 
 export const TimedPayroll: React.FC<{
-  formData: IContract;
+  formData: ICreateContractBody;
   onChange: (value: number) => void;
 }> = (props) => {
   const { formData, onChange } = props;

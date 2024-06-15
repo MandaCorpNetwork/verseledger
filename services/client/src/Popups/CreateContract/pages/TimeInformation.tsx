@@ -11,11 +11,11 @@ import {
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
 export const TimeInformation: React.FC<{
-  formData: IContract;
-  setFormData: React.Dispatch<React.SetStateAction<IContract>>;
+  formData: ICreateContractBody;
+  setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
 }> = (props) => {
   const { formData, setFormData } = props;
   const [heldDate, setHeldDate] = React.useState<Date | null>(null);

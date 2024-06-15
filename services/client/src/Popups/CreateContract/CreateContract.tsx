@@ -13,8 +13,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { postNewContract } from '@Redux/Slices/Contracts/actions/postNewContract';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { useCallback, useState } from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
 import { ContractDetails } from './pages/ContractDetails';
 import { Contractors } from './pages/Contractors';
@@ -102,10 +101,12 @@ export const CreateContractPopup: React.FC = () => {
     setPage(Math.max(page - 1, 0));
   }, [page]);
 
-  const [formData, setFormData] = useState<IContract>({
-    Locations: [] as ILocation[],
+  const [formData, setFormData] = useState<ICreateContractBody>({
+    Locations: [],
     payStructure: 'FLATRATE',
-  } as IContract);
+    contractorLimit: 1,
+    defaultPay: 25,
+  } as unknown as ICreateContractBody);
 
   //Placeholder State For Contract Bids Backend
   const [invites, setInvites] = React.useState<User[]>([]);

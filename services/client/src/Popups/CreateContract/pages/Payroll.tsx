@@ -17,7 +17,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
 import { FlatRatePayroll, PoolPayroll, TimedPayroll } from './DefaultPay/Simple';
 
@@ -45,8 +45,8 @@ const RadioControl: React.FC<RadioControlProps> = ({ value, label, disabled }) =
 };
 
 export const Payroll: React.FC<{
-  formData: IContract;
-  setFormData: React.Dispatch<React.SetStateAction<IContract>>;
+  formData: ICreateContractBody;
+  setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
 }> = (props) => {
   const { formData, setFormData } = props;
   const [isComplex, setIsComplex] = React.useState(false);

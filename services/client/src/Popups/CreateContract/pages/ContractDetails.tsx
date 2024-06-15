@@ -19,7 +19,7 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 
 import { EmergencyOverlay } from '../EmergencyOverlay';
@@ -188,8 +188,8 @@ const flatOptions = options.flatMap((option) =>
   }),
 );
 export const ContractDetails: React.FC<{
-  formData: IContract;
-  setFormData: React.Dispatch<React.SetStateAction<IContract>>;
+  formData: ICreateContractBody;
+  setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
 }> = (props) => {
   const dispatch = useAppDispatch();
   const { formData, setFormData } = props;
