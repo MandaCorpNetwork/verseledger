@@ -91,6 +91,7 @@ export const CreateContractPopup: React.FC = () => {
 
   const onSubmit = useCallback(() => {
     if (page >= 4) {
+      console.log(`Submitting Contract: ${JSON.stringify(formData)}`);
       dispatch(closePopup(POPUP_CREATE_CONTRACT));
       dispatch(postNewContract(formData));
     }

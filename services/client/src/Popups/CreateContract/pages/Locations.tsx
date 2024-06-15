@@ -3,6 +3,7 @@ import { LocationSearch } from '@Common/Components/App/LocationSearch';
 import { Box, FormControl, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 export const Locations: React.FC<{
   formData: IContract;
   setFormData: React.Dispatch<React.SetStateAction<IContract>>;
@@ -10,7 +11,7 @@ export const Locations: React.FC<{
   const { formData, setFormData } = props;
 
   const handleLocationSelect = React.useCallback(
-    (selectedLocation: StarMapLocation | null) => {
+    (selectedLocation: ILocation | null) => {
       if (selectedLocation == null) return;
       setFormData((formData) => ({
         ...formData,
