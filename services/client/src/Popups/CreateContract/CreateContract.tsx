@@ -9,9 +9,10 @@ import { Box, Step, StepConnector, StepLabel, Stepper } from '@mui/material';
 import { stepConnectorClasses } from '@mui/material/StepConnector';
 import { styled } from '@mui/material/styles';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
+import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch } from '@Redux/hooks';
 import { postNewContract } from '@Redux/Slices/Contracts/actions/postNewContract';
-import { closePopup } from '@Redux/Slices/Popups/popups.actions';
+import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { useCallback, useState } from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -106,7 +107,17 @@ export const CreateContractPopup: React.FC = () => {
   }, [page, formData]);
 
   const onCancel = useCallback(() => {
-    if (page == 0) return dispatch(closePopup(POPUP_CREATE_CONTRACT));
+    if (page == 0)
+      return dispatch(
+        openPopup(POPUP_YOU_SURE, {
+          title: 'Cancel Contract Creation',
+          subjectText: 'Contract Creation',
+          bodyText: 'Any progress will be lost',
+          onAccept: () => dispatch(closePopup(POPUP_CREATE_CONTRACT)),
+          clickaway: true,
+          testid: 'CreateContractPopup_Cancel',
+        }),
+      );
     setPage(Math.max(page - 1, 0));
   }, [page]);
 
