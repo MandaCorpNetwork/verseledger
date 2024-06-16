@@ -37,8 +37,16 @@ export class ContractBid extends Model {
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare user_id: string;
 
-  @Column({ type: DataType.ENUM('PENDING', 'ACCEPTED', 'REJECTED') })
-  declare status: 'PENDING' | 'ACCEPTED' | 'REJECTED';
+  @Column({
+    type: DataType.ENUM(
+      'PENDING',
+      'ACCEPTED',
+      'REJECTED',
+      'INVITED',
+      'DECLINED',
+    ),
+  })
+  declare status: 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'INVITED' | 'DECLINED';
 
   @BelongsTo(() => User, { foreignKey: 'user_id', targetKey: 'id' })
   declare User: Awaited<User>;

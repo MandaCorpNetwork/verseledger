@@ -17,6 +17,7 @@ import { IdUtil } from '@/utils/IdUtil';
 import { BadParameterError } from '@Errors/BadParameter';
 import { NotFoundError } from '@Errors/NotFoundError';
 import { CreateContractBodySchema } from 'vl-shared/src/schemas/ContractSchema';
+import { z } from 'zod';
 @controller('/v1/contracts')
 export class ContractController extends BaseHttpController {
   constructor(
@@ -152,8 +153,44 @@ export class ContractController extends BaseHttpController {
     if (contract == null) {
       throw nextFunc(new NotFoundError(contractId));
     }
-    const userId = (this.httpContext.user as VLAuthPrincipal).id;
-    const bid = await this.contractService.createBid(contractId, userId);
+    const ownerId = (this.httpContext.user as VLAuthPrincipal).id;
+    const bid = await this.contractService.createBid(contractId, ownerId);
+    return this.created(`/contracts/${bid.contract_id}/bids/${bid.id}`, bid);
+  }
+  @httpPost(
+    `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/invite`,
+    TYPES.VerifiedUserMiddleware,
+  )
+  private async inviteToContract(
+    @requestParam('contractId') contractId: string,
+    @requestBody() body: string,
+    @next() nextFunc: NextFunction,
+  ) {
+    if (!IdUtil.isValidId(contractId)) {
+      throw nextFunc(
+        new BadParameterError(
+          'contractId',
+          `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/invite`,
+        ),
+      );
+    }
+
+    const dto = body;
+    const model = z.object({ userId: z.string() }).strict().parse(dto);
+
+    const { userId } = model;
+
+    const contract = await this.contractService.getContract(contractId);
+    if (contract == null) {
+      throw nextFunc(new NotFoundError(contractId));
+    }
+    const ownerId = (this.httpContext.user as VLAuthPrincipal).id;
+
+    const bid = await this.contractService.inviteToBid(
+      contractId,
+      ownerId,
+      userId,
+    );
     return this.created(`/contracts/${bid.contract_id}/bids/${bid.id}`, bid);
   }
 }

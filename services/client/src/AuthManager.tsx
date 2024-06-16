@@ -26,7 +26,7 @@ export const AuthManager: React.FC = () => {
     const contract = JSON.parse(message.body);
     enqueueSnackbar({
       variant: 'info',
-      message: `message: ${contract}"`,
+      message: `message: ${contract}`,
     });
   });
 

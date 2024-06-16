@@ -8,6 +8,7 @@ import { NotFoundError } from '@Errors/NotFoundError';
 import { BadRequestError } from '@Errors/BadRequest';
 import { Location } from '@Models/location.model';
 import { ContractLocation } from '@Models/contract_locations.model';
+import { User } from '@Models/user.model';
 
 @injectable()
 export class ContractService {
@@ -73,6 +74,18 @@ export class ContractService {
         'You can not bid on your own contract.',
         'resource_ownership',
       );
+    const isPending = contract.Bids.filter((bid) => bid.status == 'INVITED')
+      .map((bid) => bid.user_id)
+      .includes(userId);
+    if (isPending) {
+      const bid = await ContractBid.findOne({
+        where: { user_id: userId, contract_id: contract.id },
+      });
+      if (bid == null) throw new Error('Something went Wrong');
+      const newBid = await bid.set('status', 'ACCEPTED').save();
+      //TODO: Notification
+      return newBid;
+    }
     if (contract.Bids.map((bid) => bid.user_id).includes(userId))
       throw new BadRequestError(
         'You have already bid on this contract',
@@ -94,6 +107,56 @@ export class ContractService {
     this.stomp.client.publish({
       destination: `/topic/newBid`,
       body: JSON.stringify(bid.toJSON()),
+    });
+    return bid;
+  }
+  public async inviteToBid(
+    contractId: string,
+    ownerId: string,
+    userId: string,
+  ) {
+    const contract = await Contract.scope(['owner', 'bids']).findByPk(
+      contractId,
+    );
+    if (contract == null) throw new NotFoundError(contractId);
+    if (contract.Owner.id !== ownerId)
+      throw new BadRequestError(
+        'You do not have permission to Invite on this contract',
+        'bad_permissions',
+      );
+    if (contract.Owner.id === userId)
+      throw new BadRequestError(
+        'You can not invite yourself.',
+        'resource_ownership',
+      );
+    if (contract.Bids.map((bid) => bid.user_id).includes(userId))
+      throw new BadRequestError(
+        'You have already bid on this contract',
+        'duplicate_entry',
+      );
+    if (
+      contract.contractorLimit !== 0 &&
+      contract.Bids.length >= contract.contractorLimit
+    )
+      throw new BadRequestError(
+        'The Contractor Limit has been reached',
+        'contractor_limit',
+      );
+
+    const invitedUser = await User.findByPk(userId);
+    if (invitedUser == null) throw new BadRequestError('User does not exist');
+    const ownerUser = await User.findByPk(ownerId);
+    if (ownerUser == null) throw new BadRequestError('User does not exist');
+    const bid = await ContractBid.create({
+      contract_id: contractId,
+      user_id: userId,
+      status: 'INVITED',
+    });
+    this.stomp.client.publish({
+      destination: `/topic/notifications/${userId}`,
+      body: JSON.stringify(
+        `You have been invited to ${contract.title} by ${ownerUser.displayName}`,
+      ),
     });
     return bid;
   }
