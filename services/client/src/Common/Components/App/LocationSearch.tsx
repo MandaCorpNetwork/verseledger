@@ -25,10 +25,11 @@ const filterOptions = createFilterOptions<ILocation>({
 type LocationSearchProps = {
   onLocationSelect: (locationId: ILocation | null) => void;
   width?: string;
+  helperText?: string;
 };
 
 export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
-  const { onLocationSelect, width } = props;
+  const { onLocationSelect, width, helperText } = props;
   const [inputValue, setInputValue] = React.useState<ILocation | null>(null);
   //InputValue State Setter using ILocation Schema
 
@@ -71,6 +72,11 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
             variant="outlined"
             size="small"
             color="secondary"
+            helperText={helperText}
+            FormHelperTextProps={{
+              margin: 'dense',
+              disabled: true,
+            }}
           />
         )}
         renderOption={(props, option) => (
@@ -96,6 +102,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
         }}
         sx={{
           width: width,
+          mb: helperText ? '.8em' : '',
         }}
       />
     </Box>

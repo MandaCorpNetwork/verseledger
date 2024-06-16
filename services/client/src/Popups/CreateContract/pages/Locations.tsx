@@ -44,7 +44,7 @@ export const Locations: React.FC<{
         <Box>
           <LocationSearch onLocationSelect={handleLocationSelect} width="320px" />
         </Box>
-        <FormControl>
+        <FormControl sx={{ display: 'flex', flexDirection: 'column' }}>
           <Box
             data-testid="LocationForm__Locations-Container"
             sx={{
@@ -87,29 +87,31 @@ export const Locations: React.FC<{
                   mr: '.5em',
                 }}
               />
-              <TextField
-                data-testid="LocationForm__EndingLocation-Output"
-                label="End Location"
-                color="secondary"
-                InputProps={{
-                  readOnly: true,
-                  startAdornment:
-                    (formData.Locations?.length ?? 0) > 1 ? (
-                      <LocationChip
-                        locationId={
-                          formData.Locations?.[
-                            (formData.Locations?.length ?? 0) - 1
-                          ] as string
-                        }
-                        onDelete={handleRemoveLocation}
-                      />
-                    ) : null,
-                }}
-                sx={{
-                  width: '150px',
-                  mr: '.5em',
-                }}
-              />
+              {(formData.Locations?.length ?? 0) > 1 && (
+                <TextField
+                  data-testid="LocationForm__EndingLocation-Output"
+                  label="End Location"
+                  color="secondary"
+                  InputProps={{
+                    readOnly: true,
+                    startAdornment:
+                      (formData.Locations?.length ?? 0) > 1 ? (
+                        <LocationChip
+                          locationId={
+                            formData.Locations?.[
+                              (formData.Locations?.length ?? 0) - 1
+                            ] as string
+                          }
+                          onDelete={handleRemoveLocation}
+                        />
+                      ) : null,
+                  }}
+                  sx={{
+                    width: '150px',
+                    mr: '.5em',
+                  }}
+                />
+              )}
             </Box>
             {(formData.Locations?.length ?? 0) > 2 && (
               <Box
@@ -165,6 +167,11 @@ export const Locations: React.FC<{
             )}
           </Box>
         </FormControl>
+        {(formData.Locations?.length ?? 0) > 0 && (
+          <Typography variant="body2" align="right" sx={{ color: 'info.main' }}>
+            The Last Location entered will be the End Location.
+          </Typography>
+        )}
       </Box>
     </Box>
   );
