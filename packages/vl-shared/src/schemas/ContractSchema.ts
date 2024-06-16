@@ -20,7 +20,7 @@ export const ContractSchema = z.object({
   payStructure: ContractPayStructureSchema,
   isBargaining: z.boolean().default(false),
   isBonusPay: z.boolean().default(false),
-  defaultPay: z.number().positive(),
+  defaultPay: z.number().int().positive(),
   status: z.string(),
   Locations: z.array(LocationSchema).optional(),
 });

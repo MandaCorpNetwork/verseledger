@@ -62,35 +62,14 @@ export const Payroll: React.FC<{
     setIsComplex(event.target.checked);
   };
 
-  const renderDefaultPayComponent = () => {
-    switch (formData.payStructure) {
-      case 'FLATRATE':
-        return <FlatRatePayroll formData={formData} onChange={handleSetDefaultPay} />;
-      case 'HOURLY':
-        return <TimedPayroll formData={formData} onChange={handleSetDefaultPay} />;
-      case 'POOL':
-        return (
-          <PoolPayroll
-            formData={formData}
-            onChange={handleSetDefaultPay}
-            evenSplit={evenSplit}
-            setEvenSplit={handleEvenSplitToggle}
-          />
-        );
-      default:
-        return;
-    }
+  const handleSetDefaultPay = (value: number) => {
+    setFormData((prevFormData) => {
+      const updatedPay = { ...prevFormData, defaultPay: value };
+      console.log(`Input Value @ PayHandler: ${value}`);
+      console.log(`Current Form Data Object: ${JSON.stringify(formData)}`);
+      return updatedPay;
+    });
   };
-
-  const handleSetDefaultPay = React.useCallback(
-    (value: number) => {
-      setFormData((formData) => ({
-        ...formData,
-        defaultPay: value,
-      }));
-    },
-    [setFormData, formData],
-  );
 
   const handleEvenSplitToggle = React.useCallback(() => {
     if (evenSplit) {
@@ -229,7 +208,22 @@ export const Payroll: React.FC<{
         }}
       >
         <FormLabel color="secondary">Default Pay</FormLabel>
-        <Box data-testid="Payroll-DefaultPay__Wrapper">{renderDefaultPayComponent()}</Box>
+        <Box data-testid="Payroll-DefaultPay__Wrapper">
+          {formData.payStructure === 'FLATRATE' && (
+            <FlatRatePayroll formData={formData} onChange={handleSetDefaultPay} />
+          )}
+          {formData.payStructure === 'HOURLY' && (
+            <TimedPayroll formData={formData} onChange={handleSetDefaultPay} />
+          )}
+          {formData.payStructure === 'POOL' && (
+            <PoolPayroll
+              formData={formData}
+              onChange={handleSetDefaultPay}
+              evenSplit={evenSplit}
+              setEvenSplit={handleEvenSplitToggle}
+            />
+          )}
+        </Box>
       </FormControl>
       <FormControl>
         <Box

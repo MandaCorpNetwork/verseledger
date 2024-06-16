@@ -11,6 +11,7 @@ export const postNewContract = createAsyncThunk(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async (contractData: ICreateContractBody) => {
     try {
+      console.log('ContractData Post Attempt: ', contractData);
       const response = await NetworkService.POST(
         '/v1/contracts',
         contractData,

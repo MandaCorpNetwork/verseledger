@@ -87,28 +87,24 @@ const ColorlibConnector = styled(StepConnector)(() => ({
 export const CreateContractPopup: React.FC = () => {
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(0);
-
-  const onSubmit = useCallback(() => {
-    if (page >= 4) {
-      console.log(`Submitting Contract: ${JSON.stringify(formData)}`);
-      dispatch(closePopup(POPUP_CREATE_CONTRACT));
-      dispatch(postNewContract(formData));
-    }
-    setPage(Math.min(page + 1, steps.length));
-  }, [page]);
-
-  const onCancel = useCallback(() => {
-    setPage(Math.max(page - 1, 0));
-  }, [page]);
-
   const [formData, setFormData] = useState<ICreateContractBody>({
     Locations: [],
     payStructure: 'FLATRATE',
     contractorLimit: 1,
-    defaultPay: 1,
-    //DOES NOT WORK WITHOUT MANUALLY SETTING DEFAULT PAY
-    //BUG NEEDS FIXED
   } as unknown as ICreateContractBody);
+
+  const onSubmit = useCallback(() => {
+    if (page >= 4) {
+      console.log(`Contract Data Passed To Action: ${JSON.stringify(formData)}`);
+      dispatch(closePopup(POPUP_CREATE_CONTRACT));
+      dispatch(postNewContract(formData));
+    }
+    setPage(Math.min(page + 1, steps.length));
+  }, [page, formData]);
+
+  const onCancel = useCallback(() => {
+    setPage(Math.max(page - 1, 0));
+  }, [page]);
 
   //Placeholder State For Contract Bids Backend
   const [invites, setInvites] = React.useState<User[]>([]);
