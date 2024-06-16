@@ -106,6 +106,7 @@ export const CreateContractPopup: React.FC = () => {
   }, [page, formData]);
 
   const onCancel = useCallback(() => {
+    if (page == 0) return dispatch(closePopup(POPUP_CREATE_CONTRACT));
     setPage(Math.max(page - 1, 0));
   }, [page]);
 
@@ -151,8 +152,7 @@ export const CreateContractPopup: React.FC = () => {
       name={POPUP_CREATE_CONTRACT}
       title="Create Contract"
       onCancel={onCancel}
-      cancelText="Back"
-      cancelDisabled={page <= 0}
+      cancelText={page <= 0 ? 'Cancel' : 'Back'}
       onSubmit={onSubmit}
       submitDisabled={!isSubmitEnabled}
       submitText={page >= 4 ? 'Submit' : 'Next'}
