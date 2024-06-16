@@ -149,6 +149,7 @@ export const CreateContractPopup: React.FC = () => {
       minWidth="800px"
       data-testid="form"
       state={page}
+      onClose={() => false}
       name={POPUP_CREATE_CONTRACT}
       title="Create Contract"
       onCancel={onCancel}
