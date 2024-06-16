@@ -85,7 +85,7 @@ const options = [
   },
   {
     archetype: 'Salvage',
-    archeTypeIcon: <SalvageIcon color="secondary" />,
+    archetypeIcon: <SalvageIcon color="secondary" />,
     subTypes: [
       {
         label: 'Collection',
@@ -99,7 +99,7 @@ const options = [
   },
   {
     archetype: 'Industry',
-    archeTypeIcon: <Factory color="secondary" />,
+    archetypeIcon: <Factory color="secondary" />,
     subTypes: [
       {
         label: 'Mining',
@@ -121,7 +121,7 @@ const options = [
   },
   {
     archetype: 'RRR',
-    archeTypeIcon: <RRRIcon color="secondary" />,
+    archetypeIcon: <RRRIcon color="secondary" />,
     subTypes: [
       {
         label: 'Refuel',
@@ -153,7 +153,7 @@ const options = [
   },
   {
     archetype: 'Exploration',
-    archeTypeIcon: <Explore color="secondary" />,
+    archetypeIcon: <Explore color="secondary" />,
     subTypes: [
       {
         label: 'Locate',
@@ -167,7 +167,7 @@ const options = [
   },
   {
     archetype: 'Proxy',
-    archeTypeIcon: <VisibilityOff color="secondary" />,
+    archetypeIcon: <VisibilityOff color="secondary" />,
     subTypes: [
       {
         label: 'Middleman',
@@ -195,21 +195,21 @@ export const ContractDetails: React.FC<{
   const { formData, setFormData } = props;
   const [archetype, setArchetype] = React.useState<string | null>(null);
 
+  React.useEffect(() => {
+    const selectedOption = options.find((option) =>
+      option.subTypes.some((subType) => subType.value === formData.subtype),
+    );
+    if (selectedOption) {
+      setArchetype(selectedOption.archetype);
+    } else {
+      setArchetype(null);
+    }
+  }, [formData.subtype]);
+
   const handleArchetypeOpen = () => {
     dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetype }));
   };
 
-  const handleTypeSelect = React.useCallback(
-    (newValue: string) => {
-      const selectedOption = options.find((option) =>
-        option.subTypes.some((subType) => subType.value === newValue),
-      );
-      if (selectedOption) {
-        setArchetype(selectedOption.archetype);
-      }
-    },
-    [setArchetype],
-  );
   return (
     <Box
       data-testid="subType-briefing-container"
@@ -237,6 +237,7 @@ export const ContractDetails: React.FC<{
             <Autocomplete
               data-testid="CreateContract__Subtype-AutoComplete"
               options={flatOptions}
+              value={formData.subtype}
               groupBy={(option) => optionsMap[option].group}
               getOptionLabel={(option) => optionsMap[option].label}
               renderInput={(params) => (
@@ -247,7 +248,6 @@ export const ContractDetails: React.FC<{
                   ...formData,
                   subtype: (newValue as IContractSubType) ?? '',
                 });
-                handleTypeSelect((newValue as IContractSubType) ?? '');
               }}
               fullWidth
               sx={{ mt: 2, mb: '1em', maxWidth: '300px' }}
