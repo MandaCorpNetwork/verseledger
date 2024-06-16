@@ -226,6 +226,7 @@ export const ContractDetails: React.FC<{
           <FormControl sx={{ display: 'flex', alignItems: 'left', width: '100%' }}>
             <FormLabel color="secondary" sx={{ fontWeight: 'bold' }}></FormLabel>
             <TextField
+              data-testid="CreateContract__Title"
               label="Title"
               color="secondary"
               inputProps={{ maxLength: 32 }}
@@ -253,6 +254,7 @@ export const ContractDetails: React.FC<{
               sx={{ mt: 2, mb: '1em', maxWidth: '300px' }}
             />
             <TextField
+              data-testid="CreateContract__Briefing"
               multiline={true}
               rows={4}
               onChange={(e) =>
