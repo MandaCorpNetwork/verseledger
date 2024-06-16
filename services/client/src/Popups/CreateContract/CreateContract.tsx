@@ -133,7 +133,7 @@ export const CreateContractPopup: React.FC = () => {
       case 2:
         return formData.Locations != null && formData.Locations?.length != 0;
       case 3:
-        return true;
+        return formData.contractorLimit != null && formData.contractorLimit != 0;
       case 4:
         return formData.payStructure != null && formData.defaultPay != null;
     }

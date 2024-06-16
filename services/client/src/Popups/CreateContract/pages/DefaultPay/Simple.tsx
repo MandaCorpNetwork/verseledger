@@ -21,7 +21,7 @@ export const FlatRatePayroll: React.FC<{
         label="Pay"
         type="number"
         color="secondary"
-        value={formData.defaultPay}
+        value={formData.defaultPay || ''}
         onChange={(e) => onChange(+e.target.value)}
         InputProps={{ startAdornment: '¤' }}
         sx={{
@@ -54,7 +54,7 @@ export const PoolPayroll: React.FC<{
         label="Pay Percentage"
         type="number"
         color="secondary"
-        value={formData.defaultPay}
+        value={formData.defaultPay || ''}
         onChange={(e) => onChange(Number(e.target.value))}
         InputProps={{ endAdornment: '%' }}
         sx={{
@@ -115,7 +115,7 @@ export const TimedPayroll: React.FC<{
         label="Hourly Pay"
         type="number"
         color="secondary"
-        value={formData.defaultPay}
+        value={formData.defaultPay || ''}
         onChange={(e) => onChange(Number(e.target.value))}
         InputProps={{ endAdornment: '/HR', startAdornment: '¤' }}
         sx={{

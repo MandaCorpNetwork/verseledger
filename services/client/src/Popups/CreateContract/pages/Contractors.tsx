@@ -89,11 +89,11 @@ export const Contractors: React.FC<{
                 size="small"
                 variant="filled"
                 type="number"
-                value={formData.contractorLimit}
+                value={formData.contractorLimit || ''}
                 onChange={(e) => {
                   setFormData({
                     ...formData,
-                    contractorLimit: +e.currentTarget.value ?? 1,
+                    contractorLimit: +e.currentTarget.value,
                   });
                 }}
                 sx={{
