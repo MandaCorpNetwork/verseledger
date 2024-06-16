@@ -38,10 +38,45 @@ export const Locations: React.FC<{
         mt: '1em',
         display: 'flex',
         flexDirection: 'row',
+        justifyContent: 'space-around',
       }}
     >
-      <Box>
-        <LocationSearch onLocationSelect={handleLocationSelect} width="320px" />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'inherit',
+            flexGrow: 1,
+            justifyContent: 'space-around',
+          }}
+        >
+          <Box sx={{ display: 'flex' }}>
+            <LocationSearch
+              onLocationSelect={handleLocationSelect}
+              width="320px"
+              helperText="Select Start Location"
+            />
+          </Box>
+          <Box sx={{ display: 'flex' }}>
+            <LocationSearch
+              onLocationSelect={handleLocationSelect}
+              width="320px"
+              helperText="Select End Location"
+            />
+          </Box>
+          <Box sx={{ display: 'flex' }}>
+            <LocationSearch
+              onLocationSelect={handleLocationSelect}
+              width="320px"
+              helperText="Select Other Locations"
+            />
+          </Box>
+        </Box>
       </Box>
       <FormControl sx={{ display: 'flex', flexDirection: 'column' }}>
         <Box
@@ -58,53 +93,72 @@ export const Locations: React.FC<{
             minWidth: '300px',
             justifyContent: 'center',
             p: '.5em',
-            alignItems: 'space-between',
           }}
         >
-          <TextField
-            data-testid="LocationForm__StartingLocation-Output"
-            label="Start Location"
-            color="secondary"
-            InputProps={{
-              readOnly: true,
-              startAdornment:
-                (formData.Locations?.length ?? 0) > 0 ? (
-                  <LocationChip
-                    locationId={formData.Locations?.[0] as string}
-                    onDelete={handleRemoveLocation}
-                  />
-                ) : null,
-            }}
+          <Box
             sx={{
               display: 'flex',
-              width: '150px',
-              mr: '.5em',
+              flexDirection: 'column',
+              alignItems: 'center',
+              width: '100%',
+              mt: '.5em',
             }}
-          />
-          <TextField
-            data-testid="LocationForm__EndingLocation-Output"
-            label="End Location"
-            color="secondary"
-            InputProps={{
-              readOnly: true,
-              startAdornment:
-                (formData.Locations?.length ?? 0) > 1 ? (
-                  <LocationChip
-                    locationId={
-                      formData.Locations?.[
-                        (formData.Locations?.length ?? 0) - 1
-                      ] as string
-                    }
-                    onDelete={handleRemoveLocation}
-                  />
-                ) : null,
-            }}
+          >
+            <TextField
+              data-testid="LocationForm__StartingLocation-Output"
+              label="Start Location"
+              color="secondary"
+              size="small"
+              InputProps={{
+                readOnly: true,
+                startAdornment:
+                  (formData.Locations?.length ?? 0) > 0 ? (
+                    <LocationChip
+                      locationId={formData.Locations?.[0] as string}
+                      onDelete={handleRemoveLocation}
+                    />
+                  ) : null,
+              }}
+              sx={{
+                display: 'flex',
+                width: '150px',
+              }}
+            />
+          </Box>
+          <Box
             sx={{
               display: 'flex',
-              width: '150px',
-              mr: '.5em',
+              flexDirection: 'column',
+              alignItems: 'center',
+              width: '100%',
+              my: '.5em',
             }}
-          />
+          >
+            <TextField
+              data-testid="LocationForm__EndingLocation-Output"
+              label="End Location"
+              color="secondary"
+              size="small"
+              InputProps={{
+                readOnly: true,
+                startAdornment:
+                  (formData.Locations?.length ?? 0) > 1 ? (
+                    <LocationChip
+                      locationId={
+                        formData.Locations?.[
+                          (formData.Locations?.length ?? 0) - 1
+                        ] as string
+                      }
+                      onDelete={handleRemoveLocation}
+                    />
+                  ) : null,
+              }}
+              sx={{
+                display: 'flex',
+                width: '150px',
+              }}
+            />
+          </Box>
           <Box
             data-testid="LocationForm__OtherLocation-Output"
             sx={{
@@ -112,7 +166,7 @@ export const Locations: React.FC<{
               borderBottom: '2px solid',
               borderRadius: '5px',
               borderColor: 'primary.main',
-              my: '.5em',
+
               mx: '20%',
               py: '.5em',
               px: '.2em',
@@ -153,11 +207,6 @@ export const Locations: React.FC<{
           </Box>
         </Box>
       </FormControl>
-      {(formData.Locations?.length ?? 0) > 0 && (
-        <Typography variant="body2" align="right" sx={{ color: 'info.main' }}>
-          The Last Location entered will be the End Location.
-        </Typography>
-      )}
     </Box>
   );
 };
