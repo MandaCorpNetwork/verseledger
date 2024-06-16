@@ -1,6 +1,7 @@
 import {
   BaseHttpController,
   controller,
+  httpDelete,
   httpGet,
   httpPost,
   next,
@@ -13,6 +14,7 @@ import { AuthService } from '@Services/auth.service';
 import { ContractService } from '@Services/contracts.service';
 import { NextFunction } from 'express';
 import { BadRequestError } from '@Errors/BadRequest';
+import { User } from '@Models/user.model';
 @controller('/@TESTING', TYPES.TestingMiddleware)
 export class TestingnController extends BaseHttpController {
   constructor(
@@ -23,19 +25,31 @@ export class TestingnController extends BaseHttpController {
     super();
   }
 
+  @httpDelete('/users')
+  async wipeUsers() {
+    await User.destroy({ where: {} });
+    return this.ok();
+  }
+
   @httpPost('/users/unverified')
   async createUnverifiedUser() {
     return this.userService.findOrCreateUserByDiscord('0');
   }
   @httpPost('/users/verified')
-  async createVerifiedUser() {
-    const user = await this.userService.findOrCreateUserByDiscord('1');
+  async createVerifiedUser(
+    @queryParam('name') name: string = 'Verified User',
+    @queryParam('id') id: number = 1,
+  ) {
+    const user = await this.userService.findOrCreateUserByDiscord(
+      id.toString(),
+    );
     if (user.verified == false) {
       user.verified = true;
-      user.displayName = 'Verified User';
-      user.handle = 'verified_user';
+      user.displayName = name;
+      user.handle = name.toLowerCase().replaceAll(' ', '_');
       user.save();
     }
+    if (user.isNewRecord) this.statusCode(201);
     return user;
   }
   @httpGet('/users/signed')
