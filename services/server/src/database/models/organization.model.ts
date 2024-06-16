@@ -21,6 +21,10 @@ import { IdUtil } from '@/utils/IdUtil';
 }))
 @Table({ tableName: 'organizations', timestamps: true })
 export class Organization extends Model {
+  @Column({ type: DataType.VIRTUAL })
+  get __type(): 'Organization' {
+    return 'Organization';
+  }
   @PrimaryKey
   @Default(IdUtil.generateOrgID)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
