@@ -560,7 +560,9 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                     >
                       Start Location
                     </Typography>
-                    <LocationChip locationId={contract.Locations[0].id} />
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                      <LocationChip locationId={contract.Locations[0].id} />
+                    </Box>
                   </Box>
                   {contract.Locations.length > 1 && (
                     <Box
@@ -583,9 +585,13 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                       >
                         End Location
                       </Typography>
-                      <LocationChip
-                        locationId={contract.Locations[contract.Locations.length - 1].id}
-                      />
+                      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <LocationChip
+                          locationId={
+                            contract.Locations[contract.Locations.length - 1].id
+                          }
+                        />
+                      </Box>
                     </Box>
                   )}
                   {contract.Locations.length > 2 && (
@@ -615,6 +621,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                           display: 'flex',
                           flexDirection: 'row',
                           justifyContent: 'space-between',
+                          alignItems: 'center',
                         }}
                       >
                         <IconButton
@@ -622,13 +629,14 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                           onClick={() => handleOtherLocationIndexChange('back')}
                           disabled={otherLocationIndex === 0}
                         >
-                          <ChevronLeft />
+                          <ChevronLeft fontSize="small" />
                         </IconButton>
                         <Box
                           data-testid="ContractDisplay-Locations-OtherLocations__LocationChipDisplayWrapper"
                           sx={{
                             display: 'flex',
                             flexDirection: 'column',
+                            alignItems: 'center',
                           }}
                         >
                           <Typography
