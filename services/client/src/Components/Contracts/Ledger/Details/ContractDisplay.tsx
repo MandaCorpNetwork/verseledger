@@ -463,118 +463,120 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             maxHeight: '100%',
           }}
         >
-          <Box
-            data-testid="ContractDisplay__LocationWrapper"
-            sx={{
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
-              width: '100%',
-            }}
-          >
-            <Typography
-              data-testid="ContractDisplay__LocationTitle"
-              variant="body2"
+          {contract.Locations && contract.Locations.length > 0 && (
+            <Box
+              data-testid="ContractDisplay__LocationWrapper"
               sx={{
-                backgroundColor: 'rgba(14,49,141,.25)',
-                borderRadius: '10px',
-                pl: '1em',
-                fontWeight: 'bold',
-                m: '.5em',
+                borderTop: '2px solid',
+                borderBottom: '2px solid',
+                borderRadius: '5px',
+                borderColor: 'primary.main',
+                width: '100%',
               }}
             >
-              Locations
-              <IconButton
-                data-testid="ContractDisplay-Locations_LocationsExpansionButton"
-                size="small"
-                onClick={toggleLocationsExpand}
-              >
-                {locationsExpanded ? (
-                  <ExpandMore fontSize="small" />
-                ) : (
-                  <ExpandLess fontSize="small" />
-                )}
-              </IconButton>
-            </Typography>
-            {locationsExpanded ? (
-              <Box
-                data-testid="ContractDisplay-Locations__LocationsListWrapper"
+              <Typography
+                data-testid="ContractDisplay__LocationTitle"
+                variant="body2"
                 sx={{
-                  mb: '.5em',
-                  width: '100%',
+                  backgroundColor: 'rgba(14,49,141,.25)',
+                  borderRadius: '10px',
+                  pl: '1em',
+                  fontWeight: 'bold',
+                  m: '.5em',
                 }}
               >
+                Locations
+                <IconButton
+                  data-testid="ContractDisplay-Locations_LocationsExpansionButton"
+                  size="small"
+                  onClick={toggleLocationsExpand}
+                >
+                  {locationsExpanded ? (
+                    <ExpandMore fontSize="small" />
+                  ) : (
+                    <ExpandLess fontSize="small" />
+                  )}
+                </IconButton>
+              </Typography>
+              {locationsExpanded ? (
                 <Box
-                  data-testid="ContractDisplay-Locations__StartLocationWrapper"
+                  data-testid="ContractDisplay-Locations__LocationsListWrapper"
                   sx={{
-                    backgroundColor: 'rgba(14,49,141,.25)',
-                    borderRadius: '10px',
-                    mx: '.5em',
-                    p: '.2em',
+                    mb: '.5em',
+                    width: '100%',
                   }}
                 >
-                  <Typography
-                    data-testid="ContractDisplay-Locations-StartLocation__Title"
-                    variant="body2"
-                    align="center"
+                  <Box
+                    data-testid="ContractDisplay-Locations__StartLocationWrapper"
                     sx={{
-                      fontWeight: 'bold',
+                      backgroundColor: 'rgba(14,49,141,.25)',
+                      borderRadius: '10px',
+                      mx: '.5em',
+                      p: '.2em',
                     }}
                   >
-                    Start Location
-                  </Typography>
-                  <LocationChip locationId="Start" />
-                </Box>
-                <Box
-                  data-testid="ContractDisplay-Locations__EndLocationWrapper"
-                  sx={{
-                    backgroundColor: 'rgba(14,49,141,.25)',
-                    borderRadius: '10px',
-                    mt: '.5em',
-                    mx: '.5em',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Typography
-                    data-testid="ContractDisplay-Locations-StartLocation__Title"
-                    variant="body2"
-                    align="center"
+                    <Typography
+                      data-testid="ContractDisplay-Locations-StartLocation__Title"
+                      variant="body2"
+                      align="center"
+                      sx={{
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      Start Location
+                    </Typography>
+                    <LocationChip locationId={contract.Locations[0].id} />
+                  </Box>
+                  <Box
+                    data-testid="ContractDisplay-Locations__EndLocationWrapper"
                     sx={{
-                      fontWeight: 'bold',
+                      backgroundColor: 'rgba(14,49,141,.25)',
+                      borderRadius: '10px',
+                      mt: '.5em',
+                      mx: '.5em',
+                      justifyContent: 'center',
                     }}
                   >
-                    End Location
-                  </Typography>
-                  <LocationChip locationId="End" />
-                </Box>
-                <Box
-                  data-testid="ContractDisplay-Locations__OtherLocationsWrapper"
-                  sx={{
-                    backgroundColor: 'rgba(14,49,141,.25)',
-                    borderRadius: '10px',
-                    mt: '.5em',
-                    mx: '.5em',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Typography
-                    data-testid="ContractDisplay-Locations-StartLocation__Title"
-                    variant="body2"
-                    align="center"
+                    <Typography
+                      data-testid="ContractDisplay-Locations-StartLocation__Title"
+                      variant="body2"
+                      align="center"
+                      sx={{
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      End Location
+                    </Typography>
+                    <LocationChip locationId="End" />
+                  </Box>
+                  <Box
+                    data-testid="ContractDisplay-Locations__OtherLocationsWrapper"
                     sx={{
-                      fontWeight: 'bold',
+                      backgroundColor: 'rgba(14,49,141,.25)',
+                      borderRadius: '10px',
+                      mt: '.5em',
+                      mx: '.5em',
+                      justifyContent: 'center',
                     }}
                   >
-                    Other Locations
-                  </Typography>
-                  <LocationChip locationId="Other" />
+                    <Typography
+                      data-testid="ContractDisplay-Locations-StartLocation__Title"
+                      variant="body2"
+                      align="center"
+                      sx={{
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      Other Locations
+                    </Typography>
+                    <LocationChip locationId="Other" />
+                  </Box>
                 </Box>
-              </Box>
-            ) : (
-              <></>
-            )}
-          </Box>
+              ) : (
+                <></>
+              )}
+            </Box>
+          )}
         </Box>
       </Box>
       <Box

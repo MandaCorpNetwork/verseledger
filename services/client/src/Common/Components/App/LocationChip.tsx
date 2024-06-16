@@ -14,11 +14,13 @@ export const LocationChip: React.FC<LocationChipProps> = (props) => {
   const { locationId, onDelete } = props;
   const dispatch = useAppDispatch();
 
+  const location = useAppSelector((state) => selectLocationById(state, locationId));
+
   const handleLocationInfoPopup = () => {
+    console.log(`Location Id: ${locationId}`);
+    console.log(`Location Pulled: ${location}`);
     dispatch(openPopup(POPUP_LOCATION_INFO, { locationId }));
   };
-
-  const location = useAppSelector((state) => selectLocationById(state, locationId));
 
   return (
     <Tooltip title={location?.short_name}>
