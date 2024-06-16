@@ -14,6 +14,10 @@ import { Contract } from './contract.model';
 
 @Table({ tableName: 'locations', timestamps: true })
 export class Location extends Model {
+  @Column({ type: DataType.VIRTUAL })
+  get __type(): 'Location' {
+    return 'Location';
+  }
   @PrimaryKey
   @Default(IdUtil.generateLocationID)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })

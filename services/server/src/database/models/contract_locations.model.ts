@@ -11,6 +11,10 @@ import { Location } from './location.model';
 
 @Table({ tableName: 'contract_locations', timestamps: true })
 export class ContractLocation extends Model {
+  @Column({ type: DataType.VIRTUAL })
+  get __type(): 'ContractLocation' {
+    return 'ContractLocation';
+  }
   @ForeignKey(() => Contract)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare contract_id: string;

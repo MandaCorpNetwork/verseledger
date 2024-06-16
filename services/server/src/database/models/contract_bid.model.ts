@@ -22,6 +22,10 @@ import { IdUtil } from '@/utils/IdUtil';
 }))
 @Table({ tableName: 'contract_bids', timestamps: true })
 export class ContractBid extends Model {
+  @Column({ type: DataType.VIRTUAL })
+  get __type(): 'ContractBid' {
+    return 'ContractBid';
+  }
   @PrimaryKey
   @Default(IdUtil.generateBidID)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
