@@ -91,6 +91,9 @@ export const CreateContractPopup: React.FC = () => {
     Locations: [],
     payStructure: 'FLATRATE',
     contractorLimit: 1,
+    isBonusPay: false,
+    isBargaining: false,
+    subtype: null,
   } as unknown as ICreateContractBody);
 
   const onSubmit = useCallback(() => {
