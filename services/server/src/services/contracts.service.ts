@@ -27,9 +27,10 @@ export class ContractService {
     contract: any & { owner_id: number },
   ) {
     const newTempContract = await Contract.create(contract);
-    const locations = contract.Locations ?? ([] as Array<string>);
-    for (const location of locations)
-      await this.addLocationToContract(newTempContract, location);
+    const locations: Array<{ location: string; tag: string }> =
+      contract.Locations ?? [];
+    for (const l of locations)
+      await this.addLocationToContract(newTempContract, l.location, l.tag);
     const newContract = (await Contract.scope([
       'locations',
       'owner',
@@ -53,10 +54,11 @@ export class ContractService {
   public async addLocationToContract(
     contract: Contract | string,
     location: Location | string,
+    tag: string = 'other',
   ) {
     const contract_id = typeof contract === 'string' ? contract : contract.id;
     const location_id = typeof location === 'string' ? location : location.id;
-    return ContractLocation.create({ location_id, contract_id });
+    return ContractLocation.create({ location_id, contract_id, tag });
   }
 
   public async createBid(contractId: string, userId: string) {

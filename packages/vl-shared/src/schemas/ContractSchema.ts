@@ -43,5 +43,9 @@ export const CreateContractBodySchema = ContractSchema.omit({
   owner_id: true,
   status: true,
   Locations: true,
-}).extend({ Locations: z.array(z.string()).optional() });
+}).extend({
+  Locations: z
+    .array(z.object({ location: z.string(), tag: z.string() }))
+    .optional(),
+});
 export type ICreateContractBody = z.infer<typeof CreateContractBodySchema>;

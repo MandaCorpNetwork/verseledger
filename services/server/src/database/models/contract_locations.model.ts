@@ -15,6 +15,10 @@ export class ContractLocation extends Model {
   get __type(): 'ContractLocation' {
     return 'ContractLocation';
   }
+
+  @Column({ type: DataType.STRING(32) })
+  declare tag: string;
+
   @ForeignKey(() => Contract)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare contract_id: string;
