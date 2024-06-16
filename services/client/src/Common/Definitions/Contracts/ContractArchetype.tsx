@@ -1,4 +1,12 @@
-import { z } from "zod";
+import { Explore, Factory, LocalHospital, VisibilityOff } from '@mui/icons-material';
+
+import {
+  FleetIcon,
+  LogisticsIcon,
+  RRRIcon,
+  SalvageIcon,
+  SecurityIcon,
+} from '../CustomIcons';
 
 export const archetypes = [
   {

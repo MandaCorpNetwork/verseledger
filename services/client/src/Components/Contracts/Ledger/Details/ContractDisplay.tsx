@@ -2,7 +2,13 @@
 import { LocationChip } from '@Common/Components/App/LocationChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { SalvageIcon } from '@Common/Definitions/CustomIcons';
-import { ExpandLess, ExpandMore, HelpOutline } from '@mui/icons-material';
+import {
+  ChevronLeft,
+  ChevronRight,
+  ExpandLess,
+  ExpandMore,
+  HelpOutline,
+} from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -49,6 +55,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const [locationsExpanded, setLocationsExpanded] = React.useState(true);
   const [activeDataTab, setActiveDataTab] = React.useState('contractors');
   const [timeTab, setTimeTab] = React.useState('bid');
+  const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
 
   const handleActiveTabChange = React.useCallback(
     (_event: React.SyntheticEvent, value: string) => {
@@ -129,6 +136,34 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const handleSubmitBidPopup = () => {
     dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
   };
+
+  const getOtherLocationIds = () => {
+    if (contract.Locations && contract.Locations.length > 1) {
+      return contract.Locations.slice(1, contract.Locations.length - 1);
+    }
+  };
+
+  const otherLocationIds = getOtherLocationIds();
+
+  const handleOtherLocationIndexChange = React.useCallback(
+    (direction: string) => {
+      console.log(getOtherLocationIds());
+      if (otherLocationIds && otherLocationIds.length > 1) {
+        if (direction === 'back') {
+          if (otherLocationIndex > 0) {
+            setOtherLocationIndex(otherLocationIndex - 1);
+          }
+        }
+        if (direction === 'forward') {
+          if (otherLocationIndex < otherLocationIds.length - 1) {
+            setOtherLocationIndex(otherLocationIndex + 1);
+          }
+        }
+      }
+      console.log(otherLocationIndex);
+    },
+    [setOtherLocationIndex, otherLocationIndex],
+  );
 
   return (
     <Box
@@ -527,50 +562,105 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                     </Typography>
                     <LocationChip locationId={contract.Locations[0].id} />
                   </Box>
-                  <Box
-                    data-testid="ContractDisplay-Locations__EndLocationWrapper"
-                    sx={{
-                      backgroundColor: 'rgba(14,49,141,.25)',
-                      borderRadius: '10px',
-                      mt: '.5em',
-                      mx: '.5em',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Typography
-                      data-testid="ContractDisplay-Locations-StartLocation__Title"
-                      variant="body2"
-                      align="center"
+                  {contract.Locations.length > 1 && (
+                    <Box
+                      data-testid="ContractDisplay-Locations__EndLocationWrapper"
                       sx={{
-                        fontWeight: 'bold',
+                        backgroundColor: 'rgba(14,49,141,.25)',
+                        borderRadius: '10px',
+                        mt: '.5em',
+                        mx: '.5em',
+                        justifyContent: 'center',
                       }}
                     >
-                      End Location
-                    </Typography>
-                    <LocationChip locationId="End" />
-                  </Box>
-                  <Box
-                    data-testid="ContractDisplay-Locations__OtherLocationsWrapper"
-                    sx={{
-                      backgroundColor: 'rgba(14,49,141,.25)',
-                      borderRadius: '10px',
-                      mt: '.5em',
-                      mx: '.5em',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Typography
-                      data-testid="ContractDisplay-Locations-StartLocation__Title"
-                      variant="body2"
-                      align="center"
+                      <Typography
+                        data-testid="ContractDisplay-Locations-StartLocation__Title"
+                        variant="body2"
+                        align="center"
+                        sx={{
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        End Location
+                      </Typography>
+                      <LocationChip
+                        locationId={contract.Locations[contract.Locations.length - 1].id}
+                      />
+                    </Box>
+                  )}
+                  {contract.Locations.length > 2 && (
+                    <Box
+                      data-testid="ContractDisplay-Locations__OtherLocationsWrapper"
                       sx={{
-                        fontWeight: 'bold',
+                        backgroundColor: 'rgba(14,49,141,.25)',
+                        borderRadius: '10px',
+                        mt: '.5em',
+                        mx: '.5em',
+                        justifyContent: 'center',
                       }}
                     >
-                      Other Locations
-                    </Typography>
-                    <LocationChip locationId="Other" />
-                  </Box>
+                      <Typography
+                        data-testid="ContractDisplay-Locations-OtherLocation__Title"
+                        variant="body2"
+                        align="center"
+                        sx={{
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        Other Locations
+                      </Typography>
+                      <Box
+                        data-testid="ContractDisplay-Locations-OtherLocations__LocationPagnationWrapper"
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        }}
+                      >
+                        <IconButton
+                          size="small"
+                          onClick={() => handleOtherLocationIndexChange('back')}
+                          disabled={otherLocationIndex === 0}
+                        >
+                          <ChevronLeft />
+                        </IconButton>
+                        <Box
+                          data-testid="ContractDisplay-Locations-OtherLocations__LocationChipDisplayWrapper"
+                          sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                          }}
+                        >
+                          <Typography
+                            data-testid="ContractDisplay-Locations-OtherLocations__LocationChip"
+                            variant="body2"
+                            align="center"
+                          >
+                            {otherLocationIndex + 1}.{' '}
+                            <LocationChip
+                              locationId={
+                                otherLocationIds
+                                  ? otherLocationIds[otherLocationIndex].id
+                                  : 'Error'
+                              }
+                            />
+                          </Typography>
+                        </Box>
+                        <IconButton
+                          size="small"
+                          onClick={() => handleOtherLocationIndexChange('forward')}
+                          disabled={
+                            otherLocationIds
+                              ? otherLocationIds.length < 1 ||
+                                otherLocationIndex === otherLocationIds.length - 1
+                              : false
+                          }
+                        >
+                          <ChevronRight fontSize="small" />
+                        </IconButton>
+                      </Box>
+                    </Box>
+                  )}
                 </Box>
               ) : (
                 <></>
