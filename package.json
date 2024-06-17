@@ -19,7 +19,7 @@
     "migrate": "./.flyway/flyway -configFiles=./flyway.user.toml -environment=vl-db migrate"
   },
   "dependencies": {
-    "@babel/core": "7.24.6",
+    "@babel/core": "7.24.7",
     "@babel/preset-env": "7.24.6",
     "@babel/preset-typescript": "^7.24.6",
     "@changesets/cli": "2.27.5",
