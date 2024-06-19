@@ -10,26 +10,59 @@ export const Locations: React.FC<{
 }> = (props) => {
   const { formData, setFormData } = props;
 
-  const handleLocationSelect = React.useCallback(
+  const handleAddStartLocation = React.useCallback(
     (selectedLocation: ILocation | null) => {
       if (selectedLocation == null) return;
       setFormData((formData) => ({
         ...formData,
-        Locations: [...(formData.Locations ?? []), selectedLocation.id as string],
+        Locations: [
+          ...(formData.Locations ?? []),
+          { location: selectedLocation.id as string, tag: 'start' },
+        ],
       }));
     },
     [setFormData],
   );
 
-  const handleRemoveLocation = React.useCallback(
-    (locationId: string) => {
+  const handleAddEndLocation = React.useCallback(
+    (selectedLocation: ILocation | null) => {
+      if (selectedLocation == null) return;
       setFormData((formData) => ({
         ...formData,
-        Locations: formData.Locations?.filter((id) => id !== locationId),
+        Locations: [
+          ...(formData.Locations ?? []),
+          { location: selectedLocation.id as string, tag: 'end' },
+        ],
       }));
     },
     [setFormData],
   );
+
+  const handleAddOtherLocation = React.useCallback(
+    (selectedLocation: ILocation | null) => {
+      if (selectedLocation == null) return;
+      setFormData((formData) => ({
+        ...formData,
+        Locations: [
+          ...(formData.Locations ?? []),
+          { location: selectedLocation.id as string, tag: 'other' },
+        ],
+      }));
+    },
+    [setFormData],
+  );
+
+  // const handleRemoveLocation = React.useCallback(
+  //   (locationId: string, tag: string) => {
+  //     setFormData((formData) => ({
+  //       ...formData,
+  //       Locations: formData.Locations?.filter(
+  //         (loc) => !(loc.location === locationId && loc.tag === tag),
+  //       ),
+  //     }));
+  //   },
+  //   [setFormData],
+  // );
 
   return (
     <Box
@@ -57,21 +90,21 @@ export const Locations: React.FC<{
         >
           <Box sx={{ display: 'flex' }}>
             <LocationSearch
-              onLocationSelect={handleLocationSelect}
+              onLocationSelect={handleAddStartLocation}
               width="320px"
               helperText="Select Start Location"
             />
           </Box>
           <Box sx={{ display: 'flex' }}>
             <LocationSearch
-              onLocationSelect={handleLocationSelect}
+              onLocationSelect={handleAddEndLocation}
               width="320px"
               helperText="Select End Location"
             />
           </Box>
           <Box sx={{ display: 'flex' }}>
             <LocationSearch
-              onLocationSelect={handleLocationSelect}
+              onLocationSelect={handleAddOtherLocation}
               width="320px"
               helperText="Select Other Locations"
             />
@@ -114,8 +147,11 @@ export const Locations: React.FC<{
                 startAdornment:
                   (formData.Locations?.length ?? 0) > 0 ? (
                     <LocationChip
-                      locationId={formData.Locations?.[0] as string}
-                      onDelete={handleRemoveLocation}
+                      locationId={
+                        formData.Locations?.find((loc) => loc.tag === 'start')
+                          ?.location as string
+                      }
+                      //onDelete={() => handleRemoveLocation( ,'start')}
                     />
                   ) : null,
               }}
@@ -145,11 +181,10 @@ export const Locations: React.FC<{
                   (formData.Locations?.length ?? 0) > 1 ? (
                     <LocationChip
                       locationId={
-                        formData.Locations?.[
-                          (formData.Locations?.length ?? 0) - 1
-                        ] as string
+                        formData.Locations?.find((loc) => loc.tag === 'end')
+                          ?.location as string
                       }
-                      onDelete={handleRemoveLocation}
+                      //onDelete={() => handleRemoveLocation(formData.Locations?.find((loc) => loc.tag === 'end')?.id as string, 'end'}
                     />
                   ) : null,
               }}
@@ -200,9 +235,16 @@ export const Locations: React.FC<{
                 },
               }}
             >
-              {formData.Locations?.slice(1, -1).map((id) => (
-                <LocationChip locationId={id} onDelete={handleRemoveLocation} key={id} />
-              ))}
+              {formData.Locations?.map(
+                (loc) =>
+                  loc.tag === 'other' && (
+                    <LocationChip
+                      locationId={loc.location}
+                      //onDelete={() => handleRemoveLocation()}
+                      key={loc.location}
+                    />
+                  ),
+              )}
             </Box>
           </Box>
         </Box>
