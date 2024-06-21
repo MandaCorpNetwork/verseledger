@@ -21,8 +21,8 @@
     "cypress": "yarn manypkg run client cypress run --browser chrome"
   },
   "dependencies": {
-    "@babel/core": "7.24.6",
-    "@babel/preset-env": "7.24.6",
+    "@babel/core": "7.24.7",
+    "@babel/preset-env": "7.24.7",
     "@babel/preset-typescript": "^7.24.6",
     "@changesets/cli": "2.27.5",
     "@manypkg/cli": "0.21.4",
