@@ -6,9 +6,9 @@ import { LocationSchema } from "./LocationSchema";
 import { UserSchema } from "./UserSchema";
 
 export const ContractSchema = z.object({
-  id: z.string().max(26),
-  owner_id: z.string().max(26),
-  title: z.string().max(32),
+  id: z.string().max(26).describe("CUID2"),
+  owner_id: z.string().max(26).describe("CUID2"),
+  title: z.string().max(32).describe("Contract Title"),
   subtype: ContractSubTypeSchema,
   briefing: z.string().max(2048),
   bidDate: z.coerce.date().optional(),

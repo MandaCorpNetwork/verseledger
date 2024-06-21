@@ -1,9 +1,10 @@
 import 'reflect-metadata';
 import { setupModels } from './database/connection';
 import { json, urlencoded, Request, Response, NextFunction } from 'express';
+import * as swagger from 'swagger-express-ts';
 import cors from 'cors';
 import '@Controllers/v1';
-
+import './DTO';
 import { InversifyExpressServer } from 'inversify-express-utils';
 
 import morgan from 'morgan';
@@ -25,17 +26,30 @@ export const createServer = () => {
     AuthProvider,
   );
   server.setConfig((app) => {
-    app.use(morgan('combined'));
-    app
-      .disable('x-powered-by')
-      .use(json())
-      .use(urlencoded({ extended: true }));
     app.use(
       cors({
         origin: [
           `http://localhost:3000`,
           `http://localhost:${env.EXPRESS_PORT}`,
         ],
+      }),
+    );
+    app.use(morgan('combined'));
+    app
+      .disable('x-powered-by')
+      .use(json())
+      .use(urlencoded({ extended: true }));
+    app.use(
+      swagger.express({
+        definition: {
+          info: {
+            title: 'VerseLedger API',
+            version: '1.0',
+          },
+          securityDefinitions: {
+            VLAuth: { type: 'apiKey', in: 'header', name: 'Authentication' },
+          },
+        },
       }),
     );
   });

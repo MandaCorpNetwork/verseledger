@@ -52,6 +52,7 @@
     "reflect-metadata": "0.2.2",
     "sequelize": "6.37.3",
     "sequelize-typescript": "2.1.6",
+    "swagger-express-ts": "^1.1.0",
     "swagger-jsdoc": "6.2.8",
     "swagger-ui-express": "5.0.1",
     "vl-shared": "1.0.0",

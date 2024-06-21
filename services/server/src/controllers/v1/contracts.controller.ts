@@ -18,6 +18,14 @@ import { BadParameterError } from '@Errors/BadParameter';
 import { NotFoundError } from '@Errors/NotFoundError';
 import { CreateContractBodySchema } from 'vl-shared/src/schemas/ContractSchema';
 import { z } from 'zod';
+import { ApiOperationPost, ApiPath } from 'swagger-express-ts';
+import { ZodToOpenapi } from '@/utils/ZodToOpenapi';
+
+@ApiPath({
+  path: '/v1/contracts',
+  name: 'Contracts',
+  security: { VLAuth: [] },
+})
 @controller('/v1/contracts')
 export class ContractController extends BaseHttpController {
   constructor(
@@ -26,6 +34,25 @@ export class ContractController extends BaseHttpController {
     super();
   }
 
+  @ApiOperationPost({
+    description: 'Create a new Contract',
+    summary: 'Create Contract',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Contract Created',
+        model: 'Contract',
+      },
+    },
+    consumes: [],
+    parameters: {
+      body: {
+        required: true,
+        properties: ZodToOpenapi(CreateContractBodySchema),
+      },
+    },
+    security: { VLAuth: [] },
+  })
   @httpPost('/', TYPES.VerifiedUserMiddleware)
   private async createContract(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
