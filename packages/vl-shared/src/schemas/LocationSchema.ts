@@ -28,6 +28,7 @@ export const LocationSchema = z.object({
   y: z.number(),
   z: z.number(),
   QT: z.boolean(),
+  ContractLocation: ContractLocationSchema.optional(),
 });
 
 export type ILocation = z.infer<typeof LocationSchema>;
