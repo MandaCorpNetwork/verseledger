@@ -46,9 +46,21 @@ export const createServer = () => {
             title: 'VerseLedger API',
             version: '1.0',
           },
-          models: { ContractArray: { properties: {} } },
+          models: {
+            ContractArray: { properties: {} },
+            Unknown: { properties: {} },
+          },
           securityDefinitions: {
-            VLAuth: { type: 'apiKey', in: 'header', name: 'Authentication' },
+            VLAuthAccessToken: {
+              type: 'apiKey',
+              in: 'header',
+              name: 'Authentication',
+            },
+            VLAuthRefreshToken: {
+              type: 'apiKey',
+              in: 'header',
+              name: 'Authentication',
+            },
           },
         },
       }),

@@ -23,7 +23,13 @@ import { NextFunction } from 'express';
 import { NetworkError } from '@Errors/NetworkError';
 import { IdPrefix, IdUtil } from '@/utils/IdUtil';
 import { BadRequestError } from '@Errors/BadRequest';
+import { ApiOperationGet, ApiPath } from 'swagger-express-ts';
 
+@ApiPath({
+  path: '/v1/users',
+  name: 'Users',
+  security: { VLAuthAccessToken: [] },
+})
 @controller('/v1/users')
 export class UsersController extends BaseHttpController {
   constructor(
@@ -34,6 +40,24 @@ export class UsersController extends BaseHttpController {
     super();
   }
 
+  @ApiOperationGet({
+    tags: ['Users'],
+    description: 'Get a User',
+    summary: 'Get a User',
+    path: '/{userId}',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: { userId: { required: true, description: 'A User ID' } },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
   @httpGet(
     `/:id(${IdUtil.expressRegex(IdPrefix.User)})`,
     TYPES.VerifiedUserMiddleware,
@@ -44,6 +68,22 @@ export class UsersController extends BaseHttpController {
     return user;
   }
 
+  @ApiOperationGet({
+    tags: ['Users'],
+    description: 'Get Current User',
+    summary: 'Get Current User',
+    path: '/@me',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {},
+    security: { VLAuthAccessToken: [] },
+  })
   @httpGet('/@me', TYPES.AuthMiddleware)
   public async getSelf() {
     const principal = this.httpContext.user as VLAuthPrincipal;
@@ -97,6 +137,25 @@ export class UsersController extends BaseHttpController {
     };
   }
 
+  @ApiOperationGet({
+    tags: ['Users'],
+    deprecated: true,
+    description: 'Get all Users',
+    summary: 'Get all Users',
+    path: '/',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: { locationId: { required: true, description: 'A Location ID' } },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
   @httpGet('/', TYPES.VerifiedUserMiddleware)
   public async findUsers(@queryParam('handle') handle: string) {
     //if (handle == null || handle.trim() == '') return this.badRequest();
@@ -153,10 +212,33 @@ export class UsersController extends BaseHttpController {
     }
   }
 
+  @ApiOperationGet({
+    tags: ['Users'],
+    description: 'Search Users',
+    summary: 'Search Users',
+    path: '/search',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      query: {
+        search: {
+          required: true,
+          description: 'User Handle or Name. Handles must prefix with "@"',
+        },
+      },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
   @httpGet('/search', TYPES.VerifiedUserMiddleware)
-  public async search(@queryParam('handle') search: string) {
+  public async search(@queryParam('search') search: string) {
     if (search == null || search.trim() == '')
-      throw new BadRequestError('"handle" can not be Empty');
+      throw new BadRequestError('"search" can not be Empty');
     return this.userService.search(search);
   }
 }

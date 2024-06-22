@@ -24,7 +24,7 @@ import { ZodToOpenapi } from '@/utils/ZodToOpenapi';
 @ApiPath({
   path: '/v1/contracts',
   name: 'Contracts',
-  security: { VLAuth: [] },
+  security: { VLAuthAccessToken: [] },
 })
 @controller('/v1/contracts')
 export class ContractController extends BaseHttpController {
@@ -35,6 +35,7 @@ export class ContractController extends BaseHttpController {
   }
 
   @ApiOperationPost({
+    tags: ['Contracts'],
     description: 'Create a new Contract',
     summary: 'Create Contract',
     responses: {
@@ -51,7 +52,7 @@ export class ContractController extends BaseHttpController {
         properties: ZodToOpenapi(CreateContractBodySchema),
       },
     },
-    security: { VLAuth: [] },
+    security: { VLAuthAccessToken: [] },
   })
   @httpPost('/', TYPES.VerifiedUserMiddleware)
   private async createContract(
@@ -79,6 +80,7 @@ export class ContractController extends BaseHttpController {
   }
 
   @ApiOperationGet({
+    tags: ['Contracts'],
     description: 'Get all Contracts',
     summary: 'Get Contracts',
     responses: {
@@ -90,13 +92,31 @@ export class ContractController extends BaseHttpController {
     },
     consumes: [],
     parameters: {},
-    security: { VLAuth: [] },
+    security: { VLAuthAccessToken: [] },
   })
   @httpGet('/')
   private getContracts() {
     return this.contractService.getContracts();
   }
 
+  @ApiOperationGet({
+    tags: ['Contracts'],
+    description: 'Get a Contract',
+    summary: 'Get a Contract',
+    path: '/{contractId}',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Contract',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: { contractId: { required: true, description: 'A Contract ID' } },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
   @httpGet(`/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})`)
   private async getContract(
     @requestParam('contractId') contractId: string,
@@ -118,6 +138,24 @@ export class ContractController extends BaseHttpController {
     return contract;
   }
 
+  @ApiOperationGet({
+    tags: ['Bids'],
+    description: "Get a Contract's Bids",
+    summary: 'Get Bids',
+    path: '/{contractId}/bids',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: { contractId: { required: true, description: 'A Contract ID' } },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
   @httpGet(
     `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids`,
   )
@@ -141,6 +179,27 @@ export class ContractController extends BaseHttpController {
     return contract.Bids;
   }
 
+  @ApiOperationGet({
+    tags: ['Bids'],
+    description: 'Get a Bid',
+    summary: 'Get a Bid',
+    path: '/{contractId}/bids/{bidId}',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: {
+        contractId: { required: true, description: 'A Contract ID' },
+        bidId: { required: true, description: 'A Bid ID' },
+      },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
   @httpGet(
     `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids/:bidId(${IdUtil.expressRegex(IdUtil.IdPrefix.Bid)})`,
   )
@@ -173,6 +232,27 @@ export class ContractController extends BaseHttpController {
     return bid;
   }
 
+  @ApiOperationPost({
+    tags: ['Bids', 'Invites'],
+    description:
+      'Bid on a Contract. If the user is Invited, will automatically Accept.',
+    summary: 'Bid on a Contract / Accept an Invite',
+    path: '/{contractId}/bids',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: {
+        contractId: { required: true, description: 'A Contract ID' },
+      },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
   @httpPost(
     `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids`,
     TYPES.VerifiedUserMiddleware,
@@ -198,6 +278,33 @@ export class ContractController extends BaseHttpController {
     const bid = await this.contractService.createBid(contractId, ownerId);
     return this.created(`/contracts/${bid.contract_id}/bids/${bid.id}`, bid);
   }
+
+  @ApiOperationPost({
+    tags: ['Bids', 'Invites'],
+    description: 'Invite a user to a contract',
+    summary: 'Invite a user to a contract',
+    path: '/{contractId}/invite',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: {
+        contractId: { required: true, description: 'A Contract ID' },
+      },
+      body: {
+        properties: {
+          userId: { type: 'string', required: true },
+        },
+        required: true,
+      },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
   @httpPost(
     `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/invite`,
     TYPES.VerifiedUserMiddleware,

@@ -14,6 +14,12 @@ import { Location } from '@Models/location.model';
 import { NotFoundError } from '@Errors/NotFoundError';
 import { parse } from 'csv-parse/sync';
 import fs from 'fs';
+import { ApiOperationGet, ApiPath } from 'swagger-express-ts';
+@ApiPath({
+  path: '/v1/locations',
+  name: 'Locations',
+  security: { VLAuthAccessToken: [] },
+})
 @controller('/v1/locations')
 export class LocationController extends BaseHttpController {
   constructor(
@@ -24,6 +30,24 @@ export class LocationController extends BaseHttpController {
     super();
   }
 
+  @ApiOperationGet({
+    tags: ['Locations'],
+    description: 'Get a Location',
+    summary: 'Get a Location',
+    path: '/{locationId}',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: { locationId: { required: true, description: 'A Location ID' } },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
   @httpGet(
     `/:id(${IdUtil.expressRegex(IdPrefix.Location)})`,
     TYPES.VerifiedUserMiddleware,
@@ -33,6 +57,25 @@ export class LocationController extends BaseHttpController {
     if (location == null) return new NotFoundError(id);
     return location;
   }
+
+  @ApiOperationGet({
+    tags: ['Locations'],
+    description: 'Get all Location',
+    summary: 'Get all Location',
+    path: '/',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: { locationId: { required: true, description: 'A Location ID' } },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
   @httpGet('/', TYPES.VerifiedUserMiddleware)
   public async getLocations() {
     return Location.findAll();

@@ -13,7 +13,13 @@ import { AuthService } from '@Services/auth.service';
 import { EnvService } from '@/services/env.service';
 import { NextFunction } from 'express';
 import { UnauthorizedError } from '@Errors/UnauthorizedError';
+import { ApiOperationPost, ApiPath } from 'swagger-express-ts';
 const env = new EnvService();
+@ApiPath({
+  path: '/v1/auth',
+  name: 'Auth',
+  security: { VLAuthAccessToken: [] },
+})
 @controller('/v1/auth')
 export class AuthController extends BaseHttpController {
   constructor(
@@ -22,6 +28,23 @@ export class AuthController extends BaseHttpController {
   ) {
     super();
   }
+
+  @ApiOperationPost({
+    tags: ['Auth'],
+    description: 'Refresh the Current User',
+    summary: 'Refresh the Current User',
+    path: '/refresh',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {},
+    security: { VLAuthRefreshToken: [] },
+  })
   @httpPost('/refresh', TYPES.AuthMiddleware)
   public async refreshHeaders(
     @requestHeaders('Authorization') authHeader: string,
