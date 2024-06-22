@@ -16,6 +16,7 @@ const IconButtonWithDivider: React.FC<IconButtonWithDividerProps> = ({
   <>
     <IconButton
       {...props}
+      data-testid="PersonalLedger-AppToolBar__IconButtonWithDivider"
       sx={{
         color: isSelected ? 'secondary.main' : 'secondary.dark',
         '&:hover': { color: 'secondary.light', transform: 'scale(1.2)' },
@@ -56,6 +57,7 @@ export const AppToolBar: React.FC<AppToolBarProps> = ({
 
   return (
     <Box
+      data-testid="PersonalLedger-AppToolBar__Wrapper"
       sx={{
         position: 'relative',
         display: 'inline-block',
@@ -69,6 +71,7 @@ export const AppToolBar: React.FC<AppToolBarProps> = ({
       }}
     >
       <ButtonGroup
+        data-testid="PersonalLedger-AppToolBar__ButtonGroup"
         variant="text"
         color="secondary"
         size="large"
@@ -105,7 +108,11 @@ export const AppToolBar: React.FC<AppToolBarProps> = ({
       >
         {icons.map((item, index) =>
           index < icons.length - 1 ? (
-            <Tooltip title={item.key} key={item.key}>
+            <Tooltip
+              title={item.key}
+              key={item.key}
+              data-testid="PersonalLedger-AppToolBar__Tooltip"
+            >
               <IconButtonWithDivider
                 color="secondary"
                 key={item.key}
@@ -116,8 +123,13 @@ export const AppToolBar: React.FC<AppToolBarProps> = ({
               </IconButtonWithDivider>
             </Tooltip>
           ) : (
-            <Tooltip title={item.key} key={item.key}>
+            <Tooltip
+              title={item.key}
+              key={item.key}
+              data-testid="PersonalLedger-AppToolBar__Tooltip"
+            >
               <IconButton
+                data-testid="PersonalLedger-AppToolBar__LastIconButton"
                 color="secondary"
                 key={item.key}
                 sx={{
