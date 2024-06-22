@@ -44,7 +44,7 @@ export const UserSearch: React.FC<UserSearchProps> = ({
       } finally {
         setLoading(false);
       }
-    }, 100),
+    }, 300),
     [dispatch],
   );
 
@@ -71,6 +71,7 @@ export const UserSearch: React.FC<UserSearchProps> = ({
         }}
         inputValue={inputValue}
         onInputChange={(_, newInputValue) => {
+          setLoading(true);
           setInputValue(newInputValue);
         }}
         options={options}

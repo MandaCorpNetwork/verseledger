@@ -11,10 +11,11 @@ import { styled } from '@mui/material/styles';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch } from '@Redux/hooks';
+import { postContractInvite } from '@Redux/Slices/Contracts/actions/postContractInvite';
 import { postNewContract } from '@Redux/Slices/Contracts/actions/postNewContract';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { useCallback, useState } from 'react';
-import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
+import { IContract, ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
 import { ContractDetails } from './pages/ContractDetails';
 import { Contractors } from './pages/Contractors';
@@ -101,7 +102,18 @@ export const CreateContractPopup: React.FC = () => {
     if (page >= 4) {
       console.log(`Contract Data Passed To Action: ${JSON.stringify(formData)}`);
       dispatch(closePopup(POPUP_CREATE_CONTRACT));
-      dispatch(postNewContract(formData));
+      dispatch(postNewContract(formData)).then((res) => {
+        if ((res.payload as { __type: string }).__type === 'Contract') {
+          invites.forEach((invite) => {
+            dispatch(
+              postContractInvite({
+                contractId: (res.payload as IContract).id,
+                userId: invite.id,
+              }),
+            );
+          });
+        }
+      });
     }
     setPage(Math.min(page + 1, steps.length));
   }, [page, formData]);
@@ -121,7 +133,6 @@ export const CreateContractPopup: React.FC = () => {
     setPage(Math.max(page - 1, 0));
   }, [page]);
 
-  //Placeholder State For Contract Bids Backend
   const [invites, setInvites] = React.useState<User[]>([]);
 
   const handleUserInvite = React.useCallback((selectedUser: User | null) => {

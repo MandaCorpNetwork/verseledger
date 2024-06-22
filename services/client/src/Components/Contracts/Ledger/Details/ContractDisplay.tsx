@@ -24,6 +24,7 @@ import {
   Typography,
 } from '@mui/material';
 import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBid';
+import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
@@ -32,7 +33,6 @@ import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { ContractorsPanel } from './ActiveDataPanel';
 import { BidPanel, EndPanel, StartPanel } from './TimePanel';
-import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 
 const SmallTabs = styled(Tabs)({
   minHeight: '10px',
