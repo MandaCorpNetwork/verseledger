@@ -80,7 +80,7 @@ export class ContractService {
       .map((bid) => bid.user_id)
       .includes(userId);
     if (isPending) {
-      const bid = await ContractBid.findOne({
+      const bid = await ContractBid.scope('user').findOne({
         where: { user_id: userId, contract_id: contract.id },
       });
       if (bid == null) throw new Error('Something went Wrong');
