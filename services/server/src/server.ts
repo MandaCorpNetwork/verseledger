@@ -54,12 +54,12 @@ export const createServer = () => {
             VLAuthAccessToken: {
               type: 'apiKey',
               in: 'header',
-              name: 'Authentication',
+              name: 'Authorization',
             },
             VLAuthRefreshToken: {
               type: 'apiKey',
               in: 'header',
-              name: 'Authentication',
+              name: 'Authorization',
             },
           },
         },
