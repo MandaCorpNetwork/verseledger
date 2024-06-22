@@ -222,7 +222,6 @@ export const ContractDetails: React.FC<{
     >
       <Box data-testid="subTypeandBriefing-form">
         <Box>
-          {formData.isEmergency && <EmergencyOverlay />}
           <FormControl sx={{ display: 'flex', alignItems: 'left', width: '100%' }}>
             <FormLabel color="secondary" sx={{ fontWeight: 'bold' }}></FormLabel>
             <TextField
