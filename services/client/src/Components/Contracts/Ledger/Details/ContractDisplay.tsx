@@ -25,9 +25,7 @@ import {
 import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBid';
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
-import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { fetchContractBids } from '@Redux/Slices/Contracts/actions/fetchContractBids';
-import { selectActiveContractors } from '@Redux/Slices/Contracts/contractSelectors';
+import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -282,9 +280,8 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 }}
               />
               <Tooltip title={archetype}>
-                {archetype &&
-                  archetypes.find((option) => option.archetype === archetype)
-                    ?.archetypeIcon}
+                {archetypes.find((option) => option.archetype === archetype)
+                  ?.archetypeIcon ?? <Typography>???</Typography>}
               </Tooltip>
             </Box>
             <Box
