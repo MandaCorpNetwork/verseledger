@@ -227,7 +227,7 @@ export class UsersController extends BaseHttpController {
     consumes: [],
     parameters: {
       query: {
-        search: {
+        q: {
           required: true,
           description: 'User Handle or Name. Handles must prefix with "@"',
         },
@@ -236,9 +236,9 @@ export class UsersController extends BaseHttpController {
     security: { VLAuthAccessToken: [] },
   })
   @httpGet('/search', TYPES.VerifiedUserMiddleware)
-  public async search(@queryParam('search') search: string) {
+  public async search(@queryParam('q') search: string) {
     if (search == null || search.trim() == '')
-      throw new BadRequestError('"search" can not be Empty');
+      throw new BadRequestError('"q" can not be Empty');
     return this.userService.search(search);
   }
 }
