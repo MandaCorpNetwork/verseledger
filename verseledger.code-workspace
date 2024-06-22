@@ -12,5 +12,9 @@
       "name": "Server",
       "path": "services/server",
     },
+    {
+      "name": "VLShared",
+      "path": "packages/vl-shared",
+    },
   ],
 }
