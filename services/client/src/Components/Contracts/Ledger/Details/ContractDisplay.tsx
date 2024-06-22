@@ -2,7 +2,6 @@
 import { LocationChip } from '@Common/Components/App/LocationChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { archetypes } from '@Common/Definitions/Contracts/ContractArchetype';
-import { SalvageIcon } from '@Common/Definitions/CustomIcons';
 import {
   ChevronLeft,
   ChevronRight,
@@ -26,7 +25,9 @@ import {
 import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBid';
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
-import { useAppDispatch } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { fetchContractBids } from '@Redux/Slices/Contracts/actions/fetchContractBids';
+import { selectActiveContractors } from '@Redux/Slices/Contracts/contractSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -121,7 +122,12 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
     (panel: string) => {
       switch (panel) {
         case 'contractors':
-          return <ContractorsPanel contract={contract} />;
+          return (
+            <ContractorsPanel
+              contractId={contract.id}
+              contractorLimit={contract.contractorLimit}
+            />
+          );
         case 'ships':
           return;
         default:
@@ -182,6 +188,14 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
     },
     [setOtherLocationIndex, otherLocationIndex],
   );
+
+  const startLocationId = contract?.Locations?.find(
+    (location) => location.ContractLocation?.tag === 'start',
+  )?.id;
+
+  const endLocationId = contract?.Locations?.find(
+    (location) => location.ContractLocation?.tag === 'end',
+  )?.id;
 
   return (
     <Box
@@ -258,9 +272,19 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   {contract.title}
                 </Typography>
               </Tooltip>
-              <Box sx={{ flexGrow: '1', display: 'flex' }} />
-              <Tooltip title="Archetype">
-                <SalvageIcon fontSize="large" />
+              <Box
+                sx={{
+                  flexGrow: '1',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  py: 'auto',
+                }}
+              />
+              <Tooltip title={archetype}>
+                {archetype &&
+                  archetypes.find((option) => option.archetype === archetype)
+                    ?.archetypeIcon}
               </Tooltip>
             </Box>
             <Box
@@ -296,7 +320,10 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 </Typography>
                 <Chip
                   variant="filled"
-                  label={contract.status}
+                  label={
+                    contract.status.charAt(0).toUpperCase() +
+                    contract.status.slice(1).toLowerCase()
+                  }
                   color={statusColor}
                   size="small"
                 />
@@ -484,11 +511,20 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   mb: '.5em',
                 }}
               >
-                <Tooltip title={contract.payStructure} arrow>
+                <Tooltip
+                  title={
+                    contract.payStructure.charAt(0) +
+                    contract.payStructure.slice(1).toLowerCase()
+                  }
+                  arrow
+                >
                   <TextField
                     size="small"
                     label="Pay Structure"
-                    value={contract.payStructure}
+                    value={
+                      contract.payStructure.charAt(0) +
+                      contract.payStructure.slice(1).toLowerCase()
+                    }
                     color="secondary"
                     margin="dense"
                     InputProps={{
@@ -597,7 +633,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                       Start Location
                     </Typography>
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                      <LocationChip locationId={contract.Locations[0].id} />
+                      <LocationChip locationId={startLocationId ?? ''} />
                     </Box>
                   </Box>
                   {contract.Locations.length > 1 && (
@@ -622,11 +658,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                         End Location
                       </Typography>
                       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <LocationChip
-                          locationId={
-                            contract.Locations[contract.Locations.length - 1].id
-                          }
-                        />
+                        <LocationChip locationId={endLocationId ?? ''} />
                       </Box>
                     </Box>
                   )}

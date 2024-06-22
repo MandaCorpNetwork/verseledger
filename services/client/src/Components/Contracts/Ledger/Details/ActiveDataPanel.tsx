@@ -1,12 +1,13 @@
 import { Avatar, Box, Chip, Typography } from '@mui/material';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { useAppSelector } from '@Redux/hooks';
+import { selectActiveContractors } from '@Redux/Slices/Contracts/contractSelectors';
 type ContractorProps = {
   userName: string;
   profilePicture: string;
   ship?: string;
 };
 
-const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, ship }) => {
+const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture }) => {
   return (
     <Box
       data-testid="ActiveData-ContractorPanel-ContractorList__ContractorContainer"
@@ -46,7 +47,7 @@ const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, ship 
             variant="body2"
             sx={{ fontWeight: 'bold', color: 'text.secondary' }}
           >
-            Ship: {ship}
+            Ship: InDev
           </Typography>
         </Box>
       </Box>
@@ -55,11 +56,16 @@ const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, ship 
 };
 
 type ContractorPanelProps = {
-  contract: IContract;
+  contractId: string;
+  contractorLimit: number;
 };
 
-export const ContractorsPanel: React.FC<ContractorPanelProps> = ({ contract }) => {
-  const contractors = Object.values(testContractorsDB);
+export const ContractorsPanel: React.FC<ContractorPanelProps> = ({
+  contractId: contract,
+  contractorLimit,
+}) => {
+  const contractors = useAppSelector((state) => selectActiveContractors(state, contract));
+
   return (
     <Box
       data-testid="ContractBriefing-ActiveData-ContractorPanel__Container"
@@ -106,7 +112,7 @@ export const ContractorsPanel: React.FC<ContractorPanelProps> = ({ contract }) =
                 color: 'text.secondary',
               }}
             >
-              Active Contractors: X
+              Active Contractors: {contractors.length}
             </Typography>
             <Typography
               data-testid="ContractBriefing-ActiveData-ContractorPanel-CountBar__ContractorLimitCount"
@@ -116,8 +122,7 @@ export const ContractorsPanel: React.FC<ContractorPanelProps> = ({ contract }) =
                 color: 'text.secondary',
               }}
             >
-              Contractor Limit:{' '}
-              {contract.contractorLimit ? contract.contractorLimit : 'No Limit'}
+              Contractor Limit: {contractorLimit || 'No Limit'}
             </Typography>
           </Box>
         </Box>
@@ -149,12 +154,11 @@ export const ContractorsPanel: React.FC<ContractorPanelProps> = ({ contract }) =
               flexDirection: 'column',
             }}
           >
-            {contractors.map((contractors) => (
+            {contractors.map((contractor) => (
               <Contractor
-                key={contractors.id}
-                userName={contractors.name}
-                profilePicture={contractors.profilePicture}
-                ship="InDev"
+                key={contractor.id}
+                userName={contractor.displayName}
+                profilePicture={contractor.pfp}
               />
             ))}
           </Box>
@@ -162,107 +166,4 @@ export const ContractorsPanel: React.FC<ContractorPanelProps> = ({ contract }) =
       </Box>
     </Box>
   );
-};
-
-const testContractorsDB = {
-  1: {
-    id: 1,
-    name: 'Test User',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  2: {
-    id: 2,
-    name: 'Test User 2',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  3: {
-    id: 3,
-    name: 'Test User 3',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  4: {
-    id: 4,
-    name: 'Test User 4',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  5: {
-    id: 5,
-    name: 'Test User 5',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  6: {
-    id: 6,
-    name: 'Test User 6',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  7: {
-    id: 7,
-    name: 'Test User 7',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  8: {
-    id: 8,
-    name: 'Test User 8',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  9: {
-    id: 9,
-    name: 'Test User 9',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  10: {
-    id: 10,
-    name: 'Test User 10',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
 };

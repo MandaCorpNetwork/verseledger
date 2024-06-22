@@ -22,8 +22,6 @@ import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 
-import { EmergencyOverlay } from '../EmergencyOverlay';
-
 const options = [
   {
     archetype: 'Logistics',
