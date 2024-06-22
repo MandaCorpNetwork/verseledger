@@ -1,1 +1,2 @@
-export * from './Contract';
+export * from './ContractDTO';
+export * from './LocationDTO';

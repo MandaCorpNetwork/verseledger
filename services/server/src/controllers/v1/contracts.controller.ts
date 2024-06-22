@@ -18,7 +18,7 @@ import { BadParameterError } from '@Errors/BadParameter';
 import { NotFoundError } from '@Errors/NotFoundError';
 import { CreateContractBodySchema } from 'vl-shared/src/schemas/ContractSchema';
 import { z } from 'zod';
-import { ApiOperationPost, ApiPath } from 'swagger-express-ts';
+import { ApiOperationGet, ApiOperationPost, ApiPath } from 'swagger-express-ts';
 import { ZodToOpenapi } from '@/utils/ZodToOpenapi';
 
 @ApiPath({
@@ -78,6 +78,20 @@ export class ContractController extends BaseHttpController {
     }
   }
 
+  @ApiOperationGet({
+    description: 'Get all Contracts',
+    summary: 'Get Contracts',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Contract',
+      },
+    },
+    consumes: [],
+    parameters: {},
+    security: { VLAuth: [] },
+  })
   @httpGet('/')
   private getContracts() {
     return this.contractService.getContracts();
