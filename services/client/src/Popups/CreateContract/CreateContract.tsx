@@ -171,7 +171,19 @@ export const CreateContractPopup: React.FC = () => {
       minWidth="800px"
       data-testid="form"
       state={page}
-      onClose={() => false}
+      onClose={() => {
+        dispatch(
+          openPopup(POPUP_YOU_SURE, {
+            title: 'Cancel Contract Creation',
+            subjectText: 'Contract Creation',
+            bodyText: 'Any progress will be lost',
+            onAccept: () => dispatch(closePopup(POPUP_CREATE_CONTRACT)),
+            clickaway: true,
+            testid: 'CreateContractPopup_Cancel',
+          }),
+        );
+        return false;
+      }}
       name={POPUP_CREATE_CONTRACT}
       title="Create Contract"
       onCancel={onCancel}
