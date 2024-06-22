@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 
 import { ContractDisplay } from '@/Components/Contracts/Ledger/Details/ContractDisplay';
 import { useAppSelector } from '@/Redux/hooks';
-import { pickContract } from '@/Redux/Slices/Contracts/contractSelectors';
+import { selectContract } from '@/Redux/Slices/Contracts/contractSelectors';
 
 type ContractDisplayContainer = {
   selectedId: string | null;
@@ -13,7 +13,7 @@ export const ContractDisplayContainer: React.FC<ContractDisplayContainer> = ({
   selectedId,
 }) => {
   const pickedContract = useAppSelector((root) =>
-    pickContract(root, selectedId as string),
+    selectContract(root, selectedId as string),
   );
   useEffect(() => {
     console.log(`ContractBriefingDisplay: ${selectedId}`);

@@ -4,6 +4,7 @@ import { ContractSubTypeSchema } from "./ContractSubTypeSchema";
 import { ContractPayStructureSchema } from "./ContractPayStructureSchema";
 import { LocationSchema } from "./LocationSchema";
 import { UserSchema } from "./UserSchema";
+import { ContractBidSchema } from "./ContractBidSchema";
 
 export const ContractSchema = z.object({
   id: z.string().max(26).describe("CUID2"),
@@ -23,6 +24,7 @@ export const ContractSchema = z.object({
   defaultPay: z.number().int().positive(),
   status: z.string(),
   Locations: z.array(LocationSchema).optional(),
+  Bids: z.array(ContractBidSchema).optional(),
 });
 
 export type IContract = z.infer<typeof ContractSchema>;
