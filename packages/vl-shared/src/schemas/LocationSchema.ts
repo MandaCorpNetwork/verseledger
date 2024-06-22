@@ -4,6 +4,7 @@ import { ITimestamped, TimestampedSchema } from './TimestampedSchema';
 export const ContractLocationSchema = z.object({
   constract_id: z.string(),
   location_id: z.string(),
+  tag: z.string(),
 });
 
 export type IContractLocation = z.infer<typeof ContractLocationSchema>;
