@@ -21,6 +21,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 //import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import FleetLoop from '@/Assets/media/ContractLedger/FleetLoop.webm?url';
@@ -99,6 +100,8 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   //   [setFilters, setSelectedType],
   // );
 
+  const navigate = useNavigate();
+
   return (
     <Box
       data-testid="ContractLedger__PageContainer"
@@ -154,7 +157,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
           >
             <ContractLedgerQuickNav
               title="Manage"
-              onClick={() => {}}
+              onClick={() => navigate('/ledger/personal')}
               testid="ContractManager"
             />
             <ContractLedgerQuickNav
