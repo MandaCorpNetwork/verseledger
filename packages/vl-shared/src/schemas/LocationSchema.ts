@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { ITimestamped, TimestampedSchema } from "./TimestampedSchema";
+import { z } from 'zod';
+import { ITimestamped, TimestampedSchema } from './TimestampedSchema';
 
 export const ContractLocationSchema = z.object({
   constract_id: z.string(),
@@ -43,9 +43,17 @@ export const LocationWithContractLocationSchema = LocationSchema.extend({
   ContractLocation: ContractLocationSchema,
 });
 
+export type ILocationWithContractLocation = z.infer<
+  typeof LocationWithContractLocationSchema
+>;
+
 export const LocationWithContractLocationTimestampedSchema = z.union([
   LocationSchema.extend({
     ContractLocation: ContractLocationTimestampedSchema,
   }),
   TimestampedSchema,
 ]);
+
+export type ILocationWithContractLocationTimestamped = z.infer<
+  typeof LocationWithContractLocationTimestampedSchema
+>;
