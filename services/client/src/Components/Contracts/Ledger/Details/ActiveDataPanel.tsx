@@ -1,13 +1,19 @@
 import { Avatar, Box, Chip, Typography } from '@mui/material';
-import { useAppSelector } from '@Redux/hooks';
+import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectActiveContractors } from '@Redux/Slices/Contracts/contractSelectors';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 type ContractorProps = {
   userName: string;
   profilePicture: string;
-  ship?: string;
+  userId: string;
 };
 
-const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture }) => {
+const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, userId }) => {
+  const dispatch = useAppDispatch();
+  const handlePlayerCardOpen = () => {
+    dispatch(openPopup(POPUP_PLAYER_CARD, { userId }));
+  };
   return (
     <Box
       data-testid="ActiveData-ContractorPanel-ContractorList__ContractorContainer"
@@ -37,6 +43,7 @@ const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture }) => 
           label={userName}
           color="secondary"
           variant="outlined"
+          onClick={handlePlayerCardOpen}
         />
         <Box
           sx={{
@@ -159,6 +166,7 @@ export const ContractorsPanel: React.FC<ContractorPanelProps> = ({
                 key={contractor.id}
                 userName={contractor.displayName}
                 profilePicture={contractor.pfp}
+                userId={contractor.id}
               />
             ))}
           </Box>
