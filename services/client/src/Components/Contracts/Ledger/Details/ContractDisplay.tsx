@@ -1,6 +1,7 @@
 //ToDo-- Need to change out the boxes that expand and collapse w/ Mui Collapse Component for better transition effects
 import { LocationChip } from '@Common/Components/App/LocationChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
+import { archetypes } from '@Common/Definitions/Contracts/ContractArchetype';
 import { SalvageIcon } from '@Common/Definitions/CustomIcons';
 import {
   ChevronLeft,
@@ -31,6 +32,7 @@ import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { ContractorsPanel } from './ActiveDataPanel';
 import { BidPanel, EndPanel, StartPanel } from './TimePanel';
+import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 
 const SmallTabs = styled(Tabs)({
   minHeight: '10px',
@@ -56,6 +58,22 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const [activeDataTab, setActiveDataTab] = React.useState('contractors');
   const [timeTab, setTimeTab] = React.useState('bid');
   const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
+  const [archetype, setArchetype] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const selectedArchetype = archetypes.find((option) =>
+      option.subTypes.some((subType) => subType.value === contract.subtype),
+    );
+    if (selectedArchetype) {
+      setArchetype(selectedArchetype.archetype);
+    } else {
+      setArchetype(null);
+    }
+  }, [contract.subtype]);
+
+  const handleArchetypeOpen = () => {
+    dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetype }));
+  };
 
   const handleActiveTabChange = React.useCallback(
     (_event: React.SyntheticEvent, value: string) => {
@@ -305,7 +323,25 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 >
                   Contract SubTypes
                 </Typography>
-                <Chip variant="outlined" size="small" color="secondary" label="SubType" />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Chip
+                    variant="outlined"
+                    size="small"
+                    color="secondary"
+                    label={contract.subtype}
+                    icon={
+                      archetypes.find((option) => option.archetype === archetype)
+                        ?.archetypeIcon
+                    }
+                    onClick={handleArchetypeOpen}
+                  />
+                </Box>
               </Box>
             </Box>
           </Box>
