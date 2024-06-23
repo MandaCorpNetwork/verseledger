@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { fetchContracts } from './actions/fetchContracts';
+
 const contractsReducer = createSlice({
   name: 'contracts',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

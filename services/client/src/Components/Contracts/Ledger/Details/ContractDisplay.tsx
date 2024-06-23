@@ -633,10 +633,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                       Start Location
                     </Typography>
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                      <LocationChip
-                        source="contracts"
-                        locationId={startLocationId ?? ''}
-                      />
+                      <LocationChip locationId={startLocationId ?? ''} />
                     </Box>
                   </Box>
                   {contract.Locations.length > 1 && (
@@ -661,10 +658,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                         End Location
                       </Typography>
                       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <LocationChip
-                          source="contracts"
-                          locationId={endLocationId ?? ''}
-                        />
+                        <LocationChip locationId={endLocationId ?? ''} />
                       </Box>
                     </Box>
                   )}
@@ -720,7 +714,6 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                           >
                             {otherLocationIndex + 1}.{' '}
                             <LocationChip
-                              source="contracts"
                               locationId={
                                 otherLocationIds
                                   ? otherLocationIds[otherLocationIndex].id
