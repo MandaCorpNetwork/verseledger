@@ -78,6 +78,26 @@ export const TimeInformation: React.FC<{
     }
   }, [formData, setFormData]);
 
+  const checkEmergencyAvailable = () => {
+    if (
+      formData.subtype == 'Transport' ||
+      formData.subtype == 'Trauma' ||
+      formData.subtype == 'Escort' ||
+      formData.subtype == 'QRF' ||
+      formData.subtype == 'Refuel' ||
+      formData.subtype == 'Rearm' ||
+      formData.subtype == 'Repair' ||
+      formData.subtype == 'Middleman' ||
+      formData.subtype == 'Redacted'
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const emergencyAvailable = checkEmergencyAvailable();
+
   return (
     <Box
       data-testid="TimeInformation__Container"
@@ -233,7 +253,12 @@ export const TimeInformation: React.FC<{
                 mx: 'auto',
               }}
             >
-              <Button variant="contained" color="error" onClick={toggleEmergencyMode}>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={toggleEmergencyMode}
+                disabled={!emergencyAvailable}
+              >
                 Emergency
               </Button>
             </Box>

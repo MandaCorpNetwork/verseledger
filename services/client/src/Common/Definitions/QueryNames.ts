@@ -12,3 +12,18 @@ export enum QueryNames {
   TimeRemaining = 'time',
   Archetype = 'archetype',
 }
+
+/*
+
+Emergency Active: 
+Transport
+Trauma
+Escort
+QRF
+Refuel
+Rearm
+Repair
+Middleman
+Redacted
+
+*/

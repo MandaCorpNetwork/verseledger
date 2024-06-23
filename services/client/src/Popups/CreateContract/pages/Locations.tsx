@@ -4,6 +4,8 @@ import { Box, FormControl, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+
+import { SmallEmergencyOverlay } from '../EmergencyOverlay';
 export const Locations: React.FC<{
   formData: ICreateContractBody;
   setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
@@ -102,7 +104,8 @@ export const Locations: React.FC<{
               helperText="Select End Location"
             />
           </Box>
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={{ display: 'flex', position: 'relative' }}>
+            {formData.isEmergency && <SmallEmergencyOverlay />}
             <LocationSearch
               onLocationSelect={handleAddOtherLocation}
               width="320px"
@@ -200,8 +203,9 @@ export const Locations: React.FC<{
               borderTop: '2px solid',
               borderBottom: '2px solid',
               borderRadius: '5px',
-              borderColor: 'primary.main',
-
+              borderColor: formData.isEmergency
+                ? 'action.disabledBackground'
+                : 'primary.main',
               mx: '20%',
               py: '.5em',
               px: '.2em',
@@ -211,7 +215,12 @@ export const Locations: React.FC<{
               alignItems: 'center',
             }}
           >
-            <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+            <Typography
+              variant="body1"
+              sx={{
+                color: formData.isEmergency ? 'text.disabled' : 'text.secondary',
+              }}
+            >
               Other Locations
             </Typography>
             <Box

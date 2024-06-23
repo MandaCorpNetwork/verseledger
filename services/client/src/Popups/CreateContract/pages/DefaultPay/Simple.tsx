@@ -27,6 +27,9 @@ export const FlatRatePayroll: React.FC<{
         sx={{
           width: '150px',
         }}
+        inputProps={{
+          min: formData.isEmergency ? 15000 : undefined,
+        }}
       />
     </Box>
   );

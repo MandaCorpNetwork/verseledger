@@ -19,6 +19,7 @@ import React from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
+import { LargeEmergencyOverlay } from '../EmergencyOverlay';
 import { FlatRatePayroll, PoolPayroll, TimedPayroll } from './DefaultPay/Simple';
 
 type RadioControlProps = {
@@ -107,7 +108,8 @@ export const Payroll: React.FC<{
           minHeight: '220px',
         }}
       >
-        <Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
+          {formData.isEmergency && <LargeEmergencyOverlay />}
           <FormLabel color="secondary">
             Pay Structure
             <IconButton
@@ -231,8 +233,10 @@ export const Payroll: React.FC<{
           sx={{
             display: 'flex',
             flexDirection: 'column',
+            position: 'relative',
           }}
         >
+          {formData.isEmergency && <LargeEmergencyOverlay />}
           <FormLabel color="secondary">Options</FormLabel>
           <Tooltip title="Allows the Bidder to Negotiate their Pay">
             <FormControlLabel

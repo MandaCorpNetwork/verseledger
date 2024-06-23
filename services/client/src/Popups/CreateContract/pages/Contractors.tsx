@@ -13,6 +13,8 @@ import {
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
+import { SmallEmergencyOverlay } from '../EmergencyOverlay';
+
 export const Contractors: React.FC<{
   formData: ICreateContractBody;
   setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
@@ -48,11 +50,19 @@ export const Contractors: React.FC<{
                 flexDirection: 'row',
                 alignItems: 'center',
                 my: '0.5em',
+                position: 'relative',
               }}
             >
+              {formData.isEmergency && <SmallEmergencyOverlay />}
               <FormControlLabel
                 data-testid="ContractorsForm-Settings__RatingSwitch"
-                control={<Switch color="secondary" size="small" />}
+                control={
+                  <Switch
+                    color="secondary"
+                    size="small"
+                    disabled={formData.isEmergency}
+                  />
+                }
                 label="Limit Rating"
                 onChange={handleRatingToggle}
                 checked={!ratingDisabled}
