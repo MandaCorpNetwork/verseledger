@@ -91,6 +91,7 @@ export const CreateContractPopup: React.FC = () => {
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState<ICreateContractBody>({
     Locations: [],
+    isEmergency: false,
     payStructure: 'FLATRATE',
     contractorLimit: 1,
     isBonusPay: false,
