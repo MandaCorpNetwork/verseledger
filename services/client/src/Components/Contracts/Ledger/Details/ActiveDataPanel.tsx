@@ -68,11 +68,14 @@ type ContractorPanelProps = {
 };
 
 export const ContractorsPanel: React.FC<ContractorPanelProps> = ({
-  contractId: contract,
+  contractId,
   contractorLimit,
 }) => {
-  const contractors = useAppSelector((state) => selectActiveContractors(state, contract));
+  const contractors = useAppSelector((state) =>
+    selectActiveContractors(state, contractId),
+  );
 
+  console.log(`ContractorPanel ID: ${contractId}`);
   return (
     <Box
       data-testid="ContractBriefing-ActiveData-ContractorPanel__Container"

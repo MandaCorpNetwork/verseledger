@@ -51,6 +51,8 @@ type ContractDisplayProps = {
 export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) => {
   const dispatch = useAppDispatch();
 
+  console.log(`ContractDisplay ID: ${contract.id}`);
+
   const [briefingExpanded, setBriefingExpanded] = React.useState(true);
   const [payExpanded, setPayExpanded] = React.useState(true);
   const [locationsExpanded, setLocationsExpanded] = React.useState(true);
@@ -118,6 +120,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
 
   const activeDataPanel = React.useCallback(
     (panel: string) => {
+      console.log(`Rendering ContractId: ${contract.id}`);
       switch (panel) {
         case 'contractors':
           return (
@@ -132,7 +135,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           return;
       }
     },
-    [activeDataTab],
+    [activeDataTab, contract],
   );
 
   const statusChipColor = React.useCallback(() => {
@@ -194,9 +197,6 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const endLocationId = contract?.Locations?.find(
     (location) => location.ContractLocation?.tag === 'end',
   )?.id;
-
-  console.log(contract.Locations);
-  console.log(`startLocationId: ${startLocationId}`);
 
   return (
     <Box

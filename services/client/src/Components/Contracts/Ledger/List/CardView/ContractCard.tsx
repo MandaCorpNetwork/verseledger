@@ -45,6 +45,10 @@ export const ContractCard: React.FC<ContractCardProps> = ({
     dispatch(openPopup(POPUP_PLAYER_CARD, { userid }));
   }, [user]);
 
+  const startLocationId = contract?.Locations?.find(
+    (location) => location.ContractLocation?.tag === 'start',
+  )?.id;
+
   return (
     <Card
       onClick={handleClick}
@@ -70,18 +74,20 @@ export const ContractCard: React.FC<ContractCardProps> = ({
       }}
     >
       {contract.isEmergency && (
-        <EmergencyShare
-          color="error"
-          fontSize="large"
-          sx={{
-            position: 'absolute',
-            display: 'flex',
-            top: '-10px',
-            left: '90%',
-            opacity: isSelected ? '1' : '.7',
-            transition: 'opacity 0.3s ease-in-out',
-          }}
-        />
+        <Tooltip title="Emergency Contract">
+          <EmergencyShare
+            color="error"
+            fontSize="large"
+            sx={{
+              position: 'absolute',
+              display: 'flex',
+              top: '-10px',
+              left: '90%',
+              opacity: isSelected ? '1' : '.7',
+              transition: 'opacity 0.3s ease-in-out',
+            }}
+          />
+        </Tooltip>
       )}
       <CardActionArea
         sx={{
@@ -168,7 +174,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
           }}
         >
           <Box sx={{ mx: 'auto' }}>
-            <LocationChip locationId="Location" />
+            <LocationChip locationId={startLocationId ?? ''} />
           </Box>
           <PayDisplay value={contract.defaultPay} variant={contract.payStructure} />
         </Box>
