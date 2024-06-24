@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { fetchCheckVerificationCode } from '../Auth/Actions/checkVerificationCode';
 import { fetchCurrentUser } from '../Auth/Actions/fetchCurrentUser';
@@ -10,6 +10,11 @@ const usersReducer = createSlice({
   reducers: {
     noop() {
       return {};
+    },
+    updateUsers(state, action: PayloadAction<User[]>) {
+      action.payload.forEach((user) => {
+        state[user.id] = user;
+      });
     },
   },
   extraReducers(builder) {

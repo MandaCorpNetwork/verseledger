@@ -1,19 +1,13 @@
-import { Avatar, Box, Chip, Typography } from '@mui/material';
-import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
-import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { UserChip } from '@Common/Components/Users/UserChip';
+import { Box, Typography } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
 import { selectActiveContractors } from '@Redux/Slices/Contracts/contractSelectors';
-import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+
 type ContractorProps = {
-  userName: string;
-  profilePicture: string;
   userId: string;
 };
 
-const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, userId }) => {
-  const dispatch = useAppDispatch();
-  const handlePlayerCardOpen = () => {
-    dispatch(openPopup(POPUP_PLAYER_CARD, { userId }));
-  };
+const Contractor: React.FC<ContractorProps> = ({ userId }) => {
   return (
     <Box
       data-testid="ActiveData-ContractorPanel-ContractorList__ContractorContainer"
@@ -37,14 +31,7 @@ const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, userI
           alignContent: 'center',
         }}
       >
-        <Chip
-          data-testid="ActiveData-ContractorPanel-ContractorList-Contractor__UserChip"
-          avatar={<Avatar src={profilePicture} />}
-          label={userName}
-          color="secondary"
-          variant="outlined"
-          onClick={handlePlayerCardOpen}
-        />
+        <UserChip userid={userId} size="medium" />
         <Box
           sx={{
             my: 'auto',
@@ -74,8 +61,6 @@ export const ContractorsPanel: React.FC<ContractorPanelProps> = ({
   const contractors = useAppSelector((state) =>
     selectActiveContractors(state, contractId),
   );
-
-  console.log(`ContractorPanel ID: ${contractId}`);
   return (
     <Box
       data-testid="ContractBriefing-ActiveData-ContractorPanel__Container"
@@ -164,14 +149,15 @@ export const ContractorsPanel: React.FC<ContractorPanelProps> = ({
               flexDirection: 'column',
             }}
           >
-            {contractors.map((contractor) => (
-              <Contractor
-                key={contractor.id}
-                userName={contractor.displayName}
-                profilePicture={contractor.pfp}
-                userId={contractor.id}
-              />
-            ))}
+            {contractors && contractors.length > 0 ? (
+              contractors.map((contractor) => (
+                <Contractor key={contractor.id} userId={contractor.id} />
+              ))
+            ) : (
+              <Typography align="center" sx={{ alignItems: 'center' }}>
+                No Active Contractors
+              </Typography>
+            )}
           </Box>
         </Box>
       </Box>
