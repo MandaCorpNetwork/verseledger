@@ -1,4 +1,4 @@
-//Will work with MuiTransitions for the dock - https://mui.com/material-ui/transitions/
+//Timeing on animations needs work
 import {
   FleetIcon,
   LogisticsIcon,
@@ -6,7 +6,7 @@ import {
   SalvageIcon,
   SecurityIcon,
 } from '@Common/Definitions/CustomIcons';
-//import { QueryNames } from '@Common/Definitions/QueryNames';
+import { QueryNames } from '@Common/Definitions/QueryNames';
 import {
   AddCircle,
   Explore,
@@ -15,11 +15,11 @@ import {
   LocalHospital,
   VisibilityOff,
 } from '@mui/icons-material';
-import { Box, Collapse, IconButton, Tooltip } from '@mui/material';
+import { Box, Collapse, Grow, IconButton, Slide, Tooltip } from '@mui/material';
 import { POPUP_CREATE_CONTRACT } from '@Popups/CreateContract/CreateContract';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-//import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -56,7 +56,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
     setSelectedId(null);
   };
 
-  const [selectedType, setSelectedType] = useState<string>('');
+  const [selectedType, setSelectedType] = useState<string[]>([]);
 
   const openCreateContract = useCallback(() => {
     dispatch(openPopup(POPUP_CREATE_CONTRACT));
@@ -78,7 +78,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
     { title: 'Proxy', videoSource: ProxyLoop },
   ];
 
-  //const [, setFilters] = useURLQuery();
+  const [, setFilters] = useURLQuery();
 
   const archetypeIcon = [
     { title: 'Logistics', icon: <LogisticsIcon fontSize="large" /> },
@@ -93,11 +93,15 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   ];
 
   // const handleArchetypeIconClick = React.useCallback(
-  //   (filter: typeof QueryNames, title: string) => {
-  //     setFilters(filter, title);
-  //     setSelectedType(title);
+  //   (title: string) => {
+  //     setSelectedType((prev) => {
+  //       const newSelectedTypes = prev.includes(title)
+  //         ? prev.filter((t) => t !== title)
+  //         : [...prev, title];
+  //       setFilters('archetype', newSelectedTypes.join(','));
+  //     });
   //   },
-  //   [setFilters, setSelectedType],
+  //   [setFilters],
   // );
 
   const navigate = useNavigate();
@@ -127,103 +131,154 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
           orientation="horizontal"
           sx={{
             height: '100%',
+            position: 'relative',
             width: isExpanded ? '600px' : '30px',
-            backgroundColor: 'primary.dark',
             borderTopRightRadius: '10px',
             borderBottomRightRadius: '10px',
+            borderTop: '2px solid',
+            borderBottom: '2px solid',
+            borderColor: 'secondary.main',
             mr: '1em',
+            boxShadow: '0 2px 10px 4px rgba(24,252,252,0.25)',
+            backgroundImage:
+              'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
+            '&:before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              backgroundImage:
+                'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
+              backgroundSize: '5px 5px',
+              opacity: 0.5,
+            },
+            '&:hover': {
+              backgroundImage:
+                'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
+              borderColor: 'secondary.light',
+            },
+            transition: 'all 0.5s',
           }}
         >
-          <IconButton onClick={handleDrawerOpen}>
+          <IconButton
+            sx={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              transform: `rotate(${isExpanded ? '180deg' : '0'})`,
+              transition: 'transform 0.3s',
+            }}
+            onClick={handleDrawerOpen}
+          >
             <KeyboardDoubleArrowRight fontSize="large" />
           </IconButton>
-          <Tooltip title="Create Contract" placement="right">
-            <IconButton
-              onClick={openCreateContract}
-              sx={{ display: isExpanded ? 'none' : 'flex' }}
+          <Box
+            sx={{
+              mt: '3em',
+            }}
+          >
+            <Tooltip title="Create Contract" placement="right">
+              <Slide
+                direction="right"
+                in={!isExpanded}
+                mountOnEnter
+                unmountOnExit
+                timeout={{ enter: 800, exit: 300 }}
+              >
+                <IconButton onClick={openCreateContract}>
+                  <AddCircle fontSize="large" />
+                </IconButton>
+              </Slide>
+            </Tooltip>
+            <Grow
+              data-testid="ContractLedger-ColumnOne__QuickNavSlide"
+              in={isExpanded}
+              mountOnEnter
+              unmountOnExit
+              timeout={{ enter: 3500, exit: 300 }}
             >
-              <AddCircle fontSize="large" />
-            </IconButton>
-          </Tooltip>
-          <Box
-            data-testid="ContractLedger-ColumnOne__QuickNavWrapper"
-            sx={{
-              width: '100%',
-              justifyContent: 'center',
-              display: isExpanded ? 'flex' : 'none',
-              opacity: isExpanded ? 1 : 0,
-              transition: 'opacity 2s ease-in-out 1s',
-            }}
-          >
-            <ContractLedgerQuickNav
-              title="Manage"
-              onClick={() => navigate('/ledger/personal')}
-              testid="ContractManager"
-            />
-            <ContractLedgerQuickNav
-              title="Create"
-              onClick={openCreateContract}
-              testid="CreateContract"
-            />
-          </Box>
-          <Box
-            data-testid="ContractLedger-ColumnOne__ArchetypeButtonWrapper"
-            sx={{
-              width: '100%',
-              mr: isExpanded ? '.5em' : '',
-              ml: isExpanded ? '.5em' : '',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            {archetypeIcon.map((icon) => {
-              return (
-                <Box
-                  key={icon.title}
-                  sx={{
-                    display: isExpanded ? 'none' : 'flex',
-                    transform: isExpanded ? 'translateX(-100%)' : 'translateX(0)',
-                    opacity: isExpanded ? 0 : 1,
-                    transition:
-                      'transform 0.8s ease-in-out, opacity 0.5s ease-in-out 1s, display 1s ease-in-out',
-                  }}
-                >
-                  <Tooltip title={icon.title} placement="right">
-                    <IconButton
-                      onClick={() => {}}
-                      sx={{
-                        color:
-                          selectedType == icon.title ? 'secondary.main' : 'primary.main',
-                      }}
-                    >
-                      {icon.icon}
-                    </IconButton>
-                  </Tooltip>
-                </Box>
-              );
-            })}
-            {archetypeButton.map((button) => (
               <Box
-                key={button.title}
+                data-testid="ContractLedger-ColumnOne__QuickNavWrapper"
                 sx={{
-                  display: isExpanded ? 'flex' : 'none',
-                  mb: '1',
-                  mr: '1em',
-                  transform: isExpanded ? 'translateX(0)' : 'translateX(-100%)',
-                  transition:
-                    'transform 0.3s ease-in-out 2s, opacity 0.5s ease-in-out 0.3s, display 1s ease-in-out',
-                  opacity: isExpanded ? 1 : 0,
+                  ml: '20%',
                 }}
               >
-                <ContractLedgerLoopButton
-                  title={button.title}
-                  videoSource={button.videoSource}
-                  selectedType={selectedType}
-                  setSelectedType={setSelectedType}
+                <ContractLedgerQuickNav
+                  title="Manage"
+                  onClick={() => navigate('/ledger/personal')}
+                  testid="ContractManager"
+                />
+                <ContractLedgerQuickNav
+                  title="Create"
+                  onClick={openCreateContract}
+                  testid="CreateContract"
                 />
               </Box>
-            ))}
+            </Grow>
+            <Box
+              data-testid="ContractLedger-ColumnOne__ArchetypeButtonWrapper"
+              sx={{
+                width: '100%',
+                mr: isExpanded ? '.5em' : '',
+                ml: isExpanded ? '.5em' : '',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              {archetypeIcon.map((icon) => {
+                return (
+                  <Slide
+                    key={icon.title}
+                    in={!isExpanded}
+                    mountOnEnter
+                    unmountOnExit
+                    direction="right"
+                    timeout={{ enter: 800, exit: 300 }}
+                  >
+                    <Tooltip title={icon.title} placement="right">
+                      <IconButton
+                        onClick={() => {}}
+                        sx={{
+                          color: 'primary.main',
+                          // color:
+                          //   selectedType == icon.title
+                          //     ? 'secondary.main'
+                          //     : 'primary.main',
+                        }}
+                      >
+                        {icon.icon}
+                      </IconButton>
+                    </Tooltip>
+                  </Slide>
+                );
+              })}
+              {archetypeButton.map((button) => (
+                <Grow
+                  key={button.title}
+                  in={isExpanded}
+                  mountOnEnter
+                  unmountOnExit
+                  timeout={{ enter: 3500, exit: 300 }}
+                >
+                  <Box
+                    sx={{
+                      mb: '1',
+                      mr: '1em',
+                    }}
+                  >
+                    <ContractLedgerLoopButton
+                      title={button.title}
+                      videoSource={button.videoSource}
+                      selectedType={selectedType}
+                      setSelectedType={setSelectedType}
+                    />
+                  </Box>
+                </Grow>
+              ))}
+            </Box>
           </Box>
         </Collapse>
         <Box
