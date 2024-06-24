@@ -32,6 +32,7 @@ import ProxyLoop from '@/Assets/media/ContractLedger/ProxyLoop.webm?url';
 import RRRLoop from '@/Assets/media/ContractLedger/RRRLoop.webm?url';
 import SalvageLoop from '@/Assets/media/ContractLedger/SalvLoop.webm?url';
 import SecurityLoop from '@/Assets/media/ContractLedger/SecLoop.webm?url';
+import BackdropLogo from '@/Assets/media/VerseLogos/LogoBackdrop.png?url';
 import { ContractLedgerLoopButton } from '@/Components/Contracts/Ledger/ContractLedgerLoopButton';
 import { ContractLedgerQuickNav } from '@/Components/Contracts/Ledger/ContractLedgerQuickNav';
 import { ContractDisplayContainer } from '@/Components/Contracts/Ledger/Details/ContractDisplayContainer';
@@ -113,6 +114,20 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
         width: '100vw',
         height: 'calc(100vh - 64px)',
         overflow: 'hidden',
+        '&:before': {
+          content: '""',
+          position: 'absolute',
+          backgroundImage: `url(${BackdropLogo})`,
+          backgroundSize: 'auto',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: -1,
+          opacity: 0.5,
+        },
       }}
     >
       <Box
@@ -293,6 +308,8 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
             borderRadius: '10px',
             borderColor: 'secondary.main',
             flex: '1',
+            background: 'rgba(0,30,100,0.2)',
+            backdropFilter: 'blur(20px)',
           }}
         >
           <ContractTableTools />
@@ -308,6 +325,8 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
             ml: '1em',
             width: '30%',
             height: '100%',
+            background: 'rgba(0,30,100,0.2)',
+            backdropFilter: 'blur(20px)',
           }}
         >
           <ContractDisplayContainer selectedId={selectedId} />
