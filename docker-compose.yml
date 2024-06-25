@@ -3,6 +3,19 @@ volumes:
   vl-activemq:
 
 services:
+  vl-app:
+    container_name: vl-app
+    profiles:
+      - build
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+      - '3030:3030'
+    expose:
+      - '3000'
+      - '3030'
   vl-db:
     container_name: vl-db
     profiles:
@@ -45,13 +58,6 @@ services:
     restart: always
     ports:
       - 8181:8080
-  vl-backend:
-    container_name: vl-backend
-    profiles:
-      - build
-    build:
-      context: ./services/server
-      dockerfile: Dockerfile
   vl-phpmyadmin:
     container_name: vl-phpmyadmin
     profiles:

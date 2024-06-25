@@ -41,7 +41,9 @@
     "lint": "npm run lint:fix && npm run lint:format",
     "lint:fix": "eslint ./src --fix",
     "lint:format": "prettier ./src --write",
-    "lint:check": "tsc --noEmit && npx eslint ./src"
+    "lint:check": "tsc --noEmit && npx eslint ./src",
+    "build": "vite build",
+    "serve": "vite serve"
   },
   "browserslist": {
     "production": [

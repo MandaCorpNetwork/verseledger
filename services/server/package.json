@@ -31,7 +31,7 @@
     "lint": "tsc --noEmit && npx eslint ./src --fix && npx prettier ./src --write",
     "test": "exit 0",
     "dev": "dotenv -- nodemon --exec \"node -r @swc-node/register ./src/index.ts\" -e .ts",
-    "build": "tsc",
+    "serve": "dotenv -- node -r @swc-node/register ./src/index.ts",
     "clean": ""
   },
   "dependencies": {
