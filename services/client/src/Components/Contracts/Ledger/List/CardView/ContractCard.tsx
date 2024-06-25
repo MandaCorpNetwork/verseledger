@@ -3,6 +3,7 @@
 //This Contract passes it's ID to the ContractCardDisplay when clicked and sets itself to selected to display it's full information in the ContractBriefingViewer
 import { LocationChip } from '@Common/Components/App/LocationChip';
 import { PayDisplay } from '@Common/Components/App/PayDisplay';
+import { archetypes } from '@Common/Definitions/Contracts/ContractArchetype';
 import {
   FleetIcon,
   RRRIcon,
@@ -30,6 +31,19 @@ export const ContractCard: React.FC<ContractCardProps> = ({
   onClick,
   isSelected,
 }) => {
+  const [archetype, setArchetype] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const selectedArchetype = archetypes.find((option) =>
+      option.subTypes.some((subType) => subType.value === contract.subtype),
+    );
+    if (selectedArchetype) {
+      setArchetype(selectedArchetype.archetype);
+    } else {
+      setArchetype(null);
+    }
+  }, [contract.subtype]);
+
   const handleClick = () => {
     if (onClick) {
       onClick();
@@ -133,6 +147,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
                 '&:hover': {
                   boxShadow: '0 0 10px 2px #0e318d',
                 },
+                boxShadow: '2px 2px 10px 5px rgba(8,22,80,.7)',
               }}
             />
           </Tooltip>
@@ -162,20 +177,9 @@ export const ContractCard: React.FC<ContractCardProps> = ({
             justifyContent: 'space-around',
           }}
         >
-          <Tooltip title="SubType Icon Placeholder" arrow>
-            <FleetIcon fontSize="large" sx={{ color: 'primary.light' }} />
-          </Tooltip>
-          <Tooltip title="SubType Icon Placeholder" arrow>
-            <SecurityIcon fontSize="large" sx={{ color: 'primary.light' }} />
-          </Tooltip>
-          <Tooltip title="SubType Icon Placeholder" arrow>
-            <LocalHospital fontSize="large" sx={{ color: 'primary.light' }} />
-          </Tooltip>
-          <Tooltip title="SubType Icon Placeholder" arrow>
-            <RRRIcon fontSize="large" sx={{ color: 'primary.light' }} />
-          </Tooltip>
-          <Tooltip title="SubType Icon Placeholder" arrow>
-            <SalvageIcon fontSize="large" sx={{ color: 'primary.light' }} />
+          <Tooltip title={archetype}>
+            {archetypes.find((option) => option.archetype === archetype)
+              ?.archetypeIcon ?? <Typography>???</Typography>}
           </Tooltip>
         </Box>
         <Box
