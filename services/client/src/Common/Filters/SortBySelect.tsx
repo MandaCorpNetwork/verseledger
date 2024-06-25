@@ -71,7 +71,12 @@ export const SortBySelect: React.FC<SortBySelectProps> = ({
         variant="outlined"
         label="Sort By"
         onChange={handleSortChange}
-        sx={{ minWidth: '100px' }}
+        sx={{
+          minWidth: '100px',
+          '&:hover': {
+            boxShadow: '0 0 10px rgb(24,252,252)',
+          },
+        }}
         startAdornment={
           filters.has(QueryNames.SortBy) !== false && <SortDirectionButton />
         }

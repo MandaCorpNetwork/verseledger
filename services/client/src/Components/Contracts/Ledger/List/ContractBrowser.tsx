@@ -93,6 +93,13 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
               variant="text"
               endIcon={<CloseIcon />}
               color="secondary"
+              sx={{
+                textShadow: '1px 1px 5px rgba(24,252,252,0.3)',
+                '&:hover': {
+                  transform: 'scale(1.1)',
+                },
+                transition: 'transform 0.3s ease-in-out',
+              }}
             >
               Close
             </Button>

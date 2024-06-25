@@ -55,21 +55,35 @@ export const ContractCard: React.FC<ContractCardProps> = ({
       sx={{
         height: '10em',
         width: '15em',
+        background: 'linear-gradient(45deg, rgba(8,22,141), rgba(0,30,100))',
         bgcolor: 'action.disabledBackground',
         overflow: 'visible',
+        border: '1px solid rgba(14,49,252,.4)',
         boxShadow:
           isSelected && contract.isEmergency
             ? '0 0 10px 2px red'
             : isSelected
               ? '0 0 10px 2px #18fcfc'
-              : '',
+              : '0 0 10px 2px #0e318d',
         transition: 'box-shadow 0.3s ease-in-out',
         '&:hover': {
           boxShadow: contract.isEmergency
             ? '0 0 10px 2px #ff4d4d'
             : isSelected
-              ? '0 0 10px 2px #d3fafe'
-              : '0 0 10px 2px #0e318d',
+              ? '0 0 10px 2px rgb(33, 150, 243)'
+              : '0 0 10px 2px rgba(14,49,252,.4)',
+        },
+        '&:before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundImage:
+            'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
+          backgroundSize: '5px 5px',
+          opacity: 0.3,
         },
       }}
     >

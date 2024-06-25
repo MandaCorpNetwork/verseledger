@@ -104,6 +104,11 @@ export const ContractTableTools: React.FC<unknown> = () => {
           variant="outlined"
           startIcon={<FilterAlt />}
           size="small"
+          sx={{
+            '&:hover': {
+              boxShadow: '0 0px 10px',
+            },
+          }}
         >
           Filters
         </Button>
@@ -146,7 +151,7 @@ export const ContractTableTools: React.FC<unknown> = () => {
       <Typography
         data-testid="ContractLedger-TableTools__Title"
         variant="h5"
-        sx={{ color: 'text.secondary' }}
+        sx={{ color: 'text.secondary', textShadow: '1px 1px 2px rgba(0,73,130,0.8)' }}
       >
         Contract Browser
       </Typography>

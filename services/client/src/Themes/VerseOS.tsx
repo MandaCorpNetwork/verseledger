@@ -18,6 +18,10 @@ declare module '@mui/material/Button' {
 
 export const verseOSTheme = createTheme({
   palette: {
+    tonalOffset: {
+      dark: 0.9,
+      light: 0.1,
+    },
     background: {
       default: 'rgb(0, 1, 19)',
       //default: 'white', //Theme Test Switch
@@ -42,6 +46,7 @@ export const verseOSTheme = createTheme({
     },
     success: {
       main: 'rgb(8, 201, 11)',
+      dark: 'rgb(14,49,252)',
     },
     warning: {
       main: 'rgb(255, 141, 15)',

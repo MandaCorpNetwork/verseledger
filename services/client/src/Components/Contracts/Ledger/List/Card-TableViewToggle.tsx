@@ -23,16 +23,23 @@ export const CardorTableViewToggle: React.FC<CardorTableViewToggleProps> = ({
       onChange={handleViewChange}
       value={view}
       sx={{
+        border: '1px solid',
+        borderColor: 'success.dark',
+        boxShadow: '0 0px 10px rgba(24,252,252,0.5)',
+        borderRadius: '5px',
+        '&:hover': {
+          borderColor: 'primary.main',
+        },
         '& .MuiToggleButton-root': {
-          color: 'primary.main',
-          backgroundColor: 'text.disabled',
+          color: 'secondary.dark',
+          backgroundColor: 'action.disabledBackground',
           '&:hover': {
-            color: 'secondary.main',
+            color: 'text.secondary',
           },
         },
         '& .MuiToggleButton-root.Mui-selected': {
           color: 'secondary.main',
-          backgroundColor: 'secondary.dark',
+          backgroundColor: 'primary.main',
           '&:hover': {
             color: 'secondary.light',
           },
@@ -40,10 +47,14 @@ export const CardorTableViewToggle: React.FC<CardorTableViewToggleProps> = ({
       }}
     >
       <ToggleButton value="ContractCardView">
-        <RecentActors />
+        <RecentActors
+          sx={{ '&:hover': { transform: 'scale(1.2)' }, transition: 'transform 0.3s' }}
+        />
       </ToggleButton>
       <ToggleButton value="ContractTableView">
-        <TableChart />
+        <TableChart
+          sx={{ '&:hover': { transform: 'scale(1.2)' }, transition: 'transform 0.3s' }}
+        />
       </ToggleButton>
     </ToggleButtonGroup>
   );
