@@ -54,7 +54,7 @@ export const UserDisplay: React.FC<UserDisplayProps> = ({ userid }) => {
             borderColor: 'secondary.main',
             transition: 'background-color 300ms',
             '&:hover': {
-              borderColor: 'secondary.dark',
+              borderColor: 'secondary.light',
             },
             '&:active': {
               borderColor: 'secondary.main',

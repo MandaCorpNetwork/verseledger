@@ -3,8 +3,20 @@
 //This Contract passes it's ID to the ContractCardDisplay when clicked and sets itself to selected to display it's full information in the ContractBriefingViewer
 import { LocationChip } from '@Common/Components/App/LocationChip';
 import { PayDisplay } from '@Common/Components/App/PayDisplay';
-import { archetypes } from '@Common/Definitions/Contracts/ContractArchetype';
-import { EmergencyShare } from '@mui/icons-material';
+import {
+  FleetIcon,
+  LogisticsIcon,
+  RRRIcon,
+  SalvageIcon,
+  SecurityIcon,
+} from '@Common/Definitions/CustomIcons';
+import {
+  EmergencyShare,
+  Explore,
+  Factory,
+  LocalHospital,
+  VisibilityOff,
+} from '@mui/icons-material';
 import { Avatar, Box, Card, CardActionArea, Tooltip, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -308,3 +320,159 @@ Card Layout:
   rejectedFleetAllocation: {};
  }
 */
+const archetypes = [
+  {
+    archetype: 'Logistics',
+    archetypeIcon: <LogisticsIcon color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Transport',
+        value: 'Transport',
+      },
+      {
+        label: 'Hauling',
+        value: 'Hauling',
+      },
+      {
+        label: 'Manage',
+        value: 'Manage',
+      },
+    ],
+  },
+  {
+    archetype: 'Medical',
+    archetypeIcon: <LocalHospital color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Trauma',
+        value: 'Trauma',
+      },
+      {
+        label: 'On-Call',
+        value: 'On-Call',
+      },
+    ],
+  },
+  {
+    archetype: 'Security',
+    archetypeIcon: <SecurityIcon color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Escort',
+        value: 'Escort',
+      },
+      {
+        label: 'Bounty',
+        value: 'Bounty',
+      },
+      {
+        label: 'Quick Reaction Force',
+        value: 'QRF',
+      },
+      {
+        label: 'Asset Protection',
+        value: 'Asset-Protection',
+      },
+      {
+        label: 'Attache',
+        value: 'Attache',
+      },
+    ],
+  },
+  {
+    archetype: 'Salvage',
+    archetypeIcon: <SalvageIcon color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Collection',
+        value: 'Collection',
+      },
+      {
+        label: 'Procurement',
+        value: 'Procurement',
+      },
+    ],
+  },
+  {
+    archetype: 'Industry',
+    archetypeIcon: <Factory color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Mining',
+        value: 'Mining',
+      },
+      {
+        label: 'Refining',
+        value: 'Refining',
+      },
+      {
+        label: 'Manufacturing',
+        value: 'Manufacturing',
+      },
+      {
+        label: 'Scouting',
+        value: 'Scouting',
+      },
+    ],
+  },
+  {
+    archetype: 'RRR',
+    archetypeIcon: <RRRIcon color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Refuel',
+        value: 'Refuel',
+      },
+      {
+        label: 'Rearm',
+        value: 'Rearm',
+      },
+      {
+        label: 'Repair',
+        value: 'Repair',
+      },
+    ],
+  },
+  {
+    archetype: 'Fleet',
+    archetypeIcon: <FleetIcon color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Crewman',
+        value: 'Crewman',
+      },
+      {
+        label: 'Outsourcing',
+        value: 'Outsourcing',
+      },
+    ],
+  },
+  {
+    archetype: 'Exploration',
+    archetypeIcon: <Explore color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Locate',
+        value: 'Locate',
+      },
+      {
+        label: 'Charting',
+        value: 'Charting',
+      },
+    ],
+  },
+  {
+    archetype: 'Proxy',
+    archetypeIcon: <VisibilityOff color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Middleman',
+        value: 'Middleman',
+      },
+      {
+        label: 'Redacted',
+        value: 'Redacted',
+      },
+    ],
+  },
+];
