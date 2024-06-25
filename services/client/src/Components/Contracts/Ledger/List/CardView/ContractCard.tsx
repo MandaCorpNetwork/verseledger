@@ -4,13 +4,7 @@
 import { LocationChip } from '@Common/Components/App/LocationChip';
 import { PayDisplay } from '@Common/Components/App/PayDisplay';
 import { archetypes } from '@Common/Definitions/Contracts/ContractArchetype';
-import {
-  FleetIcon,
-  RRRIcon,
-  SalvageIcon,
-  SecurityIcon,
-} from '@Common/Definitions/CustomIcons';
-import { EmergencyShare, LocalHospital } from '@mui/icons-material';
+import { EmergencyShare } from '@mui/icons-material';
 import { Avatar, Box, Card, CardActionArea, Tooltip, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
