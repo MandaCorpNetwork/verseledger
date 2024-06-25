@@ -61,6 +61,25 @@ export const verseOSTheme = createTheme({
     divider: 'rgb(24, 252, 252)',
   },
   components: {
+    MuiLinearProgress: {
+      styleOverrides: {
+        root: {
+          height: '7px',
+          borderRadius: '5px',
+          boxShadow: '0 0 10px 3px rgba(24,252,252,0.2)',
+          background:
+            'linear-gradient(135deg, rgba(0,30,100,.8) 0%, rgba(0,73,130,.8) 50%, rgba(14,49,252,.5) 100%)',
+          border: '1px solid rgba(14,49,252,.5)',
+          '& .MuiLinearProgress-bar': {
+            borderRadius: '5px',
+          },
+          '& .MuiLinearProgress-barColorPrimary': {
+            backgroundColor: 'rgb(24,252,252)',
+            boxShadow: '0 0 10px 2px rgba(24,252,252)',
+          },
+        },
+      },
+    },
     MuiTable: {
       styleOverrides: {
         root: {

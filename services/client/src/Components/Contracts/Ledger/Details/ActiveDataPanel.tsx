@@ -23,12 +23,28 @@ const Contractor: React.FC<ContractorProps> = ({ userId }) => {
         sx={{
           display: 'flex',
           flexDirection: 'row',
-          backgroundColor: 'rgba(14,49,141,.25)',
+          background: 'linear-gradient(135deg, rgba(8,22,141,0.8), rgba(0,30,100))',
+          bgcolor: 'action.disabledBackground',
           borderRadius: '10px',
           p: '.2em',
           width: '50%',
           justifyContent: 'space-around',
           alignContent: 'center',
+          border: '1px solid rgba(14,49,252,.4)',
+          boxShadow: '0 0 5px 2px #0e318d',
+          position: 'relative',
+          '&:before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundImage:
+              'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
+            backgroundSize: '5px 5px',
+            opacity: 0.3,
+          },
         }}
       >
         <UserChip userid={userId} size="medium" />
@@ -37,10 +53,7 @@ const Contractor: React.FC<ContractorProps> = ({ userId }) => {
             my: 'auto',
           }}
         >
-          <Typography
-            variant="body2"
-            sx={{ fontWeight: 'bold', color: 'text.secondary' }}
-          >
+          <Typography variant="body2" sx={{ fontWeight: 'bold', color: 'text.disabled' }}>
             Ship: InDev
           </Typography>
         </Box>
@@ -85,7 +98,7 @@ export const ContractorsPanel: React.FC<ContractorPanelProps> = ({
             display: 'flex',
             flexDirection: 'row',
             width: '100%',
-            backgroundColor: 'rgba(14,49,141,.25)',
+            backgroundColor: 'rgba(33,150,243,.2)',
             borderRadius: '10px',
           }}
         >
@@ -104,7 +117,8 @@ export const ContractorsPanel: React.FC<ContractorPanelProps> = ({
               variant="body2"
               sx={{
                 fontWeight: 'bold',
-                color: 'text.secondary',
+                color:
+                  contractorLimit === contractors.length ? 'info.main' : 'text.secondary',
               }}
             >
               Active Contractors: {contractors.length}
@@ -114,7 +128,8 @@ export const ContractorsPanel: React.FC<ContractorPanelProps> = ({
               variant="body2"
               sx={{
                 fontWeight: 'bold',
-                color: 'text.secondary',
+                color:
+                  contractorLimit === contractors.length ? 'info.main' : 'text.secondary',
               }}
             >
               Contractor Limit: {contractorLimit || 'No Limit'}
