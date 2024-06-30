@@ -6,7 +6,6 @@ import {
   SalvageIcon,
   SecurityIcon,
 } from '@Common/Definitions/CustomIcons';
-import { QueryNames } from '@Common/Definitions/QueryNames';
 import {
   AddCircle,
   Explore,
@@ -79,7 +78,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
     { title: 'Proxy', videoSource: ProxyLoop },
   ];
 
-  const [, setFilters] = useURLQuery();
+  const [,] = useURLQuery();
 
   const archetypeIcon = [
     { title: 'Logistics', icon: <LogisticsIcon fontSize="large" /> },

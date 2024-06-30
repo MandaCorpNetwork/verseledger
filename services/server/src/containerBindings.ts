@@ -9,6 +9,7 @@ import { StompService } from '@Services/stomp.service';
 import { AuthMiddleware } from '@Middleware/auth.middleware';
 import { VerifiedUserMiddleware } from '@Middleware/verified.middleware';
 import { TestingMiddleware } from '@Middleware/testing.middleware';
+import { NotificationService } from '@Services/notification.service';
 export const bindContainer = (container: Container) => {
   container
     .bind<EnvService>(TYPES.EnvService)
@@ -25,6 +26,10 @@ export const bindContainer = (container: Container) => {
   container
     .bind<UserService>(TYPES.UserService)
     .to(UserService)
+    .inSingletonScope();
+  container
+    .bind<NotificationService>(TYPES.NotificationService)
+    .to(NotificationService)
     .inSingletonScope();
   container
     .bind<AuthMiddleware>(TYPES.AuthMiddleware)

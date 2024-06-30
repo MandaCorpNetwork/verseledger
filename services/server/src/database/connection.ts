@@ -15,9 +15,14 @@ export const setupModels = (env: {
     host: env.MYSQL_HOST,
     port: Number(env.MYSQL_PORT),
     models: [`${__dirname}/models/**/*.model.ts`],
-    modelMatch: (a, b) => {
-      console.log(a, b);
+    modelMatch(a, b) {
+      console.log(`Loading \x1b[33m${b}\x1b[0m from ${a}`);
       return true;
+    },
+    benchmark: true,
+    logging(sql) {
+      console.info(sql);
+      return;
     },
   });
 };

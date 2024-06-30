@@ -21,6 +21,12 @@ class NetworkService {
       headers,
     });
   }
+  public async PATCH<R, T>(url: string, body: T, headers?: Record<string, string>) {
+    const isLocal = NetworkService.isLocalUrl(url);
+    return axios.patch<R>(isLocal ? NetworkService.resolveApiUri(url) : url, body, {
+      headers,
+    });
+  }
   public async POST<R, T>(url: string, body: T, headers?: Record<string, string>) {
     const isLocal = NetworkService.isLocalUrl(url);
     return axios.post<R>(isLocal ? NetworkService.resolveApiUri(url) : url, body, {
