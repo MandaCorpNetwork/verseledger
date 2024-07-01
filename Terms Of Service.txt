@@ -1,0 +1,62 @@
+Verse Ledger Terms Of Service
+Effective June 29th, 2024
+
+*Introduction*
+Welcome to Verse Ledger, a third-party community application for Cloud-Imperium Games' Star Citizen video game. By accessing or using our services, you agree to abide by these Terms of Service, which are designed to ensure a safe and productive environment for all users.
+
+These terms govern your use of Verse Ledger, including any content, features, and functionality offered on or through our platform. We encourage you to read them carefully, as they outline your rights and responsibilities while using our services. By creating an account or accessing any part of the platform, you acknowledge that you have read, understood, and agree to be bound by these terms.
+
+If you have any questions or concerns, please feel free to reach out to the Staff in our Discord. Thank you for choosing Verse Ledger as your Companion Application for Star Citizen.
+
+*Eligibility*
+To use our services, you must meet the following criteria:
+
+The User must be at least 13 years of age or older. By using our platform, you confirm that you meet this age requirement. If you are under 13, you may only use Verse Ledger under the supervision of a parent or legal guardian who agrees to these Terms of Service.
+
+The User must agree to provide accurate information and only connect accounts that belong to the User. By using our platform, you affirm that all accounts connected to your account are owned by you and that you have the necessary permissions to access them.
+
+The User agrees to use Verse Ledger in compliance with all applicable local, state, national & international laws and regulations. Any use of the platform that is unlawful or prohibited by these Terms of Service is strictly prohibited.
+
+The User may not use Verse Ledger if you have been previously banned from the platform or if any applicable laws in your jurisdiction prohibit you from using our services.
+
+By accessing or using Verse Ledger. you represent and warrant that you meet all eligibility requirements. If you do not meet these requirements, you do not have permission to use our services.
+
+*User Account*
+Account Creation is required to use Verse Ledger. All Accounts are created through Third-Party Authentication with Discord. By creating an account with Verse Ledger through this Authentication, the User affirms that the account used is owned by that User and that they have the necessary permissions to access it.
+
+Account Security is the responsibility of the User. Verse Ledger Login Credentials should be kept confidiential and shared with no one. Iff you suspect unauthorized access to your account, please contact the Staff in our Discord. The User should be aware that all access to their account is managed by Third-Party Authentication with Discord, and Verse Ledger will be limited in what assistance we can provide.
+
+Account Responsibility falls upon the User. All activities that occure under your account are ultimately upon the User Owner. This includes any actions taken byu others who may have accessed your account, whether or not you authorized them.
+
+Profile Verification is required to use Verse Ledger. Profile Verification is a process using our API to verify your Star Citizen Account. By Verifying your Profile, you affirm that you are the owner of the Star Citizen Account connected to your Verse Ledger Account.
+
+Account Termination may occure at the discretion of Verse Ledger Staff. Verse Ledger reserves the right to suspend or terminate your account at any time, without prior notice, for any reason, including violation of these Terms of Service. You may also deactivate your account at any time through your account settings.
+
+The User, by creating an account, consents to the collection, use and storage of your data as described in our Privacy Policy. It is your responsibility to review and understand how your data is handled.
+
+By creating and maintaining an account with Verse Ledger, you agree to comply with these guidelines and take full responsibility for your account activity.
+
+*Use of the Service*
+Verse Ledger is designed to assist you in your activities with Star Citizen.
+
+By Accessing Verse Ledger, the User agrees to adhear to the User Conduct laid out within these Terms. The User Conduct prohibits the use of Verse Ledger for any purpose that may be unlawful or promote unlawful activities. The User Conduct prohibits the use of Verse Ledger to upload, share or disseminate harmful, abusive, defamatory or obscene content. The User Conduct prohibits the use of Verse Ledger to upload, share or disseminate content that is illegal or that violates any third-party rights. The User Conduct prohibits the use of Verse Ledger to upload, share or disseminate content that is pornographic or racist in nature. The User Conduct prohibits the use of Verse Ledger to upload, share or disseminate content that is hateful, or promotes violence or harm to people. The User Conduct prohibits the use of Verse Ledger to upload, share or disseminate content that Verse Ledger deems devisive or otherwise inappropriate. The User Conduct prohibits the use of Verse Ledger to upload, share or disseminate content that is spam or otherwise intended to deceive or mislead. The User Conduct prohibits the use of Verse Ledger to upload, share or disseminate content that is disruptive to other users or the general public. The User Conduct prohibits the use of Verse Ledger to upload, share or disseminate content that is deemed political in nature. The User Conduct prohibits the use of Verse Ledger to upload, share or disseminate content that is in violation of these Terms of Service.
+
+The User is responsible for ensuring that your use of the service complies with the User Conduct agreed to within these Terms. Verse Ledger may impose limits on certain features or restrict access to parts or all of the service without notice or liability. Verse Ledger reserves the right to modify, suspend, or discontinue any aspect of the service at any time.
+
+The User is expected not to abuse the resources of Verse Ledger, including excessive API requests, scraping or any automated methods that can degrade service performance.
+
+*Content and Ownership*
+
+*Prohibited Activities*
+
+*Termination*
+
+*Limitation of Liability*
+
+*Idemnification*
+
+*Governing Law*
+
+*Changes to Terms*
+
+*Contact Information*
