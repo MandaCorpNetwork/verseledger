@@ -1,8 +1,7 @@
-import Station from '@Assets/media/Station.svg?url';
-import { LocationSelection } from '@Common/Components/App/LocationSelection';
 import { Feedback } from '@mui/icons-material';
-import MailIcon from '@mui/icons-material/Mail';
+import MailNoneIcon from '@mui/icons-material/MailOutline';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import {
   AppBar,
   Avatar,
@@ -17,6 +16,8 @@ import { Popover, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
+import { fetchUnreadCount } from '@Redux/Slices/Notifications/actions/getUnreadCount';
+import { selectNotificationsUnreadCount } from '@Redux/Slices/Notifications/notificationSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import {
   bindMenu,
@@ -24,7 +25,7 @@ import {
   PopupState,
   usePopupState,
 } from 'material-ui-popup-state/hooks';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
@@ -34,6 +35,7 @@ import { AuthUtil } from '@/Utils/AuthUtil';
 import { URLUtil } from '@/Utils/URLUtil';
 
 import { UserSettings } from '../Users/UserSettings';
+import { NotificationsBox } from './NotificationsBox';
 import VerseLogo from './VerseLogo';
 
 export const VLAppBar: React.FC<unknown> = () => {
@@ -58,12 +60,12 @@ export const VLAppBar: React.FC<unknown> = () => {
   //const menuId = 'primary-account-menu';
 
   const handlePlayerCardOpen = () => {
-    profilePopupState.close;
+    profilePopupState.close();
     dispatch(openPopup(POPUP_PLAYER_CARD, { userid: currentUser?.id }));
   };
 
   const handleUserSettingsOpen = () => {
-    profilePopupState.close;
+    profilePopupState.close();
     setUserSettingsOpen(true);
   };
 
@@ -74,16 +76,6 @@ export const VLAppBar: React.FC<unknown> = () => {
   const handleFeedbackOpen = () => {
     dispatch(openPopup(POPUP_FEEDBACK));
   };
-
-  const [anchorE1, setAnchorE1] = useState<HTMLElement | null>(null);
-
-  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    setAnchorE1(e.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorE1(null);
-  };
-  //Location Button Dropdown Interaction
 
   const renderMenu = (
     <Menu {...bindMenu(profilePopupState)}>
@@ -101,10 +93,34 @@ export const VLAppBar: React.FC<unknown> = () => {
     </Menu>
   );
 
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+
+  const [notificationsAnchorEl, setNotificationsAnchorE1] =
+    React.useState<null | HTMLElement>(null);
+
+  const notificationsOnClick = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      setNotificationsOpen(true);
+      setNotificationsAnchorE1(event.currentTarget);
+    },
+    [setNotificationsOpen],
+  );
+  const notificationsOnClose = useCallback(() => {
+    setNotificationsOpen(false);
+    setNotificationsAnchorE1(null);
+  }, [setNotificationsOpen]);
+
   const navigate = useNavigate();
   function handleLogoClick() {
     navigate('/');
   }
+
+  useEffect(() => {
+    if (currentUser == null) return;
+    dispatch(fetchUnreadCount());
+  }, [currentUser?.id]);
+
+  const unreadCount = useAppSelector(selectNotificationsUnreadCount);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -114,44 +130,29 @@ export const VLAppBar: React.FC<unknown> = () => {
             <VerseLogo />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
-          <Button sx={{ marginRight: '10%' }} onClick={handleClick}>
-            <img src={Station} alt="Location-Select" />
-            <Popover
-              id="test-menu"
-              keepMounted
-              open={Boolean(anchorE1)}
-              anchorEl={anchorE1}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
-              }}
-            >
-              <LocationSelection />
-            </Popover>
-          </Button>
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: 'flex' }}>
             {isLoggedIn ? (
               <>
                 <IconButton size="large" color="inherit" onClick={handleFeedbackOpen}>
                   <Feedback />
                 </IconButton>
                 <IconButton size="large" aria-label="show 4 new messages" color="inherit">
-                  <Badge badgeContent={4} color="error">
-                    <MailIcon />
+                  <Badge badgeContent={0} color="error">
+                    <MailNoneIcon />
                   </Badge>
                 </IconButton>
                 <IconButton
                   size="large"
-                  aria-label="show 23 new notifications"
+                  aria-label={`show ${unreadCount} new notifications`}
                   color="inherit"
+                  onClick={notificationsOnClick}
                 >
-                  <Badge badgeContent={23} color="error">
-                    <NotificationsIcon />
+                  <Badge badgeContent={unreadCount} color="error">
+                    {notificationsOpen ? (
+                      <NotificationsIcon />
+                    ) : (
+                      <NotificationsNoneIcon />
+                    )}
                   </Badge>
                 </IconButton>
                 <IconButton
@@ -184,6 +185,24 @@ export const VLAppBar: React.FC<unknown> = () => {
         </Toolbar>
       </AppBar>
       {renderMenu}
+      {notificationsOpen && (
+        <Popover
+          open={true}
+          onClose={notificationsOnClose}
+          anchorEl={notificationsAnchorEl}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          sx={{ p: '1em' }}
+        >
+          <NotificationsBox />
+        </Popover>
+      )}
       <UserSettings open={userSettingsOpen} onClose={handleUserSettingsClose} />
     </Box>
   );

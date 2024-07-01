@@ -10,8 +10,14 @@ const locationsReducer = createSlice({
     noop() {
       return {};
     },
-    insert(state, location) {
-      state[location.payload.id as string] = location.payload;
+    insert(state, action) {
+      state[action.payload.id as string] = action.payload;
+    },
+    insertBulk(state, action) {
+      const locations = action.payload as ILocation[];
+      for (const location of locations) {
+        state[location.id] = location;
+      }
     },
   },
   extraReducers(builder) {

@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { isDev } from '../Utils/isDev';
 import { coreReducer } from './reducers';
-import { updateLocationsMiddleware } from './Slices/Locations/updateLocations';
+import { updateLocationsMiddleware } from './Slices/Locations/updateLocations.middleware';
 import { updateUsersMiddleware } from './Slices/Users/updateUsers';
 
 export const setupStore = (preloadState?: Partial<RootState>) =>

@@ -12,9 +12,7 @@ export const updateLocationsMiddleware: Middleware<unknown, Record<string, unkno
     if (fetchContracts.fulfilled.match(action)) {
       (action.payload as IContract[]).forEach((contract) => {
         if (contract.Locations) {
-          contract.Locations.forEach((location) => {
-            dispatch(locationsActions.insert(location));
-          });
+          dispatch(locationsActions.insertBulk(location));
         }
       });
     }
