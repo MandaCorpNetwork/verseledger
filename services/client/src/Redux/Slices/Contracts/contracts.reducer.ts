@@ -17,6 +17,7 @@ const contractsReducer = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(fetchContracts.fulfilled, (_state, action) => {
+      console.log('Fetch contracts fulfilled', action.payload);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       for (const contract of action.payload as any[]) {
         _state[contract.id as number] = contract;
