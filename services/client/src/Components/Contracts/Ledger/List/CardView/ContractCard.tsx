@@ -150,8 +150,10 @@ export const ContractCard: React.FC<ContractCardProps> = ({
                 mr: '.5em',
                 mt: 'auto',
                 mb: 'auto',
+                bgcolor: 'rgba(8,22,80,.9)',
                 '&:hover': {
                   boxShadow: '0 0 10px 2px #0e318d',
+                  bgcolor: '#0e318d',
                 },
                 boxShadow: '2px 2px 10px 5px rgba(8,22,80,.7)',
               }}

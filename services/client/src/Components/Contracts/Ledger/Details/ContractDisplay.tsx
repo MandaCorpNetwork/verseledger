@@ -1,4 +1,3 @@
-//ToDo-- Need to change out the boxes that expand and collapse w/ Mui Collapse Component for better transition effects
 import { LocationChip } from '@Common/Components/App/LocationChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { archetypes } from '@Common/Definitions/Contracts/ContractArchetype';
@@ -165,6 +164,31 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
 
   const otherLocationIds = getOtherLocationIds();
 
+  const getStartLocationId = () => {
+    if (contract.Locations) {
+      const startLocationPull = contract?.Locations?.find(
+        (location) => location.ContractLocation?.tag === 'start',
+      )?.id;
+      return startLocationPull || null;
+    }
+    return null;
+  };
+
+  const startLocationId = getStartLocationId();
+
+  const getEndLocationId = () => {
+    if (contract.Locations) {
+      const endLocationPull = contract?.Locations?.find(
+        (location) => location.ContractLocation?.tag === 'end',
+      )?.id;
+      console.log(`EndLocation: ${endLocationPull}`);
+      return endLocationPull || null;
+    }
+    return null;
+  };
+
+  const endLocationId = getEndLocationId();
+
   const handleOtherLocationIndexChange = React.useCallback(
     (direction: string) => {
       console.log(getOtherLocationIds());
@@ -184,14 +208,6 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
     },
     [setOtherLocationIndex, otherLocationIndex],
   );
-
-  const startLocationId = contract?.Locations?.find(
-    (location) => location.ContractLocation?.tag === 'start',
-  )?.id;
-
-  const endLocationId = contract?.Locations?.find(
-    (location) => location.ContractLocation?.tag === 'end',
-  )?.id;
 
   return (
     <Box
