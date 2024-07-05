@@ -9,11 +9,13 @@ import { Box, Step, StepConnector, StepLabel, Stepper } from '@mui/material';
 import { stepConnectorClasses } from '@mui/material/StepConnector';
 import { styled } from '@mui/material/styles';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
+import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch } from '@Redux/hooks';
+import { postContractInvite } from '@Redux/Slices/Contracts/actions/postContractInvite';
 import { postNewContract } from '@Redux/Slices/Contracts/actions/postNewContract';
-import { closePopup } from '@Redux/Slices/Popups/popups.actions';
+import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { useCallback, useState } from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContract, ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
 import { ContractDetails } from './pages/ContractDetails';
 import { Contractors } from './pages/Contractors';
@@ -87,25 +89,51 @@ const ColorlibConnector = styled(StepConnector)(() => ({
 export const CreateContractPopup: React.FC = () => {
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(0);
+  const [formData, setFormData] = useState<ICreateContractBody>({
+    Locations: [],
+    isEmergency: false,
+    payStructure: 'FLATRATE',
+    contractorLimit: 1,
+    isBonusPay: false,
+    isBargaining: false,
+    subtype: null,
+  } as unknown as ICreateContractBody);
 
   const onSubmit = useCallback(() => {
     if (page >= 4) {
+      console.log(`Contract Data Passed To Action: ${JSON.stringify(formData)}`);
       dispatch(closePopup(POPUP_CREATE_CONTRACT));
-      dispatch(postNewContract(formData));
+      dispatch(postNewContract(formData)).then((res) => {
+        if ((res.payload as { __type: string }).__type === 'Contract') {
+          invites.forEach((invite) => {
+            dispatch(
+              postContractInvite({
+                contractId: (res.payload as IContract).id,
+                userId: invite.id,
+              }),
+            );
+          });
+        }
+      });
     }
     setPage(Math.min(page + 1, steps.length));
-  }, [page]);
+  }, [page, formData]);
 
   const onCancel = useCallback(() => {
+    if (page == 0)
+      return dispatch(
+        openPopup(POPUP_YOU_SURE, {
+          title: 'Cancel Contract Creation',
+          subjectText: 'Contract Creation',
+          bodyText: 'Any progress will be lost',
+          onAccept: () => dispatch(closePopup(POPUP_CREATE_CONTRACT)),
+          clickaway: true,
+          testid: 'CreateContractPopup_Cancel',
+        }),
+      );
     setPage(Math.max(page - 1, 0));
   }, [page]);
 
-  const [formData, setFormData] = useState<IContract>({
-    locations: [] as string[],
-    payStructure: 'FLATRATE',
-  } as IContract);
-
-  //Placeholder State For Contract Bids Backend
   const [invites, setInvites] = React.useState<User[]>([]);
 
   const handleUserInvite = React.useCallback((selectedUser: User | null) => {
@@ -130,9 +158,9 @@ export const CreateContractPopup: React.FC = () => {
       case 1:
         return true;
       case 2:
-        return formData.locations != null && formData.locations.length != 0;
+        return formData.Locations != null && formData.Locations?.length != 0;
       case 3:
-        return true;
+        return formData.contractorLimit != null && formData.contractorLimit != 0;
       case 4:
         return formData.payStructure != null && formData.defaultPay != null;
     }
@@ -144,11 +172,23 @@ export const CreateContractPopup: React.FC = () => {
       minWidth="800px"
       data-testid="form"
       state={page}
+      onClose={() => {
+        dispatch(
+          openPopup(POPUP_YOU_SURE, {
+            title: 'Cancel Contract Creation',
+            subjectText: 'Contract Creation',
+            bodyText: 'Any progress will be lost',
+            onAccept: () => dispatch(closePopup(POPUP_CREATE_CONTRACT)),
+            clickaway: true,
+            testid: 'CreateContractPopup_Cancel',
+          }),
+        );
+        return false;
+      }}
       name={POPUP_CREATE_CONTRACT}
       title="Create Contract"
       onCancel={onCancel}
-      cancelText="Back"
-      cancelDisabled={page <= 0}
+      cancelText={page <= 0 ? 'Cancel' : 'Back'}
       onSubmit={onSubmit}
       submitDisabled={!isSubmitEnabled}
       submitText={page >= 4 ? 'Submit' : 'Next'}

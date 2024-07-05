@@ -1,4 +1,4 @@
-import { QuickTimeButton } from '@Common/Components/App/QuickTimeButton';
+// import { QuickTimeButton } from '@Common/Components/App/QuickTimeButton';
 import { SelectTimeButton } from '@Common/Components/App/SelectTimeButton';
 import {
   Box,
@@ -11,11 +11,13 @@ import {
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
+
+import { LargeEmergencyOverlay } from '../EmergencyOverlay';
 
 export const TimeInformation: React.FC<{
-  formData: IContract;
-  setFormData: React.Dispatch<React.SetStateAction<IContract>>;
+  formData: ICreateContractBody;
+  setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
 }> = (props) => {
   const { formData, setFormData } = props;
   const [heldDate, setHeldDate] = React.useState<Date | null>(null);
@@ -29,7 +31,7 @@ export const TimeInformation: React.FC<{
         const startDate = bidDate.add(10, 'second').toDate();
         setFormData({ ...formData, startDate: startDate ?? null });
       } else {
-        setFormData({ ...formData, startDate: null });
+        setFormData({ ...formData, startDate: undefined });
       }
       return newChecked;
     });
@@ -68,10 +70,33 @@ export const TimeInformation: React.FC<{
   }, []);
 
   const toggleEmergencyMode = React.useCallback(() => {
+    console.log(formData.isEmergency);
     if (formData.isEmergency) {
-      return setFormData({ ...formData, isEmergency: false ?? true });
+      setFormData({ ...formData, isEmergency: false });
+    } else {
+      setFormData({ ...formData, isEmergency: true });
     }
   }, [formData, setFormData]);
+
+  const checkEmergencyAvailable = () => {
+    if (
+      formData.subtype == 'Transport' ||
+      formData.subtype == 'Trauma' ||
+      formData.subtype == 'Escort' ||
+      formData.subtype == 'QRF' ||
+      formData.subtype == 'Refuel' ||
+      formData.subtype == 'Rearm' ||
+      formData.subtype == 'Repair' ||
+      formData.subtype == 'Middleman' ||
+      formData.subtype == 'Redacted'
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const emergencyAvailable = checkEmergencyAvailable();
 
   return (
     <Box
@@ -91,12 +116,15 @@ export const TimeInformation: React.FC<{
             sx={{
               display: 'flex',
               flexDirection: 'column',
+              maxWidth: '220px',
+              position: 'relative',
             }}
           >
+            {formData.isEmergency && <LargeEmergencyOverlay />}
             <TextField
               label="Bid Date"
               color="secondary"
-              value={formatDate(formData.bidDate)}
+              value={formatDate(formData.bidDate as Date)}
               inputProps={{ style: { textAlign: 'center' } }}
               InputProps={{
                 readOnly: true,
@@ -115,7 +143,7 @@ export const TimeInformation: React.FC<{
             <TextField
               label="Start Date"
               color="secondary"
-              value={formatDate(formData.startDate)}
+              value={formatDate(formData.startDate as Date)}
               inputProps={{ style: { textAlign: 'center' } }}
               InputProps={{
                 readOnly: true,
@@ -134,7 +162,7 @@ export const TimeInformation: React.FC<{
             <TextField
               label="End Date"
               color="secondary"
-              value={formatDate(formData.endDate)}
+              value={formatDate(formData.endDate as Date)}
               inputProps={{ style: { textAlign: 'center' } }}
               InputProps={{
                 readOnly: true,
@@ -158,7 +186,7 @@ export const TimeInformation: React.FC<{
               flexDirection: 'column',
             }}
           >
-            <Typography
+            {/* <Typography
               align="center"
               sx={{ color: 'text.secondary', fontWeight: 'bold', mb: '.5em' }}
             >
@@ -176,12 +204,30 @@ export const TimeInformation: React.FC<{
               <QuickTimeButton time="2 hr" onClick={() => {}} />
               <QuickTimeButton time="4 hr" onClick={() => {}} />
               <QuickTimeButton time="8 hr" onClick={() => {}} />
+            </Box> */}
+            <Box
+              sx={{
+                maxWidth: '300px',
+              }}
+            >
+              <Typography
+                align="center"
+                variant="body2"
+                sx={{
+                  color: 'info.main',
+                  fontSize: '.75em',
+                }}
+              >
+                Unselected Times are manually controlled in the Contract Manager on the
+                Personal Ledger
+              </Typography>
             </Box>
             <Box
               data-testid="TimeInformation-formManipulation__StartAfterBiddingWrapper"
               sx={{
                 ml: '2em',
                 mt: '1em',
+                position: 'relative',
               }}
             >
               <FormControlLabel
@@ -207,10 +253,20 @@ export const TimeInformation: React.FC<{
                 mx: 'auto',
               }}
             >
-              <Button variant="contained" color="error" onClick={toggleEmergencyMode}>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={toggleEmergencyMode}
+                disabled={!emergencyAvailable}
+              >
                 Emergency
               </Button>
             </Box>
+            {formData.isEmergency && (
+              <Typography align="center" variant="body2" sx={{ color: 'info.main' }}>
+                Emergency Mode disables some features.
+              </Typography>
+            )}
           </Box>
         </FormControl>
       </Box>

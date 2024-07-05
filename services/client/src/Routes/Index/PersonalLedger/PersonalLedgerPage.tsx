@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import React from 'react';
 
+import BackdropLogo from '@/Assets/media/VerseLogos/LogoBackdrop.png?url';
 import { AppToolBar } from '@/Components/Personal/AppToolBar';
 import { ContractManagerApp } from '@/Components/Personal/ContractManager/ContractManagerApp';
 import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
@@ -32,6 +33,20 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
         height: 'calc(100vh - 64px)',
         width: '100%',
         padding: '1em',
+        '&:before': {
+          content: '""',
+          position: 'absolute',
+          backgroundImage: `url(${BackdropLogo})`,
+          backgroundSize: 'auto',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: -1,
+          opacity: 0.5,
+        },
       }}
     >
       <Box

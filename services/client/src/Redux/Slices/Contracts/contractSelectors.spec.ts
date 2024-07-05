@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { pickContract } from './contractSelectors';
+import { selectContract } from './contractSelectors';
 
 describe('contractSelectors.ts', () => {
   it('can pick a contract by id', () => {
@@ -30,7 +30,7 @@ describe('contractSelectors.ts', () => {
         subtype: 'Transport',
       },
     };
-    expect(pickContract({ contracts }, 'X-2')).toEqual(contracts['X-2']);
-    expect(pickContract({ contracts }, 'X-1')).toEqual(contracts['X-1']);
+    expect(selectContract({ contracts }, 'X-2')).toEqual(contracts['X-2']);
+    expect(selectContract({ contracts }, 'X-1')).toEqual(contracts['X-1']);
   });
 });

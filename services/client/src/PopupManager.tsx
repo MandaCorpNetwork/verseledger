@@ -26,6 +26,11 @@ import {
 } from '@Popups/PlayerCard/PlayerCard';
 import { POPUP_USER_INVITE, UserInvitePopup } from '@Popups/UserInvite/UserInvite';
 import { POPUP_VERIFY_USER, VerifyUserPopup } from '@Popups/VerifyPopup/VerifyUser';
+import {
+  POPUP_YOU_SURE,
+  YouSurePopup,
+  YouSurePopupProps,
+} from '@Popups/VerifyPopup/YouSure';
 import { useAppSelector } from '@Redux/hooks';
 import { selectPopup } from '@Redux/Slices/Popups/popups.selectors';
 import React from 'react';
@@ -38,6 +43,7 @@ export const PopupManager: React.FC = () => {
   const verifyUserPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_VERIFY_USER),
   );
+  const youSurePopup = useAppSelector((state) => selectPopup(state, POPUP_YOU_SURE));
   const playerCardPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_PLAYER_CARD),
   );
@@ -59,6 +65,9 @@ export const PopupManager: React.FC = () => {
   return (
     <>
       {verifyUserPopup.open && <VerifyUserPopup />}
+      {youSurePopup.open && (
+        <YouSurePopup {...(youSurePopup.props as YouSurePopupProps)} />
+      )}
       {feedbackPopup.open && <FeedbackPopup />}
       {createContractPopup.open && <CreateContractPopup />}
       {playerCardPopup.open && (

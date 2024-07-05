@@ -14,17 +14,26 @@ export const LocationChip: React.FC<LocationChipProps> = (props) => {
   const { locationId, onDelete } = props;
   const dispatch = useAppDispatch();
 
+  // console.log(`LocationChip: ${locationId}`);
+
+  const location =
+    locationId !== ''
+      ? useAppSelector((state) => selectLocationById(state, locationId))
+      : null;
+
   const handleLocationInfoPopup = () => {
-    dispatch(openPopup(POPUP_LOCATION_INFO, { locationId }));
+    // console.log(`Location Id: ${locationId}`);
+    // console.log(`Location Pulled: ${location}`);
+    if (locationId !== '') {
+      dispatch(openPopup(POPUP_LOCATION_INFO, { locationId }));
+    }
   };
 
-  const location = useAppSelector((state) => selectLocationById(state, locationId));
-
   return (
-    <Tooltip title={location?.short_name}>
+    <Tooltip title={location ? location.short_name : 'Redacted'}>
       <Chip
         data-testid="LocationChip"
-        label={location?.short_name}
+        label={location ? location.short_name : 'Redacted'}
         color="secondary"
         variant="outlined"
         icon={<Place />}

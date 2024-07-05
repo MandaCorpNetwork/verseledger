@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 
 //import { IContract } from '@Backend/interfaces/IContract';
-import { ContractManagerContractCard } from './ContractManagerContractCard';
+// import { ContractManagerContractCard } from './ContractManagerContractCard';
 
 type ContractManagerListProps = {
   //contracts: IContract[];
@@ -35,9 +35,9 @@ export const ContractManagerContractList: React.FC<ContractManagerListProps> = (
         },
       }}
     >
-      {tempContractData.map((contract) => {
-        return <ContractManagerContractCard contract={contract} key={contract.id} />;
-      })}
+      {/* {tempContractData.map((contract) => {
+        return <ContractManagerContractCard contract={contract as contract} key={contract.id} />;
+      })} */}
       {/* {contracts.map((contract) -> {
         return(
           <ContractManagerContractCard contract={contract} key={contract.id} />
@@ -149,3 +149,4 @@ const tempContractData = [
     bidEnd: 1519211809934,
   },
 ];
+console.log(tempContractData);

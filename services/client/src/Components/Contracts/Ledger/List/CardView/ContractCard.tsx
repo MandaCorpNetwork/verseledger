@@ -5,11 +5,18 @@ import { LocationChip } from '@Common/Components/App/LocationChip';
 import { PayDisplay } from '@Common/Components/App/PayDisplay';
 import {
   FleetIcon,
+  LogisticsIcon,
   RRRIcon,
   SalvageIcon,
   SecurityIcon,
 } from '@Common/Definitions/CustomIcons';
-import { EmergencyShare, LocalHospital } from '@mui/icons-material';
+import {
+  EmergencyShare,
+  Explore,
+  Factory,
+  LocalHospital,
+  VisibilityOff,
+} from '@mui/icons-material';
 import { Avatar, Box, Card, CardActionArea, Tooltip, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -30,6 +37,19 @@ export const ContractCard: React.FC<ContractCardProps> = ({
   onClick,
   isSelected,
 }) => {
+  const [archetype, setArchetype] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const selectedArchetype = archetypes.find((option) =>
+      option.subTypes.some((subType) => subType.value === contract.subtype),
+    );
+    if (selectedArchetype) {
+      setArchetype(selectedArchetype.archetype);
+    } else {
+      setArchetype(null);
+    }
+  }, [contract.subtype]);
+
   const handleClick = () => {
     if (onClick) {
       onClick();
@@ -45,43 +65,63 @@ export const ContractCard: React.FC<ContractCardProps> = ({
     dispatch(openPopup(POPUP_PLAYER_CARD, { userid }));
   }, [user]);
 
+  const startLocationId = contract?.Locations?.find(
+    (location) => location.ContractLocation?.tag === 'start',
+  )?.id;
+
   return (
     <Card
       onClick={handleClick}
       sx={{
         height: '10em',
         width: '15em',
+        background: 'linear-gradient(45deg, rgba(8,22,141), rgba(0,30,100))',
         bgcolor: 'action.disabledBackground',
         overflow: 'visible',
+        border: '1px solid rgba(14,49,252,.4)',
         boxShadow:
           isSelected && contract.isEmergency
             ? '0 0 10px 2px red'
             : isSelected
               ? '0 0 10px 2px #18fcfc'
-              : '',
+              : '0 0 10px 2px #0e318d',
         transition: 'box-shadow 0.3s ease-in-out',
         '&:hover': {
           boxShadow: contract.isEmergency
             ? '0 0 10px 2px #ff4d4d'
             : isSelected
-              ? '0 0 10px 2px #d3fafe'
-              : '0 0 10px 2px #0e318d',
+              ? '0 0 10px 2px rgb(33, 150, 243)'
+              : '0 0 10px 2px rgba(14,49,252,.4)',
+        },
+        '&:before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundImage:
+            'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
+          backgroundSize: '5px 5px',
+          opacity: 0.3,
         },
       }}
     >
       {contract.isEmergency && (
-        <EmergencyShare
-          color="error"
-          fontSize="large"
-          sx={{
-            position: 'absolute',
-            display: 'flex',
-            top: '-10px',
-            left: '90%',
-            opacity: isSelected ? '1' : '.7',
-            transition: 'opacity 0.3s ease-in-out',
-          }}
-        />
+        <Tooltip title="Emergency Contract">
+          <EmergencyShare
+            color="error"
+            fontSize="large"
+            sx={{
+              position: 'absolute',
+              display: 'flex',
+              top: '-10px',
+              left: '90%',
+              opacity: isSelected ? '1' : '.7',
+              transition: 'opacity 0.3s ease-in-out',
+            }}
+          />
+        </Tooltip>
       )}
       <CardActionArea
         sx={{
@@ -110,9 +150,12 @@ export const ContractCard: React.FC<ContractCardProps> = ({
                 mr: '.5em',
                 mt: 'auto',
                 mb: 'auto',
+                bgcolor: 'rgba(8,22,80,.9)',
                 '&:hover': {
                   boxShadow: '0 0 10px 2px #0e318d',
+                  bgcolor: '#0e318d',
                 },
+                boxShadow: '2px 2px 10px 5px rgba(8,22,80,.7)',
               }}
             />
           </Tooltip>
@@ -142,20 +185,9 @@ export const ContractCard: React.FC<ContractCardProps> = ({
             justifyContent: 'space-around',
           }}
         >
-          <Tooltip title="SubType Icon Placeholder" arrow>
-            <FleetIcon fontSize="large" sx={{ color: 'primary.light' }} />
-          </Tooltip>
-          <Tooltip title="SubType Icon Placeholder" arrow>
-            <SecurityIcon fontSize="large" sx={{ color: 'primary.light' }} />
-          </Tooltip>
-          <Tooltip title="SubType Icon Placeholder" arrow>
-            <LocalHospital fontSize="large" sx={{ color: 'primary.light' }} />
-          </Tooltip>
-          <Tooltip title="SubType Icon Placeholder" arrow>
-            <RRRIcon fontSize="large" sx={{ color: 'primary.light' }} />
-          </Tooltip>
-          <Tooltip title="SubType Icon Placeholder" arrow>
-            <SalvageIcon fontSize="large" sx={{ color: 'primary.light' }} />
+          <Tooltip title={archetype}>
+            {archetypes.find((option) => option.archetype === archetype)
+              ?.archetypeIcon ?? <Typography>???</Typography>}
           </Tooltip>
         </Box>
         <Box
@@ -168,7 +200,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
           }}
         >
           <Box sx={{ mx: 'auto' }}>
-            <LocationChip locationId="Location" />
+            <LocationChip locationId={startLocationId ?? ''} />
           </Box>
           <PayDisplay value={contract.defaultPay} variant={contract.payStructure} />
         </Box>
@@ -290,3 +322,159 @@ Card Layout:
   rejectedFleetAllocation: {};
  }
 */
+const archetypes = [
+  {
+    archetype: 'Logistics',
+    archetypeIcon: <LogisticsIcon color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Transport',
+        value: 'Transport',
+      },
+      {
+        label: 'Hauling',
+        value: 'Hauling',
+      },
+      {
+        label: 'Manage',
+        value: 'Manage',
+      },
+    ],
+  },
+  {
+    archetype: 'Medical',
+    archetypeIcon: <LocalHospital color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Trauma',
+        value: 'Trauma',
+      },
+      {
+        label: 'On-Call',
+        value: 'On-Call',
+      },
+    ],
+  },
+  {
+    archetype: 'Security',
+    archetypeIcon: <SecurityIcon color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Escort',
+        value: 'Escort',
+      },
+      {
+        label: 'Bounty',
+        value: 'Bounty',
+      },
+      {
+        label: 'Quick Reaction Force',
+        value: 'QRF',
+      },
+      {
+        label: 'Asset Protection',
+        value: 'Asset-Protection',
+      },
+      {
+        label: 'Attache',
+        value: 'Attache',
+      },
+    ],
+  },
+  {
+    archetype: 'Salvage',
+    archetypeIcon: <SalvageIcon color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Collection',
+        value: 'Collection',
+      },
+      {
+        label: 'Procurement',
+        value: 'Procurement',
+      },
+    ],
+  },
+  {
+    archetype: 'Industry',
+    archetypeIcon: <Factory color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Mining',
+        value: 'Mining',
+      },
+      {
+        label: 'Refining',
+        value: 'Refining',
+      },
+      {
+        label: 'Manufacturing',
+        value: 'Manufacturing',
+      },
+      {
+        label: 'Scouting',
+        value: 'Scouting',
+      },
+    ],
+  },
+  {
+    archetype: 'RRR',
+    archetypeIcon: <RRRIcon color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Refuel',
+        value: 'Refuel',
+      },
+      {
+        label: 'Rearm',
+        value: 'Rearm',
+      },
+      {
+        label: 'Repair',
+        value: 'Repair',
+      },
+    ],
+  },
+  {
+    archetype: 'Fleet',
+    archetypeIcon: <FleetIcon color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Crewman',
+        value: 'Crewman',
+      },
+      {
+        label: 'Outsourcing',
+        value: 'Outsourcing',
+      },
+    ],
+  },
+  {
+    archetype: 'Exploration',
+    archetypeIcon: <Explore color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Locate',
+        value: 'Locate',
+      },
+      {
+        label: 'Charting',
+        value: 'Charting',
+      },
+    ],
+  },
+  {
+    archetype: 'Proxy',
+    archetypeIcon: <VisibilityOff color="secondary" fontSize="large" />,
+    subTypes: [
+      {
+        label: 'Middleman',
+        value: 'Middleman',
+      },
+      {
+        label: 'Redacted',
+        value: 'Redacted',
+      },
+    ],
+  },
+];

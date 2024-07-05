@@ -9,7 +9,7 @@ export const fetchSearchUsers = createAsyncThunk<User[], string>(
   FETCH_SEARCH_USERS,
   async (searchTerm: string) => {
     const response = await NetworkService.GET(
-      `/v1/users/search?handle=${searchTerm}`,
+      `/v1/users/search?q=${searchTerm}`,
       AuthUtil.getAccessHeader(),
     );
     return response.data as User[];

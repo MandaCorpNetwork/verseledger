@@ -11,11 +11,13 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
+
+import { SmallEmergencyOverlay } from '../EmergencyOverlay';
 
 export const Contractors: React.FC<{
-  formData: IContract;
-  setFormData: React.Dispatch<React.SetStateAction<IContract>>;
+  formData: ICreateContractBody;
+  setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
   invites: Array<User>;
   setInvites: (selectedUser: User | null) => void;
 }> = (props) => {
@@ -48,11 +50,19 @@ export const Contractors: React.FC<{
                 flexDirection: 'row',
                 alignItems: 'center',
                 my: '0.5em',
+                position: 'relative',
               }}
             >
+              {formData.isEmergency && <SmallEmergencyOverlay />}
               <FormControlLabel
                 data-testid="ContractorsForm-Settings__RatingSwitch"
-                control={<Switch color="secondary" size="small" />}
+                control={
+                  <Switch
+                    color="secondary"
+                    size="small"
+                    disabled={formData.isEmergency}
+                  />
+                }
                 label="Limit Rating"
                 onChange={handleRatingToggle}
                 checked={!ratingDisabled}
@@ -67,7 +77,7 @@ export const Contractors: React.FC<{
                 disabled={ratingDisabled}
                 name="read-only"
                 value={formData.ratingLimit}
-                onChange={(e, newValue) => {
+                onChange={(_e, newValue) => {
                   setFormData((formData) => ({
                     ...formData,
                     ratingLimit: newValue ?? 0,
@@ -89,11 +99,11 @@ export const Contractors: React.FC<{
                 size="small"
                 variant="filled"
                 type="number"
-                value={formData.contractorLimit}
+                value={formData.contractorLimit || ''}
                 onChange={(e) => {
                   setFormData({
                     ...formData,
-                    contractorLimit: +e.currentTarget.value ?? 0,
+                    contractorLimit: +e.currentTarget.value,
                   });
                 }}
                 sx={{

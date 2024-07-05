@@ -18,6 +18,8 @@ export const UserChip: React.FC<UserChipProps> = ({ userid, size }) => {
     dispatch(openPopup(POPUP_PLAYER_CARD, { userid }));
   };
 
+  console.log(`UserChip Recieved ID: ${userid}`);
+
   return (
     <>
       <Chip

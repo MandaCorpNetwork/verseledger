@@ -47,8 +47,15 @@ export const PlayerCardPopup: React.FC<PlayerCardPopupProps> = ({ userid }) => {
             <>
               <Avatar src={user?.pfp} sx={{ width: 55, height: 55 }} alt={user?.handle} />
               <Box sx={{ ml: '.5em' }}>
-                <Typography align="left">{user?.displayName}</Typography>
-                <Typography variant="subtitle2" align="left" sx={{ color: 'grey' }}>
+                <Typography data-testid="PlayerCardPopup__name" align="left">
+                  {user?.displayName}
+                </Typography>
+                <Typography
+                  data-testid="PlayerCardPopup__handle"
+                  variant="subtitle2"
+                  align="left"
+                  sx={{ color: 'grey' }}
+                >
                   @{user?.handle}
                 </Typography>
                 <Rating readOnly value={4} />
@@ -63,6 +70,7 @@ export const PlayerCardPopup: React.FC<PlayerCardPopupProps> = ({ userid }) => {
         </Box>
         {user != null && user.verified === false && (
           <Button
+            data-testid="PlayerCardPopup__Verify"
             variant="popupButton"
             onClick={() => dispatch(openPopup(POPUP_VERIFY_USER))}
           >

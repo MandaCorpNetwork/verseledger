@@ -1,5 +1,6 @@
 import {
   AllowNull,
+  BelongsToMany,
   Column,
   DataType,
   Default,
@@ -8,9 +9,15 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { IdUtil } from '@/utils/IdUtil';
+import { ContractLocation } from './contract_locations.model';
+import { Contract } from './contract.model';
 
 @Table({ tableName: 'locations', timestamps: true })
 export class Location extends Model {
+  @Column({ type: DataType.VIRTUAL })
+  get __type(): 'Location' {
+    return 'Location';
+  }
   @PrimaryKey
   @Default(IdUtil.generateLocationID)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
@@ -52,6 +59,12 @@ export class Location extends Model {
 
   @Column({ type: DataType.BOOLEAN })
   declare QT: boolean;
+
+  @BelongsToMany(() => Contract, {
+    through: () => ContractLocation,
+    uniqueKey: 'location_id',
+  })
+  declare Contracts: Contract[];
 
   declare readonly createdAt: Date;
   declare readonly updatedAt: Date;

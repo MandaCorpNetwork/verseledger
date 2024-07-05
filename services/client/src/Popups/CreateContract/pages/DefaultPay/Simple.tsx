@@ -7,10 +7,10 @@ import {
   TextField,
 } from '@mui/material';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
 export const FlatRatePayroll: React.FC<{
-  formData: IContract;
+  formData: ICreateContractBody;
   onChange: (value: number) => void;
 }> = (props) => {
   const { formData, onChange } = props;
@@ -21,11 +21,14 @@ export const FlatRatePayroll: React.FC<{
         label="Pay"
         type="number"
         color="secondary"
-        value={formData.defaultPay}
-        onChange={(e) => onChange(Number(e.target.value))}
+        value={formData.defaultPay || ''}
+        onChange={(e) => onChange(+e.target.value)}
         InputProps={{ startAdornment: '¤' }}
         sx={{
           width: '150px',
+        }}
+        inputProps={{
+          min: formData.isEmergency ? 15000 : undefined,
         }}
       />
     </Box>
@@ -33,7 +36,7 @@ export const FlatRatePayroll: React.FC<{
 };
 
 export const PoolPayroll: React.FC<{
-  formData: IContract;
+  formData: ICreateContractBody;
   onChange: (value: number) => void;
   evenSplit: boolean;
   setEvenSplit: (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
@@ -54,7 +57,7 @@ export const PoolPayroll: React.FC<{
         label="Pay Percentage"
         type="number"
         color="secondary"
-        value={formData.defaultPay}
+        value={formData.defaultPay || ''}
         onChange={(e) => onChange(Number(e.target.value))}
         InputProps={{ endAdornment: '%' }}
         sx={{
@@ -78,7 +81,7 @@ export const PoolPayroll: React.FC<{
 };
 
 export const TimedPayroll: React.FC<{
-  formData: IContract;
+  formData: ICreateContractBody;
   onChange: (value: number) => void;
 }> = (props) => {
   const { formData, onChange } = props;
@@ -115,7 +118,7 @@ export const TimedPayroll: React.FC<{
         label="Hourly Pay"
         type="number"
         color="secondary"
-        value={formData.defaultPay}
+        value={formData.defaultPay || ''}
         onChange={(e) => onChange(Number(e.target.value))}
         InputProps={{ endAdornment: '/HR', startAdornment: '¤' }}
         sx={{

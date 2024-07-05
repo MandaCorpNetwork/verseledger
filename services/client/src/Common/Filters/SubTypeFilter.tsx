@@ -39,7 +39,7 @@ type SubTypeFilterProps = {
 export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
   const [filters, setFilters] = useURLQuery();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleChange = (event: React.SyntheticEvent, newValue: { value: string }[]) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: { value: string }[]) => {
     setFilters(
       QueryNames.SubType,
       newValue.map((v) => v.value),

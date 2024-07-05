@@ -13,11 +13,19 @@ import { ContractService } from '@Services/contracts.service';
 import { NextFunction } from 'express';
 import { BodyError } from '@/errors/BodyError';
 import { VLAuthPrincipal } from '@/authProviders/VL.principal';
-import { CreateContractValidator } from '@/validators/contract.validator';
 import { IdUtil } from '@/utils/IdUtil';
 import { BadParameterError } from '@Errors/BadParameter';
 import { NotFoundError } from '@Errors/NotFoundError';
+import { CreateContractBodySchema } from 'vl-shared/src/schemas/ContractSchema';
+import { z } from 'zod';
+import { ApiOperationGet, ApiOperationPost, ApiPath } from 'swagger-express-ts';
+import { ZodToOpenapi } from '@/utils/ZodToOpenapi';
 
+@ApiPath({
+  path: '/v1/contracts',
+  name: 'Contracts',
+  security: { VLAuthAccessToken: [] },
+})
 @controller('/v1/contracts')
 export class ContractController extends BaseHttpController {
   constructor(
@@ -26,6 +34,26 @@ export class ContractController extends BaseHttpController {
     super();
   }
 
+  @ApiOperationPost({
+    tags: ['Contracts'],
+    description: 'Create a new Contract',
+    summary: 'Create Contract',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Contract Created',
+        model: 'Contract',
+      },
+    },
+    consumes: [],
+    parameters: {
+      body: {
+        required: true,
+        properties: ZodToOpenapi(CreateContractBodySchema),
+      },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
   @httpPost('/', TYPES.VerifiedUserMiddleware)
   private async createContract(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -34,7 +62,8 @@ export class ContractController extends BaseHttpController {
   ) {
     try {
       const dto = body;
-      const model = CreateContractValidator.strict().parse(dto);
+      const model = CreateContractBodySchema.strict().parse(dto);
+      console.log(model);
       try {
         const newContract = await this.contractService.createContract({
           ...model,
@@ -50,11 +79,44 @@ export class ContractController extends BaseHttpController {
     }
   }
 
+  @ApiOperationGet({
+    tags: ['Contracts'],
+    description: 'Get all Contracts',
+    summary: 'Get Contracts',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Contract',
+      },
+    },
+    consumes: [],
+    parameters: {},
+    security: { VLAuthAccessToken: [] },
+  })
   @httpGet('/')
   private getContracts() {
     return this.contractService.getContracts();
   }
 
+  @ApiOperationGet({
+    tags: ['Contracts'],
+    description: 'Get a Contract',
+    summary: 'Get a Contract',
+    path: '/{contractId}',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Contract',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: { contractId: { required: true, description: 'A Contract ID' } },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
   @httpGet(`/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})`)
   private async getContract(
     @requestParam('contractId') contractId: string,
@@ -76,6 +138,24 @@ export class ContractController extends BaseHttpController {
     return contract;
   }
 
+  @ApiOperationGet({
+    tags: ['Bids'],
+    description: "Get a Contract's Bids",
+    summary: 'Get Bids',
+    path: '/{contractId}/bids',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: { contractId: { required: true, description: 'A Contract ID' } },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
   @httpGet(
     `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids`,
   )
@@ -99,6 +179,27 @@ export class ContractController extends BaseHttpController {
     return contract.Bids;
   }
 
+  @ApiOperationGet({
+    tags: ['Bids'],
+    description: 'Get a Bid',
+    summary: 'Get a Bid',
+    path: '/{contractId}/bids/{bidId}',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: {
+        contractId: { required: true, description: 'A Contract ID' },
+        bidId: { required: true, description: 'A Bid ID' },
+      },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
   @httpGet(
     `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids/:bidId(${IdUtil.expressRegex(IdUtil.IdPrefix.Bid)})`,
   )
@@ -131,6 +232,27 @@ export class ContractController extends BaseHttpController {
     return bid;
   }
 
+  @ApiOperationPost({
+    tags: ['Bids', 'Invites'],
+    description:
+      'Bid on a Contract. If the user is Invited, will automatically Accept.',
+    summary: 'Bid on a Contract / Accept an Invite',
+    path: '/{contractId}/bids',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: {
+        contractId: { required: true, description: 'A Contract ID' },
+      },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
   @httpPost(
     `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids`,
     TYPES.VerifiedUserMiddleware,
@@ -152,8 +274,71 @@ export class ContractController extends BaseHttpController {
     if (contract == null) {
       throw nextFunc(new NotFoundError(contractId));
     }
-    const userId = (this.httpContext.user as VLAuthPrincipal).id;
-    const bid = await this.contractService.createBid(contractId, userId);
+    const ownerId = (this.httpContext.user as VLAuthPrincipal).id;
+    const bid = await this.contractService.createBid(contractId, ownerId);
+    return this.created(`/contracts/${bid.contract_id}/bids/${bid.id}`, bid);
+  }
+
+  @ApiOperationPost({
+    tags: ['Bids', 'Invites'],
+    description: 'Invite a user to a contract',
+    summary: 'Invite a user to a contract',
+    path: '/{contractId}/invite',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: {
+        contractId: { required: true, description: 'A Contract ID' },
+      },
+      body: {
+        properties: {
+          userId: { type: 'string', required: true },
+        },
+        required: true,
+      },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
+  @httpPost(
+    `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/invite`,
+    TYPES.VerifiedUserMiddleware,
+  )
+  private async inviteToContract(
+    @requestParam('contractId') contractId: string,
+    @requestBody() body: string,
+    @next() nextFunc: NextFunction,
+  ) {
+    if (!IdUtil.isValidId(contractId)) {
+      throw nextFunc(
+        new BadParameterError(
+          'contractId',
+          `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/invite`,
+        ),
+      );
+    }
+
+    const dto = body;
+    const model = z.object({ userId: z.string() }).strict().parse(dto);
+
+    const { userId } = model;
+
+    const contract = await this.contractService.getContract(contractId);
+    if (contract == null) {
+      throw nextFunc(new NotFoundError(contractId));
+    }
+    const ownerId = (this.httpContext.user as VLAuthPrincipal).id;
+
+    const bid = await this.contractService.inviteToBid(
+      contractId,
+      ownerId,
+      userId,
+    );
     return this.created(`/contracts/${bid.contract_id}/bids/${bid.id}`, bid);
   }
 }

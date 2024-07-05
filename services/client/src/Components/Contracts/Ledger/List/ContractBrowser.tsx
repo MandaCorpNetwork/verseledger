@@ -29,6 +29,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   const handleSelect = (id: string | null) => {
     setIsSelected(id);
     selectedIdSetter(id);
+    console.log(`Selected Contract in Browser: ${id}`);
   };
 
   const handleClose = () => {
@@ -51,12 +52,26 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
-        backgroundColor: 'rgba(14,49,141,.25)',
         borderTop: '2px solid',
         borderBottom: '2px solid',
         borderColor: 'primary.main',
-        borderRadius: '5px',
+        borderRadius: '10px',
+        borderLeft: '1px solid rgba(14,49,141,0.5)',
+        borderRight: '1px solid rgba(14,49,141,0.5)',
+        boxShadow: '0 5px 15px rgba(14,49,141,.8)',
         overflow: 'hidden',
+        '&:before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          right: 0,
+          left: 0,
+          background:
+            'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
+          opacity: 0.6,
+          backdropFilter: 'blur(10px)',
+        },
       }}
     >
       <Box
@@ -78,6 +93,13 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
               variant="text"
               endIcon={<CloseIcon />}
               color="secondary"
+              sx={{
+                textShadow: '1px 1px 5px rgba(24,252,252,0.3)',
+                '&:hover': {
+                  transform: 'scale(1.1)',
+                },
+                transition: 'transform 0.3s ease-in-out',
+              }}
             >
               Close
             </Button>

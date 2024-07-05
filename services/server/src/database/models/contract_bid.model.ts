@@ -22,6 +22,10 @@ import { IdUtil } from '@/utils/IdUtil';
 }))
 @Table({ tableName: 'contract_bids', timestamps: true })
 export class ContractBid extends Model {
+  @Column({ type: DataType.VIRTUAL })
+  get __type(): 'ContractBid' {
+    return 'ContractBid';
+  }
   @PrimaryKey
   @Default(IdUtil.generateBidID)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
@@ -33,8 +37,16 @@ export class ContractBid extends Model {
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare user_id: string;
 
-  @Column({ type: DataType.ENUM('PENDING', 'ACCEPTED', 'REJECTED') })
-  declare status: 'PENDING' | 'ACCEPTED' | 'REJECTED';
+  @Column({
+    type: DataType.ENUM(
+      'PENDING',
+      'ACCEPTED',
+      'REJECTED',
+      'INVITED',
+      'DECLINED',
+    ),
+  })
+  declare status: 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'INVITED' | 'DECLINED';
 
   @BelongsTo(() => User, { foreignKey: 'user_id', targetKey: 'id' })
   declare User: Awaited<User>;

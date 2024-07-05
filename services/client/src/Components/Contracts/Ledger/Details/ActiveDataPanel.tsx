@@ -1,12 +1,13 @@
-import { Avatar, Box, Chip, Typography } from '@mui/material';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { UserChip } from '@Common/Components/Users/UserChip';
+import { Box, Typography } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
+import { selectActiveContractors } from '@Redux/Slices/Contracts/contractSelectors';
+
 type ContractorProps = {
-  userName: string;
-  profilePicture: string;
-  ship?: string;
+  userId: string;
 };
 
-const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, ship }) => {
+const Contractor: React.FC<ContractorProps> = ({ userId }) => {
   return (
     <Box
       data-testid="ActiveData-ContractorPanel-ContractorList__ContractorContainer"
@@ -22,31 +23,38 @@ const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, ship 
         sx={{
           display: 'flex',
           flexDirection: 'row',
-          backgroundColor: 'rgba(14,49,141,.25)',
+          background: 'linear-gradient(135deg, rgba(8,22,141,0.8), rgba(0,30,100))',
+          bgcolor: 'action.disabledBackground',
           borderRadius: '10px',
           p: '.2em',
           width: '50%',
           justifyContent: 'space-around',
           alignContent: 'center',
+          border: '1px solid rgba(14,49,252,.4)',
+          boxShadow: '0 0 5px 2px #0e318d',
+          position: 'relative',
+          '&:before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundImage:
+              'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
+            backgroundSize: '5px 5px',
+            opacity: 0.3,
+          },
         }}
       >
-        <Chip
-          data-testid="ActiveData-ContractorPanel-ContractorList-Contractor__UserChip"
-          avatar={<Avatar src={profilePicture} />}
-          label={userName}
-          color="secondary"
-          variant="outlined"
-        />
+        <UserChip userid={userId} size="medium" />
         <Box
           sx={{
             my: 'auto',
           }}
         >
-          <Typography
-            variant="body2"
-            sx={{ fontWeight: 'bold', color: 'text.secondary' }}
-          >
-            Ship: {ship}
+          <Typography variant="body2" sx={{ fontWeight: 'bold', color: 'text.disabled' }}>
+            Ship: InDev
           </Typography>
         </Box>
       </Box>
@@ -55,11 +63,17 @@ const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, ship 
 };
 
 type ContractorPanelProps = {
-  contract: IContract;
+  contractId: string;
+  contractorLimit: number;
 };
 
-export const ContractorsPanel: React.FC<ContractorPanelProps> = ({ contract }) => {
-  const contractors = Object.values(testContractorsDB);
+export const ContractorsPanel: React.FC<ContractorPanelProps> = ({
+  contractId,
+  contractorLimit,
+}) => {
+  const contractors = useAppSelector((state) =>
+    selectActiveContractors(state, contractId),
+  );
   return (
     <Box
       data-testid="ContractBriefing-ActiveData-ContractorPanel__Container"
@@ -84,7 +98,7 @@ export const ContractorsPanel: React.FC<ContractorPanelProps> = ({ contract }) =
             display: 'flex',
             flexDirection: 'row',
             width: '100%',
-            backgroundColor: 'rgba(14,49,141,.25)',
+            backgroundColor: 'rgba(33,150,243,.2)',
             borderRadius: '10px',
           }}
         >
@@ -103,21 +117,22 @@ export const ContractorsPanel: React.FC<ContractorPanelProps> = ({ contract }) =
               variant="body2"
               sx={{
                 fontWeight: 'bold',
-                color: 'text.secondary',
+                color:
+                  contractorLimit === contractors.length ? 'info.main' : 'text.secondary',
               }}
             >
-              Active Contractors: X
+              Active Contractors: {contractors.length}
             </Typography>
             <Typography
               data-testid="ContractBriefing-ActiveData-ContractorPanel-CountBar__ContractorLimitCount"
               variant="body2"
               sx={{
                 fontWeight: 'bold',
-                color: 'text.secondary',
+                color:
+                  contractorLimit === contractors.length ? 'info.main' : 'text.secondary',
               }}
             >
-              Contractor Limit:{' '}
-              {contract.contractorLimit ? contract.contractorLimit : 'No Limit'}
+              Contractor Limit: {contractorLimit || 'No Limit'}
             </Typography>
           </Box>
         </Box>
@@ -149,120 +164,18 @@ export const ContractorsPanel: React.FC<ContractorPanelProps> = ({ contract }) =
               flexDirection: 'column',
             }}
           >
-            {contractors.map((contractors) => (
-              <Contractor
-                key={contractors.id}
-                userName={contractors.name}
-                profilePicture={contractors.profilePicture}
-                ship="InDev"
-              />
-            ))}
+            {contractors && contractors.length > 0 ? (
+              contractors.map((contractor) => (
+                <Contractor key={contractor.id} userId={contractor.id} />
+              ))
+            ) : (
+              <Typography align="center" sx={{ alignItems: 'center' }}>
+                No Active Contractors
+              </Typography>
+            )}
           </Box>
         </Box>
       </Box>
     </Box>
   );
-};
-
-const testContractorsDB = {
-  1: {
-    id: 1,
-    name: 'Test User',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  2: {
-    id: 2,
-    name: 'Test User 2',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  3: {
-    id: 3,
-    name: 'Test User 3',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  4: {
-    id: 4,
-    name: 'Test User 4',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  5: {
-    id: 5,
-    name: 'Test User 5',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  6: {
-    id: 6,
-    name: 'Test User 6',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  7: {
-    id: 7,
-    name: 'Test User 7',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  8: {
-    id: 8,
-    name: 'Test User 8',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  9: {
-    id: 9,
-    name: 'Test User 9',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  10: {
-    id: 10,
-    name: 'Test User 10',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
 };

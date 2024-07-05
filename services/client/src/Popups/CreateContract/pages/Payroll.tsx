@@ -17,8 +17,9 @@ import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
+import { LargeEmergencyOverlay } from '../EmergencyOverlay';
 import { FlatRatePayroll, PoolPayroll, TimedPayroll } from './DefaultPay/Simple';
 
 type RadioControlProps = {
@@ -45,8 +46,8 @@ const RadioControl: React.FC<RadioControlProps> = ({ value, label, disabled }) =
 };
 
 export const Payroll: React.FC<{
-  formData: IContract;
-  setFormData: React.Dispatch<React.SetStateAction<IContract>>;
+  formData: ICreateContractBody;
+  setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
 }> = (props) => {
   const { formData, setFormData } = props;
   const [isComplex, setIsComplex] = React.useState(false);
@@ -62,35 +63,14 @@ export const Payroll: React.FC<{
     setIsComplex(event.target.checked);
   };
 
-  const renderDefaultPayComponent = () => {
-    switch (formData.payStructure) {
-      case 'FLATRATE':
-        return <FlatRatePayroll formData={formData} onChange={handleSetDefaultPay} />;
-      case 'HOURLY':
-        return <TimedPayroll formData={formData} onChange={handleSetDefaultPay} />;
-      case 'POOL':
-        return (
-          <PoolPayroll
-            formData={formData}
-            onChange={handleSetDefaultPay}
-            evenSplit={evenSplit}
-            setEvenSplit={handleEvenSplitToggle}
-          />
-        );
-      default:
-        return;
-    }
+  const handleSetDefaultPay = (value: number) => {
+    setFormData((prevFormData) => {
+      const updatedPay = { ...prevFormData, defaultPay: value };
+      console.log(`Input Value @ PayHandler: ${value}`);
+      console.log(`Current Form Data Object: ${JSON.stringify(formData)}`);
+      return updatedPay;
+    });
   };
-
-  const handleSetDefaultPay = React.useCallback(
-    (value: number) => {
-      setFormData((formData) => ({
-        ...formData,
-        defaultPay: value,
-      }));
-    },
-    [setFormData],
-  );
 
   const handleEvenSplitToggle = React.useCallback(() => {
     if (evenSplit) {
@@ -128,7 +108,8 @@ export const Payroll: React.FC<{
           minHeight: '220px',
         }}
       >
-        <Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
+          {formData.isEmergency && <LargeEmergencyOverlay />}
           <FormLabel color="secondary">
             Pay Structure
             <IconButton
@@ -229,7 +210,22 @@ export const Payroll: React.FC<{
         }}
       >
         <FormLabel color="secondary">Default Pay</FormLabel>
-        <Box data-testid="Payroll-DefaultPay__Wrapper">{renderDefaultPayComponent()}</Box>
+        <Box data-testid="Payroll-DefaultPay__Wrapper">
+          {formData.payStructure === 'FLATRATE' && (
+            <FlatRatePayroll formData={formData} onChange={handleSetDefaultPay} />
+          )}
+          {formData.payStructure === 'HOURLY' && (
+            <TimedPayroll formData={formData} onChange={handleSetDefaultPay} />
+          )}
+          {formData.payStructure === 'POOL' && (
+            <PoolPayroll
+              formData={formData}
+              onChange={handleSetDefaultPay}
+              evenSplit={evenSplit}
+              setEvenSplit={handleEvenSplitToggle}
+            />
+          )}
+        </Box>
       </FormControl>
       <FormControl>
         <Box
@@ -237,8 +233,10 @@ export const Payroll: React.FC<{
           sx={{
             display: 'flex',
             flexDirection: 'column',
+            position: 'relative',
           }}
         >
+          {formData.isEmergency && <LargeEmergencyOverlay />}
           <FormLabel color="secondary">Options</FormLabel>
           <Tooltip title="Allows the Bidder to Negotiate their Pay">
             <FormControlLabel

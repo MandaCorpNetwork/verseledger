@@ -12,11 +12,9 @@
       "name": "Server",
       "path": "services/server",
     },
+    {
+      "name": "VLShared",
+      "path": "packages/vl-shared",
+    },
   ],
-  "settings": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnPaste": true,
-    "editor.formatOnSave": true,
-    "editor.formatOnType": true,
-  },
 }

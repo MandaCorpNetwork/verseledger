@@ -1,22 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { fetchLocations } from './actions/fetchLocations';
 const locationsReducer = createSlice({
   name: 'locations',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  initialState: {} as Record<StarMapLocation['id'], StarMapLocation>,
+  initialState: {} as Record<ILocation['id'], ILocation>,
   reducers: {
     noop() {
       return {};
     },
-    insert(state, location) {
-      state[location.payload.id as string] = location.payload;
+    insert(state, action) {
+      state[action.payload.id as string] = action.payload;
+    },
+    insertBulk(state, action) {
+      const locations = action.payload as ILocation[];
+      for (const location of locations) {
+        state[location.id] = location;
+      }
     },
   },
   extraReducers(builder) {
     builder.addCase(fetchLocations.fulfilled, (_state, action) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      for (const location of action.payload as StarMapLocation[]) {
+      for (const location of action.payload as ILocation[]) {
         _state[location.id] = location;
       }
     });

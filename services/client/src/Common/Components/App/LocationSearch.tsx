@@ -10,20 +10,28 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations';
 import { selectLocationsArray } from '@Redux/Slices/Locations/locationSelectors';
 import React from 'react';
+import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
-const filterOptions = createFilterOptions<StarMapLocation>({
+//Filter Options property from MUI AutoComplete
+//Typed Filter Sorting
+const filterOptions = createFilterOptions<ILocation>({
   matchFrom: 'any',
   stringify: ({ parent, short_name }) => `${short_name} ${parent}`.trim(),
 });
 
+//Type Def for the LocationSearch Component
+//Handler for Location Selection
+//Width setter --optional--
 type LocationSearchProps = {
-  onLocationSelect: (locationId: StarMapLocation | null) => void;
+  onLocationSelect: (locationId: ILocation | null) => void;
   width?: string;
+  helperText?: string;
 };
 
 export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
-  const { onLocationSelect, width } = props;
-  const [inputValue, setInputValue] = React.useState<StarMapLocation | null>(null);
+  const { onLocationSelect, width, helperText } = props;
+  const [inputValue, setInputValue] = React.useState<ILocation | null>(null);
+  //InputValue State Setter using ILocation Schema
 
   const dispatch = useAppDispatch();
 
@@ -64,6 +72,11 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
             variant="outlined"
             size="small"
             color="secondary"
+            helperText={helperText}
+            FormHelperTextProps={{
+              margin: 'dense',
+              disabled: true,
+            }}
           />
         )}
         renderOption={(props, option) => (
@@ -89,6 +102,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
         }}
         sx={{
           width: width,
+          mb: helperText ? '.8em' : '',
         }}
       />
     </Box>

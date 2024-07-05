@@ -19,10 +19,8 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
-
-import { EmergencyOverlay } from '../EmergencyOverlay';
 
 const options = [
   {
@@ -85,7 +83,7 @@ const options = [
   },
   {
     archetype: 'Salvage',
-    archeTypeIcon: <SalvageIcon color="secondary" />,
+    archetypeIcon: <SalvageIcon color="secondary" />,
     subTypes: [
       {
         label: 'Collection',
@@ -99,7 +97,7 @@ const options = [
   },
   {
     archetype: 'Industry',
-    archeTypeIcon: <Factory color="secondary" />,
+    archetypeIcon: <Factory color="secondary" />,
     subTypes: [
       {
         label: 'Mining',
@@ -121,7 +119,7 @@ const options = [
   },
   {
     archetype: 'RRR',
-    archeTypeIcon: <RRRIcon color="secondary" />,
+    archetypeIcon: <RRRIcon color="secondary" />,
     subTypes: [
       {
         label: 'Refuel',
@@ -153,7 +151,7 @@ const options = [
   },
   {
     archetype: 'Exploration',
-    archeTypeIcon: <Explore color="secondary" />,
+    archetypeIcon: <Explore color="secondary" />,
     subTypes: [
       {
         label: 'Locate',
@@ -167,7 +165,7 @@ const options = [
   },
   {
     archetype: 'Proxy',
-    archeTypeIcon: <VisibilityOff color="secondary" />,
+    archetypeIcon: <VisibilityOff color="secondary" />,
     subTypes: [
       {
         label: 'Middleman',
@@ -188,28 +186,28 @@ const flatOptions = options.flatMap((option) =>
   }),
 );
 export const ContractDetails: React.FC<{
-  formData: IContract;
-  setFormData: React.Dispatch<React.SetStateAction<IContract>>;
+  formData: ICreateContractBody;
+  setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
 }> = (props) => {
   const dispatch = useAppDispatch();
   const { formData, setFormData } = props;
   const [archetype, setArchetype] = React.useState<string | null>(null);
 
+  React.useEffect(() => {
+    const selectedOption = options.find((option) =>
+      option.subTypes.some((subType) => subType.value === formData.subtype),
+    );
+    if (selectedOption) {
+      setArchetype(selectedOption.archetype);
+    } else {
+      setArchetype(null);
+    }
+  }, [formData.subtype]);
+
   const handleArchetypeOpen = () => {
     dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetype }));
   };
 
-  const handleTypeSelect = React.useCallback(
-    (newValue: string) => {
-      const selectedOption = options.find((option) =>
-        option.subTypes.some((subType) => subType.value === newValue),
-      );
-      if (selectedOption) {
-        setArchetype(selectedOption.archetype);
-      }
-    },
-    [setArchetype],
-  );
   return (
     <Box
       data-testid="subType-briefing-container"
@@ -222,10 +220,10 @@ export const ContractDetails: React.FC<{
     >
       <Box data-testid="subTypeandBriefing-form">
         <Box>
-          {formData.isEmergency && <EmergencyOverlay />}
           <FormControl sx={{ display: 'flex', alignItems: 'left', width: '100%' }}>
             <FormLabel color="secondary" sx={{ fontWeight: 'bold' }}></FormLabel>
             <TextField
+              data-testid="CreateContract__Title"
               label="Title"
               color="secondary"
               inputProps={{ maxLength: 32 }}
@@ -237,6 +235,7 @@ export const ContractDetails: React.FC<{
             <Autocomplete
               data-testid="CreateContract__Subtype-AutoComplete"
               options={flatOptions}
+              value={formData.subtype}
               groupBy={(option) => optionsMap[option].group}
               getOptionLabel={(option) => optionsMap[option].label}
               renderInput={(params) => (
@@ -247,12 +246,12 @@ export const ContractDetails: React.FC<{
                   ...formData,
                   subtype: (newValue as IContractSubType) ?? '',
                 });
-                handleTypeSelect((newValue as IContractSubType) ?? '');
               }}
               fullWidth
               sx={{ mt: 2, mb: '1em', maxWidth: '300px' }}
             />
             <TextField
+              data-testid="CreateContract__Briefing"
               multiline={true}
               rows={4}
               onChange={(e) =>
@@ -263,6 +262,19 @@ export const ContractDetails: React.FC<{
               color="secondary"
               fullWidth
               size="small"
+              inputProps={{
+                '&::-webkit-scrollbar': {
+                  width: '10px',
+                },
+                '&::-webkit-scrollbar-track': {
+                  background: 'rgb(8, 29, 68)',
+                  borderRadius: '10px',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  borderRadius: '20px',
+                  background: 'rgb(121, 192, 244, .5)',
+                },
+              }}
               sx={{
                 width: '300px',
               }}

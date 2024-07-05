@@ -31,6 +31,10 @@ import { IdUtil } from '@/utils/IdUtil';
 }))
 @Table({ tableName: 'users', timestamps: true })
 export class User extends Model implements IUser {
+  @Column({ type: DataType.VIRTUAL })
+  get __type(): 'User' {
+    return 'User';
+  }
   @PrimaryKey
   @Default(IdUtil.generateUserID)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })

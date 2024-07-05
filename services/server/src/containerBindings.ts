@@ -8,14 +8,43 @@ import { UserService } from '@Services/user.service';
 import { StompService } from '@Services/stomp.service';
 import { AuthMiddleware } from '@Middleware/auth.middleware';
 import { VerifiedUserMiddleware } from '@Middleware/verified.middleware';
+import { TestingMiddleware } from '@Middleware/testing.middleware';
+import { NotificationService } from '@Services/notification.service';
 export const bindContainer = (container: Container) => {
-  container.bind<EnvService>(TYPES.EnvService).to(EnvService);
-  container.bind<ContractService>(TYPES.ContractService).to(ContractService);
-  container.bind<AuthService>(TYPES.AuthService).to(AuthService);
-  container.bind<UserService>(TYPES.UserService).to(UserService);
-  container.bind<AuthMiddleware>(TYPES.AuthMiddleware).to(AuthMiddleware);
+  container
+    .bind<EnvService>(TYPES.EnvService)
+    .to(EnvService)
+    .inSingletonScope();
+  container
+    .bind<ContractService>(TYPES.ContractService)
+    .to(ContractService)
+    .inSingletonScope();
+  container
+    .bind<AuthService>(TYPES.AuthService)
+    .to(AuthService)
+    .inSingletonScope();
+  container
+    .bind<UserService>(TYPES.UserService)
+    .to(UserService)
+    .inSingletonScope();
+  container
+    .bind<NotificationService>(TYPES.NotificationService)
+    .to(NotificationService)
+    .inSingletonScope();
+  container
+    .bind<AuthMiddleware>(TYPES.AuthMiddleware)
+    .to(AuthMiddleware)
+    .inSingletonScope();
+  container
+    .bind<TestingMiddleware>(TYPES.TestingMiddleware)
+    .to(TestingMiddleware)
+    .inSingletonScope();
   container
     .bind<VerifiedUserMiddleware>(TYPES.VerifiedUserMiddleware)
-    .to(VerifiedUserMiddleware);
-  container.bind<StompService>(TYPES.StompService).to(StompService);
+    .to(VerifiedUserMiddleware)
+    .inSingletonScope();
+  container
+    .bind<StompService>(TYPES.StompService)
+    .to(StompService)
+    .inSingletonScope();
 };

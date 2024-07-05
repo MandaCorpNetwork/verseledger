@@ -1,12 +1,12 @@
-//ToDo-- Need to change out the boxes that expand and collapse w/ Mui Collapse Component for better transition effects
 import { LocationChip } from '@Common/Components/App/LocationChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
-import { SalvageIcon } from '@Common/Definitions/CustomIcons';
-import { ExpandLess, ExpandMore, HelpOutline } from '@mui/icons-material';
+import { archetypes } from '@Common/Definitions/Contracts/ContractArchetype';
+import { ChevronLeft, ChevronRight, ExpandMore, HelpOutline } from '@mui/icons-material';
 import {
   Box,
   Button,
   Chip,
+  Collapse,
   IconButton,
   InputAdornment,
   styled,
@@ -17,6 +17,7 @@ import {
   Typography,
 } from '@mui/material';
 import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBid';
+import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
@@ -44,21 +45,40 @@ type ContractDisplayProps = {
 export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) => {
   const dispatch = useAppDispatch();
 
+  console.log(`ContractDisplay ID: ${contract.id}`);
+
   const [briefingExpanded, setBriefingExpanded] = React.useState(true);
   const [payExpanded, setPayExpanded] = React.useState(true);
   const [locationsExpanded, setLocationsExpanded] = React.useState(true);
   const [activeDataTab, setActiveDataTab] = React.useState('contractors');
   const [timeTab, setTimeTab] = React.useState('bid');
+  const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
+  const [archetype, setArchetype] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const selectedArchetype = archetypes.find((option) =>
+      option.subTypes.some((subType) => subType.value === contract.subtype),
+    );
+    if (selectedArchetype) {
+      setArchetype(selectedArchetype.archetype);
+    } else {
+      setArchetype(null);
+    }
+  }, [contract.subtype]);
+
+  const handleArchetypeOpen = () => {
+    dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetype }));
+  };
 
   const handleActiveTabChange = React.useCallback(
-    (event: React.SyntheticEvent, value: string) => {
+    (_event: React.SyntheticEvent, value: string) => {
       setActiveDataTab(value);
     },
     [activeDataTab],
   );
 
   const handleTimeTabChange = React.useCallback(
-    (event: React.SyntheticEvent, value: string) => {
+    (_event: React.SyntheticEvent, value: string) => {
       setTimeTab(value);
     },
     [timeTab],
@@ -94,16 +114,22 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
 
   const activeDataPanel = React.useCallback(
     (panel: string) => {
+      console.log(`Rendering ContractId: ${contract.id}`);
       switch (panel) {
         case 'contractors':
-          return <ContractorsPanel contract={contract} />;
+          return (
+            <ContractorsPanel
+              contractId={contract.id}
+              contractorLimit={contract.contractorLimit}
+            />
+          );
         case 'ships':
           return;
         default:
           return;
       }
     },
-    [activeDataTab],
+    [activeDataTab, contract],
   );
 
   const statusChipColor = React.useCallback(() => {
@@ -129,6 +155,63 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const handleSubmitBidPopup = () => {
     dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
   };
+
+  const getStartLocationId = () => {
+    if (contract.Locations) {
+      const startLocationPull = contract?.Locations?.find(
+        (location) => location.ContractLocation?.tag === 'start',
+      )?.id;
+      return startLocationPull || null;
+    }
+    return null;
+  };
+
+  const startLocationId = getStartLocationId();
+
+  const getEndLocationId = () => {
+    if (contract.Locations) {
+      const endLocationPull = contract?.Locations?.find(
+        (location) => location.ContractLocation?.tag === 'end',
+      )?.id;
+      console.log(`EndLocation: ${endLocationPull}`);
+      return endLocationPull || null;
+    }
+    return null;
+  };
+
+  const endLocationId = getEndLocationId();
+
+  const getOtherLocationIds = () => {
+    if (contract.Locations) {
+      const otherLocationsPull = contract?.Locations?.filter(
+        (location) => location.ContractLocation?.tag === 'other',
+      );
+      return otherLocationsPull.map((location) => location.id);
+    }
+    return [];
+  };
+
+  const otherLocationIds = getOtherLocationIds();
+
+  const handleOtherLocationIndexChange = React.useCallback(
+    (direction: string) => {
+      console.log(getOtherLocationIds());
+      if (otherLocationIds.length > 1) {
+        if (direction === 'back') {
+          if (otherLocationIndex > 0) {
+            setOtherLocationIndex((prevIndex) => prevIndex - 1);
+          }
+        }
+        if (direction === 'forward') {
+          if (otherLocationIndex < otherLocationIds.length - 1) {
+            setOtherLocationIndex((prevIndex) => prevIndex + 1);
+          }
+        }
+      }
+      console.log(otherLocationIndex);
+    },
+    [setOtherLocationIndex, otherLocationIndex, otherLocationIds],
+  );
 
   return (
     <Box
@@ -182,6 +265,26 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               p: '.5em',
               ml: '1em',
               width: '100%',
+              borderLeft: '1px solid rgba(14,49,141,0.5)',
+              borderRight: '1px solid rgba(14,49,141,0.5)',
+              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
+              position: 'relative',
+              '&:before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                right: 0,
+                left: 0,
+                background:
+                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
+                opacity: 0.6,
+                backdropFilter: 'blur(10px)',
+                zIndex: -1,
+                backgroundImage:
+                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
+                backgroundSize: '100% 2px',
+              },
             }}
           >
             <Box
@@ -189,7 +292,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                backgroundColor: 'rgba(14,49,141,.25)',
+                backgroundColor: 'rgba(33,150,243,.2)',
                 borderRadius: '10px',
                 p: '.2em',
                 justifyContent: 'space-around',
@@ -200,14 +303,23 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 <Typography
                   variant="h6"
                   noWrap
-                  sx={{ fontWeight: 'bold', maxWidth: '80%' }}
+                  sx={{ fontWeight: 'bold', maxWidth: '80%', pl: '.2em' }}
                 >
                   {contract.title}
                 </Typography>
               </Tooltip>
-              <Box sx={{ flexGrow: '1', display: 'flex' }} />
-              <Tooltip title="Archetype">
-                <SalvageIcon fontSize="large" />
+              <Box
+                sx={{
+                  flexGrow: '1',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  py: 'auto',
+                }}
+              />
+              <Tooltip title={archetype}>
+                {archetypes.find((option) => option.archetype === archetype)
+                  ?.archetypeIcon ?? <Typography>???</Typography>}
               </Tooltip>
             </Box>
             <Box
@@ -225,7 +337,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
-                  backgroundColor: 'rgba(14,49,141,.25)',
+                  backgroundColor: 'rgba(33,150,243,.2)',
                   borderRadius: '10px',
                   px: '.5em',
                   pb: '.5em',
@@ -243,7 +355,10 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 </Typography>
                 <Chip
                   variant="filled"
-                  label={contract.status}
+                  label={
+                    contract.status.charAt(0).toUpperCase() +
+                    contract.status.slice(1).toLowerCase()
+                  }
                   color={statusColor}
                   size="small"
                 />
@@ -253,7 +368,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
-                  backgroundColor: 'rgba(14,49,141,.25)',
+                  backgroundColor: 'rgba(33,150,243,.2)',
                   borderRadius: '10px',
                   px: '.5em',
                   pb: '.5em',
@@ -270,7 +385,25 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 >
                   Contract SubTypes
                 </Typography>
-                <Chip variant="outlined" size="small" color="secondary" label="SubType" />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Chip
+                    variant="outlined"
+                    size="small"
+                    color="secondary"
+                    label={contract.subtype}
+                    icon={
+                      archetypes.find((option) => option.archetype === archetype)
+                        ?.archetypeIcon
+                    }
+                    onClick={handleArchetypeOpen}
+                  />
+                </Box>
               </Box>
             </Box>
           </Box>
@@ -308,17 +441,40 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               px: '.5em',
               width: '100%',
               maxHeight: '50%',
+              borderLeft: '1px solid rgba(14,49,141,0.5)',
+              borderRight: '1px solid rgba(14,49,141,0.5)',
+              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
+              position: 'relative',
+              '&:before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                right: 0,
+                left: 0,
+                background:
+                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
+                opacity: 0.6,
+                backdropFilter: 'blur(10px)',
+                zIndex: -1,
+                backgroundImage:
+                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
+                backgroundSize: '100% 2px',
+              },
             }}
           >
             <Typography
               data-testid="ContractDisplay-PayandBriefing__BriefingTitle"
               variant="body2"
               sx={{
-                backgroundColor: 'rgba(14,49,141,.25)',
+                backgroundColor: 'rgba(33,150,243,.2)',
                 borderRadius: '10px',
                 pl: '1em',
                 fontWeight: 'bold',
                 my: '.5em',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
               }}
             >
               Briefing
@@ -327,17 +483,20 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 size="small"
                 onClick={toggleBriefingExpand}
               >
-                {briefingExpanded ? (
-                  <ExpandMore fontSize="small" />
-                ) : (
-                  <ExpandLess fontSize="small" />
-                )}
+                <ExpandMore
+                  fontSize="small"
+                  sx={{
+                    transform: !briefingExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.5s',
+                  }}
+                />
               </IconButton>
             </Typography>
-            <Box
+            <Collapse
               data-testid="ContractDisplay-Briefing__ContentsWrapper"
+              in={briefingExpanded}
               sx={{
-                backgroundColor: 'rgba(14,49,141,.25)',
+                backgroundColor: 'rgba(33,150,243,.2)',
                 borderRadius: '10px',
                 px: '1em',
                 maxHeight: '100%',
@@ -359,11 +518,10 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               <Typography
                 data-testid="ContractDisplay-PayandBriefing__BriefingContent"
                 variant="body2"
-                hidden={!briefingExpanded}
               >
                 {contract.briefing}
               </Typography>
-            </Box>
+            </Collapse>
           </Box>
           <Box
             data-testid="ContractDisplay-PayandBriefing__PayWrapper"
@@ -378,17 +536,40 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               width: '100%',
               maxHeight: '50%',
               mt: '1em',
+              borderLeft: '1px solid rgba(14,49,141,0.5)',
+              borderRight: '1px solid rgba(14,49,141,0.5)',
+              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
+              position: 'relative',
+              '&:before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                right: 0,
+                left: 0,
+                background:
+                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
+                opacity: 0.6,
+                backdropFilter: 'blur(10px)',
+                zIndex: -1,
+                backgroundImage:
+                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
+                backgroundSize: '100% 2px',
+              },
             }}
           >
             <Typography
               data-testid="ContractDisplay-PayandBriefing__PayTitle"
               variant="body2"
               sx={{
-                backgroundColor: 'rgba(14,49,141,.25)',
+                backgroundColor: 'rgba(33,150,243,.2)',
                 borderRadius: '10px',
                 pl: '1em',
                 my: '.5em',
                 fontWeight: 'bold',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
               }}
             >
               Pay
@@ -397,61 +578,70 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 size="small"
                 onClick={togglePayExpand}
               >
-                {payExpanded ? (
-                  <ExpandMore fontSize="small" />
-                ) : (
-                  <ExpandLess fontSize="small" />
-                )}
+                <ExpandMore
+                  fontSize="small"
+                  sx={{
+                    transform: !payExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.5s',
+                  }}
+                />
               </IconButton>
             </Typography>
-            {payExpanded ? (
-              <Box
-                data-testid="ContractDisplay-PayandBriefing_PayInfoWrapper"
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  mb: '.5em',
-                }}
+            <Collapse
+              data-testid="ContractDisplay-PayandBriefing_PayInfoWrapper"
+              in={payExpanded}
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+              }}
+            >
+              <Tooltip
+                title={
+                  contract.payStructure.charAt(0) +
+                  contract.payStructure.slice(1).toLowerCase()
+                }
+                arrow
               >
-                <Tooltip title={contract.payStructure} arrow>
-                  <TextField
-                    size="small"
-                    label="Pay Structure"
-                    value={contract.payStructure}
-                    color="secondary"
-                    margin="dense"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end" onClick={handlePayStructurePopup}>
-                          <HelpOutline color="secondary" fontSize="small" />
-                        </InputAdornment>
-                      ),
-                    }}
-                    sx={{
-                      mr: '.5em',
-                    }}
-                  />
-                </Tooltip>
-                <Tooltip title={`¤${contract.defaultPay}`} arrow>
-                  <TextField
-                    size="small"
-                    label="Default Pay"
-                    value={contract.defaultPay}
-                    color="secondary"
-                    margin="dense"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Typography color="secondary">¤</Typography>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                </Tooltip>
-              </Box>
-            ) : (
-              <></>
-            )}
+                <TextField
+                  size="small"
+                  label="Pay Structure"
+                  value={
+                    contract.payStructure.charAt(0) +
+                    contract.payStructure.slice(1).toLowerCase()
+                  }
+                  color="secondary"
+                  margin="dense"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end" onClick={handlePayStructurePopup}>
+                        <HelpOutline color="secondary" fontSize="small" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    mr: '.5em',
+                    maxWidth: '48%',
+                  }}
+                />
+              </Tooltip>
+              <Tooltip title={`¤${contract.defaultPay}`} arrow>
+                <TextField
+                  size="small"
+                  label="Default Pay"
+                  value={contract.defaultPay}
+                  color="secondary"
+                  margin="dense"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Typography color="secondary">¤</Typography>
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{ maxWidth: '48%' }}
+                />
+              </Tooltip>
+            </Collapse>
           </Box>
         </Box>
         <Box
@@ -471,17 +661,40 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               borderRadius: '5px',
               borderColor: 'primary.main',
               width: '100%',
+              borderLeft: '1px solid rgba(14,49,141,0.5)',
+              borderRight: '1px solid rgba(14,49,141,0.5)',
+              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
+              position: 'relative',
+              '&:before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                right: 0,
+                left: 0,
+                background:
+                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
+                opacity: 0.6,
+                backdropFilter: 'blur(10px)',
+                zIndex: -1,
+                backgroundImage:
+                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
+                backgroundSize: '100% 2px',
+              },
             }}
           >
             <Typography
               data-testid="ContractDisplay__LocationTitle"
               variant="body2"
               sx={{
-                backgroundColor: 'rgba(14,49,141,.25)',
+                backgroundColor: 'rgba(33,150,243,.2)',
                 borderRadius: '10px',
                 pl: '1em',
                 fontWeight: 'bold',
                 m: '.5em',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
               }}
             >
               Locations
@@ -490,90 +703,160 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 size="small"
                 onClick={toggleLocationsExpand}
               >
-                {locationsExpanded ? (
-                  <ExpandMore fontSize="small" />
-                ) : (
-                  <ExpandLess fontSize="small" />
-                )}
+                <ExpandMore
+                  fontSize="small"
+                  sx={{
+                    transform: !locationsExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.5s',
+                  }}
+                />
               </IconButton>
             </Typography>
-            {locationsExpanded ? (
-              <Box
-                data-testid="ContractDisplay-Locations__LocationsListWrapper"
-                sx={{
-                  mb: '.5em',
-                  width: '100%',
-                }}
-              >
-                <Box
-                  data-testid="ContractDisplay-Locations__StartLocationWrapper"
-                  sx={{
-                    backgroundColor: 'rgba(14,49,141,.25)',
-                    borderRadius: '10px',
-                    mx: '.5em',
-                    p: '.2em',
-                  }}
-                >
-                  <Typography
-                    data-testid="ContractDisplay-Locations-StartLocation__Title"
-                    variant="body2"
-                    align="center"
+            <Collapse
+              data-testid="ContractDisplay-Locations__LocationsListWrapper"
+              in={locationsExpanded}
+              sx={{
+                width: '100%',
+              }}
+            >
+              {contract.Locations && contract.Locations.length > 0 ? (
+                <>
+                  <Box
+                    data-testid="ContractDisplay-Locations__StartLocationWrapper"
                     sx={{
-                      fontWeight: 'bold',
+                      backgroundColor: 'rgba(33,150,243,.2)',
+                      borderRadius: '10px',
+                      mb: '.5em',
+                      mx: '.5em',
+                      p: '.2em',
                     }}
                   >
-                    Start Location
-                  </Typography>
-                  <LocationChip locationId="Start" />
-                </Box>
-                <Box
-                  data-testid="ContractDisplay-Locations__EndLocationWrapper"
-                  sx={{
-                    backgroundColor: 'rgba(14,49,141,.25)',
-                    borderRadius: '10px',
-                    mt: '.5em',
-                    mx: '.5em',
-                    justifyContent: 'center',
-                  }}
+                    <Typography
+                      data-testid="ContractDisplay-Locations-StartLocation__Title"
+                      variant="body2"
+                      align="center"
+                      sx={{
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      Start Location
+                    </Typography>
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                      <LocationChip locationId={startLocationId ?? ''} />
+                    </Box>
+                  </Box>
+                  {endLocationId && (
+                    <Box
+                      data-testid="ContractDisplay-Locations__EndLocationWrapper"
+                      sx={{
+                        backgroundColor: 'rgba(33,150,243,.2)',
+                        borderRadius: '10px',
+                        mb: '.5em',
+                        mx: '.5em',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <Typography
+                        data-testid="ContractDisplay-Locations-StartLocation__Title"
+                        variant="body2"
+                        align="center"
+                        sx={{
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        End Location
+                      </Typography>
+                      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <LocationChip locationId={endLocationId ?? ''} />
+                      </Box>
+                    </Box>
+                  )}
+                  {otherLocationIds.length > 0 && (
+                    <Box
+                      data-testid="ContractDisplay-Locations__OtherLocationsWrapper"
+                      sx={{
+                        backgroundColor: 'rgba(33,150,243,.2)',
+                        borderRadius: '10px',
+                        mb: '.5em',
+                        mx: '.5em',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <Typography
+                        data-testid="ContractDisplay-Locations-OtherLocation__Title"
+                        variant="body2"
+                        align="center"
+                        sx={{
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        Other Locations
+                      </Typography>
+                      <Box
+                        data-testid="ContractDisplay-Locations-OtherLocations__LocationPagnationWrapper"
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <IconButton
+                          size="small"
+                          onClick={() => handleOtherLocationIndexChange('back')}
+                          disabled={otherLocationIndex === 0}
+                        >
+                          <ChevronLeft fontSize="small" />
+                        </IconButton>
+                        <Box
+                          data-testid="ContractDisplay-Locations-OtherLocations__LocationChipDisplayWrapper"
+                          sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <Typography
+                            data-testid="ContractDisplay-Locations-OtherLocations__LocationChip"
+                            variant="body2"
+                            align="center"
+                          >
+                            {otherLocationIndex + 1}.{' '}
+                            <LocationChip
+                              locationId={
+                                otherLocationIds
+                                  ? otherLocationIds[otherLocationIndex]
+                                  : 'Error'
+                              }
+                            />
+                          </Typography>
+                        </Box>
+                        <IconButton
+                          size="small"
+                          onClick={() => handleOtherLocationIndexChange('forward')}
+                          disabled={
+                            otherLocationIds
+                              ? otherLocationIds.length < 1 ||
+                                otherLocationIndex === otherLocationIds.length - 1
+                              : false
+                          }
+                        >
+                          <ChevronRight fontSize="small" />
+                        </IconButton>
+                      </Box>
+                    </Box>
+                  )}
+                </>
+              ) : (
+                <Typography
+                  align="center"
+                  variant="body2"
+                  sx={{ mb: '.2em', color: 'info.main' }}
                 >
-                  <Typography
-                    data-testid="ContractDisplay-Locations-StartLocation__Title"
-                    variant="body2"
-                    align="center"
-                    sx={{
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    End Location
-                  </Typography>
-                  <LocationChip locationId="End" />
-                </Box>
-                <Box
-                  data-testid="ContractDisplay-Locations__OtherLocationsWrapper"
-                  sx={{
-                    backgroundColor: 'rgba(14,49,141,.25)',
-                    borderRadius: '10px',
-                    mt: '.5em',
-                    mx: '.5em',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Typography
-                    data-testid="ContractDisplay-Locations-StartLocation__Title"
-                    variant="body2"
-                    align="center"
-                    sx={{
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Other Locations
-                  </Typography>
-                  <LocationChip locationId="Other" />
-                </Box>
-              </Box>
-            ) : (
-              <></>
-            )}
+                  Locations Redacted
+                </Typography>
+              )}
+            </Collapse>
           </Box>
         </Box>
       </Box>
@@ -596,6 +879,29 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             px: '1em',
             py: '.2em',
             width: '100%',
+            boxShadow: '0 0px 5px 2px rgba(24,252,252,0.25)',
+            backgroundImage:
+              'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
+            position: 'relative',
+            '&:before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              backgroundImage:
+                'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
+              backgroundSize: '5px 5px',
+              opacity: 0.5,
+            },
+            '&:hover': {
+              backgroundImage:
+                'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
+              borderColor: 'secondary.light',
+              boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
+            },
+            transition: 'all 0.3s',
           }}
         >
           <SmallTabs
@@ -619,6 +925,26 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             borderColor: 'primary.main',
             borderRadius: '5px',
             mt: '.5em',
+            borderLeft: '1px solid rgba(14,49,141,0.5)',
+            borderRight: '1px solid rgba(14,49,141,0.5)',
+            boxShadow: '0 5px 15px rgba(14,49,141,.8)',
+            position: 'relative',
+            '&:before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              right: 0,
+              left: 0,
+              background:
+                'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
+              opacity: 0.6,
+              backdropFilter: 'blur(10px)',
+              zIndex: -1,
+              backgroundImage:
+                'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
+              backgroundSize: '100% 2px',
+            },
           }}
         >
           {activeDataPanel(activeDataTab)}
@@ -650,6 +976,29 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               borderRadius: '5px',
               borderColor: 'secondary.main',
               px: '.5em',
+              boxShadow: '0 0px 5px 2px rgba(24,252,252,0.25)',
+              backgroundImage:
+                'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
+              position: 'relative',
+              '&:before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+                backgroundImage:
+                  'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
+                backgroundSize: '5px 5px',
+                opacity: 0.5,
+              },
+              '&:hover': {
+                backgroundImage:
+                  'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
+                borderColor: 'secondary.light',
+                boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
+              },
+              transition: 'all 0.3s',
             }}
           >
             <SmallTabs
@@ -673,6 +1022,26 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               borderColor: 'primary.main',
               height: '90%',
               mt: '.5em',
+              borderLeft: '1px solid rgba(14,49,141,0.5)',
+              borderRight: '1px solid rgba(14,49,141,0.5)',
+              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
+              position: 'relative',
+              '&:before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                right: 0,
+                left: 0,
+                background:
+                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
+                opacity: 0.6,
+                backdropFilter: 'blur(10px)',
+                zIndex: -1,
+                backgroundImage:
+                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
+                backgroundSize: '100% 2px',
+              },
             }}
           >
             {contractTimePanel(timeTab)}

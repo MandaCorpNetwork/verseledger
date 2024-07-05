@@ -7,3 +7,4 @@ report.html
 report.json
 dist
 .flyway
+**/cypress/screenshots/

@@ -62,14 +62,28 @@ export const ContractTableTools: React.FC<unknown> = () => {
         alignItems: 'center',
         justifyContent: 'space-around',
         position: 'relative',
-        backgroundColor: 'rgba(14,49,141,.25)',
         mt: '1em',
         py: '.5em',
         mx: '1em',
         borderTop: '2px solid',
         borderBottom: '2px solid',
         borderColor: 'primary.main',
-        borderRadius: '5px',
+        borderRadius: '10px',
+        borderLeft: '1px solid rgba(14,49,141,0.5)',
+        borderRight: '1px solid rgba(14,49,141,0.5)',
+        boxShadow: '0 5px 15px rgba(14,49,141,.8)',
+        '&:before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          right: 0,
+          left: 0,
+          background:
+            'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
+          opacity: 0.6,
+          backdropFilter: 'blur(10px)',
+        },
       }}
     >
       <Badge
@@ -90,6 +104,11 @@ export const ContractTableTools: React.FC<unknown> = () => {
           variant="outlined"
           startIcon={<FilterAlt />}
           size="small"
+          sx={{
+            '&:hover': {
+              boxShadow: '0 0px 10px',
+            },
+          }}
         >
           Filters
         </Button>
@@ -132,7 +151,7 @@ export const ContractTableTools: React.FC<unknown> = () => {
       <Typography
         data-testid="ContractLedger-TableTools__Title"
         variant="h5"
-        sx={{ color: 'text.secondary' }}
+        sx={{ color: 'text.secondary', textShadow: '1px 1px 2px rgba(0,73,130,0.8)' }}
       >
         Contract Browser
       </Typography>

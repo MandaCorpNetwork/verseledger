@@ -1,16 +1,16 @@
 import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
 import { Avatar, Box, ButtonBase, Chip, Tooltip, Typography } from '@mui/material';
 import React from 'react';
+import { IContract, IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
 import { QueryNames } from '@/Common/Definitions/QueryNames';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 //import type { IContract } from '@Backend/interfaces/IContract';
-import type { TempContractProps } from './ContractManagerContractList';
 
 type ContractManagerCardProps = {
-  contract: TempContractProps;
+  contract: IContract;
 };
 
 export const ContractManagerContractCard: React.FC<ContractManagerCardProps> = ({
@@ -61,7 +61,7 @@ export const ContractManagerContractCard: React.FC<ContractManagerCardProps> = (
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <Typography variant="h6">{contract.title}</Typography>
         <Box sx={{ alignSelf: 'center' }}>
-          <Tooltip title={`${contract.subType}`} arrow>
+          <Tooltip title={`${contract.subtype}`} arrow>
             <img src={TestAttacheIcon} alt="" width="30" />
           </Tooltip>
         </Box>
@@ -75,10 +75,15 @@ export const ContractManagerContractCard: React.FC<ContractManagerCardProps> = (
         }}
       >
         <Box sx={{ mx: '.5em', alignItems: 'flex-end' }}>
-          <Tooltip title={contract.ownerName} arrow>
+          <Tooltip title={(contract as IContractWithOwner).Owner?.displayName} arrow>
             <Chip
-              label={contract.ownerName}
-              avatar={<Avatar alt={contract.ownerName} src="../Assets/testprofile.png" />}
+              label={(contract as IContractWithOwner).Owner?.displayName}
+              avatar={
+                <Avatar
+                  alt={(contract as IContractWithOwner).Owner?.displayName as string}
+                  src="../Assets/testprofile.png"
+                />
+              }
               size="small"
               color="primary"
               sx={{
@@ -103,7 +108,7 @@ export const ContractManagerContractCard: React.FC<ContractManagerCardProps> = (
               size="small"
               margin="none"
               label="Pay"
-              value={contract.pay}
+              value={contract.defaultPay}
               startAdornment="¤"
               maxWidth="100px"
             />

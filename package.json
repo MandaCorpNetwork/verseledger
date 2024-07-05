@@ -16,11 +16,15 @@
     "test:client": "yarn manypkg run client test",
     "test:server": "yarn manypkg run server test",
     "resetdb": "cd scripts && setup-local-db.bat",
-    "migrate": "./.flyway/flyway -configFiles=./flyway.user.toml -environment=vl-db migrate"
+    "migrate": "./.flyway/flyway -configFiles=./flyway.user.toml -environment=vl-db migrate",
+    "cypress:develop": "yarn manypkg run client cypress open --browser chrome",
+    "cypress": "yarn manypkg run client cypress run --browser chrome",
+    "build": "yarn manypkg run client build",
+    "start": "yarn migrate && concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client serve\" \"manypkg run server serve\""
   },
   "dependencies": {
-    "@babel/core": "7.24.6",
-    "@babel/preset-env": "7.24.6",
+    "@babel/core": "7.24.7",
+    "@babel/preset-env": "7.24.7",
     "@babel/preset-typescript": "^7.24.6",
     "@changesets/cli": "2.27.5",
     "@manypkg/cli": "0.21.4",
