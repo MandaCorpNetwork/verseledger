@@ -30,10 +30,10 @@ export const LocationChip: React.FC<LocationChipProps> = (props) => {
   };
 
   return (
-    <Tooltip title={location ? location?.short_name : 'Redacted'}>
+    <Tooltip title={location ? location.short_name : 'Redacted'}>
       <Chip
         data-testid="LocationChip"
-        label={location ? location?.short_name : 'Redacted'}
+        label={location ? location.short_name : 'Redacted'}
         color="secondary"
         variant="outlined"
         icon={<Place />}

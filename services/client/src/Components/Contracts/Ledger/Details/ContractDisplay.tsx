@@ -156,14 +156,6 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
     dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
   };
 
-  const getOtherLocationIds = () => {
-    if (contract.Locations && contract.Locations.length > 1) {
-      return contract.Locations.slice(1, contract.Locations.length - 1);
-    }
-  };
-
-  const otherLocationIds = getOtherLocationIds();
-
   const getStartLocationId = () => {
     if (contract.Locations) {
       const startLocationPull = contract?.Locations?.find(
@@ -189,24 +181,36 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
 
   const endLocationId = getEndLocationId();
 
+  const getOtherLocationIds = () => {
+    if (contract.Locations) {
+      const otherLocationsPull = contract?.Locations?.filter(
+        (location) => location.ContractLocation?.tag === 'other',
+      );
+      return otherLocationsPull.map((location) => location.id);
+    }
+    return [];
+  };
+
+  const otherLocationIds = getOtherLocationIds();
+
   const handleOtherLocationIndexChange = React.useCallback(
     (direction: string) => {
       console.log(getOtherLocationIds());
-      if (otherLocationIds && otherLocationIds.length > 1) {
+      if (otherLocationIds.length > 1) {
         if (direction === 'back') {
           if (otherLocationIndex > 0) {
-            setOtherLocationIndex(otherLocationIndex - 1);
+            setOtherLocationIndex((prevIndex) => prevIndex - 1);
           }
         }
         if (direction === 'forward') {
           if (otherLocationIndex < otherLocationIds.length - 1) {
-            setOtherLocationIndex(otherLocationIndex + 1);
+            setOtherLocationIndex((prevIndex) => prevIndex + 1);
           }
         }
       }
       console.log(otherLocationIndex);
     },
-    [setOtherLocationIndex, otherLocationIndex],
+    [setOtherLocationIndex, otherLocationIndex, otherLocationIds],
   );
 
   return (
@@ -649,106 +653,82 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             maxHeight: '100%',
           }}
         >
-          {contract.Locations && contract.Locations.length > 0 && (
-            <Box
-              data-testid="ContractDisplay__LocationWrapper"
+          <Box
+            data-testid="ContractDisplay__LocationWrapper"
+            sx={{
+              borderTop: '2px solid',
+              borderBottom: '2px solid',
+              borderRadius: '5px',
+              borderColor: 'primary.main',
+              width: '100%',
+              borderLeft: '1px solid rgba(14,49,141,0.5)',
+              borderRight: '1px solid rgba(14,49,141,0.5)',
+              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
+              position: 'relative',
+              '&:before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                right: 0,
+                left: 0,
+                background:
+                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
+                opacity: 0.6,
+                backdropFilter: 'blur(10px)',
+                zIndex: -1,
+                backgroundImage:
+                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
+                backgroundSize: '100% 2px',
+              },
+            }}
+          >
+            <Typography
+              data-testid="ContractDisplay__LocationTitle"
+              variant="body2"
               sx={{
-                borderTop: '2px solid',
-                borderBottom: '2px solid',
-                borderRadius: '5px',
-                borderColor: 'primary.main',
-                width: '100%',
-                borderLeft: '1px solid rgba(14,49,141,0.5)',
-                borderRight: '1px solid rgba(14,49,141,0.5)',
-                boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-                position: 'relative',
-                '&:before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  bottom: 0,
-                  right: 0,
-                  left: 0,
-                  background:
-                    'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                  opacity: 0.6,
-                  backdropFilter: 'blur(10px)',
-                  zIndex: -1,
-                  backgroundImage:
-                    'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                  backgroundSize: '100% 2px',
-                },
+                backgroundColor: 'rgba(33,150,243,.2)',
+                borderRadius: '10px',
+                pl: '1em',
+                fontWeight: 'bold',
+                m: '.5em',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
               }}
             >
-              <Typography
-                data-testid="ContractDisplay__LocationTitle"
-                variant="body2"
-                sx={{
-                  backgroundColor: 'rgba(33,150,243,.2)',
-                  borderRadius: '10px',
-                  pl: '1em',
-                  fontWeight: 'bold',
-                  m: '.5em',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
+              Locations
+              <IconButton
+                data-testid="ContractDisplay-Locations_LocationsExpansionButton"
+                size="small"
+                onClick={toggleLocationsExpand}
               >
-                Locations
-                <IconButton
-                  data-testid="ContractDisplay-Locations_LocationsExpansionButton"
-                  size="small"
-                  onClick={toggleLocationsExpand}
-                >
-                  <ExpandMore
-                    fontSize="small"
-                    sx={{
-                      transform: !locationsExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.5s',
-                    }}
-                  />
-                </IconButton>
-              </Typography>
-              <Collapse
-                data-testid="ContractDisplay-Locations__LocationsListWrapper"
-                in={locationsExpanded}
-                sx={{
-                  width: '100%',
-                }}
-              >
-                <Box
-                  data-testid="ContractDisplay-Locations__StartLocationWrapper"
+                <ExpandMore
+                  fontSize="small"
                   sx={{
-                    backgroundColor: 'rgba(33,150,243,.2)',
-                    borderRadius: '10px',
-                    mb: '.5em',
-                    mx: '.5em',
-                    p: '.2em',
+                    transform: !locationsExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.5s',
                   }}
-                >
-                  <Typography
-                    data-testid="ContractDisplay-Locations-StartLocation__Title"
-                    variant="body2"
-                    align="center"
-                    sx={{
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Start Location
-                  </Typography>
-                  <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <LocationChip locationId={startLocationId ?? ''} />
-                  </Box>
-                </Box>
-                {endLocationId && (
+                />
+              </IconButton>
+            </Typography>
+            <Collapse
+              data-testid="ContractDisplay-Locations__LocationsListWrapper"
+              in={locationsExpanded}
+              sx={{
+                width: '100%',
+              }}
+            >
+              {contract.Locations && contract.Locations.length > 0 ? (
+                <>
                   <Box
-                    data-testid="ContractDisplay-Locations__EndLocationWrapper"
+                    data-testid="ContractDisplay-Locations__StartLocationWrapper"
                     sx={{
                       backgroundColor: 'rgba(33,150,243,.2)',
                       borderRadius: '10px',
                       mb: '.5em',
                       mx: '.5em',
-                      justifyContent: 'center',
+                      p: '.2em',
                     }}
                   >
                     <Typography
@@ -759,91 +739,125 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                         fontWeight: 'bold',
                       }}
                     >
-                      End Location
+                      Start Location
                     </Typography>
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                      <LocationChip locationId={endLocationId ?? ''} />
+                      <LocationChip locationId={startLocationId ?? ''} />
                     </Box>
                   </Box>
-                )}
-                {otherLocationIds && (
-                  <Box
-                    data-testid="ContractDisplay-Locations__OtherLocationsWrapper"
-                    sx={{
-                      backgroundColor: 'rgba(33,150,243,.2)',
-                      borderRadius: '10px',
-                      mb: '.5em',
-                      mx: '.5em',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Typography
-                      data-testid="ContractDisplay-Locations-OtherLocation__Title"
-                      variant="body2"
-                      align="center"
-                      sx={{
-                        fontWeight: 'bold',
-                      }}
-                    >
-                      Other Locations
-                    </Typography>
+                  {endLocationId && (
                     <Box
-                      data-testid="ContractDisplay-Locations-OtherLocations__LocationPagnationWrapper"
+                      data-testid="ContractDisplay-Locations__EndLocationWrapper"
                       sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
+                        backgroundColor: 'rgba(33,150,243,.2)',
+                        borderRadius: '10px',
+                        mb: '.5em',
+                        mx: '.5em',
+                        justifyContent: 'center',
                       }}
                     >
-                      <IconButton
-                        size="small"
-                        onClick={() => handleOtherLocationIndexChange('back')}
-                        disabled={otherLocationIndex === 0}
+                      <Typography
+                        data-testid="ContractDisplay-Locations-StartLocation__Title"
+                        variant="body2"
+                        align="center"
+                        sx={{
+                          fontWeight: 'bold',
+                        }}
                       >
-                        <ChevronLeft fontSize="small" />
-                      </IconButton>
+                        End Location
+                      </Typography>
+                      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <LocationChip locationId={endLocationId ?? ''} />
+                      </Box>
+                    </Box>
+                  )}
+                  {otherLocationIds.length > 0 && (
+                    <Box
+                      data-testid="ContractDisplay-Locations__OtherLocationsWrapper"
+                      sx={{
+                        backgroundColor: 'rgba(33,150,243,.2)',
+                        borderRadius: '10px',
+                        mb: '.5em',
+                        mx: '.5em',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <Typography
+                        data-testid="ContractDisplay-Locations-OtherLocation__Title"
+                        variant="body2"
+                        align="center"
+                        sx={{
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        Other Locations
+                      </Typography>
                       <Box
-                        data-testid="ContractDisplay-Locations-OtherLocations__LocationChipDisplayWrapper"
+                        data-testid="ContractDisplay-Locations-OtherLocations__LocationPagnationWrapper"
                         sx={{
                           display: 'flex',
-                          flexDirection: 'column',
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
                           alignItems: 'center',
                         }}
                       >
-                        <Typography
-                          data-testid="ContractDisplay-Locations-OtherLocations__LocationChip"
-                          variant="body2"
-                          align="center"
+                        <IconButton
+                          size="small"
+                          onClick={() => handleOtherLocationIndexChange('back')}
+                          disabled={otherLocationIndex === 0}
                         >
-                          {otherLocationIndex + 1}.{' '}
-                          <LocationChip
-                            locationId={
-                              otherLocationIds
-                                ? otherLocationIds[otherLocationIndex].id
-                                : 'Error'
-                            }
-                          />
-                        </Typography>
+                          <ChevronLeft fontSize="small" />
+                        </IconButton>
+                        <Box
+                          data-testid="ContractDisplay-Locations-OtherLocations__LocationChipDisplayWrapper"
+                          sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <Typography
+                            data-testid="ContractDisplay-Locations-OtherLocations__LocationChip"
+                            variant="body2"
+                            align="center"
+                          >
+                            {otherLocationIndex + 1}.{' '}
+                            <LocationChip
+                              locationId={
+                                otherLocationIds
+                                  ? otherLocationIds[otherLocationIndex]
+                                  : 'Error'
+                              }
+                            />
+                          </Typography>
+                        </Box>
+                        <IconButton
+                          size="small"
+                          onClick={() => handleOtherLocationIndexChange('forward')}
+                          disabled={
+                            otherLocationIds
+                              ? otherLocationIds.length < 1 ||
+                                otherLocationIndex === otherLocationIds.length - 1
+                              : false
+                          }
+                        >
+                          <ChevronRight fontSize="small" />
+                        </IconButton>
                       </Box>
-                      <IconButton
-                        size="small"
-                        onClick={() => handleOtherLocationIndexChange('forward')}
-                        disabled={
-                          otherLocationIds
-                            ? otherLocationIds.length < 1 ||
-                              otherLocationIndex === otherLocationIds.length - 1
-                            : false
-                        }
-                      >
-                        <ChevronRight fontSize="small" />
-                      </IconButton>
                     </Box>
-                  </Box>
-                )}
-              </Collapse>
-            </Box>
-          )}
+                  )}
+                </>
+              ) : (
+                <Typography
+                  align="center"
+                  variant="body2"
+                  sx={{ mb: '.2em', color: 'info.main' }}
+                >
+                  Locations Redacted
+                </Typography>
+              )}
+            </Collapse>
+          </Box>
         </Box>
       </Box>
       <Box
