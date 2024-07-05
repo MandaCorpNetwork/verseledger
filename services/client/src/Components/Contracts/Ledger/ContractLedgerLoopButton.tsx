@@ -5,13 +5,12 @@ import { Button, SxProps, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
 import { verseOSTheme } from '@/Themes/VerseOS';
-import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 type ContractLedgerLoopButtonProps = {
   title: string;
   videoSource: string;
-  selectedType: string;
-  setSelectedType: (type: string) => void;
+  selectedType: string[];
+  setSelectedType: React.Dispatch<React.SetStateAction<string[]>>;
   sx?: SxProps<typeof verseOSTheme>;
 };
 
@@ -38,15 +37,9 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
     video.currentTime = 0;
   };
   //Hovering animation
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_filters, setFilters] = useURLQuery();
-  const isSelected = selectedType === title;
+  const isSelected = selectedType.includes(title);
 
   const handleClick = () => {
-    // @ts-expect-error TS2322: Type 'string' is not assignable to type 'string | undefined',
-    setFilters('archetype', title);
-    setSelectedType(title);
-
     const video = document.getElementById(videoSource) as HTMLVideoElement;
     if (isSelected) {
       video.play();
@@ -54,7 +47,12 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
       video.pause();
       video.currentTime = 0;
     }
-    // Currently not working
+
+    setSelectedType((prevSelected) =>
+      isSelected
+        ? prevSelected.filter((type) => type !== title)
+        : [...prevSelected, title],
+    );
   };
 
   return (
