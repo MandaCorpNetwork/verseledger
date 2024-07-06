@@ -699,9 +699,7 @@ export class ContractController extends BaseHttpController {
     security: { VLAuthAccessToken: [] },
   })
   @httpGet('/search')
-  private async searchContracts(
-    @next() nextFunc: NextFunction,
-  ) {
+  private async searchContracts(@next() nextFunc: NextFunction) {
     const subtypes = this.httpContext.request.query.subtypes as string;
     if (!subtypes) {
       throw nextFunc(
