@@ -89,7 +89,7 @@ export const ContractTableTools: React.FC<unknown> = () => {
     >
       <Badge
         data-testid="ContractLedger-TableTools__FilterBadge"
-        badgeContent={filterCount}
+        // badgeContent={filterCount}
         color="error"
         variant="standard"
         overlap="rectangular"
