@@ -5,7 +5,7 @@ export class Logger {
     return chalk.bgGrey(`[${new Date(Date.now()).toISOString()}]`);
   }
   public static info(...args: Parameters<(typeof console)['info']>) {
-    const prefix = `[${_getCallerFile()}]`;
+    const prefix = `[${_getCallerFile(2)}]`;
     console.info(
       this.getTimestamp(),
       chalk.white.bgBlue.bold('[INFO]'),
@@ -14,7 +14,7 @@ export class Logger {
     );
   }
   public static error(...args: Parameters<(typeof console)['error']>) {
-    const prefix = `[${_getCallerFile()}]`;
+    const prefix = `[${_getCallerFile(2)}]`;
     console.error(
       this.getTimestamp(),
       chalk.black.bgRedBright('[ERROR]'),
@@ -23,7 +23,7 @@ export class Logger {
     );
   }
   public static warn(...args: Parameters<(typeof console)['warn']>) {
-    const prefix = `[${_getCallerFile()}]`;
+    const prefix = `[${_getCallerFile(2)}]`;
     console.warn(
       this.getTimestamp(),
       chalk.white.bgYellow('[WARN]'),

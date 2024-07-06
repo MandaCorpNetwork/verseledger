@@ -1,5 +1,5 @@
 import path from 'path';
-export function _getCallerFile() {
+export function _getCallerFile(stackPoint: number = 1) {
   const err = new Error();
 
   Error.prepareStackTrace = (_, stack) => stack;
@@ -7,6 +7,6 @@ export function _getCallerFile() {
   const stack = err.stack as unknown as NodeJS.CallSite[];
 
   Error.prepareStackTrace = undefined;
-  const filePath = stack[2].getFileName();
+  const filePath = stack[stackPoint].getFileName();
   return path.basename(filePath as string);
 }
