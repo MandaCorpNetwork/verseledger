@@ -1,8 +1,8 @@
 import { ArrowBackIosNew, FilterAlt } from '@mui/icons-material';
 import { Badge, Box, Collapse, IconButton, Tooltip } from '@mui/material';
+import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 
-import { QueryNames } from '@Utils/QueryNames';
 import { SearchBar } from '@/Common/Filters/SearchBar';
 import { SortBySelect } from '@/Common/Filters/SortBySelect';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
@@ -25,13 +25,13 @@ export const ContractManagerSearchTools: React.FC = () => {
   };
 
   const filterCount =
-    filters.getAll(QueryNames.SubType).length +
+    filters.getAll(QueryNames.Subtype).length +
     filters.getAll(QueryNames.Locations).length +
     (filters.has(QueryNames.UECRangeMax) ? 1 : 0) +
     (filters.has(QueryNames.UECRangeMin) ? 1 : 0);
 
   const isQueried =
-    filters.has(QueryNames.SubType) ||
+    filters.has(QueryNames.Subtype) ||
     filters.has(QueryNames.Locations) ||
     filters.has(QueryNames.UECRangeMax) ||
     filters.has(QueryNames.SortBy) ||
