@@ -166,15 +166,15 @@ export class ContractService {
   }
 
   public async searchBySubtypes(subtype: string[]) {
-    try
-    {const contracts = await Contract.findAll({
-      where: {
-        subtype: {
-          [Op.in]: subtype,
+    try {
+      const contracts = await Contract.findAll({
+        where: {
+          subtype: {
+            [Op.in]: subtype,
+          },
         },
-      },
-      include: ['Locations', 'Owner', 'Bids'],
-    });
+        include: ['Locations', 'Owner', 'Bids'],
+      });
       return contracts;
     } catch (error) {
       console.error('Error in Contract Service Method', error);
