@@ -1,19 +1,18 @@
 import { ArrowBackIosNew, FilterAlt } from '@mui/icons-material';
 import { Badge, Box, Collapse, IconButton, Tooltip } from '@mui/material';
-import { QueryNames } from '@Utils/QueryNames';
+import { SearchBar } from '@Utils/Filters/SearchBar';
+import { SortBySelect } from '@Utils/Filters/SortBySelect';
+// import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 
-import { SearchBar } from '@/Common/Filters/SearchBar';
-import { SortBySelect } from '@/Common/Filters/SortBySelect';
-import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
-
+// import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 import { ContractManagerFilterList } from './ContractManagerFiltersList';
 
 export const ContractManagerSearchTools: React.FC = () => {
   const [searchToolsOpen, setSearchToolsOpen] = React.useState<boolean>(false);
   const [filtersListOpen, setFiltersListOpen] = React.useState<boolean>(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-  const [filters] = useURLQuery();
+  // const [filters] = useURLQuery();
   const toggleSearchTools = () => {
     setSearchToolsOpen(!searchToolsOpen);
   };
@@ -24,18 +23,18 @@ export const ContractManagerSearchTools: React.FC = () => {
     setFiltersListOpen(!filtersListOpen);
   };
 
-  const filterCount =
-    filters.getAll(QueryNames.Subtype).length +
-    filters.getAll(QueryNames.Locations).length +
-    (filters.has(QueryNames.UECRangeMax) ? 1 : 0) +
-    (filters.has(QueryNames.UECRangeMin) ? 1 : 0);
+  // const filterCount =
+  //   filters.getAll(QueryNames.Subtype).length +
+  //   filters.getAll(QueryNames.Locations).length +
+  //   (filters.has(QueryNames.UECRangeMax) ? 1 : 0) +
+  //   (filters.has(QueryNames.UECRangeMin) ? 1 : 0);
 
-  const isQueried =
-    filters.has(QueryNames.Subtype) ||
-    filters.has(QueryNames.Locations) ||
-    filters.has(QueryNames.UECRangeMax) ||
-    filters.has(QueryNames.SortBy) ||
-    filters.has(QueryNames.SearchQuery);
+  // const isQueried =
+  //   filters.has(QueryNames.Subtype) ||
+  //   filters.has(QueryNames.Locations) ||
+  //   filters.has(QueryNames.UECRangeMax) ||
+  //   filters.has(QueryNames.SortBy) ||
+  //   filters.has(QueryNames.SearchQuery);
 
   const sortOptions = [
     {
@@ -87,7 +86,7 @@ export const ContractManagerSearchTools: React.FC = () => {
           }}
         >
           <Badge
-            badgeContent={filterCount}
+            // badgeContent={filterCount}
             color="error"
             variant="dot"
             overlap="circular"
@@ -112,20 +111,20 @@ export const ContractManagerSearchTools: React.FC = () => {
         data-testid="ContractManager-ContractList-SearchTools__SearchToolsExpansionWrapper"
         sx={{ display: 'flex', ml: 'auto' }}
       >
-        <Badge invisible={!isQueried} color="error" variant="dot" overlap="circular">
-          <Tooltip arrow title="Search Tools">
-            <IconButton
-              data-testid="ContractManager-ContractList-SearchTools__SearchToolsExpansionButton"
-              onClick={toggleSearchTools}
-              sx={{
-                transform: !searchToolsOpen ? 'rotate(90deg)' : 'rotate(0deg)',
-                transition: 'transform 200ms',
-              }}
-            >
-              <ArrowBackIosNew fontSize="large" />
-            </IconButton>
-          </Tooltip>
-        </Badge>
+        {/* <Badge invisible={!isQueried} color="error" variant="dot" overlap="circular"> */}
+        <Tooltip arrow title="Search Tools">
+          <IconButton
+            data-testid="ContractManager-ContractList-SearchTools__SearchToolsExpansionButton"
+            onClick={toggleSearchTools}
+            sx={{
+              transform: !searchToolsOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+              transition: 'transform 200ms',
+            }}
+          >
+            <ArrowBackIosNew fontSize="large" />
+          </IconButton>
+        </Tooltip>
+        {/* </Badge> */}
       </Box>
     </Box>
   );

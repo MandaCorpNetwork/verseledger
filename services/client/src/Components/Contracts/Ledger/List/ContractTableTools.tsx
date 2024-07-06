@@ -1,15 +1,16 @@
 import { FilterAlt } from '@mui/icons-material';
 import { Badge, Box, Button, Collapse, Typography } from '@mui/material';
-import { QueryNames } from '@Utils/QueryNames';
+import { SearchBar } from '@Utils/Filters/SearchBar';
+import { SortBySelect } from '@Utils/Filters/SortBySelect';
+// import { QueryNames } from '@Utils/QueryNames';
 import React, { useRef, useState } from 'react';
 
-import { SearchBar } from '@/Common/Filters/SearchBar';
-import { SortBySelect } from '@/Common/Filters/SortBySelect';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { CLFilterDropdown } from './CLFilterDropdown';
 
 export const ContractTableTools: React.FC<unknown> = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filters] = useURLQuery();
   const [open, setOpen] = useState(false);
   const toolsRef = useRef<HTMLDivElement>(null);
@@ -18,13 +19,13 @@ export const ContractTableTools: React.FC<unknown> = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const filterCount =
-    filters.getAll(QueryNames.Subtype).length +
-    filters.getAll(QueryNames.Locations).length +
-    filters.getAll(QueryNames.TimeRemaining).length +
-    (filters.has(QueryNames.UECRangeMax) ? 1 : 0) +
-    (filters.has(QueryNames.UECRangeMin) ? 1 : 0) +
-    (filters.has(QueryNames.EmployerRating) ? 1 : 0);
+  // const filterCount =
+  //   filters.getAll(QueryNames.Subtype).length +
+  //   filters.getAll(QueryNames.Locations).length +
+  //   filters.getAll(QueryNames.TimeRemaining).length +
+  //   (filters.has(QueryNames.UECRangeMax) ? 1 : 0) +
+  //   (filters.has(QueryNames.UECRangeMin) ? 1 : 0) +
+  //   (filters.has(QueryNames.EmployerRating) ? 1 : 0);
 
   const sortOptions = [
     {
@@ -88,7 +89,7 @@ export const ContractTableTools: React.FC<unknown> = () => {
     >
       <Badge
         data-testid="ContractLedger-TableTools__FilterBadge"
-        badgeContent={filterCount}
+        // badgeContent={filterCount}
         color="error"
         variant="dot"
         overlap="rectangular"

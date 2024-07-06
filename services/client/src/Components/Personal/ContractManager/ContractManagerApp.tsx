@@ -11,6 +11,7 @@ import { ContractManagerContractList } from './ContractList/ContractManagerContr
 import { ContractManagerSearchTools } from './ContractList/ContractManagerSearchTools';
 
 export const ContractManagerApp: React.FC<unknown> = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filters, , overwriteURLQuery] = useURLQuery();
 
   const handleBrowserChange = (_event: React.SyntheticEvent, newValue: string) => {
@@ -39,7 +40,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           flexDirection: 'column',
         }}
       >
-        <TabContext value={filters.get(QueryNames.ContractManagerTab) ?? 'employed'}>
+        <TabContext value={'employed'}>
           <Box
             data-testid="ContractManager__ContractListWrapper"
             sx={{
