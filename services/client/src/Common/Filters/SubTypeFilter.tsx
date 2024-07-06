@@ -41,12 +41,12 @@ export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleChange = (_event: React.SyntheticEvent, newValue: { value: string }[]) => {
     setFilters(
-      QueryNames.SubType,
+      QueryNames.Subtype,
       newValue.map((v) => v.value),
     );
   };
 
-  const currentFilterValues = filters.getAll(QueryNames.SubType);
+  const currentFilterValues = filters.getAll(QueryNames.Subtype);
 
   return (
     <Autocomplete
