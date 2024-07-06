@@ -14,6 +14,7 @@ import { EnvService } from '@Services/env.service';
 import { AuthProvider } from './authProviders/auth.provider';
 import { NetworkError } from '@Errors/NetworkError';
 import { NotFoundError } from '@Errors/NotFoundError';
+import { Logger } from './utils/Logger';
 export const createServer = () => {
   bindContainer(container);
   const env = new EnvService();
@@ -82,6 +83,6 @@ export const createServer = () => {
     }
   });
   app.listen(env.EXPRESS_PORT, () => {
-    console.log(`App listening on port ${env.EXPRESS_PORT}`);
+    Logger.info(`App listening on port ${env.EXPRESS_PORT}`);
   });
 };
