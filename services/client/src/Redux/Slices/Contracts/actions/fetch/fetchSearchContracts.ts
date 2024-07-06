@@ -5,7 +5,7 @@ import { Logger } from '@Utils/Logger';
 import NetworkService from '@/Services/NetworkService';
 
 export const fetchContractsBySubtypes = createAsyncThunk(
-  '/v1/contracts/search',
+  '/v1/contracts/filterSubType',
   async (subtypes: string[]) => {
     const subtypesString = subtypes.join(',');
     const response = await NetworkService.GET(
