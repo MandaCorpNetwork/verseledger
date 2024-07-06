@@ -10,6 +10,7 @@ import { AuthMiddleware } from '@Middleware/auth.middleware';
 import { VerifiedUserMiddleware } from '@Middleware/verified.middleware';
 import { TestingMiddleware } from '@Middleware/testing.middleware';
 import { NotificationService } from '@Services/notification.service';
+import { Logger } from './utils/Logger';
 export const bindContainer = (container: Container) => {
   container
     .bind<EnvService>(TYPES.EnvService)
@@ -47,4 +48,5 @@ export const bindContainer = (container: Container) => {
     .bind<StompService>(TYPES.StompService)
     .to(StompService)
     .inSingletonScope();
+  container.bind<Logger>(TYPES.Logger).to(Logger).inSingletonScope();
 };
