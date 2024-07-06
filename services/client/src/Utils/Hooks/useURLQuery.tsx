@@ -10,10 +10,10 @@ export const useURLQuery = () => {
   useEffect(() => {
     const handleQueryFetchRequest = async () => {
       Logger.info(`Attempting Subtype Contract Fetch...`);
-      const subtype = searchParams.get(QueryNames.Subtype);
+      const subtype = searchParams.getAll(QueryNames.Subtype);
       if (subtype) {
-        Logger.info(`Subtype from URL query: ${subtype}`);
-        const subtypesArray = subtype.split(',');
+        Logger.info(`Preparing Subtype Fetch Array: ${subtype}`);
+        const subtypesArray = subtype.join(',').split(',');
         if (subtypesArray.length > 0) {
           try {
             await fetchContractsBySubtypes(subtypesArray);
@@ -28,7 +28,7 @@ export const useURLQuery = () => {
     };
 
     handleQueryFetchRequest();
-
+    Logger.info(`Current search params: ${searchParams}`);
     window.addEventListener('popstate', handleQueryFetchRequest);
 
     return () => {
@@ -38,6 +38,7 @@ export const useURLQuery = () => {
 
   const setValue = (name: QueryNames, value: string | string[]) => {
     setSearchParams((params) => {
+      Logger.info(`Updating filters: ${JSON.stringify(params)}`);
       params.delete(name);
       if (typeof value === 'string') {
         params.set(name, value);
@@ -52,6 +53,7 @@ export const useURLQuery = () => {
     newState: Partial<Record<QueryNames, string | string[]>>,
   ) => {
     const params = new URLSearchParams();
+    Logger.info(`Updating filters: ${JSON.stringify(params)}`);
     Object.entries(searchParams).forEach(([key, value]) => {
       if (value !== undefined && value !== null) {
         params.set(key, value.toString());
