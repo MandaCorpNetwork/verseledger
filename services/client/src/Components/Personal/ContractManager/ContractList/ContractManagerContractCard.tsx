@@ -1,10 +1,10 @@
 import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
 import { Avatar, Box, ButtonBase, Chip, Tooltip, Typography } from '@mui/material';
+import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 import { IContract, IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
-import { QueryNames } from '@Utils/QueryNames';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 //import type { IContract } from '@Backend/interfaces/IContract';

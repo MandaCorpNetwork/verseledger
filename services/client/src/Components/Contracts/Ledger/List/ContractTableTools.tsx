@@ -1,8 +1,8 @@
 import { FilterAlt } from '@mui/icons-material';
 import { Badge, Box, Button, Collapse, Typography } from '@mui/material';
+import { QueryNames } from '@Utils/QueryNames';
 import React, { useRef, useState } from 'react';
 
-import { QueryNames } from '@Utils/QueryNames';
 import { SearchBar } from '@/Common/Filters/SearchBar';
 import { SortBySelect } from '@/Common/Filters/SortBySelect';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
@@ -19,7 +19,7 @@ export const ContractTableTools: React.FC<unknown> = () => {
   };
 
   const filterCount =
-    filters.getAll(QueryNames.SubType).length +
+    filters.getAll(QueryNames.Subtype).length +
     filters.getAll(QueryNames.Locations).length +
     filters.getAll(QueryNames.TimeRemaining).length +
     (filters.has(QueryNames.UECRangeMax) ? 1 : 0) +

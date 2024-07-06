@@ -1,9 +1,9 @@
 // ContractMangerFiltersList.tsx
 import { ClearOutlined } from '@mui/icons-material';
 import { IconButton, Paper, Popper, Tooltip } from '@mui/material';
+import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 
-import { QueryNames } from '@Utils/QueryNames';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { FilterListSelection } from './FilterListSelection';
@@ -19,7 +19,7 @@ export const ContractManagerFilterList: React.FC<ContractManagerFilterListProps>
 }) => {
   const [filters, , overwriteURLQuery] = useURLQuery();
   const handleFilterClear = () => {
-    filters.delete(QueryNames.SubType);
+    filters.delete(QueryNames.Subtype);
     filters.delete(QueryNames.Locations);
     filters.delete(QueryNames.UECRangeMax);
     filters.delete(QueryNames.UECRangeMin);
@@ -28,7 +28,7 @@ export const ContractManagerFilterList: React.FC<ContractManagerFilterListProps>
   };
 
   const isFiltersSet =
-    filters.has(QueryNames.SubType) ||
+    filters.has(QueryNames.Subtype) ||
     filters.has(QueryNames.Locations) ||
     filters.has(QueryNames.UECRangeMax) ||
     filters.has(QueryNames.UECRangeMin);

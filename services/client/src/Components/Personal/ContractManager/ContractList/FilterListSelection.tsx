@@ -1,8 +1,8 @@
 import { PlayArrow } from '@mui/icons-material';
 import { Badge, Box, Chip, Paper, Popper, Typography } from '@mui/material';
+import { QueryNames } from '@Utils/QueryNames';
 import React, { useState } from 'react';
 
-import { QueryNames } from '@Utils/QueryNames';
 import { LocationsFilter } from '@/Common/Filters/LocationsFilter';
 import { SubTypeFilter } from '@/Common/Filters/SubTypeFilter';
 import { UECRangeFilter } from '@/Common/Filters/UECRangeFilter';
@@ -36,7 +36,7 @@ export const FilterListSelection: React.FC<FilterListSelectionProps> = ({
   const getFilterCount = (filterName: string) => {
     switch (filterName) {
       case 'SubType':
-        return filters.getAll(QueryNames.SubType).length;
+        return filters.getAll(QueryNames.Subtype).length;
       case 'Locations':
         return filters.getAll(QueryNames.Locations).length;
       case 'Pay Range':
@@ -52,7 +52,7 @@ export const FilterListSelection: React.FC<FilterListSelectionProps> = ({
   const getFilterValues = (filterName: string) => {
     switch (filterName) {
       case 'SubType':
-        return filters.getAll(QueryNames.SubType);
+        return filters.getAll(QueryNames.Subtype);
       case 'Locations':
         return filters.getAll(QueryNames.Locations);
       case 'Pay Range':
