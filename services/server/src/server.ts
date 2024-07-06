@@ -39,7 +39,7 @@ export const createServer = () => {
     app.use((req, res, next) => {
       const method = methodToColor(req.method);
       Logger.withType(
-        chalk.bgMagenta('[NETWORK]'),
+        chalk.bold.bgMagenta('[NETWORK]'),
         `${req.ip} - ${method} ${chalk.underline(req.path)}`,
       );
       next();
