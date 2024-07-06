@@ -370,8 +370,8 @@ export class ContractController extends BaseHttpController {
   private async searchContracts(
     @next() nextFunc: NextFunction,
   ) {
-    const subtypes = this.httpContext.request.query.subtypes as string;
-    if (!subtypes) {
+    const subtype = this.httpContext.request.query.subtype as string;
+    if (!subtype) {
       throw nextFunc(
         new BadParameterError(
           'subtypes',
@@ -379,7 +379,7 @@ export class ContractController extends BaseHttpController {
         ),
       );
     }
-    const subTypeArray = subtypes.split(',').map((st) => st.trim());
-    return this.contractService.searchBySubtypes(subTypeArray);
+    const subtypeArray = subtype.split(',').map((st) => st.trim());
+    return this.contractService.searchBySubtypes(subtypeArray);
   }
 }
