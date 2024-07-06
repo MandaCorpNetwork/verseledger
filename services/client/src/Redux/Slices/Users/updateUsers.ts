@@ -3,7 +3,7 @@ import { AppDispatch } from '@Redux/store';
 import { Middleware } from 'redux';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
-import { fetchContracts } from '../Contracts/actions/fetchContracts';
+import { fetchContracts } from '../Contracts/actions/fetch/fetchContracts';
 
 export const updateUsersMiddleware: Middleware<unknown, Record<string, unknown>> =
   ({ dispatch }: { dispatch: AppDispatch }) =>
