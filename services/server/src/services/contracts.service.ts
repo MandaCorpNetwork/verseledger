@@ -169,7 +169,7 @@ export class ContractService {
     try {
       const contracts = await Contract.findAll({
         where: {
-          subype: {
+          subtype: {
             [Op.in]: subtype,
           },
         },
