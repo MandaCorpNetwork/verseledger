@@ -1,7 +1,7 @@
 // SubTypeFilter.tsx
-import { QueryNames } from '@Common/Definitions/QueryNames';
 import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
+import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';

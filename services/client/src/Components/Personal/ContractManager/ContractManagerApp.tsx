@@ -3,7 +3,7 @@ import { TabContext, TabList } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
 import React from 'react';
 
-import { QueryNames } from '@/Common/Definitions/QueryNames';
+import { QueryNames } from '@Utils/QueryNames';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';

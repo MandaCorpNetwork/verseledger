@@ -3,7 +3,7 @@ import { Box, IconButton, TextField } from '@mui/material';
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
-import { QueryNames } from '../Definitions/QueryNames';
+import { QueryNames } from '../../Utils/QueryNames';
 
 type SearchBarProps = {
   size: 'small' | 'medium';

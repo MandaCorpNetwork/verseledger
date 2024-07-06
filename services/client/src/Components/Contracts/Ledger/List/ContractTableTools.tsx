@@ -2,7 +2,7 @@ import { FilterAlt } from '@mui/icons-material';
 import { Badge, Box, Button, Collapse, Typography } from '@mui/material';
 import React, { useRef, useState } from 'react';
 
-import { QueryNames } from '@/Common/Definitions/QueryNames';
+import { QueryNames } from '@Utils/QueryNames';
 import { SearchBar } from '@/Common/Filters/SearchBar';
 import { SortBySelect } from '@/Common/Filters/SortBySelect';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';

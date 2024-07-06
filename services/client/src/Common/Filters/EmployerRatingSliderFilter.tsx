@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
-import { QueryNames } from '../Definitions/QueryNames';
+import { QueryNames } from '../../Utils/QueryNames';
 
 const RatingSliderMarks = [
   { value: 1, label: <StarIcon sx={{ fontSize: '1.2em' }} /> },

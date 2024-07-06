@@ -3,7 +3,7 @@ import { ArrowRight } from '@mui/icons-material';
 import { Badge, Box, Chip, Collapse, Typography } from '@mui/material';
 import React from 'react';
 
-import { QueryNames } from '@/Common/Definitions/QueryNames';
+import { QueryNames } from '@Utils/QueryNames';
 import { AccessTimeDropdownFilter } from '@/Common/Filters/AccessTimeDropdownFilter';
 import { EmployerRatingSliderFilter } from '@/Common/Filters/EmployerRatingSliderFilter';
 import { LocationsFilter } from '@/Common/Filters/LocationsFilter';
