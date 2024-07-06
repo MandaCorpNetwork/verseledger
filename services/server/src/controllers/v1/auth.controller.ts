@@ -14,6 +14,7 @@ import { EnvService } from '@/services/env.service';
 import { NextFunction } from 'express';
 import { UnauthorizedError } from '@Errors/UnauthorizedError';
 import { ApiOperationPost, ApiPath } from 'swagger-express-ts';
+import { Logger } from '@/utils/Logger';
 const env = new EnvService();
 @ApiPath({
   path: '/v1/auth',
@@ -51,7 +52,7 @@ export class AuthController extends BaseHttpController {
     @next() nextFunc: NextFunction,
   ) {
     if (authHeader == null) {
-      console.log('No Headers');
+      Logger.warn('No Headers');
       throw nextFunc(new UnauthorizedError());
     }
     const headerParts = authHeader.split(' ');
@@ -89,7 +90,7 @@ export class AuthController extends BaseHttpController {
           access_token: string;
           token_type: string;
         };
-        console.log('ACCESS_TOKEN', access_token);
+        Logger.info('ACCESS_TOKEN', access_token);
         return fetch(`https://discord.com/api/v10/users/@me`, {
           headers: { Authorization: `${token_type} ${access_token}` },
         })

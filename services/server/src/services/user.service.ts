@@ -4,6 +4,7 @@ import { IUser } from '@Interfaces/IUser';
 import { Op } from 'sequelize';
 import { RSIService } from './RSI.service';
 import { UserValidation } from '@Models/user_validation.model';
+import { Logger } from '@/utils/Logger';
 
 @injectable()
 export class UserService {
@@ -66,7 +67,7 @@ export class UserService {
 
   public async createValidationToken(userId: string, handle: string) {
     const response = await RSIService.getUserByHandle(handle);
-    console.log(response.status, response.data);
+    Logger.info(response.status, response.data);
     const rsiUser = response?.data?.data?.creator;
     if (rsiUser == null) throw new Error('Invalid Handle');
     const validation = await UserValidation.findOne({
