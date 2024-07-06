@@ -1,7 +1,7 @@
 // SubTypeFilter.tsx
 import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
-import { Logger } from '@Utils/Logger';
+// import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useMemo } from 'react';
 
@@ -43,13 +43,12 @@ export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
   const [filters, setFilters] = useURLQuery();
 
   const currentFilterValues = useMemo(() => {
-    const subtypeFilters = filters.get(QueryNames.Subtype);
+    const subtypeFilters = filters.getAll(QueryNames.Subtype);
     return Array.isArray(subtypeFilters) ? subtypeFilters : [subtypeFilters];
   }, [filters]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleChange = (_event: React.SyntheticEvent, newValue: { value: string }[]) => {
-    Logger.info(`Updating filters: ${JSON.stringify(newValue)}`);
     setFilters(
       QueryNames.Subtype,
       newValue.map((v) => v.value),
