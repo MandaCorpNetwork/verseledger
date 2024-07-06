@@ -4,8 +4,23 @@ import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+interface QueryParams {
+  [key: string]: string | string[] | undefined;
+}
+
 export const useURLQuery = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [queryParams, setQueryParams] = useState<QueryParams>({});
+
+  useEffect(() => {
+    const params: QueryParams = {};
+    for (const [key, value] of searchParams.entries()) {
+      params[key] = value.toString().split(',');
+    }
+    setQueryParams(params);
+    Logger.info(`URLQueryParameters: ${JSON.stringify(params)}`);
+  }, [searchParams]);
 
   const setValue = (name: QueryNames, value: string | string[]) => {
     setSearchParams((params) => {
