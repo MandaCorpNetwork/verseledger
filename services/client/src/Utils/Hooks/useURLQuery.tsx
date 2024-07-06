@@ -10,10 +10,10 @@ export const useURLQuery = () => {
   useEffect(() => {
     const handleQueryFetchRequest = async () => {
       Logger.info(`Attempting Subtype Contract Fetch...`);
-      const subtype = searchParams.get(QueryNames.Subtype);
+      const subtype = searchParams.getAll(QueryNames.Subtype);
       if (subtype) {
-        Logger.info(`Subtype from URL query: ${subtype}`);
-        const subtypesArray = subtype.split(',');
+        Logger.info(`Preparing Subtype Fetch Array: ${subtype}`);
+        const subtypesArray = subtype.join(',').split(',');
         if (subtypesArray.length > 0) {
           try {
             await fetchContractsBySubtypes(subtypesArray);
@@ -28,7 +28,7 @@ export const useURLQuery = () => {
     };
 
     handleQueryFetchRequest();
-
+    Logger.info(`Current search params: ${searchParams}`);
     window.addEventListener('popstate', handleQueryFetchRequest);
 
     return () => {
