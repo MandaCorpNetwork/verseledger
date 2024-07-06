@@ -35,10 +35,6 @@ const menuValues = [
   { archetype: 'proxy', value: 'Redacted', label: 'Redacted' },
 ];
 
-type SubTypeFilterProps = {
-  size: 'small' | 'medium';
-};
-
 export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
   const [filters, setFilters] = useURLQuery();
 
