@@ -24,6 +24,7 @@ import { NetworkError } from '@Errors/NetworkError';
 import { IdPrefix, IdUtil } from '@/utils/IdUtil';
 import { BadRequestError } from '@Errors/BadRequest';
 import { ApiOperationGet, ApiPath } from 'swagger-express-ts';
+import { Logger } from '@/utils/Logger';
 
 @ApiPath({
   path: '/v1/users',
@@ -184,7 +185,7 @@ export class UsersController extends BaseHttpController {
       );
       return valid;
     } catch (error) {
-      console.log(error);
+      Logger.error(error);
       throw nextFunc(error);
     }
   }
@@ -196,7 +197,7 @@ export class UsersController extends BaseHttpController {
       if (valid != null) await valid.destroy();
       return { deleted: valid != null };
     } catch (error) {
-      console.log(error);
+      Logger.error(error);
       throw nextFunc(error);
     }
   }
@@ -207,7 +208,7 @@ export class UsersController extends BaseHttpController {
       const valid = await this.userService.validateUser(principal.id);
       return valid;
     } catch (error) {
-      console.log(error);
+      Logger.error(error);
       nextFunc(error);
     }
   }

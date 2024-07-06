@@ -20,6 +20,7 @@ import { CreateContractBodySchema } from 'vl-shared/src/schemas/ContractSchema';
 import { z } from 'zod';
 import { ApiOperationGet, ApiOperationPost, ApiPath } from 'swagger-express-ts';
 import { ZodToOpenapi } from '@/utils/ZodToOpenapi';
+import { Logger } from '@/utils/Logger';
 
 @ApiPath({
   path: '/v1/contracts',
@@ -63,7 +64,7 @@ export class ContractController extends BaseHttpController {
     try {
       const dto = body;
       const model = CreateContractBodySchema.strict().parse(dto);
-      console.log(model);
+      Logger.info(model);
       try {
         const newContract = await this.contractService.createContract({
           ...model,
@@ -367,9 +368,7 @@ export class ContractController extends BaseHttpController {
     security: { VLAuthAccessToken: [] },
   })
   @httpGet('/search')
-  private async searchContracts(
-    @next() nextFunc: NextFunction,
-  ) {
+  private async searchContracts(@next() nextFunc: NextFunction) {
     const subtype = this.httpContext.request.query.subtype as string;
     if (!subtype) {
       throw nextFunc(
