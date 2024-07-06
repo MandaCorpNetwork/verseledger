@@ -341,4 +341,45 @@ export class ContractController extends BaseHttpController {
     );
     return this.created(`/contracts/${bid.contract_id}/bids/${bid.id}`, bid);
   }
+
+  @ApiOperationGet({
+    tags: ['Contracts'],
+    description: 'Search Contracts by SubTypes',
+    summary: 'Search Contracts by SubTypes',
+    path: '/search',
+    responses: {
+      200: {
+        type: 'array',
+        description: 'Found',
+        model: 'Contract',
+      },
+    },
+    consumes: [],
+    parameters: {
+      query: {
+        subtypes: {
+          required: true,
+          description: 'Comma-delimited list of SubTypes',
+          type: 'string',
+        },
+      },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
+  @httpGet('/search')
+  private async searchContracts(
+    @next() nextFunc: NextFunction,
+  ) {
+    const subtypes = this.httpContext.request.query.subtypes as string;
+    if (!subtypes) {
+      throw nextFunc(
+        new BadParameterError(
+          'subtypes',
+          `Subtypes parameter cannot be empty or wrong.)`,
+        ),
+      );
+    }
+    const subTypeArray = subtypes.split(',').map((st) => st.trim());
+    return this.contractService.searchBySubTypes(subTypeArray);
+  }
 }
