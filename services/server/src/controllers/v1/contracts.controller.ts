@@ -380,6 +380,6 @@ export class ContractController extends BaseHttpController {
       );
     }
     const subTypeArray = subtypes.split(',').map((st) => st.trim());
-    return this.contractService.searchBySubTypes(subTypeArray);
+    return this.contractService.searchBySubtypes(subTypeArray);
   }
 }

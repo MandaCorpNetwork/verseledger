@@ -9,6 +9,7 @@ import { BadRequestError } from '@Errors/BadRequest';
 import { Location } from '@Models/location.model';
 import { ContractLocation } from '@Models/contract_locations.model';
 import { User } from '@Models/user.model';
+import { Op } from 'sequelize';
 
 @injectable()
 export class ContractService {
@@ -112,6 +113,7 @@ export class ContractService {
     });
     return bid;
   }
+
   public async inviteToBid(
     contractId: string,
     ownerId: string,
@@ -161,5 +163,21 @@ export class ContractService {
       ),
     });
     return bid;
+  }
+
+  public async searchBySubtypes(subtype: string[]) {
+    try
+    {const contracts = await Contract.findAll({
+      where: {
+        subype: {
+          [Op.in]: subtype,
+        },
+      },
+      include: ['Locations', 'Owner', 'Bids'],
+    });
+      return contracts;
+    } catch (error) {
+      console.error('Error in Contract Service Method', error);
+    }
   }
 }
