@@ -1,4 +1,4 @@
-import { Box, InputAdornment, TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 
@@ -10,6 +10,7 @@ type UECRangeFilterProps = {
 };
 
 export const UECRangeFilter: React.FC<UECRangeFilterProps> = ({ size, innerSpace }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filters, setFilters] = useURLQuery();
 
   const handleMinChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,61 +21,61 @@ export const UECRangeFilter: React.FC<UECRangeFilterProps> = ({ size, innerSpace
     setFilters(QueryNames.UECRangeMax, String(event.target.value));
   };
 
-  const currentMinValue = filters.get(QueryNames.UECRangeMin);
+  // const currentMinValue = filters.get(QueryNames.UECRangeMin);
 
-  const currentMaxValue = filters.get(QueryNames.UECRangeMax);
+  // const currentMaxValue = filters.get(QueryNames.UECRangeMax);
 
-  const minError =
-    currentMaxValue !== null &&
-    currentMinValue !== null &&
-    Number(currentMinValue) > Number(currentMaxValue);
+  // const minError =
+  //   currentMaxValue !== null &&
+  //   currentMinValue !== null &&
+  //   Number(currentMinValue) > Number(currentMaxValue);
 
-  const maxError =
-    currentMinValue !== null &&
-    currentMaxValue !== null &&
-    Number(currentMaxValue) < Number(currentMinValue);
+  // const maxError =
+  //   currentMinValue !== null &&
+  //   currentMaxValue !== null &&
+  //   Number(currentMaxValue) < Number(currentMinValue);
 
   return (
     <Box sx={{ display: 'flex', gap: 1 }}>
       <TextField
         type="number"
         onChange={handleMinChange}
-        value={currentMinValue}
+        // value={currentMinValue}
         size={size}
         label="Minimum UEC"
         color="secondary"
         margin={innerSpace}
-        error={minError}
-        helperText={minError ? 'Make Min less than Max' : null}
+        // error={minError}
+        // helperText={minError ? 'Make Min less than Max' : null}
         sx={{
           width: size === 'small' ? '135px' : 'auto',
         }}
-        InputProps={{
-          startAdornment:
-            currentMinValue === null ? null : (
-              <InputAdornment position="start">¤</InputAdornment>
-            ),
-        }}
+        // InputProps={{
+        //   startAdornment:
+        //     currentMinValue === null ? null : (
+        //       <InputAdornment position="start">¤</InputAdornment>
+        //     ),
+        // }}
       />
       <TextField
         type="number"
         onChange={handleMaxChange}
-        value={currentMaxValue}
+        // value={currentMaxValue}
         size={size}
         label="Maximum UEC"
         color="secondary"
         margin={innerSpace}
-        error={maxError}
-        helperText={maxError ? 'Make Max more than Min' : null}
+        // error={maxError}
+        // helperText={maxError ? 'Make Max more than Min' : null}
         sx={{
           width: size === 'small' ? '135px' : 'auto',
         }}
-        InputProps={{
-          startAdornment:
-            currentMaxValue === null ? null : (
-              <InputAdornment position="start">¤</InputAdornment>
-            ),
-        }}
+        // InputProps={{
+        //   startAdornment:
+        //     currentMaxValue === null ? null : (
+        //       <InputAdornment position="start">¤</InputAdornment>
+        //     ),
+        // }}
       />
     </Box>
   );

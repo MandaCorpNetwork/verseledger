@@ -4,13 +4,14 @@ import React from 'react';
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
-import { QueryNames } from '../../Utils/QueryNames';
+import { QueryNames } from '../QueryNames';
 
 type LocationFilterProps = {
   size: 'small' | 'medium';
 };
 
 export const LocationsFilter: React.FC<LocationFilterProps> = ({ size }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filters, setFilters] = useURLQuery();
   const handleChange = (_event: React.SyntheticEvent, newValue: { label: string }[]) => {
     setFilters(
@@ -19,13 +20,13 @@ export const LocationsFilter: React.FC<LocationFilterProps> = ({ size }) => {
     );
   };
 
-  const currentFilterValues = filters.getAll(QueryNames.Locations);
+  // const currentFilterValues = filters.getAll(QueryNames.Locations);
 
   return (
     <Autocomplete
       multiple
       renderTags={() => null}
-      value={locationTestDB.filter((v) => currentFilterValues.includes(v.label))}
+      // value={locationTestDB.filter((v) => currentFilterValues.includes(v.label))}
       options={locationTestDB}
       size={size}
       onChange={handleChange}

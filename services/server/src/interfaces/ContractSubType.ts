@@ -20,5 +20,7 @@ export type ContractSubType =
   | 'Repair'
   | 'Crewman'
   | 'Outsourcing'
+  | 'Locate'
+  | 'Charting'
   | 'Middleman'
-  | 'Other';
+  | 'Redacted';

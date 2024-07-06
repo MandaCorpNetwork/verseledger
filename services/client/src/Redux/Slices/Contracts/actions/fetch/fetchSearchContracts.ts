@@ -7,12 +7,18 @@ import NetworkService from '@/Services/NetworkService';
 export const fetchContractsBySubtypes = createAsyncThunk(
   '/v1/contracts/filterSubType',
   async (subtypes: string[]) => {
-    const subtypesString = subtypes.join(',');
-    const response = await NetworkService.GET(
-      `/v1/contracts/search?subtype=${subtypesString}`,
-      AuthUtil.getAccessHeader(),
-    );
-    Logger.info(`Subtype Filter Thunk Response: ${response.data}`);
-    return response.data;
+    try {
+      Logger.info(`Fetching contracts for subtypes: ${subtypes.join(', ')}`);
+      const subtypesString = subtypes.join(',');
+      const response = await NetworkService.GET(
+        `/v1/contracts/search?subtype=${subtypesString}`,
+        AuthUtil.getAccessHeader(),
+      );
+      Logger.info(`Subtype Filter Thunk Response: ${response.data}`);
+      return response.data;
+    } catch (error) {
+      Logger.error(`Error in Subtype Filter Thunk: ${error}`);
+      throw error;
+    }
   },
 );
