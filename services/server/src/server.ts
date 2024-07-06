@@ -7,7 +7,7 @@ import '@Controllers/v1';
 import './DTO';
 import { InversifyExpressServer } from 'inversify-express-utils';
 
-import morgan from 'morgan';
+import chalk from 'chalk';
 import { bindContainer } from './containerBindings';
 import { container } from './infrastructure/ioc/ioc.container';
 import { EnvService } from '@Services/env.service';
@@ -15,6 +15,7 @@ import { AuthProvider } from './authProviders/auth.provider';
 import { NetworkError } from '@Errors/NetworkError';
 import { NotFoundError } from '@Errors/NotFoundError';
 import { Logger } from './utils/Logger';
+import { methodToColor } from './utils/methodToColor';
 export const createServer = () => {
   bindContainer(container);
   const env = new EnvService();
@@ -35,7 +36,14 @@ export const createServer = () => {
         ],
       }),
     );
-    app.use(morgan('combined'));
+    app.use((req, res, next) => {
+      const method = methodToColor(req.method);
+      Logger.withType(
+        chalk.bgMagenta('[NETWORK]'),
+        `${req.ip} - ${method} ${chalk.underline(req.path)}`,
+      );
+      next();
+    });
     app
       .disable('x-powered-by')
       .use(json())

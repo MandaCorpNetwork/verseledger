@@ -24,7 +24,7 @@ export const setupModels = (env: {
     },
     benchmark: true,
     logging(sql) {
-      console.info(sql);
+      Logger.info(sql);
       return;
     },
   });

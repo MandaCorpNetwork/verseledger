@@ -13,6 +13,18 @@ export class Logger {
       ...args,
     );
   }
+  public static withType(
+    type: string | null,
+    ...args: Parameters<(typeof console)['info']>
+  ) {
+    const prefix = `[${_getCallerFile(2)}]`;
+    console.info(
+      this.getTimestamp(),
+      type ?? chalk.white.bgBlue.bold('[DEBUG]'),
+      chalk.grey(prefix),
+      ...args,
+    );
+  }
   public static error(...args: Parameters<(typeof console)['error']>) {
     const prefix = `[${_getCallerFile(2)}]`;
     console.error(
