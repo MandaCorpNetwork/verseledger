@@ -3,7 +3,7 @@ export enum QueryNames {
   SortDirection = 'sortDir',
   SearchQuery = 'search',
   ContractManagerTab = 'cmTab',
-  SubType = 'st',
+  Subtype = 'st',
   Locations = 'loc',
   UECRangeMin = 'minUEC',
   UECRangeMax = 'maxUEC',

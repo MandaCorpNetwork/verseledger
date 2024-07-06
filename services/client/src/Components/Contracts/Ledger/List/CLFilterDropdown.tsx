@@ -1,9 +1,9 @@
 //CLFilterDropdown is a reusable DropDown for displaying filters in the Contract Ledger Table Tools Component.
 import { ArrowRight } from '@mui/icons-material';
 import { Badge, Box, Chip, Collapse, Typography } from '@mui/material';
+import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 
-import { QueryNames } from '@Utils/QueryNames';
 import { AccessTimeDropdownFilter } from '@/Common/Filters/AccessTimeDropdownFilter';
 import { EmployerRatingSliderFilter } from '@/Common/Filters/EmployerRatingSliderFilter';
 import { LocationsFilter } from '@/Common/Filters/LocationsFilter';
@@ -45,7 +45,7 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
   const getFilterCount = (filterName: string) => {
     switch (filterName) {
       case 'SubType':
-        return filters.getAll(QueryNames.SubType).length;
+        return filters.getAll(QueryNames.Subtype).length;
       case 'Locations':
         return filters.getAll(QueryNames.Locations).length;
       case 'Time Remaining':
@@ -66,7 +66,7 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
   const getFilterValues = (filterName: string) => {
     switch (filterName) {
       case 'SubType':
-        return filters.getAll(QueryNames.SubType);
+        return filters.getAll(QueryNames.Subtype);
       case 'Locations':
         return filters.getAll(QueryNames.Locations);
       case 'Time Remaining':

@@ -1,9 +1,9 @@
 //ContractManagerApp.tsx
 import { TabContext, TabList } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
+import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 
-import { QueryNames } from '@Utils/QueryNames';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
