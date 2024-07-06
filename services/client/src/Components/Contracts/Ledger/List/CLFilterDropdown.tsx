@@ -1,14 +1,14 @@
 //CLFilterDropdown is a reusable DropDown for displaying filters in the Contract Ledger Table Tools Component.
 import { ArrowRight } from '@mui/icons-material';
-import { Badge, Box, Chip, Collapse, Typography } from '@mui/material';
-import { QueryNames } from '@Utils/QueryNames';
+import { Badge, Box, Collapse, Typography } from '@mui/material';
+import { AccessTimeDropdownFilter } from '@Utils/Filters/AccessTimeDropdownFilter';
+import { EmployerRatingSliderFilter } from '@Utils/Filters/EmployerRatingSliderFilter';
+import { LocationsFilter } from '@Utils/Filters/LocationsFilter';
+import { SubTypeFilter } from '@Utils/Filters/SubtypeFilter';
+import { UECRangeFilter } from '@Utils/Filters/UECRangeFilter';
+// import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 
-import { AccessTimeDropdownFilter } from '@/Common/Filters/AccessTimeDropdownFilter';
-import { EmployerRatingSliderFilter } from '@/Common/Filters/EmployerRatingSliderFilter';
-import { LocationsFilter } from '@/Common/Filters/LocationsFilter';
-import { SubTypeFilter } from '@/Common/Filters/SubTypeFilter';
-import { UECRangeFilter } from '@/Common/Filters/UECRangeFilter';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 type CLFilterDropdownProps = {
@@ -17,6 +17,7 @@ type CLFilterDropdownProps = {
 };
 
 export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, label }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filters] = useURLQuery();
   const [isExpanded, setIsExpanded] = React.useState(false);
 
@@ -42,46 +43,46 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
   const filterComponent = getFilterComponent(filter);
   //Fetches the Filter Component for the Dropdown
 
-  const getFilterCount = (filterName: string) => {
-    switch (filterName) {
-      case 'SubType':
-        return filters.getAll(QueryNames.Subtype).length;
-      case 'Locations':
-        return filters.getAll(QueryNames.Locations).length;
-      case 'Time Remaining':
-        return filters.getAll(QueryNames.TimeRemaining).length;
-      case 'Employer Rating':
-        return filters.has(QueryNames.EmployerRating);
-      case 'Pay Range':
-        return (
-          (filters.has(QueryNames.UECRangeMax) ? 1 : 0) +
-          (filters.has(QueryNames.UECRangeMin) ? 1 : 0)
-        );
-      default:
-        return 0;
-    }
-  };
+  // const getFilterCount = (filterName: string) => {
+  //   switch (filterName) {
+  //     case 'SubType':
+  //       return filters.getAll(QueryNames.Subtype).length;
+  //     case 'Locations':
+  //       return filters.getAll(QueryNames.Locations).length;
+  //     case 'Time Remaining':
+  //       return filters.getAll(QueryNames.TimeRemaining).length;
+  //     case 'Employer Rating':
+  //       return filters.has(QueryNames.EmployerRating);
+  //     case 'Pay Range':
+  //       return (
+  //         (filters.has(QueryNames.UECRangeMax) ? 1 : 0) +
+  //         (filters.has(QueryNames.UECRangeMin) ? 1 : 0)
+  //       );
+  //     default:
+  //       return 0;
+  //   }
+  // };
   //Fetches the amount of filters set for a given filter
 
-  const getFilterValues = (filterName: string) => {
-    switch (filterName) {
-      case 'SubType':
-        return filters.getAll(QueryNames.Subtype);
-      case 'Locations':
-        return filters.getAll(QueryNames.Locations);
-      case 'Time Remaining':
-        return filters.getAll(QueryNames.TimeRemaining);
-      case 'Employer Rating':
-        return filters.getAll(QueryNames.EmployerRating);
-      case 'Pay Range':
-        return [filters.get(QueryNames.UECRangeMin), filters.get(QueryNames.UECRangeMax)];
-      default:
-        return [];
-    }
-  };
-  const filterValues = getFilterValues(filter);
+  // const getFilterValues = (filterName: string) => {
+  //   switch (filterName) {
+  //     case 'SubType':
+  //       return filters.getAll(QueryNames.Subtype);
+  //     case 'Locations':
+  //       return filters.getAll(QueryNames.Locations);
+  //     case 'Time Remaining':
+  //       return filters.getAll(QueryNames.TimeRemaining);
+  //     case 'Employer Rating':
+  //       return filters.getAll(QueryNames.EmployerRating);
+  //     case 'Pay Range':
+  //       return [filters.get(QueryNames.UECRangeMin), filters.get(QueryNames.UECRangeMax)];
+  //     default:
+  //       return [];
+  //   }
+  // };
+  // const filterValues = getFilterValues(filter);
   //Fetches the Values of the given Filter
-  const isFiltersSet = (filterValues.length = 0);
+  // const isFiltersSet = (filterValues.length = 0);
   //Identifies if there are filters selected
 
   return (
@@ -102,7 +103,7 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
         }}
       >
         <Badge
-          badgeContent={getFilterCount(filter)}
+          // badgeContent={getFilterCount(filter)}
           color="error"
           max={99}
           overlap="rectangular"
@@ -168,11 +169,11 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
                 borderColor: 'text.secondary',
                 borderRadius: '5px',
                 padding: '.5em',
-                justifyContent: !isFiltersSet ? 'center' : '',
-                alignItems: !isFiltersSet ? 'center' : '',
+                // justifyContent: !isFiltersSet ? 'center' : '',
+                // alignItems: !isFiltersSet ? 'center' : '',
               }}
             >
-              {!isFiltersSet ? (
+              {/* {!isFiltersSet ? (
                 <Typography variant="body2">No Filters Set</Typography>
               ) : (
                 filterValues.map((value, index) => (
@@ -186,7 +187,7 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
                     //onDelete={}
                   />
                 ))
-              )}
+              )} */}
             </Box>
           )}
         </Box>

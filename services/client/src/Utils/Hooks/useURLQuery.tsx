@@ -1,25 +1,39 @@
-// useFilters.tsx
+import { fetchContractsBySubtypes } from '@Redux/Slices/Contracts/actions/fetch/fetchSearchContracts';
 import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-
-interface QueryParams {
-  [key: string]: string | string[] | undefined;
-}
 
 export const useURLQuery = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [queryParams, setQueryParams] = useState<QueryParams>({});
 
   useEffect(() => {
-    const params: QueryParams = {};
-    for (const [key, value] of searchParams.entries()) {
-      params[key] = value.toString().split(',');
-    }
-    setQueryParams(params);
-    Logger.info(`URLQueryParameters: ${JSON.stringify(params)}`);
+    const handleQueryFetchRequest = async () => {
+      Logger.info(`Attempting Subtype Contract Fetch...`);
+      const subtype = searchParams.get(QueryNames.Subtype);
+      if (subtype) {
+        Logger.info(`Subtype from URL query: ${subtype}`);
+        const subtypesArray = subtype.split(',');
+        if (subtypesArray.length > 0) {
+          try {
+            await fetchContractsBySubtypes(subtypesArray);
+            Logger.info(
+              `Successfully fetched contracts for subtypes: ${subtypesArray.join(', ')}`,
+            );
+          } catch (e) {
+            Logger.error(`Error querying contracts for subtypes: ${e}`);
+          }
+        }
+      }
+    };
+
+    handleQueryFetchRequest();
+
+    window.addEventListener('popstate', handleQueryFetchRequest);
+
+    return () => {
+      window.removeEventListener('popstate', handleQueryFetchRequest);
+    };
   }, [searchParams]);
 
   const setValue = (name: QueryNames, value: string | string[]) => {
@@ -37,7 +51,12 @@ export const useURLQuery = () => {
   const overwriteURLQuery = (
     newState: Partial<Record<QueryNames, string | string[]>>,
   ) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams();
+    Object.entries(searchParams).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        params.set(key, value.toString());
+      }
+    });
     Object.entries(newState).forEach(([key, value]) => {
       if (value === undefined) {
         params.delete(key);
@@ -48,7 +67,7 @@ export const useURLQuery = () => {
         value.forEach((v) => params.append(key, v));
       }
     });
-    setSearchParams(params.toString());
+    setSearchParams(params);
   };
 
   return [searchParams, setValue, overwriteURLQuery] as const;

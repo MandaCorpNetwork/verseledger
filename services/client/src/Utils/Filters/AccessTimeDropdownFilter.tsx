@@ -4,7 +4,7 @@ import React from 'react';
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
-import { QueryNames } from '../../Utils/QueryNames';
+import { QueryNames } from '../QueryNames';
 
 const menuValues = [
   { value: 'all', label: 'All' },
