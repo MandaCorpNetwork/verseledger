@@ -4,10 +4,10 @@ import { DiscordLoginUtility } from '@/Utils/discordLoginUtility';
 
 import { VLAppBar } from '../Common/Components/App/AppBar';
 import { APIDocs } from './api-docs/APIDocs';
+import { ContractLedgerPage } from './ContractLedger/ContractLedgerPage';
 import ErrorPage from './ErrorPage';
-import { ContractLedgerPage } from './Index/ContractLedger/Ledger/ContractLedgerPage';
 import { Home } from './Index/Home/Home';
-import { PersonalLedgerPage } from './Index/PersonalLedger/PersonalLedgerPage';
+import { PersonalLedgerPage } from './PersonalLedger/PersonalLedgerPage';
 export const routingInfo: RouteObject[] = [
   {
     path: '/',

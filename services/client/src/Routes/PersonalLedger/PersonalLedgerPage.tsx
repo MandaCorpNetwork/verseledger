@@ -24,7 +24,7 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
   };
   return (
     <Box
-      data-id="PersonalLedgerPage"
+      data-testid="PersonalLedgerPage"
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -33,6 +33,8 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
         height: 'calc(100vh - 64px)',
         width: '100%',
         padding: '1em',
+        overflow: 'hidden',
+        position: 'relative',
         '&:before': {
           content: '""',
           position: 'absolute',
@@ -44,20 +46,18 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
           bottom: 0,
           left: 0,
           right: 0,
-          zIndex: -1,
+          zIndex: -5,
           opacity: 0.5,
         },
       }}
     >
       <Box
-        data-id="ToolDisplay"
+        data-testid="ToolDisplay"
         sx={{
           width: '100%',
           height: '90%',
           margin: '1%',
           padding: '.5em',
-          border: '3px solid',
-          borderColor: 'primary.main',
         }}
       >
         {appRenderer()}
