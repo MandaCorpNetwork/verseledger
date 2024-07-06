@@ -29,7 +29,7 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
-import { postContractBid } from '@Redux/Slices/Contracts/actions/postContractBid';
+import { postContractBid } from '@Redux/Slices/Contracts/actions/post/postContractBid';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
