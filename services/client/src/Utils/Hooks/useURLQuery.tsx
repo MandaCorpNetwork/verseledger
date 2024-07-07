@@ -38,7 +38,7 @@ export const useURLQuery = () => {
 
   const setValue = (name: QueryNames, value: string | string[]) => {
     setSearchParams((params) => {
-      Logger.info(`Updating filters: ${JSON.stringify(params)}`);
+      Logger.info(`Updating filters: ${params}`);
       params.delete(name);
       if (typeof value === 'string') {
         params.set(name, value);
