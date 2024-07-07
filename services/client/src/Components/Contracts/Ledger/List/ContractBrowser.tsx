@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 
 import { CardorTableViewToggle } from '@/Components/Contracts/Ledger/List/Card-TableViewToggle';
 import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
-import { selectContractsArray } from '@/Redux/Slices/Contracts/contractSelectors';
+import { selectContractsArray } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 
 import { ContractCardDisplay } from './CardView/ContractCardDisplay';
 import { ContractTableView } from './TableView/ContractTableView';
