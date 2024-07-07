@@ -2,7 +2,8 @@ import { FilterAlt } from '@mui/icons-material';
 import { Badge, Box, Button, Collapse, Typography } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
-// import { QueryNames } from '@Utils/QueryNames';
+//import { Logger } from '@Utils/Logger';
+import { QueryNames } from '@Utils/QueryNames';
 import React, { useRef, useState } from 'react';
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
@@ -19,8 +20,7 @@ export const ContractTableTools: React.FC<unknown> = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  // const filterCount =
-  //   filters.getAll(QueryNames.Subtype).length +
+  const filterCount = filters.getAll(QueryNames.Subtype).length;
   //   filters.getAll(QueryNames.Locations).length +
   //   filters.getAll(QueryNames.TimeRemaining).length +
   //   (filters.has(QueryNames.UECRangeMax) ? 1 : 0) +
@@ -89,13 +89,16 @@ export const ContractTableTools: React.FC<unknown> = () => {
     >
       <Badge
         data-testid="ContractLedger-TableTools__FilterBadge"
-        // badgeContent={filterCount}
+        badgeContent={filterCount}
         color="error"
-        variant="dot"
+        variant="standard"
         overlap="rectangular"
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'right',
+        }}
+        sx={{
+          opacity: open ? 1 : 0.8,
         }}
       >
         <Button
@@ -142,11 +145,11 @@ export const ContractTableTools: React.FC<unknown> = () => {
             borderRadius: '10px',
           }}
         >
-          <CLFilterDropdown filter="SubType" label="Contract SubType" />
+          <CLFilterDropdown filter="Subtype" label="Contract SubType" />
           <CLFilterDropdown filter="Locations" label="Contract Locations" />
-          <CLFilterDropdown filter="Time Remaining" label="Bid Time Remaining" />
-          <CLFilterDropdown filter="Employer Rating" label="Employer Rating" />
-          <CLFilterDropdown filter="Pay Range" label="Contract Pay Range" />
+          <CLFilterDropdown filter="TimeRemaining" label="Bid Time Remaining" />
+          <CLFilterDropdown filter="EmployerRating" label="Employer Rating" />
+          <CLFilterDropdown filter="PayRange" label="Contract Pay Range" />
         </Box>
       </Collapse>
       <Typography

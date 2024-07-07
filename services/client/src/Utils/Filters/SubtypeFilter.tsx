@@ -57,6 +57,7 @@ export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
 
   return (
     <Autocomplete
+      data-testid="SubTypeFilter__Autocomplete"
       multiple
       renderTags={() => null}
       autoHighlight

@@ -1,7 +1,7 @@
 import { UserChip } from '@Common/Components/Users/UserChip';
 import { Box, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
-import { selectActiveContractors } from '@Redux/Slices/Contracts/contractSelectors';
+import { selectActiveContractors } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 
 type ContractorProps = {
   userId: string;
