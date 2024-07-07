@@ -1,9 +1,9 @@
 import { Box, Typography } from '@mui/material';
+import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import React, { useEffect } from 'react';
 
 import { ContractDisplay } from '@/Components/Contracts/Ledger/Details/ContractDisplay';
 import { useAppSelector } from '@/Redux/hooks';
-import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 
 type ContractDisplayContainer = {
   selectedId: string | null;
