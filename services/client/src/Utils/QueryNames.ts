@@ -12,3 +12,14 @@ export enum QueryNames {
   TimeRemaining = 'time',
   Archetype = 'archetype',
 }
+export const ArchetypeToSubtypes: { [key: string]: string[] } = {
+  Logistics: ['Transport', 'Hauling', 'Manage'],
+  Medical: ['Trauma', 'On-Call'],
+  Security: ['Escort', 'Bounty', 'QRF', 'Asset-Protection', 'Attache'],
+  Salvage: ['Collection', 'Procurement'],
+  Industry: ['Mining', 'Refining', 'Manufacturing', 'Scouting'],
+  RRR: ['Refuel', 'Rearm', 'Repair'],
+  Fleet: ['Crewman', 'Outsourcing'],
+  Exploration: ['Locate', 'Charting'],
+  Proxy: ['Middleman', 'Redacted'],
+};

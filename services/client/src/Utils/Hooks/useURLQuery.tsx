@@ -1,6 +1,6 @@
 import { fetchContractsBySubtypes } from '@Redux/Slices/Contracts/actions/fetch/fetchSearchContracts';
 import { Logger } from '@Utils/Logger';
-import { QueryNames } from '@Utils/QueryNames';
+import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -9,16 +9,25 @@ export const useURLQuery = () => {
 
   useEffect(() => {
     const handleQueryFetchRequest = async () => {
-      Logger.info(`Attempting Subtype Contract Fetch...`);
-      const subtype = searchParams.getAll(QueryNames.Subtype);
-      if (subtype) {
-        Logger.info(`Preparing Subtype Fetch Array: ${subtype}`);
-        const subtypesArray = subtype.join(',').split(',');
-        if (subtypesArray.length > 0) {
+      Logger.info(`Attempting Filtered Contract Fetch...`);
+      const selectedSubtype = searchParams.getAll(QueryNames.Subtype);
+      const selectedArchetype = searchParams.getAll(QueryNames.Archetype);
+      const selectedArchToSub = selectedArchetype.flatMap((archetype) => {
+        return ArchetypeToSubtypes[archetype] ?? [];
+      });
+      const combinedSubtypes = Array.from(
+        new Set([...selectedSubtype, ...selectedArchToSub]),
+      );
+
+      if (combinedSubtypes) {
+        Logger.info(`Preparing Subtype Fetch Array: ${selectedSubtype}`);
+        Logger.info(`Preparing Archetype Fetch Array: ${selectedArchetype}`);
+        // const subtypesArray = selectedSubtype.join(',').split(',');
+        if (combinedSubtypes.length > 0) {
           try {
-            await fetchContractsBySubtypes(subtypesArray);
+            await fetchContractsBySubtypes(combinedSubtypes);
             Logger.info(
-              `Successfully fetched contracts for subtypes: ${subtypesArray.join(', ')}`,
+              `Successfully fetched contracts for subtypes: ${combinedSubtypes.join(', ')}`,
             );
           } catch (e) {
             Logger.error(`Error querying contracts for subtypes: ${e}`);
@@ -26,7 +35,6 @@ export const useURLQuery = () => {
         }
       }
     };
-
     handleQueryFetchRequest();
     Logger.info(`Current search params: ${searchParams}`);
     window.addEventListener('popstate', handleQueryFetchRequest);
