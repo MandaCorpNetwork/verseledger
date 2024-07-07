@@ -2,23 +2,23 @@
 import './ContractLedgerLoopButton.scss';
 
 import { Button, SxProps, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { QueryNames } from '@Utils/QueryNames';
+import React, { useMemo, useState } from 'react';
 
 import { verseOSTheme } from '@/Themes/VerseOS';
 
 type ContractLedgerLoopButtonProps = {
   title: string;
   videoSource: string;
-  selectedType: string[];
-  setSelectedType: React.Dispatch<React.SetStateAction<string[]>>;
+  value: string;
   sx?: SxProps<typeof verseOSTheme>;
 };
 
 export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> = ({
   title,
   videoSource,
-  selectedType,
-  setSelectedType,
+  value,
   sx,
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -37,21 +37,27 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
     video.currentTime = 0;
   };
   //Hovering animation
-  const isSelected = selectedType.includes(title);
 
-  const handleClick = () => {
+  const [filters, setFilters] = useURLQuery();
+
+  const currentFilterValues = useMemo(() => {
+    const archetypeFilters = filters.getAll(QueryNames.Archetype);
+    return Array.isArray(archetypeFilters) ? archetypeFilters : [archetypeFilters];
+  }, [filters]);
+
+  const handleArchetypeChange = (value: string) => {
     const video = document.getElementById(videoSource) as HTMLVideoElement;
-    if (isSelected) {
+    if (currentFilterValues.includes(value)) {
       video.play();
     } else {
       video.pause();
       video.currentTime = 0;
     }
-
-    setSelectedType((prevSelected) =>
-      isSelected
-        ? prevSelected.filter((type) => type !== title)
-        : [...prevSelected, title],
+    setFilters(
+      QueryNames.Archetype,
+      currentFilterValues.includes(value)
+        ? currentFilterValues.filter((archetype) => archetype !== value)
+        : [...currentFilterValues, value],
     );
   };
 
@@ -60,7 +66,7 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
       id="contract-loop-button"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={handleClick}
+      onClick={() => handleArchetypeChange(value)}
       data-testid="contract-loop-button"
       sx={{
         color: 'text.primary',
@@ -69,7 +75,9 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
         height: '5em',
         display: 'flex',
         border: '5px ridge',
-        borderColor: isSelected ? 'primary.main' : 'primary.dark',
+        borderColor: currentFilterValues.includes(value)
+          ? 'secondary.main'
+          : 'primary.main',
         borderRadius: '.4em',
         zIndex: '3',
         marginTop: '1em',

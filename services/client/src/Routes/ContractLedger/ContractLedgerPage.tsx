@@ -19,7 +19,8 @@ import { POPUP_CREATE_CONTRACT } from '@Popups/CreateContract/CreateContract';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import React, { useCallback, useEffect, useState } from 'react';
+import { QueryNames } from '@Utils/QueryNames';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -56,8 +57,6 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
     setSelectedId(null);
   };
 
-  const [selectedType, setSelectedType] = useState<string[]>([]);
-
   const openCreateContract = useCallback(() => {
     dispatch(openPopup(POPUP_CREATE_CONTRACT));
   }, [dispatch]);
@@ -67,29 +66,27 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   };
 
   const archetypeButton = [
-    { title: 'Logistics', videoSource: LogisticsLoop },
-    { title: 'Medical', videoSource: MedicalLoop },
-    { title: 'Security', videoSource: SecurityLoop },
-    { title: 'Salvage', videoSource: SalvageLoop },
-    { title: 'Industry', videoSource: IndustryLoop },
-    { title: 'Rearm Refuel Repair', videoSource: RRRLoop },
-    { title: 'Fleet', videoSource: FleetLoop },
-    { title: 'Exploration', videoSource: RRRLoop },
-    { title: 'Proxy', videoSource: ProxyLoop },
+    { title: 'Logistics', videoSource: LogisticsLoop, value: 'Logistics' },
+    { title: 'Medical', videoSource: MedicalLoop, value: 'Medical' },
+    { title: 'Security', videoSource: SecurityLoop, value: 'Security' },
+    { title: 'Salvage', videoSource: SalvageLoop, value: 'Salvage' },
+    { title: 'Industry', videoSource: IndustryLoop, value: 'Industry' },
+    { title: 'Rearm Refuel Repair', videoSource: RRRLoop, value: 'RRR' },
+    { title: 'Fleet', videoSource: FleetLoop, value: 'Fleet' },
+    { title: 'Exploration', videoSource: RRRLoop, value: 'Exploration' },
+    { title: 'Proxy', videoSource: ProxyLoop, value: 'Proxy' },
   ];
 
-  const [,] = useURLQuery();
-
   const archetypeIcon = [
-    { title: 'Logistics', icon: <LogisticsIcon fontSize="large" /> },
-    { title: 'Medical', icon: <LocalHospital fontSize="large" /> },
-    { title: 'Security', icon: <SecurityIcon fontSize="large" /> },
-    { title: 'Salvage', icon: <SalvageIcon fontSize="large" /> },
-    { title: 'Industry', icon: <Factory fontSize="large" /> },
-    { title: 'Rearm Refuel Repair', icon: <RRRIcon fontSize="large" /> },
-    { title: 'Fleet', icon: <FleetIcon fontSize="large" /> },
-    { title: 'Exploration', icon: <Explore fontSize="large" /> },
-    { title: 'Proxy', icon: <VisibilityOff fontSize="large" /> },
+    { title: 'Logistics', icon: <LogisticsIcon fontSize="large" />, value: 'Logistics' },
+    { title: 'Medical', icon: <LocalHospital fontSize="large" />, value: 'Medical' },
+    { title: 'Security', icon: <SecurityIcon fontSize="large" />, value: 'Security' },
+    { title: 'Salvage', icon: <SalvageIcon fontSize="large" />, value: 'Salvage' },
+    { title: 'Industry', icon: <Factory fontSize="large" />, value: 'Industry' },
+    { title: 'Rearm Refuel Repair', icon: <RRRIcon fontSize="large" />, value: 'RRR' },
+    { title: 'Fleet', icon: <FleetIcon fontSize="large" />, value: 'Fleet' },
+    { title: 'Exploration', icon: <Explore fontSize="large" />, value: 'Exploration' },
+    { title: 'Proxy', icon: <VisibilityOff fontSize="large" />, value: 'Proxy' },
   ];
 
   // const handleArchetypeIconClick = React.useCallback(
@@ -105,6 +102,22 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   // );
 
   const navigate = useNavigate();
+
+  const [filters, setFilters] = useURLQuery();
+
+  const currentFilterValues = useMemo(() => {
+    const archetypeFilters = filters.getAll(QueryNames.Archetype);
+    return Array.isArray(archetypeFilters) ? archetypeFilters : [archetypeFilters];
+  }, [filters]);
+
+  const handleArchetypeChange = (value: string) => {
+    setFilters(
+      QueryNames.Archetype,
+      currentFilterValues.includes(value)
+        ? currentFilterValues.filter((archetype) => archetype !== value)
+        : [...currentFilterValues, value],
+    );
+  };
 
   return (
     <Box
@@ -254,13 +267,11 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
                   >
                     <Tooltip title={icon.title} placement="right">
                       <IconButton
-                        onClick={() => {}}
+                        onClick={() => handleArchetypeChange(icon.value)}
                         sx={{
-                          color: 'primary.main',
-                          // color:
-                          //   selectedType == icon.title
-                          //     ? 'secondary.main'
-                          //     : 'primary.main',
+                          color: currentFilterValues.includes(icon.value)
+                            ? 'secondary.main'
+                            : 'primary.main',
                         }}
                       >
                         {icon.icon}
@@ -286,8 +297,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
                     <ContractLedgerLoopButton
                       title={button.title}
                       videoSource={button.videoSource}
-                      selectedType={selectedType}
-                      setSelectedType={setSelectedType}
+                      value={button.value}
                     />
                   </Box>
                 </Grow>

@@ -32,7 +32,7 @@ const menuValues = [
   { archetype: 'exploration', value: 'Locate', label: 'Locate' },
   { archetype: 'exploration', value: 'Charting', label: 'Charting' },
   { archetype: 'proxy', value: 'Middleman', label: 'Middleman' },
-  { archetype: 'proxy', value: 'Other', label: 'Other' },
+  { archetype: 'proxy', value: 'Redacted', label: 'Redacted' },
 ];
 
 type SubTypeFilterProps = {

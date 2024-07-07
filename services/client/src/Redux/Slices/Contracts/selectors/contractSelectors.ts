@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { Logger } from '@Utils/Logger';
-import { QueryNames } from '@Utils/QueryNames';
+import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import type { RootState } from '../../../store';
@@ -44,11 +44,26 @@ export const selectFilteredContracts = createSelector(
       Logger.info(`Rendering all contracts`);
       return contractsArray;
     }
+
     const subtypeFilters = filters.getAll(QueryNames.Subtype);
+    const archetypeFilters = filters.getAll(QueryNames.Archetype);
+
     if (subtypeFilters.length > 0) {
       Logger.info(`Rendering Contracts by Subtype: ${subtypeFilters}`);
       filteredContracts = filteredContracts.concat(
         contractsArray.filter((contract) => subtypeFilters.includes(contract.subtype)),
+      );
+    }
+    if (archetypeFilters.length > 0) {
+      Logger.info(`Rendering Contracts by Archetype: ${archetypeFilters}`);
+      const selectedArchToSub = archetypeFilters.flatMap((archetype) => {
+        return ArchetypeToSubtypes[archetype] ?? [];
+      });
+      const combinedSubtypes = Array.from(
+        new Set([...subtypeFilters, ...selectedArchToSub]),
+      );
+      filteredContracts = contractsArray.filter((contract) =>
+        combinedSubtypes.includes(contract.subtype),
       );
     }
 
