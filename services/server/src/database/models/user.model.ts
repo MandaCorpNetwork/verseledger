@@ -9,10 +9,10 @@ import {
   Scopes,
   Table,
 } from 'sequelize-typescript';
-import { IUser } from '@Interfaces/IUser';
 import { Contract } from './contract.model';
 import { ContractBid } from './contract_bid.model';
 import { IdUtil } from '@/utils/IdUtil';
+import { IUser } from 'vl-shared/src/schemas/UserSchema';
 @DefaultScope(() => ({
   attributes: {
     exclude: ['discord_id'],
@@ -45,17 +45,17 @@ export class User extends Model implements IUser {
 
   @Default(IdUtil.generateSystemID)
   @Column({ type: DataType.STRING(32) })
-  declare handle: string | null;
+  declare handle: string;
 
   @Default('Unverified User')
   @Column({ type: DataType.STRING(32) })
-  declare displayName: string | null;
+  declare displayName: string;
 
   @Default(
     'https://cdn.robertsspaceindustries.com/static/spectrum/images/member-avatar-default.jpg',
   )
   @Column({ type: DataType.TEXT() })
-  declare pfp: string | null;
+  declare pfp: string;
 
   @Default(false)
   @Column({ type: DataType.BOOLEAN() })

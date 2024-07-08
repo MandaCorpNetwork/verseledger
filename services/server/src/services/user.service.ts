@@ -1,10 +1,10 @@
 import { injectable } from 'inversify';
 import { User } from '@Models/user.model';
-import { IUser } from '@Interfaces/IUser';
 import { Op } from 'sequelize';
 import { RSIService } from './RSI.service';
 import { UserValidation } from '@Models/user_validation.model';
 import { Logger } from '@/utils/Logger';
+import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 @injectable()
 export class UserService {

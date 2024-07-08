@@ -10,6 +10,7 @@ import { Location } from '@Models/location.model';
 import { ContractLocation } from '@Models/contract_locations.model';
 import { User } from '@Models/user.model';
 import { Op } from 'sequelize';
+import { IContractStatus } from 'vl-shared/src/schemas/ContractStatusSchema';
 
 @injectable()
 export class ContractService {
@@ -179,5 +180,32 @@ export class ContractService {
     } catch (error) {
       console.error('Error in Contract Service Method', error);
     }
+  }
+
+  public async search(params: {
+    subtype?: string | string[];
+    limit?: number;
+    location?: string | string[];
+    status?: IContractStatus | IContractStatus[];
+  }) {
+    const { subtype, limit = 10, status } = params ?? {};
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const query = {} as any;
+    if (status != null && status.length != 0) {
+      query.status = Array.isArray(status) ? { [Op.in]: status } : status;
+    }
+    if (subtype != null && subtype.length != 0) {
+      query.subtype = Array.isArray(subtype) ? { [Op.in]: subtype } : subtype;
+    }
+    const contracts = await Contract.scope([
+      'bids',
+      'owner',
+      'locations',
+    ]).findAll({
+      where: query,
+      limit: Math.min(limit, 25),
+    });
+
+    return contracts;
   }
 }
