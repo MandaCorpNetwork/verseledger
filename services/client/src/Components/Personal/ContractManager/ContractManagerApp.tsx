@@ -7,16 +7,28 @@ import React from 'react';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
-import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
+//import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
 import { ContractManagerSearchTools } from './ContractList/ContractManagerSearchTools';
 
 export const ContractManagerApp: React.FC<unknown> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [filters, , overwriteURLQuery] = useURLQuery();
+  const [filters, setFilter, overwriteURLQuery] = useURLQuery();
 
-  const handleBrowserChange = (_event: React.SyntheticEvent, newValue: string) => {
-    overwriteURLQuery({ [QueryNames.ContractManagerTab]: newValue });
-  };
+  const currentTab = React.useMemo(() => {
+    const tab = filters.get(QueryNames.ContractManagerTab);
+    if (!tab) {
+      setFilter(QueryNames.ContractManagerTab, 'employed');
+      return 'employed';
+    }
+    return tab;
+  }, [filters, setFilter]);
+
+  const handleBrowserChange = React.useCallback(
+    (_event: React.SyntheticEvent, newValue: string) => {
+      overwriteURLQuery({ [QueryNames.ContractManagerTab]: newValue });
+    },
+    [overwriteURLQuery],
+  );
 
   return (
     <Box
@@ -40,7 +52,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           flexDirection: 'column',
         }}
       >
-        <TabContext value={'employed'}>
+        <TabContext value={currentTab}>
           <Box
             data-testid="ContractManager__ContractListWrapper"
             sx={{
@@ -123,7 +135,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
               </TabList>
             </Box>
             <ContractManagerSearchTools />
-            <ContractManagerContractList />
+            {/* <ContractManagerContractList /> */}
           </Box>
         </TabContext>
       </Box>
