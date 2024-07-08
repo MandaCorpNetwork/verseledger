@@ -4,6 +4,7 @@ import {
   httpGet,
   httpPost,
   next,
+  queryParam,
   requestBody,
   requestParam,
 } from 'inversify-express-utils';
@@ -17,10 +18,13 @@ import { IdUtil } from '@/utils/IdUtil';
 import { BadParameterError } from '@Errors/BadParameter';
 import { NotFoundError } from '@Errors/NotFoundError';
 import { CreateContractBodySchema } from 'vl-shared/src/schemas/ContractSchema';
-import { z } from 'zod';
+import { z, ZodError } from 'zod';
 import { ApiOperationGet, ApiOperationPost, ApiPath } from 'swagger-express-ts';
 import { ZodToOpenapi } from '@/utils/ZodToOpenapi';
 import { Logger } from '@/utils/Logger';
+import { ContractSubTypeSchema } from 'vl-shared/src/schemas/ContractSubTypeSchema';
+import { ContractStatusSchema } from 'vl-shared/src/schemas/ContractStatusSchema';
+import { GenericError } from '@Errors/GenericError';
 
 @ApiPath({
   path: '/v1/contracts',
@@ -358,27 +362,56 @@ export class ContractController extends BaseHttpController {
     consumes: [],
     parameters: {
       query: {
-        subtypes: {
-          required: true,
+        subtype: {
+          required: false,
           description: 'Comma-delimited list of SubTypes',
           type: 'string',
+        },
+        limit: {
+          required: false,
+          description: '',
+          maximum: 25,
+          minimum: 0,
+          default: 25,
+          type: 'number',
+        },
+        status: {
+          required: false,
+          description: '',
+          type: 'string',
+          format: '',
         },
       },
     },
     security: { VLAuthAccessToken: [] },
   })
   @httpGet('/search')
-  private async searchContracts(@next() nextFunc: NextFunction) {
-    const subtype = this.httpContext.request.query.subtype as string;
-    if (!subtype) {
-      throw nextFunc(
-        new BadParameterError(
-          'subtypes',
-          `Subtypes parameter cannot be empty or wrong.)`,
-        ),
-      );
+  private async searchContracts(
+    @next() nextFunc: NextFunction,
+    @queryParam('subtype') subTypeRaw?: string,
+    @queryParam('limit') limitRaw?: string,
+    @queryParam('status') statusRaw?: string,
+  ) {
+    let limit, status, subtype;
+    try {
+      limit = parseInt(limitRaw ?? '25');
+
+      status = statusRaw
+        ?.split(',')
+        ?.map((st) => ContractStatusSchema.parse(st));
+
+      subtype =
+        subTypeRaw
+          ?.split(',')
+          ?.map((st) => ContractSubTypeSchema.parse(st.trim())) ?? [];
+    } catch (error) {
+      throw new GenericError(400, ((error as ZodError).issues));
     }
-    const subtypeArray = subtype.split(',').map((st) => st.trim());
-    return this.contractService.searchBySubtypes(subtypeArray);
+    const contracts = this.contractService.search({
+      subtype,
+      limit,
+      status,
+    });
+    return contracts;
   }
 }
