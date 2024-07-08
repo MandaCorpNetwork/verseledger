@@ -405,7 +405,7 @@ export class ContractController extends BaseHttpController {
           ?.split(',')
           ?.map((st) => ContractSubTypeSchema.parse(st.trim())) ?? [];
     } catch (error) {
-      throw new GenericError(400, ((error as ZodError).issues));
+      throw new GenericError(400, (error as ZodError).issues);
     }
     const contracts = this.contractService.search({
       subtype,
