@@ -13,10 +13,7 @@ import {
   BelongsToMany,
 } from 'sequelize-typescript';
 
-import type { IContract } from '@Interfaces/IContract';
 import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
-import { ContractSubType } from '@Interfaces/ContractSubType';
-import { ContractStatus } from '@Interfaces/ContractStatus';
 import { User } from './user.model';
 import { ContractBid } from './contract_bid.model';
 import { IdUtil } from '@/utils/IdUtil';
@@ -25,10 +22,17 @@ import { Organization } from './organization.model';
 import { OwnerType } from '@/utils/OwnerType';
 import { Location } from './location.model';
 import { ContractLocation } from './contract_locations.model';
+import { IContractStatus } from 'vl-shared/src/schemas/ContractStatusSchema';
+import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 @Scopes(() => ({
-  bids: { include: [{ model: ContractBid, as: 'Bids', include: ['User'] }] },
+  bids: {
+    include: [{ model: ContractBid, as: 'Bids', include: ['User'] }],
+  },
   owner: { include: [{ model: User, as: 'Owner' }] },
-  locations: { include: [{ model: Location, as: 'Locations' }] },
+  locations: {
+    include: [{ model: Location, as: 'Locations' }],
+  },
 }))
 @DefaultScope(() => ({
   attributes: {
@@ -36,7 +40,10 @@ import { ContractLocation } from './contract_locations.model';
   },
 }))
 @Table({ tableName: 'contracts', timestamps: true })
-export class Contract extends Model implements IContract {
+export class Contract
+  extends Model
+  implements Omit<IContract, 'Locations' | 'Bids'>
+{
   @Column({ type: DataType.VIRTUAL })
   get __type(): 'Contract' {
     return 'Contract';
@@ -53,7 +60,7 @@ export class Contract extends Model implements IContract {
   @Column({
     type: DataType.STRING(32),
   })
-  declare subtype: ContractSubType;
+  declare subtype: IContractSubType;
 
   @Column({ type: DataType.TEXT() })
   declare briefing: string;
@@ -128,7 +135,7 @@ export class Contract extends Model implements IContract {
   @Column({
     type: DataType.ENUM('BIDDING', 'INPROGRESS', 'COMPLETED', 'CANCELLED'),
   })
-  declare status: ContractStatus;
+  declare status: IContractStatus;
 
   @BelongsTo(() => User, { foreignKey: 'owner_user_id', targetKey: 'id' })
   declare Owner: Awaited<User>;
