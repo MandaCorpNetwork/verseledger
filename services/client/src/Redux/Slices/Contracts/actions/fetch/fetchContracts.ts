@@ -7,3 +7,7 @@ export const fetchContracts = createAsyncThunk('/v1/contracts/search', async () 
   console.log(response.data);
   return response.data;
 });
+
+// export const fetchContractBidsByUser = createAsyncThunk(
+
+// )
