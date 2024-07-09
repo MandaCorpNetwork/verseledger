@@ -17,7 +17,11 @@ export const ContractSearchSchema = SearchSchema.extend({
   ownerId: stringArray(z.string()).optional(),
 });
 
+export type IContractSearch = z.infer<typeof ContractSearchSchema>;
+
 export const UserBidsSearchSchema = SearchSchema.extend({
   status: stringArray(ContractBidStatusSchema).optional(),
   contractId: stringArray(z.string()).optional(),
 });
+
+export type IUserBidSearch = z.infer<typeof UserBidsSearchSchema>;
