@@ -1,3 +1,5 @@
+import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
+
 export enum QueryNames {
   SortBy = 'sort',
   SortDirection = 'sortDir',
@@ -13,8 +15,9 @@ export enum QueryNames {
   Archetype = 'archetype',
   Status = 'status',
   BidStatus = 'bstatus',
+  Page = 'page',
 }
-export const ArchetypeToSubtypes: { [key: string]: string[] } = {
+export const ArchetypeToSubtypes: { [key: string]: IContractSubType[] } = {
   Logistics: ['Transport', 'Hauling', 'Manage'],
   Medical: ['Trauma', 'On-Call'],
   Security: ['Escort', 'Bounty', 'QRF', 'Asset-Protection', 'Attache'],

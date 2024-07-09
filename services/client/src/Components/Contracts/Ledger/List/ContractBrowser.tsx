@@ -3,7 +3,10 @@ import { Box, Button } from '@mui/material';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
 import { selectFilteredContracts } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { Logger } from '@Utils/Logger';
+import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
 import React from 'react';
+import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 import { IContractSearch } from 'vl-shared/src/schemas/SearchSchema';
 
 import { CardorTableViewToggle } from '@/Components/Contracts/Ledger/List/Card-TableViewToggle';
@@ -42,13 +45,27 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   };
 
   React.useEffect(() => {
+    // Subtype Filter Initialization
+    const selectedSubtypes = filters.getAll(QueryNames.Subtype) as IContractSubType[];
+    const selectedArchetype = filters.getAll(QueryNames.Archetype) as string[];
+    const archetypeToSub: IContractSubType[] = selectedArchetype.flatMap(
+      (a) => ArchetypeToSubtypes[a] ?? [],
+    );
+    const combinedSubtypes: IContractSubType[] = Array.from(
+      new Set([...selectedSubtypes, ...archetypeToSub]),
+    );
+    Logger.info('Selected Subtypes: ', combinedSubtypes);
+
     const params: IContractSearch = {
       page: 0,
       limit: 10,
-      status: ['BIDDING'],
+      status: ['BIDDING', 'INPROGRESS'],
+      ...(combinedSubtypes.length > 0 && {
+        subtypes: combinedSubtypes,
+      }),
     };
     dispatch(fetchContracts(params));
-  }, []);
+  }, [filters]);
 
   const contracts = useAppSelector((state) => selectFilteredContracts(state, filters));
 
