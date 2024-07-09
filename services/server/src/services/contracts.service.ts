@@ -220,7 +220,10 @@ export class ContractService {
     return contracts;
   }
 
-  public async getContractsByUserId(userId: string, bidStatus?: IContractBid['status']) {
+  public async getContractsByUserId(
+    userId: string,
+    bidStatus?: IContractBid['status'],
+  ) {
     const contractBids = await ContractBid.findAll({
       where: {
         user_id: userId,
@@ -232,9 +235,9 @@ export class ContractService {
       where: {
         id: {
           [Op.in]: contractIds,
-        }
-      }
-    })
+        },
+      },
+    });
     return contracts;
   }
 }
