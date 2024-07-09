@@ -139,7 +139,7 @@ export const useURLQuery = () => {
       Logger.info(`Attempting Filtered Contract Fetch...`);
       const selectedSubtype = searchParams.getAll(QueryNames.Subtype);
       const selectedArchetype = searchParams.getAll(QueryNames.Archetype);
-      //const contractManagerTab = searchParams.get(QueryNames.ContractManagerTab);
+      const contractManagerTab = searchParams.get(QueryNames.ContractManagerTab);
 
       // if (contractManagerTab) {
       //   if (contractManagerTab === 'employed') {
