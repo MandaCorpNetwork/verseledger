@@ -1,8 +1,10 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button } from '@mui/material';
+import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
 import { selectFilteredContracts } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import React from 'react';
+import { IContractSearch } from 'vl-shared/src/schemas/SearchSchema';
 
 import { CardorTableViewToggle } from '@/Components/Contracts/Ledger/List/Card-TableViewToggle';
 import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
@@ -38,6 +40,14 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
     contractOnClose();
     setIsSelected(null);
   };
+
+  React.useEffect(() => {
+    const params: IContractSearch = {
+      status: ['BIDDING'],
+      page: 0,
+    };
+    dispatch(fetchContracts({ ...params }));
+  }, []);
 
   const contracts = useAppSelector((state) => selectFilteredContracts(state, filters));
 

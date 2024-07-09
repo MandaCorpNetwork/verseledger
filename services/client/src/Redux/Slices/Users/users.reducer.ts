@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Logger } from '@Utils/Logger';
 
 import { fetchCheckVerificationCode } from '../Auth/Actions/checkVerificationCode';
 import { fetchCurrentUser } from '../Auth/Actions/fetchCurrentUser';
@@ -21,7 +22,7 @@ const usersReducer = createSlice({
     builder.addCase(fetchContracts.fulfilled, (_state, action) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       for (const contract of action.payload as any[]) {
-        console.log('CONTRACT', contract);
+        Logger.info('CONTRACT', contract);
         const owner = contract.Owner;
         if (owner == null) continue;
         _state[owner.id as string] = owner;
