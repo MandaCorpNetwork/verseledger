@@ -712,7 +712,7 @@ export class ContractController extends BaseHttpController {
           required: false,
           description: '',
           type: 'string',
-        }
+        },
       },
     },
     security: { VLAuthAccessToken: [] },
