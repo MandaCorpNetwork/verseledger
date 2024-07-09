@@ -25,6 +25,7 @@ import { Logger } from '@/utils/Logger';
 import { ContractSubTypeSchema } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 import { ContractStatusSchema } from 'vl-shared/src/schemas/ContractStatusSchema';
 import { GenericError } from '@Errors/GenericError';
+import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 
 @ApiPath({
   path: '/v1/contracts',
@@ -413,5 +414,54 @@ export class ContractController extends BaseHttpController {
       status,
     });
     return contracts;
+  }
+
+  @ApiOperationGet({
+    tags: ['Contracts'],
+    description: 'Get Contracts from Bids',
+    summary: 'Get Contracts from Bids that match a user & status',
+    path: '/bids',
+    responses: {
+      200: {
+        type: 'array',
+        description: 'Found',
+        model: 'Contract',
+      },
+    },
+    consumes: [],
+    parameters: {
+      query: {
+        userId: {
+          required: true,
+          description: 'User ID to match on Bids',
+          type: 'string',
+        },
+        status: {
+          required: true,
+          description: 'Status to match on Bids',
+          type: 'string',
+        },
+      },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
+  @httpGet('/bids')
+  private async getContractsByUserAndStatus(
+    @next() nextFunc: NextFunction,
+    @queryParam('userId') userId: string,
+    @queryParam('status') status: IContractBid['status'],
+  ) {
+    if (!IdUtil.isValidId(userId)) {
+      throw nextFunc(new BadParameterError('userId', '/bids/contracts'));
+    }
+    try {
+      const contracts = await this.contractService.getContractsByUserId(
+        userId,
+        status as IContractBid['status'],
+      );
+      return contracts;
+    } catch (error) {
+      throw new GenericError(400, (error as ZodError).issues);
+    }
   }
 }
