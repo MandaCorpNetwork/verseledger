@@ -328,8 +328,8 @@ export class ContractController extends BaseHttpController {
 
   @ApiOperationGet({
     tags: ['Contracts'],
-    description: 'Search Contracts by SubTypes',
-    summary: 'Search Contracts by SubTypes',
+    description: 'Search Contracts',
+    summary: 'Search Contracts',
     path: '/',
     responses: {
       200: {
@@ -360,6 +360,11 @@ export class ContractController extends BaseHttpController {
           type: 'string',
           format: '',
         },
+        'search[ownerId]': {
+          required: false,
+          description: '',
+          type: 'string',
+        }
       },
     },
     security: { VLAuthAccessToken: [] },
