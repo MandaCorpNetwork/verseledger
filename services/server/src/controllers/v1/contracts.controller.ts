@@ -724,8 +724,20 @@ export class ContractController extends BaseHttpController {
       Logger.error(error);
       throw new GenericError(400, (error as ZodError).issues);
     }
-    const contracts = await this.contractService.search(search!);
-    return contracts;
+    const contractInfo = await this.contractService.search(search!);
+    const contracts = contractInfo.rows;
+    const limit = Math.min(25, search.limit ?? 10);
+    const page = search.page ?? 0;
+    const response = {
+      search,
+      pages: {
+        limit,
+        page: page + 1,
+        pages: Math.ceil(contractInfo.count / limit),
+      },
+      data: contracts,
+    };
+    return response;
   }
 
   @ApiOperationGet({
