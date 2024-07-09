@@ -47,25 +47,25 @@ export const useURLQuery = () => {
       Logger.info(`Attempting Filtered Contract Fetch...`);
       const selectedSubtype = searchParams.getAll(QueryNames.Subtype);
       const selectedArchetype = searchParams.getAll(QueryNames.Archetype);
-      //const contractManagerTab = searchParams.get(QueryNames.ContractManagerTab);
+      const contractManagerTab = searchParams.get(QueryNames.ContractManagerTab);
 
-      // if (contractManagerTab) {
-      //   if (contractManagerTab === 'employed') {
-
-      //   }
-      //   if (contractManagerTab === 'owned') {
-
-      //   }
-      //   if (contractManagerTab === 'pending') {
-
-      //   }
-      //   if (contractManagerTab === 'offers') {
-
-      //   }
-      //   if (contractManagerTab === 'closed') {
-
-      //   }
-      // }
+      if (contractManagerTab) {
+        if (contractManagerTab === 'employed') {
+          //Fetch Contracts by User ContractBids Accepted
+        }
+        if (contractManagerTab === 'owned') {
+          //Fetch Contracts by ContractOwner == User
+        }
+        if (contractManagerTab === 'pending') {
+          //Fetch Contracts By User ContractBids Pending
+        }
+        if (contractManagerTab === 'offers') {
+          //Fetch Contracts By User ContractBids Invited
+        }
+        if (contractManagerTab === 'closed') {
+          //Fetch Contracts by Contract Owner & ContractBids where ContractStatus == Completed
+        }
+      }
 
       const selectedArchToSub = selectedArchetype.flatMap((archetype) => {
         return ArchetypeToSubtypes[archetype] ?? [];
