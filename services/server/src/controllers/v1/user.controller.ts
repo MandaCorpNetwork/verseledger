@@ -279,6 +279,7 @@ export class UsersController extends BaseHttpController {
     const response = {
       search,
       pages: {
+        total: bidInfo.count,
         limit,
         page: page + 1,
         pages: Math.ceil(bidInfo.count / limit),
