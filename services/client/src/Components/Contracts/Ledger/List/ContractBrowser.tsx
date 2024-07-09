@@ -43,10 +43,11 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
 
   React.useEffect(() => {
     const params: IContractSearch = {
-      status: ['BIDDING'],
       page: 0,
+      limit: 10,
+      status: ['BIDDING'],
     };
-    dispatch(fetchContracts({ ...params }));
+    dispatch(fetchContracts(params));
   }, []);
 
   const contracts = useAppSelector((state) => selectFilteredContracts(state, filters));

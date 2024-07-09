@@ -1,7 +1,5 @@
-import { fetchContractsBySubtypes } from '@Redux/Slices/Contracts/actions/fetch/fetchSearchContracts';
 import { Logger } from '@Utils/Logger';
-import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
-import { useEffect } from 'react';
+import { QueryNames } from '@Utils/QueryNames';
 import { useSearchParams } from 'react-router-dom';
 
 export const useURLQuery = () => {
