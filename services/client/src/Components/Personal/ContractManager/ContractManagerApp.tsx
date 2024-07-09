@@ -16,6 +16,7 @@ import { ContractManagerSearchTools } from './ContractList/ContractManagerSearch
 export const ContractManagerApp: React.FC<unknown> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filters, setFilter, overwriteURLQuery] = useURLQuery();
+
   const filteredContracts = useAppSelector((state) =>
     selectFilteredContracts(state, filters),
   );
