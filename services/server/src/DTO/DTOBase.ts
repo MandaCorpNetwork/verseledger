@@ -1,7 +1,8 @@
 import { Model } from 'sequelize-typescript';
 
-export class DTOBase<T> {
+export abstract class DTOBase<T> {
   public partial = false;
+  abstract __type: string;
   protected mapProperties(
     propsRaw: T,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
