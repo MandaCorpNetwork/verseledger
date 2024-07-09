@@ -731,17 +731,16 @@ export class ContractController extends BaseHttpController {
     }
     const contractInfo = await this.contractService.search(search!);
     const contracts = contractInfo.rows;
-    const limit = Math.min(25, search.limit ?? 10);
-    const page = search.page ?? 0;
-    const response = {
-      search,
-      pages: {
-        limit,
-        page: page + 1,
-        pages: Math.ceil(contractInfo.count / limit),
+
+    const response = new PaginatedDataDTO(
+      contracts as IContract[],
+      {
+        total: contractInfo.count,
+        limit: Math.min(25, search?.limit ?? 10),
+        page: search?.page ?? 0,
       },
-      data: contracts,
-    };
+      ContractDTO,
+    );
     return response;
   }
 
