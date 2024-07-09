@@ -185,11 +185,12 @@ export class ContractService {
 
   public async search(params: {
     subtype?: string | string[];
-    limit?: number;
     status?: IContractStatus | IContractStatus[];
     ownerId?: string | string[];
+    limit?: number;
+    page?: number;
   }) {
-    const { subtype, limit = 10, status, ownerId } = params ?? {};
+    const { subtype, limit = 10, page = 0, status, ownerId } = params ?? {};
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const query = {} as any;
     if (status != null && status.length != 0) {
@@ -207,9 +208,10 @@ export class ContractService {
       'bids',
       'owner',
       'locations',
-    ]).findAll({
+    ]).findAndCountAll({
       where: query,
       limit: Math.min(limit, 25),
+      offset: page * Math.min(limit, 25),
     });
 
     return contracts;

@@ -5,8 +5,8 @@ import { ContractSubTypeSchema } from "./ContractSubTypeSchema";
 import { ContractBidStatusSchema } from "./ContractBidStatusSchema";
 
 export const SearchSchema = z.object({
-  limit: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  limit: z.coerce.number().nonnegative().optional(),
+  page: z.coerce.number().nonnegative().optional().default(0),
 });
 
 export type ISearch = z.infer<typeof SearchSchema>;
