@@ -383,7 +383,7 @@ export class ContractController extends BaseHttpController {
     }
     const contractInfo = await this.contractService.search(search!);
     const contracts = contractInfo.rows;
-    const limit = Math.min(25, search.limit ?? 10);
+    const limit = Math.min(25, search?.limit ?? 10);
     const page = search.page ?? 0;
     const response = {
       search,
