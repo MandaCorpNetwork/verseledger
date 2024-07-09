@@ -1,9 +1,8 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button } from '@mui/material';
-import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
 import { selectFilteredContracts } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { CardorTableViewToggle } from '@/Components/Contracts/Ledger/List/Card-TableViewToggle';
 import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
@@ -23,6 +22,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   contractOnClose,
   selectedId,
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dispatch = useAppDispatch();
   const [view, setView] = React.useState('ContractCardView');
   const [isSelected, setIsSelected] = React.useState<string | null>(null);
@@ -40,10 +40,6 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   };
 
   const contracts = useAppSelector((state) => selectFilteredContracts(state, filters));
-
-  useEffect(() => {
-    dispatch(fetchContracts());
-  }, []);
 
   return (
     <Box
