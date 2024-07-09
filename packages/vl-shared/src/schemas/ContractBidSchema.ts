@@ -1,12 +1,13 @@
 import { z } from "zod";
 import { ITimestamped, TimestampedSchema } from "./TimestampedSchema";
 import { UserSchema } from "./UserSchema";
+import { ContractBidStatusSchema } from "./ContractBidStatusSchema";
 
 export const ContractBidSchema = z.object({
   id: z.string().max(26),
   contract_id: z.string().max(26),
   user_id: z.string().max(26),
-  status: z.enum(["PENDING", "ACCEPTED", "REJECTED", "INVITED", "DECLINED"]),
+  status: ContractBidStatusSchema,
   User: UserSchema.optional(),
 });
 

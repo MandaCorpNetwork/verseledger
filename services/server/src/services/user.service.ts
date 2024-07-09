@@ -5,11 +5,41 @@ import { RSIService } from './RSI.service';
 import { UserValidation } from '@Models/user_validation.model';
 import { Logger } from '@/utils/Logger';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import { ContractBid } from '@Models/contract_bid.model';
+import { IContractBidStatus } from 'vl-shared/src/schemas/ContractBidStatusSchema';
 
 @injectable()
 export class UserService {
   public async getUser(id: string, scopes: string | string[] = []) {
     return await User.scope(scopes).findByPk(id);
+  }
+
+  public async getUserBids(
+    id: string,
+    search: {
+      status?: IContractBidStatus | IContractBidStatus[];
+      limit?: number;
+      contractId?: string | string[];
+    },
+  ) {
+    const { status, contractId, limit = 25 } = search ?? {};
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const query = {} as any;
+    if (status != null && status.length != 0) {
+      query.status = Array.isArray(status) ? { [Op.in]: status } : status;
+    }
+    if (contractId != null && contractId.length != 0) {
+      query.contract_id = Array.isArray(contractId)
+        ? { [Op.in]: contractId }
+        : contractId;
+    }
+    return await ContractBid.scope(['contract']).findAll({
+      where: {
+        ...query,
+        user_id: id,
+      },
+      limit: Math.min(limit, 25),
+    });
   }
 
   public async findOrCreateUserByDiscord(
