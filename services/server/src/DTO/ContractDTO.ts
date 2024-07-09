@@ -20,7 +20,15 @@ export class ContractDTO extends DTOBase<IContract> implements IContract {
     this.mapProperties($b, { Locations: LocationDTO });
   }
 
-  _type = 'Contract';
+  __type = 'Contract';
+
+  public toJSON() {
+    return {
+      ...this,
+      owner_user_id: undefined,
+      owner_org_id: undefined,
+    };
+  }
 
   @ApiModelProperty({
     description: 'ID of Contract',

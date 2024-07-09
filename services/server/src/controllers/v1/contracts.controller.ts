@@ -17,13 +17,18 @@ import { VLAuthPrincipal } from '@/authProviders/VL.principal';
 import { IdUtil } from '@/utils/IdUtil';
 import { BadParameterError } from '@Errors/BadParameter';
 import { NotFoundError } from '@Errors/NotFoundError';
-import { CreateContractBodySchema } from 'vl-shared/src/schemas/ContractSchema';
+import {
+  CreateContractBodySchema,
+  IContract,
+} from 'vl-shared/src/schemas/ContractSchema';
 import { z, ZodError } from 'zod';
 import { ApiOperationGet, ApiOperationPost, ApiPath } from 'swagger-express-ts';
 import { ZodToOpenapi } from '@/utils/ZodToOpenapi';
 import { Logger } from '@/utils/Logger';
 import { ContractSearchSchema } from 'vl-shared/src/schemas/SearchSchema';
 import { GenericError } from '@Errors/GenericError';
+import { PaginatedDataDTO } from '@/DTO/PaginatedDataDTO';
+import { ContractDTO } from '@/DTO';
 
 @ApiPath({
   path: '/v1/contracts',
@@ -383,17 +388,16 @@ export class ContractController extends BaseHttpController {
     }
     const contractInfo = await this.contractService.search(search!);
     const contracts = contractInfo.rows;
-    const limit = Math.min(25, search.limit ?? 10);
-    const page = search.page ?? 0;
-    const response = {
-      search,
-      pages: {
-        limit,
-        page: page + 1,
-        pages: Math.ceil(contractInfo.count / limit),
+
+    const response = new PaginatedDataDTO(
+      contracts as IContract[],
+      {
+        total: contractInfo.count,
+        limit: Math.min(25, search?.limit ?? 10),
+        page: search?.page ?? 0,
       },
-      data: contracts,
-    };
+      ContractDTO,
+    );
     return response;
   }
 }
