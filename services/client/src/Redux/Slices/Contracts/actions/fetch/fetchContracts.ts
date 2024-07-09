@@ -8,7 +8,8 @@ export const fetchContracts = createAsyncThunk(
   '/v1/contracts/search',
   async (params: IContractSearch) => {
     try {
-      const response = await NetworkService.GET('/v1/contracts/search', params);
+      const queryParams = JSON.parse(JSON.stringify(params));
+      const response = await NetworkService.GET('/v1/contracts/search', queryParams);
       return response.data;
     } catch (error) {
       Logger.error(error);
