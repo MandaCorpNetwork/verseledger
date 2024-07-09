@@ -272,7 +272,19 @@ export class UsersController extends BaseHttpController {
       throw new GenericError(400, (error as ZodError).issues);
     }
 
-    const bids = await this.userService.getUserBids(user as string, search);
-    return bids;
+    const bidInfo = await this.userService.getUserBids(user as string, search);
+    const bids = bidInfo.rows;
+    const limit = Math.min(25, search.limit ?? 10);
+    const page = search.page ?? 0;
+    const response = {
+      search,
+      pages: {
+        limit,
+        page: page + 1,
+        pages: Math.ceil(bidInfo.count / limit),
+      },
+      data: bids,
+    };
+    return response;
   }
 }

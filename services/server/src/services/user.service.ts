@@ -20,9 +20,10 @@ export class UserService {
       status?: IContractBidStatus | IContractBidStatus[];
       limit?: number;
       contractId?: string | string[];
+      page?: number;
     },
   ) {
-    const { status, contractId, limit = 25 } = search ?? {};
+    const { status, contractId, limit = 25, page = 0 } = search ?? {};
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const query = {} as any;
     if (status != null && status.length != 0) {
@@ -33,12 +34,13 @@ export class UserService {
         ? { [Op.in]: contractId }
         : contractId;
     }
-    return await ContractBid.scope(['contract']).findAll({
+    return await ContractBid.scope(['contract']).findAndCountAll({
       where: {
         ...query,
         user_id: id,
       },
       limit: Math.min(limit, 25),
+      offset: page * Math.min(limit, 25),
     });
   }
 
