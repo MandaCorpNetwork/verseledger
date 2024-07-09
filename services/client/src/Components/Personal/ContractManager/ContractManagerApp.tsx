@@ -1,18 +1,24 @@
 //ContractManagerApp.tsx
 import { TabContext, TabList } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
+import { selectFilteredContracts } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
+import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
 //import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
 import { ContractManagerSearchTools } from './ContractList/ContractManagerSearchTools';
 
 export const ContractManagerApp: React.FC<unknown> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filters, setFilter, overwriteURLQuery] = useURLQuery();
+  const filteredContracts = useAppSelector((state) =>
+    selectFilteredContracts(state, filters),
+  );
 
   const currentTab = React.useMemo(() => {
     const tab = filters.get(QueryNames.ContractManagerTab);
@@ -135,7 +141,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
               </TabList>
             </Box>
             <ContractManagerSearchTools />
-            {/* <ContractManagerContractList /> */}
+            <ContractManagerContractList contracts={filteredContracts} />
           </Box>
         </TabContext>
       </Box>
