@@ -11,6 +11,7 @@ import { ContractLocation } from '@Models/contract_locations.model';
 import { User } from '@Models/user.model';
 import { Op } from 'sequelize';
 import { IContractStatus } from 'vl-shared/src/schemas/ContractStatusSchema';
+import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 
 @injectable()
 export class ContractService {
@@ -206,6 +207,24 @@ export class ContractService {
       limit: Math.min(limit, 25),
     });
 
+    return contracts;
+  }
+
+  public async getContractsByUserId(userId: string, bidStatus?: IContractBid['status']) {
+    const contractBids = await ContractBid.findAll({
+      where: {
+        user_id: userId,
+        status: bidStatus ? bidStatus : { [Op.ne]: 'REJECTED' },
+      },
+    });
+    const contractIds = contractBids.map((bid) => bid.contract_id);
+    const contracts = await Contract.findAll({
+      where: {
+        id: {
+          [Op.in]: contractIds,
+        }
+      }
+    })
     return contracts;
   }
 }
