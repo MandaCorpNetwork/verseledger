@@ -1,13 +1,15 @@
 import { Box } from '@mui/material';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
-//import { ContractManagerContractCard } from './ContractManagerContractCard';
+import { ContractManagerContractCard } from './ContractManagerContractCard';
 
 type ContractManagerListProps = {
   contracts: IContract[];
 };
 
-export const ContractManagerContractList: React.FC<ContractManagerListProps> = () => {
+export const ContractManagerContractList: React.FC<ContractManagerListProps> = ({
+  contracts,
+}) => {
   return (
     <Box
       data-testid="ContractManager__ContractListWrapper"
@@ -30,14 +32,9 @@ export const ContractManagerContractList: React.FC<ContractManagerListProps> = (
         },
       }}
     >
-      {/* {tempContractData.map((contract) => {
-        return <ContractManagerContractCard contract={contract as contract} key={contract.id} />;
-      })} */}
-      {/* {contracts.map((contract) -> {
-        return(
-          <ContractManagerContractCard contract={contract} key={contract.id} />
-        )
-      })} */}
+      {contracts.map((contract) => (
+        <ContractManagerContractCard contract={contract} key={contract.id} />
+      ))}
     </Box>
   );
 };
