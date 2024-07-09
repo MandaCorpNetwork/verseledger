@@ -47,6 +47,46 @@ export const selectFilteredContracts = createSelector(
 
     const subtypeFilters = filters.getAll(QueryNames.Subtype);
     const archetypeFilters = filters.getAll(QueryNames.Archetype);
+    const contractManagerTab = filters.get(QueryNames.ContractManagerTab);
+    // const statusFilters = filters.getAll(QueryNames.Status);
+    // const bidStatusFilters = filters.getAll(QueryNames.BidStatus);
+
+    if (contractManagerTab) {
+      Logger.info(`Rendering Contracts by Contract Manager Tab: ${contractManagerTab}`);
+      if (contractManagerTab === 'employed') {
+        filteredContracts = filteredContracts.concat(
+          contractsArray.filter((contract) =>
+            contract.Bids?.some((bid) => bid.status === 'ACCEPTED'),
+          ),
+        );
+      }
+      if (contractManagerTab === 'owned') {
+        // filteredContracts = filteredContracts.concat(
+        //   contractsArray.filter((contract) => contract.ContractOwner == null),
+        // );
+      }
+      if (contractManagerTab === 'pending') {
+        // filteredContracts = filteredContracts.concat(
+        //   contractsArray.filter((contract) =>
+        //     contract.Bids?.some((bid) => bid.status === 'PENDING'),
+        //   ),
+        // );
+      }
+      if (contractManagerTab === 'offers') {
+        // filteredContracts = filteredContracts.concat(
+        //   contractsArray.filter((contract) =>
+        //     contract.Bids?.some((bid) => bid.status === 'INVITED'),
+        //   ),
+        // );
+      }
+      if (contractManagerTab === 'closed') {
+        // filteredContracts = filteredContracts.concat(
+        //   contractsArray.filter((contract) =>
+        //     contract.Bids?.some((bid) => bid.status === 'COMPLETED'),
+        //   ),
+        // );
+      }
+    }
 
     if (subtypeFilters.length > 0) {
       Logger.info(`Rendering Contracts by Subtype: ${subtypeFilters}`);

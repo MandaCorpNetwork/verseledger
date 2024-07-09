@@ -11,6 +11,8 @@ export enum QueryNames {
   EmployerRating = 'rating',
   TimeRemaining = 'time',
   Archetype = 'archetype',
+  Status = 'status',
+  BidStatus = 'bstatus',
 }
 export const ArchetypeToSubtypes: { [key: string]: string[] } = {
   Logistics: ['Transport', 'Hauling', 'Manage'],
