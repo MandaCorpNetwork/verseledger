@@ -678,7 +678,7 @@ export class ContractController extends BaseHttpController {
     tags: ['Contracts'],
     description: 'Search Contracts by SubTypes',
     summary: 'Search Contracts by SubTypes',
-    path: '/search',
+    path: '/',
     responses: {
       200: {
         type: 'array',
@@ -689,12 +689,12 @@ export class ContractController extends BaseHttpController {
     consumes: [],
     parameters: {
       query: {
-        subtype: {
+        'search[subtype]': {
           required: false,
           description: 'Comma-delimited list of SubTypes',
           type: 'string',
         },
-        limit: {
+        'search[limit]': {
           required: false,
           description: '',
           maximum: 25,
@@ -702,7 +702,7 @@ export class ContractController extends BaseHttpController {
           default: 25,
           type: 'number',
         },
-        status: {
+        'search[status]': {
           required: false,
           description: '',
           type: 'string',
@@ -712,82 +712,19 @@ export class ContractController extends BaseHttpController {
     },
     security: { VLAuthAccessToken: [] },
   })
-  @httpGet('/search')
+  @httpGet('/')
   private async searchContracts(
     @next() nextFunc: NextFunction,
-    @queryParam('subtype') subTypeRaw?: string,
-    @queryParam('limit') limitRaw?: string,
-    @queryParam('status') statusRaw?: string,
+    @queryParam('search') searchRaw?: unknown,
   ) {
-    let limit, status, subtype;
+    let search: ReturnType<(typeof ContractSearchSchema)['parse']>;
     try {
-      limit = parseInt(limitRaw ?? '25');
-
-      status = statusRaw
-        ?.split(',')
-        ?.map((st) => ContractStatusSchema.parse(st));
-
-      subtype =
-        subTypeRaw
-          ?.split(',')
-          ?.map((st) => ContractSubTypeSchema.parse(st.trim())) ?? [];
+      search = ContractSearchSchema.strict().optional().parse(searchRaw)!;
     } catch (error) {
+      Logger.error(error);
       throw new GenericError(400, (error as ZodError).issues);
     }
-    const contracts = this.contractService.search({
-      subtype,
-      limit,
-      status,
-    });
+    const contracts = await this.contractService.search(search!);
     return contracts;
-  }
-
-  @ApiOperationGet({
-    tags: ['Contracts'],
-    description: 'Get Contracts from Bids',
-    summary: 'Get Contracts from Bids that match a user & status',
-    path: '/bids',
-    responses: {
-      200: {
-        type: 'array',
-        description: 'Found',
-        model: 'Contract',
-      },
-    },
-    consumes: [],
-    parameters: {
-      query: {
-        userId: {
-          required: true,
-          description: 'User ID to match on Bids',
-          type: 'string',
-        },
-        status: {
-          required: true,
-          description: 'Status to match on Bids',
-          type: 'string',
-        },
-      },
-    },
-    security: { VLAuthAccessToken: [] },
-  })
-  @httpGet('/bids')
-  private async getContractsByUserAndStatus(
-    @next() nextFunc: NextFunction,
-    @queryParam('userId') userId: string,
-    @queryParam('status') status: IContractBid['status'],
-  ) {
-    if (!IdUtil.isValidId(userId)) {
-      throw nextFunc(new BadParameterError('userId', '/bids/contracts'));
-    }
-    try {
-      const contracts = await this.contractService.getContractsByUserId(
-        userId,
-        status as IContractBid['status'],
-      );
-      return contracts;
-    } catch (error) {
-      throw new GenericError(400, (error as ZodError).issues);
-    }
   }
 }

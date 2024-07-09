@@ -219,25 +219,4 @@ export class ContractService {
 
     return contracts;
   }
-
-  public async getContractsByUserId(
-    userId: string,
-    bidStatus?: IContractBid['status'],
-  ) {
-    const contractBids = await ContractBid.findAll({
-      where: {
-        user_id: userId,
-        status: bidStatus ? bidStatus : { [Op.ne]: 'REJECTED' },
-      },
-    });
-    const contractIds = contractBids.map((bid) => bid.contract_id);
-    const contracts = await Contract.findAll({
-      where: {
-        id: {
-          [Op.in]: contractIds,
-        },
-      },
-    });
-    return contracts;
-  }
 }
