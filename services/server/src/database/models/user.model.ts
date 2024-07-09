@@ -22,6 +22,9 @@ import { IUser } from 'vl-shared/src/schemas/UserSchema';
   bids: {
     include: [{ model: ContractBid, as: 'PostedBids' }],
   },
+  bidsWithContracts: {
+    include: [{ model: ContractBid, as: 'PostedBids', include: [Contract] }],
+  },
   discord: {
     attributes: { include: ['discord_id'] },
   },

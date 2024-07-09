@@ -25,6 +25,9 @@ import { IdPrefix, IdUtil } from '@/utils/IdUtil';
 import { BadRequestError } from '@Errors/BadRequest';
 import { ApiOperationGet, ApiPath } from 'swagger-express-ts';
 import { Logger } from '@/utils/Logger';
+import { UserBidsSearchSchema } from 'vl-shared/src/schemas/SearchSchema';
+import { GenericError } from '@Errors/GenericError';
+import { ZodError } from 'zod';
 
 @ApiPath({
   path: '/v1/users',
@@ -241,5 +244,35 @@ export class UsersController extends BaseHttpController {
     if (search == null || search.trim() == '')
       throw new BadRequestError('"q" can not be Empty');
     return this.userService.search(search);
+  }
+
+  @httpGet(
+    `/:id(${IdUtil.expressRegex(IdPrefix.User)}|@me)/bids`,
+    TYPES.VerifiedUserMiddleware,
+  )
+  public async getUserBids(
+    @requestParam('id') userId: string,
+    @queryParam('search') searchRaw?: unknown,
+  ) {
+    let userRaw: string | null;
+    let search: ReturnType<(typeof UserBidsSearchSchema)['parse']>;
+    if (userId === '@me') {
+      const principal = this.httpContext.user as VLAuthPrincipal;
+      userRaw = principal.id;
+    } else {
+      userRaw = userId;
+    }
+    const user = userRaw;
+    if (user == null) return this.notFound();
+
+    try {
+      search = UserBidsSearchSchema.strict().optional().parse(searchRaw)!;
+    } catch (error) {
+      Logger.error(error);
+      throw new GenericError(400, (error as ZodError).issues);
+    }
+
+    const bids = await this.userService.getUserBids(user as string, search);
+    return bids;
   }
 }
