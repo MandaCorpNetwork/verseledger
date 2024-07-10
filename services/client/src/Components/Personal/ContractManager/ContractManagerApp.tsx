@@ -37,6 +37,27 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     [overwriteURLQuery],
   );
 
+  // React.useEffect(() => {
+  //   // Contract Manager Tab Initialization
+  //   // Status Filter Initialization
+  //   if (!currentTab) {
+  //     return null;
+  //   }
+  //   if (currentTab === 'owned' | 'closed') {
+  //     if (currentTab === 'owned') {
+  //       //Check Open Owned
+  //     }
+  //     if (currentTab === 'closed') {
+  //       //Check History
+  //     }
+  //   }
+  //   if (currentTab === 'employed') {
+  //     // filteredContracts = filteredContracts.concat(
+  //     //   contractsArray.filter((contract) => contract.ContractOwner == null),
+  //     // );
+  //   }
+  // }, [filters]);
+
   return (
     <Box
       data-testid="ContractsManager__AppContainer"
