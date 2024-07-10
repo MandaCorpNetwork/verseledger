@@ -15,6 +15,7 @@ export const ContractSearchSchema = SearchSchema.extend({
   status: stringArray(ContractStatusSchema).optional(),
   subtype: stringArray(ContractSubTypeSchema).optional(),
   ownerId: stringArray(z.string()).optional(),
+  contractId: stringArray(z.string()).optional(),
 });
 
 export type IContractSearch = z.infer<typeof ContractSearchSchema>;

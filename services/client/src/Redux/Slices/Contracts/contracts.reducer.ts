@@ -9,7 +9,7 @@ const contractsReducer = createSlice({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   initialState: {
     isLoading: false,
-    contracts: {} as Record<IContract['id'], IContract>,
+    contracts: {} as Record<string, IContract>,
   },
   reducers: {
     noop() {
@@ -31,7 +31,7 @@ const contractsReducer = createSlice({
       .addCase(fetchContracts.fulfilled, (_state, action) => {
         Logger.info('Fetching contracts fulfilled', action.payload);
         _state.isLoading = false;
-        const contracts = action.payload?.data as IContract[];
+        const contracts = action.payload?.data;
         if (contracts) {
           contracts.forEach((contract) => {
             _state.contracts[contract.id] = contract;

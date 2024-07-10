@@ -1,7 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button } from '@mui/material';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
-import { selectFilteredContracts } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import { selectContractsArray } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { Logger } from '@Utils/Logger';
 import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
@@ -67,7 +67,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
     dispatch(fetchContracts(params));
   }, [filters]);
 
-  const contracts = useAppSelector((state) => selectFilteredContracts(state, filters));
+  const contracts = useAppSelector((state) => selectContractsArray(state));
 
   return (
     <Box

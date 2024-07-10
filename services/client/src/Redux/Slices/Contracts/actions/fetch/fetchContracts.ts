@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { composeQuery } from '@Utils/composeQuery';
 import { Logger } from '@Utils/Logger';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
 import { IContractSearch } from 'vl-shared/src/schemas/SearchSchema';
 
 import NetworkService from '@/Services/NetworkService';
@@ -13,7 +14,7 @@ export const fetchContracts = createAsyncThunk(
       const response = await NetworkService.GET(
         `/v1/contracts?${composeQuery({ search: params })}`,
       );
-      return response.data as IContract[];
+      return response.data as IPaginatedData<IContract>;
     } catch (error) {
       Logger.error(error);
     }
