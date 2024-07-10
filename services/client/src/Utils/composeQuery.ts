@@ -11,7 +11,11 @@ export const composeQuery = <T extends Record<any, any>>(
     if (typeof value !== 'object') {
       cq.append(newPath, value);
     } else {
-      composeQuery(value, cq, newPath);
+      if (Array.isArray(value)) {
+        cq.append(newPath, value.join(','));
+      } else {
+        composeQuery(value, cq, newPath);
+      }
     }
   }
   return cq;
