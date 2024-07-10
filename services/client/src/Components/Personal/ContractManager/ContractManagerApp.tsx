@@ -2,10 +2,12 @@
 import { TabContext, TabList } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
+// import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { selectFilteredContracts } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 
+// import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
@@ -37,9 +39,23 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     [overwriteURLQuery],
   );
 
+  // const currentUser = useAppSelector((state) => selectCurrentUser(state));
+
   // React.useEffect(() => {
-  //   // Contract Manager Tab Initialization
   //   // Status Filter Initialization
+  //   // Subtype Filter Initialization
+  //   // Params Serializer
+  //   const contractParams: IContractSearch = {
+  //     page: 0,
+  //     limit: 25,
+  //     status: ['BIDDING'],
+  //   };
+  //   const bidParams: IUserBidSearch = {
+  //     page: 0,
+  //     limit: 25,
+  //     status: ['ACCEPTED'],
+  //     id: [currentUser?.id],
+  //   };
   //   if (!currentTab) {
   //     return null;
   //   }
