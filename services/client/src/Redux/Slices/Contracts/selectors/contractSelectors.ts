@@ -6,7 +6,7 @@ import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import type { RootState } from '../../../store';
 
 export const selectContracts = (state: RootState) => {
-  return state.contracts;
+  return state.contracts.contracts;
 };
 export const selectContractsArray = createSelector([selectContracts], (contracts) => {
   return Object.values(contracts);

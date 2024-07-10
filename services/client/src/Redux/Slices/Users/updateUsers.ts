@@ -11,7 +11,7 @@ export const updateUsersMiddleware: Middleware<unknown, Record<string, unknown>>
   (action) => {
     const activeContractors: User[] = [];
     if (fetchContracts.fulfilled.match(action)) {
-      (action.payload as IContract[]).forEach((contract) => {
+      (action.payload?.data as IContract[]).forEach((contract) => {
         contract.Bids?.forEach((bid) => {
           if (bid.status === 'ACCEPTED' && bid.User) {
             activeContractors.push(bid.User);

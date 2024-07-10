@@ -3,35 +3,44 @@ import { Logger } from '@Utils/Logger';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { fetchContracts } from './actions/fetch/fetchContracts';
-import { fetchContractsBySubtypes } from './actions/fetch/fetchSearchContracts';
 
 const contractsReducer = createSlice({
   name: 'contracts',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  initialState: {} as Record<IContract['id'], IContract>,
+  initialState: {
+    isLoading: false,
+    contracts: {} as Record<IContract['id'], IContract>,
+  },
   reducers: {
     noop() {
-      return {};
+      return {
+        isLoading: false,
+        contracts: {},
+      };
     },
     insert(state, contract) {
-      state[contract.payload.id as number] = contract.payload;
+      state.contracts[contract.payload.id] = contract.payload;
     },
   },
   extraReducers(builder) {
     builder
+      .addCase(fetchContracts.pending, (_state) => {
+        _state.isLoading = true;
+      })
       .addCase(fetchContracts.fulfilled, (_state, action) => {
-        Logger.info('Fetch contracts fulfilled', action.payload);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        for (const contract of action.payload as any[]) {
-          _state[contract.id as number] = contract;
+        Logger.info('Fetching contracts fulfilled', action.payload);
+        _state.isLoading = false;
+        const contracts = action.payload?.data as IContract[];
+        if (contracts) {
+          contracts.forEach((contract) => {
+            _state.contracts[contract.id] = contract;
+          });
+        } else {
+          Logger.warn('Payload data is undefined or empty');
         }
       })
-      .addCase(fetchContractsBySubtypes.fulfilled, (_state, action) => {
-        Logger.info(`Fetch Subtype fullfilled`, action.payload);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        for (const contract of action.payload as any[]) {
-          _state[contract.id as number] = contract;
-        }
+      .addCase(fetchContracts.rejected, (_state) => {
+        _state.isLoading = false;
       });
   },
 });

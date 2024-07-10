@@ -58,7 +58,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
 
     const params: IContractSearch = {
       page: 0,
-      limit: 10,
+      limit: 25,
       status: ['BIDDING', 'INPROGRESS'],
       ...(combinedSubtypes.length > 0 && {
         subtypes: combinedSubtypes,
