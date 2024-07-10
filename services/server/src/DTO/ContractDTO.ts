@@ -9,6 +9,8 @@ import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { DTOBase } from './DTOBase';
 import { LocationDTO } from './LocationDTO';
+import { ContractBidDTO } from './ContractBidDTO';
+import { UserDTO } from './UserDTO';
 
 @ApiModel({
   description: 'Contract Object',
@@ -17,7 +19,11 @@ import { LocationDTO } from './LocationDTO';
 export class ContractDTO extends DTOBase<IContract> implements IContract {
   constructor($b: IContract) {
     super();
-    this.mapProperties($b, { Locations: LocationDTO });
+    this.mapProperties($b, {
+      Locations: LocationDTO,
+      Bids: ContractBidDTO,
+      Owner: UserDTO,
+    });
   }
 
   __type = 'Contract';
