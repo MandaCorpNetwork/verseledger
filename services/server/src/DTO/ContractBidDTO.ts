@@ -20,14 +20,6 @@ export class ContractBidDTO
 
   __type = 'ContractBid';
 
-  public toJSON() {
-    return {
-      ...this,
-      owner_user_id: undefined,
-      owner_org_id: undefined,
-    };
-  }
-
   @ApiModelProperty({
     description: 'ID of Contract',
     required: true,
