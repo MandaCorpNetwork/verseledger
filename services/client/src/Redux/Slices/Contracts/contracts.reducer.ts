@@ -26,6 +26,7 @@ const contractsReducer = createSlice({
     builder
       .addCase(fetchContracts.pending, (_state) => {
         _state.isLoading = true;
+        _state.contracts = {};
       })
       .addCase(fetchContracts.fulfilled, (_state, action) => {
         Logger.info('Fetching contracts fulfilled', action.payload);
