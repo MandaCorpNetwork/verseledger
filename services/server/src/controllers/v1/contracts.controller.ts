@@ -387,6 +387,11 @@ export class ContractController extends BaseHttpController {
           description: '',
           type: 'string',
         },
+        'search[contractId]': {
+          required: false,
+          description: '',
+          type: 'string',
+        },
       },
     },
     security: { VLAuthAccessToken: [] },

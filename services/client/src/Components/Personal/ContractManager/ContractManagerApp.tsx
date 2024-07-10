@@ -1,11 +1,14 @@
 //ContractManagerApp.tsx
 import { TabContext, TabList } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
-import { useAppSelector } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
-import { selectContractsArray } from '@Redux/Slices/Users/userSelectors';
+import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
+import { selectContractsArray } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
+import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
@@ -18,6 +21,7 @@ import { ContractManagerSearchTools } from './ContractList/ContractManagerSearch
 export const ContractManagerApp: React.FC<unknown> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filters, setFilter, overwriteURLQuery] = useURLQuery();
+  const dispatch = useAppDispatch();
 
   const currentTab = React.useMemo(() => {
     const tab = filters.get(QueryNames.ContractManagerTab);
@@ -35,32 +39,92 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     [overwriteURLQuery],
   );
 
-  const currentUser = useAppSelector((state) => selectCurrentUser(state));
-  const currentUserId = currentUser?.id;
+  const currentUser = useAppSelector(selectCurrentUser);
+  const userId = currentUser?.id;
 
   React.useEffect(() => {
     // Status Filter Initialization
     // Subtype Filter Initialization
     // Params Serializer
-    const contractParams: IContractSearch = {
+    let contractParams: IContractSearch = {
       page: 0,
       limit: 25,
-      status: ['BIDDING'],
     };
-    const bidParams: IUserBidSearch = {
+    let bidParams: IUserBidSearch = {
       page: 0,
       limit: 25,
-      status: ['ACCEPTED'],
-      ...(currentUser && { user: currentUserId }),
     };
     switch (currentTab) {
       case 'employed':
+        bidParams = {
+          ...bidParams,
+          status: ['ACCEPTED'],
+        };
+        dispatch(fetchContractBidsOfUser(bidParams)).then((action) => {
+          const bids = action.payload?.data;
+          if (bids) {
+            const contractIds = bids.map((bid: IContractBid) => bid.contract_id);
+            console.log('contractIds', contractIds);
+            contractParams = {
+              ...contractParams,
+              status: ['BIDDING', 'INPROGRESS'],
+              contractId: contractIds,
+            };
+            dispatch(fetchContracts(contractParams));
+          }
+        });
         break;
-      case 'bidded':
+      case 'owned':
+        contractParams = {
+          ...contractParams,
+          status: ['BIDDING', 'INPROGRESS'],
+          ...(userId && { ownerId: [userId] }),
+        };
+        dispatch(fetchContracts(contractParams));
         break;
-      case 'completed':
+      case 'pending':
+        bidParams = {
+          ...bidParams,
+          status: ['PENDING'],
+        };
+        dispatch(fetchContractBidsOfUser(bidParams)).then((action) => {
+          const bids = action.payload?.data;
+          if (bids) {
+            const contractIds = bids.map((bid: IContractBid) => bid.contract_id);
+            contractParams = {
+              ...contractParams,
+              status: ['BIDDING', 'INPROGRESS'],
+              contractId: contractIds,
+            };
+            dispatch(fetchContracts(contractParams));
+          }
+        });
         break;
-      case 'all':
+      case 'offers':
+        bidParams = {
+          ...bidParams,
+          status: ['INVITED'],
+        };
+        dispatch(fetchContractBidsOfUser(bidParams)).then((action) => {
+          const bids = action.payload?.data;
+          if (bids) {
+            const contractIds = bids.map((bid: IContractBid) => bid.contract_id);
+            contractParams = {
+              ...contractParams,
+              status: ['BIDDING', 'INPROGRESS'],
+              contractId: contractIds,
+            };
+            dispatch(fetchContracts(contractParams));
+          }
+        });
+        break;
+      case 'closed':
+        contractParams = {
+          ...contractParams,
+          status: ['COMPLETED'],
+          ...(userId && { ownerId: [userId] }),
+        };
+        dispatch(fetchContracts(contractParams));
         break;
       default:
         break;

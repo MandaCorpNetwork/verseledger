@@ -1,4 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import type { RootState } from '../../../store';
 
@@ -6,7 +7,7 @@ export const selectContracts = (state: RootState) => {
   return state.contracts.contracts;
 };
 export const selectContractsArray = createSelector([selectContracts], (contracts) => {
-  return Object.values(contracts.contracts);
+  return Object.values<IContract>(contracts);
 });
 
 export const selectContract = createSelector(
