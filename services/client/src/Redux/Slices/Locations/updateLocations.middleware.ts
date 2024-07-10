@@ -10,7 +10,7 @@ export const updateLocationsMiddleware: Middleware<unknown, Record<string, unkno
   (next) =>
   (action) => {
     if (fetchContracts.fulfilled.match(action)) {
-      (action.payload as IContract[]).forEach((contract) => {
+      (action.payload?.data as IContract[]).forEach((contract) => {
         if (contract.Locations && contract.Locations.length > 0) {
           contract.Locations.forEach((location) => {
             dispatch(locationsActions.insert(location));
