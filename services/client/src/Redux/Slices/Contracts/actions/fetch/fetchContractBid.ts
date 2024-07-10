@@ -18,16 +18,6 @@ export const fetchContractsByBids = createAsyncThunk(
   'GET /v1/contracts/:userId/bids',
   async (params: IUserBidSearch) => {
     try {
-      const builder = new URLSearchParams();
-      Object.keys(params).forEach((key) => {
-        const value = params[key as keyof IUserBidSearch];
-        if (value != null) {
-          builder.append(
-            `search[${key}]`,
-            Array.isArray(value) ? value.join(',') : (value as unknown as string),
-          );
-        }
-      });
       const response = null;
       return response;
     } catch (error) {
