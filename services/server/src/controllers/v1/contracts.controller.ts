@@ -77,7 +77,10 @@ export class ContractController extends BaseHttpController {
           ...model,
           owner_id: (this.httpContext.user as VLAuthPrincipal).id,
         });
-        return this.created(`/contracts/${newContract.id}`, newContract);
+        return this.created(
+          `/contracts/${newContract.id}`,
+          new ContractDTO(newContract as IContract),
+        );
       } catch (error) {
         throw nextFunc(error);
       }
@@ -123,7 +126,7 @@ export class ContractController extends BaseHttpController {
     if (contract == null) {
       throw nextFunc(new NotFoundError(contractId));
     }
-    return contract;
+    return this.ok(new ContractDTO(contract as IContract));
   }
 
   @ApiOperationGet({
@@ -150,6 +153,7 @@ export class ContractController extends BaseHttpController {
   private async getContractBids(
     @requestParam('contractId') contractId: string,
     @next() nextFunc: NextFunction,
+    @queryParam('search') searchRaw?: unknown,
   ) {
     if (!IdUtil.isValidId(contractId)) {
       throw nextFunc(
@@ -159,12 +163,20 @@ export class ContractController extends BaseHttpController {
         ),
       );
     }
+    Logger.info(searchRaw);
 
     const contract = await this.contractService.getContract(contractId);
     if (contract == null) {
       throw nextFunc(new NotFoundError(contractId));
     }
-    return contract.Bids;
+    return this.ok(
+      new PaginatedDataDTO(
+        contract.Bids,
+        //TODO: Implement Pagination
+        { total: 0, limit: 0, page: 0 },
+        ContractBidDTO,
+      ),
+    );
   }
 
   @ApiOperationGet({
@@ -217,7 +229,7 @@ export class ContractController extends BaseHttpController {
     if (bid == null) {
       throw nextFunc(new NotFoundError(bidId));
     }
-    return bid;
+    return this.ok(new ContractBidDTO(bid));
   }
 
   @ApiOperationPost({
@@ -264,7 +276,10 @@ export class ContractController extends BaseHttpController {
     }
     const ownerId = (this.httpContext.user as VLAuthPrincipal).id;
     const bid = await this.contractService.createBid(contractId, ownerId);
-    return this.created(`/contracts/${bid.contract_id}/bids/${bid.id}`, bid);
+    return this.created(
+      `/contracts/${bid.contract_id}/bids/${bid.id}`,
+      new ContractBidDTO(bid),
+    );
   }
 
   @ApiOperationPost({
@@ -327,7 +342,10 @@ export class ContractController extends BaseHttpController {
       ownerId,
       userId,
     );
-    return this.created(`/contracts/${bid.contract_id}/bids/${bid.id}`, bid);
+    return this.created(
+      `/contracts/${bid.contract_id}/bids/${bid.id}`,
+      new ContractBidDTO(bid),
+    );
   }
 
   @ApiOperationGet({
@@ -397,7 +415,7 @@ export class ContractController extends BaseHttpController {
       },
       ContractDTO,
     );
-    return response;
+    return this.ok(response);
   }
 
   @ApiOperationGet({
