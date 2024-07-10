@@ -741,7 +741,7 @@ export class ContractController extends BaseHttpController {
       },
       ContractDTO,
     );
-    return response;
+    return this.ok(response);
   }
 
   @ApiOperationGet({
