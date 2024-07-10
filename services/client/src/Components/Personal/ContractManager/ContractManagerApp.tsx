@@ -2,12 +2,12 @@
 import { TabContext, TabList } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
-// import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
-import { selectFilteredContracts } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
+import { selectContractsArray } from '@Redux/Slices/Users/userSelectors';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
+import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 
-// import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
@@ -18,10 +18,6 @@ import { ContractManagerSearchTools } from './ContractList/ContractManagerSearch
 export const ContractManagerApp: React.FC<unknown> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filters, setFilter, overwriteURLQuery] = useURLQuery();
-
-  const filteredContracts = useAppSelector((state) =>
-    selectFilteredContracts(state, filters),
-  );
 
   const currentTab = React.useMemo(() => {
     const tab = filters.get(QueryNames.ContractManagerTab);
@@ -39,40 +35,39 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     [overwriteURLQuery],
   );
 
-  // const currentUser = useAppSelector((state) => selectCurrentUser(state));
+  const currentUser = useAppSelector((state) => selectCurrentUser(state));
+  const currentUserId = currentUser?.id;
 
-  // React.useEffect(() => {
-  //   // Status Filter Initialization
-  //   // Subtype Filter Initialization
-  //   // Params Serializer
-  //   const contractParams: IContractSearch = {
-  //     page: 0,
-  //     limit: 25,
-  //     status: ['BIDDING'],
-  //   };
-  //   const bidParams: IUserBidSearch = {
-  //     page: 0,
-  //     limit: 25,
-  //     status: ['ACCEPTED'],
-  //     id: [currentUser?.id],
-  //   };
-  //   if (!currentTab) {
-  //     return null;
-  //   }
-  //   if (currentTab === 'owned' | 'closed') {
-  //     if (currentTab === 'owned') {
-  //       //Check Open Owned
-  //     }
-  //     if (currentTab === 'closed') {
-  //       //Check History
-  //     }
-  //   }
-  //   if (currentTab === 'employed') {
-  //     // filteredContracts = filteredContracts.concat(
-  //     //   contractsArray.filter((contract) => contract.ContractOwner == null),
-  //     // );
-  //   }
-  // }, [filters]);
+  React.useEffect(() => {
+    // Status Filter Initialization
+    // Subtype Filter Initialization
+    // Params Serializer
+    const contractParams: IContractSearch = {
+      page: 0,
+      limit: 25,
+      status: ['BIDDING'],
+    };
+    const bidParams: IUserBidSearch = {
+      page: 0,
+      limit: 25,
+      status: ['ACCEPTED'],
+      ...(currentUser && { user: currentUserId }),
+    };
+    switch (currentTab) {
+      case 'employed':
+        break;
+      case 'bidded':
+        break;
+      case 'completed':
+        break;
+      case 'all':
+        break;
+      default:
+        break;
+    }
+  }, [filters]);
+
+  const contracts = useAppSelector((state) => selectContractsArray(state));
 
   return (
     <Box
@@ -179,7 +174,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
               </TabList>
             </Box>
             <ContractManagerSearchTools />
-            <ContractManagerContractList contracts={filteredContracts} />
+            <ContractManagerContractList contracts={contracts} />
           </Box>
         </TabContext>
       </Box>
