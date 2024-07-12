@@ -1,29 +1,28 @@
 import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
 import { Avatar, Box, ButtonBase, Chip, Tooltip, Typography } from '@mui/material';
-import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 import { IContract, IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
-import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 //import type { IContract } from '@Backend/interfaces/IContract';
 
 type ContractManagerCardProps = {
   contract: IContract;
+  selectedId: string | null;
+  setSelectedId: (id: string | null) => void;
 };
 
 export const ContractManagerContractCard: React.FC<ContractManagerCardProps> = ({
   contract,
+  selectedId,
+  setSelectedId,
 }) => {
-  const [filters, setFilters] = useURLQuery();
-
   const handleClick = () => {
-    setFilters(QueryNames.SelectedContract, String(contract.id));
+    setSelectedId(contract.id);
   };
 
-  const isSelectedContract =
-    filters.get(QueryNames.SelectedContract) === String(contract.id);
+  const isSelectedContract = selectedId === contract.id;
 
   return (
     <ButtonBase

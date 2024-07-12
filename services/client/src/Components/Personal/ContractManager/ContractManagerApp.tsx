@@ -21,6 +21,7 @@ import { ContractManagerSearchTools } from './ContractList/ContractManagerSearch
 export const ContractManagerApp: React.FC<unknown> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filters, setFilter, overwriteURLQuery] = useURLQuery();
+  const [selectedId, setSelectedId] = React.useState<string | null>(null);
   const dispatch = useAppDispatch();
 
   const currentTab = React.useMemo(() => {
@@ -41,6 +42,13 @@ export const ContractManagerApp: React.FC<unknown> = () => {
 
   const currentUser = useAppSelector(selectCurrentUser);
   const userId = currentUser?.id;
+
+  const handleContractSelect = React.useCallback(
+    (id: string | null) => {
+      setSelectedId(id);
+    },
+    [setSelectedId],
+  );
 
   React.useEffect(() => {
     // Status Filter Initialization
@@ -238,7 +246,11 @@ export const ContractManagerApp: React.FC<unknown> = () => {
               </TabList>
             </Box>
             <ContractManagerSearchTools />
-            <ContractManagerContractList contracts={contracts} />
+            <ContractManagerContractList
+              contracts={contracts}
+              setSelectedId={handleContractSelect}
+              selectedId={selectedId}
+            />
           </Box>
         </TabContext>
       </Box>

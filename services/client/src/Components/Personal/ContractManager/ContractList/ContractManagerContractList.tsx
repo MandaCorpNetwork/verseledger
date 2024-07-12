@@ -5,10 +5,14 @@ import { ContractManagerContractCard } from './ContractManagerContractCard';
 
 type ContractManagerListProps = {
   contracts: IContract[];
+  selectedId: string | null;
+  setSelectedId: (id: string | null) => void;
 };
 
 export const ContractManagerContractList: React.FC<ContractManagerListProps> = ({
   contracts,
+  selectedId,
+  setSelectedId,
 }) => {
   return (
     <Box
@@ -33,7 +37,12 @@ export const ContractManagerContractList: React.FC<ContractManagerListProps> = (
       }}
     >
       {contracts.map((contract) => (
-        <ContractManagerContractCard contract={contract} key={contract.id} />
+        <ContractManagerContractCard
+          contract={contract}
+          key={contract.id}
+          setSelectedId={setSelectedId}
+          selectedId={selectedId}
+        />
       ))}
     </Box>
   );
