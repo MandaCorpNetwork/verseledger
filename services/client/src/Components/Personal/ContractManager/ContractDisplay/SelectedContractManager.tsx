@@ -3,14 +3,14 @@ import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { archetypes } from '@Common/Definitions/Contracts/ContractArchetype';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Button, Chip, Tab, TextField, Tooltip, Typography } from '@mui/material';
+import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useState } from 'react';
 import React from 'react';
 
 import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/ContractorsManager';
-import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 
 type ContractDataFieldProps = {
   label: string;
@@ -90,6 +90,22 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     setContractManagerTab(newValue);
   };
 
+  const statusChipColor = React.useCallback(() => {
+    if (contract.status == 'BIDDING') {
+      return 'secondary';
+    } else if (contract.status == 'STARTED') {
+      return 'info';
+    } else if (contract.status == 'COMPLETE') {
+      return 'success';
+    } else if (contract.status == 'CANCELED') {
+      return 'error';
+    } else {
+      return 'primary';
+    }
+  }, [contract.status]);
+
+  const statusColor = statusChipColor();
+
   return (
     <Box
       data-testid="SelectedContractManagerWrapper"
@@ -168,7 +184,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               flexDirection: 'row',
               width: '100%',
               borderRadius: '20px',
-              backgroundColor: 'rgba(14,49,141,.25)',
+              backgroundColor: 'rgba(33,150,243,.2)',
               px: '1em',
               justifyContent: 'center',
               py: '.2em',
@@ -202,28 +218,50 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
             sx={{ display: 'flex', flexDirection: 'row', width: '100%', mt: '.5em' }}
           >
             <Box
-              data-testid="SelectedContract-OverviewInfo-Bottom__StatusChipWrapper"
+              data-testid="SelectedContract-OverviewInfo-Bottom__Status&SubtypeWrapper"
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 width: '25%',
                 alignItems: 'center',
                 justifyContent: 'center',
-                borderRadius: '10px',
-                backgroundColor: 'rgba(14,49,141,.25)',
               }}
             >
-              <Typography sx={{ mb: 'auto' }}>Status</Typography>
-              <Chip
-                data-testid="SelectedContract-OverviewInfo-Bottom-Status__StatusChip"
-                label="Status"
-                color="secondary"
+              <Box
+                data-testid="SelectedContract-OverviewInfo-Bottom__StatusChipWrapper"
                 sx={{
-                  p: '1em',
-                  mb: 'auto',
-                  fontWeight: 'bold',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: '10px',
+                  backgroundColor: 'rgba(14,49,141,.25)',
+                  py: '.5em',
                 }}
-              />
+              >
+                <Typography sx={{ mb: 'auto', fontWeight: 'bold' }}>Status</Typography>
+                <Chip
+                  data-testid="SelectedContract-OverviewInfo-Bottom-Status__StatusChip"
+                  label={
+                    contract.status.charAt(0).toUpperCase() +
+                    contract.status.slice(1).toLowerCase()
+                  }
+                  color={statusColor}
+                  sx={{
+                    p: '1em',
+                    mb: 'auto',
+                    fontWeight: 'bold',
+                  }}
+                />
+              </Box>
+              <Box
+                data-testid="SelectedContract-OverviewInfo-Bottom__SubtypeChipWrapper"
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              ></Box>
             </Box>
             <Box
               data-testid="SelectedContract-OverviewInfo-Bottom__DetailsContainer"
