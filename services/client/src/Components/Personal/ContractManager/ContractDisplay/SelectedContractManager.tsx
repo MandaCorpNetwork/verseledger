@@ -2,6 +2,8 @@
 import { SalvageIcon, SecurityIcon } from '@Common/Definitions/CustomIcons';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Button, Chip, Tab, TextField, Typography } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
+import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { useState } from 'react';
 import React from 'react';
 
@@ -52,7 +54,13 @@ const ContractDataField: React.FC<ContractDataFieldProps> = ({ label, value }) =
 //   );
 // };
 
-export const SelectedContractManager: React.FC<unknown> = () => {
+type SelectedContractManagerProps = {
+  contractId: string | null;
+};
+
+export const SelectedContractManager: React.FC<SelectedContractManagerProps> = ({
+  contractId,
+}) => {
   //const [filters] = useURLQuery();
   // const selectedContract = useAppSelector((root) =>
   //   pickContract(root, Number(filters.get(QueryNames.SelectedContract))),
@@ -63,6 +71,9 @@ export const SelectedContractManager: React.FC<unknown> = () => {
   const handleContractManageView = (_event: React.SyntheticEvent, newValue: string) => {
     setContractManagerTab(newValue);
   };
+
+  const contract = useAppSelector((root) => selectContract(root, contractId as string));
+
   return (
     <Box
       data-testid="SelectedContractManagerWrapper"
@@ -130,7 +141,7 @@ export const SelectedContractManager: React.FC<unknown> = () => {
               sx={{ display: 'flex', flexDirection: 'row', mr: 'auto' }}
             >
               <Typography data-testid="SelectedContract__ContractTitle" variant="h4">
-                Title
+                {contract.title}
               </Typography>
             </Box>
             <Box data-testid="SelectedContract-OverviewInfo-Header__ContractTypeContainer">

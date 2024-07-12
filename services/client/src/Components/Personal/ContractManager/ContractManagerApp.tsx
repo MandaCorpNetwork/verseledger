@@ -270,7 +270,11 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           backdropFilter: 'blur(20px)',
         }}
       >
-        {selectedId ? <SelectedContractManager /> : <ContractorInfo />}
+        {selectedId ? (
+          <SelectedContractManager contractId={selectedId} />
+        ) : (
+          <ContractorInfo />
+        )}
       </Box>
     </Box>
   );
