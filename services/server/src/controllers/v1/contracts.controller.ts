@@ -108,7 +108,10 @@ export class ContractController extends BaseHttpController {
     },
     security: { VLAuthAccessToken: [] },
   })
-  @httpGet(`/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})`)
+  @httpGet(
+    `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})`,
+    TYPES.VerifiedUserMiddleware,
+  )
   private async getContract(
     @requestParam('contractId') contractId: string,
     @next() nextFunc: NextFunction,
@@ -149,6 +152,7 @@ export class ContractController extends BaseHttpController {
   })
   @httpGet(
     `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids`,
+    TYPES.VerifiedUserMiddleware,
   )
   private async getContractBids(
     @requestParam('contractId') contractId: string,
@@ -202,6 +206,7 @@ export class ContractController extends BaseHttpController {
   })
   @httpGet(
     `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids/:bidId(${IdUtil.expressRegex(IdUtil.IdPrefix.Bid)})`,
+    TYPES.VerifiedUserMiddleware,
   )
   private async getSingleContractBid(
     @requestParam('contractId') contractId: string,
@@ -396,7 +401,7 @@ export class ContractController extends BaseHttpController {
     },
     security: { VLAuthAccessToken: [] },
   })
-  @httpGet('/')
+  @httpGet('/', TYPES.VerifiedUserMiddleware)
   private async searchContracts(
     @next() nextFunc: NextFunction,
     @queryParam('search') searchRaw?: unknown,

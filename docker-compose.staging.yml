@@ -1,0 +1,60 @@
+volumes:
+  vl-db:
+  vl-activemq:
+
+services:
+  vl-app:
+    container_name: vl-app
+    profiles:
+      - build
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - '3530:3000'
+      - '3532:3030'
+    expose:
+      - '3530'
+      - '3532'
+  vl-db:
+    container_name: vl-db
+    profiles:
+      - local
+    image: mysql:8.4
+    command: --mysql-native-password=ON
+    environment:
+      MYSQL_DATABASE: 'verseledger-app'
+      MYSQL_USER: 'verseledger-app'
+      MYSQL_PASSWORD: 'verseledger-password'
+      MYSQL_ROOT_PASSWORD: 'verseledger-password'
+    ports:
+      - '3534:3306'
+    expose:
+      - '3534'
+    volumes:
+      - vl-db:/var/lib/mysql
+  vl-activemq:
+    container_name: vl-activemq
+    profiles:
+      - local
+    image: apache/activemq-artemis:latest
+    environment:
+      ARTEMIS_USER: 'verseledger-app'
+      ARTEMIS_PASSWORD: 'verseledger-password'
+      ANONYMOUS_LOGIN: true
+    ports:
+      - '61616:61616'
+      - '8161:8161'
+    expose:
+      - '8161'
+      - '61616'
+    volumes:
+      - vl-activemq:/var/lib/artemis-instance
+  vl-adminer:
+    container_name: vl-adminer
+    profiles:
+      - local
+    image: adminer
+    restart: always
+    ports:
+      - 3536:8080
