@@ -212,6 +212,13 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     }
   }, [currentUser, contract.owner_id]);
 
+  const userBid = React.useMemo(() => {
+    if (isContractOwned) {
+      return null;
+    }
+    return contract.Bids?.find((bid) => bid.user_id === currentUser?.id);
+  }, [contract.Bids, currentUser, isContractOwned]);
+
   return (
     <Box
       data-testid="SelectedContractManagerWrapper"
@@ -853,6 +860,71 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                     Cancel
                   </Button>
                 )}
+              {!isContractOwned && userBid?.status === 'INVITED' && (
+                <Button
+                  data-testid="SelectedContract-Controller-Process__AcceptContractButton"
+                  variant="outlined"
+                  color="success"
+                  size="medium"
+                  fullWidth
+                >
+                  Accept
+                </Button>
+              )}
+              {!isContractOwned && userBid?.status === 'INVITED' && (
+                <Button
+                  data-testid="SelectedContract-Controller-Process__AcceptContractButton"
+                  variant="outlined"
+                  color="error"
+                  size="medium"
+                  fullWidth
+                >
+                  Reject
+                </Button>
+              )}
+              {!isContractOwned && userBid?.status === 'PENDING' && (
+                <Button
+                  data-testid="SelectedContract-Controller-Process__AcceptContractButton"
+                  variant="outlined"
+                  color="warning"
+                  size="medium"
+                  fullWidth
+                >
+                  Cancel Bid
+                </Button>
+              )}
+              {!isContractOwned && userBid?.status === 'ACCEPTED' && (
+                <Button
+                  data-testid="SelectedContract-Controller-Process__AcceptContractButton"
+                  variant="outlined"
+                  color="warning"
+                  size="medium"
+                  fullWidth
+                >
+                  Withdraw
+                </Button>
+              )}
+              {!isContractOwned && userBid?.status === 'REJECTED' && (
+                <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
+                  Bid has been Rejected
+                </Typography>
+              )}
+              {!isContractOwned && userBid?.status === 'DECLINED' && (
+                <>
+                  <Button
+                    data-testid="SelectedContract-Controller-Process__AcceptContractButton"
+                    variant="outlined"
+                    color="warning"
+                    size="medium"
+                    fullWidth
+                  >
+                    Submit Bid
+                  </Button>
+                  <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
+                    You Declined an Invite. You can submit a new bid if you would like.
+                  </Typography>
+                </>
+              )}
             </Box>
           </Box>
         </Box>
