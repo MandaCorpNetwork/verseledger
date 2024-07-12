@@ -21,6 +21,7 @@ import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSch
 // import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
+import { ContractorInfo } from './ContractDisplay/ContractorInfo';
 import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
 import { ContractorInfo } from './ContractDisplay/tools/ContractorInfo';
 import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
