@@ -18,6 +18,7 @@ import {
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { Logger } from '@Utils/Logger';
@@ -84,6 +85,8 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
 
   const contract = useAppSelector((root) => selectContract(root, contractId as string));
+
+  const currentUser = useAppSelector(selectCurrentUser);
 
   const dispatch = useAppDispatch();
 
@@ -200,6 +203,14 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     },
     [setOtherLocationIndex, otherLocationIndex, otherLocationIds],
   );
+
+  const isContractOwned = React.useMemo(() => {
+    if (contract.owner_id === currentUser?.id) {
+      return true;
+    } else {
+      return false;
+    }
+  }, [currentUser, contract.owner_id]);
 
   return (
     <Box
@@ -794,7 +805,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                 px: '1em',
               }}
             >
-              {contract.status === 'BIDDING' && (
+              {isContractOwned && contract.status === 'BIDDING' && (
                 <Button
                   data-testid="SelectedContract-Controller-Process__StartContractButton"
                   variant="outlined"
@@ -805,7 +816,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   Start
                 </Button>
               )}
-              {contract.status === 'INPROGRESS' && (
+              {isContractOwned && contract.status === 'INPROGRESS' && (
                 <Button
                   data-testid="SelectedContract-Controller-Process__CompleteContract"
                   variant="outlined"
@@ -816,28 +827,32 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   Complete
                 </Button>
               )}
-              {contract.status !== 'COMPLETED' && contract.status !== 'CANCELLED' && (
-                <Button
-                  data-testid="SelectedContract-Controller-Edit__EditContractButton"
-                  variant="outlined"
-                  color="info"
-                  size="medium"
-                  fullWidth
-                >
-                  Edit
-                </Button>
-              )}
-              {contract.status !== 'COMPLETED' && contract.status !== 'CANCELLED' && (
-                <Button
-                  data-testid="SelectedContract-Controller-Edit__CancelContractButton"
-                  variant="outlined"
-                  color="error"
-                  size="medium"
-                  fullWidth
-                >
-                  Cancel
-                </Button>
-              )}
+              {isContractOwned &&
+                contract.status !== 'COMPLETED' &&
+                contract.status !== 'CANCELLED' && (
+                  <Button
+                    data-testid="SelectedContract-Controller-Edit__EditContractButton"
+                    variant="outlined"
+                    color="info"
+                    size="medium"
+                    fullWidth
+                  >
+                    Edit
+                  </Button>
+                )}
+              {isContractOwned &&
+                contract.status !== 'COMPLETED' &&
+                contract.status !== 'CANCELLED' && (
+                  <Button
+                    data-testid="SelectedContract-Controller-Edit__CancelContractButton"
+                    variant="outlined"
+                    color="error"
+                    size="medium"
+                    fullWidth
+                  >
+                    Cancel
+                  </Button>
+                )}
             </Box>
           </Box>
         </Box>
@@ -917,7 +932,10 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                     height: '100%',
                   }}
                 >
-                  <ContractorsManager contract={contract} />
+                  <ContractorsManager
+                    contract={contract}
+                    contractOwned={isContractOwned}
+                  />
                 </TabPanel>
               </TabContext>
             </Box>
