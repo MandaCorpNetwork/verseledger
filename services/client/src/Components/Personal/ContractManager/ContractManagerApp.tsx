@@ -271,7 +271,6 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         }}
       >
         {selectedId ? <SelectedContractManager /> : <ContractorInfo />}
-        <SelectedContractManager />
       </Box>
     </Box>
   );
