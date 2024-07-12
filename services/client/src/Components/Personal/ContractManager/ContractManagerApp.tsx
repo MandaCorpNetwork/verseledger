@@ -13,6 +13,7 @@ import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSch
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
+import { ContractorInfo } from './ContractDisplay/ContractorInfo';
 import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
 import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
 //import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
@@ -269,6 +270,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           backdropFilter: 'blur(20px)',
         }}
       >
+        {selectedId ? <SelectedContractManager /> : <ContractorInfo />}
         <SelectedContractManager />
       </Box>
     </Box>

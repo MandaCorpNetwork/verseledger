@@ -21,6 +21,7 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -45,7 +46,7 @@ type ContractDisplayProps = {
 export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) => {
   const dispatch = useAppDispatch();
 
-  console.log(`ContractDisplay ID: ${contract.id}`);
+  Logger.info(`ContractDisplay ID: ${contract.id}`);
 
   const [briefingExpanded, setBriefingExpanded] = React.useState(true);
   const [payExpanded, setPayExpanded] = React.useState(true);
@@ -114,7 +115,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
 
   const activeDataPanel = React.useCallback(
     (panel: string) => {
-      console.log(`Rendering ContractId: ${contract.id}`);
+      Logger.info(`Rendering ContractId: ${contract.id}`);
       switch (panel) {
         case 'contractors':
           return (
@@ -173,7 +174,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       const endLocationPull = contract?.Locations?.find(
         (location) => location.ContractLocation?.tag === 'end',
       )?.id;
-      console.log(`EndLocation: ${endLocationPull}`);
+      Logger.info(`EndLocation: ${endLocationPull}`);
       return endLocationPull || null;
     }
     return null;
@@ -208,7 +209,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           }
         }
       }
-      console.log(otherLocationIndex);
+      Logger.info(otherLocationIndex);
     },
     [setOtherLocationIndex, otherLocationIndex, otherLocationIds],
   );
