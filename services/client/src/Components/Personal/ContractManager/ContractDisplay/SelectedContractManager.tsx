@@ -2,7 +2,16 @@
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { archetypes } from '@Common/Definitions/Contracts/ContractArchetype';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Button, Chip, Tab, TextField, Tooltip, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Chip,
+  InputAdornment,
+  Tab,
+  TextField,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
@@ -11,6 +20,7 @@ import { useState } from 'react';
 import React from 'react';
 
 import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/ContractorsManager';
+import { HelpOutline } from '@mui/icons-material';
 
 type ContractDataFieldProps = {
   label: string;
@@ -84,6 +94,10 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
 
   const handleArchetypeOpen = () => {
     dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetype }));
+  };
+
+  const handlePayStructurePopup = () => {
+    dispatch(openPopup(POPUP_PAY_STRUCTURES));
   };
 
   const handleContractManageView = (_event: React.SyntheticEvent, newValue: string) => {
@@ -296,7 +310,9 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                 alignItems: 'center',
               }}
             >
-              <Typography>Details</Typography>
+              <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                Details
+              </Typography>
               <Box
                 data-testid="SelectedContract-OverviewInfo-Bottom__DetailsWrapper"
                 sx={{
@@ -315,8 +331,39 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                     ml: 'auto',
                   }}
                 >
-                  <ContractDataField label="PayStructure" value="PayStructure" />
-                  <ContractDataField label="Pay" value="Pay Estimate" />
+                  <TextField
+                    size="small"
+                    label="Pay Structure"
+                    value={
+                      contract.payStructure.charAt(0) +
+                      contract.payStructure.slice(1).toLowerCase()
+                    }
+                    color="secondary"
+                    margin="dense"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end" onClick={handlePayStructurePopup}>
+                          <HelpOutline color="secondary" fontSize="small" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <Tooltip title={`¤${contract.defaultPay}`} arrow>
+                    <TextField
+                      size="small"
+                      label="Default Pay"
+                      value={contract.defaultPay}
+                      color="secondary"
+                      margin="dense"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Typography color="secondary">¤</Typography>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Tooltip>
                 </Box>
                 <Box
                   data-testid="SelectedContract-OverviewInfo-Bottom__TimeInfoWrapper"
