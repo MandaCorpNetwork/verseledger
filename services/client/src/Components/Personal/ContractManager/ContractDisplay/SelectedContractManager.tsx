@@ -223,8 +223,8 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                 display: 'flex',
                 flexDirection: 'column',
                 width: '25%',
-                alignItems: 'center',
-                justifyContent: 'center',
+                alignItems: 'space-around',
+                justifyContent: 'space-around',
               }}
             >
               <Box
@@ -237,10 +237,12 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   justifyContent: 'center',
                   borderRadius: '10px',
                   backgroundColor: 'rgba(14,49,141,.25)',
-                  py: '.5em',
+                  pb: '.2em',
                 }}
               >
-                <Typography sx={{ mb: 'auto', fontWeight: 'bold' }}>Status</Typography>
+                <Typography variant="body2" sx={{ mb: 'auto', fontWeight: 'bold' }}>
+                  Status
+                </Typography>
                 <Chip
                   data-testid="SelectedContract-OverviewInfo-Bottom-Status__StatusChip"
                   label={
@@ -249,7 +251,6 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   }
                   color={statusColor}
                   sx={{
-                    mb: 'auto',
                     fontWeight: 'bold',
                   }}
                 />
@@ -260,9 +261,14 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: 'rgba(14,49,141,.25)',
+                  borderRadius: '10px',
+                  width: '100%',
+                  pb: '.2em',
                 }}
               >
-                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                <Typography variant="body2" sx={{ fontWeight: 'bold', mb: 'auto' }}>
                   Contract Subtypes
                 </Typography>
                 <Chip
