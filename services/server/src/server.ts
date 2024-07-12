@@ -16,6 +16,7 @@ import { NetworkError } from '@Errors/NetworkError';
 import { NotFoundError } from '@Errors/NotFoundError';
 import { Logger } from './utils/Logger';
 import { methodToColor } from './utils/methodToColor';
+import { ZodError } from 'zod';
 export const createServer = () => {
   bindContainer(container);
   const env = new EnvService();
@@ -85,6 +86,8 @@ export const createServer = () => {
   app.use((err: unknown, req: Request, res: Response, _: NextFunction) => {
     if (err instanceof NetworkError) {
       res.status(err.statusCode).json(err);
+    } else if (err instanceof ZodError) {
+      res.status(400).json(err);
     } else {
       console.error(err);
       res.status(500).send('An unexpected error has occured');
