@@ -6,15 +6,15 @@ import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useState } from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 type ContractorProps = {
   id: string;
-  userName: string;
-  profilePicture: string;
+  user: IUser;
   pay: string;
 };
 
-const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, pay }) => {
+const Contractor: React.FC<ContractorProps> = ({ user, pay }) => {
   const [contractorBidStatus, setContractorBidStatus] = useState<string | null>(null);
 
   const handleAccept = () => setContractorBidStatus('Accepted');
@@ -45,11 +45,11 @@ const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, pay }
           my: 'auto',
         }}
       >
-        <Tooltip title={userName} arrow>
+        <Tooltip title={user.displayName} arrow>
           <Chip
             data-testid="ContractorsTab-ContractorList-Contractor__ProfileChip"
-            avatar={<Avatar src={profilePicture} />}
-            label={userName}
+            avatar={<Avatar src={user.pfp} />}
+            label={user.displayName}
             color="secondary"
             variant="outlined"
             clickable={true}
@@ -168,6 +168,9 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({ contract
     dispatch(openPopup(POPUP_USER_INVITE));
   };
 
+  const acceptedBids = contractors?.filter((bid) => bid.status === 'ACCEPTED');
+  const pendingBids = contractors?.filter((bid) => bid.status === 'PENDING');
+
   return (
     <Box
       data-testid="SelectedContract-ContractManagement__ContractorsTabWrapper"
@@ -180,7 +183,26 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({ contract
         borderBottom: '2px solid',
         borderRadius: '5px',
         borderColor: 'primary.main',
-        py: '.5em',
+        p: '.5em',
+        borderLeft: '1px solid rgba(14,49,141,0.5)',
+        borderRight: '1px solid rgba(14,49,141,0.5)',
+        boxShadow: '0 5px 15px rgba(14,49,141,.8)',
+        position: 'relative',
+        '&:before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          right: 0,
+          left: 0,
+          background:
+            'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
+          opacity: 0.6,
+          backdropFilter: 'blur(10px)',
+          zIndex: -1,
+          backgroundImage: 'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
+          backgroundSize: '100% 2px',
+        },
       }}
     >
       <Box
@@ -213,7 +235,7 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({ contract
               color: 'text.secondary',
             }}
           >
-            Active Contractors: X
+            Active Contractors: {acceptedBids?.length}
           </Typography>
           <Typography
             data-testid="ContractorsTab-Controls-Counts__PendingBidsCount"
@@ -225,7 +247,7 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({ contract
               color: 'text.secondary',
             }}
           >
-            Pending Bids: X
+            Pending Bids: {pendingBids?.length}
           </Typography>
         </Box>
         <Button
@@ -257,15 +279,15 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({ contract
           },
         }}
       >
-        {/* {contractors.map((contractor) => (
-          <Contractor
-            key={contractor.id}
-            id={contractor.id}
-            userName={contractor.name}
-            profilePicture={contractor.profilePicture}
-            pay={contractor.pay}
-          />
-        ))} */}
+        {contractors &&
+          contractors.map((contractor) => (
+            <Contractor
+              key={contractor.id}
+              id={contractor.id}
+              user={contractor.User as IUser}
+              pay="InDev"
+            />
+          ))}
       </Box>
     </Box>
   );
