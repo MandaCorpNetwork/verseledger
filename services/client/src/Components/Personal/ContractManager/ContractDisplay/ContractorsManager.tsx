@@ -12,6 +12,7 @@ type ContractorProps = {
   id: string;
   user: IUser;
   pay: string;
+  contractOwned: boolean;
 };
 
 const Contractor: React.FC<ContractorProps> = ({ user, pay }) => {
@@ -184,9 +185,13 @@ const Contractor: React.FC<ContractorProps> = ({ user, pay }) => {
 
 type ContractorsManagerProps = {
   contract: IContract;
+  contractOwned: boolean;
 };
 
-export const ContractorsManager: React.FC<ContractorsManagerProps> = ({ contract }) => {
+export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
+  contract,
+  contractOwned,
+}) => {
   const contractors = contract.Bids;
 
   const dispatch = useAppDispatch();
@@ -305,13 +310,25 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({ contract
           },
         }}
       >
-        {contractors &&
+        {contractOwned &&
+          contractors &&
           contractors.map((contractor) => (
             <Contractor
               key={contractor.id}
               id={contractor.id}
               user={contractor.User as IUser}
               pay="InDev"
+              contractOwned={contractOwned}
+            />
+          ))}
+        {!contractOwned &&
+          acceptedBids?.map((contractor) => (
+            <Contractor
+              key={contractor.id}
+              id={contractor.id}
+              user={contractor.User as IUser}
+              pay="InDev"
+              contractOwned={contractOwned}
             />
           ))}
       </Box>
