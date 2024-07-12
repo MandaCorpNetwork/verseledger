@@ -1,14 +1,16 @@
 // import { LocationChip } from '@Common/Components/App/LocationChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
-import { SalvageIcon, SecurityIcon } from '@Common/Definitions/CustomIcons';
+import { archetypes } from '@Common/Definitions/Contracts/ContractArchetype';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Button, Chip, Tab, TextField, Typography } from '@mui/material';
-import { useAppSelector } from '@Redux/hooks';
+import { Box, Button, Chip, Tab, TextField, Tooltip, Typography } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { useState } from 'react';
 import React from 'react';
 
 import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/ContractorsManager';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 
 type ContractDataFieldProps = {
   label: string;
@@ -63,12 +65,30 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   contractId,
 }) => {
   const [contractManagerTab, setContractManagerTab] = useState<string>('contractors');
+  const [archetype, setArchetype] = React.useState<string | null>(null);
+
+  const contract = useAppSelector((root) => selectContract(root, contractId as string));
+
+  const dispatch = useAppDispatch();
+
+  const archetypeDisplay = React.useMemo(() => {
+    const selectedArchetype = archetypes.find((option) =>
+      option.subTypes.some((subtype) => subtype.value === contract.subtype),
+    );
+    if (selectedArchetype) {
+      setArchetype(selectedArchetype?.archetype);
+    } else {
+      setArchetype(null);
+    }
+  }, [contract.subtype]);
+
+  const handleArchetypeOpen = () => {
+    dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetype }));
+  };
 
   const handleContractManageView = (_event: React.SyntheticEvent, newValue: string) => {
     setContractManagerTab(newValue);
   };
-
-  const contract = useAppSelector((root) => selectContract(root, contractId as string));
 
   return (
     <Box
@@ -167,9 +187,14 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                 {contract.title}
               </Typography>
             </Box>
-            <Box data-testid="SelectedContract-OverviewInfo-Header__ContractTypeContainer">
-              <SecurityIcon fontSize="large" color="secondary" />
-              <SalvageIcon fontSize="large" color="secondary" />
+            <Box
+              data-testid="SelectedContract-OverviewInfo-Header__ContractTypeContainer"
+              sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+            >
+              <Tooltip title={archetype}>
+                {archetypes.find((option) => option.archetype === archetype)
+                  ?.archetypeIcon ?? <Typography>???</Typography>}
+              </Tooltip>
             </Box>
           </Box>
           <Box
