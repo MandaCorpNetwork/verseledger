@@ -249,7 +249,6 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   }
                   color={statusColor}
                   sx={{
-                    p: '1em',
                     mb: 'auto',
                     fontWeight: 'bold',
                   }}
@@ -260,8 +259,24 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
+                  justifyContent: 'center',
                 }}
-              ></Box>
+              >
+                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                  Contract Subtypes
+                </Typography>
+                <Chip
+                  variant="outlined"
+                  size="medium"
+                  color="secondary"
+                  label={contract.subtype}
+                  icon={
+                    archetypes.find((option) => option.archetype === archetype)
+                      ?.archetypeIcon
+                  }
+                  onClick={handleArchetypeOpen}
+                />
+              </Box>
             </Box>
             <Box
               data-testid="SelectedContract-OverviewInfo-Bottom__DetailsContainer"
