@@ -176,6 +176,13 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     }
   }, [currentUser, contract.owner_id]);
 
+  const userBid = React.useMemo(() => {
+    if (isContractOwned) {
+      return null;
+    }
+    return contract.Bids?.find((bid) => bid.user_id === currentUser?.id);
+  }, [contract.Bids, currentUser, isContractOwned]);
+
   return (
     <Box
       data-testid="SelectedContractManagerWrapper"
