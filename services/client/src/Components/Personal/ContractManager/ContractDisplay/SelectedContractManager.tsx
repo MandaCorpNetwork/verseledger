@@ -12,6 +12,7 @@ import { TabContext, TabPanel } from '@mui/lab';
 import {
   Box,
   Chip,
+  IconButton,
   InputAdornment,
   Tab,
   TextField,
@@ -74,6 +75,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
 }) => {
   const [contractManagerTab, setContractManagerTab] = useState<string>('contractors');
   const [archetype, setArchetype] = React.useState<string | null>(null);
+  const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
 
   const options = contractArchetypes('secondary.main');
 
