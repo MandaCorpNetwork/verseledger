@@ -13,7 +13,12 @@ type ContractorProps = {
   contractOwned: boolean;
 };
 
-export const Contractor: React.FC<ContractorProps> = ({ user, pay, bid }) => {
+export const Contractor: React.FC<ContractorProps> = ({
+  user,
+  pay,
+  bid,
+  contractOwned,
+}) => {
   const [contractorBidStatus, setContractorBidStatus] = useState<string | null>(null);
 
   const handleAccept = () => setContractorBidStatus('Accepted');
@@ -70,7 +75,7 @@ export const Contractor: React.FC<ContractorProps> = ({ user, pay, bid }) => {
           <UserChip userid={user.id} size="medium" />
         </Tooltip>
       </Box>
-      {contractorBidStatus === null && (
+      {contractOwned && contractorBidStatus === null && (
         <Box
           data-testid="ContractorsTab-ContractorList-Contractor__BidControlButtonWrapper"
           sx={{
