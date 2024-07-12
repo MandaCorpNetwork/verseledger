@@ -925,6 +925,17 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   </Typography>
                 </>
               )}
+              {!isContractOwned && userBid?.status === null && (
+                <Button
+                  data-testid="SelectedContract-Controller-Process__SubmitBidButton"
+                  variant="outlined"
+                  color="success"
+                  size="medium"
+                  fullWidth
+                >
+                  Submit Bid
+                </Button>
+              )}
             </Box>
           </Box>
         </Box>
