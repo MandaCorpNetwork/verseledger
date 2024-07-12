@@ -82,6 +82,8 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   const contract = useAppSelector((root) => selectContract(root, contractId as string));
   const currentUser = useAppSelector(selectCurrentUser);
 
+  const currentUser = useAppSelector(selectCurrentUser);
+
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
@@ -165,6 +167,14 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     }
     return contract.Bids?.find((bid) => bid.user_id === currentUser?.id) ?? null;
   }, [contract.Bids, currentUser, isContractOwned]);
+
+  const isContractOwned = React.useMemo(() => {
+    if (contract.owner_id === currentUser?.id) {
+      return true;
+    } else {
+      return false;
+    }
+  }, [currentUser, contract.owner_id]);
 
   return (
     <Box
