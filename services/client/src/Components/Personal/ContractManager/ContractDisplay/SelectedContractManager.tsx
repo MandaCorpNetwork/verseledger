@@ -1,11 +1,14 @@
 // import { LocationChip } from '@Common/Components/App/LocationChip';
+import { LocationChip } from '@Common/Components/App/LocationChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { archetypes } from '@Common/Definitions/Contracts/ContractArchetype';
+import { ChevronLeft, ChevronRight, HelpOutline } from '@mui/icons-material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import {
   Box,
   Button,
   Chip,
+  IconButton,
   InputAdornment,
   Tab,
   TextField,
@@ -13,14 +16,16 @@ import {
   Typography,
 } from '@mui/material';
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
+import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { Logger } from '@Utils/Logger';
+import dayjs from 'dayjs';
 import { useState } from 'react';
 import React from 'react';
 
 import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/ContractorsManager';
-import { HelpOutline } from '@mui/icons-material';
 
 type ContractDataFieldProps = {
   label: string;
@@ -76,6 +81,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
 }) => {
   const [contractManagerTab, setContractManagerTab] = useState<string>('contractors');
   const [archetype, setArchetype] = React.useState<string | null>(null);
+  const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
 
   const contract = useAppSelector((root) => selectContract(root, contractId as string));
 
@@ -119,6 +125,81 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   }, [contract.status]);
 
   const statusColor = statusChipColor();
+
+  const startTime = React.useMemo(() => {
+    const startDate = dayjs(contract.startDate);
+    const formattedStartDate = startDate.format('DD MMM, YY @ HH:mm');
+    if (contract.startDate === null) {
+      return 'Manually Started';
+    }
+    return formattedStartDate;
+  }, [contract.startDate]);
+
+  const endTime = React.useMemo(() => {
+    const endDate = dayjs(contract.endDate);
+    const formattedEndDate = endDate.format('DD MMM, YY @ HH:mm');
+    if (contract.endDate === null) {
+      return 'Manually Ended';
+    }
+    return formattedEndDate;
+  }, [contract.endDate]);
+
+  const getStartLocationId = () => {
+    if (contract.Locations) {
+      const startLocationPull = contract?.Locations?.find(
+        (location) => location.ContractLocation?.tag === 'start',
+      )?.id;
+      return startLocationPull || null;
+    }
+    return null;
+  };
+
+  const startLocationId = getStartLocationId();
+
+  const getEndLocationId = () => {
+    if (contract.Locations) {
+      const endLocationPull = contract?.Locations?.find(
+        (location) => location.ContractLocation?.tag === 'end',
+      )?.id;
+      Logger.info(`EndLocation: ${endLocationPull}`);
+      return endLocationPull || null;
+    }
+    return null;
+  };
+
+  const endLocationId = getEndLocationId();
+
+  const getOtherLocationIds = () => {
+    if (contract.Locations) {
+      const otherLocationsPull = contract?.Locations?.filter(
+        (location) => location.ContractLocation?.tag === 'other',
+      );
+      return otherLocationsPull.map((location) => location.id);
+    }
+    return [];
+  };
+
+  const otherLocationIds = getOtherLocationIds();
+
+  const handleOtherLocationIndexChange = React.useCallback(
+    (direction: string) => {
+      console.log(getOtherLocationIds());
+      if (otherLocationIds.length > 1) {
+        if (direction === 'back') {
+          if (otherLocationIndex > 0) {
+            setOtherLocationIndex((prevIndex) => prevIndex - 1);
+          }
+        }
+        if (direction === 'forward') {
+          if (otherLocationIndex < otherLocationIds.length - 1) {
+            setOtherLocationIndex((prevIndex) => prevIndex + 1);
+          }
+        }
+      }
+      Logger.info(otherLocationIndex);
+    },
+    [setOtherLocationIndex, otherLocationIndex, otherLocationIds],
+  );
 
   return (
     <Box
@@ -374,8 +455,8 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                     mr: 'auto',
                   }}
                 >
-                  <ContractDataField label="Start" value="Start Date" />
-                  <ContractDataField label="Remaining" value="End Date" />
+                  <ContractDataField label="Start" value={startTime} />
+                  <ContractDataField label="Remaining" value={endTime} />
                 </Box>
               </Box>
             </Box>
@@ -414,14 +495,36 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               flexDirection: 'column',
               p: '.5em',
               mb: '1em',
+              borderLeft: '1px solid rgba(14,49,141,0.5)',
+              borderRight: '1px solid rgba(14,49,141,0.5)',
+              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
+              position: 'relative',
+              '&:before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                right: 0,
+                left: 0,
+                background:
+                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
+                opacity: 0.6,
+                backdropFilter: 'blur(10px)',
+                zIndex: -1,
+                backgroundImage:
+                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
+                backgroundSize: '100% 2px',
+              },
             }}
           >
             <Typography
               data-testid="SelectedContract-Locations__TitleText"
+              variant="body2"
               sx={{
                 backgroundColor: 'rgba(14,49,141,.25)',
                 borderRadius: '10px',
                 pl: '1em',
+                fontWeight: 'bold',
               }}
             >
               Locations
@@ -443,56 +546,118 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  ml: 'auto',
+                  justifyContent: 'center',
+                  mx: 'auto',
                   pb: '.3em',
                   backgroundColor: 'rgba(14,49,141,.25)',
                   borderRadius: '10px',
                 }}
               >
-                <Typography>Start Location</Typography>
-                {/* <LocationChip /> */}
+                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                  Start Location
+                </Typography>
+                <LocationChip locationId={startLocationId ?? ''} />
               </Box>
+              {endLocationId && (
+                <Box
+                  data-testid="SelectedContract-Locations__EndLocationWrapper"
+                  sx={{
+                    width: '40%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    mr: 'auto',
+                    pb: '.3em',
+                    backgroundColor: 'rgba(14,49,141,.25)',
+                    borderRadius: '10px',
+                  }}
+                >
+                  <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                    End Location
+                  </Typography>
+                  <LocationChip locationId={endLocationId} />
+                </Box>
+              )}
+            </Box>
+            {otherLocationIds.length > 0 && (
               <Box
-                data-testid="SelectedContract-Locations__EndLocationWrapper"
+                data-testid="SelectedContract-Locations_OtherLocationsContainer"
                 sx={{
-                  width: '40%',
+                  width: '82%',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  mr: 'auto',
-                  pb: '.3em',
                   backgroundColor: 'rgba(14,49,141,.25)',
                   borderRadius: '10px',
+                  pb: '.3em',
+                  mx: 'auto',
                 }}
               >
-                <Typography>End Location</Typography>
-                {/* <LocationChip /> */}
+                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                  Other Locations
+                </Typography>
+                <Box
+                  data-testid="SelectedContract-Locations__OtherLocationsWrapper"
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <Box
+                    data-testid="ContractDisplay-Locations-OtherLocations__LocationPagnationWrapper"
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <IconButton
+                      size="small"
+                      onClick={() => handleOtherLocationIndexChange('back')}
+                      disabled={otherLocationIndex === 0}
+                    >
+                      <ChevronLeft fontSize="small" />
+                    </IconButton>
+                    <Box
+                      data-testid="ContractDisplay-Locations-OtherLocations__LocationChipDisplayWrapper"
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Typography
+                        data-testid="ContractDisplay-Locations-OtherLocations__LocationChip"
+                        variant="body2"
+                        align="center"
+                      >
+                        {otherLocationIndex + 1}.{' '}
+                        <LocationChip
+                          locationId={
+                            otherLocationIds
+                              ? otherLocationIds[otherLocationIndex]
+                              : 'Error'
+                          }
+                        />
+                      </Typography>
+                    </Box>
+                    <IconButton
+                      size="small"
+                      onClick={() => handleOtherLocationIndexChange('forward')}
+                      disabled={
+                        otherLocationIds
+                          ? otherLocationIds.length < 1 ||
+                            otherLocationIndex === otherLocationIds.length - 1
+                          : false
+                      }
+                    >
+                      <ChevronRight fontSize="small" />
+                    </IconButton>
+                  </Box>
+                </Box>
               </Box>
-            </Box>
-            <Box
-              data-testid="SelectedContract-Locations_OtherLocationsContainer"
-              sx={{
-                width: '82%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                backgroundColor: 'rgba(14,49,141,.25)',
-                borderRadius: '10px',
-                pb: '.3em',
-                mx: 'auto',
-              }}
-            >
-              <Typography>Other Locations</Typography>
-              <Box
-                data-testid="SelectedContract-Locations__OtherLocationsWrapper"
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}
-              >
-                {/* <LocationChip /> */}
-              </Box>
-            </Box>
+            )}
           </Box>
           <Box
             data-testid="SelectedContract__BriefingWrapper"
