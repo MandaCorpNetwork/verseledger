@@ -36,7 +36,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   const handleSelect = (id: string | null) => {
     setIsSelected(id);
     selectedIdSetter(id);
-    console.log(`Selected Contract in Browser: ${id}`);
+    Logger.info(`Selected Contract in Browser: ${id}`);
   };
 
   const handleClose = () => {
