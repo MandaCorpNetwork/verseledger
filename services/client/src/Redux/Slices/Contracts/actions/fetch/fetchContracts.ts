@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AuthUtil } from '@Utils/AuthUtil';
 import { composeQuery } from '@Utils/composeQuery';
 import { Logger } from '@Utils/Logger';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -13,6 +14,7 @@ export const fetchContracts = createAsyncThunk(
     try {
       const response = await NetworkService.GET(
         `/v1/contracts?${composeQuery({ search: params })}`,
+        AuthUtil.getAccessHeader(),
       );
       return response.data as IPaginatedData<IContract>;
     } catch (error) {
