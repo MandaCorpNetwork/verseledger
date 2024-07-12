@@ -1,8 +1,7 @@
 import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
-import { Avatar, Box, Button, Chip, Tooltip, Typography } from '@mui/material';
-import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
-import { useAppDispatch } from '@Redux/hooks';
-import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { UserChip } from '@Common/Components/Users/UserChip';
+import { Box, Button, Tooltip, Typography } from '@mui/material';
+//import { useAppDispatch } from '@Redux/hooks';
 import { useState } from 'react';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
@@ -21,11 +20,7 @@ export const Contractor: React.FC<ContractorProps> = ({ user, pay, bid }) => {
   const handleReject = () => setContractorBidStatus('Rejected');
   const handleDismiss = () => setContractorBidStatus('Dismissed');
 
-  const dispatch = useAppDispatch();
-
-  const handlePlayerCardOpen = () => {
-    dispatch(openPopup(POPUP_PLAYER_CARD));
-  };
+  //const dispatch = useAppDispatch();
 
   return (
     <Box
@@ -72,18 +67,7 @@ export const Contractor: React.FC<ContractorProps> = ({ user, pay, bid }) => {
         }}
       >
         <Tooltip title={user.displayName} arrow>
-          <Chip
-            data-testid="ContractorsTab-ContractorList-Contractor__ProfileChip"
-            avatar={<Avatar src={user.pfp} />}
-            label={user.displayName}
-            color="secondary"
-            variant="outlined"
-            clickable={true}
-            onClick={handlePlayerCardOpen}
-            sx={{
-              width: '115px',
-            }}
-          />
+          <UserChip userid={user.id} size="medium" />
         </Tooltip>
       </Box>
       {contractorBidStatus === null && (
