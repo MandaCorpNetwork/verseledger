@@ -917,7 +917,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                     height: '100%',
                   }}
                 >
-                  <ContractorsManager />
+                  <ContractorsManager contract={contract} />
                 </TabPanel>
               </TabContext>
             </Box>

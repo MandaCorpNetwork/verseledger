@@ -5,6 +5,7 @@ import { POPUP_USER_INVITE } from '@Popups/UserInvite/UserInvite';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useState } from 'react';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 type ContractorProps = {
   id: string;
@@ -155,8 +156,12 @@ const Contractor: React.FC<ContractorProps> = ({ userName, profilePicture, pay }
   );
 };
 
-export const ContractorsManager: React.FC<unknown> = () => {
-  const contractors = Object.values(testContractorsDB);
+type ContractorsManagerProps = {
+  contract: IContract;
+};
+
+export const ContractorsManager: React.FC<ContractorsManagerProps> = ({ contract }) => {
+  const contractors = contract.Bids;
 
   const dispatch = useAppDispatch();
   const handleOpenInvite = () => {
@@ -252,7 +257,7 @@ export const ContractorsManager: React.FC<unknown> = () => {
           },
         }}
       >
-        {contractors.map((contractor) => (
+        {/* {contractors.map((contractor) => (
           <Contractor
             key={contractor.id}
             id={contractor.id}
@@ -260,111 +265,8 @@ export const ContractorsManager: React.FC<unknown> = () => {
             profilePicture={contractor.profilePicture}
             pay={contractor.pay}
           />
-        ))}
+        ))} */}
       </Box>
     </Box>
   );
-};
-
-const testContractorsDB = {
-  '1': {
-    id: '1',
-    name: 'Test User',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  '2': {
-    id: '2',
-    name: 'Test User 2',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  '3': {
-    id: '3',
-    name: 'Test User 3',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  '4': {
-    id: '4',
-    name: 'Test User 4',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  '5': {
-    id: '5',
-    name: 'Test User 5',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  '6': {
-    id: '6',
-    name: 'Test User 6',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  '7': {
-    id: '7',
-    name: 'Test User 7',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  '8': {
-    id: '8',
-    name: 'Test User 8',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  '9': {
-    id: '9',
-    name: 'Test User 9',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
-  '10': {
-    id: '10',
-    name: 'Test User 10',
-    profilePicture: '@/Assets/testprofile.png',
-    isAccepted: false,
-    isRejected: false,
-    isDismissed: false,
-    role: 'null',
-    pay: 'null',
-  },
 };
