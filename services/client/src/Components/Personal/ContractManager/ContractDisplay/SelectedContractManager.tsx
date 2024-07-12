@@ -738,80 +738,106 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   pl: '.5em',
                 }}
               >
-                aslkgdnjrdalkrjngkqanjglpnjagrlnjaldkrjnglainjrglkanjlvkrjnakldfnjvalkdnjflkajndvlkanjdvlknavlkdnjvdlksajnvdlksanjvdlknjalkdvfnjajlkdvnjlakjdnvlkjsfghsdfghdkskjnlsk;nfgksnfdk;lnkgjksjnfgnjskl;fnjgk;dlsjngfl;kjnsdlkgfnjsdkjnfglksjn
+                {contract.briefing}
               </Typography>
             </Box>
           </Box>
           <Box
-            data-testid="SelectedContract__ControllerWrapper"
+            data-testid="SelectedContract__ControllerContainer"
             sx={{
               mt: 'auto',
               display: 'flex',
-              flexDirection: 'row',
+              flexDirection: 'column',
               width: '100%',
               alignItems: 'center',
-              gap: '.5em',
+              borderLeft: '2px solid',
+              borderRight: '2px solid',
+              borderRadius: '5px',
+              borderColor: 'secondary.main',
+              boxShadow: '0 0px 5px 2px rgba(24,252,252,0.25)',
+              backgroundImage:
+                'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
+              position: 'relative',
+              '&:before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+                backgroundImage:
+                  'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
+                backgroundSize: '5px 5px',
+                opacity: 0.5,
+              },
+              '&:hover': {
+                backgroundImage:
+                  'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
+                borderColor: 'secondary.light',
+                boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
+              },
+              transition: 'all 0.3s',
             }}
           >
+            <Typography sx={{ fontWeight: 'bold', color: 'text.secondary' }}>
+              Contract Controller
+            </Typography>
             <Box
-              data-testid="SelectedContract-Controller__ProcessButtonWrapper"
+              data-testid="SelectedContract__ControllerWrapper"
               sx={{
                 display: 'flex',
-                flexDirection: 'column',
+                flexDirection: 'row',
+                width: '100%',
                 alignItems: 'center',
-                width: '40%',
                 gap: '.5em',
-                ml: 'auto',
+                mb: '.5em',
+                px: '1em',
               }}
             >
-              <Button
-                data-testid="SelectedContract-Controller-Process__StartContractButton"
-                variant="outlined"
-                color="secondary"
-                size="medium"
-                fullWidth
-              >
-                Start Contract
-              </Button>
-              <Button
-                data-testid="SelectedContract-Controller-Process__CompleteContract"
-                variant="outlined"
-                color="success"
-                size="medium"
-                fullWidth
-              >
-                Complete Contract
-              </Button>
-            </Box>
-            <Box
-              data-testid="SelectedContract-Controller__EditButtonWrapper"
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                width: '40%',
-                gap: '.5em',
-                mr: 'auto',
-              }}
-            >
-              <Button
-                data-testid="SelectedContract-Controller-Edit__EditContractButton"
-                variant="outlined"
-                color="info"
-                size="medium"
-                fullWidth
-              >
-                Edit Contract
-              </Button>
-              <Button
-                data-testid="SelectedContract-Controller-Edit__CancelContractButton"
-                variant="outlined"
-                color="error"
-                size="medium"
-                fullWidth
-              >
-                Cancel Contract
-              </Button>
+              {contract.status === 'BIDDING' && (
+                <Button
+                  data-testid="SelectedContract-Controller-Process__StartContractButton"
+                  variant="outlined"
+                  color="secondary"
+                  size="medium"
+                  fullWidth
+                >
+                  Start
+                </Button>
+              )}
+              {contract.status === 'INPROGRESS' && (
+                <Button
+                  data-testid="SelectedContract-Controller-Process__CompleteContract"
+                  variant="outlined"
+                  color="success"
+                  size="medium"
+                  fullWidth
+                >
+                  Complete
+                </Button>
+              )}
+              {contract.status !== 'COMPLETED' && contract.status !== 'CANCELLED' && (
+                <Button
+                  data-testid="SelectedContract-Controller-Edit__EditContractButton"
+                  variant="outlined"
+                  color="info"
+                  size="medium"
+                  fullWidth
+                >
+                  Edit
+                </Button>
+              )}
+              {contract.status !== 'COMPLETED' && contract.status !== 'CANCELLED' && (
+                <Button
+                  data-testid="SelectedContract-Controller-Edit__CancelContractButton"
+                  variant="outlined"
+                  color="error"
+                  size="medium"
+                  fullWidth
+                >
+                  Cancel
+                </Button>
+              )}
             </Box>
           </Box>
         </Box>
