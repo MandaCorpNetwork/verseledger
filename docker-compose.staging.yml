@@ -5,8 +5,6 @@ volumes:
 services:
   vl-app:
     container_name: vl-app
-    profiles:
-      - build
     build:
       context: ./
       dockerfile: Dockerfile
@@ -35,8 +33,6 @@ services:
       - vl-db:/var/lib/mysql
   vl-activemq:
     container_name: vl-activemq
-    profiles:
-      - local
     image: apache/activemq-artemis:latest
     environment:
       ARTEMIS_USER: 'verseledger-app'
@@ -52,8 +48,6 @@ services:
       - vl-activemq:/var/lib/artemis-instance
   vl-adminer:
     container_name: vl-adminer
-    profiles:
-      - local
     image: adminer
     restart: always
     ports:
