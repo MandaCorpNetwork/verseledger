@@ -1,22 +1,40 @@
-import { isDev } from './isDev';
+import { siteMode } from './siteMode';
 
 export class URLUtil {
   public static get messageBroker() {
-    if (isDev()) {
-      return 'ws://localhost:61616/ws';
+    switch (siteMode()) {
+      case 'LOCAL':
+        return 'ws://localhost:61616/ws';
+      case 'PRODUCTION':
+        return 'ws://ws.verseledger.net/ws';
+      case 'STAGING':
+        return 'ws://ws.stg.verseledger.net/ws';
+      default:
+        throw new Error('Unknown Hostname');
     }
-    return 'ws://ws.verseledger.space/ws';
   }
   public static get frontendHost() {
-    if (isDev()) {
-      return 'http://localhost:3000';
+    switch (siteMode()) {
+      case 'LOCAL':
+        return 'http://localhost:3000';
+      case 'PRODUCTION':
+        return 'https://verseledger.net';
+      case 'STAGING':
+        return 'https://stg.verseledger.net';
+      default:
+        throw new Error('Unknown Hostname');
     }
-    return 'https://verseledger.space';
   }
   public static get backendHost() {
-    if (isDev()) {
-      return 'http://localhost:3030';
+    switch (siteMode()) {
+      case 'LOCAL':
+        return 'http://localhost:3030';
+      case 'PRODUCTION':
+        return 'https://api.verseledger.net';
+      case 'STAGING':
+        return 'https://api.stg.verseledger.net';
+      default:
+        throw new Error('Unknown Hostname');
     }
-    return 'https://api.verseledger.space';
   }
 }
