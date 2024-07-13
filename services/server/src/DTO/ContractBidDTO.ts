@@ -18,6 +18,14 @@ export class ContractBidDTO
     this.mapProperties($b, { Contract: ContractDTO, User: UserDTO });
   }
 
+  public strip() {
+    return new ContractBidDTO({
+      ...this,
+      Contract: undefined,
+      User: undefined,
+    });
+  }
+
   __type = 'ContractBid';
 
   @ApiModelProperty({
