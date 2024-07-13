@@ -7,9 +7,9 @@ export class URLUtil {
       case 'LOCAL':
         return 'ws://localhost:61616/ws';
       case 'PRODUCTION':
-        return 'ws://ws.verseledger.net/ws';
+        return 'wss://ws.verseledger.net/ws';
       case 'STAGING':
-        return 'ws://ws.stg.verseledger.net/ws';
+        return 'wss://ws.stg.verseledger.net/ws';
       default:
         throw new Error('Unknown Hostname');
     }
