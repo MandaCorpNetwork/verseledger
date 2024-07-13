@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthUtil } from '@Utils/AuthUtil';
+import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { fetchCheckVerificationCode } from './Actions/checkVerificationCode';
 import { fetchCurrentUser } from './Actions/fetchCurrentUser';
+import { setUserLocation } from './Actions/setUserLocation';
 import { updateTokens } from './Actions/updateTokens';
 const authReducer = createSlice({
   name: 'auth',
@@ -11,10 +13,16 @@ const authReducer = createSlice({
     currentUser: {} as AuthUser,
     isLoggedIn: false,
     lastUpdated: 0,
+    userLocation: {} as ILocation,
   },
   reducers: {
     logout() {
-      return { currentUser: {} as AuthUser, isLoggedIn: false, lastUpdated: Date.now() };
+      return {
+        currentUser: {} as AuthUser,
+        isLoggedIn: false,
+        lastUpdated: Date.now(),
+        userLocation: {} as ILocation,
+      };
     },
   },
   extraReducers(builder) {
@@ -42,6 +50,9 @@ const authReducer = createSlice({
 
       AuthUtil.removeAccessToken();
       AuthUtil.removeRefreshToken();
+    });
+    builder.addCase(setUserLocation.fulfilled, (state, action) => {
+      state.userLocation = action.payload;
     });
   },
 });

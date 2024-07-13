@@ -150,7 +150,7 @@ export const OverviewApp: React.FC<unknown> = () => {
           >
             <Box data-testid="RadioFrequenciesToolTitle">
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography variant="h6">Radio Frequencies</Typography>
+                <Typography variant="h6">Radio Stations</Typography>
                 <IconButton disabled onClick={toggleRadio} sx={{ ml: 'auto' }}>
                   <RadioIcon />
                 </IconButton>
@@ -175,24 +175,27 @@ export const OverviewApp: React.FC<unknown> = () => {
           <Box
             data-id="LocationExplorerToolContainer"
             sx={{
-              border: '3px solid',
-              borderColor: 'primary.dark',
               display: 'flex',
               flexDirection: 'column',
               p: '.5em',
               margin: '1em',
               width: '100%',
               height: '45%',
+              borderTop: '2px solid',
+              borderBottom: '2px solid',
+              borderRadius: '10px',
+              borderColor: 'secondary.main',
+              background: 'rgba(0,30,100,0.2)',
+              backdropFilter: 'blur(20px)',
             }}
           >
             <Box data-id="LocationExplorerToolTitle" sx={{ height: '10%', p: '.5em' }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography variant="h5">Location Explorer</Typography>
+                <Typography variant="h6">Location Explorer</Typography>
                 <IconButton sx={{ ml: 'auto' }}>
                   <Sync />
                 </IconButton>
               </Box>
-              <Divider variant="ComponentTitle" />
             </Box>
             <Box data-id="LocationExplorerToolContent" sx={{ height: '90%' }}>
               <LocationExplorerTool />
