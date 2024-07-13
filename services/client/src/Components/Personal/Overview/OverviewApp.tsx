@@ -23,19 +23,16 @@ export const OverviewApp: React.FC<unknown> = () => {
   };
   return (
     <Box
-      data-id="OverviewToolContainer"
+      data-testid="OverviewToolContainer"
       sx={{
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
+        width: '100%',
       }}
     >
-      <Box data-id="OverviewToolTitle" sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Typography variant="h4">Overview</Typography>
-        <Divider variant="ToolTitle" />
-      </Box>
       <Box
-        data-id="OverviewToolFunctionContainer"
+        data-testid="OverviewToolWrapper"
         sx={{
           display: 'flex',
           flexDirection: 'row',
@@ -45,18 +42,23 @@ export const OverviewApp: React.FC<unknown> = () => {
         }}
       >
         <Box
+          data-testid="Overview-NotificationContainer"
           sx={{ display: 'flex', flexDirection: 'column', width: '35%', height: '100%' }}
         >
           <Box
-            data-id="NotificationToolContainer"
+            data-testid="Overview__NotificationWrapper"
             sx={{
-              border: '3px solid',
-              borderColor: 'primary.dark',
               padding: '1em',
               margin: '1em',
               width: '100%',
               height: '35%',
               alignItems: 'center',
+              borderTop: '2px solid',
+              borderBottom: '2px solid',
+              borderRadius: '10px',
+              borderColor: 'secondary.main',
+              background: 'rgba(0,30,100,0.2)',
+              backdropFilter: 'blur(20px)',
             }}
           >
             <Box
@@ -68,8 +70,7 @@ export const OverviewApp: React.FC<unknown> = () => {
                 mb: '1.5em',
               }}
             >
-              <Typography variant="h5">Notifications</Typography>
-              <Divider variant="ComponentTitle" />
+              <Typography variant="h6">Notifications</Typography>
             </Box>
             <Box
               data-id="NotificationToolContent"
@@ -79,8 +80,6 @@ export const OverviewApp: React.FC<unknown> = () => {
                 gap: '1em',
                 padding: '1em',
                 overflow: 'auto',
-                bgcolor: 'rgb(6, 86, 145, .15)',
-                borderRadius: '5px',
                 height: '85%',
                 '&::-webkit-scrollbar': {
                   width: '10px',
@@ -92,6 +91,30 @@ export const OverviewApp: React.FC<unknown> = () => {
                 '&::-webkit-scrollbar-thumb': {
                   borderRadius: '20px',
                   background: 'rgb(121, 192, 244, .5)',
+                },
+                borderTop: '2px solid',
+                borderBottom: '2px solid',
+                borderRadius: '5px',
+                borderColor: 'primary.main',
+                borderLeft: '1px solid rgba(14,49,141,0.5)',
+                borderRight: '1px solid rgba(14,49,141,0.5)',
+                boxShadow: '0 5px 15px rgba(14,49,141,.8)',
+                position: 'relative',
+                '&:before': {
+                  content: '""',
+                  position: 'absolute',
+                  top: 0,
+                  bottom: 0,
+                  right: 0,
+                  left: 0,
+                  background:
+                    'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
+                  opacity: 0.6,
+                  backdropFilter: 'blur(10px)',
+                  zIndex: -1,
+                  backgroundImage:
+                    'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
+                  backgroundSize: '100% 2px',
                 },
               }}
             >

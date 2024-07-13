@@ -19,7 +19,7 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
       case 'Explore':
         return <ExploreApp />;
       default:
-        return <ContractManagerApp />;
+        return <OverviewApp />;
     }
   };
   return (
