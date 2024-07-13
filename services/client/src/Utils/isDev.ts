@@ -1,3 +1,5 @@
+import { siteMode } from './siteMode';
+
 export const isDev = () => {
-  return window.location.hostname === 'localhost';
+  return siteMode() === 'LOCAL';
 };
