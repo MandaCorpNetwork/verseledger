@@ -1,24 +1,23 @@
 import { Avatar, Chip } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
-import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { selectUserById } from '@Redux/Slices/Users/userSelectors';
+import { Logger } from '@Utils/Logger';
+import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 type UserChipProps = {
-  userid: string;
+  user: IUser;
   size: 'small' | 'medium';
 };
 
-export const UserChip: React.FC<UserChipProps> = ({ userid, size }) => {
+export const UserChip: React.FC<UserChipProps> = ({ user, size }) => {
   const dispatch = useAppDispatch();
 
-  const user = useAppSelector((state) => selectUserById(state, userid));
-
   const handlePlayerCardOpen = () => {
-    dispatch(openPopup(POPUP_PLAYER_CARD, { userid }));
+    dispatch(openPopup(POPUP_PLAYER_CARD, { userid: user.id }));
   };
 
-  console.log(`UserChip Recieved ID: ${userid}`);
+  Logger.info(`UserChip Recieved ID: ${user.id}`);
 
   return (
     <>
@@ -27,8 +26,8 @@ export const UserChip: React.FC<UserChipProps> = ({ userid, size }) => {
         variant="outlined"
         size={size}
         onClick={handlePlayerCardOpen}
-        label={user?.displayName}
-        avatar={<Avatar src={user?.pfp} />}
+        label={user.displayName}
+        avatar={<Avatar src={user.pfp} />}
         sx={{
           maxWidth: '150px',
         }}

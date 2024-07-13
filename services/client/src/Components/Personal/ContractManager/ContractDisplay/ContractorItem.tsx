@@ -72,7 +72,7 @@ export const Contractor: React.FC<ContractorProps> = ({
         }}
       >
         <Tooltip title={user.displayName} arrow>
-          <UserChip userid={user.id} size="medium" />
+          <UserChip user={user} size="medium" />
         </Tooltip>
       </Box>
       {contractOwned && contractorBidStatus === null && (
