@@ -356,7 +356,7 @@ export class ContractController extends BaseHttpController {
 
     //TODO: Notifications
 
-    if (bid.Contract) return this.ok(new ContractBidDTO(bid).strip());
+    if (bid.Contract) return this.ok(new ContractBidDTO(bid.toJSON()).strip());
   }
 
   @ApiOperationPost({
