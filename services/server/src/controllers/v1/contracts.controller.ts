@@ -323,11 +323,11 @@ export class ContractController extends BaseHttpController {
 
     //TODO: Org Support
     const isContractOwner = userId == contract.owner_id;
-
     switch (newBid.status) {
       case 'ACCEPTED': {
         if (!isContractOwner) {
           if (bid.status != 'INVITED') throw new UnauthorizedError();
+          break;
         }
         if (bid.status != 'PENDING') throw new UnauthorizedError();
         break;
@@ -348,8 +348,11 @@ export class ContractController extends BaseHttpController {
         throw new UnauthorizedError();
       }
     }
+    Logger.info('Before Update');
+    bid.set('status', newBid.status);
+    await bid.save();
 
-    await bid.update('status', newBid.status);
+    Logger.info('After Update');
 
     //TODO: Notifications
 
