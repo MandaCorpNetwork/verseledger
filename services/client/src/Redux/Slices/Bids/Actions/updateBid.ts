@@ -14,10 +14,10 @@ export const updateBid = createAsyncThunk(
   }: {
     contractId: string;
     bidId: string;
-    bidData: IContractBid;
+    bidData: Partial<IContractBid>;
   }) => {
     try {
-      const response = await NetworkService.PATCH<IContractBid, IContractBid>(
+      const response = await NetworkService.PATCH<IContractBid, Partial<IContractBid>>(
         `/v1/contracts/${contractId}/bids/${bidId}`,
         bidData,
         AuthUtil.getAccessHeader(),
