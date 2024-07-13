@@ -333,10 +333,8 @@ export class ContractController extends BaseHttpController {
         if (bid.status != 'INVITED') throw new UnauthorizedError();
         break;
       }
-      case 'INVITED': {
-        throw new UnauthorizedError();
-        break;
-      }
+      default:
+      case 'INVITED':
       case 'PENDING': {
         throw new UnauthorizedError();
         break;
