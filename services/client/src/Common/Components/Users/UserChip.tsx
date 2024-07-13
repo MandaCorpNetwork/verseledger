@@ -8,13 +8,20 @@ import { IUser } from 'vl-shared/src/schemas/UserSchema';
 type UserChipProps = {
   user: IUser;
   size: 'small' | 'medium';
+  onDelete?: () => void;
 };
 
-export const UserChip: React.FC<UserChipProps> = ({ user, size }) => {
+export const UserChip: React.FC<UserChipProps> = ({ user, size, onDelete }) => {
   const dispatch = useAppDispatch();
 
   const handlePlayerCardOpen = () => {
     dispatch(openPopup(POPUP_PLAYER_CARD, { userid: user.id }));
+  };
+
+  const handleDeleteUser = () => {
+    if (onDelete) {
+      onDelete();
+    }
   };
 
   Logger.info(`UserChip Recieved ID: ${user.id}`);
@@ -28,6 +35,7 @@ export const UserChip: React.FC<UserChipProps> = ({ user, size }) => {
         onClick={handlePlayerCardOpen}
         label={user.displayName}
         avatar={<Avatar src={user.pfp} />}
+        onDelete={onDelete ? handleDeleteUser : undefined}
         sx={{
           maxWidth: '150px',
         }}
