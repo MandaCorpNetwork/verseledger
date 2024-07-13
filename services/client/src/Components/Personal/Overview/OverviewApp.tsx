@@ -1,6 +1,7 @@
 import { PowerSettingsNew, Sync } from '@mui/icons-material';
 import { Box, Divider, IconButton, Typography } from '@mui/material';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { LocationExplorerTool } from '@/Components/Personal/Overview/LocationExplorerTool';
 //import { ActiveToolsOverview } from '@/Components/Personal/Overview/ActiveTools';
@@ -21,6 +22,9 @@ export const OverviewApp: React.FC<unknown> = () => {
   const toggleRadio = () => {
     setRadioOff(!radioOff);
   };
+
+  const [selectedLocation, setSelectedLocation] = React.useState<ILocation | null>(null);
+
   return (
     <Box
       data-testid="OverviewToolContainer"
@@ -198,7 +202,10 @@ export const OverviewApp: React.FC<unknown> = () => {
               </Box>
             </Box>
             <Box data-id="LocationExplorerToolContent" sx={{ height: '90%' }}>
-              <LocationExplorerTool />
+              <LocationExplorerTool
+                selectedLocation={selectedLocation}
+                setSelectedLocation={setSelectedLocation}
+              />
             </Box>
           </Box>
           <Box
