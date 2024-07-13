@@ -21,12 +21,17 @@ export const Contractor: React.FC<ContractorProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const handleAccept = () => {
-    const updatedBid = { ...bid, status: 'ACCEPTED' as const };
+    const updatedBid = { status: 'ACCEPTED' as const };
     dispatch(
       updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
     );
   };
-  const handleReject = () => {};
+  const handleReject = () => {
+    const updatedBid = { status: 'REJECTED' as const };
+    dispatch(
+      updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
+    );
+  };
   const handleDismiss = () => {};
 
   return (
