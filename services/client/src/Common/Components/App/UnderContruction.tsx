@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-import { Discord, Patreon, Paypal } from '../../Definitions/CustomIcons';
+import { Discord, KoFi, Patreon } from '../../Definitions/CustomIcons';
 
 type UnderConstructionProps = {
   isOpen: boolean;
@@ -65,7 +65,7 @@ export const UnderConstruction: React.FC<UnderConstructionProps> = ({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Paypal />
+            <KoFi />
           </IconButton>
           <IconButton
             component="a"
