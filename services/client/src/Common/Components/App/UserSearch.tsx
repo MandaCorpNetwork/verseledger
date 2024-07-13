@@ -13,10 +13,11 @@ import { TextFieldProps } from '@mui/material/TextField';
 import { useAppDispatch } from '@Redux/hooks';
 import { fetchSearchUsers } from '@Redux/Slices/Users/Actions/fetchSearchUsers';
 import React from 'react';
+import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 interface UserSearchProps extends Pick<TextFieldProps, 'color' | 'size' | 'variant'> {
   width?: string;
-  onUserSelect: (selectedUser: User | null) => void;
+  onUserSelect: (selectedUser: IUser | null) => void;
 }
 
 export const UserSearch: React.FC<UserSearchProps> = ({
@@ -114,7 +115,7 @@ export const UserSearch: React.FC<UserSearchProps> = ({
           />
         )}
         renderOption={(props, option) => (
-          <MenuItem {...props} sx={{ display: 'flex' }}>
+          <MenuItem key={option.id} {...props} sx={{ display: 'flex' }}>
             <Avatar src={option.pfp} sx={{ width: 25, height: 25, mr: '.5em' }} />
             <Tooltip title={option.handle}>
               <Typography variant="body2" noWrap>{`@${option.handle}`}</Typography>

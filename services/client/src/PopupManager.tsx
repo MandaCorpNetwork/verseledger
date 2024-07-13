@@ -24,7 +24,11 @@ import {
   PlayerCardPopupProps,
   POPUP_PLAYER_CARD,
 } from '@Popups/PlayerCard/PlayerCard';
-import { POPUP_USER_INVITE, UserInvitePopup } from '@Popups/UserInvite/UserInvite';
+import {
+  POPUP_USER_INVITE,
+  UserInvitePopup,
+  UserInvitePopupProps,
+} from '@Popups/UserInvite/UserInvite';
 import { POPUP_VERIFY_USER, VerifyUserPopup } from '@Popups/VerifyPopup/VerifyUser';
 import {
   POPUP_YOU_SURE,
@@ -73,7 +77,9 @@ export const PopupManager: React.FC = () => {
       {playerCardPopup.open && (
         <PlayerCardPopup {...(playerCardPopup.props as PlayerCardPopupProps)} />
       )}
-      {userInvitePopup.open && <UserInvitePopup />}
+      {userInvitePopup.open && (
+        <UserInvitePopup {...(userInvitePopup.props as UserInvitePopupProps)} />
+      )}
       {payStructuresPopup.open && <PayStructuresPopup />}
       {locationInfoPopup.open && (
         <LocationInfoPopup {...(locationInfoPopup.props as LocationInfoProps)} />

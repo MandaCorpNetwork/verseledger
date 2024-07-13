@@ -20,7 +20,7 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
 
   const dispatch = useAppDispatch();
   const handleOpenInvite = () => {
-    dispatch(openPopup(POPUP_USER_INVITE));
+    dispatch(openPopup(POPUP_USER_INVITE, { contractId: contract.id }));
   };
 
   const acceptedBids = contractors?.filter((bid) => bid.status === 'ACCEPTED');
