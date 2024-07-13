@@ -2,7 +2,6 @@ import { inject, injectable } from 'inversify';
 import { Contract } from '@Models/contract.model';
 import { ContractBid } from '@Models/contract_bid.model';
 // import { User } from '@Models/user.model';
-import { StompService } from './stomp.service';
 import { TYPES } from '@/constant/types';
 import { NotFoundError } from '@Errors/NotFoundError';
 import { BadRequestError } from '@Errors/BadRequest';
@@ -12,10 +11,15 @@ import { User } from '@Models/user.model';
 import { Op } from 'sequelize';
 import { IContractStatus } from 'vl-shared/src/schemas/ContractStatusSchema';
 import { optionalSet, queryIn } from '@/utils/Sequelize/queryIn';
+import { type NotificationService } from './notification.service';
+import { ContractDTO } from '../DTO/ContractDTO';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ContractBidDTO } from '../DTO/ContractBidDTO';
 
 @injectable()
 export class ContractService {
-  @inject(TYPES.StompService) private stomp!: StompService;
+  @inject(TYPES.NotificationService)
+  private notifications!: NotificationService;
   public async getContracts() {
     return Contract.scope(['locations', 'owner', 'bids']).findAll();
   }
@@ -39,10 +43,10 @@ export class ContractService {
       'owner',
       'bids',
     ]).findByPk(newTempContract.id)) as Contract;
-    this.stomp.client.publish({
-      destination: '/topic/newContract',
-      body: JSON.stringify(newContract.toJSON()),
-    });
+    this.notifications.publish(
+      '/topic/newContract',
+      new ContractDTO(newContract as IContract),
+    );
     return newContract;
   }
 
@@ -109,10 +113,7 @@ export class ContractService {
       user_id: userId,
       status: 'PENDING',
     });
-    this.stomp.client.publish({
-      destination: `/topic/newBid`,
-      body: JSON.stringify(bid.toJSON()),
-    });
+    this.notifications.publish('/topic/newBid', new ContractBidDTO(bid));
     return bid;
   }
 
@@ -158,12 +159,10 @@ export class ContractService {
       user_id: userId,
       status: 'INVITED',
     });
-    this.stomp.client.publish({
-      destination: `/topic/notifications/${userId}`,
-      body: JSON.stringify(
-        `You have been invited to ${contract.title} by ${ownerUser.displayName}`,
-      ),
-    });
+    this.notifications.publish(
+      `/topic/notifications/${userId}`,
+      `You have been invited to ${contract.title} by ${ownerUser.displayName}`,
+    );
     return bid;
   }
 
