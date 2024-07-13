@@ -2,6 +2,7 @@ import {
   BaseHttpController,
   controller,
   httpGet,
+  httpPatch,
   httpPost,
   next,
   queryParam,
@@ -22,12 +23,23 @@ import {
   IContract,
 } from 'vl-shared/src/schemas/ContractSchema';
 import { z, ZodError } from 'zod';
-import { ApiOperationGet, ApiOperationPost, ApiPath } from 'swagger-express-ts';
+import {
+  ApiOperationGet,
+  ApiOperationPatch,
+  ApiOperationPost,
+  ApiPath,
+} from 'swagger-express-ts';
 import { ZodToOpenapi } from '@/utils/ZodToOpenapi';
 import { Logger } from '@/utils/Logger';
 import { ContractSearchSchema } from 'vl-shared/src/schemas/SearchSchema';
 import { GenericError } from '@Errors/GenericError';
+import { PaginatedDataDTO } from '@/DTO/PaginatedDataDTO';
+import { ContractDTO } from '@/DTO';
+import { ContractBidDTO } from '@/DTO/ContractBidDTO';
+import { UnauthorizedError } from '@Errors/UnauthorizedError';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
+import { ContractBidStatusSchema } from 'vl-shared/src/schemas/ContractBidStatusSchema';
+import { NotModified } from '@Errors/NotModified';
 
 @ApiPath({
   path: '/v1/contracts',
@@ -210,7 +222,7 @@ export class ContractController extends BaseHttpController {
   )
   private async getSingleContractBid(
     @requestParam('contractId') contractId: string,
-    @requestParam('contractId') bidId: string,
+    @requestParam('bidId') bidId: string,
     @next() nextFunc: NextFunction,
   ) {
     if (!IdUtil.isValidId(contractId)) {
@@ -235,6 +247,112 @@ export class ContractController extends BaseHttpController {
       throw nextFunc(new NotFoundError(bidId));
     }
     return this.ok(new ContractBidDTO(bid));
+  }
+
+  @ApiOperationPatch({
+    tags: ['Bids'],
+    description: 'Get a Bid',
+    summary: 'Get a Bid',
+    path: '/{contractId}/bids/{bidId}',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: {
+        contractId: { required: true, description: 'A Contract ID' },
+        bidId: { required: true, description: 'A Bid ID' },
+      },
+      body: {
+        properties: {},
+      },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
+  @httpPatch(
+    `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids/:bidId(${IdUtil.expressRegex(IdUtil.IdPrefix.Bid)})`,
+    TYPES.VerifiedUserMiddleware,
+  )
+  private async updateContractBid(
+    @requestParam('contractId') contractId: string,
+    @requestParam('bidId') bidId: string,
+    @requestBody() bidRaw: IContractBid,
+    @next() nextFunc: NextFunction,
+  ) {
+    const updateBidSchema = z.object({ status: ContractBidStatusSchema });
+
+    const newBid = updateBidSchema.strict().parse(bidRaw);
+
+    if (!IdUtil.isValidId(contractId)) {
+      throw nextFunc(
+        new BadParameterError(
+          'contractId',
+          `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids/:bidId(${IdUtil.expressRegex(IdUtil.IdPrefix.Bid)})`,
+        ),
+      );
+    }
+    if (!IdUtil.isValidId(bidId)) {
+      throw nextFunc(
+        new BadParameterError(
+          'bidId',
+          `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids/:bidId(${IdUtil.expressRegex(IdUtil.IdPrefix.Bid)})`,
+        ),
+      );
+    }
+
+    const bid = await this.contractService.getBid(contractId, bidId, [
+      'contract',
+    ]);
+    if (bid == null) {
+      throw nextFunc(new NotFoundError(bidId));
+    }
+
+    const userId = (this.httpContext.user as VLAuthPrincipal).id;
+    const contract = bid.Contract;
+    if (contract == null) throw nextFunc(new NotFoundError(bidId));
+    //TODO: Org Support
+    const isContractOwner = userId == contract.owner_id;
+
+    switch (newBid.status) {
+      case 'ACCEPTED': {
+        if (!isContractOwner) {
+          if (bid.status != 'INVITED') throw new UnauthorizedError();
+        }
+        break;
+      }
+      case 'REJECTED': {
+        if (!isContractOwner) throw new UnauthorizedError();
+        break;
+      }
+      case 'DECLINED': {
+        if (isContractOwner) throw new UnauthorizedError();
+        if (bid.status != 'INVITED') throw new UnauthorizedError();
+        break;
+      }
+      case 'INVITED': {
+        throw new UnauthorizedError();
+        break;
+      }
+      case 'PENDING': {
+        throw new UnauthorizedError();
+        break;
+      }
+    }
+    const newStatus = newBid.status != bid.status;
+
+    if (!newStatus) {
+      throw new NotModified(`/(${contractId}/bids/${bidId}`);
+    }
+
+    await bid.update('status', newBid.status);
+
+    //TODO: Notifications
+
+    if (bid.Contract) return this.ok(new ContractBidDTO(bid).strip());
   }
 
   @ApiOperationPost({

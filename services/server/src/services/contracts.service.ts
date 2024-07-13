@@ -46,8 +46,8 @@ export class ContractService {
     return newContract;
   }
 
-  public async getBid(contractId: string, bidId: string) {
-    const bid = await ContractBid.findOne({
+  public async getBid(contractId: string, bidId: string, scope: string[] = []) {
+    const bid = await ContractBid.scope(scope).findOne({
       where: { id: bidId, contract_id: contractId },
     });
     if (bid == null) throw new NotFoundError(bidId);
