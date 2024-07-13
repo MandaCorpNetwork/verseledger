@@ -1,8 +1,9 @@
 import { siteMode } from './siteMode';
 
 export class URLUtil {
+  static siteMode = siteMode;
   public static get messageBroker() {
-    switch (siteMode()) {
+    switch (URLUtil.siteMode) {
       case 'LOCAL':
         return 'ws://localhost:61616/ws';
       case 'PRODUCTION':
@@ -14,7 +15,7 @@ export class URLUtil {
     }
   }
   public static get frontendHost() {
-    switch (siteMode()) {
+    switch (URLUtil.siteMode) {
       case 'LOCAL':
         return 'http://localhost:3000';
       case 'PRODUCTION':
@@ -26,7 +27,7 @@ export class URLUtil {
     }
   }
   public static get backendHost() {
-    switch (siteMode()) {
+    switch (URLUtil.siteMode) {
       case 'LOCAL':
         return 'http://localhost:3030';
       case 'PRODUCTION':
