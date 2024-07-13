@@ -52,15 +52,7 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
         p: '1em',
       }}
     >
-      <Box
-        data-testid="LocationExplorer__ TopBox"
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          width: '100%',
-          justifyContent: 'space-between',
-        }}
-      >
+      <Box sx={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
         <Box
           data-testid="LocationExplorer-TopBox__LeftWrapper"
           sx={{
