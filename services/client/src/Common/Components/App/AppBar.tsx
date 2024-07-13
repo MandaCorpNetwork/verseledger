@@ -11,6 +11,7 @@ import {
   Menu,
   MenuItem,
   Toolbar,
+  Tooltip,
 } from '@mui/material';
 import { Popover, Typography } from '@mui/material';
 import { Box } from '@mui/system';
@@ -174,9 +175,18 @@ export const VLAppBar: React.FC<unknown> = () => {
           <Box sx={{ display: 'flex' }}>
             {isLoggedIn ? (
               <>
-                <IconButton size="large" color="inherit" onClick={locationSelectOnClick}>
-                  <Place />
-                </IconButton>
+                <Tooltip
+                  title={currentLocation ? currentLocation.short_name : 'Select Location'}
+                  arrow
+                >
+                  <IconButton
+                    size="large"
+                    color="inherit"
+                    onClick={locationSelectOnClick}
+                  >
+                    <Place />
+                  </IconButton>
+                </Tooltip>
                 <IconButton size="large" color="inherit" onClick={handleFeedbackOpen}>
                   <Feedback />
                 </IconButton>
