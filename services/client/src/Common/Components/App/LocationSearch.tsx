@@ -7,6 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations';
 import { selectLocationsArray } from '@Redux/Slices/Locations/locationSelectors';
 import React from 'react';
@@ -23,13 +24,14 @@ const filterOptions = createFilterOptions<ILocation>({
 //Handler for Location Selection
 //Width setter --optional--
 type LocationSearchProps = {
-  onLocationSelect: (locationId: ILocation | null) => void;
+  onLocationSelect: (location: ILocation | null) => void;
   width?: string;
   helperText?: string;
+  margin?: string;
 };
 
 export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
-  const { onLocationSelect, width, helperText } = props;
+  const { onLocationSelect, width, helperText, margin } = props;
   const [inputValue, setInputValue] = React.useState<ILocation | null>(null);
   //InputValue State Setter using ILocation Schema
 
@@ -38,11 +40,23 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
   //Set the State with the Locations Selector
   const locations = useAppSelector(selectLocationsArray);
 
+  //Set the User Location Default
+  const currentUserLocation = useAppSelector(selectUserLocation);
+
   //Location Query Result Fetcher
   React.useEffect(() => {
     //API Call
     dispatch(fetchLocations());
   }, []);
+
+  React.useEffect(() => {
+    if (currentUserLocation && locations.length > 0) {
+      const selectedLocation = locations.find((loc) => loc.id === currentUserLocation.id);
+      if (selectedLocation) {
+        setInputValue(selectedLocation);
+      }
+    }
+  }, [currentUserLocation, locations]);
 
   return (
     <Box>
@@ -103,6 +117,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
         sx={{
           width: width,
           mb: helperText ? '.8em' : '',
+          m: margin ? margin : '',
         }}
       />
     </Box>

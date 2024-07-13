@@ -1,4 +1,4 @@
-import { Feedback } from '@mui/icons-material';
+import { Feedback, Place } from '@mui/icons-material';
 import MailNoneIcon from '@mui/icons-material/MailOutline';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
@@ -15,7 +15,9 @@ import {
 import { Popover, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
+import { POPUP_LOCATION_INFO } from '@Popups/Info/Locations';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
+import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation';
 import { fetchUnreadCount } from '@Redux/Slices/Notifications/actions/getUnreadCount';
 import { selectNotificationsUnreadCount } from '@Redux/Slices/Notifications/notificationSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
@@ -27,14 +29,20 @@ import {
 } from 'material-ui-popup-state/hooks';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
 import { fetchCurrentUser } from '@/Redux/Slices/Auth/Actions/fetchCurrentUser';
-import { selectCurrentUser, selectIsLoggedIn } from '@/Redux/Slices/Auth/authSelectors';
+import {
+  selectCurrentUser,
+  selectIsLoggedIn,
+  selectUserLocation,
+} from '@/Redux/Slices/Auth/authSelectors';
 import { AuthUtil } from '@/Utils/AuthUtil';
 import { URLUtil } from '@/Utils/URLUtil';
 
 import { UserSettings } from '../Users/UserSettings';
+import { LocationSearch } from './LocationSearch';
 import { NotificationsBox } from './NotificationsBox';
 import VerseLogo from './VerseLogo';
 
@@ -122,6 +130,39 @@ export const VLAppBar: React.FC<unknown> = () => {
 
   const unreadCount = useAppSelector(selectNotificationsUnreadCount);
 
+  const [locationSelectOpen, setLocationSelectOpen] = React.useState(false);
+  const [locationSelectAnchorEl, setLocationSelectAnchorEl] =
+    React.useState<null | HTMLElement>(null);
+  const currentLocation = useAppSelector(selectUserLocation);
+
+  const locationSelectOnClick = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      setLocationSelectOpen(true);
+      setLocationSelectAnchorEl(event.currentTarget);
+    },
+    [setLocationSelectOpen],
+  );
+
+  const locationSelectOnClose = useCallback(() => {
+    setLocationSelectOpen(false);
+    setLocationSelectAnchorEl(null);
+  }, [setLocationSelectOpen]);
+
+  const handleLocationSelect = React.useCallback(
+    (location: ILocation | null) => {
+      if (location) {
+        dispatch(setUserLocation(location));
+      }
+    },
+    [dispatch],
+  );
+
+  const handleLocationPopup = () => {
+    if (location) {
+      dispatch(openPopup(POPUP_LOCATION_INFO, currentLocation));
+    }
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ bgcolor: 'primary.dark' }}>
@@ -133,6 +174,9 @@ export const VLAppBar: React.FC<unknown> = () => {
           <Box sx={{ display: 'flex' }}>
             {isLoggedIn ? (
               <>
+                <IconButton size="large" color="inherit" onClick={locationSelectOnClick}>
+                  <Place />
+                </IconButton>
                 <IconButton size="large" color="inherit" onClick={handleFeedbackOpen}>
                   <Feedback />
                 </IconButton>
@@ -201,6 +245,27 @@ export const VLAppBar: React.FC<unknown> = () => {
           sx={{ p: '1em' }}
         >
           <NotificationsBox />
+        </Popover>
+      )}
+      {locationSelectOpen && (
+        <Popover
+          open={true}
+          onClose={locationSelectOnClose}
+          anchorEl={locationSelectAnchorEl}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          sx={{ p: '1em' }}
+        >
+          <Box sx={{ display: 'flex' }}>
+            <IconButton onClick={handleLocationPopup}>
+              <Place />
+            </IconButton>
+            <LocationSearch
+              width="250px"
+              margin=".5em"
+              onLocationSelect={handleLocationSelect}
+            />
+          </Box>
         </Popover>
       )}
       <UserSettings open={userSettingsOpen} onClose={handleUserSettingsClose} />
