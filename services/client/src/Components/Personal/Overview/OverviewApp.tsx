@@ -1,5 +1,7 @@
 import { PowerSettingsNew, Sync } from '@mui/icons-material';
-import { Box, Divider, IconButton, Typography } from '@mui/material';
+import { Box, IconButton, Tooltip, Typography } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
+import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
 import React, { useState } from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
@@ -23,7 +25,19 @@ export const OverviewApp: React.FC<unknown> = () => {
     setRadioOff(!radioOff);
   };
 
-  const [selectedLocation, setSelectedLocation] = React.useState<ILocation | null>(null);
+  const currentLocation = useAppSelector(selectUserLocation);
+
+  const [selectedLocation, setSelectedLocation] = React.useState<ILocation | null>(
+    currentLocation,
+  );
+
+  React.useEffect(() => {
+    setSelectedLocation(currentLocation);
+  }, [currentLocation]);
+
+  const handleResetLocation = () => {
+    setSelectedLocation(currentLocation);
+  };
 
   return (
     <Box
@@ -196,9 +210,11 @@ export const OverviewApp: React.FC<unknown> = () => {
             <Box data-id="LocationExplorerToolTitle" sx={{ height: '10%', p: '.5em' }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Typography variant="h6">Location Explorer</Typography>
-                <IconButton sx={{ ml: 'auto' }}>
-                  <Sync />
-                </IconButton>
+                <Tooltip title="Reset Selected Location">
+                  <IconButton sx={{ ml: 'auto' }} onClick={handleResetLocation}>
+                    <Sync />
+                  </IconButton>
+                </Tooltip>
               </Box>
             </Box>
             <Box data-id="LocationExplorerToolContent" sx={{ height: '90%' }}>
@@ -211,24 +227,43 @@ export const OverviewApp: React.FC<unknown> = () => {
           <Box
             data-id="ShipStatusToolContainer"
             sx={{
-              border: '3px solid',
-              borderColor: 'primary.dark',
               display: 'flex',
               flexDirection: 'column',
               p: '1em',
               ml: '1em',
               width: '100%',
               height: '45%',
+              borderTop: '2px solid',
+              borderBottom: '2px solid',
+              borderRadius: '10px',
+              borderColor: 'secondary.main',
+              background: 'rgba(0,30,100,0.2)',
+              backdropFilter: 'blur(20px)',
             }}
           >
             <Box data-id="ShipStatusToolTitle" sx={{ height: '10%' }}>
-              <Typography variant="h5">Ship Status</Typography>
-              <Divider variant="ComponentTitle" />
+              <Typography variant="h6">Ship Status</Typography>
             </Box>
             <Box
-              data-id="ShipStatusToolContent"
-              sx={{ height: '85%', mt: '1em', p: '.5em' }}
-            ></Box>
+              data-testid="ShipStatusToolContent"
+              sx={{
+                height: '85%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Typography
+                align="center"
+                sx={{
+                  fontWeight: 'bold',
+                  color: 'text.disabled',
+                  textShadow: '0px 0px 4px rgb(8,22,252)',
+                }}
+              >
+                In Development
+              </Typography>
+            </Box>
           </Box>
         </Box>
       </Box>
