@@ -105,15 +105,17 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
             Pending Bids: {pendingBids?.length}
           </Typography>
         </Box>
-        <Button
-          data-testid="ContractorsTab-Controls__InviteButton"
-          variant="outlined"
-          size="small"
-          color="secondary"
-          onClick={handleOpenInvite}
-        >
-          Invite
-        </Button>
+        {contractOwned && (
+          <Button
+            data-testid="ContractorsTab-Controls__InviteButton"
+            variant="outlined"
+            size="small"
+            color="secondary"
+            onClick={handleOpenInvite}
+          >
+            Invite
+          </Button>
+        )}
       </Box>
       <Box
         data-testid="ContractorsTab__ContractorsListWrapper"
