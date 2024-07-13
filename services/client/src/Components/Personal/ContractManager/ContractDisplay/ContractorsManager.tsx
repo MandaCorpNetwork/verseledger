@@ -87,10 +87,17 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
               my: 'auto',
               mx: '.5em',
               fontWeight: 'bold',
-              color: 'text.secondary',
+              color:
+                acceptedBids === undefined
+                  ? 'text.secondary'
+                  : acceptedBids.length < contract.contractorLimit
+                    ? 'text.secondary'
+                    : acceptedBids?.length === contract.contractorLimit
+                      ? 'success.main'
+                      : 'warning.main',
             }}
           >
-            Active Contractors: {acceptedBids?.length}
+            Active Contractors: {acceptedBids?.length}/{contract.contractorLimit}
           </Typography>
           <Typography
             data-testid="ContractorsTab-Controls-Counts__PendingBidsCount"
