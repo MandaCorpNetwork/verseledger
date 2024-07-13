@@ -1,7 +1,7 @@
 import { getHostname } from './getHostname';
 
-export const siteMode = () => {
-  const hostname = getHostname();
+export const siteMode = (() => {
+  const hostname = getHostname;
   switch (hostname) {
     case 'localhost':
       return 'LOCAL';
@@ -12,4 +12,4 @@ export const siteMode = () => {
     default:
       return 'INVALID';
   }
-};
+})();
