@@ -132,26 +132,29 @@ export const OverviewApp: React.FC<unknown> = () => {
             </Box>
           </Box>
           <Box
-            data-id="RadioFrequenciesToolContainer"
+            data-testid="RadioFrequenciesToolContainer"
             sx={{
-              border: '3px solid',
-              borderColor: 'primary.dark',
               display: 'flex',
               flexDirection: 'column',
               p: '1em',
               ml: '1em',
               width: '100%',
               height: '30%',
+              borderTop: '2px solid',
+              borderBottom: '2px solid',
+              borderRadius: '10px',
+              borderColor: 'secondary.main',
+              background: 'rgba(0,30,100,0.2)',
+              backdropFilter: 'blur(20px)',
             }}
           >
-            <Box data-id="RadioFrequenciesToolTitle">
+            <Box data-testid="RadioFrequenciesToolTitle">
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography variant="h5">Radio Frequencies</Typography>
-                <IconButton onClick={toggleRadio} sx={{ ml: 'auto' }}>
+                <Typography variant="h6">Radio Frequencies</Typography>
+                <IconButton disabled onClick={toggleRadio} sx={{ ml: 'auto' }}>
                   <RadioIcon />
                 </IconButton>
               </Box>
-              <Divider variant="ComponentTitle" />
             </Box>
             <Box
               data-id="RadioFrequenciesToolContent"
