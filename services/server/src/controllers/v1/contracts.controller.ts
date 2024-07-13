@@ -314,6 +314,13 @@ export class ContractController extends BaseHttpController {
     const userId = (this.httpContext.user as VLAuthPrincipal).id;
     const contract = bid.Contract;
     if (contract == null) throw nextFunc(new NotFoundError(bidId));
+
+    const newStatus = newBid.status != bid.status;
+
+    if (!newStatus) {
+      throw new NotModified(`/(${contractId}/bids/${bidId}`);
+    }
+
     //TODO: Org Support
     const isContractOwner = userId == contract.owner_id;
 
@@ -322,10 +329,12 @@ export class ContractController extends BaseHttpController {
         if (!isContractOwner) {
           if (bid.status != 'INVITED') throw new UnauthorizedError();
         }
+        if (bid.status != 'PENDING') throw new UnauthorizedError();
         break;
       }
       case 'REJECTED': {
         if (!isContractOwner) throw new UnauthorizedError();
+        if (bid.status != 'PENDING') throw new UnauthorizedError();
         break;
       }
       case 'DECLINED': {
@@ -337,13 +346,7 @@ export class ContractController extends BaseHttpController {
       case 'INVITED':
       case 'PENDING': {
         throw new UnauthorizedError();
-        break;
       }
-    }
-    const newStatus = newBid.status != bid.status;
-
-    if (!newStatus) {
-      throw new NotModified(`/(${contractId}/bids/${bidId}`);
     }
 
     await bid.update('status', newBid.status);
