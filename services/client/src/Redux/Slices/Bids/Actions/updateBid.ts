@@ -1,11 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AuthUtil } from '@Utils/AuthUtil';
 import { Logger } from '@Utils/Logger';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 
 import NetworkService from '@/Services/NetworkService';
 
 export const updateBid = createAsyncThunk(
-  '/v1/contracts/bids/update',
+  '/v1/contracts/${contractId}/bids/${bidId}',
   async ({
     contractId,
     bidId,
@@ -17,8 +18,9 @@ export const updateBid = createAsyncThunk(
   }) => {
     try {
       const response = await NetworkService.PATCH<IContractBid, IContractBid>(
-        `/contracts/${contractId}/bids/${bidId}`,
+        `/v1/contracts/${contractId}/bids/${bidId}`,
         bidData,
+        AuthUtil.getAccessHeader(),
       );
       return response.data;
     } catch (error) {

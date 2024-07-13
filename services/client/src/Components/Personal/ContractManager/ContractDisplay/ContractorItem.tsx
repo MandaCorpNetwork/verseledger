@@ -1,7 +1,8 @@
 import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
 import { UserChip } from '@Common/Components/Users/UserChip';
 import { Box, Button, Tooltip, Typography } from '@mui/material';
-//import { useAppDispatch } from '@Redux/hooks';
+import { useAppDispatch } from '@Redux/hooks';
+import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
@@ -18,8 +19,13 @@ export const Contractor: React.FC<ContractorProps> = ({
   bid,
   contractOwned,
 }) => {
-  //const dispatch = useAppDispatch();
-  const handleAccept = () => {};
+  const dispatch = useAppDispatch();
+  const handleAccept = () => {
+    const updatedBid = { ...bid, status: 'ACCEPTED' as const };
+    dispatch(
+      updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
+    );
+  };
   const handleReject = () => {};
   const handleDismiss = () => {};
 
