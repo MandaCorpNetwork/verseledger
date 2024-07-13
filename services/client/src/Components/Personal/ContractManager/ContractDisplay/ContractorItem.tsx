@@ -2,7 +2,6 @@ import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
 import { UserChip } from '@Common/Components/Users/UserChip';
 import { Box, Button, Tooltip, Typography } from '@mui/material';
 //import { useAppDispatch } from '@Redux/hooks';
-import { useState } from 'react';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
@@ -19,13 +18,10 @@ export const Contractor: React.FC<ContractorProps> = ({
   bid,
   contractOwned,
 }) => {
-  const [contractorBidStatus, setContractorBidStatus] = useState<string | null>(null);
-
-  const handleAccept = () => setContractorBidStatus('Accepted');
-  const handleReject = () => setContractorBidStatus('Rejected');
-  const handleDismiss = () => setContractorBidStatus('Dismissed');
-
   //const dispatch = useAppDispatch();
+  const handleAccept = () => {};
+  const handleReject = () => {};
+  const handleDismiss = () => {};
 
   return (
     <Box
@@ -75,7 +71,7 @@ export const Contractor: React.FC<ContractorProps> = ({
           <UserChip user={user} size="medium" />
         </Tooltip>
       </Box>
-      {contractOwned && contractorBidStatus === null && (
+      {contractOwned && bid.status === 'PENDING' && (
         <Box
           data-testid="ContractorsTab-ContractorList-Contractor__BidControlButtonWrapper"
           sx={{
@@ -104,7 +100,7 @@ export const Contractor: React.FC<ContractorProps> = ({
           </Button>
         </Box>
       )}
-      {contractorBidStatus === 'Accepted' && (
+      {contractOwned && bid.status === 'ACCEPTED' && (
         <Box
           data-testid="ContractorsTab-ContractorList-Contractor__AcceptedControlsWrapper"
           sx={{
@@ -141,7 +137,7 @@ export const Contractor: React.FC<ContractorProps> = ({
           </Button>
         </Box>
       )}
-      {contractorBidStatus === 'Rejected' && (
+      {contractOwned && bid.status === 'REJECTED' && (
         <Typography
           data-testid="ContractorsTab-ContractorList-Contractor-BidControl__RejectedBidStatus"
           variant="overline"
@@ -154,7 +150,7 @@ export const Contractor: React.FC<ContractorProps> = ({
           Rejected
         </Typography>
       )}
-      {contractorBidStatus === 'Dismissed' && (
+      {/* {contractOwned && bid.status === 'DISMISSED' && (
         <Typography
           data-testid="ContractorsTab-ContractorList-Contractor-AcceptedControls__DismissedContractorStatus"
           variant="overline"
@@ -166,7 +162,7 @@ export const Contractor: React.FC<ContractorProps> = ({
         >
           Dismissed
         </Typography>
-      )}
+      )} */}
     </Box>
   );
 };
