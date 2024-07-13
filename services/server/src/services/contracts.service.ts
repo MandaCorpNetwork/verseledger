@@ -11,6 +11,7 @@ import { ContractLocation } from '@Models/contract_locations.model';
 import { User } from '@Models/user.model';
 import { Op } from 'sequelize';
 import { IContractStatus } from 'vl-shared/src/schemas/ContractStatusSchema';
+import { optionalSet, queryIn } from '@/utils/Sequelize/queryIn';
 
 @injectable()
 export class ContractService {
@@ -186,23 +187,26 @@ export class ContractService {
     subtype?: string | string[];
     status?: IContractStatus | IContractStatus[];
     ownerId?: string | string[];
+    contractId?: string | string[];
     limit?: number;
     page?: number;
   }) {
-    const { subtype, limit = 10, page = 0, status, ownerId } = params ?? {};
+    const {
+      subtype,
+      limit = 10,
+      page = 0,
+      status,
+      ownerId,
+      contractId,
+    } = params ?? {};
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const query = {} as any;
-    if (status != null && status.length != 0) {
-      query.status = Array.isArray(status) ? { [Op.in]: status } : status;
-    }
-    if (subtype != null && subtype.length != 0) {
-      query.subtype = Array.isArray(subtype) ? { [Op.in]: subtype } : subtype;
-    }
-    if (ownerId != null && ownerId.length != 0) {
-      query.owner_user_id = Array.isArray(ownerId)
-        ? { [Op.in]: ownerId }
-        : ownerId;
-    }
+    optionalSet(query, 'status', queryIn(status));
+    optionalSet(query, 'subtype', queryIn(subtype));
+    optionalSet(query, 'owner_user_id', queryIn(ownerId));
+    optionalSet(query, 'id', queryIn(contractId));
+
     const contracts = await Contract.scope([
       'bids',
       'owner',

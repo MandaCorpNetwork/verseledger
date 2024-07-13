@@ -7,6 +7,7 @@ import { Logger } from '@/utils/Logger';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { ContractBid } from '@Models/contract_bid.model';
 import { IContractBidStatus } from 'vl-shared/src/schemas/ContractBidStatusSchema';
+import { optionalSet, queryIn } from '@/utils/Sequelize/queryIn';
 
 @injectable()
 export class UserService {
@@ -26,14 +27,9 @@ export class UserService {
     const { status, contractId, limit = 25, page = 0 } = search ?? {};
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const query = {} as any;
-    if (status != null && status.length != 0) {
-      query.status = Array.isArray(status) ? { [Op.in]: status } : status;
-    }
-    if (contractId != null && contractId.length != 0) {
-      query.contract_id = Array.isArray(contractId)
-        ? { [Op.in]: contractId }
-        : contractId;
-    }
+
+    optionalSet(query, 'status', queryIn(status));
+    optionalSet(query, 'contract_id', queryIn(contractId));
     return await ContractBid.scope(['contract']).findAndCountAll({
       where: {
         ...query,
