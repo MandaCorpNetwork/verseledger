@@ -6,6 +6,7 @@ import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
 import { selectContractsArray } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser';
+import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
@@ -71,9 +72,10 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         };
         dispatch(fetchContractBidsOfUser(bidParams)).then((action) => {
           const bids = action.payload?.data;
+          Logger.info('bids', bids);
           if (bids) {
             const contractIds = bids.map((bid: IContractBid) => bid.contract_id);
-            console.log('contractIds', contractIds);
+            Logger.info('contractIds', contractIds);
             contractParams = {
               ...contractParams,
               status: ['BIDDING', 'INPROGRESS'],

@@ -59,13 +59,28 @@ export const UnderConstruction: React.FC<UnderConstructionProps> = ({
             px: '.5em',
           }}
         >
-          <IconButton sx={{ mx: '.2em' }}>
+          <IconButton
+            component="a"
+            href="https://ko-fi.com/verseledger"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Paypal />
           </IconButton>
-          <IconButton sx={{ mx: '.2em' }}>
+          <IconButton
+            component="a"
+            href="https://www.patreon.com/otterlodgestudios"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Patreon />
           </IconButton>
-          <IconButton sx={{ mx: '.2em' }}>
+          <IconButton
+            component="a"
+            href="https://www.discord.gg/kf47Tw3P"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Discord />
           </IconButton>
         </Box>

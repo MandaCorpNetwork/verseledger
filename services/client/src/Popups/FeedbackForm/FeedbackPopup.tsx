@@ -106,10 +106,20 @@ export const FeedbackPopup: React.FC = () => {
         </Box>
       )}
       <Box>
-        <IconButton>
+        <IconButton
+          component="a"
+          href="https://github.com/MandaCorpNetwork"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <GitHub />
         </IconButton>
-        <IconButton>
+        <IconButton
+          component="a"
+          href="https://www.discord.gg/kf47Tw3P"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Discord />
         </IconButton>
       </Box>

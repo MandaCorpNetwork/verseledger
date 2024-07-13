@@ -49,13 +49,28 @@ export const Home: React.FC<unknown> = () => {
             px: '.5em',
           }}
         >
-          <IconButton>
+          <IconButton
+            component="a"
+            href="https://ko-fi.com/verseledger"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Paypal fontSize="large" />
           </IconButton>
-          <IconButton>
+          <IconButton
+            component="a"
+            href="https://www.patreon.com/otterlodgestudios"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Patreon fontSize="large" />
           </IconButton>
-          <IconButton>
+          <IconButton
+            component="a"
+            href="https://www.discord.gg/kf47Tw3P"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Discord fontSize="large" />
           </IconButton>
         </Box>
