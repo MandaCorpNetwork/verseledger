@@ -135,7 +135,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           };
           handleFetchBids(bidParams).then((contractIds) => {
             const contractParams: IContractSearch = {
-              page: page - 1,
+              page: 0,
               limit: 25,
               status: ['BIDDING', 'INPROGRESS'],
               contractId: contractIds,
@@ -164,7 +164,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           };
           handleFetchBids(bidParams).then((contractIds) => {
             const contractParams: IContractSearch = {
-              page: page - 1,
+              page: 0,
               limit: 25,
               status: ['BIDDING', 'INPROGRESS'],
               contractId: contractIds,
@@ -182,7 +182,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           };
           handleFetchBids(bidParams).then((contractIds) => {
             const contractParams: IContractSearch = {
-              page: page - 1,
+              page: 0,
               limit: 25,
               status: ['BIDDING', 'INPROGRESS'],
               contractId: contractIds,
