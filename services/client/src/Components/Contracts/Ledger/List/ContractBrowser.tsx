@@ -2,8 +2,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button } from '@mui/material';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
 import {
+  selectContractPagination,
   selectContractsArray,
-  selectPagination,
 } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { Logger } from '@Utils/Logger';
@@ -38,7 +38,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
 
   const pagination = React.useCallback(
-    () => useAppSelector(selectPagination),
+    () => useAppSelector(selectContractPagination),
     [page, rowsPerPage],
   );
 

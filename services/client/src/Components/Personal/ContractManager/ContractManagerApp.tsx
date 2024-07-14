@@ -3,10 +3,11 @@ import { TabContext, TabList } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
+import { selectBidPagination } from '@Redux/Slices/Bids/bidsSelector';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
 import {
+  selectContractPagination,
   selectContractsArray,
-  selectPagination,
 } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser';
 import { Logger } from '@Utils/Logger';
@@ -30,9 +31,19 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   const [page, setPage] = React.useState(1);
   const dispatch = useAppDispatch();
 
-  const pagination = React.useCallback(() => useAppSelector(selectPagination), [page]);
+  const contractPagination = React.useCallback(
+    () => useAppSelector(selectContractPagination),
+    [page],
+  );
 
-  const contractCount = pagination();
+  const contractCount = contractPagination();
+
+  const bidPagination = React.useCallback(
+    () => useAppSelector(selectBidPagination),
+    [page],
+  );
+
+  const bidCount = bidPagination();
 
   const handleChangePage = (_event: React.ChangeEvent<unknown>, newPage: number) => {
     setPage(newPage);
@@ -120,7 +131,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           };
           handleFetchBids(bidParams).then((contractIds) => {
             const contractParams: IContractSearch = {
-              page: page - 1,
+              page: 0,
               limit: 25,
               status: ['BIDDING', 'INPROGRESS'],
               contractId: contractIds,
@@ -149,7 +160,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           };
           handleFetchBids(bidParams).then((contractIds) => {
             const contractParams: IContractSearch = {
-              page: page - 1,
+              page: 0,
               limit: 25,
               status: ['BIDDING', 'INPROGRESS'],
               contractId: contractIds,
@@ -167,7 +178,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           };
           handleFetchBids(bidParams).then((contractIds) => {
             const contractParams: IContractSearch = {
-              page: page - 1,
+              page: 0,
               limit: 25,
               status: ['BIDDING', 'INPROGRESS'],
               contractId: contractIds,
@@ -311,7 +322,13 @@ export const ContractManagerApp: React.FC<unknown> = () => {
               selectedId={selectedId}
               page={page}
               setPage={handleChangePage}
-              pageCount={contractCount.pages}
+              pageCount={
+                currentTab === 'employed' ||
+                currentTab === 'pending' ||
+                currentTab === 'offers'
+                  ? bidCount.pages
+                  : contractCount.pages
+              }
             />
           </Box>
         </TabContext>
