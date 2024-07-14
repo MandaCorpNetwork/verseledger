@@ -77,12 +77,40 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          labelRowsPerPage="Cards per page"
           sx={{
             borderTopRightRadius: '10px',
             borderTopLeftRadius: '10px',
             boxShadow: '0 0 8px 5px rgba(14,49,252,.4)',
             backgroundColor: 'rgba(0,1,19,.5)',
             width: '100%',
+          }}
+          slotProps={{
+            select: {
+              'aria-label': 'Cards per page',
+              sx: {
+                '& .MuiSelect-icon': {
+                  color: 'secondary.main',
+                },
+              },
+            },
+            actions: {
+              firstButtonIcon: {
+                sx: {
+                  color: 'secondary.main',
+                },
+              },
+              nextButtonIcon: {
+                sx: {
+                  color: 'secondary.main',
+                },
+              },
+              previousButtonIcon: {
+                sx: {
+                  color: 'secondary.main',
+                },
+              },
+            },
           }}
         />
       </Box>
