@@ -7,3 +7,10 @@ export type IPaginatedData<T> = {
     pages: number;
   };
 };
+
+export type IPaginatedDataSlice = {
+  total: number;
+  limit: number;
+  page: number;
+  pages: number;
+}
