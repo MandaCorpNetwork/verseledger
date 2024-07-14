@@ -33,7 +33,6 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dispatch = useAppDispatch();
   const [view, setView] = React.useState('ContractCardView');
-  const [isSelected, setIsSelected] = React.useState<string | null>(null);
   const [filters] = useURLQuery();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
@@ -55,14 +54,12 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   };
 
   const handleSelect = (id: string | null) => {
-    setIsSelected(id);
     selectedIdSetter(id);
     Logger.info(`Selected Contract in Browser: ${id}`);
   };
 
   const handleClose = () => {
     contractOnClose();
-    setIsSelected(null);
   };
 
   React.useEffect(() => {
@@ -180,7 +177,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
           <ContractCardDisplay
             onPick={handleSelect}
             contracts={contracts}
-            isSelected={isSelected}
+            isSelected={selectedId}
             page={page}
             rowsPerPage={rowsPerPage}
             onChangePage={handleChangePage}
@@ -191,7 +188,12 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
           <ContractTableView
             onPick={selectedIdSetter}
             contract={contracts}
-            isSelected={isSelected}
+            isSelected={selectedId}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+            totalContracts={contractCount.total}
           />
         )}
       </Box>
