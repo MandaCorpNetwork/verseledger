@@ -34,7 +34,7 @@ const contractsReducer = createSlice({
       .addCase(fetchContracts.fulfilled, (_state, action) => {
         Logger.info('Fetching contracts fulfilled', action.payload);
         _state.isLoading = false;
-        const pagination = action.payload?.pages;
+        const pagination = action.payload?.pagination;
         const contracts = action.payload?.data;
         if (contracts) {
           contracts.forEach((contract) => {

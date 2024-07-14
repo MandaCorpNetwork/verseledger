@@ -1,6 +1,6 @@
 export type IPaginatedData<T> = {
   data: T[];
-  pages: {
+  pagination: {
     total: number;
     limit: number;
     page: number;
