@@ -85,7 +85,6 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
 
   const contract = useAppSelector((root) => selectContract(root, contractId as string));
-
   const currentUser = useAppSelector(selectCurrentUser);
 
   const dispatch = useAppDispatch();

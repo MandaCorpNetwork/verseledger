@@ -37,6 +37,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
 
   const handleBrowserChange = React.useCallback(
     (_event: React.SyntheticEvent, newValue: string) => {
+      setSelectedId(null);
       overwriteURLQuery({ [QueryNames.ContractManagerTab]: newValue });
     },
     [overwriteURLQuery],
@@ -180,6 +181,12 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   }, [filters]);
 
   const contracts = useAppSelector((state) => selectContractsArray(state));
+
+  React.useEffect(() => {
+    if (selectedId && !contracts.some((contract) => contract.id === selectedId)) {
+      setSelectedId(null);
+    }
+  }, [contracts, selectedId]);
 
   return (
     <Box
