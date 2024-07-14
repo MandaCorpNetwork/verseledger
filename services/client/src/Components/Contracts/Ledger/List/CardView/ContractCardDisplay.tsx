@@ -1,31 +1,28 @@
 import { Box, TablePagination } from '@mui/material';
 import React from 'react';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { ContractCard } from '@/Components/Contracts/Ledger/List/CardView/ContractCard';
 
 type ContractCardDisplayProps = {
   onPick: (id: string | null) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  contracts: any[];
+  contracts: IContract[];
   isSelected: string | null;
+  page: number;
+  rowsPerPage: number;
+  onChangePage: (event: unknown, newPage: number) => void;
+  onChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
   onPick,
   contracts,
   isSelected,
+  page,
+  rowsPerPage,
+  onChangePage,
+  onChangeRowsPerPage,
 }) => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(50);
-
-  const handleChangePage = (_event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
   return (
     <Box
       data-testid="Contract-Card__DisplayContainer"
@@ -70,13 +67,13 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
         }}
       >
         <TablePagination
-          rowsPerPageOptions={[50, 100, 200]}
+          rowsPerPageOptions={[25, 50, 100]}
           component={Box}
           count={contracts.length}
           page={page}
           rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
+          onPageChange={onChangePage}
+          onRowsPerPageChange={onChangeRowsPerPage}
           labelRowsPerPage="Cards per page"
           sx={{
             borderTopRightRadius: '10px',
