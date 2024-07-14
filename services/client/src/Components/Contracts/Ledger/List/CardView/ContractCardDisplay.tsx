@@ -1,39 +1,39 @@
 import { Box, TablePagination } from '@mui/material';
 import React from 'react';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { ContractCard } from '@/Components/Contracts/Ledger/List/CardView/ContractCard';
 
 type ContractCardDisplayProps = {
   onPick: (id: string | null) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  contracts: any[];
+  contracts: IContract[];
   isSelected: string | null;
+  page: number;
+  rowsPerPage: number;
+  onChangePage: (event: unknown, newPage: number) => void;
+  onChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  totalContracts: number;
 };
 
 export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
   onPick,
   contracts,
   isSelected,
+  page,
+  rowsPerPage,
+  onChangePage,
+  onChangeRowsPerPage,
+  totalContracts,
 }) => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(50);
-
-  const handleChangePage = (_event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
   return (
     <Box
-      id="Contract-Card__DisplayContainer"
+      data-testid="Contract-Card__DisplayContainer"
       sx={{
         padding: '1em',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
+        position: 'relative',
       }}
     >
       <Box
@@ -62,25 +62,54 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
       <Box
         data-testid="Contract-Card-Display__PaginationContainer"
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
           width: '100%',
+          position: 'sticky',
+          bottom: 0,
+          backgroundColor: 'primary.dark',
         }}
       >
         <TablePagination
-          rowsPerPageOptions={[50, 100, 200]}
+          rowsPerPageOptions={[25, 50, 100]}
           component={Box}
-          count={contracts.length}
+          count={totalContracts}
           page={page}
           rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
+          onPageChange={onChangePage}
+          onRowsPerPageChange={onChangeRowsPerPage}
+          labelRowsPerPage="Cards per page"
           sx={{
-            borderBottomLeftRadius: '10px',
-            borderBottomRightRadius: '10px',
-            boxShadow: '0 0 15px 2px #0e318d',
+            borderTopRightRadius: '10px',
+            borderTopLeftRadius: '10px',
+            boxShadow: '0 0 8px 5px rgba(14,49,252,.4)',
             backgroundColor: 'rgba(0,1,19,.5)',
             width: '100%',
+          }}
+          slotProps={{
+            select: {
+              'aria-label': 'Cards per page',
+              sx: {
+                '& .MuiSelect-icon': {
+                  color: 'secondary.main',
+                },
+              },
+            },
+            actions: {
+              firstButtonIcon: {
+                sx: {
+                  color: 'secondary.main',
+                },
+              },
+              nextButtonIcon: {
+                sx: {
+                  color: 'secondary.main',
+                },
+              },
+              previousButtonIcon: {
+                sx: {
+                  color: 'secondary.main',
+                },
+              },
+            },
           }}
         />
       </Box>

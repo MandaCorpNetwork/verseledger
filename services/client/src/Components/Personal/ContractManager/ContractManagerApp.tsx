@@ -3,9 +3,14 @@ import { TabContext, TabList } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
+import { selectBidPagination } from '@Redux/Slices/Bids/bidsSelector';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
-import { selectContractsArray } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import {
+  selectContractPagination,
+  selectContractsArray,
+} from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser';
+import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
@@ -23,7 +28,26 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filters, setFilter, overwriteURLQuery] = useURLQuery();
   const [selectedId, setSelectedId] = React.useState<string | null>(null);
+  const [page, setPage] = React.useState(1);
   const dispatch = useAppDispatch();
+
+  const contractPagination = React.useCallback(
+    () => useAppSelector(selectContractPagination),
+    [page],
+  );
+
+  const contractCount = contractPagination();
+
+  const bidPagination = React.useCallback(
+    () => useAppSelector(selectBidPagination),
+    [page],
+  );
+
+  const bidCount = bidPagination();
+
+  const handleChangePage = (_event: React.ChangeEvent<unknown>, newPage: number) => {
+    setPage(newPage);
+  };
 
   const currentTab = React.useMemo(() => {
     const tab = filters.get(QueryNames.ContractManagerTab);
@@ -36,6 +60,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
 
   const handleBrowserChange = React.useCallback(
     (_event: React.SyntheticEvent, newValue: string) => {
+      setSelectedId(null);
       overwriteURLQuery({ [QueryNames.ContractManagerTab]: newValue });
     },
     [overwriteURLQuery],
@@ -51,96 +76,140 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     [setSelectedId],
   );
 
+  const handleFetchBids = React.useCallback(
+    async (params: IUserBidSearch) => {
+      const bidParams = {
+        ...params,
+      };
+      try {
+        const fetchBids = await dispatch(fetchContractBidsOfUser(bidParams));
+        if (fetchContractBidsOfUser.fulfilled.match(fetchBids)) {
+          const bids = fetchBids.payload.data;
+          Logger.info('Attempting to parse fetched bids...');
+          if (bids && Array.isArray(bids)) {
+            const contractIds = bids.map((bid: IContractBid) => bid.contract_id);
+            Logger.info(`Bids fetched succesfully:`, bids);
+            Logger.info(`ContractIds fetched succesfully:`, contractIds);
+            return contractIds;
+          } else {
+            Logger.error('No valid bids found in response:', fetchBids.payload);
+            return [];
+          }
+        } else {
+          Logger.error('Fetch Bids not Fufilled:');
+          return [];
+        }
+      } catch (error) {
+        Logger.error('Error fetching bids for client', error);
+        return [];
+      }
+    },
+    [dispatch, filters],
+  );
+
+  const handleFetchContracts = React.useCallback(
+    (params: IContractSearch) => {
+      const contractParams = {
+        ...params,
+      };
+      dispatch(fetchContracts(contractParams));
+    },
+    [dispatch, filters],
+  );
+
   React.useEffect(() => {
     // Status Filter Initialization
     // Subtype Filter Initialization
     // Params Serializer
-    let contractParams: IContractSearch = {
-      page: 0,
-      limit: 25,
-    };
-    let bidParams: IUserBidSearch = {
-      page: 0,
-      limit: 25,
-    };
     switch (currentTab) {
       case 'employed':
-        bidParams = {
-          ...bidParams,
-          status: ['ACCEPTED'],
-        };
-        dispatch(fetchContractBidsOfUser(bidParams)).then((action) => {
-          const bids = action.payload?.data;
-          if (bids) {
-            const contractIds = bids.map((bid: IContractBid) => bid.contract_id);
-            console.log('contractIds', contractIds);
-            contractParams = {
-              ...contractParams,
+        {
+          const bidParams: IUserBidSearch = {
+            page: page - 1,
+            limit: 25,
+            status: ['ACCEPTED'],
+          };
+          handleFetchBids(bidParams).then((contractIds) => {
+            const contractParams: IContractSearch = {
+              page: 0,
+              limit: 25,
               status: ['BIDDING', 'INPROGRESS'],
               contractId: contractIds,
             };
-            dispatch(fetchContracts(contractParams));
-          }
-        });
+            handleFetchContracts(contractParams);
+          });
+        }
         break;
       case 'owned':
-        contractParams = {
-          ...contractParams,
-          status: ['BIDDING', 'INPROGRESS'],
-          ...(userId && { ownerId: [userId] }),
-        };
-        dispatch(fetchContracts(contractParams));
+        {
+          const contractParams: IContractSearch = {
+            page: page - 1,
+            limit: 25,
+            status: ['BIDDING', 'INPROGRESS'],
+            ...(userId && { ownerId: [userId] }),
+          };
+          handleFetchContracts(contractParams);
+        }
         break;
       case 'pending':
-        bidParams = {
-          ...bidParams,
-          status: ['PENDING'],
-        };
-        dispatch(fetchContractBidsOfUser(bidParams)).then((action) => {
-          const bids = action.payload?.data;
-          if (bids) {
-            const contractIds = bids.map((bid: IContractBid) => bid.contract_id);
-            contractParams = {
-              ...contractParams,
+        {
+          const bidParams: IUserBidSearch = {
+            page: page - 1,
+            limit: 25,
+            status: ['PENDING'],
+          };
+          handleFetchBids(bidParams).then((contractIds) => {
+            const contractParams: IContractSearch = {
+              page: 0,
+              limit: 25,
               status: ['BIDDING', 'INPROGRESS'],
               contractId: contractIds,
             };
-            dispatch(fetchContracts(contractParams));
-          }
-        });
+            handleFetchContracts(contractParams);
+          });
+        }
         break;
       case 'offers':
-        bidParams = {
-          ...bidParams,
-          status: ['INVITED'],
-        };
-        dispatch(fetchContractBidsOfUser(bidParams)).then((action) => {
-          const bids = action.payload?.data;
-          if (bids) {
-            const contractIds = bids.map((bid: IContractBid) => bid.contract_id);
-            contractParams = {
-              ...contractParams,
+        {
+          const bidParams: IUserBidSearch = {
+            page: page - 1,
+            limit: 25,
+            status: ['INVITED'],
+          };
+          handleFetchBids(bidParams).then((contractIds) => {
+            const contractParams: IContractSearch = {
+              page: 0,
+              limit: 25,
               status: ['BIDDING', 'INPROGRESS'],
               contractId: contractIds,
             };
-            dispatch(fetchContracts(contractParams));
-          }
-        });
+            handleFetchContracts(contractParams);
+          });
+        }
         break;
       case 'closed':
-        contractParams = {
-          ...contractParams,
-          status: ['COMPLETED'],
-          ...(userId && { ownerId: [userId] }),
-        };
-        dispatch(fetchContracts(contractParams));
+        {
+          const contractParams: IContractSearch = {
+            page: page - 1,
+            limit: 25,
+            status: ['COMPLETED'],
+            ...(userId && { ownerId: [userId] }),
+          };
+          dispatch(fetchContracts(contractParams));
+        }
         break;
       default:
         break;
     }
-  }, [filters]);
+  }, [filters, page]);
 
   const contracts = useAppSelector((state) => selectContractsArray(state));
+
+  React.useEffect(() => {
+    if (selectedId && !contracts.some((contract) => contract.id === selectedId)) {
+      setSelectedId(null);
+    }
+  }, [contracts, selectedId]);
 
   return (
     <Box
@@ -251,6 +320,15 @@ export const ContractManagerApp: React.FC<unknown> = () => {
               contracts={contracts}
               setSelectedId={handleContractSelect}
               selectedId={selectedId}
+              page={page}
+              setPage={handleChangePage}
+              pageCount={
+                currentTab === 'employed' ||
+                currentTab === 'pending' ||
+                currentTab === 'offers'
+                  ? bidCount.pages
+                  : contractCount.pages
+              }
             />
           </Box>
         </TabContext>

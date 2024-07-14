@@ -15,7 +15,7 @@ export class PaginatedDataInfo {
 
 export class PaginatedDataDTO<K, T> extends DTOBase<T> {
   public data!: T[];
-  public pages!: PaginatedDataInfo;
+  public pagination!: PaginatedDataInfo;
 
   public __type = 'PaginatedData';
 

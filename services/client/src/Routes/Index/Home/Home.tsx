@@ -1,11 +1,12 @@
 /// <reference types="vite/client" />
 import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
-import { Discord, Patreon, Paypal } from '@Common/Definitions/CustomIcons';
+import { Discord, KoFi, Patreon } from '@Common/Definitions/CustomIcons';
 import { Box, IconButton } from '@mui/material';
 import React from 'react';
 
 import FreelancerLoop from '@/Assets/media/MenuPage/FreelancerLoop.webm?url';
 import JobsLoop from '@/Assets/media/MenuPage/JobsLoop.webm?url';
+import MadeByCommunity from '@/Assets/media/MenuPage/MadeByTheCommunity.png';
 import MarketLoop from '@/Assets/media/MenuPage/MarketLoop.webm?url';
 import OrgLoop from '@/Assets/media/MenuPage/OrgLoop.webm?url';
 import VerseNews from '@/Assets/media/MenuPage/VerseNews.webm?url';
@@ -35,10 +36,11 @@ export const Home: React.FC<unknown> = () => {
         sx={{
           position: 'absolute',
           bottom: '20px',
-          left: '45%',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          left: '50%',
+          transform: 'translateX(-50%)',
         }}
       >
         <Box
@@ -49,14 +51,43 @@ export const Home: React.FC<unknown> = () => {
             px: '.5em',
           }}
         >
-          <IconButton>
-            <Paypal fontSize="large" />
+          <IconButton
+            component="a"
+            href="https://ko-fi.com/verseledger"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <KoFi fontSize="large" />
           </IconButton>
-          <IconButton>
+          <IconButton
+            component="a"
+            href="https://www.patreon.com/otterlodgestudios"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Patreon fontSize="large" />
           </IconButton>
-          <IconButton>
+          {/* <Box width="5em" /> */}
+          <IconButton
+            component="a"
+            href="https://www.discord.gg/kf47Tw3P"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Discord fontSize="large" />
+          </IconButton>
+          <IconButton
+            component="a"
+            href="https://robertsspaceindustries.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={MadeByCommunity}
+              alt="Made by the Community"
+              width="40px"
+              height="40px"
+            />
           </IconButton>
         </Box>
       </Box>

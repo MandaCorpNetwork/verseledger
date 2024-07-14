@@ -1,5 +1,5 @@
 import Feedback from '@Assets/media/Feedback.webm?url';
-import { Discord } from '@Common/Definitions/CustomIcons';
+import { Discord, KoFi, Patreon } from '@Common/Definitions/CustomIcons';
 import { GitHub } from '@mui/icons-material';
 import {
   Box,
@@ -105,13 +105,41 @@ export const FeedbackPopup: React.FC = () => {
           <TextField color="secondary" label="Feedback Message" multiline />
         </Box>
       )}
-      <Box>
-        <IconButton>
+      <Box sx={{ display: 'flex' }}>
+        <IconButton
+          component="a"
+          href="https://github.com/MandaCorpNetwork"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <GitHub />
         </IconButton>
-        <IconButton>
+        <IconButton
+          component="a"
+          href="https://www.discord.gg/kf47Tw3P"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Discord />
         </IconButton>
+        <Box sx={{ ml: 'auto' }}>
+          <IconButton
+            component="a"
+            href="https://ko-fi.com/verseledger"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <KoFi />
+          </IconButton>
+          <IconButton
+            component="a"
+            href="https://www.patreon.com/otterlodgestudios"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Patreon />
+          </IconButton>
+        </Box>
       </Box>
     </VLPopup>
   );

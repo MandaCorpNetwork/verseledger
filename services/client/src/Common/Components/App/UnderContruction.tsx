@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-import { Discord, Patreon, Paypal } from '../../Definitions/CustomIcons';
+import { Discord, KoFi, Patreon } from '../../Definitions/CustomIcons';
 
 type UnderConstructionProps = {
   isOpen: boolean;
@@ -59,13 +59,28 @@ export const UnderConstruction: React.FC<UnderConstructionProps> = ({
             px: '.5em',
           }}
         >
-          <IconButton sx={{ mx: '.2em' }}>
-            <Paypal />
+          <IconButton
+            component="a"
+            href="https://ko-fi.com/verseledger"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <KoFi />
           </IconButton>
-          <IconButton sx={{ mx: '.2em' }}>
+          <IconButton
+            component="a"
+            href="https://www.patreon.com/otterlodgestudios"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Patreon />
           </IconButton>
-          <IconButton sx={{ mx: '.2em' }}>
+          <IconButton
+            component="a"
+            href="https://www.discord.gg/kf47Tw3P"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Discord />
           </IconButton>
         </Box>
