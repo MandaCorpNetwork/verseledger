@@ -1,7 +1,10 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button } from '@mui/material';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
-import { selectContractsArray } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import {
+  selectContractsArray,
+  selectPagination,
+} from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { Logger } from '@Utils/Logger';
 import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
@@ -34,6 +37,13 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   const [filters] = useURLQuery();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
+
+  const pagination = React.useCallback(
+    () => useAppSelector(selectPagination),
+    [page, rowsPerPage],
+  );
+
+  const contractCount = pagination();
 
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
@@ -175,6 +185,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
             rowsPerPage={rowsPerPage}
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
+            totalContracts={contractCount.total}
           />
         ) : (
           <ContractTableView
