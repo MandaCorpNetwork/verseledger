@@ -28,12 +28,13 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
   };
   return (
     <Box
-      id="Contract-Card__DisplayContainer"
+      data-testid="Contract-Card__DisplayContainer"
       sx={{
         padding: '1em',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
+        position: 'relative',
       }}
     >
       <Box
@@ -62,9 +63,10 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
       <Box
         data-testid="Contract-Card-Display__PaginationContainer"
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
           width: '100%',
+          position: 'sticky',
+          bottom: 0,
+          backgroundColor: 'primary.dark',
         }}
       >
         <TablePagination
@@ -76,9 +78,9 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
           sx={{
-            borderBottomLeftRadius: '10px',
-            borderBottomRightRadius: '10px',
-            boxShadow: '0 0 15px 2px #0e318d',
+            borderTopRightRadius: '10px',
+            borderTopLeftRadius: '10px',
+            boxShadow: '0 0 8px 5px rgba(14,49,252,.4)',
             backgroundColor: 'rgba(0,1,19,.5)',
             width: '100%',
           }}
