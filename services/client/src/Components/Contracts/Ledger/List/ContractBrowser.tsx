@@ -32,6 +32,17 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   const [view, setView] = React.useState('ContractCardView');
   const [isSelected, setIsSelected] = React.useState<string | null>(null);
   const [filters] = useURLQuery();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(25);
+
+  const handleChangePage = (_event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
   const handleSelect = (id: string | null) => {
     setIsSelected(id);
@@ -57,15 +68,15 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
     Logger.info('Selected Subtypes: ', combinedSubtypes);
 
     const params: IContractSearch = {
-      page: 0,
-      limit: 25,
+      page: page,
+      limit: rowsPerPage,
       status: ['BIDDING', 'INPROGRESS'],
       ...(combinedSubtypes.length > 0 && {
         subtype: combinedSubtypes,
       }),
     };
     dispatch(fetchContracts(params));
-  }, [filters]);
+  }, [filters, page, rowsPerPage]);
 
   const contracts = useAppSelector((state) => selectContractsArray(state));
 
@@ -160,6 +171,10 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
             onPick={handleSelect}
             contracts={contracts}
             isSelected={isSelected}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
           />
         ) : (
           <ContractTableView
