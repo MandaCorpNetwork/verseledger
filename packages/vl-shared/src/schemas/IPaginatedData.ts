@@ -13,4 +13,4 @@ export type IPaginatedDataSlice = {
   limit: number;
   page: number;
   pages: number;
-}
+};
