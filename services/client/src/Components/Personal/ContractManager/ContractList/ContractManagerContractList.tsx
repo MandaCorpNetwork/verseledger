@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Pagination } from '@mui/material';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { ContractManagerContractCard } from './ContractManagerContractCard';
@@ -7,12 +7,18 @@ type ContractManagerListProps = {
   contracts: IContract[];
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
+  page: number;
+  setPage: (event: React.ChangeEvent<unknown>, newPage: number) => void;
+  pageCount: number;
 };
 
 export const ContractManagerContractList: React.FC<ContractManagerListProps> = ({
   contracts,
   selectedId,
   setSelectedId,
+  page,
+  setPage,
+  pageCount,
 }) => {
   return (
     <Box
@@ -44,6 +50,14 @@ export const ContractManagerContractList: React.FC<ContractManagerListProps> = (
           selectedId={selectedId}
         />
       ))}
+      <Box
+        sx={{
+          position: 'sticky',
+          bottom: '0',
+        }}
+      >
+        <Pagination page={page} onChange={setPage} count={pageCount} variant="outlined" />
+      </Box>
     </Box>
   );
 };
