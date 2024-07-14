@@ -34,6 +34,8 @@ export const createServer = () => {
         origin: [
           `http://localhost:3000`,
           `http://localhost:${env.EXPRESS_PORT}`,
+          `https://verseledger.net`,
+          `https://stg.verseledger.net`,
         ],
       }),
     );
