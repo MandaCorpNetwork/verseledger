@@ -22,6 +22,14 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
         return <OverviewApp />;
     }
   };
+
+  const handleAppChange = React.useCallback(
+    (iconKey: string) => {
+      if (selectedApp === iconKey) return;
+      setSelectedApp(iconKey);
+    },
+    [selectedApp],
+  );
   return (
     <Box
       data-testid="PersonalLedgerPage"
@@ -63,7 +71,7 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
         {appRenderer()}
       </Box>
       <Box sx={{ mt: 'auto', mb: '1%' }}>
-        <AppToolBar selectedApp={selectedApp} setSelectedApp={setSelectedApp} />
+        <AppToolBar selectedApp={selectedApp} setSelectedApp={handleAppChange} />
       </Box>
     </Box>
   );

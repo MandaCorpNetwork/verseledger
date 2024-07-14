@@ -37,7 +37,7 @@ const IconButtonWithDivider: React.FC<IconButtonWithDividerProps> = ({
 
 type AppToolBarProps = {
   selectedApp: string;
-  setSelectedApp: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedApp: (iconKey: string) => void;
 };
 
 export const AppToolBar: React.FC<AppToolBarProps> = ({
@@ -49,11 +49,6 @@ export const AppToolBar: React.FC<AppToolBarProps> = ({
     { key: 'Contracts', icon: <TextSnippet key="text-snippet" fontSize="large" /> },
     { key: 'Explore', icon: <Explore key="explore" fontSize="large" /> },
   ];
-
-  const handleAppChange = (iconKey: string) => {
-    if (selectedApp === iconKey) return;
-    setSelectedApp(iconKey);
-  };
 
   return (
     <Box
@@ -117,7 +112,7 @@ export const AppToolBar: React.FC<AppToolBarProps> = ({
                 color="secondary"
                 key={item.key}
                 isSelected={selectedApp === item.key}
-                onClick={() => handleAppChange(item.key)}
+                onClick={() => setSelectedApp(item.key)}
               >
                 {item.icon}
               </IconButtonWithDivider>
@@ -137,7 +132,7 @@ export const AppToolBar: React.FC<AppToolBarProps> = ({
                   '&:hover': { color: 'secondary.light', transform: 'scale(1.2)' },
                   transition: 'color 0.3s, transform 0.3s',
                 }}
-                onClick={() => handleAppChange(item.key)}
+                onClick={() => setSelectedApp(item.key)}
               >
                 {item.icon}
               </IconButton>
