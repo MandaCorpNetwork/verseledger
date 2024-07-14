@@ -4,7 +4,10 @@ import { Box, Tab } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
-import { selectContractsArray } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import {
+  selectContractsArray,
+  selectPagination,
+} from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser';
 import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
@@ -24,7 +27,16 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filters, setFilter, overwriteURLQuery] = useURLQuery();
   const [selectedId, setSelectedId] = React.useState<string | null>(null);
+  const [page, setPage] = React.useState(1);
   const dispatch = useAppDispatch();
+
+  const pagination = React.useCallback(() => useAppSelector(selectPagination), [page]);
+
+  const contractCount = pagination();
+
+  const handleChangePage = (_event: React.ChangeEvent<unknown>, newPage: number) => {
+    setPage(newPage);
+  };
 
   const currentTab = React.useMemo(() => {
     const tab = filters.get(QueryNames.ContractManagerTab);
@@ -102,13 +114,13 @@ export const ContractManagerApp: React.FC<unknown> = () => {
       case 'employed':
         {
           const bidParams: IUserBidSearch = {
-            page: 0,
+            page: page - 1,
             limit: 25,
             status: ['ACCEPTED'],
           };
           handleFetchBids(bidParams).then((contractIds) => {
             const contractParams: IContractSearch = {
-              page: 0,
+              page: page - 1,
               limit: 25,
               status: ['BIDDING', 'INPROGRESS'],
               contractId: contractIds,
@@ -120,7 +132,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
       case 'owned':
         {
           const contractParams: IContractSearch = {
-            page: 0,
+            page: page - 1,
             limit: 25,
             status: ['BIDDING', 'INPROGRESS'],
             ...(userId && { ownerId: [userId] }),
@@ -131,13 +143,13 @@ export const ContractManagerApp: React.FC<unknown> = () => {
       case 'pending':
         {
           const bidParams: IUserBidSearch = {
-            page: 0,
+            page: page - 1,
             limit: 25,
             status: ['PENDING'],
           };
           handleFetchBids(bidParams).then((contractIds) => {
             const contractParams: IContractSearch = {
-              page: 0,
+              page: page - 1,
               limit: 25,
               status: ['BIDDING', 'INPROGRESS'],
               contractId: contractIds,
@@ -149,13 +161,13 @@ export const ContractManagerApp: React.FC<unknown> = () => {
       case 'offers':
         {
           const bidParams: IUserBidSearch = {
-            page: 0,
+            page: page - 1,
             limit: 25,
             status: ['INVITED'],
           };
           handleFetchBids(bidParams).then((contractIds) => {
             const contractParams: IContractSearch = {
-              page: 0,
+              page: page - 1,
               limit: 25,
               status: ['BIDDING', 'INPROGRESS'],
               contractId: contractIds,
@@ -167,7 +179,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
       case 'closed':
         {
           const contractParams: IContractSearch = {
-            page: 0,
+            page: page - 1,
             limit: 25,
             status: ['COMPLETED'],
             ...(userId && { ownerId: [userId] }),
@@ -178,7 +190,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
       default:
         break;
     }
-  }, [filters]);
+  }, [filters, page]);
 
   const contracts = useAppSelector((state) => selectContractsArray(state));
 
@@ -297,6 +309,9 @@ export const ContractManagerApp: React.FC<unknown> = () => {
               contracts={contracts}
               setSelectedId={handleContractSelect}
               selectedId={selectedId}
+              page={page}
+              setPage={handleChangePage}
+              pageCount={contractCount.pages}
             />
           </Box>
         </TabContext>

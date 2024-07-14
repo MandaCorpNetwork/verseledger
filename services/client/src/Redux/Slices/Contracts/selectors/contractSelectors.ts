@@ -31,4 +31,5 @@ export const selectActiveContractors = createSelector([selectBids], (bids) => {
 
 export const selectPagination = (state: RootState) => ({
   total: state.contracts.pagination.total,
+  pages: state.contracts.pagination.pages,
 });
