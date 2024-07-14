@@ -45,7 +45,7 @@
     "lint:format": "prettier ./src --write",
     "lint:check": "tsc --noEmit && npx eslint ./src",
     "build": "vite build",
-    "serve": "vite serve"
+    "serve": "vite preview --host"
   },
   "browserslist": {
     "production": [

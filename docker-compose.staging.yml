@@ -5,6 +5,9 @@ volumes:
 services:
   vl-app:
     container_name: vl-app
+    depends_on:
+      vl-db:
+        condition: service_healthy
     build:
       context: ./
       dockerfile: Dockerfile
@@ -16,8 +19,6 @@ services:
       - '3532'
   vl-db:
     container_name: vl-db
-    profiles:
-      - local
     image: mysql:8.4
     command: --mysql-native-password=ON
     environment:
@@ -31,6 +32,12 @@ services:
       - '3534'
     volumes:
       - vl-db:/var/lib/mysql
+    healthcheck:
+      test: "mysql $$MYSQL_DATABASE -uroot -p$$MYSQL_ROOT_PASSWORD -e 'SELECT 1;'"
+      interval: 1s
+      timeout: 30s
+      retries: 10
+      start_period: 10s
   vl-activemq:
     container_name: vl-activemq
     image: apache/activemq-artemis:latest
