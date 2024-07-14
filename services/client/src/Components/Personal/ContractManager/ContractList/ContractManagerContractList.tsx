@@ -57,6 +57,7 @@ export const ContractManagerContractList: React.FC<ContractManagerListProps> = (
           position: 'sticky',
           bottom: '0',
           p: '.2em',
+          display: pageCount > 1 ? 'flex' : 'none',
           borderRadius: '5px',
           borderLeft: '2px solid',
           borderRight: '2px solid',
