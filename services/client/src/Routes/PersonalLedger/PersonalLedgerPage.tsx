@@ -8,7 +8,7 @@ import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
 import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
 
 export const PersonalLedgerPage: React.FC<unknown> = () => {
-  const [selectedApp, setSelectedApp] = React.useState<string>('Refining');
+  const [selectedApp, setSelectedApp] = React.useState<string>('Overview');
 
   const appRenderer = () => {
     switch (selectedApp) {
