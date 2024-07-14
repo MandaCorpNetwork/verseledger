@@ -12,6 +12,7 @@ type ContractCardDisplayProps = {
   rowsPerPage: number;
   onChangePage: (event: unknown, newPage: number) => void;
   onChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  totalContracts: number;
 };
 
 export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
@@ -22,6 +23,7 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
   rowsPerPage,
   onChangePage,
   onChangeRowsPerPage,
+  totalContracts,
 }) => {
   return (
     <Box
@@ -69,7 +71,7 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
         <TablePagination
           rowsPerPageOptions={[25, 50, 100]}
           component={Box}
-          count={contracts.length}
+          count={totalContracts}
           page={page}
           rowsPerPage={rowsPerPage}
           onPageChange={onChangePage}
