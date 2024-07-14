@@ -82,8 +82,6 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   const contract = useAppSelector((root) => selectContract(root, contractId as string));
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const currentUser = useAppSelector(selectCurrentUser);
-
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
