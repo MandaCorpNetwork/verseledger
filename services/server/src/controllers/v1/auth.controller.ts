@@ -74,7 +74,7 @@ export class AuthController extends BaseHttpController {
     const body = new URLSearchParams({
       client_id: env.DISCORD_CLIENT_ID,
       client_secret: env.DISCORD_CLIENT_SECRET,
-      grant_type: 'client_credentials',
+      grant_type: 'authorization_code',
       code: reqBody.code,
       redirect_uri: 'http://localhost:3000/oauth/discord/callback',
       scope: 'identify',
