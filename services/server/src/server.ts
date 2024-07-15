@@ -36,6 +36,7 @@ export const createServer = () => {
           `http://localhost:${env.EXPRESS_PORT}`,
           `https://verseledger.net`,
           `https://stg.verseledger.net`,
+          `https://api.stg.verseledger.net`,
         ],
       }),
     );
