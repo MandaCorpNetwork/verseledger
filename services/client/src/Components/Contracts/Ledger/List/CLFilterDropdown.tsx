@@ -2,8 +2,8 @@
 import { ArrowRight } from '@mui/icons-material';
 import { Badge, Box, Chip, Collapse, Typography } from '@mui/material';
 import { AccessTimeDropdownFilter } from '@Utils/Filters/AccessTimeDropdownFilter';
-import { EmployerRatingSliderFilter } from '@Utils/Filters/EmployerRatingSliderFilter';
 import { LocationsFilter } from '@Utils/Filters/LocationsFilter';
+import { EmployerRatingSliderFilter } from '@Utils/Filters/MultiRatingSliderFilter';
 import { SubTypeFilter } from '@Utils/Filters/SubtypeFilter';
 import { UECRangeFilter } from '@Utils/Filters/UECRangeFilter';
 import { QueryNames } from '@Utils/QueryNames';
@@ -19,6 +19,20 @@ type CLFilterDropdownProps = {
 export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, label }) => {
   const [filters, setFilters] = useURLQuery();
   const [isExpanded, setIsExpanded] = React.useState(false);
+
+  const setDisabled = () => {
+    if (
+      filter === 'Locations' ||
+      filter === 'TimeRemaining' ||
+      filter === 'PayRange' ||
+      filter === 'EmployerRating'
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const isDisabled = setDisabled();
 
   const handleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -117,11 +131,16 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
             variant="body1"
             onClick={handleExpand}
             sx={{
-              color: isExpanded ? 'secondary.main' : 'text.secondary',
+              color: isDisabled
+                ? 'text.disabled'
+                : isExpanded
+                  ? 'secondary.main'
+                  : 'text.secondary',
               cursor: 'pointer',
               fontWeight: 'bold',
               '&:hover': {
-                color: 'text.primary',
+                color: isDisabled ? 'action.disabled' : 'text.primary',
+                cursor: isDisabled ? 'default' : 'pointer',
               },
             }}
           >

@@ -44,6 +44,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ size, label, placeholder }
         label={label}
         placeholder={placeholder}
         onChange={handleSearchInput}
+        disabled
         // value={isSearchTrue ? currentSearchQuery : ''}
         // InputProps={{
         //   endAdornment: isSearchTrue !== false && <ClearSearch />,

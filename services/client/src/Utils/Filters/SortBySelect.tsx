@@ -70,6 +70,7 @@ export const SortBySelect: React.FC<SortBySelectProps> = ({
         color="secondary"
         variant="outlined"
         label="Sort By"
+        disabled
         // onChange={handleSortChange}
         sx={{
           minWidth: '100px',
