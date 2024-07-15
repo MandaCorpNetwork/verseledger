@@ -1,0 +1,62 @@
+@keyframes scrollbarThumbFade {
+  0% {
+    background: 'rgba(121,192,244,0)';
+  }
+  50% {
+    background: 'rgba(121,192,244,1)';
+  }
+  100% {
+    background: 'rgba(121,192,244,0)';
+  }
+}
+
+@keyframes scrollbarTrackFade {
+  0% {
+    background: 'rgba(0,73,130,0)';
+  }
+  50% {
+    background: 'rgba(0,73,130,.8)';
+  }
+  100% {
+    background: 'rgba(0,73,130,0)';
+  }
+}
+
+.SelectScrollWrapper {
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+
+  &::-webkit-scrollbar {
+    height: '6px';
+  }
+
+  &::-webkit-scrollbar-track {
+    background: 'rgba(0,73,130,0)';
+    border-radius: '10px';
+    transition: background 0.3s ease;
+  }
+
+  &:hover::-webkit-scrollbar-track {
+    animation: scrollbarTrackFade 2s ease-in-out forwards;
+  }
+
+  &::-webkit-scrollbar-track:active {
+    background: 'rgba(0,73,130,.8)';
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: '20px';
+    background: 'rgba(24,252,252,0)';
+    transition: 'background 0.3s ease';
+  }
+
+  &:hover::-webkit-scrollbar-thumb {
+    animation: scrollbarThumbFade 2s ease-in-out forwards;
+  }
+
+  &::-webkit-scrollbar-thumb:active {
+    background: 'rgba(24,252,252,1)';
+  }
+
+}
