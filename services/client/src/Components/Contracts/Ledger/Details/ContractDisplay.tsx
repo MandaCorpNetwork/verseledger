@@ -1,6 +1,6 @@
 import { LocationChip } from '@Common/Components/App/LocationChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
-import { archetypes } from '@Common/Definitions/Contracts/ContractArchetype';
+import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { ChevronLeft, ChevronRight, ExpandMore, HelpOutline } from '@mui/icons-material';
 import {
   Box,
@@ -57,7 +57,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const [archetype, setArchetype] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    const selectedArchetype = archetypes.find((option) =>
+    const selectedArchetype = contractArchetypes.find((option) =>
       option.subTypes.some((subType) => subType.value === contract.subtype),
     );
     if (selectedArchetype) {
@@ -319,7 +319,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 }}
               />
               <Tooltip title={archetype}>
-                {archetypes.find((option) => option.archetype === archetype)
+                {contractArchetypes.find((option) => option.archetype === archetype)
                   ?.archetypeIcon ?? <Typography>???</Typography>}
               </Tooltip>
             </Box>
@@ -399,7 +399,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                     color="secondary"
                     label={contract.subtype}
                     icon={
-                      archetypes.find((option) => option.archetype === archetype)
+                      contractArchetypes.find((option) => option.archetype === archetype)
                         ?.archetypeIcon
                     }
                     onClick={handleArchetypeOpen}

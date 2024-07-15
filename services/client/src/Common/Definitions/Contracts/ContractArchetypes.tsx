@@ -8,7 +8,7 @@ import {
   SecurityIcon,
 } from '../CustomIcons';
 
-export const archetypes = [
+export const contractArchetypes = [
   {
     archetype: 'Logistics',
     archetypeIcon: <LogisticsIcon color="secondary" />,
