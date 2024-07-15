@@ -50,11 +50,22 @@ export const FeedbackPopup: React.FC = () => {
               left: '5%',
             }}
           >
-            <Typography align="center" sx={{ fontWeight: 'bold' }}>
+            <Typography
+              align="center"
+              sx={{ fontWeight: 'bold', color: 'info.main', textShadow: '0 0 10px #000' }}
+            >
               Sometimes things break. Sometimes there are oversights. Somtimes users know
               everything.
             </Typography>
-            <Typography align="center" sx={{ fontWeight: 'bold', mt: '.5em' }}>
+            <Typography
+              align="center"
+              sx={{
+                fontWeight: 'bold',
+                mt: '.5em',
+                color: 'info.main',
+                textShadow: '0 0 10px #000',
+              }}
+            >
               Please use this form to submit feedback for Verse Ledger.
             </Typography>
           </Box>
