@@ -8,6 +8,31 @@ export function useHorizontalSimpleScroll(): RefObject<HTMLDivElement> {
 
     if (!el) return;
 
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const delta = Math.max(-1, Math.min(1, e.deltaY));
+      el.scrollLeft += delta * 40;
+      console.log('Fire scroll');
+    };
+
+    el.addEventListener('wheel', onWheel, { passive: false });
+
+    return () => {
+      el.removeEventListener('wheel', onWheel);
+    };
+  }, [elRef]);
+
+  return elRef;
+}
+
+export function useHorizontalAdvancedScroll(): RefObject<HTMLDivElement> {
+  const elRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = elRef.current;
+
+    if (!el) return;
+
     let isScrolling = false;
     let scrollTimeout: NodeJS.Timeout | null = null;
     let scrollVelocity = 0;
