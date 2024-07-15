@@ -47,7 +47,7 @@ export class UserService {
   ) {
     const [user] = await User.scope('discord').findOrCreate({
       where: { discord_id: id },
-      defaults: { discord_id: id, pfp, rsi_handle: handle },
+      defaults: { discord_id: id, pfp, handle },
     });
     return user;
   }
