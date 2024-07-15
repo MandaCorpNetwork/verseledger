@@ -23,6 +23,7 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
+import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import dayjs from 'dayjs';
@@ -180,6 +181,26 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     }
     return contract.Bids?.find((bid) => bid.user_id === currentUser?.id);
   }, [contract.Bids, currentUser, isContractOwned]);
+
+  const handleAcceptInvite = () => {
+    if (!userBid) {
+      return Logger.info('no user bid');
+    }
+    const updatedBid = { status: 'ACCEPTED' as const };
+    dispatch(
+      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
+    );
+  };
+
+  const handleDeclineInvite = () => {
+    if (!userBid) {
+      return Logger.info('no user bid');
+    }
+    const updatedBid = { status: 'DECLINED' as const };
+    dispatch(
+      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
+    );
+  };
 
   return (
     <Box
