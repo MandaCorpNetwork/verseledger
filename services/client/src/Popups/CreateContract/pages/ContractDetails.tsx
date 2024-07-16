@@ -318,19 +318,15 @@ export const ContractDetails: React.FC<{
           </Box>
           <Autocomplete
             data-testid="CreateContract__Subtype-AutoComplete"
-            options={flatOptions}
-            value={formData.subtype}
+            options={filteredSubtypes}
+            freeSolo
+            value={selectedSubtype}
             groupBy={(option) => optionsMap[option].group}
             getOptionLabel={(option) => optionsMap[option].label}
             renderInput={(params) => (
               <TextField {...params} label="SubType" size="small" />
             )}
-            onChange={(_e, newValue) => {
-              setFormData({
-                ...formData,
-                subtype: (newValue as IContractSubType) ?? '',
-              });
-            }}
+            onChange={(_, value) => updateSubtype(value)}
             fullWidth
             sx={{ mt: 2, mb: '1em', maxWidth: '300px' }}
           />
