@@ -37,7 +37,7 @@ export function useHorizontalAdvancedScroll(): RefObject<HTMLDivElement> {
     let scrollTimeout: NodeJS.Timeout | null = null;
     let scrollVelocity = 0;
     let lastScrollLeft = el.scrollLeft;
-    const inertiaFactor = 0.75; // Adjust the inertia decrease rate
+    const inertiaFactor = 0.45; // Adjust the inertia decrease rate
 
     const applyInertia = () => {
       if (!isScrolling && scrollVelocity !== 0) {
@@ -49,29 +49,36 @@ export function useHorizontalAdvancedScroll(): RefObject<HTMLDivElement> {
           behavior: 'smooth',
         });
 
-        // Calculate scroll direction and adjust velocity
+        // Log debug info
+        console.log(
+          `Applying inertia: newScrollLeft=${newScrollLeft}, scrollVelocity=${scrollVelocity}, direction=${scrollVelocity > 0 ? 'right' : 'left'}`,
+        );
+
+        // Scroll Velocity Adjustment based on direction and speed
         const direction = newScrollLeft > lastScrollLeft ? 1 : -1;
-        const deceleration = Math.abs(scrollVelocity) * inertiaFactor * direction;
-        scrollVelocity -= deceleration;
+        scrollVelocity *= inertiaFactor;
 
         if (Math.abs(scrollVelocity) < 0.01) {
           scrollVelocity = 0;
+        } else {
+          // Adjust velocity for next frame
+          scrollVelocity = direction * Math.abs(scrollVelocity);
         }
 
+        // Sets frame rate to 60fps (call frequency)
         scrollTimeout = setTimeout(applyInertia, 16);
       } else {
         scrollVelocity = 0;
       }
-
-      lastScrollLeft = el.scrollLeft; // Update last scroll position
+      lastScrollLeft = el.scrollLeft;
     };
 
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       isScrolling = true;
 
-      const delta = Math.max(-1, Math.min(1, e.deltaY));
-      el.scrollLeft += delta * 30;
+      const delta = e.deltaY > 0 ? 1 : -1;
+      el.scrollLeft += delta * 40;
 
       const maxScroll = el.scrollWidth - el.clientWidth;
       const scrollRatio = el.scrollLeft / maxScroll;
@@ -79,6 +86,7 @@ export function useHorizontalAdvancedScroll(): RefObject<HTMLDivElement> {
       scrollVelocity = delta * speedFactor;
 
       if (scrollTimeout) clearTimeout(scrollTimeout);
+      // Inertia Application Delay
       scrollTimeout = setTimeout(() => {
         isScrolling = false;
         applyInertia();

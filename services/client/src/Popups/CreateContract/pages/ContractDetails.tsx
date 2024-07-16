@@ -19,7 +19,7 @@ import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 
 //Set Options to Contract Archetypes Object
-const options = contractArchetypes;
+const options = contractArchetypes('secondary.main');
 
 const optionsMap: Record<string, { label: string; group: string }> = {};
 const flatOptions = options.flatMap((option) =>
@@ -38,6 +38,18 @@ export const ContractDetails: React.FC<{
 
   const scrollRef = useHorizontalAdvancedScroll();
 
+  const archetypeOptions = contractArchetypes('');
+
+  const handleArchetypeSelect = React.useCallback(
+    (selectedArchetype: string) => {
+      if (archetype === selectedArchetype) {
+        setArchetype(null);
+      } else {
+        setArchetype(selectedArchetype);
+      }
+    },
+    [archetype],
+  );
   // React.useEffect(() => {
   //   const selectedOption = options.find((option) =>
   //     option.subTypes.some((subType) => subType.value === formData.subtype),
@@ -145,9 +157,22 @@ export const ContractDetails: React.FC<{
                 justifyContent: 'center',
                 borderLeft: '2px solid',
                 borderRight: '2px solid',
-                borderColor: 'secondary.main',
+                borderColor: 'rgb(0,30,100)',
                 borderRadius: '5px',
                 overflow: 'hidden',
+                borderTop: '1px solid rgb(0,30,100)',
+                borderBottom: '1px solid rgb(0,30,100)',
+                pt: '.2em',
+                boxShadow: '0 0 10px 3px rgb(0,30,100)',
+                backgroundImage:
+                  'linear-gradient(145deg, rgba(0,73,130,.3), rgba(8,22,80,0.77))',
+                transition: 'all 0.3s ease-in-out',
+                '&:hover': {
+                  borderColor: 'secondary.main',
+                  borderTop: '1px solid rgb(0,30,100)',
+                  borderBottom: '1px solid rgb(0,30,100)',
+                  boxShadow: '0 0 10px 5px rgb(0,30,100)',
+                },
               }}
             >
               <Typography
@@ -157,6 +182,7 @@ export const ContractDetails: React.FC<{
                   fontWeight: 'bold',
                   color: 'text.secondary',
                   mb: '.5em',
+                  textShadow: '0 0 10px rgb(0,73,130)',
                 }}
               >
                 Contract Archetype
@@ -166,43 +192,100 @@ export const ContractDetails: React.FC<{
                 data-testid="ContractDetails-Form-ArchetypeSelect__SelectScroll_Wrapper"
                 component="div"
                 ref={scrollRef}
-                sx={{
-                  display: 'flex',
-                  overflowX: 'auto',
-                  width: '100%',
-                  '&::-webkit-scrollbar': {
-                    height: '6px',
-                  },
-                  '&::-webkit-scrollbar-track': {
-                    background: 'rgba(0,73,130,0)',
-                    borderRadius: '10px',
-                    transition: 'background 0.3s ease',
-                  },
-                  '&::-webkit-scrollbar-track:active': {
-                    background: 'rgba(0,73,130,.8)',
-                  },
-                  '&::-webkit-scrollbar-thumb': {
-                    borderRadius: '20px',
-                    background: 'rgba(24,252,252,0)',
-                    transition: 'background 0.3s ease',
-                  },
-                }}
+                className="SelectScrollWrapper"
               >
-                {options.map((option) => (
+                {archetypeOptions.map((option) => (
                   <Chip
                     key={option.archetype}
                     icon={option.archetypeIcon}
-                    variant="outlined"
+                    variant="filled"
                     label={option.archetype}
+                    color="primary"
+                    onClick={() => handleArchetypeSelect(option.archetype)}
                     sx={{
-                      mx: '.5em',
+                      transition:
+                        'transform 0.2s ease-in-out, backgroundImage 0.3s ease-in-out, boxShadow 0.3s ease, borderColor 0.3s ease',
+                      transformStyle: 'preserve-3d',
+                      transform: 'rotateY(0deg) scale(1)',
+                      flexShrink: '0',
                       mb: '.5em',
+                      backgroundImage:
+                        archetype === option.archetype
+                          ? 'linear-gradient(145deg, rgba(0,120,235,0.8), rgba(0,100,220,1))'
+                          : 'linear-gradient(145deg, rgba(8,22,120,0.3), rgba(0,30,100,0.5))',
+                      color:
+                        archetype === option.archetype
+                          ? 'rgba(24,252,252,.75)'
+                          : 'rgba(33,150,243,.5)',
+                      border: '1px solid',
+                      borderColor:
+                        archetype === option.archetype
+                          ? 'rgba(25,150,200)'
+                          : 'rgba(8,22,130,1)',
+                      boxShadow:
+                        archetype === option.archetype
+                          ? '0 2px 5px 3px rgba(0,30,140)'
+                          : '0 2px 4px rgba(0,0,0,0.2)',
+                      '&:hover': {
+                        backgroundImage:
+                          archetype === option.archetype
+                            ? 'linear-gradient(145deg, rgba(0,120,235,0.6), rgba(0,100,220,.8))'
+                            : 'linear-gradient(145deg, rgba(8,22,120,0.6), rgba(0,30,100,0.9))',
+                        color:
+                          archetype === option.archetype
+                            ? 'rgba(24,252,252,.88)'
+                            : 'rgba(33,150,243)',
+                        boxShadow:
+                          archetype === option.archetype
+                            ? '0 4px 8px 4px rgba(0,30,140)'
+                            : '0 4px 8px rgba(0, 0, 0, 0.3)',
+                      },
+                      '&:active': {
+                        backgroundImage:
+                          archetype === option.archetype
+                            ? 'linear-gradient(145deg, rgba(0,75,185,0.4), rgba(0,45,145,.5))'
+                            : 'linear-gradient(145deg, rgba(8,22,120,0.7), rgba(0,30,100,1))',
+                        boxShadow:
+                          archetype === option.archetype
+                            ? '0 4px 12px 8px rgba(0,30,140)'
+                            : '0 6px 12px rgba(0, 0, 0, 0.4)',
+                        color: archetype === option.archetype ? 'rgba(24,252,252)' : '',
+                        textShadow:
+                          archetype === option.archetype
+                            ? '0 0px 5px rgba(145,250,255)'
+                            : '',
+                        transform: 'translateY(2px)',
+                      },
+                      '& .MuiTouchRipple-child': {
+                        backgroundColor:
+                          archetype === option.archetype
+                            ? 'rgba(25,150,200)'
+                            : 'rgba(6,86,145,0.8)',
+                      },
                     }}
                   />
                 ))}
               </Box>
             </Box>
           </Box>
+          <Autocomplete
+            data-testid="CreateContract__Subtype-AutoComplete"
+            options={flatOptions}
+            value={formData.subtype}
+            groupBy={(option) => optionsMap[option].group}
+            getOptionLabel={(option) => optionsMap[option].label}
+            renderInput={(params) => (
+              <TextField {...params} label="SubType" size="small" />
+            )}
+            onChange={(_e, newValue) => {
+              setFormData({
+                ...formData,
+                subtype: (newValue as IContractSubType) ?? '',
+              });
+            }}
+            fullWidth
+            sx={{ mt: 2, mb: '1em', maxWidth: '300px' }}
+          />
         </Box>
       </FormControl>
     </Box>
