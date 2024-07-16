@@ -55,7 +55,7 @@ export const envConfig = {
   },
   PALLY_WS: {
     type: 'string',
-    description: 'pally.gg api token',
+    description: 'https://pally.gg/dashboard/settings/api-keys',
     optional: true,
     default: null,
   },
