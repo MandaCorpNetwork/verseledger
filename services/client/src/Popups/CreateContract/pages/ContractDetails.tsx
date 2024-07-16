@@ -1,13 +1,15 @@
 import './contractDetails.scss';
 
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
+import { HelpOutline } from '@mui/icons-material';
 import {
   Autocomplete,
   Box,
   Chip,
   FormControl,
-  FormLabel,
+  IconButton,
   TextField,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
@@ -35,6 +37,10 @@ export const ContractDetails: React.FC<{
   const dispatch = useAppDispatch();
   const { formData, setFormData } = props;
   const [archetype, setArchetype] = React.useState<string | null>(null);
+  const [filteredSubtypes, setFilteredSubtypes] = React.useState<string[]>(flatOptions);
+  const [selectedSubtype, setSelectedSubtype] = React.useState<string | null>(
+    formData.subtype,
+  );
 
   const scrollRef = useHorizontalAdvancedScroll();
 
@@ -44,26 +50,38 @@ export const ContractDetails: React.FC<{
     (selectedArchetype: string) => {
       if (archetype === selectedArchetype) {
         setArchetype(null);
+        setFilteredSubtypes(flatOptions);
       } else {
         setArchetype(selectedArchetype);
+        const filteredSubtypes = flatOptions.filter((subtype) => {
+          const { group } = optionsMap[subtype];
+          return group === selectedArchetype;
+        });
+        setFilteredSubtypes(filteredSubtypes);
       }
     },
-    [archetype],
+    [archetype, flatOptions, optionsMap, setArchetype, setFilteredSubtypes],
   );
-  // React.useEffect(() => {
-  //   const selectedOption = options.find((option) =>
-  //     option.subTypes.some((subType) => subType.value === formData.subtype),
-  //   );
-  //   if (selectedOption) {
-  //     setArchetype(selectedOption.archetype);
-  //   } else {
-  //     setArchetype(null);
-  //   }
-  // }, [formData.subtype]);
 
   const handleArchetypeOpen = () => {
     dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetype }));
   };
+
+  const updateSubtype = React.useCallback(
+    (newValue: string | null) => {
+      if (newValue !== null) {
+        const subtypeArchetype = optionsMap[newValue].group;
+        if (archetype !== subtypeArchetype) {
+          setArchetype(subtypeArchetype);
+        }
+        setFormData({ ...formData, subtype: newValue as IContractSubType });
+        setSelectedSubtype(newValue);
+      } else {
+        setSelectedSubtype(newValue);
+      }
+    },
+    [setFormData, selectedSubtype, setSelectedSubtype],
+  );
 
   return (
     <Box
@@ -183,11 +201,26 @@ export const ContractDetails: React.FC<{
                   color: 'text.secondary',
                   mb: '.5em',
                   textShadow: '0 0 10px rgb(0,73,130)',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  position: 'relative',
                 }}
               >
                 Contract Archetype
+                {archetype && (
+                  <Tooltip title="Details" arrow>
+                    <IconButton
+                      size="small"
+                      color="info"
+                      sx={{ position: 'absolute', right: '-1' }}
+                      onClick={() => handleArchetypeOpen()}
+                    >
+                      <HelpOutline fontSize="small" color="info" />
+                    </IconButton>
+                  </Tooltip>
+                )}
               </Typography>
-              {/* Icon Button when Archetype is selected to pull up Archetype Open Popup */}
+
               <Box
                 data-testid="ContractDetails-Form-ArchetypeSelect__SelectScroll_Wrapper"
                 component="div"
@@ -208,7 +241,7 @@ export const ContractDetails: React.FC<{
                       transformStyle: 'preserve-3d',
                       transform: 'rotateY(0deg) scale(1)',
                       flexShrink: '0',
-                      mb: '.5em',
+                      mb: '.7em',
                       backgroundImage:
                         archetype === option.archetype
                           ? 'linear-gradient(145deg, rgba(0,120,235,0.8), rgba(0,100,220,1))'
@@ -270,19 +303,15 @@ export const ContractDetails: React.FC<{
           </Box>
           <Autocomplete
             data-testid="CreateContract__Subtype-AutoComplete"
-            options={flatOptions}
-            value={formData.subtype}
+            options={filteredSubtypes}
+            freeSolo
+            value={selectedSubtype}
             groupBy={(option) => optionsMap[option].group}
             getOptionLabel={(option) => optionsMap[option].label}
             renderInput={(params) => (
               <TextField {...params} label="SubType" size="small" />
             )}
-            onChange={(_e, newValue) => {
-              setFormData({
-                ...formData,
-                subtype: (newValue as IContractSubType) ?? '',
-              });
-            }}
+            onChange={(_, value) => updateSubtype(value)}
             fullWidth
             sx={{ mt: 2, mb: '1em', maxWidth: '300px' }}
           />

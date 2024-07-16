@@ -14,6 +14,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { postContractInvite } from '@Redux/Slices/Contracts/actions/post/postContractInvite';
 import { postNewContract } from '@Redux/Slices/Contracts/actions/post/postNewContract';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { Logger } from '@Utils/Logger';
 import React, { useCallback, useState } from 'react';
 import { IContract, ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -101,7 +102,11 @@ export const CreateContractPopup: React.FC = () => {
 
   const onSubmit = useCallback(() => {
     if (page >= 4) {
-      console.log(`Contract Data Passed To Action: ${JSON.stringify(formData)}`);
+      Logger.info(`Contract Data Passed To Action: ${JSON.stringify(formData)}`);
+      if (formData.subtype === null) {
+        Logger.error('Contract Creator missing Subtype');
+        return;
+      }
       dispatch(closePopup(POPUP_CREATE_CONTRACT));
       dispatch(postNewContract(formData)).then((res) => {
         if ((res.payload as { __type: string }).__type === 'Contract') {
