@@ -212,6 +212,19 @@ export const ContractDetails: React.FC<{
                 flexDirection: 'column',
                 width: '100%',
                 overflow: 'hidden',
+                borderTop: '1px solid rgb(0,30,100)',
+                borderBottom: '1px solid rgb(0,30,100)',
+                pt: '.2em',
+                boxShadow: '0 0 10px 3px rgb(0,30,100)',
+                backgroundImage:
+                  'linear-gradient(145deg, rgba(0,73,130,.3), rgba(8,22,80,0.77))',
+                transition: 'all 0.3s ease-in-out',
+                '&:hover': {
+                  borderColor: 'secondary.main',
+                  borderTop: '1px solid rgb(0,30,100)',
+                  borderBottom: '1px solid rgb(0,30,100)',
+                  boxShadow: '0 0 10px 5px rgb(0,30,100)',
+                },
               }}
             >
               <Typography
@@ -303,6 +316,24 @@ export const ContractDetails: React.FC<{
               </Typography>
             )}
           </Box>
+          <Autocomplete
+            data-testid="CreateContract__Subtype-AutoComplete"
+            options={flatOptions}
+            value={formData.subtype}
+            groupBy={(option) => optionsMap[option].group}
+            getOptionLabel={(option) => optionsMap[option].label}
+            renderInput={(params) => (
+              <TextField {...params} label="SubType" size="small" />
+            )}
+            onChange={(_e, newValue) => {
+              setFormData({
+                ...formData,
+                subtype: (newValue as IContractSubType) ?? '',
+              });
+            }}
+            fullWidth
+            sx={{ mt: 2, mb: '1em', maxWidth: '300px' }}
+          />
         </Box>
       </FormControl>
     </Box>
