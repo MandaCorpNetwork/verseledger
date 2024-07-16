@@ -9,6 +9,9 @@ export class EnvService implements EnvironmentConfig {
   public DISCORD_CLIENT_ID!: string;
   public DISCORD_CLIENT_SECRET!: string;
 
+  public PALLY_WS!: string;
+  public PALLY_CHANNEL!: string;
+
   public MYSQL_DATABASE!: string;
   public MYSQL_USER!: string;
   public MYSQL_PASSWORD!: string;
@@ -33,7 +36,7 @@ export class EnvService implements EnvironmentConfig {
       if (envar == undefined) {
         if (optional) {
           this.warnStack.push(
-            `${colors.magenta('[ENV]')}${`${colors.green('"')}${colors.bold(colors.cyan(prop))}=${colors.underline(type)}${colors.green('"')}`}${colors.gray(`is missing.\n ${colors.yellow('-')} Defaulting to`)}${`${colors.green('"')}${colors.yellow(defaultValue as unknown as string)}${colors.green('"')}\n`}`,
+            `${colors.magenta('[ENV] ')}${`${colors.green('"')}${colors.bold(colors.cyan(prop))}=${colors.underline(type)}${colors.green('"')}`}${colors.gray(` is missing.\n ${colors.yellow('-')} Defaulting to`)}${`${colors.green('"')}${colors.yellow(defaultValue as unknown as string)}${colors.green('"')}\n`}`,
           );
           envar = defaultValue as unknown as string;
         } else {
