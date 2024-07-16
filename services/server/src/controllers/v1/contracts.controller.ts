@@ -21,6 +21,7 @@ import { NotFoundError } from '@Errors/NotFoundError';
 import {
   CreateContractBodySchema,
   IContract,
+  UpdateContractSchema,
 } from 'vl-shared/src/schemas/ContractSchema';
 import { z, ZodError } from 'zod';
 import {
@@ -247,6 +248,75 @@ export class ContractController extends BaseHttpController {
       throw nextFunc(new NotFoundError(bidId));
     }
     return this.ok(new ContractBidDTO(bid));
+  }
+
+  @ApiOperationPatch({
+    tags: ['Contracts'],
+    description: 'Update a Contract',
+    summary: 'Update a Contract',
+    path: '/{contractId}',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Updated',
+        model: 'Contract',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: {
+        contractId: { required: true, description: 'A Contract ID' },
+      },
+      body: {
+        properties: {},
+      },
+    },
+    security: { VLAuthAccessToken: [] },
+  })
+  @httpPatch(
+    `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})`,
+    TYPES.VerifiedUserMiddleware,
+  )
+  private async updateContract(
+    @requestParam('contractId') contractId: string,
+    @requestBody() contractRaw: IContractBid,
+    @next() nextFunc: NextFunction,
+  ) {
+    const newContract = UpdateContractSchema.strict().parse(contractRaw);
+
+    if (!IdUtil.isValidId(contractId)) {
+      throw nextFunc(
+        new BadParameterError(
+          'contractId',
+          `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids/:bidId(${IdUtil.expressRegex(IdUtil.IdPrefix.Bid)})`,
+        ),
+      );
+    }
+
+    const contract = await this.contractService.getContract(contractId, [
+      'owner',
+    ]);
+    if (contract == null) {
+      throw nextFunc(new NotFoundError(contractId));
+    }
+
+    const userId = (this.httpContext.user as VLAuthPrincipal).id;
+    if (userId != contract.owner_id) throw nextFunc(new UnauthorizedError());
+
+    for (const k in newContract) {
+      const key = k as keyof typeof newContract;
+      if (newContract[key] != contract[key]) {
+        contract.set(key, newContract[key]);
+      }
+    }
+    await contract.save();
+
+    Logger.info('After Update');
+
+    //TODO: Notifications
+
+    if (contract)
+      return this.ok(new ContractDTO(contract as IContract).strip());
   }
 
   @ApiOperationPatch({
