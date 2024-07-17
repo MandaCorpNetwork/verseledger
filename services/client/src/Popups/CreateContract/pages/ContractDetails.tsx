@@ -5,6 +5,7 @@ import { HelpOutline } from '@mui/icons-material';
 import {
   Autocomplete,
   Box,
+  Button,
   Chip,
   FormControl,
   IconButton,
@@ -74,7 +75,10 @@ export const ContractDetails: React.FC<{
         if (archetype !== subtypeArchetype) {
           setArchetype(subtypeArchetype);
         }
-        setFormData({ ...formData, subtype: newValue as IContractSubType });
+        setFormData((formData) => ({
+          ...formData,
+          subtype: newValue as IContractSubType,
+        }));
         setSelectedSubtype(newValue);
       } else {
         setSelectedSubtype(newValue);
@@ -82,6 +86,35 @@ export const ContractDetails: React.FC<{
     },
     [setFormData, selectedSubtype, setSelectedSubtype],
   );
+
+  const toggleEmergencyMode = React.useCallback(() => {
+    console.log(formData.isEmergency);
+    if (formData.isEmergency) {
+      setFormData({ ...formData, isEmergency: false });
+    } else {
+      setFormData({ ...formData, isEmergency: true });
+    }
+  }, [formData, setFormData]);
+
+  const checkEmergencyAvailable = () => {
+    if (
+      formData.subtype == 'Transport' ||
+      formData.subtype == 'Trauma' ||
+      formData.subtype == 'Escort' ||
+      formData.subtype == 'QRF' ||
+      formData.subtype == 'Refuel' ||
+      formData.subtype == 'Rearm' ||
+      formData.subtype == 'Repair' ||
+      formData.subtype == 'Middleman' ||
+      formData.subtype == 'Redacted'
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const emergencyAvailable = checkEmergencyAvailable();
 
   return (
     <Box
@@ -315,6 +348,30 @@ export const ContractDetails: React.FC<{
             fullWidth
             sx={{ mt: 2, mb: '1em', maxWidth: '300px' }}
           />
+          <Box
+            data-testid="EmergencyButton-Wrapper"
+            sx={{
+              my: 'auto',
+              mx: 'auto',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <Button
+              variant="contained"
+              color="error"
+              onClick={toggleEmergencyMode}
+              disabled={!emergencyAvailable}
+              sx={{ mb: '.5em' }}
+            >
+              Emergency
+            </Button>
+            {formData.isEmergency && (
+              <Typography align="center" variant="tip" sx={{ px: '1em' }}>
+                Emergency Mode disables some features.
+              </Typography>
+            )}
+          </Box>
         </Box>
       </FormControl>
     </Box>
