@@ -109,3 +109,20 @@
               )}
             </Box>
           </Box>
+
+                          {() ? (
+                  <LocationChip
+                    locationId={
+                      formData.Locations?.find((loc) => loc.tag === 'end')
+                        ?.location as string
+                    }
+                    onDelete={() =>
+                      handleRemoveLocation(
+                        formData.Locations?.find((loc) => loc.tag === 'end')
+                          ?.location as string,
+                        'end',
+                      )
+                    }
+                  />
+                ) : null,
+                }
