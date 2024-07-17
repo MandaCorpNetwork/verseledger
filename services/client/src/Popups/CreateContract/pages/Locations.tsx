@@ -7,7 +7,7 @@ import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
-// import { SmallEmergencyOverlay } from '../EmergencyOverlay';
+import { SmallEmergencyOverlay } from '../EmergencyOverlay';
 export const Locations: React.FC<{
   formData: ICreateContractBody;
   setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
@@ -127,7 +127,8 @@ export const Locations: React.FC<{
               menuSize="s"
             />
           </div>
-          <div>
+          <div style={{ marginBottom: '1em' }}>
+            {formData.isEmergency && <SmallEmergencyOverlay />}
             <Typography
               variant="tip"
               sx={{ mb: '.5em', fontSize: '.8em', ml: '.3em', px: '.5em', mt: '.5em' }}
