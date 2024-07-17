@@ -69,6 +69,15 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
     }
   }, [currentUserLocation, locations]);
 
+  const menuSizeValues = {
+    xs: 200,
+    s: 300,
+    m: 400,
+    l: 500,
+    xl: 600,
+    xxl: 700,
+  };
+
   return (
     <Box>
       <Autocomplete

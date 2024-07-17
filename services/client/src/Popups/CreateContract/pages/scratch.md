@@ -1,17 +1,111 @@
-fontWeight: manualControlled ? 'bold' : 'normal',
-color: formData.isEmergency ? 'text.disabled' : manualControlled ? 'secondary.main' : 'text.secondary',
-backgroundImage: manualControlled ? 'linear-gradient(145deg, rgba(0,180,255,0.3), rgba(0,73,130,.77))' : 'linear-gradient(145deg, rgba(0,0,0,.2), rgba(0,0,0,.5))',
-boxShadow: formData.isEmergency ? 'none' : manualControlled ? '0 0 5px 2px rgba(0,180,255,.5)' : '0 0 5px 1px rgba(0,0,0,0.5)',
-textShadow: manualControlled ? '0 0 5px rgba(0,180,255,.5)' : 'none',
+            
 
+{formData.isEmergency && <SmallEmergencyOverlay />}
 
+<TextField
+              data-testid="LocationForm__StartingLocation-Output"
+              label="Start Location"
+              color="secondary"
+              size="small"
+              InputProps={{
+                readOnly: true,
+                startAdornment:
+                  (formData.Locations?.length ?? 0) > 0 ? (
+                    <LocationChip
+                      locationId={
+                        formData.Locations?.find((loc) => loc.tag === 'start')
+                          ?.location as string
+                      }
+                      //onDelete={() => handleRemoveLocation( ,'start')}
+                    />
+                  ) : null,
+              }}
+              sx={{
+                display: 'flex',
+                width: '150px',
+              }}
+            />
 
-'$.Mui-disabled': {
-  color: 'text.disabled',
-  textShadow: 'none',
-  boxShadow: 'none',
-  backgroundImage: 'linear-gradient(145deg, rgba(0,0,0,.2), rgba(0,0,0,.5))',
-},
-if (manualControlled) {
-  setManualControlled(true);
-}
+             <TextField
+              data-testid="LocationForm__EndingLocation-Output"
+              label="End Location"
+              color="secondary"
+              size="small"
+              InputProps={{
+                readOnly: true,
+                startAdornment:
+                  (formData.Locations?.length ?? 0) > 1 ? (
+                    <LocationChip
+                      locationId={
+                        formData.Locations?.find((loc) => loc.tag === 'end')
+                          ?.location as string
+                      }
+                      //onDelete={() => handleRemoveLocation(formData.Locations?.find((loc) => loc.tag === 'end')?.id as string, 'end'}
+                    />
+                  ) : null,
+              }}
+              sx={{
+                display: 'flex',
+                width: '150px',
+              }}
+            />
+
+            <Box
+            data-testid="LocationForm__OtherLocation-Output"
+            sx={{
+              borderTop: '2px solid',
+              borderBottom: '2px solid',
+              borderRadius: '5px',
+              borderColor: formData.isEmergency
+                ? 'action.disabledBackground'
+                : 'primary.main',
+              mx: '20%',
+              py: '.5em',
+              px: '.2em',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Typography
+              variant="body1"
+              sx={{
+                color: formData.isEmergency ? 'text.disabled' : 'text.secondary',
+              }}
+            >
+              Other Locations
+            </Typography>
+            <Box
+              data-testid="LocationForm__OtherLocation-List"
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '.5em',
+                maxHeight: '150px',
+                overflowY: 'auto',
+                p: '.5em',
+                '&::-webkit-scrollbar': {
+                  width: '10px',
+                },
+                '&::-webkit-scrollbar-track': {
+                  background: 'rgb(8, 29, 68)',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  borderRadius: '20px',
+                  background: 'rgb(121, 192, 244, .5)',
+                },
+              }}
+            >
+              {formData.Locations?.map(
+                (loc) =>
+                  loc.tag === 'other' && (
+                    <LocationChip
+                      locationId={loc.location}
+                      //onDelete={() => handleRemoveLocation()}
+                      key={loc.location}
+                    />
+                  ),
+              )}
+            </Box>
+          </Box>

@@ -7,7 +7,7 @@ import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
-import { SmallEmergencyOverlay } from '../EmergencyOverlay';
+// import { SmallEmergencyOverlay } from '../EmergencyOverlay';
 export const Locations: React.FC<{
   formData: ICreateContractBody;
   setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
