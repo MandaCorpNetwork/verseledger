@@ -141,12 +141,6 @@ export const CreateContractPopup: React.FC = () => {
 
   const [invites, setInvites] = React.useState<User[]>([]);
 
-  const handleUserInvite = React.useCallback((selectedUser: User | null) => {
-    if (selectedUser) {
-      setInvites((invites) => [...invites, selectedUser]);
-    }
-  }, []);
-
   const isSubmitEnabled = React.useMemo(() => {
     console.log(formData);
     switch (page) {
@@ -227,7 +221,7 @@ export const CreateContractPopup: React.FC = () => {
             formData={formData}
             setFormData={setFormData}
             invites={invites}
-            setInvites={handleUserInvite}
+            setInvites={setInvites}
           />
         )}
         {page === 4 && <Payroll formData={formData} setFormData={setFormData} />}

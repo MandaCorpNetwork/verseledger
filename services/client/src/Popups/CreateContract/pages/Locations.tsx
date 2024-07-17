@@ -127,7 +127,7 @@ export const Locations: React.FC<{
               menuSize="s"
             />
           </div>
-          <div style={{ marginBottom: '1em' }}>
+          <div style={{ marginBottom: '1em', position: 'relative' }}>
             {formData.isEmergency && <SmallEmergencyOverlay />}
             <Typography
               variant="tip"
