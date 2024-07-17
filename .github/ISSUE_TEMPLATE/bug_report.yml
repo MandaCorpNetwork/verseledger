@@ -142,7 +142,6 @@ body:
       label: Additional Notes
       description: Feel free to provide any additional notes you think might be helpful.
       render: markdown
-      placeholder: " "
     validations:
       required: false
   - type: markdown
