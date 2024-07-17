@@ -29,7 +29,7 @@ export class Logger {
     const prefix = `[${_getCallerFile(2)}]`;
     console.error(
       this.getTimestamp(),
-      chalk.black.bgRedBright('[ERROR]'),
+      chalk.black.bgRedBright('[ERR!]'),
       chalk.grey(prefix),
       ...args,
     );

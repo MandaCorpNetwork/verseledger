@@ -36,6 +36,15 @@ export class ContractDTO extends DTOBase<IContract> implements IContract {
     };
   }
 
+  public strip() {
+    return new ContractDTO({
+      ...this,
+      Locations: undefined,
+      Owner: undefined,
+      User: undefined,
+    });
+  }
+
   @ApiModelProperty({
     description: 'ID of Contract',
     required: true,

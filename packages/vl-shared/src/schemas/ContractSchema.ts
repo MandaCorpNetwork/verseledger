@@ -51,3 +51,10 @@ export const CreateContractBodySchema = ContractSchema.omit({
     .optional(),
 });
 export type ICreateContractBody = z.infer<typeof CreateContractBodySchema>;
+
+export const UpdateContractSchema = ContractSchema.omit({
+  id: true,
+  owner_id: true,
+  Bids: true,
+  Locations: true,
+});
