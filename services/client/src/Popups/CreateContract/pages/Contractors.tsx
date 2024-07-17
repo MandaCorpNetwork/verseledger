@@ -17,7 +17,7 @@ import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
-import { SmallEmergencyOverlay } from '../EmergencyOverlay';
+// import { SmallEmergencyOverlay } from '../EmergencyOverlay';
 
 export const Contractors: React.FC<{
   formData: ICreateContractBody;
