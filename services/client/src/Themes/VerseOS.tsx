@@ -76,12 +76,13 @@ export const verseOSTheme = createTheme({
           style: {
             color: 'rgb(255,141,15)',
             fontSize: '.7em',
+            boxShadow: '0 4px 8px rgba(0,0,0,.4)',
             backgroundImage:
               'linear-gradient(135deg, rgba(255, 141, 15, 0.2), rgba(255, 255, 255, 0.1))',
             borderRadius: '10px',
             cursor: 'default',
             textShadow: '0 0 5px rgba(0,0,0)',
-            boxShadow: '0 4px 8px rgba(0,0,0,.4)',
+            display: 'inline-block',
           },
         },
       ],

@@ -1,5 +1,6 @@
 import './contractDetails.scss';
 
+import PopupFormSelection from '@Common/Components/Boxes/PopupFormSelection';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { HelpOutline } from '@mui/icons-material';
 import {
@@ -92,7 +93,13 @@ export const ContractDetails: React.FC<{
     if (formData.isEmergency) {
       setFormData({ ...formData, isEmergency: false });
     } else {
-      setFormData({ ...formData, isEmergency: true });
+      setFormData({
+        ...formData,
+        isEmergency: true,
+        bidDate: undefined,
+        startDate: undefined,
+        endDate: undefined,
+      });
     }
   }, [formData, setFormData]);
 
@@ -198,32 +205,12 @@ export const ContractDetails: React.FC<{
             data-testid="ContractDetails-Form__ArchetypeSelect_Container"
             sx={{ display: 'flex', flexDirection: 'row', width: '300px' }}
           >
-            <Box
+            <PopupFormSelection
               data-testid="ContractDetails-Form__ArchetypeSelect_Wrapper"
               sx={{
-                display: 'flex',
                 flexDirection: 'column',
                 width: '100%',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderLeft: '2px solid',
-                borderRight: '2px solid',
-                borderColor: 'rgb(0,30,100)',
-                borderRadius: '5px',
                 overflow: 'hidden',
-                borderTop: '1px solid rgb(0,30,100)',
-                borderBottom: '1px solid rgb(0,30,100)',
-                pt: '.2em',
-                boxShadow: '0 0 10px 3px rgb(0,30,100)',
-                backgroundImage:
-                  'linear-gradient(145deg, rgba(0,73,130,.3), rgba(8,22,80,0.77))',
-                transition: 'all 0.3s ease-in-out',
-                '&:hover': {
-                  borderColor: 'secondary.main',
-                  borderTop: '1px solid rgb(0,30,100)',
-                  borderBottom: '1px solid rgb(0,30,100)',
-                  boxShadow: '0 0 10px 5px rgb(0,30,100)',
-                },
               }}
             >
               <Typography
@@ -332,7 +319,7 @@ export const ContractDetails: React.FC<{
                   />
                 ))}
               </Box>
-            </Box>
+            </PopupFormSelection>
           </Box>
           <Autocomplete
             data-testid="CreateContract__Subtype-AutoComplete"
@@ -342,7 +329,7 @@ export const ContractDetails: React.FC<{
             groupBy={(option) => optionsMap[option].group}
             getOptionLabel={(option) => optionsMap[option].label}
             renderInput={(params) => (
-              <TextField {...params} label="SubType" size="small" />
+              <TextField {...params} color="secondary" label="SubType" size="small" />
             )}
             onChange={(_, value) => updateSubtype(value)}
             fullWidth

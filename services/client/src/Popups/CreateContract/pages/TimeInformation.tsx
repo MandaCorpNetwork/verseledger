@@ -7,7 +7,6 @@ import {
   FormControl,
   FormControlLabel,
   IconButton,
-  Switch,
   TextField,
   Typography,
 } from '@mui/material';
@@ -25,7 +24,6 @@ export const TimeInformation: React.FC<{
   const { formData, setFormData } = props;
   const [heldDate, setHeldDate] = React.useState<Date | null>(null);
   const [afterBiddingChecked, setAfterBiddingChecked] = React.useState(false);
-  const [manualControlled, setManualControlled] = React.useState(false);
 
   const handleAfterBiddingCheck = React.useCallback(() => {
     setAfterBiddingChecked((prevChecked) => {
@@ -136,7 +134,7 @@ export const TimeInformation: React.FC<{
           justifyContent: 'center',
         }}
       >
-        <Box
+        {/* <Box
           data-testid="TimeInformation-Form__ManualSwitch_Container"
           sx={{
             display: 'flex',
@@ -146,32 +144,13 @@ export const TimeInformation: React.FC<{
             mb: '1em',
           }}
         >
-          <Box
+          <PopupFormSelection
             data-testid="TimeInformation-Form__ManualSwitch_Wrapper"
             sx={{
-              display: 'inherit',
               flexDirection: 'row',
-              alignItems: 'center',
               px: '.5em',
               py: '.2em',
-              borderLeft: '3px solid',
-              borderRight: '3px solid',
-              borderColor: 'rgba(0,30,150,.8)',
-              borderRadius: '5px',
-              borderTop: '1px solid rgb(0,30,100)',
-              borderBottom: '1px solid rgb(0,30,100)',
-              boxShadow: '0 0 10px rgba(0,0,0,.8)',
-              backgroundImage:
-                'linear-gradient(145deg, rgba(0,73,130,.3), rgba(8,22,80,0.77))',
-              transition: 'all 0.3s ease-in-out',
               width: '300px',
-              justifyContent: 'center',
-              '&:hover': {
-                borderColor: 'secondary.main',
-                borderTop: '1px solid rgb(0,30,100)',
-                borderBottom: '1px solid rgb(0,30,100)',
-                boxShadow: '0 0 10px 5px rgb(0,30,100)',
-              },
             }}
           >
             <Typography
@@ -179,15 +158,15 @@ export const TimeInformation: React.FC<{
               sx={{
                 mr: '1em',
                 borderRadius: '10px',
-                fontWeight: !manualControlled ? 'bold' : 'normal',
-                color: !manualControlled ? 'secondary.main' : 'text.secondary',
-                backgroundImage: !manualControlled
+                fontWeight: !autoControlled ? 'bold' : 'normal',
+                color: !autoControlled ? 'secondary.main' : 'text.secondary',
+                backgroundImage: !autoControlled
                   ? 'linear-gradient(145deg, rgba(0,180,255,0.3), rgba(0,73,130,.77))'
                   : 'linear-gradient(145deg, rgba(0,0,0,.2), rgba(0,0,0,.5))',
-                boxShadow: !manualControlled
+                boxShadow: !autoControlled
                   ? '0 0 5px 2px rgba(0,180,255,.5)'
                   : '0 0 5px 1px rgba(0,0,0,0.5)',
-                textShadow: !manualControlled ? '0 0 5px rgba(0,180,255,.5)' : 'none',
+                textShadow: !autoControlled ? '0 0 5px rgba(0,180,255,.5)' : 'none',
                 width: '100px',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -201,8 +180,8 @@ export const TimeInformation: React.FC<{
             </Typography>
             <Switch
               color="secondary"
-              checked={manualControlled}
-              onChange={() => setManualControlled((prev) => !prev)}
+              checked={autoControlled}
+              onChange={() => setAutoControlled((prev) => !prev)}
               disabled={formData.isEmergency}
             />
             <Typography
@@ -216,21 +195,21 @@ export const TimeInformation: React.FC<{
                 ml: '1em',
                 px: '.3em',
                 borderRadius: '10px',
-                fontWeight: manualControlled ? 'bold' : 'normal',
+                fontWeight: autoControlled ? 'bold' : 'normal',
                 color: formData.isEmergency
                   ? 'text.disabled'
-                  : manualControlled
+                  : autoControlled
                     ? 'secondary.main'
                     : 'text.secondary',
-                backgroundImage: manualControlled
+                backgroundImage: autoControlled
                   ? 'linear-gradient(145deg, rgba(0,180,255,0.3), rgba(0,73,130,.77))'
                   : 'linear-gradient(145deg, rgba(0,0,0,.2), rgba(0,0,0,.5))',
                 boxShadow: formData.isEmergency
                   ? 'none'
-                  : manualControlled
+                  : autoControlled
                     ? '0 0 5px 2px rgba(0,180,255,.5)'
                     : '0 0 5px 1px rgba(0,0,0,0.5)',
-                textShadow: manualControlled ? '0 0 5px rgba(0,180,255,.5)' : 'none',
+                textShadow: autoControlled ? '0 0 5px rgba(0,180,255,.5)' : 'none',
                 '$.Mui-disabled': {
                   color: 'text.disabled',
                   textShadow: 'none',
@@ -242,8 +221,8 @@ export const TimeInformation: React.FC<{
             >
               Automatic
             </Typography>
-          </Box>
-        </Box>
+          </PopupFormSelection>
+        </Box> */}
         <Box
           data-testid="TimeInformation-Form__ControlMessage_Wrapper"
           sx={{
@@ -253,52 +232,37 @@ export const TimeInformation: React.FC<{
             justifyContent: 'center',
           }}
         >
-          {!manualControlled ? (
-            <Box
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '.5em',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Typography
+              variant="tip"
+              align="center"
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '.5em',
-                justifyContent: 'center',
-                alignItems: 'center',
+                maxWidth: '400px',
               }}
             >
+              Manual Controlled Times require you to trigger the event in the Contract
+              Manager on Personal Ledger. Set a time to make it automatic.
+            </Typography>
+            {formData.isEmergency && (
               <Typography
                 variant="tip"
                 align="center"
                 sx={{
-                  maxWidth: '400px',
+                  px: '1em',
                 }}
               >
-                Manually Controlling Times allows the user to trigger events in the
-                Contract Manager on the Personal Ledger.
+                Emergency Contracts must be manually controlled.
               </Typography>
-              {formData.isEmergency && (
-                <Typography
-                  variant="tip"
-                  align="center"
-                  sx={{
-                    px: '1em',
-                  }}
-                >
-                  Emergency Contracts must be manually controlled.
-                </Typography>
-              )}
-            </Box>
-          ) : (
-            <>
-              <Typography
-                align="center"
-                variant="tip"
-                sx={{
-                  maxWidth: '400px',
-                }}
-              >
-                Unselected Times are manually controlled in the Contract Manager on the
-                Personal Ledger
-              </Typography>
-            </>
-          )}
+            )}
+          </Box>
         </Box>
         <Box
           data-testid="TimeInformation-form-DateBoxWrapper"
@@ -311,12 +275,15 @@ export const TimeInformation: React.FC<{
         >
           {formData.isEmergency && <LargeEmergencyOverlay />}
           <TextField
-            label="Bid Date"
+            label="Bid End Date"
             color="secondary"
             value={formatDate(formData.bidDate as Date)}
-            inputProps={{ style: { textAlign: 'center' } }}
+            inputProps={{ style: { textAlign: 'center', cursor: 'default' } }}
             InputProps={{
               readOnly: true,
+              sx: {
+                cursor: 'default',
+              },
               startAdornment: (
                 <SelectTimeButton
                   onDateChange={(newDate) => setHeldDate(newDate)}
@@ -346,12 +313,15 @@ export const TimeInformation: React.FC<{
             }}
           >
             <TextField
-              label="Start Date"
+              label="Contract Start Date"
               color="secondary"
               value={formatDate(formData.startDate as Date)}
-              inputProps={{ style: { textAlign: 'center' } }}
+              inputProps={{ style: { textAlign: 'center', cursor: 'default' } }}
               InputProps={{
                 readOnly: true,
+                sx: {
+                  cursor: 'default',
+                },
                 startAdornment: (
                   <SelectTimeButton
                     onDateChange={(newDate) => setHeldDate(newDate)}
@@ -385,16 +355,20 @@ export const TimeInformation: React.FC<{
               label="Start After Bidding"
               sx={{
                 color: 'text.secondary',
+                mx: 'auto',
               }}
             />
           </Box>
           <TextField
-            label="End Date"
+            label="Contract End Date"
             color="secondary"
             value={formatDate(formData.endDate as Date)}
-            inputProps={{ style: { textAlign: 'center' } }}
+            inputProps={{ style: { textAlign: 'center', cursor: 'default' } }}
             InputProps={{
               readOnly: true,
+              sx: {
+                cursor: 'default',
+              },
               startAdornment: (
                 <SelectTimeButton
                   onDateChange={(newDate) => setHeldDate(newDate)}

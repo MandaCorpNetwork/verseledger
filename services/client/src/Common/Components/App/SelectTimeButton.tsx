@@ -1,16 +1,21 @@
 import { Schedule } from '@mui/icons-material';
-import { Box, IconButton, Popover } from '@mui/material';
+import { Box, IconButton, Popover, Typography } from '@mui/material';
 import { DateCalendar, DigitalClock } from '@mui/x-date-pickers';
+import { Logger } from '@Utils/Logger';
 import React from 'react';
 
 type SelectTimeProps = {
   onDateChange: (newDate: Date) => void;
   onTimeChange: (newTime: Date) => void;
+  color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
+  disabled?: boolean;
 };
 
 export const SelectTimeButton: React.FC<SelectTimeProps> = ({
   onDateChange,
   onTimeChange,
+  color,
+  disabled,
 }) => {
   const [anchorEl, setAnchorE1] = React.useState<null | HTMLElement>(null);
   const openCalendar = (event: React.MouseEvent<HTMLElement>) => {
@@ -18,22 +23,29 @@ export const SelectTimeButton: React.FC<SelectTimeProps> = ({
   };
   const [view, setView] = React.useState('date');
   const handleDateChange = (newDate: Date) => {
-    console.log(newDate);
+    Logger.info(newDate);
     onDateChange(newDate);
     setView('time');
   };
   const handleTimeChange = (newTime: Date) => {
-    console.log(newTime);
+    Logger.info(newTime);
     onTimeChange(newTime);
     setView('date');
     setAnchorE1(null);
   };
   return (
     <>
-      <IconButton color="secondary" size="large" onClick={openCalendar}>
+      <IconButton
+        data-testid="SelectTimeButton"
+        color={color ? color : 'secondary'}
+        size="large"
+        onClick={openCalendar}
+        disabled={disabled}
+      >
         <Schedule />
       </IconButton>
       <Popover
+        data-testid="SelectTimeForm__Popover"
         open={Boolean(anchorEl)}
         onClose={() => setAnchorE1(null)}
         anchorOrigin={{
@@ -48,46 +60,59 @@ export const SelectTimeButton: React.FC<SelectTimeProps> = ({
           backdropFilter: 'blur(5px)',
         }}
       >
-        <Box>
+        <div>
           {view === 'date' && (
-            <DateCalendar
-              showDaysOutsideCurrentMonth
-              fixedWeekNumber={6}
-              disablePast={true}
-              onChange={handleDateChange}
-              slotProps={{
-                leftArrowIcon: {
-                  color: 'secondary',
-                },
-                rightArrowIcon: {
-                  color: 'secondary',
-                },
-                switchViewButton: {
-                  color: 'secondary',
-                },
-                day: {
-                  sx: {
-                    color: 'secondary.main',
-                    '&.Mui-selected': {
-                      backgroundColor: 'primary.main',
-                      color: 'secondary.main',
-                    },
-                    '&.Mui-selected:focus': {
-                      backgroundColor: 'primary.main',
-                    },
-                    '&.MuiPickersDay-dayOutsideMonth': {
-                      color: 'primary.main',
-                    },
-                  },
-                },
-              }}
+            <Box
+              data-testid="SelectTimeForm__DateCalendar_Wrapper"
               sx={{
                 borderTop: '2px solid',
                 borderBottom: '2px solid',
                 borderColor: 'secondary.main',
                 borderRadius: '10px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
-            />
+            >
+              <DateCalendar
+                showDaysOutsideCurrentMonth
+                fixedWeekNumber={6}
+                disablePast={true}
+                onChange={handleDateChange}
+                slotProps={{
+                  leftArrowIcon: {
+                    color: 'secondary',
+                  },
+                  rightArrowIcon: {
+                    color: 'secondary',
+                  },
+                  switchViewButton: {
+                    color: 'secondary',
+                  },
+                  day: {
+                    sx: {
+                      color: 'secondary.main',
+                      '&.Mui-selected': {
+                        backgroundColor: 'primary.main',
+                        color: 'secondary.main',
+                      },
+                      '&.Mui-selected:focus': {
+                        backgroundColor: 'primary.main',
+                      },
+                      '&.MuiPickersDay-dayOutsideMonth': {
+                        color: 'primary.main',
+                      },
+                    },
+                  },
+                }}
+              />
+              <div>
+                <Typography variant="tip" align="center" sx={{ px: '1em', mb: '1em' }}>
+                  Times are in User&apos;s Local Time
+                </Typography>
+              </div>
+            </Box>
           )}
           {view === 'time' && (
             <DigitalClock
@@ -111,7 +136,7 @@ export const SelectTimeButton: React.FC<SelectTimeProps> = ({
               }}
             />
           )}
-        </Box>
+        </div>
       </Popover>
     </>
   );
