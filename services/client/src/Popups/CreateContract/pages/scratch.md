@@ -12,3 +12,6 @@ textShadow: manualControlled ? '0 0 5px rgba(0,180,255,.5)' : 'none',
   boxShadow: 'none',
   backgroundImage: 'linear-gradient(145deg, rgba(0,0,0,.2), rgba(0,0,0,.5))',
 },
+if (manualControlled) {
+  setManualControlled(true);
+}
