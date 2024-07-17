@@ -77,16 +77,16 @@ export const Contractors: React.FC<{
     }));
   };
 
-  const getFilteredValue = React.useCallback(() => {
-    if (formData.contractorLimit === 0) {
+  const getFilteredValue = () => {
+    if (formData.contractorLimit === 0 || formData.contractorLimit === undefined) {
       return '';
     }
     return filterNumericInput(formData.contractorLimit.toString());
-  }, [formData.contractorLimit]);
+  };
 
   const filterNumericInput = (input: string) => {
     // Filter out non-numeric characters
-    return input.replace(/\D+/g, '');
+    return input.replace(/[^\d]/g, '');
   };
 
   return (
@@ -203,7 +203,7 @@ export const Contractors: React.FC<{
                 color="secondary"
                 size="small"
                 variant="filled"
-                type="number"
+                type="string"
                 value={getFilteredValue()}
                 onChange={handleMaxContractorInput}
                 error={formData.contractorLimit === 0}

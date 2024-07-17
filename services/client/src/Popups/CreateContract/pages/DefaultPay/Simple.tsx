@@ -11,18 +11,19 @@ import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
 export const FlatRatePayroll: React.FC<{
   formData: ICreateContractBody;
-  onChange: (value: number) => void;
+  onChange: (value: string) => void;
+  getValue: () => string;
 }> = (props) => {
-  const { formData, onChange } = props;
+  const { formData, onChange, getValue } = props;
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', mt: '.5em' }}>
       <TextField
         size="small"
         label="Pay"
-        type="number"
+        type="string"
         color="secondary"
-        value={formData.defaultPay || ''}
-        onChange={(e) => onChange(+e.target.value)}
+        value={getValue()}
+        onChange={(e) => onChange(e.target.value)}
         InputProps={{ startAdornment: '¤' }}
         sx={{
           width: '150px',
@@ -37,11 +38,12 @@ export const FlatRatePayroll: React.FC<{
 
 export const PoolPayroll: React.FC<{
   formData: ICreateContractBody;
-  onChange: (value: number) => void;
+  onChange: (value: string) => void;
   evenSplit: boolean;
   setEvenSplit: (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
+  getValue: () => string;
 }> = (props) => {
-  const { formData, onChange, evenSplit, setEvenSplit } = props;
+  const { onChange, evenSplit, setEvenSplit, getValue } = props;
 
   return (
     <Box
@@ -54,11 +56,11 @@ export const PoolPayroll: React.FC<{
     >
       <TextField
         size="small"
-        label="Pay Percentage"
+        label="% of Pool"
         type="number"
         color="secondary"
-        value={formData.defaultPay || ''}
-        onChange={(e) => onChange(Number(e.target.value))}
+        value={getValue()}
+        onChange={(e) => onChange(e.target.value)}
         InputProps={{ endAdornment: '%' }}
         sx={{
           width: '150px',
@@ -82,9 +84,10 @@ export const PoolPayroll: React.FC<{
 
 export const TimedPayroll: React.FC<{
   formData: ICreateContractBody;
-  onChange: (value: number) => void;
+  onChange: (value: string) => void;
+  getValue: () => string;
 }> = (props) => {
-  const { formData, onChange } = props;
+  const { onChange, getValue } = props;
   const rates = [
     {
       value: 'Hourly',
@@ -116,10 +119,10 @@ export const TimedPayroll: React.FC<{
       <TextField
         size="small"
         label="Hourly Pay"
-        type="number"
+        type="string"
         color="secondary"
-        value={formData.defaultPay || ''}
-        onChange={(e) => onChange(Number(e.target.value))}
+        value={getValue()}
+        onChange={(e) => onChange(e.target.value)}
         InputProps={{ endAdornment: '/HR', startAdornment: '¤' }}
         sx={{
           width: '150px',

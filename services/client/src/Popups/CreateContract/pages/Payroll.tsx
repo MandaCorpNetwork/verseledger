@@ -63,14 +63,19 @@ export const Payroll: React.FC<{
     setIsComplex(event.target.checked);
   };
 
-  const handleSetDefaultPay = (value: number) => {
+  const handleSetDefaultPay = (value: string) => {
     setFormData((prevFormData) => {
-      const updatedPay = { ...prevFormData, defaultPay: value };
-      console.log(`Input Value @ PayHandler: ${value}`);
-      console.log(`Current Form Data Object: ${JSON.stringify(formData)}`);
+      const updatedPay = { ...prevFormData, defaultPay: +filterNumericInput(value) };
       return updatedPay;
     });
   };
+
+  const getFilteredValue = React.useCallback(() => {
+    if (formData.defaultPay === 0 || formData.defaultPay === undefined) {
+      return '';
+    }
+    return filterNumericInput(formData.defaultPay.toString());
+  }, [formData.defaultPay]);
 
   const handleEvenSplitToggle = React.useCallback(() => {
     if (evenSplit) {
@@ -88,6 +93,11 @@ export const Payroll: React.FC<{
       }));
     }
   }, [evenSplit, setEvenSplit, setFormData]);
+
+  const filterNumericInput = (input: string) => {
+    // Filter out non-numeric characters
+    return input.replace(/\D+/g, '');
+  };
 
   return (
     <Box
@@ -222,10 +232,18 @@ export const Payroll: React.FC<{
           <FormLabel color="secondary">Default Pay</FormLabel>
           <Box data-testid="Payroll-DefaultPay__Wrapper">
             {formData.payStructure === 'FLATRATE' && (
-              <FlatRatePayroll formData={formData} onChange={handleSetDefaultPay} />
+              <FlatRatePayroll
+                formData={formData}
+                onChange={handleSetDefaultPay}
+                getValue={getFilteredValue}
+              />
             )}
             {formData.payStructure === 'HOURLY' && (
-              <TimedPayroll formData={formData} onChange={handleSetDefaultPay} />
+              <TimedPayroll
+                formData={formData}
+                onChange={handleSetDefaultPay}
+                getValue={getFilteredValue}
+              />
             )}
             {formData.payStructure === 'POOL' && (
               <PoolPayroll
@@ -233,6 +251,7 @@ export const Payroll: React.FC<{
                 onChange={handleSetDefaultPay}
                 evenSplit={evenSplit}
                 setEvenSplit={handleEvenSplitToggle}
+                getValue={getFilteredValue}
               />
             )}
           </Box>

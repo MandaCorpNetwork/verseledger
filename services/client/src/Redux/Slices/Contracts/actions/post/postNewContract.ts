@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthUtil } from '@Utils/AuthUtil';
+import { Logger } from '@Utils/Logger';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
 import NetworkService from '@/Services/NetworkService';
@@ -11,7 +12,7 @@ export const postNewContract = createAsyncThunk(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async (contractData: ICreateContractBody) => {
     try {
-      console.log('ContractData Post Attempt: ', contractData);
+      Logger.info('ContractData Post Attempt: ', contractData);
       const response = await NetworkService.POST(
         '/v1/contracts',
         contractData,
@@ -19,7 +20,7 @@ export const postNewContract = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.error('Error creating contract:', error);
+      Logger.error('Error creating contract:', error);
       throw error;
     }
   },
