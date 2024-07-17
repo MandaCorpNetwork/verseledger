@@ -56,8 +56,10 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
   const [archetype, setArchetype] = React.useState<string | null>(null);
 
+  const options = contractArchetypes('secondary.main');
+
   React.useEffect(() => {
-    const selectedArchetype = contractArchetypes.find((option) =>
+    const selectedArchetype = options.find((option) =>
       option.subTypes.some((subType) => subType.value === contract.subtype),
     );
     if (selectedArchetype) {
@@ -319,7 +321,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 }}
               />
               <Tooltip title={archetype}>
-                {contractArchetypes.find((option) => option.archetype === archetype)
+                {options.find((option) => option.archetype === archetype)
                   ?.archetypeIcon ?? <Typography>???</Typography>}
               </Tooltip>
             </Box>
@@ -399,7 +401,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                     color="secondary"
                     label={contract.subtype}
                     icon={
-                      contractArchetypes.find((option) => option.archetype === archetype)
+                      options.find((option) => option.archetype === archetype)
                         ?.archetypeIcon
                     }
                     onClick={handleArchetypeOpen}

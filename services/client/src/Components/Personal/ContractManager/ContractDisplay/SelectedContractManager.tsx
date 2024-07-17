@@ -87,13 +87,15 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   const [archetype, setArchetype] = React.useState<string | null>(null);
   const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
 
+  const options = contractArchetypes('secondary.main');
+
   const contract = useAppSelector((root) => selectContract(root, contractId as string));
   const currentUser = useAppSelector(selectCurrentUser);
 
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
-    const selectedArchetype = contractArchetypes.find((option) =>
+    const selectedArchetype = options.find((option) =>
       option.subTypes.some((subtype) => subtype.value === contract.subtype),
     );
     if (selectedArchetype) {
@@ -396,7 +398,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
             >
               <Tooltip title={archetype}>
-                {contractArchetypes.find((option) => option.archetype === archetype)
+                {options.find((option) => option.archetype === archetype)
                   ?.archetypeIcon ?? <Typography>???</Typography>}
               </Tooltip>
             </Box>
@@ -465,7 +467,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   color="secondary"
                   label={contract.subtype}
                   icon={
-                    contractArchetypes.find((option) => option.archetype === archetype)
+                    options.find((option) => option.archetype === archetype)
                       ?.archetypeIcon
                   }
                   onClick={handleArchetypeOpen}
