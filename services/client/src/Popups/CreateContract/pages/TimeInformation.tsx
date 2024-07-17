@@ -24,6 +24,7 @@ export const TimeInformation: React.FC<{
   const { formData, setFormData } = props;
   const [heldDate, setHeldDate] = React.useState<Date | null>(null);
   const [afterBiddingChecked, setAfterBiddingChecked] = React.useState(false);
+  const [manualControlled, setManualControlled] = React.useState(false);
 
   const handleAfterBiddingCheck = React.useCallback(() => {
     setAfterBiddingChecked((prevChecked) => {

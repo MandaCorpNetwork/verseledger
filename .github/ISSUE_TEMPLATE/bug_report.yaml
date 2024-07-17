@@ -1,0 +1,61 @@
+name: Bug Report
+description: File a bug report for VerseLedger beta
+title: " "
+projects: ["Verse Ledger"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to fill out this bug report!
+  - type: input
+    id: userTitle
+    attributes:
+      label: Issue Title
+      description: Please provide a short, direct title for your issue.
+      placeholder: "Nulling Field Error"
+    validations:
+      required: true
+  - type: textarea
+    id: brief
+    attributes:
+      label: Short Description
+      description: Please provide a brief description of the issue.
+    validations:
+      required: true
+  - type: dropdown
+    id: feature
+    attributes:
+      label: Impacted Feature
+      description: Please select the Feature that you experienced a problem with.
+      multiple: false
+      options:
+        - Contract Ledger
+        - Personal Ledger
+        - Popup
+        - User Settings
+        - App Bar
+        - Other
+  - type: dropdown
+    id: tool
+    attributes:
+      label: Specific Tool
+      description: If a specific tool caused this please choose it from the list available
+      multiple: false
+      options:
+        - Contract Manager
+        - Overview App
+        - Create Contract
+        - Feedback Popup
+        - Contract Bids
+        - Notifications
+        - Filters
+        - Other
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed Behavior
+      description: Please provide a detailed description of what you experienced with the steps to reproduce the issue.
+      placeholder: "When I click on the 'Create Contract' button, I get a Nulling Field Error"
+      value: " "
+    validations:
+      required: true

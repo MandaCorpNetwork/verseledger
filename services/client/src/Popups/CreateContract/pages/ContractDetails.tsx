@@ -330,6 +330,30 @@ export const ContractDetails: React.FC<{
             fullWidth
             sx={{ mt: 2, mb: '1em', maxWidth: '300px' }}
           />
+          <Box
+            data-testid="EmergencyButton-Wrapper"
+            sx={{
+              my: 'auto',
+              mx: 'auto',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <Button
+              variant="contained"
+              color="error"
+              onClick={toggleEmergencyMode}
+              disabled={!emergencyAvailable}
+              sx={{ mb: '.5em' }}
+            >
+              Emergency
+            </Button>
+            {formData.isEmergency && (
+              <Typography align="center" variant="tip" sx={{ px: '1em' }}>
+                Emergency Mode disables some features.
+              </Typography>
+            )}
+          </Box>
         </Box>
       </FormControl>
     </Box>
