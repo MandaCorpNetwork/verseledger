@@ -1,12 +1,17 @@
 name: Bug Report
 description: File a bug report for VerseLedger beta
-title: "[BUG] "
+title: "Bug Report"
 projects: ["Verse Ledger"]
 body:
   - type: markdown
     attributes:
       value: |
+        # Bug Report
+
         Thank you for taking the time to fill out this bug report!
+        Please provide as much detail as possible to help us understand and resolve the issue.
+
+        ---
   - type: input
     id: userTitle
     attributes:
@@ -22,6 +27,12 @@ body:
       description: Please provide a brief description of the issue.
     validations:
       required: true
+  - type: markdown
+    attributes:
+      value: |
+        ## Impacted Area
+
+        Please select the impacted feature and specific tool below.
   - type: dropdown
     id: feature
     attributes:
@@ -39,7 +50,7 @@ body:
     id: tool
     attributes:
       label: Specific Tool
-      description: If a specific tool caused this please choose it from the list available
+      description: If a specific tool caused this please choose it from the list available.
       multiple: false
       options:
         - Contract Manager
@@ -50,11 +61,17 @@ body:
         - Notifications
         - Filters
         - Other
+  - type: markdown
+    attributes:
+      value: |
+        ## Browser
+
+        Please select the browser(s) you used to reproduce the issue.
   - type: dropdown
     id: browser
     attributes:
       label: Browser
-      description: Please select the browser(s) you are used to reproduce the issue with.
+      description: Please select the browser(s) you used to reproduce the issue.
       multiple: true
       options:
         - Chrome
@@ -66,7 +83,8 @@ body:
     attributes:
       value: |
         ## Behaviors
-        Please describe the behaviors you are experiencing below in great detail. 
+
+        Please describe the behaviors you are experiencing below in great detail.
   - type: textarea
     id: observed
     attributes:
@@ -88,17 +106,19 @@ body:
     attributes:
       label: Suggested Behavior
       description: Feel free to provide suggested behaviors for this to improve the functionality and perhaps work around the issue or fix it.
+      placeholder: "Please suggest any behavior improvements here."
     validations:
       required: false
   - type: markdown
     attributes:
       value: |
         ## Logs
+
         Please provide any logs you gathered for your issue.
   - type: textarea
     id: logs
     attributes:
-      label: logs
+      label: Logs
       description: Please provide logs for your issue.
       render: shell
     validations:
@@ -107,6 +127,7 @@ body:
     attributes:
       value: |
         ## Attachments
+
         Please provide any screenshots or other files that you think might be helpful.
   - type: textarea
     id: screenshots
@@ -121,6 +142,7 @@ body:
       label: Additional Notes
       description: Feel free to provide any additional notes you think might be helpful.
       render: markdown
+      placeholder: " "
     validations:
       required: false
   - type: markdown
