@@ -90,10 +90,9 @@ export const Locations: React.FC<{
     <Box
       data-testid="Locations__Container"
       sx={{
-        mt: '1em',
+        mt: '2em',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-around',
         alignItems: 'center',
       }}
     >
@@ -101,7 +100,7 @@ export const Locations: React.FC<{
         sx={{
           display: 'flex',
           flexDirection: 'row',
-          alignItems: 'space-betwen',
+          alignItems: 'start',
           gap: '1em',
         }}
       >
@@ -142,23 +141,35 @@ export const Locations: React.FC<{
             />
           </div>
         </PopupFormSelection>
-        <PopupFormDisplay
+        <Box
           sx={{
-            p: '1em',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
+            display: 'flex',
             alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
           }}
         >
-          <TextField
-            data-testid="LocationForm__StartingLocation-Output"
-            label="Start Location"
-            color="secondary"
-            size="small"
-            InputProps={{
-              readOnly: true,
-              startAdornment:
-                (formData.Locations?.length ?? 0) > 0 ? (
+          <PopupFormDisplay
+            sx={{
+              p: '1em',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <TextField
+              data-testid="LocationForm__StartingLocation-Output"
+              label="Start Location"
+              color="secondary"
+              size="small"
+              inputProps={{
+                sx: {
+                  cursor: 'default',
+                },
+              }}
+              InputProps={{
+                readOnly: true,
+                startAdornment: formData.Locations?.some((loc) => loc.tag === 'start') ? (
                   <LocationChip
                     locationId={
                       formData.Locations?.find((loc) => loc.tag === 'start')
@@ -173,21 +184,30 @@ export const Locations: React.FC<{
                     }
                   />
                 ) : null,
-            }}
-            sx={{
-              display: 'flex',
-              width: '150px',
-            }}
-          />
-          <TextField
-            data-testid="LocationForm__EndingLocation-Output"
-            label="End Location"
-            color="secondary"
-            size="small"
-            InputProps={{
-              readOnly: true,
-              startAdornment:
-                (formData.Locations?.length ?? 0) > 1 ? (
+                sx: {
+                  cursor: 'default',
+                },
+              }}
+              sx={{
+                display: 'flex',
+                width: '150px',
+                cursor: 'default',
+                my: '5%',
+              }}
+            />
+            <TextField
+              data-testid="LocationForm__EndingLocation-Output"
+              label="End Location"
+              color="secondary"
+              size="small"
+              inputProps={{
+                sx: {
+                  cursor: 'default',
+                },
+              }}
+              InputProps={{
+                readOnly: true,
+                startAdornment: formData.Locations?.some((loc) => loc.tag === 'end') ? (
                   <LocationChip
                     locationId={
                       formData.Locations?.find((loc) => loc.tag === 'end')
@@ -197,78 +217,86 @@ export const Locations: React.FC<{
                       handleRemoveLocation(
                         formData.Locations?.find((loc) => loc.tag === 'end')
                           ?.location as string,
-                        'start',
+                        'end',
                       )
                     }
                   />
                 ) : null,
-            }}
-            sx={{
-              display: 'flex',
-              width: '150px',
-            }}
-          />
-          <Box
-            data-testid="LocationForm__OtherLocation-Output"
-            sx={{
-              borderTop: '1px solid',
-              borderBottom: '1px solid',
-              borderRadius: '5px',
-              borderColor: formData.isEmergency
-                ? 'action.disabledBackground'
-                : 'primary.main',
-              py: '.5em',
-              px: '.2em',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '100%',
-            }}
-          >
-            <Typography
-              variant="body1"
-              sx={{
-                color: formData.isEmergency ? 'text.disabled' : 'text.secondary',
-                wrap: 'nowrap',
+                sx: {
+                  cursor: 'default',
+                },
               }}
-            >
-              Other Locations
-            </Typography>
-            <Box
-              data-testid="LocationForm__OtherLocation-List"
               sx={{
                 display: 'flex',
+                width: '150px',
+                cursor: 'default',
+                my: '5%',
+              }}
+            />
+            <Box
+              data-testid="LocationForm__OtherLocation-Output"
+              sx={{
+                borderTop: '1px solid',
+                borderBottom: '1px solid',
+                borderRadius: '5px',
+                borderColor: formData.isEmergency
+                  ? 'action.disabledBackground'
+                  : 'primary.main',
+                py: '.5em',
+                px: '.2em',
+                display: 'flex',
                 flexDirection: 'column',
-                gap: '.5em',
-                maxHeight: '150px',
-                overflowY: 'auto',
-                p: '.5em',
-                '&::-webkit-scrollbar': {
-                  width: '10px',
-                },
-                '&::-webkit-scrollbar-track': {
-                  background: 'rgb(8, 29, 68)',
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  borderRadius: '20px',
-                  background: 'rgb(121, 192, 244, .5)',
-                },
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                mt: '5%',
               }}
             >
-              {formData.Locations?.map(
-                (loc) =>
-                  loc.tag === 'other' && (
-                    <LocationChip
-                      locationId={loc.location}
-                      onDelete={() => handleRemoveLocation(loc.location, 'other')}
-                      key={loc.location}
-                    />
-                  ),
-              )}
+              <Typography
+                variant="body1"
+                sx={{
+                  color: formData.isEmergency ? 'text.disabled' : 'text.secondary',
+                  wrap: 'nowrap',
+                  cursor: 'default',
+                }}
+              >
+                Other Locations
+              </Typography>
+              <Box
+                data-testid="LocationForm__OtherLocation-List"
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '.5em',
+                  maxHeight: '100px',
+                  overflowY: 'auto',
+                  p: '.5em',
+                  '&::-webkit-scrollbar': {
+                    width: '10px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    background: 'rgb(8, 29, 68)',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    borderRadius: '20px',
+                    background: 'rgb(121, 192, 244, .5)',
+                  },
+                }}
+              >
+                {formData.Locations?.map(
+                  (loc) =>
+                    loc.tag === 'other' && (
+                      <LocationChip
+                        locationId={loc.location}
+                        onDelete={() => handleRemoveLocation(loc.location, 'other')}
+                        key={loc.location}
+                      />
+                    ),
+                )}
+              </Box>
             </Box>
-          </Box>
-        </PopupFormDisplay>
+          </PopupFormDisplay>
+        </Box>
       </FormControl>
     </Box>
   );
