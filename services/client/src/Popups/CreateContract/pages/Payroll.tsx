@@ -94,150 +94,162 @@ export const Payroll: React.FC<{
       data-testid="Payroll__Container"
       sx={{
         display: 'flex',
-        flexDirection: 'row',
-        mt: '1em',
-        justifyContent: 'space-around',
+        flexDirection: 'column',
+        mt: '2em',
+        width: '100%',
       }}
     >
-      <FormControl
-        data-testid="Payroll__PayStructure__Form"
+      <Box
+        data-testid="Payroll-Form__TopBox"
         sx={{
+          width: '100%',
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-around',
-          minHeight: '220px',
         }}
       >
-        <Box sx={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
-          {formData.isEmergency && <LargeEmergencyOverlay />}
-          <FormLabel color="secondary">
-            Pay Structure
-            <IconButton
-              color="info"
-              size="small"
-              sx={{ position: 'relative' }}
-              onClick={handlePayStructureInfo}
+        <FormControl
+          data-testid="Payroll__PayStructure__Form"
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            minHeight: '220px',
+            transition: 'all 0.3s ease-in-out',
+          }}
+        >
+          <Box sx={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
+            {formData.isEmergency && <LargeEmergencyOverlay />}
+            <FormLabel color="secondary">
+              Pay Structure
+              <IconButton
+                color="info"
+                size="small"
+                sx={{ position: 'relative' }}
+                onClick={handlePayStructureInfo}
+              >
+                <HelpOutline fontSize="small" sx={{ color: 'info.main' }} />
+              </IconButton>
+            </FormLabel>
+            <Box
+              data-testid="Payroll-PayStructureForm__Switch-Wrapper"
+              sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
             >
-              <HelpOutline fontSize="small" sx={{ color: 'gray' }} />
-            </IconButton>
-          </FormLabel>
-          <Box
-            data-testid="Payroll-PayStructureForm__Switch-Wrapper"
-            sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
-          >
-            <Typography
-              variant="body2"
-              sx={{
-                color: isComplex ? 'text.disabled' : 'secondary.main',
-                fontWeight: 'bold',
-                pr: '.5em',
-              }}
-            >
-              Simple
-            </Typography>
-            <Switch
-              checked={isComplex}
-              color="secondary"
-              size="small"
-              inputProps={{ 'aria-label': 'controlled' }}
-              onChange={handleStuctureTypeSwitch}
-            />
-            <Typography
-              variant="body2"
-              sx={{
-                color: isComplex ? 'secondary.main' : 'text.disabled',
-                fontWeight: 'bold',
-                pl: '.5em',
-              }}
-            >
-              Complex
-            </Typography>
-          </Box>
-          <Box
-            data-testid="Payroll-PayStructureForm__Radio-Wrapper"
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            {!isComplex ? (
-              <RadioGroup
-                value={formData.payStructure}
-                onChange={(e) => {
-                  setFormData({
-                    ...formData,
-                    payStructure: e.target.value as ContractPayStructure,
-                  });
+              <Typography
+                variant="body2"
+                sx={{
+                  color: isComplex ? 'text.disabled' : 'secondary.main',
+                  fontWeight: 'bold',
+                  pr: '.5em',
                 }}
               >
-                <RadioControl value="FLATRATE" label="Flat Rate" />
-                <RadioControl value="HOURLY" label="Time Rate" />
-                <RadioControl value="POOL" label="Pool" />
-              </RadioGroup>
-            ) : (
-              <RadioGroup value={formData.payStructure}>
-                <RadioControl
-                  value="PARTICIPATIONPOOL"
-                  label="Particpation Pool"
-                  disabled={true}
-                />
-                <RadioControl
-                  value="STEPPEDFLATRATE"
-                  label="Stepped Flat Rate"
-                  disabled={true}
-                />
-                <RadioControl
-                  value="WEIGHTEDPOOL"
-                  label="Weighted Pool"
-                  disabled={true}
-                />
-                <RadioControl
-                  value="WEIGHTEDTIME"
-                  label="Weighted Time Pay"
-                  disabled={true}
-                />
-              </RadioGroup>
-            )}
+                Simple
+              </Typography>
+              <Switch
+                checked={isComplex}
+                color="secondary"
+                size="small"
+                inputProps={{ 'aria-label': 'controlled' }}
+                onChange={handleStuctureTypeSwitch}
+              />
+              <Typography
+                variant="body2"
+                sx={{
+                  color: isComplex ? 'secondary.main' : 'text.disabled',
+                  fontWeight: 'bold',
+                  pl: '.5em',
+                }}
+              >
+                Complex
+              </Typography>
+            </Box>
+            <Box
+              data-testid="Payroll-PayStructureForm__Radio-Wrapper"
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              {!isComplex ? (
+                <RadioGroup
+                  value={formData.payStructure}
+                  onChange={(e) => {
+                    setFormData({
+                      ...formData,
+                      payStructure: e.target.value as ContractPayStructure,
+                    });
+                  }}
+                >
+                  <RadioControl value="FLATRATE" label="Flat Rate" />
+                  <RadioControl value="HOURLY" label="Time Rate" />
+                  <RadioControl value="POOL" label="Pool" />
+                </RadioGroup>
+              ) : (
+                <RadioGroup value={formData.payStructure}>
+                  <RadioControl
+                    value="PARTICIPATIONPOOL"
+                    label="Particpation Pool"
+                    disabled={true}
+                  />
+                  <RadioControl
+                    value="STEPPEDFLATRATE"
+                    label="Stepped Flat Rate"
+                    disabled={true}
+                  />
+                  <RadioControl
+                    value="WEIGHTEDPOOL"
+                    label="Weighted Pool"
+                    disabled={true}
+                  />
+                  <RadioControl
+                    value="WEIGHTEDTIME"
+                    label="Weighted Time Pay"
+                    disabled={true}
+                  />
+                </RadioGroup>
+              )}
+            </Box>
           </Box>
-        </Box>
-      </FormControl>
-      <FormControl
-        data-testid="Payroll-DefaultPay__Form"
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
-        }}
-      >
-        <FormLabel color="secondary">Default Pay</FormLabel>
-        <Box data-testid="Payroll-DefaultPay__Wrapper">
-          {formData.payStructure === 'FLATRATE' && (
-            <FlatRatePayroll formData={formData} onChange={handleSetDefaultPay} />
-          )}
-          {formData.payStructure === 'HOURLY' && (
-            <TimedPayroll formData={formData} onChange={handleSetDefaultPay} />
-          )}
-          {formData.payStructure === 'POOL' && (
-            <PoolPayroll
-              formData={formData}
-              onChange={handleSetDefaultPay}
-              evenSplit={evenSplit}
-              setEvenSplit={handleEvenSplitToggle}
-            />
-          )}
-        </Box>
-      </FormControl>
-      <FormControl>
-        <Box
-          data-testid="PayrollForm-DefaultPay__OptionsWrapper"
+        </FormControl>
+        <FormControl
+          data-testid="Payroll-DefaultPay__Form"
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            position: 'relative',
+            height: '100%',
           }}
         >
-          {formData.isEmergency && <LargeEmergencyOverlay />}
-          <FormLabel color="secondary">Options</FormLabel>
+          <FormLabel color="secondary">Default Pay</FormLabel>
+          <Box data-testid="Payroll-DefaultPay__Wrapper">
+            {formData.payStructure === 'FLATRATE' && (
+              <FlatRatePayroll formData={formData} onChange={handleSetDefaultPay} />
+            )}
+            {formData.payStructure === 'HOURLY' && (
+              <TimedPayroll formData={formData} onChange={handleSetDefaultPay} />
+            )}
+            {formData.payStructure === 'POOL' && (
+              <PoolPayroll
+                formData={formData}
+                onChange={handleSetDefaultPay}
+                evenSplit={evenSplit}
+                setEvenSplit={handleEvenSplitToggle}
+              />
+            )}
+          </Box>
+        </FormControl>
+      </Box>
+      <FormControl
+        data-testid="PayrollForm-DefaultPay__OptionsContainer"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'relative',
+          ml: '10%',
+        }}
+      >
+        {formData.isEmergency && <LargeEmergencyOverlay />}
+        <FormLabel color="secondary">Options</FormLabel>
+        <Box data-testid="PayrollForm-DefaultPay__Options_Wrapper">
           <Tooltip title="Allows the Bidder to Negotiate their Pay">
             <FormControlLabel
               control={

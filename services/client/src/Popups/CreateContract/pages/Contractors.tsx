@@ -17,7 +17,7 @@ import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
-// import { SmallEmergencyOverlay } from '../EmergencyOverlay';
+import { SmallEmergencyOverlay } from '../EmergencyOverlay';
 
 export const Contractors: React.FC<{
   formData: ICreateContractBody;
@@ -196,6 +196,7 @@ export const Contractors: React.FC<{
                 justifyContent: 'space-around',
               }}
             >
+              {formData.isEmergency && <SmallEmergencyOverlay />}
               <TextField
                 data-testid="ContractorsForm-Settings__MaxContractors"
                 label="Max Contractors"
