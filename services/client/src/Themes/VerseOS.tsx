@@ -1,6 +1,7 @@
 import '@mui/material/Divider';
 import '@mui/material/Button';
 import '@mui/material/Typography';
+import '@mui/material/Box';
 
 import { createTheme } from '@mui/material/styles';
 
