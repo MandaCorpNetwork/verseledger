@@ -1,0 +1,53 @@
+name: Process Bug Report Form
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  process-issue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Extract Issue Data
+        id: extract
+        run: |
+          echo "TITLE={{ github.event.issue.title }}" >> $GITHUB_ENV
+          echo "BODY=${{ github.event.issue.body }}" >> $GITHUB_ENV
+          
+      - name: Process Issue Data
+        id: process
+        run: |
+          TITLE="${{ env.TITLE }}"
+          BODY="${{ env.BODY }}"
+
+          # Extracting fields from the body
+          USER_TITLE=$(echo "$BODY" | grep -A 1 "Issue Title" | tail -n 1)
+          BRIEF=$(echo "$BODY" | grep -A 1 "Short Description" | tail -n 1)
+          FEATURE=$(echo "$BODY" | grep -A 1 "Impacted Feature" | tail -n 1)
+          TOOL=$(echo "$BODY" | grep -A 1 "Specific Tool" | tail -n 1)
+          BROWSER=$(echo "$BODY" | grep -A 1 "Browser" | tail -n 1)
+          OBSERVED=$(echo "$BODY" | grep -A 1 "Observed Behavior" | tail -n 1)
+          EXPECTED=$(echo "$BODY" | grep -A 1 "Expected Behavior" | tail -n 1)
+          SUGGESTION=$(echo "$BODY" | grep -A 1 "Suggested Behavior" | tail -n 1)
+          LOGS=$(echo "$BODY" | grep -A 1 "Logs" | tail -n 1)
+          SCREENSHOTS=$(echo "$BODY" | grep -A 1 "Attachments" | tail -n 1)
+          NOTES=$(echo "$BODY" | grep -A 1 "Additional Notes" | tail -n 1)
+
+          echo "USER_TITLE=$USER_TITLE" >> $GITHUB_ENV
+          echo "BRIEF=$BRIEF" >> $GITHUB_ENV
+          echo "FEATURE=$FEATURE" >> $GITHUB_ENV
+          echo "TOOL=$TOOL" >> $GITHUB_ENV
+          echo "BROWSER=$BROWSER" >> $GITHUB_ENV
+          echo "OBSERVED=$OBSERVED" >> $GITHUB_ENV
+          echo "EXPECTED=$EXPECTED" >> $GITHUB_ENV
+          echo "SUGGESTION=$SUGGESTION" >> $GITHUB_ENV
+          echo "LOGS=$LOGS" >> $GITHUB_ENV
+          echo "SCREENSHOTS=$SCREENSHOTS" >> $GITHUB_ENV
+          echo "NOTES=$NOTES" >> $GITHUB_ENV
+
+      - name: Create Detailed Bug Report
+        uses: octokit/request-action@v2
+        with:
+          route: POST /repos 
+      
