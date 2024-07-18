@@ -27,7 +27,6 @@ export const SelectTimeButton: React.FC<SelectTimeProps> = ({
     setView('time');
   };
   const handleTimeChange = (newTime: Date) => {
-    Logger.info(newTime);
     onTimeChange(newTime);
     setView('date');
     setAnchorE1(null);
