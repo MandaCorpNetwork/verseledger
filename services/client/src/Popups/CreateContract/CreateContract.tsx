@@ -104,7 +104,7 @@ export const CreateContractPopup: React.FC = () => {
   const onSubmit = useCallback(() => {
     if (page >= 4) {
       Logger.info(`Contract Data Passed To Action: ${JSON.stringify(formData)}`);
-      if (formData.subtype === null) {
+      if (formData.subtype === undefined || formData.subtype === null) {
         Logger.error('Contract Creator missing Subtype');
         return;
       }

@@ -18,6 +18,7 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
+import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
@@ -85,11 +86,11 @@ export const ContractDetails: React.FC<{
         setSelectedSubtype(newValue);
       }
     },
-    [setFormData, selectedSubtype, setSelectedSubtype],
+    [setFormData, selectedSubtype, setSelectedSubtype, archetype, setArchetype, formData],
   );
 
   const toggleEmergencyMode = React.useCallback(() => {
-    console.log(formData.isEmergency);
+    Logger.info(formData.isEmergency);
     if (formData.isEmergency) {
       setFormData({ ...formData, isEmergency: false });
     } else {
@@ -188,7 +189,7 @@ export const ContractDetails: React.FC<{
               width: '300px',
             }}
             helperText={
-              formData.briefing?.length == 2048 ? 'Character Limit Reached' : ''
+              formData.briefing?.length >= 2048 ? 'Character Limit Reached' : ''
             }
             FormHelperTextProps={{
               sx: {

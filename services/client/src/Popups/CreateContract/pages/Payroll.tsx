@@ -71,7 +71,11 @@ export const Payroll: React.FC<{
   };
 
   const getFilteredValue = React.useCallback(() => {
-    if (formData.defaultPay === 0 || formData.defaultPay === undefined) {
+    if (
+      formData.defaultPay === 0 ||
+      formData.defaultPay === undefined ||
+      formData.defaultPay === null
+    ) {
       return '';
     }
     return filterNumericInput(formData.defaultPay.toString());
