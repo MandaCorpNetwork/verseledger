@@ -20,6 +20,14 @@ const filterOptions = createFilterOptions<ILocation>({
   stringify: ({ parent, short_name }) => `${short_name} ${parent}`.trim(),
 });
 
+const menuSizeValues = {
+  xs: 200,
+  s: 300,
+  m: 400,
+  l: 500,
+  xl: 600,
+  xxl: 700,
+};
 //Type Def for the LocationSearch Component
 //Handler for Location Selection
 //Width setter --optional--
@@ -30,7 +38,7 @@ type LocationSearchProps = {
   width?: string;
   helperText?: string;
   margin?: string;
-  menuSize?: 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  menuSize?: keyof typeof menuSizeValues;
 };
 
 export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
