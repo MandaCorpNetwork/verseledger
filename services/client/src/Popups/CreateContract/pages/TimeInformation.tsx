@@ -1,5 +1,5 @@
 // import { QuickTimeButton } from '@Common/Components/App/QuickTimeButton';
-import { SelectTimeButton } from '@Common/Components/App/SelectTimeButton';
+import { SelectTimeButton } from '@Common/Components/Buttons/SelectTimeButton';
 import { Close } from '@mui/icons-material';
 import {
   Box,

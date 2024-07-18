@@ -1,7 +1,7 @@
-import { LocationChip } from '@Common/Components/App/LocationChip';
 import { LocationSearch } from '@Common/Components/App/LocationSearch';
 import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
 import PopupFormSelection from '@Common/Components/Boxes/PopupFormSelection';
+import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { Box, FormControl, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';

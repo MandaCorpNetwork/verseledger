@@ -1,13 +1,13 @@
 import './contractDetails.scss';
 
 import PopupFormSelection from '@Common/Components/Boxes/PopupFormSelection';
+import ArchetypeListChip from '@Common/Components/Chips/ArchetypeListChip';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { HelpOutline } from '@mui/icons-material';
 import {
   Autocomplete,
   Box,
   Button,
-  Chip,
   FormControl,
   IconButton,
   TextField,
@@ -249,73 +249,16 @@ export const ContractDetails: React.FC<{
                 className="SelectScrollWrapper"
               >
                 {archetypeOptions.map((option) => (
-                  <Chip
+                  <ArchetypeListChip
                     key={option.archetype}
                     icon={option.archetypeIcon}
                     variant="filled"
                     label={option.archetype}
                     color="primary"
                     onClick={() => handleArchetypeSelect(option.archetype)}
+                    isSelected={option.archetype == archetype}
                     sx={{
-                      transition:
-                        'transform 0.2s ease-in-out, backgroundImage 0.3s ease-in-out, boxShadow 0.3s ease, borderColor 0.3s ease',
-                      transformStyle: 'preserve-3d',
-                      transform: 'rotateY(0deg) scale(1)',
-                      flexShrink: '0',
                       mb: '.7em',
-                      backgroundImage:
-                        archetype === option.archetype
-                          ? 'linear-gradient(145deg, rgba(0,120,235,0.8), rgba(0,100,220,1))'
-                          : 'linear-gradient(145deg, rgba(8,22,120,0.3), rgba(0,30,100,0.5))',
-                      color:
-                        archetype === option.archetype
-                          ? 'rgba(24,252,252,.75)'
-                          : 'rgba(33,150,243,.5)',
-                      border: '1px solid',
-                      borderColor:
-                        archetype === option.archetype
-                          ? 'rgba(25,150,200)'
-                          : 'rgba(8,22,130,1)',
-                      boxShadow:
-                        archetype === option.archetype
-                          ? '0 2px 5px 3px rgba(0,30,140)'
-                          : '0 2px 4px rgba(0,0,0,0.2)',
-                      '&:hover': {
-                        backgroundImage:
-                          archetype === option.archetype
-                            ? 'linear-gradient(145deg, rgba(0,120,235,0.6), rgba(0,100,220,.8))'
-                            : 'linear-gradient(145deg, rgba(8,22,120,0.6), rgba(0,30,100,0.9))',
-                        color:
-                          archetype === option.archetype
-                            ? 'rgba(24,252,252,.88)'
-                            : 'rgba(33,150,243)',
-                        boxShadow:
-                          archetype === option.archetype
-                            ? '0 4px 8px 4px rgba(0,30,140)'
-                            : '0 4px 8px rgba(0, 0, 0, 0.3)',
-                      },
-                      '&:active': {
-                        backgroundImage:
-                          archetype === option.archetype
-                            ? 'linear-gradient(145deg, rgba(0,75,185,0.4), rgba(0,45,145,.5))'
-                            : 'linear-gradient(145deg, rgba(8,22,120,0.7), rgba(0,30,100,1))',
-                        boxShadow:
-                          archetype === option.archetype
-                            ? '0 4px 12px 8px rgba(0,30,140)'
-                            : '0 6px 12px rgba(0, 0, 0, 0.4)',
-                        color: archetype === option.archetype ? 'rgba(24,252,252)' : '',
-                        textShadow:
-                          archetype === option.archetype
-                            ? '0 0px 5px rgba(145,250,255)'
-                            : '',
-                        transform: 'translateY(2px)',
-                      },
-                      '& .MuiTouchRipple-child': {
-                        backgroundColor:
-                          archetype === option.archetype
-                            ? 'rgba(25,150,200)'
-                            : 'rgba(6,86,145,0.8)',
-                      },
                     }}
                   />
                 ))}

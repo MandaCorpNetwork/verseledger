@@ -1,4 +1,4 @@
-import { LocationChip } from '@Common/Components/App/LocationChip';
+import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { ChevronLeft, ChevronRight, ExpandMore, HelpOutline } from '@mui/icons-material';
