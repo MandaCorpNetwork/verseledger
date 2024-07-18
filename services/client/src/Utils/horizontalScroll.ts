@@ -49,11 +49,6 @@ export function useHorizontalAdvancedScroll(): RefObject<HTMLDivElement> {
           behavior: 'smooth',
         });
 
-        // Log debug info
-        console.log(
-          `Applying inertia: newScrollLeft=${newScrollLeft}, scrollVelocity=${scrollVelocity}, direction=${scrollVelocity > 0 ? 'right' : 'left'}`,
-        );
-
         // Scroll Velocity Adjustment based on direction and speed
         const direction = newScrollLeft > lastScrollLeft ? 1 : -1;
         scrollVelocity *= inertiaFactor;
