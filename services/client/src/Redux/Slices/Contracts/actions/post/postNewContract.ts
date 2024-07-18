@@ -21,7 +21,6 @@ export const postNewContract = createAsyncThunk(
       return response.data;
     } catch (error) {
       Logger.error('Error creating contract:', error);
-      throw error;
     }
   },
 );
