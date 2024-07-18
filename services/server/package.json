@@ -66,6 +66,6 @@
     "esbuild"
   ],
   "resolutions": {
-    "@types/mime": "3.0.4"
+    "@types/mime": "4.0.0"
   }
 }
