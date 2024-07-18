@@ -32,8 +32,6 @@ export const TimeInformation: React.FC<{
         const bidDate = dayjs(formData.bidDate);
         const startDate = bidDate.add(10, 'second').toDate();
         setFormData({ ...formData, startDate: startDate ?? null });
-      } else {
-        setFormData({ ...formData, startDate: undefined });
       }
       return newChecked;
     });
@@ -204,7 +202,7 @@ export const TimeInformation: React.FC<{
               endAdornment: formData.bidDate && (
                 <IconButton
                   data-testid="TimeInformation-Form-DateBox__BidDateControl_ClearButton"
-                  onClick={() => setFormData({ ...formData, bidDate: undefined })}
+                  onClick={() => setFormData({ ...formData, bidDate: null })}
                 >
                   <Close />
                 </IconButton>
@@ -242,7 +240,7 @@ export const TimeInformation: React.FC<{
                 endAdornment: formData.startDate && (
                   <IconButton
                     data-testid="TimeInformation-Form-DateBox__StartDateControl_ClearButton"
-                    onClick={() => setFormData({ ...formData, startDate: undefined })}
+                    onClick={() => setFormData({ ...formData, startDate: null })}
                   >
                     <Close />
                   </IconButton>
@@ -289,7 +287,7 @@ export const TimeInformation: React.FC<{
               endAdornment: formData.endDate && (
                 <IconButton
                   data-testid="TimeInformation-Form-DateBox__EndDateControl_ClearButton"
-                  onClick={() => setFormData({ ...formData, endDate: undefined })}
+                  onClick={() => setFormData({ ...formData, endDate: null })}
                 >
                   <Close />
                 </IconButton>
