@@ -23,7 +23,6 @@ export const SelectTimeButton: React.FC<SelectTimeProps> = ({
   };
   const [view, setView] = React.useState('date');
   const handleDateChange = (newDate: Date) => {
-    Logger.info(newDate);
     onDateChange(newDate);
     setView('time');
   };
