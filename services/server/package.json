@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/server.cjs.js",
   "devDependencies": {
-    "@swc-node/register": "1.10.2",
+    "@swc-node/register": "1.10.9",
     "@swc/cli": "0.4.0",
     "@swc/core": "1.6.13",
     "@types/cors": "2.8.17",
