@@ -47,7 +47,42 @@ jobs:
           echo "NOTES=$NOTES" >> $GITHUB_ENV
 
       - name: Create Detailed Bug Report
-        uses: octokit/request-action@v2
+        uses: actions/github-script@v6
         with:
-          route: POST /repos 
-      
+          script: |
+            const { context, github } = require('@actions/github');
+            const title = `[BUG]: ${process.env.FEATURE} - ${process.env.USER_TITLE}`;
+            const body = `
+# [BUG]: ${process.env.FEATURE} @${process.env.TOOL} - ${process.env.USER_TITLE}
+${process.env.BRIEF}
+## Behaviors
+
+### Observed
+${process.env.OBSERVED}
+
+### Expected
+${process.env.EXPECTED}
+
+### Suggested
+${process.env.SUGGESTION}
+
+## Logs
+\`\`\`
+${process.env.LOGS}
+\`\`\`
+
+## Attachments
+${process.env.SCREENSHOTS}
+
+## Notes
+${process.env.NOTES}
+`;
+            const issue_number = context.payload.issue.number;
+            
+            github.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              title: title,
+              body: body,
+            });
