@@ -27,6 +27,7 @@ import { Logger } from '@Utils/Logger';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import React from 'react';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/ContractorsManager';
 
@@ -250,23 +251,35 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     );
   };
 
+  const getUpdatedContractStatus = (contract: Partial<IContract>, status: string) => {
+    return {
+      status,
+      title: contract.title,
+      subtype: contract.subtype,
+      briefing: contract.briefing,
+      contractorLimit: contract.contractorLimit,
+      payStructure: contract.payStructure,
+      defaultPay: contract.defaultPay,
+    };
+  };
+
   const handleContractStart = () => {
     if (contract.status === 'BIDDING') {
-      const updatedContract = { status: 'INPROGRESS' as const };
+      const updatedContract = getUpdatedContractStatus(contract, 'INPROGRESS');
       dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
     }
   };
 
   const handleContractComplete = () => {
     if (contract.status === 'INPROGRESS') {
-      const updatedContract = { status: 'COMPLETE' as const };
+      const updatedContract = getUpdatedContractStatus(contract, 'COMPLETED');
       dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
     }
   };
 
   const handleContractCancel = () => {
     if (contract.status !== 'COMPLETE') {
-      const updatedContract = { status: 'CANCELED' as const };
+      const updatedContract = getUpdatedContractStatus(contract, 'CANCELED');
       dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
     }
   };
