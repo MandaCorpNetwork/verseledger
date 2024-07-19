@@ -412,6 +412,11 @@ export class ContractController extends BaseHttpController {
         if (bid.status != 'INVITED') throw new UnauthorizedError();
         break;
       }
+      case 'EXPIRED': {
+        if (isContractOwner) throw new UnauthorizedError();
+        if (bid.status === 'REJECTED') throw new UnauthorizedError();
+        break;
+      }
       default:
       case 'INVITED':
       case 'PENDING': {

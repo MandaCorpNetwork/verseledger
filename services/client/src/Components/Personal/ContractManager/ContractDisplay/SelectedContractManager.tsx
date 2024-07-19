@@ -20,12 +20,14 @@ import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
+import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContract';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { Logger } from '@Utils/Logger';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import React from 'react';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/ContractorsManager';
 
@@ -234,6 +236,59 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
       return Logger.info('no user bid');
     }
     const updatedBid = { status: 'DECLINED' as const };
+    dispatch(
+      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
+    );
+  };
+
+  const handleWithdrawBid = () => {
+    if (!userBid) {
+      return Logger.info('no user bid');
+    }
+    const updatedBid = { status: 'EXPIRED' as const };
+    dispatch(
+      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
+    );
+  };
+
+  const getUpdatedContractStatus = (contract: Partial<IContract>, status: string) => {
+    return {
+      status,
+      title: contract.title,
+      subtype: contract.subtype,
+      briefing: contract.briefing,
+      contractorLimit: contract.contractorLimit,
+      payStructure: contract.payStructure,
+      defaultPay: contract.defaultPay,
+    };
+  };
+
+  const handleContractStart = () => {
+    if (contract.status === 'BIDDING') {
+      const updatedContract = getUpdatedContractStatus(contract, 'INPROGRESS');
+      dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
+    }
+  };
+
+  const handleContractComplete = () => {
+    if (contract.status === 'INPROGRESS') {
+      const updatedContract = getUpdatedContractStatus(contract, 'COMPLETED');
+      dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
+    }
+  };
+
+  const handleContractCancel = () => {
+    if (contract.status !== 'COMPLETE') {
+      const updatedContract = getUpdatedContractStatus(contract, 'CANCELED');
+      dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
+    }
+  };
+
+  const handleResubmitBid = () => {
+    if (!userBid) {
+      return Logger.info('no user bid');
+    }
+    const updatedBid = { status: 'PENDING' as const };
     dispatch(
       updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
     );
@@ -839,6 +894,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   color="secondary"
                   size="medium"
                   fullWidth
+                  onClick={handleContractStart}
                 >
                   Start
                 </Button>
@@ -850,6 +906,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   color="success"
                   size="medium"
                   fullWidth
+                  onClick={handleContractComplete}
                 >
                   Complete
                 </Button>
@@ -876,6 +933,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                     color="error"
                     size="medium"
                     fullWidth
+                    onClick={handleContractCancel}
                   >
                     Cancel
                   </Button>
@@ -911,6 +969,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   color="warning"
                   size="medium"
                   fullWidth
+                  onClick={handleWithdrawBid}
                 >
                   Cancel Bid
                 </Button>
@@ -922,6 +981,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   color="warning"
                   size="medium"
                   fullWidth
+                  onClick={handleWithdrawBid}
                 >
                   Withdraw
                 </Button>
@@ -944,6 +1004,23 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   </Button>
                   <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
                     You Declined an Invite. You can submit a new bid if you would like.
+                  </Typography>
+                </>
+              )}
+              {!isContractOwned && userBid?.status === 'EXPIRED' && (
+                <>
+                  <Button
+                    data-testid="SelectedContract-Controller-Process__ResubmitBid_Button"
+                    variant="outlined"
+                    color="secondary"
+                    size="medium"
+                    fullWidth
+                    onClick={handleResubmitBid}
+                  >
+                    Resubmit Bid
+                  </Button>
+                  <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
+                    You are removed from the Active Contractors. Please resubmit a bid.
                   </Typography>
                 </>
               )}
