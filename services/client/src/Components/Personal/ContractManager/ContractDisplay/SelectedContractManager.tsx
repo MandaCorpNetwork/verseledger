@@ -239,6 +239,16 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     );
   };
 
+  const handleWithdrawBid = () => {
+    if (!userBid) {
+      return Logger.info('no user bid');
+    }
+    const updatedBid = { status: 'EXPIRED' as const };
+    dispatch(
+      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
+    );
+  };
+
   return (
     <Box
       data-testid="SelectedContractManagerWrapper"
@@ -922,6 +932,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   color="warning"
                   size="medium"
                   fullWidth
+                  onClick={handleWithdrawBid}
                 >
                   Withdraw
                 </Button>
