@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { Logger } from '@Utils/Logger';
-import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import NetworkService from '@/Services/NetworkService';
 
@@ -12,10 +12,10 @@ export const updateContract = createAsyncThunk(
     contractRaw,
   }: {
     contractId: string;
-    contractRaw: Partial<IContractBid>;
+    contractRaw: Partial<IContract>;
   }) => {
     try {
-      const response = await NetworkService.PATCH<IContractBid, Partial<IContractBid>>(
+      const response = await NetworkService.PATCH<IContract, Partial<IContract>>(
         `/v1/contracts/${contractId}`,
         contractRaw,
         AuthUtil.getAccessHeader(),

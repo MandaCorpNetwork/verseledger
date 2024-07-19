@@ -28,6 +28,7 @@ import { useState } from 'react';
 import React from 'react';
 
 import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/ContractorsManager';
+import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContract';
 
 type ContractDataFieldProps = {
   label: string;
@@ -244,6 +245,37 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
       return Logger.info('no user bid');
     }
     const updatedBid = { status: 'EXPIRED' as const };
+    dispatch(
+      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
+    );
+  };
+
+  const handleContractStart = () => {
+    if (contract.status === 'BIDDING') {
+      const updatedContract = { status: 'INPROGRESS' as const };
+      dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
+    }
+  };
+
+  const handleContractComplete = () => {
+    if (contract.status === 'INPROGRESS') {
+      const updatedContract = { status: 'COMPLETE' as const };
+      dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
+    }
+  };
+
+  const handleContractCancel = () => {
+    if (contract.status !== 'COMPLETE') {
+      const updatedContract = { status: 'CANCELED' as const };
+      dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
+    }
+  };
+
+  const handleResubmitBid = () => {
+    if (!userBid) {
+      return Logger.info('no user bid');
+    }
+    const updatedBid = { status: 'PENDING' as const };
     dispatch(
       updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
     );
