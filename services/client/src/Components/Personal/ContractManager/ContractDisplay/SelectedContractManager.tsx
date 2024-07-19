@@ -24,6 +24,7 @@ import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
+import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContract';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import dayjs from 'dayjs';
@@ -197,6 +198,59 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
       return Logger.info('no user bid');
     }
     const updatedBid = { status: 'DECLINED' as const };
+    dispatch(
+      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
+    );
+  };
+
+  const handleWithdrawBid = () => {
+    if (!userBid) {
+      return Logger.info('no user bid');
+    }
+    const updatedBid = { status: 'EXPIRED' as const };
+    dispatch(
+      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
+    );
+  };
+
+  const getUpdatedContractStatus = (contract: Partial<IContract>, status: string) => {
+    return {
+      status,
+      title: contract.title,
+      subtype: contract.subtype,
+      briefing: contract.briefing,
+      contractorLimit: contract.contractorLimit,
+      payStructure: contract.payStructure,
+      defaultPay: contract.defaultPay,
+    };
+  };
+
+  const handleContractStart = () => {
+    if (contract.status === 'BIDDING') {
+      const updatedContract = getUpdatedContractStatus(contract, 'INPROGRESS');
+      dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
+    }
+  };
+
+  const handleContractComplete = () => {
+    if (contract.status === 'INPROGRESS') {
+      const updatedContract = getUpdatedContractStatus(contract, 'COMPLETED');
+      dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
+    }
+  };
+
+  const handleContractCancel = () => {
+    if (contract.status !== 'COMPLETE') {
+      const updatedContract = getUpdatedContractStatus(contract, 'CANCELED');
+      dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
+    }
+  };
+
+  const handleResubmitBid = () => {
+    if (!userBid) {
+      return Logger.info('no user bid');
+    }
+    const updatedBid = { status: 'PENDING' as const };
     dispatch(
       updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
     );
