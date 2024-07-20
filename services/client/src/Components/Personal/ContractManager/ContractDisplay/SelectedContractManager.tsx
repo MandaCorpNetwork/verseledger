@@ -1,4 +1,5 @@
 // import { LocationChip } from '@Common/Components/App/LocationChip';
+import ControlPanelBox from '@Common/Components/Boxes/ControlPanelBox';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
@@ -6,7 +7,6 @@ import { ChevronLeft, ChevronRight, HelpOutline } from '@mui/icons-material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import {
   Box,
-  Button,
   Chip,
   IconButton,
   InputAdornment,
@@ -15,23 +15,20 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { POPUP_EDIT_CONTRACT } from '@Popups/Contracts/EditContract/EditContract';
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
-import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
-import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContract';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { Logger } from '@Utils/Logger';
 import dayjs from 'dayjs';
-import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
-import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/ContractorsManager';
+import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/pages/Contractors/ContractorsManager';
+
+import { ContractController } from './ContractController';
 
 type ContractDataFieldProps = {
   label: string;
@@ -216,142 +213,14 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     } else {
       return false;
     }
-  }, [currentUser, contract.owner_id]);
+  }, [currentUser, contract.owner_id, contractId]);
 
   const userBid = React.useMemo(() => {
     if (isContractOwned) {
       return null;
     }
-    return contract.Bids?.find((bid) => bid.user_id === currentUser?.id);
+    return contract.Bids?.find((bid) => bid.user_id === currentUser?.id) ?? null;
   }, [contract.Bids, currentUser, isContractOwned]);
-
-  const handleAcceptInvite = () => {
-    if (!userBid) {
-      return Logger.info('no user bid');
-    }
-    const updatedBid = { status: 'ACCEPTED' as const };
-    dispatch(
-      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
-    ).then((res) => {
-      if (updateBid.fulfilled.match(res)) {
-        enqueueSnackbar('Accepted Invite', { variant: 'success' });
-      } else {
-        enqueueSnackbar('Error Accepting Invite', { variant: 'error' });
-      }
-    });
-  };
-
-  const handleDeclineInvite = () => {
-    if (!userBid) {
-      return Logger.info('no user bid');
-    }
-    const updatedBid = { status: 'DECLINED' as const };
-    dispatch(
-      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
-    ).then((res) => {
-      if (updateBid.fulfilled.match(res)) {
-        enqueueSnackbar('Declined Invite', { variant: 'warning' });
-      } else {
-        enqueueSnackbar('Error Accepting Invite', { variant: 'error' });
-      }
-    });
-  };
-
-  const handleWithdrawBid = () => {
-    if (!userBid) {
-      return Logger.info('no user bid');
-    }
-    const updatedBid = { status: 'EXPIRED' as const };
-    dispatch(
-      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
-    ).then((res) => {
-      if (updateBid.fulfilled.match(res)) {
-        enqueueSnackbar('Resigned from Contract', { variant: 'warning' });
-      } else {
-        enqueueSnackbar('Error Resigning', { variant: 'error' });
-      }
-    });
-  };
-
-  const handleResubmitBid = () => {
-    if (!userBid) {
-      return Logger.info('no user bid');
-    }
-    const updatedBid = { status: 'PENDING' as const };
-    dispatch(
-      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
-    ).then((res) => {
-      if (updateBid.fulfilled.match(res)) {
-        enqueueSnackbar('Bid Resubmitted', { variant: 'warning' });
-      } else {
-        enqueueSnackbar('Error Resubmitting Bid', { variant: 'error' });
-      }
-    });
-  };
-
-  const getUpdatedContractStatus = (contract: Partial<IContract>, status: string) => {
-    return {
-      status,
-      title: contract.title,
-      subtype: contract.subtype,
-      briefing: contract.briefing,
-      contractorLimit: contract.contractorLimit,
-      payStructure: contract.payStructure,
-      defaultPay: contract.defaultPay,
-    };
-  };
-
-  const handleContractStart = () => {
-    if (contract.status === 'BIDDING') {
-      const updatedContract = getUpdatedContractStatus(contract, 'INPROGRESS');
-      dispatch(
-        updateContract({ contractId: contract.id, contractRaw: updatedContract }),
-      ).then((res) => {
-        if (updateContract.fulfilled.match(res)) {
-          enqueueSnackbar('Contract Started', { variant: 'success' });
-        } else {
-          enqueueSnackbar('Error Starting Contract', { variant: 'error' });
-        }
-      });
-    }
-  };
-
-  const handleContractComplete = () => {
-    if (contract.status === 'INPROGRESS') {
-      const updatedContract = getUpdatedContractStatus(contract, 'COMPLETED');
-      dispatch(
-        updateContract({ contractId: contract.id, contractRaw: updatedContract }),
-      ).then((res) => {
-        if (updateContract.fulfilled.match(res)) {
-          enqueueSnackbar('Contract Completed', { variant: 'success' });
-        } else {
-          enqueueSnackbar('Error Completing Contract Contract', { variant: 'error' });
-        }
-      });
-    }
-  };
-
-  const handleContractCancel = () => {
-    if (contract.status !== 'COMPLETE') {
-      const updatedContract = getUpdatedContractStatus(contract, 'CANCELED');
-      dispatch(
-        updateContract({ contractId: contract.id, contractRaw: updatedContract }),
-      ).then((res) => {
-        if (updateContract.fulfilled.match(res)) {
-          enqueueSnackbar('Contract Canceled', { variant: 'warning' });
-        } else {
-          enqueueSnackbar('Error Canceling Contract', { variant: 'error' });
-        }
-      });
-    }
-  };
-
-  const handleEditContract = () => {
-    if (contract.status === 'COMPLETED' || contract.status === 'CANCELED') {
-      return Logger.info('contract is completed or canceled');
-    }
-    dispatch(openPopup(POPUP_EDIT_CONTRACT, { contract: contract }));
-  };
 
   return (
     <Box
@@ -894,209 +763,23 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               </Typography>
             </Box>
           </Box>
-          <Box
+          <ControlPanelBox
             data-testid="SelectedContract__ControllerContainer"
             sx={{
               mt: 'auto',
-              display: 'flex',
-              flexDirection: 'column',
               width: '100%',
-              alignItems: 'center',
-              borderLeft: '2px solid',
-              borderRight: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'secondary.main',
-              boxShadow: '0 0px 5px 2px rgba(24,252,252,0.25)',
-              backgroundImage:
-                'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0,
-                backgroundImage:
-                  'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
-                backgroundSize: '5px 5px',
-                opacity: 0.5,
-              },
-              '&:hover': {
-                backgroundImage:
-                  'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
-                borderColor: 'secondary.light',
-                boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
-              },
-              transition: 'all 0.3s',
+              flexDirection: 'column',
             }}
           >
             <Typography sx={{ fontWeight: 'bold', color: 'text.secondary' }}>
               Contract Controller
             </Typography>
-            <Box
-              data-testid="SelectedContract__ControllerWrapper"
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                width: '100%',
-                alignItems: 'center',
-                gap: '.5em',
-                mb: '.5em',
-                px: '1em',
-              }}
-            >
-              {isContractOwned && contract.status === 'BIDDING' && (
-                <Button
-                  data-testid="SelectedContract-Controller-Process__StartContractButton"
-                  variant="outlined"
-                  color="secondary"
-                  size="medium"
-                  fullWidth
-                  onClick={handleContractStart}
-                >
-                  Start
-                </Button>
-              )}
-              {isContractOwned && contract.status === 'INPROGRESS' && (
-                <Button
-                  data-testid="SelectedContract-Controller-Process__CompleteContract"
-                  variant="outlined"
-                  color="success"
-                  size="medium"
-                  fullWidth
-                  onClick={handleContractComplete}
-                >
-                  Complete
-                </Button>
-              )}
-              {isContractOwned &&
-                contract.status !== 'COMPLETED' &&
-                contract.status !== 'CANCELLED' && (
-                  <Button
-                    data-testid="SelectedContract-Controller-Edit__EditContractButton"
-                    variant="outlined"
-                    color="info"
-                    size="medium"
-                    fullWidth
-                    onClick={handleEditContract}
-                  >
-                    Edit
-                  </Button>
-                )}
-              {isContractOwned &&
-                contract.status !== 'COMPLETED' &&
-                contract.status !== 'CANCELLED' && (
-                  <Button
-                    data-testid="SelectedContract-Controller-Edit__CancelContractButton"
-                    variant="outlined"
-                    color="error"
-                    size="medium"
-                    fullWidth
-                    onClick={handleContractCancel}
-                  >
-                    Cancel
-                  </Button>
-                )}
-              {!isContractOwned && userBid?.status === 'INVITED' && (
-                <Button
-                  data-testid="SelectedContract-Controller-Process__AcceptContractButton"
-                  variant="outlined"
-                  color="success"
-                  size="medium"
-                  fullWidth
-                  onClick={handleAcceptInvite}
-                >
-                  Accept
-                </Button>
-              )}
-              {!isContractOwned && userBid?.status === 'INVITED' && (
-                <Button
-                  data-testid="SelectedContract-Controller-Process__AcceptContractButton"
-                  variant="outlined"
-                  color="error"
-                  size="medium"
-                  fullWidth
-                  onClick={handleDeclineInvite}
-                >
-                  Decline
-                </Button>
-              )}
-              {!isContractOwned && userBid?.status === 'PENDING' && (
-                <Button
-                  data-testid="SelectedContract-Controller-Process__AcceptContractButton"
-                  variant="outlined"
-                  color="warning"
-                  size="medium"
-                  fullWidth
-                  onClick={handleWithdrawBid}
-                >
-                  Cancel Bid
-                </Button>
-              )}
-              {!isContractOwned && userBid?.status === 'ACCEPTED' && (
-                <Button
-                  data-testid="SelectedContract-Controller-Process__AcceptContractButton"
-                  variant="outlined"
-                  color="warning"
-                  size="medium"
-                  fullWidth
-                  onClick={handleWithdrawBid}
-                >
-                  Withdraw
-                </Button>
-              )}
-              {!isContractOwned && userBid?.status === 'REJECTED' && (
-                <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
-                  Bid has been Rejected
-                </Typography>
-              )}
-              {!isContractOwned && userBid?.status === 'DECLINED' && (
-                <>
-                  <Button
-                    data-testid="SelectedContract-Controller-Process__AcceptContractButton"
-                    variant="outlined"
-                    color="warning"
-                    size="medium"
-                    fullWidth
-                  >
-                    Submit Bid
-                  </Button>
-                  <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
-                    You Declined an Invite. You can submit a new bid if you would like.
-                  </Typography>
-                </>
-              )}
-              {!isContractOwned && userBid?.status === 'EXPIRED' && (
-                <>
-                  <Button
-                    data-testid="SelectedContract-Controller-Process__ResubmitBid_Button"
-                    variant="outlined"
-                    color="secondary"
-                    size="medium"
-                    fullWidth
-                    onClick={handleResubmitBid}
-                  >
-                    Resubmit Bid
-                  </Button>
-                  <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
-                    You are removed from the Active Contractors. Please resubmit a bid.
-                  </Typography>
-                </>
-              )}
-              {!isContractOwned && userBid?.status === null && (
-                <Button
-                  data-testid="SelectedContract-Controller-Process__SubmitBidButton"
-                  variant="outlined"
-                  color="success"
-                  size="medium"
-                  fullWidth
-                >
-                  Submit Bid
-                </Button>
-              )}
-            </Box>
-          </Box>
+            <ContractController
+              contract={contract}
+              userBid={userBid}
+              isOwned={isContractOwned}
+            />
+          </ControlPanelBox>
         </Box>
         <Box
           data-testid="SelectedContract-Bottom__RightBoxWrapper"
