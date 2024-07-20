@@ -1,5 +1,5 @@
 import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
-import { UserChip } from '@Common/Components/Users/UserChip';
+import { UserChip } from '@Common/Components/Chips/UserChip';
 import { Box, Button, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
