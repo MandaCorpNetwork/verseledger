@@ -100,6 +100,7 @@ export const CreateContractPopup: React.FC = () => {
     isBargaining: false,
     subtype: null,
   } as unknown as ICreateContractBody);
+  const [invites, setInvites] = React.useState<User[]>([]);
 
   const onSubmit = useCallback(() => {
     if (page >= 4) {
@@ -130,7 +131,7 @@ export const CreateContractPopup: React.FC = () => {
       });
     }
     setPage(Math.min(page + 1, steps.length));
-  }, [page, formData]);
+  }, [page, formData, invites]);
 
   const onCancel = useCallback(() => {
     if (page == 0)
@@ -146,8 +147,6 @@ export const CreateContractPopup: React.FC = () => {
       );
     setPage(Math.max(page - 1, 0));
   }, [page]);
-
-  const [invites, setInvites] = React.useState<User[]>([]);
 
   const isSubmitEnabled = React.useMemo(() => {
     Logger.info(formData);
