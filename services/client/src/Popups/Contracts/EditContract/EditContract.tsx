@@ -138,10 +138,8 @@ export const EditContractPopup: React.FC<EditContractPopupProps> = ({ contract }
       case 1:
         return true;
       case 2:
-        return formData.Locations != null && formData.Locations?.length != 0;
-      case 3:
         return formData.contractorLimit != null && formData.contractorLimit != 0;
-      case 4:
+      case 3:
         return (
           formData.payStructure != null &&
           formData.defaultPay != null &&
@@ -196,7 +194,7 @@ export const EditContractPopup: React.FC<EditContractPopupProps> = ({ contract }
       onCancel={onCancel}
       cancelText={page <= 0 ? 'Cancel' : 'Back'}
       onSubmit={onSubmit}
-      submitText={page >= 2 ? 'Submit' : 'Next'}
+      submitText={page >= 3 ? 'Submit' : 'Next'}
       submitDisabled={!isSubmitEnabled}
     >
       <Box data-testid="ContractForm__Container-Stepper">
@@ -222,7 +220,7 @@ export const EditContractPopup: React.FC<EditContractPopupProps> = ({ contract }
         </Stepper>
         {page === 0 && <ContractDetails formData={formData} setFormData={setFormData} />}
         {page === 1 && <TimeInformation formData={formData} setFormData={setFormData} />}
-        {page === 3 && (
+        {page === 2 && (
           <Contractors
             formData={formData}
             setFormData={setFormData}
@@ -230,7 +228,7 @@ export const EditContractPopup: React.FC<EditContractPopupProps> = ({ contract }
             setInvites={setInvites}
           />
         )}
-        {page === 4 && <Payroll formData={formData} setFormData={setFormData} />}
+        {page === 3 && <Payroll formData={formData} setFormData={setFormData} />}
       </Box>
     </VLPopup>
   );
