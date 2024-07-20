@@ -39,11 +39,7 @@ describe('contractSelectors.ts', () => {
       isLoading: false,
       pagination: { limit: 0, page: 0, pages: 0, total: 2 },
     };
-    expect(selectContract({ contracts } as RootState, 'X-2')).toEqual(
-      contracts.contracts['X-2'],
-    );
-    expect(selectContract({ contracts } as RootState, 'X-1')).toEqual(
-      contracts.contracts['X-1'],
-    );
+    expect(selectContract({ contracts: { contracts } }, 'X-2')).toEqual(contracts['X-2']);
+    expect(selectContract({ contracts: { contracts } }, 'X-1')).toEqual(contracts['X-1']);
   });
 });
