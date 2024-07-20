@@ -1,9 +1,23 @@
 import { AccessTime, Group, Payments, Subtitles } from '@mui/icons-material';
-import { Box, StepConnector, stepConnectorClasses, styled } from '@mui/material';
+import {
+  Box,
+  Step,
+  StepConnector,
+  stepConnectorClasses,
+  StepLabel,
+  Stepper,
+  styled,
+} from '@mui/material';
+import { ContractDetails } from '@Popups/CreateContract/pages/ContractDetails';
+import { Contractors } from '@Popups/CreateContract/pages/Contractors';
+import { Payroll } from '@Popups/CreateContract/pages/Payroll';
+import { TimeInformation } from '@Popups/CreateContract/pages/TimeInformation';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
+import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch } from '@Redux/hooks';
+import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useState } from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContract, ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
 export const POPUP_EDIT_CONTRACT = 'contracts_edit';
 
@@ -73,7 +87,7 @@ export type EditContractPopupProps = {
 export const EditContractPopup: React.FC<EditContractPopupProps> = ({ contract }) => {
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(0);
-  const [formData, setFormData] = useState<Partial<IContract>>({
+  const [formData, setFormData] = useState<Partial<ICreateContractBody>>({
     title: contract.title,
     subtype: contract.subtype,
     briefing: contract.briefing,
@@ -88,15 +102,66 @@ export const EditContractPopup: React.FC<EditContractPopupProps> = ({ contract }
     isBonusPay: contract.isBonusPay,
     defaultPay: contract.defaultPay,
   });
+
+  const handleClose = () => {
+    dispatch(
+      openPopup(POPUP_YOU_SURE, {
+        title: 'Cancel Contract Editing',
+        subjectText: 'Contract Editing',
+        bodyText: 'Any progress will be lost',
+        onAccept: () => dispatch(closePopup(POPUP_EDIT_CONTRACT)),
+        clickAway: true,
+        testid: 'EditContractPopup',
+      }),
+    );
+  };
   return (
     <VLPopup
+      minWidth="800px"
       data-testid="form"
       state={page}
-      onClose={() => {}}
+      onClose={handleClose}
       name={POPUP_EDIT_CONTRACT}
       title="Edit Contract"
+      onCancel={() => {}}
+      cancelText={page <= 0 ? 'Cancel' : 'Back'}
+      onSubmit={() => {}}
+      submitText={page >= 2 ? 'Submit' : 'Next'}
+      // submitDisabled={!isSubmitEnabled}
     >
-      <Box>Test</Box>
+      <Box data-testid="ContractForm__Container-Stepper">
+        <Stepper activeStep={page} connector={<ColorlibConnector />} alternativeLabel>
+          {steps.map((step) => {
+            return (
+              <Step key={step.label}>
+                <StepLabel
+                  StepIconComponent={(props) => (
+                    <ColorlibStepIconRoot
+                      ownerState={{ completed: props.completed, active: props.active }}
+                      className={props.className}
+                    >
+                      {step.icon}
+                    </ColorlibStepIconRoot>
+                  )}
+                >
+                  {step.label}
+                </StepLabel>
+              </Step>
+            );
+          })}
+        </Stepper>
+        {page === 0 && <ContractDetails formData={formData} setFormData={setFormData} />}
+        {page === 1 && <TimeInformation formData={formData} setFormData={setFormData} />}
+        {page === 3 && (
+          <Contractors
+            formData={formData}
+            setFormData={setFormData}
+            invites={invites}
+            setInvites={setInvites}
+          />
+        )}
+        {page === 4 && <Payroll formData={formData} setFormData={setFormData} />}
+      </Box>
     </VLPopup>
   );
 };

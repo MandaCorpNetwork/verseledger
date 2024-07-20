@@ -20,8 +20,8 @@ import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { SmallEmergencyOverlay } from '../EmergencyOverlay';
 
 export const Contractors: React.FC<{
-  formData: ICreateContractBody;
-  setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
+  formData: Partial<ICreateContractBody>;
+  setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
   invites: Array<User>;
   setInvites: React.Dispatch<React.SetStateAction<Array<User>>>;
 }> = (props) => {
