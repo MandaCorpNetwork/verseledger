@@ -1,5 +1,5 @@
 import { Box, styled } from '@mui/material';
-const FirstLayerGlassBox = styled(Box)(({ theme }) => ({
+const GlassBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   borderTop: '2px solid',
@@ -12,4 +12,4 @@ const FirstLayerGlassBox = styled(Box)(({ theme }) => ({
   padding: '.5em',
 }));
 
-export default FirstLayerGlassBox;
+export default GlassBox;

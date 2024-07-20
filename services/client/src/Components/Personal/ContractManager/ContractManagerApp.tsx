@@ -267,7 +267,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
                 />
                 <Tab
                   data-testid="ContractManager__OffersTab"
-                  label="Offers"
+                  label="Invites"
                   value="offers"
                 />
                 <Tab

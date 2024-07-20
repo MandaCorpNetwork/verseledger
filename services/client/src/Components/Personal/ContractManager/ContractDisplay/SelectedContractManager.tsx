@@ -1,10 +1,15 @@
 // import { LocationChip } from '@Common/Components/App/LocationChip';
 import ControlPanelBox from '@Common/Components/Boxes/ControlPanelBox';
+import DigiBox from '@Common/Components/Boxes/DigiBox';
+import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import ParagraphWrapper from '@Common/Components/Boxes/ParagraphWrapper';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import TabListHolo from '@Common/Components/Tabs/TabListHolo';
+import DigiTitle from '@Common/Components/Typography/DigiTitle';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { ChevronLeft, ChevronRight, HelpOutline } from '@mui/icons-material';
-import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { TabContext, TabPanel } from '@mui/lab';
 import {
   Box,
   Chip,
@@ -44,8 +49,14 @@ const ContractDataField: React.FC<ContractDataFieldProps> = ({ label, value }) =
         margin="dense"
         InputProps={{
           readOnly: true,
+          sx: {
+            cursor: 'default',
+          },
         }}
         inputProps={{
+          sx: {
+            cursor: 'default',
+          },
           style: {
             textAlign: 'center',
           },
@@ -54,26 +65,6 @@ const ContractDataField: React.FC<ContractDataFieldProps> = ({ label, value }) =
     </>
   );
 };
-
-// const ExpandButton: React.FC<unknown> = () => {
-//   const [isExpanded, setIsExpanded] = React.useState(false);
-
-//   const toggleExpand = () => {
-//     setIsExpanded(!isExpanded);
-//   };
-
-//   return (
-//     <IconButton
-//       onClick={toggleExpand}
-//       size="small"
-//       sx={{
-//         backgroundColor: 'rgba(14,49,141,.25)',
-//       }}
-//     >
-//       {isExpanded ? <OpenInFull fontSize="small" /> : <UnfoldLess fontSize="small" />}
-//     </IconButton>
-//   );
-// };
 
 type SelectedContractManagerProps = {
   contractId: string | null;
@@ -258,52 +249,21 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
         >
           <UserDisplay userid={contract.owner_id} />
         </Box>
-        <Box
+        <DigiBox
           data-testid="SelectedContract__OverviewInfoContainer"
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
             width: '70%',
             padding: '1em',
-            borderTop: '2px solid',
-            borderBottom: '2px solid',
-            borderRadius: '5px',
-            borderColor: 'primary.main',
-            borderLeft: '1px solid rgba(14,49,141,0.5)',
-            borderRight: '1px solid rgba(14,49,141,0.5)',
-            boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-            position: 'relative',
-            '&:before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              bottom: 0,
-              right: 0,
-              left: 0,
-              background:
-                'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-              opacity: 0.6,
-              backdropFilter: 'blur(10px)',
-              zIndex: -1,
-              backgroundImage:
-                'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-              backgroundSize: '100% 2px',
-            },
           }}
         >
-          <Box
+          <DigiDisplay
             data-testid="SelectedContract-OverviewInfo__HeaderWrapper"
             sx={{
-              display: 'flex',
               flexDirection: 'row',
               width: '100%',
-              borderRadius: '20px',
-              backgroundColor: 'rgba(33,150,243,.2)',
               px: '1em',
-              justifyContent: 'center',
               py: '.2em',
+              alignItems: 'strech',
             }}
           >
             <Box
@@ -314,7 +274,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                 data-testid="SelectedContract__ContractTitle"
                 variant="h4"
                 noWrap
-                sx={{ fontWeight: 'bold', maxWidth: '100%' }}
+                sx={{ fontWeight: 'bold', maxWidth: '100%', cursor: 'default' }}
               >
                 {contract.title}
               </Typography>
@@ -328,7 +288,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   ?.archetypeIcon ?? <Typography>???</Typography>}
               </Tooltip>
             </Box>
-          </Box>
+          </DigiDisplay>
           <Box
             data-testid="SelectedContract-OverviewInfo__BottomWrapper"
             sx={{ display: 'flex', flexDirection: 'row', width: '100%', mt: '.5em' }}
@@ -343,20 +303,17 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                 justifyContent: 'space-around',
               }}
             >
-              <Box
+              <DigiDisplay
                 data-testid="SelectedContract-OverviewInfo-Bottom__StatusChipWrapper"
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
                   width: '100%',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: '10px',
-                  backgroundColor: 'rgba(14,49,141,.25)',
                   pb: '.2em',
                 }}
               >
-                <Typography variant="body2" sx={{ mb: 'auto', fontWeight: 'bold' }}>
+                <Typography
+                  variant="body2"
+                  sx={{ mb: 'auto', fontWeight: 'bold', cursor: 'default' }}
+                >
                   Status
                 </Typography>
                 <Chip
@@ -368,23 +325,21 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   color={statusColor}
                   sx={{
                     fontWeight: 'bold',
+                    cursor: 'default',
                   }}
                 />
-              </Box>
-              <Box
+              </DigiDisplay>
+              <DigiDisplay
                 data-testid="SelectedContract-OverviewInfo-Bottom__SubtypeChipWrapper"
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: 'rgba(14,49,141,.25)',
-                  borderRadius: '10px',
                   width: '100%',
                   pb: '.2em',
                 }}
               >
-                <Typography variant="body2" sx={{ fontWeight: 'bold', mb: 'auto' }}>
+                <Typography
+                  variant="body2"
+                  sx={{ fontWeight: 'bold', mb: 'auto', cursor: 'default' }}
+                >
                   Contract Subtypes
                 </Typography>
                 <Chip
@@ -397,22 +352,20 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                       ?.archetypeIcon
                   }
                   onClick={handleArchetypeOpen}
+                  sx={{
+                    cursor: 'default',
+                  }}
                 />
-              </Box>
+              </DigiDisplay>
             </Box>
-            <Box
+            <DigiDisplay
               data-testid="SelectedContract-OverviewInfo-Bottom__DetailsContainer"
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
                 ml: 'auto',
                 mr: '.5em',
-                backgroundColor: 'rgba(14,49,141,.25)',
-                borderRadius: '10px',
-                alignItems: 'center',
               }}
             >
-              <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+              <Typography variant="body2" sx={{ fontWeight: 'bold', cursor: 'default' }}>
                 Details
               </Typography>
               <Box
@@ -442,9 +395,22 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                     }
                     color="secondary"
                     margin="dense"
+                    inputProps={{
+                      readOnly: true,
+                      sx: {
+                        cursor: 'default',
+                      },
+                    }}
                     InputProps={{
+                      sx: {
+                        cursor: 'default',
+                      },
                       endAdornment: (
-                        <InputAdornment position="end" onClick={handlePayStructurePopup}>
+                        <InputAdornment
+                          position="end"
+                          onClick={handlePayStructurePopup}
+                          sx={{ cursor: 'pointer' }}
+                        >
                           <HelpOutline color="secondary" fontSize="small" />
                         </InputAdornment>
                       ),
@@ -457,7 +423,16 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                       value={contract.defaultPay}
                       color="secondary"
                       margin="dense"
+                      inputProps={{
+                        readOnly: true,
+                        sx: {
+                          cursor: 'default',
+                        },
+                      }}
                       InputProps={{
+                        sx: {
+                          cursor: 'default',
+                        },
                         startAdornment: (
                           <InputAdornment position="start">
                             <Typography color="secondary">¤</Typography>
@@ -480,9 +455,9 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   <ContractDataField label="Remaining" value={endTime} />
                 </Box>
               </Box>
-            </Box>
+            </DigiDisplay>
           </Box>
-        </Box>
+        </DigiBox>
       </Box>
       <Box
         data-testid="SelectedContract__BottomBoxWrapper"
@@ -504,52 +479,20 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
             alignItems: 'center',
           }}
         >
-          <Box
+          <DigiBox
             data-testid="SelectedContract__LocationsContainer"
             sx={{
               width: '80%',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
-              display: 'flex',
-              flexDirection: 'column',
               p: '.5em',
               mb: '1em',
-              borderLeft: '1px solid rgba(14,49,141,0.5)',
-              borderRight: '1px solid rgba(14,49,141,0.5)',
-              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                background:
-                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                opacity: 0.6,
-                backdropFilter: 'blur(10px)',
-                zIndex: -1,
-                backgroundImage:
-                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                backgroundSize: '100% 2px',
-              },
             }}
           >
-            <Typography
+            <DigiTitle
               data-testid="SelectedContract-Locations__TitleText"
               variant="body2"
-              sx={{
-                backgroundColor: 'rgba(14,49,141,.25)',
-                borderRadius: '10px',
-                pl: '1em',
-                fontWeight: 'bold',
-              }}
             >
               Locations
-            </Typography>
+            </DigiTitle>
             <Box
               data-testid="SelectedContract-Locations__StartandEndWrapper"
               sx={{
@@ -560,61 +503,54 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                 my: '.5em',
               }}
             >
-              <Box
+              <DigiDisplay
                 data-testid="SelectedContract-Locations__StartLocationWrapper"
                 sx={{
                   width: '40%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
                   mx: 'auto',
                   pb: '.3em',
-                  backgroundColor: 'rgba(14,49,141,.25)',
-                  borderRadius: '10px',
                 }}
               >
-                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                <Typography
+                  variant="body2"
+                  sx={{ fontWeight: 'bold', cursor: 'default' }}
+                >
                   Start Location
                 </Typography>
                 <LocationChip locationId={startLocationId ?? ''} />
-              </Box>
+              </DigiDisplay>
               {endLocationId && (
-                <Box
+                <DigiDisplay
                   data-testid="SelectedContract-Locations__EndLocationWrapper"
                   sx={{
                     width: '40%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
                     mr: 'auto',
                     pb: '.3em',
-                    backgroundColor: 'rgba(14,49,141,.25)',
-                    borderRadius: '10px',
                   }}
                 >
-                  <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                  <Typography
+                    variant="body2"
+                    sx={{ fontWeight: 'bold', cursor: 'default' }}
+                  >
                     End Location
                   </Typography>
                   <LocationChip locationId={endLocationId} />
-                </Box>
+                </DigiDisplay>
               )}
             </Box>
             {otherLocationIds.length > 0 && (
-              <Box
+              <DigiDisplay
                 data-testid="SelectedContract-Locations_OtherLocationsContainer"
                 sx={{
                   width: '82%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  backgroundColor: 'rgba(14,49,141,.25)',
-                  borderRadius: '10px',
                   pb: '.3em',
                   mx: 'auto',
                 }}
               >
-                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                <Typography
+                  variant="body2"
+                  sx={{ fontWeight: 'bold', cursor: 'default' }}
+                >
                   Other Locations
                 </Typography>
                 <Box
@@ -677,92 +613,44 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                     </IconButton>
                   </Box>
                 </Box>
-              </Box>
+              </DigiDisplay>
             )}
-          </Box>
-          <Box
+          </DigiBox>
+          <DigiBox
             data-testid="SelectedContract__BriefingWrapper"
             sx={{
               width: '80%',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
-              display: 'flex',
-              flexDirection: 'column',
               p: '.5em',
               mb: '1em',
-              position: 'relative',
-              borderLeft: '1px solid rgba(14,49,141,0.5)',
-              borderRight: '1px solid rgba(14,49,141,0.5)',
-              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                background:
-                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                opacity: 0.6,
-                backdropFilter: 'blur(10px)',
-                zIndex: -1,
-                backgroundImage:
-                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                backgroundSize: '100% 2px',
-              },
             }}
           >
-            <Typography
+            <DigiTitle
               data-testid="SelectedContract-Briefing__BriefingTitle"
               variant="body2"
-              sx={{
-                backgroundColor: 'rgba(14,49,141,.25)',
-                borderRadius: '10px',
-                pl: '1em',
-                fontWeight: 'bold',
-              }}
             >
               Briefing
-            </Typography>
-            <Box
+            </DigiTitle>
+            <ParagraphWrapper
               data-testid="SelectedContract-Briefing__ContentWrapper"
               sx={{
                 mx: '10%',
                 mt: '.5em',
-                backgroundColor: 'rgba(14,49,141,.25)',
-                borderRadius: '10px',
-                p: '.5em',
                 maxHeight: '100px',
-                overflow: 'auto',
-                '&::-webkit-scrollbar': {
-                  width: '10px',
-                },
-                '&::-webkit-scrollbar-track': {
-                  background: 'rgb(8, 29, 68)',
-                  borderRadius: '20px',
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  borderRadius: '20px',
-                  background: 'rgb(121, 192, 244, .5)',
-                },
+                p: '.5em',
               }}
             >
               <Typography
                 data-testid="SelectedContract-Briefing__ContentText"
-                variant="body2"
+                variant="paragraph"
                 sx={{
-                  textWrap: 'wrap',
-                  whiteSpace: 'normal',
-                  wordBreak: 'break-all',
                   pl: '.5em',
+                  fontSize: '.85em',
                 }}
               >
                 {contract.briefing}
               </Typography>
-            </Box>
-          </Box>
+            </ParagraphWrapper>
+          </DigiBox>
           <ControlPanelBox
             data-testid="SelectedContract__ControllerContainer"
             sx={{
@@ -771,7 +659,9 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               flexDirection: 'column',
             }}
           >
-            <Typography sx={{ fontWeight: 'bold', color: 'text.secondary' }}>
+            <Typography
+              sx={{ fontWeight: 'bold', color: 'text.secondary', cursor: 'default' }}
+            >
               Contract Controller
             </Typography>
             <ContractController
@@ -809,48 +699,21 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               }}
             >
               <TabContext value={contractManagerTab}>
-                <TabList
+                <TabListHolo
                   data-testid="SelectedContract-ContractManagement__TabList"
                   onChange={handleContractManageView}
                   indicatorColor="secondary"
                   textColor="secondary"
                   variant="fullWidth"
                   sx={{
-                    borderLeft: '2px solid',
-                    borderRight: '2px solid',
-                    borderRadius: '5px',
-                    borderColor: 'secondary.main',
                     px: '1em',
                     py: '.2em',
-                    boxShadow: '0 0px 5px 2px rgba(24,252,252,0.25)',
-                    backgroundImage:
-                      'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
-                    position: 'relative',
-                    '&:before': {
-                      content: '""',
-                      position: 'absolute',
-                      top: 0,
-                      right: 0,
-                      bottom: 0,
-                      left: 0,
-                      backgroundImage:
-                        'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
-                      backgroundSize: '5px 5px',
-                      opacity: 0.5,
-                    },
-                    '&:hover': {
-                      backgroundImage:
-                        'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
-                      borderColor: 'secondary.light',
-                      boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
-                    },
-                    transition: 'all 0.3s',
                   }}
                 >
                   <Tab label="Contractors" value="contractors" />
                   <Tab disabled label="Payroll" value="payroll" />
                   <Tab disabled label="Ships" value="ships" />
-                </TabList>
+                </TabListHolo>
                 <TabPanel
                   value="contractors"
                   sx={{
