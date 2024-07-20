@@ -99,6 +99,7 @@ export const CreateContractPopup: React.FC = () => {
     isBonusPay: false,
     isBargaining: false,
     subtype: null,
+    status: 'BIDDING',
   } as unknown as ICreateContractBody);
   const [invites, setInvites] = React.useState<User[]>([]);
 

@@ -105,6 +105,7 @@ export const EditContractPopup: React.FC<EditContractPopupProps> = ({ contract }
     isBargaining: contract.isBargaining,
     isBonusPay: contract.isBonusPay,
     defaultPay: contract.defaultPay,
+    status: contract.status,
   });
 
   const handleClose = () => {
