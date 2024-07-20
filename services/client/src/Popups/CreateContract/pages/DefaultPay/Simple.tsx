@@ -10,7 +10,7 @@ import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
 export const FlatRatePayroll: React.FC<{
-  formData: ICreateContractBody;
+  formData: Partial<ICreateContractBody>;
   onChange: (value: string) => void;
   getValue: () => string;
 }> = (props) => {
@@ -37,7 +37,7 @@ export const FlatRatePayroll: React.FC<{
 };
 
 export const PoolPayroll: React.FC<{
-  formData: ICreateContractBody;
+  formData: Partial<ICreateContractBody>;
   onChange: (value: string) => void;
   evenSplit: boolean;
   setEvenSplit: (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
@@ -83,7 +83,7 @@ export const PoolPayroll: React.FC<{
 };
 
 export const TimedPayroll: React.FC<{
-  formData: ICreateContractBody;
+  formData: Partial<ICreateContractBody>;
   onChange: (value: string) => void;
   getValue: () => string;
 }> = (props) => {

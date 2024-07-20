@@ -91,7 +91,7 @@ const ColorlibConnector = styled(StepConnector)(() => ({
 export const CreateContractPopup: React.FC = () => {
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(0);
-  const [formData, setFormData] = useState<ICreateContractBody>({
+  const [formData, setFormData] = useState<Partial<ICreateContractBody>>({
     Locations: [],
     isEmergency: false,
     payStructure: 'FLATRATE',
@@ -109,7 +109,7 @@ export const CreateContractPopup: React.FC = () => {
         return;
       }
       dispatch(closePopup(POPUP_CREATE_CONTRACT));
-      dispatch(postNewContract(formData)).then((res) => {
+      dispatch(postNewContract(formData as ICreateContractBody)).then((res) => {
         if ((res.payload as { __type: string }).__type === 'Contract') {
           invites.forEach((invite) => {
             dispatch(

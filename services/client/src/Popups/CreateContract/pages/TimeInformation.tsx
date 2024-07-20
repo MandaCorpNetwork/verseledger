@@ -18,8 +18,8 @@ import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { LargeEmergencyOverlay } from '../EmergencyOverlay';
 
 export const TimeInformation: React.FC<{
-  formData: ICreateContractBody;
-  setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
+  formData: Partial<ICreateContractBody>;
+  setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
   const { formData, setFormData } = props;
   const [heldDate, setHeldDate] = React.useState<Date | null>(null);

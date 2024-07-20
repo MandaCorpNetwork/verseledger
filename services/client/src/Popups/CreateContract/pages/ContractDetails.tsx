@@ -34,15 +34,15 @@ const flatOptions = options.flatMap((option) =>
   }),
 );
 export const ContractDetails: React.FC<{
-  formData: ICreateContractBody;
-  setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
+  formData: Partial<ICreateContractBody> | ICreateContractBody;
+  setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
   const dispatch = useAppDispatch();
   const { formData, setFormData } = props;
   const [archetype, setArchetype] = React.useState<string | null>(null);
   const [filteredSubtypes, setFilteredSubtypes] = React.useState<string[]>(flatOptions);
   const [selectedSubtype, setSelectedSubtype] = React.useState<string | null>(
-    formData.subtype,
+    formData.subtype || null,
   );
 
   const scrollRef = useHorizontalAdvancedScroll();
@@ -189,7 +189,7 @@ export const ContractDetails: React.FC<{
               width: '300px',
             }}
             helperText={
-              formData.briefing?.length >= 2048 ? 'Character Limit Reached' : ''
+              (formData.briefing?.length ?? 0) >= 2048 ? 'Character Limit Reached' : ''
             }
             FormHelperTextProps={{
               sx: {
