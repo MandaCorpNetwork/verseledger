@@ -15,8 +15,12 @@ import { TimeInformation } from '@Popups/CreateContract/pages/TimeInformation';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch } from '@Redux/hooks';
+import { postContractInvite } from '@Redux/Slices/Contracts/actions/post/postContractInvite';
+import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContract';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { useState } from 'react';
+import { Logger } from '@Utils/Logger';
+import { enqueueSnackbar } from 'notistack';
+import React, { useState } from 'react';
 import { IContract, ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
 export const POPUP_EDIT_CONTRACT = 'contracts_edit';
@@ -115,6 +119,72 @@ export const EditContractPopup: React.FC<EditContractPopupProps> = ({ contract }
       }),
     );
   };
+
+  const [invites, setInvites] = useState<User[]>([]);
+
+  const isSubmitEnabled = React.useMemo(() => {
+    Logger.info(formData);
+    switch (page) {
+      default:
+      case 0:
+        return (
+          formData.title != null &&
+          formData.title.trim() != '' &&
+          formData.briefing != null &&
+          formData.briefing.trim() != '' &&
+          formData.subtype != null &&
+          formData.subtype.trim() != ''
+        );
+      case 1:
+        return true;
+      case 2:
+        return formData.Locations != null && formData.Locations?.length != 0;
+      case 3:
+        return formData.contractorLimit != null && formData.contractorLimit != 0;
+      case 4:
+        return (
+          formData.payStructure != null &&
+          formData.defaultPay != null &&
+          formData.defaultPay != 0 &&
+          formData.defaultPay != undefined
+        );
+    }
+    return false;
+  }, [formData, page]);
+
+  const onSubmit = React.useCallback(() => {
+    if (page >= 3) {
+      Logger.info(`Contract Data Passed To Action: ${JSON.stringify(formData)}`);
+      if (formData.subtype === undefined || formData.subtype === null) {
+        Logger.error('Contract Missing Subtype');
+        return;
+      }
+      dispatch(closePopup(POPUP_EDIT_CONTRACT));
+      dispatch(
+        updateContract({
+          contractId: contract.id,
+          contractRaw: formData as Partial<IContract>,
+        }),
+      ).then((res) => {
+        if ((res.payload as { __type: string }).__type === 'Contract') {
+          invites.forEach((invite) => {
+            dispatch(postContractInvite({ contractId: contract.id, userId: invite.id }));
+          });
+          enqueueSnackbar('Contract Updated', { variant: 'success' });
+        } else {
+          enqueueSnackbar('Contract Update Failed', { variant: 'error' });
+        }
+      });
+    }
+    setPage(Math.min(page + 1, steps.length));
+  }, [page, formData, invites]);
+
+  const onCancel = React.useCallback(() => {
+    if (page == 0) {
+      return handleClose();
+    }
+    setPage(Math.max(page - 1, 0));
+  }, [page]);
   return (
     <VLPopup
       minWidth="800px"
@@ -123,11 +193,11 @@ export const EditContractPopup: React.FC<EditContractPopupProps> = ({ contract }
       onClose={handleClose}
       name={POPUP_EDIT_CONTRACT}
       title="Edit Contract"
-      onCancel={() => {}}
+      onCancel={onCancel}
       cancelText={page <= 0 ? 'Cancel' : 'Back'}
-      onSubmit={() => {}}
+      onSubmit={onSubmit}
       submitText={page >= 2 ? 'Submit' : 'Next'}
-      // submitDisabled={!isSubmitEnabled}
+      submitDisabled={!isSubmitEnabled}
     >
       <Box data-testid="ContractForm__Container-Stepper">
         <Stepper activeStep={page} connector={<ColorlibConnector />} alternativeLabel>
