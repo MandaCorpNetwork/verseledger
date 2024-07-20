@@ -30,7 +30,7 @@ describe('contractSelectors.ts', () => {
         subtype: 'Transport',
       },
     };
-    expect(selectContract({ contracts }, 'X-2')).toEqual(contracts['X-2']);
-    expect(selectContract({ contracts }, 'X-1')).toEqual(contracts['X-1']);
+    expect(selectContract({ contracts: { contracts } }, 'X-2')).toEqual(contracts['X-2']);
+    expect(selectContract({ contracts: { contracts } }, 'X-1')).toEqual(contracts['X-1']);
   });
 });
