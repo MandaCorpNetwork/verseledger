@@ -182,11 +182,13 @@ export const Contractors: React.FC<{
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              position: 'relative',
             }}
           >
             <FormLabel color="secondary" sx={{ mb: '1em' }}>
               Contractor Settings
             </FormLabel>
+            {formData.isEmergency && <SmallEmergencyOverlay />}
             <Box
               data-testid="Contractors-Form-Settings__Fields_Wrapper"
               sx={{
@@ -196,7 +198,6 @@ export const Contractors: React.FC<{
                 justifyContent: 'space-around',
               }}
             >
-              {formData.isEmergency && <SmallEmergencyOverlay />}
               <TextField
                 data-testid="ContractorsForm-Settings__MaxContractors"
                 label="Max Contractors"
@@ -259,7 +260,9 @@ export const Contractors: React.FC<{
                   }));
                 }}
               />
-              {/* <Box>
+              {/*
+              Need to add an option in the backend allowing bidding after deadline defaulted to false
+              <Box>
               <FormControlLabel
                 control={<Switch color="secondary" size="small" />}
                 label="Allow Bidding After Deadline"
