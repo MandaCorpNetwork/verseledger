@@ -26,6 +26,7 @@ import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelect
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { Logger } from '@Utils/Logger';
 import dayjs from 'dayjs';
+import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -231,7 +232,13 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     const updatedBid = { status: 'ACCEPTED' as const };
     dispatch(
       updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
-    );
+    ).then((res) => {
+      if (updateBid.fulfilled.match(res)) {
+        enqueueSnackbar('Accepted Invite', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Error Accepting Invite', { variant: 'error' });
+      }
+    });
   };
 
   const handleDeclineInvite = () => {
@@ -241,7 +248,13 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     const updatedBid = { status: 'DECLINED' as const };
     dispatch(
       updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
-    );
+    ).then((res) => {
+      if (updateBid.fulfilled.match(res)) {
+        enqueueSnackbar('Declined Invite', { variant: 'warning' });
+      } else {
+        enqueueSnackbar('Error Accepting Invite', { variant: 'error' });
+      }
+    });
   };
 
   const handleWithdrawBid = () => {
@@ -251,7 +264,29 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     const updatedBid = { status: 'EXPIRED' as const };
     dispatch(
       updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
-    );
+    ).then((res) => {
+      if (updateBid.fulfilled.match(res)) {
+        enqueueSnackbar('Resigned from Contract', { variant: 'warning' });
+      } else {
+        enqueueSnackbar('Error Resigning', { variant: 'error' });
+      }
+    });
+  };
+
+  const handleResubmitBid = () => {
+    if (!userBid) {
+      return Logger.info('no user bid');
+    }
+    const updatedBid = { status: 'PENDING' as const };
+    dispatch(
+      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
+    ).then((res) => {
+      if (updateBid.fulfilled.match(res)) {
+        enqueueSnackbar('Bid Resubmitted', { variant: 'warning' });
+      } else {
+        enqueueSnackbar('Error Resubmitting Bid', { variant: 'error' });
+      }
+    });
   };
 
   const getUpdatedContractStatus = (contract: Partial<IContract>, status: string) => {
@@ -269,32 +304,46 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   const handleContractStart = () => {
     if (contract.status === 'BIDDING') {
       const updatedContract = getUpdatedContractStatus(contract, 'INPROGRESS');
-      dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
+      dispatch(
+        updateContract({ contractId: contract.id, contractRaw: updatedContract }),
+      ).then((res) => {
+        if (updateContract.fulfilled.match(res)) {
+          enqueueSnackbar('Contract Started', { variant: 'success' });
+        } else {
+          enqueueSnackbar('Error Starting Contract', { variant: 'error' });
+        }
+      });
     }
   };
 
   const handleContractComplete = () => {
     if (contract.status === 'INPROGRESS') {
       const updatedContract = getUpdatedContractStatus(contract, 'COMPLETED');
-      dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
+      dispatch(
+        updateContract({ contractId: contract.id, contractRaw: updatedContract }),
+      ).then((res) => {
+        if (updateContract.fulfilled.match(res)) {
+          enqueueSnackbar('Contract Completed', { variant: 'success' });
+        } else {
+          enqueueSnackbar('Error Completing Contract Contract', { variant: 'error' });
+        }
+      });
     }
   };
 
   const handleContractCancel = () => {
     if (contract.status !== 'COMPLETE') {
       const updatedContract = getUpdatedContractStatus(contract, 'CANCELED');
-      dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
+      dispatch(
+        updateContract({ contractId: contract.id, contractRaw: updatedContract }),
+      ).then((res) => {
+        if (updateContract.fulfilled.match(res)) {
+          enqueueSnackbar('Contract Canceled', { variant: 'warning' });
+        } else {
+          enqueueSnackbar('Error Canceling Contract', { variant: 'error' });
+        }
+      });
     }
-  };
-
-  const handleResubmitBid = () => {
-    if (!userBid) {
-      return Logger.info('no user bid');
-    }
-    const updatedBid = { status: 'PENDING' as const };
-    dispatch(
-      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
-    );
   };
 
   const handleEditContract = () => {
