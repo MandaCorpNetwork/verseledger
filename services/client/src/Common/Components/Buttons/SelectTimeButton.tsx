@@ -1,7 +1,7 @@
 import { Schedule } from '@mui/icons-material';
 import { Box, IconButton, Popover, Typography } from '@mui/material';
 import { DateCalendar, DigitalClock } from '@mui/x-date-pickers';
-import { Logger } from '@Utils/Logger';
+// import { Logger } from '@Utils/Logger';
 import React from 'react';
 
 type SelectTimeProps = {
