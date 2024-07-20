@@ -1,15 +1,17 @@
 // import { QuickTimeButton } from '@Common/Components/App/QuickTimeButton';
-import { SelectTimeButton } from '@Common/Components/App/SelectTimeButton';
+import { SelectTimeButton } from '@Common/Components/Buttons/SelectTimeButton';
+import { Close } from '@mui/icons-material';
 import {
   Box,
-  Button,
   Checkbox,
   FormControl,
   FormControlLabel,
+  IconButton,
   TextField,
   Typography,
 } from '@mui/material';
 import dayjs from 'dayjs';
+import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -30,8 +32,6 @@ export const TimeInformation: React.FC<{
         const bidDate = dayjs(formData.bidDate);
         const startDate = bidDate.add(10, 'second').toDate();
         setFormData({ ...formData, startDate: startDate ?? null });
-      } else {
-        setFormData({ ...formData, startDate: undefined });
       }
       return newChecked;
     });
@@ -40,7 +40,10 @@ export const TimeInformation: React.FC<{
   const handleTimeChange = React.useCallback(
     (newTime: Date, field: string) => {
       if (!heldDate) {
-        console.error('No date was selected.');
+        enqueueSnackbar({
+          variant: 'error',
+          message: 'Please select a date first',
+        });
         return;
       }
       const dateSelected = dayjs(heldDate);
@@ -49,14 +52,58 @@ export const TimeInformation: React.FC<{
         .set('hour', timeSelected.hour())
         .set('minute', timeSelected.minute());
 
+      const newDate = combinedDateTime.toDate();
+
       if (field === 'bidDate') {
-        setFormData({ ...formData, bidDate: combinedDateTime.toDate() ?? null });
+        if (formData.startDate && newDate > formData.startDate) {
+          enqueueSnackbar({
+            variant: 'error',
+            message: 'Bid Date must be before Start Date',
+          });
+          return;
+        }
+        if (formData.endDate && newDate > formData.endDate) {
+          enqueueSnackbar({
+            variant: 'error',
+            message: 'Bid Date must be before End Date',
+          });
+          return;
+        }
+        setFormData({ ...formData, bidDate: newDate ?? null });
       }
       if (field === 'startDate') {
-        setFormData({ ...formData, startDate: combinedDateTime.toDate() ?? null });
+        if (formData.bidDate && newDate < formData.bidDate) {
+          enqueueSnackbar({
+            variant: 'error',
+            message: 'Start Date must be after Bid Date',
+          });
+          return;
+        }
+        if (formData.endDate && newDate > formData.endDate) {
+          enqueueSnackbar({
+            variant: 'error',
+            message: 'Start Date must be before End Date',
+          });
+          return;
+        }
+        setFormData({ ...formData, startDate: newDate ?? null });
       }
       if (field === 'endDate') {
-        setFormData({ ...formData, endDate: combinedDateTime.toDate() ?? null });
+        if (formData.startDate && newDate < formData.startDate) {
+          enqueueSnackbar({
+            variant: 'error',
+            message: 'End Date must be after Start Date',
+          });
+          return;
+        }
+        if (formData.bidDate && newDate < formData.bidDate) {
+          enqueueSnackbar({
+            variant: 'error',
+            message: 'End Date must be after Bid Date',
+          });
+          return;
+        }
+        setFormData({ ...formData, endDate: newDate ?? null });
       }
     },
     [heldDate, setFormData],
@@ -64,39 +111,10 @@ export const TimeInformation: React.FC<{
 
   const formatDate = React.useCallback((date: Date | null) => {
     if (date == null) {
-      return 'Manually Controlled';
+      return 'Manual Control';
     }
     return dayjs(date).format('D/M/YY HH:mm');
   }, []);
-
-  const toggleEmergencyMode = React.useCallback(() => {
-    console.log(formData.isEmergency);
-    if (formData.isEmergency) {
-      setFormData({ ...formData, isEmergency: false });
-    } else {
-      setFormData({ ...formData, isEmergency: true });
-    }
-  }, [formData, setFormData]);
-
-  const checkEmergencyAvailable = () => {
-    if (
-      formData.subtype == 'Transport' ||
-      formData.subtype == 'Trauma' ||
-      formData.subtype == 'Escort' ||
-      formData.subtype == 'QRF' ||
-      formData.subtype == 'Refuel' ||
-      formData.subtype == 'Rearm' ||
-      formData.subtype == 'Repair' ||
-      formData.subtype == 'Middleman' ||
-      formData.subtype == 'Redacted'
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  const emergencyAvailable = checkEmergencyAvailable();
 
   return (
     <Box
@@ -107,70 +125,125 @@ export const TimeInformation: React.FC<{
         flexDirection: 'column',
       }}
     >
-      <Box data-testid="TimeInformation-form">
-        <FormControl
-          sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}
+      <FormControl
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
+        <Box
+          data-testid="TimeInformation-Form__ControlMessage_Wrapper"
+          sx={{
+            display: 'flex',
+            mb: '1em',
+            width: '100%',
+            justifyContent: 'center',
+          }}
         >
           <Box
-            data-testid="TimeInformation-form-DateBoxWrapper"
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              maxWidth: '220px',
-              position: 'relative',
+              gap: '.5em',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
-            {formData.isEmergency && <LargeEmergencyOverlay />}
-            <TextField
-              label="Bid Date"
-              color="secondary"
-              value={formatDate(formData.bidDate as Date)}
-              inputProps={{ style: { textAlign: 'center' } }}
-              InputProps={{
-                readOnly: true,
-                startAdornment: (
-                  <SelectTimeButton
-                    onDateChange={(newDate) => setHeldDate(newDate)}
-                    onTimeChange={(newTime) => handleTimeChange(newTime, 'bidDate')}
-                  />
-                ),
-              }}
+            <Typography
+              variant="tip"
+              align="center"
               sx={{
-                my: '.5em',
-                maxWidth: '220px',
+                maxWidth: '400px',
               }}
-            />
+            >
+              Manual Controlled Times require you to trigger the event in the Contract
+              Manager on Personal Ledger. Set a time to make it automatic.
+            </Typography>
+            {formData.isEmergency && (
+              <Typography
+                variant="tip"
+                align="center"
+                sx={{
+                  px: '1em',
+                }}
+              >
+                Emergency Contracts must be manually controlled.
+              </Typography>
+            )}
+          </Box>
+        </Box>
+        <Box
+          data-testid="TimeInformation-form-DateBoxWrapper"
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '1em',
+            position: 'relative',
+          }}
+        >
+          {formData.isEmergency && <LargeEmergencyOverlay />}
+          <TextField
+            label="Bid End Date"
+            color="secondary"
+            value={formatDate(formData.bidDate as Date)}
+            inputProps={{ style: { textAlign: 'center', cursor: 'default' } }}
+            InputProps={{
+              readOnly: true,
+              sx: {
+                cursor: 'default',
+              },
+              startAdornment: (
+                <SelectTimeButton
+                  onDateChange={(newDate) => setHeldDate(newDate)}
+                  onTimeChange={(newTime) => handleTimeChange(newTime, 'bidDate')}
+                />
+              ),
+              endAdornment: formData.bidDate && (
+                <IconButton
+                  data-testid="TimeInformation-Form-DateBox__BidDateControl_ClearButton"
+                  onClick={() => setFormData({ ...formData, bidDate: null })}
+                >
+                  <Close />
+                </IconButton>
+              ),
+            }}
+            sx={{
+              my: '.5em',
+              maxWidth: '220px',
+            }}
+          />
+          <Box
+            data-testid="TimeInformation-Form-DateBox__StartDateControl_Wrapper"
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+            }}
+          >
             <TextField
-              label="Start Date"
+              label="Contract Start Date"
               color="secondary"
               value={formatDate(formData.startDate as Date)}
-              inputProps={{ style: { textAlign: 'center' } }}
+              inputProps={{ style: { textAlign: 'center', cursor: 'default' } }}
               InputProps={{
                 readOnly: true,
+                sx: {
+                  cursor: 'default',
+                },
                 startAdornment: (
                   <SelectTimeButton
                     onDateChange={(newDate) => setHeldDate(newDate)}
                     onTimeChange={(newTime) => handleTimeChange(newTime, 'startDate')}
                   />
                 ),
-              }}
-              sx={{
-                my: '.5em',
-                maxWidth: '220px',
-              }}
-            />
-            <TextField
-              label="End Date"
-              color="secondary"
-              value={formatDate(formData.endDate as Date)}
-              inputProps={{ style: { textAlign: 'center' } }}
-              InputProps={{
-                readOnly: true,
-                startAdornment: (
-                  <SelectTimeButton
-                    onDateChange={(newDate) => setHeldDate(newDate)}
-                    onTimeChange={(newTime) => handleTimeChange(newTime, 'endDate')}
-                  />
+                endAdornment: formData.startDate && (
+                  <IconButton
+                    data-testid="TimeInformation-Form-DateBox__StartDateControl_ClearButton"
+                    onClick={() => setFormData({ ...formData, startDate: null })}
+                  >
+                    <Close />
+                  </IconButton>
                 ),
               }}
               sx={{
@@ -178,15 +251,63 @@ export const TimeInformation: React.FC<{
                 maxWidth: '220px',
               }}
             />
+            <FormControlLabel
+              data-testid="startafterbidding-checkbox"
+              control={
+                <Checkbox
+                  color="secondary"
+                  checked={afterBiddingChecked}
+                  onChange={handleAfterBiddingCheck}
+                  disabled={formData.bidDate == null}
+                />
+              }
+              label="Start After Bidding"
+              sx={{
+                color: 'text.secondary',
+                mx: 'auto',
+              }}
+            />
           </Box>
-          <Box
-            data-testid="TimeInformation-form-ManipulationContainer"
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
+          <TextField
+            label="Contract End Date"
+            color="secondary"
+            value={formatDate(formData.endDate as Date)}
+            inputProps={{ style: { textAlign: 'center', cursor: 'default' } }}
+            InputProps={{
+              readOnly: true,
+              sx: {
+                cursor: 'default',
+              },
+              startAdornment: (
+                <SelectTimeButton
+                  onDateChange={(newDate) => setHeldDate(newDate)}
+                  onTimeChange={(newTime) => handleTimeChange(newTime, 'endDate')}
+                />
+              ),
+              endAdornment: formData.endDate && (
+                <IconButton
+                  data-testid="TimeInformation-Form-DateBox__EndDateControl_ClearButton"
+                  onClick={() => setFormData({ ...formData, endDate: null })}
+                >
+                  <Close />
+                </IconButton>
+              ),
             }}
-          >
-            {/* <Typography
+            sx={{
+              my: '.5em',
+              maxWidth: '220px',
+            }}
+          />
+        </Box>
+      </FormControl>
+    </Box>
+  );
+};
+
+/* 
+  Quick Time Buttons for fast time manipulation.
+  Need to be able to read which field is focused in order to utilize this functionality.
+<Typography
               align="center"
               sx={{ color: 'text.secondary', fontWeight: 'bold', mb: '.5em' }}
             >
@@ -204,72 +325,4 @@ export const TimeInformation: React.FC<{
               <QuickTimeButton time="2 hr" onClick={() => {}} />
               <QuickTimeButton time="4 hr" onClick={() => {}} />
               <QuickTimeButton time="8 hr" onClick={() => {}} />
-            </Box> */}
-            <Box
-              sx={{
-                maxWidth: '300px',
-              }}
-            >
-              <Typography
-                align="center"
-                variant="body2"
-                sx={{
-                  color: 'info.main',
-                  fontSize: '.75em',
-                }}
-              >
-                Unselected Times are manually controlled in the Contract Manager on the
-                Personal Ledger
-              </Typography>
-            </Box>
-            <Box
-              data-testid="TimeInformation-formManipulation__StartAfterBiddingWrapper"
-              sx={{
-                ml: '2em',
-                mt: '1em',
-                position: 'relative',
-              }}
-            >
-              <FormControlLabel
-                data-testid="startafterbidding-checkbox"
-                control={
-                  <Checkbox
-                    color="secondary"
-                    checked={afterBiddingChecked}
-                    onChange={handleAfterBiddingCheck}
-                    disabled={formData.bidDate == null}
-                  />
-                }
-                label="Start After Bidding"
-                sx={{
-                  color: 'text.secondary',
-                }}
-              />
-            </Box>
-            <Box
-              data-testid="EmergencyButton-Wrapper"
-              sx={{
-                my: 'auto',
-                mx: 'auto',
-              }}
-            >
-              <Button
-                variant="contained"
-                color="error"
-                onClick={toggleEmergencyMode}
-                disabled={!emergencyAvailable}
-              >
-                Emergency
-              </Button>
-            </Box>
-            {formData.isEmergency && (
-              <Typography align="center" variant="body2" sx={{ color: 'info.main' }}>
-                Emergency Mode disables some features.
-              </Typography>
-            )}
-          </Box>
-        </FormControl>
-      </Box>
-    </Box>
-  );
-};
+            </Box> */

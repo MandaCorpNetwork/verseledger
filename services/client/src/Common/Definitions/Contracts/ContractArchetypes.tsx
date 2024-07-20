@@ -8,10 +8,10 @@ import {
   SecurityIcon,
 } from '../CustomIcons';
 
-export const archetypes = [
+export const contractArchetypes = (color: string) => [
   {
     archetype: 'Logistics',
-    archetypeIcon: <LogisticsIcon color="secondary" />,
+    archetypeIcon: <LogisticsIcon sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Transport',
@@ -29,7 +29,7 @@ export const archetypes = [
   },
   {
     archetype: 'Medical',
-    archetypeIcon: <LocalHospital color="secondary" />,
+    archetypeIcon: <LocalHospital sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Trauma',
@@ -43,7 +43,7 @@ export const archetypes = [
   },
   {
     archetype: 'Security',
-    archetypeIcon: <SecurityIcon color="secondary" />,
+    archetypeIcon: <SecurityIcon sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Escort',
@@ -69,7 +69,7 @@ export const archetypes = [
   },
   {
     archetype: 'Salvage',
-    archetypeIcon: <SalvageIcon color="secondary" />,
+    archetypeIcon: <SalvageIcon sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Collection',
@@ -83,7 +83,7 @@ export const archetypes = [
   },
   {
     archetype: 'Industry',
-    archetypeIcon: <Factory color="secondary" />,
+    archetypeIcon: <Factory sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Mining',
@@ -105,7 +105,7 @@ export const archetypes = [
   },
   {
     archetype: 'RRR',
-    archetypeIcon: <RRRIcon color="secondary" />,
+    archetypeIcon: <RRRIcon sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Refuel',
@@ -123,7 +123,7 @@ export const archetypes = [
   },
   {
     archetype: 'Fleet',
-    archetypeIcon: <FleetIcon color="secondary" />,
+    archetypeIcon: <FleetIcon sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Crewman',
@@ -137,7 +137,7 @@ export const archetypes = [
   },
   {
     archetype: 'Exploration',
-    archetypeIcon: <Explore color="secondary" />,
+    archetypeIcon: <Explore sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Locate',
@@ -151,7 +151,7 @@ export const archetypes = [
   },
   {
     archetype: 'Proxy',
-    archetypeIcon: <VisibilityOff color="secondary" />,
+    archetypeIcon: <VisibilityOff sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Middleman',

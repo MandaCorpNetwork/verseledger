@@ -11,7 +11,7 @@ type UECRangeFilterProps = {
 
 export const UECRangeFilter: React.FC<UECRangeFilterProps> = ({ size, innerSpace }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [filters, setFilters] = useURLQuery();
+  const [, setFilters] = useURLQuery();
 
   const handleMinChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilters(QueryNames.UECRangeMin, String(event.target.value));

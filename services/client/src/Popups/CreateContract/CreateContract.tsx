@@ -14,6 +14,8 @@ import { useAppDispatch } from '@Redux/hooks';
 import { postContractInvite } from '@Redux/Slices/Contracts/actions/post/postContractInvite';
 import { postNewContract } from '@Redux/Slices/Contracts/actions/post/postNewContract';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { Logger } from '@Utils/Logger';
+import { enqueueSnackbar } from 'notistack';
 import React, { useCallback, useState } from 'react';
 import { IContract, ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -101,7 +103,11 @@ export const CreateContractPopup: React.FC = () => {
 
   const onSubmit = useCallback(() => {
     if (page >= 4) {
-      console.log(`Contract Data Passed To Action: ${JSON.stringify(formData)}`);
+      Logger.info(`Contract Data Passed To Action: ${JSON.stringify(formData)}`);
+      if (formData.subtype === undefined || formData.subtype === null) {
+        Logger.error('Contract Creator missing Subtype');
+        return;
+      }
       dispatch(closePopup(POPUP_CREATE_CONTRACT));
       dispatch(postNewContract(formData)).then((res) => {
         if ((res.payload as { __type: string }).__type === 'Contract') {
@@ -112,6 +118,13 @@ export const CreateContractPopup: React.FC = () => {
                 userId: invite.id,
               }),
             );
+          });
+          enqueueSnackbar('Contract Created', {
+            variant: 'success',
+          });
+        } else {
+          enqueueSnackbar('Contract Creation Failed', {
+            variant: 'error',
           });
         }
       });
@@ -136,14 +149,8 @@ export const CreateContractPopup: React.FC = () => {
 
   const [invites, setInvites] = React.useState<User[]>([]);
 
-  const handleUserInvite = React.useCallback((selectedUser: User | null) => {
-    if (selectedUser) {
-      setInvites((invites) => [...invites, selectedUser]);
-    }
-  }, []);
-
   const isSubmitEnabled = React.useMemo(() => {
-    console.log(formData);
+    Logger.info(formData);
     switch (page) {
       default:
       case 0:
@@ -162,7 +169,12 @@ export const CreateContractPopup: React.FC = () => {
       case 3:
         return formData.contractorLimit != null && formData.contractorLimit != 0;
       case 4:
-        return formData.payStructure != null && formData.defaultPay != null;
+        return (
+          formData.payStructure != null &&
+          formData.defaultPay != null &&
+          formData.defaultPay != 0 &&
+          formData.defaultPay != undefined
+        );
     }
     return false;
   }, [formData, page]);
@@ -222,7 +234,7 @@ export const CreateContractPopup: React.FC = () => {
             formData={formData}
             setFormData={setFormData}
             invites={invites}
-            setInvites={handleUserInvite}
+            setInvites={setInvites}
           />
         )}
         {page === 4 && <Payroll formData={formData} setFormData={setFormData} />}

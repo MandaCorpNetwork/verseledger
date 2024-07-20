@@ -1,4 +1,4 @@
-import { UserChip } from '@Common/Components/Users/UserChip';
+import { UserChip } from '@Common/Components/Chips/UserChip';
 import { Box, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectActiveContractors } from '@Redux/Slices/Contracts/selectors/contractSelectors';

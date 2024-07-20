@@ -1,7 +1,7 @@
 // import { LocationChip } from '@Common/Components/App/LocationChip';
-import { LocationChip } from '@Common/Components/App/LocationChip';
+import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
-import { archetypes } from '@Common/Definitions/Contracts/ContractArchetype';
+import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { ChevronLeft, ChevronRight, HelpOutline } from '@mui/icons-material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import {
@@ -87,13 +87,15 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   const [archetype, setArchetype] = React.useState<string | null>(null);
   const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
 
+  const options = contractArchetypes('secondary.main');
+
   const contract = useAppSelector((root) => selectContract(root, contractId as string));
   const currentUser = useAppSelector(selectCurrentUser);
 
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
-    const selectedArchetype = archetypes.find((option) =>
+    const selectedArchetype = options.find((option) =>
       option.subTypes.some((subtype) => subtype.value === contract.subtype),
     );
     if (selectedArchetype) {
@@ -396,7 +398,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
             >
               <Tooltip title={archetype}>
-                {archetypes.find((option) => option.archetype === archetype)
+                {options.find((option) => option.archetype === archetype)
                   ?.archetypeIcon ?? <Typography>???</Typography>}
               </Tooltip>
             </Box>
@@ -465,7 +467,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   color="secondary"
                   label={contract.subtype}
                   icon={
-                    archetypes.find((option) => option.archetype === archetype)
+                    options.find((option) => option.archetype === archetype)
                       ?.archetypeIcon
                   }
                   onClick={handleArchetypeOpen}
