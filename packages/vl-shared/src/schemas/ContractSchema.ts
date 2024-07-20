@@ -43,7 +43,6 @@ export type IContractTimestamped = IContract & ITimestamped; // To allow type mi
 export const CreateContractBodySchema = ContractSchema.omit({
   id: true,
   owner_id: true,
-  status: true,
   Locations: true,
 }).extend({
   Locations: z
