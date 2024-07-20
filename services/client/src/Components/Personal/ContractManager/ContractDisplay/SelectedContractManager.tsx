@@ -15,6 +15,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
+import { POPUP_EDIT_CONTRACT } from '@Popups/Contracts/EditContract/EditContract';
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -294,6 +295,13 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     dispatch(
       updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
     );
+  };
+
+  const handleEditContract = () => {
+    if (contract.status === 'COMPLETED' || contract.status === 'CANCELED') {
+      return Logger.info('contract is completed or canceled');
+    }
+    dispatch(openPopup(POPUP_EDIT_CONTRACT, { contract: contract }));
   };
 
   return (
@@ -922,6 +930,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                     color="info"
                     size="medium"
                     fullWidth
+                    onClick={handleEditContract}
                   >
                     Edit
                   </Button>
