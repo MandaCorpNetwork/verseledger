@@ -3,17 +3,15 @@ import ControlPanelBox from '@Common/Components/Boxes/ControlPanelBox';
 import DigiBox from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import ParagraphWrapper from '@Common/Components/Boxes/ParagraphWrapper';
-import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import TabListHolo from '@Common/Components/Tabs/TabListHolo';
 import DigiTitle from '@Common/Components/Typography/DigiTitle';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
-import { ChevronLeft, ChevronRight, HelpOutline } from '@mui/icons-material';
+import { HelpOutline } from '@mui/icons-material';
 import { TabContext, TabPanel } from '@mui/lab';
 import {
   Box,
   Chip,
-  IconButton,
   InputAdornment,
   Tab,
   TextField,
@@ -26,14 +24,15 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { Logger } from '@Utils/Logger';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import React from 'react';
+import { ILocationWithContractLocation } from 'vl-shared/src/schemas/LocationSchema';
 
-import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/pages/Contractors/ContractorsManager';
+import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/tools/pages/Contractors/ContractorsManager';
 
-import { ContractController } from './ContractController';
+import { ContractController } from './tools/ContractController';
+import { LocationsDisplay } from './tools/LocationsDisplay';
 
 type ContractDataFieldProps = {
   label: string;
@@ -75,7 +74,6 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
 }) => {
   const [contractManagerTab, setContractManagerTab] = useState<string>('contractors');
   const [archetype, setArchetype] = React.useState<string | null>(null);
-  const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
 
   const options = contractArchetypes('secondary.main');
 
@@ -141,62 +139,15 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     return formattedEndDate;
   }, [contract.endDate]);
 
-  const getStartLocationId = () => {
-    if (contract.Locations) {
-      const startLocationPull = contract?.Locations?.find(
-        (location) => location.ContractLocation?.tag === 'start',
-      )?.id;
-      return startLocationPull || null;
+  const contractLocations = React.useCallback(() => {
+    if (!contract.Locations) {
+      return [] as ILocationWithContractLocation[];
     }
-    return null;
-  };
-
-  const startLocationId = getStartLocationId();
-
-  const getEndLocationId = () => {
-    if (contract.Locations) {
-      const endLocationPull = contract?.Locations?.find(
-        (location) => location.ContractLocation?.tag === 'end',
-      )?.id;
-      Logger.info(`EndLocation: ${endLocationPull}`);
-      return endLocationPull || null;
-    }
-    return null;
-  };
-
-  const endLocationId = getEndLocationId();
-
-  const getOtherLocationIds = () => {
-    if (contract.Locations) {
-      const otherLocationsPull = contract?.Locations?.filter(
-        (location) => location.ContractLocation?.tag === 'other',
-      );
-      return otherLocationsPull.map((location) => location.id);
-    }
-    return [];
-  };
-
-  const otherLocationIds = getOtherLocationIds();
-
-  const handleOtherLocationIndexChange = React.useCallback(
-    (direction: string) => {
-      console.log(getOtherLocationIds());
-      if (otherLocationIds.length > 1) {
-        if (direction === 'back') {
-          if (otherLocationIndex > 0) {
-            setOtherLocationIndex((prevIndex) => prevIndex - 1);
-          }
-        }
-        if (direction === 'forward') {
-          if (otherLocationIndex < otherLocationIds.length - 1) {
-            setOtherLocationIndex((prevIndex) => prevIndex + 1);
-          }
-        }
-      }
-      Logger.info(otherLocationIndex);
-    },
-    [setOtherLocationIndex, otherLocationIndex, otherLocationIds],
-  );
+    const validLocations = contract.Locations.filter(
+      (loc) => loc.ContractLocation !== undefined,
+    );
+    return validLocations as ILocationWithContractLocation[];
+  }, [contract]);
 
   const isContractOwned = React.useMemo(() => {
     if (contract.owner_id === currentUser?.id) {
@@ -479,143 +430,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
             alignItems: 'center',
           }}
         >
-          <DigiBox
-            data-testid="SelectedContract__LocationsContainer"
-            sx={{
-              width: '80%',
-              p: '.5em',
-              mb: '1em',
-            }}
-          >
-            <DigiTitle
-              data-testid="SelectedContract-Locations__TitleText"
-              variant="body2"
-            >
-              Locations
-            </DigiTitle>
-            <Box
-              data-testid="SelectedContract-Locations__StartandEndWrapper"
-              sx={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
-                gap: '.5em',
-                my: '.5em',
-              }}
-            >
-              <DigiDisplay
-                data-testid="SelectedContract-Locations__StartLocationWrapper"
-                sx={{
-                  width: '40%',
-                  mx: 'auto',
-                  pb: '.3em',
-                }}
-              >
-                <Typography
-                  variant="body2"
-                  sx={{ fontWeight: 'bold', cursor: 'default' }}
-                >
-                  Start Location
-                </Typography>
-                <LocationChip locationId={startLocationId ?? ''} />
-              </DigiDisplay>
-              {endLocationId && (
-                <DigiDisplay
-                  data-testid="SelectedContract-Locations__EndLocationWrapper"
-                  sx={{
-                    width: '40%',
-                    mr: 'auto',
-                    pb: '.3em',
-                  }}
-                >
-                  <Typography
-                    variant="body2"
-                    sx={{ fontWeight: 'bold', cursor: 'default' }}
-                  >
-                    End Location
-                  </Typography>
-                  <LocationChip locationId={endLocationId} />
-                </DigiDisplay>
-              )}
-            </Box>
-            {otherLocationIds.length > 0 && (
-              <DigiDisplay
-                data-testid="SelectedContract-Locations_OtherLocationsContainer"
-                sx={{
-                  width: '82%',
-                  pb: '.3em',
-                  mx: 'auto',
-                }}
-              >
-                <Typography
-                  variant="body2"
-                  sx={{ fontWeight: 'bold', cursor: 'default' }}
-                >
-                  Other Locations
-                </Typography>
-                <Box
-                  data-testid="SelectedContract-Locations__OtherLocationsWrapper"
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}
-                >
-                  <Box
-                    data-testid="ContractDisplay-Locations-OtherLocations__LocationPagnationWrapper"
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <IconButton
-                      size="small"
-                      onClick={() => handleOtherLocationIndexChange('back')}
-                      disabled={otherLocationIndex === 0}
-                    >
-                      <ChevronLeft fontSize="small" />
-                    </IconButton>
-                    <Box
-                      data-testid="ContractDisplay-Locations-OtherLocations__LocationChipDisplayWrapper"
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <Typography
-                        data-testid="ContractDisplay-Locations-OtherLocations__LocationChip"
-                        variant="body2"
-                        align="center"
-                      >
-                        {otherLocationIndex + 1}.{' '}
-                        <LocationChip
-                          locationId={
-                            otherLocationIds
-                              ? otherLocationIds[otherLocationIndex]
-                              : 'Error'
-                          }
-                        />
-                      </Typography>
-                    </Box>
-                    <IconButton
-                      size="small"
-                      onClick={() => handleOtherLocationIndexChange('forward')}
-                      disabled={
-                        otherLocationIds
-                          ? otherLocationIds.length < 1 ||
-                            otherLocationIndex === otherLocationIds.length - 1
-                          : false
-                      }
-                    >
-                      <ChevronRight fontSize="small" />
-                    </IconButton>
-                  </Box>
-                </Box>
-              </DigiDisplay>
-            )}
-          </DigiBox>
+          {contract.Locations && <LocationsDisplay locations={contractLocations()} />}
           <DigiBox
             data-testid="SelectedContract__BriefingWrapper"
             sx={{
@@ -720,10 +535,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                     height: '100%',
                   }}
                 >
-                  <ContractorsManager
-                    contract={contract}
-                    contractOwned={isContractOwned}
-                  />
+                  <ContractorsManager contract={contract} isOwned={isContractOwned} />
                 </TabPanel>
               </TabContext>
             </Box>
