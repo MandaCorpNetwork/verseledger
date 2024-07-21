@@ -1,4 +1,5 @@
 import construction from '@Assets/media/Construction.webm';
+import PallyLogo from '@Assets/media/MenuPage/PallyLogo.png?url';
 import { Close } from '@mui/icons-material';
 import {
   Box,
@@ -74,6 +75,18 @@ export const UnderConstruction: React.FC<UnderConstructionProps> = ({
             rel="noopener noreferrer"
           >
             <Patreon />
+          </IconButton>
+          <IconButton
+            component="a"
+            href="https://pally.gg/p/verseledger"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={PallyLogo}
+              alt="Pally Logo"
+              style={{ width: '28px', height: 'auto' }}
+            />
           </IconButton>
           <IconButton
             component="a"
