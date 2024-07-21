@@ -20,7 +20,7 @@ import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSch
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
-import { ContractorInfo } from './ContractDisplay/pages/ContractorInfo';
+import { ContractorInfo } from './ContractDisplay/tools/ContractorInfo';
 import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
 import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
 //import { ContractManagerContractList } from './ContractList/ContractManagerContractList';

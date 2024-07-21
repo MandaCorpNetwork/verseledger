@@ -9,12 +9,12 @@ import { Contractor } from './ContractorItem';
 
 type ContractorsManagerProps = {
   contract: IContract;
-  contractOwned: boolean;
+  isOwned: boolean;
 };
 
 export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
   contract,
-  contractOwned,
+  isOwned,
 }) => {
   const contractors = contract.Bids;
 
@@ -112,7 +112,7 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
             Pending Bids: {pendingBids?.length}
           </Typography>
         </Box>
-        {contractOwned && (
+        {isOwned && (
           <Button
             data-testid="ContractorsTab-Controls__InviteButton"
             variant="outlined"
@@ -143,7 +143,7 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
           },
         }}
       >
-        {contractOwned &&
+        {isOwned &&
           contractors &&
           contractors.map((contractor) => (
             <Contractor
@@ -151,17 +151,17 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
               bid={contractor}
               user={contractor.User as IUser}
               pay="InDev"
-              contractOwned={contractOwned}
+              contractOwned={isOwned}
             />
           ))}
-        {!contractOwned &&
+        {!isOwned &&
           acceptedBids?.map((contractor) => (
             <Contractor
               key={contractor.id}
               bid={contractor}
               user={contractor.User as IUser}
               pay="InDev"
-              contractOwned={contractOwned}
+              contractOwned={isOwned}
             />
           ))}
       </Box>
