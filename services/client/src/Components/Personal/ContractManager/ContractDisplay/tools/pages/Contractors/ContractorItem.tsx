@@ -1,4 +1,5 @@
 import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
+import ControlPanelBox from '@Common/Components/Boxes/ControlPanelBox';
 import { UserChip } from '@Common/Components/Chips/UserChip';
 import { Box, Button, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
@@ -32,44 +33,36 @@ export const Contractor: React.FC<ContractorProps> = ({
       updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
     );
   };
-  const handleDismiss = () => {};
+  const handleDismiss = () => {
+    const updatedBid = { status: 'EXPIRED' as const };
+    dispatch(
+      updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
+    );
+  };
+
+  const handleInvite = () => {
+    const updatedBid = { status: 'INVITED' as const };
+    dispatch(
+      updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
+    );
+  };
+
+  const handleCancelInvite = () => {
+    const updatedBid = { status: 'EXPIRED' as const };
+    dispatch(
+      updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
+    );
+  };
 
   return (
-    <Box
+    <ControlPanelBox
       data-testid="ContractorsTab-ContractorList__ContractorBox"
       sx={{
-        display: 'flex',
         flexDirection: 'row',
         my: '.5em',
-        borderRadius: '10px',
         px: '1em',
         py: '.2em',
-        boxShadow: '0 0px 5px 2px rgba(24,252,252,0.25)',
-        backgroundImage:
-          'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
-        borderLeft: '2px solid',
-        borderRight: '2px solid',
-        borderColor: 'secondary.main',
-        position: 'relative',
-        '&:before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
-          backgroundImage:
-            'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
-          backgroundSize: '5px 5px',
-          opacity: 0.5,
-        },
-        '&:hover': {
-          backgroundImage:
-            'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
-          borderColor: 'secondary.light',
-          boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
-        },
-        transition: 'all 0.3s',
+        justifyContent: 'space-between',
       }}
     >
       <Box
@@ -82,20 +75,35 @@ export const Contractor: React.FC<ContractorProps> = ({
           <UserChip user={user} size="medium" />
         </Tooltip>
       </Box>
-      {contractOwned && bid.status === 'PENDING' && (
-        <Box
-          data-testid="ContractorsTab-ContractorList-Contractor__BidControlButtonWrapper"
-          sx={{
-            ml: 'auto',
-          }}
+      {bid.status === 'ACCEPTED' && (
+        <Typography
+          variant={contractOwned ? 'body2' : 'overline'}
+          sx={{ color: 'success.main' }}
         >
+          Active
+        </Typography>
+      )}
+      {bid.status === 'EXPIRED' && (
+        <Typography variant="overline" sx={{ color: 'error.main' }}>
+          Withdrawn Contractor
+        </Typography>
+      )}
+      {bid.status === 'INVITED' && (
+        <Typography variant="overline" sx={{ color: 'secondary.main' }}>
+          Invited Contractor
+        </Typography>
+      )}
+      {contractOwned && bid.status === 'PENDING' && (
+        <Typography variant="body2" sx={{ color: 'warning.main' }}>
+          Pending
+        </Typography>
+      )}
+      {contractOwned && bid.status === 'PENDING' && (
+        <Box data-testid="ContractorsTab-ContractorList-Contractor__BidControlButtonWrapper">
           <Button
             data-testid="ContractorsTab-ContractorList-Contractor-BidControls__AcceptButton"
             color="success"
             onClick={handleAccept}
-            sx={{
-              mx: '1em',
-            }}
           >
             Accept
           </Button>
@@ -111,31 +119,49 @@ export const Contractor: React.FC<ContractorProps> = ({
           </Button>
         </Box>
       )}
+      {bid.status === 'ACCEPTED' && (
+        <Box
+          data-testid="ContractorsTab-ContractorList-Contractor-AcceptedControls__PayLabelWrapper"
+          sx={{
+            my: 'auto',
+          }}
+        >
+          <OutlinedLabel
+            size="small"
+            margin="dense"
+            label="Ship"
+            value="InDev"
+            maxWidth="75px"
+            color="text.disabled"
+          />
+        </Box>
+      )}
+      {contractOwned && bid.status === 'ACCEPTED' && (
+        <Box
+          data-testid="ContractorsTab-ContractorList-Contractor-AcceptedControls__PayLabelWrapper"
+          sx={{
+            my: 'auto',
+          }}
+        >
+          <OutlinedLabel
+            size="small"
+            margin="dense"
+            label="Pay"
+            value={pay}
+            startAdornment="¤"
+            maxWidth="75px"
+            color="text.secondary"
+          />
+        </Box>
+      )}
       {contractOwned && bid.status === 'ACCEPTED' && (
         <Box
           data-testid="ContractorsTab-ContractorList-Contractor__AcceptedControlsWrapper"
           sx={{
-            ml: 'auto',
             display: 'flex',
             flexDirection: 'row',
           }}
         >
-          <Box
-            data-testid="ContractorsTab-ContractorList-Contractor-AcceptedControls__PayLabelWrapper"
-            sx={{
-              my: 'auto',
-            }}
-          >
-            <OutlinedLabel
-              size="small"
-              margin="dense"
-              label="Pay"
-              value={pay}
-              startAdornment="¤"
-              maxWidth="75px"
-              color="text.secondary"
-            />
-          </Box>
           <Button
             data-testid="ContractorsTab-ContractorList-Contractor-AcceptedControls__DismissButton"
             color="error"
@@ -151,29 +177,31 @@ export const Contractor: React.FC<ContractorProps> = ({
       {contractOwned && bid.status === 'REJECTED' && (
         <Typography
           data-testid="ContractorsTab-ContractorList-Contractor-BidControl__RejectedBidStatus"
-          variant="overline"
+          variant="body2"
           sx={{
             color: 'warning.main',
             my: 'auto',
             mx: 'auto',
           }}
         >
-          Rejected
+          Rejected Bid
         </Typography>
       )}
-      {/* {contractOwned && bid.status === 'DISMISSED' && (
-        <Typography
-          data-testid="ContractorsTab-ContractorList-Contractor-AcceptedControls__DismissedContractorStatus"
-          variant="overline"
-          sx={{
-            color: 'error.main',
-            my: 'auto',
-            mx: 'auto',
-          }}
-        >
-          Dismissed
+      {contractOwned && bid.status === 'REJECTED' && (
+        <Button color="warning" onClick={handleInvite}>
+          Reinvite Contractor
+        </Button>
+      )}
+      {contractOwned && bid.status === 'DECLINED' && (
+        <Typography variant="overline" sx={{ color: 'warning.main' }}>
+          Declined Invitation
         </Typography>
-      )} */}
-    </Box>
+      )}
+      {contractOwned && bid.status === 'INVITED' && (
+        <Button color="warning" variant="text" onClick={handleCancelInvite}>
+          Cancel Invite
+        </Button>
+      )}
+    </ControlPanelBox>
   );
 };
