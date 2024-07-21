@@ -34,15 +34,15 @@ const flatOptions = options.flatMap((option) =>
   }),
 );
 export const ContractDetails: React.FC<{
-  formData: ICreateContractBody;
-  setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
+  formData: Partial<ICreateContractBody> | ICreateContractBody;
+  setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
   const dispatch = useAppDispatch();
   const { formData, setFormData } = props;
   const [archetype, setArchetype] = React.useState<string | null>(null);
   const [filteredSubtypes, setFilteredSubtypes] = React.useState<string[]>(flatOptions);
   const [selectedSubtype, setSelectedSubtype] = React.useState<string | null>(
-    formData.subtype,
+    formData.subtype || null,
   );
 
   const scrollRef = useHorizontalAdvancedScroll();
@@ -189,7 +189,7 @@ export const ContractDetails: React.FC<{
               width: '300px',
             }}
             helperText={
-              formData.briefing?.length >= 2048 ? 'Character Limit Reached' : ''
+              (formData.briefing?.length ?? 0) >= 2048 ? 'Character Limit Reached' : ''
             }
             FormHelperTextProps={{
               sx: {
@@ -264,6 +264,44 @@ export const ContractDetails: React.FC<{
                 ))}
               </Box>
             </PopupFormSelection>
+          </Box>
+          <Autocomplete
+            data-testid="CreateContract__Subtype-AutoComplete"
+            options={filteredSubtypes}
+            freeSolo
+            value={selectedSubtype}
+            groupBy={(option) => optionsMap[option].group}
+            getOptionLabel={(option) => optionsMap[option].label}
+            renderInput={(params) => (
+              <TextField {...params} color="secondary" label="SubType" size="small" />
+            )}
+            onChange={(_, value) => updateSubtype(value)}
+            fullWidth
+            sx={{ mt: 2, mb: '1em', maxWidth: '300px' }}
+          />
+          <Box
+            data-testid="EmergencyButton-Wrapper"
+            sx={{
+              my: 'auto',
+              mx: 'auto',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <Button
+              variant="contained"
+              color="error"
+              onClick={toggleEmergencyMode}
+              disabled={!emergencyAvailable}
+              sx={{ mb: '.5em' }}
+            >
+              Emergency
+            </Button>
+            {formData.isEmergency && (
+              <Typography align="center" variant="tip" sx={{ px: '1em' }}>
+                Emergency Mode disables some features.
+              </Typography>
+            )}
           </Box>
           <Autocomplete
             data-testid="CreateContract__Subtype-AutoComplete"

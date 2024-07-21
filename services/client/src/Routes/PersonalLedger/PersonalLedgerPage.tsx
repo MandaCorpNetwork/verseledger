@@ -10,7 +10,7 @@ import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
 export const PersonalLedgerPage: React.FC<unknown> = () => {
   const [selectedApp, setSelectedApp] = React.useState<string>('Overview');
 
-  const appRenderer = () => {
+  const appRenderer = React.useCallback(() => {
     switch (selectedApp) {
       case 'Overview':
         return <OverviewApp />;
@@ -21,14 +21,14 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
       default:
         return <OverviewApp />;
     }
-  };
+  }, [selectedApp]);
 
   const handleAppChange = React.useCallback(
     (iconKey: string) => {
       if (selectedApp === iconKey) return;
       setSelectedApp(iconKey);
     },
-    [selectedApp],
+    [selectedApp, setSelectedApp],
   );
   return (
     <Box

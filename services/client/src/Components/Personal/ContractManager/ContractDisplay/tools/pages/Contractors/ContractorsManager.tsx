@@ -9,12 +9,12 @@ import { Contractor } from './ContractorItem';
 
 type ContractorsManagerProps = {
   contract: IContract;
-  contractOwned: boolean;
+  isOwned: boolean;
 };
 
 export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
   contract,
-  contractOwned,
+  isOwned,
 }) => {
   const contractors = contract.Bids;
 
@@ -25,6 +25,10 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
 
   const acceptedBids = contractors?.filter((bid) => bid.status === 'ACCEPTED');
   const pendingBids = contractors?.filter((bid) => bid.status === 'PENDING');
+
+  const contractorViewableList = contractors?.filter((bid) =>
+    ['ACCEPTED', 'WITHDRAWN', 'INVITED'].includes(bid.status),
+  );
 
   return (
     <Box
@@ -112,7 +116,7 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
             Pending Bids: {pendingBids?.length}
           </Typography>
         </Box>
-        {contractOwned && (
+        {isOwned && (
           <Button
             data-testid="ContractorsTab-Controls__InviteButton"
             variant="outlined"
@@ -143,7 +147,7 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
           },
         }}
       >
-        {contractOwned &&
+        {isOwned &&
           contractors &&
           contractors.map((contractor) => (
             <Contractor
@@ -151,17 +155,17 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
               bid={contractor}
               user={contractor.User as IUser}
               pay="InDev"
-              contractOwned={contractOwned}
+              contractOwned={isOwned}
             />
           ))}
-        {!contractOwned &&
-          acceptedBids?.map((contractor) => (
+        {!isOwned &&
+          contractorViewableList?.map((contractor) => (
             <Contractor
               key={contractor.id}
               bid={contractor}
               user={contractor.User as IUser}
               pay="InDev"
-              contractOwned={contractOwned}
+              contractOwned={isOwned}
             />
           ))}
       </Box>

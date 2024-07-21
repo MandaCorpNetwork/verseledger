@@ -20,7 +20,7 @@ import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructure
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
 import { LargeEmergencyOverlay } from '../EmergencyOverlay';
-import { FlatRatePayroll, PoolPayroll, TimedPayroll } from './DefaultPay/Simple';
+import { FlatRatePayroll, PoolPayroll, TimedPayroll } from './Simple';
 
 type RadioControlProps = {
   value: string;
@@ -46,8 +46,8 @@ const RadioControl: React.FC<RadioControlProps> = ({ value, label, disabled }) =
 };
 
 export const Payroll: React.FC<{
-  formData: ICreateContractBody;
-  setFormData: React.Dispatch<React.SetStateAction<ICreateContractBody>>;
+  formData: Partial<ICreateContractBody>;
+  setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
   const { formData, setFormData } = props;
   const [isComplex, setIsComplex] = React.useState(false);

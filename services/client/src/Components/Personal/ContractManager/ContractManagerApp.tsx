@@ -1,4 +1,6 @@
 //ContractManagerApp.tsx
+import ControlPanelBox from '@Common/Components/Boxes/ControlPanelBox';
+import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { TabContext, TabList } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -18,8 +20,8 @@ import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSch
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
-import { ContractorInfo } from './ContractDisplay/ContractorInfo';
 import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
+import { ContractorInfo } from './ContractDisplay/tools/ContractorInfo';
 import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
 //import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
 import { ContractManagerSearchTools } from './ContractList/ContractManagerSearchTools';
@@ -234,54 +236,14 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         }}
       >
         <TabContext value={currentTab}>
-          <Box
-            data-testid="ContractManager__ContractListWrapper"
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '10px',
-              borderColor: 'secondary.main',
-              height: '100%',
-              background: 'rgba(0,30,100,0.2)',
-              backdropFilter: 'blur(20px)',
-            }}
-          >
-            <Box
+          <GlassBox data-testid="ContractManager__ContractListWrapper">
+            <ControlPanelBox
               data-testid="ContractManager__TabContainer"
               sx={{
                 my: '1em',
                 px: '.8em',
                 py: '.2em',
-                borderLeft: '2px solid',
-                borderRight: '2px solid',
-                borderRadius: '10px',
-                borderColor: 'secondary.main',
                 alignSelf: 'center',
-                boxShadow: '0 0px 10px 5px rgba(24,252,252,0.25)',
-                backgroundImage:
-                  'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
-                position: 'relative',
-                '&:before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  bottom: 0,
-                  left: 0,
-                  backgroundImage:
-                    'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
-                  backgroundSize: '5px 5px',
-                  opacity: 0.5,
-                },
-                '&:hover': {
-                  backgroundImage:
-                    'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
-                  borderColor: 'secondary.light',
-                  boxShadow: '0 0 10px 5px rgba(14,49,252,.4)',
-                },
-                transition: 'all 0.3s',
               }}
             >
               <TabList
@@ -305,7 +267,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
                 />
                 <Tab
                   data-testid="ContractManager__OffersTab"
-                  label="Offers"
+                  label="Invites"
                   value="offers"
                 />
                 <Tab
@@ -314,7 +276,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
                   value="closed"
                 />
               </TabList>
-            </Box>
+            </ControlPanelBox>
             <ContractManagerSearchTools />
             <ContractManagerContractList
               contracts={contracts}
@@ -330,22 +292,13 @@ export const ContractManagerApp: React.FC<unknown> = () => {
                   : contractCount.pages
               }
             />
-          </Box>
+          </GlassBox>
         </TabContext>
       </Box>
-      <Box
+      <GlassBox
         data-testid="ContractManagerContainer"
         sx={{
-          display: 'flex',
-          height: '100%',
           width: '65%',
-          borderTop: '3px solid',
-          borderBottom: '3px solid',
-          borderColor: 'secondary.main',
-          borderRadius: '10px',
-          padding: '.5em',
-          background: 'rgba(0,30,100,0.2)',
-          backdropFilter: 'blur(20px)',
         }}
       >
         {selectedId ? (
@@ -353,7 +306,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         ) : (
           <ContractorInfo />
         )}
-      </Box>
+      </GlassBox>
     </Box>
   );
 };

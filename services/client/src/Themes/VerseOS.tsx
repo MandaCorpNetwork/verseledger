@@ -21,6 +21,7 @@ declare module '@mui/material/Button' {
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     tip: true;
+    paragraph: true;
   }
 }
 
@@ -83,6 +84,14 @@ export const verseOSTheme = createTheme({
             cursor: 'default',
             textShadow: '0 0 5px rgba(0,0,0)',
             display: 'inline-block',
+          },
+        },
+        {
+          props: { variant: 'paragraph' },
+          style: {
+            textWrap: 'wrap',
+            whiteSpace: 'normal',
+            wordBreak: 'break-all',
           },
         },
       ],

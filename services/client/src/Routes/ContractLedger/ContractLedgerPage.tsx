@@ -15,7 +15,7 @@ import {
   VisibilityOff,
 } from '@mui/icons-material';
 import { Box, Collapse, Grow, IconButton, Slide, Tooltip } from '@mui/material';
-import { POPUP_CREATE_CONTRACT } from '@Popups/CreateContract/CreateContract';
+import { POPUP_CREATE_CONTRACT } from '@Popups/Contracts/CreateContract/CreateContract';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';

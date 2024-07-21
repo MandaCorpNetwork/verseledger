@@ -6,7 +6,12 @@ import {
 import {
   CreateContractPopup,
   POPUP_CREATE_CONTRACT,
-} from '@Popups/CreateContract/CreateContract';
+} from '@Popups/Contracts/CreateContract/CreateContract';
+import {
+  EditContractPopup,
+  EditContractPopupProps,
+  POPUP_EDIT_CONTRACT,
+} from '@Popups/Contracts/EditContract/EditContract';
 import { FeedbackPopup, POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
 import {
   ArchetypeInfoPopup,
@@ -66,6 +71,9 @@ export const PopupManager: React.FC = () => {
   const submitContractBidPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_SUBMIT_CONTRACT_BID),
   );
+  const editContractPopup = useAppSelector((state) =>
+    selectPopup(state, POPUP_EDIT_CONTRACT),
+  );
   return (
     <>
       {verifyUserPopup.open && <VerifyUserPopup />}
@@ -89,6 +97,9 @@ export const PopupManager: React.FC = () => {
       )}
       {submitContractBidPopup.open && (
         <SubmitContractBid {...(submitContractBidPopup.props as ContractBidProps)} />
+      )}
+      {editContractPopup.open && (
+        <EditContractPopup {...(editContractPopup.props as EditContractPopupProps)} />
       )}
     </>
   );

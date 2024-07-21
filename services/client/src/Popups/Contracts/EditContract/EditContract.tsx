@@ -1,38 +1,33 @@
+import { AccessTime, Group, Payments, Subtitles } from '@mui/icons-material';
 import {
-  AccessTime,
-  Group,
-  Payments,
-  SatelliteAlt,
-  Subtitles,
-} from '@mui/icons-material';
-import { Box, Step, StepConnector, StepLabel, Stepper } from '@mui/material';
-import { stepConnectorClasses } from '@mui/material/StepConnector';
-import { styled } from '@mui/material/styles';
+  Box,
+  Step,
+  StepConnector,
+  stepConnectorClasses,
+  StepLabel,
+  Stepper,
+  styled,
+} from '@mui/material';
+import { ContractDetails } from '@Popups/Contracts/CreateContract/pages/ContractDetails';
+import { Contractors } from '@Popups/Contracts/CreateContract/pages/Contractors';
+import { Payroll } from '@Popups/Contracts/CreateContract/pages/Payroll';
+import { TimeInformation } from '@Popups/Contracts/CreateContract/pages/TimeInformation';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch } from '@Redux/hooks';
 import { postContractInvite } from '@Redux/Slices/Contracts/actions/post/postContractInvite';
-import { postNewContract } from '@Redux/Slices/Contracts/actions/post/postNewContract';
+import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContract';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { IContract, ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
-import { ContractDetails } from './pages/ContractDetails';
-import { Contractors } from './pages/Contractors';
-import { Locations } from './pages/Locations';
-import { Payroll } from './pages/Payroll';
-import { TimeInformation } from './pages/TimeInformation';
-
-//import { FleetForm } from './StepperForms/FleetForm';
-
-export const POPUP_CREATE_CONTRACT = 'contracts_create';
+export const POPUP_EDIT_CONTRACT = 'contracts_edit';
 
 const steps = [
   { label: 'Contract Details', icon: <Subtitles /> },
   { label: 'Time Information', icon: <AccessTime /> },
-  { label: 'Locations', icon: <SatelliteAlt /> },
   { label: 'Contractors', icon: <Group /> },
   { label: 'Payroll', icon: <Payments /> },
 ];
@@ -88,66 +83,45 @@ const ColorlibConnector = styled(StepConnector)(() => ({
     borderRadius: 1,
   },
 }));
-export const CreateContractPopup: React.FC = () => {
+
+export type EditContractPopupProps = {
+  contract: IContract;
+};
+
+export const EditContractPopup: React.FC<EditContractPopupProps> = ({ contract }) => {
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(0);
-  const [formData, setFormData] = useState<ICreateContractBody>({
-    Locations: [],
-    isEmergency: false,
-    payStructure: 'FLATRATE',
-    contractorLimit: 1,
-    isBonusPay: false,
-    isBargaining: false,
-    subtype: null,
-  } as unknown as ICreateContractBody);
+  const [formData, setFormData] = useState<Partial<ICreateContractBody>>({
+    title: contract.title,
+    subtype: contract.subtype,
+    briefing: contract.briefing,
+    bidDate: contract.bidDate,
+    startDate: contract.startDate,
+    endDate: contract.endDate,
+    isEmergency: contract.isEmergency,
+    ratingLimit: contract.ratingLimit,
+    contractorLimit: contract.contractorLimit,
+    payStructure: contract.payStructure,
+    isBargaining: contract.isBargaining,
+    isBonusPay: contract.isBonusPay,
+    defaultPay: contract.defaultPay,
+    status: contract.status,
+  });
 
-  const onSubmit = useCallback(() => {
-    if (page >= 4) {
-      Logger.info(`Contract Data Passed To Action: ${JSON.stringify(formData)}`);
-      if (formData.subtype === undefined || formData.subtype === null) {
-        Logger.error('Contract Creator missing Subtype');
-        return;
-      }
-      dispatch(closePopup(POPUP_CREATE_CONTRACT));
-      dispatch(postNewContract(formData)).then((res) => {
-        if ((res.payload as { __type: string }).__type === 'Contract') {
-          invites.forEach((invite) => {
-            dispatch(
-              postContractInvite({
-                contractId: (res.payload as IContract).id,
-                userId: invite.id,
-              }),
-            );
-          });
-          enqueueSnackbar('Contract Created', {
-            variant: 'success',
-          });
-        } else {
-          enqueueSnackbar('Contract Creation Failed', {
-            variant: 'error',
-          });
-        }
-      });
-    }
-    setPage(Math.min(page + 1, steps.length));
-  }, [page, formData]);
+  const handleClose = () => {
+    dispatch(
+      openPopup(POPUP_YOU_SURE, {
+        title: 'Cancel Contract Editing',
+        subjectText: 'Contract Editing',
+        bodyText: 'Any progress will be lost',
+        onAccept: () => dispatch(closePopup(POPUP_EDIT_CONTRACT)),
+        clickAway: true,
+        testid: 'EditContractPopup',
+      }),
+    );
+  };
 
-  const onCancel = useCallback(() => {
-    if (page == 0)
-      return dispatch(
-        openPopup(POPUP_YOU_SURE, {
-          title: 'Cancel Contract Creation',
-          subjectText: 'Contract Creation',
-          bodyText: 'Any progress will be lost',
-          onAccept: () => dispatch(closePopup(POPUP_CREATE_CONTRACT)),
-          clickaway: true,
-          testid: 'CreateContractPopup_Cancel',
-        }),
-      );
-    setPage(Math.max(page - 1, 0));
-  }, [page]);
-
-  const [invites, setInvites] = React.useState<User[]>([]);
+  const [invites, setInvites] = useState<User[]>([]);
 
   const isSubmitEnabled = React.useMemo(() => {
     Logger.info(formData);
@@ -165,10 +139,8 @@ export const CreateContractPopup: React.FC = () => {
       case 1:
         return true;
       case 2:
-        return formData.Locations != null && formData.Locations?.length != 0;
-      case 3:
         return formData.contractorLimit != null && formData.contractorLimit != 0;
-      case 4:
+      case 3:
         return (
           formData.payStructure != null &&
           formData.defaultPay != null &&
@@ -179,31 +151,52 @@ export const CreateContractPopup: React.FC = () => {
     return false;
   }, [formData, page]);
 
+  const onSubmit = React.useCallback(() => {
+    if (page >= 3) {
+      Logger.info(`Contract Data Passed To Action: ${JSON.stringify(formData)}`);
+      if (formData.subtype === undefined || formData.subtype === null) {
+        Logger.error('Contract Missing Subtype');
+        return;
+      }
+      dispatch(closePopup(POPUP_EDIT_CONTRACT));
+      dispatch(
+        updateContract({
+          contractId: contract.id,
+          contractRaw: formData as Partial<IContract>,
+        }),
+      ).then((res) => {
+        if ((res.payload as { __type: string }).__type === 'Contract') {
+          invites.forEach((invite) => {
+            dispatch(postContractInvite({ contractId: contract.id, userId: invite.id }));
+          });
+          enqueueSnackbar('Contract Updated', { variant: 'success' });
+        } else {
+          enqueueSnackbar('Contract Update Failed', { variant: 'error' });
+        }
+      });
+    }
+    setPage(Math.min(page + 1, steps.length));
+  }, [page, formData, invites]);
+
+  const onCancel = React.useCallback(() => {
+    if (page == 0) {
+      return handleClose();
+    }
+    setPage(Math.max(page - 1, 0));
+  }, [page]);
   return (
     <VLPopup
       minWidth="800px"
       data-testid="form"
       state={page}
-      onClose={() => {
-        dispatch(
-          openPopup(POPUP_YOU_SURE, {
-            title: 'Cancel Contract Creation',
-            subjectText: 'Contract Creation',
-            bodyText: 'Any progress will be lost',
-            onAccept: () => dispatch(closePopup(POPUP_CREATE_CONTRACT)),
-            clickaway: true,
-            testid: 'CreateContractPopup_Cancel',
-          }),
-        );
-        return false;
-      }}
-      name={POPUP_CREATE_CONTRACT}
-      title="Create Contract"
+      onClose={handleClose}
+      name={POPUP_EDIT_CONTRACT}
+      title="Edit Contract"
       onCancel={onCancel}
       cancelText={page <= 0 ? 'Cancel' : 'Back'}
       onSubmit={onSubmit}
+      submitText={page >= 3 ? 'Submit' : 'Next'}
       submitDisabled={!isSubmitEnabled}
-      submitText={page >= 4 ? 'Submit' : 'Next'}
     >
       <Box data-testid="ContractForm__Container-Stepper">
         <Stepper activeStep={page} connector={<ColorlibConnector />} alternativeLabel>
@@ -228,8 +221,7 @@ export const CreateContractPopup: React.FC = () => {
         </Stepper>
         {page === 0 && <ContractDetails formData={formData} setFormData={setFormData} />}
         {page === 1 && <TimeInformation formData={formData} setFormData={setFormData} />}
-        {page === 2 && <Locations formData={formData} setFormData={setFormData} />}
-        {page === 3 && (
+        {page === 2 && (
           <Contractors
             formData={formData}
             setFormData={setFormData}
@@ -237,7 +229,7 @@ export const CreateContractPopup: React.FC = () => {
             setInvites={setInvites}
           />
         )}
-        {page === 4 && <Payroll formData={formData} setFormData={setFormData} />}
+        {page === 3 && <Payroll formData={formData} setFormData={setFormData} />}
       </Box>
     </VLPopup>
   );
