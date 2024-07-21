@@ -4,14 +4,14 @@ import {
   SubmitContractBid,
 } from '@Popups/Contracts/ContractBid';
 import {
+  CreateContractPopup,
+  POPUP_CREATE_CONTRACT,
+} from '@Popups/Contracts/CreateContract/CreateContract';
+import {
   EditContractPopup,
   EditContractPopupProps,
   POPUP_EDIT_CONTRACT,
 } from '@Popups/Contracts/EditContract/EditContract';
-import {
-  CreateContractPopup,
-  POPUP_CREATE_CONTRACT,
-} from '@Popups/Contracts/CreateContract/CreateContract';
 import { FeedbackPopup, POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
 import {
   ArchetypeInfoPopup,
