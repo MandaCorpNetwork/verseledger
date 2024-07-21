@@ -11,7 +11,8 @@ import {
   VolumeUp,
 } from '@mui/icons-material';
 import { Box, Button, IconButton, Slider, Typography } from '@mui/material';
-import React from 'react';
+import scrollSlider from '@Utils/Hooks/scrollSlider';
+import React, { useRef } from 'react';
 
 import { useRadioController } from '@/AudioProvider';
 
@@ -29,6 +30,8 @@ export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) 
     isMuted,
     toggleMute,
   } = useRadioController();
+  const sliderRef = useRef<HTMLDivElement>(null);
+  scrollSlider(sliderRef, (newValue) => setVolume(newValue), volume);
 
   const handleVolumeChange = (_: Event, value: number | number[]) => {
     const newVolume = Array.isArray(value) ? value[0] : value;
@@ -71,6 +74,10 @@ export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) 
           variant="outlined"
           color="secondary"
           size="small"
+          component="a"
+          href={currentStation.link}
+          target="_blank"
+          rel="noopener noreferrer"
           disabled={isDisabled}
           startIcon={<Language />}
         >
@@ -97,12 +104,13 @@ export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) 
             Now Playing Track
           </Box>
         </Typography>
-        <IconButton component="a" href={currentStation.url} disabled={isDisabled} onClick={nextStation}>
+        <IconButton disabled={isDisabled} onClick={nextStation}>
           <SkipNext fontSize="large" />
         </IconButton>
       </Box>
       <Box
         data-id="RadioFrequenciesVolumeControl"
+        ref={sliderRef}
         sx={{ display: 'flex', alignItems: 'center', gap: '.5em' }}
       >
         <IconButton onClick={toggleMute} disabled={isDisabled}>
