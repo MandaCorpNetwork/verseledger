@@ -1,7 +1,8 @@
 import { PowerSettingsNew, Sync } from '@mui/icons-material';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
-import { useAppSelector } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
+import { closeWidget, openWidget } from '@Redux/Slices/Widgets/widgets.actions';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
@@ -10,15 +11,19 @@ import { LocationExplorerTool } from '@/Components/Personal/Overview/LocationExp
 //import { ActiveToolsOverview } from '@/Components/Personal/Overview/ActiveTools';
 import { OverviewNotification } from '@/Components/Personal/Overview/NotificationTool';
 import { RadioStationApp } from '@/Components/Personal/Overview/RadioStationApp';
+import { WIDGET_RADIO } from '@/Widgets/Radio/Radio';
 
 export const OverviewApp: React.FC<unknown> = () => {
   const { isPlaying, play, pause } = useRadioController();
+  const dispatch = useAppDispatch();
 
   const toggleRadio = () => {
     if (isPlaying) {
       pause();
+      dispatch(closeWidget(WIDGET_RADIO));
     } else {
       play();
+      dispatch(openWidget(WIDGET_RADIO));
     }
   };
 

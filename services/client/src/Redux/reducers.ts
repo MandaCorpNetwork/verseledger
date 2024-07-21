@@ -7,12 +7,14 @@ import locationsReducer from './Slices/Locations/locations.reducer';
 import notificationsReducer from './Slices/Notifications/notifications.reducer';
 import popupsReducer from './Slices/Popups/popups.reducer';
 import usersReducer from './Slices/Users/users.reducer';
+import widgetsReducer from './Slices/Widgets/widgets.reducer';
 
 export const coreReducer = combineReducers({
   contracts: contractsReducer.reducer,
   bids: bidsReducer.reducer,
   auth: authReducer.reducer,
   popups: popupsReducer.reducer,
+  widgets: widgetsReducer.reducer,
   users: usersReducer.reducer,
   locations: locationsReducer.reducer,
   notifications: notificationsReducer.reducer,
