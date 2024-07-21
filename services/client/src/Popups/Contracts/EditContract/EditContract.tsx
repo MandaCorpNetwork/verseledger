@@ -8,10 +8,10 @@ import {
   Stepper,
   styled,
 } from '@mui/material';
-import { ContractDetails } from '@Popups/CreateContract/pages/ContractDetails';
-import { Contractors } from '@Popups/CreateContract/pages/Contractors';
-import { Payroll } from '@Popups/CreateContract/pages/Payroll';
-import { TimeInformation } from '@Popups/CreateContract/pages/TimeInformation';
+import { ContractDetails } from '@Popups/Contracts/CreateContract/pages/ContractDetails';
+import { Contractors } from '@Popups/Contracts/CreateContract/pages/Contractors';
+import { Payroll } from '@Popups/Contracts/CreateContract/pages/Payroll';
+import { TimeInformation } from '@Popups/Contracts/CreateContract/pages/TimeInformation';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch } from '@Redux/hooks';

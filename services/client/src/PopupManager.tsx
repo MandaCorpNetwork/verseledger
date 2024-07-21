@@ -11,7 +11,7 @@ import {
 import {
   CreateContractPopup,
   POPUP_CREATE_CONTRACT,
-} from '@Popups/CreateContract/CreateContract';
+} from '@Popups/Contracts/CreateContract/CreateContract';
 import { FeedbackPopup, POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
 import {
   ArchetypeInfoPopup,

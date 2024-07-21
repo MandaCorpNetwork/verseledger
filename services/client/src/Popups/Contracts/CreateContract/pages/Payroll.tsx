@@ -20,7 +20,11 @@ import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructure
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
 import { LargeEmergencyOverlay } from '../EmergencyOverlay';
-import { FlatRatePayroll, PoolPayroll, TimedPayroll } from './DefaultPay/Simple';
+import {
+  FlatRatePayroll,
+  PoolPayroll,
+  TimedPayroll,
+} from './Simple';
 
 type RadioControlProps = {
   value: string;
