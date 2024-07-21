@@ -1,6 +1,6 @@
 //ContractManagerApp.tsx
 import ControlPanelBox from '@Common/Components/Boxes/ControlPanelBox';
-import FirstLayerGlassBox from '@Common/Components/Boxes/FirstLayerGlassBox';
+import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { TabContext, TabList } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -20,8 +20,8 @@ import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSch
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
-import { ContractorInfo } from './ContractDisplay/tools/ContractorInfo';
 import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
+import { ContractorInfo } from './ContractDisplay/tools/ContractorInfo';
 import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
 //import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
 import { ContractManagerSearchTools } from './ContractList/ContractManagerSearchTools';
@@ -236,7 +236,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         }}
       >
         <TabContext value={currentTab}>
-          <FirstLayerGlassBox data-testid="ContractManager__ContractListWrapper">
+          <GlassBox data-testid="ContractManager__ContractListWrapper">
             <ControlPanelBox
               data-testid="ContractManager__TabContainer"
               sx={{
@@ -292,10 +292,10 @@ export const ContractManagerApp: React.FC<unknown> = () => {
                   : contractCount.pages
               }
             />
-          </FirstLayerGlassBox>
+          </GlassBox>
         </TabContext>
       </Box>
-      <FirstLayerGlassBox
+      <GlassBox
         data-testid="ContractManagerContainer"
         sx={{
           width: '65%',
@@ -306,7 +306,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         ) : (
           <ContractorInfo />
         )}
-      </FirstLayerGlassBox>
+      </GlassBox>
     </Box>
   );
 };
