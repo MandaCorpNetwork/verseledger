@@ -12,7 +12,6 @@ import { TabContext, TabPanel } from '@mui/lab';
 import {
   Box,
   Chip,
-  IconButton,
   InputAdornment,
   Tab,
   TextField,
@@ -23,8 +22,6 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
-import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
-import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContract';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import dayjs from 'dayjs';
@@ -77,7 +74,6 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
 }) => {
   const [contractManagerTab, setContractManagerTab] = useState<string>('contractors');
   const [archetype, setArchetype] = React.useState<string | null>(null);
-  const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
 
   const options = contractArchetypes('secondary.main');
 
@@ -174,87 +170,14 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     } else {
       return false;
     }
-  }, [currentUser, contract.owner_id]);
+  }, [currentUser, contract.owner_id, contractId]);
 
   const userBid = React.useMemo(() => {
     if (isContractOwned) {
       return null;
     }
-    return contract.Bids?.find((bid) => bid.user_id === currentUser?.id);
+    return contract.Bids?.find((bid) => bid.user_id === currentUser?.id) ?? null;
   }, [contract.Bids, currentUser, isContractOwned]);
-
-  const handleAcceptInvite = () => {
-    if (!userBid) {
-      return Logger.info('no user bid');
-    }
-    const updatedBid = { status: 'ACCEPTED' as const };
-    dispatch(
-      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
-    );
-  };
-
-  const handleDeclineInvite = () => {
-    if (!userBid) {
-      return Logger.info('no user bid');
-    }
-    const updatedBid = { status: 'DECLINED' as const };
-    dispatch(
-      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
-    );
-  };
-
-  const handleWithdrawBid = () => {
-    if (!userBid) {
-      return Logger.info('no user bid');
-    }
-    const updatedBid = { status: 'EXPIRED' as const };
-    dispatch(
-      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
-    );
-  };
-
-  const getUpdatedContractStatus = (contract: Partial<IContract>, status: string) => {
-    return {
-      status,
-      title: contract.title,
-      subtype: contract.subtype,
-      briefing: contract.briefing,
-      contractorLimit: contract.contractorLimit,
-      payStructure: contract.payStructure,
-      defaultPay: contract.defaultPay,
-    };
-  };
-
-  const handleContractStart = () => {
-    if (contract.status === 'BIDDING') {
-      const updatedContract = getUpdatedContractStatus(contract, 'INPROGRESS');
-      dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
-    }
-  };
-
-  const handleContractComplete = () => {
-    if (contract.status === 'INPROGRESS') {
-      const updatedContract = getUpdatedContractStatus(contract, 'COMPLETED');
-      dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
-    }
-  };
-
-  const handleContractCancel = () => {
-    if (contract.status !== 'COMPLETE') {
-      const updatedContract = getUpdatedContractStatus(contract, 'CANCELED');
-      dispatch(updateContract({ contractId: contract.id, contractRaw: updatedContract }));
-    }
-  };
-
-  const handleResubmitBid = () => {
-    if (!userBid) {
-      return Logger.info('no user bid');
-    }
-    const updatedBid = { status: 'PENDING' as const };
-    dispatch(
-      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
-    );
-  };
 
   return (
     <Box
@@ -529,26 +452,6 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               width: '80%',
               p: '.5em',
               mb: '1em',
-              position: 'relative',
-              borderLeft: '1px solid rgba(14,49,141,0.5)',
-              borderRight: '1px solid rgba(14,49,141,0.5)',
-              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                background:
-                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                opacity: 0.6,
-                backdropFilter: 'blur(10px)',
-                zIndex: -1,
-                backgroundImage:
-                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                backgroundSize: '100% 2px',
-              },
             }}
           >
             <DigiTitle
