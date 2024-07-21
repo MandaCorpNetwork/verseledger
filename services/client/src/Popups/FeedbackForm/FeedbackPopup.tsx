@@ -1,4 +1,5 @@
 import Feedback from '@Assets/media/Feedback.webm?url';
+import PallyLogo from '@Assets/media/MenuPage/PallyLogo.png?url';
 import { Discord, KoFi, Patreon } from '@Common/Definitions/CustomIcons';
 import { GitHub } from '@mui/icons-material';
 import {
@@ -141,6 +142,18 @@ export const FeedbackPopup: React.FC = () => {
             rel="noopener noreferrer"
           >
             <KoFi />
+          </IconButton>
+          <IconButton
+            component="a"
+            href="https://pally.gg/p/verseledger"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={PallyLogo}
+              alt="Pally Logo"
+              style={{ width: '25px', height: 'auto' }}
+            />
           </IconButton>
           <IconButton
             component="a"
