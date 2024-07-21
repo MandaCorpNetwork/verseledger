@@ -1,8 +1,8 @@
 //ContractCard is the Contract Displayer Item that is mapped for the contracts pulled from the database. It is displayed in the ContractCardDisplay component.
 //This is a low level amount of information for a contract
 //This Contract passes it's ID to the ContractCardDisplay when clicked and sets itself to selected to display it's full information in the ContractBriefingViewer
-import { LocationChip } from '@Common/Components/App/LocationChip';
 import { PayDisplay } from '@Common/Components/App/PayDisplay';
+import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import {
   FleetIcon,
   LogisticsIcon,

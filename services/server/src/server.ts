@@ -7,13 +7,16 @@ import '@Controllers/v1';
 import './DTO';
 import { InversifyExpressServer } from 'inversify-express-utils';
 
-import morgan from 'morgan';
+import chalk from 'chalk';
 import { bindContainer } from './containerBindings';
 import { container } from './infrastructure/ioc/ioc.container';
 import { EnvService } from '@Services/env.service';
 import { AuthProvider } from './authProviders/auth.provider';
 import { NetworkError } from '@Errors/NetworkError';
 import { NotFoundError } from '@Errors/NotFoundError';
+import { Logger } from './utils/Logger';
+import { methodToColor } from './utils/methodToColor';
+import { ZodError } from 'zod';
 export const createServer = () => {
   bindContainer(container);
   const env = new EnvService();
@@ -31,10 +34,20 @@ export const createServer = () => {
         origin: [
           `http://localhost:3000`,
           `http://localhost:${env.EXPRESS_PORT}`,
+          `https://verseledger.net`,
+          `https://stg.verseledger.net`,
+          `https://api.stg.verseledger.net`,
         ],
       }),
     );
-    app.use(morgan('combined'));
+    app.use((req, res, next) => {
+      const method = methodToColor(req.method);
+      Logger.withType(
+        chalk.bold.bgMagenta('[NETWORK]'),
+        `${req.ip} - ${method} ${chalk.underline(req.path)}`,
+      );
+      next();
+    });
     app
       .disable('x-powered-by')
       .use(json())
@@ -76,12 +89,14 @@ export const createServer = () => {
   app.use((err: unknown, req: Request, res: Response, _: NextFunction) => {
     if (err instanceof NetworkError) {
       res.status(err.statusCode).json(err);
+    } else if (err instanceof ZodError) {
+      res.status(400).json(err);
     } else {
       console.error(err);
       res.status(500).send('An unexpected error has occured');
     }
   });
   app.listen(env.EXPRESS_PORT, () => {
-    console.log(`App listening on port ${env.EXPRESS_PORT}`);
+    Logger.info(`App listening on port ${env.EXPRESS_PORT}`);
   });
 };

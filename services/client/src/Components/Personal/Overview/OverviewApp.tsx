@@ -1,6 +1,9 @@
 import { PowerSettingsNew, Sync } from '@mui/icons-material';
-import { Box, Divider, IconButton, Typography } from '@mui/material';
-import { useState } from 'react';
+import { Box, IconButton, Tooltip, Typography } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
+import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
+import React, { useState } from 'react';
+import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { LocationExplorerTool } from '@/Components/Personal/Overview/LocationExplorerTool';
 //import { ActiveToolsOverview } from '@/Components/Personal/Overview/ActiveTools';
@@ -21,21 +24,33 @@ export const OverviewApp: React.FC<unknown> = () => {
   const toggleRadio = () => {
     setRadioOff(!radioOff);
   };
+
+  const currentLocation = useAppSelector(selectUserLocation);
+
+  const [selectedLocation, setSelectedLocation] = React.useState<ILocation | null>(
+    currentLocation,
+  );
+
+  React.useEffect(() => {
+    setSelectedLocation(currentLocation);
+  }, [currentLocation]);
+
+  const handleResetLocation = () => {
+    setSelectedLocation(currentLocation);
+  };
+
   return (
     <Box
-      data-id="OverviewToolContainer"
+      data-testid="OverviewToolContainer"
       sx={{
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
+        width: '100%',
       }}
     >
-      <Box data-id="OverviewToolTitle" sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Typography variant="h4">Overview</Typography>
-        <Divider variant="ToolTitle" />
-      </Box>
       <Box
-        data-id="OverviewToolFunctionContainer"
+        data-testid="OverviewToolWrapper"
         sx={{
           display: 'flex',
           flexDirection: 'row',
@@ -45,18 +60,23 @@ export const OverviewApp: React.FC<unknown> = () => {
         }}
       >
         <Box
+          data-testid="Overview-NotificationContainer"
           sx={{ display: 'flex', flexDirection: 'column', width: '35%', height: '100%' }}
         >
           <Box
-            data-id="NotificationToolContainer"
+            data-testid="Overview__NotificationWrapper"
             sx={{
-              border: '3px solid',
-              borderColor: 'primary.dark',
               padding: '1em',
               margin: '1em',
               width: '100%',
               height: '35%',
               alignItems: 'center',
+              borderTop: '2px solid',
+              borderBottom: '2px solid',
+              borderRadius: '10px',
+              borderColor: 'secondary.main',
+              background: 'rgba(0,30,100,0.2)',
+              backdropFilter: 'blur(20px)',
             }}
           >
             <Box
@@ -68,8 +88,7 @@ export const OverviewApp: React.FC<unknown> = () => {
                 mb: '1.5em',
               }}
             >
-              <Typography variant="h5">Notifications</Typography>
-              <Divider variant="ComponentTitle" />
+              <Typography variant="h6">Notifications</Typography>
             </Box>
             <Box
               data-id="NotificationToolContent"
@@ -79,8 +98,6 @@ export const OverviewApp: React.FC<unknown> = () => {
                 gap: '1em',
                 padding: '1em',
                 overflow: 'auto',
-                bgcolor: 'rgb(6, 86, 145, .15)',
-                borderRadius: '5px',
                 height: '85%',
                 '&::-webkit-scrollbar': {
                   width: '10px',
@@ -92,6 +109,30 @@ export const OverviewApp: React.FC<unknown> = () => {
                 '&::-webkit-scrollbar-thumb': {
                   borderRadius: '20px',
                   background: 'rgb(121, 192, 244, .5)',
+                },
+                borderTop: '2px solid',
+                borderBottom: '2px solid',
+                borderRadius: '5px',
+                borderColor: 'primary.main',
+                borderLeft: '1px solid rgba(14,49,141,0.5)',
+                borderRight: '1px solid rgba(14,49,141,0.5)',
+                boxShadow: '0 5px 15px rgba(14,49,141,.8)',
+                position: 'relative',
+                '&:before': {
+                  content: '""',
+                  position: 'absolute',
+                  top: 0,
+                  bottom: 0,
+                  right: 0,
+                  left: 0,
+                  background:
+                    'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
+                  opacity: 0.6,
+                  backdropFilter: 'blur(10px)',
+                  zIndex: -1,
+                  backgroundImage:
+                    'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
+                  backgroundSize: '100% 2px',
                 },
               }}
             >
@@ -109,26 +150,29 @@ export const OverviewApp: React.FC<unknown> = () => {
             </Box>
           </Box>
           <Box
-            data-id="RadioFrequenciesToolContainer"
+            data-testid="RadioFrequenciesToolContainer"
             sx={{
-              border: '3px solid',
-              borderColor: 'primary.dark',
               display: 'flex',
               flexDirection: 'column',
               p: '1em',
               ml: '1em',
               width: '100%',
               height: '30%',
+              borderTop: '2px solid',
+              borderBottom: '2px solid',
+              borderRadius: '10px',
+              borderColor: 'secondary.main',
+              background: 'rgba(0,30,100,0.2)',
+              backdropFilter: 'blur(20px)',
             }}
           >
-            <Box data-id="RadioFrequenciesToolTitle">
+            <Box data-testid="RadioFrequenciesToolTitle">
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography variant="h5">Radio Frequencies</Typography>
-                <IconButton onClick={toggleRadio} sx={{ ml: 'auto' }}>
+                <Typography variant="h6">Radio Stations</Typography>
+                <IconButton disabled onClick={toggleRadio} sx={{ ml: 'auto' }}>
                   <RadioIcon />
                 </IconButton>
               </Box>
-              <Divider variant="ComponentTitle" />
             </Box>
             <Box
               data-id="RadioFrequenciesToolContent"
@@ -149,50 +193,77 @@ export const OverviewApp: React.FC<unknown> = () => {
           <Box
             data-id="LocationExplorerToolContainer"
             sx={{
-              border: '3px solid',
-              borderColor: 'primary.dark',
               display: 'flex',
               flexDirection: 'column',
               p: '.5em',
               margin: '1em',
               width: '100%',
               height: '45%',
+              borderTop: '2px solid',
+              borderBottom: '2px solid',
+              borderRadius: '10px',
+              borderColor: 'secondary.main',
+              background: 'rgba(0,30,100,0.2)',
+              backdropFilter: 'blur(20px)',
             }}
           >
             <Box data-id="LocationExplorerToolTitle" sx={{ height: '10%', p: '.5em' }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography variant="h5">Location Explorer</Typography>
-                <IconButton sx={{ ml: 'auto' }}>
-                  <Sync />
-                </IconButton>
+                <Typography variant="h6">Location Explorer</Typography>
+                <Tooltip title="Reset Selected Location">
+                  <IconButton sx={{ ml: 'auto' }} onClick={handleResetLocation}>
+                    <Sync />
+                  </IconButton>
+                </Tooltip>
               </Box>
-              <Divider variant="ComponentTitle" />
             </Box>
             <Box data-id="LocationExplorerToolContent" sx={{ height: '90%' }}>
-              <LocationExplorerTool />
+              <LocationExplorerTool
+                selectedLocation={selectedLocation}
+                setSelectedLocation={setSelectedLocation}
+              />
             </Box>
           </Box>
           <Box
             data-id="ShipStatusToolContainer"
             sx={{
-              border: '3px solid',
-              borderColor: 'primary.dark',
               display: 'flex',
               flexDirection: 'column',
               p: '1em',
               ml: '1em',
               width: '100%',
               height: '45%',
+              borderTop: '2px solid',
+              borderBottom: '2px solid',
+              borderRadius: '10px',
+              borderColor: 'secondary.main',
+              background: 'rgba(0,30,100,0.2)',
+              backdropFilter: 'blur(20px)',
             }}
           >
             <Box data-id="ShipStatusToolTitle" sx={{ height: '10%' }}>
-              <Typography variant="h5">Ship Status</Typography>
-              <Divider variant="ComponentTitle" />
+              <Typography variant="h6">Ship Status</Typography>
             </Box>
             <Box
-              data-id="ShipStatusToolContent"
-              sx={{ height: '85%', mt: '1em', p: '.5em' }}
-            ></Box>
+              data-testid="ShipStatusToolContent"
+              sx={{
+                height: '85%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Typography
+                align="center"
+                sx={{
+                  fontWeight: 'bold',
+                  color: 'text.disabled',
+                  textShadow: '0px 0px 4px rgb(8,22,252)',
+                }}
+              >
+                In Development
+              </Typography>
+            </Box>
           </Box>
         </Box>
       </Box>

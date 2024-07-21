@@ -1,12 +1,12 @@
 import { PlayArrow } from '@mui/icons-material';
-import { Badge, Box, Chip, Paper, Popper, Typography } from '@mui/material';
+import { Badge, Box, Paper, Popper, Typography } from '@mui/material';
+import { LocationsFilter } from '@Utils/Filters/LocationsFilter';
+import { SubTypeFilter } from '@Utils/Filters/SubtypeFilter';
+import { UECRangeFilter } from '@Utils/Filters/UECRangeFilter';
+// import { QueryNames } from '@Utils/QueryNames';
 import React, { useState } from 'react';
 
-import { QueryNames } from '@/Common/Definitions/QueryNames';
-import { LocationsFilter } from '@/Common/Filters/LocationsFilter';
-import { SubTypeFilter } from '@/Common/Filters/SubTypeFilter';
-import { UECRangeFilter } from '@/Common/Filters/UECRangeFilter';
-import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
+// import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 type FilterListSelectionProps = {
   filterName: string;
@@ -17,7 +17,7 @@ export const FilterListSelection: React.FC<FilterListSelectionProps> = ({
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
   const [open, setOpen] = React.useState(false);
-  const [filters] = useURLQuery();
+  // const [filters] = useURLQuery();
   const [leaveTimeoutId, setLeaveTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
   const getFilterComponent = (filterName: string) => {
@@ -33,34 +33,34 @@ export const FilterListSelection: React.FC<FilterListSelectionProps> = ({
 
   const filterComponent = getFilterComponent(filterName);
 
-  const getFilterCount = (filterName: string) => {
-    switch (filterName) {
-      case 'SubType':
-        return filters.getAll(QueryNames.SubType).length;
-      case 'Locations':
-        return filters.getAll(QueryNames.Locations).length;
-      case 'Pay Range':
-        return (
-          (filters.has(QueryNames.UECRangeMax) ? 1 : 0) +
-          (filters.has(QueryNames.UECRangeMin) ? 1 : 0)
-        );
-      default:
-        return 0;
-    }
-  };
+  // const getFilterCount = (filterName: string) => {
+  //   switch (filterName) {
+  //     case 'SubType':
+  //       return filters.getAll(QueryNames.Subtype).length;
+  //     case 'Locations':
+  //       return filters.getAll(QueryNames.Locations).length;
+  //     case 'Pay Range':
+  //       return (
+  //         (filters.has(QueryNames.UECRangeMax) ? 1 : 0) +
+  //         (filters.has(QueryNames.UECRangeMin) ? 1 : 0)
+  //       );
+  //     default:
+  //       return 0;
+  //   }
+  // };
 
-  const getFilterValues = (filterName: string) => {
-    switch (filterName) {
-      case 'SubType':
-        return filters.getAll(QueryNames.SubType);
-      case 'Locations':
-        return filters.getAll(QueryNames.Locations);
-      case 'Pay Range':
-        return [filters.get(QueryNames.UECRangeMin), filters.get(QueryNames.UECRangeMax)];
-      default:
-        return [];
-    }
-  };
+  // const getFilterValues = (filterName: string) => {
+  //   switch (filterName) {
+  //     case 'SubType':
+  //       return filters.getAll(QueryNames.Subtype);
+  //     case 'Locations':
+  //       return filters.getAll(QueryNames.Locations);
+  //     case 'Pay Range':
+  //       return [filters.get(QueryNames.UECRangeMin), filters.get(QueryNames.UECRangeMax)];
+  //     default:
+  //       return [];
+  //   }
+  // };
 
   const handleMouseEnter = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (leaveTimeoutId) {
@@ -79,12 +79,12 @@ export const FilterListSelection: React.FC<FilterListSelectionProps> = ({
     setLeaveTimeoutId(timeoutId);
   };
 
-  const filterValues = getFilterValues(filterName);
-  const isFiltersSet = (filterValues.length = 0);
+  // const filterValues = getFilterValues(filterName);
+  // const isFiltersSet = (filterValues.length = 0);
 
   return (
     <Badge
-      badgeContent={getFilterCount(filterName)}
+      // badgeContent={getFilterCount(filterName)}
       color="error"
       max={99}
       overlap="circular"
@@ -97,7 +97,7 @@ export const FilterListSelection: React.FC<FilterListSelectionProps> = ({
           alignItems: 'center',
           cursor: 'pointer',
           border: '2px solid',
-          borderColor: open || isFiltersSet ? 'secondary.main' : 'text.disabled',
+          // borderColor: open || isFiltersSet ? 'secondary.main' : 'text.disabled',
           borderRadius: '5px',
           m: '.2em',
           p: '.5em',
@@ -137,11 +137,11 @@ export const FilterListSelection: React.FC<FilterListSelectionProps> = ({
                     borderColor: 'secondary.dark',
                     borderRadius: '5px',
                     padding: '.5em',
-                    justifyContent: !isFiltersSet ? 'center' : '',
-                    alignItems: !isFiltersSet ? 'center' : '',
+                    // justifyContent: !isFiltersSet ? 'center' : '',
+                    // alignItems: !isFiltersSet ? 'center' : '',
                   }}
                 >
-                  {!isFiltersSet ? (
+                  {/* {!isFiltersSet ? (
                     <Typography variant="body2">No Filters Set</Typography>
                   ) : (
                     filterValues.map((value, index) => (
@@ -155,7 +155,7 @@ export const FilterListSelection: React.FC<FilterListSelectionProps> = ({
                         //onDelete={}
                       />
                     ))
-                  )}
+                  )} */}
                 </Box>
               )}
             </Paper>

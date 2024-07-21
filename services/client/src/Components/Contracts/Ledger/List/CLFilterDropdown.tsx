@@ -1,24 +1,38 @@
 //CLFilterDropdown is a reusable DropDown for displaying filters in the Contract Ledger Table Tools Component.
 import { ArrowRight } from '@mui/icons-material';
 import { Badge, Box, Chip, Collapse, Typography } from '@mui/material';
-import React from 'react';
+import { AccessTimeDropdownFilter } from '@Utils/Filters/AccessTimeDropdownFilter';
+import { LocationsFilter } from '@Utils/Filters/LocationsFilter';
+import { EmployerRatingSliderFilter } from '@Utils/Filters/MultiRatingSliderFilter';
+import { SubTypeFilter } from '@Utils/Filters/SubtypeFilter';
+import { UECRangeFilter } from '@Utils/Filters/UECRangeFilter';
+import { QueryNames } from '@Utils/QueryNames';
+import React, { useCallback } from 'react';
 
-import { QueryNames } from '@/Common/Definitions/QueryNames';
-import { AccessTimeDropdownFilter } from '@/Common/Filters/AccessTimeDropdownFilter';
-import { EmployerRatingSliderFilter } from '@/Common/Filters/EmployerRatingSliderFilter';
-import { LocationsFilter } from '@/Common/Filters/LocationsFilter';
-import { SubTypeFilter } from '@/Common/Filters/SubTypeFilter';
-import { UECRangeFilter } from '@/Common/Filters/UECRangeFilter';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 type CLFilterDropdownProps = {
-  filter: string;
+  filter: 'Subtype' | 'PayRange' | 'Locations' | 'TimeRemaining' | 'EmployerRating';
   label: string;
 };
 
 export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, label }) => {
-  const [filters] = useURLQuery();
+  const [filters, setFilters] = useURLQuery();
   const [isExpanded, setIsExpanded] = React.useState(false);
+
+  const setDisabled = () => {
+    if (
+      filter === 'Locations' ||
+      filter === 'TimeRemaining' ||
+      filter === 'PayRange' ||
+      filter === 'EmployerRating'
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const isDisabled = setDisabled();
 
   const handleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -27,15 +41,15 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
   //FilterSwitches
   const getFilterComponent = (filterName: string) => {
     switch (filterName) {
-      case 'SubType':
-        return <SubTypeFilter size="medium" />;
+      case 'Subtype':
+        return <SubTypeFilter size="small" />;
       case 'Locations':
         return <LocationsFilter size="medium" />;
-      case 'Time Remaining':
+      case 'TimeRemaining':
         return <AccessTimeDropdownFilter />;
-      case 'Employer Rating':
+      case 'EmployerRating':
         return <EmployerRatingSliderFilter />;
-      case 'Pay Range':
+      case 'PayRange':
         return <UECRangeFilter size="medium" innerSpace="dense" />;
     }
   };
@@ -44,45 +58,50 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
 
   const getFilterCount = (filterName: string) => {
     switch (filterName) {
-      case 'SubType':
-        return filters.getAll(QueryNames.SubType).length;
+      case 'Subtype':
+        return filters.has(QueryNames.Subtype);
       case 'Locations':
-        return filters.getAll(QueryNames.Locations).length;
-      case 'Time Remaining':
-        return filters.getAll(QueryNames.TimeRemaining).length;
-      case 'Employer Rating':
+        return filters.has(QueryNames.Locations);
+      case 'TimeRemaining':
+        return filters.has(QueryNames.TimeRemaining);
+      case 'EmployerRating':
         return filters.has(QueryNames.EmployerRating);
-      case 'Pay Range':
-        return (
-          (filters.has(QueryNames.UECRangeMax) ? 1 : 0) +
-          (filters.has(QueryNames.UECRangeMin) ? 1 : 0)
-        );
+      case 'PayRange':
+        return filters.has(QueryNames.UECRangeMax) || filters.has(QueryNames.UECRangeMin);
       default:
         return 0;
     }
   };
-  //Fetches the amount of filters set for a given filter
+  // Fetches if filters set for a given filter
 
   const getFilterValues = (filterName: string) => {
     switch (filterName) {
-      case 'SubType':
-        return filters.getAll(QueryNames.SubType);
+      case 'Subtype':
+        return filters.getAll(QueryNames.Subtype);
       case 'Locations':
         return filters.getAll(QueryNames.Locations);
-      case 'Time Remaining':
+      case 'TimeRemaining':
         return filters.getAll(QueryNames.TimeRemaining);
-      case 'Employer Rating':
+      case 'EmployerRating':
         return filters.getAll(QueryNames.EmployerRating);
-      case 'Pay Range':
+      case 'PayRange':
         return [filters.get(QueryNames.UECRangeMin), filters.get(QueryNames.UECRangeMax)];
       default:
         return [];
     }
   };
   const filterValues = getFilterValues(filter);
-  //Fetches the Values of the given Filter
-  const isFiltersSet = (filterValues.length = 0);
-  //Identifies if there are filters selected
+  // Fetches the Values of the given Filter
+  const isFiltersSet = getFilterCount(filter);
+  // Identifies if there are filters selected
+
+  const handleDeleteFilter = useCallback((valueToDelete: string) => {
+    const filterToUpdate = QueryNames[filter as unknown as keyof typeof QueryNames];
+    const updatedFilters = filters
+      .getAll(filterToUpdate)
+      .filter((value) => value !== valueToDelete);
+    setFilters(filterToUpdate, updatedFilters);
+  }, []);
 
   return (
     <Box
@@ -102,23 +121,26 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
         }}
       >
         <Badge
-          badgeContent={getFilterCount(filter)}
+          invisible={!isFiltersSet}
           color="error"
-          max={99}
           overlap="rectangular"
-          showZero={false}
-          variant={filter == 'EmployerRating' ? 'dot' : 'standard'}
+          variant="dot"
         >
           <Typography
             data-testid={`ContractLedgerFilters-${filter}__TitleDropDown`}
             variant="body1"
             onClick={handleExpand}
             sx={{
-              color: isExpanded ? 'secondary.main' : 'text.secondary',
+              color: isDisabled
+                ? 'text.disabled'
+                : isExpanded
+                  ? 'secondary.main'
+                  : 'text.secondary',
               cursor: 'pointer',
               fontWeight: 'bold',
               '&:hover': {
-                color: 'text.primary',
+                color: isDisabled ? 'action.disabled' : 'text.primary',
+                cursor: isDisabled ? 'default' : 'pointer',
               },
             }}
           >
@@ -155,40 +177,42 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
           >
             {filterComponent}
           </Box>
-          {filter !== 'Employer Rating' && filter !== 'Pay Range' && (
-            <Box
-              data-testid={`ContractLedgerFilters-${filter}-FilterCollapse__FilterListWrapper`}
-              sx={{
-                display: 'flex',
-                flexDitection: 'row',
-                width: '250px',
-                flexWrap: 'wrap',
-                borderTop: '2px solid',
-                borderBottom: '2px solid',
-                borderColor: 'text.secondary',
-                borderRadius: '5px',
-                padding: '.5em',
-                justifyContent: !isFiltersSet ? 'center' : '',
-                alignItems: !isFiltersSet ? 'center' : '',
-              }}
-            >
-              {!isFiltersSet ? (
-                <Typography variant="body2">No Filters Set</Typography>
-              ) : (
-                filterValues.map((value, index) => (
-                  <Chip
-                    key={index}
-                    label={value && value.charAt(0).toUpperCase() + value.slice(1)}
-                    size={'small'}
-                    variant="outlined"
-                    color="secondary"
-                    sx={{ m: '.2em' }}
-                    //onDelete={}
-                  />
-                ))
-              )}
-            </Box>
-          )}
+          {QueryNames[filter as unknown as keyof typeof QueryNames] !==
+            QueryNames.EmployerRating &&
+            filter !== 'PayRange' && (
+              <Box
+                data-testid={`ContractLedgerFilters-${filter}-FilterCollapse__FilterListWrapper`}
+                sx={{
+                  display: 'flex',
+                  flexDitection: 'row',
+                  width: '250px',
+                  flexWrap: 'wrap',
+                  borderTop: '2px solid',
+                  borderBottom: '2px solid',
+                  borderColor: 'text.secondary',
+                  borderRadius: '5px',
+                  padding: '.5em',
+                  justifyContent: !isFiltersSet ? 'center' : '',
+                  alignItems: !isFiltersSet ? 'center' : '',
+                }}
+              >
+                {!isFiltersSet ? (
+                  <Typography variant="body2">No Filters Set</Typography>
+                ) : (
+                  filterValues.map((value, index) => (
+                    <Chip
+                      key={index}
+                      label={value && value.charAt(0).toUpperCase() + value.slice(1)}
+                      size={'small'}
+                      variant="outlined"
+                      color="secondary"
+                      sx={{ m: '.2em' }}
+                      onDelete={() => value && handleDeleteFilter(value)}
+                    />
+                  ))
+                )}
+              </Box>
+            )}
         </Box>
       </Collapse>
     </Box>

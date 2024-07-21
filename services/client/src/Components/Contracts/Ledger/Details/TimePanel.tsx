@@ -1,6 +1,6 @@
 import { Box, LinearProgress, Tooltip, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
-import { selectContract } from '@Redux/Slices/Contracts/contractSelectors';
+import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';

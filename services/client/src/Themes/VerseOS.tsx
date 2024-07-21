@@ -1,5 +1,7 @@
 import '@mui/material/Divider';
 import '@mui/material/Button';
+import '@mui/material/Typography';
+import '@mui/material/Box';
 
 import { createTheme } from '@mui/material/styles';
 
@@ -13,6 +15,13 @@ declare module '@mui/material/Divider' {
 declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
     popupButton: true;
+  }
+}
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    tip: true;
+    paragraph: true;
   }
 }
 
@@ -61,6 +70,32 @@ export const verseOSTheme = createTheme({
     divider: 'rgb(24, 252, 252)',
   },
   components: {
+    MuiTypography: {
+      variants: [
+        {
+          props: { variant: 'tip' },
+          style: {
+            color: 'rgb(255,141,15)',
+            fontSize: '.7em',
+            boxShadow: '0 4px 8px rgba(0,0,0,.4)',
+            backgroundImage:
+              'linear-gradient(135deg, rgba(255, 141, 15, 0.2), rgba(255, 255, 255, 0.1))',
+            borderRadius: '10px',
+            cursor: 'default',
+            textShadow: '0 0 5px rgba(0,0,0)',
+            display: 'inline-block',
+          },
+        },
+        {
+          props: { variant: 'paragraph' },
+          style: {
+            textWrap: 'wrap',
+            whiteSpace: 'normal',
+            wordBreak: 'break-all',
+          },
+        },
+      ],
+    },
     MuiLinearProgress: {
       styleOverrides: {
         root: {

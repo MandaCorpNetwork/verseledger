@@ -2,17 +2,25 @@ import { inject, injectable } from 'inversify';
 import { Contract } from '@Models/contract.model';
 import { ContractBid } from '@Models/contract_bid.model';
 // import { User } from '@Models/user.model';
-import { StompService } from './stomp.service';
 import { TYPES } from '@/constant/types';
 import { NotFoundError } from '@Errors/NotFoundError';
 import { BadRequestError } from '@Errors/BadRequest';
 import { Location } from '@Models/location.model';
 import { ContractLocation } from '@Models/contract_locations.model';
 import { User } from '@Models/user.model';
+import { Op } from 'sequelize';
+import { IContractStatus } from 'vl-shared/src/schemas/ContractStatusSchema';
+import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
+import { optionalSet, queryIn } from '@/utils/Sequelize/queryIn';
+import { type NotificationService } from './notification.service';
+import { ContractDTO } from '../DTO/ContractDTO';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ContractBidDTO } from '../DTO/ContractBidDTO';
 
 @injectable()
 export class ContractService {
-  @inject(TYPES.StompService) private stomp!: StompService;
+  @inject(TYPES.NotificationService)
+  private notifications!: NotificationService;
   public async getContracts() {
     return Contract.scope(['locations', 'owner', 'bids']).findAll();
   }
@@ -36,15 +44,15 @@ export class ContractService {
       'owner',
       'bids',
     ]).findByPk(newTempContract.id)) as Contract;
-    this.stomp.client.publish({
-      destination: '/topic/newContract',
-      body: JSON.stringify(newContract.toJSON()),
-    });
+    this.notifications.publish(
+      '/topic/newContract',
+      new ContractDTO(newContract as IContract),
+    );
     return newContract;
   }
 
-  public async getBid(contractId: string, bidId: string) {
-    const bid = await ContractBid.findOne({
+  public async getBid(contractId: string, bidId: string, scope: string[] = []) {
+    const bid = await ContractBid.scope(scope).findOne({
       where: { id: bidId, contract_id: contractId },
     });
     if (bid == null) throw new NotFoundError(bidId);
@@ -106,12 +114,10 @@ export class ContractService {
       user_id: userId,
       status: 'PENDING',
     });
-    this.stomp.client.publish({
-      destination: `/topic/newBid`,
-      body: JSON.stringify(bid.toJSON()),
-    });
+    this.notifications.publish('/topic/newBid', new ContractBidDTO(bid));
     return bid;
   }
+
   public async inviteToBid(
     contractId: string,
     ownerId: string,
@@ -154,12 +160,84 @@ export class ContractService {
       user_id: userId,
       status: 'INVITED',
     });
-    this.stomp.client.publish({
-      destination: `/topic/notifications/${userId}`,
-      body: JSON.stringify(
-        `You have been invited to ${contract.title} by ${ownerUser.displayName}`,
-      ),
-    });
+    this.notifications.publish(
+      `/topic/notifications/${userId}`,
+      `You have been invited to ${contract.title} by ${ownerUser.displayName}`,
+    );
     return bid;
+  }
+
+  public async searchBySubtypes(subtype: string[]) {
+    try {
+      const contracts = await Contract.findAll({
+        where: {
+          subtype: {
+            [Op.in]: subtype,
+          },
+        },
+        include: ['Locations', 'Owner', 'Bids'],
+      });
+      return contracts;
+    } catch (error) {
+      console.error('Error in Contract Service Method', error);
+    }
+  }
+
+  public async search(params: {
+    subtype?: string | string[];
+    status?: IContractStatus | IContractStatus[];
+    ownerId?: string | string[];
+    contractId?: string | string[];
+    limit?: number;
+    page?: number;
+  }) {
+    const {
+      subtype,
+      limit = 10,
+      page = 0,
+      status,
+      ownerId,
+      contractId,
+    } = params ?? {};
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const query = {} as any;
+    optionalSet(query, 'status', queryIn(status));
+    optionalSet(query, 'subtype', queryIn(subtype));
+    optionalSet(query, 'owner_user_id', queryIn(ownerId));
+    optionalSet(query, 'id', queryIn(contractId));
+
+    const contracts = await Contract.scope([
+      'bids',
+      'owner',
+      'locations',
+    ]).findAndCountAll({
+      where: query,
+      limit: Math.min(limit, 25),
+      offset: page * Math.min(limit, 25),
+    });
+
+    return contracts;
+  }
+
+  public async getContractsByUserId(
+    userId: string,
+    bidStatus?: IContractBid['status'],
+  ) {
+    const contractBids = await ContractBid.findAll({
+      where: {
+        user_id: userId,
+        status: bidStatus ? bidStatus : { [Op.ne]: 'REJECTED' },
+      },
+    });
+    const contractIds = contractBids.map((bid) => bid.contract_id);
+    const contracts = await Contract.findAll({
+      where: {
+        id: {
+          [Op.in]: contractIds,
+        },
+      },
+    });
+    return contracts;
   }
 }

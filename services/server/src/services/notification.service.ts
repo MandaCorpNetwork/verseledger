@@ -1,9 +1,13 @@
+import { TYPES } from '@Constant/types';
 import { Notification } from '@Models/notification.model';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { col, fn } from 'sequelize';
+import { type StompService } from './stomp.service';
 
 @injectable()
 export class NotificationService {
+  @inject(TYPES.StompService) private stomp!: StompService;
+
   public async getNotifications(userId: string, limit = 20) {
     return Notification.findAll({
       where: { user_id: userId },
@@ -22,5 +26,13 @@ export class NotificationService {
     } catch (error) {
       return 0;
     }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public async publish(destination: string, body: Record<any, any> | string) {
+    return this.stomp.client.publish({
+      destination,
+      body: JSON.stringify(body),
+    });
   }
 }

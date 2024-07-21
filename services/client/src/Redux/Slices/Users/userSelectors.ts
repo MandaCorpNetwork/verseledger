@@ -4,7 +4,7 @@ import type { RootState } from '@store';
 export const selectUsers = (state: RootState) => {
   return state.users;
 };
-export const selectContractsArray = createSelector([selectUsers], (users) => {
+export const selectUsersArray = createSelector([selectUsers], (users) => {
   return Object.values(users);
 });
 

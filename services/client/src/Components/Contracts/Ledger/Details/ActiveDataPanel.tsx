@@ -1,13 +1,14 @@
-import { UserChip } from '@Common/Components/Users/UserChip';
+import { UserChip } from '@Common/Components/Chips/UserChip';
 import { Box, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
-import { selectActiveContractors } from '@Redux/Slices/Contracts/contractSelectors';
+import { selectActiveContractors } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 type ContractorProps = {
-  userId: string;
+  user: IUser;
 };
 
-const Contractor: React.FC<ContractorProps> = ({ userId }) => {
+const Contractor: React.FC<ContractorProps> = ({ user }) => {
   return (
     <Box
       data-testid="ActiveData-ContractorPanel-ContractorList__ContractorContainer"
@@ -47,7 +48,7 @@ const Contractor: React.FC<ContractorProps> = ({ userId }) => {
           },
         }}
       >
-        <UserChip userid={userId} size="medium" />
+        <UserChip user={user} size="medium" />
         <Box
           sx={{
             my: 'auto',
@@ -166,7 +167,7 @@ export const ContractorsPanel: React.FC<ContractorPanelProps> = ({
           >
             {contractors && contractors.length > 0 ? (
               contractors.map((contractor) => (
-                <Contractor key={contractor.id} userId={contractor.id} />
+                <Contractor key={contractor.id} user={contractor} />
               ))
             ) : (
               <Typography align="center" sx={{ alignItems: 'center' }}>

@@ -1,6 +1,6 @@
-import { LocationChip } from '@Common/Components/App/LocationChip';
+import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
-import { archetypes } from '@Common/Definitions/Contracts/ContractArchetype';
+import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { ChevronLeft, ChevronRight, ExpandMore, HelpOutline } from '@mui/icons-material';
 import {
   Box,
@@ -21,6 +21,7 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -45,7 +46,7 @@ type ContractDisplayProps = {
 export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) => {
   const dispatch = useAppDispatch();
 
-  console.log(`ContractDisplay ID: ${contract.id}`);
+  Logger.info(`ContractDisplay ID: ${contract.id}`);
 
   const [briefingExpanded, setBriefingExpanded] = React.useState(true);
   const [payExpanded, setPayExpanded] = React.useState(true);
@@ -55,8 +56,10 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
   const [archetype, setArchetype] = React.useState<string | null>(null);
 
+  const options = contractArchetypes('secondary.main');
+
   React.useEffect(() => {
-    const selectedArchetype = archetypes.find((option) =>
+    const selectedArchetype = options.find((option) =>
       option.subTypes.some((subType) => subType.value === contract.subtype),
     );
     if (selectedArchetype) {
@@ -114,7 +117,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
 
   const activeDataPanel = React.useCallback(
     (panel: string) => {
-      console.log(`Rendering ContractId: ${contract.id}`);
+      Logger.info(`Rendering ContractId: ${contract.id}`);
       switch (panel) {
         case 'contractors':
           return (
@@ -173,7 +176,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       const endLocationPull = contract?.Locations?.find(
         (location) => location.ContractLocation?.tag === 'end',
       )?.id;
-      console.log(`EndLocation: ${endLocationPull}`);
+      Logger.info(`EndLocation: ${endLocationPull}`);
       return endLocationPull || null;
     }
     return null;
@@ -208,7 +211,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           }
         }
       }
-      console.log(otherLocationIndex);
+      Logger.info(otherLocationIndex);
     },
     [setOtherLocationIndex, otherLocationIndex, otherLocationIds],
   );
@@ -318,7 +321,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 }}
               />
               <Tooltip title={archetype}>
-                {archetypes.find((option) => option.archetype === archetype)
+                {options.find((option) => option.archetype === archetype)
                   ?.archetypeIcon ?? <Typography>???</Typography>}
               </Tooltip>
             </Box>
@@ -398,7 +401,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                     color="secondary"
                     label={contract.subtype}
                     icon={
-                      archetypes.find((option) => option.archetype === archetype)
+                      options.find((option) => option.archetype === archetype)
                         ?.archetypeIcon
                     }
                     onClick={handleArchetypeOpen}

@@ -1,11 +1,19 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button } from '@mui/material';
-import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetchContracts';
-import React, { useEffect } from 'react';
+import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
+import {
+  selectContractPagination,
+  selectContractsArray,
+} from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { Logger } from '@Utils/Logger';
+import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
+import React from 'react';
+import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
+import { IContractSearch } from 'vl-shared/src/schemas/SearchSchema';
 
 import { CardorTableViewToggle } from '@/Components/Contracts/Ledger/List/Card-TableViewToggle';
 import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
-import { selectContractsArray } from '@/Redux/Slices/Contracts/contractSelectors';
 
 import { ContractCardDisplay } from './CardView/ContractCardDisplay';
 import { ContractTableView } from './TableView/ContractTableView';
@@ -22,25 +30,62 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   contractOnClose,
   selectedId,
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dispatch = useAppDispatch();
   const [view, setView] = React.useState('ContractCardView');
-  const [isSelected, setIsSelected] = React.useState<string | null>(null);
+  const [filters] = useURLQuery();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(25);
+
+  const pagination = React.useCallback(
+    () => useAppSelector(selectContractPagination),
+    [page, rowsPerPage],
+  );
+
+  const contractCount = pagination();
+
+  const handleChangePage = (_event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
   const handleSelect = (id: string | null) => {
-    setIsSelected(id);
     selectedIdSetter(id);
-    console.log(`Selected Contract in Browser: ${id}`);
+    Logger.info(`Selected Contract in Browser: ${id}`);
   };
 
   const handleClose = () => {
     contractOnClose();
-    setIsSelected(null);
   };
 
-  const contracts = useAppSelector((root) => selectContractsArray(root));
-  useEffect(() => {
-    dispatch(fetchContracts());
-  }, []);
+  React.useEffect(() => {
+    // Subtype Filter Initialization
+    const selectedSubtypes = filters.getAll(QueryNames.Subtype) as IContractSubType[];
+    const selectedArchetype = filters.getAll(QueryNames.Archetype) as string[];
+    const archetypeToSub: IContractSubType[] = selectedArchetype.flatMap(
+      (a) => ArchetypeToSubtypes[a] ?? [],
+    );
+    const combinedSubtypes: IContractSubType[] = Array.from(
+      new Set([...selectedSubtypes, ...archetypeToSub]),
+    );
+    Logger.info('Selected Subtypes: ', combinedSubtypes);
+
+    const params: IContractSearch = {
+      page: page,
+      limit: rowsPerPage,
+      status: ['BIDDING', 'INPROGRESS'],
+      ...(combinedSubtypes.length > 0 && {
+        subtype: combinedSubtypes,
+      }),
+    };
+    dispatch(fetchContracts(params));
+  }, [filters, page, rowsPerPage]);
+
+  const contracts = useAppSelector((state) => selectContractsArray(state));
 
   return (
     <Box
@@ -132,13 +177,23 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
           <ContractCardDisplay
             onPick={handleSelect}
             contracts={contracts}
-            isSelected={isSelected}
+            isSelected={selectedId}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+            totalContracts={contractCount.total}
           />
         ) : (
           <ContractTableView
             onPick={selectedIdSetter}
             contract={contracts}
-            isSelected={isSelected}
+            isSelected={selectedId}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+            totalContracts={contractCount.total}
           />
         )}
       </Box>

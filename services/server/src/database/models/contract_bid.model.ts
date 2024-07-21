@@ -44,9 +44,16 @@ export class ContractBid extends Model {
       'REJECTED',
       'INVITED',
       'DECLINED',
+      'EXPIRED',
     ),
   })
-  declare status: 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'INVITED' | 'DECLINED';
+  declare status:
+    | 'PENDING'
+    | 'ACCEPTED'
+    | 'REJECTED'
+    | 'INVITED'
+    | 'DECLINED'
+    | 'EXPIRED';
 
   @BelongsTo(() => User, { foreignKey: 'user_id', targetKey: 'id' })
   declare User: Awaited<User>;

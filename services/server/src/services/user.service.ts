@@ -1,14 +1,43 @@
 import { injectable } from 'inversify';
 import { User } from '@Models/user.model';
-import { IUser } from '@Interfaces/IUser';
 import { Op } from 'sequelize';
 import { RSIService } from './RSI.service';
 import { UserValidation } from '@Models/user_validation.model';
+import { Logger } from '@/utils/Logger';
+import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import { ContractBid } from '@Models/contract_bid.model';
+import { IContractBidStatus } from 'vl-shared/src/schemas/ContractBidStatusSchema';
+import { optionalSet, queryIn } from '@/utils/Sequelize/queryIn';
 
 @injectable()
 export class UserService {
   public async getUser(id: string, scopes: string | string[] = []) {
     return await User.scope(scopes).findByPk(id);
+  }
+
+  public async getUserBids(
+    id: string,
+    search: {
+      status?: IContractBidStatus | IContractBidStatus[];
+      limit?: number;
+      contractId?: string | string[];
+      page?: number;
+    },
+  ) {
+    const { status, contractId, limit = 25, page = 0 } = search ?? {};
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const query = {} as any;
+
+    optionalSet(query, 'status', queryIn(status));
+    optionalSet(query, 'contract_id', queryIn(contractId));
+    return await ContractBid.scope(['contract']).findAndCountAll({
+      where: {
+        ...query,
+        user_id: id,
+      },
+      limit: Math.min(limit, 25),
+      offset: page * Math.min(limit, 25),
+    });
   }
 
   public async findOrCreateUserByDiscord(
@@ -18,7 +47,7 @@ export class UserService {
   ) {
     const [user] = await User.scope('discord').findOrCreate({
       where: { discord_id: id },
-      defaults: { discord_id: id, pfp, rsi_handle: handle },
+      defaults: { discord_id: id, pfp, handle },
     });
     return user;
   }
@@ -66,7 +95,7 @@ export class UserService {
 
   public async createValidationToken(userId: string, handle: string) {
     const response = await RSIService.getUserByHandle(handle);
-    console.log(response.status, response.data);
+    Logger.info(response.status, response.data);
     const rsiUser = response?.data?.data?.creator;
     if (rsiUser == null) throw new Error('Invalid Handle');
     const validation = await UserValidation.findOne({

@@ -7,6 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations';
 import { selectLocationsArray } from '@Redux/Slices/Locations/locationSelectors';
 import React from 'react';
@@ -19,17 +20,29 @@ const filterOptions = createFilterOptions<ILocation>({
   stringify: ({ parent, short_name }) => `${short_name} ${parent}`.trim(),
 });
 
+const menuSizeValues = {
+  xs: 200,
+  s: 300,
+  m: 400,
+  l: 500,
+  xl: 600,
+  xxl: 700,
+};
 //Type Def for the LocationSearch Component
 //Handler for Location Selection
 //Width setter --optional--
+//Menu Size to set the Popper List Size
+//If the Menu Opens to the top, try choosing a smaller Size
 type LocationSearchProps = {
-  onLocationSelect: (locationId: ILocation | null) => void;
+  onLocationSelect: (location: ILocation | null) => void;
   width?: string;
   helperText?: string;
+  margin?: string;
+  menuSize?: keyof typeof menuSizeValues;
 };
 
 export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
-  const { onLocationSelect, width, helperText } = props;
+  const { onLocationSelect, width, helperText, margin, menuSize = 'm' } = props;
   const [inputValue, setInputValue] = React.useState<ILocation | null>(null);
   //InputValue State Setter using ILocation Schema
 
@@ -38,11 +51,23 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
   //Set the State with the Locations Selector
   const locations = useAppSelector(selectLocationsArray);
 
+  //Set the User Location Default
+  const currentUserLocation = useAppSelector(selectUserLocation);
+
   //Location Query Result Fetcher
   React.useEffect(() => {
     //API Call
     dispatch(fetchLocations());
   }, []);
+
+  React.useEffect(() => {
+    if (currentUserLocation && locations.length > 0) {
+      const selectedLocation = locations.find((loc) => loc.id === currentUserLocation.id);
+      if (selectedLocation) {
+        setInputValue(selectedLocation);
+      }
+    }
+  }, [currentUserLocation, locations]);
 
   return (
     <Box>
@@ -60,7 +85,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
               -(b.parent ?? '_Stellar Body').localeCompare(a.parent ?? '_Stellar Body'),
           )}
         groupBy={(l) => l.parent ?? '_Stellar Body'}
-        noOptionsText={'Enter Location'}
+        noOptionsText={'Unknown Location'}
         filterOptions={filterOptions}
         autoHighlight
         getOptionLabel={(option) => option.short_name}
@@ -103,6 +128,12 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
         sx={{
           width: width,
           mb: helperText ? '.8em' : '',
+          m: margin ? margin : '',
+        }}
+        ListboxProps={{
+          sx: {
+            maxHeight: menuSizeValues[menuSize],
+          },
         }}
       />
     </Box>

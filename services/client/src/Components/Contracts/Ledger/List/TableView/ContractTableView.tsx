@@ -1,6 +1,6 @@
-import { LocationChip } from '@Common/Components/App/LocationChip';
 import { PayDisplay } from '@Common/Components/App/PayDisplay';
-import { UserChip } from '@Common/Components/Users/UserChip';
+import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import { UserChip } from '@Common/Components/Chips/UserChip';
 import {
   Box,
   Table,
@@ -23,6 +23,11 @@ type ContractRowProps = {
   contract: IContract[];
   onPick: (id: string | null) => void;
   isSelected: string | null;
+  page: number;
+  rowsPerPage: number;
+  onChangePage: (event: unknown, newPage: number) => void;
+  onChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  totalContracts: number;
 };
 
 interface Column {
@@ -94,19 +99,16 @@ const BidTimeDisplay: React.FC<BidTimeDisplayProps> = ({ contract }) => {
   );
 };
 
-export const ContractTableView: React.FC<ContractRowProps> = ({ contract, onPick }) => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(50);
-
-  const handleChangePage = (_event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
+export const ContractTableView: React.FC<ContractRowProps> = ({
+  contract,
+  onPick,
+  isSelected,
+  page,
+  rowsPerPage,
+  onChangePage,
+  onChangeRowsPerPage,
+  totalContracts,
+}) => {
   return (
     <Box
       data-testid="ContractLedger-ContractBrowser__TableViewContainer"
@@ -151,65 +153,102 @@ export const ContractTableView: React.FC<ContractRowProps> = ({ contract, onPick
             </TableRow>
           </TableHead>
           <TableBody>
-            {contract
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((contract) => (
-                <TableRow
-                  key={contract.id}
-                  hover
-                  onClick={() => onPick(contract.id)}
-                  sx={{
-                    cursor: 'pointer',
-                  }}
-                >
-                  <TableCell sx={{ textAlign: 'center' }}>
-                    <Typography
-                      sx={{
-                        maxWidth: '100%',
-                        fontWeight: 'bold',
-                        color: 'text.secondary',
-                      }}
-                    >
-                      {contract.title}
-                    </Typography>
-                  </TableCell>
-                  <TableCell sx={{ textAlign: 'center' }}>{contract.subtype}</TableCell>
-                  <TableCell sx={{ textAlign: 'center' }}>
-                    <UserChip userid={contract.owner_id} size="medium" />
-                  </TableCell>
-                  <TableCell sx={{ textAlign: 'center' }}>
-                    <PayDisplay
-                      value={contract.defaultPay}
-                      variant={contract.payStructure}
-                    />
-                  </TableCell>
-                  <TableCell sx={{ textAlign: 'center' }}>
-                    <LocationChip locationId="Location" />
-                  </TableCell>
-                  <TableCell sx={{ textAlign: 'center' }}>
-                    <CreatedTimeDisplay contract={contract} />
-                  </TableCell>
-                  <TableCell>
-                    <BidTimeDisplay contract={contract} />
-                  </TableCell>
-                </TableRow>
-              ))}
+            {contract.map((contract) => (
+              <TableRow
+                key={contract.id}
+                hover
+                onClick={() => onPick(contract.id)}
+                selected={isSelected === contract.id}
+                sx={{
+                  cursor: 'pointer',
+                  '&.Mui-selected': {
+                    bgcolor: 'rgba(14,49,141,.7)',
+                    boxShadow: contract.isEmergency
+                      ? '0 0 10px 2px red'
+                      : '0 0 10px 2px #18fcfc',
+                    '&:hover': {
+                      bgcolor: 'rgba(0,30,100,.8)',
+                      boxShadow: contract.isEmergency
+                        ? '0 0 10px 2px #ff4d4d'
+                        : '0 0 10px 2px rgb(33, 150, 243)',
+                    },
+                  },
+                }}
+              >
+                <TableCell sx={{ textAlign: 'center' }}>
+                  <Typography
+                    sx={{
+                      maxWidth: '100%',
+                      fontWeight: 'bold',
+                      color: contract.isEmergency ? 'error.main' : 'text.secondary',
+                    }}
+                  >
+                    {contract.title}
+                  </Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: 'center' }}>{contract.subtype}</TableCell>
+                <TableCell sx={{ textAlign: 'center' }}>
+                  <UserChip user_id={contract.owner_id} size="medium" />
+                </TableCell>
+                <TableCell sx={{ textAlign: 'center' }}>
+                  <PayDisplay
+                    value={contract.defaultPay}
+                    variant={contract.payStructure}
+                  />
+                </TableCell>
+                <TableCell sx={{ textAlign: 'center' }}>
+                  <LocationChip locationId="Location" />
+                </TableCell>
+                <TableCell sx={{ textAlign: 'center' }}>
+                  <CreatedTimeDisplay contract={contract} />
+                </TableCell>
+                <TableCell>
+                  <BidTimeDisplay contract={contract} />
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[50, 100, 200]}
+        rowsPerPageOptions={[25, 50, 100]}
         component={Box}
-        count={contract.length}
+        count={totalContracts}
         page={page}
         rowsPerPage={rowsPerPage}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
+        onPageChange={onChangePage}
+        onRowsPerPageChange={onChangeRowsPerPage}
         sx={{
           borderBottomLeftRadius: '10px',
           borderBottomRightRadius: '10px',
           boxShadow: '0 0 15px 2px #0e318d',
           backgroundColor: 'rgba(0,1,19,.5)',
+        }}
+        slotProps={{
+          select: {
+            sx: {
+              '& .MuiSelect-icon': {
+                color: 'secondary.main',
+              },
+            },
+          },
+          actions: {
+            firstButtonIcon: {
+              sx: {
+                color: 'secondary.main',
+              },
+            },
+            nextButtonIcon: {
+              sx: {
+                color: 'secondary.main',
+              },
+            },
+            previousButtonIcon: {
+              sx: {
+                color: 'secondary.main',
+              },
+            },
+          },
         }}
       />
     </Box>

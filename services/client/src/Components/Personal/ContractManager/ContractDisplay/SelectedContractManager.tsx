@@ -1,11 +1,38 @@
 // import { LocationChip } from '@Common/Components/App/LocationChip';
-import { SalvageIcon, SecurityIcon } from '@Common/Definitions/CustomIcons';
-import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Button, Chip, Tab, TextField, Typography } from '@mui/material';
+import ControlPanelBox from '@Common/Components/Boxes/ControlPanelBox';
+import DigiBox from '@Common/Components/Boxes/DigiBox';
+import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import ParagraphWrapper from '@Common/Components/Boxes/ParagraphWrapper';
+import TabListHolo from '@Common/Components/Tabs/TabListHolo';
+import DigiTitle from '@Common/Components/Typography/DigiTitle';
+import { UserDisplay } from '@Common/Components/Users/UserDisplay';
+import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
+import { HelpOutline } from '@mui/icons-material';
+import { TabContext, TabPanel } from '@mui/lab';
+import {
+  Box,
+  Chip,
+  InputAdornment,
+  Tab,
+  TextField,
+  Tooltip,
+  Typography,
+} from '@mui/material';
+import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
+import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
+import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import dayjs from 'dayjs';
 import { useState } from 'react';
 import React from 'react';
+import { ILocationWithContractLocation } from 'vl-shared/src/schemas/LocationSchema';
 
-import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/ContractorsManager';
+import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/tools/pages/Contractors/ContractorsManager';
+
+import { ContractController } from './tools/ContractController';
+import { LocationsDisplay } from './tools/LocationsDisplay';
 
 type ContractDataFieldProps = {
   label: string;
@@ -21,8 +48,14 @@ const ContractDataField: React.FC<ContractDataFieldProps> = ({ label, value }) =
         margin="dense"
         InputProps={{
           readOnly: true,
+          sx: {
+            cursor: 'default',
+          },
         }}
         inputProps={{
+          sx: {
+            cursor: 'default',
+          },
           style: {
             textAlign: 'center',
           },
@@ -32,37 +65,105 @@ const ContractDataField: React.FC<ContractDataFieldProps> = ({ label, value }) =
   );
 };
 
-// const ExpandButton: React.FC<unknown> = () => {
-//   const [isExpanded, setIsExpanded] = React.useState(false);
+type SelectedContractManagerProps = {
+  contractId: string | null;
+};
 
-//   const toggleExpand = () => {
-//     setIsExpanded(!isExpanded);
-//   };
-
-//   return (
-//     <IconButton
-//       onClick={toggleExpand}
-//       size="small"
-//       sx={{
-//         backgroundColor: 'rgba(14,49,141,.25)',
-//       }}
-//     >
-//       {isExpanded ? <OpenInFull fontSize="small" /> : <UnfoldLess fontSize="small" />}
-//     </IconButton>
-//   );
-// };
-
-export const SelectedContractManager: React.FC<unknown> = () => {
-  //const [filters] = useURLQuery();
-  // const selectedContract = useAppSelector((root) =>
-  //   pickContract(root, Number(filters.get(QueryNames.SelectedContract))),
-  // );
-
+export const SelectedContractManager: React.FC<SelectedContractManagerProps> = ({
+  contractId,
+}) => {
   const [contractManagerTab, setContractManagerTab] = useState<string>('contractors');
+  const [archetype, setArchetype] = React.useState<string | null>(null);
+
+  const options = contractArchetypes('secondary.main');
+
+  const contract = useAppSelector((root) => selectContract(root, contractId as string));
+  const currentUser = useAppSelector(selectCurrentUser);
+
+  const dispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    const selectedArchetype = options.find((option) =>
+      option.subTypes.some((subtype) => subtype.value === contract.subtype),
+    );
+    if (selectedArchetype) {
+      setArchetype(selectedArchetype?.archetype);
+    } else {
+      setArchetype(null);
+    }
+  }, [contract.subtype]);
+
+  const handleArchetypeOpen = () => {
+    dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetype }));
+  };
+
+  const handlePayStructurePopup = () => {
+    dispatch(openPopup(POPUP_PAY_STRUCTURES));
+  };
 
   const handleContractManageView = (_event: React.SyntheticEvent, newValue: string) => {
     setContractManagerTab(newValue);
   };
+
+  const statusChipColor = React.useCallback(() => {
+    if (contract.status == 'BIDDING') {
+      return 'secondary';
+    } else if (contract.status == 'STARTED') {
+      return 'info';
+    } else if (contract.status == 'COMPLETE') {
+      return 'success';
+    } else if (contract.status == 'CANCELED') {
+      return 'error';
+    } else {
+      return 'primary';
+    }
+  }, [contract.status]);
+
+  const statusColor = statusChipColor();
+
+  const startTime = React.useMemo(() => {
+    const startDate = dayjs(contract.startDate);
+    const formattedStartDate = startDate.format('DD MMM, YY @ HH:mm');
+    if (contract.startDate === null) {
+      return 'Manually Started';
+    }
+    return formattedStartDate;
+  }, [contract.startDate]);
+
+  const endTime = React.useMemo(() => {
+    const endDate = dayjs(contract.endDate);
+    const formattedEndDate = endDate.format('DD MMM, YY @ HH:mm');
+    if (contract.endDate === null) {
+      return 'Manually Ended';
+    }
+    return formattedEndDate;
+  }, [contract.endDate]);
+
+  const contractLocations = React.useCallback(() => {
+    if (!contract.Locations) {
+      return [] as ILocationWithContractLocation[];
+    }
+    const validLocations = contract.Locations.filter(
+      (loc) => loc.ContractLocation !== undefined,
+    );
+    return validLocations as ILocationWithContractLocation[];
+  }, [contract]);
+
+  const isContractOwned = React.useMemo(() => {
+    if (contract.owner_id === currentUser?.id) {
+      return true;
+    } else {
+      return false;
+    }
+  }, [currentUser, contract.owner_id, contractId]);
+
+  const userBid = React.useMemo(() => {
+    if (isContractOwned) {
+      return null;
+    }
+    return contract.Bids?.find((bid) => bid.user_id === currentUser?.id) ?? null;
+  }, [contract.Bids, currentUser, isContractOwned]);
+
   return (
     <Box
       data-testid="SelectedContractManagerWrapper"
@@ -96,89 +197,128 @@ export const SelectedContractManager: React.FC<unknown> = () => {
             justifyContent: 'center',
             width: '30%',
           }}
-        ></Box>
-        <Box
+        >
+          <UserDisplay userid={contract.owner_id} />
+        </Box>
+        <DigiBox
           data-testid="SelectedContract__OverviewInfoContainer"
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
             width: '70%',
             padding: '1em',
-            borderTop: '2px solid',
-            borderBottom: '2px solid',
-            borderRadius: '5px',
-            borderColor: 'primary.main',
           }}
         >
-          <Box
+          <DigiDisplay
             data-testid="SelectedContract-OverviewInfo__HeaderWrapper"
             sx={{
-              display: 'flex',
               flexDirection: 'row',
               width: '100%',
-              borderRadius: '20px',
-              backgroundColor: 'rgba(14,49,141,.25)',
               px: '1em',
-              justifyContent: 'center',
               py: '.2em',
+              alignItems: 'strech',
             }}
           >
             <Box
               data-testid="SelectedContract-OverviewInfo-Header__TitleWrapper"
               sx={{ display: 'flex', flexDirection: 'row', mr: 'auto' }}
             >
-              <Typography data-testid="SelectedContract__ContractTitle" variant="h4">
-                Title
+              <Typography
+                data-testid="SelectedContract__ContractTitle"
+                variant="h4"
+                noWrap
+                sx={{ fontWeight: 'bold', maxWidth: '100%', cursor: 'default' }}
+              >
+                {contract.title}
               </Typography>
             </Box>
-            <Box data-testid="SelectedContract-OverviewInfo-Header__ContractTypeContainer">
-              <SecurityIcon fontSize="large" color="secondary" />
-              <SalvageIcon fontSize="large" color="secondary" />
+            <Box
+              data-testid="SelectedContract-OverviewInfo-Header__ContractTypeContainer"
+              sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+            >
+              <Tooltip title={archetype}>
+                {options.find((option) => option.archetype === archetype)
+                  ?.archetypeIcon ?? <Typography>???</Typography>}
+              </Tooltip>
             </Box>
-          </Box>
+          </DigiDisplay>
           <Box
             data-testid="SelectedContract-OverviewInfo__BottomWrapper"
             sx={{ display: 'flex', flexDirection: 'row', width: '100%', mt: '.5em' }}
           >
             <Box
-              data-testid="SelectedContract-OverviewInfo-Bottom__StatusChipWrapper"
+              data-testid="SelectedContract-OverviewInfo-Bottom__Status&SubtypeWrapper"
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 width: '25%',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: '10px',
-                backgroundColor: 'rgba(14,49,141,.25)',
+                alignItems: 'space-around',
+                justifyContent: 'space-around',
               }}
             >
-              <Typography sx={{ mb: 'auto' }}>Status</Typography>
-              <Chip
-                data-testid="SelectedContract-OverviewInfo-Bottom-Status__StatusChip"
-                label="Status"
-                color="secondary"
+              <DigiDisplay
+                data-testid="SelectedContract-OverviewInfo-Bottom__StatusChipWrapper"
                 sx={{
-                  p: '1em',
-                  mb: 'auto',
-                  fontWeight: 'bold',
+                  width: '100%',
+                  pb: '.2em',
                 }}
-              />
+              >
+                <Typography
+                  variant="body2"
+                  sx={{ mb: 'auto', fontWeight: 'bold', cursor: 'default' }}
+                >
+                  Status
+                </Typography>
+                <Chip
+                  data-testid="SelectedContract-OverviewInfo-Bottom-Status__StatusChip"
+                  label={
+                    contract.status.charAt(0).toUpperCase() +
+                    contract.status.slice(1).toLowerCase()
+                  }
+                  color={statusColor}
+                  sx={{
+                    fontWeight: 'bold',
+                    cursor: 'default',
+                  }}
+                />
+              </DigiDisplay>
+              <DigiDisplay
+                data-testid="SelectedContract-OverviewInfo-Bottom__SubtypeChipWrapper"
+                sx={{
+                  width: '100%',
+                  pb: '.2em',
+                }}
+              >
+                <Typography
+                  variant="body2"
+                  sx={{ fontWeight: 'bold', mb: 'auto', cursor: 'default' }}
+                >
+                  Contract Subtypes
+                </Typography>
+                <Chip
+                  variant="outlined"
+                  size="medium"
+                  color="secondary"
+                  label={contract.subtype}
+                  icon={
+                    options.find((option) => option.archetype === archetype)
+                      ?.archetypeIcon
+                  }
+                  onClick={handleArchetypeOpen}
+                  sx={{
+                    cursor: 'default',
+                  }}
+                />
+              </DigiDisplay>
             </Box>
-            <Box
+            <DigiDisplay
               data-testid="SelectedContract-OverviewInfo-Bottom__DetailsContainer"
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
                 ml: 'auto',
                 mr: '.5em',
-                backgroundColor: 'rgba(14,49,141,.25)',
-                borderRadius: '10px',
-                alignItems: 'center',
               }}
             >
-              <Typography>Details</Typography>
+              <Typography variant="body2" sx={{ fontWeight: 'bold', cursor: 'default' }}>
+                Details
+              </Typography>
               <Box
                 data-testid="SelectedContract-OverviewInfo-Bottom__DetailsWrapper"
                 sx={{
@@ -197,8 +337,61 @@ export const SelectedContractManager: React.FC<unknown> = () => {
                     ml: 'auto',
                   }}
                 >
-                  <ContractDataField label="PayStructure" value="PayStructure" />
-                  <ContractDataField label="Pay" value="Pay Estimate" />
+                  <TextField
+                    size="small"
+                    label="Pay Structure"
+                    value={
+                      contract.payStructure.charAt(0) +
+                      contract.payStructure.slice(1).toLowerCase()
+                    }
+                    color="secondary"
+                    margin="dense"
+                    inputProps={{
+                      readOnly: true,
+                      sx: {
+                        cursor: 'default',
+                      },
+                    }}
+                    InputProps={{
+                      sx: {
+                        cursor: 'default',
+                      },
+                      endAdornment: (
+                        <InputAdornment
+                          position="end"
+                          onClick={handlePayStructurePopup}
+                          sx={{ cursor: 'pointer' }}
+                        >
+                          <HelpOutline color="secondary" fontSize="small" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <Tooltip title={`¤${contract.defaultPay}`} arrow>
+                    <TextField
+                      size="small"
+                      label="Default Pay"
+                      value={contract.defaultPay}
+                      color="secondary"
+                      margin="dense"
+                      inputProps={{
+                        readOnly: true,
+                        sx: {
+                          cursor: 'default',
+                        },
+                      }}
+                      InputProps={{
+                        sx: {
+                          cursor: 'default',
+                        },
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Typography color="secondary">¤</Typography>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Tooltip>
                 </Box>
                 <Box
                   data-testid="SelectedContract-OverviewInfo-Bottom__TimeInfoWrapper"
@@ -209,13 +402,13 @@ export const SelectedContractManager: React.FC<unknown> = () => {
                     mr: 'auto',
                   }}
                 >
-                  <ContractDataField label="Start" value="Start Date" />
-                  <ContractDataField label="Remaining" value="End Date" />
+                  <ContractDataField label="Start" value={startTime} />
+                  <ContractDataField label="Remaining" value={endTime} />
                 </Box>
               </Box>
-            </Box>
+            </DigiDisplay>
           </Box>
-        </Box>
+        </DigiBox>
       </Box>
       <Box
         data-testid="SelectedContract__BottomBoxWrapper"
@@ -237,230 +430,61 @@ export const SelectedContractManager: React.FC<unknown> = () => {
             alignItems: 'center',
           }}
         >
-          <Box
-            data-testid="SelectedContract__LocationsContainer"
-            sx={{
-              width: '80%',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
-              display: 'flex',
-              flexDirection: 'column',
-              p: '.5em',
-              mb: '1em',
-            }}
-          >
-            <Typography
-              data-testid="SelectedContract-Locations__TitleText"
-              sx={{
-                backgroundColor: 'rgba(14,49,141,.25)',
-                borderRadius: '10px',
-                pl: '1em',
-              }}
-            >
-              Locations
-            </Typography>
-            <Box
-              data-testid="SelectedContract-Locations__StartandEndWrapper"
-              sx={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
-                gap: '.5em',
-                my: '.5em',
-              }}
-            >
-              <Box
-                data-testid="SelectedContract-Locations__StartLocationWrapper"
-                sx={{
-                  width: '40%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  ml: 'auto',
-                  pb: '.3em',
-                  backgroundColor: 'rgba(14,49,141,.25)',
-                  borderRadius: '10px',
-                }}
-              >
-                <Typography>Start Location</Typography>
-                {/* <LocationChip /> */}
-              </Box>
-              <Box
-                data-testid="SelectedContract-Locations__EndLocationWrapper"
-                sx={{
-                  width: '40%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  mr: 'auto',
-                  pb: '.3em',
-                  backgroundColor: 'rgba(14,49,141,.25)',
-                  borderRadius: '10px',
-                }}
-              >
-                <Typography>End Location</Typography>
-                {/* <LocationChip /> */}
-              </Box>
-            </Box>
-            <Box
-              data-testid="SelectedContract-Locations_OtherLocationsContainer"
-              sx={{
-                width: '82%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                backgroundColor: 'rgba(14,49,141,.25)',
-                borderRadius: '10px',
-                pb: '.3em',
-                mx: 'auto',
-              }}
-            >
-              <Typography>Other Locations</Typography>
-              <Box
-                data-testid="SelectedContract-Locations__OtherLocationsWrapper"
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}
-              >
-                {/* <LocationChip /> */}
-              </Box>
-            </Box>
-          </Box>
-          <Box
+          {contract.Locations && <LocationsDisplay locations={contractLocations()} />}
+          <DigiBox
             data-testid="SelectedContract__BriefingWrapper"
             sx={{
               width: '80%',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
-              display: 'flex',
-              flexDirection: 'column',
               p: '.5em',
               mb: '1em',
             }}
           >
-            <Typography
+            <DigiTitle
               data-testid="SelectedContract-Briefing__BriefingTitle"
-              sx={{
-                backgroundColor: 'rgba(14,49,141,.25)',
-                borderRadius: '10px',
-                pl: '1em',
-              }}
+              variant="body2"
             >
               Briefing
-            </Typography>
-            <Box
+            </DigiTitle>
+            <ParagraphWrapper
               data-testid="SelectedContract-Briefing__ContentWrapper"
               sx={{
                 mx: '10%',
                 mt: '.5em',
-                backgroundColor: 'rgba(14,49,141,.25)',
-                borderRadius: '10px',
-                p: '.5em',
                 maxHeight: '100px',
-                overflow: 'auto',
-                '&::-webkit-scrollbar': {
-                  width: '10px',
-                },
-                '&::-webkit-scrollbar-track': {
-                  background: 'rgb(8, 29, 68)',
-                  borderRadius: '20px',
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  borderRadius: '20px',
-                  background: 'rgb(121, 192, 244, .5)',
-                },
+                p: '.5em',
               }}
             >
               <Typography
                 data-testid="SelectedContract-Briefing__ContentText"
-                variant="body2"
+                variant="paragraph"
                 sx={{
-                  textWrap: 'wrap',
-                  whiteSpace: 'normal',
-                  wordBreak: 'break-all',
+                  pl: '.5em',
+                  fontSize: '.85em',
                 }}
               >
-                aslkgdnjrdalkrjngkqanjglpnjagrlnjaldkrjnglainjrglkanjlvkrjnakldfnjvalkdnjflkajndvlkanjdvlknavlkdnjvdlksajnvdlksanjvdlknjalkdvfnjajlkdvnjlakjdnvlkjsfghsdfghdkskjnlsk;nfgksnfdk;lnkgjksjnfgnjskl;fnjgk;dlsjngfl;kjnsdlkgfnjsdkjnfglksjn
+                {contract.briefing}
               </Typography>
-            </Box>
-          </Box>
-          <Box
-            data-testid="SelectedContract__ControllerWrapper"
+            </ParagraphWrapper>
+          </DigiBox>
+          <ControlPanelBox
+            data-testid="SelectedContract__ControllerContainer"
             sx={{
               mt: 'auto',
-              display: 'flex',
-              flexDirection: 'row',
               width: '100%',
-              alignItems: 'center',
-              gap: '.5em',
+              flexDirection: 'column',
             }}
           >
-            <Box
-              data-testid="SelectedContract-Controller__ProcessButtonWrapper"
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                width: '40%',
-                gap: '.5em',
-                ml: 'auto',
-              }}
+            <Typography
+              sx={{ fontWeight: 'bold', color: 'text.secondary', cursor: 'default' }}
             >
-              <Button
-                data-testid="SelectedContract-Controller-Process__StartContractButton"
-                variant="outlined"
-                color="secondary"
-                size="medium"
-                fullWidth
-              >
-                Start Contract
-              </Button>
-              <Button
-                data-testid="SelectedContract-Controller-Process__CompleteContract"
-                variant="outlined"
-                color="success"
-                size="medium"
-                fullWidth
-              >
-                Complete Contract
-              </Button>
-            </Box>
-            <Box
-              data-testid="SelectedContract-Controller__EditButtonWrapper"
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                width: '40%',
-                gap: '.5em',
-                mr: 'auto',
-              }}
-            >
-              <Button
-                data-testid="SelectedContract-Controller-Edit__EditContractButton"
-                variant="outlined"
-                color="info"
-                size="medium"
-                fullWidth
-              >
-                Edit Contract
-              </Button>
-              <Button
-                data-testid="SelectedContract-Controller-Edit__CancelContractButton"
-                variant="outlined"
-                color="error"
-                size="medium"
-                fullWidth
-              >
-                Cancel Contract
-              </Button>
-            </Box>
-          </Box>
+              Contract Controller
+            </Typography>
+            <ContractController
+              contract={contract}
+              userBid={userBid}
+              isOwned={isContractOwned}
+            />
+          </ControlPanelBox>
         </Box>
         <Box
           data-testid="SelectedContract-Bottom__RightBoxWrapper"
@@ -490,24 +514,28 @@ export const SelectedContractManager: React.FC<unknown> = () => {
               }}
             >
               <TabContext value={contractManagerTab}>
-                <TabList
+                <TabListHolo
                   data-testid="SelectedContract-ContractManagement__TabList"
                   onChange={handleContractManageView}
                   indicatorColor="secondary"
                   textColor="secondary"
                   variant="fullWidth"
+                  sx={{
+                    px: '1em',
+                    py: '.2em',
+                  }}
                 >
                   <Tab label="Contractors" value="contractors" />
                   <Tab disabled label="Payroll" value="payroll" />
                   <Tab disabled label="Ships" value="ships" />
-                </TabList>
+                </TabListHolo>
                 <TabPanel
                   value="contractors"
                   sx={{
                     height: '100%',
                   }}
                 >
-                  <ContractorsManager />
+                  <ContractorsManager contract={contract} isOwned={isContractOwned} />
                 </TabPanel>
               </TabContext>
             </Box>

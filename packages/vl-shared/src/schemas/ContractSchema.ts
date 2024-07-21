@@ -12,9 +12,9 @@ export const ContractSchema = z.object({
   title: z.string().max(32).describe("Contract Title"),
   subtype: ContractSubTypeSchema,
   briefing: z.string().max(2048),
-  bidDate: z.coerce.date().optional(),
-  startDate: z.coerce.date().optional(),
-  endDate: z.coerce.date().optional(),
+  bidDate: z.coerce.date().optional().nullable(),
+  startDate: z.coerce.date().optional().nullable(),
+  endDate: z.coerce.date().optional().nullable(),
   isEmergency: z.boolean().default(false),
   ratingLimit: z.number().int().optional(),
   contractorLimit: z.number().int().positive().max(255),
@@ -43,7 +43,6 @@ export type IContractTimestamped = IContract & ITimestamped; // To allow type mi
 export const CreateContractBodySchema = ContractSchema.omit({
   id: true,
   owner_id: true,
-  status: true,
   Locations: true,
 }).extend({
   Locations: z
@@ -51,3 +50,10 @@ export const CreateContractBodySchema = ContractSchema.omit({
     .optional(),
 });
 export type ICreateContractBody = z.infer<typeof CreateContractBodySchema>;
+
+export const UpdateContractSchema = ContractSchema.omit({
+  id: true,
+  owner_id: true,
+  Bids: true,
+  Locations: true,
+});

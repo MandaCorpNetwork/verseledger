@@ -1,0 +1,313 @@
+import { Box, Button, Typography } from '@mui/material';
+import { POPUP_EDIT_CONTRACT } from '@Popups/Contracts/EditContract/EditContract';
+import { useAppDispatch } from '@Redux/hooks';
+import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
+import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContract';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { Logger } from '@Utils/Logger';
+import { enqueueSnackbar } from 'notistack';
+import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+
+type ContractControllerProps = {
+  contract: IContract;
+  userBid: IContractBid | null;
+  isOwned: boolean;
+};
+
+export const ContractController: React.FC<ContractControllerProps> = ({
+  contract,
+  userBid,
+  isOwned,
+}) => {
+  const dispatch = useAppDispatch();
+
+  const handleAcceptInvite = () => {
+    if (!userBid) {
+      return Logger.info('no user bid');
+    }
+    const updatedBid = { status: 'ACCEPTED' as const };
+    dispatch(
+      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
+    ).then((res) => {
+      if (updateBid.fulfilled.match(res)) {
+        enqueueSnackbar('Accepted Invite', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Error Accepting Invite', { variant: 'error' });
+      }
+    });
+  };
+
+  const handleDeclineInvite = () => {
+    if (!userBid) {
+      return Logger.info('no user bid');
+    }
+    const updatedBid = { status: 'DECLINED' as const };
+    dispatch(
+      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
+    ).then((res) => {
+      if (updateBid.fulfilled.match(res)) {
+        enqueueSnackbar('Declined Invite', { variant: 'warning' });
+      } else {
+        enqueueSnackbar('Error Accepting Invite', { variant: 'error' });
+      }
+    });
+  };
+
+  const handleWithdrawBid = () => {
+    if (!userBid) {
+      return Logger.info('no user bid');
+    }
+    const updatedBid = { status: 'EXPIRED' as const };
+    dispatch(
+      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
+    ).then((res) => {
+      if (updateBid.fulfilled.match(res)) {
+        enqueueSnackbar('Resigned from Contract', { variant: 'warning' });
+      } else {
+        enqueueSnackbar('Error Resigning', { variant: 'error' });
+      }
+    });
+  };
+
+  const handleResubmitBid = () => {
+    if (!userBid) {
+      return Logger.info('no user bid');
+    }
+    const updatedBid = { status: 'PENDING' as const };
+    dispatch(
+      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
+    ).then((res) => {
+      if (updateBid.fulfilled.match(res)) {
+        enqueueSnackbar('Bid Resubmitted', { variant: 'warning' });
+      } else {
+        enqueueSnackbar('Error Resubmitting Bid', { variant: 'error' });
+      }
+    });
+  };
+
+  const getUpdatedContractStatus = (contract: Partial<IContract>, status: string) => {
+    return {
+      status,
+      title: contract.title,
+      subtype: contract.subtype,
+      briefing: contract.briefing,
+      contractorLimit: contract.contractorLimit,
+      payStructure: contract.payStructure,
+      defaultPay: contract.defaultPay,
+    };
+  };
+
+  const handleContractStart = () => {
+    if (contract.status === 'BIDDING') {
+      const updatedContract = getUpdatedContractStatus(contract, 'INPROGRESS');
+      dispatch(
+        updateContract({ contractId: contract.id, contractRaw: updatedContract }),
+      ).then((res) => {
+        if (updateContract.fulfilled.match(res)) {
+          enqueueSnackbar('Contract Started', { variant: 'success' });
+        } else {
+          enqueueSnackbar('Error Starting Contract', { variant: 'error' });
+        }
+      });
+    }
+  };
+
+  const handleContractComplete = () => {
+    if (contract.status === 'INPROGRESS') {
+      const updatedContract = getUpdatedContractStatus(contract, 'COMPLETED');
+      dispatch(
+        updateContract({ contractId: contract.id, contractRaw: updatedContract }),
+      ).then((res) => {
+        if (updateContract.fulfilled.match(res)) {
+          enqueueSnackbar('Contract Completed', { variant: 'success' });
+        } else {
+          enqueueSnackbar('Error Completing Contract Contract', { variant: 'error' });
+        }
+      });
+    }
+  };
+
+  const handleContractCancel = () => {
+    if (contract.status !== 'COMPLETE') {
+      const updatedContract = getUpdatedContractStatus(contract, 'CANCELED');
+      dispatch(
+        updateContract({ contractId: contract.id, contractRaw: updatedContract }),
+      ).then((res) => {
+        if (updateContract.fulfilled.match(res)) {
+          enqueueSnackbar('Contract Canceled', { variant: 'warning' });
+        } else {
+          enqueueSnackbar('Error Canceling Contract', { variant: 'error' });
+        }
+      });
+    }
+  };
+
+  const handleEditContract = () => {
+    if (contract.status === 'COMPLETED' || contract.status === 'CANCELED') {
+      return Logger.info('contract is completed or canceled');
+    }
+    dispatch(openPopup(POPUP_EDIT_CONTRACT, { contract: contract }));
+  };
+
+  return (
+    <Box
+      data-testid="SelectedContract-Controller__Controls_Wrapper"
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        width: '100%',
+        alignItems: 'center',
+        gap: '.5em',
+        mb: '.5em',
+        px: '1em',
+      }}
+    >
+      {isOwned && contract.status === 'BIDDING' && (
+        <Button
+          data-testid="SelectedContract-Controller-Process__StartContractButton"
+          variant="outlined"
+          color="secondary"
+          size="medium"
+          fullWidth
+          onClick={handleContractStart}
+        >
+          Start
+        </Button>
+      )}
+      {isOwned && contract.status === 'INPROGRESS' && (
+        <Button
+          data-testid="SelectedContract-Controller-Process__CompleteContract"
+          variant="outlined"
+          color="success"
+          size="medium"
+          fullWidth
+          onClick={handleContractComplete}
+        >
+          Complete
+        </Button>
+      )}
+      {isOwned && contract.status !== 'COMPLETED' && contract.status !== 'CANCELLED' && (
+        <Button
+          data-testid="SelectedContract-Controller-Edit__EditContractButton"
+          variant="outlined"
+          color="info"
+          size="medium"
+          fullWidth
+          onClick={handleEditContract}
+        >
+          Edit
+        </Button>
+      )}
+      {isOwned && contract.status !== 'COMPLETED' && contract.status !== 'CANCELLED' && (
+        <Button
+          data-testid="SelectedContract-Controller-Edit__CancelContractButton"
+          variant="outlined"
+          color="error"
+          size="medium"
+          fullWidth
+          onClick={handleContractCancel}
+        >
+          Cancel
+        </Button>
+      )}
+      {!isOwned && userBid?.status === 'INVITED' && (
+        <Button
+          data-testid="SelectedContract-Controller-Process__AcceptContractButton"
+          variant="outlined"
+          color="success"
+          size="medium"
+          fullWidth
+          onClick={handleAcceptInvite}
+        >
+          Accept
+        </Button>
+      )}
+      {!isOwned && userBid?.status === 'INVITED' && (
+        <Button
+          data-testid="SelectedContract-Controller-Process__AcceptContractButton"
+          variant="outlined"
+          color="error"
+          size="medium"
+          fullWidth
+          onClick={handleDeclineInvite}
+        >
+          Decline
+        </Button>
+      )}
+      {!isOwned && userBid?.status === 'PENDING' && (
+        <Button
+          data-testid="SelectedContract-Controller-Process__AcceptContractButton"
+          variant="outlined"
+          color="warning"
+          size="medium"
+          fullWidth
+          onClick={handleWithdrawBid}
+        >
+          Cancel Bid
+        </Button>
+      )}
+      {!isOwned && userBid?.status === 'ACCEPTED' && (
+        <Button
+          data-testid="SelectedContract-Controller-Process__AcceptContractButton"
+          variant="outlined"
+          color="warning"
+          size="medium"
+          fullWidth
+          onClick={handleWithdrawBid}
+        >
+          Withdraw
+        </Button>
+      )}
+      {!isOwned && userBid?.status === 'REJECTED' && (
+        <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
+          Bid has been Rejected
+        </Typography>
+      )}
+      {!isOwned && userBid?.status === 'DECLINED' && (
+        <>
+          <Button
+            data-testid="SelectedContract-Controller-Process__AcceptContractButton"
+            variant="outlined"
+            color="warning"
+            size="medium"
+            fullWidth
+          >
+            Submit Bid
+          </Button>
+          <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
+            You Declined an Invite. You can submit a new bid if you would like.
+          </Typography>
+        </>
+      )}
+      {!isOwned && userBid?.status === 'EXPIRED' && (
+        <>
+          <Button
+            data-testid="SelectedContract-Controller-Process__ResubmitBid_Button"
+            variant="outlined"
+            color="secondary"
+            size="medium"
+            fullWidth
+            onClick={handleResubmitBid}
+          >
+            Resubmit Bid
+          </Button>
+          <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
+            You are removed from the Active Contractors. Please resubmit a bid.
+          </Typography>
+        </>
+      )}
+      {!isOwned && userBid?.status === null && (
+        <Button
+          data-testid="SelectedContract-Controller-Process__SubmitBidButton"
+          variant="outlined"
+          color="success"
+          size="medium"
+          fullWidth
+        >
+          Submit Bid
+        </Button>
+      )}
+    </Box>
+  );
+};

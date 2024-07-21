@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Logger } from '@Utils/Logger';
 
 import { fetchCheckVerificationCode } from '../Auth/Actions/checkVerificationCode';
 import { fetchCurrentUser } from '../Auth/Actions/fetchCurrentUser';
-import { fetchContracts } from '../Contracts/actions/fetchContracts';
+import { fetchContracts } from '../Contracts/actions/fetch/fetchContracts';
 const usersReducer = createSlice({
   name: 'users',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,15 +19,6 @@ const usersReducer = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase(fetchContracts.fulfilled, (_state, action) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      for (const contract of action.payload as any[]) {
-        console.log('CONTRACT', contract);
-        const owner = contract.Owner;
-        if (owner == null) continue;
-        _state[owner.id as string] = owner;
-      }
-    });
     builder.addCase(fetchCurrentUser.fulfilled, (_state, action) => {
       const currentUser = action.payload as AuthUser;
       _state[currentUser.id] = currentUser;
@@ -34,6 +26,15 @@ const usersReducer = createSlice({
     builder.addCase(fetchCheckVerificationCode.fulfilled, (_state, action) => {
       const currentUser = action.payload as AuthUser;
       _state[currentUser.id] = currentUser;
+    });
+    builder.addCase(fetchContracts.fulfilled, (_state, action) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      for (const contract of action.payload?.data as any[]) {
+        Logger.info('CONTRACT', contract);
+        const owner = contract.Owner;
+        if (owner == null) continue;
+        _state[owner.id as string] = owner;
+      }
     });
   },
 });

@@ -13,10 +13,11 @@ import { TextFieldProps } from '@mui/material/TextField';
 import { useAppDispatch } from '@Redux/hooks';
 import { fetchSearchUsers } from '@Redux/Slices/Users/Actions/fetchSearchUsers';
 import React from 'react';
+import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 interface UserSearchProps extends Pick<TextFieldProps, 'color' | 'size' | 'variant'> {
   width?: string;
-  onUserSelect: (selectedUser: User | null) => void;
+  onUserSelect: (selectedUser: IUser | null) => void;
 }
 
 export const UserSearch: React.FC<UserSearchProps> = ({

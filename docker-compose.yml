@@ -20,7 +20,7 @@ services:
     container_name: vl-db
     profiles:
       - local
-    image: mysql:latest
+    image: mysql:8.4
     command: --mysql-native-password=ON
     environment:
       MYSQL_DATABASE: 'verseledger-app'
@@ -58,11 +58,3 @@ services:
     restart: always
     ports:
       - 8181:8080
-  vl-phpmyadmin:
-    container_name: vl-phpmyadmin
-    profiles:
-      - local
-    image: phpmyadmin
-    restart: always
-    ports:
-      - 8282:80

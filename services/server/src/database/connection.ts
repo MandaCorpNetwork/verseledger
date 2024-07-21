@@ -1,4 +1,7 @@
+import { Logger } from '@/utils/Logger';
 import { Sequelize } from 'sequelize-typescript';
+import chalk from 'chalk';
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupModels = (env: {
   MYSQL_DATABASE: string;
@@ -16,12 +19,12 @@ export const setupModels = (env: {
     port: Number(env.MYSQL_PORT),
     models: [`${__dirname}/models/**/*.model.ts`],
     modelMatch(a, b) {
-      console.log(`Loading \x1b[33m${b}\x1b[0m from ${a}`);
+      Logger.info(`Loading ${chalk.yellow(b)} from ${chalk.grey(a)}`);
       return true;
     },
     benchmark: true,
     logging(sql) {
-      console.info(sql);
+      Logger.withType(chalk.bold.bgGreen('[SQL]'), sql);
       return;
     },
   });

@@ -14,7 +14,7 @@ export class LocationDTO extends DTOBase<ILocation> implements ILocation {
     this.mapProperties($b);
   }
 
-  _type = 'Location';
+  __type = 'Location';
 
   @ApiModelProperty({
     description: 'Name of Location',

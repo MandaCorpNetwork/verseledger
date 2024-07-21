@@ -13,6 +13,7 @@
     "@mui/x-charts": "7.11.0",
     "@mui/x-data-grid": "7.11.0",
     "@mui/x-date-pickers": "7.11.0",
+    "@react-three/fiber": "^8.16.8",
     "@reduxjs/toolkit": "2.2.6",
     "@types/swagger-ui-react": "^4.18.3",
     "axios": "1.7.2",
@@ -32,6 +33,7 @@
     "redux-logger": "3.0.6",
     "redux-thunk": "3.1.0",
     "swagger-ui-react": "^5.17.14",
+    "three": "^0.166.1",
     "vite-plugin-node-polyfills": "0.22.0",
     "vite-tsconfig-paths": "4.3.2"
   },
@@ -43,7 +45,7 @@
     "lint:format": "prettier ./src --write",
     "lint:check": "tsc --noEmit && npx eslint ./src",
     "build": "vite build",
-    "serve": "vite serve"
+    "serve": "vite preview --host -l info"
   },
   "browserslist": {
     "production": [
