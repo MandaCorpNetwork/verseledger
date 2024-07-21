@@ -26,6 +26,10 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
   const acceptedBids = contractors?.filter((bid) => bid.status === 'ACCEPTED');
   const pendingBids = contractors?.filter((bid) => bid.status === 'PENDING');
 
+  const contractorViewableList = contractors?.filter((bid) =>
+    ['ACCEPTED', 'WITHDRAWN', 'INVITED'].includes(bid.status),
+  );
+
   return (
     <Box
       data-testid="SelectedContract-ContractManagement__ContractorsTabWrapper"
@@ -155,7 +159,7 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
             />
           ))}
         {!isOwned &&
-          acceptedBids?.map((contractor) => (
+          contractorViewableList?.map((contractor) => (
             <Contractor
               key={contractor.id}
               bid={contractor}
