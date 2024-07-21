@@ -4,6 +4,7 @@ import { UserChip } from '@Common/Components/Chips/UserChip';
 import { Box, Button, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
+import { enqueueSnackbar } from 'notistack';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
@@ -25,33 +26,63 @@ export const Contractor: React.FC<ContractorProps> = ({
     const updatedBid = { status: 'ACCEPTED' as const };
     dispatch(
       updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
-    );
+    ).then((res) => {
+      if (updateBid.fulfilled.match(res)) {
+        enqueueSnackbar('Accepted Bid', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Error Accepting Bid', { variant: 'error' });
+      }
+    });
   };
   const handleReject = () => {
     const updatedBid = { status: 'REJECTED' as const };
     dispatch(
       updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
-    );
+    ).then((res) => {
+      if (updateBid.fulfilled.match(res)) {
+        enqueueSnackbar('Rejected Bid', { variant: 'warning' });
+      } else {
+        enqueueSnackbar('Error Rejecting Invite', { variant: 'error' });
+      }
+    });
   };
   const handleDismiss = () => {
     const updatedBid = { status: 'EXPIRED' as const };
     dispatch(
       updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
-    );
+    ).then((res) => {
+      if (updateBid.fulfilled.match(res)) {
+        enqueueSnackbar('Contractor Dismissed', { variant: 'warning' });
+      } else {
+        enqueueSnackbar('Error Dismissing Contractor', { variant: 'error' });
+      }
+    });
   };
 
   const handleInvite = () => {
     const updatedBid = { status: 'INVITED' as const };
     dispatch(
       updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
-    );
+    ).then((res) => {
+      if (updateBid.fulfilled.match(res)) {
+        enqueueSnackbar('Contractor Invited', { variant: 'default' });
+      } else {
+        enqueueSnackbar('Error Sending Invite', { variant: 'error' });
+      }
+    });
   };
 
   const handleCancelInvite = () => {
     const updatedBid = { status: 'EXPIRED' as const };
     dispatch(
       updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
-    );
+    ).then((res) => {
+      if (updateBid.fulfilled.match(res)) {
+        enqueueSnackbar('Canceled Invite', { variant: 'warning' });
+      } else {
+        enqueueSnackbar('Error Canceling Invite', { variant: 'error' });
+      }
+    });
   };
 
   return (
