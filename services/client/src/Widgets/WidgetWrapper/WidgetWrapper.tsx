@@ -1,5 +1,8 @@
-import { Box } from '@mui/material';
+import WidgetTitleBar from '@Common/Components/Boxes/WidgetTitleBar';
+import { CallToAction, Close, Minimize } from '@mui/icons-material';
+import { Box, Collapse, IconButton, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { closeWidget } from '@Redux/Slices/Widgets/widgets.actions';
 import { actions } from '@Redux/Slices/Widgets/widgets.reducer';
 import { selectWidgetPosition } from '@Redux/Slices/Widgets/widgets.selectors';
 import { Logger } from '@Utils/Logger';
@@ -12,11 +15,15 @@ type VLWidgetProps = PropsWithChildren<{
   name: string;
   ['data-testid']?: string;
   title: string;
+  onClose?: () => void;
 }>;
 
 const VLWidgetComponent: React.FC<VLWidgetProps> = (props) => {
-  const { children, 'data-testid': testid = 'tool', name, title } = props;
+  const { children, 'data-testid': testid = 'tool', name, title, onClose } = props;
   const dispatch = useAppDispatch();
+  const onCloseDefault = React.useCallback(() => {
+    dispatch(closeWidget(name));
+  }, []);
   const widgetPosition = useAppSelector((state) => selectWidgetPosition(state, name));
 
   const widgetRef = React.useRef<HTMLDivElement | null>(null);
@@ -45,6 +52,11 @@ const VLWidgetComponent: React.FC<VLWidgetProps> = (props) => {
   );
 
   drag(widgetRef);
+  const [isExpanded, setIsExpanded] = React.useState(true);
+
+  const handleExpand = React.useCallback(() => {
+    setIsExpanded((prev) => !prev);
+  }, []);
 
   return (
     <Box
@@ -56,22 +68,56 @@ const VLWidgetComponent: React.FC<VLWidgetProps> = (props) => {
         position: 'absolute',
         top: widgetPosition.y,
         left: widgetPosition.x,
-        zIndex: 50,
+        zIndex: 25,
         opacity: isDragging ? 0.5 : 1,
-        backgroundColor: 'red',
-        p: '.5rem',
+        minWidth: '200px',
+        borderRadius: '5px',
+        transition: 'top 0.1s ease-in, left 0.1s ease-in',
       }}
     >
-      <Box
-        data-testid={`VLWidget__${testid}__ViewControl`}
+      <WidgetTitleBar
+        data-testid={`VLWidget__${testid}__TitleBar`}
         sx={{
-          display: 'flex',
-          flexDirection: 'row',
+          px: '.5em',
         }}
       >
-        {title}
-      </Box>
-      <Box>{children}</Box>
+        <Typography sx={{ color: 'secondary.main', textShadow: '0 2px 4px rgba(0,0,0)' }}>
+          {title}
+        </Typography>
+        <Box
+          data-testid={`VLWidget__${testid}__WidgetViewControl_Wrapper`}
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <IconButton size="small" onClick={handleExpand}>
+            {isExpanded ? (
+              <Minimize fontSize="small" />
+            ) : (
+              <CallToAction fontSize="small" color="action" />
+            )}
+          </IconButton>
+          <IconButton size="small" onClick={onClose ?? onCloseDefault}>
+            <Close fontSize="small" />
+          </IconButton>
+        </Box>
+      </WidgetTitleBar>
+      <Collapse
+        in={isExpanded}
+        sx={{
+          backgroundColor: 'rgba(8,22,80)',
+          mx: '.2em',
+          borderBottomLeftRadius: '5px',
+          borderBottomRightRadius: '5px',
+          boxShadow: '0 0 10px 2px rgba(0,0,0,.4)',
+          zIndex: 26,
+        }}
+      >
+        {children}
+      </Collapse>
     </Box>
   );
 };

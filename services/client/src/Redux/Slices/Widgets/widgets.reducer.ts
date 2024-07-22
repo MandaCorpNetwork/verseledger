@@ -29,13 +29,13 @@ const widgetsReducer = createSlice({
       .addCase(openWidget, (state, action) => {
         state[action.payload.name] = {
           ...action.payload.state,
-          position: { x: 0, y: 0 },
+          position: { x: 0, y: window.innerHeight - 100 },
         };
       })
       .addCase(closeWidget, (state, action) => {
         state[action.payload.name] = {
           ...action.payload.state,
-          position: { x: 0, y: 0 },
+          position: { x: 0, y: window.innerHeight - 100 },
         };
       })
       .addMatcher(
@@ -43,7 +43,11 @@ const widgetsReducer = createSlice({
         (state, action) => {
           const wName = action.type.split('/fulfilled')[0];
           if (state[wName] != undefined) {
-            state[wName] = { open: false, props: {}, position: { x: 0, y: 0 } };
+            state[wName] = {
+              open: false,
+              props: {},
+              position: { x: 0, y: window.innerHeight - 100 },
+            };
           }
         },
       );
