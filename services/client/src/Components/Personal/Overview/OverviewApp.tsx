@@ -1,28 +1,30 @@
 import { PowerSettingsNew, Sync } from '@mui/icons-material';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
-import { useAppSelector } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
-import React, { useState } from 'react';
+import { closeWidget, openWidget } from '@Redux/Slices/Widgets/widgets.actions';
+import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
+import { useRadioController } from '@/AudioProvider';
 import { LocationExplorerTool } from '@/Components/Personal/Overview/LocationExplorerTool';
 //import { ActiveToolsOverview } from '@/Components/Personal/Overview/ActiveTools';
 import { OverviewNotification } from '@/Components/Personal/Overview/NotificationTool';
-import { RadioFrequenciesTool } from '@/Components/Personal/Overview/RadioFrequenciesTool';
+import { RadioStationApp } from '@/Components/Personal/Overview/RadioStationApp';
+import { WIDGET_RADIO } from '@/Widgets/Radio/Radio';
 
 export const OverviewApp: React.FC<unknown> = () => {
-  const [radioOff, setRadioOff] = useState<boolean>(true);
-
-  const RadioIcon = () => {
-    if (!radioOff) {
-      return <PowerSettingsNew color="success" fontSize="large" />;
-    } else {
-      return <PowerSettingsNew color="error" fontSize="large" />;
-    }
-  };
+  const { isPlaying, play, pause } = useRadioController();
+  const dispatch = useAppDispatch();
 
   const toggleRadio = () => {
-    setRadioOff(!radioOff);
+    if (isPlaying) {
+      pause();
+      dispatch(closeWidget(WIDGET_RADIO));
+    } else {
+      play();
+      dispatch(openWidget(WIDGET_RADIO));
+    }
   };
 
   const currentLocation = useAppSelector(selectUserLocation);
@@ -169,8 +171,11 @@ export const OverviewApp: React.FC<unknown> = () => {
             <Box data-testid="RadioFrequenciesToolTitle">
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Typography variant="h6">Radio Stations</Typography>
-                <IconButton disabled onClick={toggleRadio} sx={{ ml: 'auto' }}>
-                  <RadioIcon />
+                <IconButton onClick={toggleRadio} sx={{ ml: 'auto' }}>
+                  <PowerSettingsNew
+                    color={isPlaying ? 'success' : 'error'}
+                    fontSize="large"
+                  />
                 </IconButton>
               </Box>
             </Box>
@@ -183,7 +188,7 @@ export const OverviewApp: React.FC<unknown> = () => {
                 flexGrow: 1,
               }}
             >
-              <RadioFrequenciesTool isDisabled={radioOff} />
+              <RadioStationApp isDisabled={!isPlaying} />
             </Box>
           </Box>
         </Box>

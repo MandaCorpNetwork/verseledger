@@ -85,6 +85,11 @@ export const Contractors: React.FC<{
   };
 
   const filterNumericInput = (input: string) => {
+    const invalidCharacters = input.match(/\D+/g);
+
+    if (invalidCharacters) {
+      enqueueSnackbar('Please only use numbers', { variant: 'error' });
+    }
     // Filter out non-numeric characters
     return input.replace(/[^\d]/g, '');
   };

@@ -8,6 +8,7 @@ import {
 } from '@Common/Definitions/CustomIcons';
 import {
   AddCircle,
+  EditNote,
   Explore,
   Factory,
   KeyboardDoubleArrowRight,
@@ -204,19 +205,26 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
               mt: '3em',
             }}
           >
-            <Tooltip title="Create Contract" placement="right">
-              <Slide
-                direction="right"
-                in={!isExpanded}
-                mountOnEnter
-                unmountOnExit
-                timeout={{ enter: 800, exit: 300 }}
-              >
-                <IconButton onClick={openCreateContract}>
-                  <AddCircle fontSize="large" />
-                </IconButton>
-              </Slide>
-            </Tooltip>
+            <Slide
+              direction="right"
+              in={!isExpanded}
+              mountOnEnter
+              unmountOnExit
+              timeout={{ enter: 800, exit: 300 }}
+            >
+              <Box>
+                <Tooltip title="Create Contract" placement="right">
+                  <IconButton onClick={openCreateContract}>
+                    <AddCircle fontSize="large" />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Manage Contracts" placement="right">
+                  <IconButton onClick={() => navigate('/ledger/personal')}>
+                    <EditNote fontSize="large" />
+                  </IconButton>
+                </Tooltip>
+              </Box>
+            </Slide>
             <Grow
               data-testid="ContractLedger-ColumnOne__QuickNavSlide"
               in={isExpanded}

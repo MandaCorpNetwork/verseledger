@@ -1,5 +1,6 @@
-import './RadioFrequencies.css';
+import '@Assets/Css/RadioStationApp.css';
 
+import DigiBox from '@Common/Components/Boxes/DigiBox';
 import {
   Language,
   SkipNext,
@@ -10,24 +11,31 @@ import {
   VolumeUp,
 } from '@mui/icons-material';
 import { Box, Button, IconButton, Slider, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import scrollSlider from '@Utils/Hooks/scrollSlider';
+import React, { useRef } from 'react';
 
-type RadioFrequenciesProps = {
+import { useRadioController } from '@/AudioProvider';
+
+type RadioStationAppProps = {
   isDisabled: boolean;
 };
 
-export const RadioFrequenciesTool: React.FC<RadioFrequenciesProps> = ({ isDisabled }) => {
-  const [volume, setVolume] = useState<number>(30);
-  const [isMuted, setIsMuted] = useState<boolean>(false);
+export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) => {
+  const {
+    nextStation,
+    previousStation,
+    currentStation,
+    volume,
+    setVolume,
+    isMuted,
+    toggleMute,
+  } = useRadioController();
+  const sliderRef = useRef<HTMLDivElement>(null);
+  scrollSlider(sliderRef, (newValue) => setVolume(newValue), volume);
 
   const handleVolumeChange = (_: Event, value: number | number[]) => {
     const newVolume = Array.isArray(value) ? value[0] : value;
     setVolume(newVolume);
-  };
-
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
-    setVolume(isMuted ? 30 : 0);
   };
 
   const VolumeIcon = () => {
@@ -42,39 +50,11 @@ export const RadioFrequenciesTool: React.FC<RadioFrequenciesProps> = ({ isDisabl
     }
   };
   return (
-    <Box
+    <DigiBox
       data-id="RadioFrequenciesToolFunctionContainer"
       sx={{
-        bgcolor: 'rgb(6, 86, 145, .15)',
-        borderRadius: '5px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
         mt: '.5em',
         opacity: isDisabled ? '0.5' : '1',
-        borderTop: '2px solid',
-        borderBottom: '2px solid',
-        borderColor: 'primary.main',
-        borderLeft: '1px solid rgba(14,49,141,0.5)',
-        borderRight: '1px solid rgba(14,49,141,0.5)',
-        boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-        position: 'relative',
-        '&:before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          bottom: 0,
-          right: 0,
-          left: 0,
-          background:
-            'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-          opacity: 0.6,
-          backdropFilter: 'blur(10px)',
-          zIndex: -1,
-          backgroundImage: 'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-          backgroundSize: '100% 2px',
-        },
       }}
     >
       <Box
@@ -86,14 +66,18 @@ export const RadioFrequenciesTool: React.FC<RadioFrequenciesProps> = ({ isDisabl
           gap: '1em',
         }}
       >
-        <IconButton disabled={isDisabled}>
+        <IconButton disabled={isDisabled} onClick={previousStation}>
           <SkipPrevious fontSize="large" />
         </IconButton>
-        <Typography>Current Station</Typography>
+        <Typography>{currentStation.name}</Typography>
         <Button
           variant="outlined"
           color="secondary"
           size="small"
+          component="a"
+          href={currentStation.link}
+          target="_blank"
+          rel="noopener noreferrer"
           disabled={isDisabled}
           startIcon={<Language />}
         >
@@ -120,12 +104,13 @@ export const RadioFrequenciesTool: React.FC<RadioFrequenciesProps> = ({ isDisabl
             Now Playing Track
           </Box>
         </Typography>
-        <IconButton disabled={isDisabled}>
+        <IconButton disabled={isDisabled} onClick={nextStation}>
           <SkipNext fontSize="large" />
         </IconButton>
       </Box>
       <Box
         data-id="RadioFrequenciesVolumeControl"
+        ref={sliderRef}
         sx={{ display: 'flex', alignItems: 'center', gap: '.5em' }}
       >
         <IconButton onClick={toggleMute} disabled={isDisabled}>
@@ -139,6 +124,6 @@ export const RadioFrequenciesTool: React.FC<RadioFrequenciesProps> = ({ isDisabl
           sx={{ width: '10em' }}
         />
       </Box>
-    </Box>
+    </DigiBox>
   );
 };

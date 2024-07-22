@@ -36,7 +36,7 @@ export const verseOSTheme = createTheme({
       //default: 'white', //Theme Test Switch
     },
     primary: {
-      main: 'rgb(14, 49, 141)',
+      main: 'rgb(14, 35, 141)',
       dark: 'rgb(8, 22, 80)',
       light: 'rgb(33, 150, 243)',
     },
