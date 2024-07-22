@@ -5,11 +5,11 @@ const WidgetTitleBar = styled(Box)({
   flexDirection: 'row',
   backgroundColor: 'rgba(14,35,141)',
   justifyContent: 'space-between',
-  boxShadow: '0 4px 4px rgba(0,0,0,.4)',
+  boxShadow: '0 4px 8px rgba(0,0,0,.7), 0 0 10px 2px rgba(0,0,0,0.3)',
   borderRadius: '5px',
   alignItems: 'center',
   zIndex: 27,
-  border: '1px solid rgba(8,22,80,.5)',
+  border: '1px solid rgba(33,150,243,.3)',
 });
 
 export default WidgetTitleBar;

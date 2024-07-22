@@ -22,8 +22,17 @@ import { VLWidget } from '../WidgetWrapper/WidgetWrapper';
 export const WIDGET_RADIO = 'radio';
 
 export const RadioWidget: React.FC = () => {
-  const { isPlaying, pause, currentStation, volume, setVolume, isMuted, toggleMute } =
-    useRadioController();
+  const {
+    isPlaying,
+    pause,
+    currentStation,
+    volume,
+    setVolume,
+    isMuted,
+    toggleMute,
+    nextStation,
+    previousStation,
+  } = useRadioController();
   const dispatch = useAppDispatch();
 
   const handleClose = () => {
@@ -87,7 +96,7 @@ export const RadioWidget: React.FC = () => {
             gap: '.5em',
           }}
         >
-          <IconButton size="small">
+          <IconButton size="small" onClick={previousStation}>
             <SkipPrevious fontSize="small" />
           </IconButton>
           <Typography
@@ -121,7 +130,7 @@ export const RadioWidget: React.FC = () => {
               }}
             >{`[${currentStation.name}] - Unknown Track`}</Box>
           </Typography>
-          <IconButton size="small">
+          <IconButton size="small" onClick={nextStation}>
             <SkipNext fontSize="small" />
           </IconButton>
         </Box>
