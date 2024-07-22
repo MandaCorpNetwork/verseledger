@@ -79,6 +79,8 @@ const VLWidgetComponent: React.FC<VLWidgetProps> = (props) => {
         data-testid={`VLWidget__${testid}__TitleBar`}
         sx={{
           px: '.5em',
+          opacity: isExpanded ? 1 : 0.8,
+          backdropFilter: 'blur(20px)',
         }}
       >
         <Typography sx={{ color: 'secondary.main', textShadow: '0 2px 4px rgba(0,0,0)' }}>
