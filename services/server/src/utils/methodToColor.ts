@@ -1,4 +1,15 @@
 import chalk from 'chalk';
+import colorConvert from 'color-convert';
+
+const K = (name: Parameters<(typeof colorConvert)['keyword']['rgb']>[0]) => {
+  const rgb = colorConvert.keyword.rgb(name[0] as 'blue') as [
+    number,
+    number,
+    number,
+  ];
+  return rgb;
+};
+
 export const methodToColor = (method: string) => {
   switch (method) {
     case 'GET': {
@@ -11,7 +22,7 @@ export const methodToColor = (method: string) => {
       return chalk.bold.blue('PUT');
     }
     case 'PATCH': {
-      return chalk.bold.keyword('purple')('PATCH');
+      return chalk.bold.rgb(...K('purple'))('PATCH');
     }
     case 'DELETE': {
       return chalk.bold.red('DELETE');
