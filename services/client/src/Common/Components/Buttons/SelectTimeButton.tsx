@@ -107,7 +107,7 @@ export const SelectTimeButton: React.FC<SelectTimeProps> = ({
               />
               <div>
                 <Typography variant="tip" align="center" sx={{ px: '1em', mb: '1em' }}>
-                  Times are in User&apos;s Local Time
+                  Times are in Your Local Time
                 </Typography>
               </div>
             </Box>
