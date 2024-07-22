@@ -76,7 +76,9 @@ export class AuthController extends BaseHttpController {
       client_secret: env.DISCORD_CLIENT_SECRET,
       grant_type: 'authorization_code',
       code: reqBody.code,
-      redirect_uri: 'http://localhost:3000/oauth/discord/callback',
+      //TODO: Wire up mode - STAGING
+      //redirect_uri: 'https://stg.verseledger.net/oauth/discord/callback',
+      redirect_uri: `http://localhost:3000/oauth/discord/callback`,
       scope: 'identify',
     });
     const user = await fetch('https://discord.com/api/v10/oauth2/token', {

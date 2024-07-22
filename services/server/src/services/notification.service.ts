@@ -30,6 +30,8 @@ export class NotificationService {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async publish(destination: string, body: Record<any, any> | string) {
+    //TODO: Wire up mode - STAGING
+    //return false
     return this.stomp.client.publish({
       destination,
       body: JSON.stringify(body),
