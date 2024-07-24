@@ -2,7 +2,7 @@ import {
   ContractBidProps,
   POPUP_SUBMIT_CONTRACT_BID,
   SubmitContractBid,
-} from '@Popups/Contracts/ContractBid';
+} from '@Popups/Contracts/ContractBids/ContractBid';
 import {
   CreateContractPopup,
   POPUP_CREATE_CONTRACT,
