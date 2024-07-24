@@ -1,21 +1,11 @@
+import DigiBox from '@Common/Components/Boxes/DigiBox';
+import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
-import {
-  FleetIcon,
-  LogisticsIcon,
-  RRRIcon,
-  SalvageIcon,
-  SecurityIcon,
-} from '@Common/Definitions/CustomIcons';
-import {
-  ArrowLeft,
-  ArrowRight,
-  Explore,
-  Factory,
-  HelpOutline,
-  LocalHospital,
-  VisibilityOff,
-} from '@mui/icons-material';
+import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
+import { ArrowLeft, ArrowRight, HelpOutline } from '@mui/icons-material';
 import {
   Box,
   Chip,
@@ -34,203 +24,29 @@ import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
-const options = [
-  {
-    archetype: 'Logistics',
-    archetypeIcon: <LogisticsIcon color="secondary" />,
-    subTypes: [
-      {
-        label: 'Transport',
-        value: 'Transport',
-      },
-      {
-        label: 'Hauling',
-        value: 'Hauling',
-      },
-      {
-        label: 'Manage',
-        value: 'Manage',
-      },
-    ],
-  },
-  {
-    archetype: 'Medical',
-    archetypeIcon: <LocalHospital color="secondary" />,
-    subTypes: [
-      {
-        label: 'Trauma',
-        value: 'Trauma',
-      },
-      {
-        label: 'On-Call',
-        value: 'On-Call',
-      },
-    ],
-  },
-  {
-    archetype: 'Security',
-    archetypeIcon: <SecurityIcon color="secondary" />,
-    subTypes: [
-      {
-        label: 'Escort',
-        value: 'Escort',
-      },
-      {
-        label: 'Bounty',
-        value: 'Bounty',
-      },
-      {
-        label: 'Quick Reaction Force',
-        value: 'QRF',
-      },
-      {
-        label: 'Asset Protection',
-        value: 'Asset-Protection',
-      },
-      {
-        label: 'Attache',
-        value: 'Attache',
-      },
-    ],
-  },
-  {
-    archetype: 'Salvage',
-    archetypeIcon: <SalvageIcon color="secondary" />,
-    subTypes: [
-      {
-        label: 'Collection',
-        value: 'Collection',
-      },
-      {
-        label: 'Procurement',
-        value: 'Procurement',
-      },
-    ],
-  },
-  {
-    archetype: 'Industry',
-    archetypeIcon: <Factory color="secondary" />,
-    subTypes: [
-      {
-        label: 'Mining',
-        value: 'Mining',
-      },
-      {
-        label: 'Refining',
-        value: 'Refining',
-      },
-      {
-        label: 'Manufacturing',
-        value: 'Manufacturing',
-      },
-      {
-        label: 'Scouting',
-        value: 'Scouting',
-      },
-    ],
-  },
-  {
-    archetype: 'RRR',
-    archetypeIcon: <RRRIcon color="secondary" />,
-    subTypes: [
-      {
-        label: 'Refuel',
-        value: 'Refuel',
-      },
-      {
-        label: 'Rearm',
-        value: 'Rearm',
-      },
-      {
-        label: 'Repair',
-        value: 'Repair',
-      },
-    ],
-  },
-  {
-    archetype: 'Fleet',
-    archetypeIcon: <FleetIcon color="secondary" />,
-    subTypes: [
-      {
-        label: 'Crewman',
-        value: 'Crewman',
-      },
-      {
-        label: 'Outsourcing',
-        value: 'Outsourcing',
-      },
-    ],
-  },
-  {
-    archetype: 'Exploration',
-    archetypeIcon: <Explore color="secondary" />,
-    subTypes: [
-      {
-        label: 'Locate',
-        value: 'Locate',
-      },
-      {
-        label: 'Charting',
-        value: 'Charting',
-      },
-    ],
-  },
-  {
-    archetype: 'Proxy',
-    archetypeIcon: <VisibilityOff color="secondary" />,
-    subTypes: [
-      {
-        label: 'Middleman',
-        value: 'Middleman',
-      },
-      {
-        label: 'Redacted',
-        value: 'Redacted',
-      },
-    ],
-  },
-];
-
+// Define Popup Name
 export const POPUP_SUBMIT_CONTRACT_BID = 'submitContractBid';
 
+// Props to Pass in Contract Object
 export type ContractBidProps = {
   contract: IContract;
 };
 
 export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
-  const [negotiateForm] = React.useState<Array<unknown> | null>(null);
+  // State for the Negotiation Form
+  // TODO: NEED SCHEMA FOR FORMDATA
+  const [negotiateFormData, setNeotiateFormData] = React.useState<Array<unknown> | null>(
+    null,
+  );
   const dispatch = useAppDispatch();
 
-  const archetypeObj = options.find((option) =>
-    option.subTypes.some((subType) => subType.label === contract.subtype),
-  );
-
-  const handleArchetypeOpen = () => {
-    dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetypeObj?.archetype }));
-  };
-
+  // Handler to open PayStructure Info Popup
   const handlePayStructurePopup = () => {
     dispatch(openPopup(POPUP_PAY_STRUCTURES));
   };
 
-  const statusChipColor = React.useCallback(() => {
-    if (contract.status == 'BIDDING') {
-      return 'secondary';
-    } else if (contract.status == 'STARTED') {
-      return 'info';
-    } else if (contract.status == 'COMPLETE') {
-      return 'success';
-    } else if (contract.status == 'CANCELED') {
-      return 'error';
-    } else {
-      return 'primary';
-    }
-  }, [contract.status]);
-
-  const statusColor = statusChipColor();
-
   const handleSubmitBid = React.useCallback(() => {
-    if (negotiateForm == null) {
+    if (negotiateFormData == null) {
       dispatch(postContractBid(contract.id));
     }
     dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
@@ -249,13 +65,15 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
         <Box data-testid="ContractBid-UserDisplay__Wrapper">
           <UserDisplay userid={contract.owner_id} />
         </Box>
-        <Box
-          data-testid="ContractBid-ContractDetails__Wrapper"
-          sx={{ display: 'flex', flexDirection: 'column' }}
-        >
+        <DigiBox data-testid="ContractBid-ContractDetails__Wrapper" sx={{ p: '.5em' }}>
           <Typography
             data-testid="ContractBid-ContractDetails__Title"
-            sx={{ fontSize: '1.2em', fontWeight: 'bold', color: 'secondary.main' }}
+            sx={{
+              fontSize: '1.2em',
+              fontWeight: 'bold',
+              color: 'secondary.main',
+              cursor: 'default',
+            }}
           >
             Contract Details
           </Typography>
@@ -265,20 +83,21 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-around',
+              my: '.5em',
             }}
           >
-            <Box
+            <DigiDisplay
               data-testid="ContractBid-ContractDetails__ContractTypeWrapper"
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
+                px: '1em',
+                pb: '.5em',
               }}
             >
               <Typography
                 data-testid="ContractBid-ContractDetails__ContractTypeTitle"
                 align="center"
                 variant="body2"
-                sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+                sx={{ fontWeight: 'bold', color: 'text.secondary', cursor: 'default' }}
               >
                 Contract Type
               </Typography>
@@ -286,26 +105,18 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                 data-testid="ContractBid-ContractDetails-ContractType__SubtypeChipWrapper"
                 sx={{ mx: 'auto', mt: '.2em' }}
               >
-                <Chip
-                  data-testid="ContractBid-ContractDetails-ContractType__SubtypeChip"
-                  label={contract.subtype}
-                  icon={archetypeObj ? archetypeObj.archetypeIcon : undefined}
-                  variant="outlined"
-                  size="small"
-                  color="secondary"
-                  onClick={handleArchetypeOpen}
-                />
+                <SubtypeChip subtype={contract.subtype} />
               </Box>
-            </Box>
-            <Box
+            </DigiDisplay>
+            <DigiDisplay
               data-testid="ContractBid-ContractDetails__ContractStatusWrapper"
-              sx={{ display: 'flex', flexDirection: 'column' }}
+              sx={{ px: '1em', pb: '.5em' }}
             >
               <Typography
                 data-testid="ContractBid-ContractDetails__ContractStatusTitle"
                 align="center"
                 variant="body2"
-                sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+                sx={{ fontWeight: 'bold', color: 'text.secondary', cursor: 'default' }}
               >
                 Contract Status
               </Typography>
@@ -313,20 +124,13 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                 data-testid="ContractBid-ContractDetails-ContractStatus__ChipWrapper"
                 sx={{ mx: 'auto', mt: '.2em' }}
               >
-                <Chip
-                  data-testid="ContractBid-ContractDetails-ContractStatus__StatusChip"
-                  label={
-                    contract.status.charAt(0) + contract.status.slice(1).toLowerCase()
-                  }
-                  color={statusColor}
-                  size="small"
-                />
+                <ContractStatusChip status={contract.status} />
               </Box>
-            </Box>
+            </DigiDisplay>
           </Box>
-          <Box
+          <DigiDisplay
             data-testid="ContractBid-ContractDetails__BriefingWrapper"
-            sx={{ display: 'flex', flexDirection: 'column', mt: '.5em', px: '1em' }}
+            sx={{ mt: '.5em', px: '1em' }}
           >
             <Typography
               data-testid="ContractBid-ContractDetails__BriefingTitle"
@@ -367,16 +171,16 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                 {contract.briefing}
               </Typography>
             </Box>
-          </Box>
-        </Box>
+          </DigiDisplay>
+        </DigiBox>
         <Divider
           data-testid="ContractBid-StaticVsDynamic__Divider"
           sx={{ my: '1em', width: '75%', mx: 'auto' }}
         />
         {contract.isBargaining ? (
-          <Box
+          <DigiBox
             data-testid="ContractBid-ContractorInfo__StaticWrapper"
-            sx={{ display: 'flex', flexDirection: 'column' }}
+            sx={{ p: '.5em' }}
           >
             <Typography
               data-testid="ContractBid-ContractorInfo-Static__Title"
@@ -687,7 +491,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                 </Box>
               </Box>
             </Box>
-          </Box>
+          </DigiBox>
         ) : (
           <></>
         )}
