@@ -18,6 +18,7 @@ type VLPopupProps = PropsWithChildren<{
   ['data-testid']?: string;
   open?: boolean;
   name: string;
+  bottomBarComponent?: React.ReactNode;
 }>;
 
 const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
@@ -35,6 +36,7 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
     onClose,
     name,
     minWidth,
+    bottomBarComponent,
   } = props;
   const dispatch = useAppDispatch();
   const onCloseDefault = useCallback(() => {
@@ -70,6 +72,7 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
         {children}
       </DialogContent>
       <DialogActions>
+        {bottomBarComponent && <>{bottomBarComponent}</>}
         {onCancel && (
           <Button
             data-testid={`VLPopup__${testid}__Cancel`}

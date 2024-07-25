@@ -4,18 +4,15 @@ import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip'
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
-import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { ArrowLeft, ArrowRight, HelpOutline } from '@mui/icons-material';
 import {
   Box,
-  Chip,
   Divider,
   IconButton,
   InputAdornment,
   TextField,
   Typography,
 } from '@mui/material';
-import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
@@ -39,11 +36,6 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
     null,
   );
   const dispatch = useAppDispatch();
-
-  // Handler to open PayStructure Info Popup
-  const handlePayStructurePopup = () => {
-    dispatch(openPopup(POPUP_PAY_STRUCTURES));
-  };
 
   const handleSubmitBid = React.useCallback(() => {
     if (negotiateFormData == null) {
@@ -234,26 +226,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                   sx={{
                     mx: 'auto',
                   }}
-                >
-                  <TextField
-                    data-testid="ContractBid-ContractorInfo-Static__PayStructure"
-                    size="small"
-                    label="Pay Structure"
-                    value={contract.payStructure}
-                    color="secondary"
-                    margin="dense"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end" onClick={handlePayStructurePopup}>
-                          <HelpOutline color="secondary" fontSize="small" />
-                        </InputAdornment>
-                      ),
-                    }}
-                    sx={{
-                      maxWidth: '130px',
-                    }}
-                  />
-                </Box>
+                ></Box>
                 <Box data-testid="ContractBid-ContractorInfo-Static__DefaultPayWrapper">
                   <TextField
                     data-testid="ContractBid-ContractorInfo-Static__DefaultPay"
