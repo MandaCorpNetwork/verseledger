@@ -1,25 +1,18 @@
 import DigiBox from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
-import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
-import { ArrowLeft, ArrowRight, HelpOutline } from '@mui/icons-material';
-import {
-  Box,
-  Divider,
-  IconButton,
-  InputAdornment,
-  TextField,
-  Typography,
-} from '@mui/material';
-import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
+import { Box, Divider, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
 import { postContractBid } from '@Redux/Slices/Contracts/actions/post/postContractBid';
-import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+
+import { BidTimeRemaining } from './BidTimeRemaining';
+import { NonNegotiateBid } from './NonNegotiateBid';
 
 // Define Popup Name
 export const POPUP_SUBMIT_CONTRACT_BID = 'submitContractBid';
@@ -51,12 +44,10 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
       title="Submit Bid"
       submitText="Submit Bid"
       onSubmit={handleSubmitBid}
+      bottomBarComponent={<BidTimeRemaining bidDate={contract.bidDate} />}
       data-testid="ContractBid"
     >
       <Box data-testid="ContractBid__Wrapper">
-        <Box data-testid="ContractBid-UserDisplay__Wrapper">
-          <UserDisplay userid={contract.owner_id} />
-        </Box>
         <DigiBox data-testid="ContractBid-ContractDetails__Wrapper" sx={{ p: '.5em' }}>
           <Typography
             data-testid="ContractBid-ContractDetails__Title"
@@ -74,10 +65,11 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
             sx={{
               display: 'flex',
               flexDirection: 'row',
-              justifyContent: 'space-around',
+              justifyContent: 'space-between',
               my: '.5em',
             }}
           >
+            <UserDisplay userid={contract.owner_id} />
             <DigiDisplay
               data-testid="ContractBid-ContractDetails__ContractTypeWrapper"
               sx={{
@@ -169,305 +161,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
           data-testid="ContractBid-StaticVsDynamic__Divider"
           sx={{ my: '1em', width: '75%', mx: 'auto' }}
         />
-        {contract.isBargaining ? (
-          <DigiBox
-            data-testid="ContractBid-ContractorInfo__StaticWrapper"
-            sx={{ p: '.5em' }}
-          >
-            <Typography
-              data-testid="ContractBid-ContractorInfo-Static__Title"
-              sx={{
-                display: 'inline-flex',
-                fontSize: '1.2em',
-                fontWeight: 'bold',
-                color: 'secondary.main',
-                alignItems: 'center',
-              }}
-            >
-              Contractor Info&nbsp;
-              <Typography
-                data-testid="ContractBid-ContractorInfo-Static__NegotiateStatus"
-                variant="body2"
-                sx={{
-                  fontWeight: 'bold',
-                  color: 'info.main',
-                  ml: '.5em',
-                }}
-              >
-                Non-Negotiable
-              </Typography>
-            </Typography>
-            <Box
-              data-testid="ContractBid-ContractorInfo-Static__TopContainer"
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-              }}
-            >
-              <Box
-                data-testid="ContractBid-ContractorInfo-Static__PayWrapper"
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                }}
-              >
-                <Typography
-                  data-testid="ContractBid-ContractorInfo-Static__PayTitle"
-                  variant="body2"
-                  align="center"
-                  sx={{ fontWeight: 'bold', color: 'text.secondary' }}
-                >
-                  Contractor Pay
-                </Typography>
-                <Box
-                  data-testid="ContractBid-ContractorInfo-Static__PayStructureWrapper"
-                  sx={{
-                    mx: 'auto',
-                  }}
-                ></Box>
-                <Box data-testid="ContractBid-ContractorInfo-Static__DefaultPayWrapper">
-                  <TextField
-                    data-testid="ContractBid-ContractorInfo-Static__DefaultPay"
-                    size="small"
-                    label="Default Pay"
-                    value={contract.defaultPay}
-                    color="secondary"
-                    margin="dense"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Typography color="secondary">¤</Typography>
-                        </InputAdornment>
-                      ),
-                    }}
-                    sx={{
-                      maxWidth: '130px',
-                    }}
-                  />
-                </Box>
-              </Box>
-              <Box
-                data-testid="ContractBid-ContractorInfo-Static__ContractorsWrapper"
-                sx={{ display: 'flex', flexDirection: 'column' }}
-              >
-                <Typography
-                  data-testid="ContractBid-ContractorInfo-Static-Contractors__Title"
-                  variant="body2"
-                  align="center"
-                  sx={{ fontWeight: 'bold', color: 'text.secondary' }}
-                >
-                  Contractors
-                </Typography>
-                <Typography
-                  data-testid="ContractBid-ContractorInfo-Static-Contractors__MaxContractors__Title"
-                  variant="body2"
-                  align="center"
-                  sx={{
-                    display: 'inline-flex',
-                    fontWeight: 'bold',
-                    fontSize: '.80em',
-                    color: 'text.secondary',
-                    alignItems: 'center',
-                    mt: '.5em',
-                  }}
-                >
-                  Max Contractors:&nbsp;
-                  <Typography
-                    data-testid="ContractBid-ContractorInfo-Static-Contractors__MaxContractors__Count"
-                    variant="body2"
-                    sx={{
-                      fontWeight: 'bold',
-                      color: 'secondary.main',
-                    }}
-                  >
-                    {contract.contractorLimit}
-                  </Typography>
-                </Typography>
-                <Typography
-                  data-testid="ContractBid-ContractorInfo-Static-Contractors__ActiveContractors__Title"
-                  variant="body2"
-                  align="center"
-                  sx={{
-                    display: 'inline-flex',
-                    fontWeight: 'bold',
-                    fontSize: '.80em',
-                    color: 'text.secondary',
-                    alignItems: 'center',
-                    mt: '.5em',
-                  }}
-                >
-                  Active Contractors:&nbsp;
-                  <Typography
-                    data-testid="ContractBid-ContractorInfo-Static-Contractors__ActiveContractors__Count"
-                    variant="body2"
-                    sx={{
-                      fontWeight: 'bold',
-                      color: 'secondary.main',
-                    }}
-                  >
-                    X
-                  </Typography>
-                </Typography>
-              </Box>
-            </Box>
-            <Box
-              data-testid="ContractBid-ContractorInfo-Static__LocationsWrapper"
-              sx={{ display: 'flex', flexDirection: 'column' }}
-            >
-              <Typography
-                data-testid="ContractBid-ContractorInfo-Static-Locations__Title"
-                variant="body2"
-                align="center"
-                sx={{ fontWeight: 'bold', color: 'text.secondary' }}
-              >
-                Locations
-              </Typography>
-              <Box
-                data-testid="ContractBid-ContractorInfo-Static-Locations__ListWrapper"
-                sx={{
-                  mt: '.5em',
-                  width: '100%',
-                }}
-              >
-                <Box
-                  data-testid="ContractBid-ContractorInfo-Static-Locations__TopContainer"
-                  sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}
-                >
-                  <Box
-                    data-testid="ContractBid-ContractorInfo-Static-Locations__StartWrapper"
-                    sx={{
-                      backgroundColor: 'rgba(14,49,141,.25)',
-                      borderRadius: '10px',
-                      mx: '.5em',
-                      p: '.2em',
-                      display: 'flex',
-                      flexDirection: 'column',
-                    }}
-                  >
-                    <Typography
-                      data-testid="ContractBid-ContractorInfo-Static-Locations-Start__Title"
-                      variant="body2"
-                      align="center"
-                      sx={{
-                        color: 'text.secondary',
-                      }}
-                    >
-                      Start Location
-                    </Typography>
-                    <Box
-                      data-testid="ContractBid-ContractorInfo-Static-Locations-Start__ChipWrapper"
-                      sx={{ mx: 'auto' }}
-                    >
-                      <LocationChip locationId="Start" />
-                    </Box>
-                  </Box>
-                  <Box
-                    data-testid="ContractBid-ContractorInfo-Static-Locations__EndWrapper"
-                    sx={{
-                      backgroundColor: 'rgba(14,49,141,.25)',
-                      borderRadius: '10px',
-                      p: '.2em',
-                      mx: '.5em',
-                      justifyContent: 'center',
-                      display: 'flex',
-                      flexDirection: 'column',
-                    }}
-                  >
-                    <Typography
-                      data-testid="ContractBid-ContractorInfo-Static-Locations-End__Title"
-                      variant="body2"
-                      align="center"
-                      sx={{
-                        color: 'text.secondary',
-                      }}
-                    >
-                      End Location
-                    </Typography>
-                    <Box
-                      data-testid="ContractBid-ContractorInfo-Static-Locations-End__ChipWrapper"
-                      sx={{ mx: 'auto' }}
-                    >
-                      <LocationChip locationId="End" />
-                    </Box>
-                  </Box>
-                </Box>
-                <Box
-                  data-testid="ContractBid-ContractorInfo-Static-Locations__OtherContainer"
-                  sx={{
-                    mt: '.5em',
-                    mx: '.5em',
-                  }}
-                >
-                  <Box
-                    data-testid="ContractBid-ContractorInfo-Static-Locations-Other__Wrapper"
-                    sx={{
-                      backgroundColor: 'rgba(14,49,141,.25)',
-                      borderRadius: '10px',
-                      justifyContent: 'center',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      maxWidth: '75%',
-                      mx: 'auto',
-                      p: '.2em',
-                    }}
-                  >
-                    <Typography
-                      data-testid="ContractBid-ContractorInfo-Static-Other__Title"
-                      variant="body2"
-                      align="center"
-                      sx={{
-                        color: 'text.secondary',
-                        mb: '.2em',
-                      }}
-                    >
-                      Other Locations
-                    </Typography>
-                    <Box
-                      data-testid="ContractBid-ContractorInfo-Static-Other__ListWrapper"
-                      sx={{ width: '100%', display: 'flex', flexDirection: 'row' }}
-                    >
-                      <IconButton
-                        data-testid="ContractBid-ContractorInfo-Static-Locations-List__BackButton"
-                        size="small"
-                        sx={{
-                          ml: '1em',
-                        }}
-                      >
-                        <ArrowLeft />
-                      </IconButton>
-                      <Box
-                        data-testid="ContractBid-ContractorInfo-Static-Other__ChipWrapper"
-                        sx={{ mx: 'auto', display: 'inline-flex', alignItems: 'center' }}
-                      >
-                        <Typography
-                          data-testid="ContractBid-ContractorInfo-Static-Other__Index"
-                          variant="body2"
-                          sx={{ color: 'text.secondary' }}
-                        >
-                          X.&nbsp;
-                        </Typography>
-                        <LocationChip locationId="Other" />
-                      </Box>
-                      <IconButton
-                        data-testid="ContractBid-ContractorInfo-Static-Locations-List__ForwardButton"
-                        size="small"
-                        sx={{
-                          mr: '1em',
-                        }}
-                      >
-                        <ArrowRight />
-                      </IconButton>
-                    </Box>
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-          </DigiBox>
-        ) : (
-          <></>
-        )}
+        {contract.isBargaining ? <></> : <NonNegotiateBid contract={contract} />}
       </Box>
     </VLPopup>
   );

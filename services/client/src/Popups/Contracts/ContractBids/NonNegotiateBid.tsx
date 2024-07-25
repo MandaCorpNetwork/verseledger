@@ -2,7 +2,7 @@ import DigiBox from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { ContractDefaultPayLabel } from '@Common/Components/TextFields/ContractDefaultPay';
 import { ContractPayStructureLabel } from '@Common/Components/TextFields/ContractPayStructure';
-import { Box, Tooltip, Typography } from '@mui/material';
+import { Box, TextField, Tooltip, Typography } from '@mui/material';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 type NonNegotiateBidProps = {
@@ -46,99 +46,114 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
         data-testid="ContractBid__NonNegotiateBid_TopContainer"
         sx={{
           display: 'flex',
-          flexDirection: 'row',
+          flexDirection: 'column',
           justifyContent: 'space-around',
           my: '.5em',
         }}
       >
-        <DigiDisplay
-          data-testid="ContractBid__NonNegotiateBid_ContractPayWrapper"
+        <Box
           sx={{
-            px: '1em',
-            pb: '.5em',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            mb: '.5em',
           }}
         >
-          <Typography
-            data-testid="ContractBid-ContractorInfo-Static__PayTitle"
-            variant="body2"
-            align="center"
-            sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+          <DigiDisplay
+            data-testid="ContractBid__NonNegotiateBid_ContractPayWrapper"
+            sx={{
+              px: '1em',
+              pb: '.5em',
+            }}
           >
-            Contractor Pay
-          </Typography>
-          <ContractPayStructureLabel
-            maxWidth="130px"
-            payStructure={contract.payStructure}
-          />
-          <ContractDefaultPayLabel maxWidth="130px" pay={contract.defaultPay} />
-        </DigiDisplay>
+            <Typography
+              data-testid="ContractBid-ContractorInfo-Static__PayTitle"
+              variant="body2"
+              align="center"
+              sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+            >
+              Contractor Pay
+            </Typography>
+            <ContractPayStructureLabel
+              maxWidth="130px"
+              payStructure={contract.payStructure}
+            />
+            <ContractDefaultPayLabel maxWidth="130px" pay={contract.defaultPay} />
+          </DigiDisplay>
+          <DigiDisplay
+            data-testid="ContractBid__NonNegotiateBid_ContractorsDetailsWrapper"
+            sx={{
+              px: '1em',
+              pb: '.5em',
+            }}
+          >
+            <Typography
+              data-testid="ContractBid-NonNegotiateBid-ContractorDetails__Title"
+              variant="body2"
+              align="center"
+              sx={{ fontWeight: 'bold', color: 'text.secondary', cursor: 'default' }}
+            >
+              Contractors
+            </Typography>
+            <Typography
+              data-testid="ContractBid-NonNegotiateBid-ContractorDetails__MaxContractor_Title"
+              variant="body2"
+              sx={{
+                display: 'inline-flex',
+                fontWeight: 'bold',
+                color: 'text.secondary',
+                cursor: 'default',
+                alignItems: 'center',
+                fontSize: '.8em',
+                mt: '.5em',
+              }}
+            >
+              Max Contractors&nbsp;
+              <Typography
+                data-testid="ContractBid-NonNegotiateBid-ContractorDetails__MaxContractor_Count"
+                variant="body2"
+                sx={{
+                  fontWeight: 'bold',
+                  color: 'secondary.main',
+                  cursor: 'default',
+                }}
+              >
+                {contract.contractorLimit}
+              </Typography>
+            </Typography>
+            <Typography
+              data-testid="ContractBid-NonNegotiateBid-ContractorDetails__ActiveContractors_Title"
+              variant="body2"
+              sx={{
+                display: 'inline-flex',
+                fontWeight: 'bold',
+                color: 'text.secondary',
+                cursor: 'default',
+                alignItems: 'center',
+                fontSize: '.8em',
+                mt: '.5em',
+              }}
+            >
+              Active Contractors&nbsp;
+              <Typography
+                data-testid="ContractBid-NonNegotiateBid-ContractorDetails__ActiveContractors_Count"
+                variant="body2"
+                sx={{
+                  fontWeight: 'bold',
+                  color: 'secondary.main',
+                  cursor: 'default',
+                }}
+              >
+                {acceptedContractorsCount}
+              </Typography>
+            </Typography>
+          </DigiDisplay>
+        </Box>
         <DigiDisplay
-          data-testid="ContractBid__NonNegotiateBid_ContractorsDetailsWrapper"
-          sx={{
-            px: '1em',
-            pb: '.5em',
-          }}
+          sx={{ flexDirection: 'row', justifyContent: 'space-around', p: '.5em' }}
         >
-          <Typography
-            data-testid="ContractBid-NonNegotiateBid-ContractorDetails__Title"
-            variant="body2"
-            align="center"
-            sx={{ fontWeight: 'bold', color: 'text.secondary', cursor: 'default' }}
-          >
-            Contractors
-          </Typography>
-          <Typography
-            data-testid="ContractBid-NonNegotiateBid-ContractorDetails__MaxContractor_Title"
-            variant="body2"
-            sx={{
-              display: 'inline-flex',
-              fontWeight: 'bold',
-              color: 'text.secondary',
-              cursor: 'default',
-              alignItems: 'center',
-              fontSize: '.8em',
-              mt: '.5em',
-            }}
-          >
-            Max Contractors&nbsp;
-            <Typography
-              data-testid="ContractBid-NonNegotiateBid-ContractorDetails__MaxContractor_Count"
-              variant="body2"
-              sx={{
-                fontWeight: 'bold',
-                color: 'secondary.main',
-                cursor: 'default',
-              }}
-            >
-              {contract.contractorLimit}
-            </Typography>
-          </Typography>
-          <Typography
-            data-testid="ContractBid-NonNegotiateBid-ContractorDetails__ActiveContractors_Title"
-            variant="body2"
-            sx={{
-              display: 'inline-flex',
-              fontWeight: 'bold',
-              color: 'text.secondary',
-              cursor: 'default',
-              alignItems: 'center',
-              fontSize: '.8em',
-              mt: '.5em',
-            }}
-          >
-            Active Contractors&nbsp;
-            <Typography
-              data-testid="ContractBid-NonNegotiateBid-ContractorDetails__ActiveContractors_Count"
-              variant="body2"
-              sx={{
-                fontWeight: 'bold',
-                color: 'secondary.main',
-                cursor: 'default',
-              }}
-            >
-              {acceptedContractorsCount}
-            </Typography>
-          </Typography>
+          <TextField label="Start Date" value="Null" sx={{ width: '40%' }} />
+          <TextField label="End Date" value="Null" sx={{ width: '40%' }} />
         </DigiDisplay>
       </Box>
     </DigiBox>
