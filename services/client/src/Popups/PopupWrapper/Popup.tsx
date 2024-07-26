@@ -6,6 +6,8 @@ import React, { PropsWithChildren, useCallback } from 'react';
 type VLPopupProps = PropsWithChildren<{
   minWidth?: string;
   maxWidth?: string;
+  maxHeight?: string;
+  minHeight?: string;
   title: string;
   submitText?: string | React.ReactNode;
   submitDisabled?: boolean;
@@ -37,6 +39,9 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
     name,
     minWidth,
     bottomBarComponent,
+    maxWidth,
+    minHeight,
+    maxHeight,
   } = props;
   const dispatch = useAppDispatch();
   const onCloseDefault = useCallback(() => {
@@ -62,6 +67,9 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
           borderBottom: '2px solid',
           borderColor: 'primary.main',
           minWidth,
+          maxWidth,
+          minHeight,
+          maxHeight,
         },
       }}
     >
