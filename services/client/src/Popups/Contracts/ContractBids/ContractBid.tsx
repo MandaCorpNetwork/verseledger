@@ -47,7 +47,10 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
       bottomBarComponent={<BidTimeRemaining bidDate={contract.bidDate} />}
       data-testid="ContractBid"
     >
-      <Box data-testid="ContractBid__Wrapper">
+      <Box
+        data-testid="ContractBid__Wrapper"
+        sx={{ display: 'flex', flexDirection: 'column' }}
+      >
         <DigiBox data-testid="ContractBid-ContractDetails__Wrapper" sx={{ p: '.5em' }}>
           <Typography
             data-testid="ContractBid-ContractDetails__Title"
