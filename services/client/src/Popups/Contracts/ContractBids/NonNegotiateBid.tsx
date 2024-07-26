@@ -1,5 +1,7 @@
 import DigiBox from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import PopupFormSelection from '@Common/Components/Boxes/PopupFormSelection';
+import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { ContractDefaultPayLabel } from '@Common/Components/TextFields/ContractDefaultPay';
 import { ContractPayStructureLabel } from '@Common/Components/TextFields/ContractPayStructure';
 import { Box, TextField, Tooltip, Typography } from '@mui/material';
@@ -12,6 +14,18 @@ type NonNegotiateBidProps = {
 export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) => {
   const acceptedContractorsCount =
     contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').length ?? 0;
+
+  const startLocationId = contract.Locations?.find(
+    (loc) => loc.ContractLocation?.tag === 'start',
+  )?.id;
+
+  const endLocationId = contract.Locations?.find(
+    (loc) => loc.ContractLocation?.tag === 'end',
+  )?.id;
+
+  const otherLocationIds = contract.Locations?.filter(
+    (loc) => loc.ContractLocation?.tag === 'other',
+  )?.map((loc) => loc.id);
 
   return (
     <DigiBox data-testid="ContractBid__NonNegotiateBid_Wrapper" sx={{ p: '.5em' }}>
@@ -152,8 +166,70 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
         <DigiDisplay
           sx={{ flexDirection: 'row', justifyContent: 'space-around', p: '.5em' }}
         >
-          <TextField label="Start Date" value="Null" sx={{ width: '40%' }} />
-          <TextField label="End Date" value="Null" sx={{ width: '40%' }} />
+          <TextField
+            label="Start Date"
+            value="Null"
+            sx={{ width: '40%' }}
+            size="small"
+            margin="dense"
+          />
+          <TextField
+            label="End Date"
+            value="Null"
+            sx={{ width: '40%' }}
+            size="small"
+            margin="dense"
+          />
+        </DigiDisplay>
+        <DigiDisplay sx={{ my: '.5em' }}>
+          <Typography
+            variant="body2"
+            sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+          >
+            Locations
+          </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+            {startLocationId && (
+              <TextField
+                label="Start Location"
+                size="small"
+                inputProps={{
+                  sx: {
+                    cursor: 'default',
+                  },
+                }}
+                InputProps={{
+                  readOnly: true,
+                  startAdornment: <LocationChip locationId={startLocationId} />,
+                }}
+              />
+            )}
+            {endLocationId && (
+              <TextField
+                label="End Location"
+                size="small"
+                inputProps={{
+                  sx: {
+                    cursor: 'default',
+                  },
+                }}
+                InputProps={{
+                  readOnly: true,
+                  startAdornment: <LocationChip locationId={endLocationId} />,
+                }}
+              />
+            )}
+          </Box>
+          {otherLocationIds && (
+            <PopupFormSelection>
+              <Typography>Other Locations</Typography>
+              <Box>
+                {otherLocationIds.map((loc) => (
+                  <LocationChip key={loc} locationId={loc} />
+                ))}
+              </Box>
+            </PopupFormSelection>
+          )}
         </DigiDisplay>
       </Box>
     </DigiBox>
