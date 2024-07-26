@@ -46,6 +46,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
       onSubmit={handleSubmitBid}
       bottomBarComponent={<BidTimeRemaining bidDate={contract.bidDate} />}
       data-testid="ContractBid"
+      maxHeight="95%"
     >
       <Box
         data-testid="ContractBid__Wrapper"
