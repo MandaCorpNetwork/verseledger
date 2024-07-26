@@ -33,8 +33,8 @@ export const BidTimeRemaining: React.FC<BidTimeRemainingProps> = ({ bidDate }) =
   const progress = calculateProgress();
   return (
     <Box sx={{ mr: 'auto' }}>
-      <Typography variant="body2" sx={{ color: 'info.main' }}>
-        Time Remaining on Bidding: {bidTimeRemaining}
+      <Typography variant="tip" sx={{ color: 'info.main', px: '.5em' }}>
+        Bidding Time Remaining: {bidTimeRemaining}
       </Typography>
       {bidTimeRemaining !== 'Manually Controlled' &&
         bidTimeRemaining !== 'Bidding Closed' && (

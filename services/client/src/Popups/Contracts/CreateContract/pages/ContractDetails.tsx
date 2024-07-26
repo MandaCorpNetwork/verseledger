@@ -1,4 +1,4 @@
-import './contractDetails.scss';
+import '@Assets/Css/contractDetails.scss';
 
 import PopupFormSelection from '@Common/Components/Boxes/PopupFormSelection';
 import ArchetypeListChip from '@Common/Components/Chips/ArchetypeListChip';
