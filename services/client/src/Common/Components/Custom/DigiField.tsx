@@ -2,16 +2,38 @@ import { Box, Typography } from '@mui/material';
 import React, { PropsWithChildren } from 'react';
 
 type DigiFieldProps = PropsWithChildren<{
+  ['data-testid']?: string;
   label: string;
   startAdornment?: React.ReactNode;
   endAdornment?: React.ReactNode;
   children?: unknown;
+  sx?: object;
+  slots?: {
+    label?: {
+      sx?: object;
+    };
+    content?: {
+      sx?: object;
+    };
+    typography?: {
+      sx?: object;
+    };
+  };
 }>;
 
 const DigiFieldComponent: React.FC<DigiFieldProps> = (props) => {
-  const { label, startAdornment, endAdornment, children } = props;
+  const {
+    label,
+    startAdornment,
+    endAdornment,
+    children,
+    sx,
+    slots,
+    'data-testid': testid = 'infoField',
+  } = props;
   return (
     <Box
+      data-testid={`DigiField-${testid}-root`}
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -31,28 +53,38 @@ const DigiFieldComponent: React.FC<DigiFieldProps> = (props) => {
           backdropFilter: 'blur(10px)',
           color: 'secondary.main',
         },
+        ...sx,
       }}
     >
       <Typography
+        data-testid={`DigiField-${testid}-label`}
         sx={{
           fontSize: '.7em',
           color: 'inherit',
           transition: 'all 0.1s ease-in-out',
           cursor: 'default',
+          ...slots?.label?.sx,
         }}
       >
         {label}
       </Typography>
       <Box
+        data-testid={`DigiField-${testid}-content`}
         sx={{
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
+          ...slots?.content?.sx,
         }}
       >
-        {startAdornment}
-        <Typography sx={{ color: 'text.primary' }}>{children}</Typography>
-        {endAdornment}
+        <div data-testid={`DigiField-${testid}-startAdornment`}>{startAdornment}</div>
+        <Typography
+          data-testid={`DigiField-${testid}-children`}
+          sx={{ color: 'text.primary', ...slots?.typography?.sx }}
+        >
+          {children}
+        </Typography>
+        <div data-testid={`DigiField-${testid}-endAdornment`}>{endAdornment}</div>
       </Box>
     </Box>
   );
