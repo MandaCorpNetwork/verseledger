@@ -1,22 +1,22 @@
-import '@Assets/Css/contractDetails.scss';
-
 import DigiBox from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import PopupFormSelection from '@Common/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import { DigiField } from '@Common/Components/Custom/DigiField';
 import { ContractDefaultPayLabel } from '@Common/Components/TextFields/ContractDefaultPay';
+import { ContractPayStructureLabel } from '@Common/Components/TextFields/ContractPayStructure';
 import { Box, TextField, Tooltip, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import dayjs from 'dayjs';
 import { useCallback } from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
-type NonNegotiateBidProps = {
+type NegotiateBidProps = {
   contract: IContract;
+  formData: Array<unknown>;
+  setFormData: React.Dispatch<React.SetStateAction<Array<unknown> | null>>;
 };
 
-export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) => {
+export const NegotiateBid: React.FC<NegotiateBidProps> = ({ contract }) => {
   const acceptedContractorsCount =
     contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').length ?? 0;
 
@@ -51,7 +51,6 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
   const endDate = formattedEndDate();
 
   const scrollRef = useHorizontalAdvancedScroll();
-
   return (
     <DigiBox
       data-testid="ContractBid__NonNegotiateBid_Wrapper"
@@ -80,7 +79,7 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
               cursor: 'default',
             }}
           >
-            Non-Negotiable
+            Negotiable
           </Typography>
         </Tooltip>
       </Typography>
@@ -122,7 +121,10 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
             >
               Contractor Pay
             </Typography>
-            <DigiField label="Pay Structure">{contract.payStructure}</DigiField>
+            <ContractPayStructureLabel
+              maxWidth="130px"
+              payStructure={contract.payStructure}
+            />
             <ContractDefaultPayLabel maxWidth="130px" pay={contract.defaultPay} />
           </DigiDisplay>
           <DigiDisplay

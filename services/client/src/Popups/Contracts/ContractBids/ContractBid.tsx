@@ -12,6 +12,7 @@ import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { BidTimeRemaining } from './BidTimeRemaining';
+import { NegotiateBid } from './NegotiateBid';
 import { NonNegotiateBid } from './NonNegotiateBid';
 
 // Define Popup Name
@@ -50,9 +51,12 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
     >
       <Box
         data-testid="ContractBid__Wrapper"
-        sx={{ display: 'flex', flexDirection: 'column' }}
+        sx={{ display: 'flex', flexDirection: 'column', height: '80%' }}
       >
-        <DigiBox data-testid="ContractBid-ContractDetails__Wrapper" sx={{ p: '.5em' }}>
+        <DigiBox
+          data-testid="ContractBid-ContractDetails__Wrapper"
+          sx={{ p: '.5em', maxHeight: '30%', overflow: 'auto' }}
+        >
           <Typography
             data-testid="ContractBid-ContractDetails__Title"
             sx={{
@@ -165,7 +169,11 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
           data-testid="ContractBid-StaticVsDynamic__Divider"
           sx={{ my: '1em', width: '75%', mx: 'auto' }}
         />
-        {contract.isBargaining ? <></> : <NonNegotiateBid contract={contract} />}
+        {contract.isBargaining ? (
+          <NegotiateBid contract={contract} />
+        ) : (
+          <NonNegotiateBid contract={contract} />
+        )}
       </Box>
     </VLPopup>
   );
