@@ -1,22 +1,26 @@
 import DigiBox from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-import PopupFormSelection from '@Common/Components/Boxes/PopupFormSelection';
+import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import { ContractDefaultPayLabel } from '@Common/Components/TextFields/ContractDefaultPay';
-import { ContractPayStructureLabel } from '@Common/Components/TextFields/ContractPayStructure';
+import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
+import { PayField } from '@Common/Components/TextFields/PayField';
 import { Box, TextField, Tooltip, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import dayjs from 'dayjs';
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 type NegotiateBidProps = {
   contract: IContract;
-  formData: Array<unknown>;
-  setFormData: React.Dispatch<React.SetStateAction<Array<unknown> | null>>;
+  formData: number;
+  setFormData: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export const NegotiateBid: React.FC<NegotiateBidProps> = ({ contract }) => {
+export const NegotiateBid: React.FC<NegotiateBidProps> = ({
+  contract,
+  formData,
+  setFormData,
+}) => {
   const acceptedContractorsCount =
     contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').length ?? 0;
 
@@ -51,6 +55,23 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({ contract }) => {
   const endDate = formattedEndDate();
 
   const scrollRef = useHorizontalAdvancedScroll();
+
+  const handlePayChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+
+      const inputValue = Number(value.replace(/[^0-9.]/g, ''));
+
+      setFormData(inputValue);
+      // setDisplayValue(inputValue.toLocaleString());
+    },
+    [formData],
+  );
+
+  const handlePayClear = () => {
+    setFormData(contract.defaultPay);
+  };
+
   return (
     <DigiBox
       data-testid="ContractBid__NonNegotiateBid_Wrapper"
@@ -121,11 +142,12 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({ contract }) => {
             >
               Contractor Pay
             </Typography>
-            <ContractPayStructureLabel
-              maxWidth="130px"
-              payStructure={contract.payStructure}
+            <PayStructure maxWidth="130px" payStructure={contract.payStructure} />
+            <PayField
+              value={formData.toLocaleString()}
+              onChange={handlePayChange}
+              onClear={handlePayClear}
             />
-            <ContractDefaultPayLabel maxWidth="130px" pay={contract.defaultPay} />
           </DigiDisplay>
           <DigiDisplay
             data-testid="ContractBid__NonNegotiateBid_ContractorsDetailsWrapper"

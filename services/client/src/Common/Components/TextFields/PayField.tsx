@@ -1,42 +1,53 @@
-import { InputAdornment, TextField, Tooltip, Typography } from '@mui/material';
+import { Clear } from '@mui/icons-material';
+import {
+  IconButton,
+  InputAdornment,
+  TextField,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 
 type ContractDefaultPayLabelProps = {
-  pay: number;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   maxWidth?: string;
+  onClear?: () => void;
 };
 
-export const ContractDefaultPayLabel: React.FC<ContractDefaultPayLabelProps> = ({
-  pay,
-  maxWidth,
+export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
+  value,
+  onChange,
+  onClear,
 }) => {
-  const formattedPay = pay.toLocaleString();
   return (
-    <Tooltip title={formattedPay} arrow>
+    <Tooltip title={value} arrow>
       <TextField
-        data-testid="ContractDefaultPayLabel"
         size="small"
-        label="Default Pay"
-        value={formattedPay}
+        label="Pay Offer"
         color="secondary"
-        margin="dense"
+        value={value}
+        onChange={onChange}
+        sx={{
+          maxWidth: '130px',
+          '.MuiInputBase-root': {
+            paddingRight: '0px', // Adjust the right padding of the root
+          },
+        }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <Typography color="secondary">¤</Typography>
+              <Typography color="secondary" sx={{ fontSize: '1em' }}>
+                ¤
+              </Typography>
             </InputAdornment>
           ),
-          style: {
-            cursor: 'default',
-          },
-        }}
-        inputProps={{
-          readOnly: true,
-          style: {
-            cursor: 'default',
-          },
-        }}
-        sx={{
-          maxWidth: maxWidth,
+          endAdornment: onClear && (
+            <InputAdornment position="end">
+              <IconButton onClick={onClear} size="small">
+                <Clear color="secondary" fontSize="small" />
+              </IconButton>
+            </InputAdornment>
+          ),
         }}
       />
     </Tooltip>

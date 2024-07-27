@@ -1,6 +1,6 @@
 import '@Assets/Css/contractDetails.scss';
 
-import PopupFormSelection from '@Common/Components/Boxes/PopupFormSelection';
+import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import ArchetypeListChip from '@Common/Components/Chips/ArchetypeListChip';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { HelpOutline } from '@mui/icons-material';
