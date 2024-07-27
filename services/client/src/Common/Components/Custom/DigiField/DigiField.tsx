@@ -21,6 +21,9 @@ type DigiFieldProps = PropsWithChildren<{
   };
 }>;
 
+// Gap in the Content Slot controls the spacing between adornments & Children
+// The Content Slot is the bottom Row of the DigiField
+
 const DigiFieldComponent: React.FC<DigiFieldProps> = (props) => {
   const {
     label,
@@ -37,7 +40,6 @@ const DigiFieldComponent: React.FC<DigiFieldProps> = (props) => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
         alignItems: 'flex-start',
         backgroundColor: 'rgba(8,22,80,.8)',
         py: '2px',
@@ -73,18 +75,30 @@ const DigiFieldComponent: React.FC<DigiFieldProps> = (props) => {
         sx={{
           display: 'flex',
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          alignItems: 'space-between',
+          gap: '5px',
+          position: 'relative',
           ...slots?.content?.sx,
         }}
       >
-        <div data-testid={`DigiField-${testid}-startAdornment`}>{startAdornment}</div>
+        <div
+          data-testid={`DigiField-${testid}-startAdornment`}
+          style={{ display: 'flex', alignItems: 'center' }}
+        >
+          {startAdornment}
+        </div>
         <Typography
           data-testid={`DigiField-${testid}-children`}
           sx={{ color: 'text.primary', ...slots?.typography?.sx }}
         >
           {children}
         </Typography>
-        <div data-testid={`DigiField-${testid}-endAdornment`}>{endAdornment}</div>
+        <div
+          data-testid={`DigiField-${testid}-endAdornment`}
+          style={{ display: 'flex', alignItems: 'center' }}
+        >
+          {endAdornment}
+        </div>
       </Box>
     </Box>
   );

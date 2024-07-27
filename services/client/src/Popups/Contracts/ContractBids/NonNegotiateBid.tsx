@@ -2,11 +2,12 @@ import '@Assets/Css/contractDetails.scss';
 
 import DigiBox from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-import PopupFormSelection from '@Common/Components/Boxes/PopupFormSelection';
+import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import { DigiField } from '@Common/Components/Custom/DigiField';
-import { ContractDefaultPayLabel } from '@Common/Components/TextFields/ContractDefaultPay';
-import { Box, TextField, Tooltip, Typography } from '@mui/material';
+import { DefaultPay } from '@Common/Components/Custom/DigiField/DefaultPay';
+import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
+import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
+import { Box, Tooltip, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import dayjs from 'dayjs';
 import { useCallback } from 'react';
@@ -92,14 +93,17 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
           justifyContent: 'space-around',
           my: '.5em',
           overflow: 'auto',
+          alignItems: 'center',
         }}
       >
         <Box
+          data-testid="ContractBid-NonNegotiateBid__TopBox"
           sx={{
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-around',
             pb: '.5em',
+            width: '100%',
           }}
         >
           <DigiDisplay
@@ -109,6 +113,7 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
               pb: '.5em',
               color: 'text.secondary',
               transition: 'color 0.2s ease-in-out',
+              gap: '.5em',
               '&:hover': {
                 color: 'secondary.main',
               },
@@ -122,8 +127,12 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
             >
               Contractor Pay
             </Typography>
-            <DigiField label="Pay Structure">{contract.payStructure}</DigiField>
-            <ContractDefaultPayLabel maxWidth="130px" pay={contract.defaultPay} />
+            <PayStructure
+              testid="ContractBid-NonNegotiateBid__PayStructure"
+              payStructure={contract.payStructure}
+              maxWidth="100%"
+            />
+            <DefaultPay pay={contract.defaultPay} maxWidth="100%" width="100%" />
           </DigiDisplay>
           <DigiDisplay
             data-testid="ContractBid__NonNegotiateBid_ContractorsDetailsWrapper"
@@ -205,74 +214,46 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
           </DigiDisplay>
         </Box>
         <DigiDisplay
-          sx={{ flexDirection: 'row', justifyContent: 'space-around', p: '.5em' }}
+          sx={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            p: '.5em',
+            width: '90%',
+          }}
         >
-          <TextField
-            label="Start Date"
-            value={startDate}
-            sx={{ width: '160px' }}
-            size="small"
-            margin="dense"
-            color="secondary"
-          />
-          <TextField
-            label="End Date"
-            value={endDate}
-            sx={{ width: '160px' }}
-            size="small"
-            margin="dense"
-            color="secondary"
-          />
+          <DigiField label="Start Date">{startDate}</DigiField>
+          <DigiField label="End Date">{endDate}</DigiField>
         </DigiDisplay>
-        <DigiDisplay sx={{ my: '.5em' }}>
-          <Typography
-            variant="body2"
-            sx={{ fontWeight: 'bold', color: 'text.secondary' }}
-          >
+        <DigiDisplay
+          sx={{
+            my: '.5em',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '90%',
+          }}
+        >
+          <Typography variant="body2" sx={{ fontWeight: 'bold', color: 'inherit' }}>
             Locations
           </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', my: '.5em' }}>
-            {startLocationId && (
-              <TextField
-                label="Start Location"
-                size="small"
-                color="secondary"
-                inputProps={{
-                  sx: {
-                    cursor: 'default',
-                  },
-                }}
-                InputProps={{
-                  readOnly: true,
-                  startAdornment: <LocationChip locationId={startLocationId} />,
-                }}
-                sx={{
-                  display: 'flex',
-                  width: '150px',
-                  cursor: 'default',
-                }}
-              />
-            )}
-            {endLocationId && (
-              <TextField
-                label="End Location"
-                size="small"
-                inputProps={{
-                  sx: {
-                    cursor: 'default',
-                  },
-                }}
-                InputProps={{
-                  readOnly: true,
-                  startAdornment: <LocationChip locationId={endLocationId} />,
-                }}
-                sx={{
-                  display: 'flex',
-                  width: '150px',
-                  cursor: 'default',
-                }}
-              />
-            )}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              my: '.5em',
+              justifyContent: 'space-around',
+              width: '100%',
+            }}
+          >
+            <DigiField label="Start Location" sx={{ width: '120px' }}>
+              {startLocationId ? (
+                <LocationChip locationId={startLocationId} />
+              ) : (
+                'Redacted'
+              )}
+            </DigiField>
+            <DigiField label="End Location" sx={{ width: '120px' }}>
+              {endLocationId ? <LocationChip locationId={endLocationId} /> : 'Unknown'}
+            </DigiField>
           </Box>
           {otherLocationIds && (
             <PopupFormSelection
@@ -284,11 +265,19 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
                 overflow: 'hidden',
               }}
             >
-              <Typography>Other Locations</Typography>
+              <Typography variant="body2" sx={{ color: 'inherit', cursor: 'default' }}>
+                Other Locations
+              </Typography>
               <Box className="SelectScrollWrapper" ref={scrollRef}>
-                {otherLocationIds.map((loc) => (
-                  <LocationChip key={loc} locationId={loc} />
-                ))}
+                {otherLocationIds.length === 0 ? (
+                  <Typography variant="body2" sx={{ color: 'text.disabled' }}>
+                    No Other Locations
+                  </Typography>
+                ) : (
+                  otherLocationIds.map((loc) => (
+                    <LocationChip key={loc} locationId={loc} />
+                  ))
+                )}
               </Box>
             </PopupFormSelection>
           )}

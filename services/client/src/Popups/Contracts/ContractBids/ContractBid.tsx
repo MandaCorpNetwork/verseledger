@@ -26,13 +26,13 @@ export type ContractBidProps = {
 export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
   // State for the Negotiation Form
   // TODO: NEED SCHEMA FOR FORMDATA
-  const [negotiateFormData, setNeotiateFormData] = React.useState<Array<unknown> | null>(
-    null,
+  const [negotiateFormData, setNeotiateFormData] = React.useState<number>(
+    contract.defaultPay,
   );
   const dispatch = useAppDispatch();
 
   const handleSubmitBid = React.useCallback(() => {
-    if (negotiateFormData == null) {
+    if (negotiateFormData == null || negotiateFormData === contract.defaultPay) {
       dispatch(postContractBid(contract.id));
     }
     dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
@@ -170,7 +170,11 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
           sx={{ my: '1em', width: '75%', mx: 'auto' }}
         />
         {contract.isBargaining ? (
-          <NegotiateBid contract={contract} />
+          <NegotiateBid
+            contract={contract}
+            formData={negotiateFormData}
+            setFormData={setNeotiateFormData}
+          />
         ) : (
           <NonNegotiateBid contract={contract} />
         )}
