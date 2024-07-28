@@ -8,16 +8,17 @@ type ContractStatusChipProps = {
 export const ContractStatusChip: React.FC<ContractStatusChipProps> = ({ status }) => {
   // Defines the color for the Status Chip
   const statusChipColor = React.useCallback(() => {
-    if (status == 'BIDDING') {
-      return 'secondary';
-    } else if (status == 'STARTED') {
-      return 'info';
-    } else if (status == 'COMPLETE') {
-      return 'success';
-    } else if (status == 'CANCELED') {
-      return 'error';
-    } else {
-      return 'primary';
+    switch (status) {
+      case 'BIDDING':
+        return 'primary';
+      case 'STARTED':
+        return 'info';
+      case 'COMPLETE':
+        return 'success';
+      case 'CANCELED':
+        return 'error';
+      default:
+        return 'primary';
     }
   }, [status]);
 
