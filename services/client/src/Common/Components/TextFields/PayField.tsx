@@ -10,28 +10,29 @@ import {
 type ContractDefaultPayLabelProps = {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  maxWidth?: string;
   onClear?: () => void;
+  sx?: object;
 };
 
 export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
   value,
   onChange,
   onClear,
+  sx,
 }) => {
   return (
     <Tooltip title={value} arrow>
       <TextField
         size="small"
         label="Pay Offer"
-        color="secondary"
+        color={value === '0' ? 'error' : 'secondary'}
         value={value}
         onChange={onChange}
         sx={{
-          maxWidth: '130px',
           '.MuiInputBase-root': {
             paddingRight: '0px', // Adjust the right padding of the root
           },
+          ...sx,
         }}
         InputProps={{
           startAdornment: (

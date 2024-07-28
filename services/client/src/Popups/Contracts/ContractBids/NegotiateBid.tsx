@@ -7,6 +7,7 @@ import { PayField } from '@Common/Components/TextFields/PayField';
 import { Box, TextField, Tooltip, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import dayjs from 'dayjs';
+import { enqueueSnackbar } from 'notistack';
 import React, { useCallback } from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -59,6 +60,10 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
   const handlePayChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = event.target;
+      const invalidCharacters = value.match(/[^\d.,]/g);
+      if (invalidCharacters) {
+        enqueueSnackbar('Please only use numbers', { variant: 'error' });
+      }
 
       const inputValue = Number(value.replace(/[^0-9.]/g, ''));
 
@@ -127,11 +132,7 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
             sx={{
               px: '1em',
               pb: '.5em',
-              color: 'text.secondary',
-              transition: 'color 0.2s ease-in-out',
-              '&:hover': {
-                color: 'secondary.main',
-              },
+              gap: '.5em',
             }}
           >
             <Typography
@@ -142,11 +143,14 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
             >
               Contractor Pay
             </Typography>
-            <PayStructure maxWidth="130px" payStructure={contract.payStructure} />
+            <PayStructure width="100%" payStructure={contract.payStructure} />
             <PayField
               value={formData.toLocaleString()}
               onChange={handlePayChange}
               onClear={handlePayClear}
+              sx={{
+                width: '130px',
+              }}
             />
           </DigiDisplay>
           <DigiDisplay
