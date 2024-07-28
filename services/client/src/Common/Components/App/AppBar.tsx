@@ -43,7 +43,7 @@ import {
 import { AuthUtil } from '@/Utils/AuthUtil';
 import { URLUtil } from '@/Utils/URLUtil';
 
-import { UserSettings } from '../Users/UserSettings';
+import { UserSettings } from '../../../Components/UserSettings/UserSettings';
 import { LocationSearch } from './LocationSearch';
 import { NotificationsBox } from './NotificationsBox';
 import VerseLogo from './VerseLogo';
@@ -240,6 +240,7 @@ export const VLAppBar: React.FC<unknown> = () => {
                   onClick={() => {
                     const loginURL = `https://discord.com/oauth2/authorize?client_id=1160393986440179823&response_type=code&redirect_uri=${encodeURIComponent(URLUtil.frontendHost)}%2Foauth%2Fdiscord%2Fcallback&scope=identify+openid`;
                     localStorage.setItem('returnPath', window.location.pathname);
+                    playSound('navigate');
                     window.location = loginURL as unknown as Location;
                   }}
                   color="secondary"
