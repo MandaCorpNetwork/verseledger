@@ -1,22 +1,28 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 const VerseLogo = () => {
-  /*const fetchLogo = (fileName, i) => {
-    for (let i = 0; i<10; i++) {
-      fileName.push(`verselogo-${i}.png`)
+  const imgRef = React.useRef<HTMLImageElement>(null);
+  const location = useLocation();
+
+  React.useEffect(() => {
+    function getLogoPath(pathname: string) {
+      switch (pathname) {
+        case '/':
+          return '../../Assets/media/VerseLogos/verselogo-0.png';
+        case '/ledger/contract':
+          return '../../Assets/media/VerseLogos/verselogo-1.png';
+        default:
+          return '../../Assets/media/VerseLogos/verselogo-6.png';
+      }
     }
-    return fileName;
-  };*/
+    if (imgRef.current) {
+      const logoPath = getLogoPath(location.pathname);
+      imgRef.current.src = logoPath;
+    }
+  }, [location.pathname]);
 
-  function logoRandom() {
-    const i = Math.floor(Math.random() * 10);
-    return `../Assets/media/VerseLogos/verselogo-${i}.png`;
-  }
-
-  return (
-    <img src={logoRandom()} alt="Verse Logo" />
-    /*<img src={fetchLogo} alt="Verse Logo" />*/
-  );
+  return <img ref={imgRef} alt="Verse Logo" />;
 };
 
 export default React.memo(VerseLogo);
