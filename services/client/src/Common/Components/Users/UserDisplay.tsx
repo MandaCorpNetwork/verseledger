@@ -14,9 +14,10 @@ import { selectUserById } from '@Redux/Slices/Users/userSelectors';
 
 type UserDisplayProps = {
   userid: string;
+  sx?: object;
 };
 
-export const UserDisplay: React.FC<UserDisplayProps> = ({ userid }) => {
+export const UserDisplay: React.FC<UserDisplayProps> = ({ userid, sx }) => {
   const dispatch = useAppDispatch();
 
   const user = useAppSelector((state) => selectUserById(state, userid));
@@ -34,6 +35,7 @@ export const UserDisplay: React.FC<UserDisplayProps> = ({ userid }) => {
         justifyContent: 'center',
         alignItems: 'center',
         maxWidth: '100%',
+        ...sx,
       }}
     >
       <Tooltip title={user?.handle} arrow>
@@ -44,7 +46,8 @@ export const UserDisplay: React.FC<UserDisplayProps> = ({ userid }) => {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
-            bgcolor: 'background.default',
+            backgroundImage:
+              'linear-gradient(135deg, rgba(14,35,141) 0%, rgba(8,22,80) 50%, rgba(0,1,19) 100%)',
             maxWidth: '100%',
             py: '.5em',
             px: '1em',
@@ -52,15 +55,57 @@ export const UserDisplay: React.FC<UserDisplayProps> = ({ userid }) => {
             borderRight: '2px solid',
             borderRadius: '5px',
             borderColor: 'secondary.main',
-            transition: 'background-color 300ms',
+            boxShadow:
+              '0 1px 2px rgba(0,0,0,.6), 0 2px 4px rgba(0,0,0,.5), 0 4px 8px rgba(0,0,0,.4), 0 8px 16px rgba(0,0,0,.3)',
+            borderTop: '1px solid rgba(8,22,80,.6)',
+            borderBottom: '1px solid rgba(8,22,80,.6)',
+            position: 'relative',
+            transition: 'all 100ms ease-in-out',
+            '& .MuiTouchRipple-child': {
+              backgroundcolor: 'secondary.dark',
+            },
+            '::after': {
+              content: '""',
+              position: 'absolute',
+              top: '0',
+              left: '0',
+              width: '100%',
+              height: '100%',
+              backgroundImage: `
+        linear-gradient(0deg, transparent 24%, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.1) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.1) 75%, rgba(255,255,255,0.1) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.1) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.1) 75%, rgba(255,255,255,0.1) 76%, transparent 77%, transparent)
+      `,
+              backgroundSize: '10px 10px',
+              zIndex: '1',
+              opacity: '0.2',
+            },
+            '::before': {
+              content: '""',
+              position: 'absolute',
+              top: '0',
+              left: '0',
+              width: '100%',
+              height: '100%',
+              borderRadius: '5px',
+              boxShadow: `inset 0 1px 2px rgba(24,252,252,.1), inset 0 -1px 2px rgba(0,1,19,0.1), inset 0 2px 4px rgba(24,252,252,0.1), inset 0 -2px 4px rgba(0,1,19,0.1)`,
+              zIndex: '1',
+            },
             '&:hover': {
               borderColor: 'secondary.light',
+              borderTop: '1px solid rgba(8,22,80,.6)',
+              borderBottom: '1px solid rgba(8,22,80,.6)',
+              backgroundImage:
+                'linear-gradient(135deg, rgba(14,35,161) 0%, rgba(8,22,100) 50%, rgba(0,1,39) 100%)',
+              boxShadow:
+                '0 2px 4px rgba(14,35,141,.8), 0 2px 4px rgba(0,0,0,.5), 0 4px 8px rgba(0,0,0,.4), 0 8px 16px rgba(0,0,0,.4), 0 16px 32px rgba(0,0,0,.2)',
             },
             '&:active': {
               borderColor: 'secondary.main',
-            },
-            '& .MuiTouchRipple-child': {
-              backgroundColor: 'secondary.dark',
+              borderTop: '1px solid rgba(8,22,80,.6)',
+              borderBottom: '1px solid rgba(8,22,80,.6)',
+              backgroundImage:
+                'linear-gradient(135deg, rgba(14,35,121) 0%, rgba(8,22,60) 50%, rgba(0,1,9) 100%)',
+              transform: 'scale(0.98)',
             },
           }}
         >
@@ -68,7 +113,15 @@ export const UserDisplay: React.FC<UserDisplayProps> = ({ userid }) => {
             data-testid="UserDisplay-PlayerData__Avatar"
             src={user?.pfp}
             //alt={user.userName}
-            sx={{ bgcolor: 'primary.dark', width: 55, height: 55 }}
+            sx={{
+              backgroundImage:
+                'linear-gradient(135deg, rgba(8, 22, 80, 1) 0%, rgba(14, 35, 141, 0.5) 100%)',
+              width: 55,
+              height: 55,
+              zIndex: 5,
+              boxShadow:
+                '0 1px 2px rgba(0,1,19,0.3), 0 2px 4px rgba(0,1,19,0.3), 0 4px 8px rgba(0,1,19,0.3), 0 8px 16px rgba(0,1,19,0.2)',
+            }}
           />
           <Box
             data-testid="UserDisplay-PlayerData__InfoWrapper"
@@ -80,7 +133,12 @@ export const UserDisplay: React.FC<UserDisplayProps> = ({ userid }) => {
               size="small"
               value={3}
               readOnly
-              sx={{ ml: 'auto', mr: 'auto', mt: 'auto', mb: '5%' }}
+              sx={{
+                ml: 'auto',
+                mr: 'auto',
+                mt: 'auto',
+                mb: '5%',
+              }}
             />
             <Typography
               data-testid="UserDisplay-PlayerData__UsernameText"

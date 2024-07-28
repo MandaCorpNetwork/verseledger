@@ -75,9 +75,10 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
               flexDirection: 'row',
               justifyContent: 'space-between',
               my: '.5em',
+              gap: '.5em',
             }}
           >
-            <UserDisplay userid={contract.owner_id} />
+            <UserDisplay userid={contract.owner_id} sx={{ alignSelf: 'center' }} />
             <DigiDisplay
               data-testid="ContractBid-ContractDetails__ContractTypeWrapper"
               sx={{
