@@ -11,7 +11,8 @@ const DigiBox = styled(Box)(({ theme }) => ({
   borderColor: theme.palette.primary.main,
   borderLeft: '1px solid rgba(14,49,141,0.5)',
   borderRight: '1px solid rgba(14,49,141,0.5)',
-  boxShadow: '0 5px 15px rgba(14,49,141,.8)',
+  boxShadow:
+    '0 1px 2px rgba(33,150,243,.4), 0 2px 4px rgba(33,150,243,.3), 0 4px 8px rgba(33,150,243,.2), 0 8px 16px rgba(33,150,243,.1), 0 16px 32px rgba(0,9,16,.05), inset 0 1px 2px rgba(0,9,16,.05), inset 0 2px 4px rgba(0,9,16,.05), inset 0 4px 8px rgba(0,9,16,.05), inset 0 8px 16px rgba(0,9,16,.05), inset 0 16px 32px rgba(0,9,16,.05)',
   position: 'relative',
   '&:before': {
     content: '""',

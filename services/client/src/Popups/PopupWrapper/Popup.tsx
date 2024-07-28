@@ -6,6 +6,8 @@ import React, { PropsWithChildren, useCallback } from 'react';
 type VLPopupProps = PropsWithChildren<{
   minWidth?: string;
   maxWidth?: string;
+  maxHeight?: string;
+  minHeight?: string;
   title: string;
   submitText?: string | React.ReactNode;
   submitDisabled?: boolean;
@@ -18,6 +20,7 @@ type VLPopupProps = PropsWithChildren<{
   ['data-testid']?: string;
   open?: boolean;
   name: string;
+  bottomBarComponent?: React.ReactNode;
 }>;
 
 const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
@@ -35,6 +38,10 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
     onClose,
     name,
     minWidth,
+    bottomBarComponent,
+    maxWidth,
+    minHeight,
+    maxHeight,
   } = props;
   const dispatch = useAppDispatch();
   const onCloseDefault = useCallback(() => {
@@ -53,23 +60,31 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
         sx: {
           bgcolor: 'rgba(8, 29, 68, 0.6)',
           display: 'flex',
-          padding: '2em',
+          padding: '1em',
           borderRadius: '10px',
           flexDirection: 'column',
           borderTop: '2px solid',
           borderBottom: '2px solid',
           borderColor: 'primary.main',
+          overflow: 'hidden',
           minWidth,
+          maxWidth,
+          minHeight,
+          maxHeight,
         },
       }}
     >
       <DialogTitle variant="h5" data-testid={`VLPopup__${testid}__Title`}>
         {title}
       </DialogTitle>
-      <DialogContent data-testid={`VLPopup__${testid}__Content`}>
+      <DialogContent
+        data-testid={`VLPopup__${testid}__Content`}
+        sx={{ overflow: 'hidden' }}
+      >
         {children}
       </DialogContent>
       <DialogActions>
+        {bottomBarComponent && <>{bottomBarComponent}</>}
         {onCancel && (
           <Button
             data-testid={`VLPopup__${testid}__Cancel`}

@@ -8,13 +8,12 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 type LocationChipProps = {
   locationId: string;
   onDelete?: (locationId: string) => void;
+  sx?: object;
 };
 
 export const LocationChip: React.FC<LocationChipProps> = (props) => {
-  const { locationId, onDelete } = props;
+  const { locationId, onDelete, sx } = props;
   const dispatch = useAppDispatch();
-
-  // console.log(`LocationChip: ${locationId}`);
 
   const location =
     locationId !== ''
@@ -22,8 +21,6 @@ export const LocationChip: React.FC<LocationChipProps> = (props) => {
       : null;
 
   const handleLocationInfoPopup = () => {
-    // console.log(`Location Id: ${locationId}`);
-    // console.log(`Location Pulled: ${location}`);
     if (locationId !== '') {
       dispatch(openPopup(POPUP_LOCATION_INFO, { locationId }));
     }
@@ -41,7 +38,7 @@ export const LocationChip: React.FC<LocationChipProps> = (props) => {
         onClick={handleLocationInfoPopup}
         onDelete={onDelete ? () => onDelete(locationId) : undefined}
         sx={{
-          maxWidth: '125px',
+          ...sx,
         }}
       />
     </Tooltip>
