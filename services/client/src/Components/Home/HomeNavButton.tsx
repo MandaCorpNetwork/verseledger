@@ -5,6 +5,7 @@ import { UnderConstruction } from '@Common/Components/App/UnderContruction';
 import { useTheme } from '@emotion/react';
 import { Button, Typography } from '@mui/material';
 import { useSound } from '@Utils/Hooks/useSound';
+import { Logger } from '@Utils/Logger';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
@@ -80,7 +81,8 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
       playSound('navigate');
       navigate(to);
     } else {
-      console.error('Navigation target undefined');
+      playSound('error');
+      Logger.error('Navigation target undefined');
     }
     setTimeout(() => {
       setColor(theme.palette.text.primary);

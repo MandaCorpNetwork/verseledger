@@ -22,6 +22,7 @@ import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation';
 import { fetchUnreadCount } from '@Redux/Slices/Notifications/actions/getUnreadCount';
 import { selectNotificationsUnreadCount } from '@Redux/Slices/Notifications/notificationSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { useSound } from '@Utils/Hooks/useSound';
 import {
   bindMenu,
   bindTrigger,
@@ -48,6 +49,7 @@ import { NotificationsBox } from './NotificationsBox';
 import VerseLogo from './VerseLogo';
 
 export const VLAppBar: React.FC<unknown> = () => {
+  const playSound = useSound();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const currentUser = useAppSelector(selectCurrentUser);
   const [userSettingsOpen, setUserSettingsOpen] = React.useState(false);
@@ -70,19 +72,23 @@ export const VLAppBar: React.FC<unknown> = () => {
 
   const handlePlayerCardOpen = () => {
     profilePopupState.close();
+    playSound('open');
     dispatch(openPopup(POPUP_PLAYER_CARD, { userid: currentUser?.id }));
   };
 
   const handleUserSettingsOpen = () => {
     profilePopupState.close();
+    playSound('open');
     setUserSettingsOpen(true);
   };
 
   const handleUserSettingsClose = () => {
+    playSound('close');
     setUserSettingsOpen(false);
   };
 
   const handleFeedbackOpen = () => {
+    playSound('open');
     dispatch(openPopup(POPUP_FEEDBACK));
   };
 
@@ -109,18 +115,21 @@ export const VLAppBar: React.FC<unknown> = () => {
 
   const notificationsOnClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
+      playSound('open');
       setNotificationsOpen(true);
       setNotificationsAnchorE1(event.currentTarget);
     },
     [setNotificationsOpen],
   );
   const notificationsOnClose = useCallback(() => {
+    playSound('close');
     setNotificationsOpen(false);
     setNotificationsAnchorE1(null);
   }, [setNotificationsOpen]);
 
   const navigate = useNavigate();
   function handleLogoClick() {
+    playSound('navigate');
     navigate('/');
   }
 
@@ -138,6 +147,7 @@ export const VLAppBar: React.FC<unknown> = () => {
 
   const locationSelectOnClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
+      playSound('open');
       setLocationSelectOpen(true);
       setLocationSelectAnchorEl(event.currentTarget);
     },
@@ -145,6 +155,7 @@ export const VLAppBar: React.FC<unknown> = () => {
   );
 
   const locationSelectOnClose = useCallback(() => {
+    playSound('close');
     setLocationSelectOpen(false);
     setLocationSelectAnchorEl(null);
   }, [setLocationSelectOpen]);
@@ -152,6 +163,7 @@ export const VLAppBar: React.FC<unknown> = () => {
   const handleLocationSelect = React.useCallback(
     (location: ILocation | null) => {
       if (location) {
+        playSound('clickMain');
         dispatch(setUserLocation(location));
       }
     },
@@ -160,6 +172,7 @@ export const VLAppBar: React.FC<unknown> = () => {
 
   const handleLocationPopup = () => {
     if (location) {
+      playSound('open');
       dispatch(openPopup(POPUP_LOCATION_INFO, currentLocation));
     }
   };
