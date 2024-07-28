@@ -150,11 +150,11 @@ export const UserDisplay: React.FC<UserDisplayProps> = ({ userid, sx }) => {
           </Box>
         </ButtonBase>
       </Tooltip>
-      <Divider
+      {/* <Divider
         variant="middle"
         color="secondary"
         sx={{ mb: '.5em', borderColor: 'text.secondary' }}
-      />
+      /> */}
       {/*<Box
           id="Org-Data"
           sx={{
