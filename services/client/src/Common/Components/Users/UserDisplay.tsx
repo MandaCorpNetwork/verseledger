@@ -1,23 +1,16 @@
-import {
-  Avatar,
-  Box,
-  ButtonBase,
-  Divider,
-  Rating,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { Avatar, Box, ButtonBase, Rating, Tooltip, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { selectUserById } from '@Redux/Slices/Users/userSelectors';
+import { memo } from 'react';
 
 type UserDisplayProps = {
   userid: string;
   sx?: object;
 };
 
-export const UserDisplay: React.FC<UserDisplayProps> = ({ userid, sx }) => {
+const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx }) => {
   const dispatch = useAppDispatch();
 
   const user = useAppSelector((state) => selectUserById(state, userid));
@@ -97,7 +90,7 @@ export const UserDisplay: React.FC<UserDisplayProps> = ({ userid, sx }) => {
               backgroundImage:
                 'linear-gradient(135deg, rgba(14,35,161) 0%, rgba(8,22,100) 50%, rgba(0,1,39) 100%)',
               boxShadow:
-                '0 2px 4px rgba(14,35,141,.8), 0 2px 4px rgba(0,0,0,.5), 0 4px 8px rgba(0,0,0,.4), 0 8px 16px rgba(0,0,0,.4), 0 16px 32px rgba(0,0,0,.2)',
+                '0 1px 2px rgba(0,1,19,.8), 0 2px 4px rgba(0,0,0,.5), 0 4px 8px rgba(0,0,0,.4), 0 8px 16px rgba(0,0,0,.4), 0 16px 32px rgba(0,0,0,.2)',
             },
             '&:active': {
               borderColor: 'secondary.main',
@@ -188,3 +181,5 @@ export const UserDisplay: React.FC<UserDisplayProps> = ({ userid, sx }) => {
     </Box>
   );
 };
+
+export const UserDisplay = memo(UserDisplayComponent);

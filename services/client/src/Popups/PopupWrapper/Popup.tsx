@@ -66,6 +66,7 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
           borderTop: '2px solid',
           borderBottom: '2px solid',
           borderColor: 'primary.main',
+          overflow: 'hidden',
           minWidth,
           maxWidth,
           minHeight,
@@ -76,7 +77,10 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
       <DialogTitle variant="h5" data-testid={`VLPopup__${testid}__Title`}>
         {title}
       </DialogTitle>
-      <DialogContent data-testid={`VLPopup__${testid}__Content`}>
+      <DialogContent
+        data-testid={`VLPopup__${testid}__Content`}
+        sx={{ overflow: 'hidden' }}
+      >
         {children}
       </DialogContent>
       <DialogActions>

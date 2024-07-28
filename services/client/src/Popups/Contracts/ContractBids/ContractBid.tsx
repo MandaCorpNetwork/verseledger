@@ -90,7 +90,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                 data-testid="ContractBid-ContractDetails__ContractTypeTitle"
                 align="center"
                 variant="body2"
-                sx={{ fontWeight: 'bold', color: 'text.secondary', cursor: 'default' }}
+                sx={{ fontWeight: 'bold', cursor: 'default' }}
               >
                 Contract Type
               </Typography>
@@ -109,7 +109,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                 data-testid="ContractBid-ContractDetails__ContractStatusTitle"
                 align="center"
                 variant="body2"
-                sx={{ fontWeight: 'bold', color: 'text.secondary', cursor: 'default' }}
+                sx={{ fontWeight: 'bold', cursor: 'default' }}
               >
                 Contract Status
               </Typography>
@@ -129,7 +129,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
               data-testid="ContractBid-ContractDetails__BriefingTitle"
               align="left"
               variant="body2"
-              sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+              sx={{ fontWeight: 'bold' }}
             >
               {contract.title}
             </Typography>
@@ -159,6 +159,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                 variant="body2"
                 sx={{
                   fontSize: '.82em',
+                  color: 'text.primary',
                 }}
               >
                 {contract.briefing}

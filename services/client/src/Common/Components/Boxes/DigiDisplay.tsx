@@ -11,6 +11,7 @@ const DigiDisplay = styled(Box)(({ theme }) => ({
   borderBottom: '1px solid',
   borderColor: theme.palette.primary.main,
   boxShadow: '0 3px 10px rgba(0,0,0,.3)',
+  overflow: 'hidden',
   transition: 'all 0.1s ease-in-out',
   color: theme.palette.text.secondary,
   '&:hover': {

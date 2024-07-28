@@ -49,6 +49,7 @@ const DigiFieldComponent: React.FC<DigiFieldProps> = (props) => {
         boxShadow: '0 2px 5px rgba(0,0,0,.3)',
         border: '1px solid',
         borderColor: 'primary.dark',
+        overflow: 'hidden',
         transition: 'all 0.1s ease-in-out',
         '&:hover': {
           boxShadow: '0 6px 10px rgba(0,0,0,.3)',
@@ -77,6 +78,8 @@ const DigiFieldComponent: React.FC<DigiFieldProps> = (props) => {
           flexDirection: 'row',
           alignItems: 'space-between',
           gap: '5px',
+          width: '100%',
+          overflow: 'hidden',
           position: 'relative',
           ...slots?.content?.sx,
         }}
@@ -89,7 +92,14 @@ const DigiFieldComponent: React.FC<DigiFieldProps> = (props) => {
         </div>
         <Typography
           data-testid={`DigiField-${testid}-children`}
-          sx={{ color: 'text.primary', ...slots?.typography?.sx }}
+          sx={{
+            color: 'text.primary',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            flex: '1',
+            ...slots?.typography?.sx,
+          }}
         >
           {children}
         </Typography>
