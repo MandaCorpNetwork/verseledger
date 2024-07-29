@@ -1,10 +1,6 @@
 import DigiBox from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
-import {
-  soundEffectOptions,
-  soundEffectPacks,
-} from '@Common/Definitions/SoundEffectOptions';
+import { soundEffectPacks } from '@Common/Definitions/SoundEffectOptions';
 import {
   Box,
   Divider,
@@ -23,8 +19,7 @@ import React, { useContext } from 'react';
 import { SoundEffectContext } from '@/SoundEffectProvider';
 
 export const SoundSettings: React.FC = () => {
-  const { setSoundPack, currentSoundPack, setCustomSounds, customSounds } =
-    useContext(SoundEffectContext) ?? {};
+  const { setSoundPack, currentSoundPack } = useContext(SoundEffectContext) ?? {};
   const playSound = useSound();
 
   const currentSoundPackName =
@@ -84,7 +79,7 @@ export const SoundSettings: React.FC = () => {
           <Divider />
           <Box
             data-testid="SoundSettings-Settings-SoundEffects__List_Wrapper"
-            sx={{ p: '.5em' }}
+            sx={{ p: '.5em', mt: '.5em' }}
           >
             <FormControl>
               <InputLabel color="secondary">Sound Pack</InputLabel>
@@ -104,9 +99,12 @@ export const SoundSettings: React.FC = () => {
                     {soundEffectPacks[key as keyof typeof soundEffectPacks].name}
                   </MenuItem>
                 ))}
-                <MenuItem value={'Custom'}>Custom</MenuItem>
+                <MenuItem value={'Custom'} disabled>
+                  Custom
+                </MenuItem>
               </Select>
             </FormControl>
+            {/* Custom Sounds
             <DigiDisplay>
               <FormControl>
                 <InputLabel color="secondary">Close Sound</InputLabel>
@@ -117,7 +115,7 @@ export const SoundSettings: React.FC = () => {
                   autoWidth
                 ></Select>
               </FormControl>
-            </DigiDisplay>
+            </DigiDisplay> */}
           </Box>
         </DigiBox>
       </Box>
