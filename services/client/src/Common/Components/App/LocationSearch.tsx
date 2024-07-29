@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations';
 import { selectLocationsArray } from '@Redux/Slices/Locations/locationSelectors';
+import { useSound } from '@Utils/Hooks/useSound';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
@@ -45,6 +46,8 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
   const { onLocationSelect, width, helperText, margin, menuSize = 'm' } = props;
   const [inputValue, setInputValue] = React.useState<ILocation | null>(null);
   //InputValue State Setter using ILocation Schema
+
+  const playSound = useSound();
 
   const dispatch = useAppDispatch();
 
@@ -105,7 +108,11 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
           />
         )}
         renderOption={(props, option) => (
-          <MenuItem {...props} sx={{ display: 'flex' }}>
+          <MenuItem
+            {...props}
+            sx={{ display: 'flex' }}
+            onMouseEnter={() => playSound('hover')}
+          >
             <Typography>{option.short_name}</Typography>
             {option.category != 'Uncategorized' && (
               <Typography
