@@ -4,6 +4,7 @@ import { UserChip } from '@Common/Components/Chips/UserChip';
 import { Box, Button, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
+import { useSound } from '@Utils/Hooks/useSound';
 import { enqueueSnackbar } from 'notistack';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
@@ -22,6 +23,7 @@ export const Contractor: React.FC<ContractorProps> = ({
   contractOwned,
 }) => {
   const dispatch = useAppDispatch();
+  const playSound = useSound();
   const handleAccept = () => {
     const updatedBid = { status: 'ACCEPTED' as const };
     dispatch(
@@ -29,8 +31,10 @@ export const Contractor: React.FC<ContractorProps> = ({
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
         enqueueSnackbar('Accepted Bid', { variant: 'success' });
+        playSound('success');
       } else {
         enqueueSnackbar('Error Accepting Bid', { variant: 'error' });
+        playSound('error');
       }
     });
   };
@@ -41,8 +45,10 @@ export const Contractor: React.FC<ContractorProps> = ({
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
         enqueueSnackbar('Rejected Bid', { variant: 'warning' });
+        playSound('warning');
       } else {
         enqueueSnackbar('Error Rejecting Invite', { variant: 'error' });
+        playSound('error');
       }
     });
   };
@@ -53,8 +59,10 @@ export const Contractor: React.FC<ContractorProps> = ({
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
         enqueueSnackbar('Contractor Dismissed', { variant: 'warning' });
+        playSound('warning');
       } else {
         enqueueSnackbar('Error Dismissing Contractor', { variant: 'error' });
+        playSound('error');
       }
     });
   };
@@ -66,8 +74,10 @@ export const Contractor: React.FC<ContractorProps> = ({
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
         enqueueSnackbar('Contractor Invited', { variant: 'default' });
+        playSound('success');
       } else {
         enqueueSnackbar('Error Sending Invite', { variant: 'error' });
+        playSound('error');
       }
     });
   };
@@ -79,8 +89,10 @@ export const Contractor: React.FC<ContractorProps> = ({
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
         enqueueSnackbar('Canceled Invite', { variant: 'warning' });
+        playSound('warning');
       } else {
         enqueueSnackbar('Error Canceling Invite', { variant: 'error' });
+        playSound('error');
       }
     });
   };

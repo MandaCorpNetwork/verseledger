@@ -24,6 +24,7 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { useSound } from '@Utils/Hooks/useSound';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import React from 'react';
@@ -72,6 +73,7 @@ type SelectedContractManagerProps = {
 export const SelectedContractManager: React.FC<SelectedContractManagerProps> = ({
   contractId,
 }) => {
+  const playSound = useSound();
   const [contractManagerTab, setContractManagerTab] = useState<string>('contractors');
   const [archetype, setArchetype] = React.useState<string | null>(null);
 
@@ -94,14 +96,17 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   }, [contract.subtype]);
 
   const handleArchetypeOpen = () => {
+    playSound('open');
     dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetype }));
   };
 
   const handlePayStructurePopup = () => {
+    playSound('open');
     dispatch(openPopup(POPUP_PAY_STRUCTURES));
   };
 
   const handleContractManageView = (_event: React.SyntheticEvent, newValue: string) => {
+    playSound('clickMain');
     setContractManagerTab(newValue);
   };
 

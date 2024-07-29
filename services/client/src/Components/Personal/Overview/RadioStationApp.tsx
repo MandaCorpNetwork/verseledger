@@ -51,6 +51,7 @@ export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) 
       return <VolumeDown />;
     }
   };
+
   return (
     <DigiBox
       data-id="RadioFrequenciesToolFunctionContainer"

@@ -2,6 +2,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { POPUP_USER_INVITE } from '@Popups/UserInvite/UserInvite';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { useSound } from '@Utils/Hooks/useSound';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
@@ -16,10 +17,12 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
   contract,
   isOwned,
 }) => {
+  const playSound = useSound();
   const contractors = contract.Bids;
 
   const dispatch = useAppDispatch();
   const handleOpenInvite = () => {
+    playSound('open');
     dispatch(openPopup(POPUP_USER_INVITE, { contractId: contract.id }));
   };
 
