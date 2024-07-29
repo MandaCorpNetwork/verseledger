@@ -1,4 +1,5 @@
-import { createContext, PropsWithChildren, useState } from 'react';
+import { Logger } from '@Utils/Logger';
+import React, { createContext, PropsWithChildren, useState } from 'react';
 
 interface SoundEffectContextProps {
   playSound: (soundType: keyof ISounds) => void;
@@ -30,6 +31,12 @@ const systemDefaultSounds: ISounds = {
 export const SoundEffectProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [soundEffectRefs, setSoundEffectRefs] = useState<ISounds>(systemDefaultSounds);
 
+  React.useEffect(() => {
+    Object.values(soundEffectRefs).forEach((sound) => {
+      sound.load();
+    });
+  }, [soundEffectRefs]);
+
   const updateSoundEffects = (soundType: keyof ISounds, newSrc: string) => {
     const updatedSoundRefs = { ...soundEffectRefs };
     updatedSoundRefs[soundType] = new Audio(newSrc);
@@ -37,8 +44,11 @@ export const SoundEffectProvider: React.FC<PropsWithChildren> = ({ children }) =
   };
 
   const playSound = (soundType: keyof ISounds) => {
-    if (soundEffectRefs[soundType]) {
-      soundEffectRefs[soundType].play();
+    const sound = soundEffectRefs[soundType];
+    if (sound) {
+      sound.play().catch((error) => {
+        Logger.error(`Failed to play sound '${soundType}':`, error);
+      });
     }
   };
 

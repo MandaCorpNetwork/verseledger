@@ -1,4 +1,5 @@
 import GlassBox from '@Common/Components/Boxes/GlassBox';
+import { DepressedListButton } from '@Common/Components/Lists/DepressedListButton';
 import { Close } from '@mui/icons-material';
 import {
   Box,
@@ -10,7 +11,6 @@ import {
   IconButton,
   List,
   ListItem,
-  ListItemButton,
   ListItemText,
   Typography,
 } from '@mui/material';
@@ -44,9 +44,9 @@ export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => 
       <List>
         {settingsList.map((text) => (
           <ListItem key={text} disablePadding onMouseEnter={() => playSound('hover')}>
-            <ListItemButton onClick={() => handleSettingSelection(text)}>
+            <DepressedListButton onClick={() => handleSettingSelection(text)}>
               <ListItemText primary={text} />
-            </ListItemButton>
+            </DepressedListButton>
           </ListItem>
         ))}
       </List>
@@ -73,10 +73,60 @@ export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => 
             position: 'relative',
             width: '150px',
             height: '100%',
+            boxShadow:
+              '2px 4px 4px rgba(0,1,19,0.4),3px 3px 4px rgba(0,1,19,.3), 4px 4px 12px rgba(0,1,19,.2), 5px 5px 16px rgba(0,1,19,.1)',
+            borderRadius: '10px',
             '& .MuiDrawer-paper': {
               position: 'relative',
               width: '150px',
               boxSizing: 'border-box',
+              backgroundColor: 'rgba(14,35,141,0.8)',
+              backgroundImage:
+                'linear-gradient(145deg, rgba(33,150,243,0.1), rgba(0,1,19,0.2))',
+              boxShadow:
+                'inset 0px 1px 2px rgba(33,150,243,0.2), inset 0 -1px 2px rgba(0,1,19,0.2), 0 4px 6px rgba(0,0,0,0.3), 0 2px 4px rgba(33,150,243,0.2)',
+              border: '2px solid',
+              borderLeft: 'none',
+              borderRadius: '10px',
+              borderColor: 'primary.main',
+              transition: 'all 0.3s ease-in-out',
+              '&:before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+                backgroundImage:
+                  'radial-gradient(circle, rgba(0,1,19,0.2) 1px, transparent 1px)',
+                backgroundSize: '4px 4px',
+                opacity: 0.6,
+              },
+              // '&:after': {
+              //   content: '""',
+              //   position: 'absolute',
+              //   top: 10,
+              //   left: 5,
+              //   width: 'calc(100% - 10px)',
+              //   height: 'calc(100% - 20px)',
+              //   border: '1px solid rgba(33,150,243,0.2)',
+              //   borderRadius: '8px',
+              // },
+              '&:hover': {
+                backgroundImage:
+                  'linear-gradient(125deg, rgba(0,1,19,0.25), rgba(0,30,100,0.3))',
+                borderColor: 'primary.light',
+                boxShadow:
+                  'inset 0px 1px 2px rgba(33,150,243,.2), inset 0 -1px 2px rgba(0,1,19,.2)',
+                '&:before': {
+                  backgroundImage:
+                    'radial-gradient(circle, rgba(33,150,252,0.2) 1px, transparent 1px)',
+                },
+              },
+            },
+            '&:hover': {
+              boxShadow:
+                '2px 2px 6px 6px rgba(0,1,19,0.3), 2px 4px 8px 8px rgba(0,1,19,.3), 4px 6px 12px 12px rgba(0,1,19,.2), 4px 8px 16px 24px rgba(0,1,19,.1)',
             },
           }}
         >

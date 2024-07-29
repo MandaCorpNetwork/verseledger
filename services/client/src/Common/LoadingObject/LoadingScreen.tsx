@@ -1,3 +1,5 @@
+import './LoadingScreen.css';
+
 import VLLogo from '@Assets/media/VerseLogos/VLLogo_Large.png?url';
 import { Box, CircularProgress, LinearProgress, Modal } from '@mui/material';
 import React from 'react';
@@ -33,9 +35,15 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({
           alignItems: 'center',
           justifyContent: 'center',
           opacity: '.75',
+          border: 'none',
         }}
       >
-        <img src={VLLogo} alt="VerseLedger" />
+        <img
+          className="no-focus-outline"
+          src={VLLogo}
+          alt="VerseLedger"
+          style={{ border: 'none', outline: 'none' }}
+        />
         <svg width={0} height={0}>
           <defs>
             <linearGradient id="loadingWheelColor" x1="0%" y1="0%" x2="0%" y2="100%">
