@@ -26,6 +26,15 @@ declare module '@mui/material/Typography' {
 }
 
 export const verseOSTheme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 480,
+      md: 768,
+      lg: 1024,
+      xl: 1440,
+    },
+  },
   palette: {
     tonalOffset: {
       dark: 0.9,

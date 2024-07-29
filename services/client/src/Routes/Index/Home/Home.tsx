@@ -3,6 +3,7 @@ import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
 import { Discord, KoFi, Patreon } from '@Common/Definitions/CustomIcons';
 import { Box, ButtonBase, IconButton } from '@mui/material';
 import { useSound } from '@Utils/Hooks/useSound';
+import { isMobile } from '@Utils/isMobile';
 import React from 'react';
 
 import FreelancerLoop from '@/Assets/media/MenuPage/FreelancerLoop.webm?url';
@@ -12,29 +13,53 @@ import MarketLoop from '@/Assets/media/MenuPage/MarketLoop.webm?url';
 import OrgLoop from '@/Assets/media/MenuPage/OrgLoop.webm?url';
 import Pally from '@/Assets/media/MenuPage/Pally.png?url';
 import VerseNews from '@/Assets/media/MenuPage/VerseNews.webm?url';
+import { HomeNavButtonMobile } from '@/Components/Home/HomeNavButtonMobile';
 
 import { HomeNavButton } from '../../../Components/Home/HomeNavButton';
 
 export const Home: React.FC<unknown> = () => {
+  const mobile = isMobile();
   const playSound = useSound();
   return (
-    <Box marginTop={'3em'}>
+    <Box marginTop={{ xs: '1em', s: '3em' }}>
       <video autoPlay loop muted id="videobg">
         <source src={backgroundvideo}></source>
       </video>
-      <HomeNavButton
-        title="Contract Ledger"
-        to="/ledger/contract"
-        videoSource={JobsLoop}
-      />
-      <HomeNavButton title="Verse Market" inDev={true} videoSource={MarketLoop} />
-      <HomeNavButton
-        title="Personal Ledger"
-        to="/ledger/personal"
-        videoSource={FreelancerLoop}
-      />
-      <HomeNavButton title="Org Ledger" inDev={true} videoSource={OrgLoop} />
-      <HomeNavButton title="Verse News" inDev={true} videoSource={VerseNews} />
+      {mobile ? (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '50%',
+            gap: '2em',
+            mt: '4em',
+            ml: '.5em',
+          }}
+        >
+          <HomeNavButtonMobile title="Contract Ledger" to="/ledger/contract" />
+          <HomeNavButtonMobile title="Verse Market" inDev={true} />
+          <HomeNavButtonMobile title="Personal Ledger" to="/ledger/personal" />
+          <HomeNavButtonMobile title="Org Ledger" inDev={true} />
+          <HomeNavButtonMobile title="Verse News" inDev={true} />
+        </Box>
+      ) : (
+        <>
+          <HomeNavButton
+            title="Contract Ledger"
+            to="/ledger/contract"
+            videoSource={JobsLoop}
+          />
+          <HomeNavButton title="Verse Market" inDev={true} videoSource={MarketLoop} />
+          <HomeNavButton
+            title="Personal Ledger"
+            to="/ledger/personal"
+            videoSource={FreelancerLoop}
+          />
+          <HomeNavButton title="Org Ledger" inDev={true} videoSource={OrgLoop} />
+          <HomeNavButton title="Verse News" inDev={true} videoSource={VerseNews} />
+        </>
+      )}
+
       <Box
         sx={{
           position: 'absolute',
