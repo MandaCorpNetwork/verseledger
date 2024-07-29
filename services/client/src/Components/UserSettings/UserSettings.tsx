@@ -1,5 +1,5 @@
 import '@Assets/Css/ripple.scss';
-import GlassBox from '@Common/Components/Boxes/GlassBox';
+
 import { DepressedListButton } from '@Common/Components/Lists/DepressedListButton';
 import { Close } from '@mui/icons-material';
 import {
@@ -18,21 +18,55 @@ import {
 import { useSound } from '@Utils/Hooks/useSound';
 import React from 'react';
 
+import { ApplicationSettings } from './Application';
+import { GraphicsSettings } from './Graphics';
+import { NotificationSettings } from './Notifications';
+import { ProfileSettings } from './Profile';
+import { SecuritySettings } from './Security';
+import { SoundSettings } from './Sounds';
+
 type UserSettingsProps = {
   open: boolean;
   onClose: () => void;
 };
 
-const settingsList = ['Profile', 'Security', 'Sounds', 'Application'];
+const settingsList = [
+  'Profile',
+  'Security',
+  'Sounds',
+  'Graphics',
+  'Application',
+  'Notifications',
+];
 
 export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => {
   const playSound = useSound();
   const [selectedSetting, setSelectedSetting] = React.useState<string>('Profile');
+  const [currentSetting, setCurrentSetting] = React.useState<string>('Profile');
+  const [transitioning, setTransitioning] = React.useState<boolean>(false);
+
+  const settingsPageRender = React.useCallback(() => {
+    switch (selectedSetting) {
+      case 'Profile':
+        return <ProfileSettings />;
+      case 'Security':
+        return <SecuritySettings />;
+      case 'Sounds':
+        return <SoundSettings />;
+      case 'Graphics':
+        return <GraphicsSettings />;
+      case 'Application':
+        return <ApplicationSettings />;
+      case 'Notifications':
+        return <NotificationSettings />;
+    }
+  }, [currentSetting]);
 
   const handleSettingSelection = React.useCallback(
     (setting: string) => {
       if (selectedSetting !== setting) {
         playSound('clickMain');
+        setTransitioning(true);
         setSelectedSetting(setting);
       } else {
         playSound('denied');
@@ -40,6 +74,16 @@ export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => 
     },
     [selectedSetting],
   );
+
+  React.useEffect(() => {
+    if (transitioning) {
+      const time = setTimeout(() => {
+        setCurrentSetting(selectedSetting);
+        setTransitioning(false);
+      }, 500);
+      return () => clearTimeout(time);
+    }
+  }, [transitioning, selectedSetting]);
   const DrawerList = (
     <Box>
       <List>
@@ -144,8 +188,13 @@ export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => 
             pl: '2em',
           }}
         >
-          <Grow in={true}>
-            <GlassBox sx={{ minHeight: '100%', minWidth: '100%' }}></GlassBox>
+          <Grow
+            in={!transitioning}
+            timeout="auto"
+            easing={{ enter: 'ease-in-out', exit: 'ease-out' }}
+            style={{ transformOrigin: 'center' }}
+          >
+            <Box sx={{ width: '100%', height: '100%' }}>{settingsPageRender()}</Box>
           </Grow>
         </Box>
       </DialogContent>
