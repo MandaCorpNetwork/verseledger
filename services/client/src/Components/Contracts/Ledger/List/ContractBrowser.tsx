@@ -5,6 +5,7 @@ import {
   selectContractPagination,
   selectContractsArray,
 } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import { useSound } from '@Utils/Hooks/useSound';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { Logger } from '@Utils/Logger';
 import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
@@ -30,6 +31,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   contractOnClose,
   selectedId,
 }) => {
+  const playSound = useSound();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dispatch = useAppDispatch();
   const [view, setView] = React.useState('ContractCardView');
@@ -45,15 +47,18 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   const contractCount = pagination();
 
   const handleChangePage = (_event: unknown, newPage: number) => {
+    playSound('clickMain');
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    playSound('clickMain');
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
 
   const handleSelect = (id: string | null) => {
+    playSound('open');
     selectedIdSetter(id);
     Logger.info(`Selected Contract in Browser: ${id}`);
   };

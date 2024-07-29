@@ -6,6 +6,7 @@ import { LocationsFilter } from '@Utils/Filters/LocationsFilter';
 import { EmployerRatingSliderFilter } from '@Utils/Filters/MultiRatingSliderFilter';
 import { SubTypeFilter } from '@Utils/Filters/SubtypeFilter';
 import { UECRangeFilter } from '@Utils/Filters/UECRangeFilter';
+import { useSound } from '@Utils/Hooks/useSound';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useCallback } from 'react';
 
@@ -17,6 +18,7 @@ type CLFilterDropdownProps = {
 };
 
 export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, label }) => {
+  const playSound = useSound();
   const [filters, setFilters] = useURLQuery();
   const [isExpanded, setIsExpanded] = React.useState(false);
 
@@ -35,6 +37,11 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
   const isDisabled = setDisabled();
 
   const handleExpand = () => {
+    if (isDisabled) {
+      playSound('denied');
+      return;
+    }
+    playSound('clickMain');
     setIsExpanded(!isExpanded);
   };
 
@@ -207,7 +214,12 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
                       variant="outlined"
                       color="secondary"
                       sx={{ m: '.2em' }}
-                      onDelete={() => value && handleDeleteFilter(value)}
+                      onDelete={() => {
+                        if (value) {
+                          handleDeleteFilter(value);
+                          playSound('toggleOff');
+                        }
+                      }}
                     />
                   ))
                 )}

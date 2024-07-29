@@ -7,6 +7,7 @@ import {
   Select,
   // SelectChangeEvent,
 } from '@mui/material';
+import { useSound } from '@Utils/Hooks/useSound';
 import React from 'react';
 
 // import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
@@ -29,6 +30,7 @@ export const SortBySelect: React.FC<SortBySelectProps> = ({
   sortOptions,
   containerSize,
 }) => {
+  const playSound = useSound();
   // const [filters, setFilters, overwriteURLQuery] = useURLQuery();
   // const [sortDirection, setSortDirection] = React.useState('desc');
 
@@ -70,6 +72,7 @@ export const SortBySelect: React.FC<SortBySelectProps> = ({
         color="secondary"
         variant="outlined"
         label="Sort By"
+        onClick={() => playSound('denied')}
         disabled
         // onChange={handleSortChange}
         sx={{
