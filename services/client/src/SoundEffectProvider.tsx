@@ -32,7 +32,8 @@ export const SoundEffectProvider: React.FC<PropsWithChildren> = ({ children }) =
   }, [soundEffectRefs]);
 
   React.useEffect(() => {
-    Object.values(soundEffectRefs).forEach((sound) => {
+    const updatedRefs = { ...soundEffectRefs, ...customSounds };
+    Object.values(updatedRefs).forEach((sound) => {
       sound.load();
     });
   }, [soundEffectRefs]);
