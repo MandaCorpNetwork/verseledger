@@ -10,6 +10,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { useSound } from '@Utils/Hooks/useSound';
 import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
@@ -21,6 +22,7 @@ export const TimeInformation: React.FC<{
   formData: Partial<ICreateContractBody>;
   setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
+  const playSound = useSound();
   const { formData, setFormData } = props;
   const [heldDate, setHeldDate] = React.useState<Date | null>(null);
   const [afterBiddingChecked, setAfterBiddingChecked] = React.useState(false);
@@ -31,6 +33,7 @@ export const TimeInformation: React.FC<{
       if (newChecked) {
         const bidDate = dayjs(formData.bidDate);
         const startDate = bidDate.add(10, 'second').toDate();
+        playSound('clickMain');
         setFormData({ ...formData, startDate: startDate ?? null });
       }
       return newChecked;
@@ -44,6 +47,7 @@ export const TimeInformation: React.FC<{
           variant: 'error',
           message: 'Please select a date first',
         });
+        playSound('error');
         return;
       }
       const dateSelected = dayjs(heldDate);
@@ -60,6 +64,7 @@ export const TimeInformation: React.FC<{
             variant: 'error',
             message: 'Bid Date must be before Start Date',
           });
+          playSound('denied');
           return;
         }
         if (formData.endDate && newDate > formData.endDate) {
@@ -67,6 +72,7 @@ export const TimeInformation: React.FC<{
             variant: 'error',
             message: 'Bid Date must be before End Date',
           });
+          playSound('denied');
           return;
         }
         setFormData({ ...formData, bidDate: newDate ?? null });
@@ -77,6 +83,7 @@ export const TimeInformation: React.FC<{
             variant: 'error',
             message: 'Start Date must be after Bid Date',
           });
+          playSound('denied');
           return;
         }
         if (formData.endDate && newDate > formData.endDate) {
@@ -84,6 +91,7 @@ export const TimeInformation: React.FC<{
             variant: 'error',
             message: 'Start Date must be before End Date',
           });
+          playSound('denied');
           return;
         }
         setFormData({ ...formData, startDate: newDate ?? null });
@@ -94,6 +102,7 @@ export const TimeInformation: React.FC<{
             variant: 'error',
             message: 'End Date must be after Start Date',
           });
+          playSound('denied');
           return;
         }
         if (formData.bidDate && newDate < formData.bidDate) {
@@ -101,6 +110,7 @@ export const TimeInformation: React.FC<{
             variant: 'error',
             message: 'End Date must be after Bid Date',
           });
+          playSound('denied');
           return;
         }
         setFormData({ ...formData, endDate: newDate ?? null });
@@ -202,7 +212,10 @@ export const TimeInformation: React.FC<{
               endAdornment: formData.bidDate && (
                 <IconButton
                   data-testid="TimeInformation-Form-DateBox__BidDateControl_ClearButton"
-                  onClick={() => setFormData({ ...formData, bidDate: null })}
+                  onClick={() => {
+                    setFormData({ ...formData, bidDate: null });
+                    playSound('clickMain');
+                  }}
                 >
                   <Close />
                 </IconButton>
@@ -240,7 +253,10 @@ export const TimeInformation: React.FC<{
                 endAdornment: formData.startDate && (
                   <IconButton
                     data-testid="TimeInformation-Form-DateBox__StartDateControl_ClearButton"
-                    onClick={() => setFormData({ ...formData, startDate: null })}
+                    onClick={() => {
+                      setFormData({ ...formData, startDate: null });
+                      playSound('clickMain');
+                    }}
                   >
                     <Close />
                   </IconButton>
@@ -287,7 +303,10 @@ export const TimeInformation: React.FC<{
               endAdornment: formData.endDate && (
                 <IconButton
                   data-testid="TimeInformation-Form-DateBox__EndDateControl_ClearButton"
-                  onClick={() => setFormData({ ...formData, endDate: null })}
+                  onClick={() => {
+                    setFormData({ ...formData, endDate: null });
+                    playSound('clickMain');
+                  }}
                 >
                   <Close />
                 </IconButton>

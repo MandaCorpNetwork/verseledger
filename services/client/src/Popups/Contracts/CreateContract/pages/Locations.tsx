@@ -3,6 +3,7 @@ import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { Box, FormControl, TextField, Typography } from '@mui/material';
+import { useSound } from '@Utils/Hooks/useSound';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
@@ -12,12 +13,14 @@ export const Locations: React.FC<{
   formData: Partial<ICreateContractBody>;
   setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
+  const playSound = useSound();
   const { formData, setFormData } = props;
 
   const handleAddStartLocation = React.useCallback(
     (selectedLocation: ILocation | null) => {
       setFormData((formData) => {
         if (selectedLocation == null) {
+          playSound('warning');
           return {
             ...formData,
             Locations: formData.Locations?.filter((loc) => loc.tag !== 'start'),
@@ -27,7 +30,7 @@ export const Locations: React.FC<{
           ...(formData.Locations?.filter((loc) => loc.tag !== 'start') ?? []),
           { location: selectedLocation.id as string, tag: 'start' },
         ];
-
+        playSound('clickMain');
         return {
           ...formData,
           Locations: updatedLocations,
@@ -41,6 +44,7 @@ export const Locations: React.FC<{
     (selectedLocation: ILocation | null) => {
       setFormData((formData) => {
         if (selectedLocation == null) {
+          playSound('warning');
           return {
             ...formData,
             Locations: formData.Locations?.filter((loc) => loc.tag !== 'end'),
@@ -50,7 +54,7 @@ export const Locations: React.FC<{
           ...(formData.Locations?.filter((loc) => loc.tag !== 'end') ?? []),
           { location: selectedLocation.id as string, tag: 'end' },
         ];
-
+        playSound('clickMain');
         return {
           ...formData,
           Locations: updatedLocations,
@@ -63,6 +67,7 @@ export const Locations: React.FC<{
   const handleAddOtherLocation = React.useCallback(
     (selectedLocation: ILocation | null) => {
       if (selectedLocation == null) return;
+      playSound('clickMain');
       setFormData((formData) => ({
         ...formData,
         Locations: [

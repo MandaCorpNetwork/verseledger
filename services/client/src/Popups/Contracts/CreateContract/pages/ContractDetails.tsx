@@ -17,6 +17,7 @@ import {
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { useSound } from '@Utils/Hooks/useSound';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
@@ -37,6 +38,7 @@ export const ContractDetails: React.FC<{
   formData: Partial<ICreateContractBody> | ICreateContractBody;
   setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
+  const playSound = useSound();
   const dispatch = useAppDispatch();
   const { formData, setFormData } = props;
   const [archetype, setArchetype] = React.useState<string | null>(null);
@@ -51,6 +53,7 @@ export const ContractDetails: React.FC<{
 
   const handleArchetypeSelect = React.useCallback(
     (selectedArchetype: string) => {
+      playSound('clickMain');
       if (archetype === selectedArchetype) {
         setArchetype(null);
         setFilteredSubtypes(flatOptions);
@@ -67,6 +70,7 @@ export const ContractDetails: React.FC<{
   );
 
   const handleArchetypeOpen = () => {
+    playSound('open');
     dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetype }));
   };
 
@@ -92,8 +96,10 @@ export const ContractDetails: React.FC<{
   const toggleEmergencyMode = React.useCallback(() => {
     Logger.info(formData.isEmergency);
     if (formData.isEmergency) {
+      playSound('close');
       setFormData({ ...formData, isEmergency: false });
     } else {
+      playSound('warning');
       setFormData({
         ...formData,
         isEmergency: true,
@@ -147,7 +153,12 @@ export const ContractDetails: React.FC<{
             color={formData.title?.length == 32 ? 'error' : 'secondary'}
             inputProps={{ maxLength: 32 }}
             fullWidth
-            onChange={(e) => setFormData({ ...formData, title: e.currentTarget.value })}
+            onChange={(e) => {
+              setFormData({ ...formData, title: e.currentTarget.value });
+              if (e.currentTarget.value.length === 32) {
+                playSound('warning');
+              }
+            }}
             value={formData.title ?? ''}
             sx={{ width: '300px' }}
             helperText={formData.title?.length == 32 ? 'Character Limit Reached' : ''}
@@ -161,9 +172,12 @@ export const ContractDetails: React.FC<{
             data-testid="ContractDetails-Form__BriefingField"
             multiline={true}
             rows={4}
-            onChange={(e) =>
-              setFormData({ ...formData, briefing: e.currentTarget.value })
-            }
+            onChange={(e) => {
+              setFormData({ ...formData, briefing: e.currentTarget.value });
+              if (e.currentTarget.value.length === 2048) {
+                playSound('warning');
+              }
+            }}
             value={formData.briefing}
             label="Briefing"
             color={formData.briefing?.length == 2048 ? 'error' : 'secondary'}
@@ -275,7 +289,10 @@ export const ContractDetails: React.FC<{
             renderInput={(params) => (
               <TextField {...params} color="secondary" label="SubType" size="small" />
             )}
-            onChange={(_, value) => updateSubtype(value)}
+            onChange={(_, value) => {
+              updateSubtype(value);
+              playSound('clickMain');
+            }}
             fullWidth
             sx={{ mt: 2, mb: '1em', maxWidth: '300px' }}
           />
