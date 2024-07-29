@@ -1,3 +1,4 @@
+import '@Assets/Css/ripple.scss';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { DepressedListButton } from '@Common/Components/Lists/DepressedListButton';
 import { Close } from '@mui/icons-material';
@@ -44,7 +45,11 @@ export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => 
       <List>
         {settingsList.map((text) => (
           <ListItem key={text} disablePadding onMouseEnter={() => playSound('hover')}>
-            <DepressedListButton onClick={() => handleSettingSelection(text)}>
+            <DepressedListButton
+              onClick={() => handleSettingSelection(text)}
+              selected={selectedSetting === text}
+              TouchRippleProps={{ className: 'dark-ripple' }}
+            >
               <ListItemText primary={text} />
             </DepressedListButton>
           </ListItem>
