@@ -1,6 +1,7 @@
 // SubTypeFilter.tsx
 import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
+import { useSound } from '@Utils/Hooks/useSound';
 // import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useMemo } from 'react';
@@ -40,6 +41,7 @@ type SubTypeFilterProps = {
 };
 
 export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
+  const playSound = useSound();
   const [filters, setFilters] = useURLQuery();
 
   const currentFilterValues = useMemo(() => {
@@ -49,6 +51,7 @@ export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleChange = (_event: React.SyntheticEvent, newValue: { value: string }[]) => {
+    playSound('clickMain');
     setFilters(
       QueryNames.Subtype,
       newValue.map((v) => v.value),
@@ -72,7 +75,11 @@ export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
         option.archetype?.charAt(0).toUpperCase() + option.archetype?.slice(1)
       }
       renderOption={(props, option, { selected }) => (
-        <MenuItem {...props} sx={{ display: 'flex' }}>
+        <MenuItem
+          {...props}
+          sx={{ display: 'flex' }}
+          onMouseEnter={() => playSound('hover')}
+        >
           {option.label}
           {selected && (
             <CheckIcon

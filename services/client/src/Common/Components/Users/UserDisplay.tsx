@@ -3,6 +3,7 @@ import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { selectUserById } from '@Redux/Slices/Users/userSelectors';
+import { useSound } from '@Utils/Hooks/useSound';
 import { memo } from 'react';
 
 type UserDisplayProps = {
@@ -11,11 +12,13 @@ type UserDisplayProps = {
 };
 
 const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx }) => {
+  const playSound = useSound();
   const dispatch = useAppDispatch();
 
   const user = useAppSelector((state) => selectUserById(state, userid));
 
   const handlePlayerCardOpen = () => {
+    playSound('open');
     dispatch(openPopup(POPUP_PLAYER_CARD, { userid }));
   };
 

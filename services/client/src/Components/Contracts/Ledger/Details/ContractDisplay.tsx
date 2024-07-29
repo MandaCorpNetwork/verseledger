@@ -21,6 +21,7 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { useSound } from '@Utils/Hooks/useSound';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -44,6 +45,7 @@ type ContractDisplayProps = {
 };
 
 export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) => {
+  const playSound = useSound();
   const dispatch = useAppDispatch();
 
   Logger.info(`ContractDisplay ID: ${contract.id}`);
@@ -70,11 +72,13 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   }, [contract.subtype]);
 
   const handleArchetypeOpen = () => {
+    playSound('open');
     dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetype }));
   };
 
   const handleActiveTabChange = React.useCallback(
     (_event: React.SyntheticEvent, value: string) => {
+      playSound('clickMain');
       setActiveDataTab(value);
     },
     [activeDataTab],
@@ -82,20 +86,36 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
 
   const handleTimeTabChange = React.useCallback(
     (_event: React.SyntheticEvent, value: string) => {
+      playSound('clickMain');
       setTimeTab(value);
     },
     [timeTab],
   );
 
   const toggleBriefingExpand = React.useCallback(() => {
+    if (briefingExpanded) {
+      playSound('toggleOff');
+    } else {
+      playSound('toggleOn');
+    }
     setBriefingExpanded(!briefingExpanded);
   }, [briefingExpanded]);
 
   const togglePayExpand = React.useCallback(() => {
+    if (payExpanded) {
+      playSound('toggleOff');
+    } else {
+      playSound('toggleOn');
+    }
     setPayExpanded(!payExpanded);
   }, [payExpanded]);
 
   const toggleLocationsExpand = React.useCallback(() => {
+    if (locationsExpanded) {
+      playSound('toggleOff');
+    } else {
+      playSound('toggleOn');
+    }
     setLocationsExpanded(!locationsExpanded);
   }, [locationsExpanded]);
 
@@ -152,10 +172,12 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const statusColor = statusChipColor();
 
   const handlePayStructurePopup = () => {
+    playSound('open');
     dispatch(openPopup(POPUP_PAY_STRUCTURES));
   };
 
   const handleSubmitBidPopup = () => {
+    playSound('open');
     dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
   };
 

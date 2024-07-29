@@ -9,15 +9,18 @@ import { Provider } from 'react-redux';
 import App from './App';
 import { AudioProvider } from './AudioProvider.js';
 import { setupStore } from './Redux/store.js';
+import { SoundEffectProvider } from './SoundEffectProvider.js';
 import { StompProvider } from './StompProvider.js';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={setupStore()}>
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <StompProvider>
-        <AudioProvider>
-          <App />
-        </AudioProvider>
+        <SoundEffectProvider>
+          <AudioProvider>
+            <App />
+          </AudioProvider>
+        </SoundEffectProvider>
       </StompProvider>
     </LocalizationProvider>
   </Provider>,

@@ -3,6 +3,7 @@ import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { selectUserById } from '@Redux/Slices/Users/userSelectors';
+import { useSound } from '@Utils/Hooks/useSound';
 import { Logger } from '@Utils/Logger';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
@@ -14,6 +15,7 @@ type UserChipProps = {
 };
 
 export const UserChip: React.FC<UserChipProps> = ({ user, size, onDelete, user_id }) => {
+  const playSound = useSound();
   const dispatch = useAppDispatch();
 
   const pullPlayer = useAppSelector((state) =>
@@ -23,11 +25,13 @@ export const UserChip: React.FC<UserChipProps> = ({ user, size, onDelete, user_i
   const player = user || pullPlayer;
 
   const handlePlayerCardOpen = () => {
+    playSound('open');
     dispatch(openPopup(POPUP_PLAYER_CARD, { userid: player?.id }));
   };
 
   const handleDeleteUser = () => {
     if (onDelete) {
+      playSound('toggleOff');
       onDelete();
     }
   };

@@ -2,6 +2,7 @@
 import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
 import { Discord, KoFi, Patreon } from '@Common/Definitions/CustomIcons';
 import { Box, ButtonBase, IconButton } from '@mui/material';
+import { useSound } from '@Utils/Hooks/useSound';
 import React from 'react';
 
 import FreelancerLoop from '@/Assets/media/MenuPage/FreelancerLoop.webm?url';
@@ -15,6 +16,7 @@ import VerseNews from '@/Assets/media/MenuPage/VerseNews.webm?url';
 import { HomeNavButton } from '../../../Components/Home/HomeNavButton';
 
 export const Home: React.FC<unknown> = () => {
+  const playSound = useSound();
   return (
     <Box marginTop={'3em'}>
       <video autoPlay loop muted id="videobg">
@@ -57,6 +59,7 @@ export const Home: React.FC<unknown> = () => {
             href="https://ko-fi.com/verseledger"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => playSound('navigate')}
           >
             <KoFi fontSize="large" />
           </IconButton>
@@ -65,6 +68,7 @@ export const Home: React.FC<unknown> = () => {
             href="https://www.patreon.com/otterlodgestudios"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => playSound('navigate')}
           >
             <Patreon fontSize="large" />
           </IconButton>
@@ -96,12 +100,14 @@ export const Home: React.FC<unknown> = () => {
                 transform: 'translateY(4px)',
               },
             }}
+            onClick={() => playSound('navigate')}
           />
           <IconButton
             component="a"
             href="https://www.discord.gg/kf47Tw3P"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => playSound('navigate')}
           >
             <Discord fontSize="large" />
           </IconButton>
@@ -110,6 +116,7 @@ export const Home: React.FC<unknown> = () => {
             href="https://robertsspaceindustries.com/"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => playSound('navigate')}
           >
             <img
               src={MadeByCommunity}

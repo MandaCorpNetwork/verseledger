@@ -4,6 +4,8 @@ import '@/Routes/Index/Home/Home.scss';
 import { UnderConstruction } from '@Common/Components/App/UnderContruction';
 import { useTheme } from '@emotion/react';
 import { Button, Typography } from '@mui/material';
+import { useSound } from '@Utils/Hooks/useSound';
+import { Logger } from '@Utils/Logger';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
@@ -24,6 +26,8 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
   // eslint-disable-next-line
   const theme = useTheme() as any;
 
+  const playSound = useSound();
+
   //Hover Animation
   const [, setIsHovered] = useState(false);
   const [fontSize, setFontSize] = useState('1em');
@@ -33,6 +37,7 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
 
   const handleMouseEnter = () => {
     setIsHovered(true);
+    playSound('hover');
     const video = document.getElementById(videoSource) as HTMLVideoElement;
     setFontSize('1.2em');
     setFontWeight('700');
@@ -69,12 +74,15 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
   const handleClick = () => {
     setColor(theme.palette.text.secondary);
     if (inDev) {
+      playSound('denied');
       setDialogOpen(true);
     }
     if (to) {
+      playSound('navigate');
       navigate(to);
     } else {
-      console.error('Navigation target undefined');
+      playSound('error');
+      Logger.error('Navigation target undefined');
     }
     setTimeout(() => {
       setColor(theme.palette.text.primary);

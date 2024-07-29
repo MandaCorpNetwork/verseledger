@@ -12,8 +12,10 @@ import {
   selectContractsArray,
 } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser';
+import { useSound } from '@Utils/Hooks/useSound';
 import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
+import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
@@ -28,6 +30,7 @@ import { ContractManagerContractList } from './ContractList/ContractManagerContr
 import { ContractManagerSearchTools } from './ContractList/ContractManagerSearchTools';
 
 export const ContractManagerApp: React.FC<unknown> = () => {
+  const playSound = useSound();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filters, setFilter, overwriteURLQuery] = useURLQuery();
   const [selectedId, setSelectedId] = React.useState<string | null>(null);
@@ -49,6 +52,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   const bidCount = bidPagination();
 
   const handleChangePage = (_event: React.ChangeEvent<unknown>, newPage: number) => {
+    playSound('clickMain');
     setPage(newPage);
   };
 
@@ -64,6 +68,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   const handleBrowserChange = React.useCallback(
     (_event: React.SyntheticEvent, newValue: string) => {
       setSelectedId(null);
+      playSound('clickMain');
       overwriteURLQuery({ [QueryNames.ContractManagerTab]: newValue });
     },
     [overwriteURLQuery],
@@ -75,6 +80,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   const handleContractSelect = React.useCallback(
     (id: string | null) => {
       setSelectedId(id);
+      playSound('open');
     },
     [setSelectedId],
   );
@@ -96,14 +102,20 @@ export const ContractManagerApp: React.FC<unknown> = () => {
             return contractIds;
           } else {
             Logger.error('No valid bids found in response:', fetchBids.payload);
+            enqueueSnackbar('No Bids found', { variant: 'warning' });
+            playSound('warning');
             return [];
           }
         } else {
           Logger.error('Fetch Bids not Fufilled:');
+          enqueueSnackbar('Error fetching bids', { variant: 'error' });
+          playSound('error');
           return [];
         }
       } catch (error) {
         Logger.error('Error fetching bids for client', error);
+        enqueueSnackbar('Unknown Error Occurred', { variant: 'error' });
+        playSound('error');
         return [];
       }
     },

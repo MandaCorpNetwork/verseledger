@@ -19,6 +19,7 @@ import { Box, Collapse, Grow, IconButton, Slide, Tooltip } from '@mui/material';
 import { POPUP_CREATE_CONTRACT } from '@Popups/Contracts/CreateContract/CreateContract';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { useSound } from '@Utils/Hooks/useSound';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useCallback, useMemo, useState } from 'react';
@@ -44,6 +45,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   const [selectedId, setSelectedId] = useState<IContract['id'] | null>(null);
   const [isExpanded, setExpanded] = useState(false);
   const dispatch = useAppDispatch();
+  const playSound = useSound();
 
   const handleContractPick = useCallback(
     (id: string | null) => {
@@ -54,13 +56,20 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   //Contract Selection for selecting a certain Contract
   const handleContractClose = () => {
     setSelectedId(null);
+    playSound('close');
   };
 
   const openCreateContract = useCallback(() => {
+    playSound('open');
     dispatch(openPopup(POPUP_CREATE_CONTRACT));
   }, [dispatch]);
 
   const handleDrawerOpen = () => {
+    if (isExpanded) {
+      playSound('toggleOff');
+    } else {
+      playSound('toggleOn');
+    }
     setExpanded(!isExpanded);
   };
 
@@ -110,6 +119,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   }, [filters]);
 
   const handleArchetypeChange = (value: string) => {
+    playSound('clickMain');
     setFilters(
       QueryNames.Archetype,
       currentFilterValues.includes(value)
@@ -219,7 +229,12 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
                   </IconButton>
                 </Tooltip>
                 <Tooltip title="Manage Contracts" placement="right">
-                  <IconButton onClick={() => navigate('/ledger/personal')}>
+                  <IconButton
+                    onClick={() => {
+                      navigate('/ledger/personal');
+                      playSound('navigate');
+                    }}
+                  >
                     <EditNote fontSize="large" />
                   </IconButton>
                 </Tooltip>
@@ -240,7 +255,10 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
               >
                 <ContractLedgerQuickNav
                   title="Manage"
-                  onClick={() => navigate('/ledger/personal')}
+                  onClick={() => {
+                    navigate('/ledger/personal');
+                    playSound('navigate');
+                  }}
                   testid="ContractManager"
                 />
                 <ContractLedgerQuickNav

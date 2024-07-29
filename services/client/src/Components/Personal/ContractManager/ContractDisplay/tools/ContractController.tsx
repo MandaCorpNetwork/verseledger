@@ -4,6 +4,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContract';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { useSound } from '@Utils/Hooks/useSound';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
@@ -21,9 +22,12 @@ export const ContractController: React.FC<ContractControllerProps> = ({
   isOwned,
 }) => {
   const dispatch = useAppDispatch();
+  const playSound = useSound();
 
   const handleAcceptInvite = () => {
     if (!userBid) {
+      enqueueSnackbar(`Invite doesn't Exist`, { variant: 'error' });
+      playSound('error');
       return Logger.info('no user bid');
     }
     const updatedBid = { status: 'ACCEPTED' as const };
@@ -32,14 +36,18 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
         enqueueSnackbar('Accepted Invite', { variant: 'success' });
+        playSound('success');
       } else {
         enqueueSnackbar('Error Accepting Invite', { variant: 'error' });
+        playSound('error');
       }
     });
   };
 
   const handleDeclineInvite = () => {
     if (!userBid) {
+      enqueueSnackbar(`Invite doesn't Exist`, { variant: 'error' });
+      playSound('error');
       return Logger.info('no user bid');
     }
     const updatedBid = { status: 'DECLINED' as const };
@@ -48,14 +56,18 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
         enqueueSnackbar('Declined Invite', { variant: 'warning' });
+        playSound('warning');
       } else {
         enqueueSnackbar('Error Accepting Invite', { variant: 'error' });
+        playSound('error');
       }
     });
   };
 
   const handleWithdrawBid = () => {
     if (!userBid) {
+      enqueueSnackbar(`Bid doesn't Exist`, { variant: 'error' });
+      playSound('error');
       return Logger.info('no user bid');
     }
     const updatedBid = { status: 'EXPIRED' as const };
@@ -64,14 +76,18 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
         enqueueSnackbar('Resigned from Contract', { variant: 'warning' });
+        playSound('warning');
       } else {
         enqueueSnackbar('Error Resigning', { variant: 'error' });
+        playSound('error');
       }
     });
   };
 
   const handleResubmitBid = () => {
     if (!userBid) {
+      enqueueSnackbar(`Bid doesn't Exist`, { variant: 'error' });
+      playSound('error');
       return Logger.info('no user bid');
     }
     const updatedBid = { status: 'PENDING' as const };
@@ -80,8 +96,10 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
         enqueueSnackbar('Bid Resubmitted', { variant: 'warning' });
+        playSound('success');
       } else {
         enqueueSnackbar('Error Resubmitting Bid', { variant: 'error' });
+        playSound('error');
       }
     });
   };
@@ -106,8 +124,10 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       ).then((res) => {
         if (updateContract.fulfilled.match(res)) {
           enqueueSnackbar('Contract Started', { variant: 'success' });
+          playSound('success');
         } else {
           enqueueSnackbar('Error Starting Contract', { variant: 'error' });
+          playSound('error');
         }
       });
     }
@@ -121,8 +141,10 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       ).then((res) => {
         if (updateContract.fulfilled.match(res)) {
           enqueueSnackbar('Contract Completed', { variant: 'success' });
+          playSound('success');
         } else {
           enqueueSnackbar('Error Completing Contract Contract', { variant: 'error' });
+          playSound('error');
         }
       });
     }
@@ -136,8 +158,10 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       ).then((res) => {
         if (updateContract.fulfilled.match(res)) {
           enqueueSnackbar('Contract Canceled', { variant: 'warning' });
+          playSound('warning');
         } else {
           enqueueSnackbar('Error Canceling Contract', { variant: 'error' });
+          playSound('error');
         }
       });
     }
@@ -145,8 +169,11 @@ export const ContractController: React.FC<ContractControllerProps> = ({
 
   const handleEditContract = () => {
     if (contract.status === 'COMPLETED' || contract.status === 'CANCELED') {
+      playSound('denied');
+      enqueueSnackbar('Not able to edit this Contract', { variant: 'error' });
       return Logger.info('contract is completed or canceled');
     }
+    playSound('open');
     dispatch(openPopup(POPUP_EDIT_CONTRACT, { contract: contract }));
   };
 

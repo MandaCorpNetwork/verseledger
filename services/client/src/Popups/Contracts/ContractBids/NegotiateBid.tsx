@@ -6,6 +6,7 @@ import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
 import { PayField } from '@Common/Components/TextFields/PayField';
 import { Box, Tooltip, Typography } from '@mui/material';
+import { useSound } from '@Utils/Hooks/useSound';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
@@ -23,6 +24,7 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
   formData,
   setFormData,
 }) => {
+  const playSound = useSound();
   const acceptedContractorsCount =
     contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').length ?? 0;
 
@@ -64,6 +66,7 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
       const invalidCharacters = value.match(/[^\d.,]/g);
       if (invalidCharacters) {
         enqueueSnackbar('Please only use numbers', { variant: 'error' });
+        playSound('warning');
       }
 
       const inputValue = Number(value.replace(/[^0-9.]/g, ''));
@@ -75,6 +78,7 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
   );
 
   const handlePayClear = () => {
+    playSound('toggleOff');
     setFormData(contract.defaultPay);
   };
 
