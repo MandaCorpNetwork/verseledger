@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import { useSound } from '@Utils/Hooks/useSound';
 import React from 'react';
 
 import BackdropLogo from '@/Assets/media/VerseLogos/LogoBackdrop.png?url';
@@ -8,6 +9,7 @@ import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
 import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
 
 export const PersonalLedgerPage: React.FC<unknown> = () => {
+  const playSound = useSound();
   const [selectedApp, setSelectedApp] = React.useState<string>('Overview');
 
   const appRenderer = React.useCallback(() => {
@@ -25,7 +27,11 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
 
   const handleAppChange = React.useCallback(
     (iconKey: string) => {
-      if (selectedApp === iconKey) return;
+      if (selectedApp === iconKey) {
+        playSound('denied');
+        return;
+      }
+      playSound('navigate');
       setSelectedApp(iconKey);
     },
     [selectedApp, setSelectedApp],

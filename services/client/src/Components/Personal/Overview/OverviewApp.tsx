@@ -3,6 +3,7 @@ import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
 import { closeWidget, openWidget } from '@Redux/Slices/Widgets/widgets.actions';
+import { useSound } from '@Utils/Hooks/useSound';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
@@ -15,14 +16,17 @@ import { WIDGET_RADIO } from '@/Widgets/Radio/Radio';
 
 export const OverviewApp: React.FC<unknown> = () => {
   const { isPlaying, play, pause } = useRadioController();
+  const playSound = useSound();
   const dispatch = useAppDispatch();
 
   const toggleRadio = () => {
     if (isPlaying) {
       pause();
+      playSound('close');
       dispatch(closeWidget(WIDGET_RADIO));
     } else {
       play();
+      playSound('open');
       dispatch(openWidget(WIDGET_RADIO));
     }
   };
@@ -38,6 +42,7 @@ export const OverviewApp: React.FC<unknown> = () => {
   }, [currentLocation]);
 
   const handleResetLocation = () => {
+    playSound('close');
     setSelectedLocation(currentLocation);
   };
 
