@@ -1,5 +1,6 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
+import { useSound } from '@Utils/Hooks/useSound';
 import React from 'react';
 
 import { FlatRateTab, PoolTab, TimedRateTab } from './PayInfoDisplays';
@@ -8,8 +9,10 @@ export const POPUP_PAY_STRUCTURES = 'payStructures';
 
 export const PayStructuresPopup: React.FC = () => {
   const [payTypeTab, setPayTypeTab] = React.useState('flat');
+  const playSound = useSound();
 
   const handlePayTabChange = (_event: React.SyntheticEvent, newValue: string) => {
+    playSound('clickMain');
     setPayTypeTab(newValue);
   };
 

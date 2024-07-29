@@ -8,6 +8,8 @@ import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
 import { postContractBid } from '@Redux/Slices/Contracts/actions/post/postContractBid';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
+import { useSound } from '@Utils/Hooks/useSound';
+import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -26,6 +28,7 @@ export type ContractBidProps = {
 export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
   // State for the Negotiation Form
   // TODO: NEED SCHEMA FOR FORMDATA
+  const playSound = useSound();
   const [negotiateFormData, setNeotiateFormData] = React.useState<number>(
     contract.defaultPay,
   );
@@ -33,7 +36,9 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
 
   const handleSubmitBid = React.useCallback(() => {
     if (negotiateFormData == null || negotiateFormData === contract.defaultPay) {
+      playSound('send');
       dispatch(postContractBid(contract.id));
+      enqueueSnackbar('Bid Submitted', { variant: 'success' });
     }
     dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
     return;

@@ -14,6 +14,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { postContractInvite } from '@Redux/Slices/Contracts/actions/post/postContractInvite';
 import { postNewContract } from '@Redux/Slices/Contracts/actions/post/postNewContract';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { useSound } from '@Utils/Hooks/useSound';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React, { useCallback, useState } from 'react';
@@ -89,6 +90,7 @@ const ColorlibConnector = styled(StepConnector)(() => ({
   },
 }));
 export const CreateContractPopup: React.FC = () => {
+  const playSound = useSound();
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState<Partial<ICreateContractBody>>({
@@ -108,6 +110,10 @@ export const CreateContractPopup: React.FC = () => {
       Logger.info(`Contract Data Passed To Action: ${JSON.stringify(formData)}`);
       if (formData.subtype === undefined || formData.subtype === null) {
         Logger.error('Contract Creator missing Subtype');
+        enqueueSnackbar('Contract Creator missing Subtype', {
+          variant: 'error',
+        });
+        playSound('error');
         return;
       }
       dispatch(closePopup(POPUP_CREATE_CONTRACT));
@@ -124,18 +130,22 @@ export const CreateContractPopup: React.FC = () => {
           enqueueSnackbar('Contract Created', {
             variant: 'success',
           });
+          playSound('success');
         } else {
           enqueueSnackbar('Contract Creation Failed', {
             variant: 'error',
           });
+          playSound('error');
         }
       });
     }
+    playSound('clickMain');
     setPage(Math.min(page + 1, steps.length));
   }, [page, formData, invites]);
 
   const onCancel = useCallback(() => {
-    if (page == 0)
+    if (page == 0) {
+      playSound('warning');
       return dispatch(
         openPopup(POPUP_YOU_SURE, {
           title: 'Cancel Contract Creation',
@@ -146,6 +156,8 @@ export const CreateContractPopup: React.FC = () => {
           testid: 'CreateContractPopup_Cancel',
         }),
       );
+    }
+    playSound('clickMain');
     setPage(Math.max(page - 1, 0));
   }, [page]);
 
