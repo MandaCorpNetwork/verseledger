@@ -15,3 +15,8 @@ type ISounds = {
   open: HTMLAudioElement;
   clickMain: HTMLAudioElement;
 };
+
+type AudioPack = {
+  name: string;
+  pack: ISounds;
+};

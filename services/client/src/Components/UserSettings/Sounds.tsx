@@ -1,10 +1,126 @@
+import DigiBox from '@Common/Components/Boxes/DigiBox';
+import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { Typography } from '@mui/material';
+import {
+  soundEffectOptions,
+  soundEffectPacks,
+} from '@Common/Definitions/SoundEffectOptions';
+import {
+  Box,
+  Divider,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Typography,
+} from '@mui/material';
+import { useSound } from '@Utils/Hooks/useSound';
+import { Logger } from '@Utils/Logger';
+import { enqueueSnackbar } from 'notistack';
+import React, { useContext } from 'react';
+
+import { SoundEffectContext } from '@/SoundEffectProvider';
 
 export const SoundSettings: React.FC = () => {
+  const { setSoundPack, currentSoundPack, setCustomSounds, customSounds } =
+    useContext(SoundEffectContext) ?? {};
+  const playSound = useSound();
+
+  const currentSoundPackName =
+    Object.values(soundEffectPacks).find((pack) => pack.pack === currentSoundPack?.pack)
+      ?.name || 'Custom';
+
+  const handleSoundPackChange = (event: SelectChangeEvent<string>) => {
+    const packName = event.target.value as string;
+    Logger.info('Selected pack name:', packName);
+    const packKey = Object.keys(soundEffectPacks).find(
+      (key) => soundEffectPacks[key as keyof typeof soundEffectPacks].name === packName,
+    );
+
+    Logger.info('Selected pack key:', packKey);
+
+    if (packKey) {
+      if (setSoundPack) {
+        setSoundPack(packKey as keyof typeof soundEffectPacks);
+        playSound('success');
+        enqueueSnackbar('Sound pack changed.', { variant: 'success' });
+      } else {
+        playSound('error');
+        enqueueSnackbar('Sound pack change failed.', { variant: 'error' });
+      }
+    } else {
+      playSound('error');
+      enqueueSnackbar('Invalid sound pack selected.', { variant: 'error' });
+    }
+  };
   return (
-    <GlassBox sx={{ minHeight: '100%', minWidth: '100%' }}>
-      <Typography>Sound Settings</Typography>
+    <GlassBox
+      data-testid="SoundSettings__Container"
+      sx={{ minHeight: '100%', minWidth: '100%', p: '2em' }}
+    >
+      <Typography
+        data-testid="SoundSettings__Title"
+        variant="h5"
+        sx={{ fontWeight: 'bold', textShadow: '0 0 7px rgba(24,252,252,.8)' }}
+      >
+        Sound Settings
+      </Typography>
+      <Box
+        data-testid="SoundSettings__Settings_Wrapper"
+        sx={{ display: 'flex', m: '5%' }}
+      >
+        <DigiBox
+          data-testid="SoundSettings-Settings__SoundEffects_Container"
+          sx={{ p: '.5em' }}
+        >
+          <Typography
+            data-testid="SoundSettings-Settings-SoundEffects__Title"
+            variant="overline"
+            sx={{ color: 'text.secondary' }}
+          >
+            Sound Effects
+          </Typography>
+          <Divider />
+          <Box
+            data-testid="SoundSettings-Settings-SoundEffects__List_Wrapper"
+            sx={{ p: '.5em' }}
+          >
+            <FormControl>
+              <InputLabel color="secondary">Sound Pack</InputLabel>
+              <Select
+                size="small"
+                color="secondary"
+                label="Sound Pack"
+                autoWidth
+                value={currentSoundPackName}
+                onChange={handleSoundPackChange}
+              >
+                {Object.keys(soundEffectPacks).map((key) => (
+                  <MenuItem
+                    key={key}
+                    value={soundEffectPacks[key as keyof typeof soundEffectPacks].name}
+                  >
+                    {soundEffectPacks[key as keyof typeof soundEffectPacks].name}
+                  </MenuItem>
+                ))}
+                <MenuItem value={'Custom'}>Custom</MenuItem>
+              </Select>
+            </FormControl>
+            <DigiDisplay>
+              <FormControl>
+                <InputLabel color="secondary">Close Sound</InputLabel>
+                <Select
+                  size="small"
+                  color="secondary"
+                  label="Sound Pack"
+                  autoWidth
+                ></Select>
+              </FormControl>
+            </DigiDisplay>
+          </Box>
+        </DigiBox>
+      </Box>
     </GlassBox>
   );
 };

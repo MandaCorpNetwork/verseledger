@@ -1,38 +1,32 @@
+import { soundEffectPacks } from '@Common/Definitions/SoundEffectOptions';
 import { Logger } from '@Utils/Logger';
 import React, { createContext, PropsWithChildren, useState } from 'react';
 
 interface SoundEffectContextProps {
   playSound: (soundType: keyof ISounds) => void;
   updateSoundEffects: (soundType: keyof ISounds, newSrc: string) => void;
+  currentSoundPack: AudioPack;
+  setSoundPack: (packName: keyof typeof soundEffectPacks) => void;
+  customSounds: Partial<ISounds>;
+  setCustomSounds: (soundType: keyof ISounds, soundSrc: string) => void;
 }
 
 export const SoundEffectContext = createContext<SoundEffectContextProps | undefined>(
   undefined,
 );
 
-const systemDefaultSounds: ISounds = {
-  close: new Audio('./Assets/Sounds/System/sysClose.wav'),
-  denied: new Audio('./Assets/Sounds/Anvil/anvilDenied.wav'),
-  error: new Audio('./Assets/Sounds/Anvil/anvilError.wav'),
-  generalNotify: new Audio('./Assets/Sounds/Anvil/anvilGeneralNotify.wav'),
-  loading: new Audio('./Assets/Sounds/Anvil/anvilLoading.wav'),
-  messageNotify: new Audio('./Assets/Sounds/Anvil/anvilMessageNotify.wav'),
-  navigate: new Audio('./Assets/Sounds/System/sysNavigate.wav'),
-  send: new Audio('./Assets/Sounds/Anvil/anvilSend.wav'),
-  success: new Audio('./Assets/Sounds/Anvil/anvilSuccess.wav'),
-  toggleOff: new Audio('./Assets/Sounds/Anvil/anvilToggleOff.wav'),
-  toggleOn: new Audio('./Assets/Sounds/Anvil/anvilToggleOn.wav'),
-  warning: new Audio('./Assets/Sounds/Anvil/anvilWarning.wav'),
-  hover: new Audio('./Assets/Sounds/System/sysHover.wav'),
-  open: new Audio('./Assets/Sounds/System/sysOpen.wav'),
-  clickMain: new Audio('./Assets/Sounds/System/sysPrimaryClick.wav'),
-};
-
 export const SoundEffectProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [soundEffectRefs, setSoundEffectRefs] = useState<ISounds>(systemDefaultSounds);
+  const [soundEffectRefs, setSoundEffectRefs] = useState<ISounds>(() => {
+    return soundEffectPacks.systemDefault.pack;
+  });
+  const [currentSoundPack, setCurrentSoundPack] = useState<AudioPack>(
+    soundEffectPacks.systemDefault,
+  );
+  const [customSounds, setCustomSounds] = useState<Partial<ISounds>>({});
 
   React.useEffect(() => {
-    Object.values(soundEffectRefs).forEach((sound) => {
+    const updatedRefs = { ...soundEffectRefs, ...customSounds };
+    Object.values(updatedRefs).forEach((sound) => {
       sound.load();
     });
   }, [soundEffectRefs]);
@@ -49,11 +43,35 @@ export const SoundEffectProvider: React.FC<PropsWithChildren> = ({ children }) =
       sound.play().catch((error) => {
         Logger.error(`Failed to play sound '${soundType}':`, error);
       });
+    } else {
+      Logger.error(`Sound '${soundType}' not found.`);
     }
   };
 
+  const setSoundPack = (packName: keyof typeof soundEffectPacks) => {
+    const selectedPack = soundEffectPacks[packName];
+    setCurrentSoundPack(selectedPack);
+    setSoundEffectRefs(selectedPack.pack);
+  };
+
+  const handleSetCustomSounds = (soundType: keyof ISounds, soundSrc: string) => {
+    setCustomSounds((prevCustomSounds) => ({
+      ...prevCustomSounds,
+      [soundType]: new Audio(soundSrc),
+    }));
+  };
+
   return (
-    <SoundEffectContext.Provider value={{ playSound, updateSoundEffects }}>
+    <SoundEffectContext.Provider
+      value={{
+        playSound,
+        updateSoundEffects,
+        currentSoundPack,
+        setSoundPack,
+        customSounds,
+        setCustomSounds: handleSetCustomSounds,
+      }}
+    >
       {children}
     </SoundEffectContext.Provider>
   );
