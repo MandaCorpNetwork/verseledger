@@ -11,20 +11,30 @@ import {
   SelectChangeEvent,
   Typography,
 } from '@mui/material';
-import { useSound } from '@Utils/Hooks/useSound';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { SoundEffectContext } from '@/SoundEffectProvider';
+import { useSoundEffect } from '@/AudioManager';
 
 export const SoundSettings: React.FC = () => {
-  const { setSoundPack, currentSoundPack } = useContext(SoundEffectContext) ?? {};
-  const playSound = useSound();
+  const { playSound, switchSoundPack, currentSoundPack } = useSoundEffect();
 
-  const currentSoundPackName =
-    Object.values(soundEffectPacks).find((pack) => pack.pack === currentSoundPack?.pack)
-      ?.name || 'Custom';
+  const getCurrentPackname = (currentSoundPack: SoundPack) => {
+    const currentSoundPackStr = JSON.stringify(currentSoundPack);
+    const packName = Object.keys(soundEffectPacks).find((key) => {
+      const packStr = JSON.stringify(
+        soundEffectPacks[key as keyof typeof soundEffectPacks].pack,
+      );
+      return currentSoundPackStr === packStr;
+    });
+
+    return packName
+      ? soundEffectPacks[packName as keyof typeof soundEffectPacks].name
+      : 'Custom';
+  };
+
+  const currentSoundPackName = getCurrentPackname(currentSoundPack);
 
   const handleSoundPackChange = (event: SelectChangeEvent<string>) => {
     const packName = event.target.value as string;
@@ -36,14 +46,9 @@ export const SoundSettings: React.FC = () => {
     Logger.info('Selected pack key:', packKey);
 
     if (packKey) {
-      if (setSoundPack) {
-        setSoundPack(packKey as keyof typeof soundEffectPacks);
-        playSound('success');
-        enqueueSnackbar('Sound pack changed.', { variant: 'success' });
-      } else {
-        playSound('error');
-        enqueueSnackbar('Sound pack change failed.', { variant: 'error' });
-      }
+      switchSoundPack(packKey as keyof typeof soundEffectPacks);
+      playSound('success');
+      enqueueSnackbar('Sound pack changed.', { variant: 'success' });
     } else {
       playSound('error');
       enqueueSnackbar('Invalid sound pack selected.', { variant: 'error' });

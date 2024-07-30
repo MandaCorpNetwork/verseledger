@@ -4,11 +4,12 @@ import { useAppDispatch } from '@Redux/hooks';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContract';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { useSound } from '@Utils/Hooks/useSound';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+
+import { useSoundEffect } from '@/AudioManager';
 
 type ContractControllerProps = {
   contract: IContract;
@@ -22,7 +23,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
   isOwned,
 }) => {
   const dispatch = useAppDispatch();
-  const playSound = useSound();
+  const { playSound } = useSoundEffect();
 
   const handleAcceptInvite = () => {
     if (!userBid) {

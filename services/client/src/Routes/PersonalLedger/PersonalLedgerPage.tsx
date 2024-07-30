@@ -1,15 +1,15 @@
 import { Box } from '@mui/material';
-import { useSound } from '@Utils/Hooks/useSound';
 import React from 'react';
 
 import BackdropLogo from '@/Assets/media/VerseLogos/LogoBackdrop.png?url';
+import { useSoundEffect } from '@/AudioManager';
 import { AppToolBar } from '@/Components/Personal/AppToolBar';
 import { ContractManagerApp } from '@/Components/Personal/ContractManager/ContractManagerApp';
 import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
 import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
 
 export const PersonalLedgerPage: React.FC<unknown> = () => {
-  const playSound = useSound();
+  const { playSound } = useSoundEffect();
   const [selectedApp, setSelectedApp] = React.useState<string>('Overview');
 
   const appRenderer = React.useCallback(() => {

@@ -5,10 +5,11 @@ import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
 import { postContractInvite } from '@Redux/Slices/Contracts/actions/post/postContractInvite';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
-import { useSound } from '@Utils/Hooks/useSound';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
+
+import { useSoundEffect } from '@/AudioManager';
 
 export const POPUP_USER_INVITE = 'userInvite';
 
@@ -19,7 +20,7 @@ export type UserInvitePopupProps = {
 export const UserInvitePopup: React.FC<UserInvitePopupProps> = ({ contractId }) => {
   const [selectedUsers, setSelectedUsers] = React.useState<IUser[]>([]); //eslint-disable-line @typescript-eslint/no-unused-vars
   const dispatch = useAppDispatch();
-  const playSound = useSound();
+  const { playSound } = useSoundEffect();
 
   const handleAddUser = (selectedUser: IUser | null) => {
     if (selectedUser) {

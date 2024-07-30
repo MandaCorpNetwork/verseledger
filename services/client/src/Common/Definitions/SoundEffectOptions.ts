@@ -1,463 +1,550 @@
-import AegsClose from '../../Assets/Sounds/Aegs/aegsClose.wav?url';
-import AegsDenied from '../../Assets/Sounds/Aegs/aegsDenied.wav?url';
-import AegsError from '../../Assets/Sounds/Aegs/aegsError.wav?url';
-import AegsGeneralNotify from '../../Assets/Sounds/Aegs/aegsGeneralNotify.wav?url';
-import AegsLoading from '../../Assets/Sounds/Aegs/aegsLoading.wav?url';
-import AegsMessageNotify from '../../Assets/Sounds/Aegs/aegsMessageNotify.wav?url';
-import AegsNavigate from '../../Assets/Sounds/Aegs/aegsNavigate.wav?url';
-import AegsOpen from '../../Assets/Sounds/Aegs/aegsOpen.wav?url';
-import AegsSend from '../../Assets/Sounds/Aegs/aegsSend.wav?url';
-import AegsSuccess from '../../Assets/Sounds/Aegs/aegsSuccess.wav?url';
-import AegsToggleOff from '../../Assets/Sounds/Aegs/aegsToggleOff.wav?url';
-import AegsToggleOn from '../../Assets/Sounds/Aegs/aegsToggleOn.wav?url';
-import AegsWarning from '../../Assets/Sounds/Aegs/aegsWarning.wav?url';
-import AnvilClose from '../../Assets/Sounds/Anvil/anvilClose.wav?url';
-import AnvilDenied from '../../Assets/Sounds/Anvil/anvilDenied.wav?url';
-import AnvilError from '../../Assets/Sounds/Anvil/anvilError.wav?url';
-import AnvilGeneralNotify from '../../Assets/Sounds/Anvil/anvilGeneralNotify.wav?url';
-import AnvilLoading from '../../Assets/Sounds/Anvil/anvilLoading.wav?url';
-import AnvilMessageNotify from '../../Assets/Sounds/Anvil/anvilMessageNotify.wav?url';
-import AnvilNavigate from '../../Assets/Sounds/Anvil/anvilNavigate.wav?url';
-import AnvilOpen from '../../Assets/Sounds/Anvil/anvilOpen.wav?url';
-import AnvilSend from '../../Assets/Sounds/Anvil/anvilSend.wav?url';
-import AnvilSuccess from '../../Assets/Sounds/Anvil/anvilSuccess.wav?url';
-import AnvilToggleOff from '../../Assets/Sounds/Anvil/anvilToggleOff.wav?url';
-import AnvilToggleOn from '../../Assets/Sounds/Anvil/anvilToggleOn.wav?url';
-import AnvilWarning from '../../Assets/Sounds/Anvil/anvilWarning.wav?url';
-import CnouClick from '../../Assets/Sounds/CNOU/cnouClick.wav?url';
-import CnouClose from '../../Assets/Sounds/CNOU/cnouClose.wav?url';
-import CnouDenied from '../../Assets/Sounds/CNOU/cnouDenied.wav?url';
-import CnouError from '../../Assets/Sounds/CNOU/cnouError.wav?url';
-import CnouGeneralNotify from '../../Assets/Sounds/CNOU/cnouGeneralNotify.wav?url';
-import CnouLoading from '../../Assets/Sounds/CNOU/cnouLoading.wav?url';
-import CnouMessageNotify from '../../Assets/Sounds/CNOU/cnouMessageNotify.wav?url';
-import CnouNavigate from '../../Assets/Sounds/CNOU/cnouNavigate.wav?url';
-import CnouOpen from '../../Assets/Sounds/CNOU/cnouOpen.wav?url';
-import CnouSend from '../../Assets/Sounds/CNOU/cnouSend.wav?url';
-import CnouSuccess from '../../Assets/Sounds/CNOU/cnouSuccess.wav?url';
-import CnouToggleOff from '../../Assets/Sounds/CNOU/cnouToggleOff.wav?url';
-import CnouToggleOn from '../../Assets/Sounds/CNOU/cnouToggleOn.wav?url';
-import CnouWarning from '../../Assets/Sounds/CNOU/cnouWarning.wav?url';
-import DrakeClose from '../../Assets/Sounds/Drake/drakeClose.wav?url';
-import DrakeDenied from '../../Assets/Sounds/Drake/drakeDenied.wav?url';
-import DrakeError from '../../Assets/Sounds/Drake/drakeError.wav?url';
-import DrakeGeneralNotify from '../../Assets/Sounds/Drake/drakeGeneralNotify.wav?url';
-import DrakeLoading from '../../Assets/Sounds/Drake/drakeLoading.wav?url';
-import DrakeMessageNotify from '../../Assets/Sounds/Drake/drakeMessageNotify.wav?url';
-import DrakeNavigate from '../../Assets/Sounds/Drake/drakeNavigate.wav?url';
-import DrakeOpen from '../../Assets/Sounds/Drake/drakeOpen.wav?url';
-import DrakeSend from '../../Assets/Sounds/Drake/drakeSend.wav?url';
-import DrakeSuccess from '../../Assets/Sounds/Drake/drakeSuccess.wav?url';
-import DrakeToggleOff from '../../Assets/Sounds/Drake/drakeToggleOff.wav?url';
-import DrakeToggleOn from '../../Assets/Sounds/Drake/drakeToggleOn.wav?url';
-import DrakeWarning from '../../Assets/Sounds/Drake/drakeWarning.wav?url';
-import OriginClick from '../../Assets/Sounds/Origin/originClick.wav?url';
-import OriginClose from '../../Assets/Sounds/Origin/originClose.wav?url';
-import OriginDenied from '../../Assets/Sounds/Origin/originDenied.wav?url';
-import OriginError from '../../Assets/Sounds/Origin/originError.wav?url';
-import OriginGeneralNotify from '../../Assets/Sounds/Origin/originGeneralNotify.wav?url';
-import OriginLoading from '../../Assets/Sounds/Origin/originLoading.wav?url';
-import OriginMessageNotify from '../../Assets/Sounds/Origin/originMessageNotify.wav?url';
-import OriginNavigate from '../../Assets/Sounds/Origin/originNavigate.wav?url';
-import OriginOpen from '../../Assets/Sounds/Origin/originOpen.wav?url';
-import OriginSend from '../../Assets/Sounds/Origin/originSend.wav?url';
-import OriginSuccess from '../../Assets/Sounds/Origin/originSuccess.wav?url';
-import OriginToggleOff from '../../Assets/Sounds/Origin/originToggleOff.wav?url';
-import OriginToggleOn from '../../Assets/Sounds/Origin/originToggleOn.wav?url';
-import OriginWarning from '../../Assets/Sounds/Origin/originWarning.wav?url';
-import RSIClose from '../../Assets/Sounds/RSI/rsiClose.wav?url';
-import RSIDenied from '../../Assets/Sounds/RSI/rsiDenied.wav?url';
-import RSIError from '../../Assets/Sounds/RSI/rsiError.wav?url';
-import RSIGeneralNotify from '../../Assets/Sounds/RSI/rsiGeneralNotify.wav?url';
-import RSILoading from '../../Assets/Sounds/RSI/rsiLoading.wav?url';
-import RSIMessageNotify from '../../Assets/Sounds/RSI/rsiMessageNotify.wav?url';
-import RSINavigate from '../../Assets/Sounds/RSI/rsiNavigate.wav?url';
-import RSIOpen from '../../Assets/Sounds/RSI/rsiOpen.wav?url';
-import RSISend from '../../Assets/Sounds/RSI/rsiSend.wav?url';
-import RSISuccess from '../../Assets/Sounds/RSI/rsiSuccess.wav?url';
-import RSIToggleOff from '../../Assets/Sounds/RSI/rsiToggleOff.wav?url';
-import RSIToggleOn from '../../Assets/Sounds/RSI/rsiToggleOn.wav?url';
-import RSIWarning from '../../Assets/Sounds/RSI/rsiWarning.wav?url';
-import SysClose from '../../Assets/Sounds/System/sysClose.wav?url';
-import SysHover from '../../Assets/Sounds/System/sysHover.wav?url';
-import SysNavigate from '../../Assets/Sounds/System/sysNavigate.wav?url';
-import SysOpen from '../../Assets/Sounds/System/sysOpen.wav?url';
-import SysPrimaryClick from '../../Assets/Sounds/System/sysPrimaryClick.wav?url';
+import AegsCloseMp3 from '../../Assets/Sounds/Aegs/aegsClose.mp3?url';
+import AegsCloseWeb from '../../Assets/Sounds/Aegs/aegsClose.webm?url';
+import AegsDeniedMp3 from '../../Assets/Sounds/Aegs/aegsDenied.mp3?url';
+import AegsDeniedWeb from '../../Assets/Sounds/Aegs/aegsDenied.webm?url';
+import AegsErrorMp3 from '../../Assets/Sounds/Aegs/aegsError.mp3?url';
+import AegsErrorWeb from '../../Assets/Sounds/Aegs/aegsError.webm?url';
+import AegsGeneralNotifyMp3 from '../../Assets/Sounds/Aegs/aegsGeneralNotify.mp3?url';
+import AegsGeneralNotifyWeb from '../../Assets/Sounds/Aegs/aegsGeneralNotify.webm?url';
+import AegsLoadingMp3 from '../../Assets/Sounds/Aegs/aegsLoading.mp3?url';
+import AegsLoadingWeb from '../../Assets/Sounds/Aegs/aegsLoading.webm?url';
+import AegsMessageNotifyMp3 from '../../Assets/Sounds/Aegs/aegsMessageNotify.mp3?url';
+import AegsMessageNotifyWeb from '../../Assets/Sounds/Aegs/aegsMessageNotify.webm?url';
+import AegsNavigateMp3 from '../../Assets/Sounds/Aegs/aegsNavigate.mp3?url';
+import AegsNavigateWeb from '../../Assets/Sounds/Aegs/aegsNavigate.webm?url';
+import AegsOpenMp3 from '../../Assets/Sounds/Aegs/aegsOpen.mp3?url';
+import AegsOpenWeb from '../../Assets/Sounds/Aegs/aegsOpen.webm?url';
+import AegsSendMp3 from '../../Assets/Sounds/Aegs/aegsSend.mp3?url';
+import AegsSendWeb from '../../Assets/Sounds/Aegs/aegsSend.webm?url';
+import AegsSuccessMp3 from '../../Assets/Sounds/Aegs/aegsSuccess.mp3?url';
+import AegsSuccessWeb from '../../Assets/Sounds/Aegs/aegsSuccess.webm?url';
+import AegsToggleOffMp3 from '../../Assets/Sounds/Aegs/aegsToggleOff.mp3?url';
+import AegsToggleOffWeb from '../../Assets/Sounds/Aegs/aegsToggleOff.webm?url';
+import AegsToggleOnMp3 from '../../Assets/Sounds/Aegs/aegsToggleOn.mp3?url';
+import AegsToggleOnWeb from '../../Assets/Sounds/Aegs/aegsToggleOn.webm?url';
+import AegsWarningMp3 from '../../Assets/Sounds/Aegs/aegsWarning.mp3?url';
+import AegsWarningWeb from '../../Assets/Sounds/Aegs/aegsWarning.webm?url';
+import AnvilCloseMp3 from '../../Assets/Sounds/Anvil/anvilClose.mp3?url';
+import AnvilCloseWeb from '../../Assets/Sounds/Anvil/anvilClose.webm?url';
+import AnvilDeniedMp3 from '../../Assets/Sounds/Anvil/anvilDenied.mp3?url';
+import AnvilDeniedWeb from '../../Assets/Sounds/Anvil/anvilDenied.webm?url';
+import AnvilErrorMp3 from '../../Assets/Sounds/Anvil/anvilError.mp3?url';
+import AnvilErrorWeb from '../../Assets/Sounds/Anvil/anvilError.webm?url';
+import AnvilGeneralNotifyMp3 from '../../Assets/Sounds/Anvil/anvilGeneralNotify.mp3?url';
+import AnvilGeneralNotifyWeb from '../../Assets/Sounds/Anvil/anvilGeneralNotify.webm?url';
+import AnvilLoadingMp3 from '../../Assets/Sounds/Anvil/anvilLoading.mp3?url';
+import AnvilLoadingWeb from '../../Assets/Sounds/Anvil/anvilLoading.webm?url';
+import AnvilMessageNotifyMp3 from '../../Assets/Sounds/Anvil/anvilMessageNotify.mp3?url';
+import AnvilMessageNotifyWeb from '../../Assets/Sounds/Anvil/anvilMessageNotify.webm?url';
+import AnvilNavigateMp3 from '../../Assets/Sounds/Anvil/anvilNavigate.mp3?url';
+import AnvilNavigateWeb from '../../Assets/Sounds/Anvil/anvilNavigate.webm?url';
+import AnvilOpenMp3 from '../../Assets/Sounds/Anvil/anvilOpen.mp3?url';
+import AnvilOpenWeb from '../../Assets/Sounds/Anvil/anvilOpen.webm?url';
+import AnvilSendMp3 from '../../Assets/Sounds/Anvil/anvilSend.mp3?url';
+import AnvilSendWeb from '../../Assets/Sounds/Anvil/anvilSend.webm?url';
+import AnvilSuccessMp3 from '../../Assets/Sounds/Anvil/anvilSuccess.mp3?url';
+import AnvilSuccessWeb from '../../Assets/Sounds/Anvil/anvilSuccess.webm?url';
+import AnvilToggleOffMp3 from '../../Assets/Sounds/Anvil/anvilToggleOff.mp3?url';
+import AnvilToggleOffWeb from '../../Assets/Sounds/Anvil/anvilToggleOff.webm?url';
+import AnvilToggleOnMp3 from '../../Assets/Sounds/Anvil/anvilToggleOn.mp3?url';
+import AnvilToggleOnWeb from '../../Assets/Sounds/Anvil/anvilToggleOn.webm?url';
+import AnvilWarningMp3 from '../../Assets/Sounds/Anvil/anvilWarning.mp3?url';
+import AnvilWarningWeb from '../../Assets/Sounds/Anvil/anvilWarning.webm?url';
+import CnouClickMp3 from '../../Assets/Sounds/CNOU/cnouClick.mp3?url';
+import CnouClickWeb from '../../Assets/Sounds/CNOU/cnouClick.webm?url';
+import CnouCloseMp3 from '../../Assets/Sounds/CNOU/cnouClose.mp3?url';
+import CnouCloseWeb from '../../Assets/Sounds/CNOU/cnouClose.webm?url';
+import CnouDeniedMp3 from '../../Assets/Sounds/CNOU/cnouDenied.mp3?url';
+import CnouDeniedWeb from '../../Assets/Sounds/CNOU/cnouDenied.webm?url';
+import CnouErrorMp3 from '../../Assets/Sounds/CNOU/cnouError.mp3?url';
+import CnouErrorWeb from '../../Assets/Sounds/CNOU/cnouError.webm?url';
+import CnouGeneralNotifyMp3 from '../../Assets/Sounds/CNOU/cnouGeneralNotify.mp3?url';
+import CnouGeneralNotifyWeb from '../../Assets/Sounds/CNOU/cnouGeneralNotify.webm?url';
+import CnouLoadingMp3 from '../../Assets/Sounds/CNOU/cnouLoading.mp3?url';
+import CnouLoadingWeb from '../../Assets/Sounds/CNOU/cnouLoading.webm?url';
+import CnouMessageNotifyMp3 from '../../Assets/Sounds/CNOU/cnouMessageNotify.mp3?url';
+import CnouMessageNotifyWeb from '../../Assets/Sounds/CNOU/cnouMessageNotify.webm?url';
+import CnouNavigateMp3 from '../../Assets/Sounds/CNOU/cnouNavigate.mp3?url';
+import CnouNavigateWeb from '../../Assets/Sounds/CNOU/cnouNavigate.webm?url';
+import CnouOpenMp3 from '../../Assets/Sounds/CNOU/cnouOpen.mp3?url';
+import CnouOpenWeb from '../../Assets/Sounds/CNOU/cnouOpen.webm?url';
+import CnouSendMp3 from '../../Assets/Sounds/CNOU/cnouSend.mp3?url';
+import CnouSendWeb from '../../Assets/Sounds/CNOU/cnouSend.webm?url';
+import CnouSuccessMp3 from '../../Assets/Sounds/CNOU/cnouSuccess.mp3?url';
+import CnouSuccessWeb from '../../Assets/Sounds/CNOU/cnouSuccess.webm?url';
+import CnouToggleOffMp3 from '../../Assets/Sounds/CNOU/cnouToggleOff.mp3?url';
+import CnouToggleOffWeb from '../../Assets/Sounds/CNOU/cnouToggleOff.webm?url';
+import CnouToggleOnMp3 from '../../Assets/Sounds/CNOU/cnouToggleOn.mp3?url';
+import CnouToggleOnWeb from '../../Assets/Sounds/CNOU/cnouToggleOn.webm?url';
+import CnouWarningMp3 from '../../Assets/Sounds/CNOU/cnouWarning.mp3?url';
+import CnouWarningWeb from '../../Assets/Sounds/CNOU/cnouWarning.webm?url';
+import DrakeCloseMp3 from '../../Assets/Sounds/Drake/drakeClose.mp3?url';
+import DrakeCloseWeb from '../../Assets/Sounds/Drake/drakeClose.webm?url';
+import DrakeDeniedMp3 from '../../Assets/Sounds/Drake/drakeDenied.mp3?url';
+import DrakeDeniedWeb from '../../Assets/Sounds/Drake/drakeDenied.webm?url';
+import DrakeErrorMp3 from '../../Assets/Sounds/Drake/drakeError.mp3?url';
+import DrakeErrorWeb from '../../Assets/Sounds/Drake/drakeError.webm?url';
+import DrakeGeneralNotifyMp3 from '../../Assets/Sounds/Drake/drakeGeneralNotify.mp3?url';
+import DrakeGeneralNotifyWeb from '../../Assets/Sounds/Drake/drakeGeneralNotify.webm?url';
+import DrakeLoadingMp3 from '../../Assets/Sounds/Drake/drakeLoading.mp3?url';
+import DrakeLoadingWeb from '../../Assets/Sounds/Drake/drakeLoading.webm?url';
+import DrakeMessageNotifyMp3 from '../../Assets/Sounds/Drake/drakeMessageNotify.mp3?url';
+import DrakeMessageNotifyWeb from '../../Assets/Sounds/Drake/drakeMessageNotify.webm?url';
+import DrakeNavigateMp3 from '../../Assets/Sounds/Drake/drakeNavigate.mp3?url';
+import DrakeNavigateWeb from '../../Assets/Sounds/Drake/drakeNavigate.webm?url';
+import DrakeOpenMp3 from '../../Assets/Sounds/Drake/drakeOpen.mp3?url';
+import DrakeOpenWeb from '../../Assets/Sounds/Drake/drakeOpen.webm?url';
+import DrakeSendMp3 from '../../Assets/Sounds/Drake/drakeSend.mp3?url';
+import DrakeSendWeb from '../../Assets/Sounds/Drake/drakeSend.webm?url';
+import DrakeSuccessMp3 from '../../Assets/Sounds/Drake/drakeSuccess.mp3?url';
+import DrakeSuccessWeb from '../../Assets/Sounds/Drake/drakeSuccess.webm?url';
+import DrakeToggleOffMp3 from '../../Assets/Sounds/Drake/drakeToggleOff.mp3?url';
+import DrakeToggleOffWeb from '../../Assets/Sounds/Drake/drakeToggleOff.webm?url';
+import DrakeToggleOnMp3 from '../../Assets/Sounds/Drake/drakeToggleOn.mp3?url';
+import DrakeToggleOnWeb from '../../Assets/Sounds/Drake/drakeToggleOn.webm?url';
+import DrakeWarningMp3 from '../../Assets/Sounds/Drake/drakeWarning.mp3?url';
+import DrakeWarningWeb from '../../Assets/Sounds/Drake/drakeWarning.webm?url';
+import OriginClickMp3 from '../../Assets/Sounds/Origin/originClick.mp3?url';
+import OriginClickWeb from '../../Assets/Sounds/Origin/originClick.webm?url';
+import OriginCloseMp3 from '../../Assets/Sounds/Origin/originClose.mp3?url';
+import OriginCloseWeb from '../../Assets/Sounds/Origin/originClose.webm?url';
+import OriginDeniedMp3 from '../../Assets/Sounds/Origin/originDenied.mp3?url';
+import OriginDeniedWeb from '../../Assets/Sounds/Origin/originDenied.webm?url';
+import OriginErrorMp3 from '../../Assets/Sounds/Origin/originError.mp3?url';
+import OriginErrorWeb from '../../Assets/Sounds/Origin/originError.webm?url';
+import OriginGeneralNotifyMp3 from '../../Assets/Sounds/Origin/originGeneralNotify.mp3?url';
+import OriginGeneralNotifyWeb from '../../Assets/Sounds/Origin/originGeneralNotify.webm?url';
+import OriginLoadingMp3 from '../../Assets/Sounds/Origin/originLoading.mp3?url';
+import OriginLoadingWeb from '../../Assets/Sounds/Origin/originLoading.webm?url';
+import OriginMessageNotifyMp3 from '../../Assets/Sounds/Origin/originMessageNotify.mp3?url';
+import OriginMessageNotifyWeb from '../../Assets/Sounds/Origin/originMessageNotify.webm?url';
+import OriginNavigateMp3 from '../../Assets/Sounds/Origin/originNavigate.mp3?url';
+import OriginNavigateWeb from '../../Assets/Sounds/Origin/originNavigate.webm?url';
+import OriginOpenMp3 from '../../Assets/Sounds/Origin/originOpen.mp3?url';
+import OriginOpenWeb from '../../Assets/Sounds/Origin/originOpen.webm?url';
+import OriginSendMp3 from '../../Assets/Sounds/Origin/originSend.mp3?url';
+import OriginSendWeb from '../../Assets/Sounds/Origin/originSend.webm?url';
+import OriginSuccessMp3 from '../../Assets/Sounds/Origin/originSuccess.mp3?url';
+import OriginSuccessWeb from '../../Assets/Sounds/Origin/originSuccess.webm?url';
+import OriginToggleOffMp3 from '../../Assets/Sounds/Origin/originToggleOff.mp3?url';
+import OriginToggleOffWeb from '../../Assets/Sounds/Origin/originToggleOff.webm?url';
+import OriginToggleOnMp3 from '../../Assets/Sounds/Origin/originToggleOn.mp3?url';
+import OriginToggleOnWeb from '../../Assets/Sounds/Origin/originToggleOn.webm?url';
+import OriginWarningMp3 from '../../Assets/Sounds/Origin/originWarning.mp3?url';
+import OriginWarningWeb from '../../Assets/Sounds/Origin/originWarning.webm?url';
+import RsiCloseMp3 from '../../Assets/Sounds/RSI/rsiClose.mp3?url';
+import RsiCloseWeb from '../../Assets/Sounds/RSI/rsiClose.webm?url';
+import RsiDeniedMp3 from '../../Assets/Sounds/RSI/rsiDenied.mp3?url';
+import RsiDeniedWeb from '../../Assets/Sounds/RSI/rsiDenied.webm?url';
+import RsiErrorMp3 from '../../Assets/Sounds/RSI/rsiError.mp3?url';
+import RsiErrorWeb from '../../Assets/Sounds/RSI/rsiError.webm?url';
+import RsiGeneralNotifyMp3 from '../../Assets/Sounds/RSI/rsiGeneralNotify.mp3?url';
+import RsiGeneralNotifyWeb from '../../Assets/Sounds/RSI/rsiGeneralNotify.webm?url';
+import RsiLoadingMp3 from '../../Assets/Sounds/RSI/rsiLoading.mp3?url';
+import RsiLoadingWeb from '../../Assets/Sounds/RSI/rsiLoading.webm?url';
+import RsiMessageNotifyMp3 from '../../Assets/Sounds/RSI/rsiMessageNotify.mp3?url';
+import RsiMessageNotifyWeb from '../../Assets/Sounds/RSI/rsiMessageNotify.webm?url';
+import RsiNavigateMp3 from '../../Assets/Sounds/RSI/rsiNavigate.mp3?url';
+import RsiNavigateWeb from '../../Assets/Sounds/RSI/rsiNavigate.webm?url';
+import RsiOpenMp3 from '../../Assets/Sounds/RSI/rsiOpen.mp3?url';
+import RsiOpenWeb from '../../Assets/Sounds/RSI/rsiOpen.webm?url';
+import RsiSendMp3 from '../../Assets/Sounds/RSI/rsiSend.mp3?url';
+import RsiSendWeb from '../../Assets/Sounds/RSI/rsiSend.webm?url';
+import RsiSuccessMp3 from '../../Assets/Sounds/RSI/rsiSuccess.mp3?url';
+import RsiSuccessWeb from '../../Assets/Sounds/RSI/rsiSuccess.webm?url';
+import RsiToggleOffMp3 from '../../Assets/Sounds/RSI/rsiToggleOff.mp3?url';
+import RsiToggleOffWeb from '../../Assets/Sounds/RSI/rsiToggleOff.webm?url';
+import RsiToggleOnMp3 from '../../Assets/Sounds/RSI/rsiToggleOn.mp3?url';
+import RsiToggleOnWeb from '../../Assets/Sounds/RSI/rsiToggleOn.webm?url';
+import RsiWarningMp3 from '../../Assets/Sounds/RSI/rsiWarning.mp3?url';
+import RsiWarningWeb from '../../Assets/Sounds/RSI/rsiWarning.webm?url';
+import SysCloseMp3 from '../../Assets/Sounds/System/sysClose.mp3?url';
+import SysCloseWeb from '../../Assets/Sounds/System/sysClose.webm?url';
+import SysHoverMp3 from '../../Assets/Sounds/System/sysHover.mp3?url';
+import SysHoverWeb from '../../Assets/Sounds/System/sysHover.webm?url';
+import SysNavigateMp3 from '../../Assets/Sounds/System/sysNavigate.mp3?url';
+import SysNavigateWeb from '../../Assets/Sounds/System/sysNavigate.webm?url';
+import SysOpenMp3 from '../../Assets/Sounds/System/sysOpen.mp3?url';
+import SysOpenWeb from '../../Assets/Sounds/System/sysOpen.webm?url';
+import SysPrimaryClickMp3 from '../../Assets/Sounds/System/sysPrimaryClick.mp3?url';
+import SysPrimaryClickWeb from '../../Assets/Sounds/System/sysPrimaryClick.webm?url';
 
 export const soundEffectOptions = {
   close: [
     {
-      src: new Audio(SysClose),
+      src: [SysCloseWeb, SysCloseMp3],
       name: 'System - Close',
     },
     {
-      src: new Audio(AegsClose),
+      src: [AegsCloseWeb, AegsCloseMp3],
       name: 'Aegs - Close',
     },
     {
-      src: new Audio(AnvilClose),
+      src: [AnvilCloseWeb, AnvilCloseMp3],
       name: 'Anvil - Close',
     },
     {
-      src: new Audio(CnouClose),
+      src: [CnouCloseWeb, CnouCloseMp3],
       name: 'CNOU - Close',
     },
     {
-      src: new Audio(DrakeClose),
+      src: [DrakeCloseWeb, DrakeCloseMp3],
       name: 'Drake - Close',
     },
     {
-      src: new Audio(OriginClose),
+      src: [OriginCloseWeb, OriginCloseMp3],
       name: 'Origin - Close',
     },
     {
-      src: new Audio(RSIClose),
+      src: [RsiCloseWeb, RsiCloseMp3],
       name: 'RSI - Close',
     },
   ],
   denied: [
     {
-      src: new Audio(AegsDenied),
+      src: [AegsDeniedWeb, AegsDeniedMp3],
       name: 'Aegs - Denied',
     },
     {
-      src: new Audio(AnvilDenied),
+      src: [AnvilDeniedWeb, AnvilDeniedMp3],
       name: 'Anvil - Denied',
     },
     {
-      src: new Audio(CnouDenied),
+      src: [CnouDeniedWeb, CnouDeniedMp3],
       name: 'CNOU - Denied',
     },
     {
-      src: new Audio(DrakeDenied),
+      src: [DrakeDeniedWeb, DrakeDeniedMp3],
       name: 'Drake - Denied',
     },
     {
-      src: new Audio(OriginDenied),
+      src: [OriginDeniedWeb, OriginDeniedMp3],
       name: 'Origin - Denied',
     },
     {
-      src: new Audio(RSIDenied),
+      src: [RsiDeniedWeb, RsiDeniedMp3],
       name: 'RSI - Denied',
     },
   ],
   error: [
     {
-      src: new Audio(AegsError),
+      src: [AegsErrorWeb, AegsErrorMp3],
       name: 'Aegs - Error',
     },
     {
-      src: new Audio(AnvilError),
+      src: [AnvilErrorWeb, AnvilErrorMp3],
       name: 'Anvil - Error',
     },
     {
-      src: new Audio(CnouError),
+      src: [CnouErrorWeb, CnouErrorMp3],
       name: 'CNOU - Error',
     },
     {
-      src: new Audio(DrakeError),
+      src: [DrakeErrorWeb, DrakeErrorMp3],
       name: 'Drake - Error',
     },
     {
-      src: new Audio(OriginError),
+      src: [OriginErrorWeb, OriginErrorMp3],
       name: 'Origin - Error',
     },
     {
-      src: new Audio(RSIError),
+      src: [RsiErrorWeb, RsiErrorMp3],
       name: 'RSI - Error',
     },
   ],
   generalNotify: [
     {
-      src: new Audio(AegsGeneralNotify),
+      src: [AegsGeneralNotifyWeb, AegsGeneralNotifyMp3],
       name: 'Aegs - Error',
     },
     {
-      src: new Audio(AnvilGeneralNotify),
+      src: [AnvilGeneralNotifyWeb, AnvilGeneralNotifyMp3],
       name: 'Anvil - General Notify',
     },
     {
-      src: new Audio(CnouGeneralNotify),
+      src: [CnouGeneralNotifyWeb, CnouGeneralNotifyMp3],
       name: 'CNOU - General Notify',
     },
     {
-      src: new Audio(DrakeGeneralNotify),
+      src: [DrakeGeneralNotifyWeb, DrakeGeneralNotifyMp3],
       name: 'Drake - General Notify',
     },
     {
-      src: new Audio(OriginGeneralNotify),
+      src: [OriginGeneralNotifyWeb, OriginGeneralNotifyMp3],
       name: 'Origin - General Notify',
     },
     {
-      src: new Audio(RSIGeneralNotify),
+      src: [RsiGeneralNotifyWeb, RsiGeneralNotifyMp3],
       name: 'RSI - General Notify',
     },
   ],
   loading: [
     {
-      src: new Audio(AegsLoading),
+      src: [AegsLoadingWeb, AegsLoadingMp3],
       name: 'Aegs - Loading',
     },
     {
-      src: new Audio(AnvilLoading),
+      src: [AnvilLoadingWeb, AnvilLoadingMp3],
       name: 'Anvil - Loading',
     },
     {
-      src: new Audio(CnouLoading),
+      src: [CnouLoadingWeb, CnouLoadingMp3],
       name: 'CNOU - Loading',
     },
     {
-      src: new Audio(DrakeLoading),
+      src: [DrakeLoadingWeb, DrakeLoadingMp3],
       name: 'Drake - Loading',
     },
     {
-      src: new Audio(OriginLoading),
+      src: [OriginLoadingWeb, OriginLoadingMp3],
       name: 'Origin - Loading',
     },
     {
-      src: new Audio(RSILoading),
+      src: [RsiLoadingWeb, RsiLoadingMp3],
       name: 'RSI - Loading',
     },
   ],
   messageNotify: [
     {
-      src: new Audio(AegsMessageNotify),
+      src: [AegsMessageNotifyWeb, AegsMessageNotifyMp3],
       name: 'Aegs - Message Notify',
     },
     {
-      src: new Audio(AnvilMessageNotify),
+      src: [AnvilMessageNotifyWeb, AnvilMessageNotifyMp3],
       name: 'Anvil - Message Notify',
     },
     {
-      src: new Audio(CnouMessageNotify),
+      src: [CnouMessageNotifyWeb, CnouMessageNotifyMp3],
       name: 'CNOU - Message Notify',
     },
     {
-      src: new Audio(DrakeMessageNotify),
+      src: [DrakeMessageNotifyWeb, DrakeMessageNotifyMp3],
       name: 'Drake - Message Notify',
     },
     {
-      src: new Audio(OriginMessageNotify),
+      src: [OriginMessageNotifyWeb, OriginMessageNotifyMp3],
       name: 'Origin - Message Notify',
     },
     {
-      src: new Audio(RSIMessageNotify),
+      src: [RsiMessageNotifyWeb, RsiMessageNotifyMp3],
       name: 'RSI - Message Notify',
     },
   ],
   navigate: [
     {
-      src: new Audio(SysNavigate),
+      src: [SysNavigateWeb, SysNavigateMp3],
       name: 'System - Navigate',
     },
     {
-      src: new Audio(AegsNavigate),
+      src: [AegsNavigateWeb, AegsNavigateMp3],
       name: 'Aegs - Navigate',
     },
     {
-      src: new Audio(AnvilNavigate),
+      src: [AnvilNavigateWeb, AnvilNavigateMp3],
       name: 'Anvil - Navigate',
     },
     {
-      src: new Audio(CnouNavigate),
+      src: [CnouNavigateWeb, CnouNavigateMp3],
       name: 'CNOU - Navigate',
     },
     {
-      src: new Audio(DrakeNavigate),
+      src: [DrakeNavigateWeb, DrakeNavigateMp3],
       name: 'Drake - Navigate',
     },
     {
-      src: new Audio(OriginNavigate),
+      src: [OriginNavigateWeb, OriginNavigateMp3],
       name: 'Origin - Navigate',
     },
     {
-      src: new Audio(RSINavigate),
+      src: [RsiNavigateWeb, RsiNavigateMp3],
       name: 'RSI - Navigate',
     },
   ],
   open: [
     {
-      src: new Audio(SysOpen),
+      src: [SysOpenWeb, SysOpenMp3],
       name: 'System - Open',
     },
     {
-      src: new Audio(AegsOpen),
+      src: [AegsOpenWeb, AegsOpenMp3],
       name: 'Aegs - Open',
     },
     {
-      src: new Audio(AnvilOpen),
+      src: [AnvilOpenWeb, AnvilOpenMp3],
       name: 'Anvil - Open',
     },
     {
-      src: new Audio(CnouOpen),
+      src: [CnouOpenWeb, CnouOpenMp3],
       name: 'CNOU - Open',
     },
     {
-      src: new Audio(DrakeOpen),
+      src: [DrakeOpenWeb, DrakeOpenMp3],
       name: 'Drake - Open',
     },
     {
-      src: new Audio(OriginOpen),
+      src: [OriginOpenWeb, OriginOpenMp3],
       name: 'Origin - Open',
     },
     {
-      src: new Audio(RSIOpen),
+      src: [RsiOpenWeb, RsiOpenMp3],
       name: 'RSI - Open',
     },
   ],
   send: [
     {
-      src: new Audio(AegsSend),
+      src: [AegsSendWeb, AegsSendMp3],
       name: 'Aegs - Send',
     },
     {
-      src: new Audio(AnvilSend),
+      src: [AnvilSendWeb, AnvilSendMp3],
       name: 'Anvil - Send',
     },
     {
-      src: new Audio(CnouSend),
+      src: [CnouSendWeb, CnouSendMp3],
       name: 'CNOU - Send',
     },
     {
-      src: new Audio(DrakeSend),
+      src: [DrakeSendWeb, DrakeSendMp3],
       name: 'Drake - Send',
     },
     {
-      src: new Audio(OriginSend),
+      src: [OriginSendWeb, OriginSendMp3],
       name: 'Origin - Send',
     },
     {
-      src: new Audio(RSISend),
+      src: [RsiSendWeb, RsiSendMp3],
       name: 'RSI - Send',
     },
   ],
   success: [
     {
-      src: new Audio(AegsSuccess),
+      src: [AegsSuccessWeb, AegsSuccessMp3],
       name: 'Aegs - Success',
     },
     {
-      src: new Audio(AnvilSuccess),
+      src: [AnvilSuccessWeb, AnvilSuccessMp3],
       name: 'Anvil - Success',
     },
     {
-      src: new Audio(CnouSuccess),
+      src: [CnouSuccessWeb, CnouSuccessMp3],
       name: 'CNOU - Success',
     },
     {
-      src: new Audio(DrakeSuccess),
+      src: [DrakeSuccessWeb, DrakeSuccessMp3],
       name: 'Drake - Success',
     },
     {
-      src: new Audio(OriginSuccess),
+      src: [OriginSuccessWeb, OriginSuccessMp3],
       name: 'Origin - Success',
     },
     {
-      src: new Audio(RSISuccess),
+      src: [RsiSuccessWeb, RsiSuccessMp3],
       name: 'RSI - Success',
     },
   ],
   toggleOff: [
     {
-      src: new Audio(AegsToggleOff),
+      src: [AegsToggleOffWeb, AegsToggleOffMp3],
       name: 'Aegs - Toggle Off',
     },
     {
-      src: new Audio(AnvilToggleOff),
+      src: [AnvilToggleOffWeb, AnvilToggleOffMp3],
       name: 'Anvil - Toggle Off',
     },
     {
-      src: new Audio(CnouToggleOff),
+      src: [CnouToggleOffWeb, CnouToggleOffMp3],
       name: 'CNOU - Toggle Off',
     },
     {
-      src: new Audio(DrakeToggleOff),
+      src: [DrakeToggleOffWeb, DrakeToggleOffMp3],
       name: 'Drake - Toggle Off',
     },
     {
-      src: new Audio(OriginToggleOff),
+      src: [OriginToggleOffWeb, OriginToggleOffMp3],
       name: 'Origin - Toggle Off',
     },
     {
-      src: new Audio(RSIToggleOff),
+      src: [RsiToggleOffWeb, RsiToggleOffMp3],
       name: 'RSI - Toggle Off',
     },
   ],
   toggleOn: [
     {
-      src: new Audio(AegsToggleOn),
+      src: [AegsToggleOnWeb, AegsToggleOnMp3],
       name: 'Aegs - Toggle On',
     },
     {
-      src: new Audio(AnvilToggleOn),
+      src: [AnvilToggleOnWeb, AnvilToggleOnMp3],
       name: 'Anvil - Toggle On',
     },
     {
-      src: new Audio(CnouToggleOn),
+      src: [CnouToggleOnWeb, CnouToggleOnMp3],
       name: 'CNOU - Toggle On',
     },
     {
-      src: new Audio(DrakeToggleOn),
+      src: [DrakeToggleOnWeb, DrakeToggleOnMp3],
       name: 'Drake - Toggle On',
     },
     {
-      src: new Audio(OriginToggleOn),
+      src: [OriginToggleOnWeb, OriginToggleOnMp3],
       name: 'Origin - Toggle On',
     },
     {
-      src: new Audio(RSIToggleOn),
+      src: [RsiToggleOnWeb, RsiToggleOnMp3],
       name: 'RSI - Toggle On',
     },
   ],
   warning: [
     {
-      src: new Audio(AegsWarning),
+      src: [AegsWarningWeb, AegsWarningMp3],
       name: 'Aegs - Warning',
     },
     {
-      src: new Audio(AnvilWarning),
+      src: [AnvilWarningWeb, AnvilWarningMp3],
       name: 'Anvil - Warning',
     },
     {
-      src: new Audio(CnouWarning),
+      src: [CnouWarningWeb, CnouWarningMp3],
       name: 'CNOU - Warning',
     },
     {
-      src: new Audio(DrakeWarning),
+      src: [DrakeWarningWeb, DrakeWarningMp3],
       name: 'Drake - Warning',
     },
     {
-      src: new Audio(OriginWarning),
+      src: [OriginWarningWeb, OriginWarningMp3],
       name: 'Origin - Warning',
     },
     {
-      src: new Audio(RSIWarning),
+      src: [RsiWarningWeb, RsiWarningMp3],
       name: 'RSI - Warning',
     },
   ],
   hover: [
     {
-      src: new Audio(SysHover),
+      src: [SysHoverWeb, SysHoverMp3],
       name: 'System - Hover',
     },
   ],
   clickMain: [
     {
-      src: new Audio(SysPrimaryClick),
+      src: [SysPrimaryClickWeb, SysPrimaryClickMp3],
       name: 'System - Primary Click',
     },
     {
-      src: new Audio(CnouClick),
+      src: [CnouClickWeb, CnouClickMp3],
       name: 'CNOU - Click',
     },
     {
-      src: new Audio(OriginClick),
+      src: [OriginClickWeb, OriginClickMp3],
       name: 'Origin - Click',
     },
   ],
 };
 
-export const soundEffectPacks = {
+export const soundEffectPacks: {
+  [key: string]: IAudioPack;
+} = {
   systemDefault: {
     name: 'System Default',
     pack: {

@@ -3,7 +3,6 @@ import './App.css';
 import { LoadingScreen } from '@Common/LoadingObject/LoadingScreen';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
-import SoundInitializer from '@Utils/Hooks/soundInitializer';
 import { SnackbarProvider } from 'notistack';
 import { useEffect, useState } from 'react';
 import { DndProvider } from 'react-dnd';
@@ -33,7 +32,6 @@ export default function App() {
       <SnackbarProvider maxSnack={4}>
         <DndProvider backend={HTML5Backend}>
           {loading && <LoadingScreen variant="wheel" controlType="indeterminate" />}
-          <SoundInitializer />
           <CssBaseline />
           <RouterProvider router={router} />
           <PopupManager />

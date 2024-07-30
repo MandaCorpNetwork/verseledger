@@ -22,7 +22,6 @@ import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation';
 import { fetchUnreadCount } from '@Redux/Slices/Notifications/actions/getUnreadCount';
 import { selectNotificationsUnreadCount } from '@Redux/Slices/Notifications/notificationSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { useSound } from '@Utils/Hooks/useSound';
 import {
   bindMenu,
   bindTrigger,
@@ -33,6 +32,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
+import { useSoundEffect } from '@/AudioManager';
 import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
 import { fetchCurrentUser } from '@/Redux/Slices/Auth/Actions/fetchCurrentUser';
 import {
@@ -49,7 +49,7 @@ import { NotificationsBox } from './NotificationsBox';
 import VerseLogo from './VerseLogo';
 
 export const VLAppBar: React.FC<unknown> = () => {
-  const playSound = useSound();
+  const { playSound } = useSoundEffect();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const currentUser = useAppSelector(selectCurrentUser);
   const [userSettingsOpen, setUserSettingsOpen] = React.useState(false);

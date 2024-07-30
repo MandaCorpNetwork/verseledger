@@ -7,8 +7,9 @@ import {
   Select,
   // SelectChangeEvent,
 } from '@mui/material';
-import { useSound } from '@Utils/Hooks/useSound';
 import React from 'react';
+
+import { useSoundEffect } from '@/AudioManager';
 
 // import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
@@ -30,7 +31,7 @@ export const SortBySelect: React.FC<SortBySelectProps> = ({
   sortOptions,
   containerSize,
 }) => {
-  const playSound = useSound();
+  const { playSound } = useSoundEffect();
   // const [filters, setFilters, overwriteURLQuery] = useURLQuery();
   // const [sortDirection, setSortDirection] = React.useState('desc');
 

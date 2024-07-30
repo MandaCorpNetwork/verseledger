@@ -1,7 +1,8 @@
 import { RecentActors, TableChart } from '@mui/icons-material';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { useSound } from '@Utils/Hooks/useSound';
 import React from 'react';
+
+import { useSoundEffect } from '@/AudioManager';
 
 type CardorTableViewToggleProps = {
   onViewChange: (view: string) => void;
@@ -10,7 +11,7 @@ type CardorTableViewToggleProps = {
 export const CardorTableViewToggle: React.FC<CardorTableViewToggleProps> = ({
   onViewChange,
 }) => {
-  const playSound = useSound();
+  const { playSound } = useSoundEffect();
   const [view, setView] = React.useState('ContractCardView');
   const handleViewChange = (_event: React.MouseEvent<HTMLElement>, view: string) => {
     playSound('toggleOn');

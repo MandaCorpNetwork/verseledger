@@ -4,11 +4,12 @@ import '@/Routes/Index/Home/Home.scss';
 import { UnderConstruction } from '@Common/Components/App/UnderContruction';
 import { useTheme } from '@emotion/react';
 import { Button, Typography } from '@mui/material';
-import { useSound } from '@Utils/Hooks/useSound';
 import { Logger } from '@Utils/Logger';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
+
+import { useSoundEffect } from '@/AudioManager';
 
 type HomeNavButtonProps = {
   title: string;
@@ -26,7 +27,7 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
   // eslint-disable-next-line
   const theme = useTheme() as any;
 
-  const playSound = useSound();
+  const { playSound } = useSoundEffect();
 
   //Hover Animation
   const [, setIsHovered] = useState(false);

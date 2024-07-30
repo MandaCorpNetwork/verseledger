@@ -6,10 +6,10 @@ import { LocationsFilter } from '@Utils/Filters/LocationsFilter';
 import { EmployerRatingSliderFilter } from '@Utils/Filters/MultiRatingSliderFilter';
 import { SubTypeFilter } from '@Utils/Filters/SubtypeFilter';
 import { UECRangeFilter } from '@Utils/Filters/UECRangeFilter';
-import { useSound } from '@Utils/Hooks/useSound';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useCallback } from 'react';
 
+import { useSoundEffect } from '@/AudioManager';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 type CLFilterDropdownProps = {
@@ -18,7 +18,7 @@ type CLFilterDropdownProps = {
 };
 
 export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, label }) => {
-  const playSound = useSound();
+  const { playSound } = useSoundEffect();
   const [filters, setFilters] = useURLQuery();
   const [isExpanded, setIsExpanded] = React.useState(false);
 

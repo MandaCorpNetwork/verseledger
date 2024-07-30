@@ -10,11 +10,12 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useSound } from '@Utils/Hooks/useSound';
 import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
+
+import { useSoundEffect } from '@/AudioManager';
 
 import { LargeEmergencyOverlay } from '../EmergencyOverlay';
 
@@ -22,7 +23,7 @@ export const TimeInformation: React.FC<{
   formData: Partial<ICreateContractBody>;
   setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
-  const playSound = useSound();
+  const { playSound } = useSoundEffect();
   const { formData, setFormData } = props;
   const [heldDate, setHeldDate] = React.useState<Date | null>(null);
   const [afterBiddingChecked, setAfterBiddingChecked] = React.useState(false);

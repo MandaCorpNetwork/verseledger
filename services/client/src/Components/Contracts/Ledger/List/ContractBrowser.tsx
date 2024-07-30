@@ -5,7 +5,6 @@ import {
   selectContractPagination,
   selectContractsArray,
 } from '@Redux/Slices/Contracts/selectors/contractSelectors';
-import { useSound } from '@Utils/Hooks/useSound';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { Logger } from '@Utils/Logger';
 import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
@@ -13,6 +12,7 @@ import React from 'react';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 import { IContractSearch } from 'vl-shared/src/schemas/SearchSchema';
 
+import { useSoundEffect } from '@/AudioManager';
 import { CardorTableViewToggle } from '@/Components/Contracts/Ledger/List/Card-TableViewToggle';
 import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
 
@@ -31,7 +31,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   contractOnClose,
   selectedId,
 }) => {
-  const playSound = useSound();
+  const { playSound } = useSoundEffect();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dispatch = useAppDispatch();
   const [view, setView] = React.useState('ContractCardView');

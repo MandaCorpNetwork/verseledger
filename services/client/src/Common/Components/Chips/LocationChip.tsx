@@ -4,7 +4,8 @@ import { POPUP_LOCATION_INFO } from '@Popups/Info/Locations';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectLocationById } from '@Redux/Slices/Locations/locationSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { useSound } from '@Utils/Hooks/useSound';
+
+import { useSoundEffect } from '@/AudioManager';
 
 type LocationChipProps = {
   locationId: string;
@@ -14,7 +15,7 @@ type LocationChipProps = {
 
 export const LocationChip: React.FC<LocationChipProps> = (props) => {
   const { locationId, onDelete, sx } = props;
-  const playSound = useSound();
+  const { playSound } = useSoundEffect();
   const dispatch = useAppDispatch();
 
   const location =

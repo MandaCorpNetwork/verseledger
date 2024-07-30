@@ -19,7 +19,6 @@ import { Box, Collapse, Grow, IconButton, Slide, Tooltip } from '@mui/material';
 import { POPUP_CREATE_CONTRACT } from '@Popups/Contracts/CreateContract/CreateContract';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { useSound } from '@Utils/Hooks/useSound';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useCallback, useMemo, useState } from 'react';
@@ -35,6 +34,7 @@ import RRRLoop from '@/Assets/media/ContractLedger/RRRLoop.webm?url';
 import SalvageLoop from '@/Assets/media/ContractLedger/SalvLoop.webm?url';
 import SecurityLoop from '@/Assets/media/ContractLedger/SecLoop.webm?url';
 import BackdropLogo from '@/Assets/media/VerseLogos/LogoBackdrop.png?url';
+import { useSoundEffect } from '@/AudioManager';
 import { ContractLedgerLoopButton } from '@/Components/Contracts/Ledger/ContractLedgerLoopButton';
 import { ContractLedgerQuickNav } from '@/Components/Contracts/Ledger/ContractLedgerQuickNav';
 import { ContractDisplayContainer } from '@/Components/Contracts/Ledger/Details/ContractDisplayContainer';
@@ -45,7 +45,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   const [selectedId, setSelectedId] = useState<IContract['id'] | null>(null);
   const [isExpanded, setExpanded] = useState(false);
   const dispatch = useAppDispatch();
-  const playSound = useSound();
+  const { playSound } = useSoundEffect();
 
   const handleContractPick = useCallback(
     (id: string | null) => {
