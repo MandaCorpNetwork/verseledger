@@ -69,11 +69,14 @@ export class ContractService {
     return ContractLocation.create({ location_id, contract_id, tag });
   }
 
-  public async createBid(contractId: string, userId: string) {
+  public async createBid(contractId: string, userId: string, amount?: number) {
     const contract = await Contract.scope(['owner', 'bids']).findByPk(
       contractId,
     );
     if (contract == null) throw new NotFoundError(contractId);
+
+    amount ??= contract.defaultPay;
+
     if (contract.status !== 'BIDDING')
       throw new BadRequestError(
         'Bids are Closed for this contract',
@@ -113,6 +116,7 @@ export class ContractService {
       contract_id: contractId,
       user_id: userId,
       status: 'PENDING',
+      amount,
     });
     this.notifications.publish('/topic/newBid', new ContractBidDTO(bid));
     return bid;
@@ -122,11 +126,15 @@ export class ContractService {
     contractId: string,
     ownerId: string,
     userId: string,
+    amount?: number,
   ) {
     const contract = await Contract.scope(['owner', 'bids']).findByPk(
       contractId,
     );
     if (contract == null) throw new NotFoundError(contractId);
+
+    amount ??= contract.defaultPay;
+
     if (contract.Owner.id !== ownerId)
       throw new BadRequestError(
         'You do not have permission to Invite on this contract',
@@ -159,6 +167,7 @@ export class ContractService {
       contract_id: contractId,
       user_id: userId,
       status: 'INVITED',
+      amount,
     });
     this.notifications.publish(
       `/topic/notifications/${userId}`,
