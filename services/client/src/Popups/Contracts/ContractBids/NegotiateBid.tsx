@@ -7,6 +7,7 @@ import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
 import { PayField } from '@Common/Components/TextFields/PayField';
 import { Box, Tooltip, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
+import { Logger } from '@Utils/Logger';
 import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
 import React, { useCallback } from 'react';
@@ -73,6 +74,8 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
       const inputValue = Number(value.replace(/[^0-9.]/g, ''));
 
       setFormData(inputValue);
+      Logger.info(`Pay Value Changed To: ${inputValue}`);
+      Logger.info(`Form Data: ${formData}`);
       // setDisplayValue(inputValue.toLocaleString());
     },
     [formData],
