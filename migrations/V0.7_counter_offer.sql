@@ -1,2 +1,0 @@
-ALTER TABLE `contract_bids`
-ADD COLUMN `amount` DOUBLE NOT NULL DEFAULT 0;
