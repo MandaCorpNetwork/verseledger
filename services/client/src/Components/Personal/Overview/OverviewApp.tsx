@@ -3,7 +3,7 @@ import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
 import { closeWidget, openWidget } from '@Redux/Slices/Widgets/widgets.actions';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
@@ -16,7 +16,7 @@ import { WIDGET_RADIO } from '@/Widgets/Radio/Radio';
 
 export const OverviewApp: React.FC<unknown> = () => {
   const { isPlaying, play, pause } = useRadioController();
-  const playSound = useSound();
+  const { playSound } = useSound();
   const dispatch = useAppDispatch();
 
   const toggleRadio = () => {

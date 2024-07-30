@@ -13,7 +13,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
@@ -110,7 +110,7 @@ export const ContractTableView: React.FC<ContractRowProps> = ({
   onChangeRowsPerPage,
   totalContracts,
 }) => {
-  const playSound = useSound();
+  const { playSound } = useSound();
   return (
     <Box
       data-testid="ContractLedger-ContractBrowser__TableViewContainer"

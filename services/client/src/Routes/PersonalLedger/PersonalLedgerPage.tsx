@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 import React from 'react';
 
 import BackdropLogo from '@/Assets/media/VerseLogos/LogoBackdrop.png?url';
@@ -9,7 +9,7 @@ import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
 import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
 
 export const PersonalLedgerPage: React.FC<unknown> = () => {
-  const playSound = useSound();
+  const { playSound } = useSound();
   const [selectedApp, setSelectedApp] = React.useState<string>('Overview');
 
   const appRenderer = React.useCallback(() => {

@@ -1,22 +1,25 @@
-type ISounds = {
-  close: HTMLAudioElement;
-  denied: HTMLAudioElement;
-  error: HTMLAudioElement;
-  generalNotify: HTMLAudioElement;
-  loading: HTMLAudioElement;
-  messageNotify: HTMLAudioElement;
-  navigate: HTMLAudioElement;
-  send: HTMLAudioElement;
-  success: HTMLAudioElement;
-  toggleOff: HTMLAudioElement;
-  toggleOn: HTMLAudioElement;
-  warning: HTMLAudioElement;
-  hover: HTMLAudioElement;
-  open: HTMLAudioElement;
-  clickMain: HTMLAudioElement;
+type ISounds =
+  | 'close'
+  | 'denied'
+  | 'error'
+  | 'generalNotify'
+  | 'loading'
+  | 'messageNotify'
+  | 'navigate'
+  | 'send'
+  | 'success'
+  | 'toggleOff'
+  | 'toggleOn'
+  | 'warning'
+  | 'hover'
+  | 'open'
+  | 'clickMain';
+
+type SoundPack = {
+  [key in ISounds]: string[];
 };
 
-type AudioPack = {
+type IAudioPack = {
   name: string;
-  pack: ISounds;
+  pack: SoundPack;
 };

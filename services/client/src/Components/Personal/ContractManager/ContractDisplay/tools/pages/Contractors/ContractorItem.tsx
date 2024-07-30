@@ -4,7 +4,7 @@ import { UserChip } from '@Common/Components/Chips/UserChip';
 import { Box, Button, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 import { enqueueSnackbar } from 'notistack';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
@@ -23,7 +23,7 @@ export const Contractor: React.FC<ContractorProps> = ({
   contractOwned,
 }) => {
   const dispatch = useAppDispatch();
-  const playSound = useSound();
+  const { playSound } = useSound();
   const handleAccept = () => {
     const updatedBid = { status: 'ACCEPTED' as const };
     dispatch(

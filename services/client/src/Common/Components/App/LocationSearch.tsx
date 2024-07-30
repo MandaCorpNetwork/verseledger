@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations';
 import { selectLocationsArray } from '@Redux/Slices/Locations/locationSelectors';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
@@ -47,7 +47,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
   const [inputValue, setInputValue] = React.useState<ILocation | null>(null);
   //InputValue State Setter using ILocation Schema
 
-  const playSound = useSound();
+  const { playSound } = useSound();
 
   const dispatch = useAppDispatch();
 

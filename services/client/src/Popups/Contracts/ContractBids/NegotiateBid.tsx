@@ -6,8 +6,8 @@ import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
 import { PayField } from '@Common/Components/TextFields/PayField';
 import { Box, Tooltip, Typography } from '@mui/material';
-import { useSound } from '@Utils/Hooks/useSound';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
+import { useSound } from '@Utils/howlerController';
 import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
 import React, { useCallback } from 'react';
@@ -24,7 +24,7 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
   formData,
   setFormData,
 }) => {
-  const playSound = useSound();
+  const { playSound } = useSound();
   const acceptedContractorsCount =
     contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').length ?? 0;
 

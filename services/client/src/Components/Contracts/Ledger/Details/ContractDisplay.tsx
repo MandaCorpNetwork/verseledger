@@ -21,7 +21,7 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -45,7 +45,7 @@ type ContractDisplayProps = {
 };
 
 export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) => {
-  const playSound = useSound();
+  const { playSound } = useSound();
   const dispatch = useAppDispatch();
 
   Logger.info(`ContractDisplay ID: ${contract.id}`);

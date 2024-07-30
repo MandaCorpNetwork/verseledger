@@ -3,7 +3,7 @@ import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { Box, FormControl, TextField, Typography } from '@mui/material';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
@@ -13,7 +13,7 @@ export const Locations: React.FC<{
   formData: Partial<ICreateContractBody>;
   setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
-  const playSound = useSound();
+  const { playSound } = useSound();
   const { formData, setFormData } = props;
 
   const handleAddStartLocation = React.useCallback(

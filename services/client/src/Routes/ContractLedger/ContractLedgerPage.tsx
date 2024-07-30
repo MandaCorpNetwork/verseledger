@@ -19,8 +19,8 @@ import { Box, Collapse, Grow, IconButton, Slide, Tooltip } from '@mui/material';
 import { POPUP_CREATE_CONTRACT } from '@Popups/Contracts/CreateContract/CreateContract';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { useSound } from '@Utils/Hooks/useSound';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { useSound } from '@Utils/howlerController';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -45,7 +45,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   const [selectedId, setSelectedId] = useState<IContract['id'] | null>(null);
   const [isExpanded, setExpanded] = useState(false);
   const dispatch = useAppDispatch();
-  const playSound = useSound();
+  const { playSound } = useSound();
 
   const handleContractPick = useCallback(
     (id: string | null) => {

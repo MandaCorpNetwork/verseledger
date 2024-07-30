@@ -15,7 +15,7 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 import React from 'react';
 
 import { ApplicationSettings } from './Application';
@@ -40,7 +40,7 @@ const settingsList = [
 ];
 
 export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => {
-  const playSound = useSound();
+  const { playSound } = useSound();
   const [selectedSetting, setSelectedSetting] = React.useState<string>('Profile');
   const [currentSetting, setCurrentSetting] = React.useState<string>('Profile');
   const [transitioning, setTransitioning] = React.useState<boolean>(false);

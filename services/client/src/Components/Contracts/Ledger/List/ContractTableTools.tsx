@@ -2,7 +2,7 @@ import { FilterAlt } from '@mui/icons-material';
 import { Badge, Box, Button, Collapse, Typography } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 //import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useRef, useState } from 'react';
@@ -12,7 +12,7 @@ import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 import { CLFilterDropdown } from './CLFilterDropdown';
 
 export const ContractTableTools: React.FC<unknown> = () => {
-  const playSound = useSound();
+  const { playSound } = useSound();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filters] = useURLQuery();
   const [open, setOpen] = useState(false);

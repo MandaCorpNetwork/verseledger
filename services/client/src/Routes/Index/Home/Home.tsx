@@ -2,7 +2,7 @@
 import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
 import { Discord, KoFi, Patreon } from '@Common/Definitions/CustomIcons';
 import { Box, ButtonBase, IconButton } from '@mui/material';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 import React from 'react';
 
 import FreelancerLoop from '@/Assets/media/MenuPage/FreelancerLoop.webm?url';
@@ -16,7 +16,7 @@ import VerseNews from '@/Assets/media/MenuPage/VerseNews.webm?url';
 import { HomeNavButton } from '../../../Components/Home/HomeNavButton';
 
 export const Home: React.FC<unknown> = () => {
-  const playSound = useSound();
+  const { playSound } = useSound();
   return (
     <Box marginTop={'3em'}>
       <video autoPlay loop muted id="videobg">
