@@ -22,7 +22,7 @@ import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation';
 import { fetchUnreadCount } from '@Redux/Slices/Notifications/actions/getUnreadCount';
 import { selectNotificationsUnreadCount } from '@Redux/Slices/Notifications/notificationSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 import {
   bindMenu,
   bindTrigger,
@@ -49,7 +49,7 @@ import { NotificationsBox } from './NotificationsBox';
 import VerseLogo from './VerseLogo';
 
 export const VLAppBar: React.FC<unknown> = () => {
-  const playSound = useSound();
+  const { playSound } = useSound();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const currentUser = useAppSelector(selectCurrentUser);
   const [userSettingsOpen, setUserSettingsOpen] = React.useState(false);

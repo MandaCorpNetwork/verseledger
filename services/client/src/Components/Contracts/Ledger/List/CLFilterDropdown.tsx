@@ -6,7 +6,7 @@ import { LocationsFilter } from '@Utils/Filters/LocationsFilter';
 import { EmployerRatingSliderFilter } from '@Utils/Filters/MultiRatingSliderFilter';
 import { SubTypeFilter } from '@Utils/Filters/SubtypeFilter';
 import { UECRangeFilter } from '@Utils/Filters/UECRangeFilter';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useCallback } from 'react';
 
@@ -18,7 +18,7 @@ type CLFilterDropdownProps = {
 };
 
 export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, label }) => {
-  const playSound = useSound();
+  const { playSound } = useSound();
   const [filters, setFilters] = useURLQuery();
   const [isExpanded, setIsExpanded] = React.useState(false);
 

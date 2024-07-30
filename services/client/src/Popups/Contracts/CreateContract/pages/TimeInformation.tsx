@@ -10,7 +10,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
@@ -22,7 +22,7 @@ export const TimeInformation: React.FC<{
   formData: Partial<ICreateContractBody>;
   setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
-  const playSound = useSound();
+  const { playSound } = useSound();
   const { formData, setFormData } = props;
   const [heldDate, setHeldDate] = React.useState<Date | null>(null);
   const [afterBiddingChecked, setAfterBiddingChecked] = React.useState(false);

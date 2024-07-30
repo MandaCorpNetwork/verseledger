@@ -5,8 +5,8 @@ import {
   selectContractPagination,
   selectContractsArray,
 } from '@Redux/Slices/Contracts/selectors/contractSelectors';
-import { useSound } from '@Utils/Hooks/useSound';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { useSound } from '@Utils/howlerController';
 import { Logger } from '@Utils/Logger';
 import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
 import React from 'react';
@@ -31,7 +31,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   contractOnClose,
   selectedId,
 }) => {
-  const playSound = useSound();
+  const { playSound } = useSound();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dispatch = useAppDispatch();
   const [view, setView] = React.useState('ContractCardView');

@@ -14,7 +14,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { postContractInvite } from '@Redux/Slices/Contracts/actions/post/postContractInvite';
 import { postNewContract } from '@Redux/Slices/Contracts/actions/post/postNewContract';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React, { useCallback, useState } from 'react';
@@ -90,7 +90,7 @@ const ColorlibConnector = styled(StepConnector)(() => ({
   },
 }));
 export const CreateContractPopup: React.FC = () => {
-  const playSound = useSound();
+  const { playSound } = useSound();
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState<Partial<ICreateContractBody>>({

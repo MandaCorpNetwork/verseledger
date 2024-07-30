@@ -12,7 +12,7 @@ import {
 } from '@mui/icons-material';
 import { Box, Button, IconButton, Slider, Typography } from '@mui/material';
 import scrollSlider from '@Utils/Hooks/scrollSlider';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 import React, { useRef } from 'react';
 
 import { useRadioController } from '@/AudioProvider';
@@ -33,7 +33,7 @@ export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) 
   } = useRadioController();
   const sliderRef = useRef<HTMLDivElement>(null);
   scrollSlider(sliderRef, (newValue) => setVolume(newValue), volume);
-  const playSound = useSound();
+  const { playSound } = useSound();
 
   const handleVolumeChange = (_: Event, value: number | number[]) => {
     const newVolume = Array.isArray(value) ? value[0] : value;

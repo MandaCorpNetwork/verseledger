@@ -11,20 +11,25 @@ import {
   SelectChangeEvent,
   Typography,
 } from '@mui/material';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
-import React, { useContext } from 'react';
-
-import { SoundEffectContext } from '@/SoundEffectProvider';
+import React from 'react';
 
 export const SoundSettings: React.FC = () => {
-  const { setSoundPack, currentSoundPack } = useContext(SoundEffectContext) ?? {};
-  const playSound = useSound();
+  const { playSound, switchSoundPack, currentSoundPack } = useSound();
 
-  const currentSoundPackName =
-    Object.values(soundEffectPacks).find((pack) => pack.pack === currentSoundPack?.pack)
-      ?.name || 'Custom';
+  const getCurrentPackname = (currentSoundPack: SoundPack) => {
+    return (
+      Object.keys(soundEffectPacks).find(
+        (key) =>
+          soundEffectPacks[key as keyof typeof soundEffectPacks].pack ===
+          currentSoundPack,
+      ) || 'Custom'
+    );
+  };
+
+  const currentSoundPackName = getCurrentPackname(currentSoundPack);
 
   const handleSoundPackChange = (event: SelectChangeEvent<string>) => {
     const packName = event.target.value as string;
@@ -36,8 +41,8 @@ export const SoundSettings: React.FC = () => {
     Logger.info('Selected pack key:', packKey);
 
     if (packKey) {
-      if (setSoundPack) {
-        setSoundPack(packKey as keyof typeof soundEffectPacks);
+      if (switchSoundPack) {
+        switchSoundPack(packKey as keyof typeof soundEffectPacks);
         playSound('success');
         enqueueSnackbar('Sound pack changed.', { variant: 'success' });
       } else {

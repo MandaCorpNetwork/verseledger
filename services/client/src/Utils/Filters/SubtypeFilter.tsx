@@ -1,7 +1,7 @@
 // SubTypeFilter.tsx
 import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 // import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useMemo } from 'react';
@@ -41,7 +41,7 @@ type SubTypeFilterProps = {
 };
 
 export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
-  const playSound = useSound();
+  const { playSound } = useSound();
   const [filters, setFilters] = useURLQuery();
 
   const currentFilterValues = useMemo(() => {

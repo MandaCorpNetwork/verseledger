@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
-import { useSound } from '@Utils/Hooks/useSound';
+import { useSound } from '@Utils/howlerController';
 import React, { useCallback } from 'react';
 
 export const POPUP_YOU_SURE = 'youSure';
@@ -31,7 +31,7 @@ export const YouSurePopup: React.FC<YouSurePopupProps> = (props) => {
     bodyText,
     'data-testid': testid = 'verify',
   } = props;
-  const playSound = useSound();
+  const { playSound } = useSound();
   const dispatch = useAppDispatch();
   const onCancelDefault = useCallback(() => {
     playSound('warning');

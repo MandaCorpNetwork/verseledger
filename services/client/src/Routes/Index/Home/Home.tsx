@@ -2,7 +2,6 @@
 import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
 import { Discord, KoFi, Patreon } from '@Common/Definitions/CustomIcons';
 import { Box, ButtonBase, IconButton } from '@mui/material';
-import { useSound } from '@Utils/Hooks/useSound';
 import { isMobile } from '@Utils/isMobile';
 import React from 'react';
 
@@ -19,7 +18,7 @@ import { HomeNavButton } from '../../../Components/Home/HomeNavButton';
 
 export const Home: React.FC<unknown> = () => {
   const mobile = isMobile();
-  const playSound = useSound();
+  const { playSound } = useSound();
   return (
     <Box marginTop={{ xs: '1em', s: '3em' }}>
       <video autoPlay loop muted id="videobg">
