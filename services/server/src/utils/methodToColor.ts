@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import colorConvert from 'color-convert';
 
 const K = (name: Parameters<(typeof colorConvert)['keyword']['rgb']>[0]) => {
-  const rgb = colorConvert.keyword.rgb(name[0] as 'blue') as [
+  const rgb = colorConvert.keyword.rgb(name as 'blue') as [
     number,
     number,
     number,
