@@ -14,11 +14,12 @@ import { useAppDispatch } from '@Redux/hooks';
 import { postContractInvite } from '@Redux/Slices/Contracts/actions/post/postContractInvite';
 import { postNewContract } from '@Redux/Slices/Contracts/actions/post/postNewContract';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { useSound } from '@Utils/howlerController';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React, { useCallback, useState } from 'react';
 import { IContract, ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
+
+import { useSoundEffect } from '@/AudioManager';
 
 import { ContractDetails } from './pages/ContractDetails';
 import { Contractors } from './pages/Contractors';
@@ -90,7 +91,7 @@ const ColorlibConnector = styled(StepConnector)(() => ({
   },
 }));
 export const CreateContractPopup: React.FC = () => {
-  const { playSound } = useSound();
+  const { playSound } = useSoundEffect();
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState<Partial<ICreateContractBody>>({

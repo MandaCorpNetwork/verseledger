@@ -12,7 +12,6 @@ import {
   selectContractsArray,
 } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser';
-import { useSound } from '@Utils/howlerController';
 import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
@@ -20,6 +19,7 @@ import React from 'react';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 
+import { useSoundEffect } from '@/AudioManager';
 // import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
@@ -30,7 +30,7 @@ import { ContractManagerContractList } from './ContractList/ContractManagerContr
 import { ContractManagerSearchTools } from './ContractList/ContractManagerSearchTools';
 
 export const ContractManagerApp: React.FC<unknown> = () => {
-  const { playSound } = useSound();
+  const { playSound } = useSoundEffect();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filters, setFilter, overwriteURLQuery] = useURLQuery();
   const [selectedId, setSelectedId] = React.useState<string | null>(null);

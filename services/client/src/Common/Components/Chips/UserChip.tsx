@@ -3,9 +3,10 @@ import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { selectUserById } from '@Redux/Slices/Users/userSelectors';
-import { useSound } from '@Utils/howlerController';
 import { Logger } from '@Utils/Logger';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
+
+import { useSoundEffect } from '@/AudioManager';
 
 type UserChipProps = {
   user?: IUser;
@@ -15,7 +16,7 @@ type UserChipProps = {
 };
 
 export const UserChip: React.FC<UserChipProps> = ({ user, size, onDelete, user_id }) => {
-  const { playSound } = useSound();
+  const { playSound } = useSoundEffect();
   const dispatch = useAppDispatch();
 
   const pullPlayer = useAppSelector((state) =>

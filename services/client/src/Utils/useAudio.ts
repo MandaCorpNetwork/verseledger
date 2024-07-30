@@ -13,19 +13,23 @@ export const useSound = (
   const howlsRef = useRef<{ [key in ISounds]?: Howl }>({});
 
   useEffect(() => {
-    const initializeHowls = () => {
-      const newHowls: { [key in ISounds]?: Howl } = {};
-      (Object.keys(currentSoundPack) as ISounds[]).forEach((soundType) => {
-        const soundSrc = currentSoundPack[soundType];
-        newHowls[soundType] = new Howl({
-          src: Array.isArray(soundSrc) ? soundSrc : [soundSrc],
-          html5: false,
-        });
-      });
-      howlsRef.current = newHowls;
-    };
+    Logger.info('Initializing sound effects... Current pack:', currentSoundPack);
 
-    initializeHowls();
+    Object.values(howlsRef.current).forEach((howl) => howl.unload());
+
+    const newHowls: { [key in ISounds]?: Howl } = {};
+    (Object.keys(currentSoundPack) as ISounds[]).forEach((soundType) => {
+      const soundSrc = currentSoundPack[soundType];
+      newHowls[soundType] = new Howl({
+        src: Array.isArray(soundSrc) ? soundSrc : [soundSrc],
+        html5: false,
+      });
+    });
+    howlsRef.current = newHowls;
+    return () => {
+      Logger.info('Cleaning up sound effects...');
+      Object.values(howlsRef.current).forEach((howl) => howl.unload());
+    };
   }, [currentSoundPack]);
 
   const playSound = (soundType: ISounds) => {
@@ -39,6 +43,7 @@ export const useSound = (
   const switchSoundPack = (packName: keyof typeof soundEffectPacks) => {
     if (soundEffectPacks[packName]) {
       setCurrentSoundPack(soundEffectPacks[packName].pack);
+      Logger.info(`Sound pack switched to: ${packName}`);
     } else {
       Logger.error(`SoundEffect: ${packName} not found`);
     }

@@ -8,10 +8,11 @@ import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
 import { postContractBid } from '@Redux/Slices/Contracts/actions/post/postContractBid';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
-import { useSound } from '@Utils/howlerController';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+
+import { useSoundEffect } from '@/AudioManager';
 
 import { BidTimeRemaining } from './BidTimeRemaining';
 import { NegotiateBid } from './NegotiateBid';
@@ -28,7 +29,7 @@ export type ContractBidProps = {
 export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
   // State for the Negotiation Form
   // TODO: NEED SCHEMA FOR FORMDATA
-  const { playSound } = useSound();
+  const { playSound } = useSoundEffect();
   const [negotiateFormData, setNeotiateFormData] = React.useState<number>(
     contract.defaultPay,
   );
