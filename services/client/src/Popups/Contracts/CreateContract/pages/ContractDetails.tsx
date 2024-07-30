@@ -18,11 +18,12 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
-import { useSound } from '@Utils/howlerController';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
+
+import { useSoundEffect } from '@/AudioManager';
 
 //Set Options to Contract Archetypes Object
 const options = contractArchetypes('secondary.main');
@@ -38,7 +39,7 @@ export const ContractDetails: React.FC<{
   formData: Partial<ICreateContractBody> | ICreateContractBody;
   setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
-  const { playSound } = useSound();
+  const { playSound } = useSoundEffect();
   const dispatch = useAppDispatch();
   const { formData, setFormData } = props;
   const [archetype, setArchetype] = React.useState<string | null>(null);

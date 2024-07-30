@@ -1,9 +1,10 @@
 import { Schedule } from '@mui/icons-material';
 import { Box, IconButton, Popover, Typography } from '@mui/material';
 import { DateCalendar, DigitalClock } from '@mui/x-date-pickers';
-import { useSound } from '@Utils/howlerController';
 // import { Logger } from '@Utils/Logger';
 import React from 'react';
+
+import { useSoundEffect } from '@/AudioManager';
 
 type SelectTimeProps = {
   onDateChange: (newDate: Date) => void;
@@ -18,7 +19,7 @@ export const SelectTimeButton: React.FC<SelectTimeProps> = ({
   color,
   disabled,
 }) => {
-  const { playSound } = useSound();
+  const { playSound } = useSoundEffect();
   const [anchorEl, setAnchorE1] = React.useState<null | HTMLElement>(null);
   const openCalendar = (event: React.MouseEvent<HTMLElement>) => {
     playSound('clickMain');

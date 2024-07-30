@@ -13,11 +13,12 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { useSound } from '@Utils/howlerController';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
 import { IContract, IContractTimestamped } from 'vl-shared/src/schemas/ContractSchema';
+
+import { useSoundEffect } from '@/AudioManager';
 
 type ContractRowProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -110,7 +111,7 @@ export const ContractTableView: React.FC<ContractRowProps> = ({
   onChangeRowsPerPage,
   totalContracts,
 }) => {
-  const { playSound } = useSound();
+  const { playSound } = useSoundEffect();
   return (
     <Box
       data-testid="ContractLedger-ContractBrowser__TableViewContainer"

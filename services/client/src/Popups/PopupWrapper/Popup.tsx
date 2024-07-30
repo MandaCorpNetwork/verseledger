@@ -1,8 +1,9 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
-import { useSound } from '@Utils/howlerController';
 import React, { PropsWithChildren, useCallback } from 'react';
+
+import { useSoundEffect } from '@/AudioManager';
 
 type VLPopupProps = PropsWithChildren<{
   minWidth?: string;
@@ -45,7 +46,7 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
     maxHeight,
   } = props;
   const dispatch = useAppDispatch();
-  const { playSound } = useSound();
+  const { playSound } = useSoundEffect();
   const onCloseDefault = useCallback(() => {
     playSound('close');
     dispatch(closePopup(name));

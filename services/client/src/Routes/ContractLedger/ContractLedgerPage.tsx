@@ -20,7 +20,6 @@ import { POPUP_CREATE_CONTRACT } from '@Popups/Contracts/CreateContract/CreateCo
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { useSound } from '@Utils/howlerController';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -35,6 +34,7 @@ import RRRLoop from '@/Assets/media/ContractLedger/RRRLoop.webm?url';
 import SalvageLoop from '@/Assets/media/ContractLedger/SalvLoop.webm?url';
 import SecurityLoop from '@/Assets/media/ContractLedger/SecLoop.webm?url';
 import BackdropLogo from '@/Assets/media/VerseLogos/LogoBackdrop.png?url';
+import { useSoundEffect } from '@/AudioManager';
 import { ContractLedgerLoopButton } from '@/Components/Contracts/Ledger/ContractLedgerLoopButton';
 import { ContractLedgerQuickNav } from '@/Components/Contracts/Ledger/ContractLedgerQuickNav';
 import { ContractDisplayContainer } from '@/Components/Contracts/Ledger/Details/ContractDisplayContainer';
@@ -45,7 +45,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   const [selectedId, setSelectedId] = useState<IContract['id'] | null>(null);
   const [isExpanded, setExpanded] = useState(false);
   const dispatch = useAppDispatch();
-  const { playSound } = useSound();
+  const { playSound } = useSoundEffect();
 
   const handleContractPick = useCallback(
     (id: string | null) => {

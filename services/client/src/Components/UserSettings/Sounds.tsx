@@ -11,22 +11,27 @@ import {
   SelectChangeEvent,
   Typography,
 } from '@mui/material';
-import { useSound } from '@Utils/howlerController';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 
+import { useSoundEffect } from '@/AudioManager';
+
 export const SoundSettings: React.FC = () => {
-  const { playSound, switchSoundPack, currentSoundPack } = useSound();
+  const { playSound, switchSoundPack, currentSoundPack } = useSoundEffect();
 
   const getCurrentPackname = (currentSoundPack: SoundPack) => {
-    return (
-      Object.keys(soundEffectPacks).find(
-        (key) =>
-          soundEffectPacks[key as keyof typeof soundEffectPacks].pack ===
-          currentSoundPack,
-      ) || 'Custom'
-    );
+    const currentSoundPackStr = JSON.stringify(currentSoundPack);
+    const packName = Object.keys(soundEffectPacks).find((key) => {
+      const packStr = JSON.stringify(
+        soundEffectPacks[key as keyof typeof soundEffectPacks].pack,
+      );
+      return currentSoundPackStr === packStr;
+    });
+
+    return packName
+      ? soundEffectPacks[packName as keyof typeof soundEffectPacks].name
+      : 'Custom';
   };
 
   const currentSoundPackName = getCurrentPackname(currentSoundPack);
@@ -41,14 +46,9 @@ export const SoundSettings: React.FC = () => {
     Logger.info('Selected pack key:', packKey);
 
     if (packKey) {
-      if (switchSoundPack) {
-        switchSoundPack(packKey as keyof typeof soundEffectPacks);
-        playSound('success');
-        enqueueSnackbar('Sound pack changed.', { variant: 'success' });
-      } else {
-        playSound('error');
-        enqueueSnackbar('Sound pack change failed.', { variant: 'error' });
-      }
+      switchSoundPack(packKey as keyof typeof soundEffectPacks);
+      playSound('success');
+      enqueueSnackbar('Sound pack changed.', { variant: 'success' });
     } else {
       playSound('error');
       enqueueSnackbar('Invalid sound pack selected.', { variant: 'error' });

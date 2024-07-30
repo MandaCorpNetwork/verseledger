@@ -1,13 +1,14 @@
 import Error from '@Assets/media/error.gif';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { useSound } from '@Utils/howlerController';
 import React from 'react';
 import { useRouteError } from 'react-router-dom';
 
+import { useSoundEffect } from '@/AudioManager';
+
 const ErrorPage: React.FC = () => {
   const error = useRouteError() as { error: Error } & Error;
-  const { playSound } = useSound();
+  const { playSound } = useSoundEffect();
   React.useEffect(() => {
     playSound('error');
   }, [playSound]);

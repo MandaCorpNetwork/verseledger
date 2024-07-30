@@ -7,11 +7,12 @@ import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
 import { PayField } from '@Common/Components/TextFields/PayField';
 import { Box, Tooltip, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
-import { useSound } from '@Utils/howlerController';
 import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
 import React, { useCallback } from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+
+import { useSoundEffect } from '@/AudioManager';
 
 type NegotiateBidProps = {
   contract: IContract;
@@ -24,7 +25,7 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
   formData,
   setFormData,
 }) => {
-  const { playSound } = useSound();
+  const { playSound } = useSoundEffect();
   const acceptedContractorsCount =
     contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').length ?? 0;
 
