@@ -47,6 +47,13 @@ export class ContractBidDTO
     required: true,
     example: 'U-pu2lqjxks971z5ov62t9eg9p',
   })
+  amount!: number;
+
+  @ApiModelProperty({
+    description: 'Owner of Contract',
+    required: true,
+    example: 'U-pu2lqjxks971z5ov62t9eg9p',
+  })
   user_id!: string;
 
   @ApiModelProperty({

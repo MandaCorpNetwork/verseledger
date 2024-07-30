@@ -21,7 +21,7 @@ export const ContractSchema = z.object({
   payStructure: ContractPayStructureSchema,
   isBargaining: z.boolean().default(false),
   isBonusPay: z.boolean().default(false),
-  defaultPay: z.number().int().positive(),
+  defaultPay: z.number().int().nonnegative(),
   status: z.string(),
   Locations: z.array(LocationSchema).optional(),
   Bids: z.array(ContractBidSchema).optional(),

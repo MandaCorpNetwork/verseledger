@@ -37,6 +37,9 @@ export class ContractBid extends Model {
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare user_id: string;
 
+  @Column({ type: DataType.DOUBLE() })
+  declare amount: number;
+
   @Column({
     type: DataType.ENUM(
       'PENDING',

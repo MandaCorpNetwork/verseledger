@@ -353,7 +353,10 @@ export class ContractController extends BaseHttpController {
     @requestBody() bidRaw: IContractBid,
     @next() nextFunc: NextFunction,
   ) {
-    const updateBidSchema = z.object({ status: ContractBidStatusSchema });
+    const updateBidSchema = z.object({
+      status: ContractBidStatusSchema.optional(),
+      amount: z.number().int().nonnegative().optional(),
+    });
 
     const newBid = updateBidSchema.strict().parse(bidRaw);
 
@@ -385,52 +388,63 @@ export class ContractController extends BaseHttpController {
     const contract = bid.Contract;
     if (contract == null) throw nextFunc(new NotFoundError(bidId));
 
-    const newStatus = newBid.status != bid.status;
+    const newStatus = newBid.status != null && newBid.status != bid.status;
+    const newAmount = newBid.amount != null && newBid.amount != bid.amount;
 
-    if (!newStatus) {
+    if (!newStatus && !newAmount) {
       throw new NotModified(`/(${contractId}/bids/${bidId}`);
     }
 
     //TODO: Org Support
     const isContractOwner = userId == contract.owner_id;
-    switch (newBid.status) {
-      case 'ACCEPTED': {
-        if (!isContractOwner) {
+    if (newStatus) {
+      switch (newBid.status) {
+        case 'ACCEPTED': {
+          if (!isContractOwner) {
+            if (bid.status != 'INVITED') throw new UnauthorizedError();
+            break;
+          }
+          if (bid.status != 'PENDING') throw new UnauthorizedError();
+          break;
+        }
+        case 'REJECTED': {
+          if (!isContractOwner) throw new UnauthorizedError();
+          if (bid.status != 'PENDING') throw new UnauthorizedError();
+          break;
+        }
+        case 'DECLINED': {
+          if (isContractOwner) throw new UnauthorizedError();
           if (bid.status != 'INVITED') throw new UnauthorizedError();
           break;
         }
-        if (bid.status != 'PENDING') throw new UnauthorizedError();
-        break;
-      }
-      case 'REJECTED': {
-        if (!isContractOwner) throw new UnauthorizedError();
-        if (bid.status != 'PENDING') throw new UnauthorizedError();
-        break;
-      }
-      case 'DECLINED': {
-        if (isContractOwner) throw new UnauthorizedError();
-        if (bid.status != 'INVITED') throw new UnauthorizedError();
-        break;
-      }
-      case 'EXPIRED': {
-        if (isContractOwner) throw new UnauthorizedError();
-        if (bid.status === 'REJECTED') throw new UnauthorizedError();
-        break;
-      }
-      default:
-      case 'INVITED':
-      case 'PENDING': {
-        throw new UnauthorizedError();
+        case 'EXPIRED': {
+          if (isContractOwner) throw new UnauthorizedError();
+          if (bid.status === 'REJECTED') throw new UnauthorizedError();
+          break;
+        }
+        default:
+        case 'INVITED':
+        case 'PENDING': {
+          throw new UnauthorizedError();
+        }
       }
     }
-    Logger.info('Before Update');
-    bid.set('status', newBid.status);
+    if (newAmount) {
+      const status = newBid.status ?? bid.status;
+      if (status === 'ACCEPTED') throw new UnauthorizedError();
+    }
+    if (newStatus) bid.set('status', newBid.status);
+
+    if (newAmount) {
+      bid.set('amount', newBid.amount);
+      if (isContractOwner) {
+        bid.set('status', 'INVITED');
+      } else {
+        bid.set('status', 'PENDING');
+      }
+    }
     await bid.save();
-
-    Logger.info('After Update');
-
     //TODO: Notifications
-
     if (bid.Contract) return this.ok(new ContractBidDTO(bid.toJSON()).strip());
   }
 
