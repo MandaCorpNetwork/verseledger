@@ -8,6 +8,7 @@ export const ContractBidSchema = z.object({
   contract_id: z.string().max(26),
   user_id: z.string().max(26),
   status: ContractBidStatusSchema,
+  amount: z.number().int().nonnegative(),
   User: UserSchema.optional(),
 });
 

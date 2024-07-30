@@ -355,7 +355,7 @@ export class ContractController extends BaseHttpController {
   ) {
     const updateBidSchema = z.object({
       status: ContractBidStatusSchema.optional(),
-      amount: z.number().nonnegative().optional(),
+      amount: z.number().int().nonnegative().optional(),
     });
 
     const newBid = updateBidSchema.strict().parse(bidRaw);
