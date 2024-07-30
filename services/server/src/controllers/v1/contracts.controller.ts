@@ -390,13 +390,13 @@ export class ContractController extends BaseHttpController {
 
     const newStatus = newBid.status != null && newBid.status != bid.status;
     const newAmount = newBid.amount != null && newBid.amount != bid.amount;
-
     if (!newStatus && !newAmount) {
       throw new NotModified(`/(${contractId}/bids/${bidId}`);
     }
 
     //TODO: Org Support
     const isContractOwner = userId == contract.owner_id;
+
     if (newStatus) {
       switch (newBid.status) {
         case 'ACCEPTED': {
@@ -430,6 +430,8 @@ export class ContractController extends BaseHttpController {
       }
     }
     if (newAmount) {
+      if (!isContractOwner && !contract.isBargaining)
+        throw new UnauthorizedError();
       const status = newBid.status ?? bid.status;
       if (status === 'ACCEPTED') throw new UnauthorizedError();
     }
