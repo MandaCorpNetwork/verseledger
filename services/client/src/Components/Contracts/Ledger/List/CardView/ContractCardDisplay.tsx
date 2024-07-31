@@ -33,6 +33,7 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
+        width: '100%',
         position: 'relative',
       }}
     >
