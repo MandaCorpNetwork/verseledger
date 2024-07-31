@@ -59,7 +59,7 @@ export const contractArchetypes = (color: string) => [
       },
       {
         label: 'Asset Protection',
-        value: 'Asset-Protection',
+        value: 'Asset Protection',
       },
       {
         label: 'Attache',
@@ -155,11 +155,11 @@ export const contractArchetypes = (color: string) => [
     subTypes: [
       {
         label: 'Middleman',
-        value: 'Middleman',
+        value: 'MiddleMan',
       },
       {
         label: 'Redacted',
-        value: 'Redacted',
+        value: 'Other',
       },
     ],
   },
