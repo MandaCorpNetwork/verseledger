@@ -99,6 +99,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
         my: '1em',
         mx: '1em',
         height: '100%',
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
