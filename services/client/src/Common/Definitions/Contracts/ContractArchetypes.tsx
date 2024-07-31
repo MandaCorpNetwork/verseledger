@@ -62,7 +62,7 @@ export const contractArchetypes = (
       },
       {
         label: 'Asset Protection',
-        value: 'Asset-Protection',
+        value: 'Asset Protection',
       },
       {
         label: 'Attache',
