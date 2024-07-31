@@ -4,6 +4,11 @@ import {
   SubmitContractBid,
 } from '@Popups/Contracts/ContractBids/ContractBid';
 import {
+  CounterOfferBid,
+  CounterOfferBidProps,
+  POPUP_COUNTER_OFFER_BID,
+} from '@Popups/Contracts/ContractBids/CounterOffer';
+import {
   CreateContractPopup,
   POPUP_CREATE_CONTRACT,
 } from '@Popups/Contracts/CreateContract/CreateContract';
@@ -74,6 +79,9 @@ export const PopupManager: React.FC = () => {
   const editContractPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_EDIT_CONTRACT),
   );
+  const counterOfferBidPopup = useAppSelector((state) =>
+    selectPopup(state, POPUP_COUNTER_OFFER_BID),
+  );
   return (
     <>
       {verifyUserPopup.open && <VerifyUserPopup />}
@@ -100,6 +108,9 @@ export const PopupManager: React.FC = () => {
       )}
       {editContractPopup.open && (
         <EditContractPopup {...(editContractPopup.props as EditContractPopupProps)} />
+      )}
+      {counterOfferBidPopup.open && (
+        <CounterOfferBid {...(counterOfferBidPopup.props as CounterOfferBidProps)} />
       )}
     </>
   );

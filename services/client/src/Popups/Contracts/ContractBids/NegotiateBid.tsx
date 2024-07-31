@@ -156,6 +156,7 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
             </Typography>
             <PayStructure width="100%" payStructure={contract.payStructure} />
             <PayField
+              label="Contract Pay"
               value={formData.toLocaleString()}
               onChange={handlePayChange}
               onClear={handlePayClear}

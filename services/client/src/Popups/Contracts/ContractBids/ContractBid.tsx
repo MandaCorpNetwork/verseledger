@@ -11,6 +11,7 @@ import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { postContractBid } from '@Redux/Slices/Contracts/actions/post/postContractBid';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser';
+import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -62,6 +63,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
               const dto = fetchRes.payload.data;
               const bid = dto[0];
               const bidUpdate = { amount: newPay };
+              Logger.info(`Bid Update: ${JSON.stringify(bidUpdate)}`);
               dispatch(
                 updateBid({
                   contractId: contractId,
@@ -72,6 +74,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                 if (updateBid.fulfilled.match(upRes)) {
                   enqueueSnackbar('Bid Offer Submitted', { variant: 'success' });
                   playSound('send');
+                  dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
                 } else {
                   enqueueSnackbar('Error Updating Bid', { variant: 'error' });
                   playSound('error');
