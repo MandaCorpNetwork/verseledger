@@ -3,6 +3,7 @@ import { Notification } from '@Models/notification.model';
 import { inject, injectable } from 'inversify';
 import { col, fn } from 'sequelize';
 import { type StompService } from './stomp.service';
+import { Logger } from '@/utils/Logger';
 
 @injectable()
 export class NotificationService {
@@ -23,7 +24,8 @@ export class NotificationService {
         attributes: [[fn('COUNT', col('id')), 'unread']],
       });
       return notifications[0].dataValues.unread;
-    } catch (error) {
+    } catch (e) {
+      Logger.error(e);
       return 0;
     }
   }

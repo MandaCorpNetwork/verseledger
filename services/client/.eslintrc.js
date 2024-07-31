@@ -40,6 +40,14 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        argsIgnorePattern: '^_[^_].*$|^_$',
+        varsIgnorePattern: '^_[^_].*$|^_$',
+        caughtErrorsIgnorePattern: '^_[^_].*$|^_$',
+      },
+    ],
     'jsx-a11y/anchor-is-valid': [
       'error',
       {

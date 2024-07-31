@@ -11,6 +11,16 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
+  rules: {
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        argsIgnorePattern: '^_[^_].*$|^_$',
+        varsIgnorePattern: '^_[^_].*$|^_$',
+        caughtErrorsIgnorePattern: '^_[^_].*$|^_$',
+      },
+    ],
+  },
   ignorePatterns: ['build', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
 };

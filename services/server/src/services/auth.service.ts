@@ -4,6 +4,7 @@ import { TYPES } from '@Constant/types';
 import { EnvService } from './env.service';
 import { IdUtil } from '@/utils/IdUtil';
 import { InvalidToken } from '@Models/invalid_tokens.model';
+import { Logger } from '@/utils/Logger';
 @injectable()
 export class AuthService {
   @inject(TYPES.EnvService) private declare readonly _envars: EnvService;
@@ -19,7 +20,8 @@ export class AuthService {
           algorithms: ['HS512'],
         },
       );
-    } catch (_) {
+    } catch (e) {
+      Logger.error(e);
       return null;
     }
     const tokenDecoded = decoded as unknown as {
@@ -40,7 +42,8 @@ export class AuthService {
           algorithms: ['HS512'],
         },
       );
-    } catch (_) {
+    } catch (e) {
+      Logger.error(e);
       return null;
     }
     const tokenDecoded = decoded as unknown as {

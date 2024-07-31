@@ -6,7 +6,7 @@ import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useMemo, useState } from 'react';
 
-import { verseOSTheme } from '@/Themes/VerseOS';
+import type { verseOSTheme } from '@/Themes/VerseOS';
 
 type ContractLedgerLoopButtonProps = {
   title: string;

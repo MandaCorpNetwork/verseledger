@@ -29,7 +29,9 @@ export const ContractSchema = z.object({
 
 export type IContract = z.infer<typeof ContractSchema>;
 
-const ContractWithOwnerSchema = ContractSchema.extend({ Owner: UserSchema });
+export const ContractWithOwnerSchema = ContractSchema.extend({
+  Owner: UserSchema,
+});
 
 export type IContractWithOwner = z.infer<typeof ContractWithOwnerSchema>;
 

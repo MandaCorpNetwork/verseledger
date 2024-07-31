@@ -49,7 +49,7 @@ export class AuthUtil {
     if (tokenString == null) return null;
     try {
       return jwtDecode<JwtPayload>(tokenString);
-    } catch (error) {
+    } catch (_error) {
       return null;
     }
   }
