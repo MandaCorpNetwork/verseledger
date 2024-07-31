@@ -343,6 +343,8 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
             flex: '1',
             background: 'rgba(0,30,100,0.2)',
             backdropFilter: 'blur(20px)',
+            p: '1em',
+            gap: '1em',
           }}
         >
           <ContractTableTools />
