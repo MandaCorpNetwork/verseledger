@@ -2,10 +2,13 @@ import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
 import ControlPanelBox from '@Common/Components/Boxes/ControlPanelBox';
 import { UserChip } from '@Common/Components/Chips/UserChip';
 import { Box, Button, Tooltip, Typography } from '@mui/material';
+import { POPUP_COUNTER_OFFER_BID } from '@Popups/Contracts/ContractBids/CounterOffer';
 import { useAppDispatch } from '@Redux/hooks';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { enqueueSnackbar } from 'notistack';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 import { useSoundEffect } from '@/AudioManager';
@@ -13,15 +16,15 @@ import { useSoundEffect } from '@/AudioManager';
 type ContractorProps = {
   bid: IContractBid;
   user: IUser;
-  pay: string;
   contractOwned: boolean;
+  contract: IContract;
 };
 
 export const Contractor: React.FC<ContractorProps> = ({
   user,
-  pay,
   bid,
   contractOwned,
+  contract,
 }) => {
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
@@ -98,12 +101,16 @@ export const Contractor: React.FC<ContractorProps> = ({
     });
   };
 
+  const handleOpenOffer = () => {
+    dispatch(openPopup(POPUP_COUNTER_OFFER_BID, { bid, contract }));
+  };
+
   return (
     <ControlPanelBox
       data-testid="ContractorsTab-ContractorList__ContractorBox"
       sx={{
         flexDirection: 'row',
-        my: '.5em',
+        my: '1em',
         px: '1em',
         py: '.2em',
         justifyContent: 'space-between',
@@ -132,37 +139,66 @@ export const Contractor: React.FC<ContractorProps> = ({
           Withdrawn Contractor
         </Typography>
       )}
-      {bid.status === 'INVITED' && (
+      {bid.status === 'INVITED' && bid.amount === contract.defaultPay && (
         <Typography variant="overline" sx={{ color: 'secondary.main' }}>
           Invited Contractor
         </Typography>
       )}
-      {contractOwned && bid.status === 'PENDING' && (
-        <Typography variant="body2" sx={{ color: 'warning.main' }}>
-          Pending
+      {bid.status === 'INVITED' && bid.amount !== contract.defaultPay && (
+        <Typography variant="overline" sx={{ color: 'warning.main' }}>
+          Counter Offer Sent
         </Typography>
       )}
-      {contractOwned && bid.status === 'PENDING' && (
-        <Box data-testid="ContractorsTab-ContractorList-Contractor__BidControlButtonWrapper">
-          <Button
-            data-testid="ContractorsTab-ContractorList-Contractor-BidControls__AcceptButton"
-            color="success"
-            onClick={handleAccept}
-          >
-            Accept
-          </Button>
-          <Button
-            data-testid="ContractorsTab-ContractorList-Contractor-BidControls__RejectButton"
-            color="error"
-            onClick={handleReject}
-            sx={{
-              mx: '1em',
-            }}
-          >
-            Reject
-          </Button>
-        </Box>
-      )}
+      {contractOwned &&
+        bid.status === 'PENDING' &&
+        bid.amount === contract.defaultPay && (
+          <Typography variant="overline" sx={{ color: 'warning.main' }}>
+            Pending
+          </Typography>
+        )}
+      {contractOwned &&
+        bid.status === 'PENDING' &&
+        bid.amount !== contract.defaultPay && (
+          <Typography variant="overline" sx={{ color: 'warning.main' }}>
+            Pending Offer
+          </Typography>
+        )}
+      {contractOwned &&
+        bid.status === 'PENDING' &&
+        bid.amount === contract.defaultPay && (
+          <Box data-testid="ContractorsTab-ContractorList-Contractor__BidControlButtonWrapper">
+            <Button
+              data-testid="ContractorsTab-ContractorList-Contractor-BidControls__AcceptButton"
+              color="success"
+              onClick={handleAccept}
+            >
+              Accept
+            </Button>
+            <Button
+              data-testid="ContractorsTab-ContractorList-Contractor-BidControls__RejectButton"
+              color="error"
+              onClick={handleReject}
+              sx={{
+                mx: '1em',
+              }}
+            >
+              Reject
+            </Button>
+          </Box>
+        )}
+      {contractOwned &&
+        bid.status === 'PENDING' &&
+        bid.amount !== contract.defaultPay && (
+          <Box data-testid="ContractorsTab-ContractorList-Contractor-BidControls__OpenOfferButton_Wrapper">
+            <Button
+              data-testid="ContractorsTab-ContractorList-Contractor-BidControls__OpenOfferButton"
+              color="secondary"
+              onClick={handleOpenOffer}
+            >
+              Open Offer
+            </Button>
+          </Box>
+        )}
       {bid.status === 'ACCEPTED' && (
         <Box
           data-testid="ContractorsTab-ContractorList-Contractor-AcceptedControls__PayLabelWrapper"
@@ -191,7 +227,7 @@ export const Contractor: React.FC<ContractorProps> = ({
             size="small"
             margin="dense"
             label="Pay"
-            value={pay}
+            value={bid.amount}
             startAdornment="¤"
             maxWidth="75px"
             color="text.secondary"

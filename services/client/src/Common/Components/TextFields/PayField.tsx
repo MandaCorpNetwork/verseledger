@@ -8,13 +8,15 @@ import {
 } from '@mui/material';
 
 type ContractDefaultPayLabelProps = {
-  value: string;
+  label: string;
+  value: string | null;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClear?: () => void;
   sx?: object;
 };
 
 export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
+  label,
   value,
   onChange,
   onClear,
@@ -24,7 +26,7 @@ export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
     <Tooltip title={value} arrow>
       <TextField
         size="small"
-        label="Pay Offer"
+        label={label}
         color={value === '0' ? 'error' : 'secondary'}
         value={value}
         onChange={onChange}

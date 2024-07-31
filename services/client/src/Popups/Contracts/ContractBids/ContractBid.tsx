@@ -5,9 +5,13 @@ import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { Box, Divider, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
+import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch } from '@Redux/hooks';
+import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { postContractBid } from '@Redux/Slices/Contracts/actions/post/postContractBid';
-import { closePopup } from '@Redux/Slices/Popups/popups.actions';
+import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser';
+import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -36,14 +40,79 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
   const dispatch = useAppDispatch();
 
   const handleSubmitBid = React.useCallback(() => {
-    if (negotiateFormData == null || negotiateFormData === contract.defaultPay) {
-      playSound('send');
-      dispatch(postContractBid(contract.id));
-      enqueueSnackbar('Bid Submitted', { variant: 'success' });
+    const handlePostBid = (contractId: string) => {
+      dispatch(postContractBid(contractId)).then((res) => {
+        if (postContractBid.fulfilled.match(res)) {
+          enqueueSnackbar('Bid Submitted', { variant: 'success' });
+          dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
+          playSound('send');
+        } else {
+          enqueueSnackbar('Error Submitting Bid', { variant: 'error' });
+          playSound('error');
+        }
+      });
+    };
+
+    const handleNegotiateBid = (contractId: string, newPay: number) => {
+      dispatch(postContractBid(contractId)).then((res) => {
+        if (postContractBid.fulfilled.match(res)) {
+          dispatch(
+            fetchContractBidsOfUser({ contractId: [contractId], page: 0, limit: 1 }),
+          ).then((fetchRes) => {
+            if (fetchContractBidsOfUser.fulfilled.match(fetchRes)) {
+              const dto = fetchRes.payload.data;
+              const bid = dto[0];
+              const bidUpdate = { amount: newPay };
+              Logger.info(`Bid Update: ${JSON.stringify(bidUpdate)}`);
+              dispatch(
+                updateBid({
+                  contractId: contractId,
+                  bidId: bid.id,
+                  bidData: bidUpdate,
+                }),
+              ).then((upRes) => {
+                if (updateBid.fulfilled.match(upRes)) {
+                  enqueueSnackbar('Bid Offer Submitted', { variant: 'success' });
+                  playSound('send');
+                  dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
+                } else {
+                  enqueueSnackbar('Error Updating Bid', { variant: 'error' });
+                  playSound('error');
+                }
+              });
+            } else {
+              enqueueSnackbar('Error Fetching New Bid', { variant: 'error' });
+              playSound('error');
+            }
+          });
+        } else {
+          enqueueSnackbar('Error Submitting Bid', { variant: 'error' });
+          playSound('error');
+        }
+      });
+    };
+    if (contract.isBargaining === false) {
+      handlePostBid(contract.id);
     }
-    dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
+    if (contract.isBargaining === true) {
+      if (negotiateFormData == null || negotiateFormData === contract.defaultPay) {
+        dispatch(
+          openPopup(POPUP_YOU_SURE, {
+            title: 'Submit Bid',
+            subjectText: 'Submitting a bid for Default Pay',
+            bodyText:
+              'You are about to submit a bid for the default pay on a negotiable contract.',
+            onAccept: () => handlePostBid(contract.id),
+            clickaway: true,
+            testid: 'PostContractBid__SubmitNegotiateBid_DefaultPay',
+          }),
+        );
+      } else {
+        handleNegotiateBid(contract.id, negotiateFormData);
+      }
+    }
     return;
-  }, []);
+  }, [contract, dispatch, negotiateFormData, enqueueSnackbar, playSound]);
 
   return (
     <VLPopup

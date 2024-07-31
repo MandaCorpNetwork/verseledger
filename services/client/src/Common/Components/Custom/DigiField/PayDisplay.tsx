@@ -3,25 +3,29 @@ import React from 'react';
 
 import { DigiField } from './DigiField';
 
-type DefaultPayLabelProps = {
+type PayLabelProps = {
+  label: string;
   pay: number;
+  sx?: object;
   maxWidth?: string;
   width?: string;
   testid?: string;
 };
 
-const DefaultPayLabel: React.FC<DefaultPayLabelProps> = ({
+const PayDigiField: React.FC<PayLabelProps> = ({
+  label,
   pay,
   maxWidth,
   width,
   testid,
+  sx,
 }) => {
   const formattedPay = pay.toLocaleString();
   return (
     <Tooltip title={formattedPay} arrow>
       <DigiField
         data-testid={testid}
-        label="Default Pay"
+        label={label}
         startAdornment={
           <Typography color="secondary" sx={{ fontSize: '1em' }}>
             ¤
@@ -30,6 +34,7 @@ const DefaultPayLabel: React.FC<DefaultPayLabelProps> = ({
         sx={{
           maxWidth: maxWidth,
           width: width,
+          ...sx,
         }}
       >
         {formattedPay}
@@ -38,4 +43,4 @@ const DefaultPayLabel: React.FC<DefaultPayLabelProps> = ({
   );
 };
 
-export const DefaultPay = React.memo(DefaultPayLabel);
+export const PayDisplay = React.memo(PayDigiField);

@@ -158,8 +158,8 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
               key={contractor.id}
               bid={contractor}
               user={contractor.User as IUser}
-              pay="InDev"
               contractOwned={isOwned}
+              contract={contract}
             />
           ))}
         {!isOwned &&
@@ -168,8 +168,8 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
               key={contractor.id}
               bid={contractor}
               user={contractor.User as IUser}
-              pay="InDev"
               contractOwned={isOwned}
+              contract={contract}
             />
           ))}
       </Box>

@@ -4,8 +4,8 @@ import DigiBox from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import { DefaultPay } from '@Common/Components/Custom/DigiField/DefaultPay';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
+import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
 import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
 import { Box, Tooltip, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
@@ -132,7 +132,12 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
               payStructure={contract.payStructure}
               maxWidth="100%"
             />
-            <DefaultPay pay={contract.defaultPay} maxWidth="100%" width="100%" />
+            <PayDisplay
+              label="Default Pay"
+              pay={contract.defaultPay}
+              maxWidth="100%"
+              width="100%"
+            />
           </DigiDisplay>
           <DigiDisplay
             data-testid="ContractBid__NonNegotiateBid_ContractorsDetailsWrapper"
