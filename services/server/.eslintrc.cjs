@@ -1,5 +1,3 @@
-const { rules } = require('../client/.eslintrc');
-
 module.exports = {
   root: true,
   env: { es2020: true },
