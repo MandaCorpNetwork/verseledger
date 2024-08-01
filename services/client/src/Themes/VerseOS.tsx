@@ -32,7 +32,7 @@ export const verseOSTheme = createTheme({
       sm: 480,
       md: 768,
       lg: 1920,
-      xl: 1440,
+      xl: 3040,
     },
   },
   palette: {
