@@ -420,8 +420,22 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               <DigiDisplay
                 data-testid="ContractDisplay-Briefing__Contents_Wrapper"
                 sx={{
+                  maxHeight: '100%',
+                  overflow: 'auto',
+                  mb: '.5em',
                   px: '1em',
                   py: '.2em',
+                  '&::-webkit-scrollbar': {
+                    width: '10px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    background: 'rgb(8, 29, 68)',
+                    borderRadius: '10px',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    borderRadius: '20px',
+                    background: 'rgb(121, 192, 244, .5)',
+                  },
                 }}
               >
                 <Typography
