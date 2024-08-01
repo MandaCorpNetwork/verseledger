@@ -1,26 +1,25 @@
 import DigiBox from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
+import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
-import { ChevronLeft, ChevronRight, ExpandMore, HelpOutline } from '@mui/icons-material';
+import { ChevronLeft, ChevronRight, ExpandMore } from '@mui/icons-material';
 import {
   Box,
   Button,
   Chip,
   Collapse,
   IconButton,
-  InputAdornment,
   styled,
   Tab,
   Tabs,
-  TextField,
   Tooltip,
   Typography,
 } from '@mui/material';
 import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBids/ContractBid';
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
-import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { Logger } from '@Utils/Logger';
@@ -174,11 +173,6 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
 
   const statusColor = statusChipColor();
 
-  const handlePayStructurePopup = () => {
-    playSound('open');
-    dispatch(openPopup(POPUP_PAY_STRUCTURES));
-  };
-
   const handleSubmitBidPopup = () => {
     playSound('open');
     dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
@@ -251,6 +245,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         width: '100%',
         p: '.5em',
         gap: '1em',
+        justifyContent: 'space-between',
       }}
     >
       <DigiBox
@@ -294,7 +289,9 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           />
           <Tooltip title={archetype}>
             {options.find((option) => option.archetype === archetype)?.archetypeIcon ?? (
-              <Typography>???</Typography>
+              <Typography color="error" fontWeight="bold">
+                ???
+              </Typography>
             )}
           </Tooltip>
         </DigiDisplay>
@@ -317,7 +314,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               data-testid="ContractDisplay-Info-Details__StatusTitle"
               align="center"
               variant="body1"
-              sx={{ fontWeight: 'bold', mb: '.5em' }}
+              sx={{ fontWeight: 'bold', mb: '.5em', cursor: 'default' }}
             >
               Status
             </Typography>
@@ -342,6 +339,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               sx={{
                 fontWeight: 'bold',
                 mb: '.5em',
+                cursor: 'default',
               }}
             >
               Contract SubTypes
@@ -374,7 +372,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           display: 'flex',
           flexDirection: 'row',
           width: '100%',
-          maxHeight: '35%',
+          height: '35%',
           justifyContent: 'space-around',
         }}
       >
@@ -388,55 +386,33 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             maxHeight: '100%',
           }}
         >
-          <Box
+          <DigiBox
             data-testid="ContractDisplay-PayandBriefing__BriefingWrapper"
             sx={{
-              display: 'flex',
-              flexDirection: 'inherit',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
               px: '.5em',
               width: '100%',
-              maxHeight: '50%',
-              borderLeft: '1px solid rgba(14,49,141,0.5)',
-              borderRight: '1px solid rgba(14,49,141,0.5)',
-              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                background:
-                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                opacity: 0.6,
-                backdropFilter: 'blur(10px)',
-                zIndex: -1,
-                backgroundImage:
-                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                backgroundSize: '100% 2px',
-              },
+              justifyContent: 'flex-start',
             }}
           >
-            <Typography
+            <DigiDisplay
               data-testid="ContractDisplay-PayandBriefing__BriefingTitle"
-              variant="body2"
               sx={{
-                backgroundColor: 'rgba(33,150,243,.2)',
-                borderRadius: '10px',
                 pl: '1em',
-                fontWeight: 'bold',
                 my: '.5em',
-                display: 'flex',
-                alignItems: 'center',
                 justifyContent: 'space-between',
+                flexDirection: 'row',
               }}
             >
-              Briefing
+              <Typography
+                data-testid="ContractDisplay-PayandBriefing__BriefingTitle"
+                variant="body1"
+                sx={{
+                  fontWeight: 'bold',
+                  cursor: 'default',
+                }}
+              >
+                Briefing
+              </Typography>
               <IconButton
                 data-testid="ContractDisplay-PayandBriefing__BriefingExpansionButton"
                 size="small"
@@ -450,88 +426,71 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   }}
                 />
               </IconButton>
-            </Typography>
+            </DigiDisplay>
             <Collapse
-              data-testid="ContractDisplay-Briefing__ContentsWrapper"
+              data-testid="ContractDisplay-Briefing__Contents_Container"
               in={briefingExpanded}
-              sx={{
-                backgroundColor: 'rgba(33,150,243,.2)',
-                borderRadius: '10px',
-                px: '1em',
-                maxHeight: '100%',
-                overflow: 'auto',
-                mb: '.2em',
-                '&::-webkit-scrollbar': {
-                  width: '10px',
-                },
-                '&::-webkit-scrollbar-track': {
-                  background: 'rgb(8, 29, 68)',
-                  borderRadius: '10px',
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  borderRadius: '20px',
-                  background: 'rgb(121, 192, 244, .5)',
-                },
-              }}
             >
-              <Typography
-                data-testid="ContractDisplay-PayandBriefing__BriefingContent"
-                variant="body2"
+              <DigiDisplay
+                data-testid="ContractDisplay-Briefing__Contents_Wrapper"
+                sx={{
+                  maxHeight: '100%',
+                  overflow: 'auto',
+                  mb: '.5em',
+                  px: '1em',
+                  py: '.2em',
+                  '&::-webkit-scrollbar': {
+                    width: '10px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    background: 'rgb(8, 29, 68)',
+                    borderRadius: '10px',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    borderRadius: '20px',
+                    background: 'rgb(121, 192, 244, .5)',
+                  },
+                }}
               >
-                {contract.briefing}
-              </Typography>
+                <Typography
+                  data-testid="ContractDisplay-PayandBriefing__BriefingContent"
+                  variant="body2"
+                  sx={{
+                    color: 'text.primary',
+                  }}
+                >
+                  {contract.briefing}
+                </Typography>
+              </DigiDisplay>
             </Collapse>
-          </Box>
-          <Box
+          </DigiBox>
+          <DigiBox
             data-testid="ContractDisplay-PayandBriefing__PayWrapper"
             sx={{
-              display: 'flex',
-              flexDirection: 'inherit',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
               px: '.5em',
               width: '100%',
               maxHeight: '50%',
               mt: '1em',
-              borderLeft: '1px solid rgba(14,49,141,0.5)',
-              borderRight: '1px solid rgba(14,49,141,0.5)',
-              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                background:
-                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                opacity: 0.6,
-                backdropFilter: 'blur(10px)',
-                zIndex: -1,
-                backgroundImage:
-                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                backgroundSize: '100% 2px',
-              },
             }}
           >
-            <Typography
-              data-testid="ContractDisplay-PayandBriefing__PayTitle"
-              variant="body2"
+            <DigiDisplay
+              data-testid="ContractDisplay-PayandBriefing__PayTitle_Wrapper"
               sx={{
-                backgroundColor: 'rgba(33,150,243,.2)',
-                borderRadius: '10px',
                 pl: '1em',
                 my: '.5em',
-                fontWeight: 'bold',
-                display: 'flex',
-                alignItems: 'center',
                 justifyContent: 'space-between',
+                flexDirection: 'row',
               }}
             >
-              Pay
+              <Typography
+                data-testid="ContractDisplay-PayandBriefing__PayTitle"
+                variant="body1"
+                sx={{
+                  fontWeight: 'bold',
+                }}
+              >
+                Pay
+              </Typography>
               <IconButton
                 data-testid="ContractDisplay-PayandBriefing_PayExpansionButton"
                 size="small"
@@ -545,63 +504,44 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   }}
                 />
               </IconButton>
-            </Typography>
+            </DigiDisplay>
+
             <Collapse
               data-testid="ContractDisplay-PayandBriefing_PayInfoWrapper"
               in={payExpanded}
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
+                width: '100%',
               }}
             >
-              <Tooltip
-                title={
-                  contract.payStructure.charAt(0) +
-                  contract.payStructure.slice(1).toLowerCase()
-                }
-                arrow
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  mb: '.5em',
+                }}
               >
-                <TextField
-                  size="small"
-                  label="Pay Structure"
-                  value={
+                <Tooltip
+                  title={
                     contract.payStructure.charAt(0) +
                     contract.payStructure.slice(1).toLowerCase()
                   }
-                  color="secondary"
-                  margin="dense"
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end" onClick={handlePayStructurePopup}>
-                        <HelpOutline color="secondary" fontSize="small" />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    mr: '.5em',
-                    maxWidth: '48%',
-                  }}
-                />
-              </Tooltip>
-              <Tooltip title={`¤${contract.defaultPay}`} arrow>
-                <TextField
-                  size="small"
-                  label="Default Pay"
-                  value={contract.defaultPay}
-                  color="secondary"
-                  margin="dense"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Typography color="secondary">¤</Typography>
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{ maxWidth: '48%' }}
-                />
-              </Tooltip>
+                  arrow
+                >
+                  <PayStructure payStructure={contract.payStructure} width="120px" />
+                </Tooltip>
+                <Tooltip title={`¤${contract.defaultPay}`} arrow>
+                  <PayDisplay
+                    label="Default Pay"
+                    pay={contract.defaultPay}
+                    width="120px"
+                  />
+                </Tooltip>
+              </Box>
             </Collapse>
-          </Box>
+          </DigiBox>
         </Box>
         <Box
           data-testid="ContractDisplay__LocationContainer"
