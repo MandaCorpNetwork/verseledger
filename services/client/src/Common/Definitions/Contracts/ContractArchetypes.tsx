@@ -8,10 +8,13 @@ import {
   SecurityIcon,
 } from '../CustomIcons';
 
-export const contractArchetypes = (color: string) => [
+export const contractArchetypes = (
+  color: string,
+  size: 'small' | 'medium' | 'large' | 'inherit',
+) => [
   {
     archetype: 'Logistics',
-    archetypeIcon: <LogisticsIcon sx={{ color: color }} />,
+    archetypeIcon: <LogisticsIcon fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Transport',
@@ -29,7 +32,7 @@ export const contractArchetypes = (color: string) => [
   },
   {
     archetype: 'Medical',
-    archetypeIcon: <LocalHospital sx={{ color: color }} />,
+    archetypeIcon: <LocalHospital fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Trauma',
@@ -43,7 +46,7 @@ export const contractArchetypes = (color: string) => [
   },
   {
     archetype: 'Security',
-    archetypeIcon: <SecurityIcon sx={{ color: color }} />,
+    archetypeIcon: <SecurityIcon fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Escort',
@@ -69,7 +72,7 @@ export const contractArchetypes = (color: string) => [
   },
   {
     archetype: 'Salvage',
-    archetypeIcon: <SalvageIcon sx={{ color: color }} />,
+    archetypeIcon: <SalvageIcon fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Collection',
@@ -83,7 +86,7 @@ export const contractArchetypes = (color: string) => [
   },
   {
     archetype: 'Industry',
-    archetypeIcon: <Factory sx={{ color: color }} />,
+    archetypeIcon: <Factory fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Mining',
@@ -105,7 +108,7 @@ export const contractArchetypes = (color: string) => [
   },
   {
     archetype: 'RRR',
-    archetypeIcon: <RRRIcon sx={{ color: color }} />,
+    archetypeIcon: <RRRIcon fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Refuel',
@@ -123,7 +126,7 @@ export const contractArchetypes = (color: string) => [
   },
   {
     archetype: 'Fleet',
-    archetypeIcon: <FleetIcon sx={{ color: color }} />,
+    archetypeIcon: <FleetIcon fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Crewman',
@@ -137,7 +140,7 @@ export const contractArchetypes = (color: string) => [
   },
   {
     archetype: 'Exploration',
-    archetypeIcon: <Explore sx={{ color: color }} />,
+    archetypeIcon: <Explore fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Locate',
@@ -151,7 +154,7 @@ export const contractArchetypes = (color: string) => [
   },
   {
     archetype: 'Proxy',
-    archetypeIcon: <VisibilityOff sx={{ color: color }} />,
+    archetypeIcon: <VisibilityOff fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Middleman',
