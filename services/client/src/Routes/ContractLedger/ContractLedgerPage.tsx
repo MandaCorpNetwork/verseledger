@@ -351,7 +351,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
             gap: '1em',
           }}
         >
-          <ContractTableTools />
+          {!mobile && !tablet && <ContractTableTools />}
           <ContractsBrowser
             selectedId={selectedId}
             selectedIdSetter={handleContractPick}
