@@ -27,7 +27,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
 }) => {
   const [archetype, setArchetype] = React.useState<string | null>(null);
 
-  const archetypes = contractArchetypes('secondary');
+  const archetypes = contractArchetypes('secondary.main', 'large');
 
   React.useEffect(() => {
     const selectedArchetype = archetypes.find((option) =>
