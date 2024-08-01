@@ -249,7 +249,9 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           />
           <Tooltip title={archetype}>
             {options.find((option) => option.archetype === archetype)?.archetypeIcon ?? (
-              <Typography>???</Typography>
+              <Typography color="error" fontWeight="bold">
+                ???
+              </Typography>
             )}
           </Tooltip>
         </DigiDisplay>
