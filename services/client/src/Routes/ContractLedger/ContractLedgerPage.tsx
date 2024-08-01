@@ -20,6 +20,8 @@ import { POPUP_CREATE_CONTRACT } from '@Popups/Contracts/CreateContract/CreateCo
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { isMobile } from '@Utils/isMobile';
+import { isTablet } from '@Utils/isTablet';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -46,6 +48,8 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   const [isExpanded, setExpanded] = useState(false);
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
+  const mobile = isMobile();
+  const tablet = isTablet();
 
   const handleContractPick = useCallback(
     (id: string | null) => {
@@ -198,23 +202,21 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
             transition: 'all 0.5s',
           }}
         >
-          <IconButton
-            sx={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              transform: `rotate(${isExpanded ? '180deg' : '0'})`,
-              transition: 'transform 0.3s',
-            }}
-            onClick={handleDrawerOpen}
-          >
-            <KeyboardDoubleArrowRight fontSize="large" />
-          </IconButton>
-          <Box
-            sx={{
-              mt: '3em',
-            }}
-          >
+          {!mobile && !tablet && (
+            <IconButton
+              sx={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                transform: `rotate(${isExpanded ? '180deg' : '0'})`,
+                transition: 'transform 0.3s',
+              }}
+              onClick={handleDrawerOpen}
+            >
+              <KeyboardDoubleArrowRight fontSize="large" />
+            </IconButton>
+          )}
+          <Box marginTop={{ xs: '.5em', sm: '.5em', md: '2em', lg: '3em' }}>
             <Slide
               direction="right"
               in={!isExpanded}
@@ -224,7 +226,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
             >
               <Box>
                 <Tooltip title="Create Contract" placement="right">
-                  <IconButton onClick={openCreateContract}>
+                  <IconButton onClick={openCreateContract} size="small">
                     <AddCircle fontSize="large" />
                   </IconButton>
                 </Tooltip>
@@ -234,6 +236,8 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
                       navigate('/ledger/personal');
                       playSound('navigate');
                     }}
+                    size="small"
+                    sx={{ ml: '.2em' }}
                   >
                     <EditNote fontSize="large" />
                   </IconButton>
@@ -354,18 +358,20 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
             contractOnClose={handleContractClose}
           />
         </Box>
-        <Box
-          data-testid="ContractLedger__ColumnThree"
-          sx={{
-            ml: '1em',
-            width: '30%',
-            height: '100%',
-            background: 'rgba(0,30,100,0.2)',
-            backdropFilter: 'blur(20px)',
-          }}
-        >
-          <ContractDisplayContainer selectedId={selectedId} />
-        </Box>
+        {!mobile && !tablet && (
+          <Box
+            data-testid="ContractLedger__ColumnThree"
+            sx={{
+              ml: '1em',
+              width: '30%',
+              height: '100%',
+              background: 'rgba(0,30,100,0.2)',
+              backdropFilter: 'blur(20px)',
+            }}
+          >
+            <ContractDisplayContainer selectedId={selectedId} />
+          </Box>
+        )}
       </Box>
     </Box>
   );
