@@ -31,7 +31,7 @@ export const verseOSTheme = createTheme({
       xs: 0,
       sm: 480,
       md: 768,
-      lg: 1024,
+      lg: 1920,
       xl: 1440,
     },
   },

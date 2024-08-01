@@ -1,3 +1,5 @@
+import DigiBox from '@Common/Components/Boxes/DigiBox';
+import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
@@ -59,7 +61,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
   const [archetype, setArchetype] = React.useState<string | null>(null);
 
-  const options = contractArchetypes('secondary.main');
+  const options = contractArchetypes('secondary.main', 'medium');
 
   React.useEffect(() => {
     const selectedArchetype = options.find((option) =>
@@ -251,190 +253,121 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         gap: '1em',
       }}
     >
-      <Box
-        data-testid="ContractDisplay__TopBox"
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          width: '100%',
-          height: '20%',
-          justifyContent: 'space-around',
-        }}
+      <DigiBox
+        data-testid="ContractDisplay-Info__TitleBoxWrapper"
+        sx={{ width: '100%', height: '20%', p: '.5em' }}
       >
-        <Box
-          data-testid="ContractDisplay__UserDisplayWrapper"
+        <DigiDisplay
+          data-testid="ContractDisplay-Info__TitleBar"
           sx={{
-            width: '40%',
-            alignContent: 'center',
+            flexDirection: 'row',
+            py: '.2em',
+            px: '.5em',
+            justifyContent: 'space-around',
+            width: '100%',
+            mb: 'auto',
           }}
         >
-          <UserDisplay userid={contract.owner_id} />
-        </Box>
-        <Box
-          data-testid="ContractDisplay-TopBox__TitleContainer"
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '55%',
-            height: '100%',
-          }}
-        >
+          <Tooltip title={contract.title} arrow>
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                fontWeight: 'bold',
+                maxWidth: '80%',
+                color: 'text.primary',
+                textShadow: '0 0 2px #fff, 0 0 10px #000',
+                cursor: 'default',
+              }}
+            >
+              {contract.title}
+            </Typography>
+          </Tooltip>
           <Box
-            data-testid="ContractDisplay-Info__TitleBoxWrapper"
             sx={{
+              flexGrow: '1',
               display: 'flex',
               flexDirection: 'column',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
-              p: '.5em',
-              ml: '1em',
-              width: '100%',
-              borderLeft: '1px solid rgba(14,49,141,0.5)',
-              borderRight: '1px solid rgba(14,49,141,0.5)',
-              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                background:
-                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                opacity: 0.6,
-                backdropFilter: 'blur(10px)',
-                zIndex: -1,
-                backgroundImage:
-                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                backgroundSize: '100% 2px',
-              },
+              alignItems: 'center',
+              py: 'auto',
             }}
+          />
+          <Tooltip title={archetype}>
+            {options.find((option) => option.archetype === archetype)?.archetypeIcon ?? (
+              <Typography>???</Typography>
+            )}
+          </Tooltip>
+        </DigiDisplay>
+        <Box
+          data-testid="ContractDisplay__DetailsContainer"
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            mt: '.5em',
+            width: '100%',
+            flexGrow: 1,
+            justifyContent: 'space-around',
+          }}
+        >
+          <DigiDisplay
+            data-testid="ContractDisplay-Info-Details__StatusWrapper"
+            sx={{ px: '1em', my: 'auto', py: '.5em' }}
           >
+            <Typography
+              data-testid="ContractDisplay-Info-Details__StatusTitle"
+              align="center"
+              variant="body1"
+              sx={{ fontWeight: 'bold', mb: '.5em' }}
+            >
+              Status
+            </Typography>
+            <Chip
+              variant="filled"
+              label={
+                contract.status.charAt(0).toUpperCase() +
+                contract.status.slice(1).toLowerCase()
+              }
+              color={statusColor}
+              size="small"
+            />
+          </DigiDisplay>
+          <DigiDisplay
+            data-testid="ContractDisplay-Info-Details__SubTypeWrapper"
+            sx={{ my: 'auto', px: '1em', py: '.5em' }}
+          >
+            <Typography
+              data-testid="ContractDisplay-Info-Details__SubTypeTitle"
+              align="center"
+              variant="body1"
+              sx={{
+                fontWeight: 'bold',
+                mb: '.5em',
+              }}
+            >
+              Contract SubTypes
+            </Typography>
             <Box
-              data-testid="ContractDisplay-Info__TitleBar"
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                backgroundColor: 'rgba(33,150,243,.2)',
-                borderRadius: '10px',
-                p: '.2em',
-                justifyContent: 'space-around',
-                width: '100%',
+                justifyContent: 'center',
               }}
             >
-              <Tooltip title={contract.title} arrow>
-                <Typography
-                  variant="h6"
-                  noWrap
-                  sx={{ fontWeight: 'bold', maxWidth: '80%', pl: '.2em' }}
-                >
-                  {contract.title}
-                </Typography>
-              </Tooltip>
-              <Box
-                sx={{
-                  flexGrow: '1',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  py: 'auto',
-                }}
+              <Chip
+                variant="outlined"
+                size="small"
+                color="secondary"
+                label={contract.subtype}
+                icon={
+                  options.find((option) => option.archetype === archetype)?.archetypeIcon
+                }
+                onClick={handleArchetypeOpen}
               />
-              <Tooltip title={archetype}>
-                {options.find((option) => option.archetype === archetype)
-                  ?.archetypeIcon ?? <Typography>???</Typography>}
-              </Tooltip>
             </Box>
-            <Box
-              data-testid="ContractDisplay__DetailsContainer"
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                mt: '.5em',
-                width: '100%',
-                justifyContent: 'space-around',
-              }}
-            >
-              <Box
-                data-testid="ContractDisplay-Info-Details__StatusWrapper"
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  backgroundColor: 'rgba(33,150,243,.2)',
-                  borderRadius: '10px',
-                  px: '.5em',
-                  pb: '.5em',
-                  pt: '.2em',
-                  mr: '.5em',
-                }}
-              >
-                <Typography
-                  data-testid="ContractDisplay-Info-Details__StatusTitle"
-                  align="center"
-                  variant="body2"
-                  sx={{ fontWeight: 'bold' }}
-                >
-                  Status
-                </Typography>
-                <Chip
-                  variant="filled"
-                  label={
-                    contract.status.charAt(0).toUpperCase() +
-                    contract.status.slice(1).toLowerCase()
-                  }
-                  color={statusColor}
-                  size="small"
-                />
-              </Box>
-              <Box
-                data-testid="ContractDisplay-Info-Details__SubTypeWrapper"
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  backgroundColor: 'rgba(33,150,243,.2)',
-                  borderRadius: '10px',
-                  px: '.5em',
-                  pb: '.5em',
-                  pt: '.2em',
-                }}
-              >
-                <Typography
-                  data-testid="ContractDisplay-Info-Details__SubTypeTitle"
-                  align="center"
-                  variant="body2"
-                  sx={{
-                    fontWeight: 'bold',
-                  }}
-                >
-                  Contract SubTypes
-                </Typography>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Chip
-                    variant="outlined"
-                    size="small"
-                    color="secondary"
-                    label={contract.subtype}
-                    icon={
-                      options.find((option) => option.archetype === archetype)
-                        ?.archetypeIcon
-                    }
-                    onClick={handleArchetypeOpen}
-                  />
-                </Box>
-              </Box>
-            </Box>
-          </Box>
+          </DigiDisplay>
+          <UserDisplay userid={contract.owner_id} />
         </Box>
-      </Box>
+      </DigiBox>
       <Box
         data-testid="ContractDisplay__MiddleBox"
         sx={{
