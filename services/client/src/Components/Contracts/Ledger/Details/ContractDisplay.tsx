@@ -1,11 +1,13 @@
 import DigiBox from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
 import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
-import { ChevronLeft, ChevronRight, ExpandMore } from '@mui/icons-material';
+import { ExpandMore } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -22,6 +24,7 @@ import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBids/Contra
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -49,6 +52,7 @@ type ContractDisplayProps = {
 export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) => {
   const { playSound } = useSoundEffect();
   const dispatch = useAppDispatch();
+  const scrollRef = useHorizontalAdvancedScroll();
 
   Logger.info(`ContractDisplay ID: ${contract.id}`);
 
@@ -57,7 +61,6 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const [locationsExpanded, setLocationsExpanded] = React.useState(true);
   const [activeDataTab, setActiveDataTab] = React.useState('contractors');
   const [timeTab, setTimeTab] = React.useState('bid');
-  const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
   const [archetype, setArchetype] = React.useState<string | null>(null);
 
   const options = contractArchetypes('secondary.main', 'medium');
@@ -214,26 +217,6 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   };
 
   const otherLocationIds = getOtherLocationIds();
-
-  const handleOtherLocationIndexChange = React.useCallback(
-    (direction: string) => {
-      console.log(getOtherLocationIds());
-      if (otherLocationIds.length > 1) {
-        if (direction === 'back') {
-          if (otherLocationIndex > 0) {
-            setOtherLocationIndex((prevIndex) => prevIndex - 1);
-          }
-        }
-        if (direction === 'forward') {
-          if (otherLocationIndex < otherLocationIds.length - 1) {
-            setOtherLocationIndex((prevIndex) => prevIndex + 1);
-          }
-        }
-      }
-      Logger.info(otherLocationIndex);
-    },
-    [setOtherLocationIndex, otherLocationIndex, otherLocationIds],
-  );
 
   return (
     <Box
@@ -511,10 +494,15 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               in={payExpanded}
               sx={{
                 display: 'flex',
-                flexDirection: 'row',
+                flexDirection: 'column',
                 width: '100%',
               }}
             >
+              {contract.isBonusPay && (
+                <Typography variant="tip" align="center" sx={{ px: '.5em' }}>
+                  The contract has bonus pay available.
+                </Typography>
+              )}
               <Box
                 sx={{
                   display: 'flex',
@@ -552,51 +540,30 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             maxHeight: '100%',
           }}
         >
-          <Box
+          <DigiBox
             data-testid="ContractDisplay__LocationWrapper"
             sx={{
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
               width: '100%',
-              borderLeft: '1px solid rgba(14,49,141,0.5)',
-              borderRight: '1px solid rgba(14,49,141,0.5)',
-              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                background:
-                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                opacity: 0.6,
-                backdropFilter: 'blur(10px)',
-                zIndex: -1,
-                backgroundImage:
-                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                backgroundSize: '100% 2px',
-              },
+              p: '.5em',
             }}
           >
-            <Typography
-              data-testid="ContractDisplay__LocationTitle"
-              variant="body2"
+            <DigiDisplay
+              data-testid="ContractDisplay__LocationTitle_Wrapper"
               sx={{
-                backgroundColor: 'rgba(33,150,243,.2)',
-                borderRadius: '10px',
                 pl: '1em',
-                fontWeight: 'bold',
-                m: '.5em',
-                display: 'flex',
-                alignItems: 'center',
                 justifyContent: 'space-between',
+                flexDirection: 'row',
               }}
             >
-              Locations
+              <Typography
+                data-testid="ContractDisplay__LocationTitle"
+                variant="body2"
+                sx={{
+                  fontWeight: 'bold',
+                }}
+              >
+                Locations
+              </Typography>
               <IconButton
                 data-testid="ContractDisplay-Locations_LocationsExpansionButton"
                 size="small"
@@ -610,7 +577,8 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   }}
                 />
               </IconButton>
-            </Typography>
+            </DigiDisplay>
+
             <Collapse
               data-testid="ContractDisplay-Locations__LocationsListWrapper"
               in={locationsExpanded}
@@ -620,130 +588,80 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             >
               {contract.Locations && contract.Locations.length > 0 ? (
                 <>
-                  <Box
+                  <DigiField
                     data-testid="ContractDisplay-Locations__StartLocationWrapper"
+                    label="Start Loaction"
                     sx={{
-                      backgroundColor: 'rgba(33,150,243,.2)',
-                      borderRadius: '10px',
-                      mb: '.5em',
-                      mx: '.5em',
+                      my: '.5em',
                       p: '.2em',
+                      mx: '2em',
+                    }}
+                    slots={{
+                      label: {
+                        sx: {
+                          fontSize: '.8em',
+                          mx: 'auto',
+                        },
+                      },
                     }}
                   >
-                    <Typography
-                      data-testid="ContractDisplay-Locations-StartLocation__Title"
-                      variant="body2"
-                      align="center"
-                      sx={{
-                        fontWeight: 'bold',
-                      }}
-                    >
-                      Start Location
-                    </Typography>
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                       <LocationChip locationId={startLocationId ?? ''} />
                     </Box>
-                  </Box>
+                  </DigiField>
                   {endLocationId && (
-                    <Box
+                    <DigiField
                       data-testid="ContractDisplay-Locations__EndLocationWrapper"
+                      label="End Location"
                       sx={{
-                        backgroundColor: 'rgba(33,150,243,.2)',
-                        borderRadius: '10px',
                         mb: '.5em',
-                        mx: '.5em',
+                        mx: '2em',
                         justifyContent: 'center',
                       }}
+                      slots={{
+                        label: {
+                          sx: {
+                            fontSize: '.8em',
+                            mx: 'auto',
+                          },
+                        },
+                      }}
                     >
-                      <Typography
-                        data-testid="ContractDisplay-Locations-StartLocation__Title"
-                        variant="body2"
-                        align="center"
-                        sx={{
-                          fontWeight: 'bold',
-                        }}
-                      >
-                        End Location
-                      </Typography>
                       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                         <LocationChip locationId={endLocationId ?? ''} />
                       </Box>
-                    </Box>
+                    </DigiField>
                   )}
                   {otherLocationIds.length > 0 && (
-                    <Box
+                    <PopupFormSelection
                       data-testid="ContractDisplay-Locations__OtherLocationsWrapper"
                       sx={{
-                        backgroundColor: 'rgba(33,150,243,.2)',
-                        borderRadius: '10px',
                         mb: '.5em',
-                        mx: '.5em',
+                        mx: '2em',
                         justifyContent: 'center',
+                        flexDirection: 'column',
+                        overflow: 'hidden',
                       }}
                     >
                       <Typography
                         data-testid="ContractDisplay-Locations-OtherLocation__Title"
                         variant="body2"
                         align="center"
-                        sx={{
-                          fontWeight: 'bold',
-                        }}
                       >
                         Other Locations
                       </Typography>
                       <Box
                         data-testid="ContractDisplay-Locations-OtherLocations__LocationPagnationWrapper"
+                        ref={scrollRef}
                         sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
+                          mb: '.5em',
                         }}
                       >
-                        <IconButton
-                          size="small"
-                          onClick={() => handleOtherLocationIndexChange('back')}
-                          disabled={otherLocationIndex === 0}
-                        >
-                          <ChevronLeft fontSize="small" />
-                        </IconButton>
-                        <Box
-                          data-testid="ContractDisplay-Locations-OtherLocations__LocationChipDisplayWrapper"
-                          sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                          }}
-                        >
-                          <Typography
-                            data-testid="ContractDisplay-Locations-OtherLocations__LocationChip"
-                            variant="body2"
-                            align="center"
-                          >
-                            {otherLocationIndex + 1}.{' '}
-                            <LocationChip
-                              locationId={
-                                otherLocationIds
-                                  ? otherLocationIds[otherLocationIndex]
-                                  : 'Error'
-                              }
-                            />
-                          </Typography>
-                        </Box>
-                        <IconButton
-                          size="small"
-                          onClick={() => handleOtherLocationIndexChange('forward')}
-                          disabled={
-                            otherLocationIds
-                              ? otherLocationIds.length < 1 ||
-                                otherLocationIndex === otherLocationIds.length - 1
-                              : false
-                          }
-                        >
-                          <ChevronRight fontSize="small" />
-                        </IconButton>
+                        {otherLocationIds.map((loc) => (
+                          <LocationChip key={loc} locationId={loc} />
+                        ))}
                       </Box>
-                    </Box>
+                    </PopupFormSelection>
                   )}
                 </>
               ) : (
@@ -756,7 +674,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 </Typography>
               )}
             </Collapse>
-          </Box>
+          </DigiBox>
         </Box>
       </Box>
       <Box

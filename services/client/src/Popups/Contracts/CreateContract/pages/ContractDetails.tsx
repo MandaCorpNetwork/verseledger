@@ -26,7 +26,7 @@ import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 import { useSoundEffect } from '@/AudioManager';
 
 //Set Options to Contract Archetypes Object
-const options = contractArchetypes('secondary.main');
+const options = contractArchetypes('secondary.main', 'large');
 
 const optionsMap: Record<string, { label: string; group: string }> = {};
 const flatOptions = options.flatMap((option) =>
@@ -50,7 +50,7 @@ export const ContractDetails: React.FC<{
 
   const scrollRef = useHorizontalAdvancedScroll();
 
-  const archetypeOptions = contractArchetypes('');
+  const archetypeOptions = contractArchetypes('secondary.main', 'medium');
 
   const handleArchetypeSelect = React.useCallback(
     (selectedArchetype: string) => {
