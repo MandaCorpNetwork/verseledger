@@ -1,3 +1,4 @@
+import { Logger } from '@/utils/Logger';
 import axios, { AxiosResponse } from 'axios';
 import { injectable } from 'inversify';
 
@@ -48,6 +49,9 @@ fragment AccountStats on AccountStats {
 
 @injectable()
 export class RSIService {
+  constructor() {
+    Logger.init();
+  }
   public static async getUserByHandle(nickname: string) {
     return axios<string, AxiosResponse<RSIUser>>({
       url: 'https://robertsspaceindustries.com/community-hub/api/v1/graphql',

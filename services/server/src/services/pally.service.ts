@@ -37,9 +37,8 @@ export class PallyService {
   protected interval?: NodeJS.Timeout;
 
   constructor(@inject(TYPES.EnvService) private readonly _envars: EnvService) {
-    Logger.info('Initializing Pally Service');
     if (this._envars.PALLY_WS == null) {
-      Logger.error('Cancelled. "PALLY_WS" envar not set.');
+      Logger.warn('"PALLY_WS" envar not set. Service not Initialized.');
       return;
     }
     this.client = new WebSocket(this.activityFeed);
@@ -49,6 +48,7 @@ export class PallyService {
       Logger.info('Websocket Established');
       this.interval = setInterval(this.ping, 60_000);
     });
+    Logger.init();
   }
   get activityFeed() {
     return `wss://events.pally.gg?auth=${this._envars.PALLY_WS}&channel=activity-feed&room=${this._envars.PALLY_CHANNEL}`;

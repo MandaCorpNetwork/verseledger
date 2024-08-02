@@ -13,6 +13,14 @@ export class Logger {
       ...args,
     );
   }
+  public static init() {
+    const prefix = `[${_getCallerFile(2)}]`;
+    console.info(
+      this.getTimestamp(),
+      chalk.white.bgGreenBright.bold('[INIT]'),
+      chalk.grey(prefix),
+    );
+  }
   public static withType(
     type: string | null,
     ...args: Parameters<(typeof console)['info']>
@@ -29,7 +37,7 @@ export class Logger {
     const prefix = `[${_getCallerFile(2)}]`;
     console.error(
       this.getTimestamp(),
-      chalk.black.bgRedBright('[ERR!]'),
+      chalk.black.bgRedBright.bold('[ERR!]'),
       chalk.grey(prefix),
       ...args,
     );
@@ -38,7 +46,7 @@ export class Logger {
     const prefix = `[${_getCallerFile(2)}]`;
     console.warn(
       this.getTimestamp(),
-      chalk.white.bgYellow('[WARN]'),
+      chalk.white.bgYellowBright.bold('[WARN]'),
       chalk.grey(prefix),
       ...args,
     );

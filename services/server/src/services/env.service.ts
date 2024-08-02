@@ -2,6 +2,7 @@ import { injectable } from 'inversify';
 import 'dotenv/config';
 import colors from 'colors/safe';
 import { envConfig, EnvironmentConfig } from '@/configs/Environment';
+import { Logger } from '@/utils/Logger';
 let has_warned = false;
 @injectable()
 export class EnvService implements EnvironmentConfig {
@@ -70,6 +71,7 @@ export class EnvService implements EnvironmentConfig {
       }
       process.exit(1);
     }
+    Logger.init();
   }
   private errorStack: string[];
   private warnStack: string[];
