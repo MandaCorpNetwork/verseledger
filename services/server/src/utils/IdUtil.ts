@@ -22,7 +22,7 @@ export class IdUtil {
     if (id.startsWith(IdPrefix.System)) return OwnerType.System;
     if (id.startsWith(IdPrefix.User)) return OwnerType.User;
     if (id.startsWith(IdPrefix.Contract)) return OwnerType.Contract;
-    if (id.startsWith(IdPrefix.Bid)) return OwnerType.User;
+    if (id.startsWith(IdPrefix.Bid)) return OwnerType.Bid;
     if (id.startsWith(IdPrefix.Organization)) return OwnerType.Org;
     if (id.startsWith(IdPrefix.Membership)) return OwnerType.Membership;
     if (id.startsWith(IdPrefix.Location)) return OwnerType.Location;
