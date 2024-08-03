@@ -5,6 +5,7 @@ import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
 import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
+import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHolo';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { ExpandMore } from '@mui/icons-material';
@@ -14,9 +15,6 @@ import {
   Chip,
   Collapse,
   IconButton,
-  styled,
-  Tab,
-  Tabs,
   Tooltip,
   Typography,
 } from '@mui/material';
@@ -33,16 +31,6 @@ import { useSoundEffect } from '@/AudioManager';
 
 import { ContractorsPanel } from './ActiveDataPanel';
 import { BidPanel, EndPanel, StartPanel } from './TimePanel';
-
-const SmallTabs = styled(Tabs)({
-  minHeight: '10px',
-});
-
-const SmallTab = styled(Tab)({
-  minHeight: '10px',
-  height: '10px',
-  fontSize: '.8em',
-});
 
 type ContractDisplayProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -355,7 +343,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           display: 'flex',
           flexDirection: 'row',
           width: '100%',
-          height: '35%',
+          height: '30%',
           justifyContent: 'space-around',
         }}
       >
@@ -667,10 +655,14 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               ) : (
                 <Typography
                   align="center"
-                  variant="body2"
-                  sx={{ mb: '.2em', color: 'info.main' }}
+                  variant="error"
+                  sx={{
+                    my: '1em',
+                    px: '.2em',
+                    py: '.1em',
+                  }}
                 >
-                  Locations Redacted
+                  Contract Missing Start Location. Please report error.
                 </Typography>
               )}
             </Collapse>
@@ -721,16 +713,16 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             transition: 'all 0.3s',
           }}
         >
-          <SmallTabs
+          <SmallTabsHolo
             variant="fullWidth"
             value={activeDataTab}
             onChange={handleActiveTabChange}
             textColor="secondary"
             indicatorColor="secondary"
           >
-            <SmallTab label="Contractors" value="contractors" />
-            <SmallTab label="Ships" value="ships" disabled />
-          </SmallTabs>
+            <SmallTabHolo label="Contractors" value="contractors" />
+            <SmallTabHolo label="Ships" value="ships" disabled />
+          </SmallTabsHolo>
         </Box>
         <Box
           data-testid="ContractDisplay-ActiveData__PanelContainer"
@@ -818,17 +810,17 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               transition: 'all 0.3s',
             }}
           >
-            <SmallTabs
+            <SmallTabsHolo
               variant="fullWidth"
               value={timeTab}
               onChange={handleTimeTabChange}
               textColor="secondary"
               indicatorColor="secondary"
             >
-              <SmallTab label="Bid" value="bid" />
-              <SmallTab label="Start" value="start" />
-              <SmallTab label="End" value="end" />
-            </SmallTabs>
+              <SmallTabHolo label="Bid" value="bid" />
+              <SmallTabHolo label="Start" value="start" />
+              <SmallTabHolo label="End" value="end" />
+            </SmallTabsHolo>
           </Box>
           <Box
             data-testid="ContractDisplay-ContractTime__PanelWrapper"
