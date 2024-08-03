@@ -1,4 +1,5 @@
 //Timeing on animations needs work
+import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import {
   FleetIcon,
   LogisticsIcon,
@@ -35,7 +36,6 @@ import ProxyLoop from '@/Assets/media/ContractLedger/ProxyLoop.webm?url';
 import RRRLoop from '@/Assets/media/ContractLedger/RRRLoop.webm?url';
 import SalvageLoop from '@/Assets/media/ContractLedger/SalvLoop.webm?url';
 import SecurityLoop from '@/Assets/media/ContractLedger/SecLoop.webm?url';
-import BackdropLogo from '@/Assets/media/VerseLogos/LogoBackdrop.png?url';
 import { useSoundEffect } from '@/AudioManager';
 import { ContractLedgerLoopButton } from '@/Components/Contracts/Ledger/ContractLedgerLoopButton';
 import { ContractLedgerQuickNav } from '@/Components/Contracts/Ledger/ContractLedgerQuickNav';
@@ -133,28 +133,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   };
 
   return (
-    <Box
-      data-testid="ContractLedger__PageContainer"
-      sx={{
-        width: '100vw',
-        height: 'calc(100vh - 64px)',
-        overflow: 'hidden',
-        '&:before': {
-          content: '""',
-          position: 'absolute',
-          backgroundImage: `url(${BackdropLogo})`,
-          backgroundSize: 'auto',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          zIndex: -1,
-          opacity: 0.5,
-        },
-      }}
-    >
+    <VLViewport data-testid="ContractLedger__PageContainer">
       <Box
         data-testid="ContractLedger__LedgerWrapper"
         sx={{
@@ -233,7 +212,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
                 <Tooltip title="Manage Contracts" placement="right">
                   <IconButton
                     onClick={() => {
-                      navigate('/ledger/personal');
+                      navigate('/ledger/personal/contractManager');
                       playSound('navigate');
                     }}
                     size="small"
@@ -373,6 +352,6 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
           </Box>
         )}
       </Box>
-    </Box>
+    </VLViewport>
   );
 };
