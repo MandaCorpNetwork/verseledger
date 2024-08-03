@@ -362,7 +362,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             sx={{
               px: '.5em',
               width: '100%',
-              justifyContent: 'flex-start',
+              maxHeight: '50%',
             }}
           >
             <DigiDisplay
@@ -401,26 +401,28 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             <Collapse
               data-testid="ContractDisplay-Briefing__Contents_Container"
               in={briefingExpanded}
+              sx={{
+                maxHeight: 'calc (100% - 2.5em)',
+                overflow: 'auto',
+                mb: '.5em',
+                '&::-webkit-scrollbar': {
+                  width: '6px',
+                },
+                '&::-webkit-scrollbar-track': {
+                  background: 'rgb(0,73,130)',
+                  borderRadius: '10px',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  borderRadius: '20px',
+                  background: 'rgb(24,252,252)',
+                },
+              }}
             >
               <DigiDisplay
                 data-testid="ContractDisplay-Briefing__Contents_Wrapper"
                 sx={{
-                  maxHeight: '100%',
-                  overflow: 'auto',
-                  mb: '.5em',
                   px: '1em',
                   py: '.2em',
-                  '&::-webkit-scrollbar': {
-                    width: '10px',
-                  },
-                  '&::-webkit-scrollbar-track': {
-                    background: 'rgb(8, 29, 68)',
-                    borderRadius: '10px',
-                  },
-                  '&::-webkit-scrollbar-thumb': {
-                    borderRadius: '20px',
-                    background: 'rgb(121, 192, 244, .5)',
-                  },
                 }}
               >
                 <Typography
@@ -458,6 +460,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 variant="body1"
                 sx={{
                   fontWeight: 'bold',
+                  cursor: 'default',
                 }}
               >
                 Pay
@@ -484,10 +487,12 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 display: 'flex',
                 flexDirection: 'column',
                 width: '100%',
+                alignItems: 'center',
+                textAlign: 'center',
               }}
             >
               {contract.isBonusPay && (
-                <Typography variant="tip" align="center" sx={{ px: '.5em' }}>
+                <Typography variant="tip" align="center" sx={{ px: '.5em', mb: 'auto' }}>
                   The contract has bonus pay available.
                 </Typography>
               )}
