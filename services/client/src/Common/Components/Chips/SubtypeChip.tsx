@@ -5,13 +5,13 @@ import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 
 //Defining Subtype Objects
-const options = contractArchetypes('primary.main');
+const options = contractArchetypes('primary.main', 'inherit');
 
-type ArchetypeChipProps = {
+type SubtypeChipProps = {
   subtype: string;
 };
 
-export const SubtypeChip: React.FC<ArchetypeChipProps> = ({ subtype }) => {
+export const SubtypeChip: React.FC<SubtypeChipProps> = ({ subtype }) => {
   const dispatch = useAppDispatch();
   const archetypeObj = options.find((option) =>
     option.subTypes.some((subType) => subType.label === subtype),
