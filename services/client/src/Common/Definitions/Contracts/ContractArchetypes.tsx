@@ -162,7 +162,7 @@ export const contractArchetypes = (
       },
       {
         label: 'Redacted',
-        value: 'Redacted',
+        value: 'Other',
       },
     ],
   },
