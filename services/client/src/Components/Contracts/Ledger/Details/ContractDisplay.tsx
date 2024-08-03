@@ -246,15 +246,47 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               justifyContent: 'space-around',
               flexGrow: 1,
             }}
-          />
-          <Tooltip title={archetype}>
-            {options.find((option) => option.archetype === archetype)?.archetypeIcon ?? (
-              <Typography color="error" fontWeight="bold">
-                ???
+          >
+            <Tooltip title={contract.title} arrow>
+              <Typography
+                variant="h6"
+                noWrap
+                sx={{
+                  fontWeight: 'bold',
+                  maxWidth: '80%',
+                  color: 'text.primary',
+                  textShadow: '0 0 2px #fff, 0 0 10px #000',
+                  cursor: 'default',
+                }}
+              >
+                {contract.title}
               </Typography>
-            )}
-          </Tooltip>
-        </DigiDisplay>
+            </Tooltip>
+            <Box
+              sx={{
+                flexGrow: '1',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                py: 'auto',
+              }}
+            />
+            <Tooltip title={archetype}>
+              {options.find((option) => option.archetype === archetype)
+                ?.archetypeIcon ?? (
+                <Typography color="error" fontWeight="bold">
+                  ???
+                </Typography>
+              )}
+            </Tooltip>
+          </DigiDisplay>
+          <IconButton size="small">
+            <Link fontSize="small" />
+          </IconButton>
+          <IconButton size="small">
+            <Launch fontSize="small" />
+          </IconButton>
+        </Box>
         <Box
           data-testid="ContractDisplay__DetailsContainer"
           sx={{
