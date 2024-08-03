@@ -4,14 +4,28 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 
-//Defining Subtype Objects
-const options = contractArchetypes('primary.main', 'inherit');
-
 type SubtypeChipProps = {
   subtype: string;
+  sx?: object;
+  ['data-testid']?: string;
+  variant?: 'filled' | 'outlined';
+  size?: 'small' | 'medium';
+  color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
+  iconSize?: 'small' | 'medium' | 'large';
 };
 
-export const SubtypeChip: React.FC<SubtypeChipProps> = ({ subtype }) => {
+export const SubtypeChip: React.FC<SubtypeChipProps> = (props) => {
+  const {
+    subtype,
+    sx,
+    'data-testid': testid = 'SubtypeChip',
+    variant = 'outlined',
+    size = 'small',
+    color = 'secondary',
+    iconSize = 'medium',
+  } = props;
+  //Defining Subtype Objects
+  const options = contractArchetypes('primary.main', iconSize);
   const dispatch = useAppDispatch();
   const archetypeObj = options.find((option) =>
     option.subTypes.some((subType) => subType.label === subtype),
@@ -24,13 +38,14 @@ export const SubtypeChip: React.FC<SubtypeChipProps> = ({ subtype }) => {
   return (
     <>
       <Chip
-        data-testid="ContractBid-ContractDetails-ContractType__SubtypeChip"
+        data-testid={`SubtypeChip__${testid}_root`}
         label={subtype}
         icon={archetypeObj ? archetypeObj.archetypeIcon : undefined}
-        variant="outlined"
-        size="small"
-        color="secondary"
+        variant={variant}
+        size={size}
+        color={color}
         onClick={handleArchetypeOpen}
+        sx={{ ...sx }}
       />
     </>
   );
