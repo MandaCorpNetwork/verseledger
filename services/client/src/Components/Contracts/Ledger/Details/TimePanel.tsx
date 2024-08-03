@@ -65,7 +65,7 @@ export const BiddingTimePanel: React.FC<TimePanelProps> = ({ contract }) => {
                 ml: '.5em',
                 color:
                   timeRemainingDisplay === 'Bidding Closed'
-                    ? 'warning.main'
+                    ? 'info.main'
                     : 'text.secondary',
                 cursor: 'auto',
               }}
@@ -91,7 +91,7 @@ export const BiddingTimePanel: React.FC<TimePanelProps> = ({ contract }) => {
               ml: '.5em',
               color:
                 formattedBidEnd === 'Manually Controlled'
-                  ? 'warning.main'
+                  ? 'info.main'
                   : 'text.secondary',
               cursor: 'auto',
             }}
@@ -252,9 +252,19 @@ export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) =>
           >
             Time Till Start:
             {timeTillStart !== 'Invalid Start Time' ? (
-              <Typography>{timeTillStart}</Typography>
+              <Typography
+                variant="body2"
+                sx={{ ml: '.5em', color: 'text.secondary', cursor: 'auto' }}
+              >
+                {timeTillStart}
+              </Typography>
             ) : (
-              <Typography>Awaiting Start</Typography>
+              <Typography
+                variant="body2"
+                sx={{ ml: '.5em', color: 'warning.main', cursor: 'auto' }}
+              >
+                Awaiting Start
+              </Typography>
             )}
           </Typography>
         )}
@@ -271,9 +281,19 @@ export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) =>
           >
             Time Remaining:
             {timeRemaining !== 'Invalid End Time' ? (
-              <Typography>{timeRemaining}</Typography>
+              <Typography
+                variant="body2"
+                sx={{ ml: '.5em', color: 'text.secondary', cursor: 'auto' }}
+              >
+                {timeRemaining}
+              </Typography>
             ) : (
-              <Typography>Error in End Time.</Typography>
+              <Typography
+                variant="body2"
+                sx={{ ml: '.5em', color: 'warning.main', cursor: 'auto' }}
+              >
+                Awaiting Completion
+              </Typography>
             )}
           </Typography>
         )}
@@ -290,13 +310,25 @@ export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) =>
           >
             Time Elapsed:
             {timeElapsed !== 'Invalid Start Time' ? (
-              <Typography>{timeElapsed}</Typography>
+              <Typography
+                variant="body2"
+                sx={{ ml: '.5em', color: 'text.secondary', cursor: 'auto' }}
+              >
+                {timeElapsed}
+              </Typography>
             ) : (
-              <Typography>Error in Start Time.</Typography>
+              <Typography
+                variant="body2"
+                sx={{ ml: '.5em', color: 'warning.main', cursor: 'auto' }}
+              >
+                Error in Start Time.
+              </Typography>
             )}
           </Typography>
         )}
-        {contractStatus === 'CANCELED' && <Typography>Contract Was Canceled</Typography>}
+        {contractStatus === 'CANCELED' && (
+          <Typography variant="tip">Contract Was Canceled</Typography>
+        )}
         {contractStatus === 'COMPLETED' && <Typography>Contract is Complete</Typography>}
         <Typography
           align="center"
@@ -308,7 +340,22 @@ export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) =>
             alignItems: 'center',
           }}
         >
-          Start Time: <Typography>{formattedStartDate}</Typography>
+          Start Time:
+          <Typography
+            variant="body2"
+            sx={{
+              ml: '.5em',
+              color:
+                timeTillStart === 'Invalid Start Time'
+                  ? 'warning.main'
+                  : formattedStartDate === 'Manually Controlled'
+                    ? 'info.main'
+                    : 'text.secondary',
+              cursor: 'auto',
+            }}
+          >
+            {formattedStartDate}
+          </Typography>
         </Typography>
         <Typography
           align="center"
@@ -320,7 +367,22 @@ export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) =>
             alignItems: 'center',
           }}
         >
-          End Time: <Typography>{formattedEndDate}</Typography>
+          End Time:
+          <Typography
+            variant="body2"
+            sx={{
+              ml: '.5em',
+              color:
+                timeRemaining === 'Invalid End Time'
+                  ? 'warning.main'
+                  : formattedEndDate === 'Manually Controlled'
+                    ? 'info.main'
+                    : 'text.secondary',
+              cursor: 'auto',
+            }}
+          >
+            {formattedEndDate}
+          </Typography>
         </Typography>
         {contractDuration !== null && (
           <Typography
@@ -335,16 +397,30 @@ export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) =>
           >
             Contract Duration:
             {contractDuration !== 'Invalid Start Time' ? (
-              <Typography>{contractDuration}</Typography>
+              <Typography
+                variant="body2"
+                sx={{ color: 'text.secondary', ml: '.5em', cursor: 'auto' }}
+              >
+                {contractDuration}
+              </Typography>
             ) : (
-              <Typography>Invalid Timestamps.</Typography>
+              <Typography
+                variant="body2"
+                sx={{ color: 'warning.main', ml: '.5em', cursor: 'auto' }}
+              >
+                Invalid Timestamps.
+              </Typography>
             )}
           </Typography>
         )}
         {progress !== null && (
           <Box sx={{ width: '80%' }}>
             <Tooltip title={`Contract Progress: ${progress.toFixed(2)}%`}>
-              <LinearProgress variant="determinate" value={progress} />
+              <LinearProgress
+                variant="determinate"
+                value={progress}
+                sx={{ mt: '.1em' }}
+              />
             </Tooltip>
           </Box>
         )}
