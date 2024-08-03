@@ -231,7 +231,12 @@ export class ContractService {
       offset: page * Math.min(limit, 25),
     });
 
-    return contracts;
+    //TODO: This needs a proper workaround
+    const count = await Contract.scope(['bids', 'owner', 'locations']).count({
+      where: query,
+    });
+
+    return { ...contracts, count };
   }
 
   public async getContractsByUserId(
