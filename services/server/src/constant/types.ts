@@ -10,4 +10,5 @@ export const TYPES = {
   TestingMiddleware: Symbol.for('TestingMiddleware'),
   Logger: Symbol.for('Logger'),
   PallyService: Symbol.for('PallyService'),
+  ResourceEditorService: Symbol.for('ResourceEditorService'),
 };

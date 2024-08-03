@@ -16,9 +16,14 @@ import { type NotificationService } from './notification.service';
 import { ContractDTO } from '../DTO/ContractDTO';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { ContractBidDTO } from '../DTO/ContractBidDTO';
+import { Logger } from '@/utils/Logger';
 
 @injectable()
 export class ContractService {
+  constructor() {
+    Logger.init();
+  }
+
   @inject(TYPES.NotificationService)
   private notifications!: NotificationService;
   public async getContracts() {

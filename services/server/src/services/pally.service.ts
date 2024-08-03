@@ -3,6 +3,7 @@ import { TYPES } from '@Constant/types';
 import { EnvService } from './env.service';
 import WebSocket from 'ws';
 import { Logger } from '@/utils/Logger';
+import chalk from 'chalk';
 
 type PallyPayload = {
   type: 'campaigntip.notify' | 'echo';
@@ -37,18 +38,20 @@ export class PallyService {
   protected interval?: NodeJS.Timeout;
 
   constructor(@inject(TYPES.EnvService) private readonly _envars: EnvService) {
-    Logger.info('Initializing Pally Service');
     if (this._envars.PALLY_WS == null) {
-      Logger.error('Cancelled. "PALLY_WS" envar not set.');
+      Logger.warn(
+        `${chalk.green('"')}${chalk.cyan.bold('PALLY_WS')}${chalk.green('"')} ${chalk.grey('envar not set.')} ${chalk.red('Service not Initialized.')}`,
+      );
       return;
     }
     this.client = new WebSocket(this.activityFeed);
     this.client.on('message', this.onMessage.bind(this));
     this.client.on('error', this.onError.bind(this));
     this.client.on('open', () => {
-      Logger.info('Websocket Established');
+      Logger.info(chalk.green('Websocket Established'));
       this.interval = setInterval(this.ping, 60_000);
     });
+    Logger.init();
   }
   get activityFeed() {
     return `wss://events.pally.gg?auth=${this._envars.PALLY_WS}&channel=activity-feed&room=${this._envars.PALLY_CHANNEL}`;

@@ -11,6 +11,9 @@ import { optionalSet, queryIn } from '@/utils/Sequelize/queryIn';
 
 @injectable()
 export class UserService {
+  constructor() {
+    Logger.init();
+  }
   public async getUser(id: string, scopes: string | string[] = []) {
     return await User.scope(scopes).findByPk(id);
   }

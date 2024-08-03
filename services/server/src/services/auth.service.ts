@@ -7,6 +7,9 @@ import { InvalidToken } from '@Models/invalid_tokens.model';
 import { Logger } from '@/utils/Logger';
 @injectable()
 export class AuthService {
+  constructor() {
+    Logger.init();
+  }
   @inject(TYPES.EnvService) private declare readonly _envars: EnvService;
 
   async getUserToken(token: string) {

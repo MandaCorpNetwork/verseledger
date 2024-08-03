@@ -7,6 +7,9 @@ import { Logger } from '@/utils/Logger';
 
 @injectable()
 export class NotificationService {
+  constructor() {
+    Logger.init();
+  }
   @inject(TYPES.StompService) private stomp!: StompService;
 
   public async getNotifications(userId: string, limit = 20) {
