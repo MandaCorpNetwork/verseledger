@@ -3,6 +3,7 @@ import { TYPES } from '@Constant/types';
 import { EnvService } from './env.service';
 import WebSocket from 'ws';
 import { Logger } from '@/utils/Logger';
+import chalk from 'chalk';
 
 type PallyPayload = {
   type: 'campaigntip.notify' | 'echo';
@@ -38,14 +39,16 @@ export class PallyService {
 
   constructor(@inject(TYPES.EnvService) private readonly _envars: EnvService) {
     if (this._envars.PALLY_WS == null) {
-      Logger.warn('"PALLY_WS" envar not set. Service not Initialized.');
+      Logger.warn(
+        `${chalk.green('"')}${chalk.cyan.bold('PALLY_WS')}${chalk.green('"')} ${chalk.grey('envar not set.')} ${chalk.red('Service not Initialized.')}`,
+      );
       return;
     }
     this.client = new WebSocket(this.activityFeed);
     this.client.on('message', this.onMessage.bind(this));
     this.client.on('error', this.onError.bind(this));
     this.client.on('open', () => {
-      Logger.info('Websocket Established');
+      Logger.info(chalk.green('Websocket Established'));
       this.interval = setInterval(this.ping, 60_000);
     });
     Logger.init();

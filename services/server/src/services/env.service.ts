@@ -37,13 +37,21 @@ export class EnvService implements EnvironmentConfig {
       if (envar == undefined) {
         if (optional) {
           this.warnStack.push(
-            `${colors.magenta('[ENV] ')}${`${colors.green('"')}${colors.bold(colors.cyan(prop))}=${colors.underline(type)}${colors.green('"')}`}${colors.gray(` is missing.\n ${colors.yellow('-')} Defaulting to`)}${`${colors.green('"')}${colors.yellow(defaultValue as unknown as string)}${colors.green('"')}\n`}`,
+            `${`${colors.green('"')}${colors.bold(colors.cyan(prop))}=${colors.underline(type)}${colors.green('"')}`}${colors.gray(` is missing.`)}`,
           );
+          this.warnStack.push(
+            `${colors.gray(`${colors.yellow('-')} Defaulting to`)}${`${colors.green('"')}${colors.yellow(defaultValue as unknown as string)}${colors.green('"')}`}`,
+          );
+          this.warnStack.push('');
           envar = defaultValue as unknown as string;
         } else {
           this.errorStack.push(
-            `${colors.red(`[ENV] `)}${colors.green('"')}${colors.cyan(colors.bold(prop))}=${colors.underline(type)}${colors.green('"')}${colors.red(' is missing.')}\n ${colors.yellow('-')} ${colors.gray(description)}\n`,
+            `${colors.green('"')}${colors.cyan(colors.bold(prop))}=${colors.underline(type)}${colors.green('"')}${colors.red(' is missing.')}`,
           );
+          this.errorStack.push(
+            `${colors.yellow('-')} ${colors.gray(description)}`,
+          );
+          this.errorStack.push('');
           continue;
         }
       }
@@ -59,19 +67,19 @@ export class EnvService implements EnvironmentConfig {
       }
     }
     if (has_warned) return;
+    Logger.init();
     has_warned = true;
     if (this.warnStack.length > 0) {
       for (const warn of this.warnStack) {
-        console.info(warn);
+        Logger.warn(warn);
       }
     }
     if (this.errorStack.length > 0) {
       for (const error of this.errorStack) {
-        console.error(error);
+        Logger.error(error);
       }
       process.exit(1);
     }
-    Logger.init();
   }
   private errorStack: string[];
   private warnStack: string[];
