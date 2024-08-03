@@ -1,5 +1,5 @@
-import DigiBox from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
 import { PayField } from '@Common/Components/TextFields/PayField';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';

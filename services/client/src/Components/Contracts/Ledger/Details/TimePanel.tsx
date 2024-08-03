@@ -23,15 +23,6 @@ export const BidPanel: React.FC<TimePanelProps> = ({ contractId }) => {
     return remainder;
   }, [contract, bidTime]);
 
-  const timeProgress = React.useCallback(() => {
-    const now = dayjs();
-    const updatedTime = dayjs((contract as IContractTimestamped).updatedAt);
-    const totalTime = bidTime.diff(updatedTime);
-    const elapsedTime = now.diff(updatedTime);
-    const progress = (elapsedTime / totalTime) * 100;
-    return Math.round(progress);
-  }, [contract, bidTime]);
-
   return (
     <Box
       data-testid="ContractTime-Panel__BidTimeContainer"
@@ -61,18 +52,6 @@ export const BidPanel: React.FC<TimePanelProps> = ({ contractId }) => {
         >
           Bid End Date: {formattedBidEnd}
         </Typography>
-      </Box>
-      <Box
-        data-testid="ContractTime-Panel-BidTime__ProgressWrapper"
-        sx={{
-          width: '50%',
-          mx: 'auto',
-          mt: '.5em',
-        }}
-      >
-        <Tooltip title={`${timeProgress()}%`} arrow>
-          <LinearProgress variant="determinate" value={timeProgress()} />
-        </Tooltip>
       </Box>
     </Box>
   );

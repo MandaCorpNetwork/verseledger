@@ -1,5 +1,5 @@
-import DigiBox from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import DigiTitle from '@Common/Components/Typography/DigiTitle';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
