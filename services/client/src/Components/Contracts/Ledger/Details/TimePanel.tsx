@@ -1,64 +1,109 @@
+import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { Box, LinearProgress, Tooltip, Typography } from '@mui/material';
-import { useAppSelector } from '@Redux/hooks';
-import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
-import { IContractTimestamped } from 'vl-shared/src/schemas/ContractSchema';
+import { IContract, IContractTimestamped } from 'vl-shared/src/schemas/ContractSchema';
 
 type TimePanelProps = {
-  contractId: string | null;
+  contract: IContract;
 };
 
-export const BidPanel: React.FC<TimePanelProps> = ({ contractId }) => {
-  const contract = useAppSelector((root) => selectContract(root, contractId as string));
-  const bidTime = dayjs(contract?.bidDate);
+dayjs.extend(relativeTime);
 
-  const formattedBidEnd = bidTime.format('DD MMM, YY @ HH:mm');
+export const BiddingTimePanel: React.FC<TimePanelProps> = ({ contract }) => {
+  const getBidDate = React.useCallback(() => {
+    if (!contract.bidDate) return 'Manually Controlled';
+    const bidDate = dayjs(contract.bidDate);
+    const formattedBidEnd = bidDate.format('DD MMM, YY @ HH:mm');
+    return formattedBidEnd;
+  }, [contract.bidDate]);
+  const formattedBidEnd = getBidDate();
 
   const timeRemaining = React.useCallback(() => {
-    dayjs.extend(relativeTime);
-    const remainder = dayjs().to(bidTime, true);
+    if (contract.status !== 'BIDDING') return 'Bidding Closed';
+    if (!contract.bidDate) return 'Manual';
+    const now = dayjs();
+    const bidDate = dayjs(contract.bidDate);
+    if (now.isAfter(bidDate)) return 'Bidding Closed';
+    const remainder = dayjs().to(bidDate, true);
     return remainder;
-  }, [contract, bidTime]);
+  }, [contract.status, contract.bidDate]);
+
+  const timeRemainingDisplay = timeRemaining();
 
   return (
     <Box
       data-testid="ContractTime-Panel__BidTimeContainer"
       sx={{
-        width: '100%',
-        height: '100%',
+        display: 'inline-flex',
         alignContent: 'center',
+        justifyContent: 'center',
       }}
     >
-      <Box
+      <DigiDisplay
         data-testid="ContractTime-Panel-BidTime__TextWrapper"
-        sx={{
-          width: '100%',
-        }}
+        sx={{ p: '1em' }}
       >
+        {timeRemainingDisplay !== 'Manual' && (
+          <Typography
+            align="center"
+            variant="body2"
+            sx={{
+              fontWeight: 'bold',
+              cursor: 'default',
+              display: 'inline-flex',
+              alignItems: 'center',
+            }}
+          >
+            Bid Time Remaining:
+            <Typography
+              variant="body2"
+              sx={{
+                ml: '.5em',
+                color:
+                  timeRemainingDisplay === 'Bidding Closed'
+                    ? 'warning.main'
+                    : 'text.secondary',
+                cursor: 'auto',
+              }}
+            >
+              {timeRemainingDisplay}
+            </Typography>
+          </Typography>
+        )}
         <Typography
           align="center"
           variant="body2"
-          sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+          sx={{
+            fontWeight: 'bold',
+            cursor: 'default',
+            display: 'inline-flex',
+            alignItems: 'center',
+          }}
         >
-          Bid Time Remaining: {timeRemaining()}
+          Bid End Date:{' '}
+          <Typography
+            variant="body2"
+            sx={{
+              ml: '.5em',
+              color:
+                formattedBidEnd === 'Manually Controlled'
+                  ? 'warning.main'
+                  : 'text.secondary',
+              cursor: 'auto',
+            }}
+          >
+            {formattedBidEnd}
+          </Typography>
         </Typography>
-        <Typography
-          align="center"
-          variant="body2"
-          sx={{ fontWeight: 'bold', color: 'text.secondary' }}
-        >
-          Bid End Date: {formattedBidEnd}
-        </Typography>
-      </Box>
+      </DigiDisplay>
     </Box>
   );
 };
 
-export const StartPanel: React.FC<TimePanelProps> = ({ contractId }) => {
-  const contract = useAppSelector((root) => selectContract(root, contractId as string));
+export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) => {
   const [isBidEnd, setIsBidEnd] = React.useState(false);
 
   const bidEnd = dayjs(contract?.bidDate);
@@ -232,8 +277,7 @@ export const StartPanel: React.FC<TimePanelProps> = ({ contractId }) => {
   );
 };
 
-export const EndPanel: React.FC<TimePanelProps> = ({ contractId }) => {
-  const contract = useAppSelector((root) => selectContract(root, contractId as string));
+export const EndPanel: React.FC<TimePanelProps> = ({ contract }) => {
   const [isBidStart, setBidStart] = React.useState(false);
   const endDate = dayjs(contract?.endDate);
   const createdDate = dayjs((contract as IContractTimestamped)?.createdAt);
