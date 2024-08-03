@@ -1,4 +1,4 @@
-import DigiBox from '@Common/Components/Boxes/DigiBox';
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { soundEffectPacks } from '@Common/Definitions/SoundEffectOptions';
 import {

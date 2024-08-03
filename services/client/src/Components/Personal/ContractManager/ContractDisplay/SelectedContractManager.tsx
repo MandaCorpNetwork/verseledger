@@ -1,7 +1,7 @@
 // import { LocationChip } from '@Common/Components/App/LocationChip';
-import ControlPanelBox from '@Common/Components/Boxes/ControlPanelBox';
-import DigiBox from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import ParagraphWrapper from '@Common/Components/Boxes/ParagraphWrapper';
 import TabListHolo from '@Common/Components/Tabs/TabListHolo';
 import DigiTitle from '@Common/Components/Typography/DigiTitle';
@@ -77,7 +77,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   const [contractManagerTab, setContractManagerTab] = useState<string>('contractors');
   const [archetype, setArchetype] = React.useState<string | null>(null);
 
-  const options = contractArchetypes('secondary.main');
+  const options = contractArchetypes('secondary.main', 'inherit');
 
   const contract = useAppSelector((root) => selectContract(root, contractId as string));
   const currentUser = useAppSelector(selectCurrentUser);
