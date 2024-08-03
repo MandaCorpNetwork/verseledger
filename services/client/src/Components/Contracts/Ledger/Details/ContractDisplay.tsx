@@ -25,6 +25,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import { Logger } from '@Utils/Logger';
+import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -212,6 +213,24 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
     navigate(`/contract?contractID=${contractId}`);
   };
 
+  const handleCopyURL = (url: string) => {
+    if (navigator.clipboard) {
+      navigator.clipboard
+        .writeText(url)
+        .then(() => {
+          playSound('clickMain');
+          enqueueSnackbar('Copied Contract to Clipboard', { variant: 'success' });
+        })
+        .catch((err) => {
+          playSound('error');
+          enqueueSnackbar('Failed to Copy Contract', { variant: 'error' });
+        });
+    } else {
+      playSound('denied');
+      enqueueSnackbar('Clipboard API not supported', { variant: 'warning' });
+    }
+  };
+
   return (
     <Box
       data-testid="ContractDisplay__Container"
@@ -276,10 +295,15 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               )}
             </Tooltip>
           </DigiDisplay>
-          <IconButton size="small" onClick={() => handleContractPageNav(contract.id)}>
+          <IconButton
+            size="small"
+            onClick={() =>
+              handleCopyURL(`https://verseledger.net/contract?contractID=${contract.id}`)
+            }
+          >
             <Link fontSize="small" />
           </IconButton>
-          <IconButton size="small">
+          <IconButton size="small" onClick={() => handleContractPageNav(contract.id)}>
             <Launch fontSize="small" />
           </IconButton>
         </Box>
