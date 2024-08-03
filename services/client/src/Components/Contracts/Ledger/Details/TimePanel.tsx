@@ -1,6 +1,6 @@
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { Box, LinearProgress, Tooltip, Typography } from '@mui/material';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
@@ -104,6 +104,32 @@ export const BiddingTimePanel: React.FC<TimePanelProps> = ({ contract }) => {
   );
 };
 
+const getContractProgress = (
+  contractStatus: string,
+  startDateJs: Dayjs,
+  endDateJs: Dayjs,
+  startDateObj: Date | null | undefined,
+  endDateObj: Date | null | undefined,
+) => {
+  const now = dayjs();
+  if (contractStatus !== 'INPROGRESS') return null;
+  if (!startDateObj || !endDateObj) return null;
+  if (now.isBefore(startDateJs) || now.isAfter(endDateJs)) return null;
+
+  const totalDuration = endDateJs.diff(startDateJs);
+  const elapsedDuration = now.diff(startDateJs);
+  return (elapsedDuration / totalDuration) * 100;
+};
+
+const getInterval = (endDateJs: Dayjs) => {
+  const now = dayjs();
+  const timeTillEnd = endDateJs.diff(now, 'second');
+
+  if (timeTillEnd <= 0) return null;
+
+  return timeTillEnd <= 60 ? 5000 : timeTillEnd <= 300 ? 10000 : 300000;
+};
+
 export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) => {
   const contractStatus = contract.status;
   const bidEnd = dayjs(contract.bidDate);
@@ -157,39 +183,45 @@ export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) =>
 
   const contractDuration = getContractDuration();
 
-  const getContractProgress = React.useCallback(() => {
-    const now = dayjs();
-    if (contractStatus !== 'INPROGRESS' || !contract.startDate || !contract.endDate)
-      return null;
-    if (now.isBefore(startDate) || now.isAfter(endDate)) return null;
-
-    const totalDuration = endDate.diff(startDate);
-    const elapsedDuration = now.diff(startDate);
-    return (elapsedDuration / totalDuration) * 100;
-  }, [contractStatus, startDate, endDate]);
-
   const [progress, setProgress] = React.useState<number | null>(null);
+  const timeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   React.useEffect(() => {
-    const updateInterval = () => {
-      const now = dayjs();
-      const timeTillEnd = endDate.diff(now, 'second');
-
-      if (timeTillEnd <= 0) {
-        setProgress(100);
-        return;
-      }
-
-      if (timeTillEnd <= 60) return 5000;
-      if (timeTillEnd <= 300) return 10000;
-      return 300000;
+    let isMounted = true;
+    const updateProgress = () => {
+      if (!isMounted) return;
+      const newProgress = getContractProgress(
+        contractStatus,
+        startDate,
+        endDate,
+        contract.startDate,
+        contract.endDate,
+      );
+      setProgress(newProgress);
     };
 
-    const interval = setInterval(() => {
-      setProgress(getContractProgress());
-    }, updateInterval());
-    return () => clearInterval(interval);
-  }, [contractStatus, startDate, endDate, getContractProgress]);
+    const scheduleUpdate = () => {
+      if (!isMounted) return;
+      const interval = getInterval(endDate);
+      if (interval !== null) {
+        timeoutRef.current = setTimeout(() => {
+          updateProgress();
+          scheduleUpdate();
+        }, interval);
+      }
+    };
+
+    updateProgress();
+    scheduleUpdate();
+
+    return () => {
+      isMounted = false;
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      setProgress(null);
+    };
+  }, [contract]);
 
   return (
     <Box
@@ -222,7 +254,7 @@ export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) =>
             {timeTillStart !== 'Invalid Start Time' ? (
               <Typography>{timeTillStart}</Typography>
             ) : (
-              <Typography>Error in Start Time.</Typography>
+              <Typography>Awaiting Start</Typography>
             )}
           </Typography>
         )}
@@ -311,7 +343,7 @@ export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) =>
         )}
         {progress !== null && (
           <Box sx={{ width: '80%' }}>
-            <Tooltip title={`Contract Progress: ${progress}%`}>
+            <Tooltip title={`Contract Progress: ${progress.toFixed(2)}%`}>
               <LinearProgress variant="determinate" value={progress} />
             </Tooltip>
           </Box>
