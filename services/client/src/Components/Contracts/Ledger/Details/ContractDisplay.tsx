@@ -31,7 +31,7 @@ import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { useSoundEffect } from '@/AudioManager';
 
 import { ContractorsPanel } from './ActiveDataPanel';
-import { BidPanel, EndPanel, StartPanel } from './TimePanel';
+import { BiddingTimePanel, ContractDurationPanel } from './TimePanel';
 
 type ContractDisplayProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -117,16 +117,14 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
     (panel: string) => {
       switch (panel) {
         case 'bid':
-          return <BidPanel contractId={contract.id} />;
+          return <BiddingTimePanel contract={contract} />;
         case 'start':
-          return <StartPanel contractId={contract.id} />;
-        case 'end':
-          return <EndPanel contractId={contract.id} />;
+          return <ContractDurationPanel contract={contract} />;
         default:
           return;
       }
     },
-    [timeTab],
+    [timeTab, contract],
   );
 
   const activeDataPanel = React.useCallback(
@@ -748,9 +746,8 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               textColor="secondary"
               indicatorColor="secondary"
             >
-              <SmallTabHolo label="Bidding" value="bid" />
-              <SmallTabHolo label="Start Date" value="start" />
-              <SmallTabHolo label="End Date" value="end" />
+              <SmallTabHolo label="Bidding Time" value="bid" />
+              <SmallTabHolo label="Contract Duration" value="start" />
             </SmallTabsHolo>
           </ControlPanelBox>
           <DigiBox
