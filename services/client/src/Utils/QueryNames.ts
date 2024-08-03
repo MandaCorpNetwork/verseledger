@@ -9,7 +9,7 @@ export enum QueryNames {
   Locations = 'loc',
   UECRangeMin = 'minUEC',
   UECRangeMax = 'maxUEC',
-  SelectedContract = 'contractID',
+  Contract = 'contractID',
   EmployerRating = 'erating',
   ContractorRating = 'crating',
   TimeRemaining = 'time',
