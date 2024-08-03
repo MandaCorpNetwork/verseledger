@@ -1,6 +1,6 @@
 import { Box, styled } from '@mui/material';
 
-const DigiBox = styled(Box)(({ theme }) => ({
+export const DigiBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -29,5 +29,3 @@ const DigiBox = styled(Box)(({ theme }) => ({
     backgroundSize: '100% 2px',
   },
 }));
-
-export default DigiBox;

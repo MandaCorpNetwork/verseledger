@@ -1,6 +1,11 @@
 import { Box, styled } from '@mui/material';
 
-const ControlPanelBox = styled(Box)(({ theme }) => ({
+// Box Defaults:
+// display: block;
+// alignItems: stretch;
+// justifyContent: flex-start;
+
+export const ControlPanelBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -30,5 +35,3 @@ const ControlPanelBox = styled(Box)(({ theme }) => ({
     boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
   },
 }));
-
-export default ControlPanelBox;
