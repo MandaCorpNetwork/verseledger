@@ -1,6 +1,6 @@
 import '@Assets/Css/RadioStationApp.css';
 
-import DigiBox from '@Common/Components/Boxes/DigiBox';
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import {
   Language,
   SkipNext,
