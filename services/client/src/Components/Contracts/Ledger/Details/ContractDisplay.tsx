@@ -9,7 +9,7 @@ import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
 import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHolo';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
-import { ExpandMore } from '@mui/icons-material';
+import { ExpandMore, Launch, Link } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -222,49 +222,60 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         data-testid="ContractDisplay-Info__TitleBoxWrapper"
         sx={{ width: '100%', height: '20%', p: '.5em' }}
       >
-        <DigiDisplay
-          data-testid="ContractDisplay-Info__TitleBar"
-          sx={{
-            flexDirection: 'row',
-            py: '.2em',
-            px: '.5em',
-            justifyContent: 'space-around',
-            width: '100%',
-            mb: 'auto',
-          }}
+        <Box
+          data-testid="ContractDisplay-Info__TitleBarWrapper"
+          sx={{ width: '100%', mb: 'auto', display: 'flex', flexDirection: 'row' }}
         >
-          <Tooltip title={contract.title} arrow>
-            <Typography
-              variant="h6"
-              noWrap
-              sx={{
-                fontWeight: 'bold',
-                maxWidth: '80%',
-                color: 'text.primary',
-                textShadow: '0 0 2px #fff, 0 0 10px #000',
-                cursor: 'default',
-              }}
-            >
-              {contract.title}
-            </Typography>
-          </Tooltip>
-          <Box
+          <DigiDisplay
+            data-testid="ContractDisplay-Info__TitleBar"
             sx={{
-              flexGrow: '1',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              py: 'auto',
+              flexDirection: 'row',
+              py: '.2em',
+              px: '.5em',
+              justifyContent: 'space-around',
+              flexGrow: 1,
             }}
-          />
-          <Tooltip title={archetype}>
-            {options.find((option) => option.archetype === archetype)?.archetypeIcon ?? (
-              <Typography color="error" fontWeight="bold">
-                ???
+          >
+            <Tooltip title={contract.title} arrow>
+              <Typography
+                variant="h6"
+                noWrap
+                sx={{
+                  fontWeight: 'bold',
+                  maxWidth: '80%',
+                  color: 'text.primary',
+                  textShadow: '0 0 2px #fff, 0 0 10px #000',
+                  cursor: 'default',
+                }}
+              >
+                {contract.title}
               </Typography>
-            )}
-          </Tooltip>
-        </DigiDisplay>
+            </Tooltip>
+            <Box
+              sx={{
+                flexGrow: '1',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                py: 'auto',
+              }}
+            />
+            <Tooltip title={archetype}>
+              {options.find((option) => option.archetype === archetype)
+                ?.archetypeIcon ?? (
+                <Typography color="error" fontWeight="bold">
+                  ???
+                </Typography>
+              )}
+            </Tooltip>
+          </DigiDisplay>
+          <IconButton size="small">
+            <Link fontSize="small" />
+          </IconButton>
+          <IconButton size="small">
+            <Launch fontSize="small" />
+          </IconButton>
+        </Box>
         <Box
           data-testid="ContractDisplay__DetailsContainer"
           sx={{
@@ -763,11 +774,16 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         <Box
           data-testid="ContractDisplay__SubmitBidButtonWrapper"
           sx={{
-            ml: 'auto',
-            mt: 'auto',
+            mx: 'auto',
+            my: 'auto',
           }}
         >
-          <Button variant="contained" color="secondary" onClick={handleSubmitBidPopup}>
+          <Button
+            variant="contained"
+            color="secondary"
+            size="large"
+            onClick={handleSubmitBidPopup}
+          >
             Submit Bid
           </Button>
         </Box>
