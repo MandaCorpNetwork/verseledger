@@ -280,7 +280,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               )}
             </Tooltip>
           </DigiDisplay>
-          <IconButton size="small">
+          <IconButton size="small" onClick={() => handleContractPageNav(contract.id)}>
             <Link fontSize="small" />
           </IconButton>
           <IconButton size="small">
