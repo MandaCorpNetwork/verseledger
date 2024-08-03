@@ -1,9 +1,11 @@
 import { Outlet, RouteObject } from 'react-router-dom';
 
+import { ContractManagerApp } from '@/Components/Personal/ContractManager/ContractManagerApp';
 import { DiscordLoginUtility } from '@/Utils/discordLoginUtility';
 
 import { VLAppBar } from '../Common/Components/App/AppBar';
 import { APIDocs } from './api-docs/APIDocs';
+import { ContractPage } from './Contract/ContractPage';
 import { ContractLedgerPage } from './ContractLedger/ContractLedgerPage';
 import ErrorPage from './ErrorPage';
 import { Home } from './Index/Home/Home';
@@ -40,9 +42,16 @@ export const routingInfo: RouteObject[] = [
         path: '/ledger/contract',
         element: <ContractLedgerPage />,
       },
+      { path: '/contract', element: <ContractPage /> },
       {
         path: '/ledger/personal',
         element: <PersonalLedgerPage />,
+        children: [
+          {
+            path: 'contractManager',
+            element: <ContractManagerApp />,
+          },
+        ],
       },
     ],
   },
