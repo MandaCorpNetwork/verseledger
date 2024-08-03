@@ -26,6 +26,7 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { useSoundEffect } from '@/AudioManager';
@@ -42,6 +43,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const { playSound } = useSoundEffect();
   const dispatch = useAppDispatch();
   const scrollRef = useHorizontalAdvancedScroll();
+  const navigate = useNavigate();
 
   Logger.info(`ContractDisplay ID: ${contract.id}`);
 
@@ -205,6 +207,11 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
 
   const otherLocationIds = getOtherLocationIds();
 
+  const handleContractPageNav = (contractId: string) => {
+    playSound('navigate');
+    navigate(`/contract?contractID=${contractId}`);
+  };
+
   return (
     <Box
       data-testid="ContractDisplay__Container"
@@ -269,7 +276,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               )}
             </Tooltip>
           </DigiDisplay>
-          <IconButton size="small">
+          <IconButton size="small" onClick={() => handleContractPageNav(contract.id)}>
             <Link fontSize="small" />
           </IconButton>
           <IconButton size="small">
