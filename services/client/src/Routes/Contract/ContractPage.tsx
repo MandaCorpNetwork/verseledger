@@ -3,6 +3,7 @@ import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { ArchetypeChip } from '@Common/Components/Chips/ArchetypeChip';
+import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
 import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
@@ -10,11 +11,9 @@ import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchet
 import { LoadingScreen } from '@Common/LoadingObject/LoadingScreen';
 import { Link } from '@mui/icons-material';
 import { Box, Chip, IconButton, Tooltip, Typography } from '@mui/material';
-import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
-import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { isMobile } from '@Utils/isMobile';
 import { isTablet } from '@Utils/isTablet';
@@ -83,22 +82,6 @@ export const ContractPage: React.FC<unknown> = () => {
     }
   };
 
-  const statusChipColor = React.useCallback(() => {
-    if (contract?.status == 'BIDDING') {
-      return 'secondary';
-    } else if (contract?.status == 'STARTED') {
-      return 'info';
-    } else if (contract?.status == 'COMPLETE') {
-      return 'success';
-    } else if (contract?.status == 'CANCELED') {
-      return 'error';
-    } else {
-      return 'primary';
-    }
-  }, [contract]);
-
-  const statusColor = statusChipColor();
-
   return (
     <VLViewport
       data-testid="ContractPage__Container"
@@ -126,6 +109,7 @@ export const ContractPage: React.FC<unknown> = () => {
               justifyContent: 'space-between',
               px: { xs: '.5em', md: '2em', lg: '5em', xl: '10em' },
               mb: 'auto',
+              py: { xs: '', lg: '.5em' },
             }}
           >
             <Tooltip
@@ -167,6 +151,7 @@ export const ContractPage: React.FC<unknown> = () => {
               width: '100%',
               justifyContent: 'space-between',
               px: { xs: '0', md: '2%', lg: '5%' },
+              height: '100%',
             }}
           >
             {mobile && (
@@ -191,7 +176,13 @@ export const ContractPage: React.FC<unknown> = () => {
                     data-testid="ContractPage-Info-ContractInfo-Type__Subtype_Field"
                     label="Contract Subtype"
                   >
-                    {contract && <SubtypeChip subtype={contract.subtype} />}
+                    {contract && (
+                      <SubtypeChip
+                        data-testid="ContractPage-Info-ContractInfo-Mobile__Subtype_Chip"
+                        subtype={contract.subtype}
+                        iconSize="small"
+                      />
+                    )}
                   </DigiField>
                   <DigiField
                     data-testid="ContractPage-Info-ContractInfo-Type__Archetype_Field"
@@ -220,19 +211,13 @@ export const ContractPage: React.FC<unknown> = () => {
                     >
                       Status
                     </Typography>
-                    <Chip
-                      data-testid="ContractPage-Info-ContractInfo__Status_Chip"
-                      variant="filled"
-                      color={statusColor}
-                      size="small"
-                      label={
-                        contract?.status === 'INPROGRESS'
-                          ? 'In Progress'
-                          : contract?.status.charAt(0).toUpperCase() +
-                            contract?.status.slice(1).toLowerCase()
-                      }
-                      sx={{ my: 'auto' }}
-                    />
+                    {contract && (
+                      <ContractStatusChip
+                        data-testid="ContractPage-Info-ContractInfo__Status_Chip"
+                        status={contract.status}
+                        sx={{ my: 'auto' }}
+                      />
+                    )}
                   </DigiDisplay>
                   <UserDisplay userid={contract?.owner_id} />
                 </Box>
@@ -240,19 +225,82 @@ export const ContractPage: React.FC<unknown> = () => {
             )}
             {!mobile && (
               <>
-                <DigiDisplay data-testid="ContractPage-Info-ContractInfo__Status_Wrapper">
-                  <Typography data-testid="ContractPage-Info-ContractInfo__Status_Title"></Typography>
-                  <Chip data-testid="ContractPage-Info-ContractInfo__Status_Chip" />
+                <DigiDisplay
+                  data-testid="ContractPage-Info-ContractInfo__Status_Wrapper"
+                  sx={{
+                    py: { s: '.8em' },
+                    px: { s: '1em', md: '1.5em' },
+                  }}
+                >
+                  <Typography
+                    data-testid="ContractPage-Info-ContractInfo__Status_Title"
+                    sx={{
+                      fontWeight: 'bold',
+                      cursor: 'default',
+                    }}
+                  >
+                    Status
+                  </Typography>
+                  {contract && (
+                    <ContractStatusChip
+                      data-testid="ContractPage-Info-ContractInfo__Status_Chip"
+                      status={contract.status}
+                      sx={{ my: 'auto' }}
+                      size="medium"
+                    />
+                  )}
                 </DigiDisplay>
-                <DigiDisplay data-testid="ContractPage-Info-ContractInfo__Type_Container">
+                <DigiDisplay
+                  data-testid="ContractPage-Info-ContractInfo__Type_Container"
+                  sx={{
+                    flexDirection: 'row',
+                    gap: { s: '1em', md: '2em', lg: '3em', xl: '4em' },
+                    px: { s: '1em', md: '1.5em' },
+                  }}
+                >
                   <DigiField
                     data-testid="ContractPage-Info-ContractInfo-Type__Subtype_Field"
                     label="Contract Subtype"
-                  ></DigiField>
+                    sx={{ py: '.5em' }}
+                    slots={{
+                      label: {
+                        sx: {
+                          fontSize: { s: '.7em', md: '.8em', lg: '.9em', xl: '1em' },
+                          mb: { s: '.5em', md: '.6em' },
+                        },
+                      },
+                    }}
+                  >
+                    {contract && (
+                      <SubtypeChip
+                        data-testid="ContractPage-Info-ContractInfo-Type__Subtype_Chip"
+                        subtype={contract.subtype}
+                        size="medium"
+                      />
+                    )}
+                  </DigiField>
                   <DigiField
                     data-testid="ContractPage-Info-ContractInfo-Type__Archetype_Field"
                     label="Contract Archetype"
-                  ></DigiField>
+                    sx={{ py: '.5em' }}
+                    slots={{
+                      label: {
+                        sx: {
+                          fontSize: { s: '.7em', md: '.8em', lg: '.9em', xl: '1em' },
+                          mb: { s: '.5em', md: '.6em' },
+                        },
+                      },
+                    }}
+                  >
+                    {archetype && (
+                      <ArchetypeChip
+                        data-testid="ContractPage-Info-ContractInfo-Type__Archetype_Chip"
+                        archetype={archetype}
+                        size="medium"
+                        iconSize="medium"
+                      />
+                    )}
+                  </DigiField>
                 </DigiDisplay>
                 <UserDisplay userid={contract?.owner_id} />
               </>
