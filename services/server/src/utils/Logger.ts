@@ -19,6 +19,7 @@ export class Logger {
       this.getTimestamp(),
       chalk.white.bgGreenBright.bold('[INIT]'),
       chalk.grey(prefix),
+      chalk.greenBright('Initialized.'),
     );
   }
   public static withType(
