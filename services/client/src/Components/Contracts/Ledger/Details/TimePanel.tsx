@@ -4,13 +4,14 @@ import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
-import { IContract, IContractTimestamped } from 'vl-shared/src/schemas/ContractSchema';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 type TimePanelProps = {
   contract: IContract;
 };
 
 dayjs.extend(relativeTime);
+dayjs.extend(duration);
 
 export const BiddingTimePanel: React.FC<TimePanelProps> = ({ contract }) => {
   const getBidDate = React.useCallback(() => {
@@ -104,261 +105,218 @@ export const BiddingTimePanel: React.FC<TimePanelProps> = ({ contract }) => {
 };
 
 export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) => {
-  const [isBidEnd, setIsBidEnd] = React.useState(false);
+  const contractStatus = contract.status;
+  const bidEnd = dayjs(contract.bidDate);
+  const startDate = dayjs(contract.startDate);
+  const endDate = dayjs(contract.endDate);
 
-  const bidEnd = dayjs(contract?.bidDate);
-  const startDate = dayjs(contract?.startDate);
-  const endDate = dayjs(contract?.endDate);
+  const formattedStartDate = contract.startDate
+    ? startDate.format('DD MMM, YY @ HH:mm')
+    : 'Manually Controlled';
 
-  const formattedStartDate = startDate.format('DD MMM, YY @ HH:mm');
+  const formattedEndDate = contract.endDate
+    ? endDate.format('DD MMM, YY @ HH:mm')
+    : 'Manually Controlled';
 
-  console.log(contract);
+  const getTimeTillStart = React.useCallback(() => {
+    const now = dayjs();
+    if (contractStatus !== 'BIDDING') return null;
+    if (!contract.startDate) return null;
+    if (now.isAfter(startDate)) return 'Invalid Start Time';
+    return now.to(startDate, true);
+  }, [contractStatus, startDate, contract.startDate]);
+
+  const timeTillStart = getTimeTillStart();
+
+  const getTimeRemaining = React.useCallback(() => {
+    const now = dayjs();
+    if (contractStatus !== 'INPROGRESS') return null;
+    if (!contract.endDate) return null;
+    if (now.isAfter(endDate)) return 'Invalid End Time';
+    return now.to(endDate, true);
+  }, [contractStatus, bidEnd, contract.bidDate]);
+
+  const timeRemaining = getTimeRemaining();
+
+  const getTimeElapsed = React.useCallback(() => {
+    const now = dayjs();
+    if (contractStatus !== 'INPROGRESS') return null;
+    if (!contract.startDate) return null;
+    if (contract.endDate) return null;
+    if (now.isBefore(startDate)) return null;
+    return now.to(startDate, true);
+  }, [contractStatus, startDate, contract.startDate]);
+
+  const timeElapsed = getTimeElapsed();
+
+  const getContractDuration = React.useCallback(() => {
+    if (!contract.startDate || !contract.endDate) return null;
+    if (startDate.isAfter(endDate)) return 'Invalid Start Time';
+    return startDate.to(endDate, true);
+  }, [contractStatus, startDate, contract.startDate, contract.endDate, endDate]);
+
+  const contractDuration = getContractDuration();
+
+  const getContractProgress = React.useCallback(() => {
+    const now = dayjs();
+    if (contractStatus !== 'INPROGRESS' || !contract.startDate || !contract.endDate)
+      return null;
+    if (now.isBefore(startDate) || now.isAfter(endDate)) return null;
+
+    const totalDuration = endDate.diff(startDate);
+    const elapsedDuration = now.diff(startDate);
+    return (elapsedDuration / totalDuration) * 100;
+  }, [contractStatus, startDate, endDate]);
+
+  const [progress, setProgress] = React.useState<number | null>(null);
 
   React.useEffect(() => {
-    if (contract?.bidDate == null) return;
-    const interval = setInterval(() => {
+    const updateInterval = () => {
       const now = dayjs();
-      if (now >= bidEnd) {
-        setIsBidEnd(true);
-      } else clearInterval(interval);
-    }, 1000);
+      const timeTillEnd = endDate.diff(now, 'second');
+
+      if (timeTillEnd <= 0) {
+        setProgress(100);
+        return;
+      }
+
+      if (timeTillEnd <= 60) return 5000;
+      if (timeTillEnd <= 300) return 10000;
+      return 300000;
+    };
+
+    const interval = setInterval(() => {
+      setProgress(getContractProgress());
+    }, updateInterval());
     return () => clearInterval(interval);
-  }, [contract, bidEnd, setIsBidEnd, isBidEnd]);
-
-  const timeToStart = React.useCallback(() => {
-    const tillStart = startDate.toNow(true);
-    return tillStart;
-  }, [startDate]);
-
-  const tillStartProgress = React.useCallback(() => {
-    const now = dayjs();
-    const createdTime = dayjs((contract as IContractTimestamped)?.createdAt);
-    const totalTime = startDate.diff(createdTime);
-    const elapsedTime = now.diff(createdTime);
-    const progress = (elapsedTime / totalTime) * 100;
-    console.log(`${createdTime} createdTime`);
-    console.log(`${startDate} start`);
-    console.log(`${totalTime} total`);
-    console.log(`${elapsedTime} elapsed`);
-    console.log(`${progress} progress`);
-    return Math.round(progress);
-  }, [contract, startDate]);
-
-  const contractDurationCalc = () => {
-    dayjs.extend(duration);
-    const totalDuration = dayjs.duration(endDate.diff(startDate));
-
-    const days = Math.floor(totalDuration.asDays());
-    const hours = Math.floor(totalDuration.asHours()) % 24;
-    const minutes = Math.floor(totalDuration.asMinutes()) % 60;
-
-    if (days > 1) {
-      return `${days} Days`;
-    } else if (days == 0 && hours > 1 && minutes > 1) {
-      return `${hours} Hours & ${minutes} Minutes`;
-    } else if (hours >= 1 && minutes >= 1) {
-      return `${hours} Hours & ${minutes} Minutes`;
-    } else if (hours > 1 && minutes <= 0) {
-      return `${hours} Hours`;
-    } else if (hours == 1 && minutes <= 0) {
-      return `${hours} Hour`;
-    } else if (hours <= 0 && minutes > 1) {
-      return `${minutes} Minutes`;
-    } else if (minutes >= 1) {
-      return `${minutes} Minute`;
-    } else {
-      return `Manually Ending`;
-    }
-  };
-
-  const contractDuration = contractDurationCalc();
-
-  const timeRemaining = React.useCallback(() => {
-    const tillEnd = dayjs().to(endDate, true);
-    return tillEnd;
-  }, [endDate]);
-
-  const contractProgress = React.useCallback(() => {
-    const now = dayjs();
-    const totalTime = endDate.diff(startDate);
-    const elapsedTime = startDate.diff(now);
-    const progress = (elapsedTime / totalTime) * 100;
-    return Math.round(progress);
-  }, [startDate, endDate]);
+  }, [contractStatus, startDate, endDate, getContractProgress]);
 
   return (
     <Box
       data-testid="ContractTime-Panel__StartTimeContainer"
       sx={{
-        width: '100%',
-        height: '100%',
-        alignContent: 'center',
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
-      <Box
+      <DigiDisplay
         data-testid="ContractTime-Panel-StartTime__TextWrapper"
         sx={{
-          width: '100%',
+          py: '.5em',
+          px: '1em',
         }}
       >
-        {isBidEnd ? (
-          <>
-            <Typography
-              data-testid="ContractTime-Panel-StartTime__StartDate"
-              align="center"
-              variant="body2"
-              sx={{ fontWeight: 'bold', color: 'text.secondary' }}
-            >
-              Contract Start Date: {formattedStartDate}
-            </Typography>
-            <Typography
-              data-testid="ContractTime-Panel-StartTime__TimeTillStart"
-              align="center"
-              variant="body2"
-              sx={{ fontWeight: 'bold', color: 'text.secondary' }}
-            >
-              Contract Time Remaining: {timeRemaining()}
-            </Typography>
-            <Box
-              data-testid="ContractTime-Panel-StartTime__ProgressWrapper"
-              sx={{
-                width: '50%',
-                mx: 'auto',
-                mt: '.5em',
-              }}
-            >
-              <Tooltip title={`Progress: ${contractProgress()}%`} arrow>
-                <LinearProgress
-                  data-testid="ContractTime-Panel-StartTime-Progress__ContractDuration"
-                  variant="determinate"
-                  value={contractProgress()}
-                />
-              </Tooltip>
-            </Box>
-          </>
-        ) : (
-          <>
-            <Typography
-              data-testid="ContractTime-Panel-StartTime__TimeTillStart"
-              align="center"
-              variant="body2"
-              sx={{ fontWeight: 'bold', color: 'text.secondary' }}
-            >
-              Time Till Start: {timeToStart()}
-            </Typography>
-            <Typography
-              data-testid="ContractTime-Panel-StartTime__ContractLength"
-              align="center"
-              variant="body2"
-              sx={{ fontWeight: 'bold', color: 'text.secondary' }}
-            >
-              Contract Length: {contractDuration}
-            </Typography>
-            <Box
-              data-testid="ContractTime-Panel-StartTime__ProgressWrapper"
-              sx={{
-                width: '50%',
-                mx: 'auto',
-                mt: '.5em',
-              }}
-            >
-              <Tooltip
-                data-testid="ContractTime-Panel-StartTime-Progress__TillStart"
-                title={`${tillStartProgress()}% to Start Time`}
-                arrow
-              >
-                <LinearProgress variant="determinate" value={tillStartProgress()} />
-              </Tooltip>
-            </Box>
-          </>
-        )}
-      </Box>
-    </Box>
-  );
-};
-
-export const EndPanel: React.FC<TimePanelProps> = ({ contract }) => {
-  const [isBidStart, setBidStart] = React.useState(false);
-  const endDate = dayjs(contract?.endDate);
-  const createdDate = dayjs((contract as IContractTimestamped)?.createdAt);
-
-  React.useEffect(() => {
-    const status = contract?.status;
-    if (status !== 'INPROGRESS') return;
-    const interval = setInterval(() => {
-      if (status == 'INPROGRESS') {
-        setBidStart(true);
-      } else {
-        clearInterval(interval);
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [contract, setBidStart]);
-
-  const tillEnd = React.useCallback(() => {
-    const remainder = dayjs().to(endDate, true);
-    return remainder;
-  }, [endDate]);
-
-  const contractProgress = React.useCallback(() => {
-    const now = dayjs();
-    const totalTime = endDate.diff(createdDate);
-    const elapsedTime = now.diff(createdDate);
-    const progress = (elapsedTime / totalTime) * 100;
-    return Math.round(progress);
-  }, [createdDate, endDate]);
-
-  const formattedEndDate = endDate.format('DD MMM, YY @ HH:mm');
-
-  return (
-    <Box
-      data-testid="ContractTime-Panel__EndTimeContainer"
-      sx={{
-        width: '100%',
-        height: '100%',
-        alignContent: 'center',
-      }}
-    >
-      <Box
-        data-testid="ContractTime-Panel-EndTime__TextWrapper"
-        sx={{
-          width: '100%',
-        }}
-      >
-        {isBidStart ? (
+        {timeTillStart !== null && (
           <Typography
-            data-testid="ContractTime-Panel-StartTime__ContractLength"
             align="center"
             variant="body2"
-            sx={{ fontWeight: 'bold', color: 'text.secondary' }}
+            sx={{
+              fontWeight: 'bold',
+              cursor: 'default',
+              display: 'inline-flex',
+              alignItems: 'center',
+            }}
           >
-            Time Till End: {tillEnd()}
+            Time Till Start:
+            {timeTillStart !== 'Invalid Start Time' ? (
+              <Typography>{timeTillStart}</Typography>
+            ) : (
+              <Typography>Error in Start Time.</Typography>
+            )}
           </Typography>
-        ) : (
-          <></>
         )}
-
+        {timeRemaining !== null && (
+          <Typography
+            align="center"
+            variant="body2"
+            sx={{
+              fontWeight: 'bold',
+              cursor: 'default',
+              display: 'inline-flex',
+              alignItems: 'center',
+            }}
+          >
+            Time Remaining:
+            {timeRemaining !== 'Invalid End Time' ? (
+              <Typography>{timeRemaining}</Typography>
+            ) : (
+              <Typography>Error in End Time.</Typography>
+            )}
+          </Typography>
+        )}
+        {timeElapsed !== null && (
+          <Typography
+            align="center"
+            variant="body2"
+            sx={{
+              fontWeight: 'bold',
+              cursor: 'default',
+              display: 'inline-flex',
+              alignItems: 'center',
+            }}
+          >
+            Time Elapsed:
+            {timeElapsed !== 'Invalid Start Time' ? (
+              <Typography>{timeElapsed}</Typography>
+            ) : (
+              <Typography>Error in Start Time.</Typography>
+            )}
+          </Typography>
+        )}
+        {contractStatus === 'CANCELED' && <Typography>Contract Was Canceled</Typography>}
+        {contractStatus === 'COMPLETED' && <Typography>Contract is Complete</Typography>}
         <Typography
-          data-testid="ContractTime-Panel-StartTime__ContractLength"
           align="center"
           variant="body2"
-          sx={{ fontWeight: 'bold', color: 'text.secondary' }}
-        >
-          Contract End Date: {formattedEndDate}
-        </Typography>
-        <Box
-          data-testid="ContractTime-Panel-StartTime__ProgressWrapper"
           sx={{
-            width: '50%',
-            mx: 'auto',
-            mt: '.5em',
+            fontWeight: 'bold',
+            cursor: 'default',
+            display: 'inline-flex',
+            alignItems: 'center',
           }}
         >
-          <Tooltip title={`${contractProgress()}%`} arrow>
-            <LinearProgress variant="determinate" value={contractProgress()} />
-          </Tooltip>
-        </Box>
-      </Box>
+          Start Time: <Typography>{formattedStartDate}</Typography>
+        </Typography>
+        <Typography
+          align="center"
+          variant="body2"
+          sx={{
+            fontWeight: 'bold',
+            cursor: 'default',
+            display: 'inline-flex',
+            alignItems: 'center',
+          }}
+        >
+          End Time: <Typography>{formattedEndDate}</Typography>
+        </Typography>
+        {contractDuration !== null && (
+          <Typography
+            align="center"
+            variant="body2"
+            sx={{
+              fontWeight: 'bold',
+              cursor: 'default',
+              display: 'inline-flex',
+              alignItems: 'center',
+            }}
+          >
+            Contract Duration:
+            {contractDuration !== 'Invalid Start Time' ? (
+              <Typography>{contractDuration}</Typography>
+            ) : (
+              <Typography>Invalid Timestamps.</Typography>
+            )}
+          </Typography>
+        )}
+        {progress !== null && (
+          <Box sx={{ width: '80%' }}>
+            <Tooltip title={`Contract Progress: ${progress}%`}>
+              <LinearProgress variant="determinate" value={progress} />
+            </Tooltip>
+          </Box>
+        )}
+      </DigiDisplay>
     </Box>
   );
 };
