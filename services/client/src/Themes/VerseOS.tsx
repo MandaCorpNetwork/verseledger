@@ -22,6 +22,7 @@ declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     tip: true;
     paragraph: true;
+    error: true;
   }
 }
 
@@ -101,6 +102,21 @@ export const verseOSTheme = createTheme({
             textWrap: 'wrap',
             whiteSpace: 'normal',
             wordBreak: 'break-all',
+          },
+        },
+        {
+          props: { variant: 'error' },
+          style: {
+            color: 'rgb(255,0,8)',
+            fontWeight: 'bold',
+            fontSize: '.8em',
+            backgroundImage:
+              'linear-gradient(135deg, rgba(190,0,0,.4), rgba(50,50,50,.5))',
+            borderRadius: '8px',
+            cursor: 'default',
+            display: 'inline-block',
+            textShadow: '0 0 6px rgba(0,0,0), 0 0 2px rgba(255,0,0,.4)',
+            boxShadow: '0 4px 10px rgba(0,0,0,.6), 0 2px 6px rgba(255,0,0,.4)',
           },
         },
       ],
