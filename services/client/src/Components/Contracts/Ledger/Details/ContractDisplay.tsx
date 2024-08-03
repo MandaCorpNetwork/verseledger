@@ -1,5 +1,6 @@
-import DigiBox from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
@@ -553,6 +554,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 variant="body2"
                 sx={{
                   fontWeight: 'bold',
+                  cursor: 'default',
                 }}
               >
                 Locations
@@ -683,39 +685,13 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           my: '.5em',
         }}
       >
-        <Box
+        <ControlPanelBox
           data-testid="ContractDisplay-ActiveData__TabWrapper"
           sx={{
-            borderLeft: '2px solid',
-            borderRight: '2px solid',
-            borderRadius: '5px',
-            borderColor: 'secondary.main',
+            display: 'block',
             px: '1em',
             py: '.2em',
             width: '100%',
-            boxShadow: '0 0px 5px 2px rgba(24,252,252,0.25)',
-            backgroundImage:
-              'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
-            position: 'relative',
-            '&:before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              bottom: 0,
-              left: 0,
-              backgroundImage:
-                'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
-              backgroundSize: '5px 5px',
-              opacity: 0.5,
-            },
-            '&:hover': {
-              backgroundImage:
-                'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
-              borderColor: 'secondary.light',
-              boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
-            },
-            transition: 'all 0.3s',
           }}
         >
           <SmallTabsHolo
@@ -728,41 +704,17 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             <SmallTabHolo label="Contractors" value="contractors" />
             <SmallTabHolo label="Ships" value="ships" disabled />
           </SmallTabsHolo>
-        </Box>
-        <Box
+        </ControlPanelBox>
+        <DigiBox
           data-testid="ContractDisplay-ActiveData__PanelContainer"
           sx={{
             width: '100%',
             height: '90%',
-            borderTop: '2px solid',
-            borderBottom: '2px solid',
-            borderColor: 'primary.main',
-            borderRadius: '5px',
             mt: '.5em',
-            borderLeft: '1px solid rgba(14,49,141,0.5)',
-            borderRight: '1px solid rgba(14,49,141,0.5)',
-            boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-            position: 'relative',
-            '&:before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              bottom: 0,
-              right: 0,
-              left: 0,
-              background:
-                'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-              opacity: 0.6,
-              backdropFilter: 'blur(10px)',
-              zIndex: -1,
-              backgroundImage:
-                'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-              backgroundSize: '100% 2px',
-            },
           }}
         >
           {activeDataPanel(activeDataTab)}
-        </Box>
+        </DigiBox>
       </Box>
       <Box
         data-testid="ContractDisplay__BottomBox"
@@ -782,37 +734,11 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             width: '70%',
           }}
         >
-          <Box
+          <ControlPanelBox
             data-testid="ContractDisplay-ContractTime__TabWrapper"
             sx={{
-              borderRight: '2px solid',
-              borderLeft: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'secondary.main',
-              px: '.5em',
-              boxShadow: '0 0px 5px 2px rgba(24,252,252,0.25)',
-              backgroundImage:
-                'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0,
-                backgroundImage:
-                  'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
-                backgroundSize: '5px 5px',
-                opacity: 0.5,
-              },
-              '&:hover': {
-                backgroundImage:
-                  'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
-                borderColor: 'secondary.light',
-                boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
-              },
-              transition: 'all 0.3s',
+              px: '1em',
+              display: 'block',
             }}
           >
             <SmallTabsHolo
@@ -822,44 +748,20 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               textColor="secondary"
               indicatorColor="secondary"
             >
-              <SmallTabHolo label="Bid" value="bid" />
-              <SmallTabHolo label="Start" value="start" />
-              <SmallTabHolo label="End" value="end" />
+              <SmallTabHolo label="Bidding" value="bid" />
+              <SmallTabHolo label="Start Date" value="start" />
+              <SmallTabHolo label="End Date" value="end" />
             </SmallTabsHolo>
-          </Box>
-          <Box
+          </ControlPanelBox>
+          <DigiBox
             data-testid="ContractDisplay-ContractTime__PanelWrapper"
             sx={{
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
               height: '90%',
               mt: '.5em',
-              borderLeft: '1px solid rgba(14,49,141,0.5)',
-              borderRight: '1px solid rgba(14,49,141,0.5)',
-              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                background:
-                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                opacity: 0.6,
-                backdropFilter: 'blur(10px)',
-                zIndex: -1,
-                backgroundImage:
-                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                backgroundSize: '100% 2px',
-              },
             }}
           >
             {contractTimePanel(timeTab)}
-          </Box>
+          </DigiBox>
         </Box>
         <Box
           data-testid="ContractDisplay__SubmitBidButtonWrapper"
