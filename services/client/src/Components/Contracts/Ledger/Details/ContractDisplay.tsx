@@ -280,10 +280,15 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               )}
             </Tooltip>
           </DigiDisplay>
-          <IconButton size="small" onClick={() => handleContractPageNav(contract.id)}>
+          <IconButton
+            size="small"
+            onClick={() =>
+              handleCopyURL(`https://verseledger.net/contract?contractID=${contract.id}`)
+            }
+          >
             <Link fontSize="small" />
           </IconButton>
-          <IconButton size="small">
+          <IconButton size="small" onClick={() => handleContractPageNav(contract.id)}>
             <Launch fontSize="small" />
           </IconButton>
         </Box>
