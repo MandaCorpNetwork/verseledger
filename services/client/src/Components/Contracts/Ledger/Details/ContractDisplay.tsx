@@ -2,6 +2,7 @@ import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
+import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
@@ -149,22 +150,6 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
     },
     [activeDataTab, contract],
   );
-
-  const statusChipColor = React.useCallback(() => {
-    if (contract.status == 'BIDDING') {
-      return 'secondary';
-    } else if (contract.status == 'STARTED') {
-      return 'info';
-    } else if (contract.status == 'COMPLETE') {
-      return 'success';
-    } else if (contract.status == 'CANCELED') {
-      return 'error';
-    } else {
-      return 'primary';
-    }
-  }, [contract.status]);
-
-  const statusColor = statusChipColor();
 
   const handleSubmitBidPopup = () => {
     playSound('open');
@@ -330,15 +315,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             >
               Status
             </Typography>
-            <Chip
-              variant="filled"
-              label={
-                contract.status.charAt(0).toUpperCase() +
-                contract.status.slice(1).toLowerCase()
-              }
-              color={statusColor}
-              size="small"
-            />
+            <ContractStatusChip status={contract.status} />
           </DigiDisplay>
           <DigiDisplay
             data-testid="ContractDisplay-Info-Details__SubTypeWrapper"

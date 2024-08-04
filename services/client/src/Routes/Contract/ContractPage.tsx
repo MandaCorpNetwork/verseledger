@@ -1,20 +1,25 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
+import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { ArchetypeChip } from '@Common/Components/Chips/ArchetypeChip';
 import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
+import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
+import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
+import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { LoadingScreen } from '@Common/LoadingObject/LoadingScreen';
 import { Link } from '@mui/icons-material';
-import { Box, Chip, IconButton, Tooltip, Typography } from '@mui/material';
+import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import { isMobile } from '@Utils/isMobile';
 import { isTablet } from '@Utils/isTablet';
 import { QueryNames } from '@Utils/QueryNames';
@@ -32,6 +37,7 @@ export const ContractPage: React.FC<unknown> = () => {
   const tablet = isTablet();
   const { playSound } = useSoundEffect();
   const navigate = useNavigate();
+  const scrollRef = useHorizontalAdvancedScroll();
 
   const [archetype, setArchetype] = React.useState<string | null>(null);
 
@@ -81,6 +87,45 @@ export const ContractPage: React.FC<unknown> = () => {
       enqueueSnackbar('Clipboard API not supported', { variant: 'warning' });
     }
   };
+
+  const getStartLocationId = () => {
+    if (!contract) return null;
+    if (contract.Locations) {
+      const startLocationPull = contract?.Locations?.find(
+        (location) => location.ContractLocation?.tag === 'start',
+      )?.id;
+      return startLocationPull || null;
+    }
+    return null;
+  };
+
+  const startLocationId = getStartLocationId();
+
+  const getEndLocationId = () => {
+    if (!contract) return null;
+    if (contract.Locations) {
+      const endLocationPull = contract?.Locations?.find(
+        (location) => location.ContractLocation?.tag === 'end',
+      )?.id;
+      return endLocationPull || null;
+    }
+    return null;
+  };
+
+  const endLocationId = getEndLocationId();
+
+  const getOtherLocationIds = () => {
+    if (!contract) return null;
+    if (contract.Locations) {
+      const otherLocationsPull = contract?.Locations?.filter(
+        (location) => location.ContractLocation?.tag === 'other',
+      );
+      return otherLocationsPull.map((location) => location.id);
+    }
+    return [];
+  };
+
+  const otherLocationIds = getOtherLocationIds();
 
   return (
     <VLViewport
@@ -302,11 +347,383 @@ export const ContractPage: React.FC<unknown> = () => {
                     )}
                   </DigiField>
                 </DigiDisplay>
+                {!tablet && (
+                  <DigiDisplay data-testid="ContractPage-Info-ContractInfo__Pay_Wrapper">
+                    <Typography
+                      sx={{
+                        fontWeight: 'bold',
+                        cursor: 'default',
+                      }}
+                    >
+                      Pay Info
+                    </Typography>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        gap: { lg: '3em', xl: '4em' },
+                        px: '1.5em',
+                        my: 'auto',
+                      }}
+                    >
+                      {contract && (
+                        <PayStructure
+                          payStructure={contract.payStructure}
+                          testid="ContractPage-Info-ContractInfo__PayStructure_Field"
+                          slots={{
+                            label: {
+                              sx: {
+                                fontSize: {
+                                  s: '.7em',
+                                  md: '.8em',
+                                  lg: '.9em',
+                                  xl: '1em',
+                                },
+                                mb: { s: '.5em', md: '.6em' },
+                              },
+                            },
+                          }}
+                        />
+                      )}
+                      {contract && (
+                        <PayDisplay
+                          testid="ContractPage-Info-ContractInfo__DefaultPay_Field"
+                          label="Default Pay"
+                          pay={contract.defaultPay}
+                          slots={{
+                            label: {
+                              sx: {
+                                fontSize: {
+                                  s: '.7em',
+                                  md: '.8em',
+                                  lg: '.9em',
+                                  xl: '1em',
+                                },
+                                mb: { s: '.5em', md: '.6em' },
+                              },
+                            },
+                          }}
+                        />
+                      )}
+                    </Box>
+                  </DigiDisplay>
+                )}
                 <UserDisplay userid={contract?.owner_id} />
               </>
             )}
           </Box>
         </DigiBox>
+        {mobile && (
+          <DigiBox
+            data-testid="ContractPage__Pay&Breifing_Mobile_Wrapper"
+            sx={{ my: '1em', p: '.5em' }}
+          >
+            <DigiDisplay
+              data-testid="ContractPage-Pay&Briefing-Mobile__Pay_Wrapper"
+              sx={{ mx: 'auto', px: '5%' }}
+            >
+              <Typography
+                data-testid="ContractPage-Pay&Briefing-Mobile__Pay_Title"
+                variant="body2"
+                sx={{ fontWeight: 'bold' }}
+              >
+                Pay Info
+              </Typography>
+              <Box
+                daya-testid="ContractPage-Pay&Briefing-Mobile__Fields_Wrapper"
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  gap: '1em',
+                  mb: '.5em',
+                  mt: '.2em',
+                }}
+              >
+                {contract && (
+                  <PayStructure
+                    testid="ContractPage-Pay&Briefing-Mobile__PayStructure_Field"
+                    payStructure={contract.payStructure}
+                  />
+                )}
+                {contract && (
+                  <PayDisplay
+                    testid="ContractPage-Pay&Briefing-Mobile__DefaultPay_Field"
+                    label="Default Pay"
+                    pay={contract.defaultPay}
+                    sx={{ minWidth: '90px' }}
+                  />
+                )}
+              </Box>
+            </DigiDisplay>
+            <DigiDisplay
+              data-testid="ContractPage-Pay&Briefing-Mobile__Briefing_Wrapper"
+              sx={{
+                my: '.5em',
+                width: '90%',
+                alignSelf: 'center',
+                py: '.2em',
+                px: '.5em',
+              }}
+            >
+              <Typography
+                data-testid="ContractPage-PayBriefing-Mobile__Briefing_Title"
+                variant="body2"
+                sx={{ fontWeight: 'bold' }}
+              >
+                Briefing
+              </Typography>
+              {contract && (
+                <Typography
+                  data-testid="ContractPage-PayBriefing-Mobile__Briefing_Content"
+                  variant="body2"
+                  sx={{ color: 'text.primary' }}
+                >
+                  {contract.briefing}
+                </Typography>
+              )}
+            </DigiDisplay>
+          </DigiBox>
+        )}
+        {!mobile && tablet && (
+          <Box
+            data-testid="ContractPage__Pay&Briefing&Location_Tablet_Wrapper"
+            sx={{
+              mt: '1.5em',
+              display: 'flex',
+              flexDirection: 'row',
+              width: '100%',
+              justifyContent: 'space-around',
+            }}
+          >
+            <DigiBox
+              data-testid="ContractPage__Pay&Briefing_Tablet_Wrapper"
+              sx={{ p: '2em', width: '45%' }}
+            >
+              <DigiDisplay
+                data-testid="ContractPage-Pay&Briefing__Pay_Tablet_Wrapper"
+                sx={{ px: '1em', py: '.5em' }}
+              >
+                <Typography
+                  data-testid="ContractPage-Pay&Briefing-Pay-Tablet__Title"
+                  sx={{ fontWeight: 'bold' }}
+                >
+                  Pay Info
+                </Typography>
+                {contract && (
+                  <Box
+                    data-testid="ContractPage-Pay&Briefing-Pay-Tablet__Fields_Wrapper"
+                    sx={{ display: 'flex', flexDirection: 'row', gap: '2em', my: '.5em' }}
+                  >
+                    <PayStructure
+                      testid="ContractPage-Pay&Briefing-Pay-Tablet-Fields__PayStructure_Field"
+                      payStructure={contract.payStructure}
+                      slots={{
+                        content: {
+                          sx: {
+                            minWidth: '90px',
+                          },
+                        },
+                        label: {
+                          sx: {
+                            fontSize: '.9em',
+                          },
+                        },
+                      }}
+                    />
+                    <PayDisplay
+                      testid="ContractPage-Pay&Briefing-Pay-Tablet-Fields__DefaultPay_Field"
+                      label="Default Pay"
+                      pay={contract.defaultPay}
+                      slots={{
+                        content: {
+                          sx: {
+                            minWidth: '90px',
+                          },
+                        },
+                        label: {
+                          sx: {
+                            fontSize: '.9em',
+                          },
+                        },
+                      }}
+                    />
+                  </Box>
+                )}
+              </DigiDisplay>
+              <DigiDisplay
+                data-testid="ContractPage-Pay&Briefing__Briefing_Tablet_Wrapper"
+                sx={{ mt: '2em', px: '1em', py: '.5em' }}
+              >
+                <Typography
+                  data-testid="ContractPage-Pay&Briefing-Briefing"
+                  sx={{ fontWeight: 'bold' }}
+                >
+                  Briefing
+                </Typography>
+                {contract && (
+                  <Typography sx={{ color: 'text.primary' }}>
+                    {contract.briefing}
+                  </Typography>
+                )}
+              </DigiDisplay>
+            </DigiBox>
+            <DigiBox
+              data-testid="ContractPage__Location_Tablet_Wrapper"
+              sx={{
+                p: '2em',
+                maxWidth: '40%',
+                justifyContent: 'flex-start',
+                flexGrow: 1,
+              }}
+            >
+              <DigiDisplay data-testid="ContractPage-Location-Tablet__Title_Wrapper">
+                <Typography
+                  data-testid="ContractPage-Location-Tablet__Title_Text"
+                  sx={{ fontWeight: 'bold' }}
+                >
+                  Locations
+                </Typography>
+              </DigiDisplay>
+              {contract && contract.Locations && (
+                <Box
+                  data-testid="ContractPage-Location-Tablet__LocationList_Wrapper"
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-around',
+                    alignItems: 'center',
+                    flexGrow: 1,
+                    width: '100%',
+                  }}
+                >
+                  <DigiField
+                    data-testid="ContractPage-Location-Tablet-LocationList__StartLocation_Wrapper"
+                    label="Start Location"
+                    sx={{
+                      width: '60%',
+                      px: '.5em',
+                    }}
+                    slots={{
+                      content: {
+                        sx: {
+                          width: '100%',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          my: '.2em',
+                        },
+                      },
+                      typography: {
+                        sx: {
+                          width: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        },
+                      },
+                      label: {
+                        sx: {
+                          fontSize: '.8em',
+                          fontWeight: 'bold',
+                        },
+                      },
+                    }}
+                  >
+                    <LocationChip locationId={startLocationId ?? ''} />
+                  </DigiField>
+                  <DigiField
+                    data-testid="ContractPage-Location-Tablet-LocationList__EndLocation_Wrapper"
+                    label="End Location"
+                    sx={{
+                      width: '60%',
+                      px: '.5em',
+                    }}
+                    slots={{
+                      content: {
+                        sx: {
+                          width: '100%',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          my: '.2em',
+                        },
+                      },
+                      typography: {
+                        sx: {
+                          width: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        },
+                      },
+                      label: {
+                        sx: {
+                          fontSize: '.8em',
+                          fontWeight: 'bold',
+                        },
+                      },
+                    }}
+                  >
+                    {endLocationId ? (
+                      <LocationChip locationId={endLocationId ?? ''} />
+                    ) : (
+                      <Typography
+                        data-testid="ContractPage-Location-Tablet-LocationList-EndLocation__Missing_Text"
+                        variant="body2"
+                        sx={{ color: 'info.main' }}
+                      >
+                        No End Location
+                      </Typography>
+                    )}
+                  </DigiField>
+                  <PopupFormSelection
+                    data-testid="ContractPage-Location-Tablet-LocationList__OtherLocations_Wrapper"
+                    sx={{
+                      justifyContent: 'center',
+                      flexDirection: 'column',
+                      overflow: 'hidden',
+                      p: '.5em',
+                      width: '60%',
+                      alignItems: 'space-around',
+                    }}
+                  >
+                    <Typography
+                      data-testid="ContractPage-Location-Tablet-LocationList-OtherLocations__Title"
+                      variant="body2"
+                      sx={{ fontWeight: 'bold', mb: '.2em' }}
+                    >
+                      Other Locations
+                    </Typography>
+                    <Box
+                      data-testid="ContractPage-Location-Tablet-LocationList-OtherLocaions__List_Wrapper"
+                      ref={scrollRef}
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        flexWrap: 'nowrap',
+                        overflowX: 'auto',
+                        gap: '.2em',
+                      }}
+                    >
+                      {otherLocationIds && otherLocationIds.length > 0 ? (
+                        <>
+                          {otherLocationIds.map((loc) => (
+                            <LocationChip key={loc} locationId={loc} />
+                          ))}
+                        </>
+                      ) : (
+                        <Typography>No Other Locations</Typography>
+                      )}
+                    </Box>
+                  </PopupFormSelection>
+                </Box>
+              )}
+              {contract && (!contract.Locations || contract.Locations.length === 0) && (
+                <Typography variant="error">
+                  Contract Missing Start Location. Please report error.
+                </Typography>
+              )}
+            </DigiBox>
+          </Box>
+        )}
       </GlassBox>
     </VLViewport>
   );
