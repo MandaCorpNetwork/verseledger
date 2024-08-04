@@ -48,7 +48,6 @@ export const ContractPage: React.FC<unknown> = () => {
   const [archetype, setArchetype] = React.useState<string | null>(null);
   const [timeTab, setTimeTab] = React.useState<string>('bid');
   const [activeDataTab, setActiveDataTab] = React.useState<string>('contractors');
-  const [opacity, setOpacity] = React.useState(0.5);
 
   const archetypeOptions = contractArchetypes('secondary.main', 'inherit');
 
@@ -190,16 +189,33 @@ export const ContractPage: React.FC<unknown> = () => {
     dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
   };
 
-  React.useEffect(() => {
-    const handleScroll = () => {
-      setOpacity(1);
-      const timeoutId = setTimeout(() => setOpacity(0.5), 2000);
-      return () => clearTimeout(timeoutId);
-    };
+  const [opacity, setOpacity] = React.useState(0.8);
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+  const throttle = (func: (...args: unknown[]) => void, limit: number) => {
+    let inThrottle: boolean;
+    return (...args: unknown[]) => {
+      if (!inThrottle) {
+        func(...args);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), limit);
+      }
+    };
+  };
+
+  const handleScroll = React.useCallback(() => {
+    setOpacity(1);
+    setTimeout(() => setOpacity(0.5), 2000);
   }, []);
+
+  const throttledScroll = React.useMemo(
+    () => throttle(handleScroll, 200),
+    [handleScroll],
+  );
+
+  React.useEffect(() => {
+    window.addEventListener('scroll', throttledScroll);
+    return () => window.removeEventListener('scroll', throttledScroll);
+  }, [throttledScroll]);
 
   return (
     <VLViewport
@@ -1062,7 +1078,31 @@ export const ContractPage: React.FC<unknown> = () => {
               position: 'sticky',
               bottom: 0,
               left: 0,
-              opacity: opacity,
+              transition: 'opacity 0.5s ease-in-out',
+              zIndex: '50',
+            }}
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                playSound('navigate');
+                navigate(-1);
+              }}
+              startIcon={<ArrowBackIosNew />}
+              sx={{ opacity: opacity }}
+            >
+              Return
+            </Button>
+          </Box>
+        )}
+        {tablet && !mobile && (
+          <Box
+            data-testid="ContractPage__Tablet_ReturnButton_Wrapper"
+            sx={{
+              position: 'absolute',
+              bottom: 10,
+              left: 10,
               transition: 'opacity 0.5s ease-in-out',
               zIndex: '50',
             }}
