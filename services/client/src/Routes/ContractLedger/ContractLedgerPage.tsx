@@ -54,6 +54,10 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   const handleContractPick = useCallback(
     (id: string | null) => {
       setSelectedId(id);
+      if (mobile || tablet) {
+        playSound('navigate');
+        navigate(`/contract?contractID=${id}`);
+      }
     },
     [setSelectedId],
   );
