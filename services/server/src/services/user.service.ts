@@ -33,7 +33,7 @@ export class UserService {
 
     optionalSet(query, 'status', queryIn(status));
     optionalSet(query, 'contract_id', queryIn(contractId));
-    return await ContractBid.scope(['contract']).findAndCountAll({
+    const bids = await ContractBid.scope(['contract']).findAndCountAll({
       where: {
         ...query,
         user_id: id,
@@ -41,6 +41,16 @@ export class UserService {
       limit: Math.min(limit, 25),
       offset: page * Math.min(limit, 25),
     });
+
+    //TODO: This needs a proper workaround
+    const count = await ContractBid.scope(['contract']).count({
+      where: {
+        ...query,
+        user_id: id,
+      },
+    });
+
+    return { ...bids, count };
   }
 
   public async findOrCreateUserByDiscord(
