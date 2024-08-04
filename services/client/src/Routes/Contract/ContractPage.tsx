@@ -21,6 +21,7 @@ import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBids/Contra
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import { isMobile } from '@Utils/isMobile';
