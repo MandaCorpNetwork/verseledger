@@ -11,10 +11,24 @@ type LocationChipProps = {
   locationId: string;
   onDelete?: (locationId: string) => void;
   sx?: object;
+  ['data-testid']?: string;
+  variant?: 'filled' | 'outlined';
+  size?: 'small' | 'medium';
+  color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
+  iconSize?: 'small' | 'medium' | 'large';
 };
 
 export const LocationChip: React.FC<LocationChipProps> = (props) => {
-  const { locationId, onDelete, sx } = props;
+  const {
+    locationId,
+    onDelete,
+    sx,
+    'data-testid': testid = 'Chip',
+    variant = 'outlined',
+    size = 'small',
+    color = 'secondary',
+    iconSize = 'medium',
+  } = props;
   const { playSound } = useSoundEffect();
   const dispatch = useAppDispatch();
 
@@ -33,12 +47,12 @@ export const LocationChip: React.FC<LocationChipProps> = (props) => {
   return (
     <Tooltip title={location ? location.short_name : 'Redacted'}>
       <Chip
-        data-testid="LocationChip"
+        data-testid={`LocationChip__${testid}_root`}
         label={location ? location.short_name : 'Redacted'}
-        color="secondary"
-        variant="outlined"
-        icon={<Place />}
-        size="small"
+        color={color}
+        variant={variant}
+        icon={<Place fontSize={iconSize} />}
+        size={size}
         onClick={handleLocationInfoPopup}
         onDelete={onDelete ? () => onDelete(locationId) : undefined}
         sx={{

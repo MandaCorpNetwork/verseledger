@@ -88,10 +88,37 @@ export function useHorizontalAdvancedScroll(): RefObject<HTMLDivElement> {
       }, 50);
     };
 
-    el.addEventListener('wheel', onWheel, { passive: false });
+    let startX: number;
+    let startScrollLeft: number;
 
+    const onTouchStart = (e: TouchEvent) => {
+      isScrolling = true;
+      startX = e.touches[0].pageX - el.offsetLeft;
+      startScrollLeft = el.scrollLeft;
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+      const x = e.touches[0].pageX - el.offsetLeft;
+      const walk = (x - startX) * 2; // Scroll sensitivity
+      el.scrollLeft = startScrollLeft - walk;
+    };
+
+    const onTouchEnd = () => {
+      isScrolling = false;
+      applyInertia();
+    };
+
+    el.addEventListener('wheel', onWheel, { passive: false });
+    el.addEventListener('touchstart', onTouchStart, { passive: false });
+    el.addEventListener('touchmove', onTouchMove, { passive: false });
+    el.addEventListener('touchend', onTouchEnd, { passive: false });
     return () => {
       el.removeEventListener('wheel', onWheel);
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchmove', onTouchMove);
+      el.removeEventListener('touchend', onTouchEnd);
       if (scrollTimeout) clearTimeout(scrollTimeout);
     };
   }, [elRef]);

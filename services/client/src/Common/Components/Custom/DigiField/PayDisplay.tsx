@@ -10,6 +10,7 @@ type PayLabelProps = {
   maxWidth?: string;
   width?: string;
   testid?: string;
+  slots?: object;
 };
 
 const PayDigiField: React.FC<PayLabelProps> = ({
@@ -19,6 +20,7 @@ const PayDigiField: React.FC<PayLabelProps> = ({
   width,
   testid,
   sx,
+  slots,
 }) => {
   const formattedPay = pay.toLocaleString();
   return (
@@ -26,6 +28,7 @@ const PayDigiField: React.FC<PayLabelProps> = ({
       <DigiField
         data-testid={testid}
         label={label}
+        slots={slots}
         startAdornment={
           <Typography color="secondary" sx={{ fontSize: '1em' }}>
             ¤
