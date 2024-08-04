@@ -33,7 +33,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { useSoundEffect } from '@/AudioManager';
 import { ContractorsPanel } from '@/Components/Contracts/Ledger/Details/ActiveDataPanel';
-import { BiddingTimePanel } from '@/Components/Contracts/Ledger/Details/TimePanel';
+import {
+  BiddingTimePanel,
+  ContractDurationPanel,
+} from '@/Components/Contracts/Ledger/Details/TimePanel';
 
 export const ContractPage: React.FC<unknown> = () => {
   const [searchParam] = useURLQuery();
@@ -149,7 +152,7 @@ export const ContractPage: React.FC<unknown> = () => {
         case 'bid':
           return <BiddingTimePanel contract={contract} />;
         case 'start':
-          return <BiddingTimePanel contract={contract} />;
+          return <ContractDurationPanel contract={contract} />;
         default:
           return;
       }
@@ -1050,7 +1053,7 @@ export const ContractPage: React.FC<unknown> = () => {
                 indicatorColor="secondary"
               >
                 <SmallTabHolo label="Contractors" value="contractors" />
-                <SmallTabHolo label="Ships" value="ships" />
+                <SmallTabHolo label="Ships" value="ships" disabled />
               </SmallTabsHolo>
             </ControlPanelBox>
             <DigiBox data-testid="ContractPage-ActiveData-Small__Panel_Container">
@@ -1069,6 +1072,235 @@ export const ContractPage: React.FC<unknown> = () => {
             >
               Submit Bid
             </Button>
+          </Box>
+        )}
+        {!mobile && !tablet && contract && (
+          <Box
+            data-testid="ContractPage__Bottom_Container"
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              flexGrow: 1,
+              alignItems: 'space-around',
+              my: { lg: '2em', xl: '3em' },
+            }}
+          >
+            <Box
+              data-testid="ContractPage-Bottom__Left_Container"
+              sx={{
+                width: '45%',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <Box
+                data-testid="ContractPage-Bottom-Left__Time_Container"
+                sx={{ width: '50%' }}
+              >
+                <ControlPanelBox
+                  data-testid="ContractPage-Time__TabList_Wrapper"
+                  sx={{ display: 'block', px: '.5em', py: '.5em', mb: '2em' }}
+                >
+                  <SmallTabsHolo
+                    variant="fullWidth"
+                    value={timeTab}
+                    onChange={handleTimeTabChange}
+                    textColor="secondary"
+                    indicatorColor="secondary"
+                  >
+                    <SmallTabHolo label="Bidding Time" value="bid" />
+                    <SmallTabHolo label="Contract Duration" value="start" />
+                  </SmallTabsHolo>
+                </ControlPanelBox>
+                <DigiDisplay data-testid="ContractPage-Time__Panel_Wrapper">
+                  {contractTimePanel(timeTab)}
+                </DigiDisplay>
+              </Box>
+              <Box
+                data-testid="ContractPage-Bottom-Left__ActiveData_Container"
+                sx={{ width: '80%' }}
+              >
+                <ControlPanelBox
+                  data-testid="ContractPage-"
+                  sx={{ display: 'block', px: '.5em', py: '.5em', mb: '2em' }}
+                >
+                  <SmallTabsHolo
+                    variant="fullWidth"
+                    value={activeDataTab}
+                    onChange={handleActiveTabChange}
+                    textColor="secondary"
+                    indicatorColor="secondary"
+                  >
+                    <SmallTabHolo label="Contractors" value="contractors" />
+                    <SmallTabHolo label="Ships" value="ships" disabled />
+                  </SmallTabsHolo>
+                </ControlPanelBox>
+                <DigiDisplay data-testid="ContractPage-ActiveData__Panel_Wrapper">
+                  {activeDataPanel(activeDataTab)}
+                </DigiDisplay>
+              </Box>
+            </Box>
+            <Box
+              data-testid="ContractPage-Bottom__Right_Container"
+              sx={{
+                width: '45%',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <DigiBox>
+                <DigiDisplay>
+                  <Typography>Locations</Typography>
+                </DigiDisplay>
+                <Box
+                  data-testid="ContractPage-Location-Mobile__LocationList_Wrapper"
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    width: '100%',
+                    gap: '.5em',
+                    my: '.5em',
+                  }}
+                >
+                  <DigiField
+                    data-testid="ContractPage-Location-Mobile-LocationList__StartLocation_Wrapper"
+                    label="Start Location"
+                    sx={{
+                      width: '60%',
+                      px: '.5em',
+                    }}
+                    slots={{
+                      content: {
+                        sx: {
+                          width: '100%',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          my: '.2em',
+                        },
+                      },
+                      typography: {
+                        sx: {
+                          width: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        },
+                      },
+                      label: {
+                        sx: {
+                          fontSize: '.8em',
+                          fontWeight: 'bold',
+                        },
+                      },
+                    }}
+                  >
+                    <LocationChip locationId={startLocationId ?? ''} />
+                  </DigiField>
+                  <DigiField
+                    data-testid="ContractPage-Location-Mobile-LocationList__EndLocation_Wrapper"
+                    label="End Location"
+                    sx={{
+                      width: '60%',
+                      px: '.5em',
+                    }}
+                    slots={{
+                      content: {
+                        sx: {
+                          width: '100%',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          my: '.2em',
+                        },
+                      },
+                      typography: {
+                        sx: {
+                          width: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        },
+                      },
+                      label: {
+                        sx: {
+                          fontSize: '.8em',
+                          fontWeight: 'bold',
+                        },
+                      },
+                    }}
+                  >
+                    {endLocationId ? (
+                      <LocationChip locationId={endLocationId ?? ''} />
+                    ) : (
+                      <Typography
+                        data-testid="ContractPage-Location-Mobile-LocationList-EndLocation__Missing_Text"
+                        variant="body2"
+                        sx={{ color: 'info.main' }}
+                      >
+                        No End Location
+                      </Typography>
+                    )}
+                  </DigiField>
+                  <PopupFormSelection
+                    data-testid="ContractPage-Location-Mobile-LocationList__OtherLocations_Wrapper"
+                    sx={{
+                      justifyContent: 'center',
+                      flexDirection: 'column',
+                      overflow: 'hidden',
+                      p: '.5em',
+                      width: '60%',
+                      alignItems: 'space-around',
+                    }}
+                  >
+                    <Typography
+                      data-testid="ContractPage-Location-Mobile-LocationList-OtherLocations__Title"
+                      variant="body2"
+                      sx={{ fontWeight: 'bold', mb: '.2em' }}
+                    >
+                      Other Locations
+                    </Typography>
+                    <Box
+                      data-testid="ContractPage-Location-Mobile-LocationList-OtherLocaions__List_Wrapper"
+                      ref={scrollRef}
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        flexWrap: 'nowrap',
+                        overflowX: 'auto',
+                        gap: '.2em',
+                      }}
+                    >
+                      {otherLocationIds && otherLocationIds.length > 0 ? (
+                        <>
+                          {otherLocationIds.map((loc) => (
+                            <LocationChip key={loc} locationId={loc} />
+                          ))}
+                        </>
+                      ) : (
+                        <Typography variant="body2">No Other Locations</Typography>
+                      )}
+                    </Box>
+                  </PopupFormSelection>
+                </Box>
+                {contract && (!contract.Locations || contract.Locations.length === 0) && (
+                  <Typography variant="error">
+                    Contract Missing Start Location. Please report error.
+                  </Typography>
+                )}
+              </DigiBox>
+              <ControlPanelBox>
+                <Button
+                  color="secondary"
+                  variant="outlined"
+                  onClick={handleSubmitBidPopup}
+                >
+                  Submit Bid
+                </Button>
+              </ControlPanelBox>
+            </Box>
           </Box>
         )}
         {mobile && (
@@ -1102,6 +1334,30 @@ export const ContractPage: React.FC<unknown> = () => {
             sx={{
               position: 'absolute',
               bottom: 10,
+              left: 10,
+              transition: 'opacity 0.5s ease-in-out',
+              zIndex: '50',
+            }}
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                playSound('navigate');
+                navigate(-1);
+              }}
+              startIcon={<ArrowBackIosNew />}
+            >
+              Return
+            </Button>
+          </Box>
+        )}
+        {!mobile && !tablet && (
+          <Box
+            data-testid="ContractPage__Desktop_ReturnButton_Wrapper"
+            sx={{
+              position: 'absolute',
+              top: 10,
               left: 10,
               transition: 'opacity 0.5s ease-in-out',
               zIndex: '50',
