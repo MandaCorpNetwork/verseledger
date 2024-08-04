@@ -208,7 +208,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         })
         .catch((err) => {
           playSound('error');
-          enqueueSnackbar('Failed to Copy Contract', { variant: 'error' });
+          enqueueSnackbar(`Failed to Copy Contract: ${err}`, { variant: 'error' });
         });
     } else {
       playSound('denied');
