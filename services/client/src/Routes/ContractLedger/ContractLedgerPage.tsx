@@ -1,4 +1,5 @@
 //Timeing on animations needs work
+import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import {
   FleetIcon,
   LogisticsIcon,
@@ -20,6 +21,8 @@ import { POPUP_CREATE_CONTRACT } from '@Popups/Contracts/CreateContract/CreateCo
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { isMobile } from '@Utils/isMobile';
+import { isTablet } from '@Utils/isTablet';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -33,7 +36,6 @@ import ProxyLoop from '@/Assets/media/ContractLedger/ProxyLoop.webm?url';
 import RRRLoop from '@/Assets/media/ContractLedger/RRRLoop.webm?url';
 import SalvageLoop from '@/Assets/media/ContractLedger/SalvLoop.webm?url';
 import SecurityLoop from '@/Assets/media/ContractLedger/SecLoop.webm?url';
-import BackdropLogo from '@/Assets/media/VerseLogos/LogoBackdrop.png?url';
 import { useSoundEffect } from '@/AudioManager';
 import { ContractLedgerLoopButton } from '@/Components/Contracts/Ledger/ContractLedgerLoopButton';
 import { ContractLedgerQuickNav } from '@/Components/Contracts/Ledger/ContractLedgerQuickNav';
@@ -46,10 +48,16 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   const [isExpanded, setExpanded] = useState(false);
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
+  const mobile = isMobile();
+  const tablet = isTablet();
 
   const handleContractPick = useCallback(
     (id: string | null) => {
       setSelectedId(id);
+      if (mobile || tablet) {
+        playSound('navigate');
+        navigate(`/contract?contractID=${id}`);
+      }
     },
     [setSelectedId],
   );
@@ -129,28 +137,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   };
 
   return (
-    <Box
-      data-testid="ContractLedger__PageContainer"
-      sx={{
-        width: '100vw',
-        height: 'calc(100vh - 64px)',
-        overflow: 'hidden',
-        '&:before': {
-          content: '""',
-          position: 'absolute',
-          backgroundImage: `url(${BackdropLogo})`,
-          backgroundSize: 'auto',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          zIndex: -1,
-          opacity: 0.5,
-        },
-      }}
-    >
+    <VLViewport data-testid="ContractLedger__PageContainer">
       <Box
         data-testid="ContractLedger__LedgerWrapper"
         sx={{
@@ -198,23 +185,21 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
             transition: 'all 0.5s',
           }}
         >
-          <IconButton
-            sx={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              transform: `rotate(${isExpanded ? '180deg' : '0'})`,
-              transition: 'transform 0.3s',
-            }}
-            onClick={handleDrawerOpen}
-          >
-            <KeyboardDoubleArrowRight fontSize="large" />
-          </IconButton>
-          <Box
-            sx={{
-              mt: '3em',
-            }}
-          >
+          {!mobile && !tablet && (
+            <IconButton
+              sx={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                transform: `rotate(${isExpanded ? '180deg' : '0'})`,
+                transition: 'transform 0.3s',
+              }}
+              onClick={handleDrawerOpen}
+            >
+              <KeyboardDoubleArrowRight fontSize="large" />
+            </IconButton>
+          )}
+          <Box marginTop={{ xs: '.5em', sm: '.5em', md: '2em', lg: '3em' }}>
             <Slide
               direction="right"
               in={!isExpanded}
@@ -224,16 +209,18 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
             >
               <Box>
                 <Tooltip title="Create Contract" placement="right">
-                  <IconButton onClick={openCreateContract}>
+                  <IconButton onClick={openCreateContract} size="small">
                     <AddCircle fontSize="large" />
                   </IconButton>
                 </Tooltip>
                 <Tooltip title="Manage Contracts" placement="right">
                   <IconButton
                     onClick={() => {
-                      navigate('/ledger/personal');
+                      navigate('/ledger/personal/contractManager');
                       playSound('navigate');
                     }}
+                    size="small"
+                    sx={{ ml: '.2em' }}
                   >
                     <EditNote fontSize="large" />
                   </IconButton>
@@ -343,28 +330,32 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
             flex: '1',
             background: 'rgba(0,30,100,0.2)',
             backdropFilter: 'blur(20px)',
+            p: '1em',
+            gap: '1em',
           }}
         >
-          <ContractTableTools />
+          {!mobile && !tablet && <ContractTableTools />}
           <ContractsBrowser
             selectedId={selectedId}
             selectedIdSetter={handleContractPick}
             contractOnClose={handleContractClose}
           />
         </Box>
-        <Box
-          data-testid="ContractLedger__ColumnThree"
-          sx={{
-            ml: '1em',
-            width: '30%',
-            height: '100%',
-            background: 'rgba(0,30,100,0.2)',
-            backdropFilter: 'blur(20px)',
-          }}
-        >
-          <ContractDisplayContainer selectedId={selectedId} />
-        </Box>
+        {!mobile && !tablet && (
+          <Box
+            data-testid="ContractLedger__ColumnThree"
+            sx={{
+              ml: '1em',
+              width: '30%',
+              height: '100%',
+              background: 'rgba(0,30,100,0.2)',
+              backdropFilter: 'blur(20px)',
+            }}
+          >
+            <ContractDisplayContainer selectedId={selectedId} />
+          </Box>
+        )}
       </Box>
-    </Box>
+    </VLViewport>
   );
 };

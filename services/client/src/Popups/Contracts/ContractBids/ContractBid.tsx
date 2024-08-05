@@ -1,5 +1,5 @@
-import DigiBox from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
 import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';

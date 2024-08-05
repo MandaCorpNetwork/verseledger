@@ -1,5 +1,5 @@
 //ContractManagerApp.tsx
-import ControlPanelBox from '@Common/Components/Boxes/ControlPanelBox';
+import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { TabContext, TabList } from '@mui/lab';
 import { Box, Tab } from '@mui/material';

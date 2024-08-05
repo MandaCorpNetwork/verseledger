@@ -22,6 +22,7 @@ declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     tip: true;
     paragraph: true;
+    error: true;
   }
 }
 
@@ -31,8 +32,8 @@ export const verseOSTheme = createTheme({
       xs: 0,
       sm: 480,
       md: 768,
-      lg: 1024,
-      xl: 1440,
+      lg: 1920,
+      xl: 3040,
     },
   },
   palette: {
@@ -67,7 +68,7 @@ export const verseOSTheme = createTheme({
       dark: 'rgb(14,49,252)',
     },
     warning: {
-      main: 'rgb(255, 141, 15)',
+      main: 'rgb(255,193,0)',
     },
     error: {
       main: 'rgb(255, 0, 8)',
@@ -103,24 +104,42 @@ export const verseOSTheme = createTheme({
             wordBreak: 'break-all',
           },
         },
+        {
+          props: { variant: 'error' },
+          style: {
+            color: 'rgb(255,0,8)',
+            fontWeight: 'bold',
+            fontSize: '.8em',
+            backgroundImage:
+              'linear-gradient(135deg, rgba(190,0,0,.4), rgba(50,50,50,.5))',
+            borderRadius: '8px',
+            cursor: 'default',
+            display: 'inline-block',
+            textShadow: '0 0 6px rgba(0,0,0), 0 0 2px rgba(255,0,0,.4)',
+            boxShadow: '0 4px 10px rgba(0,0,0,.6), 0 2px 6px rgba(255,0,0,.4)',
+          },
+        },
       ],
     },
     MuiLinearProgress: {
       styleOverrides: {
         root: {
-          height: '7px',
+          height: '8px',
           borderRadius: '5px',
-          boxShadow: '0 0 10px 3px rgba(24,252,252,0.2)',
-          background:
-            'linear-gradient(135deg, rgba(0,30,100,.8) 0%, rgba(0,73,130,.8) 50%, rgba(14,49,252,.5) 100%)',
-          border: '1px solid rgba(14,49,252,.5)',
-          '& .MuiLinearProgress-bar': {
-            borderRadius: '5px',
-          },
-          '& .MuiLinearProgress-barColorPrimary': {
-            backgroundColor: 'rgb(24,252,252)',
-            boxShadow: '0 0 10px 2px rgba(24,252,252)',
-          },
+          backgroundColor: 'rgba(6,86,145,.5)',
+          border: '2px solid rgba(14,49,252,.5)',
+          boxShadow:
+            '0 4px 8px rgba(0,0,0,0.4), 0 8px 16px rgba(0,0,0,0.3), 0 6px 12px rgba(0,0,0,0.2), 0 0 4px rgba(24,252,252,0.5)',
+          position: 'relative',
+        },
+        bar: {
+          borderRadius: '5px',
+          backgroundColor: 'rgb(24,252,252)',
+          boxShadow: '0 0 10px 2px rgba(24,252,252)',
+          top: 0,
+          left: 0,
+          height: '100%',
+          width: '100%',
         },
       },
     },

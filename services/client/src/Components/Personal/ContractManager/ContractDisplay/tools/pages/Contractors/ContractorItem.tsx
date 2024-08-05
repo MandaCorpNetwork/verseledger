@@ -1,5 +1,5 @@
 import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
-import ControlPanelBox from '@Common/Components/Boxes/ControlPanelBox';
+import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { UserChip } from '@Common/Components/Chips/UserChip';
 import { Box, Button, Tooltip, Typography } from '@mui/material';
 import { POPUP_COUNTER_OFFER_BID } from '@Popups/Contracts/ContractBids/CounterOffer';

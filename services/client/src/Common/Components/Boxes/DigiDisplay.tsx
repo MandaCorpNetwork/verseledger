@@ -1,6 +1,6 @@
 import { Box, styled } from '@mui/material';
 
-const DigiDisplay = styled(Box)(({ theme }) => ({
+export const DigiDisplay = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',

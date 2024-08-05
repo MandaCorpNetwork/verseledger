@@ -11,6 +11,8 @@ type PayStructureProps = {
   maxWidth?: string;
   testid?: string;
   width?: string;
+  slots?: object;
+  sx?: object;
 };
 
 const PayStructureLabel: React.FC<PayStructureProps> = ({
@@ -18,6 +20,8 @@ const PayStructureLabel: React.FC<PayStructureProps> = ({
   maxWidth,
   testid,
   width,
+  slots,
+  sx,
 }) => {
   const dispatch = useAppDispatch();
   // Handler to open PayStructure Info Popup
@@ -28,11 +32,12 @@ const PayStructureLabel: React.FC<PayStructureProps> = ({
     <DigiField
       data-testid={testid}
       label="Pay Structure"
+      slots={slots}
       endAdornment={
         <HelpOutline
           fontSize="small"
           onClick={handlePayStructurePopup}
-          sx={{ cursor: 'pointer', color: 'info.main' }}
+          sx={{ cursor: 'pointer', color: 'info.main', ...sx }}
         />
       }
       sx={{

@@ -1,44 +1,40 @@
+import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
+import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
+import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
+import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
+import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
+import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHolo';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
-import { ChevronLeft, ChevronRight, ExpandMore, HelpOutline } from '@mui/icons-material';
+import { ExpandMore, Launch, Link } from '@mui/icons-material';
 import {
   Box,
   Button,
   Chip,
   Collapse,
   IconButton,
-  InputAdornment,
-  styled,
-  Tab,
-  Tabs,
-  TextField,
   Tooltip,
   Typography,
 } from '@mui/material';
 import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBids/ContractBid';
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
-import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import { Logger } from '@Utils/Logger';
+import { enqueueSnackbar } from 'notistack';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { useSoundEffect } from '@/AudioManager';
 
 import { ContractorsPanel } from './ActiveDataPanel';
-import { BidPanel, EndPanel, StartPanel } from './TimePanel';
-
-const SmallTabs = styled(Tabs)({
-  minHeight: '10px',
-});
-
-const SmallTab = styled(Tab)({
-  minHeight: '10px',
-  height: '10px',
-  fontSize: '.8em',
-});
+import { BiddingTimePanel, ContractDurationPanel } from './TimePanel';
 
 type ContractDisplayProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -48,6 +44,8 @@ type ContractDisplayProps = {
 export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) => {
   const { playSound } = useSoundEffect();
   const dispatch = useAppDispatch();
+  const scrollRef = useHorizontalAdvancedScroll();
+  const navigate = useNavigate();
 
   Logger.info(`ContractDisplay ID: ${contract.id}`);
 
@@ -56,10 +54,9 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const [locationsExpanded, setLocationsExpanded] = React.useState(true);
   const [activeDataTab, setActiveDataTab] = React.useState('contractors');
   const [timeTab, setTimeTab] = React.useState('bid');
-  const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
   const [archetype, setArchetype] = React.useState<string | null>(null);
 
-  const options = contractArchetypes('secondary.main');
+  const options = contractArchetypes('secondary.main', 'medium');
 
   React.useEffect(() => {
     const selectedArchetype = options.find((option) =>
@@ -124,16 +121,14 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
     (panel: string) => {
       switch (panel) {
         case 'bid':
-          return <BidPanel contractId={contract.id} />;
+          return <BiddingTimePanel contract={contract} />;
         case 'start':
-          return <StartPanel contractId={contract.id} />;
-        case 'end':
-          return <EndPanel contractId={contract.id} />;
+          return <ContractDurationPanel contract={contract} />;
         default:
           return;
       }
     },
-    [timeTab],
+    [timeTab, contract],
   );
 
   const activeDataPanel = React.useCallback(
@@ -155,27 +150,6 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
     },
     [activeDataTab, contract],
   );
-
-  const statusChipColor = React.useCallback(() => {
-    if (contract.status == 'BIDDING') {
-      return 'secondary';
-    } else if (contract.status == 'STARTED') {
-      return 'info';
-    } else if (contract.status == 'COMPLETE') {
-      return 'success';
-    } else if (contract.status == 'CANCELED') {
-      return 'error';
-    } else {
-      return 'primary';
-    }
-  }, [contract.status]);
-
-  const statusColor = statusChipColor();
-
-  const handlePayStructurePopup = () => {
-    playSound('open');
-    dispatch(openPopup(POPUP_PAY_STRUCTURES));
-  };
 
   const handleSubmitBidPopup = () => {
     playSound('open');
@@ -219,25 +193,28 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
 
   const otherLocationIds = getOtherLocationIds();
 
-  const handleOtherLocationIndexChange = React.useCallback(
-    (direction: string) => {
-      console.log(getOtherLocationIds());
-      if (otherLocationIds.length > 1) {
-        if (direction === 'back') {
-          if (otherLocationIndex > 0) {
-            setOtherLocationIndex((prevIndex) => prevIndex - 1);
-          }
-        }
-        if (direction === 'forward') {
-          if (otherLocationIndex < otherLocationIds.length - 1) {
-            setOtherLocationIndex((prevIndex) => prevIndex + 1);
-          }
-        }
-      }
-      Logger.info(otherLocationIndex);
-    },
-    [setOtherLocationIndex, otherLocationIndex, otherLocationIds],
-  );
+  const handleContractPageNav = (contractId: string) => {
+    playSound('navigate');
+    navigate(`/contract?contractID=${contractId}`);
+  };
+
+  const handleCopyURL = (url: string) => {
+    if (navigator.clipboard) {
+      navigator.clipboard
+        .writeText(url)
+        .then(() => {
+          playSound('clickMain');
+          enqueueSnackbar('Copied Contract to Clipboard', { variant: 'success' });
+        })
+        .catch((err) => {
+          playSound('error');
+          enqueueSnackbar(`Failed to Copy Contract: ${err}`, { variant: 'error' });
+        });
+    } else {
+      playSound('denied');
+      enqueueSnackbar('Clipboard API not supported', { variant: 'warning' });
+    }
+  };
 
   return (
     <Box
@@ -249,199 +226,202 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         width: '100%',
         p: '.5em',
         gap: '1em',
+        justifyContent: 'space-between',
       }}
     >
-      <Box
-        data-testid="ContractDisplay__TopBox"
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          width: '100%',
-          height: '20%',
-          justifyContent: 'space-around',
-        }}
+      <DigiBox
+        data-testid="ContractDisplay-Info__TitleBoxWrapper"
+        sx={{ width: '100%', height: '20%', p: '.5em' }}
       >
         <Box
-          data-testid="ContractDisplay__UserDisplayWrapper"
-          sx={{
-            width: '40%',
-            alignContent: 'center',
-          }}
+          data-testid="ContractDisplay-Info__TitleBarWrapper"
+          sx={{ width: '100%', mb: 'auto', display: 'flex', flexDirection: 'row' }}
         >
-          <UserDisplay userid={contract.owner_id} />
-        </Box>
-        <Box
-          data-testid="ContractDisplay-TopBox__TitleContainer"
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '55%',
-            height: '100%',
-          }}
-        >
-          <Box
-            data-testid="ContractDisplay-Info__TitleBoxWrapper"
+          <DigiDisplay
+            data-testid="ContractDisplay-Info__TitleBar"
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
-              p: '.5em',
-              ml: '1em',
-              width: '100%',
-              borderLeft: '1px solid rgba(14,49,141,0.5)',
-              borderRight: '1px solid rgba(14,49,141,0.5)',
-              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                background:
-                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                opacity: 0.6,
-                backdropFilter: 'blur(10px)',
-                zIndex: -1,
-                backgroundImage:
-                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                backgroundSize: '100% 2px',
-              },
+              flexDirection: 'row',
+              py: '.2em',
+              px: '.5em',
+              justifyContent: 'space-around',
+              flexGrow: 1,
             }}
           >
-            <Box
-              data-testid="ContractDisplay-Info__TitleBar"
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                backgroundColor: 'rgba(33,150,243,.2)',
-                borderRadius: '10px',
-                p: '.2em',
-                justifyContent: 'space-around',
-                width: '100%',
-              }}
-            >
-              <Tooltip title={contract.title} arrow>
-                <Typography
-                  variant="h6"
-                  noWrap
-                  sx={{ fontWeight: 'bold', maxWidth: '80%', pl: '.2em' }}
-                >
-                  {contract.title}
-                </Typography>
-              </Tooltip>
-              <Box
+            <Tooltip title={contract.title} arrow>
+              <Typography
+                variant="h6"
+                noWrap
                 sx={{
-                  flexGrow: '1',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  py: 'auto',
-                }}
-              />
-              <Tooltip title={archetype}>
-                {options.find((option) => option.archetype === archetype)
-                  ?.archetypeIcon ?? <Typography>???</Typography>}
-              </Tooltip>
-            </Box>
-            <Box
-              data-testid="ContractDisplay__DetailsContainer"
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                mt: '.5em',
-                width: '100%',
-                justifyContent: 'space-around',
-              }}
-            >
-              <Box
-                data-testid="ContractDisplay-Info-Details__StatusWrapper"
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  backgroundColor: 'rgba(33,150,243,.2)',
-                  borderRadius: '10px',
-                  px: '.5em',
-                  pb: '.5em',
-                  pt: '.2em',
-                  mr: '.5em',
+                  fontWeight: 'bold',
+                  maxWidth: '80%',
+                  color: 'text.primary',
+                  textShadow: '0 0 2px #fff, 0 0 10px #000',
+                  cursor: 'default',
                 }}
               >
-                <Typography
-                  data-testid="ContractDisplay-Info-Details__StatusTitle"
-                  align="center"
-                  variant="body2"
-                  sx={{ fontWeight: 'bold' }}
-                >
-                  Status
+                {contract.title}
+              </Typography>
+            </Tooltip>
+            <Box
+              sx={{
+                flexGrow: '1',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                py: 'auto',
+              }}
+            />
+            <Tooltip title={archetype}>
+              {options.find((option) => option.archetype === archetype)
+                ?.archetypeIcon ?? (
+                <Typography color="error" fontWeight="bold">
+                  ???
                 </Typography>
-                <Chip
-                  variant="filled"
-                  label={
-                    contract.status.charAt(0).toUpperCase() +
-                    contract.status.slice(1).toLowerCase()
-                  }
-                  color={statusColor}
-                  size="small"
-                />
-              </Box>
-              <Box
-                data-testid="ContractDisplay-Info-Details__SubTypeWrapper"
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  backgroundColor: 'rgba(33,150,243,.2)',
-                  borderRadius: '10px',
-                  px: '.5em',
-                  pb: '.5em',
-                  pt: '.2em',
-                }}
-              >
-                <Typography
-                  data-testid="ContractDisplay-Info-Details__SubTypeTitle"
-                  align="center"
-                  variant="body2"
-                  sx={{
-                    fontWeight: 'bold',
-                  }}
-                >
-                  Contract SubTypes
-                </Typography>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Chip
-                    variant="outlined"
-                    size="small"
-                    color="secondary"
-                    label={contract.subtype}
-                    icon={
-                      options.find((option) => option.archetype === archetype)
-                        ?.archetypeIcon
-                    }
-                    onClick={handleArchetypeOpen}
-                  />
-                </Box>
-              </Box>
-            </Box>
-          </Box>
+              )}
+            </Tooltip>
+          </DigiDisplay>
+          <IconButton
+            size="small"
+            onClick={() =>
+              handleCopyURL(`https://verseledger.net/contract?contractID=${contract.id}`)
+            }
+          >
+            <Link fontSize="small" />
+          </IconButton>
+          <IconButton size="small" onClick={() => handleContractPageNav(contract.id)}>
+            <Launch fontSize="small" />
+          </IconButton>
         </Box>
-      </Box>
+        <Box
+          data-testid="ContractDisplay__DetailsContainer"
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            mt: '.5em',
+            width: '100%',
+            flexGrow: 1,
+            justifyContent: 'space-around',
+          }}
+        >
+          <DigiDisplay
+            data-testid="ContractDisplay-Info-Details__StatusWrapper"
+            sx={{ px: '1em', my: 'auto', py: '.5em' }}
+          >
+            <Tooltip title={contract.title} arrow>
+              <Typography
+                variant="h6"
+                noWrap
+                sx={{
+                  fontWeight: 'bold',
+                  maxWidth: '80%',
+                  color: 'text.primary',
+                  textShadow: '0 0 2px #fff, 0 0 10px #000',
+                  cursor: 'default',
+                }}
+              >
+                {contract.title}
+              </Typography>
+            </Tooltip>
+            <Box
+              sx={{
+                flexGrow: '1',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                py: 'auto',
+              }}
+            />
+            <Tooltip title={archetype}>
+              {options.find((option) => option.archetype === archetype)
+                ?.archetypeIcon ?? (
+                <Typography color="error" fontWeight="bold">
+                  ???
+                </Typography>
+              )}
+            </Tooltip>
+          </DigiDisplay>
+          <IconButton
+            size="small"
+            onClick={() =>
+              handleCopyURL(`https://verseledger.net/contract?contractID=${contract.id}`)
+            }
+          >
+            <Link fontSize="small" />
+          </IconButton>
+          <IconButton size="small" onClick={() => handleContractPageNav(contract.id)}>
+            <Launch fontSize="small" />
+          </IconButton>
+        </Box>
+        <Box
+          data-testid="ContractDisplay__DetailsContainer"
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            mt: '.5em',
+            width: '100%',
+            flexGrow: 1,
+            justifyContent: 'space-around',
+          }}
+        >
+          <DigiDisplay
+            data-testid="ContractDisplay-Info-Details__StatusWrapper"
+            sx={{ px: '1em', my: 'auto', py: '.5em' }}
+          >
+            <Typography
+              data-testid="ContractDisplay-Info-Details__StatusTitle"
+              align="center"
+              variant="body1"
+              sx={{ fontWeight: 'bold', mb: '.5em', cursor: 'default' }}
+            >
+              Status
+            </Typography>
+            <ContractStatusChip status={contract.status} />
+          </DigiDisplay>
+          <DigiDisplay
+            data-testid="ContractDisplay-Info-Details__SubTypeWrapper"
+            sx={{ my: 'auto', px: '1em', py: '.5em' }}
+          >
+            <Typography
+              data-testid="ContractDisplay-Info-Details__SubTypeTitle"
+              align="center"
+              variant="body1"
+              sx={{
+                fontWeight: 'bold',
+                mb: '.5em',
+                cursor: 'default',
+              }}
+            >
+              Contract SubTypes
+            </Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}
+            >
+              <Chip
+                variant="outlined"
+                size="small"
+                color="secondary"
+                label={contract.subtype}
+                icon={
+                  options.find((option) => option.archetype === archetype)?.archetypeIcon
+                }
+                onClick={handleArchetypeOpen}
+              />
+            </Box>
+          </DigiDisplay>
+          <UserDisplay userid={contract.owner_id} />
+        </Box>
+      </DigiBox>
       <Box
         data-testid="ContractDisplay__MiddleBox"
         sx={{
           display: 'flex',
           flexDirection: 'row',
           width: '100%',
-          maxHeight: '35%',
+          height: '30%',
           justifyContent: 'space-around',
         }}
       >
@@ -455,55 +435,33 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             maxHeight: '100%',
           }}
         >
-          <Box
+          <DigiBox
             data-testid="ContractDisplay-PayandBriefing__BriefingWrapper"
             sx={{
-              display: 'flex',
-              flexDirection: 'inherit',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
               px: '.5em',
               width: '100%',
               maxHeight: '50%',
-              borderLeft: '1px solid rgba(14,49,141,0.5)',
-              borderRight: '1px solid rgba(14,49,141,0.5)',
-              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                background:
-                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                opacity: 0.6,
-                backdropFilter: 'blur(10px)',
-                zIndex: -1,
-                backgroundImage:
-                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                backgroundSize: '100% 2px',
-              },
             }}
           >
-            <Typography
+            <DigiDisplay
               data-testid="ContractDisplay-PayandBriefing__BriefingTitle"
-              variant="body2"
               sx={{
-                backgroundColor: 'rgba(33,150,243,.2)',
-                borderRadius: '10px',
                 pl: '1em',
-                fontWeight: 'bold',
                 my: '.5em',
-                display: 'flex',
-                alignItems: 'center',
                 justifyContent: 'space-between',
+                flexDirection: 'row',
               }}
             >
-              Briefing
+              <Typography
+                data-testid="ContractDisplay-PayandBriefing__BriefingTitle"
+                variant="body1"
+                sx={{
+                  fontWeight: 'bold',
+                  cursor: 'default',
+                }}
+              >
+                Briefing
+              </Typography>
               <IconButton
                 data-testid="ContractDisplay-PayandBriefing__BriefingExpansionButton"
                 size="small"
@@ -517,88 +475,74 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   }}
                 />
               </IconButton>
-            </Typography>
+            </DigiDisplay>
             <Collapse
-              data-testid="ContractDisplay-Briefing__ContentsWrapper"
+              data-testid="ContractDisplay-Briefing__Contents_Container"
               in={briefingExpanded}
               sx={{
-                backgroundColor: 'rgba(33,150,243,.2)',
-                borderRadius: '10px',
-                px: '1em',
-                maxHeight: '100%',
+                maxHeight: 'calc (100% - 2.5em)',
                 overflow: 'auto',
-                mb: '.2em',
+                mb: '.5em',
                 '&::-webkit-scrollbar': {
-                  width: '10px',
+                  width: '6px',
                 },
                 '&::-webkit-scrollbar-track': {
-                  background: 'rgb(8, 29, 68)',
+                  background: 'rgb(0,73,130)',
                   borderRadius: '10px',
                 },
                 '&::-webkit-scrollbar-thumb': {
                   borderRadius: '20px',
-                  background: 'rgb(121, 192, 244, .5)',
+                  background: 'rgb(24,252,252)',
                 },
               }}
             >
-              <Typography
-                data-testid="ContractDisplay-PayandBriefing__BriefingContent"
-                variant="body2"
+              <DigiDisplay
+                data-testid="ContractDisplay-Briefing__Contents_Wrapper"
+                sx={{
+                  px: '1em',
+                  py: '.2em',
+                }}
               >
-                {contract.briefing}
-              </Typography>
+                <Typography
+                  data-testid="ContractDisplay-PayandBriefing__BriefingContent"
+                  variant="body2"
+                  sx={{
+                    color: 'text.primary',
+                  }}
+                >
+                  {contract.briefing}
+                </Typography>
+              </DigiDisplay>
             </Collapse>
-          </Box>
-          <Box
+          </DigiBox>
+          <DigiBox
             data-testid="ContractDisplay-PayandBriefing__PayWrapper"
             sx={{
-              display: 'flex',
-              flexDirection: 'inherit',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
               px: '.5em',
               width: '100%',
               maxHeight: '50%',
               mt: '1em',
-              borderLeft: '1px solid rgba(14,49,141,0.5)',
-              borderRight: '1px solid rgba(14,49,141,0.5)',
-              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                background:
-                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                opacity: 0.6,
-                backdropFilter: 'blur(10px)',
-                zIndex: -1,
-                backgroundImage:
-                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                backgroundSize: '100% 2px',
-              },
             }}
           >
-            <Typography
-              data-testid="ContractDisplay-PayandBriefing__PayTitle"
-              variant="body2"
+            <DigiDisplay
+              data-testid="ContractDisplay-PayandBriefing__PayTitle_Wrapper"
               sx={{
-                backgroundColor: 'rgba(33,150,243,.2)',
-                borderRadius: '10px',
                 pl: '1em',
                 my: '.5em',
-                fontWeight: 'bold',
-                display: 'flex',
-                alignItems: 'center',
                 justifyContent: 'space-between',
+                flexDirection: 'row',
               }}
             >
-              Pay
+              <Typography
+                data-testid="ContractDisplay-PayandBriefing__PayTitle"
+                variant="body1"
+                sx={{
+                  fontWeight: 'bold',
+                  cursor: 'default',
+                }}
+              >
+                Pay
+              </Typography>
               <IconButton
                 data-testid="ContractDisplay-PayandBriefing_PayExpansionButton"
                 size="small"
@@ -612,63 +556,51 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   }}
                 />
               </IconButton>
-            </Typography>
+            </DigiDisplay>
+
             <Collapse
               data-testid="ContractDisplay-PayandBriefing_PayInfoWrapper"
               in={payExpanded}
               sx={{
                 display: 'flex',
-                flexDirection: 'row',
+                flexDirection: 'column',
+                width: '100%',
+                alignItems: 'center',
+                textAlign: 'center',
               }}
             >
-              <Tooltip
-                title={
-                  contract.payStructure.charAt(0) +
-                  contract.payStructure.slice(1).toLowerCase()
-                }
-                arrow
+              {contract.isBonusPay && (
+                <Typography variant="tip" align="center" sx={{ px: '.5em', mb: 'auto' }}>
+                  The contract has bonus pay available.
+                </Typography>
+              )}
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  mb: '.5em',
+                }}
               >
-                <TextField
-                  size="small"
-                  label="Pay Structure"
-                  value={
+                <Tooltip
+                  title={
                     contract.payStructure.charAt(0) +
                     contract.payStructure.slice(1).toLowerCase()
                   }
-                  color="secondary"
-                  margin="dense"
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end" onClick={handlePayStructurePopup}>
-                        <HelpOutline color="secondary" fontSize="small" />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    mr: '.5em',
-                    maxWidth: '48%',
-                  }}
-                />
-              </Tooltip>
-              <Tooltip title={`¤${contract.defaultPay}`} arrow>
-                <TextField
-                  size="small"
-                  label="Default Pay"
-                  value={contract.defaultPay}
-                  color="secondary"
-                  margin="dense"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Typography color="secondary">¤</Typography>
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{ maxWidth: '48%' }}
-                />
-              </Tooltip>
+                  arrow
+                >
+                  <PayStructure payStructure={contract.payStructure} width="120px" />
+                </Tooltip>
+                <Tooltip title={`¤${contract.defaultPay}`} arrow>
+                  <PayDisplay
+                    label="Default Pay"
+                    pay={contract.defaultPay}
+                    width="120px"
+                  />
+                </Tooltip>
+              </Box>
             </Collapse>
-          </Box>
+          </DigiBox>
         </Box>
         <Box
           data-testid="ContractDisplay__LocationContainer"
@@ -679,51 +611,31 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             maxHeight: '100%',
           }}
         >
-          <Box
+          <DigiBox
             data-testid="ContractDisplay__LocationWrapper"
             sx={{
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
               width: '100%',
-              borderLeft: '1px solid rgba(14,49,141,0.5)',
-              borderRight: '1px solid rgba(14,49,141,0.5)',
-              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                background:
-                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                opacity: 0.6,
-                backdropFilter: 'blur(10px)',
-                zIndex: -1,
-                backgroundImage:
-                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                backgroundSize: '100% 2px',
-              },
+              p: '.5em',
             }}
           >
-            <Typography
-              data-testid="ContractDisplay__LocationTitle"
-              variant="body2"
+            <DigiDisplay
+              data-testid="ContractDisplay__LocationTitle_Wrapper"
               sx={{
-                backgroundColor: 'rgba(33,150,243,.2)',
-                borderRadius: '10px',
                 pl: '1em',
-                fontWeight: 'bold',
-                m: '.5em',
-                display: 'flex',
-                alignItems: 'center',
                 justifyContent: 'space-between',
+                flexDirection: 'row',
               }}
             >
-              Locations
+              <Typography
+                data-testid="ContractDisplay__LocationTitle"
+                variant="body2"
+                sx={{
+                  fontWeight: 'bold',
+                  cursor: 'default',
+                }}
+              >
+                Locations
+              </Typography>
               <IconButton
                 data-testid="ContractDisplay-Locations_LocationsExpansionButton"
                 size="small"
@@ -737,7 +649,8 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   }}
                 />
               </IconButton>
-            </Typography>
+            </DigiDisplay>
+
             <Collapse
               data-testid="ContractDisplay-Locations__LocationsListWrapper"
               in={locationsExpanded}
@@ -747,143 +660,97 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             >
               {contract.Locations && contract.Locations.length > 0 ? (
                 <>
-                  <Box
+                  <DigiField
                     data-testid="ContractDisplay-Locations__StartLocationWrapper"
+                    label="Start Loaction"
                     sx={{
-                      backgroundColor: 'rgba(33,150,243,.2)',
-                      borderRadius: '10px',
-                      mb: '.5em',
-                      mx: '.5em',
+                      my: '.5em',
                       p: '.2em',
+                      mx: '2em',
+                    }}
+                    slots={{
+                      label: {
+                        sx: {
+                          fontSize: '.8em',
+                          mx: 'auto',
+                        },
+                      },
                     }}
                   >
-                    <Typography
-                      data-testid="ContractDisplay-Locations-StartLocation__Title"
-                      variant="body2"
-                      align="center"
-                      sx={{
-                        fontWeight: 'bold',
-                      }}
-                    >
-                      Start Location
-                    </Typography>
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                       <LocationChip locationId={startLocationId ?? ''} />
                     </Box>
-                  </Box>
+                  </DigiField>
                   {endLocationId && (
-                    <Box
+                    <DigiField
                       data-testid="ContractDisplay-Locations__EndLocationWrapper"
+                      label="End Location"
                       sx={{
-                        backgroundColor: 'rgba(33,150,243,.2)',
-                        borderRadius: '10px',
                         mb: '.5em',
-                        mx: '.5em',
+                        mx: '2em',
                         justifyContent: 'center',
                       }}
+                      slots={{
+                        label: {
+                          sx: {
+                            fontSize: '.8em',
+                            mx: 'auto',
+                          },
+                        },
+                      }}
                     >
-                      <Typography
-                        data-testid="ContractDisplay-Locations-StartLocation__Title"
-                        variant="body2"
-                        align="center"
-                        sx={{
-                          fontWeight: 'bold',
-                        }}
-                      >
-                        End Location
-                      </Typography>
                       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                         <LocationChip locationId={endLocationId ?? ''} />
                       </Box>
-                    </Box>
+                    </DigiField>
                   )}
                   {otherLocationIds.length > 0 && (
-                    <Box
+                    <PopupFormSelection
                       data-testid="ContractDisplay-Locations__OtherLocationsWrapper"
                       sx={{
-                        backgroundColor: 'rgba(33,150,243,.2)',
-                        borderRadius: '10px',
                         mb: '.5em',
-                        mx: '.5em',
+                        mx: '2em',
                         justifyContent: 'center',
+                        flexDirection: 'column',
+                        overflow: 'hidden',
                       }}
                     >
                       <Typography
                         data-testid="ContractDisplay-Locations-OtherLocation__Title"
                         variant="body2"
                         align="center"
-                        sx={{
-                          fontWeight: 'bold',
-                        }}
                       >
                         Other Locations
                       </Typography>
                       <Box
                         data-testid="ContractDisplay-Locations-OtherLocations__LocationPagnationWrapper"
+                        ref={scrollRef}
                         sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
+                          mb: '.5em',
                         }}
                       >
-                        <IconButton
-                          size="small"
-                          onClick={() => handleOtherLocationIndexChange('back')}
-                          disabled={otherLocationIndex === 0}
-                        >
-                          <ChevronLeft fontSize="small" />
-                        </IconButton>
-                        <Box
-                          data-testid="ContractDisplay-Locations-OtherLocations__LocationChipDisplayWrapper"
-                          sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                          }}
-                        >
-                          <Typography
-                            data-testid="ContractDisplay-Locations-OtherLocations__LocationChip"
-                            variant="body2"
-                            align="center"
-                          >
-                            {otherLocationIndex + 1}.{' '}
-                            <LocationChip
-                              locationId={
-                                otherLocationIds
-                                  ? otherLocationIds[otherLocationIndex]
-                                  : 'Error'
-                              }
-                            />
-                          </Typography>
-                        </Box>
-                        <IconButton
-                          size="small"
-                          onClick={() => handleOtherLocationIndexChange('forward')}
-                          disabled={
-                            otherLocationIds
-                              ? otherLocationIds.length < 1 ||
-                                otherLocationIndex === otherLocationIds.length - 1
-                              : false
-                          }
-                        >
-                          <ChevronRight fontSize="small" />
-                        </IconButton>
+                        {otherLocationIds.map((loc) => (
+                          <LocationChip key={loc} locationId={loc} />
+                        ))}
                       </Box>
-                    </Box>
+                    </PopupFormSelection>
                   )}
                 </>
               ) : (
                 <Typography
                   align="center"
-                  variant="body2"
-                  sx={{ mb: '.2em', color: 'info.main' }}
+                  variant="error"
+                  sx={{
+                    my: '1em',
+                    px: '.2em',
+                    py: '.1em',
+                  }}
                 >
-                  Locations Redacted
+                  Contract Missing Start Location. Please report error.
                 </Typography>
               )}
             </Collapse>
-          </Box>
+          </DigiBox>
         </Box>
       </Box>
       <Box
@@ -895,86 +762,36 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           my: '.5em',
         }}
       >
-        <Box
+        <ControlPanelBox
           data-testid="ContractDisplay-ActiveData__TabWrapper"
           sx={{
-            borderLeft: '2px solid',
-            borderRight: '2px solid',
-            borderRadius: '5px',
-            borderColor: 'secondary.main',
+            display: 'block',
             px: '1em',
             py: '.2em',
             width: '100%',
-            boxShadow: '0 0px 5px 2px rgba(24,252,252,0.25)',
-            backgroundImage:
-              'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
-            position: 'relative',
-            '&:before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              bottom: 0,
-              left: 0,
-              backgroundImage:
-                'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
-              backgroundSize: '5px 5px',
-              opacity: 0.5,
-            },
-            '&:hover': {
-              backgroundImage:
-                'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
-              borderColor: 'secondary.light',
-              boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
-            },
-            transition: 'all 0.3s',
           }}
         >
-          <SmallTabs
+          <SmallTabsHolo
             variant="fullWidth"
             value={activeDataTab}
             onChange={handleActiveTabChange}
             textColor="secondary"
             indicatorColor="secondary"
           >
-            <SmallTab label="Contractors" value="contractors" />
-            <SmallTab label="Ships" value="ships" disabled />
-          </SmallTabs>
-        </Box>
-        <Box
+            <SmallTabHolo label="Contractors" value="contractors" />
+            <SmallTabHolo label="Ships" value="ships" disabled />
+          </SmallTabsHolo>
+        </ControlPanelBox>
+        <DigiBox
           data-testid="ContractDisplay-ActiveData__PanelContainer"
           sx={{
             width: '100%',
             height: '90%',
-            borderTop: '2px solid',
-            borderBottom: '2px solid',
-            borderColor: 'primary.main',
-            borderRadius: '5px',
             mt: '.5em',
-            borderLeft: '1px solid rgba(14,49,141,0.5)',
-            borderRight: '1px solid rgba(14,49,141,0.5)',
-            boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-            position: 'relative',
-            '&:before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              bottom: 0,
-              right: 0,
-              left: 0,
-              background:
-                'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-              opacity: 0.6,
-              backdropFilter: 'blur(10px)',
-              zIndex: -1,
-              backgroundImage:
-                'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-              backgroundSize: '100% 2px',
-            },
           }}
         >
           {activeDataPanel(activeDataTab)}
-        </Box>
+        </DigiBox>
       </Box>
       <Box
         data-testid="ContractDisplay__BottomBox"
@@ -994,93 +811,47 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             width: '70%',
           }}
         >
-          <Box
+          <ControlPanelBox
             data-testid="ContractDisplay-ContractTime__TabWrapper"
             sx={{
-              borderRight: '2px solid',
-              borderLeft: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'secondary.main',
-              px: '.5em',
-              boxShadow: '0 0px 5px 2px rgba(24,252,252,0.25)',
-              backgroundImage:
-                'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0,
-                backgroundImage:
-                  'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
-                backgroundSize: '5px 5px',
-                opacity: 0.5,
-              },
-              '&:hover': {
-                backgroundImage:
-                  'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
-                borderColor: 'secondary.light',
-                boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
-              },
-              transition: 'all 0.3s',
+              px: '1em',
+              display: 'block',
             }}
           >
-            <SmallTabs
+            <SmallTabsHolo
               variant="fullWidth"
               value={timeTab}
               onChange={handleTimeTabChange}
               textColor="secondary"
               indicatorColor="secondary"
             >
-              <SmallTab label="Bid" value="bid" />
-              <SmallTab label="Start" value="start" />
-              <SmallTab label="End" value="end" />
-            </SmallTabs>
-          </Box>
-          <Box
+              <SmallTabHolo label="Bidding Time" value="bid" />
+              <SmallTabHolo label="Contract Duration" value="start" />
+            </SmallTabsHolo>
+          </ControlPanelBox>
+          <DigiBox
             data-testid="ContractDisplay-ContractTime__PanelWrapper"
             sx={{
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
               height: '90%',
               mt: '.5em',
-              borderLeft: '1px solid rgba(14,49,141,0.5)',
-              borderRight: '1px solid rgba(14,49,141,0.5)',
-              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                background:
-                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                opacity: 0.6,
-                backdropFilter: 'blur(10px)',
-                zIndex: -1,
-                backgroundImage:
-                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                backgroundSize: '100% 2px',
-              },
             }}
           >
             {contractTimePanel(timeTab)}
-          </Box>
+          </DigiBox>
         </Box>
         <Box
           data-testid="ContractDisplay__SubmitBidButtonWrapper"
           sx={{
-            ml: 'auto',
-            mt: 'auto',
+            mx: 'auto',
+            my: 'auto',
           }}
         >
-          <Button variant="contained" color="secondary" onClick={handleSubmitBidPopup}>
+          <Button
+            variant="contained"
+            color="secondary"
+            size="large"
+            onClick={handleSubmitBidPopup}
+          >
             Submit Bid
           </Button>
         </Box>
