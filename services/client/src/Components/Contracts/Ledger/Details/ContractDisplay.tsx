@@ -307,66 +307,6 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             data-testid="ContractDisplay-Info-Details__StatusWrapper"
             sx={{ px: '1em', my: 'auto', py: '.5em' }}
           >
-            <Tooltip title={contract.title} arrow>
-              <Typography
-                variant="h6"
-                noWrap
-                sx={{
-                  fontWeight: 'bold',
-                  maxWidth: '80%',
-                  color: 'text.primary',
-                  textShadow: '0 0 2px #fff, 0 0 10px #000',
-                  cursor: 'default',
-                }}
-              >
-                {contract.title}
-              </Typography>
-            </Tooltip>
-            <Box
-              sx={{
-                flexGrow: '1',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                py: 'auto',
-              }}
-            />
-            <Tooltip title={archetype}>
-              {options.find((option) => option.archetype === archetype)
-                ?.archetypeIcon ?? (
-                <Typography color="error" fontWeight="bold">
-                  ???
-                </Typography>
-              )}
-            </Tooltip>
-          </DigiDisplay>
-          <IconButton
-            size="small"
-            onClick={() =>
-              handleCopyURL(`https://verseledger.net/contract?contractID=${contract.id}`)
-            }
-          >
-            <Link fontSize="small" />
-          </IconButton>
-          <IconButton size="small" onClick={() => handleContractPageNav(contract.id)}>
-            <Launch fontSize="small" />
-          </IconButton>
-        </Box>
-        <Box
-          data-testid="ContractDisplay__DetailsContainer"
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            mt: '.5em',
-            width: '100%',
-            flexGrow: 1,
-            justifyContent: 'space-around',
-          }}
-        >
-          <DigiDisplay
-            data-testid="ContractDisplay-Info-Details__StatusWrapper"
-            sx={{ px: '1em', my: 'auto', py: '.5em' }}
-          >
             <Typography
               data-testid="ContractDisplay-Info-Details__StatusTitle"
               align="center"
