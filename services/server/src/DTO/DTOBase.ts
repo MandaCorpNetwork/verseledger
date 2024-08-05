@@ -1,7 +1,7 @@
 import { Model } from 'sequelize-typescript';
 
 export abstract class DTOBase<T> {
-  public partial = false;
+  public __partial = false;
   abstract __type: string;
   protected mapProperties(
     propsRaw: T,
