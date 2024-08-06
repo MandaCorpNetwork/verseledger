@@ -7,7 +7,13 @@ type DesktopControllerProps = {
 
 export const DesktopController: React.FC<DesktopControllerProps> = ({ onSubmit }) => {
   return (
-    <ControlPanelBox>
+    <ControlPanelBox
+      data-testid="ContractPage-Bottom-Left__Controller_Wrapper"
+      sx={{
+        mb: 'auto',
+        py: '.5em',
+      }}
+    >
       <Button color="secondary" variant="outlined" onClick={onSubmit}>
         Submit Bid
       </Button>

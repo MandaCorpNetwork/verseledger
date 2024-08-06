@@ -57,17 +57,17 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
         flexDirection: 'row',
         flexGrow: 1,
         alignItems: 'space-around',
-        my: { lg: '2em', xl: '3em' },
+        my: { lg: '1em', xl: '2em' },
       }}
     >
       <Box
         data-testid="ContractPage-Bottom__Left_Container"
         sx={{
-          width: '45%',
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          flexGrow: 1,
         }}
       >
         <GlassDisplay
@@ -86,10 +86,10 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
               indicatorColor="secondary"
             >
               <SmallTabHolo label="Bidding Time" value="bid" />
-              <SmallTabHolo label="Contract Duration" value="start" />
+              <SmallTabHolo label="Duration" value="start" />
             </SmallTabsHolo>
           </ControlPanelBox>
-          <DigiDisplay data-testid="ContractPage-Time__Panel_Wrapper" sx={{ py: '1em'}}>
+          <DigiDisplay data-testid="ContractPage-Time__Panel_Wrapper" sx={{ py: '1em' }}>
             {timePanel(timeTab)}
           </DigiDisplay>
         </GlassDisplay>
@@ -112,7 +112,10 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
               <SmallTabHolo label="Ships" value="ships" disabled />
             </SmallTabsHolo>
           </ControlPanelBox>
-          <DigiDisplay data-testid="ContractPage-ActiveData__Panel_Wrapper">
+          <DigiDisplay
+            data-testid="ContractPage-ActiveData__Panel_Wrapper"
+            sx={{ minHeight: '100px', maxHeight: { lg: '200px', xl: '' } }}
+          >
             {activeDataPanel(activeDataTab)}
           </DigiDisplay>
         </GlassDisplay>
@@ -120,14 +123,21 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
       <Box
         data-testid="ContractPage-Bottom__Right_Container"
         sx={{
-          width: '45%',
+          width: '35%',
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
+          mr: '3em',
         }}
       >
-        <DigiBox>
-          <DigiDisplay>
+        <DigiBox
+          data-testid="ContractPage-Bottom-Right__Location_Container"
+          sx={{ mb: 'auto', p: '.5em', alignItems: 'center' }}
+        >
+          <DigiDisplay
+            data-testid="ContractPage-Location__Title_Wrapper"
+            sx={{ width: '70%' }}
+          >
             <Typography>Locations</Typography>
           </DigiDisplay>
           <Box
@@ -245,7 +255,20 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
                   flexDirection: 'row',
                   flexWrap: 'nowrap',
                   overflowX: 'auto',
-                  gap: '.2em',
+                  gap: '.5em',
+                  py: '.5em',
+                  width: '100%',
+                  '&::-webkit-scrollbar': {
+                    height: '6px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    background: 'rgba(0,73,130,.8)',
+                    borderRadius: '10px',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    borderRadius: '20px',
+                    background: 'rgb(24,252,252)',
+                  },
                 }}
               >
                 {otherLocations && otherLocations.length > 0 ? (
