@@ -1,6 +1,7 @@
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
@@ -69,10 +70,13 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
           alignItems: 'center',
         }}
       >
-        <Box data-testid="ContractPage-Bottom-Left__Time_Container" sx={{ width: '50%' }}>
+        <GlassDisplay
+          data-testid="ContractPage-Bottom-Left__Time_Container"
+          sx={{ width: '50%', mb: 'auto', p: '1em' }}
+        >
           <ControlPanelBox
             data-testid="ContractPage-Time__TabList_Wrapper"
-            sx={{ display: 'block', px: '.5em', py: '.5em', mb: '2em' }}
+            sx={{ display: 'block', px: '.5em', py: '.5em', mb: '1em' }}
           >
             <SmallTabsHolo
               variant="fullWidth"
@@ -85,17 +89,17 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
               <SmallTabHolo label="Contract Duration" value="start" />
             </SmallTabsHolo>
           </ControlPanelBox>
-          <DigiDisplay data-testid="ContractPage-Time__Panel_Wrapper">
+          <DigiDisplay data-testid="ContractPage-Time__Panel_Wrapper" sx={{ py: '1em'}}>
             {timePanel(timeTab)}
           </DigiDisplay>
-        </Box>
-        <Box
+        </GlassDisplay>
+        <GlassDisplay
           data-testid="ContractPage-Bottom-Left__ActiveData_Container"
-          sx={{ width: '80%' }}
+          sx={{ width: '80%', mb: 'auto', p: '1em' }}
         >
           <ControlPanelBox
             data-testid="ContractPage-"
-            sx={{ display: 'block', px: '.5em', py: '.5em', mb: '2em' }}
+            sx={{ display: 'block', px: '.5em', py: '.5em', mb: '1em' }}
           >
             <SmallTabsHolo
               variant="fullWidth"
@@ -111,7 +115,7 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
           <DigiDisplay data-testid="ContractPage-ActiveData__Panel_Wrapper">
             {activeDataPanel(activeDataTab)}
           </DigiDisplay>
-        </Box>
+        </GlassDisplay>
       </Box>
       <Box
         data-testid="ContractPage-Bottom__Right_Container"
