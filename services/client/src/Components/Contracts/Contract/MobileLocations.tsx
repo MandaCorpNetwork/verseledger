@@ -156,6 +156,19 @@ export const MobileLocations: React.FC<MobileLocationProps> = ({
                 flexWrap: 'nowrap',
                 overflowX: 'auto',
                 gap: '.2em',
+                width: '100%',
+                pb: '.5em',
+                '&::-webkit-scrollbar': {
+                  height: '4px',
+                },
+                '&::-webkit-scrollbar-track': {
+                  background: 'rgba(0,73,130,.8)',
+                  borderRadius: '10px',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  borderRadius: '20px',
+                  background: 'rgb(24,252,252)',
+                },
               }}
             >
               {otherLocations && otherLocations.length > 0 ? (
