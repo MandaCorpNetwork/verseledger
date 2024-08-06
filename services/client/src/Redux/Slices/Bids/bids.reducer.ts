@@ -4,6 +4,7 @@ import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IPaginatedDataSlice } from 'vl-shared/src/schemas/IPaginatedData';
 
 import { fetchContractBidsOfUser } from '../Users/Actions/fetchContractBidsByUser';
+import { updateBid } from './Actions/updateBid';
 
 const bidsReducer = createSlice({
   name: 'bids',
@@ -25,23 +26,32 @@ const bidsReducer = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase(fetchContractBidsOfUser.fulfilled, (_state, action) => {
-      Logger.info('Fetching Bids Fulfilled', action.payload);
-      const bids = action.payload?.data;
-      const pagination = action.payload?.pagination;
-      if (bids) {
-        bids.forEach((bid) => {
-          _state.bids[bid.id] = bid;
-        });
-      } else {
-        Logger.warn('Payload data is undefined or empty');
-      }
-      if (pagination) {
-        _state.pagination = pagination;
-      } else {
-        Logger.warn('Payload pages is undefined or empty');
-      }
-    });
+    builder
+      .addCase(fetchContractBidsOfUser.fulfilled, (_state, action) => {
+        Logger.info('Fetching Bids Fulfilled', action.payload);
+        const bids = action.payload?.data;
+        const pagination = action.payload?.pagination;
+        if (bids) {
+          bids.forEach((bid) => {
+            _state.bids[bid.id] = bid;
+          });
+        } else {
+          Logger.warn('Payload data is undefined or empty');
+        }
+        if (pagination) {
+          _state.pagination = pagination;
+        } else {
+          Logger.warn('Payload pages is undefined or empty');
+        }
+      })
+      .addCase(updateBid.fulfilled, (_state, action) => {
+        const updatedBid = action.payload;
+        if (updatedBid) {
+          _state.bids[updatedBid.id] = updatedBid;
+        } else {
+          Logger.warn('Payload data is undefined or empty');
+        }
+      });
   },
 });
 
