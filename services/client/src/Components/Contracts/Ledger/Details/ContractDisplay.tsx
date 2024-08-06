@@ -26,6 +26,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import { Logger } from '@Utils/Logger';
+import { URLUtil } from '@Utils/URLUtil';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -199,9 +200,10 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   };
 
   const handleCopyURL = (url: string) => {
+    const prefix = URLUtil.frontendHost;
     if (navigator.clipboard) {
       navigator.clipboard
-        .writeText(url)
+        .writeText(`${prefix}${url}`)
         .then(() => {
           playSound('clickMain');
           enqueueSnackbar('Copied Contract to Clipboard', { variant: 'success' });
@@ -282,9 +284,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           </DigiDisplay>
           <IconButton
             size="small"
-            onClick={() =>
-              handleCopyURL(`https://verseledger.net/contract?contractID=${contract.id}`)
-            }
+            onClick={() => handleCopyURL(`/contract?contractID=${contract.id}`)}
           >
             <Link fontSize="small" />
           </IconButton>
