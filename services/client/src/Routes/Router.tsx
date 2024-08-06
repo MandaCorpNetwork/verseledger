@@ -1,6 +1,8 @@
-import { Outlet, RouteObject } from 'react-router-dom';
+import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 
 import { ContractManagerApp } from '@/Components/Personal/ContractManager/ContractManagerApp';
+import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
+import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
 import { DiscordLoginUtility } from '@/Utils/discordLoginUtility';
 
 import { VLAppBar } from '../Common/Components/App/AppBar';
@@ -49,8 +51,20 @@ export const routingInfo: RouteObject[] = [
         element: <PersonalLedgerPage />,
         children: [
           {
-            path: 'contractManager',
+            index: true,
+            element: <Navigate to="/ledger/personal/overview" replace={true} />,
+          },
+          {
+            path: 'overview',
+            element: <OverviewApp />,
+          },
+          {
+            path: 'contracts',
             element: <ContractManagerApp />,
+          },
+          {
+            path: 'explore',
+            element: <ExploreApp />,
           },
         ],
       },

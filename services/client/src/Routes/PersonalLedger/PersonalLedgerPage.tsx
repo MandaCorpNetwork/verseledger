@@ -1,40 +1,54 @@
 import { Box } from '@mui/material';
 import React from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import BackdropLogo from '@/Assets/media/VerseLogos/LogoBackdrop.png?url';
 import { useSoundEffect } from '@/AudioManager';
 import { AppToolBar } from '@/Components/Personal/AppToolBar';
-import { ContractManagerApp } from '@/Components/Personal/ContractManager/ContractManagerApp';
-import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
-import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
+
+const prefix = '/ledger/personal';
 
 export const PersonalLedgerPage: React.FC<unknown> = () => {
   const { playSound } = useSoundEffect();
-  const [selectedApp, setSelectedApp] = React.useState<string>('Overview');
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const appRenderer = React.useCallback(() => {
-    switch (selectedApp) {
-      case 'Overview':
-        return <OverviewApp />;
-      case 'Contracts':
-        return <ContractManagerApp />;
-      case 'Explore':
-        return <ExploreApp />;
+  const currentLocation = React.useMemo(() => {
+    switch (location.pathname) {
+      case `${prefix}/overview`:
+        return 'Overview';
+      case `${prefix}/contracts`:
+        return 'Contracts';
+      case `${prefix}/explore`:
+        return 'Explore';
       default:
-        return <OverviewApp />;
+        return 'Overview';
     }
-  }, [selectedApp]);
+  }, [location.pathname]);
 
   const handleAppChange = React.useCallback(
     (iconKey: string) => {
-      if (selectedApp === iconKey) {
+      if (currentLocation === iconKey) {
         playSound('denied');
         return;
       }
       playSound('navigate');
-      setSelectedApp(iconKey);
+      switch (iconKey) {
+        case 'Overview':
+          navigate(`${prefix}/overview`);
+          break;
+        case 'Contracts':
+          navigate(`${prefix}/contracts`);
+          break;
+        case 'Explore':
+          navigate(`${prefix}/explore`);
+          break;
+        default:
+          navigate(`${prefix}/overview`);
+          break;
+      }
     },
-    [selectedApp, setSelectedApp],
+    [currentLocation, navigate],
   );
   return (
     <Box
@@ -74,10 +88,10 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
           padding: '.5em',
         }}
       >
-        {appRenderer()}
+        <Outlet />
       </Box>
       <Box sx={{ mt: 'auto', mb: '1%' }}>
-        <AppToolBar selectedApp={selectedApp} setSelectedApp={handleAppChange} />
+        <AppToolBar selectedApp={currentLocation} setSelectedApp={handleAppChange} />
       </Box>
     </Box>
   );

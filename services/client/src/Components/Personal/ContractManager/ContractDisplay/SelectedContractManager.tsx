@@ -68,10 +68,12 @@ const ContractDataField: React.FC<ContractDataFieldProps> = ({ label, value }) =
 
 type SelectedContractManagerProps = {
   contractId: string | null;
+  deselectContract: () => void;
 };
 
 export const SelectedContractManager: React.FC<SelectedContractManagerProps> = ({
   contractId,
+  deselectContract,
 }) => {
   const { playSound } = useSoundEffect();
   const [contractManagerTab, setContractManagerTab] = useState<string>('contractors');
@@ -488,6 +490,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               contract={contract}
               userBid={userBid}
               isOwned={isContractOwned}
+              deselectContract={deselectContract}
             />
           </ControlPanelBox>
         </Box>

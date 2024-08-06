@@ -4,7 +4,9 @@ import { useAppDispatch } from '@Redux/hooks';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContract';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { Logger } from '@Utils/Logger';
+import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -15,13 +17,16 @@ type ContractControllerProps = {
   contract: IContract;
   userBid: IContractBid | null;
   isOwned: boolean;
+  deselectContract: () => void;
 };
 
 export const ContractController: React.FC<ContractControllerProps> = ({
   contract,
   userBid,
   isOwned,
+  deselectContract,
 }) => {
+  const [, , overwriteURLQuery] = useURLQuery();
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
 
@@ -36,6 +41,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
+        overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'employed' });
         enqueueSnackbar('Accepted Invite', { variant: 'success' });
         playSound('success');
       } else {
@@ -56,6 +62,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
+        deselectContract();
         enqueueSnackbar('Declined Invite', { variant: 'warning' });
         playSound('warning');
       } else {
@@ -76,6 +83,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
+        overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'pending' });
         enqueueSnackbar('Resigned from Contract', { variant: 'warning' });
         playSound('warning');
       } else {
@@ -96,6 +104,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
+        overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'pending' });
         enqueueSnackbar('Bid Resubmitted', { variant: 'warning' });
         playSound('success');
       } else {
@@ -105,7 +114,12 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     });
   };
 
-  const getUpdatedContractStatus = (contract: Partial<IContract>, status: string) => {
+  const getUpdatedContractStatus = (
+    contract: Partial<IContract>,
+    status: string,
+    startDate?: Date,
+    endDate?: Date,
+  ) => {
     return {
       status,
       title: contract.title,
@@ -114,12 +128,15 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       contractorLimit: contract.contractorLimit,
       payStructure: contract.payStructure,
       defaultPay: contract.defaultPay,
+      ...(startDate && { startDate }),
+      ...(endDate && { endDate }),
     };
   };
 
   const handleContractStart = () => {
+    const now = new Date();
     if (contract.status === 'BIDDING') {
-      const updatedContract = getUpdatedContractStatus(contract, 'INPROGRESS');
+      const updatedContract = getUpdatedContractStatus(contract, 'INPROGRESS', now);
       dispatch(
         updateContract({ contractId: contract.id, contractRaw: updatedContract }),
       ).then((res) => {
@@ -135,12 +152,19 @@ export const ContractController: React.FC<ContractControllerProps> = ({
   };
 
   const handleContractComplete = () => {
+    const now = new Date();
     if (contract.status === 'INPROGRESS') {
-      const updatedContract = getUpdatedContractStatus(contract, 'COMPLETED');
+      const updatedContract = getUpdatedContractStatus(
+        contract,
+        'COMPLETED',
+        undefined,
+        now,
+      );
       dispatch(
         updateContract({ contractId: contract.id, contractRaw: updatedContract }),
       ).then((res) => {
         if (updateContract.fulfilled.match(res)) {
+          overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'history' });
           enqueueSnackbar('Contract Completed', { variant: 'success' });
           playSound('success');
         } else {
@@ -152,12 +176,19 @@ export const ContractController: React.FC<ContractControllerProps> = ({
   };
 
   const handleContractCancel = () => {
+    const now = new Date();
     if (contract.status !== 'COMPLETE') {
-      const updatedContract = getUpdatedContractStatus(contract, 'CANCELED');
+      const updatedContract = getUpdatedContractStatus(
+        contract,
+        'CANCELED',
+        undefined,
+        now,
+      );
       dispatch(
         updateContract({ contractId: contract.id, contractRaw: updatedContract }),
       ).then((res) => {
         if (updateContract.fulfilled.match(res)) {
+          overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'history' });
           enqueueSnackbar('Contract Canceled', { variant: 'warning' });
           playSound('warning');
         } else {

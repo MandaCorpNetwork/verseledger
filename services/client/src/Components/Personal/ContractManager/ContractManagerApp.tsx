@@ -85,6 +85,10 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     [setSelectedId],
   );
 
+  const handleContractDeselect = () => {
+    setSelectedId(null);
+  };
+
   const handleFetchBids = React.useCallback(
     async (params: IUserBidSearch) => {
       const bidParams = {
@@ -171,7 +175,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           const bidParams: IUserBidSearch = {
             page: page - 1,
             limit: 25,
-            status: ['PENDING'],
+            status: ['PENDING', 'EXPIRED'],
           };
           handleFetchBids(bidParams).then((contractIds) => {
             const contractParams: IContractSearch = {
@@ -315,7 +319,10 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         }}
       >
         {selectedId ? (
-          <SelectedContractManager contractId={selectedId} />
+          <SelectedContractManager
+            contractId={selectedId}
+            deselectContract={handleContractDeselect}
+          />
         ) : (
           <ContractorInfo />
         )}
