@@ -6,6 +6,7 @@ import {
   selectContractsArray,
 } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { isMobile } from '@Utils/isMobile';
 import { Logger } from '@Utils/Logger';
 import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
 import React from 'react';
@@ -32,6 +33,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   selectedId,
 }) => {
   const { playSound } = useSoundEffect();
+  const mobile = isMobile();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dispatch = useAppDispatch();
   const [view, setView] = React.useState('ContractCardView');
@@ -123,41 +125,43 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
         },
       }}
     >
-      <Box
-        data-testid="ContractLedger-ContractBrowser__ContractListToolsWrapper"
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          padding: '1em',
-          alignItems: 'center',
-        }}
-      >
+      {!mobile && (
         <Box
-          data-testid="ContractLedger-ContractBrowser-ContractListTools__CloseContractWrapper"
-          sx={{ mr: 'auto' }}
+          data-testid="ContractLedger-ContractBrowser__ContractListToolsWrapper"
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            padding: '1em',
+            alignItems: 'center',
+          }}
         >
-          {selectedId && (
-            <Button
-              onClick={handleClose}
-              variant="text"
-              endIcon={<CloseIcon />}
-              color="secondary"
-              sx={{
-                textShadow: '1px 1px 5px rgba(24,252,252,0.3)',
-                '&:hover': {
-                  transform: 'scale(1.1)',
-                },
-                transition: 'transform 0.3s ease-in-out',
-              }}
-            >
-              Close
-            </Button>
-          )}
+          <Box
+            data-testid="ContractLedger-ContractBrowser-ContractListTools__CloseContractWrapper"
+            sx={{ mr: 'auto' }}
+          >
+            {selectedId && (
+              <Button
+                onClick={handleClose}
+                variant="text"
+                endIcon={<CloseIcon />}
+                color="secondary"
+                sx={{
+                  textShadow: '1px 1px 5px rgba(24,252,252,0.3)',
+                  '&:hover': {
+                    transform: 'scale(1.1)',
+                  },
+                  transition: 'transform 0.3s ease-in-out',
+                }}
+              >
+                Close
+              </Button>
+            )}
+          </Box>
+          <Box data-id="Contract-Display-View-Toggle-Box" sx={{ ml: 'auto' }}>
+            <CardorTableViewToggle onViewChange={setView} />
+          </Box>
         </Box>
-        <Box data-id="Contract-Display-View-Toggle-Box" sx={{ ml: 'auto' }}>
-          <CardorTableViewToggle onViewChange={setView} />
-        </Box>
-      </Box>
+      )}
       <Box
         id="Contract-Display-Box"
         sx={{
