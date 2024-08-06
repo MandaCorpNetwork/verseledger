@@ -5,22 +5,27 @@ import { useNavigate } from 'react-router-dom';
 
 type HomeNavButtonMobileProps = {
   title: string;
-  to?: string;
+  to: string;
   inDev?: boolean;
+  wip?: boolean;
 };
 
 export const HomeNavButtonMobile: React.FC<HomeNavButtonMobileProps> = ({
   title,
   to,
   inDev,
+  wip,
 }) => {
   const [isDialogOpen, setDialogOpen] = React.useState(false);
   const navigate = useNavigate();
   const handleClick = () => {
-    if (inDev) {
-      setDialogOpen(true);
-    }
-    if (to) {
+    if (wip) {
+      if (inDev) {
+        navigate(to);
+      } else {
+        setDialogOpen(true);
+      }
+    } else {
       navigate(to);
     }
   };

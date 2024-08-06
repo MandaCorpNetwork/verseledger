@@ -2,6 +2,7 @@
 import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
 import { Discord, KoFi, Patreon } from '@Common/Definitions/CustomIcons';
 import { Box, ButtonBase, IconButton } from '@mui/material';
+import { isDev } from '@Utils/isDev';
 import { isMobile } from '@Utils/isMobile';
 import React from 'react';
 
@@ -19,6 +20,7 @@ import { HomeNavButton } from '../../../Components/Home/HomeNavButton';
 
 export const Home: React.FC<unknown> = () => {
   const mobile = isMobile();
+  const dev = isDev();
   const { playSound } = useSoundEffect();
   return (
     <Box marginTop={{ xs: '1em', s: '3em' }}>
@@ -37,10 +39,25 @@ export const Home: React.FC<unknown> = () => {
           }}
         >
           <HomeNavButtonMobile title="Contract Ledger" to="/ledger/contract" />
-          <HomeNavButtonMobile title="Verse Market" inDev={true} />
+          <HomeNavButtonMobile
+            title="Verse Market"
+            inDev={dev}
+            to="/verse-market"
+            wip={true}
+          />
           <HomeNavButtonMobile title="Personal Ledger" to="/ledger/personal" />
-          <HomeNavButtonMobile title="Org Ledger" inDev={true} />
-          <HomeNavButtonMobile title="Verse News" inDev={true} />
+          <HomeNavButtonMobile
+            title="Org Ledger"
+            inDev={dev}
+            to="/ledger/org"
+            wip={true}
+          />
+          <HomeNavButtonMobile
+            title="Verse News"
+            inDev={dev}
+            to="/verse-news"
+            wip={true}
+          />
         </Box>
       ) : (
         <>
@@ -49,14 +66,32 @@ export const Home: React.FC<unknown> = () => {
             to="/ledger/contract"
             videoSource={JobsLoop}
           />
-          <HomeNavButton title="Verse Market" inDev={true} videoSource={MarketLoop} />
+          <HomeNavButton
+            title="Verse Market"
+            inDev={dev}
+            videoSource={MarketLoop}
+            wip={true}
+            to="/verse-market"
+          />
           <HomeNavButton
             title="Personal Ledger"
             to="/ledger/personal"
             videoSource={FreelancerLoop}
           />
-          <HomeNavButton title="Org Ledger" inDev={true} videoSource={OrgLoop} />
-          <HomeNavButton title="Verse News" inDev={true} videoSource={VerseNews} />
+          <HomeNavButton
+            title="Org Ledger"
+            inDev={true}
+            videoSource={OrgLoop}
+            wip={true}
+            to="/ledger/org"
+          />
+          <HomeNavButton
+            title="Verse News"
+            inDev={true}
+            videoSource={VerseNews}
+            wip={true}
+            to="/verse-news"
+          />
         </>
       )}
 
