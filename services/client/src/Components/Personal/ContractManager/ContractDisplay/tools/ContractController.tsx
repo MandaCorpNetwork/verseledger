@@ -4,7 +4,9 @@ import { useAppDispatch } from '@Redux/hooks';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContract';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { Logger } from '@Utils/Logger';
+import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -22,6 +24,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
   userBid,
   isOwned,
 }) => {
+  const [, , overwriteURLQuery] = useURLQuery();
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
 
@@ -36,6 +39,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
+        overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'employed' });
         enqueueSnackbar('Accepted Invite', { variant: 'success' });
         playSound('success');
       } else {
