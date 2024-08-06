@@ -49,10 +49,13 @@ export const TabletOrMobilePanels: React.FC<TabletOrMobilePanelProps> = ({
             indicatorColor="secondary"
           >
             <SmallTabHolo label="Bidding Time" value="bid" />
-            <SmallTabHolo label="Contract Duration" value="start" />
+            <SmallTabHolo label="Duration" value="start" />
           </SmallTabsHolo>
         </ControlPanelBox>
-        <DigiBox data-testid="ContractPage-TimePanel-Small__Tab_List">
+        <DigiBox
+          data-testid="ContractPage-TimePanel-Small__Tab_List"
+          sx={{ width: { xs: '100%', sm: '90%', md: '75%' }, mx: 'auto', py: '1em' }}
+        >
           {timePanel(timeTab)}
         </DigiBox>
       </Box>
@@ -86,7 +89,15 @@ export const TabletOrMobilePanels: React.FC<TabletOrMobilePanelProps> = ({
             <SmallTabHolo label="Ships" value="ships" disabled />
           </SmallTabsHolo>
         </ControlPanelBox>
-        <DigiBox data-testid="ContractPage-ActiveData-Small__Panel_Container">
+        <DigiBox
+          data-testid="ContractPage-ActiveData-Small__Panel_Container"
+          sx={{
+            width: { xs: '100%', sm: '90%', md: '75%' },
+            mx: 'auto',
+            minHeight: '200px',
+            justifyContent: 'flex-start',
+          }}
+        >
           {activeDataPanel(activeDataTab)}
         </DigiBox>
       </Box>
