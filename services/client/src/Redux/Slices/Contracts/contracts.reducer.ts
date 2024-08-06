@@ -3,7 +3,9 @@ import { Logger } from '@Utils/Logger';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { IPaginatedDataSlice } from 'vl-shared/src/schemas/IPaginatedData';
 
+import { updateBid } from '../Bids/Actions/updateBid';
 import { fetchContracts } from './actions/fetch/fetchContracts';
+import { updateContract } from './actions/post/updateContract';
 
 const contractsReducer = createSlice({
   name: 'contracts',
@@ -51,6 +53,28 @@ const contractsReducer = createSlice({
       })
       .addCase(fetchContracts.rejected, (_state) => {
         _state.isLoading = false;
+      })
+      .addCase(updateContract.fulfilled, (_state, action) => {
+        const updatedContract = action.payload;
+        if (updatedContract) {
+          _state.contracts[updatedContract.id] = updatedContract;
+        } else {
+          Logger.warn('Payload Data is undefined or empty');
+        }
+      })
+      .addCase(updateBid.fulfilled, (_state, action) => {
+        const updatedBid = action.payload;
+        if (updatedBid) {
+          const contract = _state.contracts[updatedBid.contract_id];
+          if (contract.Bids) {
+            const bidIndex = contract.Bids.findIndex((bid) => bid.id === updatedBid.id);
+            contract.Bids[bidIndex] = updatedBid;
+          } else {
+            Logger.warn('Payload Data is undefined or empty');
+          }
+        } else {
+          Logger.warn('Payload Data is undefined or empty');
+        }
       });
   },
 });
