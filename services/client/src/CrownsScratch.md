@@ -2,10 +2,6 @@
 
 # Feedback Forms
 
-# Use URL Determination to decide if Verse Market button is enabled
-
-# Bring Verse Market Work to main
-
 # Finish Updating the Active Panel
 
 # Work on Location Popup

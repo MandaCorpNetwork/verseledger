@@ -13,6 +13,7 @@ import ErrorPage from './ErrorPage';
 import { Home } from './Index/Home/Home';
 import { NotFoundPage } from './NotFound/NotFound';
 import { PersonalLedgerPage } from './PersonalLedger/PersonalLedgerPage';
+import { VerseMarketPage } from './VerseMarket/VerseMarketPage';
 export const routingInfo: RouteObject[] = [
   {
     path: '/',
@@ -67,6 +68,10 @@ export const routingInfo: RouteObject[] = [
             element: <ExploreApp />,
           },
         ],
+      },
+      {
+        path: '/verse-market',
+        element: <VerseMarketPage />,
       },
       {
         path: '*',

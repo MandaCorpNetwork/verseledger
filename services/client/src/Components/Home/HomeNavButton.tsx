@@ -4,7 +4,6 @@ import '@/Routes/Index/Home/Home.scss';
 import { UnderConstruction } from '@Common/Components/App/UnderContruction';
 import { useTheme } from '@emotion/react';
 import { Button, Typography } from '@mui/material';
-import { Logger } from '@Utils/Logger';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
@@ -13,9 +12,10 @@ import { useSoundEffect } from '@/AudioManager';
 
 type HomeNavButtonProps = {
   title: string;
-  to?: string;
+  to: string;
   videoSource: string;
   inDev?: boolean;
+  wip?: boolean;
 };
 
 export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
@@ -23,6 +23,7 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
   videoSource,
   to,
   inDev,
+  wip,
 }) => {
   // eslint-disable-next-line
   const theme = useTheme() as any;
@@ -74,16 +75,17 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
 
   const handleClick = () => {
     setColor(theme.palette.text.secondary);
-    if (inDev) {
-      playSound('denied');
-      setDialogOpen(true);
-    }
-    if (to) {
+    if (wip) {
+      if (inDev) {
+        playSound('navigate');
+        navigate(to);
+      } else {
+        playSound('denied');
+        setDialogOpen(true);
+      }
+    } else {
       playSound('navigate');
       navigate(to);
-    } else {
-      playSound('error');
-      Logger.error('Navigation target undefined');
     }
     setTimeout(() => {
       setColor(theme.palette.text.primary);
