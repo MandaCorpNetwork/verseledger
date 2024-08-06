@@ -6,7 +6,7 @@ type MorTController = {
 
 export const MobileOrTabletController: React.FC<MorTController> = ({ onSubmit }) => {
   return (
-    <Box data-testid="ContractPage__ContractController_Small_Wrapper">
+    <Box data-testid="ContractPage__ContractController_Small_Wrapper" sx={{ my: 'auto' }}>
       <Button
         variant="contained"
         color="secondary"
