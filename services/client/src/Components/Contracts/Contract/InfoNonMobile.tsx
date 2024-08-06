@@ -98,9 +98,9 @@ export const InfoNonMobile: React.FC<InfoNonMobileProps> = ({
             />
           )}
         </DigiField>
-        {!tablet && <DesktopPayInfo contract={contract} />}
-        <UserDisplay userid={contract.owner_id} />
       </DigiDisplay>
+      {!tablet && <DesktopPayInfo contract={contract} />}
+      <UserDisplay userid={contract.owner_id} />
     </>
   );
 };
