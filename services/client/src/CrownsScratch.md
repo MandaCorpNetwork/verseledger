@@ -1,5 +1,3 @@
-# Add Updating StartTime & EndTime to Contract Status Update
-
 # Cleaning up Contract Page
 
 # Feedback Forms
