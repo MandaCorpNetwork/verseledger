@@ -3,6 +3,7 @@ import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import ParagraphWrapper from '@Common/Components/Boxes/ParagraphWrapper';
+import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
 import TabListHolo from '@Common/Components/Tabs/TabListHolo';
 import DigiTitle from '@Common/Components/Typography/DigiTitle';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
@@ -111,22 +112,6 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     playSound('clickMain');
     setContractManagerTab(newValue);
   };
-
-  const statusChipColor = React.useCallback(() => {
-    if (contract.status == 'BIDDING') {
-      return 'secondary';
-    } else if (contract.status == 'STARTED') {
-      return 'info';
-    } else if (contract.status == 'COMPLETE') {
-      return 'success';
-    } else if (contract.status == 'CANCELED') {
-      return 'error';
-    } else {
-      return 'primary';
-    }
-  }, [contract.status]);
-
-  const statusColor = statusChipColor();
 
   const startTime = React.useMemo(() => {
     const startDate = dayjs(contract.startDate);
@@ -274,18 +259,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                 >
                   Status
                 </Typography>
-                <Chip
-                  data-testid="SelectedContract-OverviewInfo-Bottom-Status__StatusChip"
-                  label={
-                    contract.status.charAt(0).toUpperCase() +
-                    contract.status.slice(1).toLowerCase()
-                  }
-                  color={statusColor}
-                  sx={{
-                    fontWeight: 'bold',
-                    cursor: 'default',
-                  }}
-                />
+                <ContractStatusChip status={contract.status} />
               </DigiDisplay>
               <DigiDisplay
                 data-testid="SelectedContract-OverviewInfo-Bottom__SubtypeChipWrapper"

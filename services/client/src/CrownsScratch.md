@@ -1,5 +1,3 @@
-# Cleaning up Contract Page
-
 # Feedback Forms
 
 # Finish Updating the Active Panel
@@ -26,14 +24,9 @@
 
 # Style Fixes
 * Fix Outlined Input onHover colors
-* Update the Spacing on the Contract Page
 * Subtype PayInfo & User Display is in the same box
-* Style the Return Button
 
 # Mobile Fixes
-  ## Contract Ledger
-    * Pagination size
-    * Remove Table Toggle
   ## Popups
     ### Create Contract
       * Complete Overhaul
