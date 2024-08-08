@@ -301,11 +301,9 @@ export const verseOSTheme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         notchedOutline: {
-          borderColor: '#0E318D',
-        },
-        root: {
-          '&:hover $notchedOutline': {
-            borderColor: '#0E318D',
+          borderColor: 'rgba(33,150,243)',
+          '&:hover:focus': {
+            borderColor: 'red',
           },
         },
       },

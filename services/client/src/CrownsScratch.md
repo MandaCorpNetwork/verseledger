@@ -19,9 +19,6 @@
   * Update Patching times on the Controller & move controller to it's own component
   * Update Display Style & Component Usage
 
-# Pay Display
-  * Ensure Pay Display has a system for Pool & Hourly
-
 # Style Fixes
 * Fix Outlined Input onHover colors
 * Subtype PayInfo & User Display is in the same box
