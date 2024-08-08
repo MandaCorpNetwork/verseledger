@@ -42,7 +42,7 @@
     "swagger-ui-react": "5.17.14",
     "three": "0.167.1",
     "vite-plugin-node-polyfills": "0.22.0",
-    "vite-tsconfig-paths": "4.3.2"
+    "vite-tsconfig-paths": "5.0.0"
   },
   "scripts": {
     "dev": "vite --host",
