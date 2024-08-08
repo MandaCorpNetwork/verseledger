@@ -30,6 +30,7 @@ import { URLUtil } from '@Utils/URLUtil';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { useSoundEffect } from '@/AudioManager';
@@ -535,6 +536,9 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   <PayDisplay
                     label="Default Pay"
                     pay={contract.defaultPay}
+                    structure={
+                      (contract.payStructure as ContractPayStructure) ?? undefined
+                    }
                     width="120px"
                   />
                 </Tooltip>
