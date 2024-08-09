@@ -7,7 +7,7 @@ import {
 } from '@mui/icons-material';
 import { Box, Step, StepConnector, StepLabel, Stepper } from '@mui/material';
 import { stepConnectorClasses } from '@mui/material/StepConnector';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch } from '@Redux/hooks';
