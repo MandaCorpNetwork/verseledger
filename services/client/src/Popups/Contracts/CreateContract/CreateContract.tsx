@@ -220,6 +220,7 @@ export const CreateContractPopup: React.FC = () => {
       submitText={page >= 4 ? 'Submit' : 'Next'}
       sx={{
         minWidth: { xs: '98%', lg: '800px' },
+        height: { xs: '100%', md: 'auto' },
       }}
     >
       <Box data-testid="ContractForm__Container-Stepper">

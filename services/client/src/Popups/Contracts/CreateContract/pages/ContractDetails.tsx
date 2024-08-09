@@ -9,6 +9,7 @@ import {
   Box,
   Button,
   FormControl,
+  FormLabel,
   IconButton,
   TextField,
   Tooltip,
@@ -18,6 +19,7 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
+import { isMobile } from '@Utils/isMobile';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
@@ -41,6 +43,7 @@ export const ContractDetails: React.FC<{
 }> = (props) => {
   const { playSound } = useSoundEffect();
   const dispatch = useAppDispatch();
+  const mobile = isMobile();
   const { formData, setFormData } = props;
   const [archetype, setArchetype] = React.useState<string | null>(null);
   const [filteredSubtypes, setFilteredSubtypes] = React.useState<string[]>(flatOptions);
@@ -136,14 +139,16 @@ export const ContractDetails: React.FC<{
       data-testid="CreateContract__ContractDetails_Container"
       sx={{
         display: 'flex',
-        minWidth: '400px',
+        minWidth: { xs: '100%', md: '400px' },
         my: '1em',
+        justifyContent: { xs: 'center', md: 'flex-start' },
       }}
     >
       <FormControl
         data-testid="CreateContract-ContractDetails__FormWrapper"
-        sx={{ display: 'flex', flexDirection: 'row', gap: '2em' }}
+        sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: '2em' }}
       >
+        {mobile && <FormLabel>Contract Details</FormLabel>}
         <Box
           data-testid="ContractDetails-Form__LeftBox"
           sx={{ display: 'flex', flexDirection: 'column', gap: '1.8em' }}
@@ -215,7 +220,7 @@ export const ContractDetails: React.FC<{
         </Box>
         <Box
           data-testid="ContractDetails-Form__RightBox"
-          sx={{ display: 'flex', flexDirection: 'column' }}
+          sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}
         >
           <Box
             data-testid="ContractDetails-Form__ArchetypeSelect_Container"
