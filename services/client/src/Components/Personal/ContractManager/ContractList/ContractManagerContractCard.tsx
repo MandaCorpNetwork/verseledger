@@ -1,4 +1,3 @@
-import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
 import { UserChip } from '@Common/Components/Chips/UserChip';
 import { PayInput } from '@Common/Components/Custom/DigiField/PayInput';
 import { Box, ButtonBase, Tooltip, Typography, useTheme } from '@mui/material';

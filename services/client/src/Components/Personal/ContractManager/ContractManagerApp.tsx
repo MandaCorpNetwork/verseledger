@@ -17,6 +17,7 @@ import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 
@@ -39,6 +40,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   const dispatch = useAppDispatch();
   const mobile = isMobile();
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const contractPagination = React.useCallback(
     () => useAppSelector(selectContractPagination),
@@ -83,6 +85,11 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   const handleContractSelect = React.useCallback(
     (id: string | null) => {
       setSelectedId(id);
+      if (mobile) {
+        playSound('navigate');
+        navigate(`/contract?contractID=${id}`);
+        return;
+      }
       playSound('open');
     },
     [setSelectedId],
