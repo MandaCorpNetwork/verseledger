@@ -52,7 +52,7 @@ export type ISuggestionFeedback = z.infer<typeof SuggestionFeebackSchema>;
 export const QuestionFeedbackSchema = BaseFeedbackSchema.extend({
   type: z.literal("QUESTION"),
   feature: FeedbackFeatureSchema,
-  tool: FeedbackToolSchema,
+  tool: FeedbackToolSchema.optional(),
   question: z.string(),
   attachment: z.string().url().optional().describe("URL to attachment"),
   public: z.boolean().default(true),
