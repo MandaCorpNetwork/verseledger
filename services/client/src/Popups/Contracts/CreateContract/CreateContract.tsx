@@ -14,6 +14,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { postContractInvite } from '@Redux/Slices/Contracts/actions/post/postContractInvite';
 import { postNewContract } from '@Redux/Slices/Contracts/actions/post/postNewContract';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { isMobile } from '@Utils/isMobile';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React, { useCallback, useState } from 'react';
@@ -104,6 +105,7 @@ export const CreateContractPopup: React.FC = () => {
     subtype: null,
     status: 'BIDDING',
   } as unknown as ICreateContractBody);
+  const mobile = isMobile();
   const [invites, setInvites] = React.useState<User[]>([]);
 
   const onSubmit = useCallback(() => {
@@ -194,7 +196,6 @@ export const CreateContractPopup: React.FC = () => {
 
   return (
     <VLPopup
-      minWidth="800px"
       data-testid="form"
       state={page}
       onClose={() => {
@@ -217,6 +218,10 @@ export const CreateContractPopup: React.FC = () => {
       onSubmit={onSubmit}
       submitDisabled={!isSubmitEnabled}
       submitText={page >= 4 ? 'Submit' : 'Next'}
+      sx={{
+        minWidth: { xs: '98%', lg: '800px' },
+        height: { xs: '100%', md: 'auto' },
+      }}
     >
       <Box data-testid="ContractForm__Container-Stepper">
         <Stepper activeStep={page} connector={<ColorlibConnector />} alternativeLabel>
@@ -233,7 +238,7 @@ export const CreateContractPopup: React.FC = () => {
                     </ColorlibStepIconRoot>
                   )}
                 >
-                  {step.label}
+                  {!mobile && step.label}
                 </StepLabel>
               </Step>
             );

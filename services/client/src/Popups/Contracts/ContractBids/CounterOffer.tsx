@@ -11,6 +11,7 @@ import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
+import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { useSoundEffect } from '@/AudioManager';
@@ -103,6 +104,9 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
   };
 
   const submitText = counterAmount !== null ? 'Send Counter' : 'Accept Offer';
+
+  const acceptedContractorsCount =
+    contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').length ?? 0;
   return (
     <VLPopup
       name={POPUP_COUNTER_OFFER_BID}
@@ -128,6 +132,8 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
                 value={counterAmount?.toLocaleString() ?? null}
                 onChange={handlePayChange}
                 onClear={handlePayClear}
+                structure={contract.payStructure as ContractPayStructure}
+                activeCount={acceptedContractorsCount}
                 sx={{ maxWidth: '160px' }}
               />
             </Box>

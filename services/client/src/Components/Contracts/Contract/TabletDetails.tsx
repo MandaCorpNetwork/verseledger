@@ -111,7 +111,10 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({
           flexGrow: 1,
         }}
       >
-        <DigiDisplay data-testid="ContractPage-Location-Tablet__Title_Wrapper">
+        <DigiDisplay
+          data-testid="ContractPage-Location-Tablet__Title_Wrapper"
+          sx={{ mb: '1em' }}
+        >
           <Typography
             data-testid="ContractPage-Location-Tablet__Title_Text"
             sx={{ fontWeight: 'bold' }}
@@ -129,6 +132,7 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({
               alignItems: 'center',
               flexGrow: 1,
               width: '100%',
+              gap: '.5em',
             }}
           >
             <DigiField
@@ -235,6 +239,19 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({
                   flexWrap: 'nowrap',
                   overflowX: 'auto',
                   gap: '.2em',
+                  width: '100%',
+                  pb: '.2em',
+                  '&::-webkit-scrollbar': {
+                    height: '6px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    background: 'rgba(0,73,130,.8)',
+                    borderRadius: '10px',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    borderRadius: '20px',
+                    background: 'rgb(24,252,252)',
+                  },
                 }}
               >
                 {otherLocations && otherLocations.length > 0 ? (

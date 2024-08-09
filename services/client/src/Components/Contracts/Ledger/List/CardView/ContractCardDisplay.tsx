@@ -1,4 +1,5 @@
 import { Box, TablePagination } from '@mui/material';
+import { isMobile } from '@Utils/isMobile';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -25,6 +26,7 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
   onChangeRowsPerPage,
   totalContracts,
 }) => {
+  const mobile = isMobile();
   return (
     <Box
       data-testid="Contract-Card__DisplayContainer"
@@ -84,6 +86,18 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
             boxShadow: '0 0 8px 5px rgba(14,49,252,.4)',
             backgroundColor: 'rgba(0,1,19,.5)',
             width: '100%',
+            '& .MuiTablePagination-displayedRows': {
+              fontSize: { xs: '.7em', sm: '1em' },
+            },
+            '& .MuiTablePagination-selectLabel': {
+              fontSize: { xs: '.7em', sm: '1em' },
+            },
+            '& .MuiTablePagination-toolbar': {
+              px: { xs: '.5em', sm: '1em' },
+            },
+            '& .MuiTablePagination-actions': {
+              ml: { xs: '0', sm: '20px' },
+            },
           }}
           slotProps={{
             select: {
@@ -92,7 +106,11 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
                 '& .MuiSelect-icon': {
                   color: 'secondary.main',
                 },
+                fontSize: { xs: '.8em', sm: '1em' },
+                mr: { xs: '5px', sm: '32px' },
+                ml: { xs: '0', sm: '8px' },
               },
+              size: mobile ? 'small' : 'medium',
             },
             actions: {
               firstButtonIcon: {
@@ -103,11 +121,13 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
               nextButtonIcon: {
                 sx: {
                   color: 'secondary.main',
+                  fontSize: { xs: '.7em', sm: '1em' },
                 },
               },
               previousButtonIcon: {
                 sx: {
                   color: 'secondary.main',
+                  fontSize: { xs: '.7em', sm: '1em' },
                 },
               },
             },

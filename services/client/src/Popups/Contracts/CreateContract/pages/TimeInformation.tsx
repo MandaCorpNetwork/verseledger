@@ -6,10 +6,12 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
+  FormLabel,
   IconButton,
   TextField,
   Typography,
 } from '@mui/material';
+import { isMobile } from '@Utils/isMobile';
 import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
@@ -24,6 +26,7 @@ export const TimeInformation: React.FC<{
   setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
   const { playSound } = useSoundEffect();
+  const mobile = isMobile();
   const { formData, setFormData } = props;
   const [heldDate, setHeldDate] = React.useState<Date | null>(null);
   const [afterBiddingChecked, setAfterBiddingChecked] = React.useState(false);
@@ -141,8 +144,10 @@ export const TimeInformation: React.FC<{
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
+          gap: '1em',
         }}
       >
+        {mobile && <FormLabel>Time Information</FormLabel>}
         <Box
           data-testid="TimeInformation-Form__ControlMessage_Wrapper"
           sx={{
@@ -188,9 +193,11 @@ export const TimeInformation: React.FC<{
           data-testid="TimeInformation-form-DateBoxWrapper"
           sx={{
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: { xs: 'column', md: 'row' },
             gap: '1em',
             position: 'relative',
+            width: '100%',
+            alignItems: { xs: 'center', md: 'stretch' },
           }}
         >
           {formData.isEmergency && <LargeEmergencyOverlay />}
@@ -281,7 +288,7 @@ export const TimeInformation: React.FC<{
               label="Start After Bidding"
               sx={{
                 color: 'text.secondary',
-                mx: 'auto',
+                mx: { xs: '0', md: 'auto' },
               }}
             />
           </Box>
