@@ -10,7 +10,7 @@ import React from 'react';
 import { IFeedbackFeatures } from 'vl-shared/src/schemas/FeedbackFeatureSchema';
 import {
   IFeedbackForm,
-  IQuestionFeedback,
+  IUserIssueFeedback,
 } from 'vl-shared/src/schemas/FeedbackFormSchema';
 import { IFeedbackTools } from 'vl-shared/src/schemas/FeedbackToolSchema';
 
@@ -25,7 +25,7 @@ export const QuestionForm: React.FC<{
 }> = (props) => {
   const { formData, setFormData } = props;
   const { playSound } = useSoundEffect();
-  const isQuestionForm = formData.type === 'QUESTION';
+  const isUserIssueForm = formData.type === 'USER_ISSUE';
 
   const handleFeatureSelect = React.useCallback(
     (e: SelectChangeEvent<string>) => {
@@ -46,61 +46,40 @@ export const QuestionForm: React.FC<{
   );
 
   const handleChange = React.useCallback(
-    (field: keyof IQuestionFeedback) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (isQuestionForm) {
+    (field: keyof IUserIssueFeedback) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (isUserIssueForm) {
         setFormData({ ...formData, [field]: e.target.value });
       }
     },
     [setFormData, formData],
   );
 
-  const handlePublicToggle = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (isQuestionForm) {
-        setFormData({ ...formData, public: e.target.checked });
-      }
-    },
-    [setFormData, formData],
-  );
-
-  if (formData.type !== 'QUESTION') return null;
+  if (formData.type !== 'USER_ISSUE') return null;
   return (
     <FormControl
-      data-testid="Feedback-Popup-Form-IssueBody__QuestionForm_FormControl"
+      data-testid="Feedback-Popup-Form-IssueBody__UserIssueForm_FormControl"
       sx={{ height: '100%', gap: { xs: '.5em', md: '1em' } }}
     >
       <FormLabel>Question Feedback</FormLabel>
       <FeatureSelect
-        required={true}
+        required={false}
         onChange={handleFeatureSelect}
         value={formData.feature}
       />
       <ToolSelect required={false} onChange={handleToolSelect} value={formData.tool} />
       <TextField
-        data-testid="Feedback-Popup-Form-IssueBody-QuestionForm-Field__Question"
+        data-testid="Feedback-Popup-Form-IssueBody-UserIssueForm-Field__Report"
         required
         size="small"
         label="Suggested Behavior"
         color="info"
         multiline
         rows={3}
-        value={formData.question}
-        onChange={handleChange('question')}
-      />
-      <FormControlLabel
-        data-testid="Feedback-Popup-Form-IssueBody-QuestionForm-Field__Public_Switch"
-        control={
-          <Switch
-            size="small"
-            color="info"
-            checked={formData.public ?? false}
-            onChange={handlePublicToggle}
-          />
-        }
-        label="Public"
+        value={formData.report}
+        onChange={handleChange('report')}
       />
       <TextField
-        data-testid="Feedback-Popup-Form-IssueBody-QuestionForm-Field__Notes"
+        data-testid="Feedback-Popup-Form-IssueBody-UserIssueForm-Field__Notes"
         required
         size="small"
         label="Notes"
