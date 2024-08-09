@@ -40,7 +40,7 @@ export type IBugFeedback = z.infer<typeof BugFeedbackSchema>;
 export const SuggestionFeebackSchema = BaseFeedbackSchema.extend({
   type: z.literal("SUGGESTION"),
   feature: FeedbackFeatureSchema,
-  tool: FeedbackToolSchema,
+  tool: FeedbackToolSchema.optional(),
   suggestedBehavior: z.string().describe("Suggested Behavior"),
   attachments: z.string().url().optional().describe("URL to attachment"),
   public: z.boolean().default(true),
