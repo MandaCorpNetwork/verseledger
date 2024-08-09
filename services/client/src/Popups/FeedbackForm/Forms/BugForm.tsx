@@ -59,8 +59,13 @@ export const BugForm: React.FC<{
 
   if (formData.type !== 'BUG') return null;
   return (
-    <FormControl sx={{ height: '100%' }}>
-      <FormLabel>Bug Feedback</FormLabel>
+    <FormControl
+      data-testid="Feedback-Popup-Form-IssueBody__BugForm_FormControl"
+      sx={{ height: '100%', gap: { xs: '.5em', md: '1em' } }}
+    >
+      <FormLabel data-testid="Feedback-Popup-Form-IssueBody-BugForm_FormLabel">
+        Bug Feedback
+      </FormLabel>
       <FeatureSelect
         required={true}
         onChange={handleFeatureSelect}
@@ -69,43 +74,53 @@ export const BugForm: React.FC<{
       <ToolSelect required={true} onChange={handleToolSelect} value={formData.tool} />
       <BrowserSelect onChange={handleBrowserSelect} value={formData.browser} />
       <TextField
+        data-testid="Feedback-Popup-Form-IssueBody-BugForm-Field__ObservedBehavior"
         required
         size="small"
         label="Observed Behavior"
         color="info"
         multiline
+        rows={3}
         value={formData.observedBehavior}
         onChange={handleChange('observedBehavior')}
       />
       <TextField
+        data-testid="Feedback-Popup-Form-IssueBody-BugForm-Field__ExpectedBehavior"
         size="small"
         label="Expected Behavior"
         color="info"
         multiline
+        rows={3}
         value={formData.expectedBehavior}
         onChange={handleChange('expectedBehavior')}
       />
       <TextField
+        data-testid="Feedback-Popup-Form-IssueBody-BugForm-Field__SuggestedBehavior"
         size="small"
         label="Suggested Behavior"
         color="info"
         multiline
+        rows={3}
         value={formData.suggestedBehavior}
         onChange={handleChange('suggestedBehavior')}
       />
       <TextField
+        data-testid="Feedback-Popup-Form-IssueBody-BugForm-Field__Logs"
         size="small"
         label="Logs"
         color="info"
         multiline
+        rows={3}
         value={formData.logs}
         onChange={handleChange('logs')}
       />
       <TextField
+        data-testid="Feedback-Popup-Form-IssueBody-BugForm-Field__Notes"
         size="small"
         label="Notes"
         color="info"
         multiline
+        rows={3}
         value={formData.notes}
         onChange={handleChange('notes')}
       />

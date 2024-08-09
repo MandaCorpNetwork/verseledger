@@ -183,7 +183,7 @@ export const FeedbackForm: React.FC<{
       </DigiBox>
       <DigiBox
         data-testid="Feedback-Popup-Form__IssueBody_Wrapper"
-        sx={{ p: { xs: '.5em', md: '1em' }, maxHeight: '100%' }}
+        sx={{ p: { xs: '.5em', md: '1em' } }}
       >
         {renderForm()}
       </DigiBox>
