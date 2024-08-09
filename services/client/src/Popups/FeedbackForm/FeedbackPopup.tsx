@@ -1,22 +1,13 @@
-import Feedback from '@Assets/media/Feedback.webm?url';
 import PallyLogo from '@Assets/media/MenuPage/PallyLogo.png?url';
 import { Discord, KoFi, Patreon } from '@Common/Definitions/CustomIcons';
 import { GitHub } from '@mui/icons-material';
-import {
-  Box,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  IconButton,
-  Radio,
-  RadioGroup,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
+
+import { FeedbackIntro } from './FeedbackIntro';
 
 export const POPUP_FEEDBACK = 'feedback';
 
@@ -35,88 +26,11 @@ export const FeedbackPopup: React.FC = () => {
       title="Feedback"
       onSubmit={onSubmit}
       submitText={page == 0 ? 'Next' : 'Submit'}
+      state={page}
+      minWidth="380px"
+      minHeight="500px"
     >
-      {page == 0 ? (
-        <>
-          <video src={Feedback} autoPlay muted loop width="500" />
-          <Box
-            sx={{
-              display: 'flex',
-              position: 'absolute',
-              zIndex: 10,
-              top: '200px',
-              width: '88%',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              left: '5%',
-            }}
-          >
-            <Typography
-              align="center"
-              sx={{ fontWeight: 'bold', color: 'info.main', textShadow: '0 0 10px #000' }}
-            >
-              Sometimes things break. Sometimes there are oversights. Somtimes users know
-              everything.
-            </Typography>
-            <Typography
-              align="center"
-              sx={{
-                fontWeight: 'bold',
-                mt: '.5em',
-                color: 'info.main',
-                textShadow: '0 0 10px #000',
-              }}
-            >
-              Please use this form to submit feedback for Verse Ledger.
-            </Typography>
-          </Box>
-        </>
-      ) : (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            backgroundColor: 'rgba(8,29,68,.9)',
-            p: '1em',
-            borderTop: '3px solid',
-            borderBottom: '3px solid',
-            borderRadius: '10px',
-            borderColor: 'secondary.main',
-          }}
-        >
-          <FormControl color="secondary">
-            <FormLabel>Feedback Type</FormLabel>
-            <RadioGroup defaultValue="suggestion" row>
-              <FormControlLabel
-                control={<Radio size="small" color="secondary" />}
-                value="suggestion"
-                label="Suggestion"
-              />
-              <FormControlLabel
-                control={<Radio size="small" color="secondary" />}
-                value="bug"
-                label="Bug"
-              />
-              <FormControlLabel
-                control={<Radio size="small" color="secondary" />}
-                value="userIssue"
-                label="User Issue"
-              />
-              <FormControlLabel
-                control={<Radio size="small" color="secondary" />}
-                value="question"
-                label="Question"
-              />
-              <FormControlLabel
-                control={<Radio size="small" color="secondary" />}
-                value="other"
-                label="Other"
-              />
-            </RadioGroup>
-          </FormControl>
-          <TextField color="secondary" label="Feedback Message" multiline />
-        </Box>
-      )}
+      {page === 0 && <FeedbackIntro />}
       <Box sx={{ display: 'flex' }}>
         <IconButton
           component="a"
