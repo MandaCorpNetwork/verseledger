@@ -75,6 +75,7 @@ export type IUserIssueFeedback = z.infer<typeof UserIssueFeedbackSchema>;
 export const FeatureQueFeedbackSchema = BaseFeedbackSchema.extend({
   type: z.literal("UPDATE"),
   feature: FeedbackFeatureSchema.optional(),
+  newFeature: z.string().max(26).optional(),
   concern: FeedbackConcernSchema,
   tool: FeedbackToolSchema.optional(),
   newTool: z.string().max(26).optional(),

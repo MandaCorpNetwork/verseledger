@@ -16,8 +16,10 @@ import { IFeedbackForm } from 'vl-shared/src/schemas/FeedbackFormSchema';
 import { useSoundEffect } from '@/AudioManager';
 
 import { BugForm } from './Forms/BugForm';
+import { FeatureQueForm } from './Forms/FeatureQueForm';
 import { QuestionForm } from './Forms/QuestionForm';
 import { SuggestionForm } from './Forms/SuggestionForm';
+import { UserIssueForm } from './Forms/UserIssueForm';
 
 type FeedbackType =
   | 'BUG'
@@ -52,6 +54,10 @@ export const FeedbackForm: React.FC<{
         return <SuggestionForm formData={formData} setFormData={setFormData} />;
       case 'QUESTION':
         return <QuestionForm formData={formData} setFormData={setFormData} />;
+      case 'USER_ISSUE':
+        return <UserIssueForm formData={formData} setFormData={setFormData} />;
+      case 'UPDATE':
+        return <FeatureQueForm formData={formData} setFormData={setFormData} />;
       default:
         return null;
     }

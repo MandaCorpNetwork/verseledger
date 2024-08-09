@@ -1,11 +1,4 @@
-import {
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  SelectChangeEvent,
-  Switch,
-  TextField,
-} from '@mui/material';
+import { FormControl, FormLabel, SelectChangeEvent, TextField } from '@mui/material';
 import React from 'react';
 import { IFeedbackFeatures } from 'vl-shared/src/schemas/FeedbackFeatureSchema';
 import {
@@ -19,7 +12,7 @@ import { useSoundEffect } from '@/AudioManager';
 import { FeatureSelect } from '../Fields/FeatureSelect';
 import { ToolSelect } from '../Fields/ToolSelect';
 
-export const QuestionForm: React.FC<{
+export const UserIssueForm: React.FC<{
   formData: Partial<IFeedbackForm> | IFeedbackForm;
   setFormData: React.Dispatch<React.SetStateAction<Partial<IFeedbackForm>>>;
 }> = (props) => {
