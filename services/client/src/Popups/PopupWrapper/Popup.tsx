@@ -23,6 +23,7 @@ type VLPopupProps = PropsWithChildren<{
   open?: boolean;
   name: string;
   bottomBarComponent?: React.ReactNode;
+  sx?: object;
 }>;
 
 const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
@@ -44,6 +45,7 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
     maxWidth,
     minHeight,
     maxHeight,
+    sx,
   } = props;
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
@@ -75,6 +77,7 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
           maxWidth,
           minHeight,
           maxHeight,
+          ...sx,
         },
       }}
     >

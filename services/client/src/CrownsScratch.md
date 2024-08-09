@@ -36,3 +36,8 @@
 # Copied URL does not show as valid location until using the back button
 
 # Sortby for Contracts
+
+
+Overflow not working on Mobile
+Convert Bottom Boxes
+Turn off Briefing scroll on mobile

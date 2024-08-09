@@ -122,15 +122,36 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
       onSubmit={handleSubmitBid}
       bottomBarComponent={<BidTimeRemaining bidDate={contract.bidDate} />}
       data-testid="ContractBid"
-      maxHeight="95%"
+      sx={{
+        maxWidth: { xs: '100%', md: '30%' },
+        maxHeight: { md: '95%' },
+        height: { xs: '100%', md: 'auto' },
+      }}
     >
       <Box
         data-testid="ContractBid__Wrapper"
-        sx={{ display: 'flex', flexDirection: 'column', height: '80%' }}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'auto',
+          maxHeight: '100%',
+          px: '.2em',
+          '&::-webkit-scrollbar': {
+            width: '4px',
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'rgb(8, 29, 68)',
+            borderRadius: '10px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            borderRadius: '20px',
+            background: 'rgb(24,252,252)',
+          },
+        }}
       >
         <DigiBox
           data-testid="ContractBid-ContractDetails__Wrapper"
-          sx={{ p: '.5em', maxHeight: '30%', overflow: 'auto' }}
+          sx={{ p: '.5em', maxHeight: '30%' }}
         >
           <Typography
             data-testid="ContractBid-ContractDetails__Title"
@@ -147,54 +168,64 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
             data-testid="ContractBid-ContractDetails__TopContainer"
             sx={{
               display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
+              flexDirection: { xs: 'column', md: 'row' },
+              justifyContent: 'space-around',
               my: '.5em',
               gap: '.5em',
             }}
           >
             <UserDisplay userid={contract.owner_id} sx={{ alignSelf: 'center' }} />
-            <DigiDisplay
-              data-testid="ContractBid-ContractDetails__ContractTypeWrapper"
+            <Box
               sx={{
-                px: '1em',
-                pb: '.5em',
+                display: 'flex',
+                flexDirection: 'row',
+                gap: '.5em',
+                flexGrow: '1',
+                justifyContent: 'space-around',
               }}
             >
-              <Typography
-                data-testid="ContractBid-ContractDetails__ContractTypeTitle"
-                align="center"
-                variant="body2"
-                sx={{ fontWeight: 'bold', cursor: 'default' }}
+              <DigiDisplay
+                data-testid="ContractBid-ContractDetails__ContractTypeWrapper"
+                sx={{
+                  px: '1em',
+                  pb: '.5em',
+                }}
               >
-                Contract Type
-              </Typography>
-              <Box
-                data-testid="ContractBid-ContractDetails-ContractType__SubtypeChipWrapper"
-                sx={{ mx: 'auto', mt: '.2em' }}
+                <Typography
+                  data-testid="ContractBid-ContractDetails__ContractTypeTitle"
+                  align="center"
+                  variant="body2"
+                  sx={{ fontWeight: 'bold', cursor: 'default' }}
+                >
+                  Contract Type
+                </Typography>
+                <Box
+                  data-testid="ContractBid-ContractDetails-ContractType__SubtypeChipWrapper"
+                  sx={{ mt: '.2em' }}
+                >
+                  <SubtypeChip subtype={contract.subtype} />
+                </Box>
+              </DigiDisplay>
+              <DigiDisplay
+                data-testid="ContractBid-ContractDetails__ContractStatusWrapper"
+                sx={{ px: '1em', pb: '.5em' }}
               >
-                <SubtypeChip subtype={contract.subtype} />
-              </Box>
-            </DigiDisplay>
-            <DigiDisplay
-              data-testid="ContractBid-ContractDetails__ContractStatusWrapper"
-              sx={{ px: '1em', pb: '.5em' }}
-            >
-              <Typography
-                data-testid="ContractBid-ContractDetails__ContractStatusTitle"
-                align="center"
-                variant="body2"
-                sx={{ fontWeight: 'bold', cursor: 'default' }}
-              >
-                Contract Status
-              </Typography>
-              <Box
-                data-testid="ContractBid-ContractDetails-ContractStatus__ChipWrapper"
-                sx={{ mx: 'auto', mt: '.2em' }}
-              >
-                <ContractStatusChip status={contract.status} />
-              </Box>
-            </DigiDisplay>
+                <Typography
+                  data-testid="ContractBid-ContractDetails__ContractStatusTitle"
+                  align="center"
+                  variant="body2"
+                  sx={{ fontWeight: 'bold', cursor: 'default' }}
+                >
+                  Contract Status
+                </Typography>
+                <Box
+                  data-testid="ContractBid-ContractDetails-ContractStatus__ChipWrapper"
+                  sx={{ mx: 'auto', mt: '.2em' }}
+                >
+                  <ContractStatusChip status={contract.status} />
+                </Box>
+              </DigiDisplay>
+            </Box>
           </Box>
           <DigiDisplay
             data-testid="ContractBid-ContractDetails__BriefingWrapper"

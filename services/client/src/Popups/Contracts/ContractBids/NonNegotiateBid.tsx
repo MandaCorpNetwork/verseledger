@@ -11,6 +11,7 @@ import { Box, Tooltip, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import dayjs from 'dayjs';
 import { useCallback } from 'react';
+import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 type NonNegotiateBidProps = {
@@ -56,7 +57,7 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
   return (
     <DigiBox
       data-testid="ContractBid__NonNegotiateBid_Wrapper"
-      sx={{ p: '.5em', maxHeight: '65%', overflowY: 'auto' }}
+      sx={{ p: '.5em', maxHeight: { xs: '100%', md: '65%' } }}
     >
       <Typography
         data-testid="ContractBid__NonNegotiateBid_Title"
@@ -92,7 +93,6 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
           flexDirection: 'column',
           justifyContent: 'space-around',
           my: '.5em',
-          overflow: 'auto',
           alignItems: 'center',
         }}
       >
@@ -100,10 +100,11 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
           data-testid="ContractBid-NonNegotiateBid__TopBox"
           sx={{
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-around',
             pb: '.5em',
             width: '100%',
+            gap: '1em',
           }}
         >
           <DigiDisplay
@@ -135,7 +136,8 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
             <PayDisplay
               label="Default Pay"
               pay={contract.defaultPay}
-              maxWidth="100%"
+              structure={(contract.payStructure as ContractPayStructure) ?? undefined}
+              maxWidth="125px"
               width="100%"
             />
           </DigiDisplay>
@@ -220,10 +222,11 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
         </Box>
         <DigiDisplay
           sx={{
-            flexDirection: 'row',
+            flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-around',
             p: '.5em',
             width: '90%',
+            gap: '.5em',
           }}
         >
           <DigiField label="Start Date">{startDate}</DigiField>
@@ -243,10 +246,12 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
           <Box
             sx={{
               display: 'flex',
-              flexDirection: 'row',
+              flexDirection: { xs: 'column', md: 'row' },
               my: '.5em',
               justifyContent: 'space-around',
+              alignItems: 'center',
               width: '100%',
+              gap: '.5em',
             }}
           >
             <DigiField label="Start Location" sx={{ width: '120px' }}>
