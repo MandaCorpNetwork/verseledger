@@ -37,11 +37,24 @@ export const FeedbackPopup: React.FC = () => {
       minWidth="380px"
       minHeight="500px"
       maxHeight="80%"
+      sx={{
+        height: page === 1 ? '80%' : 'auto',
+      }}
     >
-      {page === 0 && <FeedbackIntro />}
-      {page === 1 && (
-        <FeedbackForm formData={feedbackForm} setFormData={setFeedbackForm} />
-      )}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '90%',
+          overflow: 'auto',
+        }}
+      >
+        {page === 0 && <FeedbackIntro />}
+        {page === 1 && (
+          <FeedbackForm formData={feedbackForm} setFormData={setFeedbackForm} />
+        )}
+      </Box>
+
       <Box sx={{ display: 'flex' }}>
         <IconButton
           component="a"

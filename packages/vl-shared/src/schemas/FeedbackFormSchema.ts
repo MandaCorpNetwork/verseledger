@@ -16,9 +16,11 @@ export type IFeedbackNeeds = z.infer<typeof FeedbackNeeds>;
 export const BaseFeedbackSchema = z.object({
   username: z.string().describe("Contributor Name"),
   userTitle: z.string().max(32).describe("User Title"),
-  shortDescription: z.string().max(300),
+  brief: z.string().max(300),
   createdAt: z.coerce.date(),
 });
+
+export type IBaseFeedback = z.infer<typeof BaseFeedbackSchema>;
 
 export const BugFeedbackSchema = BaseFeedbackSchema.extend({
   type: z.literal("BUG"),
@@ -26,12 +28,14 @@ export const BugFeedbackSchema = BaseFeedbackSchema.extend({
   tool: FeedbackToolSchema,
   browser: FeedbackBrowserSchema,
   observedBehavior: z.string().describe("Observed Behavior"),
-  expectedBehavior: z.string().optional().nullable().describe("Expected Behavior"),
-  suggestedBehavior: z.string().optional().nullable().describe("Suggested Behavior"),
+  expectedBehavior: z.string().optional().describe("Expected Behavior"),
+  suggestedBehavior: z.string().optional().describe("Suggested Behavior"),
   logs: z.string().optional().nullable().describe("Logs"),
   attachment: z.string().url().optional().describe("URL to attachment"),
   notes: z.string().optional(),
 });
+
+export type IBugFeedback = z.infer<typeof BugFeedbackSchema>;
 
 export const SuggestionFeebackSchema = BaseFeedbackSchema.extend({
   type: z.literal("SUGGESTION"),
@@ -43,6 +47,8 @@ export const SuggestionFeebackSchema = BaseFeedbackSchema.extend({
   notes: z.string().optional(),
 });
 
+export type ISuggestionFeedback = z.infer<typeof SuggestionFeebackSchema>;
+
 export const QuestionFeedbackSchema = BaseFeedbackSchema.extend({
   type: z.literal("QUESTION"),
   feature: FeedbackFeatureSchema,
@@ -53,6 +59,8 @@ export const QuestionFeedbackSchema = BaseFeedbackSchema.extend({
   notes: z.string().optional(),
 });
 
+export type IQuestionFeedback = z.infer<typeof QuestionFeedbackSchema>;
+
 export const UserIssueFeedbackSchema = BaseFeedbackSchema.extend({
   type: z.literal("USER_ISSUE"),
   feature: FeedbackFeatureSchema.optional(),
@@ -61,6 +69,8 @@ export const UserIssueFeedbackSchema = BaseFeedbackSchema.extend({
   attachments: z.string().url().optional().describe("URL to attachment"),
   notes: z.string().optional(),
 });
+
+export type IUserIssueFeedback = z.infer<typeof UserIssueFeedbackSchema>;
 
 export const FeatureQueFeedbackSchema = BaseFeedbackSchema.extend({
   type: z.literal("UPDATE"),
@@ -81,6 +91,8 @@ export const FeatureQueFeedbackSchema = BaseFeedbackSchema.extend({
   linkedMilestone: z.string().optional(),
 });
 
+export type IFeatureQueFeedback = z.infer<typeof FeatureQueFeedbackSchema>;
+
 export const MilestoneFeedbackSchema = BaseFeedbackSchema.extend({
   type: z.literal("MILESTONE"),
   purpose: z.string(),
@@ -99,6 +111,8 @@ export const MilestoneFeedbackSchema = BaseFeedbackSchema.extend({
   attachments: z.string().url().optional().describe("URL to attachment"),
   milestone: z.string().optional(),
 });
+
+export type IMilestoneFeedback = z.infer<typeof MilestoneFeedbackSchema>;
 
 export const FeedbackFormSchema = z.union([
   BugFeedbackSchema, SuggestionFeebackSchema, QuestionFeedbackSchema, UserIssueFeedbackSchema, FeatureQueFeedbackSchema, MilestoneFeedbackSchema,

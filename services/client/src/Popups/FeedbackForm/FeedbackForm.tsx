@@ -15,6 +15,8 @@ import { IFeedbackForm } from 'vl-shared/src/schemas/FeedbackFormSchema';
 
 import { useSoundEffect } from '@/AudioManager';
 
+import { BugForm } from './Forms/BugForm';
+
 type FeedbackType =
   | 'BUG'
   | 'SUGGESTION'
@@ -39,45 +41,70 @@ export const FeedbackForm: React.FC<{
     },
     [setFormData],
   );
+
+  const renderForm = React.useCallback(() => {
+    switch (formData.type) {
+      case 'BUG':
+        return <BugForm formData={formData} setFormData={setFormData} />;
+      default:
+        return null;
+    }
+  }, [formData.type]);
   return (
     <GlassBox
       data-testid="Feedback-Popup__Form_Container"
       sx={{
         p: '.5em',
-        height: '100%',
+        maxHeight: '100%',
         overflow: 'auto',
+        gap: '1em',
       }}
     >
       <DigiBox
         data-testid="Feedback-Popup-Form__IssueType_Wrapper"
-        sx={{ p: { xs: '.5em', md: '1em' } }}
+        sx={{ p: { xs: '.5em', md: '1em' }, maxHeight: '100%' }}
       >
-        <FormControl color="info">
-          <FormLabel>Feedback Type</FormLabel>
-          <DigiDisplay>
-            <RadioGroup value={formData.type ?? null} onChange={handleTypeChange}>
+        <FormControl
+          data-testid="Feedback-Popup-Form-IssueType__FormControl"
+          color="info"
+          sx={{ mb: '.5em' }}
+        >
+          <FormLabel data-testid="Feedback-Popup-Form-IssueType__FormLabel">
+            Feedback Type
+          </FormLabel>
+          <DigiDisplay data-testid="Feedback-Popup-Form-IssueType__RadioGroup_Wrapper">
+            <RadioGroup
+              data-testid="Feedback-Popup-Form-IssueType__RadioGroup"
+              value={formData.type ?? null}
+              onChange={handleTypeChange}
+            >
               <FormControlLabel
+                data-testid="Feedback-Popup-Form-IssueType__Radio_BUG"
                 control={<Radio size="small" color="info" />}
                 value="BUG"
                 label="Bug"
               />
               <FormControlLabel
+                data-testid="Feedback-Popup-Form-IssueType__Radio_SUGGESTION"
                 control={<Radio size="small" color="info" />}
                 value="SUGGESTION"
                 label="Suggestion"
               />
               <FormControlLabel
+                data-testid="Feedback-Popup-Form-IssueType__Radio_QUESTION"
                 control={<Radio size="small" color="info" />}
                 value="QUESTION"
                 label="Question"
               />
               <FormControlLabel
+                data-testid="Feedback-Popup-Form-IssueType__Radio_USER-ISSUE"
                 control={<Radio size="small" color="info" />}
                 value="USER_ISSUE"
                 label="User Issue"
               />
               {dev && (
                 <FormControlLabel
+                  data-testid="Feedback-Popup-Form-IssueType__Radio_UPDATE"
                   control={<Radio size="small" color="info" />}
                   value="UPDATE"
                   label="Feature Update"
@@ -85,6 +112,7 @@ export const FeedbackForm: React.FC<{
               )}
               {dev && (
                 <FormControlLabel
+                  data-testid="Feedback-Popup-Form-IssueType__Radio_MILESTONE"
                   control={<Radio size="small" color="info" />}
                   value="MILESTONE"
                   label="Milestone"
@@ -93,29 +121,72 @@ export const FeedbackForm: React.FC<{
             </RadioGroup>
           </DigiDisplay>
         </FormControl>
-        <FormControl color="info">
-          <FormLabel>Feedback Intro</FormLabel>
-          <DigiDisplay sx={{ gap: '1em', py: '.5em' }}>
+        <FormControl
+          color="info"
+          data-testid="Feedback-Popup-Form__IssueIntro_FormControl"
+        >
+          <FormLabel data-testid="Feedback-Popup-Form-IssueIntro__FormLabel">
+            Feedback Intro
+          </FormLabel>
+          <DigiDisplay
+            data-testid="Feedback-Popup-Form-IssueIntro__Field_Wrapper"
+            sx={{ gap: '1.5em', py: '1em' }}
+          >
             <TextField
+              data-testid="Feedback-Popup-Form-IssueIntro-Field__UserTitle"
               label="User Title"
               size="small"
               required
-              color="info"
+              color={formData.userTitle?.length === 32 ? 'error' : 'info'}
               inputProps={{ maxLength: 32 }}
+              onChange={(e) => {
+                setFormData({ ...formData, userTitle: e.currentTarget.value });
+                if (e.currentTarget.value.length === 32) {
+                  playSound('warning');
+                }
+              }}
+              value={formData.userTitle ?? ''}
+              helperText={
+                formData.userTitle?.length == 32 ? 'Character Limit Reached' : ''
+              }
+              FormHelperTextProps={{
+                sx: {
+                  color: 'error.main',
+                },
+              }}
             />
             <TextField
+              data-testid="Feedback-Popup-Form-IssueIntro-Field__Brief"
               label="Brief Intro"
               size="small"
               multiline
               required
               rows={2}
-              color="info"
+              color={formData.userTitle?.length === 300 ? 'error' : 'info'}
               inputProps={{ maxLength: 300 }}
+              onChange={(e) => {
+                setFormData({ ...formData, brief: e.currentTarget.value });
+                if (e.currentTarget.value.length === 300) {
+                  playSound('warning');
+                }
+              }}
+              value={formData.brief ?? ''}
+              helperText={formData.brief?.length == 300 ? 'Character Limit Reached' : ''}
+              FormHelperTextProps={{
+                sx: {
+                  color: 'error.main',
+                },
+              }}
             />
           </DigiDisplay>
         </FormControl>
       </DigiBox>
-      <DigiBox></DigiBox>
+      <DigiBox
+        data-testid="Feedback-Popup-Form__IssueBody_Wrapper"
+        sx={{ p: { xs: '.5em', md: '1em' }, maxHeight: '100%' }}
+      >
+        {renderForm()}
+      </DigiBox>
     </GlassBox>
   );
 };
