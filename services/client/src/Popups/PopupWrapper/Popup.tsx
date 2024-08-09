@@ -66,7 +66,7 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
         sx: {
           bgcolor: 'rgba(8, 29, 68, 0.6)',
           display: 'flex',
-          padding: '1em',
+          padding: { xs: '0', md: '1em' },
           borderRadius: '10px',
           flexDirection: 'column',
           borderTop: '2px solid',
