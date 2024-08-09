@@ -34,7 +34,7 @@ export const ContractManagerContractCard: React.FC<ContractManagerCardProps> = (
       sx={{
         display: 'flex',
         flexDirection: 'row',
-        width: { xs: '250px', md: '60%' },
+        width: { xs: '250px', md: '80%' },
         my: '.5em',
         px: { xs: '.5em', md: '1em' },
         py: '.5em',

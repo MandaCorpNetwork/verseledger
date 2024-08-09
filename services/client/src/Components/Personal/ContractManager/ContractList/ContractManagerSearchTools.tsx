@@ -1,5 +1,5 @@
 import { ArrowBackIosNew, FilterAlt } from '@mui/icons-material';
-import { Badge, Box, Collapse, IconButton, Tooltip } from '@mui/material';
+import { Badge, Box, Collapse, IconButton, Tooltip, useTheme } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
 // import { QueryNames } from '@Utils/QueryNames';
@@ -12,6 +12,7 @@ export const ContractManagerSearchTools: React.FC = () => {
   const [searchToolsOpen, setSearchToolsOpen] = React.useState<boolean>(false);
   const [filtersListOpen, setFiltersListOpen] = React.useState<boolean>(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const theme = useTheme();
   // const [filters] = useURLQuery();
   const toggleSearchTools = () => {
     setSearchToolsOpen(!searchToolsOpen);
@@ -94,6 +95,7 @@ export const ContractManagerSearchTools: React.FC = () => {
             <IconButton
               data-testid="ContractManager-ContractList-SearchTools__FiltersButton"
               onClick={toggleFilterList}
+              size={theme.breakpoints.down('md') ? 'small' : 'medium'}
             >
               <FilterAlt />
             </IconButton>
@@ -116,12 +118,16 @@ export const ContractManagerSearchTools: React.FC = () => {
           <IconButton
             data-testid="ContractManager-ContractList-SearchTools__SearchToolsExpansionButton"
             onClick={toggleSearchTools}
+            size={theme.breakpoints.down('md') ? 'small' : 'medium'}
+            disabled
             sx={{
               transform: !searchToolsOpen ? 'rotate(90deg)' : 'rotate(0deg)',
               transition: 'transform 200ms',
             }}
           >
-            <ArrowBackIosNew fontSize="large" />
+            <ArrowBackIosNew
+              fontSize={theme.breakpoints.down('md') ? 'small' : 'medium'}
+            />
           </IconButton>
         </Tooltip>
         {/* </Badge> */}
