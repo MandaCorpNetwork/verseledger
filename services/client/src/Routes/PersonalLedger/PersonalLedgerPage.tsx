@@ -69,6 +69,18 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
           margin: { xs: '0', md: '1%' },
           padding: { xs: '0', md: '.5em' },
           overflowY: { xs: 'auto', md: 'hidden' },
+          '&::-webkit-scrollbar': {
+            width: '5px',
+            height: '5px',
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'rgb(0,73,130)',
+            borderRadius: '10px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            borderRadius: '20px',
+            background: 'rgb(24,252,252)',
+          },
         }}
       >
         <Outlet />

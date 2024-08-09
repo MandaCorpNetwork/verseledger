@@ -9,7 +9,7 @@ export const OverviewNotification: React.FC<unknown> = () => {
       data-testid="NotificationContainer"
       sx={{
         justifyContent: 'space-between',
-        px: { xs: '0em', md: '1em' },
+        px: { xs: '.2em', md: '1em' },
         alignItems: 'center',
         gap: '.5em',
       }}
@@ -41,7 +41,11 @@ export const OverviewNotification: React.FC<unknown> = () => {
         </Typography>
       </Box>
       <Box data-testid="NavButtonContainer">
-        <Button color="secondary" startIcon={<Forward />}>
+        <Button
+          color="secondary"
+          startIcon={<Forward />}
+          size={theme.breakpoints.down('md') ? 'small' : 'medium'}
+        >
           Jump
         </Button>
       </Box>

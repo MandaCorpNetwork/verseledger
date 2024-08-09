@@ -114,33 +114,31 @@ export const OverviewApp: React.FC<unknown> = () => {
               <OverviewNotification />
             </GlassDisplay>
           </GlassBox>
-          <Box
+          <GlassBox
             data-testid="RadioFrequenciesToolContainer"
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              p: '1em',
-              ml: '1em',
               width: '100%',
-              height: '30%',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '10px',
-              borderColor: 'secondary.main',
-              background: 'rgba(0,30,100,0.2)',
-              backdropFilter: 'blur(20px)',
+              height: { xs: 'auto', md: '30%' },
+              p: { xs: '.5em', md: '1em' },
+              mx: { xs: '0', md: '1em' },
+              my: { xs: '.5em', md: '1em' },
             }}
           >
-            <Box data-testid="RadioFrequenciesToolTitle">
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography variant="h6">Radio Stations</Typography>
-                <IconButton onClick={toggleRadio} sx={{ ml: 'auto' }}>
-                  <PowerSettingsNew
-                    color={isPlaying ? 'success' : 'error'}
-                    fontSize="large"
-                  />
-                </IconButton>
-              </Box>
+            <Box
+              data-testid="RadioFrequenciesToolTitle"
+              sx={{ display: 'flex', alignItems: 'center' }}
+            >
+              <Typography variant="h6" sx={{ ml: '.5em' }}>
+                Radio Stations
+              </Typography>
+              <IconButton onClick={toggleRadio} sx={{ ml: 'auto' }}>
+                <PowerSettingsNew
+                  color={isPlaying ? 'success' : 'error'}
+                  fontSize="large"
+                />
+              </IconButton>
             </Box>
             <Box
               data-id="RadioFrequenciesToolContent"
@@ -148,12 +146,12 @@ export const OverviewApp: React.FC<unknown> = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                flexGrow: 1,
+                flexGrow: { xs: 0, md: 1 },
               }}
             >
               <RadioStationApp isDisabled={!isPlaying} />
             </Box>
-          </Box>
+          </GlassBox>
         </Box>
         <Box
           sx={{ display: 'flex', flexDirection: 'column', width: '55%', height: '100%' }}
