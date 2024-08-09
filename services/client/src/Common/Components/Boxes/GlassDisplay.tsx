@@ -23,4 +23,16 @@ export const GlassDisplay = styled(Box)(({ theme }) => ({
     opacity: 0.6,
     backdropFilter: 'blur(10px)',
   },
+  '&::-webkit-scrollbar': {
+    width: '5px',
+    height: '5px',
+  },
+  '&::-webkit-scrollbar-track': {
+    background: 'rgb(0,73,130)',
+    borderRadius: '10px',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    borderRadius: '20px',
+    background: 'rgb(24,252,252)',
+  },
 }));

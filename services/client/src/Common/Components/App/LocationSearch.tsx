@@ -41,10 +41,11 @@ type LocationSearchProps = {
   helperText?: string;
   margin?: string;
   menuSize?: keyof typeof menuSizeValues;
+  sx?: object;
 };
 
 export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
-  const { onLocationSelect, width, helperText, margin, menuSize = 'm' } = props;
+  const { onLocationSelect, width, helperText, margin, menuSize = 'm', sx } = props;
   const [inputValue, setInputValue] = React.useState<ILocation | null>(null);
   //InputValue State Setter using ILocation Schema
 
@@ -74,7 +75,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
   }, [currentUserLocation, locations]);
 
   return (
-    <Box>
+    <>
       <Autocomplete
         data-testid="LocationSearch"
         onChange={(_, newValue) => {
@@ -137,6 +138,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
           width: width,
           mb: helperText ? '.8em' : '',
           m: margin ? margin : '',
+          ...sx,
         }}
         ListboxProps={{
           sx: {
@@ -144,6 +146,6 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
           },
         }}
       />
-    </Box>
+    </>
   );
 };

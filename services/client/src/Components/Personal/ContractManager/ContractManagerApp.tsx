@@ -2,7 +2,7 @@
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { TabContext, TabList } from '@mui/lab';
-import { Box, Tab } from '@mui/material';
+import { Box, Tab, useTheme } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { selectBidPagination } from '@Redux/Slices/Bids/bidsSelector';
@@ -12,10 +12,12 @@ import {
   selectContractsArray,
 } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser';
+import { isMobile } from '@Utils/isMobile';
 import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 
@@ -36,6 +38,9 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   const [selectedId, setSelectedId] = React.useState<string | null>(null);
   const [page, setPage] = React.useState(1);
   const dispatch = useAppDispatch();
+  const mobile = isMobile();
+  const theme = useTheme();
+  const navigate = useNavigate();
 
   const contractPagination = React.useCallback(
     () => useAppSelector(selectContractPagination),
@@ -80,6 +85,11 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   const handleContractSelect = React.useCallback(
     (id: string | null) => {
       setSelectedId(id);
+      if (mobile) {
+        playSound('navigate');
+        navigate(`/contract?contractID=${id}`);
+        return;
+      }
       playSound('open');
     },
     [setSelectedId],
@@ -248,7 +258,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         sx={{
           display: 'flex',
           height: '100%',
-          width: '30%',
+          width: { xs: '100%', md: '30%' },
           flexDirection: 'column',
         }}
       >
@@ -257,10 +267,13 @@ export const ContractManagerApp: React.FC<unknown> = () => {
             <ControlPanelBox
               data-testid="ContractManager__TabContainer"
               sx={{
+                display: 'block',
                 my: '1em',
-                px: '.8em',
+                px: { xs: '.5em', md: '.8em' },
                 py: '.2em',
+                mx: { xs: '0', md: '1em' },
                 alignSelf: 'center',
+                width: { xs: '100%', md: 'auto' },
               }}
             >
               <TabList
@@ -269,7 +282,9 @@ export const ContractManagerApp: React.FC<unknown> = () => {
                 onChange={handleBrowserChange}
                 indicatorColor="secondary"
                 textColor="secondary"
-                variant="fullWidth"
+                scrollButtons={theme.breakpoints.down('lg') ? true : false}
+                allowScrollButtonsMobile
+                variant={theme.breakpoints.down('lg') ? 'scrollable' : 'fullWidth'}
               >
                 <Tab
                   data-testid="ContractManager__AcceptedTab"
@@ -312,21 +327,23 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           </GlassBox>
         </TabContext>
       </Box>
-      <GlassBox
-        data-testid="ContractManagerContainer"
-        sx={{
-          width: '65%',
-        }}
-      >
-        {selectedId ? (
-          <SelectedContractManager
-            contractId={selectedId}
-            deselectContract={handleContractDeselect}
-          />
-        ) : (
-          <ContractorInfo />
-        )}
-      </GlassBox>
+      {!mobile && (
+        <GlassBox
+          data-testid="ContractManagerContainer"
+          sx={{
+            width: '65%',
+          }}
+        >
+          {selectedId ? (
+            <SelectedContractManager
+              contractId={selectedId}
+              deselectContract={handleContractDeselect}
+            />
+          ) : (
+            <ContractorInfo />
+          )}
+        </GlassBox>
+      )}
     </Box>
   );
 };

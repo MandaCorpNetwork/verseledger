@@ -34,4 +34,16 @@ export const ControlPanelBox = styled(Box)(({ theme }) => ({
     borderColor: theme.palette.secondary.light,
     boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
   },
+  '&::-webkit-scrollbar': {
+    width: '5px',
+    height: '5px',
+  },
+  '&::-webkit-scrollbar-track': {
+    background: 'rgb(0,73,130)',
+    borderRadius: '10px',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    borderRadius: '20px',
+    background: 'rgb(24,252,252)',
+  },
 }));

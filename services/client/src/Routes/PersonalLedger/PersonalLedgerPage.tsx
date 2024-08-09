@@ -1,8 +1,8 @@
+import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { Box } from '@mui/material';
 import React from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import BackdropLogo from '@/Assets/media/VerseLogos/LogoBackdrop.png?url';
 import { useSoundEffect } from '@/AudioManager';
 import { AppToolBar } from '@/Components/Personal/AppToolBar';
 
@@ -51,32 +51,14 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
     [currentLocation, navigate],
   );
   return (
-    <Box
+    <VLViewport
       data-testid="PersonalLedgerPage"
       sx={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        height: 'calc(100vh - 64px)',
-        width: '100%',
-        padding: '1em',
-        overflow: 'hidden',
-        position: 'relative',
-        '&:before': {
-          content: '""',
-          position: 'absolute',
-          backgroundImage: `url(${BackdropLogo})`,
-          backgroundSize: 'auto',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          zIndex: -5,
-          opacity: 0.5,
-        },
+        p: '1em',
       }}
     >
       <Box
@@ -84,8 +66,21 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
         sx={{
           width: '100%',
           height: '90%',
-          margin: '1%',
-          padding: '.5em',
+          margin: { xs: '0', md: '1%' },
+          padding: { xs: '0', md: '.5em' },
+          overflowY: { xs: 'auto', md: 'hidden' },
+          '&::-webkit-scrollbar': {
+            width: '5px',
+            height: '5px',
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'rgb(0,73,130)',
+            borderRadius: '10px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            borderRadius: '20px',
+            background: 'rgb(24,252,252)',
+          },
         }}
       >
         <Outlet />
@@ -93,6 +88,6 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
       <Box sx={{ mt: 'auto', mb: '1%' }}>
         <AppToolBar selectedApp={currentLocation} setSelectedApp={handleAppChange} />
       </Box>
-    </Box>
+    </VLViewport>
   );
 };

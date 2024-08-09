@@ -1,4 +1,4 @@
-import { Avatar, Chip } from '@mui/material';
+import { Avatar, Chip, Tooltip } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
@@ -13,9 +13,12 @@ type UserChipProps = {
   user_id?: string;
   size: 'small' | 'medium';
   onDelete?: () => void;
+  sx?: object;
+  color?: 'primary' | 'secondary' | 'info' | 'warning' | 'success' | 'error';
 };
 
-export const UserChip: React.FC<UserChipProps> = ({ user, size, onDelete, user_id }) => {
+export const UserChip: React.FC<UserChipProps> = (props) => {
+  const { user, size, onDelete, user_id, color = 'secondary', sx } = props;
   const { playSound } = useSoundEffect();
   const dispatch = useAppDispatch();
 
@@ -40,9 +43,9 @@ export const UserChip: React.FC<UserChipProps> = ({ user, size, onDelete, user_i
   Logger.info(`UserChip Recieved ID: ${player?.id}`);
 
   return (
-    <>
+    <Tooltip title={player?.displayName} arrow>
       <Chip
-        color="secondary"
+        color={color}
         variant="outlined"
         size={size}
         onClick={handlePlayerCardOpen}
@@ -51,8 +54,9 @@ export const UserChip: React.FC<UserChipProps> = ({ user, size, onDelete, user_i
         onDelete={onDelete ? handleDeleteUser : undefined}
         sx={{
           maxWidth: '150px',
+          ...sx,
         }}
       />
-    </>
+    </Tooltip>
   );
 };

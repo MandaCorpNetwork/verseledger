@@ -10,8 +10,9 @@ import {
   VolumeOff,
   VolumeUp,
 } from '@mui/icons-material';
-import { Box, Button, IconButton, Slider, Typography } from '@mui/material';
+import { Box, Button, IconButton, Slider, Typography, useTheme } from '@mui/material';
 import scrollSlider from '@Utils/Hooks/scrollSlider';
+import { isMobile } from '@Utils/isMobile';
 import React, { useRef } from 'react';
 
 import { useSoundEffect } from '@/AudioManager';
@@ -34,6 +35,8 @@ export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) 
   const sliderRef = useRef<HTMLDivElement>(null);
   scrollSlider(sliderRef, (newValue) => setVolume(newValue), volume);
   const { playSound } = useSoundEffect();
+  const theme = useTheme();
+  const mobile = isMobile();
 
   const handleVolumeChange = (_: Event, value: number | number[]) => {
     const newVolume = Array.isArray(value) ? value[0] : value;
@@ -56,7 +59,7 @@ export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) 
     <DigiBox
       data-id="RadioFrequenciesToolFunctionContainer"
       sx={{
-        mt: '.5em',
+        my: '.5em',
         opacity: isDisabled ? '0.5' : '1',
       }}
     >
@@ -66,27 +69,51 @@ export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) 
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          gap: '1em',
+          gap: { xs: '.2em', md: '1em' },
         }}
       >
-        <IconButton disabled={isDisabled} onClick={previousStation}>
-          <SkipPrevious fontSize="large" />
-        </IconButton>
-        <Typography>{currentStation.name}</Typography>
-        <Button
-          variant="outlined"
-          color="secondary"
-          size="small"
-          component="a"
-          href={currentStation.link}
-          target="_blank"
-          rel="noopener noreferrer"
+        <IconButton
           disabled={isDisabled}
-          startIcon={<Language />}
-          onClick={() => playSound('navigate')}
+          onClick={previousStation}
+          size={theme.breakpoints.down('md') ? 'small' : 'medium'}
         >
-          Source
-        </Button>
+          <SkipPrevious fontSize={theme.breakpoints.down('md') ? 'medium' : 'large'} />
+        </IconButton>
+        <Typography
+          variant={theme.breakpoints.down('md') ? 'body2' : 'body1'}
+          align="center"
+        >
+          {currentStation.name}
+        </Typography>
+        {mobile ? (
+          <IconButton
+            size="small"
+            component="a"
+            href={currentStation.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            disabled={isDisabled}
+            onClick={() => playSound('navigate')}
+          >
+            <Language />
+          </IconButton>
+        ) : (
+          <Button
+            variant="outlined"
+            color="secondary"
+            size="small"
+            component="a"
+            href={currentStation.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            disabled={isDisabled}
+            startIcon={<Language />}
+            onClick={() => playSound('navigate')}
+          >
+            Source
+          </Button>
+        )}
+
         <Typography
           sx={{
             bgcolor: 'primary.main',
@@ -108,8 +135,12 @@ export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) 
             Now Playing Track
           </Box>
         </Typography>
-        <IconButton disabled={isDisabled} onClick={nextStation}>
-          <SkipNext fontSize="large" />
+        <IconButton
+          disabled={isDisabled}
+          onClick={nextStation}
+          size={theme.breakpoints.down('md') ? 'small' : 'medium'}
+        >
+          <SkipNext fontSize={theme.breakpoints.down('md') ? 'medium' : 'large'} />
         </IconButton>
       </Box>
       <Box
@@ -121,6 +152,7 @@ export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) 
           <VolumeIcon />
         </IconButton>
         <Slider
+          size={mobile ? 'small' : 'medium'}
           value={volume as number}
           disabled={isMuted || isDisabled}
           onChange={handleVolumeChange}

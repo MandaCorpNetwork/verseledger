@@ -6,15 +6,16 @@ const ParagraphWrapper = styled(Box)({
   borderRadius: '10px',
   overflow: 'auto',
   '&::-webkit-scrollbar': {
-    width: '10px',
+    width: '5px',
+    height: '5px',
   },
   '&::-webkit-scrollbar-track': {
-    background: 'rgb(8, 29, 68)',
-    borderRadius: '20px',
+    background: 'rgb(0,73,130)',
+    borderRadius: '10px',
   },
   '&::-webkit-scrollbar-thumb': {
     borderRadius: '20px',
-    background: 'rgb(121, 192, 244, .5)',
+    background: 'rgb(24,252,252)',
   },
 });
 

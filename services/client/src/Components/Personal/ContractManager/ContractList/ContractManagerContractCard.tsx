@@ -1,8 +1,10 @@
-import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
-import { Avatar, Box, ButtonBase, Chip, Tooltip, Typography } from '@mui/material';
+import { UserChip } from '@Common/Components/Chips/UserChip';
+import { PayInput } from '@Common/Components/Custom/DigiField/PayInput';
+import { Box, ButtonBase, Tooltip, Typography, useTheme } from '@mui/material';
 // import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
-import { IContract, IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
+import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
+import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
 
@@ -24,6 +26,7 @@ export const ContractManagerContractCard: React.FC<ContractManagerCardProps> = (
   };
 
   const isSelectedContract = selectedId === contract.id;
+  const theme = useTheme();
 
   return (
     <ButtonBase
@@ -31,9 +34,9 @@ export const ContractManagerContractCard: React.FC<ContractManagerCardProps> = (
       sx={{
         display: 'flex',
         flexDirection: 'row',
-        width: '60%',
+        width: { xs: '250px', md: '80%' },
         my: '.5em',
-        px: '1em',
+        px: { xs: '.5em', md: '1em' },
         py: '.5em',
         borderLeft: '3px solid',
         borderRight: '3px solid',
@@ -58,8 +61,24 @@ export const ContractManagerContractCard: React.FC<ContractManagerCardProps> = (
       }}
       onClick={handleClick}
     >
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Typography variant="h6">{contract.title}</Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          maxWidth: { xs: '50%', md: '60%' },
+        }}
+      >
+        <Typography
+          variant={theme.breakpoints.down('md') ? 'body2' : 'h6'}
+          color="secondary"
+          noWrap
+          sx={{
+            textShadow: '0 0 4px rgba(255,255,255)',
+            mb: '1em',
+          }}
+        >
+          {contract.title}
+        </Typography>
         <Box sx={{ alignSelf: 'center' }}>
           <Tooltip title={`${contract.subtype}`} arrow>
             <img src={TestAttacheIcon} alt="" width="30" />
@@ -72,47 +91,22 @@ export const ContractManagerContractCard: React.FC<ContractManagerCardProps> = (
           flexDirection: 'column',
           alignItems: 'flex-end',
           ml: 'auto',
+          height: '100%',
         }}
       >
-        <Box sx={{ mx: '.5em', alignItems: 'flex-end' }}>
-          <Tooltip title={(contract as IContractWithOwner).Owner?.displayName} arrow>
-            <Chip
-              label={(contract as IContractWithOwner).Owner?.displayName}
-              avatar={
-                <Avatar
-                  alt={(contract as IContractWithOwner).Owner?.displayName as string}
-                  src="../Assets/testprofile.png"
-                />
-              }
-              size="small"
-              color="primary"
-              sx={{
-                fontSize: '.75em',
-                maxWidth: '125px',
-                cursor: 'pointer',
-                mb: '.9em',
-              }}
-            />
-          </Tooltip>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Box sx={{ mr: '1em', mb: '.6em' }}>
-            <OutlinedLabel
-              size="small"
-              margin="none"
-              label="Pay"
-              value={contract.defaultPay}
-              startAdornment="¤"
-              maxWidth="100px"
-            />
-          </Box>
+        <UserChip
+          user_id={contract.owner_id}
+          size="small"
+          sx={{ mb: 'auto', mx: 'auto', maxWidth: { xs: '100px', md: '150px' } }}
+        />
+        <Box sx={{ width: { xs: '120px', md: '150px' } }}>
+          <PayInput
+            size="small"
+            margin="none"
+            label="Default Pay"
+            structure={contract.payStructure as ContractPayStructure}
+            value={contract.defaultPay}
+          />
         </Box>
       </Box>
     </ButtonBase>
