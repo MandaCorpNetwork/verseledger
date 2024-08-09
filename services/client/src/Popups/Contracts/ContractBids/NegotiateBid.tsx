@@ -89,7 +89,7 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
   return (
     <DigiBox
       data-testid="ContractBid__NonNegotiateBid_Wrapper"
-      sx={{ p: '.5em', maxHeight: '65%', overflowY: 'auto' }}
+      sx={{ p: '.5em', maxHeight: { xs: '100%', md: '65%' } }}
     >
       <Typography
         data-testid="ContractBid__NonNegotiateBid_Title"
@@ -125,17 +125,17 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
           flexDirection: 'column',
           justifyContent: 'space-around',
           my: '.5em',
-          overflow: 'auto',
           alignItems: 'center',
         }}
       >
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-around',
             pb: '.5em',
             width: '100%',
+            gap: '1em',
           }}
         >
           <DigiDisplay
@@ -246,10 +246,11 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
         </Box>
         <DigiDisplay
           sx={{
-            flexDirection: 'row',
+            flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-around',
             p: '.5em',
             width: '90%',
+            gap: '.5em',
           }}
         >
           <DigiField label="Start Date" sx={{ minWidth: '150px' }}>
@@ -266,10 +267,12 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
           <Box
             sx={{
               display: 'flex',
-              flexDirection: 'row',
+              flexDirection: { xs: 'column', md: 'row' },
               my: '.5em',
               width: '100%',
               justifyContent: 'space-around',
+              gap: '.5em',
+              alignItems: 'center',
             }}
           >
             <DigiField label="Start Location" sx={{ width: '120px' }}>
