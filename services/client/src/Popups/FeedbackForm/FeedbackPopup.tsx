@@ -3,10 +3,13 @@ import { Discord, KoFi, Patreon } from '@Common/Definitions/CustomIcons';
 import { GitHub } from '@mui/icons-material';
 import { Box, IconButton } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
-import { useAppDispatch } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
+import { IFeedbackForm } from 'vl-shared/src/schemas/FeedbackFormSchema';
 
+import { FeedbackForm } from './FeedbackForm';
 import { FeedbackIntro } from './FeedbackIntro';
 
 export const POPUP_FEEDBACK = 'feedback';
@@ -14,6 +17,10 @@ export const POPUP_FEEDBACK = 'feedback';
 export const FeedbackPopup: React.FC = () => {
   const dispatch = useAppDispatch();
   const [page, setPage] = React.useState(0);
+  const user = useAppSelector(selectCurrentUser);
+  const [feedbackForm, setFeedbackForm] = React.useState<Partial<IFeedbackForm>>({
+    username: user?.displayName,
+  } as unknown as IFeedbackForm);
 
   const onSubmit = React.useCallback(() => {
     if (page >= 1) dispatch(closePopup(POPUP_FEEDBACK));
@@ -29,8 +36,12 @@ export const FeedbackPopup: React.FC = () => {
       state={page}
       minWidth="380px"
       minHeight="500px"
+      maxHeight="80%"
     >
       {page === 0 && <FeedbackIntro />}
+      {page === 1 && (
+        <FeedbackForm formData={feedbackForm} setFormData={setFeedbackForm} />
+      )}
       <Box sx={{ display: 'flex' }}>
         <IconButton
           component="a"
