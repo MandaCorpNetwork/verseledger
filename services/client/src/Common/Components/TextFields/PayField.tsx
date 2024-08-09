@@ -33,9 +33,9 @@ export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
 
   const getColor = React.useCallback(() => {
     if (structure === 'POOL') {
-      if (Number(value) > 100) return 'error';
+      if (Number(value) >= 100) return 'error';
       else if (value === '0') return 'error';
-      else if (Number(value) > maxLimit) return 'error';
+      else if (Number(value) >= maxLimit) return 'error';
       else return 'secondary';
     } else {
       if (value === '0') return 'error';

@@ -39,6 +39,11 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
   );
   const dispatch = useAppDispatch();
 
+  const acceptedContractorsCount =
+    contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').length ?? 0;
+
+  const maxLimit = 100 - acceptedContractorsCount;
+
   const handleSubmitBid = React.useCallback(() => {
     const handlePostBid = (contractId: string) => {
       dispatch(postContractBid(contractId)).then((res) => {
@@ -54,6 +59,15 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
     };
 
     const handleNegotiateBid = (contractId: string, newPay: number) => {
+      if (contract.payStructure === 'POOL') {
+        if (newPay >= maxLimit) {
+          playSound('warning');
+          enqueueSnackbar('Percentage to high, others need pay too...', {
+            variant: 'error',
+          });
+          return;
+        }
+      }
       dispatch(postContractBid(contractId)).then((res) => {
         if (postContractBid.fulfilled.match(res)) {
           dispatch(

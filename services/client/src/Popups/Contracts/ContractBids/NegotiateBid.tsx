@@ -63,6 +63,9 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
 
   const scrollRef = useHorizontalAdvancedScroll();
 
+  const pool = contract.payStructure === 'POOL';
+  const maxLimit = 100 - acceptedContractorsCount;
+
   const handlePayChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = event.target;
@@ -73,6 +76,15 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
       }
 
       const inputValue = Number(value.replace(/[^0-9.]/g, ''));
+
+      if (pool) {
+        if (inputValue >= maxLimit) {
+          enqueueSnackbar('Percentage to high, others need pay too...', {
+            variant: 'error',
+          });
+          playSound('warning');
+        }
+      }
 
       setFormData(inputValue);
       Logger.info(`Pay Value Changed To: ${inputValue}`);
