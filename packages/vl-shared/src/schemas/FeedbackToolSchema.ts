@@ -12,6 +12,7 @@ export const FeedbackToolSchema = z.enum([
   "Nav Buttons",
   "Contract Bids",
   "Create Contract",
+  "Feedback",
   "Other",
 ]);
 
