@@ -1,3 +1,5 @@
+import GlassBox from '@Common/Components/Boxes/GlassBox';
+import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { PowerSettingsNew, Sync } from '@mui/icons-material';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -60,7 +62,7 @@ export const OverviewApp: React.FC<unknown> = () => {
         data-testid="OverviewToolWrapper"
         sx={{
           display: 'flex',
-          flexDirection: 'row',
+          flexDirection: { xs: 'column', md: 'row' },
           gap: '1em',
           width: '100%',
           height: '100%',
@@ -68,36 +70,27 @@ export const OverviewApp: React.FC<unknown> = () => {
       >
         <Box
           data-testid="Overview-NotificationContainer"
-          sx={{ display: 'flex', flexDirection: 'column', width: '35%', height: '100%' }}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: { xs: '100%', md: '35%' },
+            height: { xs: 'auto', md: '100%' },
+          }}
         >
-          <Box
+          <GlassBox
             data-testid="Overview__NotificationWrapper"
             sx={{
-              padding: '1em',
-              margin: '1em',
+              padding: { xs: '.5em', md: '1em' },
+              mx: { xs: '0', md: '1em' },
+              my: { xs: '.5em', md: '1em' },
               width: '100%',
               height: '35%',
-              alignItems: 'center',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '10px',
-              borderColor: 'secondary.main',
-              background: 'rgba(0,30,100,0.2)',
-              backdropFilter: 'blur(20px)',
             }}
           >
-            <Box
-              data-id="NotificationToolTitle"
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                height: '10%',
-                mb: '1.5em',
-              }}
-            >
-              <Typography variant="h6">Notifications</Typography>
-            </Box>
-            <Box
+            <Typography variant="h6" sx={{ mb: { xs: '.5em', md: '1.5em' }, ml: '.5em' }}>
+              Notifications
+            </Typography>
+            <GlassDisplay
               data-id="NotificationToolContent"
               sx={{
                 display: 'flex',
@@ -106,41 +99,6 @@ export const OverviewApp: React.FC<unknown> = () => {
                 padding: '1em',
                 overflow: 'auto',
                 height: '85%',
-                '&::-webkit-scrollbar': {
-                  width: '10px',
-                },
-                '&::-webkit-scrollbar-track': {
-                  background: 'rgb(8, 29, 68)',
-                  borderRadius: '20px',
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  borderRadius: '20px',
-                  background: 'rgb(121, 192, 244, .5)',
-                },
-                borderTop: '2px solid',
-                borderBottom: '2px solid',
-                borderRadius: '5px',
-                borderColor: 'primary.main',
-                borderLeft: '1px solid rgba(14,49,141,0.5)',
-                borderRight: '1px solid rgba(14,49,141,0.5)',
-                boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-                position: 'relative',
-                '&:before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  bottom: 0,
-                  right: 0,
-                  left: 0,
-                  background:
-                    'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                  opacity: 0.6,
-                  backdropFilter: 'blur(10px)',
-                  zIndex: -1,
-                  backgroundImage:
-                    'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                  backgroundSize: '100% 2px',
-                },
               }}
             >
               <OverviewNotification />
@@ -154,8 +112,8 @@ export const OverviewApp: React.FC<unknown> = () => {
               <OverviewNotification />
               <OverviewNotification />
               <OverviewNotification />
-            </Box>
-          </Box>
+            </GlassDisplay>
+          </GlassBox>
           <Box
             data-testid="RadioFrequenciesToolContainer"
             sx={{

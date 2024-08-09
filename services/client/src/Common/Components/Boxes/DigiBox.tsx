@@ -28,4 +28,16 @@ export const DigiBox = styled(Box)(({ theme }) => ({
     backgroundImage: 'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
     backgroundSize: '100% 2px',
   },
+  '&::-webkit-scrollbar': {
+    width: '5px',
+    height: '5px',
+  },
+  '&::-webkit-scrollbar-track': {
+    background: 'rgb(0,73,130)',
+    borderRadius: '10px',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    borderRadius: '20px',
+    background: 'rgb(24,252,252)',
+  },
 }));
