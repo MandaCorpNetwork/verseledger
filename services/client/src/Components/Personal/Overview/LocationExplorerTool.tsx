@@ -1,5 +1,7 @@
 import { LocationSearch } from '@Common/Components/App/LocationSearch';
 import { ReadOnlyField } from '@Common/Components/App/ReadOnlyField';
+import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { ContentCopy } from '@mui/icons-material';
 import {
   Box,
@@ -10,8 +12,10 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
+import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch } from '@Redux/hooks';
 import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 // import { Gauge, gaugeClasses } from '@mui/x-charts';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
@@ -38,6 +42,20 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
     },
     [dispatch],
   );
+
+  const handleSetLocationVerify = React.useCallback(() => {
+    dispatch(
+      openPopup(POPUP_YOU_SURE, {
+        title: 'Change Location',
+        subjectText: 'Change the current Location',
+        bodyText:
+          'This action will change your currently set location, which can impact certain experiences throughout Verse Ledger',
+        onAccept: handleSetLocation,
+        clickaway: 'true',
+        testid: 'LocationExplorer__SetLocation',
+      }),
+    );
+  }, []);
   return (
     <Box
       data-testid="LocationExplorerComponent"
@@ -52,83 +70,41 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
         p: '1em',
       }}
     >
-      <Box sx={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          width: '100%',
+          justifyContent: 'space-between',
+        }}
+      >
         <Box
           data-testid="LocationExplorer-TopBox__LeftWrapper"
           sx={{
             display: 'flex',
             flexDirection: 'column',
             gap: '1em',
-            width: '50%',
+            width: { xs: '100%', md: '50%' },
             alignItems: 'center',
           }}
         >
-          <Box
+          <ControlPanelBox
             data-testid="LocationSelectorContainer"
             sx={{
-              width: '60%',
-              boxShadow: '0 0px 5px 2px rgba(24,252,252,0.25)',
-              backgroundImage:
-                'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
-              borderLeft: '2px solid',
-              borderRight: '2px solid',
-              borderColor: 'secondary.main',
-              borderRadius: '5px',
+              width: { xs: '100%', md: '60%' },
               p: '.5em',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0,
-                backgroundImage:
-                  'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
-                backgroundSize: '5px 5px',
-                opacity: 0.5,
-              },
-              '&:hover': {
-                backgroundImage:
-                  'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
-                borderColor: 'secondary.light',
-                boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
-              },
-              transition: 'all 0.3s',
             }}
           >
-            <LocationSearch onLocationSelect={handleLocationSelect} />
-          </Box>
-          <Box
+            <LocationSearch
+              onLocationSelect={handleLocationSelect}
+              sx={{ width: '100%' }}
+            />
+          </ControlPanelBox>
+          <DigiBox
             data-testid="LocationExplorer-TopBox-LeftBox__LocationInfoWrapper"
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
-              borderLeft: '1px solid rgba(14,49,141,0.5)',
-              borderRight: '1px solid rgba(14,49,141,0.5)',
-              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
               p: '.5em',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                background:
-                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                opacity: 0.6,
-                backdropFilter: 'blur(10px)',
-                zIndex: -1,
-                backgroundImage:
-                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                backgroundSize: '100% 2px',
-              },
+              my: '.5em',
             }}
           >
             {selectedLocation && (
@@ -178,7 +154,7 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
                 Select a location to view information
               </Typography>
             )}
-          </Box>
+          </DigiBox>
         </Box>
         <Box
           data-testid="LocationExplorer-TopBox__RightWrapper"
@@ -186,43 +162,21 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
             display: 'flex',
             flexDirection: 'column',
             gap: '1em',
+            width: { xs: '100%', md: '50%' },
           }}
         >
-          <Box
+          <DigiBox
             data-testid="LocationTimeDataContainer"
             sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '5px',
-              borderColor: 'primary.main',
-              borderLeft: '1px solid rgba(14,49,141,0.5)',
-              borderRight: '1px solid rgba(14,49,141,0.5)',
-              boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-              position: 'relative',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                background:
-                  'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                opacity: 0.6,
-                backdropFilter: 'blur(10px)',
-                zIndex: -1,
-                backgroundImage:
-                  'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                backgroundSize: '100% 2px',
-              },
+              flexDirection: { xs: 'column', md: 'row' },
+              alignItems: 'center',
+              my: '.5em',
             }}
           >
             <ReadOnlyField label="Local Time" />
             <ReadOnlyField label="StarRise Time" />
             <ReadOnlyField label="StarSet Time" />
-          </Box>
+          </DigiBox>
           {/* <Box
             data-testid="NearbyTablesContainer"
             sx={{
@@ -232,37 +186,11 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
               justifyContent: 'center',
             }}
           >
-            <Box
+            <DigiBox
               data-id="LocationStatisticsData"
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                borderTop: '2px solid',
-                borderBottom: '2px solid',
-                borderRadius: '5px',
-                borderColor: 'primary.main',
-                borderLeft: '1px solid rgba(14,49,141,0.5)',
-                borderRight: '1px solid rgba(14,49,141,0.5)',
-                boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-                position: 'relative',
                 p: '.5em',
                 gap: '.2em',
-                '&:before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  bottom: 0,
-                  right: 0,
-                  left: 0,
-                  background:
-                    'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-                  opacity: 0.6,
-                  backdropFilter: 'blur(10px)',
-                  zIndex: -1,
-                  backgroundImage:
-                    'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-                  backgroundSize: '100% 2px',
-                },
               }}
             >
               <TextField
@@ -310,62 +238,33 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
                   value="1000"
                 />
               </Box>
-            </Box>
+            </DigiBox>
           </Box> */}
-        </Box>
-      </Box>
-      <Box
-        data-testid="LocationExplorer__BottomBox"
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          width: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '1em',
-          mt: 'auto',
-          mb: '.2em',
-        }}
-      >
-        <Box
-          sx={{
-            boxShadow: '0 0px 5px 2px rgba(24,252,252,0.25)',
-            backgroundImage:
-              'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
-            borderLeft: '2px solid',
-            borderRight: '2px solid',
-            borderColor: 'secondary.main',
-            borderRadius: '5px',
-            p: '.2em',
-            position: 'relative',
-            ml: 'auto',
-            mr: '10%',
-            '&:before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              bottom: 0,
-              left: 0,
-              backgroundImage:
-                'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
-              backgroundSize: '5px 5px',
-              opacity: 0.5,
-            },
-            '&:hover': {
-              backgroundImage:
-                'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
-              borderColor: 'secondary.light',
-              boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
-            },
-            transition: 'all 0.3s',
-          }}
-        >
-          <Button color="secondary" onClick={() => handleSetLocation}>
-            Set Location
-          </Button>
-          <Button color="warning">Report Crime</Button>
-          <Button color="error">Jump To</Button>
+          <Box
+            data-testid="LocationExplorer__BottomBox"
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              width: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '1em',
+              mt: 'auto',
+              mb: '.2em',
+            }}
+          >
+            <ControlPanelBox
+              sx={{
+                p: '.2em',
+              }}
+            >
+              <Button color="secondary" onClick={handleSetLocationVerify}>
+                Set Location
+              </Button>
+              <Button color="warning">Report Crime</Button>
+              <Button color="error">Jump To</Button>
+            </ControlPanelBox>
+          </Box>
         </Box>
       </Box>
     </Box>

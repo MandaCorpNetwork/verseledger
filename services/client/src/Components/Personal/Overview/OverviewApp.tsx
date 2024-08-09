@@ -54,8 +54,8 @@ export const OverviewApp: React.FC<unknown> = () => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%',
         width: '100%',
+        height: { xs: 'auto', md: '100%' },
       }}
     >
       <Box
@@ -65,7 +65,7 @@ export const OverviewApp: React.FC<unknown> = () => {
           flexDirection: { xs: 'column', md: 'row' },
           gap: '1em',
           width: '100%',
-          height: '100%',
+          height: { xs: 'auto', md: '100%' },
         }}
       >
         <Box
@@ -98,7 +98,7 @@ export const OverviewApp: React.FC<unknown> = () => {
                 gap: '1em',
                 padding: '1em',
                 overflow: 'auto',
-                height: '85%',
+                height: { xs: '300px', md: '85%' },
               }}
             >
               <OverviewNotification />
@@ -154,23 +154,23 @@ export const OverviewApp: React.FC<unknown> = () => {
           </GlassBox>
         </Box>
         <Box
-          sx={{ display: 'flex', flexDirection: 'column', width: '55%', height: '100%' }}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: { xs: '100%', md: '55%' },
+            height: { xs: 'auto', md: '100%' },
+          }}
         >
-          <Box
+          <GlassBox
             data-id="LocationExplorerToolContainer"
             sx={{
               display: 'flex',
               flexDirection: 'column',
               p: '.5em',
-              margin: '1em',
+              mx: { xs: '0', md: '1em' },
+              my: { xs: '.5em', md: '1em' },
               width: '100%',
-              height: '45%',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '10px',
-              borderColor: 'secondary.main',
-              background: 'rgba(0,30,100,0.2)',
-              backdropFilter: 'blur(20px)',
+              height: { xs: 'auto', md: '45%' },
             }}
           >
             <Box data-id="LocationExplorerToolTitle" sx={{ height: '10%', p: '.5em' }}>
@@ -189,22 +189,17 @@ export const OverviewApp: React.FC<unknown> = () => {
                 setSelectedLocation={setSelectedLocation}
               />
             </Box>
-          </Box>
-          <Box
+          </GlassBox>
+          <GlassBox
             data-id="ShipStatusToolContainer"
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              p: '1em',
-              ml: '1em',
+              p: '.5em',
+              mx: { xs: '0', md: '1em' },
+              my: { xs: '.5em', md: '1em' },
               width: '100%',
-              height: '45%',
-              borderTop: '2px solid',
-              borderBottom: '2px solid',
-              borderRadius: '10px',
-              borderColor: 'secondary.main',
-              background: 'rgba(0,30,100,0.2)',
-              backdropFilter: 'blur(20px)',
+              height: { xs: 'auto', md: '45%' },
             }}
           >
             <Box data-id="ShipStatusToolTitle" sx={{ height: '10%' }}>
@@ -230,7 +225,7 @@ export const OverviewApp: React.FC<unknown> = () => {
                 In Development
               </Typography>
             </Box>
-          </Box>
+          </GlassBox>
         </Box>
       </Box>
     </Box>
