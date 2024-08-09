@@ -11,6 +11,7 @@ import { Logger } from '@Utils/Logger';
 import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
 import React, { useCallback } from 'react';
+import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { useSoundEffect } from '@/AudioManager';
@@ -160,6 +161,8 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
               value={formData.toLocaleString()}
               onChange={handlePayChange}
               onClear={handlePayClear}
+              structure={contract.payStructure as ContractPayStructure}
+              activeCount={acceptedContractorsCount}
               sx={{
                 width: '130px',
               }}
