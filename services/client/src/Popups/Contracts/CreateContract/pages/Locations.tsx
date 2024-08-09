@@ -2,7 +2,8 @@ import { LocationSearch } from '@Common/Components/App/LocationSearch';
 import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import { Box, FormControl, TextField, Typography } from '@mui/material';
+import { Box, FormControl, FormLabel, TextField, Typography } from '@mui/material';
+import { isMobile } from '@Utils/isMobile';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
@@ -15,6 +16,7 @@ export const Locations: React.FC<{
   setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
   const { playSound } = useSoundEffect();
+  const mobile = isMobile();
   const { formData, setFormData } = props;
 
   const handleAddStartLocation = React.useCallback(
@@ -105,11 +107,12 @@ export const Locations: React.FC<{
       <FormControl
         sx={{
           display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'start',
+          flexDirection: { xs: 'column', md: 'row' },
+          alignItems: { xs: 'center', md: 'flex-start' },
           gap: '1em',
         }}
       >
+        {mobile && <FormLabel>Locations</FormLabel>}
         <PopupFormSelection sx={{ px: '1em', py: '.5em', flexDirection: 'column' }}>
           <div>
             <Typography
@@ -158,7 +161,7 @@ export const Locations: React.FC<{
         >
           <PopupFormDisplay
             sx={{
-              p: '1em',
+              p: { xs: '.5em', md: '1em' },
               flexDirection: 'column',
               justifyContent: 'space-between',
               alignItems: 'center',

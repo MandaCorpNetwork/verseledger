@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
+import { isMobile } from '@Utils/isMobile';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
@@ -26,6 +27,7 @@ export const Contractors: React.FC<{
   setInvites: React.Dispatch<React.SetStateAction<Array<User>>>;
 }> = (props) => {
   const { formData, setFormData, invites, setInvites } = props;
+  const mobile = isMobile();
   const [ratingDisabled, setRatingDisabled] = React.useState(true);
 
   const handleRatingToggle = React.useCallback(() => {
@@ -101,15 +103,24 @@ export const Contractors: React.FC<{
     >
       <FormControl
         data-testid="Contractors__Form_Wrapper"
-        sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '100%',
+          height: '100%',
+          gap: '1em',
+        }}
       >
+        {mobile && <FormLabel>Contractors</FormLabel>}
         <Box
           data-testid="Contractors-Form__Fields_Wrapper"
           sx={{
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: { xs: 'column', md: 'row' },
             width: '100%',
             justifyContent: 'space-around',
+            alignItems: { xs: 'center', md: 'stretch' },
+            gap: '2em',
           }}
         >
           <Box
