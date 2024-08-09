@@ -1,11 +1,14 @@
 import { Clear } from '@mui/icons-material';
 import {
+  Box,
   IconButton,
   InputAdornment,
   TextField,
   Tooltip,
   Typography,
 } from '@mui/material';
+import React from 'react';
+import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 
 type ContractDefaultPayLabelProps = {
   label: string;
@@ -13,6 +16,8 @@ type ContractDefaultPayLabelProps = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClear?: () => void;
   sx?: object;
+  structure: ContractPayStructure;
+  activeCount?: number;
 };
 
 export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
@@ -21,13 +26,48 @@ export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
   onChange,
   onClear,
   sx,
+  structure,
+  activeCount,
 }) => {
+  const maxLimit = activeCount ? 100 - activeCount : 100;
+
+  const getColor = React.useCallback(() => {
+    if (structure === 'POOL') {
+      if (Number(value) > 100) return 'error';
+      else if (value === '0') return 'error';
+      else if (Number(value) > maxLimit) return 'error';
+      else return 'secondary';
+    } else {
+      if (value === '0') return 'error';
+      else return 'secondary';
+    }
+  }, [maxLimit, structure, value]);
+
+  const color = getColor();
+
+  const getPaySuffix = React.useCallback(() => {
+    if (structure === 'POOL') {
+      return (
+        <Typography color={color} variant="body2" sx={{ my: 'auto' }}>
+          %
+        </Typography>
+      );
+    }
+    if (structure === 'HOURLY') {
+      return (
+        <Typography color={color} variant="body2" sx={{ my: 'auto' }}>
+          /HR
+        </Typography>
+      );
+    }
+  }, [structure]);
+  const paySuffix = getPaySuffix();
   return (
     <Tooltip title={value} arrow>
       <TextField
         size="small"
         label={label}
-        color={value === '0' ? 'error' : 'secondary'}
+        color={color}
         value={value}
         onChange={onChange}
         sx={{
@@ -37,19 +77,28 @@ export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
           ...sx,
         }}
         InputProps={{
-          startAdornment: (
+          startAdornment: structure !== 'POOL' && (
             <InputAdornment position="start">
-              <Typography color="secondary" sx={{ fontSize: '1em' }}>
+              <Typography color={color} sx={{ fontSize: '1em' }}>
                 ¤
               </Typography>
             </InputAdornment>
           ),
           endAdornment: onClear && (
-            <InputAdornment position="end">
-              <IconButton onClick={onClear} size="small">
+            <Box
+              sx={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                gap: '0px',
+                fontSize: '.5em',
+              }}
+            >
+              {structure !== 'FLATRATE' && paySuffix}
+              <IconButton onClick={onClear} size="small" sx={{ ml: '0', pl: '0' }}>
                 <Clear color="secondary" fontSize="small" />
               </IconButton>
-            </InputAdornment>
+            </Box>
           ),
         }}
       />

@@ -38,6 +38,3 @@
 # Sortby for Contracts
 
 
-Overflow not working on Mobile
-Convert Bottom Boxes
-Turn off Briefing scroll on mobile
