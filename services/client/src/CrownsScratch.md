@@ -38,3 +38,4 @@
 # Sortby for Contracts
 
 
+{ xs: 'column', md: 'row' },

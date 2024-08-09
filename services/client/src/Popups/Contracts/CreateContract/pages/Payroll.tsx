@@ -15,6 +15,7 @@ import {
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { isMobile } from '@Utils/isMobile';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
@@ -55,6 +56,7 @@ export const Payroll: React.FC<{
   const [evenSplit, setEvenSplit] = React.useState(false);
 
   const dispatch = useAppDispatch();
+  const mobile = isMobile();
 
   const handlePayStructureInfo = () => {
     dispatch(openPopup(POPUP_PAY_STRUCTURES));
@@ -124,20 +126,23 @@ export const Payroll: React.FC<{
         sx={{
           width: '100%',
           display: 'flex',
-          flexDirection: 'row',
+          flexDirection: { xs: 'column', md: 'row' },
           justifyContent: 'space-around',
+          gap: '1em',
+          alignItems: { xs: 'center', md: 'stretch' },
         }}
       >
         <FormControl
           data-testid="Payroll__PayStructure__Form"
           sx={{
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-around',
             minHeight: '220px',
             transition: 'all 0.3s ease-in-out',
           }}
         >
+          {mobile && <FormLabel>Payroll</FormLabel>}
           <Box sx={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
             {formData.isEmergency && <LargeEmergencyOverlay />}
             <FormLabel color="secondary">
@@ -237,6 +242,7 @@ export const Payroll: React.FC<{
             display: 'flex',
             flexDirection: 'column',
             height: '100%',
+            gap: '1em',
           }}
         >
           <FormLabel color="secondary">Default Pay</FormLabel>
@@ -274,6 +280,7 @@ export const Payroll: React.FC<{
           flexDirection: 'column',
           position: 'relative',
           ml: '10%',
+          mt: '1em',
         }}
       >
         {formData.isEmergency && <LargeEmergencyOverlay />}
