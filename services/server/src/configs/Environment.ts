@@ -65,6 +65,24 @@ export const envConfig = {
     optional: true,
     default: null,
   },
+  GITHUB_TOKEN: {
+    type: 'string',
+    description: 'https://github.com/settings/tokens',
+    optional: true,
+    default: null,
+  },
+  GITHUB_REPO_OWNER: {
+    type: 'string',
+    description: 'https://github.com/settings/tokens',
+    optional: true,
+    default: null,
+  },
+  GITHUB_REPO_NAME: {
+    type: 'string',
+    description: 'https://github.com/settings/tokens',
+    optional: true,
+    default: null,
+  }
 } as const;
 
 export type EnvironmentConfig = {

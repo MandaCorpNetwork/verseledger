@@ -1,11 +1,22 @@
 import { Logger } from '@/utils/Logger';
+import { TYPES } from '@Constant/types';
 import { inject, injectable } from 'inversify';
 import { IFeedbackForm } from 'vl-shared/src/schemas/FeedbackFormSchema';
+import { GitHubService } from './github.service';
 
 @injectable()
 export class FeedbackService {
-  constructor() {
+  private githubService: GitHubService;
+  constructor(@inject(TYPES.GitHubService) githubService: GitHubService) {
     Logger.init();
+    this.githubService = githubService;
+  }
+
+  public async createFeedbackIssue(feedback: IFeedbackForm) {
+    const issueTitle = this.generateIssueTitle(feedback);
+    const issueBody = this.generateIssueBody(feedback);
+
+    return await this.githubService.createIssue(issueTitle, issueBody);
   }
 
   private generateIssueTitle(feedback: IFeedbackForm): string {

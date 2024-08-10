@@ -22,27 +22,27 @@ export class FeedbackController extends BaseHttpController {
   ) {
     super();
   }
-
-  @ApiOperationPost({
-    tags: ['Feedback'],
-    description: 'Submit new feedback',
-    summary: 'Submitting Feedback Form',
-    responses: {
-      200: {
-        type: 'Success',
-        description: 'Feedback Submitted',
-        model: 'Feedback',
-      },
-    },
-    consumes: [],
-    parameters: {
-      body: {
-        required: true,
-        properties: ZodToOpenapi(FeedbackFormSchema),
-      },
-    },
-    security: { VLAuthAccessToken: [] },
-  })
+  // TODO: Add ZodUnion to ZodToOpenapi
+  // @ApiOperationPost({
+  //   tags: ['Feedback'],
+  //   description: 'Submit new feedback',
+  //   summary: 'Submitting Feedback Form',
+  //   responses: {
+  //     200: {
+  //       type: 'Success',
+  //       description: 'Feedback Submitted',
+  //       model: 'Feedback',
+  //     },
+  //   },
+  //   consumes: [],
+  //   parameters: {
+  //     body: {
+  //       required: true,
+  //       properties: ZodToOpenapi(FeedbackFormSchema),
+  //     },
+  //   },
+  //   security: { VLAuthAccessToken: [] },
+  // })
   @httpPost('/', TYPES.VerifiedUserMiddleware)
   private async submitFeedback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -50,7 +50,7 @@ export class FeedbackController extends BaseHttpController {
     @next() nextFunc: NextFunction,
   ) {
     try {
-      const feedback = FeedbackFormSchema.strict().parse(body);
+      const feedback = FeedbackFormSchema.parse(body);
       Logger.info(`Recieved Feedback:`, feedback);
 
       const issue = await this.feedbackService.createFeedbackIssue(feedback);

@@ -117,7 +117,12 @@ export const MilestoneFeedbackSchema = BaseFeedbackSchema.extend({
 export type IMilestoneFeedback = z.infer<typeof MilestoneFeedbackSchema>;
 
 export const FeedbackFormSchema = z.union([
-  BugFeedbackSchema, SuggestionFeebackSchema, QuestionFeedbackSchema, UserIssueFeedbackSchema, FeatureQueFeedbackSchema, MilestoneFeedbackSchema,
+  BugFeedbackSchema.strict(),
+  SuggestionFeebackSchema.strict(),
+  QuestionFeedbackSchema.strict(),
+  UserIssueFeedbackSchema.strict(),
+  FeatureQueFeedbackSchema.strict(),
+  MilestoneFeedbackSchema.strict(),
 ]);
 
 export type IFeedbackForm = z.infer<typeof FeedbackFormSchema>;
