@@ -25,6 +25,7 @@ import { ContractLocation } from './contract_locations.model';
 import { IContractStatus } from 'vl-shared/src/schemas/ContractStatusSchema';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { UserRating } from './user_ratings.model';
 @Scopes(() => ({
   bids: {
     include: [{ model: ContractBid, as: 'Bids', include: ['User'] }],
@@ -142,6 +143,9 @@ export class Contract
 
   @HasMany(() => ContractBid, 'contract_id')
   declare Bids: Awaited<ContractBid>[];
+
+  @HasMany(() => UserRating, 'rating_id')
+  declare Ratings: Awaited<UserRating>[];
 
   @BelongsToMany(() => Location, {
     through: () => ContractLocation,

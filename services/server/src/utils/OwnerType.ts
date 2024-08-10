@@ -7,5 +7,6 @@ export enum OwnerType {
   Membership = 'Membership',
   Location = 'Location',
   Notification = 'Notification',
+  Rating = 'Rating',
   INVALID = 'INVALID',
 }
