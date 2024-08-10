@@ -15,7 +15,7 @@ import { Contract } from "./contract.model";
     include: [{ model: Contract, as: 'Contract' }]
   },
 }))
-@Table({ tableName: 'ratings', timestamps: true })
+@Table({ tableName: 'user_ratings', timestamps: true })
 export class UserRating extends Model {
   @Column({ type: DataType.VIRTUAL })
   get __type(): 'Rating' {
