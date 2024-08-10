@@ -2636,10 +2636,10 @@
     "@react-spring/shared" "~9.7.4"
     "@react-spring/types" "~9.7.4"
 
-"@react-three/fiber@8.17.1":
-  version "8.17.1"
-  resolved "https://registry.yarnpkg.com/@react-three/fiber/-/fiber-8.17.1.tgz#ef6d09d903408b5c7dc8e4de03c3d025edd7be90"
-  integrity sha512-Dtypd8RiMg3tWk8JQmUH9Xal1n8nBbNhbEbHdNSaPuItvAZph7504rXQjYTb2RfR9tXveyr4/iUkevmpait3YA==
+"@react-three/fiber@8.17.5":
+  version "8.17.5"
+  resolved "https://registry.yarnpkg.com/@react-three/fiber/-/fiber-8.17.5.tgz#f3e712d7fac1345147b432b3c8b11194760af845"
+  integrity sha512-7uqtTWQrNIKW6wbgF0CQiDuo7uHoRd96lGBKsdRa+j/s268kqO4MBsxynLUpg6F/+mir5SEt9zJ3Up+lOjz/dg==
   dependencies:
     "@babel/runtime" "^7.17.8"
     "@types/debounce" "^1.2.1"
