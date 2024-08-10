@@ -13,6 +13,7 @@ import { Contract } from './contract.model';
 import { ContractBid } from './contract_bid.model';
 import { IdUtil } from '@/utils/IdUtil';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import { UserRating } from './user_ratings.model';
 @DefaultScope(() => ({
   attributes: {
     exclude: ['discord_id'],
@@ -69,6 +70,9 @@ export class User extends Model implements IUser {
 
   @HasMany(() => ContractBid, 'user_id')
   declare PostedBids: Awaited<ContractBid>[];
+
+  @HasMany(() => UserRating, 'rating_id')
+  declare Ratings: Awaited<UserRating>[];
 
   declare readonly createdAt: Date;
   declare readonly updatedAt: Date;
