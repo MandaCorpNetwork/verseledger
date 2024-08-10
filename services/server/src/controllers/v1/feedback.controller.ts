@@ -1,13 +1,11 @@
-import { VLAuthPrincipal } from "@/authProviders/VL.principal";
 import { Logger } from "@/utils/Logger";
-import { ZodToOpenapi } from "@/utils/ZodToOpenapi";
 import { TYPES } from "@Constant/types";
 import { BodyError } from "@Errors/BodyError";
 import { FeedbackService } from "@Services/feedback.service";
 import { NextFunction } from "express";
 import { inject } from "inversify";
 import { BaseHttpController, controller, httpPost, next, requestBody } from "inversify-express-utils";
-import { ApiOperationPost, ApiPath } from "swagger-express-ts";
+import { ApiPath } from "swagger-express-ts";
 import { FeedbackFormSchema } from "vl-shared/src/schemas/FeedbackFormSchema";
 
 @ApiPath({
@@ -49,6 +47,7 @@ export class FeedbackController extends BaseHttpController {
     @requestBody() body: any,
     @next() nextFunc: NextFunction,
   ) {
+    Logger.info('POST /v1/feedback called');
     try {
       const feedback = FeedbackFormSchema.parse(body);
       Logger.info(`Recieved Feedback:`, feedback);

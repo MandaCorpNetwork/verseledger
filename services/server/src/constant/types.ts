@@ -1,5 +1,3 @@
-import { GitHubService } from "@Services/github.service";
-
 export const TYPES = {
   ContractService: Symbol.for('ContractService'),
   AuthService: Symbol.for('AuthService'),

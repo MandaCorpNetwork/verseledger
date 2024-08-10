@@ -6,8 +6,13 @@ import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
+import { AuthUtil } from '@Utils/AuthUtil';
+import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { IFeedbackForm } from 'vl-shared/src/schemas/FeedbackFormSchema';
+
+import { useSoundEffect } from '@/AudioManager';
+import NetworkService from '@/Services/NetworkService';
 
 import { FeedbackForm } from './FeedbackForm';
 import { FeedbackIntro } from './FeedbackIntro';
@@ -18,12 +23,31 @@ export const FeedbackPopup: React.FC = () => {
   const dispatch = useAppDispatch();
   const [page, setPage] = React.useState(0);
   const user = useAppSelector(selectCurrentUser);
+  const { playSound } = useSoundEffect();
   const [feedbackForm, setFeedbackForm] = React.useState<Partial<IFeedbackForm>>({
     username: user?.displayName,
   } as unknown as IFeedbackForm);
 
+  const handleFormSubmit = async () => {
+    try {
+      const response = await NetworkService.POST<
+        { message: string; issueUrl: string },
+        Partial<IFeedbackForm>
+      >('/v1/feedback', feedbackForm, AuthUtil.getAccessHeader());
+      enqueueSnackbar(
+        `Feedback submitted successfully. View issue: ${response.data.issueUrl}`,
+        { variant: 'success' },
+      );
+      dispatch(closePopup(POPUP_FEEDBACK));
+      playSound('success');
+    } catch (error) {
+      enqueueSnackbar(`Failed to submit feedback: ${error}`, { variant: 'error' });
+      playSound('error');
+    }
+  };
+
   const onSubmit = React.useCallback(() => {
-    if (page >= 1) dispatch(closePopup(POPUP_FEEDBACK));
+    if (page >= 1) handleFormSubmit();
     setPage(page + 1);
   }, [page]);
 

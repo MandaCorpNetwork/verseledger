@@ -11,9 +11,14 @@ if (!GITHUB_TOKEN || !GITHUB_REPO_OWNER || !GITHUB_REPO_NAME) {
 
 @injectable()
 export class GitHubService {
-  private octokit: Octokit;
+  private octokit!: Octokit;
 
   constructor() {
+    this.initializeOctokit();
+  }
+
+  private async initializeOctokit() {
+    const { Octokit } = await import('@octokit/rest');
     this.octokit = new Octokit({ auth: GITHUB_TOKEN });
   }
 
@@ -23,7 +28,7 @@ export class GitHubService {
       repo: GITHUB_REPO_NAME,
       title,
       body,
-    })
+    });
     return data;
   }
 }
