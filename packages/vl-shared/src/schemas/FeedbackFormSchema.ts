@@ -31,7 +31,7 @@ export const BugFeedbackSchema = BaseFeedbackSchema.extend({
   expectedBehavior: z.string().optional().describe("Expected Behavior"),
   suggestedBehavior: z.string().optional().describe("Suggested Behavior"),
   logs: z.string().optional().nullable().describe("Logs"),
-  attachment: z.string().url().optional().describe("URL to attachment"),
+  attachments: z.string().url().optional().describe("URL to attachment"),
   notes: z.string().optional(),
 });
 
@@ -54,7 +54,7 @@ export const QuestionFeedbackSchema = BaseFeedbackSchema.extend({
   feature: FeedbackFeatureSchema,
   tool: FeedbackToolSchema.optional(),
   question: z.string(),
-  attachment: z.string().url().optional().describe("URL to attachment"),
+  attachments: z.string().url().optional().describe("URL to attachment"),
   public: z.boolean().default(true),
   notes: z.string().optional(),
 });
@@ -98,6 +98,7 @@ export const MilestoneFeedbackSchema = BaseFeedbackSchema.extend({
   type: z.literal("MILESTONE"),
   purpose: z.string(),
   feature: FeedbackFeatureSchema.optional(),
+  newFeature: z.string().max(26).optional(),
   concern: FeedbackConcernSchema,
   tool: FeedbackToolSchema.optional(),
   newTool: z.string().max(26).optional(),
@@ -116,7 +117,12 @@ export const MilestoneFeedbackSchema = BaseFeedbackSchema.extend({
 export type IMilestoneFeedback = z.infer<typeof MilestoneFeedbackSchema>;
 
 export const FeedbackFormSchema = z.union([
-  BugFeedbackSchema, SuggestionFeebackSchema, QuestionFeedbackSchema, UserIssueFeedbackSchema, FeatureQueFeedbackSchema, MilestoneFeedbackSchema,
+  BugFeedbackSchema.strict(),
+  SuggestionFeebackSchema.strict(),
+  QuestionFeedbackSchema.strict(),
+  UserIssueFeedbackSchema.strict(),
+  FeatureQueFeedbackSchema.strict(),
+  MilestoneFeedbackSchema.strict(),
 ]);
 
 export type IFeedbackForm = z.infer<typeof FeedbackFormSchema>;

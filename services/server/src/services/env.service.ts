@@ -10,6 +10,10 @@ export class EnvService implements EnvironmentConfig {
   public DISCORD_CLIENT_ID!: string;
   public DISCORD_CLIENT_SECRET!: string;
 
+  public GITHUB_TOKEN!: string;
+  public GITHUB_REPO_OWNER!: string
+  public GITHUB_REPO_NAME!:  string;
+
   public PALLY_WS!: string;
   public PALLY_CHANNEL!: string;
 
