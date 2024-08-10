@@ -13,6 +13,7 @@ import { NotificationService } from '@Services/notification.service';
 import { Logger } from './utils/Logger';
 import { PallyService } from '@Services/pally.service';
 import { ResourceEditorService } from '@Services/resource_editor.service';
+import { RatingService } from '@Services/rating.service';
 export const bindContainer = (container: Container) => {
   container
     .bind<EnvService>(TYPES.EnvService)
@@ -59,4 +60,7 @@ export const bindContainer = (container: Container) => {
     .bind<ResourceEditorService>(TYPES.ResourceEditorService)
     .to(ResourceEditorService)
     .inSingletonScope();
+  container
+    .bind<RatingService>(TYPES.RatingService)
+    .to(RatingService)
 };
