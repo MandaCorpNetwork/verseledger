@@ -26,3 +26,10 @@ export const UserRatingTimestampedSchema = z.union([
 ]);
 
 export type IUserRatingTimestamped = IUserRating & ITimestamped; // To allow type mixing
+
+export const CreateUserRatingBodySchema = UserRatingSchema.omit({
+  id: true,
+  submitter_id: true,
+  rating_type: true,
+})
+export type ICreateUserRatingBody = z.infer<typeof CreateUserRatingBodySchema>;
