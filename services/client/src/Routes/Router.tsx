@@ -13,6 +13,7 @@ import ErrorPage from './ErrorPage';
 import { Home } from './Index/Home/Home';
 import { NotFoundPage } from './NotFound/NotFound';
 import { PersonalLedgerPage } from './PersonalLedger/PersonalLedgerPage';
+import { Sandbox } from './ui-sandbox/SandboxPage';
 import { VerseMarketPage } from './VerseMarket/VerseMarketPage';
 export const routingInfo: RouteObject[] = [
   {
@@ -72,6 +73,10 @@ export const routingInfo: RouteObject[] = [
       {
         path: '/verse-market',
         element: <VerseMarketPage />,
+      },
+      {
+        path: '/sandbox',
+        element: <Sandbox />,
       },
       {
         path: '*',
