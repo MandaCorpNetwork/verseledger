@@ -144,7 +144,7 @@ export class Contract
   @HasMany(() => ContractBid, 'contract_id')
   declare Bids: Awaited<ContractBid>[];
 
-  @HasMany(() => UserRating, 'rating_id')
+  @HasMany(() => UserRating, 'contract_id')
   declare Ratings: Awaited<UserRating>[];
 
   @BelongsToMany(() => Location, {

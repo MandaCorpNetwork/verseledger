@@ -1,4 +1,4 @@
-import { AllowNull, BelongsTo, Column, DataType, Default, Model, PrimaryKey, Scopes, Table } from "sequelize-typescript";
+import { AllowNull, BelongsTo, Column, DataType, Default, DefaultScope, Model, PrimaryKey, Scopes, Table } from "sequelize-typescript";
 import { User } from "./user.model";
 import { IdUtil } from "@/utils/IdUtil";
 import { IRatingType } from "vl-shared/src/schemas/UserRatingsSchema";
