@@ -35,6 +35,11 @@ import {
   POPUP_PLAYER_CARD,
 } from '@Popups/PlayerCard/PlayerCard';
 import {
+  POPUP_SUBMIT_RATING,
+  SubmitRatingPopup,
+  SubmitRatingPopupProps,
+} from '@Popups/Ratings/SubmitRating';
+import {
   POPUP_USER_INVITE,
   UserInvitePopup,
   UserInvitePopupProps,
@@ -82,6 +87,9 @@ export const PopupManager: React.FC = () => {
   const counterOfferBidPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_COUNTER_OFFER_BID),
   );
+  const submitRatingPopup = useAppSelector((state) =>
+    selectPopup(state, POPUP_SUBMIT_RATING),
+  );
   return (
     <>
       {verifyUserPopup.open && <VerifyUserPopup />}
@@ -111,6 +119,9 @@ export const PopupManager: React.FC = () => {
       )}
       {counterOfferBidPopup.open && (
         <CounterOfferBid {...(counterOfferBidPopup.props as CounterOfferBidProps)} />
+      )}
+      {submitRatingPopup.open && (
+        <SubmitRatingPopup {...(submitRatingPopup.props as SubmitRatingPopupProps)} />
       )}
     </>
   );
