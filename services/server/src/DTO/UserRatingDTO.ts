@@ -7,8 +7,9 @@ import { IRatingType, IUserRating } from 'vl-shared/src/schemas/UserRatingsSchem
   name: 'Rating',
 })
 export class RatingDTO extends DTOBase<IUserRating> implements IUserRating {
-  constructor() {
+  constructor($b: IUserRating) {
     super();
+    this.mapProperties($b)
   }
 
   __type = 'Rating';
@@ -20,7 +21,7 @@ export class RatingDTO extends DTOBase<IUserRating> implements IUserRating {
   }
 
   public strip() {
-    return new RatingDTO();
+    return new RatingDTO({} as IUserRating);
   }
 
   @ApiModelProperty({
