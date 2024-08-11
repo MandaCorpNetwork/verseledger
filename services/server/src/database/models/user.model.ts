@@ -71,8 +71,11 @@ export class User extends Model implements IUser {
   @HasMany(() => ContractBid, 'user_id')
   declare PostedBids: Awaited<ContractBid>[];
 
-  @HasMany(() => UserRating, 'rating_id')
-  declare Ratings: Awaited<UserRating>[];
+  @HasMany(() => UserRating, 'submitter_id')
+  declare SubmittedRatings: Awaited<UserRating>[];
+
+  @HasMany(() => UserRating, 'reciever_id')
+  declare ReceivedRatings: Awaited<UserRating>[];
 
   declare readonly createdAt: Date;
   declare readonly updatedAt: Date;

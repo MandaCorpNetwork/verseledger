@@ -25,6 +25,7 @@ export class RatingService {
     if (rating.submitter_id === rating.reciever_id)
       throw new BadRequestError('You can not rate yourself', 'resource_ownership');
     try {
+      Logger.info(`Attempting to find recent Rating`);
       const recentRating = await UserRating.findOne({
         where: {
           submitter_id: rating.submitter_id,
@@ -43,6 +44,7 @@ export class RatingService {
     });
       return newRating;
     } catch (error) {
+      Logger.error(`Error Occered While Creating Rating: ${error}`);
       throw new NetworkError(500, `Failed to verify Rating History: ${error}`);
     }
   }
