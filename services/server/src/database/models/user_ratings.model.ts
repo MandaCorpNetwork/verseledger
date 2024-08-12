@@ -1,18 +1,28 @@
-import { AllowNull, BelongsTo, Column, DataType, Default, DefaultScope, Model, PrimaryKey, Scopes, Table } from "sequelize-typescript";
-import { User } from "./user.model";
-import { IdUtil } from "@/utils/IdUtil";
-import { IRatingType } from "vl-shared/src/schemas/UserRatingsSchema";
-import { Contract } from "./contract.model";
+import {
+  AllowNull,
+  BelongsTo,
+  Column,
+  DataType,
+  Default,
+  Model,
+  PrimaryKey,
+  Scopes,
+  Table,
+} from 'sequelize-typescript';
+import { User } from './user.model';
+import { IdUtil } from '@/utils/IdUtil';
+import { IRatingType } from 'vl-shared/src/schemas/UserRatingsSchema';
+import { Contract } from './contract.model';
 
 @Scopes(() => ({
   submitter: {
-    include: [{ model: User, as: 'Submitter' }]
+    include: [{ model: User, as: 'Submitter' }],
   },
   reciever: {
-    include: [{ model: User, as: 'Reciever' }]
+    include: [{ model: User, as: 'Reciever' }],
   },
   contract: {
-    include: [{ model: Contract, as: 'Contract' }]
+    include: [{ model: Contract, as: 'Contract' }],
   },
 }))
 @Table({ tableName: 'user_ratings', timestamps: true })

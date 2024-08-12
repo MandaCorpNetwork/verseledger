@@ -6,7 +6,6 @@ import { UserRating } from '@Models/user_ratings.model';
 import { Contract } from '@Models/contract.model';
 import { BadRequestError } from '@Errors/BadRequest';
 import { Op } from 'sequelize';
-import { User } from '@Models/user.model';
 import { ICreateUserRatingBody } from 'vl-shared/src/schemas/UserRatingsSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
@@ -49,16 +48,16 @@ export class RatingService {
     for (const r of ratings) {
       const tempRatingType = contract.subtype;
       const newRating = await UserRating.create({
-          ...r,
-          rating_type: tempRatingType,
-          submitter_id: submitter.id,
-          contract_id: contract.id,
+        ...r,
+        rating_type: tempRatingType,
+        submitter_id: submitter.id,
+        contract_id: contract.id,
       });
       createdRatings.push(newRating);
       this.notifications.publish('/topic/newRating', {
-          userId: r.reciever_id,
-          message: `You have recieved a new rating ${submitter ? `from ${submitter.displayName}` : ''} for ${contract.title}`,
-        });
+        userId: r.reciever_id,
+        message: `You have recieved a new rating ${submitter ? `from ${submitter.displayName}` : ''} for ${contract.title}`,
+      });
     }
     return createdRatings;
   }
@@ -80,9 +79,9 @@ export class RatingService {
   }
 
   public async delayRatingContractors(contract: Contract) {
-      this.notifications.publish('topic/ratingReminder', {
-        userId: contract.owner_id,
-        message: `Pending Contract rating(s) on ${contract.title}.`,
-      });
+    this.notifications.publish('topic/ratingReminder', {
+      userId: contract.owner_id,
+      message: `Pending Contract rating(s) on ${contract.title}.`,
+    });
   }
 }

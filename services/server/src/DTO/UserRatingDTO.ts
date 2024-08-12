@@ -1,6 +1,9 @@
 import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
 import { DTOBase } from './DTOBase';
-import { IRatingType, IUserRating } from 'vl-shared/src/schemas/UserRatingsSchema';
+import {
+  IRatingType,
+  IUserRating,
+} from 'vl-shared/src/schemas/UserRatingsSchema';
 
 @ApiModel({
   description: 'Rating Object',
@@ -9,7 +12,7 @@ import { IRatingType, IUserRating } from 'vl-shared/src/schemas/UserRatingsSchem
 export class RatingDTO extends DTOBase<IUserRating> implements IUserRating {
   constructor($b: IUserRating) {
     super();
-    this.mapProperties($b)
+    this.mapProperties($b);
   }
 
   __type = 'Rating';

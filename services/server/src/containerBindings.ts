@@ -60,7 +60,5 @@ export const bindContainer = (container: Container) => {
     .bind<ResourceEditorService>(TYPES.ResourceEditorService)
     .to(ResourceEditorService)
     .inSingletonScope();
-  container
-    .bind<RatingService>(TYPES.RatingService)
-    .to(RatingService)
+  container.bind<RatingService>(TYPES.RatingService).to(RatingService);
 };

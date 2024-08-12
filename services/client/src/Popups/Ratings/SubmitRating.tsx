@@ -1,4 +1,3 @@
-import { useSoundEffect } from '@/AudioManager';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { UserRatingField } from '@Common/Components/Custom/DigiField/UserRatingField';
 import { Divider, FormControl, Typography } from '@mui/material';
@@ -18,6 +17,8 @@ import {
   ICreateUserRatingBody,
 } from 'vl-shared/src/schemas/UserRatingsSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
+
+import { useSoundEffect } from '@/AudioManager';
 
 export const POPUP_SUBMIT_RATING = 'submitRating';
 
