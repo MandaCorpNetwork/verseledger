@@ -3,18 +3,13 @@ import { UserChip } from '@Common/Components/Chips/UserChip';
 import { AddComment } from '@mui/icons-material';
 import { Box, Button, Grow, Rating, TextField } from '@mui/material';
 import React from 'react';
+import { ICreateUserRatingBody } from 'vl-shared/src/schemas/UserRatingsSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
-
-type RatingFormData = {
-  user: IUser;
-  rating: number;
-  comment: string | null;
-};
 
 type UserRatingFieldProps = {
   user: IUser;
-  formData: RatingFormData;
-  setFormData: (data: RatingFormData) => void;
+  formData: ICreateUserRatingBody;
+  setFormData: (data: ICreateUserRatingBody) => void;
 };
 
 export const UserRatingField: React.FC<UserRatingFieldProps> = ({
@@ -29,7 +24,7 @@ export const UserRatingField: React.FC<UserRatingFieldProps> = ({
   const handleRatingChange = React.useCallback(
     (value: number | null) => {
       if (formData && value !== null) {
-        setFormData({ ...formData, rating: value });
+        setFormData({ ...formData, rating_value: value });
       }
     },
     [formData, setFormData],
@@ -66,7 +61,7 @@ export const UserRatingField: React.FC<UserRatingFieldProps> = ({
       >
         <UserChip user={user} size="medium" />
         <Rating
-          value={formData.rating}
+          value={formData.rating_value}
           onChange={(_e, value) => handleRatingChange(value)}
         />
       </Box>

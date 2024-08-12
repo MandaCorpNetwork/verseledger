@@ -177,7 +177,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       updateContract({ contractId: contract.id, contractRaw: updatedContract }),
     ).then((res) => {
       if (updateContract.fulfilled.match(res)) {
-        overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'history' });
+        overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'closed' });
         enqueueSnackbar('Contract Completed', { variant: 'success' });
         playSound('success');
         openReview();
