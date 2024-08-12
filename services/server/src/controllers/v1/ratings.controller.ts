@@ -22,6 +22,7 @@ import {
 import { ApiOperationPost, ApiPath } from 'swagger-express-ts';
 import { CreateContractBodySchema } from 'vl-shared/src/schemas/ContractSchema';
 import {
+  CreateContractRatingsBodySchema,
   CreateUserRatingBodySchema,
   ICreateContractRatingsBody,
   IUserRating,
@@ -41,13 +42,13 @@ export class RatingsController extends BaseHttpController {
   }
 
   @ApiOperationPost({
-    tags: ['Contract Rating'],
-    description: 'Create a Contract Rating',
-    summary: 'Create a Contract Rating',
+    tags: ['Contract Ratings'],
+    description: 'Create Ratings for a Contract',
+    summary: 'Create Ratings for the Users on a specific Contract after it is Completed or Canceled',
     responses: {
       200: {
         type: 'Success',
-        description: 'Created Rating',
+        description: 'Created Ratings',
         model: 'Rating',
       },
     },
@@ -55,13 +56,13 @@ export class RatingsController extends BaseHttpController {
     parameters: {
       body: {
         required: true,
-        properties: ZodToOpenapi(CreateContractBodySchema),
+        properties: ZodToOpenapi(CreateContractRatingsBodySchema),
       },
     },
     security: { VLAuthAccessToken: [] },
   })
   @httpPost('/contract', TYPES.VerifiedUserMiddleware)
-  private async createContractRating(
+  private async createContractRatings(
     @requestBody() body: ICreateContractRatingsBody,
     @next() nextFunc: NextFunction,
   ) {

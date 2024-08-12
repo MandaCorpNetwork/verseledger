@@ -7,6 +7,7 @@ import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { postNewContractRating } from '@Redux/Slices/Users/Actions/postContractRating';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ICreateContractRatingsBody, ICreateUserRatingBody } from 'vl-shared/src/schemas/UserRatingsSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 export const POPUP_SUBMIT_RATING = 'submitRating';
@@ -26,15 +27,14 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
   users,
   contract,
 }) => {
-  const [formData, setFormData] = React.useState<RatingFormData[]>([]);
+  const [formData, setFormData] = React.useState<ICreateUserRatingBody[]>([]);
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     const initialData = users.map((user) => ({
-      user,
+      reciever_id: user.id,
       rating: 0,
-      comment: null,
     }));
     setFormData(initialData);
   }, [users]);
@@ -58,13 +58,10 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
 
   const handleSubmitRating = () => {
     if (contract && currentUser) {
-      for (const data of formData) {
-        const ratingData = {
-          reciever_id: data.user.id,
-          contract_id: contract.id,
-          rating_value: data.rating,
-          comment: data.comment || undefined,
-        };
+      const ratingData: ICreateContractRatingsBody = {
+        contract_id: contract.id,
+        ratings: formData,
+      };
         dispatch(postNewContractRating(ratingData));
       }
     }
