@@ -1,13 +1,20 @@
-import { UserRatingField } from '@Common/Components/Custom/DigiField/UserRatingForm';
-import { FormControl } from '@mui/material';
+import GlassBox from '@Common/Components/Boxes/GlassBox';
+import { UserRatingField } from '@Common/Components/Custom/DigiField/UserRatingField';
+import { Divider, FormControl, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
+import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
-import { closePopup } from '@Redux/Slices/Popups/popups.actions';
+import { postDelayRating } from '@Redux/Slices/Notifications/actions/postDelayRating';
+import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { postNewContractRating } from '@Redux/Slices/Users/Actions/postContractRating';
+import { selectUserById } from '@Redux/Slices/Users/userSelectors';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
-import { ICreateContractRatingsBody, ICreateUserRatingBody } from 'vl-shared/src/schemas/UserRatingsSchema';
+import {
+  ICreateContractRatingsBody,
+  ICreateUserRatingBody,
+} from 'vl-shared/src/schemas/UserRatingsSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 export const POPUP_SUBMIT_RATING = 'submitRating';
@@ -15,12 +22,6 @@ export const POPUP_SUBMIT_RATING = 'submitRating';
 export type SubmitRatingPopupProps = {
   users: IUser[];
   contract?: IContract;
-};
-
-type RatingFormData = {
-  user: IUser;
-  rating: number;
-  comment: string | null;
 };
 
 export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
@@ -31,17 +32,27 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
 
+  //const recentRatings = TODO: get the recent ratings to disabler the user from rating the same user twice
+
   React.useEffect(() => {
     const initialData = users.map((user) => ({
       reciever_id: user.id,
-      rating: 0,
+      rating_value: 0,
     }));
+    if (owner && !initialData.find((data) => data.reciever_id === owner.id)) {
+      initialData.push({
+        reciever_id: owner.id,
+        rating_value: 0,
+      });
+    }
     setFormData(initialData);
   }, [users]);
 
-  const handleFormDataChange = (updatedData: RatingFormData) => {
+  const handleFormDataChange = (updatedData: ICreateUserRatingBody) => {
     setFormData((prevData) =>
-      prevData.map((data) => (data.user.id === updatedData.user.id ? updatedData : data)),
+      prevData.map((data) =>
+        data.reciever_id === updatedData.reciever_id ? updatedData : data,
+      ),
     );
   };
   const getTitle = () => {
@@ -56,14 +67,19 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
     }
   };
 
+  const owner = useAppSelector((state) => {
+    if (currentUser && contract && currentUser.id !== contract.owner_id) {
+      return selectUserById(state, contract.owner_id);
+    }
+  });
+
   const handleSubmitRating = () => {
     if (contract && currentUser) {
-      const ratingData: ICreateContractRatingsBody = {
+      const ratingData = {
         contract_id: contract.id,
-        ratings: formData,
+        ratings: formData as ICreateUserRatingBody[],
       };
-        dispatch(postNewContractRating(ratingData));
-      }
+      dispatch(postNewContractRating(ratingData as ICreateContractRatingsBody));
     }
   };
 
@@ -73,6 +89,28 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
   };
 
   const popupTitle = getTitle() ?? '';
+
+  const handleRatingDelay = () => {
+    if (contract) {
+      dispatch(postDelayRating(contract.id));
+      dispatch(closePopup(POPUP_SUBMIT_RATING));
+    }
+  };
+
+  const handleCancel = () => {
+    if (contract) {
+      dispatch(
+        openPopup(POPUP_YOU_SURE, {
+          title: 'User Ratings',
+          subjectText: 'Submit User Ratings Later',
+          bodyText: `Are you sure you don't want to submit your user ratings now?`,
+          acceptText: 'Later',
+          clickaway: true,
+          onAccept: handleRatingDelay,
+        }),
+      );
+    }
+  };
   return (
     <VLPopup
       name={POPUP_SUBMIT_RATING}
@@ -80,17 +118,43 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
       data-testid="SubmitRating"
       onSubmit={handleSubmit}
       cancelText="Maybe Later"
-      onCancel={() => {}}
+      onCancel={handleCancel}
     >
       <FormControl>
-        {users.map((user) => (
-          <UserRatingField
-            key={user.id}
-            user={user}
-            formData={formData.find((data) => data.user.id === user.id) as RatingFormData}
-            setFormData={handleFormDataChange}
-          />
-        ))}
+        <GlassBox sx={{ overflow: 'auto' }}>
+          {contract && owner && (
+            <>
+              <Typography>Contract Owner</Typography>
+              <UserRatingField
+                user={owner}
+                formData={
+                  formData.find(
+                    (data) => data.reciever_id === owner.id,
+                  ) as ICreateUserRatingBody
+                }
+                setFormData={handleFormDataChange}
+              />
+            </>
+          )}
+          {owner && (
+            <>
+              <Divider />
+            </>
+          )}
+          {contract && <Typography>Contractors</Typography>}
+          {users.map((user) => (
+            <UserRatingField
+              key={user.id}
+              user={user}
+              formData={
+                formData.find(
+                  (data) => data.reciever_id === user.id,
+                ) as ICreateUserRatingBody
+              }
+              setFormData={handleFormDataChange}
+            />
+          ))}
+        </GlassBox>
       </FormControl>
     </VLPopup>
   );
