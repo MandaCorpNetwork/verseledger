@@ -1,4 +1,4 @@
-import { UserRatingField } from '@Common/Components/Custom/DigiField/UserRatingForm';
+// import { UserRatingField } from '@Common/Components/Custom/DigiField/UserRatingForm';
 import { Box } from '@mui/material';
 
 export const SandboxContent: React.FC<unknown> = () => {
@@ -21,7 +21,7 @@ export const SandboxContent: React.FC<unknown> = () => {
       {/* <Button variant="contained" onClick={handleClick}>
         Test Button
       </Button> */}
-      <UserRatingField />
+      {/* <UserRatingField /> */}
     </Box>
   );
 };

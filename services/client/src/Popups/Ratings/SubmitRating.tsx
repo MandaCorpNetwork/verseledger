@@ -1,8 +1,10 @@
 import { UserRatingField } from '@Common/Components/Custom/DigiField/UserRatingForm';
-import { Box, FormControl, Typography } from '@mui/material';
+import { FormControl } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
-import { useAppSelector } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
+import { closePopup } from '@Redux/Slices/Popups/popups.actions';
+import { postNewContractRating } from '@Redux/Slices/Users/Actions/postContractRating';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
@@ -26,6 +28,7 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
 }) => {
   const [formData, setFormData] = React.useState<RatingFormData[]>([]);
   const currentUser = useAppSelector(selectCurrentUser);
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     const initialData = users.map((user) => ({
@@ -53,9 +56,35 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
     }
   };
 
+  const handleSubmitRating = () => {
+    if (contract && currentUser) {
+      for (const data of formData) {
+        const ratingData = {
+          reciever_id: data.user.id,
+          contract_id: contract.id,
+          rating_value: data.rating,
+          comment: data.comment || undefined,
+        };
+        dispatch(postNewContractRating(ratingData));
+      }
+    }
+  };
+
+  const handleSubmit = () => {
+    handleSubmitRating();
+    dispatch(closePopup(POPUP_SUBMIT_RATING));
+  };
+
   const popupTitle = getTitle() ?? '';
   return (
-    <VLPopup name={POPUP_SUBMIT_RATING} title={popupTitle} data-testid="SubmitRating">
+    <VLPopup
+      name={POPUP_SUBMIT_RATING}
+      title={popupTitle}
+      data-testid="SubmitRating"
+      onSubmit={handleSubmit}
+      cancelText="Maybe Later"
+      onCancel={() => {}}
+    >
       <FormControl>
         {users.map((user) => (
           <UserRatingField

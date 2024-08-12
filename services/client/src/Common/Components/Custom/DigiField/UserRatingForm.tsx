@@ -24,7 +24,6 @@ export const UserRatingField: React.FC<UserRatingFieldProps> = ({
   formData,
   setFormData,
 }) => {
-  const currentUser = useAppSelector(selectCurrentUser) as IUser;
   const [showComment, setShowComment] = React.useState(false);
   const handleShowComment = () => {
     setShowComment(true);
@@ -67,7 +66,7 @@ export const UserRatingField: React.FC<UserRatingFieldProps> = ({
           transition: 'mb .2s ease-in-out',
         }}
       >
-        <UserChip user={currentUser} size="medium" />
+        <UserChip user={user} size="medium" />
         <Rating
           value={formData.rating}
           onChange={(_e, value) => handleRatingChange(value)}
@@ -101,6 +100,22 @@ export const UserRatingField: React.FC<UserRatingFieldProps> = ({
             color="secondary"
             onChange={handleCommentChange}
             value={formData.comment}
+            inputProps={{
+              maxLength: 300,
+              sx: {
+                '&::-webkit-scrollbar': {
+                  width: '5px',
+                },
+                '&::-webkit-scrollbar-track': {
+                  background: 'rgba(0,73,130,.8)',
+                  borderRadius: '10px',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  borderRadius: '20px',
+                  background: 'rgb(24,252,252)',
+                },
+              },
+            }}
           />
         </Box>
       </Grow>
