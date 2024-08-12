@@ -1,7 +1,7 @@
 import { Logger } from "@/utils/Logger";
-// import { TYPES } from "@Constant/types";
-import { injectable } from "inversify";
-// import { type NotificationService } from "./notification.service";
+import { TYPES } from "@Constant/types";
+import { inject, injectable } from "inversify";
+import { type NotificationService } from "./notification.service";
 import { UserRating } from "@Models/user_ratings.model";
 import { Contract } from "@Models/contract.model";
 import { NotFoundError } from "@Errors/NotFoundError";
@@ -15,8 +15,8 @@ export class RatingService {
     Logger.init();
   }
 
-  // @inject(TYPES.NotificiationService)
-  // private notifications!: NotificationService;
+  @inject(TYPES.NotificiationService)
+  private notifications!: NotificationService;
   public async createContractRating(rating: { submitter_id: string; reciever_id: string; contract_id: string; rating_value: number; comments?: string; }) {
     const contract = await Contract.scope(['owner', 'bids']).findByPk(rating.contract_id);
     if (contract == null) throw new NotFoundError('Contract not found');
