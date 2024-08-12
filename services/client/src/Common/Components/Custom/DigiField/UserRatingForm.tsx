@@ -2,8 +2,6 @@ import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { UserChip } from '@Common/Components/Chips/UserChip';
 import { AddComment } from '@mui/icons-material';
 import { Box, Button, Grow, Rating, TextField } from '@mui/material';
-import { useAppSelector } from '@Redux/hooks';
-import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import React from 'react';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
