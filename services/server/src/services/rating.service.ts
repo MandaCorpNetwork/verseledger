@@ -54,9 +54,10 @@ export class RatingService {
         contract_id: contract.id,
       });
       createdRatings.push(newRating);
-      this.notifications.publish('/topic/newRating', {
-        userId: r.reciever_id,
-        message: `You have recieved a new rating ${submitter ? `from ${submitter.displayName}` : ''} for ${contract.title}`,
+      this.notifications.createNotification({
+        user_id: r.reciever_id,
+        text: `You have recieved a new rating ${submitter ? `from ${submitter.displayName}` : ''} for ${contract.title}`,
+        resource: `topic/ratings/${r.reciever_id}`,
       });
     }
     return createdRatings;
@@ -71,17 +72,19 @@ export class RatingService {
           : contract.status === 'CANCELED'
             ? 'Canceled'
             : 'Error';
-      this.notifications.publish('/topic/newRatingRequest', {
-        userId: bidderId,
-        message: `${contract.title} Contract has been ${status}. Please submit Ratings for Contract Users} `,
+      this.notifications.createNotification({
+        user_id: bidderId,
+        text: `${contract.title} Contract has been ${status}. Please submit Ratings for Contract Users} `,
+        resource: `topic/contracts/${contract.id}/status`,
       });
     }
   }
 
   public async delayRatingContractors(contract: Contract) {
-    this.notifications.publish('topic/ratingReminder', {
-      userId: contract.owner_id,
-      message: `Pending Contract rating(s) on ${contract.title}.`,
+    this.notifications.createNotification({
+      user_id: contract.owner_id,
+      text: `Pending Contract rating(s) on ${contract.title}.`,
+      resource: `topic/contracts/${contract.id}/status`,
     });
   }
 }

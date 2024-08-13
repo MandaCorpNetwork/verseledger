@@ -33,7 +33,7 @@ export class NotificationService {
     }
   }
 
-  //Temporary Notification Service to create Notifications for Actions
+  //Temporary Notification Service to create Notifications for Actions until Stomp Service is updated
   public async createNotification({
     user_id,
     text,
