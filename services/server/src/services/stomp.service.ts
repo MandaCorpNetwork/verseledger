@@ -8,7 +8,7 @@ Object.assign(global, { WebSocket });
 //TODO: Set Up Users
 const client = new Client({
   //TODO: Wire up mode - STAGING
-  //brokerURL: 'wss://vl-activemq:61616/ws',
+  //brokerURL: 'wss://ws.stg.verseledger.net/ws',
   brokerURL: 'ws://localhost:61616/ws',
   connectHeaders: {
     login: 'Server',
