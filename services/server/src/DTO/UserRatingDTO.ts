@@ -23,10 +23,6 @@ export class RatingDTO extends DTOBase<IUserRating> implements IUserRating {
     };
   }
 
-  public strip() {
-    return new RatingDTO({} as IUserRating);
-  }
-
   @ApiModelProperty({
     description: 'ID of Rating',
     required: true,

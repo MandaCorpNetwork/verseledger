@@ -74,27 +74,28 @@ export class RatingsController extends BaseHttpController {
       );
     }
     const dto = body;
+    const model = CreateContractRatingsBodySchema.strict().parse(dto);
     const submitter = this.httpContext.user as VLAuthPrincipal;
     const contract = await Contract.scope(['owner', 'bids']).findByPk(
-      dto.contract_id,
+      model.contract_id,
     );
     if (contract == null)
       throw nextFunc(
-        new NotFoundError(`Contract(${dto.contract_id}) not found`),
+        new NotFoundError(`Contract(${model.contract_id}) not found`),
       );
     if (contract.status !== 'COMPLETED' && contract.status !== 'CANCELED')
       throw new BadRequestError(
         'Ratings can only be submitted on closed contracts',
         'invalid_status',
       );
-    if (dto.ratings === null) {
+    if (model.ratings === null) {
       this.ratingService.delayRatingContractors(submitter.id, contract);
       if (contract.owner_id === submitter.id) {
         this.ratingService.notifyContractorsToRate(contract);
       } 
       return this.ok('Ratings submission delayed');
     }
-    const validatedRatings = dto.ratings.map((rating) => {
+    const validatedRatings = model.ratings.map((rating) => {
       if (!IdUtil.isValidId(rating.reciever_id))
         throw nextFunc(
           new BadParameterError(
