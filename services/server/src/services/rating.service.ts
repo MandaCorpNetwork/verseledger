@@ -80,9 +80,9 @@ export class RatingService {
     }
   }
 
-  public async delayRatingContractors(contract: Contract) {
+  public async delayRatingContractors(submitterId: string, contract: Contract) {
     this.notifications.createNotification({
-      user_id: contract.owner_id,
+      user_id: submitterId,
       text: `Pending Contract rating(s) on ${contract.title}.`,
       resource: `topic/contracts/${contract.id}/status`,
     });

@@ -17,10 +17,8 @@ import {
   httpPost,
   next,
   requestBody,
-  requestParam,
 } from 'inversify-express-utils';
 import { ApiOperationPost, ApiPath } from 'swagger-express-ts';
-import { CreateContractBodySchema } from 'vl-shared/src/schemas/ContractSchema';
 import {
   CreateContractRatingsBodySchema,
   CreateUserRatingBodySchema,
@@ -89,6 +87,13 @@ export class RatingsController extends BaseHttpController {
         'Ratings can only be submitted on closed contracts',
         'invalid_status',
       );
+    if (dto.ratings === null) {
+      this.ratingService.delayRatingContractors(submitter.id, contract);
+      if (contract.owner_id === submitter.id) {
+        this.ratingService.notifyContractorsToRate(contract);
+      } 
+      return this.ok('Ratings submission delayed');
+    }
     const validatedRatings = dto.ratings.map((rating) => {
       if (!IdUtil.isValidId(rating.reciever_id))
         throw nextFunc(
@@ -129,56 +134,5 @@ export class RatingsController extends BaseHttpController {
       `/ratings/${newRatings.map((r) => r.id).join('&')}`,
       newRatings.map((r) => new RatingDTO(r as IUserRating)),
     );
-  }
-  @ApiOperationPost({
-    tags: ['Delay Contract Rating'],
-    description: 'Delaying Rating Contractors',
-    summary:
-      'Sends out notifications to Contractors to submit ratings and sends a reminder to the owner to submit ratings',
-    responses: {
-      200: {
-        type: 'Success',
-        description: 'Notified Users',
-        model: 'Rating',
-      },
-    },
-    consumes: [],
-    parameters: {
-      body: {
-        required: true,
-        properties: ZodToOpenapi(CreateContractBodySchema),
-      },
-    },
-    security: { VLAuthAccessToken: [] },
-  })
-  @httpPost('/contract/:contractId/delayRating', TYPES.VerifiedUserMiddleware)
-  private async delayRating(
-    @requestParam('contractId') contractId: string,
-    @next() nextFunc: NextFunction,
-  ) {
-    if (!IdUtil.isValidId(contractId)) {
-      throw nextFunc(
-        new BadParameterError(
-          'contractId',
-          `/contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/ratings`,
-        ),
-      );
-    }
-    const contract = await Contract.scope(['owner', 'bids']).findByPk(
-      contractId,
-    );
-    if (contract == null)
-      throw nextFunc(new NotFoundError(`Contract(${contractId}) not found`));
-    if (contract.status !== 'COMPLETED' && contract.status !== 'CANCELED')
-      throw nextFunc(
-        new BadRequestError(
-          'Ratings can only be submitted on closed contracts',
-          'invalid_status',
-        ),
-      );
-    this.ratingService.delayRatingContractors(contract);
-    if (contract.owner_id === this.httpContext.user.details.id) {
-      this.ratingService.notifyContractorsToRate(contract);
-    }
   }
 }
