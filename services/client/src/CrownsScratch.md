@@ -24,10 +24,20 @@
 
 # Sortby for Contracts
 
-On contract complete or cancel, prompt the owner to rate each bid with bid_status
-If selected to do later, prompt the BE to send a notification to submit ratings for contract to the owner
+Need a thunk to check if any of these user ratings are recent.
+  Create Rating Endpoing
+    checks an array of users
+    runs the checkRecentRatings for array
+    Returns an object of booleans for each user in the array
+    can use this to disable the rating field for certain users
 
-When Contract Status is completed or canceled, BE should send a notification to the bid owners where bid_status is accepeted to submit a rating for the contract_owner
+The ICreateUserRatingBody State needs to be nullable
+We need to create a new object for the list of rateable contractors
+Whenever a contractor is rated, it then gets added to the state body
 
-We will need a Service for Creating Ratings
-We will need to add to the Notification Service for submitting ratings for the contract_owner & bid_owners
+onSubmit needs to run the submit rating as it has,
+
+handleClose needs to run the same handleSubmitRating
+
+
+

@@ -18,22 +18,35 @@ export const UserRatingField: React.FC<UserRatingFieldProps> = ({
   setFormData,
 }) => {
   const [showComment, setShowComment] = React.useState(false);
+
   const handleShowComment = () => {
     setShowComment(true);
   };
+
+  const updateFormData = React.useCallback(
+    (updatedFields: Partial<ICreateUserRatingBody>) => {
+      setFormData({
+        ...formData,
+        reciever_id: user.id,
+        ...updatedFields,
+      });
+    },
+    [formData, setFormData, user.id],
+  );
+
   const handleRatingChange = React.useCallback(
     (value: number | null) => {
-      if (formData && value !== null) {
-        setFormData({ ...formData, rating_value: value });
+      if (value !== null) {
+        updateFormData({ rating_value: value });
       }
     },
-    [formData, setFormData],
+    [setFormData],
   );
 
   const handleCommentChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       if (formData) {
-        setFormData({ ...formData, comment: event.target.value });
+        updateFormData({ comment: event.target.value });
       }
     },
     [formData, setFormData],
@@ -61,7 +74,7 @@ export const UserRatingField: React.FC<UserRatingFieldProps> = ({
       >
         <UserChip user={user} size="medium" />
         <Rating
-          value={formData.rating_value}
+          value={formData.rating_value ?? null}
           onChange={(_e, value) => handleRatingChange(value)}
         />
       </Box>
@@ -92,7 +105,7 @@ export const UserRatingField: React.FC<UserRatingFieldProps> = ({
             rows={2}
             color="secondary"
             onChange={handleCommentChange}
-            value={formData.comment}
+            value={formData.comment ?? null}
             inputProps={{
               maxLength: 300,
               sx: {

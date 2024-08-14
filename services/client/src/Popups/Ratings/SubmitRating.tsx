@@ -5,7 +5,6 @@ import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
-import { postDelayRating } from '@Redux/Slices/Notifications/actions/postDelayRating';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { postNewContractRating } from '@Redux/Slices/Users/Actions/postContractRating';
 import { selectUserById } from '@Redux/Slices/Users/userSelectors';
@@ -31,36 +30,49 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
   users,
   contract,
 }) => {
-  const [formData, setFormData] = React.useState<ICreateUserRatingBody[]>([]);
+  const [formData, setFormData] = React.useState<ICreateUserRatingBody[] | null>(null);
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
 
   //const recentRatings = TODO: get the recent ratings to disabler the user from rating the same user twice
 
-  React.useEffect(() => {
-    const initialData = users.map((user) => ({
-      reciever_id: user.id,
-      rating_value: 0,
-      ...(contract && { contract_id: contract.id }),
-    }));
-    if (owner && !initialData.find((data) => data.reciever_id === owner.id)) {
-      initialData.push({
-        reciever_id: owner.id,
-        rating_value: 0,
-        ...(contract && { contract_id: contract.id }),
-      });
+  // Retreive the Owner User to rate if the user is not the Owner
+  const owner = useAppSelector((state) => {
+    if (currentUser && contract && currentUser.id !== contract.owner_id) {
+      return selectUserById(state, contract.owner_id);
     }
-    setFormData(initialData);
-  }, [users]);
+  });
 
-  const handleFormDataChange = (updatedData: ICreateUserRatingBody) => {
-    setFormData((prevData) =>
-      prevData.map((data) =>
-        data.reciever_id === updatedData.reciever_id ? updatedData : data,
-      ),
-    );
-  };
+  // Retreives the Users availble to bid
+  const getOptions = React.useCallback(() => {
+    const validUsers = users.filter((user) => user.id !== currentUser?.id);
+    return validUsers.map;
+  }, [users]);
+  const options = getOptions();
+
+  // Handle adding or updating an option on the dataForm
+  const handleFormDataChange = React.useCallback(
+    (updatedData: ICreateUserRatingBody) => {
+      setFormData((prevData) => {
+        if (!prevData) {
+          return [updatedData];
+        }
+        const existingIndex = prevData?.findIndex(
+          (data) => data.reciever_id === updatedData.reciever_id,
+        );
+        if (existingIndex !== -1) {
+          const updatedFormData = [...prevData];
+          updatedFormData[existingIndex] = updatedData;
+          return updatedFormData;
+        } else {
+          return [...prevData, updatedData];
+        }
+      });
+    },
+    [setFormData],
+  );
+
   const getTitle = () => {
     if (currentUser) {
       if (contract) {
@@ -73,12 +85,7 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
     }
   };
 
-  const owner = useAppSelector((state) => {
-    if (currentUser && contract && currentUser.id !== contract.owner_id) {
-      return selectUserById(state, contract.owner_id);
-    }
-  });
-
+  // Handle Thunk Action for submitting the ratings
   const handleSubmitRating = () => {
     if (contract && currentUser) {
       const ratingData = {
@@ -108,13 +115,6 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
 
   const popupTitle = getTitle() ?? '';
 
-  const handleRatingDelay = () => {
-    if (contract) {
-      dispatch(postDelayRating(contract.id));
-      dispatch(closePopup(POPUP_SUBMIT_RATING));
-    }
-  };
-
   const handleCancel = () => {
     if (contract) {
       dispatch(
@@ -124,10 +124,11 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
           bodyText: `Are you sure you don't want to submit your user ratings now?`,
           acceptText: 'Later',
           clickaway: true,
-          onAccept: handleRatingDelay,
+          onAccept: handleSubmitRating(),
         }),
       );
     }
+    playSound('warning');
   };
   return (
     <VLPopup
@@ -146,7 +147,7 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
               <UserRatingField
                 user={owner}
                 formData={
-                  formData.find(
+                  formData?.find(
                     (data) => data.reciever_id === owner.id,
                   ) as ICreateUserRatingBody
                 }
@@ -165,7 +166,7 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
               key={user.id}
               user={user}
               formData={
-                formData.find(
+                formData?.find(
                   (data) => data.reciever_id === user.id,
                 ) as ICreateUserRatingBody
               }
