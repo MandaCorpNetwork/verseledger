@@ -8,6 +8,7 @@ import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { postNewContractRating } from '@Redux/Slices/Users/Actions/postContractRating';
 import { selectUserById } from '@Redux/Slices/Users/userSelectors';
+import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -47,31 +48,30 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
   // Retreives the Users availble to bid
   const getOptions = React.useCallback(() => {
     const validUsers = users.filter((user) => user.id !== currentUser?.id);
-    return validUsers.map;
+    return validUsers.map((user) => user);
   }, [users]);
   const options = getOptions();
 
   // Handle adding or updating an option on the dataForm
-  const handleFormDataChange = React.useCallback(
-    (updatedData: ICreateUserRatingBody) => {
-      setFormData((prevData) => {
-        if (!prevData) {
-          return [updatedData];
-        }
-        const existingIndex = prevData?.findIndex(
-          (data) => data.reciever_id === updatedData.reciever_id,
-        );
-        if (existingIndex !== -1) {
-          const updatedFormData = [...prevData];
-          updatedFormData[existingIndex] = updatedData;
-          return updatedFormData;
-        } else {
-          return [...prevData, updatedData];
-        }
-      });
-    },
-    [setFormData],
-  );
+  const handleFormDataChange = React.useCallback((updatedData: ICreateUserRatingBody) => {
+    Logger.info(`Updated Data: ${updatedData}`);
+    Logger.info(`Current FormData: ${formData}`);
+    setFormData((prevData) => {
+      if (!prevData) {
+        return [updatedData];
+      }
+      const existingIndex = prevData?.findIndex(
+        (data) => data.reciever_id === updatedData.reciever_id,
+      );
+      if (existingIndex !== -1) {
+        const updatedFormData = [...prevData];
+        updatedFormData[existingIndex] = updatedData;
+        return updatedFormData;
+      } else {
+        return [...prevData, updatedData];
+      }
+    });
+  }, []);
 
   const getTitle = () => {
     if (currentUser) {
@@ -97,6 +97,7 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
           if (postNewContractRating.fulfilled.match(res)) {
             enqueueSnackbar('Ratings Submitted', { variant: 'success' });
             playSound('send');
+            dispatch(closePopup(POPUP_SUBMIT_RATING));
           } else {
             enqueueSnackbar(`Error Submitting Ratings ${res.error}`, {
               variant: 'error',
@@ -124,7 +125,7 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
           bodyText: `Are you sure you don't want to submit your user ratings now?`,
           acceptText: 'Later',
           clickaway: true,
-          onAccept: handleSubmitRating(),
+          onAccept: () => handleSubmitRating(),
         }),
       );
     }
@@ -146,6 +147,7 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
               <Typography>Contract Owner</Typography>
               <UserRatingField
                 user={owner}
+                contractId={contract && contract.id}
                 formData={
                   formData?.find(
                     (data) => data.reciever_id === owner.id,
@@ -161,10 +163,11 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
             </>
           )}
           {contract && <Typography>Contractors</Typography>}
-          {users.map((user) => (
+          {options.map((user) => (
             <UserRatingField
               key={user.id}
               user={user}
+              contractId={contract && contract.id}
               formData={
                 formData?.find(
                   (data) => data.reciever_id === user.id,

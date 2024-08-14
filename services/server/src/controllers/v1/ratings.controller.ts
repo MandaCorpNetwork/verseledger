@@ -65,7 +65,10 @@ export class RatingsController extends BaseHttpController {
     @requestBody() body: ICreateContractRatingsBody,
     @next() nextFunc: NextFunction,
   ) {
+    Logger.info('RatingData Post Attempt: ', body);
+    Logger.info('Validating Contract Id...')
     if (!IdUtil.isValidId(body.contract_id)) {
+      Logger.error('Invalid Contract Id');
       throw nextFunc(
         new BadParameterError(
           'contractId',
@@ -73,37 +76,50 @@ export class RatingsController extends BaseHttpController {
         ),
       );
     }
-    const dto = body;
-    const model = CreateContractRatingsBodySchema.strict().parse(dto);
+    Logger.info('Validating Request Body...');
+    const model = CreateContractRatingsBodySchema.parse(body);
+    Logger.info('Validating Submitter Authentication...');
     const submitter = this.httpContext.user as VLAuthPrincipal;
+    Logger.info('Fetching Contract...');
     const contract = await Contract.scope(['owner', 'bids']).findByPk(
       model.contract_id,
     );
-    if (contract == null)
+    if (contract == null) {
+      Logger.error(`Contract(${model.contract_id}) not found`);
       throw nextFunc(
         new NotFoundError(`Contract(${model.contract_id}) not found`),
       );
-    if (contract.status !== 'COMPLETED' && contract.status !== 'CANCELED')
+    }
+    if (contract.status !== 'COMPLETED' && contract.status !== 'CANCELED') {
+      Logger.error(
+        `Contract(${model.contract_id}) is not completed or canceled`,
+      );
       throw new BadRequestError(
         'Ratings can only be submitted on closed contracts',
         'invalid_status',
       );
-    if (model.ratings === null) {
+    }
+    if (!model.ratings) {
+      Logger.info('No Ratings Provided, Attempting Delay Rating Service. . .');
       this.ratingService.delayRatingContractors(submitter.id, contract);
       if (contract.owner_id === submitter.id) {
         this.ratingService.notifyContractorsToRate(contract);
-      } 
+      }
       return this.ok('Ratings submission delayed');
     }
     const validatedRatings = model.ratings.map((rating) => {
-      if (!IdUtil.isValidId(rating.reciever_id))
+      Logger.info(`Rating Provided: ${JSON.stringify(rating)}`);
+      if (!IdUtil.isValidId(rating.reciever_id)) {
+        Logger.error(`Invalid Reciever ID: ${rating.reciever_id}`);
         throw nextFunc(
           new BadParameterError(
             `reciever_id`,
             `/contract(${contract.id})/rating(${IdUtil.expressRegex(IdUtil.IdPrefix.User)})`,
           ),
         );
+      }
       if (submitter.details.id === rating.reciever_id) {
+        Logger.error(`Cannot rate self`);
         throw nextFunc(
           new BadRequestError(
             'You can not rate yourself',
@@ -112,6 +128,7 @@ export class RatingsController extends BaseHttpController {
         );
       }
       if (contract.id !== rating.contract_id) {
+        Logger.error(`Contract Id doesn't Match Provided`);
         throw nextFunc(
           new BadRequestError('Contract ID does not match', 'invalid_resource'),
         );
@@ -121,8 +138,8 @@ export class RatingsController extends BaseHttpController {
         contract.subtype,
         rating.reciever_id,
       );
-      const model = CreateUserRatingBodySchema.strict().parse(rating);
-      return model;
+      const ratingModel = CreateUserRatingBodySchema.strict().parse(rating);
+      return ratingModel;
     });
     Logger.info(validatedRatings);
     const newRatings = await this.ratingService.createContractRating(

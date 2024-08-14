@@ -8,12 +8,14 @@ import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 type UserRatingFieldProps = {
   user: IUser;
+  contractId?: string;
   formData: ICreateUserRatingBody;
   setFormData: (data: ICreateUserRatingBody) => void;
 };
 
 export const UserRatingField: React.FC<UserRatingFieldProps> = ({
   user,
+  contractId,
   formData,
   setFormData,
 }) => {
@@ -24,32 +26,15 @@ export const UserRatingField: React.FC<UserRatingFieldProps> = ({
   };
 
   const updateFormData = React.useCallback(
-    (updatedFields: Partial<ICreateUserRatingBody>) => {
+    (field: keyof ICreateUserRatingBody, value: string | number | null) => {
       setFormData({
         ...formData,
         reciever_id: user.id,
-        ...updatedFields,
-      });
+        ...(contractId && { contract_id: contractId }),
+        [field]: value,
+      } as ICreateUserRatingBody);
     },
-    [formData, setFormData, user.id],
-  );
-
-  const handleRatingChange = React.useCallback(
-    (value: number | null) => {
-      if (value !== null) {
-        updateFormData({ rating_value: value });
-      }
-    },
-    [setFormData],
-  );
-
-  const handleCommentChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (formData) {
-        updateFormData({ comment: event.target.value });
-      }
-    },
-    [formData, setFormData],
+    [setFormData, user.id],
   );
 
   return (
@@ -73,10 +58,7 @@ export const UserRatingField: React.FC<UserRatingFieldProps> = ({
         }}
       >
         <UserChip user={user} size="medium" />
-        <Rating
-          value={formData.rating_value ?? null}
-          onChange={(_e, value) => handleRatingChange(value)}
-        />
+        <Rating onChange={(_e, value) => updateFormData('rating_value', value)} />
       </Box>
       <Button
         variant="outlined"
@@ -104,8 +86,7 @@ export const UserRatingField: React.FC<UserRatingFieldProps> = ({
             multiline
             rows={2}
             color="secondary"
-            onChange={handleCommentChange}
-            value={formData.comment ?? null}
+            onChange={(e) => updateFormData('comment', e.target.value)}
             inputProps={{
               maxLength: 300,
               sx: {
