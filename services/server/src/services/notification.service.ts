@@ -33,6 +33,28 @@ export class NotificationService {
     }
   }
 
+  //Temporary Notification Service to create Notifications for Actions until Stomp Service is updated
+  public async createNotification({
+    user_id,
+    text,
+    resource,
+  }: {
+    user_id: string;
+    text: string;
+    resource: string;
+    }) {
+    const notification = await Notification.create({
+      user_id,
+      text,
+      resource,
+      read: false,
+    })
+    this.publish(`/topic/notifications/${user_id}`, {
+      message: text,
+    });
+    return notification;
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async publish(destination: string, body: Record<any, any> | string) {
     //TODO: Wire up mode - STAGING

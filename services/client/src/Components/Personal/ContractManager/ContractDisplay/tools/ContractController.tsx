@@ -1,5 +1,7 @@
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_EDIT_CONTRACT } from '@Popups/Contracts/EditContract/EditContract';
+import { POPUP_SUBMIT_RATING } from '@Popups/Ratings/SubmitRating';
+import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch } from '@Redux/hooks';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContract';
@@ -151,27 +153,57 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     }
   };
 
-  const handleContractComplete = () => {
+  const getActiveBidUsers = () => {
+    return contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').map(
+      (bid) => bid.User,
+    );
+  };
+
+  const contractUsers = getActiveBidUsers();
+
+  const openReview = () => {
+    dispatch(openPopup(POPUP_SUBMIT_RATING, { users: contractUsers, contract }));
+  };
+
+  const completeContract = () => {
     const now = new Date();
+    const updatedContract = getUpdatedContractStatus(
+      contract,
+      'COMPLETED',
+      undefined,
+      now,
+    );
+    dispatch(
+      updateContract({ contractId: contract.id, contractRaw: updatedContract }),
+    ).then((res) => {
+      if (updateContract.fulfilled.match(res)) {
+        overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'closed' });
+        enqueueSnackbar('Contract Completed', { variant: 'success' });
+        playSound('success');
+        openReview();
+      } else {
+        enqueueSnackbar('Error Completing Contract Contract', { variant: 'error' });
+        playSound('error');
+      }
+    });
+  };
+
+  const completeBodyText = contract.endDate
+    ? 'Are you sure you want to complete this contract before the scheduled End Date?'
+    : 'Are you sure you want to complete this contract?';
+
+  const handleContractComplete = () => {
     if (contract.status === 'INPROGRESS') {
-      const updatedContract = getUpdatedContractStatus(
-        contract,
-        'COMPLETED',
-        undefined,
-        now,
-      );
       dispatch(
-        updateContract({ contractId: contract.id, contractRaw: updatedContract }),
-      ).then((res) => {
-        if (updateContract.fulfilled.match(res)) {
-          overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'history' });
-          enqueueSnackbar('Contract Completed', { variant: 'success' });
-          playSound('success');
-        } else {
-          enqueueSnackbar('Error Completing Contract Contract', { variant: 'error' });
-          playSound('error');
-        }
-      });
+        openPopup(POPUP_YOU_SURE, {
+          title: 'Complete Contract',
+          acceptText: 'Complete',
+          onAccept: completeContract,
+          clickaway: true,
+          subjectText: 'Closing Contract With Complete Status',
+          bodyText: completeBodyText,
+        }),
+      );
     }
   };
 
