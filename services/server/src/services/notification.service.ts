@@ -49,6 +49,9 @@ export class NotificationService {
       resource,
       read: false,
     })
+    this.publish(`/topic/notifications/${user_id}`, {
+      message: text,
+    });
     return notification;
   }
 
