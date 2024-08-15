@@ -38,6 +38,7 @@ export const NotificationsBox: React.FC = () => {
   }, []);
 
   const handleMarkAllRead = () => {
+    playSound('close');
     dispatch(markAllRead());
   };
 

@@ -1,9 +1,10 @@
 import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { PowerSettingsNew, Sync } from '@mui/icons-material';
-import { Box, IconButton, Tooltip, Typography } from '@mui/material';
+import { Badge, Box, Button, IconButton, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
+import { markAllRead } from '@Redux/Slices/Notifications/actions/markAllRead';
+import { selectNotificationsUnreadCount } from '@Redux/Slices/Notifications/notificationSelectors';
 import { closeWidget, openWidget } from '@Redux/Slices/Widgets/widgets.actions';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
@@ -12,9 +13,10 @@ import { useSoundEffect } from '@/AudioManager';
 import { useRadioController } from '@/AudioProvider';
 import { LocationExplorerTool } from '@/Components/Personal/Overview/LocationExplorerTool';
 //import { ActiveToolsOverview } from '@/Components/Personal/Overview/ActiveTools';
-import { OverviewNotification } from '@/Components/Personal/Overview/NotificationTool';
 import { RadioStationApp } from '@/Components/Personal/Overview/RadioStationApp';
 import { WIDGET_RADIO } from '@/Widgets/Radio/Radio';
+
+import { NotificationTool } from './NotificationTool';
 
 export const OverviewApp: React.FC<unknown> = () => {
   const { isPlaying, play, pause } = useRadioController();
@@ -46,6 +48,13 @@ export const OverviewApp: React.FC<unknown> = () => {
   const handleResetLocation = () => {
     playSound('close');
     setSelectedLocation(currentLocation);
+  };
+
+  const unreadCount = useAppSelector(selectNotificationsUnreadCount);
+
+  const handleMarkAllRead = () => {
+    playSound('close');
+    dispatch(markAllRead());
   };
 
   return (
@@ -87,32 +96,45 @@ export const OverviewApp: React.FC<unknown> = () => {
               height: '35%',
             }}
           >
-            <Typography variant="h6" sx={{ mb: { xs: '.5em', md: '1.5em' }, ml: '.5em' }}>
-              Notifications
-            </Typography>
-            <GlassDisplay
-              data-id="NotificationToolContent"
+            <Box
               sx={{
                 display: 'flex',
-                flexDirection: 'column',
-                gap: '1em',
-                padding: '1em',
-                overflow: 'auto',
-                height: { xs: '300px', md: '85%' },
+                flexDirection: 'row',
+                width: '100%',
+                alignItems: 'center',
+                justifyContent: 'space-between',
               }}
             >
-              <OverviewNotification />
-              <OverviewNotification />
-              <OverviewNotification />
-              <OverviewNotification />
-              <OverviewNotification />
-              <OverviewNotification />
-              <OverviewNotification />
-              <OverviewNotification />
-              <OverviewNotification />
-              <OverviewNotification />
-              <OverviewNotification />
-            </GlassDisplay>
+              <Typography
+                variant="h6"
+                sx={{
+                  mb: { xs: '.5em', md: '1.5em' },
+                  ml: '.5em',
+                  alignItems: 'center',
+                  display: 'flex',
+                  gap: '.8em',
+                }}
+              >
+                Notifications
+                <Badge
+                  badgeContent={unreadCount}
+                  color="error"
+                  max={99}
+                  overlap="rectangular"
+                />
+              </Typography>
+              <Button
+                variant="text"
+                size="small"
+                color="secondary"
+                onClick={handleMarkAllRead}
+                disabled={unreadCount === 0}
+              >
+                <Typography variant="overline">Mark All Read</Typography>
+              </Button>
+            </Box>
+
+            <NotificationTool />
           </GlassBox>
           <GlassBox
             data-testid="RadioFrequenciesToolContainer"
