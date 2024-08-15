@@ -4,11 +4,11 @@ import { inject, injectable } from 'inversify';
 import { interfaces } from 'inversify-express-utils';
 import { ParsedQs } from 'qs';
 import { TYPES } from '@Constant/types';
-import { AuthService } from '@Services/auth.service';
+import { AuthService } from '@V1/models/auth/auth.service';
 import { AnonymousPrincipal } from './anonymous.principal';
 import { VLAuthPrincipal } from './VL.principal';
-import { User } from '@Models/user.model';
-import { InvalidToken } from '@Models/invalid_tokens.model';
+import { User } from '@V1/models/user/user.model';
+import { InvalidToken } from '@V1/models/auth/invalid_tokens.model';
 
 @injectable()
 export class AuthProvider implements interfaces.AuthProvider {

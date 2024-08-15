@@ -1,2 +1,2 @@
-export * from './ContractDTO';
-export * from './LocationDTO';
+export * from './DTOBase';
+export * from './PaginatedDataDTO';

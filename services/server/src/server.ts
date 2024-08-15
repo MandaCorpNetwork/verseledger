@@ -1,9 +1,9 @@
 import 'reflect-metadata';
-import { setupModels } from './database/connection';
+import { setupModels } from './connection';
 import { json, urlencoded, Request, Response, NextFunction } from 'express';
 import * as swagger from 'swagger-express-ts';
 import cors from 'cors';
-import '@Controllers/v1';
+import '@V1/index';
 import './DTO';
 import { InversifyExpressServer } from 'inversify-express-utils';
 

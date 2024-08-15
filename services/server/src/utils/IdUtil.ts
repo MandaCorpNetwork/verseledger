@@ -33,8 +33,8 @@ export class IdUtil {
   }
 
   public static isValidId(id: string) {
-    if (IdUtil.getOwnerType(id) === OwnerType.INVALID) return false;
     if (id.length !== 26) return false;
+    if (IdUtil.getOwnerType(id) === OwnerType.INVALID) return false;
     //TODO: Check Characters
     return true;
   }

@@ -1,8 +1,8 @@
-import './contracts.controller';
-import './user.controller';
-import './auth.controller';
-import './locations.controller';
-import './testing.controller';
-import './notifications.controller';
-import './donations.controller';
-import './ratings.controller';
+import './models/contract/contracts.controller';
+import './models/user/user.controller';
+import './models/auth/auth.controller';
+import './models/location/locations.controller';
+import './models/testing/testing.controller';
+import './models/notifications/notifications.controller';
+import './models/donation/donations.controller';
+import './models/user_ratings/ratings.controller';
