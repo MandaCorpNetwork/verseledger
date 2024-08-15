@@ -1,12 +1,6 @@
-// import { UserRatingField } from '@Common/Components/Custom/DigiField/UserRatingForm';
-import { AppbarListButton } from '@Common/Components/Lists/AppbarListButton';
-import { Box, ListItemText } from '@mui/material';
+import { Box } from '@mui/material';
 
 export const SandboxContent: React.FC<unknown> = () => {
-  // const dispatch = useAppDispatch();
-  // const handleClick = () => {
-  //   dispatch(openPopup(POPUP_SUBMIT_RATING));
-  // };
   return (
     <Box
       sx={{
@@ -18,11 +12,7 @@ export const SandboxContent: React.FC<unknown> = () => {
         mt: '1em',
       }}
     >
-      <Box>
-        <AppbarListButton>
-          <ListItemText primary={`Test Notification`} />
-        </AppbarListButton>
-      </Box>
+      <Box></Box>
     </Box>
   );
 };
