@@ -4,7 +4,6 @@ import {
   CardContent,
   CardHeader,
   List,
-  ListItemButton,
   ListItemText,
   Typography,
 } from '@mui/material';
@@ -12,6 +11,8 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotifications';
 import { selectNotificationsArray } from '@Redux/Slices/Notifications/notificationSelectors';
 import React, { useEffect } from 'react';
+
+import { AppbarListButton } from '../Lists/AppbarListButton';
 
 export const NotificationsBox: React.FC = () => {
   const notifications = useAppSelector(selectNotificationsArray);
@@ -52,12 +53,12 @@ export const NotificationsBox: React.FC = () => {
           },
         }}
       >
-        <List sx={{ listStyleType: 'disc' }}>
+        <List sx={{ listStyleType: 'disc', px: '.5em' }}>
           {notifications.map((notif) => {
             return (
-              <ListItemButton key={notif.id}>
+              <AppbarListButton key={notif.id} sx={{}}>
                 <ListItemText primary={notif.text} />
-              </ListItemButton>
+              </AppbarListButton>
             );
           })}
         </List>
