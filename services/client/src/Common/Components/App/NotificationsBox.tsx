@@ -12,9 +12,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { POPUP_SUBMIT_RATING } from '@Popups/Ratings/SubmitRating';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotifications';
 import { markAllRead } from '@Redux/Slices/Notifications/actions/markAllRead';
 import { markRead } from '@Redux/Slices/Notifications/actions/patchMarkRead';
@@ -60,6 +58,16 @@ export const NotificationsBox: React.FC = () => {
     }
   };
 
+  const notifTitle = React.useCallback((resource: string) => {
+    const obj = parseResource(resource);
+    if (obj) {
+      if (obj.feature === 'contracts') {
+        return 'Contracts';
+      }
+    }
+    return 'Unknown';
+  }, []);
+
   return (
     <Card
       sx={{
@@ -96,7 +104,10 @@ export const NotificationsBox: React.FC = () => {
               variant="text"
               size="small"
               color="secondary"
-              onClick={() => navigate('/ledger/personal/overview')}
+              onClick={() => {
+                playSound('navigate');
+                navigate('/ledger/personal/overview');
+              }}
               disabled={location.pathname === '/ledger/personal/overview'}
             >
               <Typography variant="overline">Overview</Typography>
@@ -165,6 +176,13 @@ export const NotificationsBox: React.FC = () => {
                 <AppbarListItem key={notif.id} sx={{ my: '.5em' }}>
                   <Tooltip title={notif.text} arrow>
                     <ListItemText
+                      primary={notifTitle(notif.resource)}
+                      primaryTypographyProps={{
+                        sx: {
+                          color: 'text.primary',
+                          textShadow: '0 0 5px rgba(255,255,255,.8)',
+                        },
+                      }}
                       secondary={notif.text}
                       sx={{ cursor: 'default', color: 'inherit' }}
                       secondaryTypographyProps={{
