@@ -12,15 +12,18 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
+import { POPUP_SUBMIT_RATING } from '@Popups/Ratings/SubmitRating';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotifications';
 import { markAllRead } from '@Redux/Slices/Notifications/actions/markAllRead';
 import { markRead } from '@Redux/Slices/Notifications/actions/patchMarkRead';
 import { selectNotificationsArray } from '@Redux/Slices/Notifications/notificationSelectors';
-import { notifNavigate } from '@Utils/notifNavigate';
 import { parseResource } from '@Utils/notifResourceParse';
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+import { useSoundEffect } from '@/AudioManager';
 
 import { AppbarListItem } from '../Lists/AppbarListItem';
 
@@ -30,6 +33,7 @@ export const NotificationsBox: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const { playSound } = useSoundEffect();
 
   useEffect(() => {
     dispatch(fetchNotifications());
@@ -40,15 +44,21 @@ export const NotificationsBox: React.FC = () => {
   };
 
   const handleMarkRead = (notifyId: string) => {
+    playSound('close');
     dispatch(markRead(notifyId));
   };
 
-  const handleViewNotification = React.useCallback((resource: string) => {
+  const handleViewNotification = (resource: string) => {
     const obj = parseResource(resource);
     if (obj) {
-      notifNavigate(obj.feature, obj.id, obj.type, obj.argument);
+      if (obj.feature === 'contracts') {
+        playSound('navigate');
+        navigate(`contract?contractID=${obj.id}`);
+      }
+    } else {
+      playSound('denied');
     }
-  }, []);
+  };
 
   return (
     <Card

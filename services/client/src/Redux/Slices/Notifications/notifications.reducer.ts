@@ -10,7 +10,10 @@ const notificationsReducer = createSlice({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   initialState: {
     unreadNotifications: 0,
-    notificationsMap: {} as Record<string, { id: string; text: string; createdAt: Date }>,
+    notificationsMap: {} as Record<
+      string,
+      { id: string; text: string; resource: string; createdAt: Date }
+    >,
   },
   reducers: {
     noop() {
@@ -26,6 +29,7 @@ const notificationsReducer = createSlice({
         const notifications = action.payload as {
           id: string;
           text: string;
+          resource: string;
           createdAt: Date;
         }[];
         state.notificationsMap = {};

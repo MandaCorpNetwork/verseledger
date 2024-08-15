@@ -4,7 +4,6 @@ import {
   httpGet,
   httpPatch,
   next,
-  requestBody,
   requestParam,
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
@@ -18,8 +17,6 @@ import { IdUtil } from '@/utils/IdUtil';
 import { BadParameterError } from '@Errors/BadParameter';
 import { Logger } from '@/utils/Logger';
 import { BadRequestErrorMessageResult } from 'inversify-express-utils/lib/results';
-import { BodyError } from '@Errors/BodyError';
-import { NotFoundError } from '@Errors/NotFoundError';
 import { GenericError } from '@Errors/GenericError';
 import { ZodError } from 'zod';
 
