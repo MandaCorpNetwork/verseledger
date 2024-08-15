@@ -46,6 +46,7 @@ export class NotificationService {
     const notification = await Notification.create({
       user_id,
       text,
+      //Resource = topic/feature (I.E. "contracts" or "orders")/id/item (I.E. "status" or "bid")/action (I.E. "created" or "updated")
       resource,
       read: false,
     });

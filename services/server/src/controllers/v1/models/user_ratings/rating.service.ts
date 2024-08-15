@@ -75,7 +75,7 @@ export class RatingService {
       this.notifications.createNotification({
         user_id: bidderId,
         text: `${contract.title} Contract has been ${status}. Please submit Ratings`,
-        resource: `topic/contracts/${contract.id}/status`,
+        resource: `topic/contracts/${contract.id}/status/rate`,
       });
     }
   }
@@ -84,7 +84,7 @@ export class RatingService {
     this.notifications.createNotification({
       user_id: submitterId,
       text: `Pending Contract rating(s) on ${contract.title}.`,
-      resource: `topic/contracts/${contract.id}/status`,
+      resource: `topic/contracts/${contract.id}/status/rate`,
     });
   }
 }

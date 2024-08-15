@@ -17,6 +17,8 @@ import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotif
 import { markAllRead } from '@Redux/Slices/Notifications/actions/markAllRead';
 import { markRead } from '@Redux/Slices/Notifications/actions/patchMarkRead';
 import { selectNotificationsArray } from '@Redux/Slices/Notifications/notificationSelectors';
+import { notifNavigate } from '@Utils/notifNavigate';
+import { parseResource } from '@Utils/notifResourceParse';
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -40,6 +42,13 @@ export const NotificationsBox: React.FC = () => {
   const handleMarkRead = (notifyId: string) => {
     dispatch(markRead(notifyId));
   };
+
+  const handleViewNotification = React.useCallback((resource: string) => {
+    const obj = parseResource(resource);
+    if (obj) {
+      notifNavigate(obj.feature, obj.id, obj.type, obj.argument);
+    }
+  }, []);
 
   return (
     <Card
@@ -158,7 +167,9 @@ export const NotificationsBox: React.FC = () => {
                       }}
                     />
                   </Tooltip>
-                  <ListItemButton>View</ListItemButton>
+                  <ListItemButton onClick={() => handleViewNotification(notif.resource)}>
+                    View
+                  </ListItemButton>
                   <IconButton color="error" onClick={() => handleMarkRead(notif.id)}>
                     <Clear color="error" />
                   </IconButton>
