@@ -6,8 +6,7 @@ import NetworkService from '@/Services/NetworkService';
 
 export const markAllRead = createAsyncThunk('PATCH /v1/notifications/read', async () => {
   const response = await NetworkService.PATCH(
-    '/v1/notifications/read',
-    { id: '*' },
+    '/v1/notifications/markAllRead',
     AuthUtil.getAccessHeader(),
   );
   Logger.info(response.data);
