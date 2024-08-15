@@ -1,5 +1,6 @@
 import { Clear } from '@mui/icons-material';
 import {
+  Box,
   Button,
   Card,
   CardContent,
@@ -26,7 +27,6 @@ export const NotificationsBox: React.FC = () => {
   useEffect(() => {
     dispatch(fetchNotifications());
   }, []);
-
   return (
     <Card
       sx={{
@@ -53,18 +53,42 @@ export const NotificationsBox: React.FC = () => {
     >
       <CardHeader
         title="Notifications"
+        sx={{
+          textShadow: '0 0 5px rgba(255,255,255,.5), 0 0 2px rgba(0,9,16,.5)',
+          alignItems: 'center',
+        }}
         action={
-          <Button variant="text" size="small">
-            <Typography variant="subtitle2" color="secondary">
-              Mark All Read
-            </Typography>
-          </Button>
+          <Box sx={{ gap: '.5em' }}>
+            <Button variant="text" size="small">
+              <Typography variant="overline" color="secondary">
+                Overview
+              </Typography>
+            </Button>
+            <Button variant="text" size="small">
+              <Typography variant="overline" color="secondary">
+                Mark All Read
+              </Typography>
+            </Button>
+          </Box>
         }
       />
       <CardContent
         sx={{
           maxHeight: { sm: '100%', md: '450px' },
           overflowY: 'scroll',
+          borderTop: '2px solid',
+          borderBottom: '2px solid',
+          borderLeft: '1px solid',
+          borderRight: '1px solid',
+          borderRadius: '10px',
+          mx: '.5em',
+          mb: '.5em',
+          borderColor: 'rgba(24,252,252,.5)',
+          background:
+            'linear-gradient(135deg, rgba(0,30,100,.4) 0%, rgba(0,1,19,.4) 100%)',
+          backdropFilter: 'blur(20px)',
+          boxShadow:
+            '0 4px 8px rgba(0,9,16,.3), 0 8px 16px rgba(0,9,16,.2), 0 16px 32px rgba(0,9,16,.1)',
           '&::-webkit-scrollbar': {
             width: '5px',
             height: '5px',
@@ -98,7 +122,7 @@ export const NotificationsBox: React.FC = () => {
                   />
                 </Tooltip>
                 <ListItemButton>View</ListItemButton>
-                <IconButton>
+                <IconButton color="error">
                   <Clear color="error" />
                 </IconButton>
               </AppbarListItem>
