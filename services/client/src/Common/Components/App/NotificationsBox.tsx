@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotifications';
+import { markAllRead } from '@Redux/Slices/Notifications/actions/markAllRead';
 import { selectNotificationsArray } from '@Redux/Slices/Notifications/notificationSelectors';
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -30,6 +31,10 @@ export const NotificationsBox: React.FC = () => {
   useEffect(() => {
     dispatch(fetchNotifications());
   }, []);
+
+  const handleMarkAllRead = () => {
+    dispatch(markAllRead());
+  };
   return (
     <Card
       sx={{
@@ -75,6 +80,7 @@ export const NotificationsBox: React.FC = () => {
               variant="text"
               size="small"
               color="secondary"
+              onClick={handleMarkAllRead}
               disabled={notifications.length === 0}
             >
               <Typography variant="overline">Mark All Read</Typography>
