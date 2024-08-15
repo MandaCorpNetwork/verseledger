@@ -2,6 +2,7 @@ import {
   BaseHttpController,
   controller,
   httpGet,
+  httpPatch,
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
@@ -26,5 +27,11 @@ export class NotificationsController extends BaseHttpController {
     const userId = (this.httpContext.user as VLAuthPrincipal).id;
     const unread = await this.notificationService.getUnreadCount(userId);
     return this.json({ unread });
+  }
+  @httpPatch('/markAllRead', TYPES.VerifiedUserMiddleware)
+  private async markAllRead() {
+    const userId = (this.httpContext.user as VLAuthPrincipal).id;
+    await this.notificationService.markAllRead(userId);
+    return this.ok('Notifications marked Read');
   }
 }

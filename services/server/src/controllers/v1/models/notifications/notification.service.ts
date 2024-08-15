@@ -62,4 +62,19 @@ export class NotificationService {
       body: JSON.stringify(body),
     });
   }
+
+  public async markAllRead(userId: string) {
+    try {
+      const [updatedRows] = await Notification.update(
+        { read: true },
+        {
+          where: { user_id: userId, read: false },
+        },
+      );
+      return updatedRows;
+    } catch (e) {
+      Logger.error(`Failed to mark all notifications as read: ${e}`);
+      return 0;
+    }
+  }
 }
