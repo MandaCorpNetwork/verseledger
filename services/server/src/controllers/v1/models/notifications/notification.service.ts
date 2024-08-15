@@ -14,7 +14,7 @@ export class NotificationService {
 
   public async getNotifications(userId: string, limit = 20) {
     return Notification.findAll({
-      where: { user_id: userId },
+      where: { user_id: userId, read: false },
       limit,
       order: [['createdAt', 'DESC']],
     });
@@ -23,7 +23,7 @@ export class NotificationService {
   public async getUnreadCount(userId: string) {
     try {
       const notifications = await Notification.findAll({
-        where: { user_id: userId },
+        where: { user_id: userId, read: false },
         attributes: [[fn('COUNT', col('id')), 'unread']],
       });
       return notifications[0].dataValues.unread;
@@ -64,7 +64,6 @@ export class NotificationService {
   }
 
   public async markAllRead(userId: string) {
-    try {
       const [updatedRows] = await Notification.update(
         { read: true },
         {
@@ -72,9 +71,5 @@ export class NotificationService {
         },
       );
       return updatedRows;
-    } catch (e) {
-      Logger.error(`Failed to mark all notifications as read: ${e}`);
-      return 0;
-    }
   }
 }

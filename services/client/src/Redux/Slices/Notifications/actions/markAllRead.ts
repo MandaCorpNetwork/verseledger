@@ -4,8 +4,8 @@ import { Logger } from '@Utils/Logger';
 
 import NetworkService from '@/Services/NetworkService';
 
-export const markAllRead = createAsyncThunk('PATCH /v1/notifications/read', async () => {
-  const response = await NetworkService.PATCH(
+export const markAllRead = createAsyncThunk('/notifications/read', async () => {
+  const response = await NetworkService.GET(
     '/v1/notifications/markAllRead',
     AuthUtil.getAccessHeader(),
   );

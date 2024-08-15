@@ -3,13 +3,28 @@ import {
   controller,
   httpGet,
   httpPatch,
+  next,
+  requestBody,
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
 import { UserService } from '@V1/user/user.service';
 import { NotificationService } from '@V1/notifications/notification.service';
 import { VLAuthPrincipal } from '@/authProviders/VL.principal';
-@controller('/v1/notifications', TYPES.AuthMiddleware)
+import { ApiPath } from 'swagger-express-ts';
+import { NextFunction } from 'express';
+import { IdUtil } from '@/utils/IdUtil';
+import { BadParameterError } from '@Errors/BadParameter';
+import { Logger } from '@/utils/Logger';
+import { BadRequestErrorMessageResult } from 'inversify-express-utils/lib/results';
+import { BodyError } from '@Errors/BodyError';
+
+@ApiPath({
+  path: '/v1/notifications',
+  name: 'Notifications',
+  security: { VLAuthAccessToken: [] },
+})
+@controller('/v1/notifications')
 export class NotificationsController extends BaseHttpController {
   constructor(
     @inject(TYPES.UserService) private userService: UserService,
@@ -28,10 +43,28 @@ export class NotificationsController extends BaseHttpController {
     const unread = await this.notificationService.getUnreadCount(userId);
     return this.json({ unread });
   }
-  @httpPatch('/markAllRead', TYPES.VerifiedUserMiddleware)
-  private async markAllRead() {
-    const userId = (this.httpContext.user as VLAuthPrincipal).id;
-    await this.notificationService.markAllRead(userId);
-    return this.ok('Notifications marked Read');
+  @httpGet('/markAllRead', TYPES.VerifiedUserMiddleware)
+  private async markAllRead(
+    @next() nextFunc: NextFunction,
+  ) {
+    try {
+      const userId = (this.httpContext.user as VLAuthPrincipal).id;
+      if (!IdUtil.isValidId(userId)) {
+        Logger.error('Invalid User ID');
+        throw nextFunc(
+          new BadParameterError(
+            'userId',
+            `/markAllRead/:userId(${IdUtil.expressRegex(IdUtil.IdPrefix.User)})`,
+          ),
+        );
+      }
+      Logger.info(`User(${userId}) marking all notifications read`);
+      const updatedRows = await this.notificationService.markAllRead(userId);
+      Logger.info(`Updated Notifications:`, updatedRows);
+      return this.ok(updatedRows);
+    } catch (error) {
+      throw nextFunc(new BadRequestErrorMessageResult(error as string));
+    }
   }
+  @httpGet('/markRead/:notificationId')
 }
