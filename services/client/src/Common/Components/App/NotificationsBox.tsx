@@ -16,6 +16,7 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotifications';
 import { selectNotificationsArray } from '@Redux/Slices/Notifications/notificationSelectors';
 import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { AppbarListItem } from '../Lists/AppbarListItem';
 
@@ -23,6 +24,8 @@ export const NotificationsBox: React.FC = () => {
   const notifications = useAppSelector(selectNotificationsArray);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     dispatch(fetchNotifications());
@@ -59,15 +62,22 @@ export const NotificationsBox: React.FC = () => {
         }}
         action={
           <Box sx={{ gap: '.5em' }}>
-            <Button variant="text" size="small">
-              <Typography variant="overline" color="secondary">
-                Overview
-              </Typography>
+            <Button
+              variant="text"
+              size="small"
+              color="secondary"
+              onClick={() => navigate('/ledger/personal/overview')}
+              disabled={location.pathname === '/ledger/personal/overview'}
+            >
+              <Typography variant="overline">Overview</Typography>
             </Button>
-            <Button variant="text" size="small">
-              <Typography variant="overline" color="secondary">
-                Mark All Read
-              </Typography>
+            <Button
+              variant="text"
+              size="small"
+              color="secondary"
+              disabled={notifications.length === 0}
+            >
+              <Typography variant="overline">Mark All Read</Typography>
             </Button>
           </Box>
         }
