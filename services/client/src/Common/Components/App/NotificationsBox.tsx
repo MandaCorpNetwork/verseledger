@@ -4,7 +4,7 @@ import {
   CardContent,
   CardHeader,
   List,
-  ListItem,
+  ListItemButton,
   ListItemText,
   Typography,
 } from '@mui/material';
@@ -55,9 +55,9 @@ export const NotificationsBox: React.FC = () => {
         <List sx={{ listStyleType: 'disc' }}>
           {notifications.map((notif) => {
             return (
-              <ListItem key={notif.id}>
+              <ListItemButton key={notif.id}>
                 <ListItemText primary={notif.text} />
-              </ListItem>
+              </ListItemButton>
             );
           })}
         </List>
