@@ -28,7 +28,7 @@ export const NotificationTool: React.FC = () => {
     dispatch(markRead(notifyId));
   };
 
-  const handleViewNotification = (resource: string) => {
+  const handleViewNotification = (resource: string, notifyId: string) => {
     const obj = parseResource(resource);
     if (obj) {
       if (obj.feature === 'contracts') {
@@ -38,6 +38,7 @@ export const NotificationTool: React.FC = () => {
     } else {
       playSound('denied');
     }
+    handleMarkRead(notifyId);
   };
 
   const notifTitle = React.useCallback((resource: string) => {
@@ -72,7 +73,7 @@ export const NotificationTool: React.FC = () => {
             key={notif.id}
             title={notifTitle(notif.resource)}
             text={notif.text}
-            view={() => handleViewNotification(notif.resource)}
+            view={() => handleViewNotification(notif.resource, notif.id)}
             onClose={() => handleMarkRead(notif.id)}
           />
         );

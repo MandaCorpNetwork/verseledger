@@ -47,7 +47,7 @@ export const NotificationsBox: React.FC = () => {
     dispatch(markRead(notifyId));
   };
 
-  const handleViewNotification = (resource: string) => {
+  const handleViewNotification = (resource: string, notifyId: string) => {
     const obj = parseResource(resource);
     if (obj) {
       if (obj.feature === 'contracts') {
@@ -57,6 +57,7 @@ export const NotificationsBox: React.FC = () => {
     } else {
       playSound('denied');
     }
+    handleMarkRead(notifyId);
   };
 
   const notifTitle = React.useCallback((resource: string) => {
@@ -196,7 +197,9 @@ export const NotificationsBox: React.FC = () => {
                       }}
                     />
                   </Tooltip>
-                  <ListItemButton onClick={() => handleViewNotification(notif.resource)}>
+                  <ListItemButton
+                    onClick={() => handleViewNotification(notif.resource, notif.id)}
+                  >
                     View
                   </ListItemButton>
                   <IconButton color="error" onClick={() => handleMarkRead(notif.id)}>
