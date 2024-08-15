@@ -74,7 +74,7 @@ export class RatingService {
             : 'Error';
       this.notifications.createNotification({
         user_id: bidderId,
-        text: `${contract.title} Contract has been ${status}. Please submit Ratings for Contract Users} `,
+        text: `${contract.title} Contract has been ${status}. Please submit Ratings`,
         resource: `topic/contracts/${contract.id}/status`,
       });
     }

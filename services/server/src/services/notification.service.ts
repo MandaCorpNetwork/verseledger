@@ -42,16 +42,14 @@ export class NotificationService {
     user_id: string;
     text: string;
     resource: string;
-    }) {
+  }) {
     const notification = await Notification.create({
       user_id,
       text,
       resource,
       read: false,
-    })
-    this.publish(`/topic/notifications/${user_id}`, {
-      message: text,
     });
+    this.publish(`/topic/notifications/${user_id}`, text);
     return notification;
   }
 
