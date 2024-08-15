@@ -90,7 +90,7 @@ export const UnderConstruction: React.FC<UnderConstructionProps> = ({
           </IconButton>
           <IconButton
             component="a"
-            href="https://www.discord.gg/kf47Tw3P"
+            href="https://www.discord.gg/pVEK5rZ9WW"
             target="_blank"
             rel="noopener noreferrer"
           >
