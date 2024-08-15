@@ -1,8 +1,10 @@
-import { ListItemButton, styled } from '@mui/material';
+import { ListItem, styled } from '@mui/material';
 
-export const AppbarListButton = styled(ListItemButton)(({ theme }) => ({
+export const AppbarListItem = styled(ListItem)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
   transition: 'all 0.2s',
   borderLeft: '3px solid',
   borderRight: '3px solid',
@@ -11,6 +13,7 @@ export const AppbarListButton = styled(ListItemButton)(({ theme }) => ({
   borderTop: '1px solid rgba(14,49,141,.5)',
   borderBottom: '1px solid rgba(14,49,141,.5)',
   textShadow: '0 0 5px rgba(255,255,255,.5)',
+  color: theme.palette.text.secondary,
   boxShadow:
     '0 1px 2px rgba(0,9,16,.4), 0 2px 4px rgba(0,9,16,.3), 0 4px 8px rgba(0,9,16,.2), 0 8px 16px rgba(0,9,16,.05), inset 0 1px 2px rgba(0,9,16,.05), inset 0 2px 4px rgba(0,9,16,.05), inset 0 4px 8px rgba(0,9,16,.05), inset 0 8px 16px rgba(0,9,16,.05), inset 0 16px 32px rgba(0,9,16,.05)',
   position: 'relative',
@@ -31,6 +34,7 @@ export const AppbarListButton = styled(ListItemButton)(({ theme }) => ({
     boxShadow:
       '0 2px 4px rgba(0,9,16,.4), 0 4px 8px rgba(0,9,16,.3), 0 8px 16px rgba(0,9,16,.2), 0 16px 32px rgba(0,9,16,.05), inset 0 1px 2px rgba(0,9,16,.05), inset 0 2px 4px rgba(0,9,16,.05), inset 0 4px 8px rgba(0,9,16,.05)',
     textShadow: '0 0 5px rgba(255,255,255,.5), 0 0 10px rgba(14,35,141)',
+    color: theme.palette.secondary.main,
     '&:before': {
       content: '""',
       position: 'absolute',
