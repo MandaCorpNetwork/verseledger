@@ -29,9 +29,9 @@
       "@Constant/*": ["./constant/*"],
       "@Errors/*": ["./errors/*"],
       "@Services/*": ["./services/*"],
-      "@Models/*": ["./database/models/*"],
       "@Interfaces/*": ["./interfaces/*"],
       "@Middleware/*": ["./middleware/*"],
+      "@V1/*": ["./controllers/v1/models/*"],
       "@/*": ["./*"]
     }
   },

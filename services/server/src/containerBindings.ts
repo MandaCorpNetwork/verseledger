@@ -1,19 +1,19 @@
 import { Container } from 'inversify';
 
-import { ContractService } from '@Services/contracts.service';
+import { ContractService } from '@V1/contract/contracts.service';
 import { TYPES } from '@Constant/types';
-import { AuthService } from '@Services/auth.service';
+import { AuthService } from '@V1/auth/auth.service';
 import { EnvService } from '@Services/env.service';
-import { UserService } from '@Services/user.service';
+import { UserService } from '@V1/user/user.service';
 import { StompService } from '@Services/stomp.service';
 import { AuthMiddleware } from '@Middleware/auth.middleware';
 import { VerifiedUserMiddleware } from '@Middleware/verified.middleware';
 import { TestingMiddleware } from '@Middleware/testing.middleware';
-import { NotificationService } from '@Services/notification.service';
+import { NotificationService } from '@V1/notifications/notification.service';
 import { Logger } from './utils/Logger';
 import { PallyService } from '@Services/pally.service';
 import { ResourceEditorService } from '@Services/resource_editor.service';
-import { RatingService } from '@Services/rating.service';
+import { RatingService } from '@V1/user_ratings/rating.service';
 export const bindContainer = (container: Container) => {
   container
     .bind<EnvService>(TYPES.EnvService)

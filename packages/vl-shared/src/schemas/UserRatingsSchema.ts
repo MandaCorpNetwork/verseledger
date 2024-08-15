@@ -32,11 +32,10 @@ export const CreateUserRatingBodySchema = UserRatingSchema.omit({
 });
 export type ICreateUserRatingBody = z.infer<typeof CreateUserRatingBodySchema>;
 
-export const CreateContractRatingsBodySchema =
-  z.object({
-    contract_id: z.string().max(26),
-    ratings: z.array(CreateUserRatingBodySchema).nullable(),
-  });
+export const CreateContractRatingsBodySchema = z.object({
+  contract_id: z.string().max(26),
+  ratings: z.array(CreateUserRatingBodySchema).nullable(),
+});
 
 export type ICreateContractRatingsBody = z.infer<
   typeof CreateContractRatingsBodySchema

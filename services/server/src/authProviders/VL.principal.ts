@@ -1,4 +1,4 @@
-import { User } from '@/database/models/user.model';
+import { User } from '@V1/user/user.model';
 import { interfaces } from 'inversify-express-utils';
 
 export class VLAuthPrincipal implements interfaces.Principal {
