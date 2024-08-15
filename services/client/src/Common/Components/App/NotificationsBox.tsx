@@ -15,6 +15,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotifications';
 import { markAllRead } from '@Redux/Slices/Notifications/actions/markAllRead';
+import { markRead } from '@Redux/Slices/Notifications/actions/patchMarkRead';
 import { selectNotificationsArray } from '@Redux/Slices/Notifications/notificationSelectors';
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -35,6 +36,11 @@ export const NotificationsBox: React.FC = () => {
   const handleMarkAllRead = () => {
     dispatch(markAllRead());
   };
+
+  const handleMarkRead = (notifyId: string) => {
+    dispatch(markRead(notifyId));
+  };
+
   return (
     <Card
       sx={{
@@ -88,64 +94,80 @@ export const NotificationsBox: React.FC = () => {
           </Box>
         }
       />
-      <CardContent
-        sx={{
-          maxHeight: { sm: '100%', md: '450px' },
-          overflowY: 'scroll',
-          borderTop: '2px solid',
-          borderBottom: '2px solid',
-          borderLeft: '1px solid',
-          borderRight: '1px solid',
-          borderRadius: '10px',
-          mx: '.5em',
-          mb: '.5em',
-          borderColor: 'rgba(24,252,252,.5)',
-          background:
-            'linear-gradient(135deg, rgba(0,30,100,.4) 0%, rgba(0,1,19,.4) 100%)',
-          backdropFilter: 'blur(20px)',
-          boxShadow:
-            '0 4px 8px rgba(0,9,16,.3), 0 8px 16px rgba(0,9,16,.2), 0 16px 32px rgba(0,9,16,.1)',
-          '&::-webkit-scrollbar': {
-            width: '5px',
-            height: '5px',
-          },
-          '&::-webkit-scrollbar-track': {
-            background: 'rgb(0,73,130)',
+
+      {notifications.length === 0 ? (
+        <Typography
+          align="center"
+          variant="body1"
+          sx={{
+            fontWeight: 'bold',
+            color: 'grey',
+            textShadow: '0 0 2px rgba(0,0,0), 0 0 5px rgba(0,0,0,.8)',
+            mb: '.2em',
+          }}
+        >
+          No Notificaitons
+        </Typography>
+      ) : (
+        <CardContent
+          sx={{
+            maxHeight: { sm: '100%', md: '450px' },
+            overflowY: 'scroll',
+            borderTop: '2px solid',
+            borderBottom: '2px solid',
+            borderLeft: '1px solid',
+            borderRight: '1px solid',
             borderRadius: '10px',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            borderRadius: '20px',
-            background: 'rgb(24,252,252)',
-          },
-        }}
-      >
-        <List sx={{ listStyleType: 'disc', px: '.5em' }}>
-          {notifications.map((notif) => {
-            return (
-              <AppbarListItem key={notif.id} sx={{ my: '.5em' }}>
-                <Tooltip title={notif.text} arrow>
-                  <ListItemText
-                    secondary={notif.text}
-                    sx={{ cursor: 'default', color: 'inherit' }}
-                    secondaryTypographyProps={{
-                      sx: {
-                        textShadow: '0 0 5px rgba(255,255,255,.5)',
-                        color: 'inherit',
-                        fontSize: '.8em',
-                      },
-                      noWrap: true,
-                    }}
-                  />
-                </Tooltip>
-                <ListItemButton>View</ListItemButton>
-                <IconButton color="error">
-                  <Clear color="error" />
-                </IconButton>
-              </AppbarListItem>
-            );
-          })}
-        </List>
-      </CardContent>
+            mx: '.5em',
+            mb: '.5em',
+            borderColor: 'rgba(24,252,252,.5)',
+            background:
+              'linear-gradient(135deg, rgba(0,30,100,.4) 0%, rgba(0,1,19,.4) 100%)',
+            backdropFilter: 'blur(20px)',
+            boxShadow:
+              '0 4px 8px rgba(0,9,16,.3), 0 8px 16px rgba(0,9,16,.2), 0 16px 32px rgba(0,9,16,.1)',
+            '&::-webkit-scrollbar': {
+              width: '5px',
+              height: '5px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: 'rgb(0,73,130)',
+              borderRadius: '10px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              borderRadius: '20px',
+              background: 'rgb(24,252,252)',
+            },
+          }}
+        >
+          <List sx={{ listStyleType: 'disc', px: '.5em' }}>
+            {notifications.map((notif) => {
+              return (
+                <AppbarListItem key={notif.id} sx={{ my: '.5em' }}>
+                  <Tooltip title={notif.text} arrow>
+                    <ListItemText
+                      secondary={notif.text}
+                      sx={{ cursor: 'default', color: 'inherit' }}
+                      secondaryTypographyProps={{
+                        sx: {
+                          textShadow: '0 0 5px rgba(255,255,255,.5)',
+                          color: 'inherit',
+                          fontSize: '.8em',
+                        },
+                        noWrap: true,
+                      }}
+                    />
+                  </Tooltip>
+                  <ListItemButton>View</ListItemButton>
+                  <IconButton color="error" onClick={() => handleMarkRead(notif.id)}>
+                    <Clear color="error" />
+                  </IconButton>
+                </AppbarListItem>
+              );
+            })}
+          </List>
+        </CardContent>
+      )}
     </Card>
   );
 };

@@ -48,9 +48,7 @@ export class NotificationsController extends BaseHttpController {
     return this.json({ unread });
   }
   @httpGet('/markAllRead', TYPES.VerifiedUserMiddleware)
-  private async markAllRead(
-    @next() nextFunc: NextFunction,
-  ) {
+  private async markAllRead(@next() nextFunc: NextFunction) {
     try {
       const userId = (this.httpContext.user as VLAuthPrincipal).id;
       if (!IdUtil.isValidId(userId)) {
@@ -70,11 +68,17 @@ export class NotificationsController extends BaseHttpController {
       throw nextFunc(new BadRequestErrorMessageResult(error as string));
     }
   }
-  @httpPatch('/markRead/:notificationId', TYPES.VerifiedUserMiddleware)
+  @httpPatch(
+    `/markRead/:notificationId(${IdUtil.expressRegex(IdUtil.IdPrefix.Notification)})`,
+    TYPES.VerifiedUserMiddleware,
+  )
   private async markRead(
     @requestParam('notificationId') notificationId: string,
     @next() nextFunc: NextFunction,
   ) {
+    Logger.info(
+      `Received request to mark notification ${notificationId} as read`,
+    );
     try {
       if (!IdUtil.isValidId(notificationId)) {
         Logger.error('Invalid Notification ID');
@@ -86,11 +90,13 @@ export class NotificationsController extends BaseHttpController {
         );
       }
       const userId = (this.httpContext.user as VLAuthPrincipal).id;
-      const readNotify = await this.notificationService.markRead(userId, notificationId);
+      const readNotify = await this.notificationService.markRead(
+        userId,
+        notificationId,
+      );
       return this.ok(readNotify);
     } catch (error) {
       throw nextFunc(new GenericError(400, (error as ZodError).issues));
     }
   }
-  
 }
