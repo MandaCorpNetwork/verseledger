@@ -12,9 +12,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { POPUP_SUBMIT_RATING } from '@Popups/Ratings/SubmitRating';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotifications';
 import { markAllRead } from '@Redux/Slices/Notifications/actions/markAllRead';
 import { markRead } from '@Redux/Slices/Notifications/actions/patchMarkRead';
