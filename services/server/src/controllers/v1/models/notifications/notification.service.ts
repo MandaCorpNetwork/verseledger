@@ -49,9 +49,7 @@ export class NotificationService {
       resource,
       read: false,
     });
-    this.publish(`/topic/notifications/${user_id}`, {
-      message: text,
-    });
+    this.publish(`/topic/notifications/${user_id}`, text);
     return notification;
   }
 
