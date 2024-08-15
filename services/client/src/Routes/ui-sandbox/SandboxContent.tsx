@@ -1,5 +1,6 @@
 // import { UserRatingField } from '@Common/Components/Custom/DigiField/UserRatingForm';
-import { Box } from '@mui/material';
+import { AppbarListButton } from '@Common/Components/Lists/AppbarListButton';
+import { Box, ListItemText } from '@mui/material';
 
 export const SandboxContent: React.FC<unknown> = () => {
   // const dispatch = useAppDispatch();
@@ -17,11 +18,11 @@ export const SandboxContent: React.FC<unknown> = () => {
         mt: '1em',
       }}
     >
-      {/* Work Area Below This Line */}
-      {/* <Button variant="contained" onClick={handleClick}>
-        Test Button
-      </Button> */}
-      {/* <UserRatingField /> */}
+      <Box>
+        <AppbarListButton>
+          <ListItemText primary={`Test Notification`} />
+        </AppbarListButton>
+      </Box>
     </Box>
   );
 };
