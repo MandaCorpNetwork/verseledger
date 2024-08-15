@@ -72,4 +72,17 @@ export class NotificationService {
       );
       return updatedRows;
   }
+
+  public async markRead(userId: string, notificationId: string) {
+    const readNotification = await Notification.update(
+      { read: true },
+      {
+        where: {
+          user_id: userId,
+          id: notificationId,
+        }
+      }
+    );
+    return readNotification;
+  }
 }

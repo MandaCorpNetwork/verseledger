@@ -5,6 +5,7 @@ import {
   httpPatch,
   next,
   requestBody,
+  requestParam,
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
@@ -18,6 +19,9 @@ import { BadParameterError } from '@Errors/BadParameter';
 import { Logger } from '@/utils/Logger';
 import { BadRequestErrorMessageResult } from 'inversify-express-utils/lib/results';
 import { BodyError } from '@Errors/BodyError';
+import { NotFoundError } from '@Errors/NotFoundError';
+import { GenericError } from '@Errors/GenericError';
+import { ZodError } from 'zod';
 
 @ApiPath({
   path: '/v1/notifications',
@@ -66,5 +70,27 @@ export class NotificationsController extends BaseHttpController {
       throw nextFunc(new BadRequestErrorMessageResult(error as string));
     }
   }
-  @httpGet('/markRead/:notificationId')
+  @httpPatch('/markRead/:notificationId', TYPES.VerifiedUserMiddleware)
+  private async markRead(
+    @requestParam('notificationId') notificationId: string,
+    @next() nextFunc: NextFunction,
+  ) {
+    try {
+      if (!IdUtil.isValidId(notificationId)) {
+        Logger.error('Invalid Notification ID');
+        throw nextFunc(
+          new BadParameterError(
+            'notificationId',
+            `/markRead/:notificationId(${IdUtil.expressRegex(IdUtil.IdPrefix.Notification)})`,
+          ),
+        );
+      }
+      const userId = (this.httpContext.user as VLAuthPrincipal).id;
+      const readNotify = await this.notificationService.markRead(userId, notificationId);
+      return this.ok(readNotify);
+    } catch (error) {
+      throw nextFunc(new GenericError(400, (error as ZodError).issues));
+    }
+  }
+  
 }
