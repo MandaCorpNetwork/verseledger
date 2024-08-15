@@ -1,7 +1,7 @@
 import { BaseHttpController, controller } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
-import { UserService } from '@V1/models/user/user.service';
+import { UserService } from '@V1/user/user.service';
 import { PallyService } from '@Services/pally.service';
 
 @controller('/v1/donations')

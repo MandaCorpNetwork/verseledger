@@ -11,7 +11,7 @@ import {
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
-import { ContractService } from '@V1/models/contract/contracts.service';
+import { ContractService } from '@V1/contract/contracts.service';
 import { NextFunction } from 'express';
 import { BodyError } from '@/errors/BodyError';
 import { VLAuthPrincipal } from '@/authProviders/VL.principal';
@@ -35,7 +35,7 @@ import { Logger } from '@/utils/Logger';
 import { ContractSearchSchema } from 'vl-shared/src/schemas/SearchSchema';
 import { GenericError } from '@Errors/GenericError';
 import { PaginatedDataDTO } from '@/DTO/PaginatedDataDTO';
-import { ContractDTO } from '@V1/models/contract/ContractDTO';
+import { ContractDTO } from '@V1/contract/ContractDTO';
 import { ContractBidDTO } from '../contract_bid/ContractBidDTO';
 import { UnauthorizedError } from '@Errors/UnauthorizedError';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';

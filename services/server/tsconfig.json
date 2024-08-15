@@ -31,7 +31,7 @@
       "@Services/*": ["./services/*"],
       "@Interfaces/*": ["./interfaces/*"],
       "@Middleware/*": ["./middleware/*"],
-      "@V1/*": ["./controllers/v1/*"],
+      "@V1/*": ["./controllers/v1/models/*"],
       "@/*": ["./*"]
     }
   },

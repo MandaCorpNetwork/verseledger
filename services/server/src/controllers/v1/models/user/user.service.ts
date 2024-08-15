@@ -1,11 +1,11 @@
 import { injectable } from 'inversify';
-import { User } from '@V1/models/user/user.model';
+import { User } from '@V1/user/user.model';
 import { Op } from 'sequelize';
 import { RSIService } from '@Services/RSI.service';
-import { UserValidation } from '@V1/models/user/user_validation.model';
+import { UserValidation } from '@V1/user/user_validation.model';
 import { Logger } from '@/utils/Logger';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
-import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
+import { ContractBid } from '@V1/contract_bid/contract_bid.model';
 import { IContractBidStatus } from 'vl-shared/src/schemas/ContractBidStatusSchema';
 import { optionalSet, queryIn } from '@/utils/Sequelize/queryIn';
 

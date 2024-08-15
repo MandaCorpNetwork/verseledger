@@ -1,8 +1,8 @@
 import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
 import { DTOBase } from '@/DTO/DTOBase';
-import { ContractDTO } from '@V1/models/contract/ContractDTO';
+import { ContractDTO } from '@V1/contract/ContractDTO';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
-import { ContractBidDTO } from '@V1/models/contract_bid/ContractBidDTO';
+import { ContractBidDTO } from '@V1/contract_bid/ContractBidDTO';
 
 @ApiModel({
   description: 'Contract Bid Object',

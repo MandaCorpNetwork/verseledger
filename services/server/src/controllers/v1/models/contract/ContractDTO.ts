@@ -8,7 +8,7 @@ import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { DTOBase } from '@/DTO/DTOBase';
-import { LocationDTO } from '@V1/models/location/LocationDTO';
+import { LocationDTO } from '@V1/location/LocationDTO';
 import { ContractBidDTO } from '../contract_bid/ContractBidDTO';
 import { UserDTO } from '../user/UserDTO';
 

@@ -20,7 +20,7 @@ import { IdUtil } from '@/utils/IdUtil';
 import { NonAttribute } from 'sequelize';
 import { Organization } from '../organization/organization.model';
 import { OwnerType } from '@/utils/OwnerType';
-import { Location } from '@V1/models/location/location.model';
+import { Location } from '@V1/location/location.model';
 import { ContractLocation } from './contract_locations.model';
 import { IContractStatus } from 'vl-shared/src/schemas/ContractStatusSchema';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';

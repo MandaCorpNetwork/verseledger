@@ -6,11 +6,11 @@ import {
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
-import { UserService } from '@V1/models/user/user.service';
-import { AuthService } from '@V1/models/auth/auth.service';
-import { ContractService } from '@V1/models/contract/contracts.service';
+import { UserService } from '@V1/user/user.service';
+import { AuthService } from '@V1/auth/auth.service';
+import { ContractService } from '@V1/contract/contracts.service';
 import { IdPrefix, IdUtil } from '@/utils/IdUtil';
-import { Location } from '@V1/models/location/location.model';
+import { Location } from '@V1/location/location.model';
 import { NotFoundError } from '@Errors/NotFoundError';
 import { parse } from 'csv-parse/sync';
 import fs from 'fs';

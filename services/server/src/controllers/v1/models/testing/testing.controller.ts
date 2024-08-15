@@ -9,12 +9,12 @@ import {
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
-import { UserService } from '@V1/models/user/user.service';
-import { AuthService } from '@V1/models/auth/auth.service';
-import { ContractService } from '@V1/models/contract/contracts.service';
+import { UserService } from '@V1/user/user.service';
+import { AuthService } from '@V1/auth/auth.service';
+import { ContractService } from '@V1/contract/contracts.service';
 import { NextFunction } from 'express';
 import { BadRequestError } from '@Errors/BadRequest';
-import { User } from '@V1/models/user/user.model';
+import { User } from '@V1/user/user.model';
 @controller('/@TESTING', TYPES.TestingMiddleware)
 export class TestingnController extends BaseHttpController {
   constructor(

@@ -1,5 +1,5 @@
 import { TYPES } from '@Constant/types';
-import { Notification } from '@V1/models/notifications/notification.model';
+import { Notification } from '@V1/notifications/notification.model';
 import { inject, injectable } from 'inversify';
 import { col, fn } from 'sequelize';
 import { type StompService } from '../../../../services/stomp.service';

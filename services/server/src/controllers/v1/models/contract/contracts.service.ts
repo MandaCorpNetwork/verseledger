@@ -1,13 +1,13 @@
 import { inject, injectable } from 'inversify';
-import { Contract } from '@V1/models/contract/contract.model';
-import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
+import { Contract } from '@V1/contract/contract.model';
+import { ContractBid } from '@V1/contract_bid/contract_bid.model';
 // import { User } from '@Models/user.model';
 import { TYPES } from '@/constant/types';
 import { NotFoundError } from '@Errors/NotFoundError';
 import { BadRequestError } from '@Errors/BadRequest';
-import { Location } from '@V1/models/location/location.model';
-import { ContractLocation } from '@V1/models/contract/contract_locations.model';
-import { User } from '@V1/models/user/user.model';
+import { Location } from '@V1/location/location.model';
+import { ContractLocation } from '@V1/contract/contract_locations.model';
+import { User } from '@V1/user/user.model';
 import { Op } from 'sequelize';
 import { IContractStatus } from 'vl-shared/src/schemas/ContractStatusSchema';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';

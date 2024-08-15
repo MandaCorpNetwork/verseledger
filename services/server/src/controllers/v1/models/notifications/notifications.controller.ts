@@ -5,8 +5,8 @@ import {
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
-import { UserService } from '@V1/models/user/user.service';
-import { NotificationService } from '@V1/models/notifications/notification.service';
+import { UserService } from '@V1/user/user.service';
+import { NotificationService } from '@V1/notifications/notification.service';
 import { VLAuthPrincipal } from '@/authProviders/VL.principal';
 @controller('/v1/notifications', TYPES.AuthMiddleware)
 export class NotificationsController extends BaseHttpController {

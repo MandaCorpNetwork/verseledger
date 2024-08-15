@@ -8,8 +8,8 @@ import {
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
-import { UserService } from '@V1/models/user/user.service';
-import { AuthService } from '@V1/models/auth/auth.service';
+import { UserService } from '@V1/user/user.service';
+import { AuthService } from '@V1/auth/auth.service';
 import { EnvService } from '@/services/env.service';
 import { NextFunction } from 'express';
 import { UnauthorizedError } from '@Errors/UnauthorizedError';

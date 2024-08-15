@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { TYPES } from '@Constant/types';
 import { EnvService } from '../../../../services/env.service';
 import { IdUtil } from '@/utils/IdUtil';
-import { InvalidToken } from '@V1/models/auth/invalid_tokens.model';
+import { InvalidToken } from '@V1/auth/invalid_tokens.model';
 import { Logger } from '@/utils/Logger';
 @injectable()
 export class AuthService {
