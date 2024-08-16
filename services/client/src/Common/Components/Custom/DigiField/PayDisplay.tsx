@@ -13,6 +13,7 @@ type PayLabelProps = {
   testid?: string;
   slots?: object;
   structure?: ContractPayStructure;
+  size?: 'small' | 'medium';
 };
 
 const PayDigiField: React.FC<PayLabelProps> = ({
@@ -24,6 +25,7 @@ const PayDigiField: React.FC<PayLabelProps> = ({
   sx,
   slots,
   structure,
+  size = 'medium',
 }) => {
   const payString = React.useCallback(() => {
     if (!structure) return 'Invalid Structure';
@@ -39,12 +41,14 @@ const PayDigiField: React.FC<PayLabelProps> = ({
   }, [structure, pay]);
   const formattedPay = payString();
 
+  const textSize = size === 'small' ? 'body2' : 'body1';
+
   const getPaySuffix = React.useCallback(() => {
     if (structure === 'POOL') {
-      return <Typography>%</Typography>;
+      return <Typography variant={textSize}>%</Typography>;
     }
     if (structure === 'HOURLY') {
-      return <Typography>/HR</Typography>;
+      return <Typography variant={textSize}>/HR</Typography>;
     }
   }, [structure]);
   const paySuffix = getPaySuffix();
@@ -54,13 +58,14 @@ const PayDigiField: React.FC<PayLabelProps> = ({
       <DigiField
         data-testid={testid}
         label={label}
-        slots={slots}
+        slots={{
+          typography: {
+            variant: textSize,
+          },
+          ...slots,
+        }}
         startAdornment={
-          structure !== 'POOL' && (
-            <Typography color="secondary" sx={{ fontSize: '1em' }}>
-              ¤
-            </Typography>
-          )
+          structure !== 'POOL' && <Typography color="secondary">¤</Typography>
         }
         endAdornment={structure !== 'FLATRATE' && paySuffix}
         sx={{

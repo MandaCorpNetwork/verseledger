@@ -28,6 +28,7 @@ export const ControlPanelBox = styled(Box)(({ theme }) => ({
       'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
     backgroundSize: '5px 5px',
     opacity: 0.5,
+    zIndex: -1,
   },
   '&:hover': {
     backgroundImage: 'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',

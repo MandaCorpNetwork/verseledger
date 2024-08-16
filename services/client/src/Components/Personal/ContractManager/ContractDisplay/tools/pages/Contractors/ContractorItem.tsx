@@ -1,6 +1,7 @@
-import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { UserChip } from '@Common/Components/Chips/UserChip';
+import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
+import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_COUNTER_OFFER_BID } from '@Popups/Contracts/ContractBids/CounterOffer';
 import { useAppDispatch } from '@Redux/hooks';
@@ -9,6 +10,7 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
+import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
@@ -248,14 +250,9 @@ export const Contractor: React.FC<ContractorProps> = ({
             my: 'auto',
           }}
         >
-          <OutlinedLabel
-            size="small"
-            margin="dense"
-            label="Ship"
-            value="InDev"
-            maxWidth="75px"
-            color="text.disabled"
-          />
+          <DigiField label="Ship" slots={{ typography: { variant: 'body2' } }}>
+            InDev
+          </DigiField>
         </Box>
       )}
       {contractOwned && bid.status === 'ACCEPTED' && (
@@ -265,14 +262,11 @@ export const Contractor: React.FC<ContractorProps> = ({
             my: 'auto',
           }}
         >
-          <OutlinedLabel
-            size="small"
-            margin="dense"
+          <PayDisplay
             label="Pay"
-            value={bid.amount}
-            startAdornment="¤"
-            maxWidth="75px"
-            color="text.secondary"
+            pay={bid.amount}
+            structure={contract.payStructure as ContractPayStructure}
+            size="small"
           />
         </Box>
       )}
