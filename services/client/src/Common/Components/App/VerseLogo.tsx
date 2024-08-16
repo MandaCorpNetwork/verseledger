@@ -9,11 +9,11 @@ const VerseLogo = () => {
     function getLogoPath(pathname: string) {
       switch (pathname) {
         case '/':
-          return '../../Assets/media/VerseLogos/verselogo-0.png';
+          return '/Assets/media/VerseLogos/verselogo-0.png';
         case '/ledger/contract':
-          return '../../Assets/media/VerseLogos/verselogo-1.png';
+          return '/Assets/media/VerseLogos/verselogo-1.png';
         default:
-          return '../../Assets/media/VerseLogos/verselogo-6.png';
+          return '/Assets/media/VerseLogos/verselogo-6.png';
       }
     }
     if (imgRef.current) {
