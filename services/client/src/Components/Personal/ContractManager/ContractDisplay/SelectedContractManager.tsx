@@ -2,79 +2,35 @@
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
+import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import ParagraphWrapper from '@Common/Components/Boxes/ParagraphWrapper';
 import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
+import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
+import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
+import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
+import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHolo';
 import TabListHolo from '@Common/Components/Tabs/TabListHolo';
 import DigiTitle from '@Common/Components/Typography/DigiTitle';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
-import { HelpOutline } from '@mui/icons-material';
 import { TabContext, TabPanel } from '@mui/lab';
-import {
-  Box,
-  Chip,
-  InputAdornment,
-  Tab,
-  TextField,
-  Tooltip,
-  Typography,
-} from '@mui/material';
-import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
-import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
+import { Box, Tab, TextField, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
-import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import dayjs from 'dayjs';
 import React, { useState } from 'react';
+import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { ILocationWithContractLocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { useSoundEffect } from '@/AudioManager';
-import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/tools/pages/Contractors/ContractorsManager';
-
-import { ContractController } from './tools/ContractController';
-import { LocationsDisplay } from './tools/LocationsDisplay';
-import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
-import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
-import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
-import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
-import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHolo';
 import {
   BiddingTimePanel,
   ContractDurationPanel,
 } from '@/Components/Contracts/Ledger/Details/TimePanel';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/tools/pages/Contractors/ContractorsManager';
 
-type ContractDataFieldProps = {
-  label: string;
-  value: string;
-};
-const ContractDataField: React.FC<ContractDataFieldProps> = ({ label, value }) => {
-  return (
-    <>
-      <TextField
-        label={label}
-        value={value}
-        size="small"
-        margin="dense"
-        InputProps={{
-          readOnly: true,
-          sx: {
-            cursor: 'default',
-          },
-        }}
-        inputProps={{
-          sx: {
-            cursor: 'default',
-          },
-          style: {
-            textAlign: 'center',
-          },
-        }}
-      ></TextField>
-    </>
-  );
-};
+import { ContractController } from './tools/ContractController';
+import { LocationsDisplay } from './tools/LocationsDisplay';
 
 type SelectedContractManagerProps = {
   contractId: string | null;
@@ -112,6 +68,25 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     playSound('clickMain');
     setContractManagerTab(newValue);
   };
+
+  const renderContractManagerTab = React.useCallback(
+    (panel: string) => {
+      switch (panel) {
+        case 'contractors':
+          return (
+            <ContractorsManager
+              contract={contract}
+              isOwned={contract.owner_id === currentUser?.id}
+            />
+          );
+        case 'ships':
+          return;
+        default:
+          return;
+      }
+    },
+    [contractManagerTab, contract],
+  );
 
   const handleTimeTab = React.useCallback(
     (_event: React.SyntheticEvent, value: string) => {
@@ -177,6 +152,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
           width: '100%',
           padding: '1em',
           mb: '.5em',
+          height: 'auto',
         }}
       >
         <DigiDisplay
@@ -328,59 +304,37 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
           width: '100%',
           p: '.5em',
           justifyContent: 'space-between',
+          maxHeight: '70%',
         }}
       >
         <Box
-          data-testid="SelectedContract-Bottom__RightBoxWrapper"
+          data-testid="SelectedContract-Bottom__LeftBoxWrapper"
           sx={{
             display: 'flex',
             flexDirection: 'column',
             width: '48%',
             height: '100%',
+            gap: '.5em',
           }}
         >
-          <Box
-            data-testid="SelectedContract__ContractManagementContainer"
+          <TabListHolo
+            data-testid="SelectedContract-ContractManagement__TabList"
+            value={contractManagerTab}
+            onChange={handleContractManageView}
+            indicatorColor="secondary"
+            textColor="secondary"
+            variant="fullWidth"
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '100%',
-              height: '100%',
+              px: '1em',
+              py: '.2em',
             }}
           >
-            <Box
-              data-testid="SelectedContract-ContractManagement__TabWrapper"
-              sx={{
-                width: '100%',
-                height: '100%',
-              }}
-            >
-              <TabContext value={contractManagerTab}>
-                <TabListHolo
-                  data-testid="SelectedContract-ContractManagement__TabList"
-                  onChange={handleContractManageView}
-                  indicatorColor="secondary"
-                  textColor="secondary"
-                  variant="fullWidth"
-                  sx={{
-                    px: '1em',
-                    py: '.2em',
-                  }}
-                >
-                  <Tab label="Contractors" value="contractors" />
-                  <Tab disabled label="Ships" value="ships" />
-                  <Tab disabled label="Payroll" value="payroll" />
-                </TabListHolo>
-                <TabPanel
-                  value="contractors"
-                  sx={{
-                    height: '100%',
-                  }}
-                >
-                  <ContractorsManager contract={contract} isOwned={isContractOwned} />
-                </TabPanel>
-              </TabContext>
-            </Box>
+            <Tab label="Contractors" value="contractors" />
+            <Tab disabled label="Ships" value="ships" />
+            <Tab disabled label="Payroll" value="payroll" />
+          </TabListHolo>
+          <Box sx={{ maxHeight: '85%' }}>
+            {renderContractManagerTab(contractManagerTab)}
           </Box>
         </Box>
         <Box

@@ -332,6 +332,8 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           data-testid="ContractManagerContainer"
           sx={{
             width: '65%',
+            height: '100%',
+            overflow: 'hidden',
           }}
         >
           {selectedId ? (
