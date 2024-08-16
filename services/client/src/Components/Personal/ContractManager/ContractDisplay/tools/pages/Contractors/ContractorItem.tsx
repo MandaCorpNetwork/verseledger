@@ -31,6 +31,7 @@ export const Contractor: React.FC<ContractorProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
+  const closed = contract.status === 'COMPLETED' || contract.status === 'CANCELED';
   const handleAccept = () => {
     const updatedBid = { status: 'ACCEPTED' as const };
     dispatch(

@@ -41,3 +41,49 @@ Specific Breakpoint for the Top bar @ 1400px to column with the digidisplays goi
 
 need the bid status state to update in the state.
 Also change to where the contract selection is done through the URLQuery
+
+# Contract Controller
+- Accept Invite
+- Witdraw Bid
+- Decline Invite
+- ResubmitBid
+
+# Contractor Item
+-Accept Bid
+
+
+
+const getStartBodyText = () => {
+    const now = new Date();
+    if (
+      contract.status === 'BIDDING' ||
+      (contract.status === 'PENDING' && contract.startDate && contract.startDate < now)
+    ) {
+      return `Are you sure you want to start the contract before the set start time (${contract.startDate?.toLocaleString()})?`;
+    } else if (contract.bidDate && contract.bidDate < now) {
+      return `Are you sure you want to start the contract before the set bidding close (${contract.bidDate.toLocaleString()})?`;
+    } else {
+      return `Are you sure you want to start the contract?`;
+    }
+  };
+
+  const startBodyText = getStartBodyText();
+
+  const handleStartContract = () => {
+    const now = new Date();
+    if (contract.startDate && contract.startDate > now) {
+      dispatch(
+        openPopup(POPUP_YOU_SURE, {
+          title: 'Start Contract',
+          subjectText: `Starting Contract ${contract.title}`,
+          bodyText: startBodyText,
+          acceptText: 'Start Contract',
+          cancelText: 'Wait',
+          clickaway: true,
+          onAccept: startContract,
+        }),
+      );
+    } else {
+      startContract();
+    }
+  };

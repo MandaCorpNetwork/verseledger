@@ -1,4 +1,5 @@
 import { Box, Button, Typography } from '@mui/material';
+import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBids/ContractBid';
 import { POPUP_EDIT_CONTRACT } from '@Popups/Contracts/EditContract/EditContract';
 import { POPUP_SUBMIT_RATING } from '@Popups/Ratings/SubmitRating';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
@@ -10,6 +11,8 @@ import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -31,6 +34,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
   const [, , overwriteURLQuery] = useURLQuery();
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
+  const location = useLocation();
 
   const handleAcceptInvite = () => {
     if (!userBid) {
@@ -43,7 +47,10 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
-        overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'employed' });
+        overwriteURLQuery({
+          [QueryNames.ContractManagerTab]: 'employed',
+          [QueryNames.Contract]: contract.id,
+        });
         enqueueSnackbar('Accepted Invite', { variant: 'success' });
         playSound('success');
       } else {
@@ -85,7 +92,9 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
-        overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'pending' });
+        if (location.pathname === '/personal/ledger/contracts?cmTab=pending') {
+          overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'pending' });
+        }
         enqueueSnackbar('Resigned from Contract', { variant: 'warning' });
         playSound('warning');
       } else {
@@ -101,19 +110,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       playSound('error');
       return Logger.info('no user bid');
     }
-    const updatedBid = { status: 'PENDING' as const };
-    dispatch(
-      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
-    ).then((res) => {
-      if (updateBid.fulfilled.match(res)) {
-        overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'pending' });
-        enqueueSnackbar('Bid Resubmitted', { variant: 'warning' });
-        playSound('success');
-      } else {
-        enqueueSnackbar('Error Resubmitting Bid', { variant: 'error' });
-        playSound('error');
-      }
-    });
+    dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
   };
 
   const getUpdatedContractStatus = (
@@ -121,6 +118,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     status: string,
     startDate?: Date,
     endDate?: Date,
+    bidDate?: Date,
   ) => {
     return {
       status,
@@ -132,12 +130,56 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       defaultPay: contract.defaultPay,
       ...(startDate && { startDate }),
       ...(endDate && { endDate }),
+      ...(bidDate && { bidDate }),
     };
   };
 
-  const handleContractStart = () => {
+  const endBidding = () => {
     const now = new Date();
     if (contract.status === 'BIDDING') {
+      const updatedContract = getUpdatedContractStatus(
+        contract,
+        'PENDING',
+        undefined,
+        undefined,
+        now,
+      );
+      dispatch(
+        updateContract({ contractId: contract.id, contractRaw: updatedContract }),
+      ).then((res) => {
+        if (updateContract.fulfilled.match(res)) {
+          enqueueSnackbar('Bidding Closed', { variant: 'info' });
+          playSound('success');
+        } else {
+          enqueueSnackbar('Error Closing Bidding', { variant: 'error' });
+          playSound('error');
+        }
+      });
+    }
+  };
+
+  const handleEndBidding = () => {
+    const now = new Date();
+    if (contract.bidDate && contract.bidDate < now) {
+      dispatch(
+        openPopup(POPUP_YOU_SURE, {
+          title: 'End Bidding',
+          subjectText: `Ending Bidding on ${contract.title}`,
+          bodyText: `Are you sure you want to end bidding before the set end time (${contract.bidDate.toLocaleString()})?`,
+          acceptText: 'End Bidding',
+          cancelText: 'Wait',
+          clickaway: true,
+          onAccept: endBidding,
+        }),
+      );
+    } else {
+      endBidding();
+    }
+  };
+
+  const startContract = () => {
+    const now = new Date();
+    if (contract.status === 'BIDDING' || contract.status === 'PENDING') {
       const updatedContract = getUpdatedContractStatus(contract, 'INPROGRESS', now);
       dispatch(
         updateContract({ contractId: contract.id, contractRaw: updatedContract }),
@@ -153,6 +195,42 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     }
   };
 
+  const getStartBodyText = () => {
+    const now = new Date();
+    if (
+      contract.status === 'BIDDING' ||
+      (contract.status === 'PENDING' && contract.startDate && contract.startDate < now)
+    ) {
+      return `Are you sure you want to start the contract before the set start time (${contract.startDate?.toLocaleString()})?`;
+    } else if (contract.bidDate && contract.bidDate < now) {
+      return `Are you sure you want to start the contract before the set bidding close (${contract.bidDate.toLocaleString()})?`;
+    } else {
+      return `Are you sure you want to start the contract?`;
+    }
+  };
+
+  const startBodyText = getStartBodyText();
+
+  const handleStartContract = () => {
+    const now = new Date();
+    if (contract.startDate && contract.startDate > now) {
+      dispatch(
+        openPopup(POPUP_YOU_SURE, {
+          title: 'Start Contract',
+          subjectText: `Starting Contract ${contract.title}`,
+          bodyText: startBodyText,
+          acceptText: 'Start Contract',
+          cancelText: 'Wait',
+          clickaway: true,
+          onAccept: startContract,
+        }),
+      );
+    } else {
+      startContract();
+    }
+  };
+
+  //TODO: Need to add Withdraw Bid Status still to allow rating contractors that leave a contract
   const getActiveBidUsers = () => {
     return contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').map(
       (bid) => bid.User,
@@ -162,7 +240,11 @@ export const ContractController: React.FC<ContractControllerProps> = ({
   const contractUsers = getActiveBidUsers();
 
   const openReview = () => {
-    dispatch(openPopup(POPUP_SUBMIT_RATING, { users: contractUsers, contract }));
+    if (contractUsers) {
+      if (contractUsers.length !== 0) {
+        dispatch(openPopup(POPUP_SUBMIT_RATING, { users: contractUsers, contract }));
+      }
+    }
   };
 
   const completeContract = () => {
@@ -177,7 +259,10 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       updateContract({ contractId: contract.id, contractRaw: updatedContract }),
     ).then((res) => {
       if (updateContract.fulfilled.match(res)) {
-        overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'closed' });
+        overwriteURLQuery({
+          [QueryNames.ContractManagerTab]: 'closed',
+          [QueryNames.Contract]: contract.id,
+        });
         enqueueSnackbar('Contract Completed', { variant: 'success' });
         playSound('success');
         openReview();
@@ -188,9 +273,16 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     });
   };
 
-  const completeBodyText = contract.endDate
-    ? 'Are you sure you want to complete this contract before the scheduled End Date?'
-    : 'Are you sure you want to complete this contract?';
+  const getCompleteBodyText = () => {
+    const now = new Date();
+    if (contract.status === 'INPROGRESS' && contract.endDate && contract.endDate < now) {
+      return `Are you sure you want to complete the contract before the set end time (${contract.endDate.toLocaleString()})?`;
+    } else {
+      return `Are you sure you are ready to complete the contract?`;
+    }
+  };
+
+  const completeBodyText = getCompleteBodyText();
 
   const handleContractComplete = () => {
     if (contract.status === 'INPROGRESS') {
@@ -198,16 +290,17 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         openPopup(POPUP_YOU_SURE, {
           title: 'Complete Contract',
           acceptText: 'Complete',
+          cancelText: 'Wait',
           onAccept: completeContract,
           clickaway: true,
-          subjectText: 'Closing Contract With Complete Status',
+          subjectText: `Completeting Contract ${contract.title}`,
           bodyText: completeBodyText,
         }),
       );
     }
   };
 
-  const handleContractCancel = () => {
+  const cancelContract = () => {
     const now = new Date();
     if (contract.status !== 'COMPLETE') {
       const updatedContract = getUpdatedContractStatus(
@@ -220,15 +313,46 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         updateContract({ contractId: contract.id, contractRaw: updatedContract }),
       ).then((res) => {
         if (updateContract.fulfilled.match(res)) {
-          overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'history' });
+          overwriteURLQuery({
+            [QueryNames.ContractManagerTab]: 'history',
+            [QueryNames.Contract]: contract.id,
+          });
           enqueueSnackbar('Contract Canceled', { variant: 'warning' });
           playSound('warning');
+          openReview();
         } else {
           enqueueSnackbar('Error Canceling Contract', { variant: 'error' });
           playSound('error');
         }
       });
     }
+  };
+
+  const getCancelBodyText = () => {
+    const now = new Date();
+    if (contract.status !== 'INPROGRESS') {
+      return `Are you sure you want to cancel the contract?`;
+    } else if (contract.endDate && contract.endDate < now) {
+      return `Are you sure you want to cancel the contract before the set end time (${contract.endDate.toLocaleString()})?`;
+    } else {
+      return `Are you sure you want to cancel the contract?`;
+    }
+  };
+
+  const cancelBodyText = getCancelBodyText();
+
+  const handleCancelContract = () => {
+    dispatch(
+      openPopup(POPUP_YOU_SURE, {
+        title: 'Cancel Contract',
+        acceptText: 'Cancel',
+        cancelText: 'Wait',
+        onAccept: cancelContract,
+        clickaway: true,
+        subjectText: `Canceling Contract ${contract.title}`,
+        bodyText: cancelBodyText,
+      }),
+    );
   };
 
   const handleEditContract = () => {
@@ -240,6 +364,18 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     playSound('open');
     dispatch(openPopup(POPUP_EDIT_CONTRACT, { contract: contract }));
   };
+
+  const displayReview = React.useCallback(() => {
+    if (contract.status === 'COMPLETED' || contract.status === 'CANCELED') {
+      if (isOwned) {
+        return true;
+      } else if (userBid?.status === 'ACCEPTED') {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }, [contract, userBid, isOwned]);
 
   return (
     <Box
@@ -261,7 +397,19 @@ export const ContractController: React.FC<ContractControllerProps> = ({
           color="secondary"
           size="medium"
           fullWidth
-          onClick={handleContractStart}
+          onClick={handleEndBidding}
+        >
+          End Bidding
+        </Button>
+      )}
+      {isOwned && contract.status === 'BIDDING' && (
+        <Button
+          data-testid="SelectedContract-Controller-Process__StartContractButton"
+          variant="outlined"
+          color="secondary"
+          size="medium"
+          fullWidth
+          onClick={handleStartContract}
         >
           Start
         </Button>
@@ -294,10 +442,10 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         <Button
           data-testid="SelectedContract-Controller-Edit__CancelContractButton"
           variant="outlined"
-          color="error"
+          color={contract.status !== 'INPROGRESS' ? 'warning' : 'error'}
           size="medium"
           fullWidth
-          onClick={handleContractCancel}
+          onClick={handleCancelContract}
         >
           Cancel
         </Button>
@@ -397,6 +545,18 @@ export const ContractController: React.FC<ContractControllerProps> = ({
           fullWidth
         >
           Submit Bid
+        </Button>
+      )}
+      {displayReview() && (
+        <Button
+          data-testid="SelectedContract-Controller-Process__ReviewButton"
+          variant="outlined"
+          color="info"
+          size="medium"
+          fullWidth
+          onClick={openReview}
+        >
+          Submit Ratings
         </Button>
       )}
     </Box>
