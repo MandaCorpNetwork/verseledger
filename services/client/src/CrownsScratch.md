@@ -24,14 +24,16 @@
 
 # Sortby for Contracts
 
-- Notifications ListItemButton styling
-- Create a button to open overview
-- Plug in notifications to the the overview page
-- Build a controller that dictates where the notifications will go
-- SelectedContractManager style overhaul
 - Player Card Update
 - Add Profile Page
 - Fix Verify Popup
 - Adjust Ratings popup to only display if there is bidders on a contract and only allow it to be completed if there is a bidder
 - Only allow the user to start the contract if there is a bidder
 - Change Duration Text to Duration
+- Add a Read section to the Overview Notifications
+- GetReadNotification fetches notifications within a week
+
+# SelectContract Manager UI
+Convert Top Bar
+Merge concept with the Contract page
+Add a End Bidding Button
