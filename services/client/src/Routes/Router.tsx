@@ -3,7 +3,9 @@ import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 import { ContractManagerApp } from '@/Components/Personal/ContractManager/ContractManagerApp';
 import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
 import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
+import { PopupManager } from '@/PopupManager';
 import { DiscordLoginUtility } from '@/Utils/discordLoginUtility';
+import { WidgetManager } from '@/WidgetManager';
 
 import { VLAppBar } from '../Common/Components/App/AppBar';
 import { APIDocs } from './api-docs/APIDocs';
@@ -14,6 +16,7 @@ import { Home } from './Index/Home/Home';
 import { NotFoundPage } from './NotFound/NotFound';
 import { PersonalLedgerPage } from './PersonalLedger/PersonalLedgerPage';
 import { Sandbox } from './ui-sandbox/SandboxPage';
+import { UserPage } from './User/UserPage';
 import { VerseMarketPage } from './VerseMarket/VerseMarketPage';
 export const routingInfo: RouteObject[] = [
   {
@@ -23,6 +26,8 @@ export const routingInfo: RouteObject[] = [
       <>
         <VLAppBar />
         <Outlet />
+        <PopupManager />
+        <WidgetManager />
       </>
     ),
     errorElement: (
@@ -48,6 +53,7 @@ export const routingInfo: RouteObject[] = [
         element: <ContractLedgerPage />,
       },
       { path: '/contract', element: <ContractPage /> },
+      { path: '/user', element: <UserPage /> },
       {
         path: '/ledger/personal',
         element: <PersonalLedgerPage />,

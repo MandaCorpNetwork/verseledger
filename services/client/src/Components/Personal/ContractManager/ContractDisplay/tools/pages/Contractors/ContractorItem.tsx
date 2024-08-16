@@ -1,13 +1,16 @@
-import { OutlinedLabel } from '@Common/Components/App/OutlinedLabel';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { UserChip } from '@Common/Components/Chips/UserChip';
-import { Box, Button, Tooltip, Typography } from '@mui/material';
+import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
+import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
+import { Box, Button, Typography } from '@mui/material';
 import { POPUP_COUNTER_OFFER_BID } from '@Popups/Contracts/ContractBids/CounterOffer';
 import { useAppDispatch } from '@Redux/hooks';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { enqueueSnackbar } from 'notistack';
+import React from 'react';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
+import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
@@ -28,6 +31,7 @@ export const Contractor: React.FC<ContractorProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
+  // const closed = contract.status === 'COMPLETED' || contract.status === 'CANCELED';
   const handleAccept = () => {
     const updatedBid = { status: 'ACCEPTED' as const };
     dispatch(
@@ -105,6 +109,30 @@ export const Contractor: React.FC<ContractorProps> = ({
     dispatch(openPopup(POPUP_COUNTER_OFFER_BID, { bid, contract }));
   };
 
+  const getBidStatusColor = React.useCallback(
+    (status: string) => {
+      switch (status) {
+        case 'PENDING':
+          return 'info';
+        case 'ACCEPTED':
+          return 'success';
+        case 'REJECTED':
+          return 'error';
+        case 'INVITED':
+          return 'secondary';
+        case 'DECLINED':
+          return 'warning';
+        case 'EXPIRED':
+          return 'primary';
+        default:
+          return 'secondary';
+      }
+    },
+    [contract],
+  );
+
+  const bidStatusColor = getBidStatusColor(bid.status);
+
   return (
     <ControlPanelBox
       data-testid="ContractorsTab-ContractorList__ContractorBox"
@@ -113,53 +141,70 @@ export const Contractor: React.FC<ContractorProps> = ({
         my: '1em',
         px: '1em',
         py: '.2em',
+        maxHeight: '50px',
         justifyContent: 'space-between',
+        '@media (max-width: 1799px)': {
+          flexDirection: 'column',
+          flexWrap: 'wrap',
+          maxHeight: '70px',
+        },
       }}
     >
-      <Box
-        data-testid="ContractorsTab-ContractorsList-Contractor__ProfileChipWrapper"
-        sx={{
-          my: 'auto',
-        }}
-      >
-        <Tooltip title={user.displayName} arrow>
-          <UserChip user={user} size="medium" />
-        </Tooltip>
-      </Box>
+      <UserChip
+        user={user}
+        size="medium"
+        color={bidStatusColor}
+        sx={{ maxWidth: '125px' }}
+      />
       {bid.status === 'ACCEPTED' && (
         <Typography
           variant={contractOwned ? 'body2' : 'overline'}
-          sx={{ color: 'success.main' }}
+          sx={{ color: 'success.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
         >
           Active
         </Typography>
       )}
       {bid.status === 'EXPIRED' && (
-        <Typography variant="overline" sx={{ color: 'error.main' }}>
+        <Typography
+          variant="overline"
+          sx={{ color: 'error.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
+        >
           Withdrawn Contractor
         </Typography>
       )}
       {bid.status === 'INVITED' && bid.amount === contract.defaultPay && (
-        <Typography variant="overline" sx={{ color: 'secondary.main' }}>
+        <Typography
+          variant="overline"
+          sx={{ color: 'secondary.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
+        >
           Invited Contractor
         </Typography>
       )}
       {bid.status === 'INVITED' && bid.amount !== contract.defaultPay && (
-        <Typography variant="overline" sx={{ color: 'warning.main' }}>
+        <Typography
+          variant="overline"
+          sx={{ color: 'warning.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
+        >
           Counter Offer Sent
         </Typography>
       )}
       {contractOwned &&
         bid.status === 'PENDING' &&
         bid.amount === contract.defaultPay && (
-          <Typography variant="overline" sx={{ color: 'warning.main' }}>
+          <Typography
+            variant="overline"
+            sx={{ color: 'warning.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
+          >
             Pending
           </Typography>
         )}
       {contractOwned &&
         bid.status === 'PENDING' &&
         bid.amount !== contract.defaultPay && (
-          <Typography variant="overline" sx={{ color: 'warning.main' }}>
+          <Typography
+            variant="overline"
+            sx={{ color: 'warning.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
+          >
             Pending Offer
           </Typography>
         )}
@@ -206,14 +251,9 @@ export const Contractor: React.FC<ContractorProps> = ({
             my: 'auto',
           }}
         >
-          <OutlinedLabel
-            size="small"
-            margin="dense"
-            label="Ship"
-            value="InDev"
-            maxWidth="75px"
-            color="text.disabled"
-          />
+          <DigiField label="Ship" slots={{ typography: { variant: 'body2' } }}>
+            InDev
+          </DigiField>
         </Box>
       )}
       {contractOwned && bid.status === 'ACCEPTED' && (
@@ -223,14 +263,11 @@ export const Contractor: React.FC<ContractorProps> = ({
             my: 'auto',
           }}
         >
-          <OutlinedLabel
-            size="small"
-            margin="dense"
+          <PayDisplay
             label="Pay"
-            value={bid.amount}
-            startAdornment="¤"
-            maxWidth="75px"
-            color="text.secondary"
+            pay={bid.amount}
+            structure={contract.payStructure as ContractPayStructure}
+            size="small"
           />
         </Box>
       )}

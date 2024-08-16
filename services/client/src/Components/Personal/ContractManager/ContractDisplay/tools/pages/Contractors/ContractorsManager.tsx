@@ -1,7 +1,10 @@
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_USER_INVITE } from '@Popups/UserInvite/UserInvite';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
@@ -34,92 +37,74 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
     ['ACCEPTED', 'WITHDRAWN', 'INVITED'].includes(bid.status),
   );
 
+  const contractorOrder = [
+    'ACCPTED',
+    'PENDING',
+    'INVITED',
+    'DECLINED',
+    'EXPIRED',
+    'REJECTED',
+  ];
+
+  const getContractorCountColor = React.useCallback(() => {
+    if (acceptedBids === undefined) {
+      return 'text.secondary';
+    } else if (acceptedBids.length < contract.contractorLimit) {
+      return 'text.secondary';
+    } else if (acceptedBids.length === contract.contractorLimit) {
+      return 'success.main';
+    } else {
+      return 'warning.main';
+    }
+  }, [acceptedBids, contract.contractorLimit]);
+
+  const contractorCountColor = getContractorCountColor();
+
   return (
-    <Box
+    <DigiBox
       data-testid="SelectedContract-ContractManagement__ContractorsTabWrapper"
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
         width: '100%',
         height: '100%',
-        borderTop: '2px solid',
-        borderBottom: '2px solid',
-        borderRadius: '5px',
-        borderColor: 'primary.main',
         p: '.5em',
-        borderLeft: '1px solid rgba(14,49,141,0.5)',
-        borderRight: '1px solid rgba(14,49,141,0.5)',
-        boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-        position: 'relative',
-        '&:before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          bottom: 0,
-          right: 0,
-          left: 0,
-          background:
-            'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-          opacity: 0.6,
-          backdropFilter: 'blur(10px)',
-          zIndex: -1,
-          backgroundImage: 'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
-          backgroundSize: '100% 2px',
-        },
+        justifyContent: 'flex-start',
       }}
     >
-      <Box
+      <DigiDisplay
         data-testid="ContractorsTab__ControlsWrapper"
         sx={{
-          display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-around',
-          backgroundColor: 'rgba(14,49,141,.25)',
-          borderRadius: '10px',
-          py: '.2em',
-          mb: '1em',
+          py: '.5em',
+          mb: '.5em',
         }}
       >
-        <Box
-          data-testid="ContractorsTab-Controls__CountWrapper"
+        <Typography
+          data-testid="ContractorsTab-Controls-Counts__ActiveContractorsCount"
+          variant="body2"
           sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
+            my: 'auto',
+            mx: '.5em',
+            fontWeight: 'bold',
+            color: contractorCountColor,
           }}
         >
-          <Typography
-            data-testid="ContractorsTab-Controls-Counts__ActiveContractorsCount"
-            variant="body2"
-            sx={{
-              my: 'auto',
-              mx: '.5em',
-              fontWeight: 'bold',
-              color:
-                acceptedBids === undefined
-                  ? 'text.secondary'
-                  : acceptedBids.length < contract.contractorLimit
-                    ? 'text.secondary'
-                    : acceptedBids?.length === contract.contractorLimit
-                      ? 'success.main'
-                      : 'warning.main',
-            }}
-          >
-            Active Contractors: {acceptedBids?.length}/{contract.contractorLimit}
-          </Typography>
-          <Typography
-            data-testid="ContractorsTab-Controls-Counts__PendingBidsCount"
-            variant="body2"
-            sx={{
-              my: 'auto',
-              mx: '.5em',
-              fontWeight: 'bold',
-              color: 'text.secondary',
-            }}
-          >
-            Pending Bids: {pendingBids?.length}
-          </Typography>
-        </Box>
+          Active Contractors: {acceptedBids?.length}/{contract.contractorLimit}
+        </Typography>
+        <Typography
+          data-testid="ContractorsTab-Controls-Counts__PendingBidsCount"
+          variant="body2"
+          sx={{
+            my: 'auto',
+            mx: '.5em',
+            fontWeight: 'bold',
+            color:
+              pendingBids?.length && pendingBids.length > 0 ? 'text.secondary' : 'grey',
+            textShadow: pendingBids?.length === 0 ? '0 0 2px rgb(0,0,0)' : undefined,
+          }}
+        >
+          Pending Bids: {pendingBids?.length}
+        </Typography>
         {isOwned && (
           <Button
             data-testid="ContractorsTab-Controls__InviteButton"
@@ -131,48 +116,94 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
             Invite
           </Button>
         )}
-      </Box>
+      </DigiDisplay>
       <Box
         data-testid="ContractorsTab__ContractorsListWrapper"
         sx={{
           px: '.5em',
-          height: '90%',
+          maxHeight: '90%',
           overflow: 'auto',
           '&::-webkit-scrollbar': {
             width: '5px',
+            height: '5px',
           },
           '&::-webkit-scrollbar-track': {
-            background: 'rgb(8, 29, 68)',
-            borderRadius: '15px',
+            background: 'rgb(0,73,130)',
+            borderRadius: '10px',
           },
           '&::-webkit-scrollbar-thumb': {
-            borderRadius: '15px',
-            background: 'rgb(121, 192, 244, .5)',
+            borderRadius: '20px',
+            background: 'rgb(24,252,252)',
           },
         }}
       >
         {isOwned &&
           contractors &&
-          contractors.map((contractor) => (
-            <Contractor
-              key={contractor.id}
-              bid={contractor}
-              user={contractor.User as IUser}
-              contractOwned={isOwned}
-              contract={contract}
-            />
+          (contractors?.length > 0 ? (
+            contractors
+              .slice()
+              .sort((a, b) => {
+                return (
+                  contractorOrder.indexOf(a.status) - contractorOrder.indexOf(b.status)
+                );
+              })
+              .map((contractor) => (
+                <Contractor
+                  key={contractor.id}
+                  bid={contractor}
+                  user={contractor.User as IUser}
+                  contractOwned={isOwned}
+                  contract={contract}
+                />
+              ))
+          ) : (
+            <Typography
+              align="center"
+              variant="h6"
+              sx={{
+                textAlign: 'center',
+                width: '100%',
+                color: 'grey',
+                textShadow: '0 0 3px rgb(0,0,0), 0 0 10px rgba(0,0,0,.7)',
+              }}
+            >
+              No Contractors
+            </Typography>
           ))}
         {!isOwned &&
-          contractorViewableList?.map((contractor) => (
-            <Contractor
-              key={contractor.id}
-              bid={contractor}
-              user={contractor.User as IUser}
-              contractOwned={isOwned}
-              contract={contract}
-            />
+          contractorViewableList &&
+          (contractorViewableList.length > 0 ? (
+            contractorViewableList
+              .slice()
+              .sort((a, b) => {
+                return (
+                  contractorOrder.indexOf(a.status) - contractorOrder.indexOf(b.status)
+                );
+              })
+              .map((contractor) => (
+                <Contractor
+                  key={contractor.id}
+                  bid={contractor}
+                  user={contractor.User as IUser}
+                  contractOwned={isOwned}
+                  contract={contract}
+                />
+              ))
+          ) : (
+            <Typography
+              align="center"
+              variant="h6"
+              sx={{
+                textAlign: 'center',
+                width: '100%',
+                color: 'grey',
+                textShadow: '0 0 3px rgb(0,0,0), 0 0 10px rgba(0,0,0,.7)',
+              }}
+            >
+              No Contractors
+            </Typography>
           ))}
       </Box>
-    </Box>
+    </DigiBox>
   );
 };

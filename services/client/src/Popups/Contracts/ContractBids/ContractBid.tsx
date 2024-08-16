@@ -14,6 +14,7 @@ import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContra
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { useSoundEffect } from '@/AudioManager';
@@ -38,16 +39,22 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
     contract.defaultPay,
   );
   const dispatch = useAppDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const acceptedContractorsCount =
     contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').length ?? 0;
 
   const maxLimit = 100 - acceptedContractorsCount;
 
-  const handleSubmitBid = React.useCallback(() => {
-    const handlePostBid = (contractId: string) => {
+  //ToDo: Update this to figure out a way to navigate to pending on contract manager
+  const handlePostBid = React.useCallback(
+    (contractId: string) => {
       dispatch(postContractBid(contractId)).then((res) => {
         if (postContractBid.fulfilled.match(res)) {
+          if (location.pathname == '/personal/ledger/*') {
+            navigate(`/personal/ledger/contracts?cmTab=pending&contractID=${contractId}`);
+          }
           enqueueSnackbar('Bid Submitted', { variant: 'success' });
           dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
           playSound('send');
@@ -56,9 +63,12 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
           playSound('error');
         }
       });
-    };
+    },
+    [dispatch, playSound, enqueueSnackbar, location, navigate],
+  );
 
-    const handleNegotiateBid = (contractId: string, newPay: number) => {
+  const handleNegotiateBid = React.useCallback(
+    (contractId: string, newPay: number) => {
       if (contract.payStructure === 'POOL') {
         if (newPay >= maxLimit) {
           playSound('warning');
@@ -104,7 +114,11 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
           playSound('error');
         }
       });
-    };
+    },
+    [contract, playSound, enqueueSnackbar, dispatch],
+  );
+
+  const handleSubmitBid = React.useCallback(() => {
     if (contract.isBargaining === false) {
       handlePostBid(contract.id);
     }
@@ -125,7 +139,6 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
         handleNegotiateBid(contract.id, negotiateFormData);
       }
     }
-    return;
   }, [contract, dispatch, negotiateFormData, enqueueSnackbar, playSound]);
 
   return (

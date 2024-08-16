@@ -2,7 +2,7 @@
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { TabContext, TabList } from '@mui/lab';
-import { Box, Tab, useTheme } from '@mui/material';
+import { Box, Tab, useMediaQuery, useTheme } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { selectBidPagination } from '@Redux/Slices/Bids/bidsSelector';
@@ -22,13 +22,11 @@ import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 
 import { useSoundEffect } from '@/AudioManager';
-// import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
 import { ContractorInfo } from './ContractDisplay/tools/ContractorInfo';
 import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
-//import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
 import { ContractManagerSearchTools } from './ContractList/ContractManagerSearchTools';
 
 export const ContractManagerApp: React.FC<unknown> = () => {
@@ -41,6 +39,8 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   const mobile = isMobile();
   const theme = useTheme();
   const navigate = useNavigate();
+
+  const hideContracts = useMediaQuery('(max-width: 1400px');
 
   const contractPagination = React.useCallback(
     () => useAppSelector(selectContractPagination),
@@ -273,7 +273,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
                 py: '.2em',
                 mx: { xs: '0', md: '1em' },
                 alignSelf: 'center',
-                width: { xs: '100%', md: 'auto' },
+                width: `100%`,
               }}
             >
               <TabList
@@ -332,9 +332,11 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           data-testid="ContractManagerContainer"
           sx={{
             width: '65%',
+            height: '100%',
+            overflow: 'hidden',
           }}
         >
-          {selectedId ? (
+          {!hideContracts && selectedId ? (
             <SelectedContractManager
               contractId={selectedId}
               deselectContract={handleContractDeselect}

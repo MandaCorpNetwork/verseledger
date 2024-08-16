@@ -670,11 +670,28 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                         data-testid="ContractDisplay-Locations-OtherLocations__LocationPagnationWrapper"
                         ref={scrollRef}
                         sx={{
+                          display: 'flex',
+                          gap: '.5em',
                           mb: '.5em',
+                          width: '100%',
+                          px: '.2em',
+                          overflow: 'auto',
+                          '&::-webkit-scrollbar': {
+                            width: '5px',
+                            height: '5px',
+                          },
+                          '&::-webkit-scrollbar-track': {
+                            background: 'rgb(0,73,130)',
+                            borderRadius: '10px',
+                          },
+                          '&::-webkit-scrollbar-thumb': {
+                            borderRadius: '20px',
+                            background: 'rgb(24,252,252)',
+                          },
                         }}
                       >
                         {otherLocationIds.map((loc) => (
-                          <LocationChip key={loc} locationId={loc} />
+                          <LocationChip key={loc} locationId={loc} sx={{ mb: '.2em' }} />
                         ))}
                       </Box>
                     </PopupFormSelection>
