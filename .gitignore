@@ -8,4 +8,4 @@ report.json
 dist
 .flyway
 **/cypress/screenshots/
-services/client/src/CrownsScratch.md
+services/client/src/CrownsScratch.scratch

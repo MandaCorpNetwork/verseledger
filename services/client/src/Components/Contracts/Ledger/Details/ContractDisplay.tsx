@@ -670,7 +670,10 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                         data-testid="ContractDisplay-Locations-OtherLocations__LocationPagnationWrapper"
                         ref={scrollRef}
                         sx={{
+                          display: 'flex',
+                          gap: '.5em',
                           mb: '.5em',
+                          overflow: 'auto',
                         }}
                       >
                         {otherLocationIds.map((loc) => (
