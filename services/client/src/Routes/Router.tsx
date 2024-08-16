@@ -3,7 +3,9 @@ import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 import { ContractManagerApp } from '@/Components/Personal/ContractManager/ContractManagerApp';
 import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
 import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
+import { PopupManager } from '@/PopupManager';
 import { DiscordLoginUtility } from '@/Utils/discordLoginUtility';
+import { WidgetManager } from '@/WidgetManager';
 
 import { VLAppBar } from '../Common/Components/App/AppBar';
 import { APIDocs } from './api-docs/APIDocs';
@@ -23,6 +25,8 @@ export const routingInfo: RouteObject[] = [
       <>
         <VLAppBar />
         <Outlet />
+        <PopupManager />
+        <WidgetManager />
       </>
     ),
     errorElement: (
