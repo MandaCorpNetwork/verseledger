@@ -36,3 +36,5 @@
 # SelectContract Manager UI
 Merge concept with the Contract page
 Add a End Bidding Button
+
+Specific Breakpoint for the Top bar @ 1400px to column with the digidisplays going to 100% width

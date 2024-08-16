@@ -326,10 +326,63 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
           display: 'flex',
           flexDirection: 'row',
           width: '100%',
-          height: '55%',
           p: '.5em',
+          justifyContent: 'space-between',
         }}
       >
+        <Box
+          data-testid="SelectedContract-Bottom__RightBoxWrapper"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '48%',
+            height: '100%',
+          }}
+        >
+          <Box
+            data-testid="SelectedContract__ContractManagementContainer"
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              height: '100%',
+            }}
+          >
+            <Box
+              data-testid="SelectedContract-ContractManagement__TabWrapper"
+              sx={{
+                width: '100%',
+                height: '100%',
+              }}
+            >
+              <TabContext value={contractManagerTab}>
+                <TabListHolo
+                  data-testid="SelectedContract-ContractManagement__TabList"
+                  onChange={handleContractManageView}
+                  indicatorColor="secondary"
+                  textColor="secondary"
+                  variant="fullWidth"
+                  sx={{
+                    px: '1em',
+                    py: '.2em',
+                  }}
+                >
+                  <Tab label="Contractors" value="contractors" />
+                  <Tab disabled label="Ships" value="ships" />
+                  <Tab disabled label="Payroll" value="payroll" />
+                </TabListHolo>
+                <TabPanel
+                  value="contractors"
+                  sx={{
+                    height: '100%',
+                  }}
+                >
+                  <ContractorsManager contract={contract} isOwned={isContractOwned} />
+                </TabPanel>
+              </TabContext>
+            </Box>
+          </Box>
+        </Box>
         <Box
           data-testid="SelectedContract-Bottom__LeftBoxWrapper"
           sx={{
@@ -396,61 +449,6 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               deselectContract={deselectContract}
             />
           </ControlPanelBox>
-        </Box>
-        <Box
-          data-testid="SelectedContract-Bottom__RightBoxWrapper"
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '48%',
-            height: '100%',
-            ml: 'auto',
-            mr: 'auto',
-          }}
-        >
-          <Box
-            data-testid="SelectedContract__ContractManagementContainer"
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '100%',
-              height: '100%',
-            }}
-          >
-            <Box
-              data-testid="SelectedContract-ContractManagement__TabWrapper"
-              sx={{
-                width: '100%',
-                height: '100%',
-              }}
-            >
-              <TabContext value={contractManagerTab}>
-                <TabListHolo
-                  data-testid="SelectedContract-ContractManagement__TabList"
-                  onChange={handleContractManageView}
-                  indicatorColor="secondary"
-                  textColor="secondary"
-                  variant="fullWidth"
-                  sx={{
-                    px: '1em',
-                    py: '.2em',
-                  }}
-                >
-                  <Tab label="Contractors" value="contractors" />
-                  <Tab disabled label="Payroll" value="payroll" />
-                  <Tab disabled label="Ships" value="ships" />
-                </TabListHolo>
-                <TabPanel
-                  value="contractors"
-                  sx={{
-                    height: '100%',
-                  }}
-                >
-                  <ContractorsManager contract={contract} isOwned={isContractOwned} />
-                </TabPanel>
-              </TabContext>
-            </Box>
-          </Box>
         </Box>
       </Box>
     </Box>
