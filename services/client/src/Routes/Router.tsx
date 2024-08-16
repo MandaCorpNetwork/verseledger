@@ -16,6 +16,7 @@ import { Home } from './Index/Home/Home';
 import { NotFoundPage } from './NotFound/NotFound';
 import { PersonalLedgerPage } from './PersonalLedger/PersonalLedgerPage';
 import { Sandbox } from './ui-sandbox/SandboxPage';
+import { UserPage } from './User/UserPage';
 import { VerseMarketPage } from './VerseMarket/VerseMarketPage';
 export const routingInfo: RouteObject[] = [
   {
@@ -52,6 +53,7 @@ export const routingInfo: RouteObject[] = [
         element: <ContractLedgerPage />,
       },
       { path: '/contract', element: <ContractPage /> },
+      { path: '/user', element: <UserPage /> },
       {
         path: '/ledger/personal',
         element: <PersonalLedgerPage />,

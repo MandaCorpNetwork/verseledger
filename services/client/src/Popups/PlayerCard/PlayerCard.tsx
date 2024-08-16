@@ -14,9 +14,10 @@ import {
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_VERIFY_USER } from '@Popups/VerifyPopup/VerifyUser';
 import { useAppSelector } from '@Redux/hooks';
-import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { selectUserById } from '@Redux/Slices/Users/userSelectors';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useSoundEffect } from '@/AudioManager';
 import { useAppDispatch } from '@/Redux/hooks';
@@ -24,15 +25,26 @@ import { useAppDispatch } from '@/Redux/hooks';
 export const POPUP_PLAYER_CARD = 'playerCard';
 
 export type PlayerCardPopupProps = {
+  /** The user ID. */
   userid: string;
 };
-
+/**
+ * This is the player card popup that appears when the user clicks their profile on the main page.
+ */
 export const PlayerCardPopup: React.FC<PlayerCardPopupProps> = ({ userid }) => {
   const user = useAppSelector((state) => selectUserById(state, userid));
   const [tabValue, setTabValue] = React.useState('orgs');
   const { playSound } = useSoundEffect();
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  /**
+   * Navigates to user window and then closes the player card popup from previous window.
+   */
+  const onProfileClick = React.useCallback((_event: React.SyntheticEvent) => {
+    dispatch(closePopup(POPUP_PLAYER_CARD));
+    navigate('/user');
+  }, []);
 
   const handleTabChange = React.useCallback(
     (_event: React.SyntheticEvent, newValue: string) => {
@@ -92,7 +104,7 @@ export const PlayerCardPopup: React.FC<PlayerCardPopupProps> = ({ userid }) => {
           <IconButton disabled>
             <Message />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={onProfileClick}>
             <AccountBox />
           </IconButton>
         </Box>

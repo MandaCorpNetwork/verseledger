@@ -216,7 +216,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
                 <Tooltip title="Manage Contracts" placement="right">
                   <IconButton
                     onClick={() => {
-                      navigate('/ledger/personal/contractManager');
+                      navigate('/ledger/personal/contracts');
                       playSound('navigate');
                     }}
                     size="small"
