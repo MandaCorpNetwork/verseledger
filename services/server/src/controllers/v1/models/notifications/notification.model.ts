@@ -22,8 +22,9 @@ export class Notification extends Model {
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare readonly user_id: string;
 
+  @Default(false)
   @Column({ type: DataType.BOOLEAN() })
-  declare readonly read: boolean;
+  declare read: boolean;
 
   @Column({ type: DataType.TEXT() })
   declare readonly text: string;

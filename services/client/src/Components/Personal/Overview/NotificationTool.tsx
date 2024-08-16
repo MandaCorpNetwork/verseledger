@@ -1,54 +1,83 @@
-import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
-import { Clear, Forward } from '@mui/icons-material';
-import { Box, Button, IconButton, Tooltip, Typography, useTheme } from '@mui/material';
+import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import { Typography } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotifications';
+import { markRead } from '@Redux/Slices/Notifications/actions/patchMarkRead';
+import { selectNotificationsArray } from '@Redux/Slices/Notifications/notificationSelectors';
+import { parseResource } from '@Utils/notifResourceParse';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export const OverviewNotification: React.FC<unknown> = () => {
-  const theme = useTheme();
+import { useSoundEffect } from '@/AudioManager';
+
+import { OverviewNotification } from './Notification';
+
+export const NotificationTool: React.FC = () => {
+  const notifications = useAppSelector(selectNotificationsArray);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { playSound } = useSoundEffect();
+
+  React.useEffect(() => {
+    dispatch(fetchNotifications());
+  }, []);
+
+  const handleMarkRead = (notifyId: string) => {
+    playSound('close');
+    dispatch(markRead(notifyId));
+  };
+
+  const handleViewNotification = (resource: string, notifyId: string) => {
+    const obj = parseResource(resource);
+    if (obj) {
+      if (obj.feature === 'contracts') {
+        playSound('navigate');
+        navigate(`contract?contractID=${obj.id}`);
+      }
+    } else {
+      playSound('denied');
+    }
+    handleMarkRead(notifyId);
+  };
+
+  const notifTitle = React.useCallback((resource: string) => {
+    const obj = parseResource(resource);
+    if (obj) {
+      if (obj.feature === 'contracts') {
+        return 'Contracts';
+      }
+    }
+    return 'Unknown';
+  }, []);
   return (
-    <ControlPanelBox
-      data-testid="NotificationContainer"
+    <GlassDisplay
+      data-id="NotificationToolContent"
       sx={{
-        justifyContent: 'space-between',
-        px: { xs: '.2em', md: '1em' },
-        alignItems: 'center',
-        gap: '.5em',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1em',
+        padding: '1em',
+        overflow: 'auto',
+        height: { xs: '300px', md: '85%' },
       }}
     >
-      <Tooltip title="Dismiss Notification">
-        <IconButton
-          color="error"
-          size={theme.breakpoints.down('md') ? 'small' : 'medium'}
-        >
-          <Clear
-            color="error"
-            fontSize={theme.breakpoints.down('md') ? 'small' : 'medium'}
-          />
-        </IconButton>
-      </Tooltip>
-      <Typography
-        data-id="ToolName"
-        variant={theme.breakpoints.down('md') ? 'body2' : 'body1'}
-      >
-        VerseMarket
-      </Typography>
-      <Box data-testid="NotificationMessageContiner">
-        <Typography
-          data-testid="NotificationMessage"
-          align="center"
-          variant={theme.breakpoints.down('md') ? 'body2' : 'body1'}
-        >
-          New Bid on Owned Order #5622819
+      {notifications.length === 0 && (
+        <Typography align="center" sx={{ my: 'auto' }} variant="h6">
+          No Notifications
         </Typography>
-      </Box>
-      <Box data-testid="NavButtonContainer">
-        <Button
-          color="secondary"
-          startIcon={<Forward />}
-          size={theme.breakpoints.down('md') ? 'small' : 'medium'}
-        >
-          Jump
-        </Button>
-      </Box>
-    </ControlPanelBox>
+      )}
+      {notifications.map((notif) => {
+        return (
+          <OverviewNotification
+            key={notif.id}
+            title={notifTitle(notif.resource)}
+            text={notif.text}
+            view={() => handleViewNotification(notif.resource, notif.id)}
+            onClose={() => handleMarkRead(notif.id)}
+          />
+        );
+      })}
+    </GlassDisplay>
   );
 };

@@ -24,17 +24,14 @@
 
 # Sortby for Contracts
 
-Need a thunk to check if any of these user ratings are recent.
-Create Rating Endpoing
-checks an array of users
-runs the checkRecentRatings for array
-Returns an object of booleans for each user in the array
-can use this to disable the rating field for certain users
-
-The ICreateUserRatingBody State needs to be nullable
-We need to create a new object for the list of rateable contractors
-Whenever a contractor is rated, it then gets added to the state body
-
-onSubmit needs to run the submit rating as it has,
-
-handleClose needs to run the same handleSubmitRating
+- Notifications ListItemButton styling
+- Create a button to open overview
+- Plug in notifications to the the overview page
+- Build a controller that dictates where the notifications will go
+- SelectedContractManager style overhaul
+- Player Card Update
+- Add Profile Page
+- Fix Verify Popup
+- Adjust Ratings popup to only display if there is bidders on a contract and only allow it to be completed if there is a bidder
+- Only allow the user to start the contract if there is a bidder
+- Change Duration Text to Duration
