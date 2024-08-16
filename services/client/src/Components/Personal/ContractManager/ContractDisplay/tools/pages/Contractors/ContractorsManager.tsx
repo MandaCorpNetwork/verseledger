@@ -79,41 +79,32 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
           mb: '.5em',
         }}
       >
-        <Box
-          data-testid="ContractorsTab-Controls__CountWrapper"
+        <Typography
+          data-testid="ContractorsTab-Controls-Counts__ActiveContractorsCount"
+          variant="body2"
           sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
+            my: 'auto',
+            mx: '.5em',
+            fontWeight: 'bold',
+            color: contractorCountColor,
           }}
         >
-          <Typography
-            data-testid="ContractorsTab-Controls-Counts__ActiveContractorsCount"
-            variant="body2"
-            sx={{
-              my: 'auto',
-              mx: '.5em',
-              fontWeight: 'bold',
-              color: contractorCountColor,
-            }}
-          >
-            Active Contractors: {acceptedBids?.length}/{contract.contractorLimit}
-          </Typography>
-          <Typography
-            data-testid="ContractorsTab-Controls-Counts__PendingBidsCount"
-            variant="body2"
-            sx={{
-              my: 'auto',
-              mx: '.5em',
-              fontWeight: 'bold',
-              color:
-                pendingBids?.length && pendingBids.length > 0 ? 'text.secondary' : 'grey',
-              textShadow: pendingBids?.length === 0 ? '0 0 2px rgb(0,0,0)' : undefined,
-            }}
-          >
-            Pending Bids: {pendingBids?.length}
-          </Typography>
-        </Box>
+          Active Contractors: {acceptedBids?.length}/{contract.contractorLimit}
+        </Typography>
+        <Typography
+          data-testid="ContractorsTab-Controls-Counts__PendingBidsCount"
+          variant="body2"
+          sx={{
+            my: 'auto',
+            mx: '.5em',
+            fontWeight: 'bold',
+            color:
+              pendingBids?.length && pendingBids.length > 0 ? 'text.secondary' : 'grey',
+            textShadow: pendingBids?.length === 0 ? '0 0 2px rgb(0,0,0)' : undefined,
+          }}
+        >
+          Pending Bids: {pendingBids?.length}
+        </Typography>
         {isOwned && (
           <Button
             data-testid="ContractorsTab-Controls__InviteButton"
@@ -170,8 +161,6 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
               align="center"
               variant="h6"
               sx={{
-                display: 'table-cell',
-                verticalAlign: 'middle',
                 textAlign: 'center',
                 width: '100%',
                 color: 'grey',
@@ -205,8 +194,6 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
               align="center"
               variant="h6"
               sx={{
-                display: 'table-cell',
-                verticalAlign: 'middle',
                 textAlign: 'center',
                 width: '100%',
                 color: 'grey',
