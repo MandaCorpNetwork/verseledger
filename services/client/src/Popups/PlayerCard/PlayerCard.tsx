@@ -1,5 +1,5 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
-import { Discord } from '@Common/Definitions/CustomIcons';
+import { AccountBox, Message } from '@mui/icons-material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import {
   Avatar,
@@ -18,6 +18,7 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { selectUserById } from '@Redux/Slices/Users/userSelectors';
 import React from 'react';
 
+import { useSoundEffect } from '@/AudioManager';
 import { useAppDispatch } from '@/Redux/hooks';
 
 export const POPUP_PLAYER_CARD = 'playerCard';
@@ -29,6 +30,7 @@ export type PlayerCardPopupProps = {
 export const PlayerCardPopup: React.FC<PlayerCardPopupProps> = ({ userid }) => {
   const user = useAppSelector((state) => selectUserById(state, userid));
   const [tabValue, setTabValue] = React.useState('orgs');
+  const { playSound } = useSoundEffect();
 
   const dispatch = useAppDispatch();
 
@@ -78,11 +80,20 @@ export const PlayerCardPopup: React.FC<PlayerCardPopupProps> = ({ userid }) => {
           </Button>
         )}
         <Box>
-          <IconButton>
+          <IconButton
+            component="a"
+            href={`https://robertsspaceindustries.com/citizens/${user?.handle}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => playSound('navigate')}
+          >
             <img src={Spectrum} alt="Spectrum" />
           </IconButton>
+          <IconButton disabled>
+            <Message />
+          </IconButton>
           <IconButton>
-            <Discord />
+            <AccountBox />
           </IconButton>
         </Box>
       </Box>
