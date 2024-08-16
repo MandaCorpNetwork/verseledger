@@ -1,7 +1,6 @@
-import { TabList } from '@mui/lab';
-import { styled } from '@mui/material';
+import { styled, Tabs } from '@mui/material';
 
-const TabListHolo = styled(TabList)(({ theme }) => ({
+const TabListHolo = styled(Tabs)(({ theme }) => ({
   borderLeft: '2px solid',
   borderRight: '2px solid',
   borderRadius: '5px',

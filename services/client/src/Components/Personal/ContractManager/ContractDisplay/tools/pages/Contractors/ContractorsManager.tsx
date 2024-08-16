@@ -1,4 +1,5 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_USER_INVITE } from '@Popups/UserInvite/UserInvite';
 import { useAppDispatch } from '@Redux/hooks';
@@ -66,18 +67,16 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
         width: '100%',
         height: '100%',
         p: '.5em',
+        justifyContent: 'flex-start',
       }}
     >
-      <Box
+      <DigiDisplay
         data-testid="ContractorsTab__ControlsWrapper"
         sx={{
-          display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-around',
-          backgroundColor: 'rgba(14,49,141,.25)',
-          borderRadius: '10px',
-          py: '.2em',
-          mb: '1em',
+          py: '.5em',
+          mb: '.5em',
         }}
       >
         <Box
@@ -126,13 +125,12 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
             Invite
           </Button>
         )}
-      </Box>
+      </DigiDisplay>
       <Box
         data-testid="ContractorsTab__ContractorsListWrapper"
         sx={{
-          display: 'table',
           px: '.5em',
-          height: '90%',
+          maxHeight: '90%',
           overflow: 'auto',
           '&::-webkit-scrollbar': {
             width: '5px',

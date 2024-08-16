@@ -38,3 +38,6 @@ Merge concept with the Contract page
 Add a End Bidding Button
 
 Specific Breakpoint for the Top bar @ 1400px to column with the digidisplays going to 100% width
+
+need the bid status state to update in the state.
+Also change to where the contract selection is done through the URLQuery
