@@ -134,7 +134,13 @@ export class Contract
 
   @Default('BIDDING')
   @Column({
-    type: DataType.ENUM('BIDDING', 'PENDING', 'INPROGRESS', 'COMPLETED', 'CANCELED'),
+    type: DataType.ENUM(
+      'BIDDING',
+      'PENDING',
+      'INPROGRESS',
+      'COMPLETED',
+      'CANCELED',
+    ),
   })
   declare status: IContractStatus;
 

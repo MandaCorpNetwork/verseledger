@@ -65,13 +65,13 @@ export class NotificationService {
   }
 
   public async markAllRead(userId: string) {
-      const [updatedRows] = await Notification.update(
-        { read: true },
-        {
-          where: { user_id: userId, read: false },
-        },
-      );
-      return updatedRows;
+    const [updatedRows] = await Notification.update(
+      { read: true },
+      {
+        where: { user_id: userId, read: false },
+      },
+    );
+    return updatedRows;
   }
 
   public async markRead(userId: string, notificationId: string) {
@@ -81,8 +81,8 @@ export class NotificationService {
         where: {
           user_id: userId,
           id: notificationId,
-        }
-      }
+        },
+      },
     );
     return readNotification;
   }
