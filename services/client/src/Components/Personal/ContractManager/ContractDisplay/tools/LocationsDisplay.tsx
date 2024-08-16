@@ -1,9 +1,8 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import DigiTitle from '@Common/Components/Typography/DigiTitle';
-import { ChevronLeft, ChevronRight } from '@mui/icons-material';
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { ILocationWithContractLocation } from 'vl-shared/src/schemas/LocationSchema';
@@ -13,8 +12,7 @@ type LocationsDisplayProps = {
 };
 
 export const LocationsDisplay: React.FC<LocationsDisplayProps> = ({ locations = [] }) => {
-  const [otherLocationIndex, setOtherLocationIndex] = React.useState(0);
-
+  const scrollRef = useHorizontalAdvancedScroll();
   const getStartLocationId = React.useCallback(() => {
     if (locations) {
       const startLocationPull = locations?.find(
@@ -50,24 +48,6 @@ export const LocationsDisplay: React.FC<LocationsDisplayProps> = ({ locations = 
   const endLocationId = getEndLocationId();
   const otherLocationIds = getOtherLocationIds();
 
-  const handleOtherLocationIndexChange = React.useCallback(
-    (direction: string) => {
-      if (otherLocationIds.length > 1) {
-        setOtherLocationIndex((prevIndex) => {
-          const newIndex =
-            direction === 'back'
-              ? prevIndex - 1
-              : direction === 'forward'
-                ? prevIndex + 1
-                : prevIndex;
-          return Math.max(0, Math.min(newIndex, otherLocationIds.length - 1));
-        });
-      }
-      Logger.info(otherLocationIndex);
-    },
-    [setOtherLocationIndex],
-  );
-
   return (
     <DigiBox
       data-testid="SelectedContract__LocationsContainer"
@@ -77,9 +57,11 @@ export const LocationsDisplay: React.FC<LocationsDisplayProps> = ({ locations = 
         mb: '1em',
       }}
     >
-      <DigiTitle data-testid="SelectedContract-Locations__TitleText" variant="body2">
-        Locations
-      </DigiTitle>
+      <DigiDisplay data-testid="SelectedContract-Locations__TitleText">
+        <Typography variant="body2" sx={{ fontWeight: 'bold', cursor: 'default' }}>
+          Locations
+        </Typography>
+      </DigiDisplay>
       <Box
         data-testid="SelectedContract-Locations__StartandEndWrapper"
         sx={{
@@ -143,50 +125,39 @@ export const LocationsDisplay: React.FC<LocationsDisplayProps> = ({ locations = 
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                justifyContent: 'space-between',
+                justifyContent: 'center',
                 alignItems: 'center',
               }}
             >
-              <IconButton
-                size="small"
-                onClick={() => handleOtherLocationIndexChange('back')}
-                disabled={otherLocationIndex === 0}
-              >
-                <ChevronLeft fontSize="small" />
-              </IconButton>
               <Box
                 data-testid="ContractDisplay-Locations-OtherLocations__LocationChipDisplayWrapper"
+                ref={scrollRef}
                 sx={{
                   display: 'flex',
-                  flexDirection: 'column',
+                  flexDirection: 'row',
                   alignItems: 'center',
+                  overflowX: 'auto',
+                  gap: '.5em',
+                  maxWidth: '80%',
+                  mt: '.5em',
+                  '&::-webkit-scrollbar': {
+                    width: '5px',
+                    height: '5px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    background: 'rgb(0,73,130)',
+                    borderRadius: '10px',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    borderRadius: '20px',
+                    background: 'rgb(24,252,252)',
+                  },
                 }}
               >
-                <Typography
-                  data-testid="ContractDisplay-Locations-OtherLocations__LocationChip"
-                  variant="body2"
-                  align="center"
-                >
-                  {otherLocationIndex + 1}.{' '}
-                  <LocationChip
-                    locationId={
-                      otherLocationIds ? otherLocationIds[otherLocationIndex] : 'Error'
-                    }
-                  />
-                </Typography>
+                {otherLocationIds.map((id) => (
+                  <LocationChip key={id} locationId={id} sx={{ mb: '.2em' }} />
+                ))}
               </Box>
-              <IconButton
-                size="small"
-                onClick={() => handleOtherLocationIndexChange('forward')}
-                disabled={
-                  otherLocationIds
-                    ? otherLocationIds.length < 1 ||
-                      otherLocationIndex === otherLocationIds.length - 1
-                    : false
-                }
-              >
-                <ChevronRight fontSize="small" />
-              </IconButton>
             </Box>
           </Box>
         </DigiDisplay>

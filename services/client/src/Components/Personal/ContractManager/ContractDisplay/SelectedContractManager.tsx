@@ -1,24 +1,24 @@
-// import { LocationChip } from '@Common/Components/App/LocationChip';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import ParagraphWrapper from '@Common/Components/Boxes/ParagraphWrapper';
 import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
 import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
 import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
 import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
 import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHolo';
 import TabListHolo from '@Common/Components/Tabs/TabListHolo';
-import DigiTitle from '@Common/Components/Typography/DigiTitle';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
-import { TabContext, TabPanel } from '@mui/lab';
-import { Box, Tab, TextField, Tooltip, Typography } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { Launch, Link } from '@mui/icons-material';
+import { Box, IconButton, Tab, Tooltip, Typography } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import { URLUtil } from '@Utils/URLUtil';
+import { enqueueSnackbar } from 'notistack';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { ILocationWithContractLocation } from 'vl-shared/src/schemas/LocationSchema';
 
@@ -41,6 +41,32 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   contractId,
   deselectContract,
 }) => {
+  const navigate = useNavigate();
+
+  const handleCopyURL = (url: string) => {
+    const prefix = URLUtil.frontendHost;
+    if (navigator.clipboard) {
+      navigator.clipboard
+        .writeText(`${prefix}${url}`)
+        .then(() => {
+          playSound('clickMain');
+          enqueueSnackbar('Copied Contract to Clipboard', { variant: 'success' });
+        })
+        .catch((err) => {
+          playSound('error');
+          enqueueSnackbar(`Failed to Copy Contract: ${err}`, { variant: 'error' });
+        });
+    } else {
+      playSound('denied');
+      enqueueSnackbar('Clipboard API not supported', { variant: 'warning' });
+    }
+  };
+
+  const handleContractPageNav = (contractId: string) => {
+    playSound('navigate');
+    navigate(`/contract?contractID=${contractId}`);
+  };
+
   const { playSound } = useSoundEffect();
   const [contractManagerTab, setContractManagerTab] = useState<string>('contractors');
   const [archetype, setArchetype] = React.useState<string | null>(null);
@@ -50,8 +76,6 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
 
   const contract = useAppSelector((root) => selectContract(root, contractId as string));
   const currentUser = useAppSelector(selectCurrentUser);
-
-  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     const selectedArchetype = options.find((option) =>
@@ -155,40 +179,57 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
           height: 'auto',
         }}
       >
-        <DigiDisplay
-          data-testid="SelectedContract-OverviewInfo__HeaderWrapper"
+        <Box
           sx={{
-            flexDirection: 'row',
             width: '100%',
-            px: '1em',
-            py: '.2em',
-            alignItems: 'strech',
-            justifyContent: 'space-between',
+            display: 'flex',
+            flexDirection: 'row',
           }}
         >
-          <Typography
-            data-testid="SelectedContract__ContractTitle"
-            variant="h4"
-            noWrap
+          <DigiDisplay
+            data-testid="SelectedContract-OverviewInfo__HeaderWrapper"
             sx={{
-              fontWeight: 'bold',
-              maxWidth: '100%',
-              cursor: 'default',
-              textShadow: '0 0 10px rgba(14,252,252,0.5)',
+              flexDirection: 'row',
+              px: '1em',
+              py: '.2em',
+              alignItems: 'strech',
+              justifyContent: 'space-between',
+              flexGrow: 1,
             }}
           >
-            {contract.title}
-          </Typography>
-          <Box
-            data-testid="SelectedContract-OverviewInfo-Header__ContractTypeContainer"
-            sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+            <Typography
+              data-testid="SelectedContract__ContractTitle"
+              variant="h4"
+              noWrap
+              sx={{
+                fontWeight: 'bold',
+                maxWidth: '100%',
+                cursor: 'default',
+                textShadow: '0 0 10px rgba(14,252,252,0.5)',
+              }}
+            >
+              {contract.title}
+            </Typography>
+            <Box
+              data-testid="SelectedContract-OverviewInfo-Header__ContractTypeContainer"
+              sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+            >
+              <Tooltip title={archetype}>
+                {options.find((option) => option.archetype === archetype)
+                  ?.archetypeIcon ?? <Typography>???</Typography>}
+              </Tooltip>
+            </Box>
+          </DigiDisplay>
+          <IconButton
+            size="small"
+            onClick={() => handleCopyURL(`/contract?contractID=${contract.id}`)}
           >
-            <Tooltip title={archetype}>
-              {options.find((option) => option.archetype === archetype)
-                ?.archetypeIcon ?? <Typography>???</Typography>}
-            </Tooltip>
-          </Box>
-        </DigiDisplay>
+            <Link fontSize="medium" />
+          </IconButton>
+          <IconButton size="small" onClick={() => handleContractPageNav(contract.id)}>
+            <Launch fontSize="medium" />
+          </IconButton>
+        </Box>
         <Box
           data-testid="SelectedContract-OverviewInfo__BottomWrapper"
           sx={{
@@ -356,19 +397,19 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               mb: '1em',
             }}
           >
-            <DigiTitle
-              data-testid="SelectedContract-Briefing__BriefingTitle"
-              variant="body2"
-            >
-              Briefing
-            </DigiTitle>
-            <ParagraphWrapper
+            <DigiDisplay data-testid="SelectedContract-Briefing__BriefingTitle">
+              <Typography variant="body2" sx={{ fontWeight: 'bold', cursor: 'default' }}>
+                Briefing
+              </Typography>
+            </DigiDisplay>
+            <DigiDisplay
               data-testid="SelectedContract-Briefing__ContentWrapper"
               sx={{
                 mx: '10%',
                 mt: '.5em',
-                maxHeight: '100px',
+                maxHeight: '150px',
                 p: '.5em',
+                overflow: 'auto',
               }}
             >
               <Typography
@@ -377,11 +418,12 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                 sx={{
                   pl: '.5em',
                   fontSize: '.85em',
+                  color: 'text.primary',
                 }}
               >
                 {contract.briefing}
               </Typography>
-            </ParagraphWrapper>
+            </DigiDisplay>
           </DigiBox>
           <ControlPanelBox
             data-testid="SelectedContract__ControllerContainer"

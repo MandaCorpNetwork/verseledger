@@ -17,6 +17,7 @@ type DigiFieldProps = PropsWithChildren<{
     };
     typography?: {
       sx?: object;
+      variant?: 'body1' | 'body2' | 'subtitle1' | 'subtitle2' | 'caption' | 'button';
     };
   };
 }>;
@@ -93,6 +94,7 @@ const DigiFieldComponent: React.FC<DigiFieldProps> = (props) => {
         </div>
         <Typography
           data-testid={`DigiField-${testid}-children`}
+          variant={slots?.typography?.variant ?? 'body1'}
           sx={{
             color: 'text.primary',
             whiteSpace: 'nowrap',
