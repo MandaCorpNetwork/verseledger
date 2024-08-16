@@ -26,6 +26,7 @@
 
 - Player Card Update
 - Add Profile Page
+
 - Fix Verify Popup
 - Adjust Ratings popup to only display if there is bidders on a contract and only allow it to be completed if there is a bidder
 - Only allow the user to start the contract if there is a bidder
