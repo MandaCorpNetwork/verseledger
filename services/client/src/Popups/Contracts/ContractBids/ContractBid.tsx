@@ -14,6 +14,7 @@ import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContra
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { useSoundEffect } from '@/AudioManager';
@@ -38,6 +39,8 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
     contract.defaultPay,
   );
   const dispatch = useAppDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const acceptedContractorsCount =
     contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').length ?? 0;
@@ -50,6 +53,9 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
         if (postContractBid.fulfilled.match(res)) {
           enqueueSnackbar('Bid Submitted', { variant: 'success' });
           dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
+          if (location.pathname === '/personal/ledger/*') {
+            navigate(`/personal/ledger/contracts?cmTab=pending&contractID=${contractId}`);
+          }
           playSound('send');
         } else {
           enqueueSnackbar('Error Submitting Bid', { variant: 'error' });
