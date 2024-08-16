@@ -33,4 +33,4 @@
 - Add a Read section to the Overview Notifications
 - GetReadNotification fetches notifications within a week
 
-# SelectContract Manager UI
+# PlayerCard Update
