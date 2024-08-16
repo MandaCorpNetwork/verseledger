@@ -36,7 +36,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
   const { playSound } = useSoundEffect();
   const location = useLocation();
 
-  const handleAcceptInvite = () => {
+  const handleAcceptInvite = React.useCallback(() => {
     if (!userBid) {
       enqueueSnackbar(`Invite doesn't Exist`, { variant: 'error' });
       playSound('error');
@@ -58,9 +58,9 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         playSound('error');
       }
     });
-  };
+  }, [userBid, contract, dispatch, overwriteURLQuery, playSound, enqueueSnackbar]);
 
-  const handleDeclineInvite = () => {
+  const handleDeclineInvite = React.useCallback(() => {
     if (!userBid) {
       enqueueSnackbar(`Invite doesn't Exist`, { variant: 'error' });
       playSound('error');
@@ -79,9 +79,9 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         playSound('error');
       }
     });
-  };
+  }, [userBid, enqueueSnackbar, playSound, dispatch, contract, deselectContract]);
 
-  const handleWithdrawBid = () => {
+  const handleWithdrawBid = React.useCallback(() => {
     if (!userBid) {
       enqueueSnackbar(`Bid doesn't Exist`, { variant: 'error' });
       playSound('error');
@@ -102,16 +102,24 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         playSound('error');
       }
     });
-  };
+  }, [
+    userBid,
+    contract,
+    overwriteURLQuery,
+    dispatch,
+    location,
+    playSound,
+    enqueueSnackbar,
+  ]);
 
-  const handleResubmitBid = () => {
+  const handleResubmitBid = React.useCallback(() => {
     if (!userBid) {
       enqueueSnackbar(`Bid doesn't Exist`, { variant: 'error' });
       playSound('error');
       return Logger.info('no user bid');
     }
     dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
-  };
+  }, [userBid, dispatch]);
 
   const getUpdatedContractStatus = (
     contract: Partial<IContract>,
@@ -134,7 +142,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     };
   };
 
-  const endBidding = () => {
+  const endBidding = React.useCallback(() => {
     const now = new Date();
     if (contract.status === 'BIDDING') {
       const updatedContract = getUpdatedContractStatus(
@@ -156,9 +164,9 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         }
       });
     }
-  };
+  }, [contract, getUpdatedContractStatus, dispatch]);
 
-  const handleEndBidding = () => {
+  const handleEndBidding = React.useCallback(() => {
     const now = new Date();
     if (contract.bidDate && contract.bidDate < now) {
       dispatch(
@@ -175,9 +183,9 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     } else {
       endBidding();
     }
-  };
+  }, [dispatch, contract]);
 
-  const startContract = () => {
+  const startContract = React.useCallback(() => {
     const now = new Date();
     if (contract.status === 'BIDDING' || contract.status === 'PENDING') {
       const updatedContract = getUpdatedContractStatus(contract, 'INPROGRESS', now);
@@ -193,9 +201,9 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         }
       });
     }
-  };
+  }, [contract, dispatch]);
 
-  const getStartBodyText = () => {
+  const getStartBodyText = React.useCallback(() => {
     const now = new Date();
     if (
       contract.status === 'BIDDING' ||
@@ -207,11 +215,11 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     } else {
       return `Are you sure you want to start the contract?`;
     }
-  };
+  }, [contract]);
 
   const startBodyText = getStartBodyText();
 
-  const handleStartContract = () => {
+  const handleStartContract = React.useCallback(() => {
     const now = new Date();
     if (contract.startDate && contract.startDate > now) {
       dispatch(
@@ -228,26 +236,26 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     } else {
       startContract();
     }
-  };
+  }, [contract, dispatch, startContract]);
 
   //TODO: Need to add Withdraw Bid Status still to allow rating contractors that leave a contract
-  const getActiveBidUsers = () => {
+  const getActiveBidUsers = React.useCallback(() => {
     return contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').map(
       (bid) => bid.User,
     );
-  };
+  }, [contract]);
 
   const contractUsers = getActiveBidUsers();
 
-  const openReview = () => {
+  const openReview = React.useCallback(() => {
     if (contractUsers) {
       if (contractUsers.length !== 0) {
         dispatch(openPopup(POPUP_SUBMIT_RATING, { users: contractUsers, contract }));
       }
     }
-  };
+  }, [contractUsers, dispatch]);
 
-  const completeContract = () => {
+  const completeContract = React.useCallback(() => {
     const now = new Date();
     const updatedContract = getUpdatedContractStatus(
       contract,
@@ -271,20 +279,28 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         playSound('error');
       }
     });
-  };
+  }, [
+    contract,
+    dispatch,
+    getUpdatedContractStatus,
+    overwriteURLQuery,
+    playSound,
+    openReview,
+    enqueueSnackbar,
+  ]);
 
-  const getCompleteBodyText = () => {
+  const getCompleteBodyText = React.useCallback(() => {
     const now = new Date();
     if (contract.status === 'INPROGRESS' && contract.endDate && contract.endDate < now) {
       return `Are you sure you want to complete the contract before the set end time (${contract.endDate.toLocaleString()})?`;
     } else {
       return `Are you sure you are ready to complete the contract?`;
     }
-  };
+  }, [contract]);
 
   const completeBodyText = getCompleteBodyText();
 
-  const handleContractComplete = () => {
+  const handleContractComplete = React.useCallback(() => {
     if (contract.status === 'INPROGRESS') {
       dispatch(
         openPopup(POPUP_YOU_SURE, {
@@ -298,9 +314,9 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         }),
       );
     }
-  };
+  }, [contract, dispatch, completeContract, completeBodyText]);
 
-  const cancelContract = () => {
+  const cancelContract = React.useCallback(() => {
     const now = new Date();
     if (contract.status !== 'COMPLETE') {
       const updatedContract = getUpdatedContractStatus(
@@ -326,9 +342,17 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         }
       });
     }
-  };
+  }, [
+    contract,
+    getUpdatedContractStatus,
+    dispatch,
+    overwriteURLQuery,
+    enqueueSnackbar,
+    playSound,
+    openReview,
+  ]);
 
-  const getCancelBodyText = () => {
+  const getCancelBodyText = React.useCallback(() => {
     const now = new Date();
     if (contract.status !== 'INPROGRESS') {
       return `Are you sure you want to cancel the contract?`;
@@ -337,11 +361,11 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     } else {
       return `Are you sure you want to cancel the contract?`;
     }
-  };
+  }, [contract]);
 
   const cancelBodyText = getCancelBodyText();
 
-  const handleCancelContract = () => {
+  const handleCancelContract = React.useCallback(() => {
     dispatch(
       openPopup(POPUP_YOU_SURE, {
         title: 'Cancel Contract',
@@ -353,9 +377,9 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         bodyText: cancelBodyText,
       }),
     );
-  };
+  }, [dispatch, cancelContract, cancelBodyText]);
 
-  const handleEditContract = () => {
+  const handleEditContract = React.useCallback(() => {
     if (contract.status === 'COMPLETED' || contract.status === 'CANCELED') {
       playSound('denied');
       enqueueSnackbar('Not able to edit this Contract', { variant: 'error' });
@@ -363,7 +387,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     }
     playSound('open');
     dispatch(openPopup(POPUP_EDIT_CONTRACT, { contract: contract }));
-  };
+  }, [contract, dispatch, playSound, enqueueSnackbar]);
 
   const displayReview = React.useCallback(() => {
     if (contract.status === 'COMPLETED' || contract.status === 'CANCELED') {

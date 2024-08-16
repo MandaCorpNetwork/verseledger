@@ -43,7 +43,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
 }) => {
   const navigate = useNavigate();
 
-  const handleCopyURL = (url: string) => {
+  const handleCopyURL = React.useCallback((url: string) => {
     const prefix = URLUtil.frontendHost;
     if (navigator.clipboard) {
       navigator.clipboard
@@ -60,12 +60,25 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
       playSound('denied');
       enqueueSnackbar('Clipboard API not supported', { variant: 'warning' });
     }
-  };
+  }, []);
 
-  const handleContractPageNav = (contractId: string) => {
-    playSound('navigate');
-    navigate(`/contract?contractID=${contractId}`);
-  };
+  const handleCopyURLCallback = React.useCallback(
+    (contractId: string) => () => handleCopyURL(`/contract?contractID=${contractId}`),
+    [handleCopyURL],
+  );
+
+  const handleContractPageNav = React.useCallback(
+    (contractId: string) => {
+      playSound('navigate');
+      navigate(`/contract?contractID=${contractId}`);
+    },
+    [navigate],
+  );
+
+  const handleContractPageNavCallback = React.useCallback(
+    (contractId: string) => () => handleContractPageNav(contractId),
+    [handleContractPageNav],
+  );
 
   const { playSound } = useSoundEffect();
   const [contractManagerTab, setContractManagerTab] = useState<string>('contractors');
@@ -220,13 +233,10 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               </Tooltip>
             </Box>
           </DigiDisplay>
-          <IconButton
-            size="small"
-            onClick={() => handleCopyURL(`/contract?contractID=${contract.id}`)}
-          >
+          <IconButton size="small" onClick={handleCopyURLCallback(contract.id)}>
             <Link fontSize="medium" />
           </IconButton>
-          <IconButton size="small" onClick={() => handleContractPageNav(contract.id)}>
+          <IconButton size="small" onClick={handleContractPageNavCallback(contract.id)}>
             <Launch fontSize="medium" />
           </IconButton>
         </Box>

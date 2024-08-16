@@ -38,6 +38,8 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
     contract.defaultPay,
   );
   const dispatch = useAppDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const acceptedContractorsCount =
     contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').length ?? 0;
@@ -45,66 +47,75 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
   const maxLimit = 100 - acceptedContractorsCount;
 
   //ToDo: Update this to figure out a way to navigate to pending on contract manager
-  const handlePostBid = (contractId: string) => {
-    dispatch(postContractBid(contractId)).then((res) => {
-      if (postContractBid.fulfilled.match(res)) {
-        enqueueSnackbar('Bid Submitted', { variant: 'success' });
-        dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
-        playSound('send');
-      } else {
-        enqueueSnackbar('Error Submitting Bid', { variant: 'error' });
-        playSound('error');
-      }
-    });
-  };
-
-  const handleNegotiateBid = (contractId: string, newPay: number) => {
-    if (contract.payStructure === 'POOL') {
-      if (newPay >= maxLimit) {
-        playSound('warning');
-        enqueueSnackbar('Percentage to high, others need pay too...', {
-          variant: 'error',
-        });
-        return;
-      }
-    }
-    dispatch(postContractBid(contractId)).then((res) => {
-      if (postContractBid.fulfilled.match(res)) {
-        dispatch(
-          fetchContractBidsOfUser({ contractId: [contractId], page: 0, limit: 1 }),
-        ).then((fetchRes) => {
-          if (fetchContractBidsOfUser.fulfilled.match(fetchRes)) {
-            const dto = fetchRes.payload.data;
-            const bid = dto[0];
-            const bidUpdate = { amount: newPay };
-            Logger.info(`Bid Update: ${JSON.stringify(bidUpdate)}`);
-            dispatch(
-              updateBid({
-                contractId: contractId,
-                bidId: bid.id,
-                bidData: bidUpdate,
-              }),
-            ).then((upRes) => {
-              if (updateBid.fulfilled.match(upRes)) {
-                enqueueSnackbar('Bid Offer Submitted', { variant: 'success' });
-                playSound('send');
-                dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
-              } else {
-                enqueueSnackbar('Error Updating Bid', { variant: 'error' });
-                playSound('error');
-              }
-            });
-          } else {
-            enqueueSnackbar('Error Fetching New Bid', { variant: 'error' });
-            playSound('error');
+  const handlePostBid = React.useCallback(
+    (contractId: string) => {
+      dispatch(postContractBid(contractId)).then((res) => {
+        if (postContractBid.fulfilled.match(res)) {
+          if (location.pathname == '/personal/ledger/*') {
+            navigate(`/personal/ledger/contracts?cmTab=pending&contractID=${contractId}`);
           }
-        });
-      } else {
-        enqueueSnackbar('Error Submitting Bid', { variant: 'error' });
-        playSound('error');
+          enqueueSnackbar('Bid Submitted', { variant: 'success' });
+          dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
+          playSound('send');
+        } else {
+          enqueueSnackbar('Error Submitting Bid', { variant: 'error' });
+          playSound('error');
+        }
+      });
+    },
+    [dispatch, playSound, enqueueSnackbar, location, navigate],
+  );
+
+  const handleNegotiateBid = React.useCallback(
+    (contractId: string, newPay: number) => {
+      if (contract.payStructure === 'POOL') {
+        if (newPay >= maxLimit) {
+          playSound('warning');
+          enqueueSnackbar('Percentage to high, others need pay too...', {
+            variant: 'error',
+          });
+          return;
+        }
       }
-    });
-  };
+      dispatch(postContractBid(contractId)).then((res) => {
+        if (postContractBid.fulfilled.match(res)) {
+          dispatch(
+            fetchContractBidsOfUser({ contractId: [contractId], page: 0, limit: 1 }),
+          ).then((fetchRes) => {
+            if (fetchContractBidsOfUser.fulfilled.match(fetchRes)) {
+              const dto = fetchRes.payload.data;
+              const bid = dto[0];
+              const bidUpdate = { amount: newPay };
+              Logger.info(`Bid Update: ${JSON.stringify(bidUpdate)}`);
+              dispatch(
+                updateBid({
+                  contractId: contractId,
+                  bidId: bid.id,
+                  bidData: bidUpdate,
+                }),
+              ).then((upRes) => {
+                if (updateBid.fulfilled.match(upRes)) {
+                  enqueueSnackbar('Bid Offer Submitted', { variant: 'success' });
+                  playSound('send');
+                  dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
+                } else {
+                  enqueueSnackbar('Error Updating Bid', { variant: 'error' });
+                  playSound('error');
+                }
+              });
+            } else {
+              enqueueSnackbar('Error Fetching New Bid', { variant: 'error' });
+              playSound('error');
+            }
+          });
+        } else {
+          enqueueSnackbar('Error Submitting Bid', { variant: 'error' });
+          playSound('error');
+        }
+      });
+    },
+    [contract, playSound, enqueueSnackbar, dispatch],
+  );
 
   const handleSubmitBid = React.useCallback(() => {
     if (contract.isBargaining === false) {

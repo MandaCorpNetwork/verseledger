@@ -673,6 +673,8 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                           display: 'flex',
                           gap: '.5em',
                           mb: '.5em',
+                          width: '100%',
+                          px: '.2em',
                           overflow: 'auto',
                           '&::-webkit-scrollbar': {
                             width: '5px',
@@ -689,7 +691,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                         }}
                       >
                         {otherLocationIds.map((loc) => (
-                          <LocationChip key={loc} locationId={loc} />
+                          <LocationChip key={loc} locationId={loc} sx={{ mb: '.2em' }} />
                         ))}
                       </Box>
                     </PopupFormSelection>
