@@ -34,6 +34,5 @@
 - GetReadNotification fetches notifications within a week
 
 # SelectContract Manager UI
-Convert Top Bar
 Merge concept with the Contract page
 Add a End Bidding Button
