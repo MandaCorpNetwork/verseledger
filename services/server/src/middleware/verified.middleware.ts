@@ -1,7 +1,7 @@
 import { VLAuthPrincipal } from '@/authProviders/VL.principal';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { NotVerifiedError } from '@Errors/NotVerifiedError';
-import { User } from '@V1/user/user.model';
+import { User } from '@V1/models/user/user.model';
 import { Request, Response, NextFunction } from 'express';
 import { BaseMiddleware } from 'inversify-express-utils';
 

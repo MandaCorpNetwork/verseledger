@@ -3,7 +3,7 @@ import { setupModels } from './connection';
 import { json, urlencoded, Request, Response, NextFunction } from 'express';
 import * as swagger from 'swagger-express-ts';
 import cors from 'cors';
-import './controllers/v1/index';
+import './v1';
 import './DTO';
 import { InversifyExpressServer } from 'inversify-express-utils';
 
