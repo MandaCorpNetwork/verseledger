@@ -18,7 +18,7 @@ import { User } from '@V1/models/user/user.model';
 import { Organization } from '@V1/models/organization/organization.model';
 import { OrganizationMember } from '@V1/models/organization/organization_member.model';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
-import { ContractService } from '@V1/models/contract/contracts.service';
+import { ContractService } from '@V1/models/contract/contract.service';
 import { NextFunction } from 'express';
 import { NetworkError } from '@Errors/NetworkError';
 import { IdPrefix, IdUtil } from '@/utils/IdUtil';

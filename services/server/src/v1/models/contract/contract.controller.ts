@@ -11,7 +11,7 @@ import {
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
-import { ContractService } from '@V1/models/contract/contracts.service';
+import { ContractService } from '@V1/models/contract/contract.service';
 import { NextFunction } from 'express';
 import { BodyError } from '@/errors/BodyError';
 import { VLAuthPrincipal } from '@/authProviders/VL.principal';

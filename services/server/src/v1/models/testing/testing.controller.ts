@@ -11,7 +11,7 @@ import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
 import { UserService } from '@V1/models/user/user.service';
 import { AuthService } from '@V1/models/auth/auth.service';
-import { ContractService } from '@V1/models/contract/contracts.service';
+import { ContractService } from '@V1/models/contract/contract.service';
 import { NextFunction } from 'express';
 import { BadRequestError } from '@Errors/BadRequest';
 import { User } from '@V1/models/user/user.model';

@@ -1,4 +1,4 @@
-import './models/contract/contracts.controller';
+import './models/contract/contract.controller';
 import './models/user/user.controller';
 import './models/auth/auth.controller';
 import './models/location/locations.controller';
