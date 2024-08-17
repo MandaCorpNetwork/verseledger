@@ -8,9 +8,9 @@ import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { DTOBase } from '@/DTO/DTOBase';
-import { LocationDTO } from '@V1/models/location/LocationDTO';
-import { ContractBidDTO } from '@V1/models/contract_bid/ContractBidDTO';
-import { UserDTO } from '@V1/models/user/UserDTO';
+import { LocationDTO } from '@V1/models/location/mapping/LocationDTO';
+import { ContractBidDTO } from '@V1/models/contract_bid/mapping/ContractBidDTO';
+import { UserDTO } from '@V1/models/user/mapping/UserDTO';
 
 @ApiModel({
   description: 'Contract Object',

@@ -1,5 +1,5 @@
 import { VLAuthPrincipal } from '@/authProviders/VL.principal';
-import { RatingDTO } from './UserRatingDTO';
+import { RatingDTO } from './mapping/UserRatingDTO';
 import { IdUtil } from '@/utils/IdUtil';
 import { Logger } from '@/utils/Logger';
 import { ZodToOpenapi } from '@/utils/ZodToOpenapi';

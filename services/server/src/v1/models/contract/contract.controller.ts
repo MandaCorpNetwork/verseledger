@@ -36,7 +36,7 @@ import { ContractSearchSchema } from 'vl-shared/src/schemas/SearchSchema';
 import { GenericError } from '@Errors/GenericError';
 import { PaginatedDataDTO } from '@/DTO/PaginatedDataDTO';
 import { ContractDTO } from '@V1/models/contract/mapping/ContractDTO';
-import { ContractBidDTO } from '@V1/models/contract_bid/ContractBidDTO';
+import { ContractBidDTO } from '@V1/models/contract_bid/mapping/ContractBidDTO';
 import { UnauthorizedError } from '@Errors/UnauthorizedError';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { ContractBidStatusSchema } from 'vl-shared/src/schemas/ContractBidStatusSchema';

@@ -3,7 +3,7 @@ import { DTOBase } from '@/DTO/DTOBase';
 import { IContractBidStatus } from 'vl-shared/src/schemas/ContractBidStatusSchema';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { ContractDTO } from '@V1/models/contract/mapping/ContractDTO';
-import { UserDTO } from '@V1/models/user/UserDTO';
+import { UserDTO } from '@V1/models/user/mapping/UserDTO';
 
 @ApiModel({
   description: 'Contract Bid Object',
