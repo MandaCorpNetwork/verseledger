@@ -25,12 +25,7 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
   const [isExpanded, setIsExpanded] = React.useState(false);
 
   const setDisabled = () => {
-    if (
-      filter === 'Locations' ||
-      filter === 'TimeRemaining' ||
-      filter === 'PayRange' ||
-      filter === 'EmployerRating'
-    ) {
+    if (filter === 'Locations' || filter === 'PayRange' || filter === 'EmployerRating') {
       return true;
     }
     return false;
