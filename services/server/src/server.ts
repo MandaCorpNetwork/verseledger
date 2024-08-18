@@ -42,10 +42,33 @@ export const createServer = () => {
     );
     app.use((req, res, next) => {
       const method = methodToColor(req.method);
+      const type = chalk.bold.bgMagenta('[$NET]');
       Logger.withType(
-        chalk.bold.bgMagenta('[$NET]'),
-        `${req.ip} - ${method} ${chalk.underline(req.path)}`,
+        type,
+        `${req.ip} > ${chalk.cyan(req.protocol.toUpperCase())}/${chalk.cyan(req.httpVersion)} ${method} ${chalk.underline(req.path)}`,
       );
+      Logger.withType(
+        type,
+        `${req.ip} > ${chalk.cyan('Connection')}: ${chalk.underline(req.headers.connection)}`,
+      );
+      Logger.withType(
+        type,
+        `${req.ip} > ${chalk.cyan('User-Agent')}: ${chalk.underline(req.headers['user-agent'])}`,
+      );
+      Logger.withType(
+        type,
+        `${req.ip} > ${chalk.cyan('Accept')}: ${chalk.underline(req.headers.accept)}`,
+      );
+      if (req.headers['content-type']) {
+        Logger.withType(
+          type,
+          `${req.ip} > ${chalk.cyan('Content-Type')}: ${chalk.underline(req.headers['content-type'])}`,
+        );
+        Logger.withType(
+          type,
+          `${req.ip} > ${chalk.cyan('Content-Length')}: ${chalk.underline(req.headers['content-length'])}`,
+        );
+      }
       next();
     });
     app
