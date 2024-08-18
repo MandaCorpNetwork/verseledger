@@ -1,21 +1,10 @@
-import {
-  AddCircle,
-  FilterAlt,
-  History,
-  KeyboardDoubleArrowRight,
-  RequestQuote,
-  Store,
-} from '@mui/icons-material';
-import {
-  Autocomplete,
-  Box,
-  Collapse,
-  IconButton,
-  Tab,
-  Tabs,
-  TextField,
-} from '@mui/material';
+import { VLViewport } from '@Common/Components/Boxes/VLViewport';
+import { Box } from '@mui/material';
 import React from 'react';
+
+import { CollapseMenu } from '@/Components/Orders/VerseMarket/CollapseMenu';
+import { ItemDisplay } from '@/Components/Orders/VerseMarket/ItemDisplay';
+import { OrderBrowser } from '@/Components/Orders/VerseMarket/OrderBrowser';
 
 export const VerseMarketPage: React.FC<unknown> = () => {
   const [isExpanded, setIsExpanded] = React.useState(false);
@@ -29,7 +18,7 @@ export const VerseMarketPage: React.FC<unknown> = () => {
   };
 
   return (
-    <Box
+    <VLViewport
       data-testid="VerseMarketPage"
       sx={{
         display: 'flex',
@@ -49,51 +38,12 @@ export const VerseMarketPage: React.FC<unknown> = () => {
           width: '100%',
         }}
       >
-        <Collapse
-          in={isExpanded}
-          collapsedSize="50px"
-          orientation="horizontal"
-          sx={{
-            height: '100%',
-            backgroundColor: 'primary.dark',
-            borderTopRightRadius: '10px',
-            borderBottomRightRadius: '10px',
-            mr: '1em',
-          }}
-        >
-          <IconButton onClick={handleDrawerOpen}>
-            <KeyboardDoubleArrowRight fontSize="large" />
-          </IconButton>
-          <Box data-testid="VerseMarket__TabWrapper">
-            <Tabs
-              value={selectedTab}
-              onChange={handleTabChange}
-              orientation="vertical"
-              color="secondary"
-              indicatorColor="secondary"
-              textColor="secondary"
-            >
-              <Tab
-                value="market"
-                label={isExpanded ? 'Marketplace' : null}
-                icon={<Store />}
-              />
-              <Tab
-                value="open"
-                label={isExpanded ? 'Open Orders' : null}
-                icon={<RequestQuote />}
-              />
-              <Tab
-                value="history"
-                label={isExpanded ? 'Order History' : null}
-                icon={<History />}
-              />
-            </Tabs>
-          </Box>
-          <IconButton>
-            <AddCircle fontSize="medium" />
-          </IconButton>
-        </Collapse>
+        <CollapseMenu
+          isExpanded={isExpanded}
+          handleDrawerOpen={handleDrawerOpen}
+          handleTabChange={handleTabChange}
+          selectedTab={selectedTab}
+        />
         <Box
           data-testid="VerseMarket__MarketplaceWrapper"
           sx={{
@@ -103,60 +53,10 @@ export const VerseMarketPage: React.FC<unknown> = () => {
             flexDirection: 'row',
           }}
         >
-          <Box
-            data-testid="VerseMarket-MarketPlace__BrowserWrapper"
-            sx={{
-              height: '100%',
-              my: '1em',
-              borderTop: '3px solid',
-              borderBottom: '3px solid',
-              borderRadius: '10px',
-              borderColor: 'secondary.main',
-              p: '.5em',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <Box
-              data-testid="VerseMarket-Marketplace-Browser__SearchToolsWrapper"
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                width: '100%',
-                justifyContent: 'space-around',
-              }}
-            >
-              <IconButton>
-                <FilterAlt fontSize="medium" />
-              </IconButton>
-              <Autocomplete
-                renderInput={(params) => <TextField {...params} label="Search" />}
-                options={testOptions}
-                size="small"
-                sx={{
-                  minWidth: '200px',
-                }}
-              />
-            </Box>
-            <Box
-              data-testid="VerseMarket-Marketplace-Browser__ItemFilterWrapper"
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: '100%',
-                borderTop: '2px solid',
-                borderBottom: '2px solid',
-                borderRadius: '5px',
-                borderColor: 'primary.main',
-                mt: '1em',
-                p: '1em',
-              }}
-            ></Box>
-          </Box>
+          <OrderBrowser />
+          <ItemDisplay />
         </Box>
       </Box>
-    </Box>
+    </VLViewport>
   );
 };
-
-const testOptions = ['gold', 'platinum', 'diamond', 'ruby', 'emerald', 'topaz'];

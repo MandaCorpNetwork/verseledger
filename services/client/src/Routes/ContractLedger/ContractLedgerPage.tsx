@@ -105,18 +105,6 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
     { title: 'Proxy', icon: <VisibilityOff fontSize="large" />, value: 'Proxy' },
   ];
 
-  // const handleArchetypeIconClick = React.useCallback(
-  //   (title: string) => {
-  //     setSelectedType((prev) => {
-  //       const newSelectedTypes = prev.includes(title)
-  //         ? prev.filter((t) => t !== title)
-  //         : [...prev, title];
-  //       setFilters('archetype', newSelectedTypes.join(','));
-  //     });
-  //   },
-  //   [setFilters],
-  // );
-
   const navigate = useNavigate();
 
   const [filters, setFilters] = useURLQuery();
