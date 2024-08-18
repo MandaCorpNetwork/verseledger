@@ -1,5 +1,6 @@
+import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import CheckIcon from '@mui/icons-material/Check';
-import { Autocomplete, MenuItem, TextField } from '@mui/material';
+import { Autocomplete, Box, MenuItem, TextField, Typography } from '@mui/material';
 import React from 'react';
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
@@ -27,31 +28,21 @@ export const AccessTimeDropdownFilter: React.FC<unknown> = () => {
   //const accessTime = filters.get('accessTime');
 
   return (
-    <Autocomplete
-      multiple
-      limitTags={1}
-      renderTags={() => null}
-      options={menuValues}
-      onChange={handleChange}
-      renderInput={(params) => (
-        <TextField {...params} label="Access Time" multiline={false} />
-      )}
-      renderOption={(props, option, { selected }) => (
-        <MenuItem {...props} sx={{ display: 'flex' }}>
-          {option.label}
-          {selected && (
-            <CheckIcon
-              sx={{
-                color: 'secondary.main',
-                ml: 'auto',
-                opacity: 0.6,
-                fontSize: '1.2em',
-              }}
-            />
-          )}
-        </MenuItem>
-      )}
-    />
+    <Box>
+      <DigiDisplay>
+        <Typography>Bid Date</Typography>
+      </DigiDisplay>
+      <DigiDisplay>
+        <Typography>Start Date</Typography>
+      </DigiDisplay>
+      <DigiDisplay>
+        <Typography>End Date</Typography>
+      </DigiDisplay>
+      <DigiDisplay>
+        <Typography>Duration</Typography>
+      </DigiDisplay>
+      <Typography></Typography>
+    </Box>
   );
 };
 //Could also use JSON.stringify on the values array before passing to setFilters. This would allow passing the whole array rather than a string.
