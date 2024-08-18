@@ -11,11 +11,23 @@ export const SearchSchema = z.object({
 
 export type ISearch = z.infer<typeof SearchSchema>;
 
+export const DateSearchSchema = z.object({
+  before: z.date().optional(),
+  after: z.date().optional(),
+  exact: z.date().optional(),
+});
+
+export type IDateSearch = z.infer<typeof DateSearchSchema>;
+
 export const ContractSearchSchema = SearchSchema.extend({
   status: stringArray(ContractStatusSchema).optional(),
   subtype: stringArray(ContractSubTypeSchema).optional(),
   ownerId: stringArray(z.string()).optional(),
   contractId: stringArray(z.string()).optional(),
+  bidDate: DateSearchSchema.optional(),
+  startDate: DateSearchSchema.optional(),
+  endDate: DateSearchSchema.optional(),
+  duration: z.number().optional(),
 });
 
 export type IContractSearch = z.infer<typeof ContractSearchSchema>;

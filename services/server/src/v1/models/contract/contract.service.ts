@@ -200,6 +200,10 @@ export class ContractService {
     status?: IContractStatus | IContractStatus[];
     ownerId?: string | string[];
     contractId?: string | string[];
+    bidDate?: Date;
+    startDate?: { before?: Date; after?: Date };
+    endDate?: { before?: Date; after?: Date };
+    duration?: number;
     limit?: number;
     page?: number;
   }) {
@@ -210,6 +214,10 @@ export class ContractService {
       status,
       ownerId,
       contractId,
+      bidDate,
+      startDate,
+      endDate,
+      duration,
     } = params ?? {};
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
