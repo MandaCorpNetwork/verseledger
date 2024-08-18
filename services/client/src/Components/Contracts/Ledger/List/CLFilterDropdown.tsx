@@ -104,13 +104,16 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
   const isFiltersSet = getFilterCount(filter);
   // Identifies if there are filters selected
 
-  const handleDeleteFilter = useCallback((valueToDelete: string) => {
-    const filterToUpdate = QueryNames[filter as unknown as keyof typeof QueryNames];
-    const updatedFilters = filters
-      .getAll(filterToUpdate)
-      .filter((value) => value !== valueToDelete);
-    setFilters(filterToUpdate, updatedFilters);
-  }, []);
+  const handleDeleteFilter = useCallback(
+    (valueToDelete: string) => {
+      const filterToUpdate = QueryNames[filter as unknown as keyof typeof QueryNames];
+      const updatedFilters = filters
+        .getAll(filterToUpdate)
+        .filter((value) => value !== valueToDelete);
+      setFilters(filterToUpdate, updatedFilters);
+    },
+    [filters, setFilters, filter],
+  );
 
   return (
     <Box
