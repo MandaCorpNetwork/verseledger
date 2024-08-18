@@ -1,16 +1,10 @@
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { Avatar, Box, Stack } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
-import { selectUserById } from '@Redux/Slices/Users/userSelectors';
+import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 
-export type UserPageProps = {
-  /** The user ID. */
-  userid: string;
-};
-
-export const UserPage: React.FC<UserPageProps> = ({ userid }) => {
-  const user = useAppSelector((state) => selectUserById(state, userid));
-
+export const UserPage: React.FC = () => {
+  const user = useAppSelector(selectCurrentUser);
   return (
     <VLViewport data-testid="UserPage_PageContainer">
       <Stack direction="row" spacing={2}>
