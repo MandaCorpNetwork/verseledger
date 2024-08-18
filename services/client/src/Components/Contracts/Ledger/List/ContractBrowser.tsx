@@ -80,6 +80,13 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
       new Set([...selectedSubtypes, ...archetypeToSub]),
     );
     Logger.info('Selected Subtypes: ', combinedSubtypes);
+    const bidBefore = new Date(filters.get(QueryNames.BidBefore) as string);
+    const bidAfter = new Date(filters.get(QueryNames.BidAfter) as string);
+    const startBefore = new Date(filters.get(QueryNames.StartBefore) as string);
+    const startAfter = new Date(filters.get(QueryNames.StartAfter) as string);
+    const endBefore = new Date(filters.get(QueryNames.EndBefore) as string);
+    const endAfter = new Date(filters.get(QueryNames.EndAfter) as string);
+    const duration = parseInt(filters.get(QueryNames.Duration) as string, 10);
 
     const params: IContractSearch = {
       page: page,
@@ -87,6 +94,27 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
       status: ['BIDDING', 'INPROGRESS'],
       ...(combinedSubtypes.length > 0 && {
         subtype: combinedSubtypes,
+      }),
+      ...((bidBefore || bidAfter) && {
+        bidDate: {
+          before: bidBefore,
+          after: bidAfter,
+        },
+      }),
+      ...((startBefore || startAfter) && {
+        startDate: {
+          before: startBefore,
+          after: startAfter,
+        },
+      }),
+      ...((endBefore || endAfter) && {
+        endDate: {
+          before: endBefore,
+          after: endAfter,
+        },
+      }),
+      ...(duration && {
+        duration: duration,
       }),
     };
     dispatch(fetchContracts(params));
