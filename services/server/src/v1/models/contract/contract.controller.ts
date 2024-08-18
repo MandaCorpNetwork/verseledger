@@ -610,6 +610,26 @@ export class ContractController extends BaseHttpController {
           description: '',
           type: 'string',
         },
+        'search[bidDate]': {
+          required: false,
+          description: 'Date filter for Bid Date',
+          type: 'string',
+        },
+        'search[startDate]': {
+          required: false,
+          description: 'Date filter for Start Date',
+          type: 'string',
+        },
+        'search[endDate]': {
+          required: false,
+          description: 'Date filter for End Date',
+          type: 'string',
+        },
+        'search[duration]': {
+          required: false,
+          description: 'Duration in days',
+          type: 'number',
+        },
       },
     },
     security: { VLAuthAccessToken: [] },
