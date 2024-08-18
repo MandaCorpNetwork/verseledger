@@ -1,4 +1,6 @@
 //CLFilterDropdown is a reusable DropDown for displaying filters in the Contract Ledger Table Tools Component.
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
 import { ArrowRight } from '@mui/icons-material';
 import { Badge, Box, Chip, Collapse, Typography } from '@mui/material';
 import { AccessTimeDropdownFilter } from '@Utils/Filters/AccessTimeDropdownFilter';
@@ -114,9 +116,9 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
     <Box
       data-testid={`ContractLedgerFilters__${filter}Container`}
       sx={{
-        width: '90%',
         display: 'flex',
         flexDirection: 'column',
+        width: '100%',
       }}
     >
       <Box
@@ -138,6 +140,8 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
             variant="body1"
             onClick={handleExpand}
             sx={{
+              display: 'flex',
+              flexDirection: 'row',
               color: isDisabled
                 ? 'text.disabled'
                 : isExpanded
@@ -145,86 +149,103 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
                   : 'text.secondary',
               cursor: 'pointer',
               fontWeight: 'bold',
+              textShadow: '0 0 5px rgba(33,150,243,.3)',
               '&:hover': {
                 color: isDisabled ? 'action.disabled' : 'text.primary',
                 cursor: isDisabled ? 'default' : 'pointer',
+                textShadow: '0 0 5px rgba(255,255,245,.6)',
               },
             }}
           >
             {label}
+            <ArrowRight
+              color={isExpanded ? 'secondary' : 'inherit'}
+              sx={{
+                transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
+                transition: 'transform 150ms',
+              }}
+            />
           </Typography>
         </Badge>
-        <ArrowRight
-          color={isExpanded ? 'secondary' : 'inherit'}
-          sx={{
-            transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
-            transition: 'transform 150ms',
-          }}
-        />
       </Box>
       <Collapse
         data-testid={`ContractLedgerFilters-${filter}__FilterCollapse`}
         in={isExpanded}
+        sx={{
+          width: '100%',
+        }}
       >
-        <Box
-          data-testid={`ContractLedgerFilters-${filter}-FilterCollapse__CollapseWrapper`}
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '90%',
-            p: '1em',
-          }}
-        >
-          <Box
-            data-testid={`ContractLedgerFilters-${filter}-FilterCollapse__FilterComponentWrapper`}
+        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+          <DigiBox
+            data-testid={`ContractLedgerFilters-${filter}-FilterCollapse__CollapseWrapper`}
             sx={{
-              width: '35%',
-              mr: '10%',
+              display: 'flex',
+              flexDirection: 'row',
+              p: '1em',
+              m: '.5em',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              maxWidth: '100%',
+              flex: '0 1 auto',
+              boxSizing: 'border-box',
+              gap: '1em',
             }}
           >
-            {filterComponent}
-          </Box>
-          {QueryNames[filter as unknown as keyof typeof QueryNames] !==
-            QueryNames.EmployerRating &&
-            filter !== 'PayRange' && (
-              <Box
-                data-testid={`ContractLedgerFilters-${filter}-FilterCollapse__FilterListWrapper`}
-                sx={{
-                  display: 'flex',
-                  flexDitection: 'row',
-                  width: '250px',
-                  flexWrap: 'wrap',
-                  borderTop: '2px solid',
-                  borderBottom: '2px solid',
-                  borderColor: 'text.secondary',
-                  borderRadius: '5px',
-                  padding: '.5em',
-                  justifyContent: !isFiltersSet ? 'center' : '',
-                  alignItems: !isFiltersSet ? 'center' : '',
-                }}
-              >
-                {!isFiltersSet ? (
-                  <Typography variant="body2">No Filters Set</Typography>
-                ) : (
-                  filterValues.map((value, index) => (
-                    <Chip
-                      key={index}
-                      label={value && value.charAt(0).toUpperCase() + value.slice(1)}
-                      size={'small'}
-                      variant="outlined"
-                      color="secondary"
-                      sx={{ m: '.2em' }}
-                      onDelete={() => {
-                        if (value) {
-                          handleDeleteFilter(value);
-                          playSound('toggleOff');
-                        }
+            <Box
+              data-testid={`ContractLedgerFilters-${filter}-FilterCollapse__FilterComponentWrapper`}
+              sx={{
+                minWidth: '200px',
+                flexShrink: 0,
+              }}
+            >
+              {filterComponent}
+            </Box>
+            {QueryNames[filter as unknown as keyof typeof QueryNames] !==
+              QueryNames.EmployerRating &&
+              filter !== 'PayRange' && (
+                <PopupFormDisplay
+                  data-testid={`ContractLedgerFilters-${filter}-FilterCollapse__FilterListWrapper`}
+                  sx={{
+                    display: 'flex',
+                    flexDitection: 'row',
+                    flexWrap: 'wrap',
+                    padding: '.5em',
+                    justifyContent: !isFiltersSet ? 'center' : '',
+                    alignItems: !isFiltersSet ? 'center' : '',
+                    minWidth: '150px',
+                  }}
+                >
+                  {!isFiltersSet ? (
+                    <Typography
+                      variant="body2"
+                      color="grey"
+                      sx={{
+                        textShadow: '0 0 5px rgba(0,0,0,.8)',
                       }}
-                    />
-                  ))
-                )}
-              </Box>
-            )}
+                    >
+                      No Filters Set
+                    </Typography>
+                  ) : (
+                    filterValues.map((value, index) => (
+                      <Chip
+                        key={index}
+                        label={value && value.charAt(0).toUpperCase() + value.slice(1)}
+                        size={'small'}
+                        variant="outlined"
+                        color="secondary"
+                        sx={{ m: '.2em' }}
+                        onDelete={() => {
+                          if (value) {
+                            handleDeleteFilter(value);
+                            playSound('toggleOff');
+                          }
+                        }}
+                      />
+                    ))
+                  )}
+                </PopupFormDisplay>
+              )}
+          </DigiBox>
         </Box>
       </Collapse>
     </Box>
