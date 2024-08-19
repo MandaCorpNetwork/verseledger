@@ -9,3 +9,4 @@ dist
 .flyway
 **/cypress/screenshots/
 services/client/src/CrownsScratch.scratch
+*.log
