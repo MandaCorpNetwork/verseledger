@@ -10,7 +10,12 @@ import { User } from '@V1/models/user/user.model';
 import { Op } from 'sequelize';
 import { IContractStatus } from 'vl-shared/src/schemas/ContractStatusSchema';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
-import { buildDateQuery, buildDurationQuery, optionalSet, queryIn } from '@/utils/Sequelize/queryIn';
+import {
+  buildDateQuery,
+  buildDurationQuery,
+  optionalSet,
+  queryIn,
+} from '@/utils/Sequelize/queryIn';
 import { type NotificationService } from '../notifications/notification.service';
 import { ContractBidDTO } from '@V1/models/contract_bid/mapping/ContractBidDTO';
 import { Logger } from '@/utils/Logger';
@@ -238,7 +243,10 @@ export class ContractService {
     }
 
     if (duration) {
-      Object.assign(query, buildDurationQuery('startDate', 'endDate', duration));
+      Object.assign(
+        query,
+        buildDurationQuery('startDate', 'endDate', duration),
+      );
     }
 
     const contracts = await Contract.scope([
