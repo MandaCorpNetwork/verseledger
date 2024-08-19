@@ -132,16 +132,38 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
         gap: '.5em',
       }}
     >
-      <DigiDisplay data-testid="SchedulingDropdownFilter__BidDate_Wrapper">
-        <Typography>Bid Date</Typography>
-        <Box data-testid="SchedulingDropdownFilter-BidDate__FieldWrapper">
+      <DigiDisplay
+        data-testid="SchedulingDropdownFilter__BidDate_Wrapper"
+        sx={{
+          p: '.5em',
+        }}
+      >
+        <Typography
+          data-testid="SchedulingDropdownFilter__BidDate_Title"
+          sx={{
+            fontWeight: 'bold',
+            color: 'text.primary',
+            textShadow: '0 0 2px rgba(14,255,255,.3)',
+          }}
+        >
+          Bid Date
+        </Typography>
+        <Box
+          data-testid="SchedulingDropdownFilter-BidDate__FieldWrapper"
+          sx={{
+            display: 'flex',
+            gap: '.5em',
+          }}
+        >
           <TimePicker
+            data-testid="SchedulingDropdownFilter-BidDate__BidBefore_Field"
             label="Bid Ends Before"
             onChange={(date) => handleTimeFilterChange(QueryNames.BidBefore, date)}
             value={currentFilterValue(QueryNames.BidBefore)}
             onClear={() => clearDateFilter(QueryNames.BidBefore)}
           />
           <TimePicker
+            data-testid="SchedulingDropdownFilter-BidDate__BidAfter_Field"
             label="Bid Ends After"
             onChange={(date) => handleTimeFilterChange(QueryNames.BidAfter, date)}
             value={currentFilterValue(QueryNames.BidAfter)}
@@ -149,16 +171,33 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
           />
         </Box>
       </DigiDisplay>
-      <DigiDisplay data-testid="SchedulingDropdownFilter__StartDate_Wrapper">
-        <Typography>Start Date</Typography>
-        <Box data-testid="SchedulingDropdownFilter-StartDate__FieldWrapper">
+      <DigiDisplay
+        data-testid="SchedulingDropdownFilter__StartDate_Wrapper"
+        sx={{ p: '.5em' }}
+      >
+        <Typography
+          data-testid="SchedulingDropdownFilter__StartDate_Title"
+          sx={{
+            fontWeight: 'bold',
+            color: 'text.primary',
+            textShadow: '0 0 2px rgba(14,255,255,.3)',
+          }}
+        >
+          Start Date
+        </Typography>
+        <Box
+          data-testid="SchedulingDropdownFilter-StartDate__FieldWrapper"
+          sx={{ display: 'flex', gap: '.5em' }}
+        >
           <TimePicker
+            data-testid="SchedulingDropdownFilter-StartDate__StartBefore_Field"
             label="Starts Before"
             onChange={(date) => handleTimeFilterChange(QueryNames.StartBefore, date)}
             value={currentFilterValue(QueryNames.StartBefore)}
             onClear={() => clearDateFilter(QueryNames.StartBefore)}
           />
           <TimePicker
+            data-testid="SchedulingDropdownFilter-StartDate__StartAfter_Field"
             label="Starts After"
             onChange={(date) => handleTimeFilterChange(QueryNames.StartAfter, date)}
             value={currentFilterValue(QueryNames.StartAfter)}
@@ -166,16 +205,33 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
           />
         </Box>
       </DigiDisplay>
-      <DigiDisplay data-testid="SchedulingDropdownFilter__EndDate_Wrapper">
-        <Typography>End Date</Typography>
-        <Box data-testid="SchedulingDropdownFilter-EndDate__FieldWrapper">
+      <DigiDisplay
+        data-testid="SchedulingDropdownFilter__EndDate_Wrapper"
+        sx={{ p: '.5em' }}
+      >
+        <Typography
+          data-testid="SchedulingDropdownFilter-EndDate__"
+          sx={{
+            fontWeight: 'bold',
+            color: 'text.primary',
+            textShadow: '0 0 2px rgba(14,255,255,.3)',
+          }}
+        >
+          End Date
+        </Typography>
+        <Box
+          data-testid="SchedulingDropdownFilter-EndDate__FieldWrapper"
+          sx={{ display: 'flex', gap: '.5em' }}
+        >
           <TimePicker
+            data-testid="SchedulingDropdownFilter-EndDate__EndBefore_Field"
             label="Ends Before"
             onChange={(date) => handleTimeFilterChange(QueryNames.EndBefore, date)}
             value={currentFilterValue(QueryNames.EndBefore)}
             onClear={() => clearDateFilter(QueryNames.EndBefore)}
           />
           <TimePicker
+            data-testid="SchedulingDropdownFilter-EndDate__EndAfter_Field"
             label="Ends After"
             onChange={(date) => handleTimeFilterChange(QueryNames.EndAfter, date)}
             value={currentFilterValue(QueryNames.EndAfter)}
@@ -183,9 +239,30 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
           />
         </Box>
       </DigiDisplay>
-      <DigiDisplay>
-        <Typography>Duration</Typography>
-        <Box data-testid="SchedulingDropdownFilter-Duration__FieldWrapper">
+      <DigiDisplay
+        data-testid="SchedulingDropdownFilter__Duration_Wrapper"
+        sx={{ px: '.5em', pb: '.5em' }}
+      >
+        <Typography
+          data-testid="SchedulingDropdownFilter-Duration__Title"
+          sx={{
+            fontWeight: 'bold',
+            color: 'text.primary',
+            textShadow: '0 0 2px rgba(14,255,255,.3)',
+            mb: '.2em',
+          }}
+        >
+          Duration
+        </Typography>
+        <Box
+          data-testid="SchedulingDropdownFilter-Duration__FieldWrapper"
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            width: '80%',
+          }}
+        >
           <TextField
             label="Hours"
             size="small"
@@ -235,9 +312,12 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
             }}
           />
         </Box>
+        <Typography variant="tip" sx={{ px: '1em', mt: '.5em' }}>
+          Max Duration on Contract
+        </Typography>
       </DigiDisplay>
-      <Box>
-        <Typography variant="tip" sx={{ fontSize: '.75em', px: '.5em' }}>
+      <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center', mt: '.5em' }}>
+        <Typography variant="tip" sx={{ fontSize: '.75em', px: '1em' }}>
           All times are in Local Time
         </Typography>
       </Box>
