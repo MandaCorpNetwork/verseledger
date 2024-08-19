@@ -98,7 +98,7 @@ export const buildDateQuery = (
 
 /**
  * Builds a query object for filtering records based on duration from a start date
- * 
+ *
  * @param fieldStartDate - The name of the field representing the start date in the database
  * @param fieldEndDate - The name of the field representing the end date in the database
  * @param duration - The duration in days. This duration is used to calculate the end date from the current date
