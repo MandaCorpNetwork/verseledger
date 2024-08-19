@@ -121,6 +121,76 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
   const hours = Math.floor(duration / 60);
   const minutes = duration % 60;
 
+  const filterNumericInput = (input: string) => {
+    // Filter out non-numeric characters
+    const invalidCharacters = input.match(/\D+/g);
+
+    if (invalidCharacters) {
+      enqueueSnackbar('Please only use numbers', { variant: 'error' });
+    }
+    return input.replace(/\D+/g, '');
+  };
+
+  const handleDurationChange = React.useCallback(
+    (field: 'hours' | 'minutes', value: string) => {
+      const filterValue = filterNumericInput(value);
+      const totalDurationInMinutes = parseInt(
+        _filter.get(QueryNames.Duration) ?? '0',
+        10,
+      );
+      const currentHours = Math.floor(totalDurationInMinutes / 60);
+      const currentMinutes = totalDurationInMinutes % 60;
+      let newTotalDurationInMinutes = totalDurationInMinutes;
+
+      if (field === 'hours') {
+        const newHours = parseInt(filterValue, 10);
+        newTotalDurationInMinutes = newHours * 60 + currentMinutes;
+      } else {
+        const newMinutes = parseInt(filterValue, 10);
+        newTotalDurationInMinutes = currentHours * 60 + newMinutes;
+      }
+
+      setFilter(QueryNames.Duration, newTotalDurationInMinutes.toString());
+    },
+    [_filter, setFilter],
+  );
+
+  const clearDateFilter = React.useCallback(
+    (filterName: QueryNames) => {
+      setFilter(filterName, []);
+    },
+    [setFilter],
+  );
+
+  const clearDurationFilter = React.useCallback(
+    (field: 'hours' | 'minutes') => {
+      const totalDurationInMinutes = parseInt(
+        _filter.get(QueryNames.Duration) ?? '0',
+        10,
+      );
+      const currentHours = Math.floor(totalDurationInMinutes / 60);
+      const currentMinutes = totalDurationInMinutes % 60;
+      let newTotalDurationInMinutes = totalDurationInMinutes;
+
+      if (field === 'hours') {
+        newTotalDurationInMinutes -= currentHours * 60;
+      } else if (field === 'minutes') {
+        newTotalDurationInMinutes -= currentMinutes;
+      }
+
+      if (newTotalDurationInMinutes < 0) {
+        newTotalDurationInMinutes = 0;
+      }
+
+      if (newTotalDurationInMinutes <= 0) {
+        setFilter(QueryNames.Duration, []);
+      } else {
+        setFilter(QueryNames.Duration, newTotalDurationInMinutes.toString());
+      }
+    },
+    [_filter, setFilter],
+  );
+
   return (
     <Box
       data-testid="SchedulingDropdownFilter__Form_Wrapper"
