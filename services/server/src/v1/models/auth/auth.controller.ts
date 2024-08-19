@@ -1,10 +1,13 @@
 import {
   BaseHttpController,
   controller,
+  httpDelete,
+  httpGet,
   httpPost,
   next,
   requestBody,
   requestHeaders,
+  requestParam,
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
@@ -13,8 +16,16 @@ import { AuthService } from '@V1/models/auth/auth.service';
 import { EnvService } from '@V1/services/env.service';
 import { NextFunction } from 'express';
 import { UnauthorizedError } from '@V1/errors/UnauthorizedError';
-import { ApiOperationPost, ApiPath } from 'swagger-express-ts';
+import {
+  ApiOperationDelete,
+  ApiOperationGet,
+  ApiOperationPost,
+  ApiPath,
+} from 'swagger-express-ts';
 import { Logger } from '@/utils/Logger';
+import { VLAuthPrincipal } from '@/authProviders/VL.principal';
+import { AuthRepository } from './auth.repository';
+import { ApiTokenCreateSchema } from 'vl-shared/src/schemas/ApiTokenSchema';
 const env = new EnvService();
 @ApiPath({
   path: '/v1/auth',
@@ -28,6 +39,96 @@ export class AuthController extends BaseHttpController {
     @inject(TYPES.AuthService) private authService: AuthService,
   ) {
     super();
+  }
+
+  @ApiOperationGet({
+    tags: ['Auth'],
+    description: 'Get user api tokens',
+    summary: 'Get user api tokens',
+    path: '/tokens',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {},
+    security: { VLAuthRefreshToken: [] },
+  })
+  @httpGet('/tokens', TYPES.VerifiedUserMiddleware)
+  public async getTokens() {
+    const owner_id = (this.httpContext.user as VLAuthPrincipal).id;
+    const tokens = AuthRepository.getTokens(owner_id);
+    return tokens;
+  }
+
+  @ApiOperationDelete({
+    tags: ['Auth'],
+    description: 'Delete an API token',
+    summary: 'Delete an API token',
+    path: '/tokens/{token_id}',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: { token_id: { required: true, description: 'A Token ID' } },
+    },
+    security: { VLAuthRefreshToken: [] },
+  })
+  @httpDelete('/tokens/:token_id', TYPES.VerifiedUserMiddleware)
+  public async deleteTokens(@requestParam('token_id') token_id: string) {
+    const owner_id = (this.httpContext.user as VLAuthPrincipal).id;
+    return this.authService.invalidateToken(token_id, owner_id);
+  }
+
+  @ApiOperationPost({
+    tags: ['Auth'],
+    description: 'Create an API token',
+    summary: 'Create an API token',
+    path: '/tokens',
+    responses: {
+      201: {
+        type: 'Success',
+        description: 'Created',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      body: {
+        properties: {
+          expires: { type: 'date | string', required: true },
+          name: { type: 'string', required: true },
+        },
+        required: true,
+      },
+    },
+    security: { VLAuthRefreshToken: [] },
+  })
+  @httpPost('/tokens', TYPES.VerifiedUserMiddleware)
+  public async createToken(
+    @requestBody() reqBody: { expires: string; name: string },
+  ) {
+    const body = ApiTokenCreateSchema.strict().parse(reqBody);
+    const owner_id = (this.httpContext.user as VLAuthPrincipal).id;
+    const token = await this.authService.createApiToken(
+      owner_id,
+      body.expires as Date,
+      body.name,
+    );
+    const t = await this.authService.getUserToken(token);
+    return this.created(`/v1/auth/tokens/${t?.jti}`, {
+      token,
+      id: t?.jti,
+      expires: t?.exp,
+    });
   }
 
   @ApiOperationPost({

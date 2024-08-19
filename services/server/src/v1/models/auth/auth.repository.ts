@@ -4,6 +4,7 @@ import { IdUtil } from '@/utils/IdUtil';
 import jwt from 'jsonwebtoken';
 import ms from 'ms';
 import { EnvService } from '@V1/services/env.service';
+import { Op } from 'sequelize';
 
 const env = new EnvService();
 @injectable()
@@ -20,11 +21,13 @@ export class AuthRepository {
   }
   public static async createApiToken(
     user_id: string,
-    expires: `${number}${'d' | 'h' | 's' | 'm'}` = '1h',
+    expires: Date | number | `${number}${'d' | 'h' | 's' | 'm' | 'y'}` = '1h',
     type = 'access',
+    name = 'USER TOKEN',
     jwtid: string = IdUtil.generateSystemID(),
   ) {
-    const expiresRange = ms(expires);
+    const expiresRange =
+      typeof expires === 'string' ? ms(expires) : new Date(expires).getTime();
     const expiresAt = Date.now() + expiresRange;
     const token = jwt.sign(
       { id: user_id, type },
@@ -40,6 +43,7 @@ export class AuthRepository {
     );
     await AuthRepository.ApiToken.create({
       user_id,
+      name,
       type,
       token_id: jwtid,
       expiresAt,
@@ -51,9 +55,15 @@ export class AuthRepository {
     jwtid: string = IdUtil.generateSystemID(),
   ) {
     const [accessToken, refreshToken] = await Promise.all([
-      AuthRepository.createApiToken(user_id, '1h', 'access', jwtid),
-      AuthRepository.createApiToken(user_id, '2d', 'refresh', jwtid),
+      AuthRepository.createApiToken(user_id, '1h', 'access', undefined, jwtid),
+      AuthRepository.createApiToken(user_id, '2d', 'refresh', undefined, jwtid),
     ]);
     return { accessToken, refreshToken };
+  }
+
+  public static async getTokens(user: string, type: string = 'api') {
+    return ApiToken.findAll({
+      where: { user_id: user, type, expiresAt: { [Op.gte]: Date.now() } },
+    });
   }
 }
