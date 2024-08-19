@@ -11,48 +11,42 @@ export class AuthService {
   }
   @inject(TYPES.EnvService) private declare readonly _envars: EnvService;
 
-  async getUserToken(token: string) {
-    let decoded!: string | jwt.JwtPayload;
-    try {
-      //TODO: CHANGE THIS SECRET
-      decoded = jwt.verify(
-        token,
-        Buffer.from(this._envars.AUTH_SECRET, 'base64'),
-        {
-          algorithms: ['HS512'],
-        },
-      );
-    } catch (e) {
-      Logger.error(e);
-      return null;
-    }
-    const tokenDecoded = decoded as unknown as {
+  /**
+   * Validate and Decode a token
+   * @throws {Error} Invalid token
+   */
+  verifyToken(token: string) {
+    return jwt.verify(token, Buffer.from(this._envars.AUTH_SECRET, 'base64'), {
+      algorithms: ['HS512'],
+    }) as {
       jti: string;
       id: string;
       exp: number;
       type: 'access' | 'refresh' | 'api';
     };
-    return tokenDecoded;
   }
-  async invalidateToken(token: string) {
+
+  async getUserToken(token: string) {
     let decoded!: string | jwt.JwtPayload;
     try {
-      decoded = jwt.verify(
-        token,
-        Buffer.from(this._envars.AUTH_SECRET, 'base64'),
-        {
-          algorithms: ['HS512'],
-        },
-      );
+      decoded = this.verifyToken(token);
     } catch (e) {
       Logger.error(e);
       return null;
     }
-    const tokenDecoded = decoded as unknown as {
-      jti: string;
-      id: string;
-      exp: number;
-    };
+    const tokenDecoded = decoded as unknown;
+    return tokenDecoded as ReturnType<typeof this.verifyToken>;
+  }
+
+  async invalidateToken(token: string) {
+    let decoded;
+    try {
+      decoded = this.verifyToken(token);
+    } catch (e) {
+      Logger.error(e);
+      return false;
+    }
+    const tokenDecoded = decoded;
     await AuthRepository.invalidateToken({
       user_id: tokenDecoded.id,
       token_id: tokenDecoded.jti,
