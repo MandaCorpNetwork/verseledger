@@ -6,6 +6,7 @@ import { fetchCheckVerificationCode } from './Actions/checkVerificationCode';
 import { fetchCurrentUser } from './Actions/fetchCurrentUser';
 import { setUserLocation } from './Actions/setUserLocation';
 import { updateTokens } from './Actions/updateTokens';
+
 const authReducer = createSlice({
   name: 'auth',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -39,11 +40,11 @@ const authReducer = createSlice({
     builder.addCase(updateTokens.fulfilled, (state, action) => {
       state.lastUpdated = Date.now();
       const tokens = action.payload as {
-        accessToken: string;
-        refreshToken: string;
+        accessToken: { token: string };
+        refreshToken: { token: string };
       };
-      AuthUtil.setAccessToken(tokens.accessToken);
-      AuthUtil.setRefreshToken(tokens.refreshToken);
+      AuthUtil.setAccessToken(tokens.accessToken.token);
+      AuthUtil.setRefreshToken(tokens.refreshToken.token);
     });
     builder.addCase(updateTokens.rejected, (state) => {
       state.lastUpdated = Date.now();
