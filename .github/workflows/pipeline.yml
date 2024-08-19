@@ -26,6 +26,8 @@ jobs:
       - run: npx yarn test
   cypress:
     runs-on: self-hosted
+    needs:
+      - test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
