@@ -10,7 +10,7 @@ import React, { useRef, useState } from 'react';
 import { useSoundEffect } from '@/AudioManager';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
-import { CLFilterDropdown } from './CLFilterDropdown';
+import { DropdownFilter } from '../../../../Common/Components/App/DropdownFilter';
 
 export const ContractTableTools: React.FC<unknown> = () => {
   const { playSound } = useSoundEffect();
@@ -126,11 +126,11 @@ export const ContractTableTools: React.FC<unknown> = () => {
           `,
         }}
       >
-        <CLFilterDropdown filter="Subtype" label="SubTypes" />
-        <CLFilterDropdown filter="Locations" label="Locations" />
-        <CLFilterDropdown filter="Scheduling" label="Scheduling" />
-        <CLFilterDropdown filter="EmployerRating" label="Ratings" />
-        <CLFilterDropdown filter="PayRange" label="Compensation" />
+        <DropdownFilter filter="Subtype" label="SubTypes" />
+        <DropdownFilter filter="Locations" label="Locations" />
+        <DropdownFilter filter="Scheduling" label="Scheduling" />
+        <DropdownFilter filter="EmployerRating" label="Ratings" />
+        <DropdownFilter filter="PayRange" label="Compensation" />
       </Collapse>
       <Typography
         data-testid="ContractLedger-TableTools__Title"
