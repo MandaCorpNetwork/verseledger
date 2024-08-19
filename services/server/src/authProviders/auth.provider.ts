@@ -10,6 +10,7 @@ import { VLAuthPrincipal } from './VL.principal';
 import { User } from '@V1/models/user/user.model';
 import { ApiToken } from '@V1/models/auth/api_token.model';
 import { Op } from 'sequelize';
+import { Logger } from '@/utils/Logger';
 
 @injectable()
 export class AuthProvider implements interfaces.AuthProvider {
@@ -44,6 +45,7 @@ export class AuthProvider implements interfaces.AuthProvider {
         expiresAt: { [Op.gte]: Date.now() },
       },
     });
+    Logger.info(valid)
     if (valid == null) return new AnonymousPrincipal(false);
 
     const principal = new VLAuthPrincipal(
