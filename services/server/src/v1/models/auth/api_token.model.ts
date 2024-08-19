@@ -25,6 +25,10 @@ export class ApiToken extends Model {
   @Column({ type: DataType.ENUM('access', 'refresh', 'api') })
   declare type: 'access' | 'refresh' | 'api';
 
+  @Default('USER TOKEN')
+  @Column({ type: DataType.STRING(32) })
+  declare name: string;
+
   @Column({ type: DataType.DATE })
   declare expiresAt: Date;
 }
