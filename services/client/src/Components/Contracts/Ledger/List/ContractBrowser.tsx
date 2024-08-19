@@ -114,7 +114,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
         },
       }),
       ...(duration && {
-        duration: duration,
+        duration: Number(duration),
       }),
     };
     dispatch(fetchContracts(params));

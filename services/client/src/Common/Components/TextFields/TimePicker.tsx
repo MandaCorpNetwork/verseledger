@@ -1,4 +1,3 @@
-import { Typography } from '@mui/material';
 import { DateTimePicker, digitalClockClasses } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
@@ -50,7 +49,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       thresholdToRenderTimeInASingleColumn={300}
       skipDisabled
       onChange={(newValue) => onChange(newValue ? newValue.toDate() : null)}
-      value={dayjs(value) ?? null}
+      value={value ? dayjs(value) : null}
       slotProps={{
         actionBar: {
           actions: ['clear', 'today'],
