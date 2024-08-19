@@ -8,8 +8,8 @@ import {
 } from 'sequelize-typescript';
 import { IdUtil } from '@/utils/IdUtil';
 
-@Table({ tableName: 'invalid_tokens', timestamps: true })
-export class InvalidToken extends Model {
+@Table({ tableName: 'api_tokens', timestamps: true })
+export class ApiToken extends Model {
   @PrimaryKey
   @Default(IdUtil.generateSystemID)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
@@ -22,6 +22,9 @@ export class InvalidToken extends Model {
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare token_id: string;
 
+  @Column({ type: DataType.ENUM('access', 'refresh', 'api') })
+  declare type: 'access' | 'refresh' | 'api';
+
   @Column({ type: DataType.DATE })
-  declare expires: Date;
+  declare expiresAt: Date;
 }

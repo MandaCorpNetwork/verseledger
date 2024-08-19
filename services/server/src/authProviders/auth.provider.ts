@@ -8,7 +8,8 @@ import { AuthService } from '@V1/models/auth/auth.service';
 import { AnonymousPrincipal } from './anonymous.principal';
 import { VLAuthPrincipal } from './VL.principal';
 import { User } from '@V1/models/user/user.model';
-import { InvalidToken } from '@V1/models/auth/invalid_tokens.model';
+import { ApiToken } from '@V1/models/auth/api_token.model';
+import { Op } from 'sequelize';
 
 @injectable()
 export class AuthProvider implements interfaces.AuthProvider {
@@ -32,13 +33,18 @@ export class AuthProvider implements interfaces.AuthProvider {
     const token = bearerHeader.split(' ')[1];
     if (token == null) return new AnonymousPrincipal(false);
 
-    const user = await this._authService.getUserToken(token as string);
+    const user = await this._authService.getUserToken(token);
     if (user == null) return new AnonymousPrincipal(false);
 
-    const expired = await InvalidToken.findOne({
-      where: { user_id: user.id, token_id: user.jti },
+    const valid = await ApiToken.findOne({
+      where: {
+        user_id: user.id,
+        token_id: user.jti,
+        type: user.type,
+        expiresAt: { [Op.gte]: Date.now() },
+      },
     });
-    if (expired != null) return new AnonymousPrincipal(false);
+    if (valid == null) return new AnonymousPrincipal(false);
 
     const principal = new VLAuthPrincipal(
       user.id,
