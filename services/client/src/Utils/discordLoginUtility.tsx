@@ -11,6 +11,7 @@ export const DiscordLoginUtility = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   useEffect(() => {
+    console.log('logging in...');
     dispatch(loginWithDiscord(searchParams.get('code') as string))
       .then((v) => {
         const { accessToken, refreshToken } = (
@@ -18,7 +19,9 @@ export const DiscordLoginUtility = () => {
         ).data;
         AuthUtil.setAccessToken(accessToken);
         AuthUtil.setRefreshToken(refreshToken);
-        return dispatch(fetchCurrentUser());
+        return dispatch(fetchCurrentUser()).then((user) =>
+          console.log((user.payload as { data: unknown }).data),
+        );
       })
       .finally(() => {
         const newPath = localStorage.getItem('returnPath');

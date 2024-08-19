@@ -12,6 +12,7 @@ export function useHorizontalSimpleScroll(): RefObject<HTMLDivElement> {
       e.preventDefault();
       const delta = Math.max(-1, Math.min(1, e.deltaY));
       el.scrollLeft += delta * 40;
+      console.log('Fire scroll');
     };
 
     el.addEventListener('wheel', onWheel, { passive: false });

@@ -45,6 +45,7 @@ export const DeveloperSettings: React.FC<DeveloperSettingsProps> = ({ onClose })
         <Table>
           <TableBody>
             {tokens.map((token) => {
+              console.log(token);
               return (
                 <TableRow key={token.id}>
                   <TableCell>{token.name}</TableCell>
