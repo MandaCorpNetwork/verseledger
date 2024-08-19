@@ -243,14 +243,10 @@ export class ContractService {
     }
 
     if (duration) {
-<<<<<<< HEAD
       Object.assign(
         query,
         buildDurationQuery('startDate', 'endDate', duration),
       );
-=======
-      Object.assign(query, buildDurationQuery('startDate', 'endDate', duration));
->>>>>>> 046d7fbf98c3d443df367e2d3e63cef445b2861e
     }
 
     const contracts = await Contract.scope([
