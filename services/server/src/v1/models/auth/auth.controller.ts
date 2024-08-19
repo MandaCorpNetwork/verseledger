@@ -84,8 +84,8 @@ export class AuthController extends BaseHttpController {
   })
   @httpDelete('/tokens/:token_id', TYPES.VerifiedUserMiddleware)
   public async deleteTokens(@requestParam('token_id') token_id: string) {
-    const owner_id = (this.httpContext.user as VLAuthPrincipal).id;
-    return this.authService.invalidateToken(token_id, owner_id);
+    const user_id = (this.httpContext.user as VLAuthPrincipal).id;
+    return AuthRepository.invalidateToken({ token_id, user_id });
   }
 
   @ApiOperationPost({
@@ -123,12 +123,7 @@ export class AuthController extends BaseHttpController {
       body.expires as Date,
       body.name,
     );
-    const t = await this.authService.getUserToken(token);
-    return this.created(`/v1/auth/tokens/${t?.jti}`, {
-      token,
-      id: t?.jti,
-      expires: t?.exp,
-    });
+    return this.created(`/v1/auth/tokens/${token.token_id}`, token);
   }
 
   @ApiOperationPost({

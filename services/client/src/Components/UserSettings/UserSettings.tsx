@@ -20,6 +20,7 @@ import React from 'react';
 import { useSoundEffect } from '@/AudioManager';
 
 import { ApplicationSettings } from './Application';
+import { DeveloperSettings } from './DeveloperSettings';
 import { GraphicsSettings } from './Graphics';
 import { NotificationSettings } from './Notifications';
 import { ProfileSettings } from './Profile';
@@ -34,15 +35,19 @@ type UserSettingsProps = {
 const settingsList = [
   'Profile',
   'Security',
+  'Developer',
   'Sounds',
   'Graphics',
   'Application',
   'Notifications',
-];
+] as const;
+
+type settingsListItem = (typeof settingsList)[number];
 
 export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => {
   const { playSound } = useSoundEffect();
-  const [selectedSetting, setSelectedSetting] = React.useState<string>('Profile');
+  const [selectedSetting, setSelectedSetting] =
+    React.useState<settingsListItem>('Profile');
   const [currentSetting, setCurrentSetting] = React.useState<string>('Profile');
   const [transitioning, setTransitioning] = React.useState<boolean>(false);
 
@@ -50,6 +55,8 @@ export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => 
     switch (selectedSetting) {
       case 'Profile':
         return <ProfileSettings />;
+      case 'Developer':
+        return <DeveloperSettings onClose={onClose} />;
       case 'Security':
         return <SecuritySettings />;
       case 'Sounds':
@@ -64,7 +71,7 @@ export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => 
   }, [currentSetting]);
 
   const handleSettingSelection = React.useCallback(
-    (setting: string) => {
+    (setting: settingsListItem) => {
       if (selectedSetting !== setting) {
         playSound('clickMain');
         setTransitioning(true);

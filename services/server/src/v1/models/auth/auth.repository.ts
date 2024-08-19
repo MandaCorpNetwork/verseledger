@@ -41,14 +41,14 @@ export class AuthRepository {
         subject: user_id,
       },
     );
-    await AuthRepository.ApiToken.create({
+    const newToken = await AuthRepository.ApiToken.create({
       user_id,
       name,
       type,
       token_id: jwtid,
       expiresAt,
     });
-    return token;
+    return { ...newToken.toJSON(), token };
   }
   public static async createTokenPair(
     user_id: string,
