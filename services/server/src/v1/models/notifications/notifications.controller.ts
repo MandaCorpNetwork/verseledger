@@ -14,10 +14,10 @@ import { VLAuthPrincipal } from '@/authProviders/VL.principal';
 import { ApiPath } from 'swagger-express-ts';
 import { NextFunction } from 'express';
 import { IdUtil } from '@/utils/IdUtil';
-import { BadParameterError } from '@Errors/BadParameter';
+import { BadParameterError } from '@V1/errors/BadParameter';
 import { Logger } from '@/utils/Logger';
 import { BadRequestErrorMessageResult } from 'inversify-express-utils/lib/results';
-import { GenericError } from '@Errors/GenericError';
+import { GenericError } from '@V1/errors/GenericError';
 import { ZodError } from 'zod';
 
 @ApiPath({

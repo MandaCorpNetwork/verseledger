@@ -1,9 +1,11 @@
 import { VLAuthPrincipal } from '@/authProviders/VL.principal';
-import { UnauthorizedError } from '@/errors/UnauthorizedError';
+import { UnauthorizedError } from '@V1/errors/UnauthorizedError';
+import { NotVerifiedError } from '@V1/errors/NotVerifiedError';
+import { User } from '@V1/models/user/user.model';
 import { Request, Response, NextFunction } from 'express';
 import { BaseMiddleware } from 'inversify-express-utils';
 
-export class AuthMiddleware extends BaseMiddleware {
+export class VerifiedUserMiddleware extends BaseMiddleware {
   async handler(
     req: Request,
     res: Response,
@@ -13,6 +15,10 @@ export class AuthMiddleware extends BaseMiddleware {
     if (!(await user.isAuthenticated())) {
       return next(new UnauthorizedError());
     }
+    const isVerified =
+      (await User.findByPk(user.id, { attributes: ['verified'] }))?.verified ??
+      false;
+    if (!isVerified) return next(new NotVerifiedError());
     next();
   }
 }

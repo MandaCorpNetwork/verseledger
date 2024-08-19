@@ -11,7 +11,7 @@ import { AuthService } from '@V1/models/auth/auth.service';
 import { ContractService } from '@V1/models/contract/contract.service';
 import { IdPrefix, IdUtil } from '@/utils/IdUtil';
 import { Location } from '@V1/models/location/location.model';
-import { NotFoundError } from '@Errors/NotFoundError';
+import { NotFoundError } from '@V1/errors/NotFoundError';
 import { parse } from 'csv-parse/sync';
 import fs from 'fs';
 import { ApiOperationGet, ApiPath } from 'swagger-express-ts';

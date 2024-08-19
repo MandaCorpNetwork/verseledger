@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import jwt from 'jsonwebtoken';
 import { TYPES } from '@Constant/types';
-import { EnvService } from '@Services/env.service';
+import { EnvService } from '@V1/services/env.service';
 import { IdUtil } from '@/utils/IdUtil';
 import { Logger } from '@/utils/Logger';
 import { AuthRepository } from './auth.repository';

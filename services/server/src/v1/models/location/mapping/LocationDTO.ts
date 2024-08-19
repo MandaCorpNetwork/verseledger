@@ -2,7 +2,7 @@ import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
 
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
-import { DTOBase } from '@/DTO/DTOBase';
+import { DTOBase } from '@V1/DTO/DTOBase';
 
 @ApiModel({
   description: 'Location Object',

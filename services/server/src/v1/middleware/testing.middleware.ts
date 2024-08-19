@@ -1,4 +1,4 @@
-import { UnauthorizedError } from '@/errors/UnauthorizedError';
+import { UnauthorizedError } from '@V1/errors/UnauthorizedError';
 import { Request, Response, NextFunction } from 'express';
 import { BaseMiddleware } from 'inversify-express-utils';
 

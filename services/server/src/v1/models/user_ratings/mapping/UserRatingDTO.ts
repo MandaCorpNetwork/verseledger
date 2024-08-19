@@ -1,5 +1,5 @@
 import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
-import { DTOBase } from '@/DTO/DTOBase';
+import { DTOBase } from '@V1/DTO/DTOBase';
 import {
   IRatingType,
   IUserRating,
