@@ -1,6 +1,8 @@
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { TimePicker } from '@Common/Components/TextFields/TimePicker';
-import { Box, Typography } from '@mui/material';
+import { Box, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
+import { ClearIcon } from '@mui/x-date-pickers';
+import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
@@ -51,6 +53,76 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
     };
   }, [_filter]);
 
+  const filterNumericInput = (input: string) => {
+    // Filter out non-numeric characters
+    const invalidCharacters = input.match(/\D+/g);
+
+    if (invalidCharacters) {
+      enqueueSnackbar('Please only use numbers', { variant: 'error' });
+    }
+    return input.replace(/\D+/g, '');
+  };
+
+  const handleDurationChange = React.useCallback(
+    (field: 'hours' | 'minutes', value: string) => {
+      const filterValue = filterNumericInput(value);
+      const totalDurationInMinutes = parseInt(
+        _filter.get(QueryNames.Duration) ?? '0',
+        10,
+      );
+      const currentHours = Math.floor(totalDurationInMinutes / 60);
+      const currentMinutes = totalDurationInMinutes % 60;
+      let newTotalDurationInMinutes = totalDurationInMinutes;
+
+      if (field === 'hours') {
+        const newHours = parseInt(filterValue, 10);
+        newTotalDurationInMinutes = newHours * 60 + currentMinutes;
+      } else {
+        const newMinutes = parseInt(filterValue, 10);
+        newTotalDurationInMinutes = currentHours * 60 + newMinutes;
+      }
+
+      setFilter(QueryNames.Duration, newTotalDurationInMinutes.toString());
+    },
+    [_filter, setFilter],
+  );
+
+  const clearDateFilter = React.useCallback(
+    (filterName: QueryNames) => {
+      setFilter(filterName, []);
+    },
+    [setFilter],
+  );
+
+  const clearDurationFilter = React.useCallback(
+    (field: 'hours' | 'minutes') => {
+      const totalDurationInMinutes = parseInt(
+        _filter.get(QueryNames.Duration) ?? '0',
+        10,
+      );
+      const currentHours = Math.floor(totalDurationInMinutes / 60);
+      const currentMinutes = totalDurationInMinutes % 60;
+      let newTotalDurationInMinutes = totalDurationInMinutes;
+
+      if (field === 'hours') {
+        newTotalDurationInMinutes -= currentHours * 60;
+      } else if (field === 'minutes') {
+        newTotalDurationInMinutes -= currentMinutes;
+      }
+
+      if (newTotalDurationInMinutes < 0) {
+        newTotalDurationInMinutes = 0;
+      }
+
+      if (newTotalDurationInMinutes <= 0) {
+        setFilter(QueryNames.Duration, []);
+      } else {
+        setFilter(QueryNames.Duration, newTotalDurationInMinutes.toString());
+      }
+    },
+    [_filter, setFilter],
+  );
+
   return (
     <Box
       data-testid="SchedulingDropdownFilter__Form_Wrapper"
@@ -67,11 +139,13 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
             label="Bid Ends Before"
             onChange={(date) => handleTimeFilterChange(QueryNames.BidBefore, date)}
             value={currentFilterValue(QueryNames.BidBefore)}
+            onClear={() => clearDateFilter(QueryNames.BidBefore)}
           />
           <TimePicker
             label="Bid Ends After"
             onChange={(date) => handleTimeFilterChange(QueryNames.BidAfter, date)}
             value={currentFilterValue(QueryNames.BidAfter)}
+            onClear={() => clearDateFilter(QueryNames.BidAfter)}
           />
         </Box>
       </DigiDisplay>
@@ -82,11 +156,13 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
             label="Starts Before"
             onChange={(date) => handleTimeFilterChange(QueryNames.StartBefore, date)}
             value={currentFilterValue(QueryNames.StartBefore)}
+            onClear={() => clearDateFilter(QueryNames.StartBefore)}
           />
           <TimePicker
             label="Starts After"
             onChange={(date) => handleTimeFilterChange(QueryNames.StartAfter, date)}
             value={currentFilterValue(QueryNames.StartAfter)}
+            onClear={() => clearDateFilter(QueryNames.StartAfter)}
           />
         </Box>
       </DigiDisplay>
@@ -97,18 +173,74 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
             label="Ends Before"
             onChange={(date) => handleTimeFilterChange(QueryNames.EndBefore, date)}
             value={currentFilterValue(QueryNames.EndBefore)}
+            onClear={() => clearDateFilter(QueryNames.EndBefore)}
           />
           <TimePicker
             label="Ends After"
             onChange={(date) => handleTimeFilterChange(QueryNames.EndAfter, date)}
             value={currentFilterValue(QueryNames.EndAfter)}
+            onClear={() => clearDateFilter(QueryNames.EndAfter)}
           />
         </Box>
       </DigiDisplay>
       <DigiDisplay>
         <Typography>Duration</Typography>
+        <Box data-testid="SchedulingDropdownFilter-Duration__FieldWrapper">
+          <TextField
+            label="Hours"
+            size="small"
+            color="secondary"
+            value={Math.floor(parseInt(_filter.get(QueryNames.Duration) ?? '0', 10) / 60)}
+            onChange={(e) => handleDurationChange('hours', e.target.value)}
+            sx={{
+              width: '100px',
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => clearDurationFilter('hours')}
+                    sx={{
+                      color: 'secondary.main',
+                    }}
+                  >
+                    <ClearIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            label="Minutes"
+            size="small"
+            color="secondary"
+            value={parseInt(_filter.get(QueryNames.Duration) ?? '0', 10) % 60}
+            onChange={(e) => handleDurationChange('minutes', e.target.value)}
+            sx={{
+              width: '100px',
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => clearDurationFilter('minutes')}
+                    sx={{
+                      color: 'secondary.main',
+                    }}
+                  >
+                    <ClearIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
       </DigiDisplay>
-      <Typography></Typography>
+      <Box>
+        <Typography variant="tip" sx={{ fontSize: '.75em', px: '.5em' }}>
+          All times are in Local Time
+        </Typography>
+      </Box>
     </Box>
   );
 };
