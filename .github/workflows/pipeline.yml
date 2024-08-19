@@ -24,3 +24,31 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npx yarn install --frozen-lockfile
       - run: npx yarn test
+  cypress:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+      - uses: bitwarden/sm-action@v2.0.0
+        with:
+          access_token: ${{ secrets.BW_ACCESS_TOKEN }}
+          base_url: https://vault.bitwarden.com
+          secrets: |
+            71e61932-bfa4-4126-aff2-b14a00716910 > AUTH_SECRET
+            7c5021b5-d558-40d4-b342-b14a001a3e67 > DISCORD_CLIENT_ID
+            a18c0870-b4f7-48c0-a71c-b14a001a8a15 > DISCORD_CLIENT_SECRET
+            896666a0-119a-40be-9c8f-b1d100b15f3c > MYSQL_DATABASE
+            58ea80fb-d3c1-4790-aba3-b1d100b1859c > MYSQL_USER
+            6c679516-42df-4115-a29a-b1d100b1d6d4 > MYSQL_PASSWORD
+            c81ba669-5ef4-44e6-90b2-b1d100b1f756 > MYSQL_HOST
+            e2a2ac60-1e5c-406c-8b34-b1d100b217a3 > MYSQL_PORT
+            e15af63c-9b7d-464c-9f6c-b1d100b277e0 > EXPRESS_PORT
+      - run: echo "[environments.vl-db]" >> flyway.user.toml
+      - run: echo 'url = "jdbc:mysql://$MYSQL_HOST:$MYSQL_PORT?allowPublicKeyRetrieval=true&useSSL=false"' >> flyway.user.toml
+      - run: echo 'user = "root"' >> flyway.user.toml
+      - run: echo 'password = "$MYSQL_PASSWORD"' >> flyway.user.root
+      - run: echo 'schemas = [ "$MYSQL_DATABASE" ]' >> flyway.user.root
+      - run: echo 'displayNam = "VL Test DB"'
