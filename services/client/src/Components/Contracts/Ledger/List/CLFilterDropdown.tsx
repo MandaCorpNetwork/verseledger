@@ -3,7 +3,7 @@ import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
 import { ArrowRight } from '@mui/icons-material';
 import { Badge, Box, Chip, Collapse, Typography } from '@mui/material';
-import { AccessTimeDropdownFilter } from '@Utils/Filters/AccessTimeDropdownFilter';
+import { SchedulingDropdownFilter } from '@Utils/Filters/AccessTimeDropdownFilter';
 import { LocationsFilter } from '@Utils/Filters/LocationsFilter';
 import { EmployerRatingSliderFilter } from '@Utils/Filters/MultiRatingSliderFilter';
 import { SubTypeFilter } from '@Utils/Filters/SubtypeFilter';
@@ -15,7 +15,7 @@ import { useSoundEffect } from '@/AudioManager';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 type CLFilterDropdownProps = {
-  filter: 'Subtype' | 'PayRange' | 'Locations' | 'TimeRemaining' | 'EmployerRating';
+  filter: 'Subtype' | 'PayRange' | 'Locations' | 'Scheduling' | 'EmployerRating';
   label: string;
 };
 
@@ -49,8 +49,8 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
         return <SubTypeFilter size="small" />;
       case 'Locations':
         return <LocationsFilter size="medium" />;
-      case 'TimeRemaining':
-        return <AccessTimeDropdownFilter />;
+      case 'Scheduling':
+        return <SchedulingDropdownFilter />;
       case 'EmployerRating':
         return <EmployerRatingSliderFilter />;
       case 'PayRange':
