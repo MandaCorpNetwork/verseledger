@@ -1,17 +1,30 @@
-import { ClearIcon, DateTimePicker } from '@mui/x-date-pickers';
-import { SmallTimeField } from './TimeField';
-import { Box, IconButton, InputAdornment, Typography } from '@mui/material';
-import { CalendarToday, Clear } from '@mui/icons-material';
+import { DateTimePicker, digitalClockClasses } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
 
+/**
+ * TimePicker Props
+ */
 type TimePickerProps = {
+  /** Label passed to component */
   label: string;
-  value: Date;
-  onChange: (date: Date) => void;
-  size: 'small' | 'medium';
+  /** Value passed to component */
+  value: Date | null;
+  /** Callback function to handle changes */
+  onChange: (date: Date | null) => void;
+  /** Size of components TextField & FontSize, default is small */
+  size?: 'small' | 'medium';
+  /** Test ID for component */
   ['data-testid']?: string;
+  /** Optional disabled flag */
   isDisabled?: boolean;
 };
 
+/**
+ * TimePicker component for selecting a time.
+ * Uses MUI's DateTimePicker component and customizes its appearance and behavior.
+ * @param TimePickerProps - The props for the TimePicker component.
+ * @returns The TimePicker component, & usage returns a Date object.
+ */
 export const TimePicker: React.FC<TimePickerProps> = ({
   label,
   value,
@@ -26,11 +39,13 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       ampmInClock={false}
       disabled={isDisabled}
       disablePast
-      label={label}
+      label={<span style={{ paddingRight: '2em' }}>{label}</span>}
       showDaysOutsideCurrentMonth={true}
       timezone="system"
       thresholdToRenderTimeInASingleColumn={300}
       skipDisabled
+      onChange={(newValue) => onChange(newValue ? newValue.toDate() : null)}
+      value={dayjs(value) ?? null}
       slotProps={{
         actionBar: {
           actions: ['clear', 'today'],
@@ -90,11 +105,11 @@ export const TimePicker: React.FC<TimePickerProps> = ({
           },
         },
         textField: {
-          size: 'small',
+          size: size === 'small' ? 'small' : 'medium',
           color: 'secondary',
           InputProps: {
             sx: {
-              fontSize: '.8em',
+              fontSize: size === 'medium' ? '1em' : '.8em',
             },
           },
           inputProps: {
@@ -115,12 +130,31 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         },
         digitalClockItem: {
           sx: {
-            fontSize: '.8em',
+            fontSize: size === 'medium' ? '1em' : '.8em',
             color: 'text.secondary',
           },
         },
         field: {
           clearable: true,
+        },
+        layout: {
+          sx: {
+            [`.${digitalClockClasses.root}`]: {
+              '&::-webkit-scrollbar': {
+                width: '5px',
+                height: '5px',
+              },
+              '&::-webkit-scrollbar-track': {
+                background: 'rgb(0,73,130)',
+                borderRadius: '10px',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                borderRadius: '20px',
+                height: '50px',
+                background: 'rgb(24,252,252)',
+              },
+            },
+          },
         },
       }}
     />
