@@ -3,16 +3,16 @@ import { Container } from 'inversify';
 import { ContractService } from '@V1/models/contract/contract.service';
 import { TYPES } from '@Constant/types';
 import { AuthService } from '@V1/models/auth/auth.service';
-import { EnvService } from '@Services/env.service';
+import { EnvService } from '@V1/services/env.service';
 import { UserService } from '@V1/models/user/user.service';
-import { StompService } from '@Services/stomp.service';
-import { AuthMiddleware } from '@Middleware/auth.middleware';
-import { VerifiedUserMiddleware } from '@Middleware/verified.middleware';
-import { TestingMiddleware } from '@Middleware/testing.middleware';
+import { StompService } from '@V1/services/stomp.service';
+import { AuthMiddleware } from '@V1/middleware/auth.middleware';
+import { VerifiedUserMiddleware } from '@V1/middleware/verified.middleware';
+import { TestingMiddleware } from '@V1/middleware/testing.middleware';
 import { NotificationService } from '@V1/models/notifications/notification.service';
 import { Logger } from './utils/Logger';
-import { PallyService } from '@Services/pally.service';
-import { ResourceEditorService } from '@Services/resource_editor.service';
+import { PallyService } from '@V1/services/pally.service';
+import { ResourceEditorService } from '@V1/services/resource_editor.service';
 import { RatingService } from '@V1/models/user_ratings/rating.service';
 export const bindContainer = (container: Container) => {
   container

@@ -13,11 +13,11 @@ import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
 import { ContractService } from '@V1/models/contract/contract.service';
 import { NextFunction } from 'express';
-import { BodyError } from '@/errors/BodyError';
+import { BodyError } from '@V1/errors/BodyError';
 import { VLAuthPrincipal } from '@/authProviders/VL.principal';
 import { IdUtil } from '@/utils/IdUtil';
-import { BadParameterError } from '@Errors/BadParameter';
-import { NotFoundError } from '@Errors/NotFoundError';
+import { BadParameterError } from '@V1/errors/BadParameter';
+import { NotFoundError } from '@V1/errors/NotFoundError';
 import {
   CreateContractBodySchema,
   IContract,
@@ -33,14 +33,14 @@ import {
 import { ZodToOpenapi } from '@/utils/ZodToOpenapi';
 import { Logger } from '@/utils/Logger';
 import { ContractSearchSchema } from 'vl-shared/src/schemas/SearchSchema';
-import { GenericError } from '@Errors/GenericError';
-import { PaginatedDataDTO } from '@/DTO/PaginatedDataDTO';
+import { GenericError } from '@V1/errors/GenericError';
+import { PaginatedDataDTO } from '@V1/DTO/PaginatedDataDTO';
 import { ContractDTO } from '@V1/models/contract/mapping/ContractDTO';
 import { ContractBidDTO } from '@V1/models/contract_bid/mapping/ContractBidDTO';
-import { UnauthorizedError } from '@Errors/UnauthorizedError';
+import { UnauthorizedError } from '@V1/errors/UnauthorizedError';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { ContractBidStatusSchema } from 'vl-shared/src/schemas/ContractBidStatusSchema';
-import { NotModified } from '@Errors/NotModified';
+import { NotModified } from '@V1/errors/NotModified';
 import { ContractMapper } from './mapping/contract.mapper';
 
 @ApiPath({

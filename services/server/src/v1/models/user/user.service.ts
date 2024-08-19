@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import { User } from '@V1/models/user/user.model';
 import { Op } from 'sequelize';
-import { RSIService } from '@Services/RSI.service';
+import { RSIService } from '@V1/services/RSI.service';
 import { UserValidation } from '@V1/models/user/user_validation.model';
 import { Logger } from '@/utils/Logger';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';

@@ -2,7 +2,7 @@ import { TYPES } from '@Constant/types';
 import { Notification } from '@V1/models/notifications/notification.model';
 import { inject, injectable } from 'inversify';
 import { col, fn } from 'sequelize';
-import { type StompService } from '@Services/stomp.service';
+import { type StompService } from '@V1/services/stomp.service';
 import { Logger } from '@/utils/Logger';
 
 @injectable()

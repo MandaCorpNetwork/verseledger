@@ -4,7 +4,7 @@ import { inject, injectable } from 'inversify';
 import { type NotificationService } from '../notifications/notification.service';
 import { UserRating } from '@V1/models/user_ratings/user_ratings.model';
 import { Contract } from '@V1/models/contract/contract.model';
-import { BadRequestError } from '@Errors/BadRequest';
+import { BadRequestError } from '@V1/errors/BadRequest';
 import { Op } from 'sequelize';
 import { ICreateUserRatingBody } from 'vl-shared/src/schemas/UserRatingsSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';

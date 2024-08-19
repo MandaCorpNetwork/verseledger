@@ -20,13 +20,13 @@ import { OrganizationMember } from '@V1/models/organization/organization_member.
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { ContractService } from '@V1/models/contract/contract.service';
 import { NextFunction } from 'express';
-import { NetworkError } from '@Errors/NetworkError';
+import { NetworkError } from '@V1/errors/NetworkError';
 import { IdPrefix, IdUtil } from '@/utils/IdUtil';
-import { BadRequestError } from '@Errors/BadRequest';
+import { BadRequestError } from '@V1/errors/BadRequest';
 import { ApiOperationGet, ApiPath } from 'swagger-express-ts';
 import { Logger } from '@/utils/Logger';
 import { UserBidsSearchSchema } from 'vl-shared/src/schemas/SearchSchema';
-import { GenericError } from '@Errors/GenericError';
+import { GenericError } from '@V1/errors/GenericError';
 import { ZodError } from 'zod';
 
 @ApiPath({
