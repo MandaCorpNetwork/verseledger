@@ -3,7 +3,6 @@ import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
 import { ArrowRight } from '@mui/icons-material';
 import { Badge, Box, Chip, Collapse, Typography } from '@mui/material';
-import { SchedulingDropdownFilter } from '@Utils/Filters/AccessTimeDropdownFilter';
 import { LocationsFilter } from '@Utils/Filters/LocationsFilter';
 import { EmployerRatingSliderFilter } from '@Utils/Filters/MultiRatingSliderFilter';
 import { SchedulingDropdownFilter } from '@Utils/Filters/ScheduleFilter';

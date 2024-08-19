@@ -125,19 +125,11 @@ export const ContractTableTools: React.FC<unknown> = () => {
           `,
         }}
       >
-<<<<<<< HEAD
         <DropdownFilter filter="Subtype" label="SubTypes" />
         <DropdownFilter filter="Locations" label="Locations" />
         <DropdownFilter filter="Scheduling" label="Scheduling" />
         <DropdownFilter filter="EmployerRating" label="Ratings" />
         <DropdownFilter filter="PayRange" label="Compensation" />
-=======
-        <CLFilterDropdown filter="Subtype" label="SubTypes" />
-        <CLFilterDropdown filter="Locations" label="Locations" />
-        <CLFilterDropdown filter="Scheduling" label="Scheduling" />
-        <CLFilterDropdown filter="EmployerRating" label="Ratings" />
-        <CLFilterDropdown filter="PayRange" label="Compensation" />
->>>>>>> 2930d91d (Reworked Filter Dropdown styling)
       </Collapse>
       <Typography
         data-testid="ContractLedger-TableTools__Title"
