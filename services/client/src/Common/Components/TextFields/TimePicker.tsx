@@ -35,6 +35,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
 }) => {
   return (
     <DateTimePicker
+      data-testid={`TimePicker__${testid}_root`}
       ampm={false}
       ampmInClock={false}
       disabled={isDisabled}

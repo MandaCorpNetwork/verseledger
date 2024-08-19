@@ -7,10 +7,27 @@ import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { QueryNames } from '../QueryNames';
 
+/**
+ * Component that provides a user interface for filtering by date and time.
+ * It utilizes time pickers to allow users to set filters for bid dates, start dates, and end dates.
+ * The selected filters are managed via URL query parameters.
+ * @component
+ * @example
+ * return (
+ *   <SchedulingDropdownFilter />
+ * );
+ */
 export const SchedulingDropdownFilter: React.FC<unknown> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_filter, setFilter] = useURLQuery();
 
+  /**
+   * Handles changes to the time filter values.
+   * Updates the URL query parameters with the new date values.
+   *
+   * @param {QueryNames} filterName - The query parameter name to update.
+   * @param {Date | null} date - The selected date or null if cleared.
+   */
   const handleTimeFilterChange = React.useCallback(
     (filterName: QueryNames, date: Date | null) => {
       if (!date) {
@@ -21,6 +38,12 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
     [setFilter],
   );
 
+  /**
+   * Memoized function to get the current filter value from the URL query parameters.
+   *
+   * @param {QueryNames} queryName - The query parameter name to retrieve.
+   * @returns {Date | null} - The current filter date or null if not set.
+   */
   const currentFilterValue = React.useMemo(() => {
     return (queryName: QueryNames): Date | null => {
       const dateStr = _filter.get(queryName);

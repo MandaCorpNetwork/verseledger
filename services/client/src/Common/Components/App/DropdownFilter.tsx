@@ -3,9 +3,9 @@ import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
 import { ArrowRight } from '@mui/icons-material';
 import { Badge, Box, Chip, Collapse, Typography } from '@mui/material';
-import { SchedulingDropdownFilter } from '@Utils/Filters/AccessTimeDropdownFilter';
 import { LocationsFilter } from '@Utils/Filters/LocationsFilter';
 import { EmployerRatingSliderFilter } from '@Utils/Filters/MultiRatingSliderFilter';
+import { SchedulingDropdownFilter } from '@Utils/Filters/ScheduleFilter';
 import { SubTypeFilter } from '@Utils/Filters/SubtypeFilter';
 import { UECRangeFilter } from '@Utils/Filters/UECRangeFilter';
 import { QueryNames } from '@Utils/QueryNames';
@@ -14,12 +14,12 @@ import React, { useCallback } from 'react';
 import { useSoundEffect } from '@/AudioManager';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
-type CLFilterDropdownProps = {
+type DropdownFilterProps = {
   filter: 'Subtype' | 'PayRange' | 'Locations' | 'Scheduling' | 'EmployerRating';
   label: string;
 };
 
-export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, label }) => {
+export const DropdownFilter: React.FC<DropdownFilterProps> = ({ filter, label }) => {
   const { playSound } = useSoundEffect();
   const [filters, setFilters] = useURLQuery();
   const [isExpanded, setIsExpanded] = React.useState(false);
@@ -67,7 +67,14 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
       case 'Locations':
         return filters.has(QueryNames.Locations);
       case 'TimeRemaining':
-        return filters.has(QueryNames.TimeRemaining);
+        return (
+          filters.has(QueryNames.BidBefore) ||
+          filters.has(QueryNames.BidAfter) ||
+          filters.has(QueryNames.StartBefore) ||
+          filters.has(QueryNames.StartAfter) ||
+          filters.has(QueryNames.EndBefore) ||
+          filters.has(QueryNames.EndAfter)
+        );
       case 'EmployerRating':
         return filters.has(QueryNames.EmployerRating);
       case 'PayRange':
@@ -84,8 +91,15 @@ export const CLFilterDropdown: React.FC<CLFilterDropdownProps> = ({ filter, labe
         return filters.getAll(QueryNames.Subtype);
       case 'Locations':
         return filters.getAll(QueryNames.Locations);
-      case 'TimeRemaining':
-        return filters.getAll(QueryNames.TimeRemaining);
+      case 'Scheduling':
+        return [
+          filters.get(QueryNames.BidBefore),
+          filters.get(QueryNames.BidAfter),
+          filters.get(QueryNames.StartBefore),
+          filters.get(QueryNames.StartAfter),
+          filters.get(QueryNames.EndBefore),
+          filters.get(QueryNames.EndAfter),
+        ].filter((value) => value);
       case 'EmployerRating':
         return filters.getAll(QueryNames.EmployerRating);
       case 'PayRange':
