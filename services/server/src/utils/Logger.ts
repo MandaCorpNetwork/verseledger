@@ -6,7 +6,7 @@ import fs, { WriteStream } from 'node:fs';
 let writer: WriteStream;
 const logFile = process.env.LOGFILE;
 if (logFile) {
-  writer = fs.createWriteStream(logFile);
+  writer = fs.createWriteStream(logFile.trim());
 }
 
 export class Logger {
