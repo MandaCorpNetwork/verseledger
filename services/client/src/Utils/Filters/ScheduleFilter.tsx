@@ -19,7 +19,7 @@ import { QueryNames } from '../QueryNames';
  */
 export const SchedulingDropdownFilter: React.FC<unknown> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_filter, setFilter] = useURLQuery();
+  const [filter, setFilter] = useURLQuery();
 
   /**
    * Handles changes to the time filter values.
@@ -46,10 +46,10 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
    */
   const currentFilterValue = React.useMemo(() => {
     return (queryName: QueryNames): Date | null => {
-      const dateStr = _filter.get(queryName);
+      const dateStr = filter.get(queryName);
       return dateStr ? new Date(dateStr) : null;
     };
-  }, [_filter]);
+  }, [filter]);
 
   return (
     <Box

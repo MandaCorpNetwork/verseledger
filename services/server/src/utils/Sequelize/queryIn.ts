@@ -56,21 +56,21 @@ export const buildDateQuery = (
     date: Date,
     precision: 'day' | 'hour' | 'minute' | 'second',
   ) => {
-    const adjustDate = new Date(date);
+    const adjustedDate = new Date(date);
 
     switch (precision) {
       case 'day':
-        adjustDate.setHours(0, 0, 0, 0);
+        adjustedDate.setHours(0, 0, 0, 0);
         break;
       case 'hour':
-        adjustDate.setMinutes(0, 0, 0);
+        adjustedDate.setMinutes(0, 0, 0);
         break;
       case 'minute':
-        adjustDate.setSeconds(0, 0);
+        adjustedDate.setSeconds(0, 0);
         break;
     }
 
-    return adjustDate;
+    return adjustedDate;
   };
 
   // Build query based on the provided dateFilter.
