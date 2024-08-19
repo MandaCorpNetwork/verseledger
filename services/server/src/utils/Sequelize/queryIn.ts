@@ -118,14 +118,12 @@ export const buildDurationQuery = (
   const query: WhereOptions = {
     [Op.and]: [
       Sequelize.literal(
-        `(DATEDIFF(${fieldEndDate}, ${fieldStartDate}) <= ${maxDurationMs})`
+        `(DATEDIFF(${fieldEndDate}, ${fieldStartDate}) <= ${maxDurationMs})`,
       ),
 
-      Sequelize.literal(
-        `(${fieldEndDate} >= ${fieldStartDate})`
-      )
-    ]
-  }
+      Sequelize.literal(`(${fieldEndDate} >= ${fieldStartDate})`),
+    ],
+  };
 
   return query;
 };

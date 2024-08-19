@@ -123,6 +123,10 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
     [_filter, setFilter],
   );
 
+  const duration = parseInt(_filter.get(QueryNames.Duration) ?? '0', 10);
+  const hours = Math.floor(duration / 60);
+  const minutes = duration % 60;
+
   return (
     <Box
       data-testid="SchedulingDropdownFilter__Form_Wrapper"
@@ -267,14 +271,14 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
             label="Hours"
             size="small"
             color="secondary"
-            value={Math.floor(parseInt(_filter.get(QueryNames.Duration) ?? '0', 10) / 60)}
+            value={hours > 0 ? hours : ''}
             onChange={(e) => handleDurationChange('hours', e.target.value)}
             sx={{
               width: '100px',
             }}
             InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
+              endAdornment: hours > 0 && (
+                <InputAdornment position="end" sx={{ mr: '-8px', ml: '-4px' }}>
                   <IconButton
                     onClick={() => clearDurationFilter('hours')}
                     sx={{
@@ -291,16 +295,17 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
             label="Minutes"
             size="small"
             color="secondary"
-            value={parseInt(_filter.get(QueryNames.Duration) ?? '0', 10) % 60}
+            value={minutes > 0 ? minutes : ''}
             onChange={(e) => handleDurationChange('minutes', e.target.value)}
             sx={{
               width: '100px',
             }}
             InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
+              endAdornment: minutes > 0 && (
+                <InputAdornment position="end" sx={{ mr: '-8px', ml: '-4px' }}>
                   <IconButton
                     onClick={() => clearDurationFilter('minutes')}
+                    size="small"
                     sx={{
                       color: 'secondary.main',
                     }}
