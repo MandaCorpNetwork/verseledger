@@ -4,7 +4,7 @@ import { Logger } from './Logger';
 
 type JwtPayload = {
   id: string;
-  refresh?: boolean;
+  type?: 'access' | 'refresh' | 'api';
   iss: string;
   exp: number;
   iat: number;
@@ -62,7 +62,7 @@ export class AuthUtil {
     const token = AuthUtil._decodeToken(tokenString);
     const isValid = AuthUtil._isValidToken(token);
     if (!isValid) return false;
-    return token?.refresh ?? false;
+    return token?.type === 'refresh';
   }
   public static getAccessHeader() {
     const token = AuthUtil.getAccessToken();
