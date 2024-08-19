@@ -191,6 +191,10 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
     [_filter, setFilter],
   );
 
+  const duration = parseInt(_filter.get(QueryNames.Duration) ?? '0', 10);
+  const hours = Math.floor(duration / 60);
+  const minutes = duration % 60;
+
   return (
     <Box
       data-testid="SchedulingDropdownFilter__Form_Wrapper"
