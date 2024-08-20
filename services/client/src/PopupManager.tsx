@@ -39,6 +39,12 @@ import {
   SubmitRatingPopup,
   SubmitRatingPopupProps,
 } from '@Popups/Ratings/SubmitRating';
+import { CreateTokenPopup, POPUP_CREATE_TOKEN } from '@Popups/Tokens/CreateToken';
+import {
+  POPUP_SHOW_TOKEN,
+  ShowTokenPopup,
+  ShowTokenPopupProps,
+} from '@Popups/Tokens/ShowToken';
 import {
   POPUP_USER_INVITE,
   UserInvitePopup,
@@ -72,6 +78,10 @@ export const PopupManager: React.FC = () => {
   const payStructuresPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_PAY_STRUCTURES),
   );
+  const createTokenPopup = useAppSelector((state) =>
+    selectPopup(state, POPUP_CREATE_TOKEN),
+  );
+  const showTokenPopup = useAppSelector((state) => selectPopup(state, POPUP_SHOW_TOKEN));
   const locationInfoPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_LOCATION_INFO),
   );
@@ -95,6 +105,10 @@ export const PopupManager: React.FC = () => {
       {verifyUserPopup.open && <VerifyUserPopup />}
       {youSurePopup.open && (
         <YouSurePopup {...(youSurePopup.props as YouSurePopupProps)} />
+      )}
+      {createTokenPopup.open && <CreateTokenPopup />}
+      {showTokenPopup.open && (
+        <ShowTokenPopup {...(showTokenPopup.props as ShowTokenPopupProps)} />
       )}
       {feedbackPopup.open && <FeedbackPopup />}
       {createContractPopup.open && <CreateContractPopup />}

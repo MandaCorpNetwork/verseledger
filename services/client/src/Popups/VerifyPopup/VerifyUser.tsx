@@ -31,7 +31,6 @@ export const VerifyUserPopup: React.FC = () => {
     'checking',
   );
   const dispatch = useAppDispatch();
-  console.log(verificationInfo);
   useEffect(() => {
     dispatch(fetchVerificationCode()).then((r) => {
       if (r.type.endsWith('/rejected')) {

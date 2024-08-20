@@ -11,17 +11,16 @@ export const DiscordLoginUtility = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    console.log('logging in...');
     dispatch(loginWithDiscord(searchParams.get('code') as string))
       .then((v) => {
         const { accessToken, refreshToken } = (
-          v.payload as { data: { accessToken: string; refreshToken: string } }
+          v.payload as {
+            data: { accessToken: { token: string }; refreshToken: { token: string } };
+          }
         ).data;
-        AuthUtil.setAccessToken(accessToken);
-        AuthUtil.setRefreshToken(refreshToken);
-        return dispatch(fetchCurrentUser()).then((user) =>
-          console.log((user.payload as { data: unknown }).data),
-        );
+        AuthUtil.setAccessToken(accessToken.token);
+        AuthUtil.setRefreshToken(refreshToken.token);
+        return dispatch(fetchCurrentUser());
       })
       .finally(() => {
         const newPath = localStorage.getItem('returnPath');

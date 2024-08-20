@@ -38,7 +38,7 @@ export class AuthService {
     return tokenDecoded as ReturnType<typeof this.verifyToken>;
   }
 
-  async invalidateToken(token: string) {
+  async invalidateToken(token: string, userId?: string) {
     let decoded;
     try {
       decoded = this.verifyToken(token);
@@ -48,7 +48,7 @@ export class AuthService {
     }
     const tokenDecoded = decoded;
     await AuthRepository.invalidateToken({
-      user_id: tokenDecoded.id,
+      user_id: userId ?? tokenDecoded.id,
       token_id: tokenDecoded.jti,
     });
     return true;
@@ -56,5 +56,17 @@ export class AuthService {
 
   async signUser(user_id: string) {
     return AuthRepository.createTokenPair(user_id);
+  }
+
+  async createApiToken(
+    user_id: string,
+    expires?: Date | number | `${number}${'d' | 'h' | 's' | 'm' | 'y'}`,
+    name?: string,
+  ) {
+    return AuthRepository.createApiToken(user_id, expires, 'api', name);
+  }
+
+  async getApiTokens(user_id: string) {
+    return AuthRepository.getTokens(user_id);
   }
 }
