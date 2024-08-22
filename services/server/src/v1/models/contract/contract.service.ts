@@ -245,7 +245,7 @@ export class ContractService {
     if (duration) {
       Object.assign(
         query,
-        buildDurationQuery('startDate', 'endDate', duration),
+        buildDurationQuery('startDate', 'endDate', Number(duration)),
       );
     }
 
