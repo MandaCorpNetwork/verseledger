@@ -1,3 +1,4 @@
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { FilterAlt } from '@mui/icons-material';
 import { Badge, Box, Button, Collapse, Typography } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
@@ -7,9 +8,8 @@ import { QueryNames } from '@Utils/QueryNames';
 import React, { useRef, useState } from 'react';
 
 import { useSoundEffect } from '@/AudioManager';
+import { DropdownFilter } from '@/Common/Components/App/DropdownFilter';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
-
-import { CLFilterDropdown } from './CLFilterDropdown';
 
 export const ContractTableTools: React.FC<unknown> = () => {
   const { playSound } = useSoundEffect();
@@ -58,34 +58,14 @@ export const ContractTableTools: React.FC<unknown> = () => {
   ];
 
   return (
-    <Box
+    <DigiBox
       data-testid="ContractLedger-ColumnTwo__TableToolsContainer"
       ref={toolsRef}
       sx={{
-        display: 'flex',
-        alignItems: 'center',
+        flexDirection: 'row',
         justifyContent: 'space-around',
         position: 'relative',
         py: '.5em',
-        borderTop: '2px solid',
-        borderBottom: '2px solid',
-        borderColor: 'primary.main',
-        borderRadius: '10px',
-        borderLeft: '1px solid rgba(14,49,141,0.5)',
-        borderRight: '1px solid rgba(14,49,141,0.5)',
-        boxShadow: '0 5px 15px rgba(14,49,141,.8)',
-        '&:before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          bottom: 0,
-          right: 0,
-          left: 0,
-          background:
-            'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
-          opacity: 0.6,
-          backdropFilter: 'blur(10px)',
-        },
       }}
     >
       <Badge
@@ -128,30 +108,28 @@ export const ContractTableTools: React.FC<unknown> = () => {
           width: '100%',
           zIndex: '50',
           backdropFilter: 'blur(10px)',
+          background: 'linear-gradient(145deg, rgb(8,22,80,.8), rgba(0,73,150,.5))',
+          justifyContent: 'flex-start',
+          display: 'flex',
+          flexDirection: 'column',
+          p: '1em',
+          borderBottomLeftRadius: '10px',
+          borderBottomRightRadius: '10px',
+          borderLeft: '1px solid rgba(14,35,80,0.2)',
+          borderRight: '1px solid rgba(14,35,80,0.2)',
+          borderBottom: '1px solid rgba(14,35,80,0.2)',
+          boxShadow: `
+            0px 4px 8px rgba(0, 0, 0, 0.3),
+            0px 8px 16px rgba(0, 0, 0, 0.2),
+            0px 12px 24px rgba(0, 0, 0, 0.1)
+          `,
         }}
       >
-        <Box
-          data-testid="ContractLedger-TableTools-FilterDrawer__FilterDisplayContainer"
-          sx={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            padding: '1em',
-            zIndex: '50',
-            bgcolor: 'primary.dark',
-            opacity: '.9',
-            justifyContent: 'flex-start',
-            gap: '1em',
-            flexWrap: 'wrap',
-            borderRadius: '10px',
-          }}
-        >
-          <CLFilterDropdown filter="Subtype" label="Contract SubType" />
-          <CLFilterDropdown filter="Locations" label="Contract Locations" />
-          <CLFilterDropdown filter="TimeRemaining" label="Bid Time Remaining" />
-          <CLFilterDropdown filter="EmployerRating" label="Employer Rating" />
-          <CLFilterDropdown filter="PayRange" label="Contract Pay Range" />
-        </Box>
+        <DropdownFilter filter="Subtype" label="SubTypes" />
+        <DropdownFilter filter="Locations" label="Locations" />
+        <DropdownFilter filter="Scheduling" label="Scheduling" />
+        <DropdownFilter filter="EmployerRating" label="Ratings" />
+        <DropdownFilter filter="PayRange" label="Compensation" />
       </Collapse>
       <Typography
         data-testid="ContractLedger-TableTools__Title"
@@ -178,6 +156,6 @@ export const ContractTableTools: React.FC<unknown> = () => {
           />
         </Box>
       </Box>
-    </Box>
+    </DigiBox>
   );
 };

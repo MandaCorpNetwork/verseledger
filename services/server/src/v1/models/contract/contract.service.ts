@@ -10,7 +10,12 @@ import { User } from '@V1/models/user/user.model';
 import { Op } from 'sequelize';
 import { IContractStatus } from 'vl-shared/src/schemas/ContractStatusSchema';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
-import { optionalSet, queryIn } from '@/utils/Sequelize/queryIn';
+import {
+  buildDateQuery,
+  buildDurationQuery,
+  optionalSet,
+  queryIn,
+} from '@/utils/Sequelize/queryIn';
 import { type NotificationService } from '../notifications/notification.service';
 import { ContractBidDTO } from '@V1/models/contract_bid/mapping/ContractBidDTO';
 import { Logger } from '@/utils/Logger';
@@ -200,6 +205,10 @@ export class ContractService {
     status?: IContractStatus | IContractStatus[];
     ownerId?: string | string[];
     contractId?: string | string[];
+    bidDate?: { before?: Date; after?: Date; exact?: Date };
+    startDate?: { before?: Date; after?: Date; exact?: Date };
+    endDate?: { before?: Date; after?: Date; exact?: Date };
+    duration?: number;
     limit?: number;
     page?: number;
   }) {
@@ -210,6 +219,10 @@ export class ContractService {
       status,
       ownerId,
       contractId,
+      bidDate,
+      startDate,
+      endDate,
+      duration,
     } = params ?? {};
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -218,6 +231,23 @@ export class ContractService {
     optionalSet(query, 'subtype', queryIn(subtype));
     optionalSet(query, 'owner_user_id', queryIn(ownerId));
     optionalSet(query, 'id', queryIn(contractId));
+
+    if (bidDate) {
+      Object.assign(query, buildDateQuery('bidDate', bidDate));
+    }
+    if (startDate) {
+      Object.assign(query, buildDateQuery('startDate', startDate));
+    }
+    if (endDate) {
+      Object.assign(query, buildDateQuery('endDate', endDate));
+    }
+
+    if (duration) {
+      Object.assign(
+        query,
+        buildDurationQuery('startDate', 'endDate', duration),
+      );
+    }
 
     const contracts = await Contract.scope([
       'bids',
