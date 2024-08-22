@@ -28,6 +28,7 @@ export const ContractSearchSchema = SearchSchema.extend({
   startDate: DateSearchSchema.optional(),
   endDate: DateSearchSchema.optional(),
   duration: z.coerce.number().optional(),
+  contractorRatingLimit: z.coerce.number().optional(),
 });
 
 export type IContractSearch = z.infer<typeof ContractSearchSchema>;

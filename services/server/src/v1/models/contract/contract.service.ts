@@ -14,6 +14,7 @@ import {
   buildDateQuery,
   buildDurationQuery,
   optionalSet,
+  queryAbove,
   queryIn,
 } from '@/utils/Sequelize/queryIn';
 import { type NotificationService } from '../notifications/notification.service';
@@ -209,6 +210,7 @@ export class ContractService {
     startDate?: { before?: Date; after?: Date; exact?: Date };
     endDate?: { before?: Date; after?: Date; exact?: Date };
     duration?: number;
+    contractorRatingLimit?: number;
     limit?: number;
     page?: number;
   }) {
@@ -223,6 +225,7 @@ export class ContractService {
       startDate,
       endDate,
       duration,
+      contractorRatingLimit
     } = params ?? {};
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -231,6 +234,8 @@ export class ContractService {
     optionalSet(query, 'subtype', queryIn(subtype));
     optionalSet(query, 'owner_user_id', queryIn(ownerId));
     optionalSet(query, 'id', queryIn(contractId));
+    optionalSet(query, 'ratingLimit', queryIn(contractorRatingLimit));
+    optionalSet(query, 'ratingLimit', queryAbove(contractorRatingLimit));
 
     if (bidDate) {
       Object.assign(query, buildDateQuery('bidDate', bidDate));

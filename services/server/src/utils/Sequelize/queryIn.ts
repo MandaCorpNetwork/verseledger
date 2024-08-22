@@ -1,6 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Op, Sequelize, type WhereOptions } from 'sequelize';
 
+export const optionalSet = <T extends Record<any, any>>(
+  obj: T,
+  key: string,
+  value: any,
+) => {
+  if (value == null) return false;
+  (obj as any)[key] = value;
+  return true;
+};
+
 export const queryIn = <T>(values: T | T[]): WhereOptions | undefined => {
   if (values != null) {
     if (Array.isArray(values)) {
@@ -18,14 +28,11 @@ export const queryIn = <T>(values: T | T[]): WhereOptions | undefined => {
   return undefined;
 };
 
-export const optionalSet = <T extends Record<any, any>>(
-  obj: T,
-  key: string,
-  value: any,
-) => {
-  if (value == null) return false;
-  (obj as any)[key] = value;
-  return true;
+export const queryAbove = (value: number | undefined): WhereOptions | undefined => {
+  if (value != null) {
+    return { [Op.gt as symbol]: Number(value) };
+  }
+  return undefined;
 };
 
 /**
