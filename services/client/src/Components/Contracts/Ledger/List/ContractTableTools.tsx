@@ -10,7 +10,7 @@ import React, { useRef, useState } from 'react';
 import { useSoundEffect } from '@/AudioManager';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
-import { DropdownFilter } from '../../../../Common/Components/App/DropdownFilter';
+import { DropdownFilter } from '@/Common/Components/App/DropdownFilter';
 
 export const ContractTableTools: React.FC<unknown> = () => {
   const { playSound } = useSoundEffect();
