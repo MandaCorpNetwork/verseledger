@@ -66,10 +66,7 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
   const handleDurationChange = React.useCallback(
     (field: 'hours' | 'minutes', value: string) => {
       const filterValue = filterNumericInput(value);
-      const totalDurationInMinutes = parseInt(
-        _filter.get(QueryNames.Duration) ?? '0',
-        10,
-      );
+      const totalDurationInMinutes = parseInt(filter.get(QueryNames.Duration) ?? '0', 10);
       const currentHours = Math.floor(totalDurationInMinutes / 60);
       const currentMinutes = totalDurationInMinutes % 60;
       let newTotalDurationInMinutes = totalDurationInMinutes;
@@ -84,7 +81,7 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
 
       setFilter(QueryNames.Duration, newTotalDurationInMinutes.toString());
     },
-    [_filter, setFilter],
+    [filter, setFilter],
   );
 
   const clearDateFilter = React.useCallback(
@@ -96,10 +93,7 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
 
   const clearDurationFilter = React.useCallback(
     (field: 'hours' | 'minutes') => {
-      const totalDurationInMinutes = parseInt(
-        _filter.get(QueryNames.Duration) ?? '0',
-        10,
-      );
+      const totalDurationInMinutes = parseInt(filter.get(QueryNames.Duration) ?? '0', 10);
       const currentHours = Math.floor(totalDurationInMinutes / 60);
       const currentMinutes = totalDurationInMinutes % 60;
       let newTotalDurationInMinutes = totalDurationInMinutes;
@@ -120,10 +114,10 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
         setFilter(QueryNames.Duration, newTotalDurationInMinutes.toString());
       }
     },
-    [_filter, setFilter],
+    [filter, setFilter],
   );
 
-  const duration = parseInt(_filter.get(QueryNames.Duration) ?? '0', 10);
+  const duration = parseInt(filter.get(QueryNames.Duration) ?? '0', 10);
   const hours = Math.floor(duration / 60);
   const minutes = duration % 60;
 
