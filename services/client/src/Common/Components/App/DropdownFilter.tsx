@@ -1,10 +1,11 @@
 //CLFilterDropdown is a reusable DropDown for displaying filters in the Contract Ledger Table Tools Component.
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
+import { ClearAllButton } from '@Common/Components/Buttons/ClearAllButton';
 import { ArrowRight } from '@mui/icons-material';
 import { Badge, Box, Chip, Collapse, Typography } from '@mui/material';
 import { LocationsFilter } from '@Utils/Filters/LocationsFilter';
-import { EmployerRatingSliderFilter } from '@Utils/Filters/MultiRatingSliderFilter';
+import { RatingsFilter } from '@Utils/Filters/RatingsFilter';
 import { SchedulingDropdownFilter } from '@Utils/Filters/ScheduleFilter';
 import { SubTypeFilter } from '@Utils/Filters/SubtypeFilter';
 import { UECRangeFilter } from '@Utils/Filters/UECRangeFilter';
@@ -15,7 +16,7 @@ import { useSoundEffect } from '@/AudioManager';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 type DropdownFilterProps = {
-  filter: 'Subtype' | 'PayRange' | 'Locations' | 'Scheduling' | 'EmployerRating';
+  filter: 'Subtype' | 'PayRange' | 'Locations' | 'Scheduling' | 'Ratings';
   label: string;
 };
 
@@ -25,7 +26,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({ filter, label })
   const [isExpanded, setIsExpanded] = React.useState(false);
 
   const setDisabled = () => {
-    if (filter === 'Locations' || filter === 'PayRange' || filter === 'EmployerRating') {
+    if (filter === 'Locations' || filter === 'PayRange') {
       return true;
     }
     return false;
@@ -51,8 +52,8 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({ filter, label })
         return <LocationsFilter size="medium" />;
       case 'Scheduling':
         return <SchedulingDropdownFilter />;
-      case 'EmployerRating':
-        return <EmployerRatingSliderFilter />;
+      case 'Ratings':
+        return <RatingsFilter />;
       case 'PayRange':
         return <UECRangeFilter size="medium" innerSpace="dense" />;
     }
@@ -75,8 +76,11 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({ filter, label })
           filters.has(QueryNames.EndBefore) ||
           filters.has(QueryNames.EndAfter)
         );
-      case 'EmployerRating':
-        return filters.has(QueryNames.EmployerRating);
+      case 'Ratings':
+        return (
+          filters.has(QueryNames.EmployerRating) ||
+          filters.has(QueryNames.ContractorRating)
+        );
       case 'PayRange':
         return filters.has(QueryNames.UECRangeMax) || filters.has(QueryNames.UECRangeMin);
       default:
@@ -91,19 +95,6 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({ filter, label })
         return filters.getAll(QueryNames.Subtype);
       case 'Locations':
         return filters.getAll(QueryNames.Locations);
-      case 'Scheduling':
-        return [
-          filters.get(QueryNames.BidBefore),
-          filters.get(QueryNames.BidAfter),
-          filters.get(QueryNames.StartBefore),
-          filters.get(QueryNames.StartAfter),
-          filters.get(QueryNames.EndBefore),
-          filters.get(QueryNames.EndAfter),
-        ].filter((value) => value);
-      case 'EmployerRating':
-        return filters.getAll(QueryNames.EmployerRating);
-      case 'PayRange':
-        return [filters.get(QueryNames.UECRangeMin), filters.get(QueryNames.UECRangeMax)];
       default:
         return [];
     }
@@ -115,14 +106,47 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({ filter, label })
 
   const handleDeleteFilter = useCallback(
     (valueToDelete: string) => {
-      const filterToUpdate = QueryNames[filter as unknown as keyof typeof QueryNames];
+      const filterToUpdate = QueryNames[filter as keyof typeof QueryNames];
       const updatedFilters = filters
-        .getAll(filterToUpdate)
+        .getAll(valueToDelete)
         .filter((value) => value !== valueToDelete);
       setFilters(filterToUpdate, updatedFilters);
     },
-    [filters, setFilters, filter],
+    [filters, setFilters, filter, playSound],
   );
+
+  const getFilterToClear = React.useCallback(
+    (filter: string): QueryNames[] => {
+      switch (filter) {
+        case 'Subtype':
+          return [QueryNames.Subtype];
+        case 'Locations':
+          return [QueryNames.Locations];
+        case 'Scheduling':
+          return [
+            QueryNames.BidAfter,
+            QueryNames.BidBefore,
+            QueryNames.EndAfter,
+            QueryNames.EndBefore,
+            QueryNames.StartAfter,
+            QueryNames.StartBefore,
+          ];
+        case 'Ratings':
+          return [QueryNames.EmployerRating, QueryNames.ContractorRating];
+        default:
+          return [];
+      }
+    },
+    [filter],
+  );
+
+  const handleClearAll = React.useCallback(() => {
+    const filtersToClear = getFilterToClear(filter);
+    filtersToClear.forEach((filterToUpdate) => {
+      setFilters(filterToUpdate, []);
+    });
+    playSound('toggleOff');
+  }, [setFilters, filter, playSound]);
 
   return (
     <Box
@@ -212,9 +236,17 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({ filter, label })
             >
               {filterComponent}
             </Box>
-            {QueryNames[filter as unknown as keyof typeof QueryNames] !==
-              QueryNames.EmployerRating &&
-              filter !== 'PayRange' && (
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '.5em',
+                height: '100%',
+              }}
+            >
+              <ClearAllButton onClear={handleClearAll} />
+              {QueryNames[filter as unknown as keyof typeof QueryNames] ===
+                QueryNames.Subtype && (
                 <PopupFormDisplay
                   data-testid={`ContractLedgerFilters-${filter}-FilterCollapse__FilterListWrapper`}
                   sx={{
@@ -257,6 +289,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({ filter, label })
                   )}
                 </PopupFormDisplay>
               )}
+            </Box>
           </DigiBox>
         </Box>
       </Collapse>

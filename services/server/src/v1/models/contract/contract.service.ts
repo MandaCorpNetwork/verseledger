@@ -14,7 +14,7 @@ import {
   buildDateQuery,
   buildDurationQuery,
   optionalSet,
-  queryAbove,
+  queryBelow,
   queryIn,
 } from '@/utils/Sequelize/queryIn';
 import { type NotificationService } from '../notifications/notification.service';
@@ -235,7 +235,7 @@ export class ContractService {
     optionalSet(query, 'owner_user_id', queryIn(ownerId));
     optionalSet(query, 'id', queryIn(contractId));
     optionalSet(query, 'ratingLimit', queryIn(contractorRatingLimit));
-    optionalSet(query, 'ratingLimit', queryAbove(contractorRatingLimit));
+    optionalSet(query, 'ratingLimit', queryBelow(contractorRatingLimit));
 
     if (bidDate) {
       Object.assign(query, buildDateQuery('bidDate', bidDate));

@@ -35,6 +35,13 @@ export const queryAbove = (value: number | undefined): WhereOptions | undefined 
   return undefined;
 };
 
+export const queryBelow = (value: number | undefined): WhereOptions | undefined => {
+  if (value != null) {
+    return { [Op.lt as symbol]: Number(value) };
+  }
+  return undefined;
+};
+
 /**
  * #### Builder for Querying Date Fields
  * @param field - The name of the field in the database to filter from

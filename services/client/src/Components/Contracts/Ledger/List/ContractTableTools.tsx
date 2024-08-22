@@ -3,7 +3,6 @@ import { FilterAlt } from '@mui/icons-material';
 import { Badge, Box, Button, Collapse, Typography } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
-//import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useRef, useState } from 'react';
 
@@ -128,7 +127,7 @@ export const ContractTableTools: React.FC<unknown> = () => {
         <DropdownFilter filter="Subtype" label="SubTypes" />
         <DropdownFilter filter="Locations" label="Locations" />
         <DropdownFilter filter="Scheduling" label="Scheduling" />
-        <DropdownFilter filter="EmployerRating" label="Ratings" />
+        <DropdownFilter filter="Ratings" label="Ratings" />
         <DropdownFilter filter="PayRange" label="Compensation" />
       </Collapse>
       <Typography
