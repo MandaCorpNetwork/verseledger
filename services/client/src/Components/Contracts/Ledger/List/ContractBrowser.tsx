@@ -87,6 +87,10 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
     const endBefore = new Date(filters.get(QueryNames.EndBefore) as string);
     const endAfter = new Date(filters.get(QueryNames.EndAfter) as string);
     const duration = parseInt(filters.get(QueryNames.Duration) as string, 10);
+    const payStructure = filters.get(QueryNames.PayStructure) as string;
+    const contractorRating = filters.get(QueryNames.ContractorRating) as string;
+    const minPay = filters.get(QueryNames.UECRangeMin) as string;
+    const maxPay = filters.get(QueryNames.UECRangeMax) as string;
 
     const params: IContractSearch = {
       page: page,
@@ -115,6 +119,18 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
       }),
       ...(duration && {
         duration: Number(duration),
+      }),
+      ...(payStructure && {
+        payStructure: payStructure,
+      }),
+      ...(contractorRating && {
+        contractorRating: contractorRating,
+      }),
+      ...(minPay && {
+        minPay: minPay,
+      }),
+      ...(maxPay && {
+        maxPay: maxPay,
       }),
     };
     dispatch(fetchContracts(params));

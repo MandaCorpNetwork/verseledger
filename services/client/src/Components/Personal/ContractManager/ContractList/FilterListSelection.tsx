@@ -2,7 +2,7 @@ import { PlayArrow } from '@mui/icons-material';
 import { Badge, Box, Paper, Popper, Typography } from '@mui/material';
 import { LocationsFilter } from '@Utils/Filters/LocationsFilter';
 import { SubTypeFilter } from '@Utils/Filters/SubtypeFilter';
-import { UECRangeFilter } from '@Utils/Filters/UECRangeFilter';
+import { UECFilter } from '@Utils/Filters/UECFilter';
 // import { QueryNames } from '@Utils/QueryNames';
 import React, { useState } from 'react';
 
@@ -27,7 +27,7 @@ export const FilterListSelection: React.FC<FilterListSelectionProps> = ({
       case 'Locations':
         return <LocationsFilter size="small" />;
       case 'Pay Range':
-        return <UECRangeFilter size="small" innerSpace="dense" />;
+        return <UECFilter size="small" innerSpace="dense" />;
     }
   };
 

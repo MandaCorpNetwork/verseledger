@@ -14,13 +14,16 @@ import {
   buildDateQuery,
   buildDurationQuery,
   optionalSet,
+  queryAbove,
   queryBelow,
+  queryBetween,
   queryIn,
 } from '@/utils/Sequelize/queryIn';
 import { type NotificationService } from '../notifications/notification.service';
 import { ContractBidDTO } from '@V1/models/contract_bid/mapping/ContractBidDTO';
 import { Logger } from '@/utils/Logger';
 import { ContractMapper } from './mapping/contract.mapper';
+import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 
 @injectable()
 export class ContractService {
@@ -211,6 +214,9 @@ export class ContractService {
     endDate?: { before?: Date; after?: Date; exact?: Date };
     duration?: number;
     contractorRatingLimit?: number;
+    payStructure?: IContractPayStructure;
+    minPay?: number;
+    maxPay?: number;
     limit?: number;
     page?: number;
   }) {
@@ -225,7 +231,10 @@ export class ContractService {
       startDate,
       endDate,
       duration,
-      contractorRatingLimit
+      contractorRatingLimit,
+      payStructure,
+      minPay,
+      maxPay,
     } = params ?? {};
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -236,6 +245,8 @@ export class ContractService {
     optionalSet(query, 'id', queryIn(contractId));
     optionalSet(query, 'ratingLimit', queryIn(contractorRatingLimit));
     optionalSet(query, 'ratingLimit', queryBelow(contractorRatingLimit));
+    optionalSet(query, 'payStructure', queryIn(payStructure));
+    optionalSet(query, 'defaultPay', queryBetween(minPay, maxPay));
 
     if (bidDate) {
       Object.assign(query, buildDateQuery('bidDate', bidDate));

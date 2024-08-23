@@ -3,6 +3,7 @@ import { ContractStatusSchema } from "./ContractStatusSchema";
 import { stringArray } from "../utils/stringArray";
 import { ContractSubTypeSchema } from "./ContractSubTypeSchema";
 import { ContractBidStatusSchema } from "./ContractBidStatusSchema";
+import { ContractPayStructureSchema } from "./ContractPayStructureSchema";
 
 export const SearchSchema = z.object({
   limit: z.coerce.number().nonnegative().optional(),
@@ -29,6 +30,9 @@ export const ContractSearchSchema = SearchSchema.extend({
   endDate: DateSearchSchema.optional(),
   duration: z.coerce.number().optional(),
   contractorRatingLimit: z.coerce.number().optional(),
+  payStructure: ContractPayStructureSchema.optional(),
+  minPay: z.coerce.number().optional(),
+  maxPay: z.coerce.number().optional(),
 });
 
 export type IContractSearch = z.infer<typeof ContractSearchSchema>;

@@ -128,7 +128,7 @@ export const ContractTableTools: React.FC<unknown> = () => {
         <DropdownFilter filter="Locations" label="Locations" />
         <DropdownFilter filter="Scheduling" label="Scheduling" />
         <DropdownFilter filter="Ratings" label="Ratings" />
-        <DropdownFilter filter="PayRange" label="Compensation" />
+        <DropdownFilter filter="Pay" label="Compensation" />
       </Collapse>
       <Typography
         data-testid="ContractLedger-TableTools__Title"

@@ -8,7 +8,7 @@ import { LocationsFilter } from '@Utils/Filters/LocationsFilter';
 import { RatingsFilter } from '@Utils/Filters/RatingsFilter';
 import { SchedulingDropdownFilter } from '@Utils/Filters/ScheduleFilter';
 import { SubTypeFilter } from '@Utils/Filters/SubtypeFilter';
-import { UECRangeFilter } from '@Utils/Filters/UECRangeFilter';
+import { UECFilter } from '@Utils/Filters/UECFilter';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useCallback } from 'react';
 
@@ -16,7 +16,7 @@ import { useSoundEffect } from '@/AudioManager';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 type DropdownFilterProps = {
-  filter: 'Subtype' | 'PayRange' | 'Locations' | 'Scheduling' | 'Ratings';
+  filter: 'Subtype' | 'Pay' | 'Locations' | 'Scheduling' | 'Ratings';
   label: string;
 };
 
@@ -26,7 +26,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({ filter, label })
   const [isExpanded, setIsExpanded] = React.useState(false);
 
   const setDisabled = () => {
-    if (filter === 'Locations' || filter === 'PayRange') {
+    if (filter === 'Locations') {
       return true;
     }
     return false;
@@ -54,8 +54,8 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({ filter, label })
         return <SchedulingDropdownFilter />;
       case 'Ratings':
         return <RatingsFilter />;
-      case 'PayRange':
-        return <UECRangeFilter size="medium" innerSpace="dense" />;
+      case 'Pay':
+        return <UECFilter />;
     }
   };
   const filterComponent = getFilterComponent(filter);
@@ -81,8 +81,12 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({ filter, label })
           filters.has(QueryNames.EmployerRating) ||
           filters.has(QueryNames.ContractorRating)
         );
-      case 'PayRange':
-        return filters.has(QueryNames.UECRangeMax) || filters.has(QueryNames.UECRangeMin);
+      case 'Pay':
+        return (
+          filters.has(QueryNames.UECRangeMax) ||
+          filters.has(QueryNames.UECRangeMin) ||
+          filters.has(QueryNames.PayStructure)
+        );
       default:
         return 0;
     }
@@ -133,6 +137,12 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({ filter, label })
           ];
         case 'Ratings':
           return [QueryNames.EmployerRating, QueryNames.ContractorRating];
+        case 'Pay':
+          return [
+            QueryNames.UECRangeMin,
+            QueryNames.UECRangeMax,
+            QueryNames.PayStructure,
+          ];
         default:
           return [];
       }

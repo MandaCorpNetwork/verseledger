@@ -42,6 +42,19 @@ export const queryBelow = (value: number | undefined): WhereOptions | undefined 
   return undefined;
 };
 
+export const queryBetween = (minValue?: number, maxValue?: number): WhereOptions | undefined => {
+  if (minValue != null && maxValue != null) {
+    return { [Op.between as symbol]: [Number(minValue), Number(maxValue)] };
+  }
+  if (minValue != null) {
+    return { [Op.gte as symbol]: Number(minValue) };
+  }
+  if (maxValue != null) {
+    return { [Op.lte as symbol]: Number(maxValue) };
+  }
+  return undefined;
+}
+
 /**
  * #### Builder for Querying Date Fields
  * @param field - The name of the field in the database to filter from
