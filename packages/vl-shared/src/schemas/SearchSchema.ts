@@ -33,6 +33,7 @@ export const ContractSearchSchema = SearchSchema.extend({
   payStructure: ContractPayStructureSchema.optional(),
   minPay: z.coerce.number().optional(),
   maxPay: z.coerce.number().optional(),
+  isEmergency: z.string().optional(),
 });
 
 export type IContractSearch = z.infer<typeof ContractSearchSchema>;

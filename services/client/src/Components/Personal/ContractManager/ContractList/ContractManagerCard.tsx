@@ -1,14 +1,11 @@
 import { UserChip } from '@Common/Components/Chips/UserChip';
 import { PayInput } from '@Common/Components/Custom/DigiField/PayInput';
 import { Box, ButtonBase, Tooltip, Typography, useTheme } from '@mui/material';
-// import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
-
-//import type { IContract } from '@Backend/interfaces/IContract';
 
 type ContractManagerCardProps = {
   contract: IContract;

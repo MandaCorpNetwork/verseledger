@@ -1,0 +1,98 @@
+import { EmergencyShare, ShareLocation } from '@mui/icons-material';
+import { styled, Switch, Tooltip } from '@mui/material';
+import React from 'react';
+
+import { useSoundEffect } from '@/AudioManager';
+
+/**
+ * @component
+ * Custom Styled Component for the Emergency Switch
+ */
+const ThemedSwitch = styled(Switch)(({ theme }) => ({
+  '& .MuiSwitch-switchBase': {
+    color: theme.palette.warning.main,
+    '&.Mui-checked': {
+      color: theme.palette.error.main,
+      '& + .MuiSwitch-track': {
+        backgroundColor: theme.palette.error.main,
+      },
+    },
+    '& + .MuiSwitch-track': {
+      backgroundColor: theme.palette.warning.dark,
+    },
+  },
+  '& .MuiSwitch-thumb': {
+    color: 'theme.palette.warning.main',
+    '&.Mui-checked': {
+      color: theme.palette.error.main,
+    },
+  },
+}));
+/** Fixed Alignment for the Emergency Switch Icons */
+const iconStyle = {
+  position: 'relative',
+  top: '50%',
+  transform: 'translateY(-10%)',
+};
+
+type EmergencySwitchProps = {
+  /** The current Boolean Value of the Toggle */
+  isEmergency: boolean;
+  /** The function to be called when the toggle is clicked. */
+  onToggle: () => void;
+  /** Whether the toggle is disabled. */
+  disabled?: boolean;
+  /** The DataTestId of the Toggle */
+  ['data-testid']?: string;
+  /** The Size of the Toggle */
+  size?: 'small' | 'medium';
+};
+
+/**
+ * @global Global Component
+ * @name EmergencyToggle - A Custom Toggle for Filtering Emergency States
+ * @param {boolean} isEmergency - The current Boolean Value of the Toggle
+ * @param {function} onToggle - The function to be called when the toggle is clicked.
+ * @param {boolean} disabled - Whether the toggle is disabled.
+ * @param {string} data-testid - The DataTestId of the Toggle
+ * @param {string} size - The Size of the Toggle. Default `medium`.
+ * @example
+ * <<EmergencyToggle isEmergency={true} onToggle={() => {}} />
+ * @author ThreeCrown
+ */
+export const EmergencySwitch: React.FC<EmergencySwitchProps> = ({
+  isEmergency,
+  onToggle,
+  disabled,
+  'data-testid': testid = 'emergencyToggle',
+  size = 'medium',
+}) => {
+  // HOOKS
+  const { playSound } = useSoundEffect();
+  // LOGIC
+  /** Handles the clickEvent that toggles the Emergency Switch */
+  const handleToggle = React.useCallback(() => {
+    playSound('generalNotify');
+    onToggle();
+  }, [playSound, onToggle]);
+  return (
+    <Tooltip
+      title="Emergency Mode"
+      disableInteractive
+      enterDelay={500}
+      enterNextDelay={2000}
+      leaveDelay={300}
+    >
+      <ThemedSwitch
+        data-testid={`EmergencySwitch__${testid}`}
+        onChange={handleToggle}
+        checked={isEmergency}
+        disabled={disabled}
+        checkedIcon={<EmergencyShare sx={iconStyle} />}
+        icon={<ShareLocation sx={iconStyle} />}
+        size={size}
+        color="default"
+      />
+    </Tooltip>
+  );
+};

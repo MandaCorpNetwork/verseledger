@@ -1,5 +1,6 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { ElevatedDropdownBox } from '@Common/Components/Collapse/ElevatedDropdownBox';
+import { EmergencySwitch } from '@Common/Components/Switch/EmergencySwitch';
 import { FilterAlt } from '@mui/icons-material';
 import { Badge, Box, Button, Typography } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
@@ -14,7 +15,7 @@ import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 export const ContractTableTools: React.FC<unknown> = () => {
   const { playSound } = useSoundEffect();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [filters] = useURLQuery();
+  const [filters, setFilter] = useURLQuery();
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
   const toolsRef = useRef<HTMLDivElement>(null);
@@ -59,6 +60,18 @@ export const ContractTableTools: React.FC<unknown> = () => {
 
   const filterCount = getFilterCount();
 
+  const emergencyMode = React.useMemo(() => {
+    return filters.get(QueryNames.Emergency) === 'true';
+  }, [filters]);
+
+  const handleEmergencyMode = React.useCallback(() => {
+    if (emergencyMode) {
+      setFilter(QueryNames.Emergency, []);
+    } else {
+      setFilter(QueryNames.Emergency, 'true');
+    }
+  }, [emergencyMode, setFilter]);
+
   const sortOptions = [
     {
       label: 'Rating',
@@ -97,36 +110,44 @@ export const ContractTableTools: React.FC<unknown> = () => {
         py: '.5em',
       }}
     >
-      <Badge
-        data-testid="ContractLedger-TableTools__FilterBadge"
-        badgeContent={filterCount}
-        color="error"
-        variant="standard"
-        overlap="rectangular"
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        sx={{
-          opacity: open ? 1 : 0.8,
-        }}
-      >
-        <Button
-          data-testid="ContractLedger-TableTools__FilterButton"
-          onClick={handleClick}
-          color="secondary"
-          variant="outlined"
-          startIcon={<FilterAlt />}
-          size="small"
+      <Box data-testid="ContractLedger-ColumnTwo__FiltersContainer">
+        <EmergencySwitch
+          data-testid="ContractLedger_EmergencyToggle"
+          isEmergency={emergencyMode}
+          onToggle={handleEmergencyMode}
+        />
+        <Badge
+          data-testid="ContractLedger-TableTools__FilterBadge"
+          badgeContent={filterCount}
+          color="error"
+          variant="standard"
+          overlap="rectangular"
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
           sx={{
-            '&:hover': {
-              boxShadow: '0 0px 10px',
-            },
+            opacity: open ? 1 : 0.8,
           }}
         >
-          Filters
-        </Button>
-      </Badge>
+          <Button
+            data-testid="ContractLedger-TableTools__FilterButton"
+            onClick={handleClick}
+            color="secondary"
+            variant="outlined"
+            startIcon={<FilterAlt />}
+            size="small"
+            sx={{
+              ml: '2em',
+              '&:hover': {
+                boxShadow: '0 0px 10px',
+              },
+            }}
+          >
+            Filters
+          </Button>
+        </Badge>
+      </Box>
       <ElevatedDropdownBox
         data-testid="ContractLedger-TableTools__FilterDrawer"
         key="Contract-Table-Filter-Drawer"
