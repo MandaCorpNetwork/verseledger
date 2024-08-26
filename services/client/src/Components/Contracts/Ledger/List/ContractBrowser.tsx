@@ -11,6 +11,7 @@ import { isMobile } from '@Utils/isMobile';
 import { Logger } from '@Utils/Logger';
 import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
 import React from 'react';
+import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 import { IContractSearch } from 'vl-shared/src/schemas/SearchSchema';
 
@@ -91,10 +92,10 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
     const endBefore = new Date(filters.get(QueryNames.EndBefore) as string);
     const endAfter = new Date(filters.get(QueryNames.EndAfter) as string);
     const duration = parseInt(filters.get(QueryNames.Duration) as string, 10);
-    const payStructure = filters.get(QueryNames.PayStructure) as string;
+    const payStructure = filters.get(QueryNames.PayStructure) as IContractPayStructure;
     const contractorRating = filters.get(QueryNames.ContractorRating) as string;
-    const minPay = filters.get(QueryNames.UECRangeMin) as string;
-    const maxPay = filters.get(QueryNames.UECRangeMax) as string;
+    const minPay = Number(filters.get(QueryNames.UECRangeMin) as string);
+    const maxPay = Number(filters.get(QueryNames.UECRangeMax) as string);
 
     const params: IContractSearch = {
       page: page,

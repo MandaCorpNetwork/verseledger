@@ -14,17 +14,13 @@ import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructure
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
-type UECFilterProps = {
-  onClearAll?: () => void;
-};
-
 const structureOptions = [
   { label: 'Flatrate', value: 'FLATRATE' },
   { label: 'Hourly', value: 'HOURLY' },
   { label: 'Pool', value: 'POOL' },
 ];
 
-export const UECFilter: React.FC<UECFilterProps> = ({ onClearAll }) => {
+export const UECFilter: React.FC<unknown> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filter, setFilter] = useURLQuery();
   const [localMin, setLocalMin] = React.useState<string>('');

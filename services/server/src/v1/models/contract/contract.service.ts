@@ -14,7 +14,6 @@ import {
   buildDateQuery,
   buildDurationQuery,
   optionalSet,
-  queryAbove,
   queryBelow,
   queryBetween,
   queryIn,

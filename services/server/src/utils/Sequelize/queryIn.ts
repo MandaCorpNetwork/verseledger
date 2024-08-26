@@ -28,21 +28,28 @@ export const queryIn = <T>(values: T | T[]): WhereOptions | undefined => {
   return undefined;
 };
 
-export const queryAbove = (value: number | undefined): WhereOptions | undefined => {
+export const queryAbove = (
+  value: number | undefined,
+): WhereOptions | undefined => {
   if (value != null) {
     return { [Op.gt as symbol]: Number(value) };
   }
   return undefined;
 };
 
-export const queryBelow = (value: number | undefined): WhereOptions | undefined => {
+export const queryBelow = (
+  value: number | undefined,
+): WhereOptions | undefined => {
   if (value != null) {
     return { [Op.lt as symbol]: Number(value) };
   }
   return undefined;
 };
 
-export const queryBetween = (minValue?: number, maxValue?: number): WhereOptions | undefined => {
+export const queryBetween = (
+  minValue?: number,
+  maxValue?: number,
+): WhereOptions | undefined => {
   if (minValue != null && maxValue != null) {
     return { [Op.between as symbol]: [Number(minValue), Number(maxValue)] };
   }
@@ -53,7 +60,7 @@ export const queryBetween = (minValue?: number, maxValue?: number): WhereOptions
     return { [Op.lte as symbol]: Number(maxValue) };
   }
   return undefined;
-}
+};
 
 /**
  * #### Builder for Querying Date Fields

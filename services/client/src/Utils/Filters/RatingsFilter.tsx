@@ -57,7 +57,7 @@ export const RatingsFilter: React.FC<unknown> = () => {
   }, [filter]);
 
   const handleFilterSlide = React.useCallback(
-    (event: Event, newValue: number | number[], field: QueryNames) => {
+    (newValue: number | number[], field: QueryNames) => {
       setFilter(field, newValue.toString());
     },
     [setFilter, filter],
@@ -87,8 +87,8 @@ export const RatingsFilter: React.FC<unknown> = () => {
           value={currentFilterValue(QueryNames.ContractorRating) ?? 1}
           min={1}
           max={5}
-          onChange={(e, newValue) =>
-            handleFilterSlide(e, newValue, QueryNames.ContractorRating)
+          onChange={(_e, newValue) =>
+            handleFilterSlide(newValue, QueryNames.ContractorRating)
           }
           valueLabelDisplay="auto"
           marks={RatingSliderMarks}

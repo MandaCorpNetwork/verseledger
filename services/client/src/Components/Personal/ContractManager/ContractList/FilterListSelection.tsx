@@ -27,7 +27,7 @@ export const FilterListSelection: React.FC<FilterListSelectionProps> = ({
       case 'Locations':
         return <LocationsFilter size="small" />;
       case 'Pay Range':
-        return <UECFilter size="small" innerSpace="dense" />;
+        return <UECFilter />;
     }
   };
 
