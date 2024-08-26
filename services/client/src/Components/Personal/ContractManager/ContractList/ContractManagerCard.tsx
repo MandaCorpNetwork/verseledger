@@ -16,7 +16,7 @@ type ContractManagerCardProps = {
   setSelectedId: (id: string | null) => void;
 };
 
-export const ContractManagerContractCard: React.FC<ContractManagerCardProps> = ({
+export const ContractManagerCard: React.FC<ContractManagerCardProps> = ({
   contract,
   selectedId,
   setSelectedId,

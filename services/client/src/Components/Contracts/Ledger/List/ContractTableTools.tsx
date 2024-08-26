@@ -1,6 +1,7 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import { ElevatedDropdownBox } from '@Common/Components/Collapse/ElevatedDropdownBox';
 import { FilterAlt } from '@mui/icons-material';
-import { Badge, Box, Button, Collapse, Typography } from '@mui/material';
+import { Badge, Box, Button, Typography } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
 import { QueryNames } from '@Utils/QueryNames';
@@ -126,31 +127,12 @@ export const ContractTableTools: React.FC<unknown> = () => {
           Filters
         </Button>
       </Badge>
-      <Collapse
+      <ElevatedDropdownBox
         data-testid="ContractLedger-TableTools__FilterDrawer"
         key="Contract-Table-Filter-Drawer"
         in={open}
         sx={{
-          position: 'absolute',
-          top: '100%',
-          width: '100%',
-          zIndex: '50',
-          backdropFilter: 'blur(10px)',
-          background: 'linear-gradient(145deg, rgb(8,22,80,.8), rgba(0,73,150,.5))',
-          justifyContent: 'flex-start',
-          display: 'flex',
-          flexDirection: 'column',
           p: '1em',
-          borderBottomLeftRadius: '10px',
-          borderBottomRightRadius: '10px',
-          borderLeft: '1px solid rgba(14,35,80,0.2)',
-          borderRight: '1px solid rgba(14,35,80,0.2)',
-          borderBottom: '1px solid rgba(14,35,80,0.2)',
-          boxShadow: `
-            0px 4px 8px rgba(0, 0, 0, 0.3),
-            0px 8px 16px rgba(0, 0, 0, 0.2),
-            0px 12px 24px rgba(0, 0, 0, 0.1)
-          `,
         }}
       >
         <DropdownFilter
@@ -183,7 +165,7 @@ export const ContractTableTools: React.FC<unknown> = () => {
           isExpanded={expanded === 'Pay'}
           onExpand={() => handleExpand('Pay')}
         />
-      </Collapse>
+      </ElevatedDropdownBox>
       <Typography
         data-testid="ContractLedger-TableTools__Title"
         variant="h5"
