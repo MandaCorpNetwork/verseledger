@@ -11,6 +11,8 @@ type TimePickerProps = {
   value: Date | null;
   /** Callback function to handle changes */
   onChange: (date: Date | null) => void;
+  /** Callback function to handle clearing */
+  onClear: () => void;
   /** Size of components TextField & FontSize, default is small */
   size?: 'small' | 'medium';
   /** Test ID for component */
@@ -32,6 +34,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   size = 'small',
   'data-testid': testid = 'field',
   isDisabled = false,
+  onClear,
 }) => {
   return (
     <DateTimePicker
@@ -46,7 +49,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       thresholdToRenderTimeInASingleColumn={300}
       skipDisabled
       onChange={(newValue) => onChange(newValue ? newValue.toDate() : null)}
-      value={dayjs(value) ?? null}
+      value={value ? dayjs(value) : null}
       slotProps={{
         actionBar: {
           actions: ['clear', 'today'],
@@ -137,6 +140,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         },
         field: {
           clearable: true,
+          onClear: onClear,
         },
         layout: {
           sx: {
@@ -157,6 +161,15 @@ export const TimePicker: React.FC<TimePickerProps> = ({
             },
           },
         },
+        //ToDo: Add shortcuts for quickly changing times
+        // shortcuts: {
+        //   items: [
+        //     {
+        //       label: 'Today',
+        //       getValue: () => dayjs(),
+        //     },
+        //   ],
+        // },
       }}
     />
   );

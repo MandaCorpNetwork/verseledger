@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Op, type WhereOptions } from 'sequelize';
+import { Op, Sequelize, type WhereOptions } from 'sequelize';
 
 export const queryIn = <T>(values: T | T[]): WhereOptions | undefined => {
   if (values != null) {
@@ -108,19 +108,21 @@ export const buildDurationQuery = (
   fieldEndDate: string,
   duration?: number,
 ): WhereOptions | undefined => {
-  if (duration == null) return undefined;
+  if (duration == null || duration <= 0) return undefined;
 
-  const query: WhereOptions = {};
+  //Convert duration to milliseconds
+  const maxDurationMs = duration * 24 * 60 * 60 * 1000;
 
-  const currentDate = new Date();
-  const endDate = new Date(
-    currentDate.getTime() + duration * 24 * 60 * 60 * 1000, // Calculate end date based on duration
-  );
+  // Add condition to check that the duration of contract is less than or equal to the max duration
+  const query: WhereOptions = {
+    [Op.and]: [
+      Sequelize.literal(
+        `(DATEDIFF(${fieldEndDate}, ${fieldStartDate}) <= ${maxDurationMs})`,
+      ),
 
-  // Query to ensure the start date is less than or equal to the current date.
-  query[fieldStartDate] = { [Op.lte as symbol]: currentDate };
-  // Query to ensure the end date is greater than or equal to the calculated end date.
-  query[fieldEndDate] = { [Op.gte as symbol]: endDate };
+      Sequelize.literal(`(${fieldEndDate} >= ${fieldStartDate})`),
+    ],
+  };
 
   return query;
 };
