@@ -18,12 +18,18 @@ import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 type DropdownFilterProps = {
   filter: 'Subtype' | 'Pay' | 'Locations' | 'Scheduling' | 'Ratings';
   label: string;
+  isExpanded: boolean;
+  onExpand: () => void;
 };
 
-export const DropdownFilter: React.FC<DropdownFilterProps> = ({ filter, label }) => {
+export const DropdownFilter: React.FC<DropdownFilterProps> = ({
+  filter,
+  label,
+  isExpanded,
+  onExpand,
+}) => {
   const { playSound } = useSoundEffect();
   const [filters, setFilters] = useURLQuery();
-  const [isExpanded, setIsExpanded] = React.useState(false);
 
   const setDisabled = () => {
     if (filter === 'Locations') {
@@ -33,15 +39,6 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({ filter, label })
   };
 
   const isDisabled = setDisabled();
-
-  const handleExpand = () => {
-    if (isDisabled) {
-      playSound('denied');
-      return;
-    }
-    playSound('clickMain');
-    setIsExpanded(!isExpanded);
-  };
 
   //FilterSwitches
   const getFilterComponent = (filterName: string) => {
@@ -184,7 +181,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({ filter, label })
           <Typography
             data-testid={`ContractLedgerFilters-${filter}__TitleDropDown`}
             variant="body1"
-            onClick={handleExpand}
+            onClick={onExpand}
             sx={{
               display: 'flex',
               flexDirection: 'row',

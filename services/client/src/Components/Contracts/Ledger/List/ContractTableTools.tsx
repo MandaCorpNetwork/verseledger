@@ -15,12 +15,17 @@ export const ContractTableTools: React.FC<unknown> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filters] = useURLQuery();
   const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState<string | null>(null);
   const toolsRef = useRef<HTMLDivElement>(null);
 
   const handleClick = () => {
     playSound('clickMain');
     setOpen((prevOpen) => !prevOpen);
   };
+
+  const handleExpand = React.useCallback((panel: string) => {
+    setExpanded((prevExpanded) => (prevExpanded === panel ? null : panel));
+  }, []);
 
   const filterCount = filters.getAll(QueryNames.Subtype).length;
   //   filters.getAll(QueryNames.Locations).length +
@@ -124,11 +129,36 @@ export const ContractTableTools: React.FC<unknown> = () => {
           `,
         }}
       >
-        <DropdownFilter filter="Subtype" label="SubTypes" />
-        <DropdownFilter filter="Locations" label="Locations" />
-        <DropdownFilter filter="Scheduling" label="Scheduling" />
-        <DropdownFilter filter="Ratings" label="Ratings" />
-        <DropdownFilter filter="Pay" label="Compensation" />
+        <DropdownFilter
+          filter="Subtype"
+          label="SubTypes"
+          isExpanded={expanded === 'Subtype'}
+          onExpand={() => handleExpand('Subtype')}
+        />
+        <DropdownFilter
+          filter="Locations"
+          label="Locations"
+          isExpanded={expanded === 'Locations'}
+          onExpand={() => handleExpand('Locations')}
+        />
+        <DropdownFilter
+          filter="Scheduling"
+          label="Scheduling"
+          isExpanded={expanded === 'Scheduling'}
+          onExpand={() => handleExpand('Scheduling')}
+        />
+        <DropdownFilter
+          filter="Ratings"
+          label="Ratings"
+          isExpanded={expanded === 'Ratings'}
+          onExpand={() => handleExpand('Ratings')}
+        />
+        <DropdownFilter
+          filter="Pay"
+          label="Compensation"
+          isExpanded={expanded === 'Pay'}
+          onExpand={() => handleExpand('Pay')}
+        />
       </Collapse>
       <Typography
         data-testid="ContractLedger-TableTools__Title"
