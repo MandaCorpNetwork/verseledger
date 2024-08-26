@@ -64,14 +64,15 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
         return filters.has(QueryNames.Subtype);
       case 'Locations':
         return filters.has(QueryNames.Locations);
-      case 'TimeRemaining':
+      case 'Scheduling':
         return (
           filters.has(QueryNames.BidBefore) ||
           filters.has(QueryNames.BidAfter) ||
           filters.has(QueryNames.StartBefore) ||
           filters.has(QueryNames.StartAfter) ||
           filters.has(QueryNames.EndBefore) ||
-          filters.has(QueryNames.EndAfter)
+          filters.has(QueryNames.EndAfter) ||
+          filters.has(QueryNames.Duration)
         );
       case 'Ratings':
         return (

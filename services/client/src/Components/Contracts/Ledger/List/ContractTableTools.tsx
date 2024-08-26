@@ -27,12 +27,36 @@ export const ContractTableTools: React.FC<unknown> = () => {
     setExpanded((prevExpanded) => (prevExpanded === panel ? null : panel));
   }, []);
 
-  const filterCount = filters.getAll(QueryNames.Subtype).length;
-  //   filters.getAll(QueryNames.Locations).length +
-  //   filters.getAll(QueryNames.TimeRemaining).length +
-  //   (filters.has(QueryNames.UECRangeMax) ? 1 : 0) +
-  //   (filters.has(QueryNames.UECRangeMin) ? 1 : 0) +
-  //   (filters.has(QueryNames.EmployerRating) ? 1 : 0);
+  const getFilterCount = React.useCallback(() => {
+    const subtypes = filters.getAll(QueryNames.Subtype);
+    const bidDateBefore = filters.has(QueryNames.BidBefore) ? 1 : 0;
+    const bidDateAfter = filters.has(QueryNames.BidAfter) ? 1 : 0;
+    const startDateBefore = filters.has(QueryNames.StartBefore) ? 1 : 0;
+    const startDateAfter = filters.has(QueryNames.StartAfter) ? 1 : 0;
+    const endDateBefore = filters.has(QueryNames.EndBefore) ? 1 : 0;
+    const endDateAfter = filters.has(QueryNames.EndAfter) ? 1 : 0;
+    const duration = filters.has(QueryNames.Duration) ? 1 : 0;
+    const contractorRating = filters.has(QueryNames.ContractorRating) ? 1 : 0;
+    const payStructure = filters.has(QueryNames.PayStructure) ? 1 : 0;
+    const payMin = filters.has(QueryNames.UECRangeMin) ? 1 : 0;
+    const payMax = filters.has(QueryNames.UECRangeMax) ? 1 : 0;
+    return (
+      subtypes.length +
+      bidDateBefore +
+      bidDateAfter +
+      startDateBefore +
+      startDateAfter +
+      endDateBefore +
+      endDateAfter +
+      duration +
+      contractorRating +
+      payStructure +
+      payMin +
+      payMax
+    );
+  }, [filters]);
+
+  const filterCount = getFilterCount();
 
   const sortOptions = [
     {

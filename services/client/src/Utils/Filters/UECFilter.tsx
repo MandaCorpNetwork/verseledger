@@ -9,15 +9,13 @@ import {
   TextField,
 } from '@mui/material';
 import { QueryNames } from '@Utils/QueryNames';
-import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 type UECFilterProps = {
-  size?: 'small' | 'medium';
-  innerSpace?: 'dense' | 'normal';
+  onClearAll?: () => void;
 };
 
 const structureOptions = [
@@ -26,7 +24,7 @@ const structureOptions = [
   { label: 'Pool', value: 'POOL' },
 ];
 
-export const UECFilter: React.FC<UECFilterProps> = () => {
+export const UECFilter: React.FC<UECFilterProps> = ({ onClearAll }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filter, setFilter] = useURLQuery();
   const [localMin, setLocalMin] = React.useState<string>('');
@@ -76,8 +74,10 @@ export const UECFilter: React.FC<UECFilterProps> = () => {
     [filter],
   );
 
-  const handlePayFilter = React.useCallback(() => {
+  React.useEffect(() => {
     if (localMin === '' && localMax === '') {
+      setFilter(QueryNames.UECRangeMin, []);
+      setFilter(QueryNames.UECRangeMax, []);
       return;
     }
     if (localMin !== '' && localMax !== '' && Number(localMin) > Number(localMax)) {
@@ -93,24 +93,7 @@ export const UECFilter: React.FC<UECFilterProps> = () => {
     } else {
       setFilter(QueryNames.UECRangeMax, []);
     }
-  }, [localMax, localMin, setFilter]);
-
-  const handlePayInput = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>, field: string) => {
-      const filterValue = filterNumericInput(event.target.value);
-      if (field === 'min') {
-        setLocalMin(filterValue);
-      }
-      if (field === 'max') {
-        setLocalMax(filterValue);
-      }
-    },
-    [setLocalMin, setLocalMax, handlePayFilter],
-  );
-
-  React.useEffect(() => {
-    handlePayFilter();
-  }, [localMin, localMax, handlePayFilter]);
+  }, [localMin, localMax]);
 
   const handlePayError = React.useCallback(() => {
     if (localMin !== '' && localMax !== '' && Number(localMin) > Number(localMax)) {
@@ -162,7 +145,7 @@ export const UECFilter: React.FC<UECFilterProps> = () => {
         <PayField
           label="Minimum Pay"
           errorColor={isError}
-          onChange={(event) => handlePayInput(event, 'min')}
+          onChange={(event) => setLocalMin(filterNumericInput(event.target.value))}
           onClear={() => handleClearPay(QueryNames.UECRangeMin)}
           value={formatPayString(Number(localMin))}
           structure={
@@ -173,7 +156,7 @@ export const UECFilter: React.FC<UECFilterProps> = () => {
         <PayField
           label="Maximum Pay"
           errorColor={isError}
-          onChange={(event) => handlePayInput(event, 'max')}
+          onChange={(event) => setLocalMax(filterNumericInput(event.target.value))}
           onClear={() => handleClearPay(QueryNames.UECRangeMax)}
           value={formatPayString(Number(localMax))}
           structure={
