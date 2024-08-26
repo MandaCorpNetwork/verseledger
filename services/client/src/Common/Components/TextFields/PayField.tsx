@@ -16,8 +16,11 @@ type ContractDefaultPayLabelProps = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClear?: () => void;
   sx?: object;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   structure: ContractPayStructure;
   activeCount?: number;
+  error?: boolean;
+  errorColor?: boolean;
 };
 
 export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
@@ -28,6 +31,9 @@ export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
   sx,
   structure,
   activeCount,
+  onBlur,
+  error,
+  errorColor,
 }) => {
   const maxLimit = activeCount ? 100 - activeCount : 100;
 
@@ -36,10 +42,12 @@ export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
       if (Number(value) >= 100) return 'error';
       else if (value === '0') return 'error';
       else if (Number(value) >= maxLimit) return 'error';
+      else if (errorColor) return 'error';
       else return 'secondary';
     } else {
       if (value === '0') return 'error';
-      else return 'secondary';
+      if (errorColor) return 'error';
+      return 'secondary';
     }
   }, [maxLimit, structure, value]);
 
@@ -70,6 +78,8 @@ export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
         color={color}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
+        error={error}
         sx={{
           '.MuiInputBase-root': {
             paddingRight: '0px', // Adjust the right padding of the root

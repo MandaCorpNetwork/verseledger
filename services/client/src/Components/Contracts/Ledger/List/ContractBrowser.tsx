@@ -5,6 +5,7 @@ import {
   selectContractPagination,
   selectContractsArray,
 } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import useDebounce from '@Utils/Hooks/useDebounce';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { isMobile } from '@Utils/isMobile';
 import { Logger } from '@Utils/Logger';
@@ -41,12 +42,8 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
 
-  const pagination = React.useCallback(
-    () => useAppSelector(selectContractPagination),
-    [page, rowsPerPage],
-  );
-
-  const contractCount = pagination();
+  const pagination = useAppSelector(selectContractPagination);
+  const contractCount = pagination;
 
   const handleChangePage = (_event: unknown, newPage: number) => {
     playSound('clickMain');
@@ -68,6 +65,13 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   const handleClose = () => {
     contractOnClose();
   };
+
+  const debouncedSearch = React.useCallback(
+    useDebounce((params: IContractSearch) => {
+      dispatch(fetchContracts(params));
+    }, 300),
+    [dispatch],
+  );
 
   React.useEffect(() => {
     // Subtype Filter Initialization
@@ -133,8 +137,8 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
         maxPay: maxPay,
       }),
     };
-    dispatch(fetchContracts(params));
-  }, [filters, page, rowsPerPage]);
+    debouncedSearch(params);
+  }, [filters, page, rowsPerPage, debouncedSearch]);
 
   const contracts = useAppSelector((state) => selectContractsArray(state));
 
