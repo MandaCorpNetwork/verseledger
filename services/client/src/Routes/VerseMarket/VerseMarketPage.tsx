@@ -4,7 +4,7 @@ import React from 'react';
 
 import { CollapseMenu } from '@/Components/Orders/VerseMarket/CollapseMenu';
 import { ItemDisplay } from '@/Components/Orders/VerseMarket/ItemDisplay';
-import { OrderBrowser } from '@/Components/Orders/VerseMarket/OrderBrowser';
+import { OrderBrowser } from '@/Components/Orders/VerseMarket/OrderBrowser/OrderBrowser';
 
 /**
  * ### VerseMarketPage
