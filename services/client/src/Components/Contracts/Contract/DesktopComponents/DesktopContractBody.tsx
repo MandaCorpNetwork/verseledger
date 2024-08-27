@@ -14,20 +14,56 @@ import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { DesktopController } from './DesktopController';
 
 type DesktopBodyProps = {
+  /** @prop {IContract} contract - The contract to display information for */
   contract: IContract;
+  /** @prop {string} timeTab - The current time tab */
   timeTab: string;
+  /** @prop {function} handleTimeTab - The function to handle the time tab change */
   handleTimeTab: (event: React.SyntheticEvent, newValue: string) => void;
+  /** @prop {function} timePanel - The function to render the time panel */
   timePanel: (panel: string) => React.ReactNode;
+  /** @prop {string} activeDataTab - The current active data tab */
   activeDataTab: string;
+  /** @prop {function} handleActiveTab - The function to handle the active data tab change */
   handleActiveTab: (event: React.SyntheticEvent, newValue: string) => void;
+  /** @prop {function} activeDataPanel - The function to render the active data panel */
   activeDataPanel: (panel: string) => React.ReactNode;
+  /** @prop {string} startLocation - The start location of the contract */
   startLocation: string;
+  /** @prop {string} endLocation - The end location of the contract */
   endLocation: string;
+  /** @prop {string[]} otherLocations - The other locations of the contract */
   otherLocations: string[];
+  /** @prop {boolean} isOwned - Whether the user is the owner of the contract */
   isOwned: boolean;
+  /** @prop {IContractBid} userBid - The user's bid on the contract if it exists */
   userBid?: IContractBid | null;
 };
 
+/**
+ * ### DesktopContractBody
+ * @description
+ * Displays the Contract Body on a Desktop Screen with all of the Contract Data and controls.
+ * @version 0.1.4
+ * @memberof {@link ContractPage}
+ * @param {DesktopBodyProps} props - The props for the component
+ * @returns {React.FC}
+ * #### Functional Components
+ * @component {@link DesktopController}
+ * @component {@link LocationChip}
+ * @component {@link TimePanel}
+ * @component {@link ActiveDataPanel}
+ * #### Styled Components
+ * @component {@link SmallTabsHolo}
+ * @component {@link SmallTabHolo}
+ * @component {@link ControlPanelBox}
+ * @component {@link DigiBox}
+ * @component {@link DigiDisplay}
+ * @component {@link GlassDisplay}
+ * @component {@link PopupFormSelection}
+ * @component {@link DigiField}
+ * @author ThreeCrown - @ThreeCrown
+ */
 export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
   contract,
   timeTab,
@@ -42,6 +78,7 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
   isOwned,
   userBid,
 }) => {
+  // HOOKS
   const scrollRef = useHorizontalAdvancedScroll();
   return (
     <Box
@@ -104,6 +141,9 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
             >
               <SmallTabHolo label="Contractors" value="contractors" />
               <SmallTabHolo label="Ships" value="ships" disabled />
+              {(isOwned || userBid?.status === 'ACCEPTED') && (
+                <SmallTabHolo label="Payroll" value="payroll" disabled />
+              )}
             </SmallTabsHolo>
           </ControlPanelBox>
           <DigiDisplay
@@ -217,7 +257,10 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
                 <Typography
                   data-testid="ContractPage-Location-Mobile-LocationList-EndLocation__Missing_Text"
                   variant="body2"
-                  sx={{ color: 'info.main' }}
+                  sx={{
+                    color: 'grey',
+                    textShadow: '0 2px 10px rgba(0,0,0,.8), 0 0 2px rgba(0,0,0)',
+                  }}
                 >
                   No End Location
                 </Typography>
@@ -237,6 +280,7 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
               <Typography
                 data-testid="ContractPage-Location-Mobile-LocationList-OtherLocations__Title"
                 variant="body2"
+                align="center"
                 sx={{ fontWeight: 'bold', mb: '.2em' }}
               >
                 Other Locations
@@ -272,7 +316,21 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
                     ))}
                   </>
                 ) : (
-                  <Typography variant="body2">No Other Locations</Typography>
+                  <Typography
+                    variant="body2"
+                    align="center"
+                    sx={{
+                      textAlign: 'center',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '100%',
+                      color: 'grey',
+                      textShadow: '0 2px 10px rgba(0,0,0,.8), 0 0 2px rgba(0,0,0)',
+                    }}
+                  >
+                    No Other Locations
+                  </Typography>
                 )}
               </Box>
             </PopupFormSelection>

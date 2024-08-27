@@ -18,6 +18,10 @@ type UnderConstructionProps = {
   handleClose: () => void;
 };
 
+/**
+ * @deprecated
+ * TODO: Move this to a VLPopup
+ */
 export const UnderConstruction: React.FC<UnderConstructionProps> = ({
   isOpen,
   handleClose,

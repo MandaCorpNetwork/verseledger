@@ -8,7 +8,7 @@ import { QueryNames } from '@Utils/QueryNames';
 import React, { useRef, useState } from 'react';
 
 import { useSoundEffect } from '@/AudioManager';
-import { DropdownFilter } from '@/Common/Components/App/DropdownFilter';
+import { DropdownFilter } from '@Common/Components/Custom/DropdownFilter';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 export const ContractTableTools: React.FC<unknown> = () => {

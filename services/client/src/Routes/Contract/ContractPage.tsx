@@ -18,14 +18,14 @@ import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 import { useSoundEffect } from '@/AudioManager';
-import { DesktopContractBody } from '@/Components/Contracts/Contract/DesktopContractBody';
-import { DesktopReturn } from '@/Components/Contracts/Contract/DesktopReturn';
+import { DesktopContractBody } from '@/Components/Contracts/Contract/DesktopComponents/DesktopContractBody';
+import { DesktopReturn } from '@/Components/Contracts/Contract/DesktopComponents/DesktopReturn';
 import { MobileLocations } from '@/Components/Contracts/Contract/MobileData/MobileLocations';
 import { MobilePayBrief } from '@/Components/Contracts/Contract/MobileData/MobilePayBrief';
-import { MobileOrTabletController } from '@/Components/Contracts/Contract/MobileOrTabletController';
-import { MobileOrTabletReturn } from '@/Components/Contracts/Contract/MobileOrTabletReturn';
-import { TabletDetails } from '@/Components/Contracts/Contract/TabletData/TabletDetails';
-import { TabletOrMobilePanels } from '@/Components/Contracts/Contract/TabletOrMobilePanels';
+import { MobileOrTabletController } from '@/Components/Contracts/Contract/MobileData/MobileOrTabletController';
+import { MobileOrTabletReturn } from '@/Components/Contracts/Contract/MobileData/MobileOrTabletReturn';
+import { TabletDetails } from '@/Components/Contracts/Contract/MobileData/TabletData/TabletDetails';
+import { TabletOrMobilePanels } from '@/Components/Contracts/Contract/MobileData/TabletOrMobilePanels';
 import { TitleBox } from '@/Components/Contracts/Contract/TitleBox/TitleBox';
 import { ContractorsPanel } from '@/Components/Contracts/Ledger/Details/ActiveDataPanel';
 import {
