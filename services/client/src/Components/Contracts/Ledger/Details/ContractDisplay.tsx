@@ -4,6 +4,7 @@ import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import { ContractorList } from '@Common/Components/Contracts/ContractorList';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
 import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
@@ -35,7 +36,6 @@ import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { useSoundEffect } from '@/AudioManager';
 
-import { ContractorsPanel } from './ActiveDataPanel';
 import { BiddingTimePanel, ContractDurationPanel } from './TimePanel';
 
 type ContractDisplayProps = {
@@ -138,12 +138,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       Logger.info(`Rendering ContractId: ${contract.id}`);
       switch (panel) {
         case 'contractors':
-          return (
-            <ContractorsPanel
-              contractId={contract.id}
-              contractorLimit={contract.contractorLimit}
-            />
-          );
+          return <ContractorList contract={contract} />;
         case 'ships':
           return;
         default:

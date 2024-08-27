@@ -8,10 +8,31 @@ import { Box, Typography } from '@mui/material';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 type MobileInfoProps = {
+  /** @prop {IContract} contract - The contract to display information for */
   contract: IContract;
+  /** @prop {string} archetype - The archetype of the contract */
   archetype: string;
 };
 
+/**
+ * ### MobileInfo
+ * @description
+ * Displays Overview information for a Contract on a Mobile Screen.
+ * @version 0.1.0
+ * @memberof {@link TitleBox}
+ * @param {IContract} contract - The contract to display information for
+ * @param {string} archetype - The archetype of the contract
+ * @returns {React.FC}
+ * #### Functional Components
+ * @component {@link SubTypeChip}
+ * @component {@link ContractStatusChip}
+ * @component {@link ArchetypeChip}
+ * @component {@link UserDisplay}
+ * #### Styled Components
+ * @component {@link DigiField}
+ * @component {@link DigiDisplay}
+ * @author ThreeCrown
+ */
 export const MobileInfo: React.FC<MobileInfoProps> = ({ contract, archetype }) => {
   return (
     <Box

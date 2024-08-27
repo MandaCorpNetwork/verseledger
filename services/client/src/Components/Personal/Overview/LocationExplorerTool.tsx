@@ -1,7 +1,7 @@
 import { LocationSearch } from '@Common/Components/App/LocationSearch';
-import { ReadOnlyField } from '@Common/Components/App/ReadOnlyField';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import { ReadOnlyField } from '@Common/Components/TextFields/ReadOnlyField';
 import { ContentCopy } from '@mui/icons-material';
 import {
   Box,

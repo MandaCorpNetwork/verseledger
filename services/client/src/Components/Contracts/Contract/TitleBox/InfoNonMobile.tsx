@@ -4,17 +4,41 @@ import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip'
 import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { DesktopPayInfo } from './DesktopPayInfo';
 
 type InfoNonMobileProps = {
+  /** @prop {IContract} contract - The contract to display information for */
   contract: IContract;
+  /** @prop {string} archetype - The archetype of the contract */
   archetype: string;
+  /** @prop {boolean} tablet - Whether the screen is tablet or not */
   tablet: boolean;
 };
 
+/**
+ * ### InfoNonMobile
+ * @description
+ * Displays Overview information for a Contract on a Non-Mobile Screen.
+ * @version 0.1.1
+ * @memberof {@link TitleBox}
+ * @param {IContract} contract - The contract to display information for
+ * @param {string} archetype - The archetype of the contract
+ * @param {boolean} tablet - Whether the screen is tablet or not
+ * @returns {React.FC}
+ * #### Functional Components
+ * @component {@link SubTypeChip}
+ * @component {@link ContractStatusChip}
+ * @component {@link ArchetypeChip}
+ * @component {@link UserDisplay}
+ * @component {@link DesktopPayInfo}
+ * #### Styled Components
+ * @component {@link DigiDisplay}
+ * @component {@link DigiField}
+ * @author ThreeCrown
+ */
 export const InfoNonMobile: React.FC<InfoNonMobileProps> = ({
   contract,
   archetype,
@@ -68,13 +92,18 @@ export const InfoNonMobile: React.FC<InfoNonMobileProps> = ({
             },
           }}
         >
-          {contract && (
-            <SubtypeChip
-              data-testid="ContractPage-Info-ContractInfo-Type__Subtype_Chip"
-              subtype={contract.subtype}
-              size="medium"
-            />
-          )}
+          <Box
+            data-testid="ContractPage-Info-ContractInfo-Type__Subtype_Wrapper"
+            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+          >
+            {contract && (
+              <SubtypeChip
+                data-testid="ContractPage-Info-ContractInfo-Type__Subtype_Chip"
+                subtype={contract.subtype}
+                size="medium"
+              />
+            )}
+          </Box>
         </DigiField>
         <DigiField
           data-testid="ContractPage-Info-ContractInfo-Type__Archetype_Field"
@@ -89,14 +118,19 @@ export const InfoNonMobile: React.FC<InfoNonMobileProps> = ({
             },
           }}
         >
-          {archetype && (
-            <ArchetypeChip
-              data-testid="ContractPage-Info-ContractInfo-Type__Archetype_Chip"
-              archetype={archetype}
-              size="medium"
-              iconSize="medium"
-            />
-          )}
+          <Box
+            data-testid="ContractPage-Info-ContractInfo-Type__ArchetypeChip_Wrapper"
+            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+          >
+            {archetype && (
+              <ArchetypeChip
+                data-testid="ContractPage-Info-ContractInfo-Type__Archetype_Chip"
+                archetype={archetype}
+                size="medium"
+                iconSize="medium"
+              />
+            )}
+          </Box>
         </DigiField>
       </DigiDisplay>
       {!tablet && <DesktopPayInfo contract={contract} />}

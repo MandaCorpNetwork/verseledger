@@ -1,5 +1,5 @@
 import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { UserRatingField } from '@Common/Components/Custom/DigiField/UserRatingField';
+import { UserRatingField } from '@Common/Components/Custom/UserRatingField';
 import { Divider, FormControl, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
