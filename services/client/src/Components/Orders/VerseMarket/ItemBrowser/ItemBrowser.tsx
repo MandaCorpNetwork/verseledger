@@ -1,9 +1,8 @@
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import { FilterAlt } from '@mui/icons-material';
-import { Autocomplete, Box, IconButton, TextField } from '@mui/material';
+import { Autocomplete, Box, TextField } from '@mui/material';
+
 import { ItemTypeFilters } from './TypeFilters';
 
 /**
@@ -16,7 +15,7 @@ import { ItemTypeFilters } from './TypeFilters';
  * #### Styled Components
  * @author ThreeCrown - Aug 2024
  */
-export const OrderBrowser: React.FC<unknown> = () => {
+export const ItemBrowser: React.FC<unknown> = () => {
   return (
     <GlassBox
       data-testid="VerseMarket-Marketplace-Browser"
@@ -32,11 +31,9 @@ export const OrderBrowser: React.FC<unknown> = () => {
           flexDirection: 'row',
           width: '100%',
           justifyContent: 'space-around',
+          my: '1em',
         }}
       >
-        <IconButton>
-          <FilterAlt fontSize="medium" />
-        </IconButton>
         <Autocomplete
           renderInput={(params) => <TextField {...params} label="Search" />}
           options={testOptions}

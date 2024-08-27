@@ -3,8 +3,8 @@ import { Box } from '@mui/material';
 import React from 'react';
 
 import { CollapseMenu } from '@/Components/Orders/VerseMarket/CollapseMenu';
+import { ItemBrowser } from '@/Components/Orders/VerseMarket/ItemBrowser/ItemBrowser';
 import { ItemDisplay } from '@/Components/Orders/VerseMarket/ItemDisplay';
-import { OrderBrowser } from '@/Components/Orders/VerseMarket/OrderBrowser/OrderBrowser';
 
 /**
  * ### VerseMarketPage
@@ -14,7 +14,7 @@ import { OrderBrowser } from '@/Components/Orders/VerseMarket/OrderBrowser/Order
  * @returns {JSX.Element}
  * #### Functional Components
  * @component {@link CollapseMenu}
- * @component {@link OrderBrowser}
+ * @component {@link ItemBrowser}
  * @component {@link ItemDisplay}
  * #### Styled Components
  * @component {@link VLViewport}
@@ -52,7 +52,7 @@ export const VerseMarketPage: React.FC<unknown> = () => {
             flexDirection: 'row',
           }}
         >
-          <OrderBrowser />
+          <ItemBrowser />
           <ItemDisplay />
         </Box>
       </Box>

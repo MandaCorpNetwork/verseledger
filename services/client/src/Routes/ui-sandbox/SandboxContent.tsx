@@ -3,9 +3,9 @@ import {
   Commodities,
   Materials,
   MedicalItems,
-  Vehicles,
-  VehicleComponent,
   Sustenance,
+  VehicleComponent,
+  Vehicles,
 } from '@Common/Definitions/CustomIcons';
 import { Box } from '@mui/material';
 

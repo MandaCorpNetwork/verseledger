@@ -28,6 +28,7 @@ export enum QueryNames {
   EndAfter = 'endAfter',
   EndExact = 'endExact',
   Duration = 'duration',
+  ItemType = 'itemType',
 }
 export const ArchetypeToSubtypes: { [key: string]: IContractSubType[] } = {
   Logistics: ['Transport', 'Hauling', 'Manage'],
