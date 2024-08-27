@@ -1,3 +1,4 @@
+import { DropdownFilter } from '@Common/Components/App/DropdownFilter';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { FilterAlt } from '@mui/icons-material';
 import { Badge, Box, Button, Collapse, Typography } from '@mui/material';
@@ -8,7 +9,6 @@ import { QueryNames } from '@Utils/QueryNames';
 import React, { useRef, useState } from 'react';
 
 import { useSoundEffect } from '@/AudioManager';
-import { DropdownFilter } from '@Common/Components/Custom/DropdownFilter';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 export const ContractTableTools: React.FC<unknown> = () => {

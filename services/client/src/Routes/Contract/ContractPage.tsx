@@ -1,5 +1,6 @@
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
+import { ContractorList } from '@Common/Components/Contracts/ContractorList';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { LoadingScreen } from '@Common/LoadingObject/LoadingScreen';
 import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBids/ContractBid';
@@ -21,13 +22,12 @@ import { useSoundEffect } from '@/AudioManager';
 import { DesktopContractBody } from '@/Components/Contracts/Contract/DesktopComponents/DesktopContractBody';
 import { DesktopReturn } from '@/Components/Contracts/Contract/DesktopComponents/DesktopReturn';
 import { MobileLocations } from '@/Components/Contracts/Contract/MobileData/MobileLocations';
-import { MobilePayBrief } from '@/Components/Contracts/Contract/MobileData/MobilePayBrief';
 import { MobileOrTabletController } from '@/Components/Contracts/Contract/MobileData/MobileOrTabletController';
 import { MobileOrTabletReturn } from '@/Components/Contracts/Contract/MobileData/MobileOrTabletReturn';
+import { MobilePayBrief } from '@/Components/Contracts/Contract/MobileData/MobilePayBrief';
 import { TabletDetails } from '@/Components/Contracts/Contract/MobileData/TabletData/TabletDetails';
 import { TabletOrMobilePanels } from '@/Components/Contracts/Contract/MobileData/TabletOrMobilePanels';
 import { TitleBox } from '@/Components/Contracts/Contract/TitleBox/TitleBox';
-import { ContractorsPanel } from '@/Components/Contracts/Ledger/Details/ActiveDataPanel';
 import {
   BiddingTimePanel,
   ContractDurationPanel,
@@ -290,7 +290,7 @@ export const ContractPage: React.FC<unknown> = () => {
    * @returns {React.ReactNode} - The selected Active Data Panel
    * @default {null}
    * - Case 'contractors':
-   * @component {@link ContractorsPanel}
+   * @component {@link ContractorsList}
    * - Case 'ships':
    * TODO
    * - Case 'payroll':
@@ -300,12 +300,7 @@ export const ContractPage: React.FC<unknown> = () => {
     (panel: string) => {
       switch (panel) {
         case 'contractors':
-          return (
-            <ContractorsPanel
-              contractId={contract.id}
-              contractorLimit={contract.contractorLimit}
-            />
-          );
+          return <ContractorList contract={contract} />;
         case 'ships':
           return;
         default:
