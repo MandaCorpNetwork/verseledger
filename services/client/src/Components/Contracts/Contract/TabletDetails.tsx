@@ -6,12 +6,17 @@ import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
 import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
 import { Box, Typography } from '@mui/material';
+import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 type TabletDetailsProps = {
+  /** @prop {IContract} contract - The contract to display information for */
   contract: IContract;
+  /** @prop {string} startLocation - The start location of the contract */
   startLocation: string;
+  /** @prop {string} endLocation - The end location of the contract */
   endLocation: string;
+  /** @prop {string[]} otherLocations - The other locations of the contract */
   otherLocations: string[];
 };
 
@@ -71,6 +76,7 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({
                 testid="ContractPage-Pay&Briefing-Pay-Tablet-Fields__DefaultPay_Field"
                 label="Default Pay"
                 pay={contract.defaultPay}
+                structure={contract.payStructure as ContractPayStructure}
                 slots={{
                   content: {
                     sx: {

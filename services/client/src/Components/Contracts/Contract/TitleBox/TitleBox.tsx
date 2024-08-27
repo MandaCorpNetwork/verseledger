@@ -11,19 +11,49 @@ import { InfoNonMobile } from './InfoNonMobile';
 import { MobileInfo } from './MobileInfo';
 
 type TitleBoxProps = {
+  /** @prop {IContract} contract - The contract to display information for */
   contract: IContract;
+  /** @prop {boolean} mobile - Whether the screen is mobile or not */
   mobile: boolean;
+  /** @prop {boolean} tablet - Whether the screen is tablet or not */
   tablet: boolean;
+  /** @prop {string} archetype - The archetype of the contract */
   archetype: string;
 };
 
+/**
+ * ### TitleBox
+ * @description
+ * Displays Overview information for a Contract.
+ * @version 0.1.2
+ * @memberof {@link ContractPage}
+ * @prop {IContract} contract - The contract to display information for
+ * @prop {boolean} mobile - Whether the screen is mobile or not
+ * @prop {boolean} tablet - Whether the screen is tablet or not
+ * @prop {string} archetype - The archetype of the contract
+ * @returns {React.FC}
+ * #### Functional Components
+ * @component {@link InfoNonMobile}
+ * @component {@link MobileInfo}
+ * #### Styled Components
+ * @component {@link DigiBox}
+ * @component {@link DigiDisplay}
+ * @author ThreeCrown
+ */
 export const TitleBox: React.FC<TitleBoxProps> = ({
   contract,
   mobile,
   tablet,
   archetype,
 }) => {
+  // HOOKS
   const { playSound } = useSoundEffect();
+  // LOGIC
+  /**
+   * @function handleCopyURL - Handles the copy URL button click
+   * @param {string} url - The URL to copy
+   * @returns {void} - Copies the URL to the clipboard
+   */
   const handleCopyURL = (url: string) => {
     if (navigator.clipboard) {
       navigator.clipboard

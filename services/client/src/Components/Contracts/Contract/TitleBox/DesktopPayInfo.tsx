@@ -2,12 +2,28 @@ import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
 import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
 import { Box, Typography } from '@mui/material';
+import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 type PayInfoProps = {
+  /** @prop {IContract} contract - The contract to display information for */
   contract: IContract;
 };
-
+/**
+ * ### DesktopPayInfo
+ * @description
+ * Displays Pay information for a Contract on a Desktop Screen.
+ * @version 0.1.2
+ * @memberof {@link TitleBox}
+ * @param {IContract} contract - The contract to display information for
+ * @returns {React.FC}
+ * #### Functional Components
+ * @component {@link PayDisplay}
+ * @component {@link PayStructure}
+ * #### Styled Components
+ * @component {@link DigiDisplay}
+ * @author ThreeCrown
+ */
 export const DesktopPayInfo: React.FC<PayInfoProps> = ({ contract }) => {
   return (
     <DigiDisplay data-testid="ContractPage-Info-ContractInfo__Pay_Wrapper">
@@ -52,6 +68,7 @@ export const DesktopPayInfo: React.FC<PayInfoProps> = ({ contract }) => {
             testid="ContractPage-Info-ContractInfo__DefaultPay_Field"
             label="Default Pay"
             pay={contract.defaultPay}
+            structure={contract.payStructure as ContractPayStructure}
             slots={{
               label: {
                 sx: {
