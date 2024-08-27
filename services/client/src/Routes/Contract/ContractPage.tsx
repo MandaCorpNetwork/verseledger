@@ -3,12 +3,10 @@ import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { ContractorList } from '@Common/Components/Contracts/ContractorList';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { LoadingScreen } from '@Common/LoadingObject/LoadingScreen';
-import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBids/ContractBid';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
-import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { isMobile } from '@Utils/isMobile';
 import { isTablet } from '@Utils/isTablet';
@@ -309,14 +307,6 @@ export const ContractPage: React.FC<unknown> = () => {
     },
     [activeDataTab, contract],
   );
-
-  /**
-   * @function handleSubmitBidPopup - Handles the clickEvent to open the {@link SubmitBidPopup}
-   */
-  const handleSubmitBidPopup = () => {
-    playSound('open');
-    dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
-  };
 
   /**
    * @function throttle - Throttles a passed event

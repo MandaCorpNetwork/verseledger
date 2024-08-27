@@ -45,6 +45,8 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
   /** @var {IContractBid} userBid - The bid of the current user if exists */
   const userBid = contract.Bids?.find((bid) => bid.user_id === currentUser?.id);
 
+  const privledgedAccess = userBid?.status === 'ACCEPTED' || 'INVITED';
+
   /** @var {IContractBid[]} contractors - The complete list of bids on the contract */
   const contractors = contract.Bids;
 
@@ -110,6 +112,7 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
         height: '100%',
         p: '.5em',
         justifyContent: 'flex-start',
+        flexGrow: 1,
       }}
     >
       <DigiDisplay
@@ -213,6 +216,8 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
             </Typography>
           ))}
         {!isOwner &&
+          userBid &&
+          privledgedAccess &&
           contractorViewableList &&
           (contractorViewableList.length > 0 ? (
             contractorViewableList
@@ -231,6 +236,33 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
                   contract={contract}
                 />
               ))
+          ) : (
+            <Typography
+              align="center"
+              variant="h6"
+              sx={{
+                textAlign: 'center',
+                width: '100%',
+                color: 'grey',
+                textShadow: '0 0 3px rgb(0,0,0), 0 0 10px rgba(0,0,0,.7)',
+              }}
+            >
+              No Contractors
+            </Typography>
+          ))}
+        {!isOwner &&
+          !privledgedAccess &&
+          acceptedBids &&
+          (acceptedBids.length > 0 ? (
+            acceptedBids?.map((contractor) => (
+              <Contractor
+                key={contractor.id}
+                bid={contractor}
+                user={contractor.User as IUser}
+                contractOwned={isOwner}
+                contract={contract}
+              />
+            ))
           ) : (
             <Typography
               align="center"

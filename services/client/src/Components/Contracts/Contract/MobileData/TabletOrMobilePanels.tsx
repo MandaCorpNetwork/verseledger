@@ -119,9 +119,11 @@ export const TabletOrMobilePanels: React.FC<TabletOrMobilePanelProps> = ({
             )}
           </SmallTabsHolo>
         </ControlPanelBox>
-        <DigiBox
+        <Box
           data-testid="ContractPage-ActiveData-Small__Panel_Container"
           sx={{
+            display: 'flex',
+            flexDirection: 'column',
             width: { xs: '100%', sm: '90%', md: '75%' },
             mx: 'auto',
             minHeight: '200px',
@@ -129,7 +131,7 @@ export const TabletOrMobilePanels: React.FC<TabletOrMobilePanelProps> = ({
           }}
         >
           {activeDataPanel(activeDataTab)}
-        </DigiBox>
+        </Box>
       </Box>
     </>
   );
