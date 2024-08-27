@@ -12,13 +12,19 @@ type FilterListProps = {
 };
 
 /**
+ * ### FilterList
+ * @description
  * An {@link ElevatedDropdownBox} containing Filters for {@link ContractManagerApp}.
- * Uses {@link DropdownFilter} components to display different filter options.
+ * @version 0.1.2
  * @memberof {@link SearchTools}
- * @param {boolean} isOpen - Determines if the filter list is currently open.
+ * @prop {boolean} isOpen - Determines if the filter list is currently open.
  * @example
  * <FilterList isOpen={true} />
  * @returns {JSX.Element} - The rendered `FilterList` component.
+ * #### Functional Components
+ * @component {@link DropdownFilter}
+ * #### Styled Components
+ * @component {@link ElevatedDropdownBox}
  * @author ThreeCrown
  */
 export const FilterList: React.FC<FilterListProps> = ({ isOpen }) => {

@@ -12,23 +12,61 @@ import { useSoundEffect } from '@/AudioManager';
 import { DropdownFilter } from '@/Common/Components/App/DropdownFilter';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
+/**
+ * ### ContractTableTools
+ * @description
+ * This component is a container for the tools used to filter and sort the contract list in the {@link ContractBrowser}
+ * @version 0.1.4
+ * @returns {JSX.Element}
+ * #### Functional Components
+ * @component {@link EmergencySwitch}
+ * @component {@link DropdownFilter}
+ * @component {@link SearchBar}
+ * @component {@link SortBySelect}
+ * #### Styled Components
+ * @component {@link DigiBox}
+ * @component {@link ElevatedDropdownBox}
+ * @author ThreeCrown
+ */
 export const ContractTableTools: React.FC<unknown> = () => {
-  const { playSound } = useSoundEffect();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // LOCAL STATES
+  /** State using the useURLQuery hook to store & read the URL query parameters */
   const [filters, setFilter] = useURLQuery();
+  /**
+   * State determines if the FilterList Collapse is expanded
+   * @type [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+   * @default {false}
+   * @returns {boolean}
+   */
   const [open, setOpen] = useState(false);
+  /**
+   * State determins which Dropdown Filer is currently open.
+   * @const
+   * @type [string | null, React.Dispatch<React.SetStateAction<string | null>]
+   * @default {null}
+   * @returns {string} - The current expanded filter.
+   */
   const [expanded, setExpanded] = useState<string | null>(null);
+  // HOOKS
   const toolsRef = useRef<HTMLDivElement>(null);
-
+  const { playSound } = useSoundEffect();
+  // LOGIC
+  /** Handles the clickEvent that toggles the FilterList */
   const handleClick = () => {
     playSound('clickMain');
     setOpen((prevOpen) => !prevOpen);
   };
-
+  /**
+   * @function handleExpand - Handles the clickEvent that expands a `DropdownFilter` component.
+   * @params {string} panel - The name of the filter to expand.
+   */
   const handleExpand = React.useCallback((panel: string) => {
     setExpanded((prevExpanded) => (prevExpanded === panel ? null : panel));
   }, []);
-
+  /**
+   * @function getFilterCount - Returns the number of filters currently applied.
+   * @returns {number} - The number of filters currently applied.
+   */
   const getFilterCount = React.useCallback(() => {
     const subtypes = filters.getAll(QueryNames.Subtype);
     const bidDateBefore = filters.has(QueryNames.BidBefore) ? 1 : 0;
@@ -57,13 +95,21 @@ export const ContractTableTools: React.FC<unknown> = () => {
       payMax
     );
   }, [filters]);
-
+  /** Calls {@link getFilterCount} */
   const filterCount = getFilterCount();
-
+  /**
+   * @function emergencyMode - Checks if the emergency mode is enabled and true in the URL query parameters
+   * @returns {boolean} - True if the emergency mode is enabled and true in the URL query parameters, false otherwise.
+   */
   const emergencyMode = React.useMemo(() => {
     return filters.get(QueryNames.Emergency) === 'true';
   }, [filters]);
-
+  /**
+   * @function handleEmergencyMode - Handles the clickEvent that toggles the emergency mode
+   * @fires setFilter()
+   * - Sets the emergency mode to true in the URL query parameters if the query does not exist
+   * - Removes the emergency mode from the URL query parameters if the query exists
+   */
   const handleEmergencyMode = React.useCallback(() => {
     if (emergencyMode) {
       setFilter(QueryNames.Emergency, []);

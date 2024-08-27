@@ -10,11 +10,15 @@ import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 import { FilterList } from './FilterList';
 
 /**
- * @component
+ * ### SearchTools
+ * @description
  * This is the Bar displayed Above the {@link ContractList}.
+ * @version 0.1.2
  * Renders the {@link FilterList}, {@link SortBySelect} & {@link SearchBar}
  * @memberof {@link ContractManagerApp}
  * @returns {JSX.Element}
+ * #### Functional Components
+ * @component {@link FilterList}
  * @author ThreeCrown
  */
 export const SearchTools: React.FC = () => {

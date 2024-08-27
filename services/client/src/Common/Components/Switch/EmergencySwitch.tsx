@@ -6,7 +6,7 @@ import { useSoundEffect } from '@/AudioManager';
 
 /**
  * @component
- * Custom Styled Component for the Emergency Switch
+ * Custom Styled Switch Component for the Emergency Switch
  */
 const ThemedSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase': {
@@ -28,7 +28,7 @@ const ThemedSwitch = styled(Switch)(({ theme }) => ({
     },
   },
 }));
-/** Fixed Alignment for the Emergency Switch Icons */
+/** Fixes Alignment for the Emergency Switch Icons */
 const iconStyle = {
   position: 'relative',
   top: '50%',
@@ -49,13 +49,13 @@ type EmergencySwitchProps = {
 };
 
 /**
- * @global Global Component
  * @name EmergencyToggle - A Custom Toggle for Filtering Emergency States
- * @param {boolean} isEmergency - The current Boolean Value of the Toggle
- * @param {function} onToggle - The function to be called when the toggle is clicked.
- * @param {boolean} disabled - Whether the toggle is disabled.
- * @param {string} data-testid - The DataTestId of the Toggle
- * @param {string} size - The Size of the Toggle. Default `medium`.
+ * @global Global Component
+ * @prop {boolean} isEmergency - The current Boolean Value of the Toggle
+ * @prop {function} onToggle - The function to be called when the toggle is clicked.
+ * @prop {boolean} disabled - Whether the toggle is disabled.
+ * @prop {string} data-testid - The DataTestId of the Toggle
+ * @prop {string} size - The Size of the Toggle. Default `medium`.
  * @example
  * <<EmergencyToggle isEmergency={true} onToggle={() => {}} />
  * @author ThreeCrown
