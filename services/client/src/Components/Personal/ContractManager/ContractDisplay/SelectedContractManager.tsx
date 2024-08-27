@@ -4,6 +4,7 @@ import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
 import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
+import { ContractorList } from '@Common/Components/Contracts/ContractorList';
 import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
 import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
 import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHolo';
@@ -27,7 +28,6 @@ import {
   BiddingTimePanel,
   ContractDurationPanel,
 } from '@/Components/Contracts/Ledger/Details/TimePanel';
-import { ContractorsManager } from '@/Components/Personal/ContractManager/ContractDisplay/tools/pages/Contractors/ContractorsManager';
 
 import { ContractController } from './tools/ContractController';
 import { LocationsDisplay } from './tools/LocationsDisplay';
@@ -110,12 +110,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     (panel: string) => {
       switch (panel) {
         case 'contractors':
-          return (
-            <ContractorsManager
-              contract={contract}
-              isOwned={contract.owner_id === currentUser?.id}
-            />
-          );
+          return <ContractorList contract={contract} />;
         case 'ships':
           return;
         default:

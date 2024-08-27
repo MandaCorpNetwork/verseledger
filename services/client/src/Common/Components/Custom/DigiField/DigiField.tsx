@@ -2,29 +2,47 @@ import { Box, Typography } from '@mui/material';
 import React, { PropsWithChildren } from 'react';
 
 type DigiFieldProps = PropsWithChildren<{
+  /** @prop {string} [data-testid] - The test id for the component */
   ['data-testid']?: string;
+  /** @prop {string} label - The label for the field */
   label: string;
+  /** @prop {React.ReactNode} startAdornment - The start adornment for the field */
   startAdornment?: React.ReactNode;
+  /** @prop {React.ReactNode} endAdornment - The end adornment for the field */
   endAdornment?: React.ReactNode;
+  /** @prop {React.ReactNode} children - The children for the field wrapped in a Typography component */
   children?: unknown;
+  /** @prop {object} sx - The sx props for the field @see https://mui.com/system/the-sx-prop/ */
   sx?: object;
+  /** @prop {object} slots - The slots for the field */
   slots?: {
+    /** @prop {object} label - The label slot for the field, allows for custom sx props */
     label?: {
       sx?: object;
     };
+    /** @prop {object} content - The content slot for the field, allows for custom sx props */
     content?: {
       sx?: object;
     };
+    /** @prop {object} typography - The typography slot for the field, allows for custom sx props and the typography variant */
     typography?: {
       sx?: object;
       variant?: 'body1' | 'body2' | 'subtitle1' | 'subtitle2' | 'caption' | 'button';
     };
   };
 }>;
-
 // Gap in the Content Slot controls the spacing between adornments & Children
 // The Content Slot is the bottom Row of the DigiField
-
+/**
+ * ### DigiField
+ * @global
+ * @description
+ * A custom Box component that displays a label, adornments and Children content contained in a Typography component. This is meant to be used in lieu of Outlined Inputs where we want a more stylized Data Point Display.
+ * @version 0.1.1
+ * @param {DigiFieldProps} props - The props for the component
+ * @returns {React.FC}
+ * @author ThreeCrown
+ */
 const DigiFieldComponent: React.FC<DigiFieldProps> = (props) => {
   const {
     label,
