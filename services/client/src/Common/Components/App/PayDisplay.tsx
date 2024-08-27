@@ -18,7 +18,10 @@ type PayDisplayProps = {
   mt?: string;
   mb?: string;
 };
-
+/**
+ * @deprecated
+ * !Will be removed in the next major release.
+ */
 export const PayDisplay: React.FC<PayDisplayProps> = (props) => {
   const {
     value,

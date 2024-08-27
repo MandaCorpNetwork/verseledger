@@ -1,5 +1,5 @@
 import { LocationSelection } from '@Common/Components/App/LocationSelection';
-import { ReadOnlyField } from '@Common/Components/App/ReadOnlyField';
+import { ReadOnlyField } from '@Common/Components/TextFields/ReadOnlyField';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { Gauge, SparkLineChart } from '@mui/x-charts';
 

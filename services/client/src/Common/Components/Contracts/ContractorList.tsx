@@ -2,7 +2,8 @@ import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_USER_INVITE } from '@Popups/UserInvite/UserInvite';
-import { useAppDispatch } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -12,31 +13,65 @@ import { useSoundEffect } from '@/AudioManager';
 
 import { Contractor } from './ContractorItem';
 
-type ContractorsManagerProps = {
+type ContractorListProps = {
+  /** @prop {IContract} contract - The contract to display information for */
   contract: IContract;
-  isOwned: boolean;
 };
 
-export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
-  contract,
-  isOwned,
-}) => {
+/**
+ * ### ContractorList
+ * @description
+ * Displays the list of Contractors with a Bid connected to the Contract.
+ * Depending on the user's access level, the user will see different levels of information. If user is the owner will be able to manage the bids & send Invites.
+ * @version 0.1.8
+ * @memberof {@link ContractPage} {@link ContractDisplay} {@link SelectedContractManager}
+ * @param {ContractorListProps} props - The props for the component
+ * @returns {React.FC}
+ * #### Functional Components
+ * #### Styled Components
+ * @author ThreeCrown - Jan 2024
+ */
+export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
+  // HOOKS
   const { playSound } = useSoundEffect();
+  const dispatch = useAppDispatch();
+  // LOGIC
+  /** @var {IUser} currentUser - The current user */
+  const currentUser = useAppSelector(selectCurrentUser);
+
+  /** @var {boolean} isOwner - Whether the user is the owner of the contract */
+  const isOwner = currentUser?.id === contract.owner_id;
+
+  /** @var {IContractBid} userBid - The bid of the current user if exists */
+  const userBid = contract.Bids?.find((bid) => bid.user_id === currentUser?.id);
+
+  const privledgedAccess = userBid?.status === 'ACCEPTED' || 'INVITED';
+
+  /** @var {IContractBid[]} contractors - The complete list of bids on the contract */
   const contractors = contract.Bids;
 
-  const dispatch = useAppDispatch();
+  /**
+   * @function handleOpenInvite - Opens the Invite popup
+   * @returns {void} - Opens the Invite popup
+   * @see {@link POPUP_USER_INVITE}
+   */
   const handleOpenInvite = () => {
     playSound('open');
     dispatch(openPopup(POPUP_USER_INVITE, { contractId: contract.id }));
   };
 
+  /** @var {IContractBid[]} acceptedBids - The list of accepted bids, viewable to a user with a `public` access level */
   const acceptedBids = contractors?.filter((bid) => bid.status === 'ACCEPTED');
+
+  /** @var {IContractBid[]} pendingBids - The list of pending bids. Viewable by a user with an `owner` access level */
   const pendingBids = contractors?.filter((bid) => bid.status === 'PENDING');
 
+  /** @var {IContractBid[]} contractorViewableList - The list of contractors that are viewable to a user with a `privledged` access level */
   const contractorViewableList = contractors?.filter((bid) =>
     ['ACCEPTED', 'WITHDRAWN', 'INVITED'].includes(bid.status),
   );
 
+  /** @var {IContractBidStatus[]} contractorOrder - The order of the displayed bids by status */
   const contractorOrder = [
     'ACCPTED',
     'PENDING',
@@ -46,6 +81,13 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
     'REJECTED',
   ];
 
+  /**
+   * @function getContractorCountColor - Returns the color of the contractor count based on the number of contractors compared to the contractor limit
+   * @returns {string} - The color of the contractor count
+   * - If the number of contractors is less than the contractor limit, return `text.secondary`
+   * - If the number of contractors is equal to the contractor limit, return `success.main`
+   * - If the number of contractors is greater than the contractor limit, return `warning.main`
+   */
   const getContractorCountColor = React.useCallback(() => {
     if (acceptedBids === undefined) {
       return 'text.secondary';
@@ -56,10 +98,12 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
     } else {
       return 'warning.main';
     }
-  }, [acceptedBids, contract.contractorLimit]);
-
+  }, [acceptedBids, contract]);
+  /**
+   * @var {string} contractorCountColor - The color of the contractor count
+   * calls {@link getContractorCountColor}
+   */
   const contractorCountColor = getContractorCountColor();
-
   return (
     <DigiBox
       data-testid="SelectedContract-ContractManagement__ContractorsTabWrapper"
@@ -68,6 +112,7 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
         height: '100%',
         p: '.5em',
         justifyContent: 'flex-start',
+        flexGrow: 1,
       }}
     >
       <DigiDisplay
@@ -105,7 +150,7 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
         >
           Pending Bids: {pendingBids?.length}
         </Typography>
-        {isOwned && (
+        {isOwner && (
           <Button
             data-testid="ContractorsTab-Controls__InviteButton"
             variant="outlined"
@@ -137,7 +182,7 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
           },
         }}
       >
-        {isOwned &&
+        {isOwner &&
           contractors &&
           (contractors?.length > 0 ? (
             contractors
@@ -152,7 +197,7 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
                   key={contractor.id}
                   bid={contractor}
                   user={contractor.User as IUser}
-                  contractOwned={isOwned}
+                  contractOwned={isOwner}
                   contract={contract}
                 />
               ))
@@ -170,7 +215,9 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
               No Contractors
             </Typography>
           ))}
-        {!isOwned &&
+        {!isOwner &&
+          userBid &&
+          privledgedAccess &&
           contractorViewableList &&
           (contractorViewableList.length > 0 ? (
             contractorViewableList
@@ -185,10 +232,37 @@ export const ContractorsManager: React.FC<ContractorsManagerProps> = ({
                   key={contractor.id}
                   bid={contractor}
                   user={contractor.User as IUser}
-                  contractOwned={isOwned}
+                  contractOwned={isOwner}
                   contract={contract}
                 />
               ))
+          ) : (
+            <Typography
+              align="center"
+              variant="h6"
+              sx={{
+                textAlign: 'center',
+                width: '100%',
+                color: 'grey',
+                textShadow: '0 0 3px rgb(0,0,0), 0 0 10px rgba(0,0,0,.7)',
+              }}
+            >
+              No Contractors
+            </Typography>
+          ))}
+        {!isOwner &&
+          !privledgedAccess &&
+          acceptedBids &&
+          (acceptedBids.length > 0 ? (
+            acceptedBids?.map((contractor) => (
+              <Contractor
+                key={contractor.id}
+                bid={contractor}
+                user={contractor.User as IUser}
+                contractOwned={isOwner}
+                contract={contract}
+              />
+            ))
           ) : (
             <Typography
               align="center"

@@ -1,5 +1,5 @@
 import { UserChip } from '@Common/Components/Chips/UserChip';
-import { PayInput } from '@Common/Components/Custom/DigiField/PayInput';
+import { PayInput } from '@Common/Components/Custom/PayInput';
 import { Box, ButtonBase, Tooltip, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
