@@ -7,10 +7,7 @@ export const UserPage: React.FC = () => {
   const user = useAppSelector(selectCurrentUser);
   return (
     <VLViewport data-testid="UserPage_PageContainer">
-      <Stack direction="row" spacing={2}>
-        <Avatar alt="Test Avatar" src={user?.pfp} />
-      </Stack>
-      <Box>UserPage</Box>
+      <Avatar alt="Test Avatar" src={user?.pfp} sx={{ width: 150, height: 150 }} />
     </VLViewport>
   );
 };
