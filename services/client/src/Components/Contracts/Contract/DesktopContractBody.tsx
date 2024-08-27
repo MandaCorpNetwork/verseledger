@@ -7,13 +7,9 @@ import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHolo';
 import { Box, Typography } from '@mui/material';
-import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBids/ContractBid';
-import { useAppDispatch } from '@Redux/hooks';
-import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
+import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 import { DesktopController } from './DesktopController';
 
@@ -28,6 +24,8 @@ type DesktopBodyProps = {
   startLocation: string;
   endLocation: string;
   otherLocations: string[];
+  isOwned: boolean;
+  userBid?: IContractBid | null;
 };
 
 export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
@@ -41,14 +39,10 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
   startLocation,
   endLocation,
   otherLocations,
+  isOwned,
+  userBid,
 }) => {
   const scrollRef = useHorizontalAdvancedScroll();
-  const dispatch = useAppDispatch();
-  const { playSound } = useSoundEffect();
-  const handleSubmitBidPopup = () => {
-    playSound('open');
-    dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
-  };
   return (
     <Box
       data-testid="ContractPage__Bottom_Container"
@@ -289,7 +283,7 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
             </Typography>
           )}
         </DigiBox>
-        <DesktopController onSubmit={handleSubmitBidPopup} />
+        <DesktopController isOwned={isOwned} userBid={userBid} contract={contract} />
       </Box>
     </Box>
   );

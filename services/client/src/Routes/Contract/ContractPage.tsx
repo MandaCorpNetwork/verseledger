@@ -20,11 +20,11 @@ import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { useSoundEffect } from '@/AudioManager';
 import { DesktopContractBody } from '@/Components/Contracts/Contract/DesktopContractBody';
 import { DesktopReturn } from '@/Components/Contracts/Contract/DesktopReturn';
+import { MobileLocations } from '@/Components/Contracts/Contract/MobileData/MobileLocations';
 import { MobilePayBrief } from '@/Components/Contracts/Contract/MobileData/MobilePayBrief';
-import { MobileLocations } from '@/Components/Contracts/Contract/MobileLocations';
 import { MobileOrTabletController } from '@/Components/Contracts/Contract/MobileOrTabletController';
 import { MobileOrTabletReturn } from '@/Components/Contracts/Contract/MobileOrTabletReturn';
-import { TabletDetails } from '@/Components/Contracts/Contract/TabletDetails';
+import { TabletDetails } from '@/Components/Contracts/Contract/TabletData/TabletDetails';
 import { TabletOrMobilePanels } from '@/Components/Contracts/Contract/TabletOrMobilePanels';
 import { TitleBox } from '@/Components/Contracts/Contract/TitleBox/TitleBox';
 import { ContractorsPanel } from '@/Components/Contracts/Ledger/Details/ActiveDataPanel';
@@ -178,6 +178,8 @@ export const ContractPage: React.FC<unknown> = () => {
     }
     return null;
   }, [contract, currentUser]);
+  /** Calls {@link getUserBid()} */
+  const userBid = getUserBid();
 
   /**
    * @function getStartLocationId - Gets the start location ID from the contract
@@ -423,10 +425,16 @@ export const ContractPage: React.FC<unknown> = () => {
               activeDataTab={activeDataTab}
               handleActiveTab={handleActiveTabChange}
               activeDataPanel={activeDataPanel}
+              isOwner={isOwner}
+              userBid={userBid}
             />
           )}
           {(mobile || tablet) && contract && (
-            <MobileOrTabletController onSubmit={handleSubmitBidPopup} />
+            <MobileOrTabletController
+              isOwned={isOwner}
+              userBid={userBid}
+              contract={contract}
+            />
           )}
           {!mobile && !tablet && contract && (
             <DesktopContractBody
@@ -440,6 +448,8 @@ export const ContractPage: React.FC<unknown> = () => {
               startLocation={startLocationId ?? ''}
               endLocation={endLocationId ?? ''}
               otherLocations={otherLocationIds ?? []}
+              isOwned={isOwner}
+              userBid={userBid}
             />
           )}
           {(mobile || tablet) && contract && <MobileOrTabletReturn opacity={opacity} />}

@@ -35,7 +35,10 @@ export const ContractController: React.FC<ContractControllerProps> = ({
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
   const location = useLocation();
-
+  /**
+   * @function handleAcceptInvite - Handles the Accept Invite button click
+   * @return {void} - Updates the bidStatus to `ACCEPTED`
+   */
   const handleAcceptInvite = React.useCallback(() => {
     if (!userBid) {
       enqueueSnackbar(`Invite doesn't Exist`, { variant: 'error' });
@@ -59,7 +62,10 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       }
     });
   }, [userBid, contract, dispatch, overwriteURLQuery, playSound, enqueueSnackbar]);
-
+  /**
+   * @function handleDeclineInvite - Handles the Decline Invite button click
+   * @return {void} - Updates the bidStatus to `DECLINED`
+   */
   const handleDeclineInvite = React.useCallback(() => {
     if (!userBid) {
       enqueueSnackbar(`Invite doesn't Exist`, { variant: 'error' });
@@ -80,7 +86,10 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       }
     });
   }, [userBid, enqueueSnackbar, playSound, dispatch, contract, deselectContract]);
-
+  /**
+   * @function handleWithdrawBid - Handles the Withdraw Bid button click
+   * @return {void} - Updates the bidStatus to `EXPIRED`
+   */
   const handleWithdrawBid = React.useCallback(() => {
     if (!userBid) {
       enqueueSnackbar(`Bid doesn't Exist`, { variant: 'error' });
@@ -111,7 +120,11 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     playSound,
     enqueueSnackbar,
   ]);
-
+  /**
+   * @function handleResubmitBid - Handles the Resubmit Bid button click
+   * @return {void} - Opens the Submit Bid popup
+   * @see {@link POPUP_SUBMIT_CONTRACT_BID}
+   */
   const handleResubmitBid = React.useCallback(() => {
     if (!userBid) {
       enqueueSnackbar(`Bid doesn't Exist`, { variant: 'error' });
@@ -121,6 +134,15 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
   }, [userBid, dispatch]);
 
+  /**
+   * @function getUpdatedContractStatus - Updates the contract object to pass to a PATCH request
+   * @param {Partial<IContract>} contract - The contract to update
+   * @param {string} status - The status to update the contract to
+   * @param {Date} startDate - The start date of the contract if it exists
+   * @param {Date} endDate - The end date of the contract if it exists
+   * @param {Date} bidDate - The bid date of the contract if it exists
+   * @returns {Partial<IContract>} - The updated contract object
+   */
   const getUpdatedContractStatus = (
     contract: Partial<IContract>,
     status: string,
@@ -141,7 +163,11 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       ...(bidDate && { bidDate }),
     };
   };
-
+  /**
+   * @function endBidding - Ends the bidding on the contract
+   * @returns {void} - Closes the bidding on the contract.
+   * Sets the bidEnd Date to the current date.
+   */
   const endBidding = React.useCallback(() => {
     const now = new Date();
     if (contract.status === 'BIDDING') {
@@ -165,7 +191,11 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       });
     }
   }, [contract, getUpdatedContractStatus, dispatch]);
-
+  /**
+   * @function handleEndBidding - Handles the end bidding button click
+   * @returns {void} - Opens a verification popup to end the bidding
+   * @see {@link POPUP_YOU_SURE}
+   */
   const handleEndBidding = React.useCallback(() => {
     const now = new Date();
     if (contract.bidDate && contract.bidDate < now) {
@@ -184,7 +214,10 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       endBidding();
     }
   }, [dispatch, contract]);
-
+  /**
+   * @function startContract - Starts the contract with status INPROGRESS
+   * @returns {void} - Starts the contract with status INPROGRESS and sets the Start Date to the current date.
+   */
   const startContract = React.useCallback(() => {
     const now = new Date();
     if (contract.status === 'BIDDING' || contract.status === 'PENDING') {
@@ -202,7 +235,13 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       });
     }
   }, [contract, dispatch]);
-
+  /**
+   * @function getStartBodyText - Returns the body text for the start contract verification popup
+   * @returns {string} - The body text for the start contract verification popup
+   * - `Are you sure you want to start the contract?`
+   * - `Are you sure you want to start the contract before the set start time (${contract.startDate?.toLocaleString()})?`
+   * - `Are you sure you want to start the contract before the set bidding close (${contract.bidDate.toLocaleString()})?`
+   */
   const getStartBodyText = React.useCallback(() => {
     const now = new Date();
     if (
@@ -216,9 +255,13 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       return `Are you sure you want to start the contract?`;
     }
   }, [contract]);
-
+  /** Calls {@link getStartBodyText} */
   const startBodyText = getStartBodyText();
-
+  /**
+   * @function handleStartContract - Handles the start contract button click
+   * @returns {void} - Opens a verification popup to start the contract
+   * @see {@link POPUP_YOU_SURE}
+   */
   const handleStartContract = React.useCallback(() => {
     const now = new Date();
     if (contract.startDate && contract.startDate > now) {
@@ -237,16 +280,23 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       startContract();
     }
   }, [contract, dispatch, startContract]);
-
-  //TODO: Need to add Withdraw Bid Status still to allow rating contractors that leave a contract
+  /**
+   * @function getActiveBidUsers - Returns the users that have an `ACCEPTED` bid on the contract
+   * @returns {IUser[]} - The users that have an `ACCEPTED` bid on the contract
+   * TODO: Need to add Withdraw Bid Status still to allow rating contractors that leave a contract
+   */
   const getActiveBidUsers = React.useCallback(() => {
     return contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').map(
       (bid) => bid.User,
     );
   }, [contract]);
-
+  /** Calls {@link getActiveBidUsers} */
   const contractUsers = getActiveBidUsers();
-
+  /**
+   * @function openReview - Opens the review popup for the contract to allow user to rate the contractors & contract owner
+   * @returns {void} - Opens the review popup
+   * @see {@link POPUP_SUBMIT_RATING}
+   */
   const openReview = React.useCallback(() => {
     if (contractUsers) {
       if (contractUsers.length !== 0) {
@@ -254,7 +304,9 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       }
     }
   }, [contractUsers, dispatch]);
-
+  /**
+   * @function completeContract - Completes the contract with status `COMPLETED` and sets the End Date to the current date.
+   */
   const completeContract = React.useCallback(() => {
     const now = new Date();
     const updatedContract = getUpdatedContractStatus(
@@ -288,7 +340,12 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     openReview,
     enqueueSnackbar,
   ]);
-
+  /**
+   * @function getCompleteBodyText - Determines the Text to pass to the Verify Popup for completing a Contract
+   * @returns {string} - The body text for the complete contract verification popup
+   * - `Are you sure you want to complete the contract before the set end time (${contract.endDate.toLocaleString()})?`
+   * - `Are you sure you are ready to complete the contract?`
+   */
   const getCompleteBodyText = React.useCallback(() => {
     const now = new Date();
     if (contract.status === 'INPROGRESS' && contract.endDate && contract.endDate < now) {
@@ -297,9 +354,13 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       return `Are you sure you are ready to complete the contract?`;
     }
   }, [contract]);
-
+  /** Calls {@link getCompleteBodyText} */
   const completeBodyText = getCompleteBodyText();
-
+  /**
+   * @function handleContractComplete - Handles the complete contract button click
+   * @returns {void} - Opens a verification popup to complete the contract
+   * @see {@link POPUP_YOU_SURE}
+   */
   const handleContractComplete = React.useCallback(() => {
     if (contract.status === 'INPROGRESS') {
       dispatch(
@@ -315,7 +376,10 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       );
     }
   }, [contract, dispatch, completeContract, completeBodyText]);
-
+  /**
+   * @function cancelContract - Cancels the contract with status `CANCELED` and sets the End Date to the current date.
+   * @returns {void} - Cancels the contract with status `CANCELED` and sets the End Date to the current date.
+   */
   const cancelContract = React.useCallback(() => {
     const now = new Date();
     if (contract.status !== 'COMPLETE') {
@@ -351,7 +415,12 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     playSound,
     openReview,
   ]);
-
+  /**
+   * @function getCancelBodyText - Determines the Text to pass to the Verify Popup for canceling a Contract
+   * @returns {string} - The body text for the cancel contract verification popup
+   * - `Are you sure you want to cancel the contract?`
+   * - `Are you sure you want to cancel the contract before the set end time (${contract.endDate.toLocaleString()})?`
+   */
   const getCancelBodyText = React.useCallback(() => {
     const now = new Date();
     if (contract.status !== 'INPROGRESS') {
@@ -362,9 +431,13 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       return `Are you sure you want to cancel the contract?`;
     }
   }, [contract]);
-
+  /** Calls {@link getCancelBodyText} */
   const cancelBodyText = getCancelBodyText();
-
+  /**
+   * @function handleCancelContract - Handles the cancel contract button click
+   * @returns {void} - Opens a verification popup to cancel the contract
+   * @see {@link POPUP_YOU_SURE}
+   */
   const handleCancelContract = React.useCallback(() => {
     dispatch(
       openPopup(POPUP_YOU_SURE, {
@@ -378,7 +451,11 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       }),
     );
   }, [dispatch, cancelContract, cancelBodyText]);
-
+  /**
+   * @function handleEditContract - Handles the edit contract button click
+   * @returns {void} - Opens the edit contract popup
+   * @see {@link POPUP_EDIT_CONTRACT}
+   */
   const handleEditContract = React.useCallback(() => {
     if (contract.status === 'COMPLETED' || contract.status === 'CANCELED') {
       playSound('denied');
@@ -388,7 +465,10 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     playSound('open');
     dispatch(openPopup(POPUP_EDIT_CONTRACT, { contract: contract }));
   }, [contract, dispatch, playSound, enqueueSnackbar]);
-
+  /**
+   * @function displayReview - Determines if the user can open the review popup
+   * @returns {boolean} - Whether the user can open the review popup
+   */
   const displayReview = React.useCallback(() => {
     if (contract.status === 'COMPLETED' || contract.status === 'CANCELED') {
       if (isOwned) {

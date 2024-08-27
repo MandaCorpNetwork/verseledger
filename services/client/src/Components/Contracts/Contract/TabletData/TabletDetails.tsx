@@ -19,7 +19,24 @@ type TabletDetailsProps = {
   /** @prop {string[]} otherLocations - The other locations of the contract */
   otherLocations: string[];
 };
-
+/**
+ * ### TabletDetails
+ * @description
+ * Displays Pay, Briefing, and Location information for a Contract on a Tablet Screen.
+ * @version 0.1.3
+ * @memberof {@link ContractPage}
+ * @param {TabletDetailsProps} props - The props for the component
+ * @returns {React.FC}
+ * #### Functional Components
+ * @component {@link PayDisplay}
+ * @component {@link PayStructure}
+ * @component {@link LocationChip}
+ * #### Styled Components
+ * @component {@link DigiBox}
+ * @component {@link DigiDisplay}
+ * @component {@link DigiField}
+ * @component {@link PopupFormSelection}
+ */
 export const TabletDetails: React.FC<TabletDetailsProps> = ({
   contract,
   startLocation,
