@@ -10,8 +10,8 @@ export enum QueryNames {
   UECRangeMin = 'minUEC',
   UECRangeMax = 'maxUEC',
   Contract = 'contractID',
-  EmployerRating = 'erating',
-  ContractorRating = 'crating',
+  EmployerRating = 'eRating',
+  ContractorRating = 'cRating',
   Archetype = 'archetype',
   Status = 'status',
   BidStatus = 'bstatus',
@@ -26,6 +26,7 @@ export enum QueryNames {
   EndAfter = 'endAfter',
   EndExact = 'endExact',
   Duration = 'duration',
+  PayStructure = 'payStructure',
 }
 export const ArchetypeToSubtypes: { [key: string]: IContractSubType[] } = {
   Logistics: ['Transport', 'Hauling', 'Manage'],
