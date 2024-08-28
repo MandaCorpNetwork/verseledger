@@ -5,11 +5,13 @@ import {
   selectContractPagination,
   selectContractsArray,
 } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import useDebounce from '@Utils/Hooks/useDebounce';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { isMobile } from '@Utils/isMobile';
 import { Logger } from '@Utils/Logger';
 import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
 import React from 'react';
+import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 import { IContractSearch } from 'vl-shared/src/schemas/SearchSchema';
 
@@ -41,12 +43,8 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
 
-  const pagination = React.useCallback(
-    () => useAppSelector(selectContractPagination),
-    [page, rowsPerPage],
-  );
-
-  const contractCount = pagination();
+  const pagination = useAppSelector(selectContractPagination);
+  const contractCount = pagination;
 
   const handleChangePage = (_event: unknown, newPage: number) => {
     playSound('clickMain');
@@ -69,6 +67,13 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
     contractOnClose();
   };
 
+  const debouncedSearch = React.useCallback(
+    useDebounce((params: IContractSearch) => {
+      dispatch(fetchContracts(params));
+    }, 300),
+    [dispatch],
+  );
+
   React.useEffect(() => {
     // Subtype Filter Initialization
     const selectedSubtypes = filters.getAll(QueryNames.Subtype) as IContractSubType[];
@@ -87,6 +92,10 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
     const endBefore = new Date(filters.get(QueryNames.EndBefore) as string);
     const endAfter = new Date(filters.get(QueryNames.EndAfter) as string);
     const duration = parseInt(filters.get(QueryNames.Duration) as string, 10);
+    const payStructure = filters.get(QueryNames.PayStructure) as IContractPayStructure;
+    const contractorRating = filters.get(QueryNames.ContractorRating) as string;
+    const minPay = Number(filters.get(QueryNames.UECRangeMin) as string);
+    const maxPay = Number(filters.get(QueryNames.UECRangeMax) as string);
 
     const params: IContractSearch = {
       page: page,
@@ -116,9 +125,21 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
       ...(duration && {
         duration: Number(duration),
       }),
+      ...(payStructure && {
+        payStructure: payStructure,
+      }),
+      ...(contractorRating && {
+        contractorRating: contractorRating,
+      }),
+      ...(minPay && {
+        minPay: minPay,
+      }),
+      ...(maxPay && {
+        maxPay: maxPay,
+      }),
     };
-    dispatch(fetchContracts(params));
-  }, [filters, page, rowsPerPage]);
+    debouncedSearch(params);
+  }, [filters, page, rowsPerPage, debouncedSearch]);
 
   const contracts = useAppSelector((state) => selectContractsArray(state));
 

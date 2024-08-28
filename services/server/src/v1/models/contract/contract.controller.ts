@@ -630,6 +630,11 @@ export class ContractController extends BaseHttpController {
           description: 'Duration in days',
           type: 'number',
         },
+        'search[contractorRatingLimit]': {
+          required: false,
+          description: 'Contractor Rating Limit',
+          type: 'number',
+        },
       },
     },
     security: { VLAuthAccessToken: [] },
