@@ -15,6 +15,7 @@ export const GlassDisplay = styled(Box)(({ theme }) => ({
   '&:before': {
     content: '""',
     position: 'absolute',
+    zIndex: -1,
     top: 0,
     bottom: 0,
     right: 0,

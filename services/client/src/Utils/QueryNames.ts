@@ -8,6 +8,7 @@ export enum QueryNames {
   SortBy = 'sort',
   SortDirection = 'sortDir',
   SearchQuery = 'search',
+  User = 'userId',
   Subtype = 'st',
   Locations = 'loc',
   UECRangeMin = 'minUEC',
