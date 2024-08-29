@@ -58,11 +58,20 @@ export class UserService {
     handle?: string,
     pfp?: string,
   ) {
-    const [user] = await User.scope('discord').findOrCreate({
+    const user = await User.scope('discord').findOne({
       where: { discord_id: id },
-      defaults: { discord_id: id, pfp, handle },
     });
-    return user;
+    if (user == null) {
+      return {
+        newUser: true,
+        user: await User.scope('discord').create({
+          discord_id: id,
+          pfp,
+          handle,
+        }),
+      };
+    }
+    return { newUser: false, user };
   }
 
   public async updateUser(id: string, data: Partial<IUser>) {
@@ -147,7 +156,7 @@ export class UserService {
   }
 
   public async search(name: string) {
-    const isHandle = name[0] === '@';
+    const isHandle = name.startsWith('@');
     const handle = isHandle ? name.slice(1) : name;
     const multiSearch = {
       [Op.or]: {

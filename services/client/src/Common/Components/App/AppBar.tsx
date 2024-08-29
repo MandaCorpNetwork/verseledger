@@ -10,10 +10,11 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Popover,
   Toolbar,
   Tooltip,
+  Typography,
 } from '@mui/material';
-import { Popover, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
 import { POPUP_LOCATION_INFO } from '@Popups/Info/Locations';
@@ -68,7 +69,6 @@ export const VLAppBar: React.FC<unknown> = () => {
     variant: 'popover',
     popupId: 'profileNav',
   });
-  //const menuId = 'primary-account-menu';
 
   const handlePlayerCardOpen = () => {
     profilePopupState.close();
@@ -110,21 +110,21 @@ export const VLAppBar: React.FC<unknown> = () => {
 
   const [notificationsOpen, setNotificationsOpen] = useState(false);
 
-  const [notificationsAnchorEl, setNotificationsAnchorE1] =
+  const [notificationsAnchorEl, setNotificationsAnchorEl] =
     React.useState<null | HTMLElement>(null);
 
   const notificationsOnClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
       playSound('open');
       setNotificationsOpen(true);
-      setNotificationsAnchorE1(event.currentTarget);
+      setNotificationsAnchorEl(event.currentTarget);
     },
     [setNotificationsOpen],
   );
   const notificationsOnClose = useCallback(() => {
     playSound('close');
     setNotificationsOpen(false);
-    setNotificationsAnchorE1(null);
+    setNotificationsAnchorEl(null);
   }, [setNotificationsOpen]);
 
   const navigate = useNavigate();
@@ -235,19 +235,17 @@ export const VLAppBar: React.FC<unknown> = () => {
                 </IconButton>
               </>
             ) : (
-              <>
-                <Button
-                  onClick={() => {
-                    const loginURL = `https://discord.com/oauth2/authorize?client_id=1160393986440179823&response_type=code&redirect_uri=${encodeURIComponent(URLUtil.frontendHost)}%2Foauth%2Fdiscord%2Fcallback&scope=identify+openid`;
-                    localStorage.setItem('returnPath', window.location.pathname);
-                    playSound('navigate');
-                    window.location = loginURL as unknown as Location;
-                  }}
-                  color="secondary"
-                >
-                  Login
-                </Button>
-              </>
+              <Button
+                onClick={() => {
+                  const loginURL = `https://discord.com/oauth2/authorize?client_id=1160393986440179823&response_type=code&redirect_uri=${encodeURIComponent(URLUtil.frontendHost)}%2Foauth%2Fdiscord%2Fcallback&scope=identify+openid`;
+                  localStorage.setItem('returnPath', window.location.pathname);
+                  playSound('navigate');
+                  window.location = loginURL as unknown as Location;
+                }}
+                color="secondary"
+              >
+                Login
+              </Button>
             )}
           </Box>
         </Toolbar>

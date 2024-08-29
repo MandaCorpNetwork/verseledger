@@ -30,7 +30,8 @@ export class AuthProvider implements interfaces.AuthProvider {
     const bearerHeader = req.headers['authorization'];
     if (bearerHeader == null) return new AnonymousPrincipal(false);
 
-    const token = bearerHeader.split(' ')[1];
+    const [type, token] = bearerHeader.split(' ');
+    if (type != 'Bearer') return new AnonymousPrincipal(false);
     if (token == null) return new AnonymousPrincipal(false);
 
     const user = await this._authService.getUserToken(token);
@@ -51,6 +52,7 @@ export class AuthProvider implements interfaces.AuthProvider {
       (await User.findOne({
         where: { id: user.id },
       })) as User,
+      user.type,
     );
     return principal;
   }

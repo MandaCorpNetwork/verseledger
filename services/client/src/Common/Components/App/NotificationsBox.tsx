@@ -138,7 +138,7 @@ export const NotificationsBox: React.FC = () => {
             mb: '.2em',
           }}
         >
-          No Notificaitons
+          No new notifications
         </Typography>
       ) : (
         <CardContent
