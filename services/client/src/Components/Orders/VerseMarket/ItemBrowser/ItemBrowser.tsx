@@ -1,8 +1,8 @@
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { Autocomplete, Box, TextField } from '@mui/material';
 
+import { MarketBrowserTable } from './BrowserTable';
 import { ItemTypeFilters } from './TypeFilters';
 
 /**
@@ -53,7 +53,7 @@ export const ItemBrowser: React.FC<unknown> = () => {
           my: '.5em',
         }}
       >
-        <DigiDisplay>Column Bar for Marketplace</DigiDisplay>
+        <MarketBrowserTable />
       </GlassDisplay>
     </GlassBox>
   );
