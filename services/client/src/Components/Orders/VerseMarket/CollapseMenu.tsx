@@ -57,7 +57,7 @@ export const CollapseMenu: React.FC<unknown> = () => {
    * overwrites the URL query with the new tab value
    */
   const handleTabChange = React.useCallback(
-    (event: React.SyntheticEvent, newValue: string) => {
+    (_event: React.SyntheticEvent, newValue: string) => {
       if (filters.get(QueryNames.VerseMarketTab) === newValue) {
         playSound('denied');
         return;
