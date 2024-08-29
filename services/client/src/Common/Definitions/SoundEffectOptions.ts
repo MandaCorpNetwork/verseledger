@@ -545,6 +545,10 @@ export const soundEffectOptions = {
 export const soundEffectPacks: {
   [key: string]: IAudioPack;
 } = {
+  noPack: {
+    name: 'No Effects',
+    pack: {} as SoundPack,
+  },
   systemDefault: {
     name: 'System Default',
     pack: {
