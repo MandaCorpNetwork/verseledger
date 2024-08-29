@@ -216,6 +216,7 @@ export class ContractService {
     payStructure?: IContractPayStructure;
     minPay?: number;
     maxPay?: number;
+    isEmergency?: string;
     limit?: number;
     page?: number;
   }) {
@@ -234,6 +235,7 @@ export class ContractService {
       payStructure,
       minPay,
       maxPay,
+      isEmergency,
     } = params ?? {};
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -246,6 +248,7 @@ export class ContractService {
     optionalSet(query, 'ratingLimit', queryBelow(contractorRatingLimit));
     optionalSet(query, 'payStructure', queryIn(payStructure));
     optionalSet(query, 'defaultPay', queryBetween(minPay, maxPay));
+    optionalSet(query, 'isEmergency', queryIn(isEmergency === 'true'));
 
     if (bidDate) {
       Object.assign(query, buildDateQuery('bidDate', bidDate));
