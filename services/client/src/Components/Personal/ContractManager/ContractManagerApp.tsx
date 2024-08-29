@@ -1,4 +1,4 @@
-//ContractManagerApp.tsx
+// Imports
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { TabContext, TabList } from '@mui/lab';
@@ -19,6 +19,8 @@ import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
+import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
+import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 
 import { useSoundEffect } from '@/AudioManager';
@@ -26,41 +28,76 @@ import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
 import { ContractorInfo } from './ContractDisplay/tools/ContractorInfo';
-import { ContractManagerContractList } from './ContractList/ContractManagerContractList';
-import { ContractManagerSearchTools } from './ContractList/ContractManagerSearchTools';
+import { ContractList } from './ContractList/ContractList';
+import { SearchTools } from './ContractList/SearchTools';
 
+/**
+ * @component
+ * The Contract Manager App for managing Contracts owned or connected to.
+ * @memberof {@link PersonalLedgerPage}
+ * Components Used:
+ * - {@link SearchTools}
+ * - {@link ContractList}
+ * - {@link ContractorInfo}
+ * - {@link SelectedContractManager}
+ * @author ThreeCrown
+ */
 export const ContractManagerApp: React.FC<unknown> = () => {
-  const { playSound } = useSoundEffect();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // LOCAL STATES
+  /** State uses {@link useURLQuery} hook to view & set filters */
   const [filters, setFilter, overwriteURLQuery] = useURLQuery();
+  /**
+   * State Determins the Selected Contract Id
+   * @type [string | null, React.Dispatch<React.SetStateAction<string | null>>]
+   * @default {null}
+   * @returns {string}
+   * @todo - Replace with using URLQuery for contractId
+   */
   const [selectedId, setSelectedId] = React.useState<string | null>(null);
+  /**
+   * State Determines which page of contracts to fetch from the backend
+   * @type [number, React.Dispatch<React.SetStateAction<number>>]
+   * @default (1)
+   * @returns {number}
+   */
   const [page, setPage] = React.useState(1);
+  // HOOKS
   const dispatch = useAppDispatch();
   const mobile = isMobile();
   const theme = useTheme();
   const navigate = useNavigate();
+  const { playSound } = useSoundEffect();
 
-  const hideContracts = useMediaQuery('(max-width: 1400px');
-
-  const contractPagination = React.useCallback(
-    () => useAppSelector(selectContractPagination),
-    [page],
+  // LOGIC
+  /**
+   * Creates Custom Breakpoint @ `1400px` to Stop Rendering of the Selected Contract Display.
+   * If 1400px or less, only the Contractor Info will render
+   */
+  const hideContracts = useMediaQuery('(max-width: 1400px)');
+  /** Finds the total Contract Count from the DTO for the Pagination */
+  const contractCount = useAppSelector(selectContractPagination);
+  /** Finds the total Bid Count from the DTO for the Pagination */
+  const bidCount = useAppSelector(selectBidPagination);
+  /**
+   * Handles the clickEvent from the pagination buttons to change the Page Fetched from the Contract Search Endpoint.
+   * @param {React.ChangeEvent} Event
+   * @param {number} newPage
+   * @fires
+   * - playSound('clickMain')
+   * - {@link setPage}
+   */
+  const handleChangePage = React.useCallback(
+    (_event: React.ChangeEvent<unknown>, newPage: number) => {
+      playSound('clickMain');
+      setPage(newPage);
+    },
+    [playSound, setPage],
   );
-
-  const contractCount = contractPagination();
-
-  const bidPagination = React.useCallback(
-    () => useAppSelector(selectBidPagination),
-    [page],
-  );
-
-  const bidCount = bidPagination();
-
-  const handleChangePage = (_event: React.ChangeEvent<unknown>, newPage: number) => {
-    playSound('clickMain');
-    setPage(newPage);
-  };
-
+  /**
+   * Memo for the currently set `Contract Browser List`
+   * @default `employed`
+   * @returns {string} Filter value of `QueryNames.ContractManagerTab`
+   */
   const currentTab = React.useMemo(() => {
     const tab = filters.get(QueryNames.ContractManagerTab);
     if (!tab) {
@@ -69,7 +106,15 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     }
     return tab;
   }, [filters, setFilter]);
-
+  /**
+   * Handles the ChangeEvent from the ContractList Tab to change the rendered Contract List
+   * @param {React.SynteticEvent} _Event
+   * @param {string} newValue - The Tab Value to change to.
+   * @fires
+   * - setSelectedId(null) - Ensures that when you change a tab, the Selected Contract is cleared.
+   * - playSound('clickMain')
+   * - overwriteURLQuery(newValue) - Ensures that all Filters a cleared other than the ContractManagerTab and set the new value to this filter.
+   */
   const handleBrowserChange = React.useCallback(
     (_event: React.SyntheticEvent, newValue: string) => {
       setSelectedId(null);
@@ -78,27 +123,40 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     },
     [overwriteURLQuery],
   );
-
+  /** Fetchs the Current User from `Auth` slice */
   const currentUser = useAppSelector(selectCurrentUser);
+  /** Determines the id of the Current User if found */
   const userId = currentUser?.id;
-
+  /**
+   * Handles the clickEvent on a {@link ContractManagerCard} in the {@link ContractList} to render the Contract in {@link SelectedContractManager}, or navigate to the {@link ContractPage} if a Breakpoint is reached.
+   * @param {string} Id - The Id of a Contract.
+   * If Mobile:
+   * @fires navigate() - `/contract?contractID=${id}`
+   */
   const handleContractSelect = React.useCallback(
     (id: string | null) => {
-      setSelectedId(id);
       if (mobile) {
         playSound('navigate');
         navigate(`/contract?contractID=${id}`);
         return;
       }
+      setSelectedId(id);
       playSound('open');
     },
-    [setSelectedId],
+    [setSelectedId, navigate, playSound],
   );
-
+  /**
+   * Handles Deselecting a Contract from the {@link SelectedContractManager}
+   * @fires setSelectedId()
+   * @returns null
+   */
   const handleContractDeselect = () => {
     setSelectedId(null);
   };
-
+  /**
+   * @async
+   * Fetches the Bids from the backend
+   */
   const handleFetchBids = React.useCallback(
     async (params: IUserBidSearch) => {
       const bidParams = {
@@ -135,21 +193,69 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     },
     [dispatch, filters],
   );
-
+  /**
+   * Handles the Fetching of Contracts from the backend based on Params set by the {@link SearchTools}
+   */
   const handleFetchContracts = React.useCallback(
     (params: IContractSearch) => {
+      const subtypes = filters.getAll(QueryNames.Subtype) as IContractSubType[];
+      const bidBefore = new Date(filters.get(QueryNames.BidBefore) as string);
+      const bidAfter = new Date(filters.get(QueryNames.BidAfter) as string);
+      const startBefore = new Date(filters.get(QueryNames.StartBefore) as string);
+      const startAfter = new Date(filters.get(QueryNames.StartAfter) as string);
+      const endBefore = new Date(filters.get(QueryNames.EndBefore) as string);
+      const endAfter = new Date(filters.get(QueryNames.EndAfter) as string);
+      const duration = parseInt(filters.get(QueryNames.Duration) as string, 10);
+      const payStructure = filters.get(QueryNames.PayStructure) as IContractPayStructure;
+      const minPay = Number(filters.get(QueryNames.UECRangeMin) as string);
+      const maxPay = Number(filters.get(QueryNames.UECRangeMax) as string);
       const contractParams = {
+        ...(subtypes.length > 0 && {
+          subtype: subtypes,
+        }),
+        ...((bidBefore || bidAfter) && {
+          bidDate: {
+            before: bidBefore,
+            after: bidAfter,
+          },
+        }),
+        ...((startBefore || startAfter) && {
+          startDate: {
+            before: startBefore,
+            after: startAfter,
+          },
+        }),
+        ...((endBefore || endAfter) && {
+          endDate: {
+            before: endBefore,
+            after: endAfter,
+          },
+        }),
+        ...(duration && {
+          duration: Number(duration),
+        }),
+        ...(payStructure && {
+          payStructure: payStructure,
+        }),
+        ...(minPay && {
+          minPay: minPay,
+        }),
+        ...(maxPay && {
+          maxPay: maxPay,
+        }),
         ...params,
       };
       dispatch(fetchContracts(contractParams));
     },
     [dispatch, filters],
   );
-
+  /**
+   * The useEffect that runs {@link handleFetchContracts} & {@link handleFetchBids} depending on the current `ContractManagerTab`.
+   * @param {string} currentTab - The Currently selected Tab
+   * @param {number} page - The current page set by {@link handlePageChange}
+   * @returns {IContract[]}
+   */
   React.useEffect(() => {
-    // Status Filter Initialization
-    // Subtype Filter Initialization
-    // Params Serializer
     switch (currentTab) {
       case 'employed':
         {
@@ -230,16 +336,17 @@ export const ContractManagerApp: React.FC<unknown> = () => {
       default:
         break;
     }
-  }, [filters, page]);
-
+  }, [filters, page, dispatch, handleFetchBids, handleFetchContracts, currentTab]);
+  /** Selects the Contracts currently stored in the `Contracts` Slice */
   const contracts = useAppSelector((state) => selectContractsArray(state));
-
+  /** A useEffect to ensure that the Selected Contract is Available in the `Contracts` Slice, otherwise cleares the SelectedId */
   React.useEffect(() => {
     if (selectedId && !contracts.some((contract) => contract.id === selectedId)) {
       setSelectedId(null);
     }
-  }, [contracts, selectedId]);
-
+  }, [contracts, selectedId, setSelectedId]);
+  /** Decides whether or not to display ScrollButtons for the Tabs Component */
+  const displayScrollButtons = !!theme.breakpoints.down('lg');
   return (
     <Box
       data-testid="ContractsManager__AppContainer"
@@ -282,7 +389,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
                 onChange={handleBrowserChange}
                 indicatorColor="secondary"
                 textColor="secondary"
-                scrollButtons={theme.breakpoints.down('lg') ? true : false}
+                scrollButtons={displayScrollButtons}
                 allowScrollButtonsMobile
                 variant={theme.breakpoints.down('lg') ? 'scrollable' : 'fullWidth'}
               >
@@ -309,8 +416,13 @@ export const ContractManagerApp: React.FC<unknown> = () => {
                 />
               </TabList>
             </ControlPanelBox>
-            <ContractManagerSearchTools />
-            <ContractManagerContractList
+            <Box
+              data-testid="ContractManager-ContractList__SearchTools_Wrapper"
+              sx={{ height: '75px' }}
+            >
+              <SearchTools />
+            </Box>
+            <ContractList
               contracts={contracts}
               setSelectedId={handleContractSelect}
               selectedId={selectedId}

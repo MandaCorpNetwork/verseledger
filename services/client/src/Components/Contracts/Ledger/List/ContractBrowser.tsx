@@ -96,6 +96,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
     const contractorRating = filters.get(QueryNames.ContractorRating) as string;
     const minPay = Number(filters.get(QueryNames.UECRangeMin) as string);
     const maxPay = Number(filters.get(QueryNames.UECRangeMax) as string);
+    const emergency = filters.get(QueryNames.Emergency) as string;
 
     const params: IContractSearch = {
       page: page,
@@ -136,6 +137,9 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
       }),
       ...(maxPay && {
         maxPay: maxPay,
+      }),
+      ...(emergency && {
+        isEmergency: 'true',
       }),
     };
     debouncedSearch(params);

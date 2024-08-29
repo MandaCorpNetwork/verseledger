@@ -1,9 +1,9 @@
 import { Box, Pagination } from '@mui/material';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
-import { ContractManagerContractCard } from './ContractManagerContractCard';
+import { ContractManagerCard } from './ContractManagerCard';
 
-type ContractManagerListProps = {
+type ContractListProps = {
   contracts: IContract[];
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
@@ -12,7 +12,7 @@ type ContractManagerListProps = {
   pageCount: number;
 };
 
-export const ContractManagerContractList: React.FC<ContractManagerListProps> = ({
+export const ContractList: React.FC<ContractListProps> = ({
   contracts,
   selectedId,
   setSelectedId,
@@ -46,7 +46,7 @@ export const ContractManagerContractList: React.FC<ContractManagerListProps> = (
       }}
     >
       {contracts.map((contract) => (
-        <ContractManagerContractCard
+        <ContractManagerCard
           contract={contract}
           key={contract.id}
           setSelectedId={setSelectedId}

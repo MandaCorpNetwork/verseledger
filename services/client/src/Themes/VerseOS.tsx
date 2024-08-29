@@ -69,9 +69,15 @@ export const verseOSTheme = createTheme({
     },
     warning: {
       main: 'rgb(255,193,0)',
+      dark: 'rgb(181,137,4)',
+      light: 'rgb(247,207,87)',
+      contrastText: 'rgb(252,232,172)',
     },
     error: {
-      main: 'rgb(255, 0, 8)',
+      main: 'rgb(255,0,0)',
+      dark: 'rgb(140,0,0)',
+      light: 'rgb(255,100,100)',
+      contrastText: 'rgb(255,160,160)',
     },
     action: {
       disabled: 'rgb(0, 73, 130)',

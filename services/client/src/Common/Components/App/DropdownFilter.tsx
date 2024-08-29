@@ -16,21 +16,44 @@ import { useSoundEffect } from '@/AudioManager';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 type DropdownFilterProps = {
-  filter: 'Subtype' | 'Pay' | 'Locations' | 'Scheduling' | 'Ratings';
+  /** The Filter to be rendered. */
+  filter: IFilters;
+  /** The label displayed above the collapse. */
   label: string;
+  /** Determines if the filter is currently expanded. */
   isExpanded: boolean;
+  /** The function to be called when the filter is expanded. */
   onExpand: () => void;
 };
 
+/**
+ * @global Global Component
+ * @name DropdownFilter - A Collapse rendering a Filter Option
+ * @param {IFilters} filter - The filter to be rendered.
+ * @param {string} label - The label displayed above the collapse.
+ * @param {boolean} isExpanded - Determines if the filter is currently expanded.
+ * @param {function} onExpand - The function to be called when the filter is expanded.
+ * @example
+ * <DropdownFilter filter="Subtype" label="Subtypes" isExpanded={true} onExpand={() => {}} />
+ * @author ThreeCrown
+ */
 export const DropdownFilter: React.FC<DropdownFilterProps> = ({
   filter,
   label,
   isExpanded,
   onExpand,
 }) => {
-  const { playSound } = useSoundEffect();
+  // LOCAL STATES
   const [filters, setFilters] = useURLQuery();
 
+  // HOOKS
+  const { playSound } = useSoundEffect();
+
+  // LOGIC
+  /**
+   * Determines if the filter is disabled.
+   * @returns {boolean} True if the filter is disabled, otherwise false.
+   */
   const setDisabled = () => {
     if (filter === 'Locations') {
       return true;
@@ -40,8 +63,12 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
 
   const isDisabled = setDisabled();
 
-  //FilterSwitches
-  const getFilterComponent = (filterName: string) => {
+  /**
+   * Handles Rendering a Filter Component
+   * @arg {IFilters} filterName - The filter to be rendered.
+   * @returns {JSX.Element | null} - The filter component.
+   */
+  const getFilterComponent = React.useCallback((filterName: string) => {
     switch (filterName) {
       case 'Subtype':
         return <SubTypeFilter size="small" />;
@@ -54,43 +81,57 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
       case 'Pay':
         return <UECFilter />;
     }
-  };
+  }, []);
+  /** Calls {@link getFilterComponent} */
   const filterComponent = getFilterComponent(filter);
-  //Fetches the Filter Component for the Dropdown
 
-  const getFilterCount = (filterName: string) => {
-    switch (filterName) {
-      case 'Subtype':
-        return filters.has(QueryNames.Subtype);
-      case 'Locations':
-        return filters.has(QueryNames.Locations);
-      case 'Scheduling':
-        return (
-          filters.has(QueryNames.BidBefore) ||
-          filters.has(QueryNames.BidAfter) ||
-          filters.has(QueryNames.StartBefore) ||
-          filters.has(QueryNames.StartAfter) ||
-          filters.has(QueryNames.EndBefore) ||
-          filters.has(QueryNames.EndAfter) ||
-          filters.has(QueryNames.Duration)
-        );
-      case 'Ratings':
-        return (
-          filters.has(QueryNames.EmployerRating) ||
-          filters.has(QueryNames.ContractorRating)
-        );
-      case 'Pay':
-        return (
-          filters.has(QueryNames.UECRangeMax) ||
-          filters.has(QueryNames.UECRangeMin) ||
-          filters.has(QueryNames.PayStructure)
-        );
-      default:
-        return 0;
-    }
-  };
-  // Fetches if filters set for a given filter
+  /**
+   * Checks if a filter is set for a Rendered Filter
+   * @arg {IFilters} filterName - The filter to be checked.
+   * @returns {number}
+   */
+  const checkFilterSet = React.useCallback(
+    (filterName: string) => {
+      switch (filterName) {
+        case 'Subtype':
+          return filters.has(QueryNames.Subtype);
+        case 'Locations':
+          return filters.has(QueryNames.Locations);
+        case 'Scheduling':
+          return (
+            filters.has(QueryNames.BidBefore) ||
+            filters.has(QueryNames.BidAfter) ||
+            filters.has(QueryNames.StartBefore) ||
+            filters.has(QueryNames.StartAfter) ||
+            filters.has(QueryNames.EndBefore) ||
+            filters.has(QueryNames.EndAfter) ||
+            filters.has(QueryNames.Duration)
+          );
+        case 'Ratings':
+          return (
+            filters.has(QueryNames.EmployerRating) ||
+            filters.has(QueryNames.ContractorRating)
+          );
+        case 'Pay':
+          return (
+            filters.has(QueryNames.UECRangeMax) ||
+            filters.has(QueryNames.UECRangeMin) ||
+            filters.has(QueryNames.PayStructure)
+          );
+        default:
+          return 0;
+      }
+    },
+    [filters],
+  );
+  /** Calls {@link checkFilterSet} */
+  const isFiltersSet = checkFilterSet(filter);
 
+  /**
+   * Finds the Values of a Filter for Filter Arrays
+   * @arg {IFilters} FilterName - The filter to be checked.
+   * @returns {string[]}
+   */
   const getFilterValues = (filterName: string) => {
     switch (filterName) {
       case 'Subtype':
@@ -101,22 +142,33 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
         return [];
     }
   };
+  /** Calls {@link getFilterValues} */
   const filterValues = getFilterValues(filter);
-  // Fetches the Values of the given Filter
-  const isFiltersSet = getFilterCount(filter);
-  // Identifies if there are filters selected
 
-  const handleDeleteFilter = useCallback(
+  /**
+   * Handles Deleting a single Item from an Array Filter
+   * @param {string} valueToDelete - The value to be deleted from array.
+   * @fires
+   * - {@link setFilters} - Updates the URL query with the new filter values.
+   * - playSound('toggleOff')
+   */
+  const handleDeleteFilterItem = useCallback(
     (valueToDelete: string) => {
       const filterToUpdate = QueryNames[filter as keyof typeof QueryNames];
       const updatedFilters = filters
         .getAll(valueToDelete)
         .filter((value) => value !== valueToDelete);
+      playSound('toggleOff');
       setFilters(filterToUpdate, updatedFilters);
     },
     [filters, setFilters, filter, playSound],
   );
 
+  /**
+   * Retrieves the list of QueryNames associated with a specific Filter.
+   * @param {IFilters} filter - The Filter Option
+   * @returns {QueryNames[]} An array of query names associated with the filter.
+   */
   const getFilterToClear = React.useCallback(
     (filter: string): QueryNames[] => {
       switch (filter) {
@@ -148,6 +200,13 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
     [filter],
   );
 
+  /**
+   * Handles clearing all the Queries associated with the specific Filter.
+   * @param {IFilters} filter - The Filter Option
+   * @fires
+   * - {@link setFilters} - Updates the URL query with the new filter values.
+   * - playSound('toggleOff')
+   */
   const handleClearAll = React.useCallback(() => {
     const filtersToClear = getFilterToClear(filter);
     filtersToClear.forEach((filterToUpdate) => {
@@ -155,6 +214,22 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
     });
     playSound('toggleOff');
   }, [setFilters, filter, playSound]);
+
+  /**
+   * Determins the Text Color of the Label based on 2 Conditions
+   * @param {boolean} isDisabled - Indicates if the filter is disabled
+   * @param {boolean} isExpanded - Indicates if the filter is expanded or not
+   * @returns {string} The color value to be used.
+   */
+  const getLabelColor = React.useCallback(
+    (isDisabled: boolean, isExpanded: boolean) => {
+      if (isDisabled) return 'text.disabled';
+      return isExpanded ? 'secondary.main' : 'text.secondary';
+    },
+    [filter, isDisabled, isExpanded],
+  );
+  /** Calls {@link getLabelColor} */
+  const labelColor = getLabelColor(isDisabled, isExpanded);
 
   return (
     <Box
@@ -186,11 +261,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
             sx={{
               display: 'flex',
               flexDirection: 'row',
-              color: isDisabled
-                ? 'text.disabled'
-                : isExpanded
-                  ? 'secondary.main'
-                  : 'text.secondary',
+              color: labelColor,
               cursor: 'pointer',
               fontWeight: 'bold',
               textShadow: '0 0 5px rgba(33,150,243,.3)',
@@ -278,9 +349,9 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
                       No Filters Set
                     </Typography>
                   ) : (
-                    filterValues.map((value, index) => (
+                    filterValues.map((value) => (
                       <Chip
-                        key={index}
+                        key={value}
                         label={value && value.charAt(0).toUpperCase() + value.slice(1)}
                         size={'small'}
                         variant="outlined"
@@ -288,7 +359,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
                         sx={{ m: '.2em' }}
                         onDelete={() => {
                           if (value) {
-                            handleDeleteFilter(value);
+                            handleDeleteFilterItem(value);
                             playSound('toggleOff');
                           }
                         }}

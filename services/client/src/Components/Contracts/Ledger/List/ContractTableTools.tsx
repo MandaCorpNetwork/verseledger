@@ -1,7 +1,9 @@
 import { DropdownFilter } from '@Common/Components/App/DropdownFilter';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import { ElevatedDropdownBox } from '@Common/Components/Collapse/ElevatedDropdownBox';
+import { EmergencySwitch } from '@Common/Components/Switch/EmergencySwitch';
 import { FilterAlt } from '@mui/icons-material';
-import { Badge, Box, Button, Collapse, Typography } from '@mui/material';
+import { Badge, Box, Button, Typography } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
 import { QueryNames } from '@Utils/QueryNames';
@@ -10,23 +12,61 @@ import React, { useRef, useState } from 'react';
 import { useSoundEffect } from '@/AudioManager';
 import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
+/**
+ * ### ContractTableTools
+ * @description
+ * This component is a container for the tools used to filter and sort the contract list in the {@link ContractBrowser}
+ * @version 0.1.4
+ * @returns {JSX.Element}
+ * #### Functional Components
+ * @component {@link EmergencySwitch}
+ * @component {@link DropdownFilter}
+ * @component {@link SearchBar}
+ * @component {@link SortBySelect}
+ * #### Styled Components
+ * @component {@link DigiBox}
+ * @component {@link ElevatedDropdownBox}
+ * @author ThreeCrown
+ */
 export const ContractTableTools: React.FC<unknown> = () => {
-  const { playSound } = useSoundEffect();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [filters] = useURLQuery();
+  // LOCAL STATES
+  /** State using the useURLQuery hook to store & read the URL query parameters */
+  const [filters, setFilter] = useURLQuery();
+  /**
+   * State determines if the FilterList Collapse is expanded
+   * @type [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+   * @default {false}
+   * @returns {boolean}
+   */
   const [open, setOpen] = useState(false);
+  /**
+   * State determins which Dropdown Filer is currently open.
+   * @const
+   * @type [string | null, React.Dispatch<React.SetStateAction<string | null>]
+   * @default {null}
+   * @returns {string} - The current expanded filter.
+   */
   const [expanded, setExpanded] = useState<string | null>(null);
+  // HOOKS
   const toolsRef = useRef<HTMLDivElement>(null);
-
+  const { playSound } = useSoundEffect();
+  // LOGIC
+  /** Handles the clickEvent that toggles the FilterList */
   const handleClick = () => {
     playSound('clickMain');
     setOpen((prevOpen) => !prevOpen);
   };
-
+  /**
+   * @function handleExpand - Handles the clickEvent that expands a `DropdownFilter` component.
+   * @params {string} panel - The name of the filter to expand.
+   */
   const handleExpand = React.useCallback((panel: string) => {
     setExpanded((prevExpanded) => (prevExpanded === panel ? null : panel));
   }, []);
-
+  /**
+   * @function getFilterCount - Returns the number of filters currently applied.
+   * @returns {number} - The number of filters currently applied.
+   */
   const getFilterCount = React.useCallback(() => {
     const subtypes = filters.getAll(QueryNames.Subtype);
     const bidDateBefore = filters.has(QueryNames.BidBefore) ? 1 : 0;
@@ -55,8 +95,28 @@ export const ContractTableTools: React.FC<unknown> = () => {
       payMax
     );
   }, [filters]);
-
+  /** Calls {@link getFilterCount} */
   const filterCount = getFilterCount();
+  /**
+   * @function emergencyMode - Checks if the emergency mode is enabled and true in the URL query parameters
+   * @returns {boolean} - True if the emergency mode is enabled and true in the URL query parameters, false otherwise.
+   */
+  const emergencyMode = React.useMemo(() => {
+    return filters.get(QueryNames.Emergency) === 'true';
+  }, [filters]);
+  /**
+   * @function handleEmergencyMode - Handles the clickEvent that toggles the emergency mode
+   * @fires setFilter()
+   * - Sets the emergency mode to true in the URL query parameters if the query does not exist
+   * - Removes the emergency mode from the URL query parameters if the query exists
+   */
+  const handleEmergencyMode = React.useCallback(() => {
+    if (emergencyMode) {
+      setFilter(QueryNames.Emergency, []);
+    } else {
+      setFilter(QueryNames.Emergency, 'true');
+    }
+  }, [emergencyMode, setFilter]);
 
   const sortOptions = [
     {
@@ -96,61 +156,50 @@ export const ContractTableTools: React.FC<unknown> = () => {
         py: '.5em',
       }}
     >
-      <Badge
-        data-testid="ContractLedger-TableTools__FilterBadge"
-        badgeContent={filterCount}
-        color="error"
-        variant="standard"
-        overlap="rectangular"
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        sx={{
-          opacity: open ? 1 : 0.8,
-        }}
-      >
-        <Button
-          data-testid="ContractLedger-TableTools__FilterButton"
-          onClick={handleClick}
-          color="secondary"
-          variant="outlined"
-          startIcon={<FilterAlt />}
-          size="small"
+      <Box data-testid="ContractLedger-ColumnTwo__FiltersContainer">
+        <EmergencySwitch
+          data-testid="ContractLedger_EmergencyToggle"
+          isEmergency={emergencyMode}
+          onToggle={handleEmergencyMode}
+        />
+        <Badge
+          data-testid="ContractLedger-TableTools__FilterBadge"
+          badgeContent={filterCount}
+          color="error"
+          variant="standard"
+          overlap="rectangular"
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
           sx={{
-            '&:hover': {
-              boxShadow: '0 0px 10px',
-            },
+            opacity: open ? 1 : 0.8,
           }}
         >
-          Filters
-        </Button>
-      </Badge>
-      <Collapse
+          <Button
+            data-testid="ContractLedger-TableTools__FilterButton"
+            onClick={handleClick}
+            color="secondary"
+            variant="outlined"
+            startIcon={<FilterAlt />}
+            size="small"
+            sx={{
+              ml: '2em',
+              '&:hover': {
+                boxShadow: '0 0px 10px',
+              },
+            }}
+          >
+            Filters
+          </Button>
+        </Badge>
+      </Box>
+      <ElevatedDropdownBox
         data-testid="ContractLedger-TableTools__FilterDrawer"
         key="Contract-Table-Filter-Drawer"
         in={open}
         sx={{
-          position: 'absolute',
-          top: '100%',
-          width: '100%',
-          zIndex: '50',
-          backdropFilter: 'blur(10px)',
-          background: 'linear-gradient(145deg, rgb(8,22,80,.8), rgba(0,73,150,.5))',
-          justifyContent: 'flex-start',
-          display: 'flex',
-          flexDirection: 'column',
           p: '1em',
-          borderBottomLeftRadius: '10px',
-          borderBottomRightRadius: '10px',
-          borderLeft: '1px solid rgba(14,35,80,0.2)',
-          borderRight: '1px solid rgba(14,35,80,0.2)',
-          borderBottom: '1px solid rgba(14,35,80,0.2)',
-          boxShadow: `
-            0px 4px 8px rgba(0, 0, 0, 0.3),
-            0px 8px 16px rgba(0, 0, 0, 0.2),
-            0px 12px 24px rgba(0, 0, 0, 0.1)
-          `,
         }}
       >
         <DropdownFilter
@@ -183,7 +232,7 @@ export const ContractTableTools: React.FC<unknown> = () => {
           isExpanded={expanded === 'Pay'}
           onExpand={() => handleExpand('Pay')}
         />
-      </Collapse>
+      </ElevatedDropdownBox>
       <Typography
         data-testid="ContractLedger-TableTools__Title"
         variant="h5"

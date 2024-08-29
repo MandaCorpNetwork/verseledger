@@ -1,14 +1,11 @@
 import { UserChip } from '@Common/Components/Chips/UserChip';
 import { PayInput } from '@Common/Components/Custom/PayInput';
 import { Box, ButtonBase, Tooltip, Typography, useTheme } from '@mui/material';
-// import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import TestAttacheIcon from '@/Assets/media/GameplayIcons/TestAttacheIcon.svg?url';
-
-//import type { IContract } from '@Backend/interfaces/IContract';
 
 type ContractManagerCardProps = {
   contract: IContract;
@@ -16,7 +13,7 @@ type ContractManagerCardProps = {
   setSelectedId: (id: string | null) => void;
 };
 
-export const ContractManagerContractCard: React.FC<ContractManagerCardProps> = ({
+export const ContractManagerCard: React.FC<ContractManagerCardProps> = ({
   contract,
   selectedId,
   setSelectedId,
