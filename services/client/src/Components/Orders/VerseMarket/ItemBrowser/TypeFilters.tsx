@@ -1,7 +1,6 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { ItemTypes } from '@Common/Definitions/Orders/ItemTypes';
 import { Grid, IconButton, Tooltip } from '@mui/material';
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
@@ -53,7 +52,7 @@ export const ItemTypeFilters: React.FC<unknown> = () => {
         my: '1em',
       }}
     >
-      <Grid2
+      <Grid
         data-testid="VerseMarket-Marketplace-Browser-TypeFilter__Grid"
         container
         spacing={2}
@@ -77,7 +76,7 @@ export const ItemTypeFilters: React.FC<unknown> = () => {
             </Tooltip>
           </Grid>
         ))}
-      </Grid2>
+      </Grid>
     </DigiBox>
   );
 };
