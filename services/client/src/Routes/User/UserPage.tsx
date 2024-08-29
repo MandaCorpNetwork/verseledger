@@ -1,12 +1,33 @@
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { Avatar, Box, Stack } from '@mui/material';
-import { useAppSelector } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
+import { fetchSearchUsers } from '@Redux/Slices/Users/Actions/fetchSearchUsers';
+import { fetchSearchUserId } from '@Redux/Slices/Users/Actions/fetchUserById';
+import { selectUserById } from '@Redux/Slices/Users/userSelectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { QueryNames } from '@Utils/QueryNames';
+import React from 'react';
 
 export const UserPage: React.FC = () => {
   //LOCAL STATES
   const [searchParam] = useURLQuery();
+  // HOOKS
+  const dispatch = useAppDispatch();
+  // LOGIC
+  const selectedUserId = searchParam.get(QueryNames.User);
+  React.useEffect(() => {
+    if (selectedUserId) {
+      dispatch(fetchSearchUserId(selectedUserId));
+    }
+  }, [selectedUserId, dispatch]);
+
+  const selectedUser = useAppSelector((state) => {
+    if (selectedUserId) {
+      return selectUserById(state, selectedUserId);
+    }
+  });
+
   const currentUser = useAppSelector(selectCurrentUser);
   return (
     <VLViewport data-testid="UserPage_PageContainer" sx={{ p: '1em' }}>
@@ -40,7 +61,7 @@ export const UserPage: React.FC = () => {
               px: '1em',
             }}
           >
-            <Avatar />
+            <Avatar src={selectedUser?.pfp} />
           </Box>
           <Box
             data-testid="UserPage-PlayerData_DataWrapper"
