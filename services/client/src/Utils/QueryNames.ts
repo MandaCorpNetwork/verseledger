@@ -1,16 +1,18 @@
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 
 export enum QueryNames {
+  ContractManagerTab = 'cmTab',
+  VerseMarketTab = 'vmTab',
+  Contract = 'contractID',
+  Order = 'orderID',
   SortBy = 'sort',
   SortDirection = 'sortDir',
   SearchQuery = 'search',
-  ContractManagerTab = 'cmTab',
   User = 'userId',
   Subtype = 'st',
   Locations = 'loc',
   UECRangeMin = 'minUEC',
   UECRangeMax = 'maxUEC',
-  Contract = 'contractID',
   EmployerRating = 'eRating',
   ContractorRating = 'cRating',
   Archetype = 'archetype',
@@ -27,6 +29,7 @@ export enum QueryNames {
   EndAfter = 'endAfter',
   EndExact = 'endExact',
   Duration = 'duration',
+  ItemType = 'itemType',
   PayStructure = 'payStructure',
   Emergency = 'emergency',
 }
