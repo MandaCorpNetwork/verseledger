@@ -10,7 +10,6 @@ import {
   Avatar,
   Box,
   Grow,
-  Icon,
   IconButton,
   Rating,
   Tab,
@@ -19,13 +18,12 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
+// import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { fetchSearchUserId } from '@Redux/Slices/Users/Actions/fetchUserById';
 import { selectUserById } from '@Redux/Slices/Users/userSelectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { useSoundEffect } from '@/AudioManager';
 import { ContractInfoPanel } from '@/Components/UserPage/Info/ContractsInfoPanel';
@@ -85,7 +83,7 @@ export const UserPage: React.FC = () => {
     }
   });
   /** @var {User}currentUser - Fetches the current user viewing the page. */
-  const currentUser = useAppSelector(selectCurrentUser);
+  // const currentUser = useAppSelector(selectCurrentUser);
   /**
    * @function handleStatsTabChange - Handles the tab changes for the user stats window.
    * @param {string}value

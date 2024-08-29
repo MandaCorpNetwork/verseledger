@@ -1,5 +1,4 @@
 import { Box, styled } from '@mui/material';
-import zIndex from '@mui/material/styles/zIndex';
 
 export const GlassDisplay = styled(Box)(({ theme }) => ({
   display: 'flex',
