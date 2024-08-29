@@ -1,17 +1,20 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
+import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
 import { UserViewport } from '@Common/Components/Boxes/UserViewport';
 import { SecurityIcon } from '@Common/Definitions/CustomIcons';
-import { Mail, Place, Security } from '@mui/icons-material';
+import { Mail, Place } from '@mui/icons-material';
 import {
   Avatar,
   Box,
+  Grow,
   Icon,
   IconButton,
   Rating,
+  Tab,
+  Tabs,
   Tooltip,
   Typography,
 } from '@mui/material';
@@ -25,6 +28,12 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useSoundEffect } from '@/AudioManager';
+import { ContractInfoPanel } from '@/Components/UserPage/Info/ContractsInfoPanel';
+import { FleetInfoPanel } from '@/Components/UserPage/Info/FleetInfoPanel';
+import { OrderInfoPanel } from '@/Components/UserPage/Info/OrdersInfoPanel';
+import { OrgsInfoPanel } from '@/Components/UserPage/Info/OrgsInfoPanel';
+import { ContractStatsPanel } from '@/Components/UserPage/Stats/ContractStatsPanel';
+import { OrderStatsPanel } from '@/Components/UserPage/Stats/OrderStatsPanel';
 
 /**
  * ### UserPage
@@ -33,11 +42,16 @@ import { useSoundEffect } from '@/AudioManager';
  * Allows the user view detailled information about the selected user based on their access level.
  * Includes a button that opens up the player messaging widget.
  * Retrieves a User from a userId passed through the url query.
- * @version 0.1.0
+ * @version 0.1.1
  * TODO: Connect 'Last Online' to the Stomp Client
  * @returns {React.FC}
  * #### Function Components
- * - None
+ * @component {@link ContractInfoPanel}
+ * @component {@link FleetInfoPanel}
+ * @component {@link OrderInfoPanel}
+ * @component {@link OrgsInfoPanel}
+ * @component {@link ContractStatsPanel}
+ * @component {@link OrderStatsPanel}
  * #### Styled Components
  * @component {@link UserViewport}
  * @author Eugene R. Petrie - AUG 2024
@@ -46,9 +60,10 @@ export const UserPage: React.FC = () => {
   //LOCAL STATES
   /** Gets the URL Query parameter for read only. */
   const [searchParam] = useURLQuery();
+  const [statsTab, setStatsTab] = React.useState<string>('contracts');
+  const [infoTab, setInfoTab] = React.useState<string>('fleet');
   // HOOKS
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const { playSound } = useSoundEffect();
   // LOGIC
   /** @var {string}selectedUserId - Fetching the User ID from teh Query params. */
@@ -71,6 +86,67 @@ export const UserPage: React.FC = () => {
   });
   /** @var {User}currentUser - Fetches the current user viewing the page. */
   const currentUser = useAppSelector(selectCurrentUser);
+  /**
+   * @function handleStatsTabChange - Handles the tab changes for the user stats window.
+   * @param {string}value
+   * @param {React.SyntheticEvent}_event
+   * @returns {void}
+   */
+  const handleStatsTabChange = React.useCallback(
+    (_event: React.SyntheticEvent, value: string) => {
+      playSound('clickMain');
+      setStatsTab(value);
+    },
+    [statsTab],
+  );
+  /**
+   * Call back function created for the user stats panel.
+   * This call back function retrieves the current selected panel based on the state choice.
+   * Then renders the corrisponding component in the panel.
+   */
+  const getStatsPanel = React.useCallback(() => {
+    switch (statsTab) {
+      case 'contracts':
+        return <ContractStatsPanel />;
+      case 'orders':
+        return <OrderStatsPanel />;
+      default:
+        return <ContractStatsPanel />;
+    }
+  }, [statsTab]);
+  /**
+   * @function handleInfoTabChange - Handles the tab changes for the user info window.
+   * @param {string}value
+   * @param {React.SyntheticEvent}_event
+   * @returns {void}
+   */
+  const handleInfoTabChange = React.useCallback(
+    (_event: React.SyntheticEvent, value: string) => {
+      playSound('clickMain');
+      setInfoTab(value);
+    },
+    [infoTab],
+  );
+  /**
+   * Call back function created for the user info panel.
+   * This call back function retrieves the current selected panel based on the state choice.
+   * Then renders the corrisponding component in the panel.
+   */
+  const getInfoPanel = React.useCallback(() => {
+    switch (infoTab) {
+      case 'fleet':
+        return <FleetInfoPanel />;
+      case 'orgs':
+        return <OrgsInfoPanel />;
+      case 'orders':
+        return <OrderInfoPanel />;
+      case 'contracts':
+        return <ContractInfoPanel />;
+      default:
+        return <FleetInfoPanel />;
+    }
+  }, [infoTab]);
+
   return (
     <UserViewport
       data-testid="UserPage_PageContainer"
@@ -142,7 +218,7 @@ export const UserPage: React.FC = () => {
                 sx={{ mt: '1em' }}
               />
             </Box>
-            <PopupFormDisplay
+            <DigiDisplay
               data-testid="UserPage-PlayerData_DataWrapper"
               sx={{
                 display: 'flex',
@@ -152,12 +228,6 @@ export const UserPage: React.FC = () => {
                 mx: '1em',
                 p: '1em',
                 justifyContent: 'space-around',
-                backgroundImage:
-                  'linear-gradient(135deg, rgba(0,30,160,.8) 0%, rgba(0,30,140,.7) 50%, rgba(0,30,120,.6) 100%)',
-                '&:hover': {
-                  boxShadow:
-                    '0 0 10px 5px rgba(0,30,100,.35), 0 12px 15px rgba(0, 1, 19, .2)',
-                },
               }}
             >
               <Box data-testid="UserPage-PlayerData_UsernameContainer">
@@ -215,8 +285,8 @@ export const UserPage: React.FC = () => {
                     data-testid="UserPage-PlayerData_LastOnlineData"
                     variant="overline"
                     sx={{
-                      ml: '0.2em',
-                      mt: '0.2em',
+                      ml: '0.5em',
+                      mt: '0.3em',
                       color: 'grey',
                       textShadow: '0 5px 8px rgba(0,0,0,0.8), 0 2px 4px rgb(0,0,0)',
                     }}
@@ -252,7 +322,7 @@ export const UserPage: React.FC = () => {
                   </IconButton>
                 </Tooltip>
               </Box>
-            </PopupFormDisplay>
+            </DigiDisplay>
           </Box>
           <Box
             data-testid="UserPage_CurrentDataContainer"
@@ -264,6 +334,7 @@ export const UserPage: React.FC = () => {
             }}
           >
             <DigiBox
+              data-testid="UserPage-CurrentData_Wrapper"
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -275,14 +346,22 @@ export const UserPage: React.FC = () => {
               }}
             >
               <DigiDisplay
+                data-testid="UserPage-Wrapper_LocationDisplay"
                 sx={{ py: '0.8em', display: 'flex', flexDirection: 'row', width: '100%' }}
               >
-                <Tooltip title="View Location">
-                  <IconButton onClick={() => {}}>
+                <Tooltip
+                  data-testid="UserPage-LocationDisplay_LocationButtonTooltip"
+                  title="View Location"
+                >
+                  <IconButton
+                    data-testid="UserPage-LocationDisplay_LocationButton"
+                    onClick={() => {}}
+                  >
                     <Place fontSize="large" />
                   </IconButton>
                 </Tooltip>
                 <Typography
+                  data-testid="UserPage-LocationDisplay_Location"
                   variant="body1"
                   sx={{
                     display: 'inline-flex',
@@ -294,6 +373,7 @@ export const UserPage: React.FC = () => {
                   Current Location
                 </Typography>
                 <Typography
+                  data-testid="UserPage-LocationDisplay_LastUpdated"
                   variant="overline"
                   sx={{
                     ml: 'auto',
@@ -307,9 +387,10 @@ export const UserPage: React.FC = () => {
                   Last Updated:
                 </Typography>
                 <Typography
+                  data-testid="UserPage-LocationDisplay_UpdatedTime"
                   variant="overline"
                   sx={{
-                    ml: '0.2em',
+                    mx: '0.5em',
                     pt: '3em',
                     color: 'grey',
                     fontSize: '0.6em',
@@ -319,13 +400,23 @@ export const UserPage: React.FC = () => {
                   2 Days Ago
                 </Typography>
               </DigiDisplay>
-              <DigiDisplay sx={{ py: '0.8em', display: 'flex', flexDirection: 'row' }}>
-                <Tooltip title="View Ship">
-                  <IconButton onClick={() => {}}>
+              <DigiDisplay
+                data-testid="UserPage-Wrapper_ShipDisplay"
+                sx={{ py: '0.8em', display: 'flex', flexDirection: 'row' }}
+              >
+                <Tooltip
+                  data-testid="UserPage-ShipDisplay_ShipButtonTooltip"
+                  title="View Ship"
+                >
+                  <IconButton
+                    data-testid="UserPage-ShipDisplay_ShipButton"
+                    onClick={() => {}}
+                  >
                     <SecurityIcon fontSize="large" />
                   </IconButton>
                 </Tooltip>
                 <Typography
+                  data-testid="UserPage-ShipDisplay_ShipName"
                   variant="body1"
                   sx={{
                     display: 'inline-flex',
@@ -337,6 +428,7 @@ export const UserPage: React.FC = () => {
                   Current Ship
                 </Typography>
                 <Typography
+                  data-testid="UserPage-ShipDisplay_LastUpdated"
                   variant="overline"
                   sx={{
                     ml: 'auto',
@@ -350,9 +442,10 @@ export const UserPage: React.FC = () => {
                   Last Updated:
                 </Typography>
                 <Typography
+                  data-testid="UserPage-ShipDisplay_UpdatedTime"
                   variant="overline"
                   sx={{
-                    ml: '0.2em',
+                    mx: '0.5em',
                     pt: '3em',
                     color: 'grey',
                     fontSize: '0.6em',
@@ -364,6 +457,111 @@ export const UserPage: React.FC = () => {
               </DigiDisplay>
             </DigiBox>
           </Box>
+        </Box>
+        <Box
+          data-testid="UserPage_BottomRow"
+          sx={{
+            display: 'flex',
+            gap: '3em',
+            flexDirection: { xs: 'column', md: 'column', lg: 'row' },
+            mt: '2em',
+            height: '75%',
+            width: '100%',
+          }}
+        >
+          <DigiDisplay
+            data-testid="UserPage-BottomRow_StatsContainer"
+            sx={{
+              width: '35%',
+              height: '100%',
+              pt: '1em',
+              justifyContent: 'flex-start',
+            }}
+          >
+            <ControlPanelBox
+              data-testid="UserPage-BottomRow_Stats_Tablist_Wrapper"
+              sx={{
+                display: 'block',
+                px: '.5em',
+                pm: '.5em',
+                mb: '1em',
+              }}
+            >
+              <Tabs
+                data-testid="UserPage-BottomRow-Stats_Tablist"
+                variant="fullWidth"
+                value={statsTab}
+                onChange={handleStatsTabChange}
+                textColor="secondary"
+                indicatorColor="secondary"
+              >
+                <Tab
+                  data-testid="UserPage-Stats-Tablist_ContractsTab"
+                  label="Contracts"
+                  value="contracts"
+                />
+                <Tab
+                  data-testid="UserPage-Stats-Tablist_OrdersTab"
+                  label="Orders"
+                  value="orders"
+                />
+              </Tabs>
+            </ControlPanelBox>
+            <Grow data-testid="UserPage-Stats-Tab_Display_Wrapper" in={true}>
+              <Box data-testid="UserPage-Tab_Display_Box">{getStatsPanel()}</Box>
+            </Grow>
+          </DigiDisplay>
+          <DigiDisplay
+            data-testid="UserPage-BottomRow_UserInfoContainer"
+            sx={{
+              flexGrow: 1,
+              height: '100%',
+              pt: '1em',
+              justifyContent: 'flex-start',
+            }}
+          >
+            <ControlPanelBox
+              sx={{
+                display: 'block',
+                px: '.5em',
+                pm: '.5em',
+                mb: '1em',
+              }}
+            >
+              <Tabs
+                data-testid="UserPage-BottomRow-Info_Tablist"
+                variant="fullWidth"
+                value={infoTab}
+                onChange={handleInfoTabChange}
+                textColor="secondary"
+                indicatorColor="secondary"
+              >
+                <Tab
+                  data-testid="UserPage-Info-Tablist_FleetTab"
+                  label="Fleet"
+                  value="fleet"
+                />
+                <Tab
+                  data-testid="UserPage-Info-Tablist_OrgsTab"
+                  label="Orgs"
+                  value="orgs"
+                />
+                <Tab
+                  data-testid="UserPage-Info-Tablist_OrdersTab"
+                  label="Orders"
+                  value="orders"
+                />
+                <Tab
+                  data-testid="UserPage-Info-Tablist_ContractsTab"
+                  label="Contracts"
+                  value="contracts"
+                />
+              </Tabs>
+            </ControlPanelBox>
+            <Grow data-testid="UserPage-Info-Tab_Display_Wrapper" in={true}>
+              <Box data-testid="UserPage-Tab_Display_Box">{getInfoPanel()}</Box>
+            </Grow>
+          </DigiDisplay>
         </Box>
       </GlassDisplay>
     </UserViewport>
