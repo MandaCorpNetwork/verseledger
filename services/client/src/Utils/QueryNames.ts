@@ -5,6 +5,7 @@ export enum QueryNames {
   SortDirection = 'sortDir',
   SearchQuery = 'search',
   ContractManagerTab = 'cmTab',
+  User = 'userId',
   Subtype = 'st',
   Locations = 'loc',
   UECRangeMin = 'minUEC',
