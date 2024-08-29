@@ -37,7 +37,7 @@ export const SoundSettings: React.FC = () => {
   const currentSoundPackName = getCurrentPackname(currentSoundPack);
 
   const handleSoundPackChange = (event: SelectChangeEvent<string>) => {
-    const packName = event.target.value as string;
+    const packName = event.target.value;
     Logger.info('Selected pack name:', packName);
     const packKey = Object.keys(soundEffectPacks).find(
       (key) => soundEffectPacks[key as keyof typeof soundEffectPacks].name === packName,
@@ -72,7 +72,7 @@ export const SoundSettings: React.FC = () => {
       >
         <DigiBox
           data-testid="SoundSettings-Settings__SoundEffects_Container"
-          sx={{ p: '.5em' }}
+          sx={{ p: '.5em', minWidth: '250px' }}
         >
           <Typography
             data-testid="SoundSettings-Settings-SoundEffects__Title"
@@ -84,7 +84,13 @@ export const SoundSettings: React.FC = () => {
           <Divider />
           <Box
             data-testid="SoundSettings-Settings-SoundEffects__List_Wrapper"
-            sx={{ p: '.5em', mt: '.5em' }}
+            sx={{
+              p: '.5em',
+              mt: '.5em',
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
           >
             <FormControl>
               <InputLabel color="secondary">Sound Pack</InputLabel>
