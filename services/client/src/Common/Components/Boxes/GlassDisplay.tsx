@@ -1,4 +1,5 @@
 import { Box, styled } from '@mui/material';
+import zIndex from '@mui/material/styles/zIndex';
 
 export const GlassDisplay = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -15,6 +16,7 @@ export const GlassDisplay = styled(Box)(({ theme }) => ({
   '&:before': {
     content: '""',
     position: 'absolute',
+    zIndex: -1,
     top: 0,
     bottom: 0,
     right: 0,

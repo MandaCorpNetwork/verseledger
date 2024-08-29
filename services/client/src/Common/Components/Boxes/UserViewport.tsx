@@ -5,7 +5,6 @@ const selectedUserBackground = userBackgroundOptions[0].image;
 const selectedWatermark = userBackgroundOptions[0].waterMark;
 
 export const UserViewport = styled(Box)({
-  position: 'absolute',
   backgroundImage: `url(${selectedUserBackground})`,
   width: '100%',
   height: '100%',
