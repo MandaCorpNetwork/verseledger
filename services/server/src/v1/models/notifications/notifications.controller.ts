@@ -44,7 +44,7 @@ export class NotificationsController extends BaseHttpController {
     const unread = await this.notificationService.getUnreadCount(userId);
     return this.json({ unread });
   }
-  @httpGet('/markAllRead', TYPES.VerifiedUserMiddleware)
+  @httpGet('/markAllRead', TYPES.AuthMiddleware)
   private async markAllRead(@next() nextFunc: NextFunction) {
     try {
       const userId = (this.httpContext.user as VLAuthPrincipal).id;
@@ -66,8 +66,8 @@ export class NotificationsController extends BaseHttpController {
     }
   }
   @httpPatch(
-    `/markRead/:notificationId(${IdUtil.expressRegex(IdUtil.IdPrefix.Notification)})`,
-    TYPES.VerifiedUserMiddleware,
+    `/:notificationId(${IdUtil.expressRegex(IdUtil.IdPrefix.Notification)})`,
+    TYPES.AuthMiddleware,
   )
   private async markRead(
     @requestParam('notificationId') notificationId: string,
@@ -82,7 +82,7 @@ export class NotificationsController extends BaseHttpController {
         throw nextFunc(
           new BadParameterError(
             'notificationId',
-            `/markRead/:notificationId(${IdUtil.expressRegex(IdUtil.IdPrefix.Notification)})`,
+            `/:notificationId(${IdUtil.expressRegex(IdUtil.IdPrefix.Notification)})`,
           ),
         );
       }
