@@ -1,7 +1,7 @@
-import { userBackgroundOptions } from '@Common/Definitions/Users/UserBackground';
+import { userBackgroundOptions } from '@Common/Definitions/Users/UserBackgrounds';
 import { Box, styled } from '@mui/material';
 
-const selectedUserBackground = userBackgroundOptions[0].image;
+const selectedUserBackground = userBackgroundOptions[0].url;
 const selectedWatermark = userBackgroundOptions[0].waterMark;
 
 export const UserViewport = styled(Box)({
