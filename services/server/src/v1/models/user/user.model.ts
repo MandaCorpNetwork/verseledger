@@ -34,6 +34,9 @@ import { UserSettings } from '../user_settings/user_settings.model';
   contracts: {
     include: [{ model: Contract, as: 'PostedContracts' }],
   },
+  settings: {
+    include: [{ model: UserSettings, as: 'Settings' }],
+  },
 }))
 @Table({ tableName: 'users', timestamps: true })
 export class User extends Model implements IUser {
@@ -79,7 +82,7 @@ export class User extends Model implements IUser {
   @HasMany(() => UserRating, 'reciever_id')
   declare ReceivedRatings: Awaited<UserRating>[];
 
-  @HasOne(() => UserSettings, { foreignKey: 'user_id' })
+  @HasOne(() => UserSettings, 'user_id')
   declare Settings: Awaited<UserSettings>;
 
   declare readonly createdAt: Date;
