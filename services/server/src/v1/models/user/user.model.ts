@@ -81,7 +81,7 @@ export class User extends Model implements IUser {
 
   @HasOne(() => UserSettings, { foreignKey: 'user_id' })
   declare Settings: Awaited<UserSettings>;
-  
+
   declare readonly createdAt: Date;
   declare readonly updatedAt: Date;
 }

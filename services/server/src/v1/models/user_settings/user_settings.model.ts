@@ -1,6 +1,14 @@
-import { IdUtil } from "@/utils/IdUtil"
-import { BelongsTo, Column, DataType, Default, Model, PrimaryKey, Table } from "sequelize-typescript"
-import { User } from "../user/user.model"
+import { IdUtil } from '@/utils/IdUtil';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  Default,
+  Model,
+  PrimaryKey,
+  Table,
+} from 'sequelize-typescript';
+import { User } from '../user/user.model';
 
 @Table({ tableName: 'user_settings', timestamps: true })
 export class UserSettings extends Model {

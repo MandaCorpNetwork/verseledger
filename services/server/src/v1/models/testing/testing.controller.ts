@@ -40,7 +40,7 @@ export class TestingnController extends BaseHttpController {
     @queryParam('name') name: string = 'Verified User',
     @queryParam('id') id: number = 1,
   ) {
-    const user = await this.userService.findOrCreateUserByDiscord(
+    const { user } = await this.userService.findOrCreateUserByDiscord(
       id.toString(),
     );
     if (user.verified == false) {

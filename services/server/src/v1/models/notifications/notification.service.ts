@@ -14,7 +14,7 @@ export class NotificationService {
 
   public async getNotifications(userId: string, limit = 20) {
     return Notification.findAll({
-      where: { user_id: userId, read: false },
+      where: { user_id: userId },
       limit,
       order: [['createdAt', 'DESC']],
     });

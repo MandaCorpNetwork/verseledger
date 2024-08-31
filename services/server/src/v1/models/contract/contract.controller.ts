@@ -46,7 +46,7 @@ import { ContractMapper } from './mapping/contract.mapper';
 @ApiPath({
   path: '/v1/contracts',
   name: 'Contracts',
-  security: { VLAuthAccessToken: [] },
+  security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
 })
 @controller('/v1/contracts')
 export class ContractController extends BaseHttpController {
@@ -74,7 +74,7 @@ export class ContractController extends BaseHttpController {
         properties: ZodToOpenapi(CreateContractBodySchema),
       },
     },
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpPost('/', TYPES.VerifiedUserMiddleware)
   private async createContract(
@@ -120,7 +120,7 @@ export class ContractController extends BaseHttpController {
     parameters: {
       path: { contractId: { required: true, description: 'A Contract ID' } },
     },
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpGet(
     `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})`,
@@ -162,7 +162,7 @@ export class ContractController extends BaseHttpController {
     parameters: {
       path: { contractId: { required: true, description: 'A Contract ID' } },
     },
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpGet(
     `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids`,
@@ -216,7 +216,7 @@ export class ContractController extends BaseHttpController {
         bidId: { required: true, description: 'A Bid ID' },
       },
     },
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpGet(
     `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids/:bidId(${IdUtil.expressRegex(IdUtil.IdPrefix.Bid)})`,
@@ -272,7 +272,7 @@ export class ContractController extends BaseHttpController {
         properties: {},
       },
     },
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpPatch(
     `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})`,
@@ -341,7 +341,7 @@ export class ContractController extends BaseHttpController {
         properties: {},
       },
     },
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpPatch(
     `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids/:bidId(${IdUtil.expressRegex(IdUtil.IdPrefix.Bid)})`,
@@ -469,7 +469,7 @@ export class ContractController extends BaseHttpController {
         contractId: { required: true, description: 'A Contract ID' },
       },
     },
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpPost(
     `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids`,
@@ -524,7 +524,7 @@ export class ContractController extends BaseHttpController {
         required: true,
       },
     },
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpPost(
     `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/invite`,
@@ -637,7 +637,7 @@ export class ContractController extends BaseHttpController {
         },
       },
     },
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpGet('/', TYPES.VerifiedUserMiddleware)
   private async searchContracts(
@@ -693,7 +693,7 @@ export class ContractController extends BaseHttpController {
         },
       },
     },
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpGet('/bids')
   private async getContractsByUserAndStatus(

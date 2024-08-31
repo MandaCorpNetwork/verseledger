@@ -1,4 +1,5 @@
 import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {
   Avatar,
   Box,
@@ -130,17 +131,17 @@ export const VerifyUserPopup: React.FC = () => {
               href="https://robertsspaceindustries.com/account/profile"
               target="_blank"
             >
-              RSI Short Bio
+              RSI Short Bio <OpenInNewIcon fontSize="small" sx={{ margin: 'auto' }} />
             </Link>
             .
           </Typography>
-          <Typography variant="subtitle2">
+          <Typography variant="subtitle2" color="text.disabled">
             You can delete it after you are verified.
           </Typography>
+          <TextField value={verificationInfo.id} />
           <Typography variant="subtitle2">
             This code will only be valid for 5 minutes.
           </Typography>
-          <TextField value={verificationInfo.id} />
           <Button
             sx={{ mt: '1em' }}
             variant="popupButton"

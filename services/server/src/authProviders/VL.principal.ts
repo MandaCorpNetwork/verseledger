@@ -5,6 +5,7 @@ export class VLAuthPrincipal implements interfaces.Principal {
   constructor(
     public id: string,
     public details: User,
+    public type: 'api' | 'refresh' | 'access',
   ) {}
   async isAuthenticated(): Promise<boolean> {
     return true;

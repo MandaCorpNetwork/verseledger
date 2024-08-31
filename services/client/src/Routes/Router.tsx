@@ -30,11 +30,7 @@ export const routingInfo: RouteObject[] = [
         <WidgetManager />
       </>
     ),
-    errorElement: (
-      <>
-        <ErrorPage />
-      </>
-    ),
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,

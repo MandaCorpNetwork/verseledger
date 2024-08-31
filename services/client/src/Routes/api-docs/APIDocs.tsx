@@ -15,7 +15,7 @@ export const APIDocs: React.FC = () => {
         onComplete={(swagger) => {
           const token = AuthUtil.getAccessToken();
           if (token == null) return;
-          swagger.preauthorizeApiKey('VLAuthAccessToken', `Bearer ${token}`);
+          swagger.preauthorizeApiKey('VLBearerAuth', `Bearer ${token}`);
         }}
       />
     </Box>
