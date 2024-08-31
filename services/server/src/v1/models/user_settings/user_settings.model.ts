@@ -18,26 +18,17 @@ export class UserSettings extends Model {
   }
   @PrimaryKey
   @Default(IdUtil.generateSettingsID)
-  @Column({ type: DataType.STRING(IdUtil.IdLength) })
+  @Column({ type: DataType.STRING(IdUtil.IdLength + 128) })
   declare id: string;
 
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare user_id: string;
 
-  @Column({ type: DataType.STRING(32) })
-  declare soundPack: string;
+  @Column({ type: DataType.STRING(128) })
+  declare key: string;
 
-  @Column({ type: DataType.STRING(32) })
-  declare theme: string;
-
-  @Column({ type: DataType.STRING(32) })
-  declare userPageImage: string;
-
-  @Column({ type: DataType.STRING(32) })
-  declare animations: string;
-
-  @Column({ type: DataType.STRING(32) })
-  declare quality: string;
+  @Column({ type: DataType.STRING(255) })
+  declare value: string;
 
   @BelongsTo(() => User, { foreignKey: 'user_id', targetKey: 'id' })
   declare User: Awaited<User>;

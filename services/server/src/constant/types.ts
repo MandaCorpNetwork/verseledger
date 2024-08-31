@@ -3,6 +3,7 @@ export const TYPES = {
   AuthService: Symbol.for('AuthService'),
   EnvService: Symbol.for('EnvService'),
   UserService: Symbol.for('UserService'),
+  UserSettingsService: Symbol.for('UserSettingsService'),
   NotificationService: Symbol.for('NotificationService'),
   AuthMiddleware: Symbol.for('AuthMiddleware'),
   VerifiedUserMiddleware: Symbol.for('VerifiedUserMiddleware'),

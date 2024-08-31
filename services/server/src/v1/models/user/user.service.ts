@@ -8,7 +8,7 @@ import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
 import { IContractBidStatus } from 'vl-shared/src/schemas/ContractBidStatusSchema';
 import { optionalSet, queryIn } from '@/utils/Sequelize/queryIn';
-import { UserSettings } from './user_settings.model';
+import { UserSettings } from '../user_settings/user_settings.model';
 
 @injectable()
 export class UserService {
@@ -176,18 +176,5 @@ export class UserService {
       where: { ...(isHandle ? handleSearch : multiSearch), verified: true },
     });
     return users;
-  }
-
-  public async getUserSettings(userId: string) {
-    return await UserSettings.findOne({ where: { user_id: userId } });
-  }
-
-  public async updateUserSettings(userId: string, data: Partial<UserSettings>) {
-    const settings = await this.getUserSettings(userId);
-    if (settings == null) {
-      throw new Error('User Settings not found');
-    }
-    await settings.update(data);
-    return settings;
   }
 }

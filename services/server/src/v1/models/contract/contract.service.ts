@@ -21,7 +21,7 @@ import {
 import { type NotificationService } from '../notifications/notification.service';
 import { ContractBidDTO } from '@V1/models/contract_bid/mapping/ContractBidDTO';
 import { Logger } from '@/utils/Logger';
-import { ContractMapper } from './mapping/contract.mapper';
+import { ContractToContractDTOMapper } from './mapping/contract.mapper';
 import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 
 @injectable()
@@ -57,7 +57,7 @@ export class ContractService {
     ]).findByPk(newTempContract.id)) as Contract;
     this.notifications.publish(
       '/topic/newContract',
-      ContractMapper.toDTO(newContract),
+      ContractToContractDTOMapper.map(newContract),
     );
     return newContract;
   }

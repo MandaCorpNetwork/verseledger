@@ -41,7 +41,7 @@ import { UnauthorizedError } from '@V1/errors/UnauthorizedError';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { ContractBidStatusSchema } from 'vl-shared/src/schemas/ContractBidStatusSchema';
 import { NotModified } from '@V1/errors/NotModified';
-import { ContractMapper } from './mapping/contract.mapper';
+import { ContractToContractDTOMapper } from './mapping/contract.mapper';
 
 @ApiPath({
   path: '/v1/contracts',
@@ -93,7 +93,7 @@ export class ContractController extends BaseHttpController {
         });
         return this.created(
           `/contracts/${newContract.id}`,
-          ContractMapper.toDTO(newContract),
+          ContractToContractDTOMapper.map(newContract),
         );
       } catch (error) {
         throw nextFunc(error);
@@ -143,7 +143,7 @@ export class ContractController extends BaseHttpController {
     if (contract == null) {
       throw nextFunc(new NotFoundError(contractId));
     }
-    return this.ok(ContractMapper.toDTO(contract));
+    return this.ok(ContractToContractDTOMapper.map(contract));
   }
 
   @ApiOperationGet({
@@ -316,7 +316,8 @@ export class ContractController extends BaseHttpController {
 
     //TODO: Notifications
 
-    if (contract) return this.ok(ContractMapper.toDTO(contract).strip());
+    if (contract)
+      return this.ok(ContractToContractDTOMapper.map(contract).strip());
   }
 
   @ApiOperationPatch({

@@ -15,7 +15,7 @@ import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
 import { IdUtil } from '@/utils/IdUtil';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { UserRating } from '@V1/models/user_ratings/user_ratings.model';
-import { UserSettings } from './user_settings.model';
+import { UserSettings } from '../user_settings/user_settings.model';
 @DefaultScope(() => ({
   attributes: {
     exclude: ['discord_id'],
@@ -33,6 +33,9 @@ import { UserSettings } from './user_settings.model';
   },
   contracts: {
     include: [{ model: Contract, as: 'PostedContracts' }],
+  },
+  settings: {
+    include: [{ model: UserSettings, as: 'Settings' }],
   },
 }))
 @Table({ tableName: 'users', timestamps: true })
@@ -79,7 +82,7 @@ export class User extends Model implements IUser {
   @HasMany(() => UserRating, 'reciever_id')
   declare ReceivedRatings: Awaited<UserRating>[];
 
-  @HasOne(() => UserSettings, { foreignKey: 'user_id' })
+  @HasOne(() => UserSettings, 'user_id')
   declare Settings: Awaited<UserSettings>;
 
   declare readonly createdAt: Date;

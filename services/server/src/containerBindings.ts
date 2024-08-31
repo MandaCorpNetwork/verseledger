@@ -14,6 +14,7 @@ import { Logger } from './utils/Logger';
 import { PallyService } from '@V1/services/pally.service';
 import { ResourceEditorService } from '@V1/services/resource_editor.service';
 import { RatingService } from '@V1/models/user_ratings/rating.service';
+import { UserSettingsService } from '@V1/models/user_settings/user_settings.service';
 export const bindContainer = (container: Container) => {
   container
     .bind<EnvService>(TYPES.EnvService)
@@ -30,6 +31,10 @@ export const bindContainer = (container: Container) => {
   container
     .bind<UserService>(TYPES.UserService)
     .to(UserService)
+    .inSingletonScope();
+  container
+    .bind<UserSettingsService>(TYPES.UserSettingsService)
+    .to(UserSettingsService)
     .inSingletonScope();
   container
     .bind<NotificationService>(TYPES.NotificationService)
