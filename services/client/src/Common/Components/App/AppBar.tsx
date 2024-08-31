@@ -19,6 +19,7 @@ import { Box } from '@mui/system';
 import { POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
 import { POPUP_LOCATION_INFO } from '@Popups/Info/Locations';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
+import { fetchUserSettings } from '@Redux/Slices/Auth/Actions/fetchUserSettings';
 import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation';
 import { fetchUnreadCount } from '@Redux/Slices/Notifications/actions/getUnreadCount';
 import { selectNotificationsUnreadCount } from '@Redux/Slices/Notifications/notificationSelectors';
@@ -64,6 +65,12 @@ export const VLAppBar: React.FC<unknown> = () => {
       dispatch(fetchCurrentUser());
     }
   }, [isLoggedIn, dispatch]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(fetchUserSettings());
+    }
+  }, [isLoggedIn]);
 
   const profilePopupState: PopupState = usePopupState({
     variant: 'popover',

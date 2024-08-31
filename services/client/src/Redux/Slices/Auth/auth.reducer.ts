@@ -1,11 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
 
 import { fetchCheckVerificationCode } from './Actions/checkVerificationCode';
 import { fetchCurrentUser } from './Actions/fetchCurrentUser';
+import { fetchUserSettings } from './Actions/fetchUserSettings';
 import { setUserLocation } from './Actions/setUserLocation';
 import { updateTokens } from './Actions/updateTokens';
+import { updateUserSettings } from './Actions/updateUserSettings';
 
 const authReducer = createSlice({
   name: 'auth',
@@ -15,6 +18,7 @@ const authReducer = createSlice({
     isLoggedIn: false,
     lastUpdated: 0,
     userLocation: {} as ILocation,
+    settings: {} as IUserSettings,
   },
   reducers: {
     logout() {
@@ -23,6 +27,7 @@ const authReducer = createSlice({
         isLoggedIn: false,
         lastUpdated: Date.now(),
         userLocation: {} as ILocation,
+        settings: {} as IUserSettings,
       };
     },
   },
@@ -54,6 +59,16 @@ const authReducer = createSlice({
     });
     builder.addCase(setUserLocation.fulfilled, (state, action) => {
       state.userLocation = action.payload;
+    });
+    builder.addCase(fetchUserSettings.fulfilled, (state, action) => {
+      state.settings = action.payload as IUserSettings;
+    });
+    builder.addCase(updateUserSettings.fulfilled, (state, action) => {
+      const updatedSettings = action.payload as Partial<IUserSettings>;
+      state.settings = {
+        ...state.settings,
+        ...updatedSettings,
+      };
     });
   },
 });
