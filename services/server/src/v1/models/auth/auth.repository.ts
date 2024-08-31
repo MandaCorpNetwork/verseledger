@@ -37,7 +37,7 @@ export class AuthRepository {
         jwtid,
         audience: 'verseledger.space',
         issuer: 'api.verseledger.space',
-        expiresIn: '1h',
+        expiresIn: ms(expiresRange),
         subject: user_id,
       },
     );

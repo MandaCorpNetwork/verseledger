@@ -10,7 +10,6 @@ import { VLAuthPrincipal } from './VL.principal';
 import { User } from '@V1/models/user/user.model';
 import { ApiToken } from '@V1/models/auth/api_token.model';
 import { Op } from 'sequelize';
-import { Logger } from '@/utils/Logger';
 
 @injectable()
 export class AuthProvider implements interfaces.AuthProvider {
@@ -28,7 +27,6 @@ export class AuthProvider implements interfaces.AuthProvider {
       Record<string, any>
     > /*, res: Response<any, Record<string, any>>, next: NextFunction*/,
   ): Promise<interfaces.Principal> {
-    Logger.info(req.headers);
     const bearerHeader: string | undefined = req.headers['authorization'];
     const api_key: string | undefined =
       (req.headers['x-api-key'] as string) ?? (req.query.api_key as string);
