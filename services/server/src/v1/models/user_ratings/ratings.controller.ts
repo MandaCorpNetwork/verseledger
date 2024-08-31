@@ -29,7 +29,7 @@ import {
 @ApiPath({
   path: '/v1/ratings',
   name: 'Ratings',
-  security: { VLAuthAccessToken: [] },
+  security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
 })
 @controller('/v1/ratings')
 export class RatingsController extends BaseHttpController {
@@ -58,7 +58,7 @@ export class RatingsController extends BaseHttpController {
         properties: ZodToOpenapi(CreateContractRatingsBodySchema),
       },
     },
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpPost('/contract', TYPES.VerifiedUserMiddleware)
   private async createContractRatings(

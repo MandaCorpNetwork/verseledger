@@ -32,7 +32,7 @@ const env = new EnvService();
 @ApiPath({
   path: '/v1/auth',
   name: 'Auth',
-  security: { VLAuthAccessToken: [] },
+  security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
 })
 @controller('/v1/auth')
 export class AuthController extends BaseHttpController {

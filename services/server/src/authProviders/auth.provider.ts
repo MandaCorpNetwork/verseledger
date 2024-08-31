@@ -10,6 +10,7 @@ import { VLAuthPrincipal } from './VL.principal';
 import { User } from '@V1/models/user/user.model';
 import { ApiToken } from '@V1/models/auth/api_token.model';
 import { Op } from 'sequelize';
+import { Logger } from '@/utils/Logger';
 
 @injectable()
 export class AuthProvider implements interfaces.AuthProvider {
@@ -27,14 +28,32 @@ export class AuthProvider implements interfaces.AuthProvider {
       Record<string, any>
     > /*, res: Response<any, Record<string, any>>, next: NextFunction*/,
   ): Promise<interfaces.Principal> {
-    const bearerHeader = req.headers['authorization'];
-    if (bearerHeader == null) return new AnonymousPrincipal(false);
+    Logger.info(req.headers);
+    const bearerHeader: string | undefined = req.headers['authorization'];
+    const api_key: string | undefined =
+      (req.headers['x-api-key'] as string) ?? (req.query.api_key as string);
+    if (bearerHeader == null && api_key == null)
+      return new AnonymousPrincipal(false);
 
-    const [type, token] = bearerHeader.split(' ');
-    if (type != 'Bearer') return new AnonymousPrincipal(false);
-    if (token == null) return new AnonymousPrincipal(false);
+    let user: Awaited<ReturnType<AuthService['getUserToken']>>;
 
-    const user = await this._authService.getUserToken(token);
+    if (bearerHeader != null) {
+      // Bearer Token
+      const [type, token] = bearerHeader?.split?.(' ') ?? [null, null];
+      if (type != 'Bearer' && type != 'Bot')
+        return new AnonymousPrincipal(false);
+
+      if (token == null) return new AnonymousPrincipal(false);
+
+      user = await this._authService.getUserToken(token);
+      if (type == 'Bot' && user?.type != 'api')
+        return new AnonymousPrincipal(false);
+    } else {
+      // Api Token
+      user = await this._authService.getUserToken(api_key);
+      if (user?.type !== 'api') return new AnonymousPrincipal(false);
+    }
+
     if (user == null) return new AnonymousPrincipal(false);
 
     const valid = await ApiToken.findOne({

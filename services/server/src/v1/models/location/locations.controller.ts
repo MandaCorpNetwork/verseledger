@@ -18,7 +18,7 @@ import { ApiOperationGet, ApiPath } from 'swagger-express-ts';
 @ApiPath({
   path: '/v1/locations',
   name: 'Locations',
-  security: { VLAuthAccessToken: [] },
+  security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
 })
 @controller('/v1/locations')
 export class LocationController extends BaseHttpController {
@@ -46,7 +46,7 @@ export class LocationController extends BaseHttpController {
     parameters: {
       path: { locationId: { required: true, description: 'A Location ID' } },
     },
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpGet(
     `/:id(${IdUtil.expressRegex(IdPrefix.Location)})`,
@@ -74,7 +74,7 @@ export class LocationController extends BaseHttpController {
     parameters: {
       path: { locationId: { required: true, description: 'A Location ID' } },
     },
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpGet('/', TYPES.VerifiedUserMiddleware)
   public async getLocations() {

@@ -32,7 +32,7 @@ import { ZodError } from 'zod';
 @ApiPath({
   path: '/v1/users',
   name: 'Users',
-  security: { VLAuthAccessToken: [] },
+  security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
 })
 @controller('/v1/users')
 export class UsersController extends BaseHttpController {
@@ -60,7 +60,7 @@ export class UsersController extends BaseHttpController {
     parameters: {
       path: { userId: { required: true, description: 'A User ID' } },
     },
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpGet(
     `/:id(${IdUtil.expressRegex(IdPrefix.User)})`,
@@ -86,7 +86,7 @@ export class UsersController extends BaseHttpController {
     },
     consumes: [],
     parameters: {},
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpGet('/@me', TYPES.AuthMiddleware)
   public async getSelf() {
@@ -158,7 +158,7 @@ export class UsersController extends BaseHttpController {
     parameters: {
       path: { locationId: { required: true, description: 'A Location ID' } },
     },
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpGet('/', TYPES.VerifiedUserMiddleware)
   public async findUsers(@queryParam('handle') handle: string) {
@@ -237,7 +237,7 @@ export class UsersController extends BaseHttpController {
         },
       },
     },
-    security: { VLAuthAccessToken: [] },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpGet('/search', TYPES.VerifiedUserMiddleware)
   public async search(@queryParam('q') search: string) {

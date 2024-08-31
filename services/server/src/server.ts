@@ -78,6 +78,8 @@ export const createServer = () => {
     app.use(
       swagger.express({
         definition: {
+          consumes: [swagger.SwaggerDefinitionConstant.Consume.JSON],
+          produces: [swagger.SwaggerDefinitionConstant.Produce.JSON],
           info: {
             title: 'VerseLedger API',
             version: '1.0',
@@ -87,15 +89,20 @@ export const createServer = () => {
             Unknown: { properties: {} },
           },
           securityDefinitions: {
-            VLAuthAccessToken: {
-              type: 'apiKey',
-              in: 'header',
+            VLBearerAuth: {
+              type: swagger.SwaggerDefinitionConstant.Security.Type.API_KEY,
+              in: swagger.SwaggerDefinitionConstant.Security.In.HEADER,
               name: 'Authorization',
             },
-            VLAuthRefreshToken: {
-              type: 'apiKey',
-              in: 'header',
-              name: 'Authorization',
+            VLQueryAuth: {
+              type: swagger.SwaggerDefinitionConstant.Security.Type.API_KEY,
+              in: swagger.SwaggerDefinitionConstant.Security.In.QUERY,
+              name: 'api_key',
+            },
+            VLTokenAuth: {
+              type: swagger.SwaggerDefinitionConstant.Security.Type.API_KEY,
+              in: swagger.SwaggerDefinitionConstant.Security.In.HEADER,
+              name: 'X-API-Key',
             },
           },
         },

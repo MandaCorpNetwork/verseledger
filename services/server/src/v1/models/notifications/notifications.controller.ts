@@ -23,7 +23,7 @@ import { ZodError } from 'zod';
 @ApiPath({
   path: '/v1/notifications',
   name: 'Notifications',
-  security: { VLAuthAccessToken: [] },
+  security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
 })
 @controller('/v1/notifications')
 export class NotificationsController extends BaseHttpController {
