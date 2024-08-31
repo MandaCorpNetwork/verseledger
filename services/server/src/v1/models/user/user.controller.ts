@@ -3,6 +3,7 @@ import {
   controller,
   httpDelete,
   httpGet,
+  httpPatch,
   httpPost,
   next,
   queryParam,
@@ -28,6 +29,7 @@ import { Logger } from '@/utils/Logger';
 import { UserBidsSearchSchema } from 'vl-shared/src/schemas/SearchSchema';
 import { GenericError } from '@V1/errors/GenericError';
 import { ZodError } from 'zod';
+import { IUserSettings, UserSettingsSchema } from 'vl-shared/src/schemas/UserSettings';
 
 @ApiPath({
   path: '/v1/users',
@@ -287,5 +289,33 @@ export class UsersController extends BaseHttpController {
       data: bids,
     };
     return response;
+  }
+
+  @httpGet('/@me/settings', TYPES.AuthMiddleware)
+  public async getUserSettings() {
+    const principal = this.httpContext.user as VLAuthPrincipal;
+    try {
+      const settings = await this.userService.getUserSettings(principal.id);
+      return settings;
+    } catch (error) {
+      Logger.error(error);
+      throw new BadRequestError('Failed to get settings');
+    }
+  }
+
+  @httpPatch('/@me/settings', TYPES.AuthMiddleware)
+  public async updateUserSettings(@requestBody() settings: Partial<IUserSettings>) {
+    const principal = this.httpContext.user as VLAuthPrincipal;
+    const dto = UserSettingsSchema.strict().parse(settings);
+    try {
+      const updated = await this.userService.updateUserSettings(
+        principal.id,
+        dto,
+      );
+      return updated;
+    } catch (error) {
+      Logger.error(error);
+      throw new BadRequestError('Failed to update settings');
+    }
   }
 }
