@@ -6,6 +6,7 @@ import {
   httpGet,
   httpPatch,
   requestBody,
+  requestParam,
 } from 'inversify-express-utils';
 import { UserSettingsService } from './user_settings.service';
 import { VLAuthPrincipal } from '@/authProviders/VL.principal';
@@ -44,5 +45,13 @@ export class UserSettingsController extends BaseHttpController {
       settingsCMD,
     );
     return UserSettingsArrayToUserSettingsDTOMapper.map(response);
+  }
+
+  @httpGet(`/:userId/pageImage`)
+  public async getUserPageImage(@requestParam('userId') userId: string) {
+    const userPageImage = await this.userSettingsService.getUserPageImage(
+      userId,
+    );
+    return this.ok(userPageImage);
   }
 }
