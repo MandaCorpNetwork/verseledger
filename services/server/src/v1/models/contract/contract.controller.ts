@@ -170,7 +170,7 @@ export class ContractController extends BaseHttpController {
   private async getContractBids(
     @requestParam('contractId') contractId: string,
     @next() nextFunc: NextFunction,
-    @queryParam('search') searchRaw?: unknown,
+    @queryParam('search') _searchRaw?: unknown,
   ) {
     if (!IdUtil.isValidId(contractId)) {
       throw nextFunc(
