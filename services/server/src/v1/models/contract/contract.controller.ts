@@ -85,7 +85,6 @@ export class ContractController extends BaseHttpController {
     try {
       const dto = body;
       const model = CreateContractBodySchema.strict().parse(dto);
-      Logger.info(model);
       try {
         const newContract = await this.contractService.createContract({
           ...model,
@@ -181,7 +180,6 @@ export class ContractController extends BaseHttpController {
         ),
       );
     }
-    Logger.info(searchRaw);
 
     const contract = await this.contractService.getContract(contractId);
     if (contract == null) {
@@ -311,8 +309,6 @@ export class ContractController extends BaseHttpController {
       }
     }
     await contract.save();
-
-    Logger.info('After Update');
 
     //TODO: Notifications
 

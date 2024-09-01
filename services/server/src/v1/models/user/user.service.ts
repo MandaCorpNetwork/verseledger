@@ -117,7 +117,6 @@ export class UserService {
 
   public async createValidationToken(userId: string, handle: string) {
     const response = await RSIService.getUserByHandle(handle);
-    Logger.info(response.status, response.data);
     const rsiUser = response?.data?.data?.creator;
     if (rsiUser == null) throw new Error('Invalid Handle');
     const validation = await UserValidation.findOne({

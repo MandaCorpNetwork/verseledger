@@ -73,9 +73,6 @@ export class NotificationsController extends BaseHttpController {
     @requestParam('notificationId') notificationId: string,
     @next() nextFunc: NextFunction,
   ) {
-    Logger.info(
-      `Received request to mark notification ${notificationId} as read`,
-    );
     try {
       if (!IdUtil.isValidId(notificationId)) {
         Logger.error('Invalid Notification ID');
