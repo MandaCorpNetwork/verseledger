@@ -3,6 +3,7 @@ import { DTOBase } from '@V1/DTO/DTOBase';
 import { ContractDTO } from '@V1/models/contract/mapping/ContractDTO';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { ContractBidDTO } from '@V1/models/contract_bid/mapping/ContractBidDTO';
+import { UserSettingsArrayToUserSettingsDTOMapper } from '@V1/models/user_settings/mapping/UserSettingsArrayToUserSettingsDTO.mapper';
 
 @ApiModel({
   description: 'Contract Bid Object',
@@ -14,6 +15,10 @@ export class UserDTO extends DTOBase<IUser> implements IUser {
     this.mapProperties($b, {
       PostedContracts: ContractDTO,
       PostedBids: ContractBidDTO,
+      Settings: {
+        mapper: UserSettingsArrayToUserSettingsDTOMapper,
+        keepArray: true,
+      },
     });
   }
 

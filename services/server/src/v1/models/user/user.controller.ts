@@ -28,6 +28,7 @@ import { Logger } from '@/utils/Logger';
 import { UserBidsSearchSchema } from 'vl-shared/src/schemas/SearchSchema';
 import { GenericError } from '@V1/errors/GenericError';
 import { ZodError } from 'zod';
+import { UserToUserDTOMapper } from './mapping/UserToUserDTO.mapper';
 
 @ApiPath({
   path: '/v1/users',
@@ -69,7 +70,7 @@ export class UsersController extends BaseHttpController {
   public async getUser(@requestParam('id') id: string) {
     const user = await this.userService.getUser(id);
     if (user == null) return this.notFound();
-    return user;
+    return UserToUserDTOMapper.map(user);
   }
 
   @ApiOperationGet({
@@ -91,9 +92,12 @@ export class UsersController extends BaseHttpController {
   @httpGet('/@me', TYPES.AuthMiddleware)
   public async getSelf() {
     const principal = this.httpContext.user as VLAuthPrincipal;
-    const user = await this.userService.getUser(principal.id, ['discord']);
+    const user = await this.userService.getUser(principal.id, [
+      'discord',
+      'settings',
+    ]);
     if (user == null) return this.notFound();
-    return user;
+    return UserToUserDTOMapper.map(user);
   }
 
   @httpGet('/new')
@@ -163,7 +167,9 @@ export class UsersController extends BaseHttpController {
   @httpGet('/', TYPES.VerifiedUserMiddleware)
   public async findUsers(@queryParam('handle') handle: string) {
     //if (handle == null || handle.trim() == '') return this.badRequest();
-    return await this.userService.findUsers(handle);
+    return (await this.userService.findUsers(handle)).map((u) =>
+      UserToUserDTOMapper.map(u),
+    );
   }
 
   @httpGet('/validate', TYPES.AuthMiddleware)
@@ -208,8 +214,8 @@ export class UsersController extends BaseHttpController {
   public async validateUserCheck(@next() nextFunc: NextFunction) {
     const principal = this.httpContext.user as VLAuthPrincipal;
     try {
-      const valid = await this.userService.validateUser(principal.id);
-      return valid;
+      const user = await this.userService.validateUser(principal.id);
+      return UserToUserDTOMapper.map(user);
     } catch (error) {
       Logger.error(error);
       nextFunc(error);
@@ -243,7 +249,9 @@ export class UsersController extends BaseHttpController {
   public async search(@queryParam('q') search: string) {
     if (search == null || search.trim() == '')
       throw new BadRequestError('"q" can not be Empty');
-    return this.userService.search(search);
+    return (await this.userService.search(search)).map((u) =>
+      UserToUserDTOMapper.map(u),
+    );
   }
 
   @httpGet(

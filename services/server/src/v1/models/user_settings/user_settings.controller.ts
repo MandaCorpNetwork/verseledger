@@ -9,7 +9,7 @@ import {
 } from 'inversify-express-utils';
 import { UserSettingsService } from './user_settings.service';
 import { VLAuthPrincipal } from '@/authProviders/VL.principal';
-import { UserSettingsToUserSettingsDTOMapper } from './mapping/UserSettingsToUserSettingsDTO.mapper';
+import { UserSettingsArrayToUserSettingsDTOMapper } from './mapping/UserSettingsArrayToUserSettingsDTO.mapper';
 import {
   IUpdateUserSettingsCMD,
   UpdateUserSettingsCMD,
@@ -30,7 +30,7 @@ export class UserSettingsController extends BaseHttpController {
     const userId = principal.id;
     const settingsArtifacts =
       await this.userSettingsService.getUserSettings(userId);
-    return UserSettingsToUserSettingsDTOMapper.map(settingsArtifacts);
+    return UserSettingsArrayToUserSettingsDTOMapper.map(settingsArtifacts);
   }
 
   @httpPatch(`/@me`, TYPES.AuthMiddleware)
@@ -43,6 +43,6 @@ export class UserSettingsController extends BaseHttpController {
       userId,
       settingsCMD,
     );
-    return UserSettingsToUserSettingsDTOMapper.map(response);
+    return UserSettingsArrayToUserSettingsDTOMapper.map(response);
   }
 }
