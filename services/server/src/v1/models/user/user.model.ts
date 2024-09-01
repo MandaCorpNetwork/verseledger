@@ -4,7 +4,6 @@ import {
   Default,
   DefaultScope,
   HasMany,
-  HasOne,
   Model,
   PrimaryKey,
   Scopes,
