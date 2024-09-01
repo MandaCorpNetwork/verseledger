@@ -13,14 +13,47 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   Typography,
 } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { updateUserSettings } from '@Redux/Slices/Auth/Actions/updateUserSettings';
+import { selectUserSettings } from '@Redux/Slices/Auth/authSelectors';
+import { Logger } from '@Utils/Logger';
+import { enqueueSnackbar } from 'notistack';
 import React from 'react';
+import { IUpdateUserSettingsCMD } from 'vl-shared/src/schemas/UserSettings';
 
 export const ProfileSettings: React.FC = () => {
-  const [currentProfileBackground, setCurrentProfileBackground] = React.useState<string>(
-    userBackgroundOptions[0].url,
-  );
+  const dispatch = useAppDispatch();
+  const userSettings = useAppSelector(selectUserSettings);
+
+  const currentBackground = userSettings?.userPageImage ?? userBackgroundOptions[0].value;
+
+  const currentBackgroundURL = userBackgroundOptions.find(
+    (option) => option.value === currentBackground,
+  )?.url;
+
+  const handleProfileBackgroundChange = (event: SelectChangeEvent<string>) => {
+    const newProfileBackground = event.target.value;
+
+    const updatePayload: IUpdateUserSettingsCMD = {
+      userPageImage: newProfileBackground,
+    };
+
+    dispatch(updateUserSettings(updatePayload))
+      .then(() => {
+        enqueueSnackbar('Profile background updated successfully', {
+          variant: 'success',
+        });
+      })
+      .catch((error) => {
+        enqueueSnackbar('Failed to update profile background', {
+          variant: 'error',
+        });
+        Logger.error('Failed to update profile background', error);
+      });
+  };
   return (
     <GlassBox
       data-testid="ProfileSettings__Container"
@@ -67,12 +100,12 @@ export const ProfileSettings: React.FC = () => {
                 color="secondary"
                 label="Profile Background"
                 autoWidth
-                value={currentProfileBackground}
-                onChange={(e) => setCurrentProfileBackground(e.target.value)}
+                value={currentBackground}
+                onChange={handleProfileBackgroundChange}
               >
                 {userBackgroundOptions.map((option) => {
                   return (
-                    <MenuItem key={option.value} value={option.url}>
+                    <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
                   );
@@ -81,7 +114,7 @@ export const ProfileSettings: React.FC = () => {
             </FormControl>
             <ProfileBackgroundDisplay
               sx={{
-                backgroundImage: `url(${currentProfileBackground})`,
+                backgroundImage: `url(${currentBackgroundURL})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
               }}
