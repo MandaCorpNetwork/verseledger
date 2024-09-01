@@ -7,7 +7,7 @@ export class UserSettingsArrayToUserSettingsDTOMapper extends Mapper<
   UserSettings[],
   UserSettingsDTO
 > {
-  public static map(artifacts: UserSettings[]): UserSettingsDTO {
+  public static override map(artifacts: UserSettings[]): UserSettingsDTO {
     const settings = artifacts.reduce(
       (e, a) => ({ ...e, [a.getDataValue('key')]: a.getDataValue('value') }),
       {} as IUserSettings,

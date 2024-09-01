@@ -5,7 +5,7 @@ export class UserSettingCMDToUserSettingsDataMapper extends Mapper<
   IUpdateUserSettingsCMD[],
   { key: string; value: string | null; user_id: string }[]
 > {
-  public static map(
+  public static override map(
     cmd: IUpdateUserSettingsCMD & { user_id: string },
   ): { id: string; key: string; value: string | null; user_id: string }[] {
     const user_id = cmd.user_id;
