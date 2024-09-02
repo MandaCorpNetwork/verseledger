@@ -15,7 +15,20 @@ export class UserSettingsDTO
     this.mapProperties($b);
   }
 
-  __type = 'UserSettings';
+  public readonly __type = 'UserSettings';
+  public get __partial() {
+    return (
+      this.animations == null ||
+      this.quality == null ||
+      this.soundPack == null ||
+      this.theme == null ||
+      this.userPageImage == null
+    );
+  }
+
+  public toJSON() {
+    return { ...this, __partial: this.__partial };
+  }
 
   public animations!: string;
   public quality!: string;

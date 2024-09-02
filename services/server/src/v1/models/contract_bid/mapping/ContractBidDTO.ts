@@ -26,7 +26,14 @@ export class ContractBidDTO
     });
   }
 
-  __type = 'ContractBid';
+  public readonly __type = 'ContractBid';
+  public get __partial() {
+    return false;
+  }
+
+  public toJSON() {
+    return { ...this, __partial: this.__partial };
+  }
 
   @ApiModelProperty({
     description: 'ID of Contract',

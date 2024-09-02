@@ -15,11 +15,15 @@ export class RatingDTO extends DTOBase<IUserRating> implements IUserRating {
     this.mapProperties($b);
   }
 
-  __type = 'Rating';
+  public readonly __type = 'Rating';
+  public get __partial() {
+    return false;
+  }
 
   public toJSON() {
     return {
       ...this,
+      __partial: this.__partial,
     };
   }
 

@@ -3,7 +3,7 @@ import { Mapper } from '@/infrastructure/Mapper';
 import { Model } from 'sequelize-typescript';
 
 export abstract class DTOBase<T> {
-  public __partial = false;
+  abstract __partial: boolean;
   abstract __type: string;
   protected mapProperties(
     propsRaw: T,

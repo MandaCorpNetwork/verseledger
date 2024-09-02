@@ -22,7 +22,14 @@ export class UserDTO extends DTOBase<IUser> implements IUser {
     });
   }
 
-  __type = 'User';
+  public readonly __type = 'User';
+  public get __partial() {
+    return false;
+  }
+
+  public toJSON() {
+    return { ...this, __partial: this.__partial };
+  }
 
   @ApiModelProperty({
     description: 'ID of Contract',
