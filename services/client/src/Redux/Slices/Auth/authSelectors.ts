@@ -17,3 +17,12 @@ export const selectCurrentUser = createSelector([selectAuthObject], (authObject)
 export const selectUserLocation = createSelector([selectAuthObject], (authObject) => {
   return authObject.userLocation;
 });
+
+export const selectUserSettings = createSelector([selectAuthObject], (authObject) => {
+  return authObject.settings;
+});
+
+export const selectUserSoundPack = createSelector(
+  [selectUserSettings],
+  (settings) => settings.soundPack || 'systemDefault',
+);

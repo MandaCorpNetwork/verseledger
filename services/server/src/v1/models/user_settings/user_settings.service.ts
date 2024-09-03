@@ -24,4 +24,8 @@ export class UserSettingsService {
     });
     return UserSettingsRepository.updateUserSettings(updateSettings);
   }
+
+  public async getUserPageImage(user_id: string) {
+    return UserSettingsRepository.getUserPageImage(user_id);
+  }
 }

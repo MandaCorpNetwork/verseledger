@@ -5,6 +5,7 @@ import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { UserViewport } from '@Common/Components/Boxes/UserViewport';
 import { SecurityIcon } from '@Common/Definitions/CustomIcons';
+import { userBackgroundOptions } from '@Common/Definitions/Users/UserBackgrounds';
 import { Mail, Place } from '@mui/icons-material';
 import {
   Avatar,
@@ -20,7 +21,10 @@ import {
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 // import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { fetchSearchUserId } from '@Redux/Slices/Users/Actions/fetchUserById';
-import { selectUserById } from '@Redux/Slices/Users/userSelectors';
+import {
+  selectUserById,
+  selectUserPageImageById,
+} from '@Redux/Slices/Users/userSelectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
@@ -145,10 +149,29 @@ export const UserPage: React.FC = () => {
     }
   }, [infoTab]);
 
+  /**
+   * Gets the User ProfileBackground for the found user or passes default if none
+   * @author ThreeCrown
+   */
+  const selectedUserImage = useAppSelector((state) =>
+    selectedUser ? selectUserPageImageById(state, selectedUser.id) : null,
+  );
+  /**
+   * @function
+   * @returns {string}UserImageURL
+   * @author ThreeCrown
+   */
+  const selectedUserBackground = React.useCallback(() => {
+    const backgroundOption = userBackgroundOptions.find(
+      (option) => option.value === selectedUserImage,
+    );
+    return backgroundOption ? backgroundOption.url : userBackgroundOptions[0].url;
+  }, [userBackgroundOptions, selectedUserImage]);
   return (
     <UserViewport
       data-testid="UserPage_PageContainer"
       sx={{
+        backgroundImage: `url(${selectedUserBackground()})`,
         p: '1em',
         height: 'calc(100vh - 64px)',
         display: 'flex',

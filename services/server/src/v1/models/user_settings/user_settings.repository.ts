@@ -30,4 +30,13 @@ export class UserSettingsRepository {
     );
     return response;
   }
+  public static async getUserPageImage(user_id: string) {
+    const userSettings = await UserSettingsRepository.UserSettings.findOne({
+      where: {
+        user_id,
+        key: 'userPageImage',
+      }
+    })
+    return userSettings?.value;
+  }
 }

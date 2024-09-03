@@ -11,14 +11,18 @@ import {
   SelectChangeEvent,
   Typography,
 } from '@mui/material';
+import { useAppDispatch } from '@Redux/hooks';
+import { updateUserSettings } from '@Redux/Slices/Auth/Actions/updateUserSettings';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
+import { IUpdateUserSettingsCMD } from 'vl-shared/src/schemas/UserSettings';
 
 import { useSoundEffect } from '@/AudioManager';
 
 export const SoundSettings: React.FC = () => {
   const { playSound, switchSoundPack, currentSoundPack } = useSoundEffect();
+  const dispatch = useAppDispatch();
 
   const getCurrentPackname = (currentSoundPack: SoundPack) => {
     const currentSoundPackStr = JSON.stringify(currentSoundPack);
@@ -46,6 +50,10 @@ export const SoundSettings: React.FC = () => {
     Logger.info('Selected pack key:', packKey);
 
     if (packKey) {
+      const updatePayload: IUpdateUserSettingsCMD = {
+        soundPack: packKey,
+      };
+      dispatch(updateUserSettings(updatePayload));
       switchSoundPack(packKey as keyof typeof soundEffectPacks);
       playSound('success');
       enqueueSnackbar('Sound pack changed.', { variant: 'success' });

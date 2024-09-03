@@ -1,4 +1,6 @@
 import { soundEffectPacks } from '@Common/Definitions/SoundEffectOptions';
+import { useAppSelector } from '@Redux/hooks';
+import { selectUserSoundPack } from '@Redux/Slices/Auth/authSelectors';
 import { useSound } from '@Utils/useAudio';
 import { createContext, PropsWithChildren, useContext } from 'react';
 
@@ -15,7 +17,11 @@ export const SoundEffectProvider: React.FC<
     initialPack?: keyof typeof soundEffectPacks;
   }>
 > = ({ children, initialPack = 'systemDefault' }) => {
-  const { playSound, switchSoundPack, currentSoundPack } = useSound(initialPack);
+  const userSoundPack = useAppSelector(selectUserSoundPack);
+  const { playSound, switchSoundPack, currentSoundPack } = useSound(
+    initialPack,
+    userSoundPack as keyof typeof soundEffectPacks,
+  );
 
   return (
     <SoundEffectContext.Provider value={{ playSound, switchSoundPack, currentSoundPack }}>
