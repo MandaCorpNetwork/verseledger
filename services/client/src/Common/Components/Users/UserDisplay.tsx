@@ -7,7 +7,7 @@ import { memo } from 'react';
 
 import { useSoundEffect } from '@/AudioManager';
 
-import { MiniPlayerCard } from '../App/MiniPlayercard';
+import { MiniPlayerCard } from '../App/MiniPlayerCard';
 
 type UserDisplayProps = {
   userid: string;

@@ -1,3 +1,4 @@
+import { MiniPlayerCard } from '@Common/Components/App/MiniPlayerCard';
 import { Avatar, Chip } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -7,8 +8,6 @@ import { Logger } from '@Utils/Logger';
 import { IUser, IUserWithSettings } from 'vl-shared/src/schemas/UserSchema';
 
 import { useSoundEffect } from '@/AudioManager';
-
-import { MiniPlayerCard } from '../App/MiniPlayercard';
 
 type UserChipProps = {
   user?: IUser;
