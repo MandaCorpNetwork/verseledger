@@ -1,3 +1,14 @@
+/**
+ * @file UserBackgroundOptions
+ * @summary
+ * This is a list of options for the UserPage Background Images.
+ * To Add a new image, simply insert an option at the end of the list.
+ * @prop {string}Value - This is the name of the option passed to the backend, give it a one word name and if duplicated, put a number at the end.
+ * @prop {string}URL - the URL to the image, try to utilize images directly from the RSI Sight. Avoid Images with custom size manipulation in the URL. Most of these are found by clicking the download button on the images in the Ship Matrix.
+ * @prop {string}waterMark - This identifies which watermark to use. Depending on the colors of the Image you may want to utilize a different watermark. Currently there is only one so this will be changed in the future and may also allow for it to be based on theme.
+ * @prop {string}label - This is the title of the image that will be displayed in the User Settings.
+ * @author ThreeCrown
+ */
 import BackdropLogo from '@/Assets/media/VerseLogos/LogoBackdrop.png?url';
 
 type UserBackground = {
