@@ -4,9 +4,11 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { selectUserById } from '@Redux/Slices/Users/userSelectors';
 import { Logger } from '@Utils/Logger';
-import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import { IUser, IUserWithSettings } from 'vl-shared/src/schemas/UserSchema';
 
 import { useSoundEffect } from '@/AudioManager';
+
+import { MiniPlayerCard } from '../App/MiniPlayercard';
 
 type UserChipProps = {
   user?: IUser;
@@ -43,7 +45,7 @@ export const UserChip: React.FC<UserChipProps> = (props) => {
   Logger.info(`UserChip Recieved ID: ${player?.id}`);
 
   return (
-    <Tooltip title={player?.displayName} arrow>
+    <MiniPlayerCard user={player as IUserWithSettings}>
       <Chip
         color={color}
         variant="outlined"
@@ -57,6 +59,6 @@ export const UserChip: React.FC<UserChipProps> = (props) => {
           ...sx,
         }}
       />
-    </Tooltip>
+    </MiniPlayerCard>
   );
 };
