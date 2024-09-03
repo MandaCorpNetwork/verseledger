@@ -192,7 +192,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
 
   const handleContractPageNav = (contractId: string) => {
     playSound('navigate');
-    navigate(`/contract?contractID=${contractId}`);
+    navigate(`/ledger/contracts/${contractId}`);
   };
 
   const handleCopyURL = (url: string) => {

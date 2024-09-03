@@ -1,4 +1,4 @@
-import { Avatar, Box, ButtonBase, Rating, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, ButtonBase, Rating, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';

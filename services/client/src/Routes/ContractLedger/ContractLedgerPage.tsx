@@ -124,7 +124,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
       setSelectedId(id);
       if (mobile || tablet) {
         playSound('navigate');
-        navigate(`/contract?contractID=${id}`);
+        navigate(`/ledger/contracts/${id}`);
       }
     },
     [setSelectedId],
@@ -299,7 +299,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
                   <IconButton
                     data-testid="ContractLedger-SidePanel-CollapsedButtons__ManageContracts_Button"
                     onClick={() => {
-                      navigate('/ledger/personal/contracts');
+                      navigate('/dashboard/contracts');
                       playSound('navigate');
                     }}
                     size="small"
@@ -326,7 +326,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
                 <ContractLedgerQuickNav
                   title="Manage"
                   onClick={() => {
-                    navigate('/ledger/personal');
+                    navigate('/dashboard/contracts');
                     playSound('navigate');
                   }}
                   testid="ContractManager"
