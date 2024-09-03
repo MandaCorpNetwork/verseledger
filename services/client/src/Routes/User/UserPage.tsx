@@ -44,7 +44,7 @@ import { OrderStatsPanel } from '@/Components/UserPage/Stats/OrderStatsPanel';
  * Allows the user view detailled information about the selected user based on their access level.
  * Includes a button that opens up the player messaging widget.
  * Retrieves a User from a userId passed through the url query.
- * @version 0.1.1
+ * @version 0.1.2
  * TODO: Connect 'Last Online' to the Stomp Client
  * @returns {React.FC}
  * #### Function Components
@@ -64,6 +64,8 @@ export const UserPage: React.FC = () => {
   const [searchParam] = useURLQuery();
   const [statsTab, setStatsTab] = React.useState<string>('contracts');
   const [infoTab, setInfoTab] = React.useState<string>('fleet');
+  const [_loading, setLoading] = React.useState<boolean>(true);
+  const [_isError, setIsError] = React.useState<boolean>(false);
   // HOOKS
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
@@ -73,7 +75,14 @@ export const UserPage: React.FC = () => {
   /** @function useEffect - Fetching user object by user id from backend. */
   React.useEffect(() => {
     if (selectedUserId) {
-      dispatch(fetchSearchUserId(selectedUserId));
+      setLoading(true);
+      dispatch(fetchSearchUserId(selectedUserId))
+        .unwrap()
+        .then(() => setLoading(false))
+        .catch(() => {
+          setLoading(false);
+          setIsError(true);
+        });
     }
   }, [selectedUserId, dispatch]);
   /**

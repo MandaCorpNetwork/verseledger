@@ -37,7 +37,7 @@ import {
  * The ContractPage displays a singular Contract and all of its details.
  * Allows the user to interact with the contract applicable to their access level.
  * Retrieves the contract from a Contract ID passed through the URL query.
- * @version 0.1.2
+ * @version 0.1.3
  * @returns {React.FC}
  * #### Functional Components
  * @component {@link TitleBox}
@@ -80,6 +80,12 @@ export const ContractPage: React.FC<unknown> = () => {
    */
   const [activeDataTab, setActiveDataTab] = React.useState<string>('contractors');
   const [opacity, setOpacity] = React.useState(0.8);
+  /**
+   * State defines if the data is currently loading or not.
+   */
+  const [loading, setLoading] = React.useState<boolean>(true);
+  /** State defines if there was an error in loading */
+  const [error, setError] = React.useState<boolean>(false);
 
   // HOOKS
   const dispatch = useAppDispatch();
@@ -99,12 +105,16 @@ export const ContractPage: React.FC<unknown> = () => {
    */
   React.useEffect(() => {
     if (contractId) {
-      dispatch(fetchContracts({ limit: 1, page: 0, contractId: [contractId] }));
+      setLoading(true);
+      dispatch(fetchContracts({ limit: 1, page: 0, contractId: [contractId] }))
+        .unwrap()
+        .then(() => setLoading(false))
+        .catch(() => {
+          setLoading(false);
+          setError(true);
+        });
     }
   }, [contractId, dispatch]);
-
-  /** @generator {object} archetypeOption - The archetype options for the contract */
-  const archetypeOptions = contractArchetypes('secondary.main', 'inherit');
 
   /** @var {IContract | null} contract - The Contract from the Redux Store */
   const contract = useAppSelector((root) => selectContract(root, contractId as string));
@@ -119,10 +129,13 @@ export const ContractPage: React.FC<unknown> = () => {
    * @event {string} navigate - The Navigate Function from React Router
    */
   React.useEffect(() => {
-    if (!isLoading && !contract) {
+    if (!loading && !contract && !error) {
       navigate('/contract/ledger');
     }
   }, [contract, isLoading, navigate]);
+
+  /** @generator {object} archetypeOption - The archetype options for the contract */
+  const archetypeOptions = contractArchetypes('secondary.main', 'inherit');
 
   /**
    * useEffect to set the archetype of the contract
