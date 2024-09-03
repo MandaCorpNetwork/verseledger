@@ -18,9 +18,11 @@ export const SoundEffectProvider: React.FC<
   }>
 > = ({ children, initialPack = 'systemDefault' }) => {
   const userSoundPack = useAppSelector(selectUserSoundPack);
+  const validateUserSoundPack =
+    userSoundPack && soundEffectPacks[userSoundPack] ? userSoundPack : 'systemDefault';
   const { playSound, switchSoundPack, currentSoundPack } = useSound(
     initialPack,
-    userSoundPack as keyof typeof soundEffectPacks,
+    validateUserSoundPack as keyof typeof soundEffectPacks,
   );
 
   return (
