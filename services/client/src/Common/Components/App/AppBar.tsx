@@ -108,11 +108,23 @@ export const VLAppBar: React.FC<unknown> = () => {
     </Menu>
   );
 
+  const navigate = useNavigate();
+  function handleLogoClick() {
+    playSound('navigate');
+    navigate('/');
+  }
+
+  /** State for Notifications Popper being Open or not */
   const [notificationsOpen, setNotificationsOpen] = useState(false);
 
+  /** Anchor of Notifications */
   const [notificationsAnchorEl, setNotificationsAnchorEl] =
     React.useState<null | HTMLElement>(null);
 
+  /**
+   * @function
+   * handles opening notifications popper
+   */
   const notificationsOnClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
       playSound('open');
@@ -121,23 +133,25 @@ export const VLAppBar: React.FC<unknown> = () => {
     },
     [setNotificationsOpen],
   );
+  /**
+   * @function
+   * handles closing notifications popper
+   */
   const notificationsOnClose = useCallback(() => {
     playSound('close');
     setNotificationsOpen(false);
     setNotificationsAnchorEl(null);
   }, [setNotificationsOpen]);
 
-  const navigate = useNavigate();
-  function handleLogoClick() {
-    playSound('navigate');
-    navigate('/');
-  }
-
+  /** Fetches the unread count of Notifications
+   * @see fetchUnreadCount
+   */
   useEffect(() => {
     if (currentUser == null) return;
     dispatch(fetchUnreadCount());
   }, [currentUser?.id]);
 
+  /** selectes the current unread cound in the notifications slice */
   const unreadCount = useAppSelector(selectNotificationsUnreadCount);
 
   const [locationSelectOpen, setLocationSelectOpen] = React.useState(false);
