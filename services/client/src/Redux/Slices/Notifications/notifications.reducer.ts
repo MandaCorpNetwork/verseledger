@@ -25,6 +25,7 @@ const notificationsReducer = createSlice({
       .addCase(fetchUnreadCount.fulfilled, (_state, action) => {
         _state.unreadNotifications = (action.payload as { unread: number }).unread;
       })
+      //TODO: Rewrite how notifications are fetched
       .addCase(fetchNotifications.fulfilled, (state, action) => {
         const notifications = action.payload as {
           id: string;
@@ -37,17 +38,10 @@ const notificationsReducer = createSlice({
           state.notificationsMap[notif.id] = notif;
         }
       })
-      .addCase(markRead.fulfilled, (state, action) => {
-        const notificationId = action.meta.arg;
-        if (state.notificationsMap[notificationId]) {
-          delete state.notificationsMap[notificationId];
-          state.unreadNotifications -= 1;
-        }
-      })
-      .addCase(markAllRead.fulfilled, (state) => {
-        state.notificationsMap = {};
-        state.unreadNotifications = 0;
-      });
+      //TODO: handle marking a singular notification as read
+      .addCase(markRead.fulfilled, (state, action) => {})
+      //TODO: handle marking all notifications as read
+      .addCase(markAllRead.fulfilled, (state) => {});
   },
 });
 
