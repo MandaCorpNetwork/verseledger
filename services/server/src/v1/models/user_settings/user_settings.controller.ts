@@ -6,7 +6,6 @@ import {
   httpGet,
   httpPatch,
   requestBody,
-  requestParam,
 } from 'inversify-express-utils';
 import { UserSettingsService } from './user_settings.service';
 import { VLAuthPrincipal } from '@/authProviders/VL.principal';
