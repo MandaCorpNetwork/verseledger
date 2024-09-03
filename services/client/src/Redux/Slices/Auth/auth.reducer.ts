@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthUtil } from '@Utils/AuthUtil';
+import { IDTO } from 'vl-shared/src/schemas/DTOSchema';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
 
@@ -18,7 +19,7 @@ const authReducer = createSlice({
     isLoggedIn: false,
     lastUpdated: 0,
     userLocation: {} as ILocation,
-    settings: {} as Partial<IUserSettings>,
+    settings: {} as IDTO<IUserSettings>,
   },
   reducers: {
     logout() {
@@ -27,7 +28,7 @@ const authReducer = createSlice({
         isLoggedIn: false,
         lastUpdated: Date.now(),
         userLocation: {} as ILocation,
-        settings: {} as Partial<IUserSettings>,
+        settings: {} as IDTO<IUserSettings>,
       };
     },
   },

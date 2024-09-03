@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { IUserSettings } from "./UserSettings";
+import { IDTO } from "./DTOSchema";
 
 export const UserSchema = z.object({
   id: z.string(),
@@ -12,5 +13,5 @@ export const UserSchema = z.object({
 export type IUser = z.infer<typeof UserSchema>;
 
 export type IUserWithSettings = IUser & {
-  Settings?: Partial<IUserSettings>;
+  Settings?: IDTO<IUserSettings>;
 };
