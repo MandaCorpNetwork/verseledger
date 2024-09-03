@@ -18,7 +18,7 @@ const authReducer = createSlice({
     isLoggedIn: false,
     lastUpdated: 0,
     userLocation: {} as ILocation,
-    settings: {} as IUserSettings,
+    settings: {} as Partial<IUserSettings>,
   },
   reducers: {
     logout() {
@@ -27,7 +27,7 @@ const authReducer = createSlice({
         isLoggedIn: false,
         lastUpdated: Date.now(),
         userLocation: {} as ILocation,
-        settings: {} as IUserSettings,
+        settings: {} as Partial<IUserSettings>,
       };
     },
   },
@@ -61,7 +61,7 @@ const authReducer = createSlice({
       state.userLocation = action.payload;
     });
     builder.addCase(fetchUserSettings.fulfilled, (state, action) => {
-      state.settings = action.payload as IUserSettings;
+      state.settings = action.payload as Partial<IUserSettings>;
     });
     builder.addCase(updateUserSettings.fulfilled, (state, action) => {
       const updatedSettings = action.payload as Partial<IUserSettings>;

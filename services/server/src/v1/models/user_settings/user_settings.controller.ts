@@ -46,12 +46,4 @@ export class UserSettingsController extends BaseHttpController {
     );
     return UserSettingsArrayToUserSettingsDTOMapper.map(response);
   }
-
-  @httpGet(`/:userId/pageImage`)
-  public async getUserPageImage(@requestParam('userId') userId: string) {
-    const userPageImage = await this.userSettingsService.getUserPageImage(
-      userId,
-    );
-    return this.ok(userPageImage);
-  }
 }

@@ -12,5 +12,5 @@ export const UserSchema = z.object({
 export type IUser = z.infer<typeof UserSchema>;
 
 export type IUserWithSettings = IUser & {
-  Settings?: IUserSettings;
+  Settings?: Partial<IUserSettings>;
 };

@@ -20,6 +20,6 @@ export const selectUserPageImageById = createSelector(
   [selectUsers, (_, id: string) => id],
   (users, id: string) => {
     const user = users[id] as IUserWithSettings | null;
-    return user?.Settings?.userPageImage ?? null;
+    return user?.Settings?.userPageImage;
   },
 );
