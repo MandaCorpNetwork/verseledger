@@ -60,13 +60,11 @@ const authReducer = createSlice({
     builder.addCase(setUserLocation.fulfilled, (state, action) => {
       state.userLocation = action.payload;
     });
-    // TODO: DTO Check
     builder.addCase(fetchUserSettings.fulfilled, (state, action) => {
-      state.settings = action.payload as Partial<IUserSettings>;
+      state.settings = action.payload;
     });
-    // TODO: DTO Check
     builder.addCase(updateUserSettings.fulfilled, (state, action) => {
-      const updatedSettings = action.payload as Partial<IUserSettings>;
+      const updatedSettings = action.payload;
       state.settings = {
         ...state.settings,
         ...updatedSettings,
