@@ -19,7 +19,6 @@ import {
   queryIn,
 } from '@/utils/Sequelize/queryIn';
 import { type NotificationService } from '../notifications/notification.service';
-import { ContractBidDTO } from '@V1/models/contract_bid/mapping/ContractBidDTO';
 import { Logger } from '@/utils/Logger';
 import { ContractToContractDTOMapper } from './mapping/contract.mapper';
 import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
@@ -129,7 +128,10 @@ export class ContractService {
       status: 'PENDING',
       amount,
     });
-    this.notifications.publish('/topic/newBid', new ContractBidDTO(bid));
+    this.notifications.publish(
+      `/topic/notifications/${userId}`,
+      `New Bid on ${contract.title} from ${bid.User.displayName}`,
+    );
     return bid;
   }
 
