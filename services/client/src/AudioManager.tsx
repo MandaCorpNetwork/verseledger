@@ -20,13 +20,13 @@ export const SoundEffectProvider: React.FC<
   const userSoundPack = useAppSelector(selectUserSoundPack);
   const validateUserSoundPack =
     userSoundPack && soundEffectPacks[userSoundPack] ? userSoundPack : 'systemDefault';
-  const { playSound, switchSoundPack, currentSoundPack } = useSound(
+  const soundContext = useSound(
     initialPack,
     validateUserSoundPack as keyof typeof soundEffectPacks,
   );
 
   return (
-    <SoundEffectContext.Provider value={{ playSound, switchSoundPack, currentSoundPack }}>
+    <SoundEffectContext.Provider value={soundContext}>
       {children}
     </SoundEffectContext.Provider>
   );

@@ -35,8 +35,8 @@ export class UserSettingsRepository {
       where: {
         user_id,
         key: 'userPageImage',
-      }
-    })
+      },
+    });
     return userSettings?.value;
   }
 }
