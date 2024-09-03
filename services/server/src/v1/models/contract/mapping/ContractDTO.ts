@@ -26,11 +26,15 @@ export class ContractDTO extends DTOBase<IContract> implements IContract {
     });
   }
 
-  __type = 'Contract';
+  public readonly __type = 'Contract';
+  public get __partial() {
+    return false;
+  }
 
   public toJSON() {
     return {
       ...this,
+      __partial: this.__partial,
       owner_user_id: undefined,
       owner_org_id: undefined,
     };

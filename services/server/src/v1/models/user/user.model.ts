@@ -4,7 +4,6 @@ import {
   Default,
   DefaultScope,
   HasMany,
-  HasOne,
   Model,
   PrimaryKey,
   Scopes,
@@ -36,6 +35,16 @@ import { UserSettings } from '../user_settings/user_settings.model';
   },
   settings: {
     include: [{ model: UserSettings, as: 'Settings' }],
+  },
+  profile: {
+    include: [
+      {
+        model: UserSettings,
+        as: 'Settings',
+        where: { key: 'userPageImage' },
+        required: false,
+      },
+    ],
   },
 }))
 @Table({ tableName: 'users', timestamps: true })
@@ -82,8 +91,8 @@ export class User extends Model implements IUser {
   @HasMany(() => UserRating, 'reciever_id')
   declare ReceivedRatings: Awaited<UserRating>[];
 
-  @HasOne(() => UserSettings, 'user_id')
-  declare Settings: Awaited<UserSettings>;
+  @HasMany(() => UserSettings, 'user_id')
+  declare Settings: Awaited<UserSettings[]>;
 
   declare readonly createdAt: Date;
   declare readonly updatedAt: Date;

@@ -17,7 +17,14 @@ export class PaginatedDataDTO<K, T> extends DTOBase<T> {
   public data!: T[];
   public pagination!: PaginatedDataInfo;
 
-  public __type = 'PaginatedData';
+  public readonly __type = 'PaginatedData';
+  public get __partial() {
+    return false;
+  }
+
+  public toJSON() {
+    return { ...this, __partial: this.__partial };
+  }
 
   constructor(
     data: K[],
