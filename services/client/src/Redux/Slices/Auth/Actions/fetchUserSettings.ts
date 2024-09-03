@@ -7,15 +7,10 @@ import { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
 import NetworkService from '@/Services/NetworkService';
 
 export const fetchUserSettings = createAsyncThunk('auth/fetchUserSettings', async () => {
-  try {
-    const response = await NetworkService.GET<IDTO<IUserSettings>>(
-      '/v1/settings/@me',
-      AuthUtil.getAccessHeader(),
-    );
-    Logger.info(`User Settings Fetched`, response.data);
-    return response.data;
-  } catch (error) {
-    Logger.error(`Error fetching user settings: ${error}`);
-    throw error;
-  }
+  const response = await NetworkService.GET<IDTO<IUserSettings>>(
+    '/v1/settings/@me',
+    AuthUtil.getAccessHeader(),
+  );
+  Logger.info(`User Settings Fetched`, response.data);
+  return response.data;
 });
