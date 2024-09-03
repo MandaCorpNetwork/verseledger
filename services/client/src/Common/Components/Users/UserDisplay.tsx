@@ -6,6 +6,7 @@ import { selectUserById } from '@Redux/Slices/Users/userSelectors';
 import { memo } from 'react';
 
 import { useSoundEffect } from '@/AudioManager';
+import { MiniPlayerCard } from '../App/MiniPlayercard';
 
 type UserDisplayProps = {
   userid: string;
@@ -35,7 +36,7 @@ const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx }) => {
         ...sx,
       }}
     >
-      <Tooltip title={user?.handle} arrow>
+      <MiniPlayerCard user={user}>
         <ButtonBase
           data-testid="UserDisplay__PlayerDataButton"
           onClick={handlePlayerCardOpen}
@@ -146,7 +147,7 @@ const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx }) => {
             </Typography>
           </Box>
         </ButtonBase>
-      </Tooltip>
+      </MiniPlayerCard>
       {/* <Divider
         variant="middle"
         color="secondary"
