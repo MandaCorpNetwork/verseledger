@@ -6,6 +6,7 @@ import { selectUserById } from '@Redux/Slices/Users/userSelectors';
 import { memo } from 'react';
 
 import { useSoundEffect } from '@/AudioManager';
+
 import { MiniPlayerCard } from '../App/MiniPlayercard';
 
 type UserDisplayProps = {
@@ -36,7 +37,7 @@ const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx }) => {
         ...sx,
       }}
     >
-      <MiniPlayerCard user={user}>
+      <MiniPlayerCard user={user ?? undefined}>
         <ButtonBase
           data-testid="UserDisplay__PlayerDataButton"
           onClick={handlePlayerCardOpen}

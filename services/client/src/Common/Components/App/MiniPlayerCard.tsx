@@ -9,13 +9,14 @@ import { IUserWithSettings } from 'vl-shared/src/schemas/UserSchema';
 import { useSoundEffect } from '@/AudioManager';
 
 type MiniPlayerCardProps = PropsWithChildren<{
-  user: IUserWithSettings;
+  user?: IUserWithSettings;
 }>;
 export const MiniPlayerCard: React.FC<MiniPlayerCardProps> = (props) => {
   const { children, user } = props;
   // LOCAL STATES
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [popperOpen, setPopperOpen] = React.useState(false);
+  const popperTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   // HOOKS
   const { playSound } = useSoundEffect();
   const navigate = useNavigate();
@@ -23,25 +24,31 @@ export const MiniPlayerCard: React.FC<MiniPlayerCardProps> = (props) => {
   const handleMouseEnter = React.useCallback((e: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(e.currentTarget);
     setPopperOpen(true);
+    if (popperTimeoutRef.current) {
+      clearTimeout(popperTimeoutRef.current);
+    }
   }, []);
-  const handleMouseLeave = React.useCallback(
-    (_e: React.MouseEvent<HTMLElement>) => {
-      setTimeout(() => {
-        if (!anchorEl) {
-          setPopperOpen(false);
-        }
-      }, 50);
-    },
-    [anchorEl],
-  );
+
+  const handleMouseLeave = React.useCallback(() => {
+    popperTimeoutRef.current = setTimeout(() => {
+      setPopperOpen(false);
+    }, 100);
+  }, []);
+
   const handlePopperMouseEnter = React.useCallback(() => {
+    if (popperTimeoutRef.current) {
+      clearTimeout(popperTimeoutRef.current);
+    }
     setPopperOpen(true);
   }, []);
+
   const handlePopperMouseLeave = React.useCallback(() => {
-    setPopperOpen(false);
+    popperTimeoutRef.current = setTimeout(() => {
+      setPopperOpen(false);
+    }, 100);
   }, []);
   const open = popperOpen && Boolean(anchorEl);
-  const selectedUserImage = user.Settings?.userPageImage;
+  const selectedUserImage = user?.Settings?.userPageImage;
   console.log('user:', user);
   console.log('Selected User Image:', selectedUserImage);
   const getUserBackground = React.useCallback(() => {
@@ -105,7 +112,7 @@ export const MiniPlayerCard: React.FC<MiniPlayerCardProps> = (props) => {
               }}
             >
               <Avatar
-                src={user.pfp}
+                src={user?.pfp}
                 sx={{
                   height: '55px',
                   width: '55px',
@@ -119,13 +126,13 @@ export const MiniPlayerCard: React.FC<MiniPlayerCardProps> = (props) => {
                   flexDirection: 'column',
                 }}
               >
-                <Typography variant="body2">{user.displayName}</Typography>
+                <Typography variant="body2">{user?.displayName}</Typography>
                 <Typography
                   variant="body2"
                   color="grey"
                   sx={{ textShadow: '0 3px 5px rgba(0,0,0)' }}
                 >
-                  @{user.handle}
+                  @{user?.handle}
                 </Typography>
                 <Rating value={4} readOnly size="small" />
               </Box>
