@@ -9,7 +9,6 @@ import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContr
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { isMobile } from '@Utils/isMobile';
 import { isTablet } from '@Utils/isTablet';
-import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';

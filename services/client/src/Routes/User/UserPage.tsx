@@ -25,8 +25,6 @@ import {
   selectUserById,
   selectUserPageImageById,
 } from '@Redux/Slices/Users/userSelectors';
-import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 

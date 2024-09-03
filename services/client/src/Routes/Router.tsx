@@ -1,4 +1,4 @@
-import { Navigate, Outlet, RouteObject } from 'react-router-dom';
+import { Outlet, RouteObject } from 'react-router-dom';
 
 import { ContractManagerApp } from '@/Components/Personal/ContractManager/ContractManagerApp';
 import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
