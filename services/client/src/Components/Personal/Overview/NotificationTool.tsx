@@ -19,37 +19,21 @@ export const NotificationTool: React.FC = () => {
   const navigate = useNavigate();
   const { playSound } = useSoundEffect();
 
-  React.useEffect(() => {
-    dispatch(fetchNotifications());
-  }, []);
+  //TODO: Fetching Notifications
 
-  const handleMarkRead = (notifyId: string) => {
-    playSound('close');
-    dispatch(markRead(notifyId));
-  };
+  //TODO: Marking ALL Notifications as Read
+  const handleMarkAllRead = () => {};
 
-  const handleViewNotification = (resource: string, notifyId: string) => {
-    const obj = parseResource(resource);
-    if (obj) {
-      if (obj.feature === 'contracts') {
-        playSound('navigate');
-        navigate(`contract?contractID=${obj.id}`);
-      }
-    } else {
-      playSound('denied');
-    }
-    handleMarkRead(notifyId);
-  };
+  //TODO: Marking a singular Notification as Read
+  const handleMarkRead = (notifyId: string) => {};
 
-  const notifTitle = React.useCallback((resource: string) => {
-    const obj = parseResource(resource);
-    if (obj) {
-      if (obj.feature === 'contracts') {
-        return 'Contracts';
-      }
-    }
-    return 'Unknown';
-  }, []);
+  //TODO: Navigating to items involving a notification.
+  //Contract updates navigate to ContractPage for the Contract
+  const handleViewNotification = (resource: string, notifyId: string) => {};
+
+  //TODO: Displaying the Message of the Notification
+  const notifTitle = React.useCallback((message: string) => {}, []);
+
   return (
     <GlassDisplay
       data-id="NotificationToolContent"
@@ -71,7 +55,8 @@ export const NotificationTool: React.FC = () => {
         return (
           <OverviewNotification
             key={notif.id}
-            title={notifTitle(notif.resource)}
+            title="ToDo"
+            // title={notifTitle(notif.resource)}
             text={notif.text}
             view={() => handleViewNotification(notif.resource, notif.id)}
             onClose={() => handleMarkRead(notif.id)}
