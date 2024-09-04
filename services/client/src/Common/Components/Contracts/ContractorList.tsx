@@ -183,6 +183,8 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
         }}
       >
         {isOwner &&
+          contract.status !== 'COMPLETED' &&
+          contract.status !== 'CANCELED' &&
           contractors &&
           (contractors?.length > 0 ? (
             contractors
@@ -277,6 +279,33 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
               No Contractors
             </Typography>
           ))}
+        {contract.status === 'COMPLETED' ||
+          (contract.status === 'CANCELED' &&
+            acceptedBids &&
+            (acceptedBids.length > 0 ? (
+              acceptedBids?.map((contractor) => (
+                <Contractor
+                  key={contractor.id}
+                  bid={contractor}
+                  user={contractor.User as IUser}
+                  contractOwned={isOwner}
+                  contract={contract}
+                />
+              ))
+            ) : (
+              <Typography
+                align="center"
+                variant="h6"
+                sx={{
+                  textAlign: 'center',
+                  width: '100%',
+                  color: 'grey',
+                  textShadow: '0 0 3px rgb(0,0,0), 0 0 10px rgba(0,0,0,.7)',
+                }}
+              >
+                No Contractors
+              </Typography>
+            )))}
       </Box>
     </DigiBox>
   );
