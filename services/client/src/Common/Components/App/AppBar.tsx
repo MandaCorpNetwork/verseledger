@@ -1,3 +1,4 @@
+import VerseLogo from '@Assets/media/VerseLogos/verselogo-0.png?url';
 import { Feedback, Place } from '@mui/icons-material';
 import MailNoneIcon from '@mui/icons-material/MailOutline';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -48,7 +49,6 @@ import { URLUtil } from '@/Utils/URLUtil';
 import { UserSettings } from '../../../Components/UserSettings/UserSettings';
 import { LocationSearch } from './LocationSearch';
 import { NotificationsBox } from './NotificationsBox';
-import VerseLogo from './VerseLogo';
 
 export const VLAppBar: React.FC<unknown> = () => {
   const { playSound } = useSoundEffect();
@@ -189,7 +189,7 @@ export const VLAppBar: React.FC<unknown> = () => {
       <AppBar position="static" sx={{ bgcolor: 'primary.dark' }}>
         <Toolbar>
           <IconButton component="div" sx={{}} onClick={handleLogoClick}>
-            <VerseLogo />
+            <img src={VerseLogo} alt="Verse Logo" />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: 'flex' }}>
