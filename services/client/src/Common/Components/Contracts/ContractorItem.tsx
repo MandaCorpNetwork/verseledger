@@ -156,6 +156,15 @@ export const Contractor: React.FC<ContractorProps> = ({
         color={bidStatusColor}
         sx={{ maxWidth: '125px' }}
       />
+      {bid.status === 'PENDING' ||
+        (bid.status === 'INVITED' && bid.amount !== contract.defaultPay && (
+          <PayDisplay
+            label="Current Offer"
+            pay={bid.amount}
+            structure={contract.payStructure as ContractPayStructure}
+            sx={{ width: '120px' }}
+          />
+        ))}
       {bid.status === 'ACCEPTED' && (
         <Typography
           variant={contractOwned ? 'body2' : 'overline'}
@@ -185,7 +194,7 @@ export const Contractor: React.FC<ContractorProps> = ({
           variant="overline"
           sx={{ color: 'warning.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
         >
-          Counter Offer Sent
+          {contractOwned ? 'Counter Offer Sent' : 'Counter Recieved'}
         </Typography>
       )}
       {contractOwned &&

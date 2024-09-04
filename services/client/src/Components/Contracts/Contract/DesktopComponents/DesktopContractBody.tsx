@@ -8,6 +8,7 @@ import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHolo';
 import { Box, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
+import { Logger } from '@Utils/Logger';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -79,6 +80,7 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
   userBid,
 }) => {
   // HOOKS
+  Logger.info('Contract Body Bid', userBid);
   const scrollRef = useHorizontalAdvancedScroll();
   return (
     <Box

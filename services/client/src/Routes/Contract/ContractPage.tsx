@@ -9,6 +9,7 @@ import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContr
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { isMobile } from '@Utils/isMobile';
 import { isTablet } from '@Utils/isTablet';
+import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -179,9 +180,11 @@ export const ContractPage: React.FC<unknown> = () => {
    * @returns {IBid | null} bid - The user's bid from the contract if it exists
    */
   const getUserBid = React.useCallback(() => {
+    Logger.info('CurrentUser', currentUser);
     if (!contract || !currentUser) return null;
     if (contract.Bids) {
-      const userBid = contract.Bids.find((bid) => bid.user_id === currentUser?.id);
+      const userBid = contract.Bids.find((bid) => bid.user_id === currentUser.id);
+      Logger.info('Contract Page Bid', userBid);
       return userBid ?? null;
     }
     return null;
@@ -366,7 +369,13 @@ export const ContractPage: React.FC<unknown> = () => {
   return (
     <VLViewport
       data-testid="ContractPage__Container"
-      sx={{ p: { xs: '1em', sm: '2em', md: '3em', lg: '4em', xl: '5em' } }}
+      sx={{
+        p: { xs: '1em', sm: '2em', md: '3em', lg: '4em', xl: '5em' },
+        '&:after': {
+          backgroundImage:
+            'url(https://media.robertsspaceindustries.com/p3kocb3sqz4b9/channel_item_full.png)',
+        },
+      }}
     >
       {isLoading && <LoadingScreen variant="wheel" controlType="indeterminate" />}
       {contract && (

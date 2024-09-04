@@ -21,6 +21,7 @@ type ContractDefaultPayLabelProps = {
   activeCount?: number;
   error?: boolean;
   errorColor?: boolean;
+  defaultValue?: string;
 };
 
 export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
@@ -34,6 +35,7 @@ export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
   onBlur,
   error,
   errorColor,
+  defaultValue,
 }) => {
   const maxLimit = activeCount ? 100 - activeCount : 100;
 
@@ -80,6 +82,7 @@ export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
         onChange={onChange}
         onBlur={onBlur}
         error={error}
+        defaultValue={defaultValue}
         sx={{
           '.MuiInputBase-root': {
             paddingRight: '0px', // Adjust the right padding of the root

@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBids/ContractBid';
+import { POPUP_COUNTER_OFFER_BID } from '@Popups/Contracts/ContractBids/CounterOffer';
 import { POPUP_EDIT_CONTRACT } from '@Popups/Contracts/EditContract/EditContract';
 import { POPUP_SUBMIT_RATING } from '@Popups/Ratings/SubmitRating';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
@@ -466,12 +467,13 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
    * @see {@link POPUP_SUBMIT_CONTRACT_BID}
    */
   const handleResubmitBid = React.useCallback(() => {
-    if (!userBid) {
-      enqueueSnackbar(`Bid doesn't Exist`, { variant: 'error' });
-      playSound('error');
-    }
     dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
   }, [userBid, dispatch]);
+
+  const handleOpenOffer = React.useCallback(() => {
+    if (!userBid) return;
+    dispatch(openPopup(POPUP_COUNTER_OFFER_BID, { bidId: userBid.id, contract }));
+  }, [dispatch, userBid, contract]);
   return (
     <Box
       data-testid="ContractPage__ContractController_Small_Wrapper"
@@ -492,7 +494,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           color="info"
           size="medium"
           fullWidth
-          onAbort={handleEndBidding}
+          onClick={handleEndBidding}
           sx={{
             fontSize: '1em',
             fontWeight: 'bold',
@@ -508,7 +510,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           color="secondary"
           size="large"
           fullWidth
-          onAbort={handleStartContract}
+          onClick={handleStartContract}
           sx={{
             fontSize: '1em',
             fontWeight: 'bold',
@@ -524,7 +526,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           color="success"
           size="large"
           fullWidth
-          onAbort={handleContractComplete}
+          onClick={handleContractComplete}
           sx={{
             fontSize: '1em',
             fontWeight: 'bold',
@@ -540,7 +542,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           color="warning"
           size="large"
           fullWidth
-          onAbort={handleEditContract}
+          onClick={handleEditContract}
           sx={{
             fontSize: '1em',
             fontWeight: 'bold',
@@ -556,7 +558,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           color="error"
           size="large"
           fullWidth
-          onAbort={handleCancelContract}
+          onClick={handleCancelContract}
           sx={{
             fontSize: '1em',
             fontWeight: 'bold',
@@ -565,38 +567,56 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           Cancel Contract
         </Button>
       )}
-      {!isOwned && userBid?.status === 'INVITED' && (
-        <Button
-          data-testid="ContractPage-ContractController__AcceptInvite_Button"
-          variant="contained"
-          color="success"
-          size="large"
-          fullWidth
-          onClick={handleAcceptInvite}
-          sx={{
-            fontSize: '1em',
-            fontWeight: 'bold',
-          }}
-        >
-          Accept Invite
-        </Button>
-      )}
-      {!isOwned && userBid?.status === 'INVITED' && (
-        <Button
-          data-testid="ContractPage-ContractController__DeclineInvite_Button"
-          variant="contained"
-          color="error"
-          size="large"
-          fullWidth
-          onClick={handleDeclineInvite}
-          sx={{
-            fontSize: '1em',
-            fontWeight: 'bold',
-          }}
-        >
-          Decline Invite
-        </Button>
-      )}
+      {!isOwned &&
+        userBid?.status === 'INVITED' &&
+        userBid?.amount === contract.defaultPay && (
+          <Button
+            data-testid="ContractPage-ContractController__AcceptInvite_Button"
+            variant="contained"
+            color="success"
+            size="large"
+            fullWidth
+            onClick={handleAcceptInvite}
+            sx={{
+              fontSize: '1em',
+              fontWeight: 'bold',
+            }}
+          >
+            Accept Invite
+          </Button>
+        )}
+      {isOwned &&
+        userBid?.status === 'INVITED' &&
+        userBid?.amount === contract.defaultPay && (
+          <Button
+            data-testid="ContractPage-ContractController__DeclineInvite_Button"
+            variant="contained"
+            color="error"
+            size="large"
+            fullWidth
+            onClick={handleDeclineInvite}
+            sx={{
+              fontSize: '1em',
+              fontWeight: 'bold',
+            }}
+          >
+            Decline Invite
+          </Button>
+        )}
+      {!isOwned &&
+        userBid?.status === 'INVITED' &&
+        userBid?.amount !== contract.defaultPay && (
+          <Button
+            data-testid="ContractPage-ContractController__DeclineInvite_Button"
+            variant="outlined"
+            color="warning"
+            size="small"
+            fullWidth
+            onClick={handleOpenOffer}
+          >
+            Open Offer
+          </Button>
+        )}
       {!isOwned && userBid?.status === 'PENDING' && (
         <Button
           data-testid="ContractPage-ContractController__CancelBid_Button"
@@ -677,7 +697,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           </Typography>
         </>
       )}
-      {!isOwned && userBid?.status === null && (
+      {!isOwned && !userBid && contract.status === 'BIDDING' && (
         <Button
           data-testid="ContractPage-ContractController__SubmitBid_Button"
           variant="contained"
