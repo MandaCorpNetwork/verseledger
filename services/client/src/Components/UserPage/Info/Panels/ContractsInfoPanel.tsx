@@ -1,9 +1,8 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import { ArrowRight } from '@mui/icons-material';
 import {
   Box,
   Collapse,
-  FormControlLabel,
-  Switch,
   ToggleButton,
   ToggleButtonGroup,
   Typography,
@@ -19,7 +18,7 @@ import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSch
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 import { useSoundEffect } from '@/AudioManager';
-import { ArrowRight } from '@mui/icons-material';
+
 import { ContractItem } from '../ContractItem';
 
 type ContractInfoPanelProps = {
@@ -187,51 +186,64 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
         </ToggleButtonGroup>
       </Box>
       <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-        <Typography
-          sx={{ cursor: 'pointer' }}
-          onClick={() => handleContractActivityChange('active')}
-        >
-          Active Contracts
-          <ArrowRight
-            sx={{
-              transform: contractActivity === 'active' ? 'rotate(90deg)' : 'rotate(0deg)',
-              transition: 'transform 150ms',
-            }}
-          />
-        </Typography>
-        <Collapse
-          sx={{ maxHeight: '40%', my: '.5em', width: '100%' }}
-          in={contractActivity === 'active'}
-        >
-          <Box sx={{ display: 'flex', flexDirection: 'column', p: '2px', height: '100%', overflow: 'auto', }}>
-            {contracts.map((contract) => (
-              <ContractItem key={contract.id} contract={contract} />
-            ))}
-          </Box>
-        </Collapse>
-        <Typography
-          sx={{ cursor: 'pointer' }}
-          onClick={() => handleContractActivityChange('history')}
-        >
-          Contract History
-          <ArrowRight
-            sx={{
-              transform:
-                contractActivity === 'history' ? 'rotate(90deg)' : 'rotate(0deg)',
-              transition: 'transform 150ms',
-            }}
-          />
-        </Typography>
-        <Collapse
-          sx={{ maxHeight: '40%', my: '.5em', width: '100%' }}
-          in={contractActivity === 'history'}
-        >
-          <Box sx={{ display: 'flex', flexDirection: 'column', p: '2px' }}>
-            {contracts.map((contract) => (
-              <ContractItem key={contract.id} contract={contract} />
-            ))}
-          </Box>
-        </Collapse>
+        <Box>
+          <Typography
+            sx={{ cursor: 'pointer' }}
+            onClick={() => handleContractActivityChange('active')}
+          >
+            Active Contracts
+            <ArrowRight
+              sx={{
+                transform:
+                  contractActivity === 'active' ? 'rotate(90deg)' : 'rotate(0deg)',
+                transition: 'transform 150ms',
+              }}
+            />
+          </Typography>
+          <Collapse
+            sx={{ maxHeight: '40%', my: '.5em', width: '100%' }}
+            in={contractActivity === 'active'}
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                p: '2px',
+                height: '100%',
+                overflow: 'auto',
+              }}
+            >
+              {contracts.map((contract) => (
+                <ContractItem key={contract.id} contract={contract} />
+              ))}
+            </Box>
+          </Collapse>
+        </Box>
+        <Box>
+          <Typography
+            sx={{ cursor: 'pointer' }}
+            onClick={() => handleContractActivityChange('history')}
+          >
+            Contract History
+            <ArrowRight
+              sx={{
+                transform:
+                  contractActivity === 'history' ? 'rotate(90deg)' : 'rotate(0deg)',
+                transition: 'transform 150ms',
+              }}
+            />
+          </Typography>
+          <Collapse
+            sx={{ maxHeight: '40%', my: '.5em', width: '100%' }}
+            in={contractActivity === 'history'}
+          >
+            <Box sx={{ display: 'flex', flexDirection: 'column', p: '2px' }}>
+              {contracts.map((contract) => (
+                <ContractItem key={contract.id} contract={contract} />
+              ))}
+            </Box>
+          </Collapse>
+        </Box>
       </Box>
     </DigiBox>
   );

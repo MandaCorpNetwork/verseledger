@@ -192,6 +192,7 @@ export const UserPage: React.FC = () => {
           height: '100%',
           mx: { xs: '0', md: '2em', lg: '5%' },
           backdropFilter: 'blur(5px)',
+          justifyContent: 'space-between',
         }}
       >
         <Box
@@ -491,8 +492,7 @@ export const UserPage: React.FC = () => {
             display: 'flex',
             gap: '3em',
             flexDirection: { xs: 'column', md: 'column', lg: 'row' },
-            my: '2em',
-            height: '75%',
+            height: '70%',
             width: '100%',
             justifyContent: 'space-between',
           }}
