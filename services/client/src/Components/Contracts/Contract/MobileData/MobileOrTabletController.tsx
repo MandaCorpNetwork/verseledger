@@ -494,7 +494,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           color="info"
           size="medium"
           fullWidth
-          onAbort={handleEndBidding}
+          onClick={handleEndBidding}
           sx={{
             fontSize: '1em',
             fontWeight: 'bold',
@@ -510,7 +510,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           color="secondary"
           size="large"
           fullWidth
-          onAbort={handleStartContract}
+          onClick={handleStartContract}
           sx={{
             fontSize: '1em',
             fontWeight: 'bold',
@@ -526,7 +526,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           color="success"
           size="large"
           fullWidth
-          onAbort={handleContractComplete}
+          onClick={handleContractComplete}
           sx={{
             fontSize: '1em',
             fontWeight: 'bold',
@@ -542,7 +542,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           color="warning"
           size="large"
           fullWidth
-          onAbort={handleEditContract}
+          onClick={handleEditContract}
           sx={{
             fontSize: '1em',
             fontWeight: 'bold',
@@ -558,7 +558,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           color="error"
           size="large"
           fullWidth
-          onAbort={handleCancelContract}
+          onClick={handleCancelContract}
           sx={{
             fontSize: '1em',
             fontWeight: 'bold',
