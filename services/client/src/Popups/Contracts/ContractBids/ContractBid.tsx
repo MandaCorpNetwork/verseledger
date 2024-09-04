@@ -62,7 +62,16 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
             bidId: existingBid.id,
             bidData: updatedBid,
           }),
-        );
+        ).then((res) => {
+          if (updateBid.fulfilled.match(res)) {
+            dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
+            enqueueSnackbar('Bid Resubmitted', { variant: 'success' });
+            playSound('send');
+          } else {
+            enqueueSnackbar('Error Submitting Bid', { variant: 'error' });
+            playSound('error');
+          }
+        });
         return;
       }
       dispatch(postContractBid(contractId)).then((res) => {
