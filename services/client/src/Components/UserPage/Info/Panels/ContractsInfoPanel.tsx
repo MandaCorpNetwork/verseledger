@@ -28,7 +28,7 @@ type ContractInfoPanelProps = {
 
 export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) => {
   //LOCAL STATES
-  const [contractActivity, setContractActivity] = React.useState<string>('active');
+  const [contractActivity, setContractActivity] = React.useState<string | null>(null);
   const [contractOwnership, setContractOwnership] = React.useState<string>('owned');
   //HOOK
   const dispatch = useAppDispatch();
@@ -39,7 +39,7 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
   const handleContractActivityChange = React.useCallback(
     (value: string) => {
       playSound('clickMain');
-      setContractActivity(value);
+      setContractActivity((prev) => (prev === value ? null : value));
     },
     [setContractActivity, playSound],
   );
@@ -146,6 +146,7 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
         alignItems: 'center',
         justifyContent: 'flex-start',
         gap: '1em',
+        overflow: 'hidden',
       }}
     >
       <Box sx={{ alignSelf: 'flex-end', display: 'flex' }}>
@@ -153,6 +154,29 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
           exclusive
           value={contractOwnership}
           onChange={handleContractOwershipChange}
+          sx={{
+            border: '1px solid',
+            borderColor: 'success.dark',
+            boxShadow: '0 0px 10px rgba(24,252,252,0.5)',
+            borderRadius: '5px',
+            '&:hover': {
+              borderColor: 'primary.main',
+            },
+            '& .MuiToggleButton-root': {
+              color: 'secondary.dark',
+              backgroundColor: 'action.disabledBackground',
+              '&:hover': {
+                color: 'text.secondary',
+              },
+            },
+            '& .MuiToggleButton-root.Mui-selected': {
+              color: 'secondary.main',
+              backgroundColor: 'primary.main',
+              '&:hover': {
+                color: 'secondary.light',
+              },
+            },
+          }}
         >
           <ToggleButton selected={contractOwnership === 'owned'} value="owned">
             Owned
@@ -163,7 +187,10 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
         </ToggleButtonGroup>
       </Box>
       <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-        <Typography onClick={() => handleContractActivityChange('active')}>
+        <Typography
+          sx={{ cursor: 'pointer' }}
+          onClick={() => handleContractActivityChange('active')}
+        >
           Active Contracts
           <ArrowRight
             sx={{
@@ -172,14 +199,20 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
             }}
           />
         </Typography>
-        <Collapse sx={{ my: '.5em', width: '100%' }} in={contractActivity === 'active'}>
-          <Box sx={{ display: 'flex', p: '2px' }}>
+        <Collapse
+          sx={{ maxHeight: '40%', my: '.5em', width: '100%' }}
+          in={contractActivity === 'active'}
+        >
+          <Box sx={{ display: 'flex', flexDirection: 'column', p: '2px', height: '100%', overflow: 'auto', }}>
             {contracts.map((contract) => (
               <ContractItem key={contract.id} contract={contract} />
             ))}
           </Box>
         </Collapse>
-        <Typography onClick={() => handleContractActivityChange('history')}>
+        <Typography
+          sx={{ cursor: 'pointer' }}
+          onClick={() => handleContractActivityChange('history')}
+        >
           Contract History
           <ArrowRight
             sx={{
@@ -189,8 +222,11 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
             }}
           />
         </Typography>
-        <Collapse sx={{ my: '.5em', width: '100%' }} in={contractActivity === 'history'}>
-          <Box sx={{ display: 'flex', p: '2px' }}>
+        <Collapse
+          sx={{ maxHeight: '40%', my: '.5em', width: '100%' }}
+          in={contractActivity === 'history'}
+        >
+          <Box sx={{ display: 'flex', flexDirection: 'column', p: '2px' }}>
             {contracts.map((contract) => (
               <ContractItem key={contract.id} contract={contract} />
             ))}
