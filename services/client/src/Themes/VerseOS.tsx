@@ -210,7 +210,23 @@ export const verseOSTheme = createTheme({
             borderRight: '3px solid',
             borderColor: 'rgb(24,252,252)',
             borderRadius: '5px',
-            backgroundColor: 'rgb(14,49,141)',
+            background: 'linear-gradient(45deg, rgba(8,22,80) 30%, rgba(24,65,180) 90%)',
+            textShadow: '0 4px 8px rgba(255,255,255,.2), 0 2px 3px rgba(0,0,0,.8)',
+            fontWeight: 'bold',
+            boxShadow: '0 4px 8px rgba(0,0,0,.7), 0 8px 16px rgba(0,0,0,.4)',
+            transition: 'border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+            '&:hover': {
+              background: 'linear-gradient(45deg, rgba(0,1,19) 30%, rgba(0,30,100) 90%)',
+              borderColor: 'rgba(14,35,141)',
+              transform: 'translateY(2px)',
+              boxShadow: '0 6px 12px rgba(0,0,0,.6), 0 12px 24px rgba(0,0,0,.3)',
+            },
+            '&:active': {
+              background:
+                'linear-gradient(45deg, rgba(14,35,141) 40%, rgba(33,150,243) 80%)',
+              borderColor: 'rgba(0,15,80)',
+              boxShadow: 'inset 0 2px 4px rgba(0,0,0,.5)',
+            },
             '&.Mui-disabled': {
               borderColor: 'rgb(6,86,145)',
               backgroundColor: 'rgb(0,30,100)',

@@ -49,8 +49,6 @@ export const MiniPlayerCard: React.FC<MiniPlayerCardProps> = (props) => {
   }, []);
   const open = popperOpen && Boolean(anchorEl);
   const selectedUserImage = user?.Settings?.userPageImage;
-  console.log('user:', user);
-  console.log('Selected User Image:', selectedUserImage);
   const getUserBackground = React.useCallback(() => {
     const backgroundOption = userBackgroundOptions.find(
       (option) => option.value === selectedUserImage,
@@ -71,7 +69,7 @@ export const MiniPlayerCard: React.FC<MiniPlayerCardProps> = (props) => {
         placement="bottom-start"
         onMouseEnter={handlePopperMouseEnter}
         onMouseLeave={handlePopperMouseLeave}
-        sx={{ zIndex: 100 }}
+        sx={{ zIndex: 'tooltip' }}
       >
         <Box
           sx={{

@@ -12,6 +12,7 @@ import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { DesktopController } from './DesktopController';
+import { Logger } from '@Utils/Logger';
 
 type DesktopBodyProps = {
   /** @prop {IContract} contract - The contract to display information for */
@@ -79,6 +80,7 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
   userBid,
 }) => {
   // HOOKS
+  Logger.info('Contract Body Bid', userBid);
   const scrollRef = useHorizontalAdvancedScroll();
   return (
     <Box

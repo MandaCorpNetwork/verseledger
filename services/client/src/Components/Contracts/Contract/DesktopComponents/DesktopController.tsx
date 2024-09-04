@@ -1,6 +1,7 @@
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { Button, Typography } from '@mui/material';
 import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBids/ContractBid';
+import { POPUP_COUNTER_OFFER_BID } from '@Popups/Contracts/ContractBids/CounterOffer';
 import { POPUP_EDIT_CONTRACT } from '@Popups/Contracts/EditContract/EditContract';
 import { POPUP_SUBMIT_RATING } from '@Popups/Ratings/SubmitRating';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
@@ -472,6 +473,15 @@ export const DesktopController: React.FC<DesktopControllerProps> = ({
   const handleResubmitBid = React.useCallback(() => {
     dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
   }, [userBid, dispatch]);
+
+  /**
+   * @function handleOpenOffer - Handles Opening the Offer Popup
+   * @see {@link POPUP_COUNTER_OFFER_BID}
+   */
+  const handleOpenOffer = React.useCallback(() => {
+    if (!userBid) return;
+    dispatch(openPopup(POPUP_COUNTER_OFFER_BID, { bidId: userBid.id, contract }));
+  }, [dispatch, userBid, contract]);
   return (
     <ControlPanelBox
       data-testid="ContractPage-Bottom-Left__Controller_Wrapper"
@@ -542,30 +552,48 @@ export const DesktopController: React.FC<DesktopControllerProps> = ({
           Cancel
         </Button>
       )}
-      {!isOwned && userBid?.status === 'INVITED' && (
-        <Button
-          data-testid="ContractPage-ContractController__AcceptInvite_Button"
-          variant="outlined"
-          color="success"
-          size="small"
-          fullWidth
-          onClick={handleAcceptInvite}
-        >
-          Accept Invite
-        </Button>
-      )}
-      {!isOwned && userBid?.status === 'INVITED' && (
-        <Button
-          data-testid="ContractPage-ContractController__DeclineInvite_Button"
-          variant="outlined"
-          color="error"
-          size="small"
-          fullWidth
-          onClick={handleDeclineInvite}
-        >
-          Decline Invite
-        </Button>
-      )}
+      {!isOwned &&
+        userBid?.status === 'INVITED' &&
+        userBid?.amount === contract.defaultPay && (
+          <Button
+            data-testid="ContractPage-ContractController__AcceptInvite_Button"
+            variant="outlined"
+            color="success"
+            size="small"
+            fullWidth
+            onClick={handleAcceptInvite}
+          >
+            Accept Invite
+          </Button>
+        )}
+      {!isOwned &&
+        userBid?.status === 'INVITED' &&
+        userBid?.amount === contract.defaultPay && (
+          <Button
+            data-testid="ContractPage-ContractController__DeclineInvite_Button"
+            variant="outlined"
+            color="error"
+            size="small"
+            fullWidth
+            onClick={handleDeclineInvite}
+          >
+            Decline Invite
+          </Button>
+        )}
+      {!isOwned &&
+        userBid?.status === 'INVITED' &&
+        userBid?.amount !== contract.defaultPay && (
+          <Button
+            data-testid="ContractPage-ContractController__DeclineInvite_Button"
+            variant="outlined"
+            color="warning"
+            size="small"
+            fullWidth
+            onClick={handleOpenOffer}
+          >
+            Open Offer
+          </Button>
+        )}
       {!isOwned && userBid?.status === 'PENDING' && (
         <Button
           data-testid="ContractPage-ContractController__CancelBid_Button"

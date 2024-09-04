@@ -8,9 +8,9 @@ import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
+import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -19,15 +19,20 @@ import { useSoundEffect } from '@/AudioManager';
 export const POPUP_COUNTER_OFFER_BID = 'counterOfferBid';
 
 export type CounterOfferBidProps = {
-  bid: IContractBid;
+  bidId: string;
   contract: IContract;
 };
 
-export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract }) => {
+export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bidId, contract }) => {
+  const bid = contract.Bids?.find((bid) => bid.id === bidId);
   const { playSound } = useSoundEffect();
   const [counterAmount, setCounterAmount] = React.useState<number | null>(null);
   const dispatch = useAppDispatch();
 
+  const ownerView = bid?.status === 'PENDING';
+
+  Logger.info('Counter Offer', bid);
+  Logger.info('Counter Offer', contract);
   const handlePayChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = event.target;
@@ -44,53 +49,55 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
 
   const handlePayClear = () => {
     playSound('toggleOff');
-    setCounterAmount(null);
+    setCounterAmount(currentOffer);
+  };
+
+  const handleAcceptOffer = (contractId: string, bidId: string) => {
+    const updatedBid = { status: 'ACCEPTED' as const };
+    dispatch(
+      updateBid({ contractId: contractId, bidId: bidId, bidData: updatedBid }),
+    ).then((res) => {
+      if (updateBid.fulfilled.match(res)) {
+        enqueueSnackbar('Bid Accepted', { variant: 'success' });
+        playSound('success');
+        dispatch(closePopup(POPUP_COUNTER_OFFER_BID));
+      } else {
+        enqueueSnackbar('Error Accepting Bid', { variant: 'error' });
+        playSound('error');
+      }
+    });
+  };
+
+  const handleCounterOffer = (contractId: string, bidId: string, amount: number) => {
+    const updatedBid = { amount: amount };
+    dispatch(
+      updateBid({ contractId: contractId, bidId: bidId, bidData: updatedBid }),
+    ).then((res) => {
+      if (updateBid.fulfilled.match(res)) {
+        enqueueSnackbar('Bid Counter Offer Sent', { variant: 'success' });
+        playSound('send');
+        dispatch(closePopup(POPUP_COUNTER_OFFER_BID));
+      } else {
+        enqueueSnackbar('Error Sending Counter Offer', { variant: 'error' });
+        playSound('error');
+      }
+    });
   };
 
   const handleSubmit = React.useCallback(() => {
-    const handleAcceptOffer = (contractId: string, bidId: string) => {
-      const updatedBid = { status: 'ACCEPTED' as const };
-      dispatch(
-        updateBid({ contractId: contractId, bidId: bidId, bidData: updatedBid }),
-      ).then((res) => {
-        if (updateBid.fulfilled.match(res)) {
-          enqueueSnackbar('Bid Accepted', { variant: 'success' });
-          playSound('success');
-          dispatch(closePopup(POPUP_COUNTER_OFFER_BID));
-        } else {
-          enqueueSnackbar('Error Accepting Bid', { variant: 'error' });
-          playSound('error');
-        }
-      });
-    };
-
-    const handleCounterOffer = (contractId: string, bidId: string, amount: number) => {
-      const updatedBid = { amount: amount };
-      dispatch(
-        updateBid({ contractId: contractId, bidId: bidId, bidData: updatedBid }),
-      ).then((res) => {
-        if (updateBid.fulfilled.match(res)) {
-          enqueueSnackbar('Bid Counter Offer Sent', { variant: 'default' });
-          playSound('send');
-          dispatch(closePopup(POPUP_COUNTER_OFFER_BID));
-        } else {
-          enqueueSnackbar('Error Sending Counter Offer', { variant: 'error' });
-          playSound('error');
-        }
-      });
-    };
-
+    if (!bid) return enqueueSnackbar('Bid Not Found', { variant: 'error' });
     if (counterAmount !== null) {
-      handleCounterOffer(contract.id, bid.id, counterAmount);
+      handleCounterOffer(contract?.id, bid.id, counterAmount);
     } else {
-      handleAcceptOffer(contract.id, bid.id);
+      handleAcceptOffer(contract?.id, bid.id);
     }
-  }, [counterAmount, contract.id, bid.id]);
+  }, [counterAmount, contract, bid]);
 
   const handleRejectOffer = () => {
+    if (!bid) return enqueueSnackbar('Bid Not Found', { variant: 'error' });
     const updatedBid = { status: 'REJECTED' as const };
     dispatch(
-      updateBid({ contractId: contract.id, bidId: bid.id, bidData: updatedBid }),
+      updateBid({ contractId: contract?.id, bidId: bid.id, bidData: updatedBid }),
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
         enqueueSnackbar('Bid Rejected', { variant: 'warning' });
@@ -105,8 +112,10 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
 
   const submitText = counterAmount !== null ? 'Send Counter' : 'Accept Offer';
 
+  const currentOffer = (bid && bid.amount) ?? contract.defaultPay;
+
   const acceptedContractorsCount =
-    contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').length ?? 0;
+    contract.Bids?.filter((bid) => bid?.status === 'ACCEPTED').length ?? 0;
   return (
     <VLPopup
       name={POPUP_COUNTER_OFFER_BID}
@@ -118,20 +127,25 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
     >
       <Box data-testid="CounterOffer__Container">
         <DigiBox data-testid="CounterOffer__Wrapper" sx={{ p: '.5em', gap: '1em' }}>
-          <UserDisplay data-testid="CounterOffer__User" userid={bid.user_id} />
+          <UserDisplay
+            data-testid="CounterOffer__User"
+            userid={ownerView ? bid?.user_id : contract.owner_id}
+          />
           <DigiDisplay sx={{ p: '.5em' }}>
-            <Typography>Counter Offer</Typography>
+            <Typography>{ownerView ? 'Bid Proposal' : 'Counter Offer'}</Typography>
             <Box sx={{ display: 'flex', mt: '.5em', alignItems: 'center', gap: '.5em' }}>
               <PayDisplay
-                label="Bid Offer"
-                pay={bid.amount}
-                sx={{ maxWidth: '120px', minWidth: '100px' }}
+                label="Current Offer"
+                pay={currentOffer}
+                structure={contract.payStructure as ContractPayStructure}
+                sx={{ maxWidth: '120px', minWidth: '120px' }}
               />
               <PayField
                 label="Counter Offer"
                 value={counterAmount?.toLocaleString() ?? null}
                 onChange={handlePayChange}
                 onClear={handlePayClear}
+                defaultValue={currentOffer.toLocaleString()}
                 structure={contract.payStructure as ContractPayStructure}
                 activeCount={acceptedContractorsCount}
                 sx={{ maxWidth: '160px' }}
@@ -140,7 +154,9 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
           </DigiDisplay>
           <Box sx={{ mx: 'auto' }}>
             <Typography variant="tip" sx={{ px: '.5em' }}>
-              This User has Submitted a Counter Proposal.
+              {ownerView
+                ? 'Contractor has submitted a Bid Proposal'
+                : 'Contract Owner has sent a Counter Offer'}
             </Typography>
           </Box>
         </DigiBox>
