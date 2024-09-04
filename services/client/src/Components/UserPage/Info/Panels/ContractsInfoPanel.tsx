@@ -185,8 +185,10 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
           </ToggleButton>
         </ToggleButtonGroup>
       </Box>
-      <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-        <Box>
+      <Box
+        sx={{ width: '100%', display: 'flex', flexDirection: 'column', maxHeight: '85%' }}
+      >
+        <Box sx={{ maxHeight: '90%' }}>
           <Typography
             sx={{ cursor: 'pointer' }}
             onClick={() => handleContractActivityChange('active')}
@@ -201,7 +203,7 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
             />
           </Typography>
           <Collapse
-            sx={{ maxHeight: '40%', my: '.5em', width: '100%' }}
+            sx={{ maxHeight: '100%', my: '.5em', width: '100%' }}
             in={contractActivity === 'active'}
           >
             <Box
@@ -211,6 +213,18 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
                 p: '2px',
                 height: '100%',
                 overflow: 'auto',
+                '&::-webkit-scrollbar': {
+                  width: '5px',
+                  height: '5px',
+                },
+                '&::-webkit-scrollbar-track': {
+                  background: 'rgb(0,73,130)',
+                  borderRadius: '10px',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  borderRadius: '20px',
+                  background: 'rgb(24,252,252)',
+                },
               }}
             >
               {contracts.map((contract) => (
@@ -219,7 +233,7 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
             </Box>
           </Collapse>
         </Box>
-        <Box>
+        <Box sx={{ maxHeight: '90%' }}>
           <Typography
             sx={{ cursor: 'pointer' }}
             onClick={() => handleContractActivityChange('history')}
@@ -234,10 +248,31 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
             />
           </Typography>
           <Collapse
-            sx={{ maxHeight: '40%', my: '.5em', width: '100%' }}
+            //If still having issue with the content spacing in box lower the collapse maxHeights
+            sx={{ maxHeight: '100%', my: '.5em', width: '100%' }}
             in={contractActivity === 'history'}
           >
-            <Box sx={{ display: 'flex', flexDirection: 'column', p: '2px' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                p: '2px',
+                height: '100%',
+                overflow: 'auto',
+                '&::-webkit-scrollbar': {
+                  width: '5px',
+                  height: '5px',
+                },
+                '&::-webkit-scrollbar-track': {
+                  background: 'rgb(0,73,130)',
+                  borderRadius: '10px',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  borderRadius: '20px',
+                  background: 'rgb(24,252,252)',
+                },
+              }}
+            >
               {contracts.map((contract) => (
                 <ContractItem key={contract.id} contract={contract} />
               ))}
