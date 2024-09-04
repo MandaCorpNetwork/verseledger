@@ -29,12 +29,12 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useSoundEffect } from '@/AudioManager';
-import { ContractInfoPanel } from '@/Components/UserPage/Info/ContractsInfoPanel';
-import { FleetInfoPanel } from '@/Components/UserPage/Info/FleetInfoPanel';
-import { OrderInfoPanel } from '@/Components/UserPage/Info/OrdersInfoPanel';
-import { OrgsInfoPanel } from '@/Components/UserPage/Info/OrgsInfoPanel';
-import { ContractStatsPanel } from '@/Components/UserPage/Stats/ContractStatsPanel';
-import { OrderStatsPanel } from '@/Components/UserPage/Stats/OrderStatsPanel';
+import { ContractInfoPanel } from '@/Components/UserPage/Info/Panels/ContractsInfoPanel';
+import { FleetInfoPanel } from '@/Components/UserPage/Info/Panels/FleetInfoPanel';
+import { OrderInfoPanel } from '@/Components/UserPage/Info/Panels/OrdersInfoPanel';
+import { OrgsInfoPanel } from '@/Components/UserPage/Info/Panels/OrgsInfoPanel';
+import { ContractStatsPanel } from '@/Components/UserPage/Stats/Panels/ContractStatsPanel';
+import { OrderStatsPanel } from '@/Components/UserPage/Stats/Panels/OrderStatsPanel';
 
 /**
  * ### UserPage
@@ -62,7 +62,7 @@ export const UserPage: React.FC = () => {
   /** Gets the URL Query parameter for read only. */
   const { selectedUserId } = useParams();
   const [statsTab, setStatsTab] = React.useState<string>('contracts');
-  const [infoTab, setInfoTab] = React.useState<string>('fleet');
+  const [infoTab, setInfoTab] = React.useState<string>('contracts');
   const [_loading, setLoading] = React.useState<boolean>(true);
   const [_isError, setIsError] = React.useState<boolean>(false);
   // HOOKS
@@ -242,7 +242,7 @@ export const UserPage: React.FC = () => {
                 value={3}
                 readOnly={true}
                 size="medium"
-                sx={{ mt: '1em' }}
+                sx={{ my: '1em' }}
               />
             </Box>
             <DigiDisplay
@@ -313,7 +313,7 @@ export const UserPage: React.FC = () => {
                     variant="overline"
                     sx={{
                       ml: '0.5em',
-                      mt: '0.3em',
+                      my: '0.3em',
                       color: 'grey',
                       textShadow: '0 5px 8px rgba(0,0,0,0.8), 0 2px 4px rgb(0,0,0)',
                     }}
@@ -491,9 +491,10 @@ export const UserPage: React.FC = () => {
             display: 'flex',
             gap: '3em',
             flexDirection: { xs: 'column', md: 'column', lg: 'row' },
-            mt: '2em',
+            my: '2em',
             height: '75%',
             width: '100%',
+            justifyContent: 'space-between',
           }}
         >
           <DigiDisplay
@@ -528,6 +529,7 @@ export const UserPage: React.FC = () => {
                   value="contracts"
                 />
                 <Tab
+                  disabled
                   data-testid="UserPage-Stats-Tablist_OrdersTab"
                   label="Orders"
                   value="orders"
@@ -541,7 +543,7 @@ export const UserPage: React.FC = () => {
           <DigiDisplay
             data-testid="UserPage-BottomRow_UserInfoContainer"
             sx={{
-              flexGrow: 1,
+              width: '60%',
               height: '100%',
               pt: '1em',
               justifyContent: 'flex-start',
@@ -564,16 +566,19 @@ export const UserPage: React.FC = () => {
                 indicatorColor="secondary"
               >
                 <Tab
+                  disabled
                   data-testid="UserPage-Info-Tablist_FleetTab"
                   label="Fleet"
                   value="fleet"
                 />
                 <Tab
+                  disabled
                   data-testid="UserPage-Info-Tablist_OrgsTab"
                   label="Orgs"
                   value="orgs"
                 />
                 <Tab
+                  disabled
                   data-testid="UserPage-Info-Tablist_OrdersTab"
                   label="Orders"
                   value="orders"
@@ -586,7 +591,12 @@ export const UserPage: React.FC = () => {
               </Tabs>
             </ControlPanelBox>
             <Grow data-testid="UserPage-Info-Tab_Display_Wrapper" in={true}>
-              <Box data-testid="UserPage-Tab_Display_Box">{getInfoPanel()}</Box>
+              <Box
+                sx={{ width: '100%', height: '100%', p: '1em' }}
+                data-testid="UserPage-Tab_Display_Box"
+              >
+                {getInfoPanel()}
+              </Box>
             </Grow>
           </DigiDisplay>
         </Box>

@@ -131,7 +131,7 @@ export const SearchTools: React.FC = () => {
   return (
     <Box
       data-testid="ContractManager-ContractList__SearchToolsContainer"
-      sx={{ width: '100%', display: 'flex', flexDirection: 'row', mt: '.5em' }}
+      sx={{ width: '100%', display: 'flex', flexDirection: 'row', my: '.5em' }}
     >
       <Collapse
         data-testid="ContractManager-ContractList-SearchTools__TransformationWrapper"

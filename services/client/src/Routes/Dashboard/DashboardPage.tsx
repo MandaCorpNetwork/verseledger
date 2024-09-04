@@ -90,7 +90,7 @@ export const DashboardPage: React.FC<unknown> = () => {
       >
         <Outlet />
       </Box>
-      <Box sx={{ mt: 'auto', mb: '1%' }}>
+      <Box sx={{ my: 'auto', mb: '1%' }}>
         <AppToolBar selectedApp={currentLocation} setSelectedApp={handleAppChange} />
       </Box>
     </VLViewport>

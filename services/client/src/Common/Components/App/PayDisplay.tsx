@@ -93,7 +93,7 @@ export const PayDisplay: React.FC<PayDisplayProps> = (props) => {
         ml: ml ? ml : '',
         mr: mr ? mr : '',
         mb: mb ? mb : '',
-        mt: mt ? mt : '',
+        my: mt ? mt : '',
         display: 'inline-flex',
       }}
     >

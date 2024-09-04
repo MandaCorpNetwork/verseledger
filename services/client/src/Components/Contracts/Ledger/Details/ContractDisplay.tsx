@@ -291,7 +291,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           sx={{
             display: 'flex',
             flexDirection: 'row',
-            mt: '.5em',
+            my: '.5em',
             width: '100%',
             flexGrow: 1,
             justifyContent: 'space-around',
@@ -456,7 +456,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               px: '.5em',
               width: '100%',
               maxHeight: '50%',
-              mt: '1em',
+              my: '1em',
             }}
           >
             <DigiDisplay
@@ -747,7 +747,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           sx={{
             width: '100%',
             height: '90%',
-            mt: '.5em',
+            my: '.5em',
           }}
         >
           {activeDataPanel(activeDataTab)}
@@ -793,7 +793,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             data-testid="ContractDisplay-ContractTime__PanelWrapper"
             sx={{
               height: '90%',
-              mt: '.5em',
+              my: '.5em',
             }}
           >
             {contractTimePanel(timeTab)}

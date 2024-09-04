@@ -98,7 +98,7 @@ export const Locations: React.FC<{
     <Box
       data-testid="Locations__Container"
       sx={{
-        mt: '2em',
+        my: '2em',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -126,7 +126,7 @@ export const Locations: React.FC<{
           <div>
             <Typography
               variant="tip"
-              sx={{ mb: '.5em', fontSize: '.8em', ml: '.3em', px: '.5em', mt: '.5em' }}
+              sx={{ mb: '.5em', fontSize: '.8em', ml: '.3em', px: '.5em', my: '.5em' }}
             >
               Select End Location
             </Typography>
@@ -140,7 +140,7 @@ export const Locations: React.FC<{
             {formData.isEmergency && <SmallEmergencyOverlay />}
             <Typography
               variant="tip"
-              sx={{ mb: '.5em', fontSize: '.8em', ml: '.3em', px: '.5em', mt: '.5em' }}
+              sx={{ mb: '.5em', fontSize: '.8em', ml: '.3em', px: '.5em', my: '.5em' }}
             >
               Select Other Locations
             </Typography>
@@ -259,7 +259,7 @@ export const Locations: React.FC<{
                 justifyContent: 'center',
                 alignItems: 'center',
                 width: '100%',
-                mt: '5%',
+                my: '5%',
               }}
             >
               <Typography

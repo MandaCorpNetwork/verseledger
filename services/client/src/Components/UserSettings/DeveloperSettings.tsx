@@ -40,7 +40,7 @@ export const DeveloperSettings: React.FC<DeveloperSettingsProps> = ({ onClose })
       >
         View API Docs
       </Button>
-      <Typography sx={{ mt: '1em' }}>Api Tokens</Typography>
+      <Typography sx={{ my: '1em' }}>Api Tokens</Typography>
       <GlassBox sx={{ maxHeight: '25em', maxWidth: '45em', overflow: 'auto' }}>
         <Table>
           <TableBody>

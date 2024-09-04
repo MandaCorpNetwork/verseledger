@@ -64,7 +64,7 @@ export const FeedbackIntro: React.FC = () => {
         <Typography
           align="center"
           sx={{
-            mt: '2em',
+            my: '2em',
             fontWeight: 'bold',
             color: 'info.main',
             textShadow: '0 0 10px #000',

@@ -31,7 +31,7 @@ const IconButtonWithDivider: React.FC<IconButtonWithDividerProps> = ({
     <Divider
       orientation="vertical"
       flexItem
-      sx={{ height: '24px', mt: 'auto', mb: 'auto', mx: '1em' }}
+      sx={{ height: '24px', my: 'auto', mb: 'auto', mx: '1em' }}
       color="#065691"
     />
   </>

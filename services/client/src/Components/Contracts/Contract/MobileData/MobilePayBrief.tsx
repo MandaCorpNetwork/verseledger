@@ -53,7 +53,7 @@ export const MobilePayBrief: React.FC<MobilePayBriefProps> = ({ contract }) => {
             flexDirection: 'row',
             gap: '1em',
             mb: '.5em',
-            mt: '.2em',
+            my: '.2em',
           }}
         >
           {contract && (

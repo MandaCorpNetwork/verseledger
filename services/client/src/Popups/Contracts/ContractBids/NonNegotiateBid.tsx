@@ -175,7 +175,7 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
                 cursor: 'default',
                 alignItems: 'center',
                 fontSize: '.8em',
-                mt: '.5em',
+                my: '.5em',
                 justifyContent: 'center',
               }}
             >
@@ -202,7 +202,7 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
                 cursor: 'default',
                 alignItems: 'center',
                 fontSize: '.8em',
-                mt: '.5em',
+                my: '.5em',
               }}
             >
               Active Contractors:&nbsp;

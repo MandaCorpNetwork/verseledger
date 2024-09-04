@@ -99,7 +99,7 @@ export const SmallSearchTools: React.FC<SmallSearchToolsProps> = ({ isOpen }) =>
         align="center"
         variant="h6"
         sx={{
-          mt: '.5em',
+          my: '.5em',
           textShadow: '0 0 5px rgba(14,252,252,.5), 0 0 2px rgba(0,1,19)',
         }}
       >

@@ -136,7 +136,7 @@ export const TitleBox: React.FC<TitleBoxProps> = ({
         sx={{
           display: 'flex',
           flexDirection: 'row',
-          mt: { xs: '.5em', md: '1em', lg: '2em' },
+          my: { xs: '.5em', md: '1em', lg: '2em' },
           width: '100%',
           justifyContent: 'space-between',
           px: { xs: '0', md: '2%', lg: '5%' },

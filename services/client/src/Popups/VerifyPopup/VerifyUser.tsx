@@ -72,7 +72,7 @@ export const VerifyUserPopup: React.FC = () => {
       {popupState === 'createToken' && (
         <FormControl sx={{ width: '100%' }}>
           <TextField
-            sx={{ mt: '1em' }}
+            sx={{ my: '1em' }}
             fullWidth
             variant="outlined"
             error={error != ''}
@@ -85,7 +85,7 @@ export const VerifyUserPopup: React.FC = () => {
           />
           <Button
             disabled={rsiHandleInput.trim() == ''}
-            sx={{ mt: '2em' }}
+            sx={{ my: '2em' }}
             variant="popupButton"
             onClick={createToken}
           >
@@ -95,7 +95,7 @@ export const VerifyUserPopup: React.FC = () => {
       )}
       {popupState === 'validate' && verificationInfo != null && (
         <FormControl sx={{ width: '100%' }}>
-          <Box display="flex" sx={{ mt: '1em' }}>
+          <Box display="flex" sx={{ my: '1em' }}>
             <Avatar
               sx={{ m: 'auto', ml: '0.5em', mr: '0.5em' }}
               src={verificationInfo.pfp}
@@ -111,7 +111,7 @@ export const VerifyUserPopup: React.FC = () => {
           <Button
             sx={{
               color: 'red',
-              mt: '0.5em',
+              my: '0.5em',
             }}
             variant="outlined"
             onClick={() => {
@@ -123,7 +123,7 @@ export const VerifyUserPopup: React.FC = () => {
           >
             Not You? Change RSI Handle
           </Button>
-          <Typography sx={{ mt: '1em' }}>
+          <Typography sx={{ my: '1em' }}>
             Please add the following code to your{' '}
             <Link
               sx={{ color: 'text.secondary' }}
@@ -143,7 +143,7 @@ export const VerifyUserPopup: React.FC = () => {
             This code will only be valid for 5 minutes.
           </Typography>
           <Button
-            sx={{ mt: '1em' }}
+            sx={{ my: '1em' }}
             variant="popupButton"
             onClick={() => {
               setPopupState('checking');

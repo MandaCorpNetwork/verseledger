@@ -47,7 +47,7 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({
     <Box
       data-testid="ContractPage__Pay&Briefing&Location_Tablet_Wrapper"
       sx={{
-        mt: '1.5em',
+        my: '1.5em',
         display: 'flex',
         flexDirection: 'row',
         width: '100%',
@@ -115,7 +115,7 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({
         </DigiDisplay>
         <DigiDisplay
           data-testid="ContractPage-Pay&Briefing__Briefing_Tablet_Wrapper"
-          sx={{ mt: '2em', px: '1em', py: '.5em' }}
+          sx={{ my: '2em', px: '1em', py: '.5em' }}
         >
           <Typography
             data-testid="ContractPage-Pay&Briefing-Briefing"

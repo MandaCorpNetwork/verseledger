@@ -300,7 +300,7 @@ export const ContractDetails: React.FC<{
               playSound('clickMain');
             }}
             fullWidth
-            sx={{ mt: 2, mb: '1em', maxWidth: '300px' }}
+            sx={{ my: 2, mb: '1em', maxWidth: '300px' }}
           />
           <Box
             data-testid="EmergencyButton-Wrapper"
