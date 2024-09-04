@@ -17,7 +17,7 @@ import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructur
 import { User } from '@V1/models/user/user.model';
 import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
 import { IdUtil } from '@/utils/IdUtil';
-import { NonAttribute } from 'sequelize';
+import { CreationOptional, NonAttribute } from 'sequelize';
 import { Organization } from '@V1/models/organization/organization.model';
 import { OwnerType } from '@/utils/OwnerType';
 import { Location } from '@V1/models/location/location.model';
@@ -81,14 +81,14 @@ export class Contract
   implements Omit<IContract, 'Locations' | 'Bids'>
 {
   @Column({ type: DataType.VIRTUAL })
-  get __type(): 'Contract' {
+  get __type(): CreationOptional<'Contract'> {
     return 'Contract';
   }
 
   @PrimaryKey
   @Default(IdUtil.generateContractID)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare id: string;
+  declare id: CreationOptional<string>;
 
   @Column({ type: DataType.STRING(32) })
   declare title: string;
@@ -177,23 +177,23 @@ export class Contract
       'CANCELED',
     ),
   })
-  declare status: IContractStatus;
+  declare status: CreationOptional<IContractStatus>;
 
   @BelongsTo(() => User, { foreignKey: 'owner_user_id', targetKey: 'id' })
-  declare Owner: Awaited<User>;
+  declare Owner: CreationOptional<Awaited<User>>;
 
   @HasMany(() => ContractBid, 'contract_id')
-  declare Bids: Awaited<ContractBid>[];
+  declare Bids: CreationOptional<Awaited<ContractBid>[]>;
 
   @HasMany(() => UserRating, 'contract_id')
-  declare Ratings: Awaited<UserRating>[];
+  declare Ratings: CreationOptional<Awaited<UserRating>[]>;
 
   @BelongsToMany(() => Location, {
     through: () => ContractLocation,
     uniqueKey: 'contract_id',
   })
-  declare Locations: Awaited<Location>[];
+  declare Locations: CreationOptional<Awaited<Location>[]>;
 
-  declare createdAt: Date;
-  declare updatedAt: Date;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
 }

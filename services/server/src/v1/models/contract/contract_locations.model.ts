@@ -8,11 +8,19 @@ import {
 import { IdUtil } from '@/utils/IdUtil';
 import { Contract } from './contract.model';
 import { Location } from '../location/location.model';
+import {
+  CreationOptional,
+  InferAttributes,
+  InferCreationAttributes,
+} from 'sequelize';
 
 @Table({ tableName: 'contract_locations', timestamps: true })
-export class ContractLocation extends Model {
+export class ContractLocation extends Model<
+  InferAttributes<ContractLocation>,
+  InferCreationAttributes<ContractLocation>
+> {
   @Column({ type: DataType.VIRTUAL })
-  get __type(): 'ContractLocation' {
+  get __type(): CreationOptional<'ContractLocation'> {
     return 'ContractLocation';
   }
 

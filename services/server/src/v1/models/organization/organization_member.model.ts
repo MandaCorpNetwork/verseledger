@@ -11,17 +11,25 @@ import {
 import { User } from '@V1/models/user/user.model';
 import { Organization } from '@V1/models/organization/organization.model';
 import { IdUtil } from '@/utils/IdUtil';
+import {
+  CreationOptional,
+  InferAttributes,
+  InferCreationAttributes,
+} from 'sequelize';
 
 @Table({ tableName: 'organization_members', timestamps: true })
-export class OrganizationMember extends Model {
+export class OrganizationMember extends Model<
+  InferAttributes<OrganizationMember>,
+  InferCreationAttributes<OrganizationMember>
+> {
   @Column({ type: DataType.VIRTUAL })
-  get __type(): 'OrganizationMember' {
+  get __type(): CreationOptional<'OrganizationMember'> {
     return 'OrganizationMember';
   }
   @PrimaryKey
   @Default(IdUtil.generateMembershipID)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare id: string;
+  declare id: CreationOptional<string>;
 
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare user_id: Awaited<User['id']>;
@@ -33,8 +41,8 @@ export class OrganizationMember extends Model {
   declare role: string;
 
   @BelongsTo(() => User, { foreignKey: 'user_id', targetKey: 'id' })
-  declare User: Awaited<User>;
+  declare User: CreationOptional<Awaited<User>>;
 
   @BelongsTo(() => Organization, { foreignKey: 'org_id', targetKey: 'id' })
-  declare Org: Awaited<Organization>;
+  declare Org: CreationOptional<Awaited<Organization>>;
 }

@@ -26,7 +26,8 @@ export class NotificationService {
         where: { user_id: userId, read: false },
         attributes: [[fn('COUNT', col('id')), 'unread']],
       });
-      return notifications[0].dataValues.unread;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return (notifications[0].dataValues as any).unread;
     } catch (e) {
       Logger.error(e);
       return 0;

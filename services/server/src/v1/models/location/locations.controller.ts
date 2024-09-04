@@ -125,7 +125,8 @@ export class LocationController extends BaseHttpController {
         QT: entry[12] == 'TRUE',
       });
     }
-    Location.bulkCreate(entries);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Location.bulkCreate(entries as any);
     return entries;
     //return data;
   }

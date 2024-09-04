@@ -13,6 +13,11 @@ import {
 import { User } from '@V1/models/user/user.model';
 import { OrganizationMember } from './organization_member.model';
 import { IdUtil } from '@/utils/IdUtil';
+import {
+  CreationOptional,
+  InferAttributes,
+  InferCreationAttributes,
+} from 'sequelize';
 
 @Scopes(() => ({
   members: {
@@ -20,15 +25,18 @@ import { IdUtil } from '@/utils/IdUtil';
   },
 }))
 @Table({ tableName: 'organizations', timestamps: true })
-export class Organization extends Model {
+export class Organization extends Model<
+  InferAttributes<Organization>,
+  InferCreationAttributes<Organization>
+> {
   @Column({ type: DataType.VIRTUAL })
-  get __type(): 'Organization' {
+  get __type(): CreationOptional<'Organization'> {
     return 'Organization';
   }
   @PrimaryKey
   @Default(IdUtil.generateOrgID)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare id: string;
+  declare id: CreationOptional<string>;
 
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare owner_id: Awaited<User['id']>;
@@ -46,8 +54,8 @@ export class Organization extends Model {
   declare rsi_handle: string;
 
   @BelongsTo(() => User, { foreignKey: 'owner_id', targetKey: 'id' })
-  declare Owner: Awaited<User>;
+  declare Owner: CreationOptional<Awaited<User>>;
 
   @HasMany(() => OrganizationMember, 'org_id')
-  declare Members: Awaited<OrganizationMember>[];
+  declare Members: CreationOptional<Awaited<OrganizationMember>[]>;
 }

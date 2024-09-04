@@ -15,6 +15,7 @@ import { IdUtil } from '@/utils/IdUtil';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { UserRating } from '@V1/models/user_ratings/user_ratings.model';
 import { UserSettings } from '../user_settings/user_settings.model';
+import { CreationOptional } from 'sequelize';
 @DefaultScope(() => ({
   attributes: {
     exclude: ['discord_id'],
@@ -50,24 +51,24 @@ import { UserSettings } from '../user_settings/user_settings.model';
 @Table({ tableName: 'users', timestamps: true })
 export class User extends Model implements IUser {
   @Column({ type: DataType.VIRTUAL })
-  get __type(): 'User' {
+  get __type(): CreationOptional<'User'> {
     return 'User';
   }
   @PrimaryKey
   @Default(IdUtil.generateUserID)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare readonly id: string;
+  declare readonly id: CreationOptional<string>;
 
   @Column({ type: DataType.STRING(20) })
-  declare discord_id: string | null;
+  declare discord_id: CreationOptional<string | null>;
 
   @Default(IdUtil.generateSystemID)
   @Column({ type: DataType.STRING(32) })
-  declare handle: string;
+  declare handle: CreationOptional<string>;
 
   @Default('Unverified User')
   @Column({ type: DataType.STRING(32) })
-  declare displayName: string;
+  declare displayName: CreationOptional<string>;
 
   @Default(
     'https://cdn.robertsspaceindustries.com/static/spectrum/images/member-avatar-default.jpg',
@@ -77,23 +78,23 @@ export class User extends Model implements IUser {
 
   @Default(false)
   @Column({ type: DataType.BOOLEAN() })
-  declare verified: boolean;
+  declare verified: CreationOptional<boolean>;
 
   @HasMany(() => Contract, 'owner_user_id')
-  declare PostedContracts: Awaited<Contract>[];
+  declare PostedContracts: CreationOptional<Awaited<Contract>[]>;
 
   @HasMany(() => ContractBid, 'user_id')
-  declare PostedBids: Awaited<ContractBid>[];
+  declare PostedBids: CreationOptional<Awaited<ContractBid>[]>;
 
   @HasMany(() => UserRating, 'submitter_id')
-  declare SubmittedRatings: Awaited<UserRating>[];
+  declare SubmittedRatings: CreationOptional<Awaited<UserRating>[]>;
 
   @HasMany(() => UserRating, 'reciever_id')
-  declare ReceivedRatings: Awaited<UserRating>[];
+  declare ReceivedRatings: CreationOptional<Awaited<UserRating>[]>;
 
   @HasMany(() => UserSettings, 'user_id')
-  declare Settings: Awaited<UserSettings[]>;
+  declare Settings: CreationOptional<Awaited<UserSettings[]>>;
 
-  declare readonly createdAt: Date;
-  declare readonly updatedAt: Date;
+  declare readonly createdAt: CreationOptional<Date>;
+  declare readonly updatedAt: CreationOptional<Date>;
 }
