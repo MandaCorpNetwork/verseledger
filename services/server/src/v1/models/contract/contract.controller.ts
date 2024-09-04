@@ -415,7 +415,6 @@ export class ContractController extends BaseHttpController {
           break;
         }
         case 'EXPIRED': {
-          if (isContractOwner) throw new UnauthorizedError();
           if (bid.status === 'REJECTED') throw new UnauthorizedError();
           break;
         }

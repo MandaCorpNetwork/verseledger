@@ -5,6 +5,7 @@ import { IPaginatedDataSlice } from 'vl-shared/src/schemas/IPaginatedData';
 
 import { updateBid } from '../Bids/Actions/updateBid';
 import { fetchContracts } from './actions/fetch/fetchContracts';
+import { postContractInvite } from './actions/post/postContractInvite';
 import { updateContract } from './actions/post/updateContract';
 
 const contractsReducer = createSlice({
@@ -57,7 +58,10 @@ const contractsReducer = createSlice({
       .addCase(updateContract.fulfilled, (_state, action) => {
         const updatedContract = action.payload;
         if (updatedContract) {
-          _state.contracts[updatedContract.id] = updatedContract;
+          _state.contracts[updatedContract.id] = {
+            ..._state.contracts[updatedContract.id],
+            ...updatedContract,
+          };
         } else {
           Logger.warn('Payload Data is undefined or empty');
         }
@@ -68,9 +72,28 @@ const contractsReducer = createSlice({
           const contract = _state.contracts[updatedBid.contract_id];
           if (contract.Bids) {
             const bidIndex = contract.Bids.findIndex((bid) => bid.id === updatedBid.id);
-            contract.Bids[bidIndex] = updatedBid;
+            contract.Bids[bidIndex] = {
+              ...contract.Bids[bidIndex],
+              ...updatedBid,
+            };
           } else {
             Logger.warn('Payload Data is undefined or empty');
+          }
+        } else {
+          Logger.warn('Payload Data is undefined or empty');
+        }
+      })
+      .addCase(postContractInvite.fulfilled, (_state, action) => {
+        const newBid = action.payload;
+        if (newBid) {
+          const contract = _state.contracts[newBid.contract_id];
+          if (contract) {
+            if (!contract.Bids) {
+              contract.Bids = [];
+            }
+            contract.Bids.push(newBid);
+          } else {
+            Logger.warn('Contract not found');
           }
         } else {
           Logger.warn('Payload Data is undefined or empty');
