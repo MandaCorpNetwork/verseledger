@@ -466,10 +466,6 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
    * @see {@link POPUP_SUBMIT_CONTRACT_BID}
    */
   const handleResubmitBid = React.useCallback(() => {
-    if (!userBid) {
-      enqueueSnackbar(`Bid doesn't Exist`, { variant: 'error' });
-      playSound('error');
-    }
     dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
   }, [userBid, dispatch]);
   return (
@@ -677,7 +673,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           </Typography>
         </>
       )}
-      {!isOwned && userBid?.status === null && (
+      {!isOwned && !userBid && contract.status === 'BIDDING' && (
         <Button
           data-testid="ContractPage-ContractController__SubmitBid_Button"
           variant="contained"

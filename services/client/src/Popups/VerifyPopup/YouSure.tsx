@@ -58,7 +58,7 @@ export const YouSurePopup: React.FC<YouSurePopupProps> = (props) => {
         <Typography variant="subtitle1" align="center" sx={{ color: 'info.main' }}>
           {subjectText}?
         </Typography>
-        <Typography variant="tip" align="center" sx={{ color: 'info.main' }}>
+        <Typography variant="tip" align="center" sx={{ color: 'info.main', px: '1em' }}>
           {bodyText}
         </Typography>
       </Box>
