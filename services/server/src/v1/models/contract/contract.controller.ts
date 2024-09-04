@@ -444,9 +444,9 @@ export class ContractController extends BaseHttpController {
       const status = newBid.status ?? bid.status;
       if (status === 'ACCEPTED') throw new UnauthorizedError();
     }
-    if (newStatus) bid.set('status', newBid.status);
+    if (newStatus && newBid.status) bid.set('status', newBid.status);
 
-    if (newAmount) {
+    if (newAmount && newBid.amount != null) {
       bid.set('amount', newBid.amount);
       if (isContractOwner) {
         bid.set('status', 'INVITED');

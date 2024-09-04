@@ -7,13 +7,21 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { IdUtil } from '@/utils/IdUtil';
+import {
+  CreationOptional,
+  InferAttributes,
+  InferCreationAttributes,
+} from 'sequelize';
 
 @Table({ tableName: 'api_tokens', timestamps: true })
-export class ApiToken extends Model {
+export class ApiToken extends Model<
+  InferAttributes<ApiToken>,
+  InferCreationAttributes<ApiToken>
+> {
   @PrimaryKey
   @Default(IdUtil.generateSystemID)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare id: number;
+  declare id: CreationOptional<string>;
 
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare user_id: string;
@@ -27,8 +35,8 @@ export class ApiToken extends Model {
 
   @Default('USER TOKEN')
   @Column({ type: DataType.STRING(32) })
-  declare name: string;
+  declare name: CreationOptional<string>;
 
   @Column({ type: DataType.DATE })
-  declare expiresAt: Date;
+  declare expiresAt: CreationOptional<Date>;
 }

@@ -7,12 +7,20 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { IdUtil } from '@/utils/IdUtil';
+import {
+  CreationOptional,
+  InferAttributes,
+  InferCreationAttributes,
+} from 'sequelize';
 @Table({ tableName: 'user_validation', timestamps: true })
-export class UserValidation extends Model {
+export class UserValidation extends Model<
+  InferAttributes<UserValidation>,
+  InferCreationAttributes<UserValidation>
+> {
   @PrimaryKey
   @Default(IdUtil.generateSystemID)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare readonly id: string;
+  declare readonly id: CreationOptional<string>;
 
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare user_id: string;
@@ -25,7 +33,7 @@ export class UserValidation extends Model {
 
   @Default(() => new Date(Date.now() + 1000 * 60 * 10))
   @Column({ type: DataType.DATE })
-  declare readonly expiresAt: Date;
-  declare readonly createdAt: Date;
-  declare readonly updatedAt: Date;
+  declare readonly expiresAt: CreationOptional<Date>;
+  declare readonly createdAt: CreationOptional<Date>;
+  declare readonly updatedAt: CreationOptional<Date>;
 }
