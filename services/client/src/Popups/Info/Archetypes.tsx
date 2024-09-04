@@ -1,9 +1,9 @@
 import {
-  FleetIcon,
-  LogisticsIcon,
-  RRRIcon,
-  SalvageIcon,
-  SecurityIcon,
+  Fleet,
+  Logistics,
+  RRR,
+  Salvage,
+  Security,
 } from '@Common/Definitions/CustomIcons';
 import { Explore, Factory, LocalHospital, VisibilityOff } from '@mui/icons-material';
 import { Box, Divider, Typography } from '@mui/material';
@@ -19,7 +19,7 @@ export const POPUP_ARCHETYPE_INFO = 'archetypeInfo';
 const archetypes = [
   {
     archetype: 'Logistics',
-    archetypeIcon: <LogisticsIcon color="secondary" fontSize="large" />,
+    archetypeIcon: <Logistics color="secondary" fontSize="large" />,
     description: 'This Archetype covers moving things about the Verse.',
     subTypes: [
       {
@@ -63,7 +63,7 @@ const archetypes = [
   },
   {
     archetype: 'Security',
-    archetypeIcon: <SecurityIcon color="secondary" fontSize="large" />,
+    archetypeIcon: <Security color="secondary" fontSize="large" />,
     description: 'This Archetype covers Combat Gameplay',
     subTypes: [
       {
@@ -100,7 +100,7 @@ const archetypes = [
   },
   {
     archetype: 'Salvage',
-    archetypeIcon: <SalvageIcon color="secondary" fontSize="large" />,
+    archetypeIcon: <Salvage color="secondary" fontSize="large" />,
     description: 'This Archetype covers Salvaging Gameplay.',
     subTypes: [
       {
@@ -150,7 +150,7 @@ const archetypes = [
   },
   {
     archetype: 'RRR',
-    archetypeIcon: <RRRIcon color="secondary" fontSize="large" />,
+    archetypeIcon: <RRR color="secondary" fontSize="large" />,
     description: 'This Archetype covers ',
     subTypes: [
       {
@@ -175,7 +175,7 @@ const archetypes = [
   },
   {
     archetype: 'Fleet',
-    archetypeIcon: <FleetIcon color="secondary" fontSize="large" />,
+    archetypeIcon: <Fleet color="secondary" fontSize="large" />,
     description: 'This Archetype covers ',
     subTypes: [
       {

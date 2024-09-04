@@ -21,11 +21,11 @@ export const DigiBox = styled(Box)(({ theme }) => ({
     bottom: 0,
     right: 0,
     left: 0,
-    background: 'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
+    background: 'linear-gradient(135deg, rgba(14,49,141,.8) 0%, rgba(8,22,80,0.8) 100%)',
     opacity: 0.6,
     backdropFilter: 'blur(10px)',
     zIndex: -1,
-    backgroundImage: 'linear-gradient(transparent 75%, rgba(14,49,252,0.25) 5%)',
+    backgroundImage: 'linear-gradient(transparent 45%, rgba(14,49,252,0.35) 5%)',
     backgroundSize: '100% 2px',
   },
   '&::-webkit-scrollbar': {

@@ -1,11 +1,13 @@
-import { Explore, Factory, LocalHospital, VisibilityOff } from '@mui/icons-material';
-
 import {
-  FleetIcon,
-  LogisticsIcon,
-  RRRIcon,
-  SalvageIcon,
-  SecurityIcon,
+  Exploration,
+  Fleet,
+  Industry,
+  Logistics,
+  Medical,
+  Proxy,
+  RRR,
+  Salvage,
+  Security,
 } from '../CustomIcons';
 
 export const contractArchetypes = (
@@ -14,7 +16,7 @@ export const contractArchetypes = (
 ) => [
   {
     archetype: 'Logistics',
-    archetypeIcon: <LogisticsIcon fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <Logistics fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Transport',
@@ -32,7 +34,7 @@ export const contractArchetypes = (
   },
   {
     archetype: 'Medical',
-    archetypeIcon: <LocalHospital fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <Medical fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Trauma',
@@ -46,7 +48,7 @@ export const contractArchetypes = (
   },
   {
     archetype: 'Security',
-    archetypeIcon: <SecurityIcon fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <Security fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Escort',
@@ -72,7 +74,7 @@ export const contractArchetypes = (
   },
   {
     archetype: 'Salvage',
-    archetypeIcon: <SalvageIcon fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <Salvage fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Collection',
@@ -86,7 +88,7 @@ export const contractArchetypes = (
   },
   {
     archetype: 'Industry',
-    archetypeIcon: <Factory fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <Industry fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Mining',
@@ -108,7 +110,7 @@ export const contractArchetypes = (
   },
   {
     archetype: 'RRR',
-    archetypeIcon: <RRRIcon fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <RRR fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Refuel',
@@ -126,7 +128,7 @@ export const contractArchetypes = (
   },
   {
     archetype: 'Fleet',
-    archetypeIcon: <FleetIcon fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <Fleet fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Crewman',
@@ -140,7 +142,7 @@ export const contractArchetypes = (
   },
   {
     archetype: 'Exploration',
-    archetypeIcon: <Explore fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <Exploration fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Locate',
@@ -154,7 +156,7 @@ export const contractArchetypes = (
   },
   {
     archetype: 'Proxy',
-    archetypeIcon: <VisibilityOff fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <Proxy fontSize={size} sx={{ color: color }} />,
     subTypes: [
       {
         label: 'Middleman',

@@ -2,21 +2,21 @@ import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { SideControlPanel } from '@Common/Components/Collapse/SideControlPanel';
 import {
-  FleetIcon,
-  LogisticsIcon,
-  RRRIcon,
-  SalvageIcon,
-  SecurityIcon,
+  Exploration,
+  Fleet,
+  Industry,
+  Logistics,
+  Medical,
+  Proxy,
+  RRR,
+  Salvage,
+  Security,
 } from '@Common/Definitions/CustomIcons';
 import {
   AddCircle,
   EditNote,
-  Explore,
-  Factory,
   KeyboardDoubleArrowRight,
-  LocalHospital,
   Search,
-  VisibilityOff,
 } from '@mui/icons-material';
 import { Box, Grow, IconButton, Slide, Tooltip } from '@mui/material';
 import { POPUP_CREATE_CONTRACT } from '@Popups/Contracts/CreateContract/CreateContract';
@@ -177,15 +177,19 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
    * @prop {string} value - The value of the archetype
    */
   const archetypeIcon = [
-    { title: 'Logistics', icon: <LogisticsIcon fontSize="large" />, value: 'Logistics' },
-    { title: 'Medical', icon: <LocalHospital fontSize="large" />, value: 'Medical' },
-    { title: 'Security', icon: <SecurityIcon fontSize="large" />, value: 'Security' },
-    { title: 'Salvage', icon: <SalvageIcon fontSize="large" />, value: 'Salvage' },
-    { title: 'Industry', icon: <Factory fontSize="large" />, value: 'Industry' },
-    { title: 'Rearm Refuel Repair', icon: <RRRIcon fontSize="large" />, value: 'RRR' },
-    { title: 'Fleet', icon: <FleetIcon fontSize="large" />, value: 'Fleet' },
-    { title: 'Exploration', icon: <Explore fontSize="large" />, value: 'Exploration' },
-    { title: 'Proxy', icon: <VisibilityOff fontSize="large" />, value: 'Proxy' },
+    { title: 'Logistics', icon: <Logistics fontSize="large" />, value: 'Logistics' },
+    { title: 'Medical', icon: <Medical fontSize="large" />, value: 'Medical' },
+    { title: 'Security', icon: <Security fontSize="large" />, value: 'Security' },
+    { title: 'Salvage', icon: <Salvage fontSize="large" />, value: 'Salvage' },
+    { title: 'Industry', icon: <Industry fontSize="large" />, value: 'Industry' },
+    { title: 'Rearm Refuel Repair', icon: <RRR fontSize="large" />, value: 'RRR' },
+    { title: 'Fleet', icon: <Fleet fontSize="large" />, value: 'Fleet' },
+    {
+      title: 'Exploration',
+      icon: <Exploration fontSize="large" />,
+      value: 'Exploration',
+    },
+    { title: 'Proxy', icon: <Proxy fontSize="large" />, value: 'Proxy' },
   ];
   /**
    * @function currentFilterValues() - Defines the current filter values from the URL query parameters for the Subtypes to properly check which Archetypes are selected
@@ -210,7 +214,14 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   };
 
   return (
-    <VLViewport data-testid="ContractLedger__PageContainer">
+    <VLViewport
+      data-testid="ContractLedger__PageContainer"
+      sx={{
+        '&:after': {
+          backgroundImage: `url(https://media.starcitizen.tools/c/c1/MandVBar.jpg)`,
+        },
+      }}
+    >
       <Box
         data-testid="ContractLedger__LedgerWrapper"
         sx={{
@@ -372,7 +383,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
                         sx={{
                           color: currentFilterValues.includes(icon.value)
                             ? 'secondary.main'
-                            : 'primary.main',
+                            : 'primary.light',
                         }}
                       >
                         {icon.icon}

@@ -22,7 +22,6 @@ export const GlassDisplay = styled(Box)(({ theme }) => ({
     left: 0,
     background: 'linear-gradient(135deg, rgba(14,49,141,.5) 0%, rgba(8,22,80,0.5) 100%)',
     opacity: 0.6,
-    backdropFilter: 'blur(10px)',
   },
   '&::-webkit-scrollbar': {
     width: '5px',

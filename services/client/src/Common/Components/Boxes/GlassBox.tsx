@@ -8,7 +8,7 @@ const GlassBox = styled(Box)(({ theme }) => ({
   borderColor: theme.palette.secondary.main,
   height: '100%',
   background: 'rgba(0,30,100,0.2)',
-  backdropFilter: 'blur(20px)',
+  backdropFilter: 'blur(10px)',
   padding: '.5em',
   '&::-webkit-scrollbar': {
     width: '5px',

@@ -61,6 +61,9 @@ export const DashboardPage: React.FC<unknown> = () => {
         alignItems: 'center',
         justifyContent: 'center',
         p: '1em',
+        '&:after': {
+          backgroundImage: `url(https://files.otakustudy.com/wp-content/uploads/2020/07/18150855/SC-Aeroview-Hangar-01.jpg)`,
+        },
       }}
     >
       <Box

@@ -8,7 +8,7 @@ export const SideControlPanel = styled(Collapse)(({ theme }) => ({
   borderBottom: '2px solid',
   borderColor: theme.palette.secondary.main,
   boxShadow: '0 2px 10px 4px rgba(24,252,252,0.25)',
-  backgroundImage: 'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
+  backgroundImage: 'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
   '&:before': {
     content: '""',
     position: 'absolute',
@@ -22,7 +22,7 @@ export const SideControlPanel = styled(Collapse)(({ theme }) => ({
     opacity: 0.5,
   },
   '&:hover': {
-    backgroundImage: 'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
+    backgroundImage: 'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
     borderColor: theme.palette.secondary.light,
   },
   transition: 'all 0.5s',

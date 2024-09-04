@@ -4,7 +4,7 @@ import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { UserViewport } from '@Common/Components/Boxes/UserViewport';
-import { SecurityIcon } from '@Common/Definitions/CustomIcons';
+import { Security } from '@Common/Definitions/CustomIcons';
 import { userBackgroundOptions } from '@Common/Definitions/Users/UserBackgrounds';
 import { Mail, Place } from '@mui/icons-material';
 import {
@@ -345,7 +345,7 @@ export const UserPage: React.FC = () => {
                   title="Invite to Crew"
                 >
                   <IconButton>
-                    <SecurityIcon data-testid="UserPage-PlayerData_CrewInvitationButton"></SecurityIcon>
+                    <Security data-testid="UserPage-PlayerData_CrewInvitationButton"></Security>
                   </IconButton>
                 </Tooltip>
               </Box>
@@ -439,7 +439,7 @@ export const UserPage: React.FC = () => {
                     data-testid="UserPage-ShipDisplay_ShipButton"
                     onClick={() => {}}
                   >
-                    <SecurityIcon fontSize="large" />
+                    <Security fontSize="large" />
                   </IconButton>
                 </Tooltip>
                 <Typography
