@@ -6,7 +6,8 @@ import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { Box, Divider, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
-import { useAppDispatch } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { postContractBid } from '@Redux/Slices/Contracts/actions/post/postContractBid';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
@@ -45,11 +46,25 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
   const acceptedContractorsCount =
     contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').length ?? 0;
 
+  const currentUser = useAppSelector(selectCurrentUser);
+
   const maxLimit = 100 - acceptedContractorsCount;
 
   //ToDo: Update this to figure out a way to navigate to pending on contract manager
   const handlePostBid = React.useCallback(
     (contractId: string) => {
+      const existingBid = contract.Bids?.find((bid) => bid.user_id === currentUser?.id);
+      if (existingBid) {
+        const updatedBid = { status: 'PENDING' as const };
+        dispatch(
+          updateBid({
+            contractId: contractId,
+            bidId: existingBid.id,
+            bidData: updatedBid,
+          }),
+        );
+        return;
+      }
       dispatch(postContractBid(contractId)).then((res) => {
         if (postContractBid.fulfilled.match(res)) {
           if (location.pathname == '/personal/ledger/*') {
