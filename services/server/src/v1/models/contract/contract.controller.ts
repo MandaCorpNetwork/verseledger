@@ -419,11 +419,24 @@ export class ContractController extends BaseHttpController {
           if (bid.status === 'REJECTED') throw new UnauthorizedError();
           break;
         }
-        default:
-        case 'INVITED':
         case 'PENDING': {
-          throw new UnauthorizedError();
+          if (isContractOwner) throw new UnauthorizedError();
+          if (bid.status !== 'EXPIRED' && bid.status !== 'DECLINED')
+            throw new UnauthorizedError();
+          break;
         }
+        case 'INVITED': {
+          if (!isContractOwner) throw new UnauthorizedError();
+          if (
+            bid.status !== 'PENDING' &&
+            bid.status !== 'EXPIRED' &&
+            bid.status !== 'REJECTED'
+          )
+            throw new UnauthorizedError();
+          break;
+        }
+        default:
+          break;
       }
     }
     if (newAmount) {
