@@ -89,12 +89,13 @@ export const ContractManagerCard: React.FC<ContractManagerCardProps> = ({
           alignItems: 'flex-end',
           ml: 'auto',
           height: '100%',
+          justifyContent: 'space-between',
         }}
       >
         <UserChip
           user_id={contract.owner_id}
           size="small"
-          sx={{ mb: 'auto', mx: 'auto', maxWidth: { xs: '100px', md: '150px' } }}
+          sx={{ mx: 'auto', maxWidth: { xs: '100px', md: '150px' } }}
         />
         <Box sx={{ width: { xs: '120px', md: '150px' } }}>
           <PayInput

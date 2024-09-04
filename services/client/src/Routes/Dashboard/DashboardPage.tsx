@@ -1,14 +1,15 @@
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { Box } from '@mui/material';
+import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { useSoundEffect } from '@/AudioManager';
 import { AppToolBar } from '@/Components/Personal/AppToolBar';
 
-const prefix = '/ledger/personal';
+const prefix = '/dashboard';
 
-export const PersonalLedgerPage: React.FC<unknown> = () => {
+export const DashboardPage: React.FC<unknown> = () => {
   const { playSound } = useSoundEffect();
   const location = useLocation();
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ export const PersonalLedgerPage: React.FC<unknown> = () => {
         return 'Overview';
     }
   }, [location.pathname]);
+  Logger.info('Selected App', currentLocation);
 
   const handleAppChange = React.useCallback(
     (iconKey: string) => {

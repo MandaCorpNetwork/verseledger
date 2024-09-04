@@ -38,20 +38,15 @@ export const Home: React.FC<unknown> = () => {
             ml: '.5em',
           }}
         >
-          <HomeNavButtonMobile title="Contract Ledger" to="/ledger/contract" />
+          <HomeNavButtonMobile title="Contract Ledger" to="/ledger/contracts" />
           <HomeNavButtonMobile
             title="Verse Market"
             inDev={dev}
             to="/verse-market"
             wip={true}
           />
-          <HomeNavButtonMobile title="Personal Ledger" to="/ledger/personal" />
-          <HomeNavButtonMobile
-            title="Org Ledger"
-            inDev={dev}
-            to="/ledger/org"
-            wip={true}
-          />
+          <HomeNavButtonMobile title="Personal Ledger" to="/dashboard" />
+          <HomeNavButtonMobile title="Org Ledger" inDev={dev} to="/orgs" wip={true} />
           <HomeNavButtonMobile
             title="Verse News"
             inDev={dev}
@@ -63,7 +58,7 @@ export const Home: React.FC<unknown> = () => {
         <>
           <HomeNavButton
             title="Contract Ledger"
-            to="/ledger/contract"
+            to="/ledger/contracts"
             videoSource={JobsLoop}
           />
           <HomeNavButton
@@ -75,7 +70,7 @@ export const Home: React.FC<unknown> = () => {
           />
           <HomeNavButton
             title="Personal Ledger"
-            to="/ledger/personal"
+            to="/dashboard"
             videoSource={FreelancerLoop}
           />
           <HomeNavButton
@@ -83,7 +78,7 @@ export const Home: React.FC<unknown> = () => {
             inDev={true}
             videoSource={OrgLoop}
             wip={true}
-            to="/ledger/org"
+            to="/orgs"
           />
           <HomeNavButton
             title="Verse News"

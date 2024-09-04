@@ -1,4 +1,4 @@
-import { Avatar, Box, ButtonBase, Rating, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, ButtonBase, Rating, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
@@ -6,6 +6,8 @@ import { selectUserById } from '@Redux/Slices/Users/userSelectors';
 import { memo } from 'react';
 
 import { useSoundEffect } from '@/AudioManager';
+
+import { MiniPlayerCard } from '../App/MiniPlayerCard';
 
 type UserDisplayProps = {
   userid: string;
@@ -35,7 +37,7 @@ const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx }) => {
         ...sx,
       }}
     >
-      <Tooltip title={user?.handle} arrow>
+      <MiniPlayerCard user={user ?? undefined}>
         <ButtonBase
           data-testid="UserDisplay__PlayerDataButton"
           onClick={handlePlayerCardOpen}
@@ -146,7 +148,7 @@ const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx }) => {
             </Typography>
           </Box>
         </ButtonBase>
-      </Tooltip>
+      </MiniPlayerCard>
       {/* <Divider
         variant="middle"
         color="secondary"

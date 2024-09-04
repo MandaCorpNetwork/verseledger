@@ -1,6 +1,7 @@
 //ContractCard is the Contract Displayer Item that is mapped for the contracts pulled from the database. It is displayed in the ContractCardDisplay component.
 //This is a low level amount of information for a contract
 //This Contract passes it's ID to the ContractCardDisplay when clicked and sets itself to selected to display it's full information in the ContractBriefingViewer
+import { MiniPlayerCard } from '@Common/Components/App/MiniPlayerCard';
 import { PayDisplay } from '@Common/Components/App/PayDisplay';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
@@ -131,7 +132,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
             mb: 'auto',
           }}
         >
-          <Tooltip title={user?.handle} arrow>
+          <MiniPlayerCard user={user ?? undefined}>
             <Avatar
               src={user?.pfp}
               sizes="small"
@@ -148,7 +149,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
                 boxShadow: '2px 2px 10px 5px rgba(8,22,80,.7)',
               }}
             />
-          </Tooltip>
+          </MiniPlayerCard>
           <Tooltip title={contract.title}>
             <Typography
               variant="body1"

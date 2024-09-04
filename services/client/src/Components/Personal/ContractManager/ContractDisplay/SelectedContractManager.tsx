@@ -11,7 +11,7 @@ import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHo
 import TabListHolo from '@Common/Components/Tabs/TabListHolo';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
-import { Launch, Link } from '@mui/icons-material';
+import { Link, OpenInFull } from '@mui/icons-material';
 import { Box, IconButton, Tab, Tooltip, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
@@ -63,14 +63,14 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   }, []);
 
   const handleCopyURLCallback = React.useCallback(
-    (contractId: string) => () => handleCopyURL(`/contract?contractID=${contractId}`),
+    (contractId: string) => () => handleCopyURL(`/ledger/contracts/${contractId}`),
     [handleCopyURL],
   );
 
   const handleContractPageNav = React.useCallback(
     (contractId: string) => {
       playSound('navigate');
-      navigate(`/contract?contractID=${contractId}`);
+      navigate(`/ledger/contracts/${contractId}`);
     },
     [navigate],
   );
@@ -232,7 +232,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
             <Link fontSize="medium" />
           </IconButton>
           <IconButton size="small" onClick={handleContractPageNavCallback(contract.id)}>
-            <Launch fontSize="medium" />
+            <OpenInFull fontSize="medium" />
           </IconButton>
         </Box>
         <Box

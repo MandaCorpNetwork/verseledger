@@ -7,12 +7,10 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
-import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { isMobile } from '@Utils/isMobile';
 import { isTablet } from '@Utils/isTablet';
-import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
@@ -57,7 +55,7 @@ import {
 export const ContractPage: React.FC<unknown> = () => {
   // LOCAL STATES
   /** Gets the URL Query Parameter State for Readonly */
-  const [searchParam] = useURLQuery();
+  const { selectedContractId } = useParams();
   /**
    * State defines the current archetype of the contract.
    * @type [string | null, React.Dispatch<React.SetStateAction<string | null>>]
@@ -95,18 +93,15 @@ export const ContractPage: React.FC<unknown> = () => {
   const navigate = useNavigate();
 
   // LOGIC
-  /** @var {string} contractId - The Contract ID from the URL Query Parameter */
-  const contractId = searchParam.get(QueryNames.Contract);
-
   /**
    * useEffect to search the backend for the specified contract
    * @event {string} contractId - The Contract ID from the URL Query Parameter
    * @event {object} dispatch - The Redux Dispatch Function
    */
   React.useEffect(() => {
-    if (contractId) {
+    if (selectedContractId) {
       setLoading(true);
-      dispatch(fetchContracts({ limit: 1, page: 0, contractId: [contractId] }))
+      dispatch(fetchContracts({ limit: 1, page: 0, contractId: [selectedContractId] }))
         .unwrap()
         .then(() => setLoading(false))
         .catch(() => {
@@ -114,10 +109,12 @@ export const ContractPage: React.FC<unknown> = () => {
           setError(true);
         });
     }
-  }, [contractId, dispatch]);
+  }, [selectedContractId, dispatch]);
 
   /** @var {IContract | null} contract - The Contract from the Redux Store */
-  const contract = useAppSelector((root) => selectContract(root, contractId as string));
+  const contract = useAppSelector((root) =>
+    selectContract(root, selectedContractId as string),
+  );
 
   /** @var {boolean} isLoading - The loading state of the contract */
   const isLoading = useAppSelector((state) => state.contracts.isLoading);

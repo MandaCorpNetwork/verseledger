@@ -4,6 +4,7 @@ import { Logger } from '@Utils/Logger';
 import { fetchCheckVerificationCode } from '../Auth/Actions/checkVerificationCode';
 import { fetchCurrentUser } from '../Auth/Actions/fetchCurrentUser';
 import { fetchContracts } from '../Contracts/actions/fetch/fetchContracts';
+import { fetchSearchUserId } from './Actions/fetchUserById';
 const usersReducer = createSlice({
   name: 'users',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -35,6 +36,11 @@ const usersReducer = createSlice({
         if (owner == null) continue;
         _state[owner.id as string] = owner;
       }
+    });
+    builder.addCase(fetchSearchUserId.fulfilled, (_state, action) => {
+      const user = action.payload;
+      const existingUser = _state[user.id] ?? {};
+      _state[user.id] = { ...existingUser, ...user };
     });
   },
 });

@@ -27,8 +27,9 @@ import { ApiOperationGet, ApiPath } from 'swagger-express-ts';
 import { Logger } from '@/utils/Logger';
 import { UserBidsSearchSchema } from 'vl-shared/src/schemas/SearchSchema';
 import { GenericError } from '@V1/errors/GenericError';
-import { ZodError } from 'zod';
+import { z, ZodError } from 'zod';
 import { UserToUserDTOMapper } from './mapping/UserToUserDTO.mapper';
+import { stringArray } from 'vl-shared/src/utils/stringArray';
 
 @ApiPath({
   path: '/v1/users',
@@ -67,8 +68,14 @@ export class UsersController extends BaseHttpController {
     `/:id(${IdUtil.expressRegex(IdPrefix.User)})`,
     TYPES.VerifiedUserMiddleware,
   )
-  public async getUser(@requestParam('id') id: string) {
-    const user = await this.userService.getUser(id);
+  public async getUser(
+    @requestParam('id') id: string,
+    @queryParam('scope') scope?: string[],
+  ) {
+    const scopes = stringArray(z.enum(['profile']))
+      .optional()
+      .parse(scope);
+    const user = await this.userService.getUser(id, scopes);
     if (user == null) return this.notFound();
     return UserToUserDTOMapper.map(user);
   }

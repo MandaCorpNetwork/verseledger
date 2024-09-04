@@ -1,4 +1,4 @@
-import { Navigate, Outlet, RouteObject } from 'react-router-dom';
+import { Outlet, RouteObject } from 'react-router-dom';
 
 import { ContractManagerApp } from '@/Components/Personal/ContractManager/ContractManagerApp';
 import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
@@ -11,10 +11,10 @@ import { VLAppBar } from '../Common/Components/App/AppBar';
 import { APIDocs } from './api-docs/APIDocs';
 import { ContractPage } from './Contract/ContractPage';
 import { ContractLedgerPage } from './ContractLedger/ContractLedgerPage';
+import { DashboardPage } from './Dashboard/DashboardPage';
 import ErrorPage from './ErrorPage';
 import { Home } from './Index/Home/Home';
 import { NotFoundPage } from './NotFound/NotFound';
-import { PersonalLedgerPage } from './PersonalLedger/PersonalLedgerPage';
 import { Sandbox } from './ui-sandbox/SandboxPage';
 import { UserPage } from './User/UserPage';
 import { VerseMarketPage } from './VerseMarket/VerseMarketPage';
@@ -44,21 +44,22 @@ export const routingInfo: RouteObject[] = [
         path: '/api-docs',
         element: <APIDocs />,
       },
+      { path: '/ledger/contracts/:selectedContractId', element: <ContractPage /> },
       {
-        path: '/ledger/contract',
+        path: '/ledger/contracts',
         element: <ContractLedgerPage />,
       },
-      { path: '/contract', element: <ContractPage /> },
-      { path: '/user', element: <UserPage /> },
+      { path: '/user/:selectedUserId', element: <UserPage /> },
       {
-        path: '/ledger/personal',
-        element: <PersonalLedgerPage />,
+        path: '/dashboard',
+        element: <DashboardPage />,
         children: [
           {
             index: true,
-            element: <Navigate to="/ledger/personal/overview" replace={true} />,
+            element: <OverviewApp />,
           },
           {
+            index: true,
             path: 'overview',
             element: <OverviewApp />,
           },

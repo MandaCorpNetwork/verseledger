@@ -25,9 +25,8 @@ import {
   selectUserById,
   selectUserPageImageById,
 } from '@Redux/Slices/Users/userSelectors';
-import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import { useSoundEffect } from '@/AudioManager';
 import { ContractInfoPanel } from '@/Components/UserPage/Info/ContractsInfoPanel';
@@ -61,7 +60,7 @@ import { OrderStatsPanel } from '@/Components/UserPage/Stats/OrderStatsPanel';
 export const UserPage: React.FC = () => {
   //LOCAL STATES
   /** Gets the URL Query parameter for read only. */
-  const [searchParam] = useURLQuery();
+  const { selectedUserId } = useParams();
   const [statsTab, setStatsTab] = React.useState<string>('contracts');
   const [infoTab, setInfoTab] = React.useState<string>('fleet');
   const [_loading, setLoading] = React.useState<boolean>(true);
@@ -70,13 +69,11 @@ export const UserPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
   // LOGIC
-  /** @var {string}selectedUserId - Fetching the User ID from teh Query params. */
-  const selectedUserId = searchParam.get(QueryNames.User);
   /** @function useEffect - Fetching user object by user id from backend. */
   React.useEffect(() => {
     if (selectedUserId) {
       setLoading(true);
-      dispatch(fetchSearchUserId(selectedUserId))
+      dispatch(fetchSearchUserId({ userId: selectedUserId, scope: ['profile'] }))
         .unwrap()
         .then(() => setLoading(false))
         .catch(() => {
