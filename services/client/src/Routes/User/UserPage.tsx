@@ -105,7 +105,7 @@ export const UserPage: React.FC = () => {
       playSound('clickMain');
       setStatsTab(value);
     },
-    [statsTab],
+    [setStatsTab, playSound],
   );
   /**
    * Call back function created for the user stats panel.
@@ -133,7 +133,7 @@ export const UserPage: React.FC = () => {
       playSound('clickMain');
       setInfoTab(value);
     },
-    [infoTab],
+    [setInfoTab, playSound],
   );
   /**
    * Call back function created for the user info panel.
@@ -149,7 +149,7 @@ export const UserPage: React.FC = () => {
       case 'orders':
         return <OrderInfoPanel />;
       case 'contracts':
-        return <ContractInfoPanel />;
+        return <ContractInfoPanel user={selectedUser ?? null} />;
       default:
         return <FleetInfoPanel />;
     }
