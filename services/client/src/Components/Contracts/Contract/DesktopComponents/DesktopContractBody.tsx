@@ -8,11 +8,11 @@ import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHolo';
 import { Box, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
+import { Logger } from '@Utils/Logger';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { DesktopController } from './DesktopController';
-import { Logger } from '@Utils/Logger';
 
 type DesktopBodyProps = {
   /** @prop {IContract} contract - The contract to display information for */
