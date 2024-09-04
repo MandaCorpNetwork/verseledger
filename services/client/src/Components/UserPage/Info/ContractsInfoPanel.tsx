@@ -1,4 +1,3 @@
-import { useSoundEffect } from '@/AudioManager';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { Box } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
@@ -6,9 +5,10 @@ import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContr
 import { fetchUserBids } from '@Redux/Slices/Contracts/actions/fetch/fetchUserBids';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
+
+import { useSoundEffect } from '@/AudioManager';
 
 type ContractInfoPanelProps = {
   user: IUser | null;
