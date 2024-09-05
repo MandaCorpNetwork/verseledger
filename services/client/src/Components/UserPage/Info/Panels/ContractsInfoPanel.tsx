@@ -51,7 +51,6 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
       if (contractOwnership !== value) {
         setContractOwnership(value);
       }
-      console.log(contractOwnership);
     },
     [setContractOwnership, playSound, contractOwnership],
   );
@@ -140,16 +139,16 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        height: '100%',
-        p: '1em',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'flex-start',
         gap: '1em',
-        overflow: 'hidden',
+        p: '1em',
+        height: '85%',
       }}
     >
       <Box sx={{ alignSelf: 'flex-end', display: 'flex' }}>
         <ToggleButtonGroup
+          size="small"
           exclusive
           value={contractOwnership}
           onChange={handleContractOwershipChange}
@@ -186,11 +185,19 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
         </ToggleButtonGroup>
       </Box>
       <Box
-        sx={{ width: '100%', display: 'flex', flexDirection: 'column', maxHeight: '85%' }}
+        sx={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          maxHeight: '70%',
+          overflow: 'hidden',
+        }}
       >
-        <Box sx={{ maxHeight: '90%' }}>
+        <Box sx={{ maxHeight: '70%', display: 'flex', flexDirection: 'column' }}>
           <Typography
-            sx={{ cursor: 'pointer' }}
+            variant="body1"
+            fontWeight={'bold'}
+            sx={{ cursor: 'pointer', display: 'flex' }}
             onClick={() => handleContractActivityChange('active')}
           >
             Active Contracts
@@ -203,39 +210,48 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
             />
           </Typography>
           <Collapse
-            sx={{ maxHeight: '100%', my: '.5em', width: '100%' }}
+            sx={{
+              my: '.5em',
+              width: '100%',
+              zIndex: '50',
+              '&::-webkit-scrollbar': {
+                width: '5px',
+                height: '5px',
+              },
+              '&::-webkit-scrollbar-track': {
+                background: 'rgb(0,73,130)',
+                borderRadius: '10px',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                borderRadius: '20px',
+                background: 'rgb(24,252,252)',
+              },
+              overflow: 'auto',
+            }}
             in={contractActivity === 'active'}
           >
             <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                p: '2px',
-                height: '100%',
-                overflow: 'auto',
-                '&::-webkit-scrollbar': {
-                  width: '5px',
-                  height: '5px',
-                },
-                '&::-webkit-scrollbar-track': {
-                  background: 'rgb(0,73,130)',
-                  borderRadius: '10px',
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  borderRadius: '20px',
-                  background: 'rgb(24,252,252)',
-                },
               }}
             >
               {contracts.map((contract) => (
-                <ContractItem key={contract.id} contract={contract} />
+                <ContractItem
+                  key={contract.id}
+                  contract={contract}
+                  isOwner={contractOwnership === 'owned'}
+                  isActive={contractActivity === 'active'}
+                />
               ))}
             </Box>
           </Collapse>
         </Box>
-        <Box sx={{ maxHeight: '90%' }}>
+        <Box sx={{ maxHeight: '70%', display: 'flex', flexDirection: 'column' }}>
           <Typography
-            sx={{ cursor: 'pointer' }}
+            variant="body1"
+            fontWeight={'bold'}
+            sx={{ cursor: 'pointer', display: 'flex' }}
             onClick={() => handleContractActivityChange('history')}
           >
             Contract History
@@ -248,33 +264,37 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
             />
           </Typography>
           <Collapse
-            //If still having issue with the content spacing in box lower the collapse maxHeights
-            sx={{ maxHeight: '100%', my: '.5em', width: '100%' }}
+            sx={{
+              my: '.5em',
+              width: '100%',
+              zIndex: '50',
+              '&::-webkit-scrollbar': {
+                width: '5px',
+                height: '5px',
+              },
+              '&::-webkit-scrollbar-track': {
+                background: 'rgb(0,73,130)',
+                borderRadius: '10px',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                borderRadius: '20px',
+                background: 'rgb(24,252,252)',
+              },
+            }}
             in={contractActivity === 'history'}
           >
             <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                p: '2px',
-                height: '100%',
-                overflow: 'auto',
-                '&::-webkit-scrollbar': {
-                  width: '5px',
-                  height: '5px',
-                },
-                '&::-webkit-scrollbar-track': {
-                  background: 'rgb(0,73,130)',
-                  borderRadius: '10px',
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  borderRadius: '20px',
-                  background: 'rgb(24,252,252)',
-                },
               }}
             >
               {contracts.map((contract) => (
-                <ContractItem key={contract.id} contract={contract} />
+                <ContractItem
+                  key={contract.id}
+                  contract={contract}
+                  isOwner={contractOwnership === 'owned'}
+                />
               ))}
             </Box>
           </Collapse>
