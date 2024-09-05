@@ -274,22 +274,16 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         {
           const bidParams: IUserBidSearch = {
             page: page - 1,
-            limit: 25,
+            limit: 50,
             status: ['ACCEPTED'],
           };
           handleFetchBids(bidParams).then((contractIds) => {
             const contractParams: IContractSearch = {
               page: 0,
               limit: 25,
+              status: ['BIDDING', 'PENDING', 'INPROGRESS'],
               contractId: contractIds,
             };
-            if (expandedList === 'inProgress') {
-              contractParams.status = ['INPROGRESS'];
-            } else if (expandedList === 'pending') {
-              contractParams.status = ['PENDING'];
-            } else if (expandedList === 'bidding') {
-              contractParams.status = ['BIDDING'];
-            }
             handleFetchContracts(contractParams);
           });
         }
@@ -298,16 +292,10 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         {
           const contractParams: IContractSearch = {
             page: page - 1,
-            limit: 25,
+            limit: 50,
+            status: ['BIDDING', 'PENDING', 'INPROGRESS'],
             ...(userId && { ownerId: [userId] }),
           };
-          if (expandedList === 'inProgress') {
-            contractParams.status = ['INPROGRESS'];
-          } else if (expandedList === 'pending') {
-            contractParams.status = ['PENDING'];
-          } else if (expandedList === 'bidding') {
-            contractParams.status = ['BIDDING'];
-          }
           handleFetchContracts(contractParams);
         }
         break;
@@ -315,20 +303,16 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         {
           const bidParams: IUserBidSearch = {
             page: page - 1,
-            limit: 25,
+            limit: 50,
             status: ['PENDING', 'EXPIRED'],
           };
           handleFetchBids(bidParams).then((contractIds) => {
             const contractParams: IContractSearch = {
               page: 0,
-              limit: 25,
+              limit: 50,
+              status: ['BIDDING', 'PENDING', 'INPROGRESS'],
               contractId: contractIds,
             };
-            if (expandedList === 'pending') {
-              contractParams.status = ['PENDING'];
-            } else if (expandedList === 'bidding') {
-              contractParams.status = ['BIDDING'];
-            }
             handleFetchContracts(contractParams);
           });
         }
@@ -337,63 +321,30 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         {
           const bidParams: IUserBidSearch = {
             page: page - 1,
-            limit: 25,
+            limit: 50,
             status: ['INVITED'],
           };
           handleFetchBids(bidParams).then((contractIds) => {
             const contractParams: IContractSearch = {
               page: 0,
-              limit: 25,
+              limit: 50,
+              status: ['BIDDING', 'PENDING', 'INPROGRESS'],
               contractId: contractIds,
             };
-            if (expandedList === 'inProgress') {
-              contractParams.status = ['INPROGRESS'];
-            } else if (expandedList === 'pending') {
-              contractParams.status = ['PENDING'];
-            } else if (expandedList === 'bidding') {
-              contractParams.status = ['BIDDING'];
-            }
             handleFetchContracts(contractParams);
           });
         }
         break;
       case 'closed':
         {
-          if (expandedList === 'owned' || expandedList === 'canceled') {
-            const contractParams: IContractSearch = {
-              page: page - 1,
-              limit: 25,
-              ...(userId && { ownerId: [userId] }),
-            };
-            if (expandedList === 'owned') {
-              contractParams.status = ['COMPLETED'];
-            } else if (expandedList === 'canceled') {
-              contractParams.status = ['CANCELED'];
-            }
-            dispatch(fetchContracts(contractParams));
-          }
-          if (expandedList === 'employed' || expandedList === 'canceledEmploy') {
-            const bidParams: IUserBidSearch = {
-              page: page - 1,
-              limit: 25,
-              status: ['ACCEPTED'],
-            };
-            handleFetchBids(bidParams).then((contractIds) => {
-              const contractParams: IContractSearch = {
-                page: 0,
-                limit: 25,
-                contractId: contractIds,
-              };
-              if (expandedList === 'employed') {
-                contractParams.status = ['COMPLETED'];
-              } else if (expandedList === 'canceledEmploy') {
-                contractParams.status = ['CANCELED'];
-              }
-              handleFetchContracts(contractParams);
-            });
-          }
+          const contractParams: IContractSearch = {
+            page: page - 1,
+            limit: 50,
+            status: ['COMPLETED'],
+            ...(userId && { ownerId: [userId] }),
+          };
+          dispatch(fetchContracts(contractParams));
         }
-
         break;
       default:
         break;

@@ -1,6 +1,7 @@
 import { Box, Pagination } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
+import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { ContractListDropdown } from './ContractListDropdown';
@@ -29,6 +30,16 @@ export const ContractList: React.FC<ContractListProps> = ({
 }) => {
   const [filters] = useURLQuery();
   const currentTab = (filters.get(QueryNames.ContractManagerTab) as string) ?? 'employed';
+  const renderContractCards = React.useCallback(() => {
+    return contracts.map((contract) => (
+      <ContractManagerCard
+        contract={contract}
+        key={contract.id}
+        setSelectedId={setSelectedId}
+        selectedId={selectedId}
+      />
+    ));
+  }, [contracts]);
   return (
     <Box
       data-testid="ContractManager__ContractListWrapper"
@@ -55,59 +66,51 @@ export const ContractList: React.FC<ContractListProps> = ({
         },
       }}
     >
-      {['employed', 'owned', 'pending', 'offers'].includes(currentTab) && (
-        <>
-          {currentTab !== 'pending' && (
-            <ContractListDropdown
-              label="In Progress"
-              isExpanded={expandedList === 'inProgress'}
-              onExpand={() => setExpandedList('inProgress')}
-            ></ContractListDropdown>
-          )}
-          <ContractListDropdown
-            label="Pending"
-            isExpanded={expandedList === 'pending'}
-            onExpand={() => setExpandedList('pending')}
-          ></ContractListDropdown>
-          <ContractListDropdown
-            label="Bidding"
-            isExpanded={expandedList === 'bidding'}
-            onExpand={() => setExpandedList('bidding')}
-          ></ContractListDropdown>
-        </>
-      )}
-      {currentTab === 'closed' && (
-        <>
-          <ContractListDropdown
-            label="Owned"
-            isExpanded={expandedList === 'owned'}
-            onExpand={() => setExpandedList('owned')}
-          ></ContractListDropdown>
-          <ContractListDropdown
-            label="Employed"
-            isExpanded={expandedList === 'employed'}
-            onExpand={() => setExpandedList('employed')}
-          ></ContractListDropdown>
-          <ContractListDropdown
-            label="Canceled"
-            isExpanded={expandedList === 'canceled'}
-            onExpand={() => setExpandedList('canceled')}
-          ></ContractListDropdown>
-          <ContractListDropdown
-            label="Canceled Employment"
-            isExpanded={expandedList === 'canceledEmploy'}
-            onExpand={() => setExpandedList('canceledEmploy')}
-          ></ContractListDropdown>
-        </>
-      )}
-      {/* {contracts.map((contract) => (
-        <ContractManagerCard
-          contract={contract}
-          key={contract.id}
-          setSelectedId={setSelectedId}
-          selectedId={selectedId}
-        />
-      ))} */}
+      <ContractListDropdown
+        isExpanded={expandedList === 'logistics'}
+        onExpand={() => setExpandedList('logistics')}
+        archetype="Logistics"
+      ></ContractListDropdown>
+      <ContractListDropdown
+        isExpanded={expandedList === 'medical'}
+        onExpand={() => setExpandedList('medical')}
+        archetype="Medical"
+      ></ContractListDropdown>
+      <ContractListDropdown
+        isExpanded={expandedList === 'security'}
+        onExpand={() => setExpandedList('security')}
+        archetype="Security"
+      ></ContractListDropdown>
+      <ContractListDropdown
+        isExpanded={expandedList === 'salvage'}
+        onExpand={() => setExpandedList('salvage')}
+        archetype="Salvage"
+      ></ContractListDropdown>
+      <ContractListDropdown
+        isExpanded={expandedList === 'industry'}
+        onExpand={() => setExpandedList('industry')}
+        archetype="Industry"
+      ></ContractListDropdown>
+      <ContractListDropdown
+        isExpanded={expandedList === 'rrr'}
+        onExpand={() => setExpandedList('rrr')}
+        archetype="RRR"
+      ></ContractListDropdown>
+      <ContractListDropdown
+        isExpanded={expandedList === 'fleet'}
+        onExpand={() => setExpandedList('fleet')}
+        archetype="Fleet"
+      ></ContractListDropdown>
+      <ContractListDropdown
+        isExpanded={expandedList === 'exploration'}
+        onExpand={() => setExpandedList('exploration')}
+        archetype="Exploration"
+      ></ContractListDropdown>
+      <ContractListDropdown
+        isExpanded={expandedList === 'proxy'}
+        onExpand={() => setExpandedList('proxy')}
+        archetype="Proxy"
+      ></ContractListDropdown>
       <Box
         sx={{
           position: 'sticky',
