@@ -181,7 +181,9 @@ export const UserPage: React.FC = () => {
         p: '1em',
         height: 'calc(100vh - 64px)',
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
       <GlassDisplay
@@ -189,7 +191,7 @@ export const UserPage: React.FC = () => {
         sx={{
           p: '2em',
           width: '100%',
-          height: '100%',
+          height: '95%',
           mx: { xs: '0', md: '2em', lg: '5%' },
           backdropFilter: 'blur(5px)',
           justifyContent: 'space-between',
@@ -200,8 +202,8 @@ export const UserPage: React.FC = () => {
           sx={{
             display: 'flex',
             flexDirection: { xs: 'column', md: 'column', lg: 'row' },
-            height: '25%',
             width: '100%',
+            my: '1em',
           }}
         >
           <Box
@@ -256,6 +258,7 @@ export const UserPage: React.FC = () => {
                 mx: '1em',
                 p: '1em',
                 justifyContent: 'space-around',
+                minWidth: '250px',
               }}
             >
               <Box data-testid="UserPage-PlayerData_UsernameContainer">
