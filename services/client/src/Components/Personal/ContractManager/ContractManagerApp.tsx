@@ -61,6 +61,12 @@ export const ContractManagerApp: React.FC<unknown> = () => {
    * @returns {number}
    */
   const [page, setPage] = React.useState(1);
+  /**
+   * State Determins which DropDown list is currently expanded
+   * @default inProgress
+   * @returns {string}
+   */
+  const [expandedList, setExpandedList] = React.useState<string>('inProgress');
   // HOOKS
   const dispatch = useAppDispatch();
   const mobile = isMobile();
@@ -127,6 +133,13 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   const currentUser = useAppSelector(selectCurrentUser);
   /** Determines the id of the Current User if found */
   const userId = currentUser?.id;
+  const handleExpandList = React.useCallback(
+    (value: string) => {
+      if (!value) return;
+      setExpandedList(value);
+    },
+    [setExpandedList],
+  );
   /**
    * Handles the clickEvent on a {@link ContractManagerCard} in the {@link ContractList} to render the Contract in {@link SelectedContractManager}, or navigate to the {@link ContractPage} if a Breakpoint is reached.
    * @param {string} Id - The Id of a Contract.
@@ -268,7 +281,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
             const contractParams: IContractSearch = {
               page: 0,
               limit: 25,
-              status: ['BIDDING', 'INPROGRESS'],
+              status: ['BIDDING', 'PENDING', 'INPROGRESS'],
               contractId: contractIds,
             };
             handleFetchContracts(contractParams);
@@ -280,7 +293,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           const contractParams: IContractSearch = {
             page: page - 1,
             limit: 25,
-            status: ['BIDDING', 'INPROGRESS'],
+            status: ['BIDDING', 'PENDING', 'INPROGRESS'],
             ...(userId && { ownerId: [userId] }),
           };
           handleFetchContracts(contractParams);
@@ -297,7 +310,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
             const contractParams: IContractSearch = {
               page: 0,
               limit: 25,
-              status: ['BIDDING', 'INPROGRESS'],
+              status: ['BIDDING', 'PENDING', 'INPROGRESS'],
               contractId: contractIds,
             };
             handleFetchContracts(contractParams);
@@ -315,7 +328,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
             const contractParams: IContractSearch = {
               page: 0,
               limit: 25,
-              status: ['BIDDING', 'INPROGRESS'],
+              status: ['BIDDING', 'PENDING', 'INPROGRESS'],
               contractId: contractIds,
             };
             handleFetchContracts(contractParams);
@@ -423,6 +436,8 @@ export const ContractManagerApp: React.FC<unknown> = () => {
               <SearchTools />
             </Box>
             <ContractList
+              expandedList={expandedList}
+              setExpandedList={handleExpandList}
               contracts={contracts}
               setSelectedId={handleContractSelect}
               selectedId={selectedId}

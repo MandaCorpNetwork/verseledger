@@ -1,6 +1,9 @@
 import { Box, Pagination } from '@mui/material';
+import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { QueryNames } from '@Utils/QueryNames';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
+import { ContractListDropdown } from './ContractListDropdown';
 import { ContractManagerCard } from './ContractManagerCard';
 
 type ContractListProps = {
@@ -10,6 +13,8 @@ type ContractListProps = {
   page: number;
   setPage: (event: React.ChangeEvent<unknown>, newPage: number) => void;
   pageCount: number;
+  expandedList: string;
+  setExpandedList: (value: string) => void;
 };
 
 export const ContractList: React.FC<ContractListProps> = ({
@@ -19,7 +24,11 @@ export const ContractList: React.FC<ContractListProps> = ({
   page,
   setPage,
   pageCount,
+  expandedList,
+  setExpandedList,
 }) => {
+  const [filters] = useURLQuery();
+  const currentTab = filters.get(QueryNames.ContractManagerTab) as string;
   return (
     <Box
       data-testid="ContractManager__ContractListWrapper"
@@ -45,6 +54,46 @@ export const ContractList: React.FC<ContractListProps> = ({
         },
       }}
     >
+      {['employed', 'owned', 'pending', 'offers'].includes(currentTab) && (
+        <>
+          {currentTab !== 'pending' && (
+            <ContractListDropdown
+              label="In Progress"
+              isExpanded={expandedList === 'inProgress'}
+              onExpand={() => setExpandedList('inProgress')}
+            ></ContractListDropdown>
+          )}
+          <ContractListDropdown
+            label="Pending"
+            isExpanded={expandedList === 'pending'}
+            onExpand={() => setExpandedList('pending')}
+          ></ContractListDropdown>
+          <ContractListDropdown
+            label="Bidding"
+            isExpanded={expandedList === 'bidding'}
+            onExpand={() => setExpandedList('bidding')}
+          ></ContractListDropdown>
+        </>
+      )}
+      {currentTab === 'closed' && (
+        <>
+          <ContractListDropdown
+            label="Owned"
+            isExpanded={expandedList === 'owned'}
+            onExpand={() => setExpandedList('owned')}
+          ></ContractListDropdown>
+          <ContractListDropdown
+            label="Employed"
+            isExpanded={expandedList === 'employed'}
+            onExpand={() => setExpandedList('employed')}
+          ></ContractListDropdown>
+          <ContractListDropdown
+            label="Canceled"
+            isExpanded={expandedList === 'canceled'}
+            onExpand={() => setExpandedList('canceled')}
+          ></ContractListDropdown>
+        </>
+      )}
       {contracts.map((contract) => (
         <ContractManagerCard
           contract={contract}
