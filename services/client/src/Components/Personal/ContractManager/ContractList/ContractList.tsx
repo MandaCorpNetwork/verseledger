@@ -28,7 +28,7 @@ export const ContractList: React.FC<ContractListProps> = ({
   setExpandedList,
 }) => {
   const [filters] = useURLQuery();
-  const currentTab = filters.get(QueryNames.ContractManagerTab) as string;
+  const currentTab = (filters.get(QueryNames.ContractManagerTab) as string) ?? 'employed';
   return (
     <Box
       data-testid="ContractManager__ContractListWrapper"
