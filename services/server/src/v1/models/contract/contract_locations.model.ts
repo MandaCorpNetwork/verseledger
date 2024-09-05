@@ -10,6 +10,7 @@ import { Contract } from './contract.model';
 import { Location } from '../location/location.model';
 import {
   CreationOptional,
+  ForeignKey as ForeignKeyType,
   InferAttributes,
   InferCreationAttributes,
 } from 'sequelize';
@@ -29,9 +30,9 @@ export class ContractLocation extends Model<
 
   @ForeignKey(() => Contract)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare contract_id: string;
+  declare contract_id: ForeignKeyType<string>;
 
   @ForeignKey(() => Location)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare location_id: string;
+  declare location_id: ForeignKeyType<string>;
 }

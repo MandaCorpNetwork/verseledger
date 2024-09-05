@@ -183,7 +183,7 @@ export class ContractController extends BaseHttpController {
     }
 
     const contract = await this.contractService.getContract(contractId);
-    if (contract == null) {
+    if (contract == null || contract.Bids == null) {
       throw nextFunc(new NotFoundError(contractId));
     }
     return this.ok(

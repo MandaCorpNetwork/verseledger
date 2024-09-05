@@ -17,7 +17,21 @@ import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructur
 import { User } from '@V1/models/user/user.model';
 import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
 import { IdUtil } from '@/utils/IdUtil';
-import { CreationOptional, NonAttribute } from 'sequelize';
+import {
+  CreationOptional,
+  ForeignKey as ForeignKeyType,
+  HasManyAddAssociationMixin,
+  HasManyAddAssociationsMixin,
+  HasManyCountAssociationsMixin,
+  HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+  HasManyHasAssociationMixin,
+  HasManyHasAssociationsMixin,
+  HasManyRemoveAssociationMixin,
+  HasManyRemoveAssociationsMixin,
+  HasManySetAssociationsMixin,
+  NonAttribute,
+} from 'sequelize';
 import { Organization } from '@V1/models/organization/organization.model';
 import { OwnerType } from '@/utils/OwnerType';
 import { Location } from '@V1/models/location/location.model';
@@ -127,10 +141,10 @@ export class Contract
   }
 
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare owner_org_id: Awaited<User['id']>;
+  declare owner_org_id?: ForeignKeyType<Awaited<User['id']>>;
 
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare owner_user_id: Awaited<User['id']>;
+  declare owner_user_id?: ForeignKeyType<Awaited<User['id']>>;
 
   @AllowNull
   @Column({ type: DataType.DATE() })
@@ -180,19 +194,57 @@ export class Contract
   declare status: CreationOptional<IContractStatus>;
 
   @BelongsTo(() => User, { foreignKey: 'owner_user_id', targetKey: 'id' })
-  declare Owner: CreationOptional<Awaited<User>>;
+  declare Owner?: NonAttribute<Awaited<User>>;
 
   @HasMany(() => ContractBid, 'contract_id')
-  declare Bids: CreationOptional<Awaited<ContractBid>[]>;
+  declare Bids?: NonAttribute<Awaited<ContractBid>[]>;
+  declare getBids: HasManyGetAssociationsMixin<Awaited<ContractBid>>;
+  declare addBid: HasManyAddAssociationMixin<Awaited<ContractBid>, string>;
+  declare addBids: HasManyAddAssociationsMixin<Awaited<ContractBid>, string>;
+  declare setBids: HasManySetAssociationsMixin<Awaited<ContractBid>, string>;
+  declare removeBid: HasManyRemoveAssociationMixin<
+    Awaited<ContractBid>,
+    string
+  >;
+  declare removeBids: HasManyRemoveAssociationsMixin<
+    Awaited<ContractBid>,
+    string
+  >;
+  declare hasBid: HasManyHasAssociationMixin<Awaited<ContractBid>, string>;
+  declare hasBids: HasManyHasAssociationsMixin<Awaited<ContractBid>, string>;
+  declare countBids: HasManyCountAssociationsMixin;
+  declare createBid: HasManyCreateAssociationMixin<
+    Awaited<ContractBid>,
+    'contract_id'
+  >;
 
   @HasMany(() => UserRating, 'contract_id')
-  declare Ratings: CreationOptional<Awaited<UserRating>[]>;
+  declare Ratings?: NonAttribute<Awaited<UserRating>[]>;
+  declare getRatings: HasManyGetAssociationsMixin<Awaited<UserRating>>;
+  declare addRating: HasManyAddAssociationMixin<Awaited<UserRating>, string>;
+  declare addRatings: HasManyAddAssociationsMixin<Awaited<UserRating>, string>;
+  declare setRatings: HasManySetAssociationsMixin<Awaited<UserRating>, string>;
+  declare removeRating: HasManyRemoveAssociationMixin<
+    Awaited<UserRating>,
+    string
+  >;
+  declare removeRatings: HasManyRemoveAssociationsMixin<
+    Awaited<UserRating>,
+    string
+  >;
+  declare hasRating: HasManyHasAssociationMixin<Awaited<UserRating>, string>;
+  declare hasRatings: HasManyHasAssociationsMixin<Awaited<UserRating>, string>;
+  declare countRatings: HasManyCountAssociationsMixin;
+  declare createRating: HasManyCreateAssociationMixin<
+    Awaited<UserRating>,
+    'contract_id'
+  >;
 
   @BelongsToMany(() => Location, {
     through: () => ContractLocation,
     uniqueKey: 'contract_id',
   })
-  declare Locations: CreationOptional<Awaited<Location>[]>;
+  declare Locations?: NonAttribute<Awaited<Location>[]>;
 
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;

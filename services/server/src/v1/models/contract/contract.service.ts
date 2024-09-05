@@ -93,14 +93,15 @@ export class ContractService {
         'Bids are Closed for this contract',
         'invalid_status',
       );
-    if (contract.Owner.id === userId)
+    if (contract?.Owner?.id === userId)
       throw new BadRequestError(
         'You can not bid on your own contract.',
         'resource_ownership',
       );
-    const isPending = contract.Bids.filter((bid) => bid.status == 'INVITED')
-      .map((bid) => bid.user_id)
-      .includes(userId);
+    const isPending =
+      contract?.Bids?.filter((bid) => bid.status == 'INVITED')
+        ?.map((bid) => bid.user_id)
+        ?.includes(userId) ?? false;
     if (isPending) {
       const bid = await ContractBid.scope('user').findOne({
         where: { user_id: userId, contract_id: contract.id },
@@ -110,14 +111,14 @@ export class ContractService {
       //TODO: Notification
       return newBid;
     }
-    if (contract.Bids.map((bid) => bid.user_id).includes(userId))
+    if (contract?.Bids?.map((bid) => bid.user_id)?.includes(userId))
       throw new BadRequestError(
         'You have already bid on this contract',
         'duplicate_entry',
       );
     if (
       contract.contractorLimit !== 0 &&
-      contract.Bids.length >= contract.contractorLimit
+      (contract?.Bids?.length ?? 0) >= contract.contractorLimit
     )
       throw new BadRequestError(
         'The Contractor Limit has been reached',
@@ -146,24 +147,24 @@ export class ContractService {
 
     amount ??= contract.defaultPay;
 
-    if (contract.Owner.id !== ownerId)
+    if (contract?.Owner?.id !== ownerId)
       throw new BadRequestError(
         'You do not have permission to Invite on this contract',
         'bad_permissions',
       );
-    if (contract.Owner.id === userId)
+    if (contract?.Owner?.id === userId)
       throw new BadRequestError(
         'You can not invite yourself.',
         'resource_ownership',
       );
-    if (contract.Bids.map((bid) => bid.user_id).includes(userId))
+    if (contract?.Bids?.map((bid) => bid.user_id)?.includes(userId))
       throw new BadRequestError(
         'You have already bid on this contract',
         'duplicate_entry',
       );
     if (
       contract.contractorLimit !== 0 &&
-      contract.Bids.length >= contract.contractorLimit
+      (contract?.Bids?.length ?? 0) >= contract.contractorLimit
     )
       throw new BadRequestError(
         'The Contractor Limit has been reached',

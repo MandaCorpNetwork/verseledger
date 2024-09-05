@@ -9,6 +9,7 @@ import {
 import { IdUtil } from '@/utils/IdUtil';
 import {
   CreationOptional,
+  ForeignKey as ForeignKeyType,
   InferAttributes,
   InferCreationAttributes,
 } from 'sequelize';
@@ -24,7 +25,7 @@ export class ApiToken extends Model<
   declare id: CreationOptional<string>;
 
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare user_id: string;
+  declare user_id: ForeignKeyType<string>;
 
   @PrimaryKey
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
