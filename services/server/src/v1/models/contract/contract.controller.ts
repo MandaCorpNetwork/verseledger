@@ -46,6 +46,7 @@ import { ContractToContractDTOMapper } from './mapping/contract.mapper';
 @ApiPath({
   path: '/v1/contracts',
   name: 'Contracts',
+  description: 'Methods related to Contracts',
   security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
 })
 @controller('/v1/contracts')
