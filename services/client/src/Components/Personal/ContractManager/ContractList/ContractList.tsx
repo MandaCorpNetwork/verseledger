@@ -38,6 +38,7 @@ export const ContractList: React.FC<ContractListProps> = ({
         overflow: 'auto',
         alignItems: 'center',
         mb: '5%',
+        px: '.5em',
         height: '100%',
         position: 'relative',
         '&::-webkit-scrollbar': {
@@ -92,16 +93,21 @@ export const ContractList: React.FC<ContractListProps> = ({
             isExpanded={expandedList === 'canceled'}
             onExpand={() => setExpandedList('canceled')}
           ></ContractListDropdown>
+          <ContractListDropdown
+            label="Canceled Employment"
+            isExpanded={expandedList === 'canceledEmploy'}
+            onExpand={() => setExpandedList('canceledEmploy')}
+          ></ContractListDropdown>
         </>
       )}
-      {contracts.map((contract) => (
+      {/* {contracts.map((contract) => (
         <ContractManagerCard
           contract={contract}
           key={contract.id}
           setSelectedId={setSelectedId}
           selectedId={selectedId}
         />
-      ))}
+      ))} */}
       <Box
         sx={{
           position: 'sticky',
