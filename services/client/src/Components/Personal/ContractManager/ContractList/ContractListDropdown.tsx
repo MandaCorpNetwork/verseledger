@@ -1,7 +1,8 @@
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import '@Assets/Css/ripple.scss';
+
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { ArrowRight } from '@mui/icons-material';
-import { Badge, Box, ButtonBase, Collapse, IconButton, Typography } from '@mui/material';
+import { Box, ButtonBase, Collapse, IconButton, Typography } from '@mui/material';
 import { PropsWithChildren } from 'react';
 
 type ContractListDropdownProps = PropsWithChildren<{
@@ -16,29 +17,36 @@ export const ContractListDropdown: React.FC<ContractListDropdownProps> = ({
   onExpand,
   archetype,
 }) => {
-  const archetypeObj = contractArchetypes('text.secondary', 'large').find(
+  const selectedColor = isExpanded ? 'secondary.main' : 'text.secondary';
+  const archetypeObj = contractArchetypes(selectedColor, 'large').find(
     (option) => option.archetype === archetype,
   );
   return (
     <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
       <ButtonBase
+        onClick={onExpand}
+        TouchRippleProps={{ className: 'dark-ripple' }}
         sx={{
           opacity: 1,
-          p: '1.5em',
+          p: '1em',
           width: '90%',
           flexDirection: 'row',
+          borderRadius: '10px',
+          border: '2px solid',
+          borderColor: 'primary.light',
+          background: 'linear-gradient(135deg, rgba(8,22,80,.6), rgba(0,33,100,.6))',
         }}
       >
         <Typography
-          onClick={onExpand}
           variant="h5"
           sx={{
             display: 'flex',
             cursor: 'pointer',
-            color: isExpanded ? 'secondary.main' : 'text.secondary',
+            color: selectedColor,
             fontWeight: 'bold',
             textShadow: '0 0 5px rgba(255,255,255,.3)',
             alignItems: 'center',
+            letterSpacing: '1.5px',
             gap: '1em',
             '&:hover': {
               color: 'text.primary',
@@ -47,25 +55,23 @@ export const ContractListDropdown: React.FC<ContractListDropdownProps> = ({
           }}
         >
           {archetypeObj?.archetypeIcon}
-          {archetype}
+          {archetype === 'RRR' ? 'Rearm Refuel Repair' : archetype}
         </Typography>
-        <Badge color="primary" />
         <IconButton
           sx={{
             ml: 'auto',
           }}
         >
           <ArrowRight
-            color={isExpanded ? 'secondary' : 'inherit'}
             fontSize="large"
             sx={{
               transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
               transition: 'transform 150ms',
+              color: selectedColor,
             }}
           />
         </IconButton>
       </ButtonBase>
-
       <Collapse in={isExpanded}>
         <Box>{children}</Box>
       </Collapse>

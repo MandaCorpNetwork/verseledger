@@ -66,51 +66,62 @@ export const ContractList: React.FC<ContractListProps> = ({
         },
       }}
     >
-      <ContractListDropdown
-        isExpanded={expandedList === 'logistics'}
-        onExpand={() => setExpandedList('logistics')}
-        archetype="Logistics"
-      ></ContractListDropdown>
-      <ContractListDropdown
-        isExpanded={expandedList === 'medical'}
-        onExpand={() => setExpandedList('medical')}
-        archetype="Medical"
-      ></ContractListDropdown>
-      <ContractListDropdown
-        isExpanded={expandedList === 'security'}
-        onExpand={() => setExpandedList('security')}
-        archetype="Security"
-      ></ContractListDropdown>
-      <ContractListDropdown
-        isExpanded={expandedList === 'salvage'}
-        onExpand={() => setExpandedList('salvage')}
-        archetype="Salvage"
-      ></ContractListDropdown>
-      <ContractListDropdown
-        isExpanded={expandedList === 'industry'}
-        onExpand={() => setExpandedList('industry')}
-        archetype="Industry"
-      ></ContractListDropdown>
-      <ContractListDropdown
-        isExpanded={expandedList === 'rrr'}
-        onExpand={() => setExpandedList('rrr')}
-        archetype="RRR"
-      ></ContractListDropdown>
-      <ContractListDropdown
-        isExpanded={expandedList === 'fleet'}
-        onExpand={() => setExpandedList('fleet')}
-        archetype="Fleet"
-      ></ContractListDropdown>
-      <ContractListDropdown
-        isExpanded={expandedList === 'exploration'}
-        onExpand={() => setExpandedList('exploration')}
-        archetype="Exploration"
-      ></ContractListDropdown>
-      <ContractListDropdown
-        isExpanded={expandedList === 'proxy'}
-        onExpand={() => setExpandedList('proxy')}
-        archetype="Proxy"
-      ></ContractListDropdown>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '100%',
+          px: '1em',
+          gap: '1em',
+        }}
+      >
+        <ContractListDropdown
+          isExpanded={expandedList === 'logistics'}
+          onExpand={() => setExpandedList('logistics')}
+          archetype="Logistics"
+        ></ContractListDropdown>
+        <ContractListDropdown
+          isExpanded={expandedList === 'medical'}
+          onExpand={() => setExpandedList('medical')}
+          archetype="Medical"
+        ></ContractListDropdown>
+        <ContractListDropdown
+          isExpanded={expandedList === 'security'}
+          onExpand={() => setExpandedList('security')}
+          archetype="Security"
+        ></ContractListDropdown>
+        <ContractListDropdown
+          isExpanded={expandedList === 'salvage'}
+          onExpand={() => setExpandedList('salvage')}
+          archetype="Salvage"
+        ></ContractListDropdown>
+        <ContractListDropdown
+          isExpanded={expandedList === 'industry'}
+          onExpand={() => setExpandedList('industry')}
+          archetype="Industry"
+        ></ContractListDropdown>
+        <ContractListDropdown
+          isExpanded={expandedList === 'rrr'}
+          onExpand={() => setExpandedList('rrr')}
+          archetype="RRR"
+        ></ContractListDropdown>
+        <ContractListDropdown
+          isExpanded={expandedList === 'fleet'}
+          onExpand={() => setExpandedList('fleet')}
+          archetype="Fleet"
+        ></ContractListDropdown>
+        <ContractListDropdown
+          isExpanded={expandedList === 'exploration'}
+          onExpand={() => setExpandedList('exploration')}
+          archetype="Exploration"
+        ></ContractListDropdown>
+        <ContractListDropdown
+          isExpanded={expandedList === 'proxy'}
+          onExpand={() => setExpandedList('proxy')}
+          archetype="Proxy"
+        ></ContractListDropdown>
+      </Box>
+
       <Box
         sx={{
           position: 'sticky',
