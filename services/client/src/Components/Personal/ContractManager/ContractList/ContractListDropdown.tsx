@@ -9,6 +9,7 @@ type ContractListDropdownProps = PropsWithChildren<{
   onExpand: () => void;
   isExpanded: boolean;
   archetype: string;
+  count: number;
 }>;
 
 export const ContractListDropdown: React.FC<ContractListDropdownProps> = ({
@@ -16,13 +17,21 @@ export const ContractListDropdown: React.FC<ContractListDropdownProps> = ({
   isExpanded,
   onExpand,
   archetype,
+  count,
 }) => {
   const selectedColor = isExpanded ? 'secondary.main' : 'text.secondary';
   const archetypeObj = contractArchetypes(selectedColor, 'large').find(
     (option) => option.archetype === archetype,
   );
   return (
-    <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100%',
+        justifyContent: 'center',
+        flexDirection: 'column',
+      }}
+    >
       <ButtonBase
         onClick={onExpand}
         TouchRippleProps={{ className: 'dark-ripple' }}

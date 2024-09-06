@@ -1,5 +1,7 @@
-import { Box, Pagination } from '@mui/material';
+import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
+import { Box, Pagination, Typography } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -28,18 +30,46 @@ export const ContractList: React.FC<ContractListProps> = ({
   expandedList,
   setExpandedList,
 }) => {
-  const [filters] = useURLQuery();
-  const currentTab = (filters.get(QueryNames.ContractManagerTab) as string) ?? 'employed';
-  const renderContractCards = React.useCallback(() => {
-    return contracts.map((contract) => (
-      <ContractManagerCard
-        contract={contract}
-        key={contract.id}
-        setSelectedId={setSelectedId}
-        selectedId={selectedId}
-      />
-    ));
-  }, [contracts]);
+  const archetypes = contractArchetypes('inherit', 'inherit');
+
+  const renderContractCards = React.useCallback(
+    (archetype: string) => {
+      const selectedArchetype = archetypes.find((a) => a.archetype === archetype);
+      if (!selectedArchetype) {
+        Logger.warn(`Archetype ${archetype} is not an option.`);
+        return {
+          count: 0,
+          content: <Typography>No Contracts To Display</Typography>,
+        };
+      }
+      const subtypeFilter = selectedArchetype.subTypes.map((sub) => sub.value);
+      const filteredContracts = contracts.filter((contract) =>
+        subtypeFilter.includes(contract.subtype),
+      );
+      const content = filteredContracts
+        .sort(
+          (a, b) => subtypeFilter.indexOf(a.subtype) - subtypeFilter.indexOf(b.subtype),
+        )
+        .map((contract) => (
+          <ContractManagerCard
+            contract={contract}
+            key={contract.id}
+            setSelectedId={setSelectedId}
+            selectedId={selectedId}
+          />
+        ));
+      return {
+        count: filteredContracts.length,
+        content:
+          filteredContracts.length === 0 ? (
+            <Typography>No Contracts To Display</Typography>
+          ) : (
+            content
+          ),
+      };
+    },
+    [contracts, archetypes, selectedId, setSelectedId],
+  );
   return (
     <Box
       data-testid="ContractManager__ContractListWrapper"
@@ -75,53 +105,31 @@ export const ContractList: React.FC<ContractListProps> = ({
           gap: '1em',
         }}
       >
-        <ContractListDropdown
-          isExpanded={expandedList === 'logistics'}
-          onExpand={() => setExpandedList('logistics')}
-          archetype="Logistics"
-        ></ContractListDropdown>
-        <ContractListDropdown
-          isExpanded={expandedList === 'medical'}
-          onExpand={() => setExpandedList('medical')}
-          archetype="Medical"
-        ></ContractListDropdown>
-        <ContractListDropdown
-          isExpanded={expandedList === 'security'}
-          onExpand={() => setExpandedList('security')}
-          archetype="Security"
-        ></ContractListDropdown>
-        <ContractListDropdown
-          isExpanded={expandedList === 'salvage'}
-          onExpand={() => setExpandedList('salvage')}
-          archetype="Salvage"
-        ></ContractListDropdown>
-        <ContractListDropdown
-          isExpanded={expandedList === 'industry'}
-          onExpand={() => setExpandedList('industry')}
-          archetype="Industry"
-        ></ContractListDropdown>
-        <ContractListDropdown
-          isExpanded={expandedList === 'rrr'}
-          onExpand={() => setExpandedList('rrr')}
-          archetype="RRR"
-        ></ContractListDropdown>
-        <ContractListDropdown
-          isExpanded={expandedList === 'fleet'}
-          onExpand={() => setExpandedList('fleet')}
-          archetype="Fleet"
-        ></ContractListDropdown>
-        <ContractListDropdown
-          isExpanded={expandedList === 'exploration'}
-          onExpand={() => setExpandedList('exploration')}
-          archetype="Exploration"
-        ></ContractListDropdown>
-        <ContractListDropdown
-          isExpanded={expandedList === 'proxy'}
-          onExpand={() => setExpandedList('proxy')}
-          archetype="Proxy"
-        ></ContractListDropdown>
+        {[
+          'Logistics',
+          'Medical',
+          'Security',
+          'Salvage',
+          'Industry',
+          'RRR',
+          'Fleet',
+          'Exploration',
+          'Proxy',
+        ].map((archetype) => {
+          const { count, content } = renderContractCards(archetype);
+          return (
+            <ContractListDropdown
+              key={archetype}
+              archetype={archetype}
+              isExpanded={expandedList === archetype}
+              onExpand={() => setExpandedList(archetype)}
+              count={count}
+            >
+              {content}
+            </ContractListDropdown>
+          );
+        })}
       </Box>
-
       <Box
         sx={{
           position: 'sticky',
