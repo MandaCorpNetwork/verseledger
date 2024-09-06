@@ -2,7 +2,7 @@ import '@Assets/Css/ripple.scss';
 
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { ArrowRight } from '@mui/icons-material';
-import { Box, ButtonBase, Collapse, IconButton, Typography } from '@mui/material';
+import { Badge, Box, ButtonBase, Collapse, IconButton, Typography } from '@mui/material';
 import { PropsWithChildren } from 'react';
 
 type ContractListDropdownProps = PropsWithChildren<{
@@ -66,11 +66,17 @@ export const ContractListDropdown: React.FC<ContractListDropdownProps> = ({
           {archetypeObj?.archetypeIcon}
           {archetype === 'RRR' ? 'Rearm Refuel Repair' : archetype}
         </Typography>
-        <IconButton
+        <Badge
+          badgeContent={count}
           sx={{
             ml: 'auto',
+            '& .MuiBadge-badge': {
+              backgroundColor: 'grey',
+              color: isExpanded ? 'secondary.main' : 'text.primary',
+            },
           }}
-        >
+        />
+        <IconButton>
           <ArrowRight
             fontSize="large"
             sx={{
@@ -82,7 +88,17 @@ export const ContractListDropdown: React.FC<ContractListDropdownProps> = ({
         </IconButton>
       </ButtonBase>
       <Collapse in={isExpanded}>
-        <Box>{children}</Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            px: '1em',
+            gap: '.5em',
+            py: '.5em',
+          }}
+        >
+          {children}
+        </Box>
       </Collapse>
     </Box>
   );

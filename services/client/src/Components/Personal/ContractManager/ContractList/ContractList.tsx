@@ -1,8 +1,6 @@
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { Box, Pagination, Typography } from '@mui/material';
-import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { Logger } from '@Utils/Logger';
-import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
