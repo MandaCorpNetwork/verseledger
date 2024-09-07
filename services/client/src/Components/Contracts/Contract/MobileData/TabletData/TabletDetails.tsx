@@ -64,9 +64,12 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({
         >
           <Typography
             data-testid="ContractPage-Pay&Briefing-Pay-Tablet__Title"
-            sx={{ fontWeight: 'bold' }}
+            sx={{ fontWeight: 'bold', display: 'inline-flex', alignItems: 'center' }}
           >
             Pay Info
+            <Typography variant="body2" sx={{ ml: '.5em', color: 'info.main' }}>
+              {contract.isBargaining && 'negotiable'}
+            </Typography>
           </Typography>
           {contract && (
             <Box
