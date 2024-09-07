@@ -71,7 +71,7 @@ export const ContractListDropdown: React.FC<ContractListDropdownProps> = ({
             cursor: 'pointer',
             color: selectedColor,
             fontWeight: 'bold',
-            textShadow: '0 0 5px rgba(255,255,255,.3)',
+            textShadow: '0 0 5px rgba(0,0,0,.5)',
             alignItems: 'center',
             letterSpacing: '1.5px',
             gap: '1em',

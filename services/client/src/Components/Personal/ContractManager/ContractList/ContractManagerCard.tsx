@@ -93,7 +93,6 @@ export const ContractManagerCard: React.FC<ContractManagerCardProps> = ({
           sx={{
             color: 'inherit',
             textShadow: 'inherit',
-            fontWeight: 'bold',
           }}
         >
           {contract.title}

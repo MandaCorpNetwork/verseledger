@@ -99,7 +99,6 @@ export const TitleBox: React.FC<TitleBoxProps> = ({
             variant={mobile ? 'h6' : 'h5'}
             noWrap
             sx={{
-              fontWeight: 'bold',
               maxWidth: '80%',
               color: 'text.primary',
               textShadow: '0 0 2px #fff, 0 0 10px #000',

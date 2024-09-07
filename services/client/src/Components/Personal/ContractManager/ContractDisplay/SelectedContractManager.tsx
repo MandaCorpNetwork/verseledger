@@ -206,10 +206,9 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               variant="h4"
               noWrap
               sx={{
-                fontWeight: 'bold',
                 maxWidth: '100%',
                 cursor: 'default',
-                textShadow: '0 0 10px rgba(14,252,252,0.5)',
+                textShadow: '0 2px 8px rgba(0,0,0,0.5)',
               }}
             >
               {memoizedContract.title}
