@@ -4,13 +4,14 @@ import { inject, injectable } from 'inversify';
 import { col, fn } from 'sequelize';
 import { type StompService } from '@V1/services/stomp.service';
 import { Logger } from '@/utils/Logger';
+import { NotificationToContractDTOMapper } from './mapping/NotificationToNotificationDTOMapper';
 
 @injectable()
 export class NotificationService {
   constructor() {
     Logger.init();
   }
-  @inject(TYPES.StompService) private stomp!: StompService;
+  @inject(TYPES.StompService) private socket!: StompService;
 
   public async getNotifications(userId: string, limit = 20) {
     return Notification.findAll({
@@ -34,32 +35,29 @@ export class NotificationService {
     }
   }
 
-  //Temporary Notification Service to create Notifications for Actions until Stomp Service is updated
+  createHyperlink(text: string, url: string) {
+    return `[${text}](${encodeURI(url)})`;
+  }
+
   public async createNotification({
     user_id,
-    text,
-    resource,
+    message,
+    action,
   }: {
     user_id: string;
-    text: string;
-    resource: string;
+    message: string;
+    action?: string;
   }) {
     const notification = await Notification.create({
       user_id,
-      text,
-      //Resource = topic/feature (I.E. "contracts" or "orders")/id/item (I.E. "status" or "bid")/action (I.E. "created" or "updated")
-      resource,
+      message,
+      action,
       read: false,
     });
-    this.publish(`/topic/notifications-${user_id}`, text);
+    this.socket.publish(
+      `/topic/notifications-${user_id}`,
+      NotificationToContractDTOMapper.map(notification),
+    );
     return notification;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public async publish(destination: string, body: Record<any, any> | string) {
-    return this.stomp.client.publish({
-      destination,
-      body: JSON.stringify(body),
-    });
   }
 }

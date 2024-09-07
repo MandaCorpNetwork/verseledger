@@ -1,7 +1,10 @@
 import {
+  AllowNull,
+  BelongsTo,
   Column,
   DataType,
   Default,
+  ForeignKey,
   Model,
   PrimaryKey,
   Table,
@@ -9,9 +12,12 @@ import {
 import { IdUtil } from '@/utils/IdUtil';
 import {
   CreationOptional,
+  ForeignKey as ForeignKeyProp,
   InferAttributes,
   InferCreationAttributes,
+  NonAttribute,
 } from 'sequelize';
+import { User } from '../user/user.model';
 
 @Table({ tableName: 'notifications', timestamps: true })
 export class Notification extends Model<
@@ -27,18 +33,23 @@ export class Notification extends Model<
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare readonly id: CreationOptional<string>;
 
+  @ForeignKey(() => User)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare readonly user_id: string;
+  declare readonly user_id: ForeignKeyProp<string>;
 
   @Default(false)
   @Column({ type: DataType.BOOLEAN() })
   declare read: CreationOptional<boolean>;
 
   @Column({ type: DataType.TEXT() })
-  declare readonly text: string;
+  declare readonly message: string;
 
-  @Column({ type: DataType.TEXT() })
-  declare readonly resource: string;
+  @AllowNull
+  @Column({ type: DataType.STRING(255) })
+  declare readonly action: CreationOptional<string | null>;
+
+  @BelongsTo(() => User)
+  declare readonly User: NonAttribute<Awaited<User>>;
 
   declare readonly createdAt: CreationOptional<Date>;
   declare readonly updatedAt: CreationOptional<Date>;

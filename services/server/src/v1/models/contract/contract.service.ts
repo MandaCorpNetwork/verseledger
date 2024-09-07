@@ -18,11 +18,11 @@ import {
   queryBetween,
   queryIn,
 } from '@/utils/Sequelize/queryIn';
-import { type NotificationService } from '../notifications/notification.service';
 import { ContractBidDTO } from '@V1/models/contract_bid/mapping/ContractBidDTO';
 import { Logger } from '@/utils/Logger';
 import { ContractToContractDTOMapper } from './mapping/contract.mapper';
 import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
+import { StompService } from '@V1/services/stomp.service';
 
 @injectable()
 export class ContractService {
@@ -30,8 +30,8 @@ export class ContractService {
     Logger.init();
   }
 
-  @inject(TYPES.NotificationService)
-  private notifications!: NotificationService;
+  @inject(TYPES.StompService)
+  private socket!: StompService;
   public async getContracts() {
     return Contract.scope(['locations', 'owner', 'bids']).findAll();
   }
@@ -55,7 +55,7 @@ export class ContractService {
       'owner',
       'bids',
     ]).findByPk(newTempContract.id)) as Contract;
-    this.notifications.publish(
+    this.socket.publish(
       '/topic/newContract',
       ContractToContractDTOMapper.map(newContract),
     );
@@ -130,7 +130,7 @@ export class ContractService {
       status: 'PENDING',
       amount,
     });
-    this.notifications.publish('/topic/newBid', new ContractBidDTO(bid));
+    this.socket.publish('/topic/newBid', new ContractBidDTO(bid));
     return bid;
   }
 
@@ -181,7 +181,7 @@ export class ContractService {
       status: 'INVITED',
       amount,
     });
-    this.notifications.publish(
+    this.socket.publish(
       `/topic/notifications/${userId}`,
       `You have been invited to ${contract.title} by ${ownerUser.displayName}`,
     );

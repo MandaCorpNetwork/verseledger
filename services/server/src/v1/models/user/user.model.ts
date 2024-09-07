@@ -16,6 +16,7 @@ import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { UserRating } from '@V1/models/user_ratings/user_ratings.model';
 import { UserSettings } from '../user_settings/user_settings.model';
 import { CreationOptional } from 'sequelize';
+import { Notification } from '../notifications/notification.model';
 @DefaultScope(() => ({
   attributes: {
     exclude: ['discord_id'],
@@ -94,6 +95,9 @@ export class User extends Model implements IUser {
 
   @HasMany(() => UserSettings, 'user_id')
   declare Settings: CreationOptional<Awaited<UserSettings[]>>;
+
+  @HasMany(() => Notification, 'user_id')
+  declare Notifications: CreationOptional<Awaited<Notification[]>>;
 
   declare readonly createdAt: CreationOptional<Date>;
   declare readonly updatedAt: CreationOptional<Date>;
