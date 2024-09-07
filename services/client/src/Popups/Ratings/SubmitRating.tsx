@@ -53,25 +53,28 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
   const options = getOptions();
 
   // Handle adding or updating an option on the dataForm
-  const handleFormDataChange = React.useCallback((updatedData: ICreateUserRatingBody) => {
-    Logger.info(`Updated Data: ${updatedData}`);
-    Logger.info(`Current FormData: ${formData}`);
-    setFormData((prevData) => {
-      if (!prevData) {
-        return [updatedData];
-      }
-      const existingIndex = prevData?.findIndex(
-        (data) => data.reciever_id === updatedData.reciever_id,
-      );
-      if (existingIndex !== -1) {
-        const updatedFormData = [...prevData];
-        updatedFormData[existingIndex] = updatedData;
-        return updatedFormData;
-      } else {
-        return [...prevData, updatedData];
-      }
-    });
-  }, []);
+  const handleFormDataChange = React.useCallback(
+    (updatedData: ICreateUserRatingBody) => {
+      Logger.info(`Updated Data:`, updatedData);
+      Logger.info(`Current FormData:`, formData);
+      setFormData((prevData) => {
+        if (!prevData) {
+          return [updatedData];
+        }
+        const existingIndex = prevData?.findIndex(
+          (data) => data.reciever_id === updatedData.reciever_id,
+        );
+        if (existingIndex !== -1) {
+          const updatedFormData = [...prevData];
+          updatedFormData[existingIndex] = updatedData;
+          return updatedFormData;
+        } else {
+          return [...prevData, updatedData];
+        }
+      });
+    },
+    [setFormData, formData],
+  );
 
   const getTitle = () => {
     if (currentUser) {
@@ -141,7 +144,7 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
       onCancel={handleCancel}
     >
       <FormControl>
-        <GlassBox sx={{ overflow: 'auto' }}>
+        <GlassBox sx={{ overflow: 'auto', gap: '.5em' }}>
           {contract && owner && (
             <>
               <Typography>Contract Owner</Typography>

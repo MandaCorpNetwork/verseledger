@@ -108,12 +108,14 @@ export const verseOSTheme = createTheme({
     },
     subtitle1: {
       fontFamily: 'DigiGraphic',
+      wordSpacing: '2px',
     },
     subtitle2: {
       fontFamily: 'DigiGraphic',
     },
     overline: {
       fontFamily: 'DigiGraphic',
+      wordSpacing: '2px',
     },
     body1: {
       fontFamily: 'Jura',
