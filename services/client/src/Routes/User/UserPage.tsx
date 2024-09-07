@@ -180,6 +180,7 @@ export const UserPage: React.FC = () => {
         backgroundImage: `url(${selectedUserBackground()})`,
         p: '1em',
         height: 'calc(100vh - 64px)',
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -211,7 +212,6 @@ export const UserPage: React.FC = () => {
             sx={{
               display: 'flex',
               flexDirection: 'row',
-              height: '100%',
               width: '35%',
             }}
           >
@@ -224,6 +224,7 @@ export const UserPage: React.FC = () => {
                 justifyContent: 'center',
                 mx: '1em',
                 px: '1em',
+                height: '100%',
               }}
             >
               <Avatar
@@ -245,7 +246,7 @@ export const UserPage: React.FC = () => {
                 value={3}
                 readOnly={true}
                 size="medium"
-                sx={{ my: '1em' }}
+                sx={{ mt: '1em' }}
               />
             </Box>
             <DigiDisplay
@@ -254,7 +255,6 @@ export const UserPage: React.FC = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignContent: 'space-around',
-                height: '100%',
                 mx: '1em',
                 p: '1em',
                 justifyContent: 'space-around',
@@ -493,7 +493,6 @@ export const UserPage: React.FC = () => {
           data-testid="UserPage_BottomRow"
           sx={{
             display: 'flex',
-            gap: '3em',
             flexDirection: { xs: 'column', md: 'column', lg: 'row' },
             height: '70%',
             width: '100%',
@@ -593,14 +592,12 @@ export const UserPage: React.FC = () => {
                 />
               </Tabs>
             </ControlPanelBox>
-            <Grow data-testid="UserPage-Info-Tab_Display_Wrapper" in={true}>
-              <Box
-                sx={{ width: '100%', height: '100%', p: '1em' }}
-                data-testid="UserPage-Tab_Display_Box"
-              >
-                {getInfoPanel()}
-              </Box>
-            </Grow>
+            <Box
+              sx={{ width: '100%', p: '1em', height: '85%' }}
+              data-testid="UserPage-Tab_Display_Box"
+            >
+              {getInfoPanel()}
+            </Box>
           </DigiDisplay>
         </Box>
       </GlassDisplay>

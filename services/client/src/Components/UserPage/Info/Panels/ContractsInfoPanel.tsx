@@ -1,4 +1,4 @@
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { ArrowRight } from '@mui/icons-material';
 import {
   Box,
@@ -134,187 +134,162 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
   const contracts = useAppSelector((state) => selectContractsArray(state));
 
   return (
-    <DigiBox
+    <DigiDisplay
       data-testid="ContractInfo__DigiBox"
       sx={{
         display: 'flex',
-        flexDirection: 'column',
         width: '100%',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
         gap: '1em',
         p: '1em',
         height: '100%',
-        maxHeight: '100%',
-        overflow: 'hidden',
+        overflowY: 'hidden',
       }}
     >
-      <Box sx={{ position: 'fixed' }}>
-        <Box sx={{ alignSelf: 'flex-end', display: 'flex' }}>
-          <ToggleButtonGroup
-            size="small"
-            exclusive
-            value={contractOwnership}
-            onChange={handleContractOwershipChange}
-            sx={{
-              border: '1px solid',
-              borderColor: 'success.dark',
-              boxShadow: '0 0px 10px rgba(24,252,252,0.5)',
-              borderRadius: '5px',
-              '&:hover': {
-                borderColor: 'primary.main',
-              },
-              '& .MuiToggleButton-root': {
-                color: 'secondary.dark',
-                backgroundColor: 'action.disabledBackground',
-                '&:hover': {
-                  color: 'text.secondary',
-                },
-              },
-              '& .MuiToggleButton-root.Mui-selected': {
-                color: 'secondary.main',
-                backgroundColor: 'primary.main',
-                '&:hover': {
-                  color: 'secondary.light',
-                },
-              },
-            }}
-          >
-            <ToggleButton selected={contractOwnership === 'owned'} value="owned">
-              Owned
-            </ToggleButton>
-            <ToggleButton selected={contractOwnership === 'employed'} value="employed">
-              Employed
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </Box>
-        <Box
+      <Box
+        data-testid="ContractInfo__ToggleGroupWrapper"
+        sx={{ alignSelf: 'flex-end', display: 'flex' }}
+      >
+        <ToggleButtonGroup
+          data-testid="ContractInfo__ToggleButtonGroup"
+          size="small"
+          exclusive
+          value={contractOwnership}
+          onChange={handleContractOwershipChange}
           sx={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            maxHeight: '70%',
-            flexGrow: 1,
-            overflow: 'hidden',
+            border: '1px solid',
+            borderColor: 'success.dark',
+            boxShadow: '0 0px 10px rgba(24,252,252,0.5)',
+            borderRadius: '5px',
+            '&:hover': {
+              borderColor: 'primary.main',
+            },
+            '& .MuiToggleButton-root': {
+              color: 'secondary.dark',
+              backgroundColor: 'action.disabledBackground',
+              '&:hover': {
+                color: 'text.secondary',
+              },
+            },
+            '& .MuiToggleButton-root.Mui-selected': {
+              color: 'secondary.main',
+              backgroundColor: 'primary.main',
+              '&:hover': {
+                color: 'secondary.light',
+              },
+            },
           }}
         >
-          <Box
-            sx={{
-              maxHeight: '70%',
-              display: 'flex',
-              flexDirection: 'column',
-              flexGrow: 1,
-            }}
+          <ToggleButton
+            data-testid="ContractInfo-ToggleGroup__OwnedButton"
+            selected={contractOwnership === 'owned'}
+            value="owned"
           >
-            <Typography
-              variant="body1"
-              fontWeight={'bold'}
-              sx={{ cursor: 'pointer', display: 'flex' }}
-              onClick={() => handleContractActivityChange('active')}
-            >
-              Active Contracts
-              <ArrowRight
-                sx={{
-                  transform:
-                    contractActivity === 'active' ? 'rotate(90deg)' : 'rotate(0deg)',
-                  transition: 'transform 150ms',
-                }}
-              />
-            </Typography>
-            <Collapse
+            Owned
+          </ToggleButton>
+          <ToggleButton
+            data-testid="ContractInfo-ToggleGroup__EmployedButton"
+            selected={contractOwnership === 'employed'}
+            value="employed"
+          >
+            Employed
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </Box>
+      <Box
+        data-testid="ContractInfo__ListContainer"
+        sx={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          flexGrow: 1,
+          overflowY: 'auto',
+          '&::-webkit-scrollbar': {
+            width: '5px',
+            height: '5px',
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'rgb(0,73,130)',
+            borderRadius: '10px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            borderRadius: '20px',
+            background: 'rgb(24,252,252)',
+          },
+          px: '1em',
+        }}
+      >
+        <Box data-testid="ContractInfo__CollapseWrapper">
+          <Typography
+            data-testid="ContractInfo-Active__Title"
+            variant="body1"
+            fontWeight={'bold'}
+            sx={{ cursor: 'pointer', display: 'flex' }}
+            onClick={() => handleContractActivityChange('active')}
+          >
+            Active Contracts
+            <ArrowRight
+              data-testid="ContractInfo-Active__ArrowIcon"
               sx={{
-                my: '.5em',
-                width: '100%',
-                flexGrow: 1,
-                '&::-webkit-scrollbar': {
-                  width: '5px',
-                  height: '5px',
-                },
-                '&::-webkit-scrollbar-track': {
-                  background: 'rgb(0,73,130)',
-                  borderRadius: '10px',
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  borderRadius: '20px',
-                  background: 'rgb(24,252,252)',
-                },
-                overflow: 'auto',
+                transform:
+                  contractActivity === 'active' ? 'rotate(90deg)' : 'rotate(0deg)',
+                transition: 'transform 150ms',
               }}
-              in={contractActivity === 'active'}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '.5em',
-                  height: '100%',
-                }}
-              >
-                {contracts.map((contract) => (
-                  <ContractItem
-                    key={contract.id}
-                    contract={contract}
-                    isOwner={contractOwnership === 'owned'}
-                    isActive={contractActivity === 'active'}
-                  />
-                ))}
-              </Box>
-            </Collapse>
-          </Box>
-          <Box sx={{ maxHeight: '70%', display: 'flex', flexDirection: 'column' }}>
-            <Typography
-              variant="body1"
-              fontWeight={'bold'}
-              sx={{ cursor: 'pointer', display: 'flex' }}
-              onClick={() => handleContractActivityChange('history')}
-            >
-              Contract History
-              <ArrowRight
-                sx={{
-                  transform:
-                    contractActivity === 'history' ? 'rotate(90deg)' : 'rotate(0deg)',
-                  transition: 'transform 150ms',
-                }}
+            />
+          </Typography>
+          <Collapse
+            data-testid="ContractInfo-Active__Collapse"
+            sx={{
+              width: '100%',
+            }}
+            in={contractActivity === 'active'}
+          >
+            {contracts.map((contract) => (
+              <ContractItem
+                key={contract.id}
+                contract={contract}
+                isOwner={contractOwnership === 'owned'}
+                isActive={contractActivity === 'active'}
               />
-            </Typography>
-            <Collapse
+            ))}
+          </Collapse>
+        </Box>
+        <Box ata-testid="ContractInfo__CollapseWrapper">
+          <Typography
+            data-testid="ContractInfo-History__Title"
+            variant="body1"
+            fontWeight={'bold'}
+            sx={{ cursor: 'pointer', display: 'flex' }}
+            onClick={() => handleContractActivityChange('history')}
+          >
+            Contract History
+            <ArrowRight
+              data-testid="ContractInfo-History__ArrowIcon"
               sx={{
-                my: '.5em',
-                width: '100%',
-                zIndex: '50',
-                '&::-webkit-scrollbar': {
-                  width: '5px',
-                  height: '5px',
-                },
-                '&::-webkit-scrollbar-track': {
-                  background: 'rgb(0,73,130)',
-                  borderRadius: '10px',
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  borderRadius: '20px',
-                  background: 'rgb(24,252,252)',
-                },
+                transform:
+                  contractActivity === 'history' ? 'rotate(90deg)' : 'rotate(0deg)',
+                transition: 'transform 150ms',
               }}
-              in={contractActivity === 'history'}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                {contracts.map((contract) => (
-                  <ContractItem
-                    key={contract.id}
-                    contract={contract}
-                    isOwner={contractOwnership === 'owned'}
-                  />
-                ))}
-              </Box>
-            </Collapse>
-          </Box>
+            />
+          </Typography>
+          <Collapse
+            data-testid="ContractInfo-History__Collapse"
+            sx={{
+              width: '100%',
+            }}
+            in={contractActivity === 'history'}
+          >
+            {contracts.map((contract) => (
+              <ContractItem
+                key={contract.id}
+                contract={contract}
+                isOwner={contractOwnership === 'owned'}
+              />
+            ))}
+          </Collapse>
         </Box>
       </Box>
-    </DigiBox>
+    </DigiDisplay>
   );
 };

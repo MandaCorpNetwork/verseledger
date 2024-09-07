@@ -47,6 +47,7 @@ export const ContractItem: React.FC<ContractProps> = ({
         alignItems: 'center',
         justifyContent: 'space-between',
         px: '1em',
+        my: '.5em',
       }}
     >
       {!isOwner && <UserChip size={'small'} user_id={contract.owner_id} />}
@@ -65,7 +66,7 @@ export const ContractItem: React.FC<ContractProps> = ({
         <SubtypeChip subtype={contract.subtype} />
       </Box>
       {isActive && <ContractStatusChip status={contract.status} />}
-      <Typography>{endDateText()}</Typography>
+      <Typography variant="body2">{endDateText()}</Typography>
     </DigiBox>
   );
 };
