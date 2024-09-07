@@ -32,17 +32,14 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
 
   //Hover Animation
   const [, setIsHovered] = useState(false);
-  const [fontSize, setFontSize] = useState('1em');
-  const [fontWeight, setFontWeight] = useState('600');
   //Added fontSize to ensure the fontsize changes from Button hover and not Typography hover, as well as FontWeight
   const [isDialogOpen, setDialogOpen] = React.useState(false);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
+    setColor(theme.palette.text.secondary);
     playSound('hover');
     const video = document.getElementById(videoSource) as HTMLVideoElement;
-    setFontSize('1.2em');
-    setFontWeight('700');
     const isPlaying =
       video.currentTime > 0 &&
       !video.paused &&
@@ -55,9 +52,8 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
 
   const handleMouseLeave = () => {
     setIsHovered(false);
+    setColor(theme.palette.text.primary);
     const video = document.getElementById(videoSource) as HTMLVideoElement;
-    setFontSize('1em');
-    setFontWeight('600');
     const isPlaying =
       video.currentTime > 0 &&
       !video.paused &&
@@ -74,7 +70,6 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
   const navigate = useNavigate();
 
   const handleClick = () => {
-    setColor(theme.palette.text.secondary);
     if (wip) {
       if (inDev) {
         playSound('navigate');
@@ -107,7 +102,7 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
           onClick={handleClick}
           sx={{
             position: 'relative',
-            borderRadius: '.4em',
+            borderRadius: '5px',
             height: '8em',
             marginTop: '1em',
             marginLeft: '1em',
@@ -119,16 +114,14 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
           </video>
           <Typography
             id="button-title"
-            variant="body1"
+            variant="h6"
             alignSelf="flex-end"
             marginLeft="auto"
             marginTop="auto"
-            padding=".5em"
             sx={{
-              fontWeight: fontWeight,
               color: color,
-              fontSize: fontSize,
               transition: '250ms ease-in-out',
+              textShadow: '2px 4px 10px rgb(0,0,0)',
             }}
           >
             {title}
