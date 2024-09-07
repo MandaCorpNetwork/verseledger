@@ -1,36 +1,43 @@
-import {
-  Box,
-  FormControlLabel,
-  MenuItem,
-  Select,
-  Switch,
-  TextField,
-} from '@mui/material';
+import { PayField } from '@Common/Components/TextFields/PayField';
+import { Box, FormControlLabel, MenuItem, Select, Switch } from '@mui/material';
+import { enqueueSnackbar } from 'notistack';
 import React from 'react';
+import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
+
+import { useSoundEffect } from '@/AudioManager';
 
 export const FlatRatePayroll: React.FC<{
   formData: Partial<ICreateContractBody>;
   onChange: (value: string) => void;
-  getValue: () => string;
 }> = (props) => {
-  const { formData, onChange, getValue } = props;
+  const { formData, onChange } = props;
+  const [counterAmount, setCounterAmount] = React.useState<number | null>(null);
+
+  const { playSound } = useSoundEffect();
+
+  const handlePayChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+      const invalidCharacters = value.match(/[^\d.,]/g);
+      if (invalidCharacters) {
+        enqueueSnackbar('Please only use numbers', { variant: 'error' });
+        playSound('warning');
+      }
+      const inputValue = Number(value.replace(/[^\d.]/g, ''));
+      setCounterAmount(inputValue);
+      onChange(inputValue.toString());
+    },
+    [onChange, setCounterAmount, playSound],
+  );
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', mt: '.5em' }}>
-      <TextField
-        size="small"
-        label="Pay"
-        type="string"
-        color="secondary"
-        value={getValue()}
-        onChange={(e) => onChange(e.target.value)}
-        InputProps={{ startAdornment: '¤' }}
-        sx={{
-          width: '150px',
-        }}
-        inputProps={{
-          min: formData.isEmergency ? 15000 : undefined,
-        }}
+      <PayField
+        label="Default Pay"
+        value={counterAmount?.toLocaleString() ?? null}
+        onChange={handlePayChange}
+        structure={formData.payStructure as ContractPayStructure}
       />
     </Box>
   );
@@ -41,9 +48,27 @@ export const PoolPayroll: React.FC<{
   onChange: (value: string) => void;
   evenSplit: boolean;
   setEvenSplit: (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
-  getValue: () => string;
 }> = (props) => {
-  const { onChange, evenSplit, setEvenSplit, getValue } = props;
+  const { onChange, evenSplit, setEvenSplit, formData } = props;
+
+  const [counterAmount, setCounterAmount] = React.useState<number | null>(null);
+
+  const { playSound } = useSoundEffect();
+
+  const handlePayChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+      const invalidCharacters = value.match(/[^\d.,]/g);
+      if (invalidCharacters) {
+        enqueueSnackbar('Please only use numbers', { variant: 'error' });
+        playSound('warning');
+      }
+      const inputValue = Number(value.replace(/[^\d.]/g, ''));
+      setCounterAmount(inputValue);
+      onChange(inputValue.toString());
+    },
+    [onChange, setCounterAmount, playSound],
+  );
 
   return (
     <Box
@@ -54,18 +79,11 @@ export const PoolPayroll: React.FC<{
         justifyContent: 'center',
       }}
     >
-      <TextField
-        size="small"
-        label="% of Pool"
-        type="number"
-        color="secondary"
-        value={getValue()}
-        onChange={(e) => onChange(e.target.value)}
-        InputProps={{ endAdornment: '%' }}
-        sx={{
-          width: '150px',
-          mb: '.5em',
-        }}
+      <PayField
+        label="Default Pay"
+        value={counterAmount?.toLocaleString() ?? null}
+        onChange={handlePayChange}
+        structure={formData.payStructure as ContractPayStructure}
       />
       <FormControlLabel
         control={
@@ -85,9 +103,8 @@ export const PoolPayroll: React.FC<{
 export const TimedPayroll: React.FC<{
   formData: Partial<ICreateContractBody>;
   onChange: (value: string) => void;
-  getValue: () => string;
 }> = (props) => {
-  const { onChange, getValue } = props;
+  const { onChange, formData } = props;
   const rates = [
     {
       value: 'Hourly',
@@ -107,6 +124,25 @@ export const TimedPayroll: React.FC<{
     },
   ];
 
+  const [counterAmount, setCounterAmount] = React.useState<number | null>(null);
+
+  const { playSound } = useSoundEffect();
+
+  const handlePayChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+      const invalidCharacters = value.match(/[^\d.,]/g);
+      if (invalidCharacters) {
+        enqueueSnackbar('Please only use numbers', { variant: 'error' });
+        playSound('warning');
+      }
+      const inputValue = Number(value.replace(/[^\d.]/g, ''));
+      setCounterAmount(inputValue);
+      onChange(inputValue.toString());
+    },
+    [onChange, setCounterAmount, playSound],
+  );
+
   return (
     <Box
       sx={{
@@ -114,20 +150,14 @@ export const TimedPayroll: React.FC<{
         flexDirection: 'column',
         mt: '.5em',
         justifyContent: 'center',
+        gap: '.5em',
       }}
     >
-      <TextField
-        size="small"
-        label="Hourly Pay"
-        type="string"
-        color="secondary"
-        value={getValue()}
-        onChange={(e) => onChange(e.target.value)}
-        InputProps={{ endAdornment: '/HR', startAdornment: '¤' }}
-        sx={{
-          width: '150px',
-          mb: '.5em',
-        }}
+      <PayField
+        label="Default Pay"
+        value={counterAmount?.toLocaleString() ?? null}
+        onChange={handlePayChange}
+        structure={formData.payStructure as ContractPayStructure}
       />
       <Select size="small" color="secondary" defaultValue="Hourly" disabled>
         {rates.map((rate) => (

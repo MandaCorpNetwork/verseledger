@@ -191,9 +191,18 @@ export const ContractCard: React.FC<ContractCardProps> = ({
           }}
         >
           <Box sx={{ mx: 'auto' }}>
-            <LocationChip locationId={startLocationId ?? ''} />
+            <LocationChip
+              locationId={startLocationId ?? ''}
+              sx={{
+                maxWidth: '100px',
+              }}
+            />
           </Box>
-          <PayDisplay value={contract.defaultPay} variant={contract.payStructure} />
+          <PayDisplay
+            value={contract.defaultPay}
+            variant={contract.payStructure}
+            maxWidth="120px"
+          />
         </Box>
       </CardActionArea>
     </Card>

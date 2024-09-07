@@ -1,4 +1,4 @@
-import { Tooltip, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import React from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 
@@ -89,29 +89,28 @@ const PayDigiField: React.FC<PayLabelProps> = ({
   const paySuffix = getPaySuffix();
 
   return (
-    <Tooltip title={formattedPay} arrow>
-      <DigiField
-        data-testid={testid}
-        label={label}
-        slots={{
-          typography: {
-            variant: textSize,
-          },
-          ...slots,
-        }}
-        startAdornment={
-          structure !== 'POOL' && <Typography color="secondary">¤</Typography>
-        }
-        endAdornment={structure !== 'FLATRATE' && paySuffix}
-        sx={{
-          maxWidth: maxWidth,
-          width: width,
-          ...sx,
-        }}
-      >
-        {formattedPay}
-      </DigiField>
-    </Tooltip>
+    <DigiField
+      data-testid={testid}
+      label={label}
+      tooltip={formattedPay?.toString()}
+      slots={{
+        typography: {
+          variant: textSize,
+        },
+        ...slots,
+      }}
+      startAdornment={
+        structure !== 'POOL' && <Typography color="secondary">¤</Typography>
+      }
+      endAdornment={structure !== 'FLATRATE' && paySuffix}
+      sx={{
+        maxWidth: maxWidth,
+        width: width,
+        ...sx,
+      }}
+    >
+      {formattedPay}
+    </DigiField>
   );
 };
 

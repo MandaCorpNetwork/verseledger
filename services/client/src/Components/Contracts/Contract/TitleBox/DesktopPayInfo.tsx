@@ -31,9 +31,16 @@ export const DesktopPayInfo: React.FC<PayInfoProps> = ({ contract }) => {
         sx={{
           fontWeight: 'bold',
           cursor: 'default',
+          display: 'inline-flex',
+          alignItems: 'center',
         }}
       >
         Pay Info
+        <Typography>
+          <Typography variant="body2" sx={{ ml: '.5em', color: 'info.main' }}>
+            {contract.isBargaining && 'negotiable'}
+          </Typography>
+        </Typography>
       </Typography>
       <Box
         sx={{

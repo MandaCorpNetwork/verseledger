@@ -53,39 +53,45 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   const memoizedContract = React.useMemo(() => {
     return contract;
   }, [contractId]);
+
   const currentUser = useAppSelector(selectCurrentUser);
+
   const isContractOwned = React.useMemo(() => {
     if (memoizedContract.owner_id === currentUser?.id) {
       return true;
     } else {
       return false;
     }
-  }, [currentUser, contractId]);
+  }, [currentUser, memoizedContract]);
 
   const userBid = React.useMemo(() => {
     if (isContractOwned) {
       return null;
     }
     return memoizedContract.Bids?.find((bid) => bid.user_id === currentUser?.id) ?? null;
-  }, [currentUser, isContractOwned]);
-  const handleCopyURL = React.useCallback((url: string) => {
-    const prefix = URLUtil.frontendHost;
-    if (navigator.clipboard) {
-      navigator.clipboard
-        .writeText(`${prefix}${url}`)
-        .then(() => {
-          playSound('clickMain');
-          enqueueSnackbar('Copied Contract to Clipboard', { variant: 'success' });
-        })
-        .catch((err) => {
-          playSound('error');
-          enqueueSnackbar(`Failed to Copy Contract: ${err}`, { variant: 'error' });
-        });
-    } else {
-      playSound('denied');
-      enqueueSnackbar('Clipboard API not supported', { variant: 'warning' });
-    }
-  }, []);
+  }, [currentUser, isContractOwned, memoizedContract]);
+
+  const handleCopyURL = React.useCallback(
+    (url: string) => {
+      const prefix = URLUtil.frontendHost;
+      if (navigator.clipboard) {
+        navigator.clipboard
+          .writeText(`${prefix}${url}`)
+          .then(() => {
+            playSound('clickMain');
+            enqueueSnackbar('Copied Contract to Clipboard', { variant: 'success' });
+          })
+          .catch((err) => {
+            playSound('error');
+            enqueueSnackbar(`Failed to Copy Contract: ${err}`, { variant: 'error' });
+          });
+      } else {
+        playSound('denied');
+        enqueueSnackbar('Clipboard API not supported', { variant: 'warning' });
+      }
+    },
+    [playSound, enqueueSnackbar],
+  );
 
   const handleCopyURLCallback = React.useCallback(
     (contractId: string) => () => handleCopyURL(`/ledger/contracts/${contractId}`),
@@ -97,7 +103,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
       playSound('navigate');
       navigate(`/ledger/contracts/${contractId}`);
     },
-    [navigate],
+    [navigate, playSound],
   );
 
   const handleContractPageNavCallback = React.useCallback(
@@ -129,7 +135,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
       playSound('clickMain');
       setTimeTab(value);
     },
-    [timeTab],
+    [timeTab, playSound, setTimeTab],
   );
 
   const renderTimePanel = React.useCallback(

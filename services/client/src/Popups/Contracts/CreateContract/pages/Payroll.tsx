@@ -73,17 +73,6 @@ export const Payroll: React.FC<{
     });
   };
 
-  const getFilteredValue = React.useCallback(() => {
-    if (
-      formData.defaultPay === 0 ||
-      formData.defaultPay === undefined ||
-      formData.defaultPay === null
-    ) {
-      return '';
-    }
-    return filterNumericInput(formData.defaultPay.toString());
-  }, [formData.defaultPay]);
-
   const handleEvenSplitToggle = React.useCallback(() => {
     if (evenSplit) {
       setEvenSplit(false);
@@ -248,18 +237,10 @@ export const Payroll: React.FC<{
           <FormLabel color="secondary">Default Pay</FormLabel>
           <Box data-testid="Payroll-DefaultPay__Wrapper">
             {formData.payStructure === 'FLATRATE' && (
-              <FlatRatePayroll
-                formData={formData}
-                onChange={handleSetDefaultPay}
-                getValue={getFilteredValue}
-              />
+              <FlatRatePayroll formData={formData} onChange={handleSetDefaultPay} />
             )}
             {formData.payStructure === 'HOURLY' && (
-              <TimedPayroll
-                formData={formData}
-                onChange={handleSetDefaultPay}
-                getValue={getFilteredValue}
-              />
+              <TimedPayroll formData={formData} onChange={handleSetDefaultPay} />
             )}
             {formData.payStructure === 'POOL' && (
               <PoolPayroll
@@ -267,7 +248,6 @@ export const Payroll: React.FC<{
                 onChange={handleSetDefaultPay}
                 evenSplit={evenSplit}
                 setEvenSplit={handleEvenSplitToggle}
-                getValue={getFilteredValue}
               />
             )}
           </Box>

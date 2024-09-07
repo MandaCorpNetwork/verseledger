@@ -1,4 +1,12 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Close } from '@mui/icons-material';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+} from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { PropsWithChildren, useCallback } from 'react';
@@ -81,8 +89,17 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
         },
       }}
     >
-      <DialogTitle variant="h5" data-testid={`VLPopup__${testid}__Title`}>
+      <DialogTitle
+        variant="h5"
+        data-testid={`VLPopup__${testid}__Title`}
+        sx={{ width: '100%', display: 'flex' }}
+      >
         {title}
+        {!onSubmit && (
+          <IconButton onClick={onCloseDefault} sx={{ ml: 'auto' }}>
+            <Close />
+          </IconButton>
+        )}
       </DialogTitle>
       <DialogContent
         data-testid={`VLPopup__${testid}__Content`}
