@@ -8,16 +8,35 @@ import { ContractListDropdown } from './ContractListDropdown';
 import { ContractManagerCard } from './ContractManagerCard';
 
 type ContractListProps = {
+  /** @prop {IContract[]} - The list of Contract Objects that will render */
   contracts: IContract[];
+  /** @prop {string | null} - Passes the Contract Id that is selected */
   selectedId: string | null;
+  /** @prop {(id: string | null) => void} - function that sets the selected contract by passing the Id */
   setSelectedId: (id: string | null) => void;
+  /** @prop {number} - The current page selected */
   page: number;
+  /** @prop {(event, number) => void} - Changes the currently set page by passing a new number upon a ChangeEvent */
   setPage: (event: React.ChangeEvent<unknown>, newPage: number) => void;
+  /** @prop {number} - the total number of pages available to be set to */
   pageCount: number;
+  /** @prop {string | null} - Which dropdown is expanded */
   expandedList: string | null;
+  /** @prop {(string) => void} - Sets the expanded list to a new string value */
   setExpandedList: (value: string) => void;
 };
 
+/**
+ * ### Contract List
+ * @description
+ * Displays a List of Contracts found by the Contract Manager App
+ * @version 0.1.6 - Sept 2024
+ * @memberof {@link ContractManagerApp}
+ * #### Functional Components:
+ * - {@link ContractListDropdown}
+ * - {@link ContractManagerCard}
+ * @author ThreeCrown - May 2024
+ */
 export const ContractList: React.FC<ContractListProps> = ({
   contracts,
   selectedId,
@@ -28,8 +47,17 @@ export const ContractList: React.FC<ContractListProps> = ({
   expandedList,
   setExpandedList,
 }) => {
+  // LOGIC
+
+  /** Retrieve the Contract Archetype Options object */
   const archetypes = contractArchetypes('inherit', 'inherit');
 
+  /**
+   * Handles the logic for rendering Contract Cards
+   * @param {string}archetype - Passes in an archetype Option for sorting the contracts by Archetypes with dropdowns.
+   * @returns {number} - Returns the number of contracts being rendered based on the filter to use with the dropdown
+   * @returns {Element[]} - Returns a collection of {@link ContractManagerCard}
+   */
   const renderContractCards = React.useCallback(
     (archetype: string) => {
       const selectedArchetype = archetypes.find((a) => a.archetype === archetype);
@@ -76,6 +104,7 @@ export const ContractList: React.FC<ContractListProps> = ({
     },
     [contracts, archetypes, selectedId, setSelectedId],
   );
+
   return (
     <Box
       data-testid="ContractManager__ContractListWrapper"
@@ -123,7 +152,7 @@ export const ContractList: React.FC<ContractListProps> = ({
           'Proxy',
         ].map((archetype) => {
           const { count, content } = renderContractCards(archetype);
-          return (
+          return count > 0 ? (
             <ContractListDropdown
               key={archetype}
               archetype={archetype}
@@ -133,7 +162,7 @@ export const ContractList: React.FC<ContractListProps> = ({
             >
               {content}
             </ContractListDropdown>
-          );
+          ) : null;
         })}
       </Box>
       <Box

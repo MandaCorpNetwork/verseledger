@@ -32,41 +32,46 @@ import { ContractList } from './ContractList/ContractList';
 import { SearchTools } from './ContractList/SearchTools';
 
 /**
- * @component
+ * ### Contract Manager App
+ * @description
  * The Contract Manager App for managing Contracts owned or connected to.
+ * @version 0.1.5 - Sept 2024
  * @memberof {@link PersonalLedgerPage}
  * Components Used:
  * - {@link SearchTools}
  * - {@link ContractList}
  * - {@link ContractorInfo}
  * - {@link SelectedContractManager}
- * @author ThreeCrown
+ * @author ThreeCrown - May 2024
  */
 export const ContractManagerApp: React.FC<unknown> = () => {
   // LOCAL STATES
+
   /** State uses {@link useURLQuery} hook to view & set filters */
   const [filters, setFilter, overwriteURLQuery] = useURLQuery();
+
   /**
    * State Determins the Selected Contract Id
-   * @type [string | null, React.Dispatch<React.SetStateAction<string | null>>]
    * @default {null}
    * @returns {string}
    * @todo - Replace with using URLQuery for contractId
    */
   const [selectedId, setSelectedId] = React.useState<string | null>(null);
+
   /**
    * State Determines which page of contracts to fetch from the backend
-   * @type [number, React.Dispatch<React.SetStateAction<number>>]
    * @default (1)
    * @returns {number}
    */
   const [page, setPage] = React.useState(1);
+
   /**
    * State Determins which DropDown list is currently expanded
    * @default inProgress
    * @returns {string}
    */
   const [expandedList, setExpandedList] = React.useState<string | null>(null);
+
   //TODO: Need to implement useParams for the selected contract instead of useState
   // const { selectedContractId } = useParams();
   // HOOKS
@@ -78,21 +83,23 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   const { playSound } = useSoundEffect();
 
   // LOGIC
+
   /**
    * Creates Custom Breakpoint @ `1400px` to Stop Rendering of the Selected Contract Display.
    * If 1400px or less, only the Contractor Info will render
    */
   const hideContracts = useMediaQuery('(max-width: 1400px)');
+
   /** Finds the total Contract Count from the DTO for the Pagination */
   const contractCount = useAppSelector(selectContractPagination);
+
   /** Finds the total Bid Count from the DTO for the Pagination */
   const bidCount = useAppSelector(selectBidPagination);
+
   /**
    * Handles the clickEvent from the pagination buttons to change the Page Fetched from the Contract Search Endpoint.
    * @param {React.ChangeEvent} Event
    * @param {number} newPage
-   * @fires
-   * - playSound('clickMain')
    * - {@link setPage}
    */
   const handleChangePage = React.useCallback(
@@ -102,6 +109,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     },
     [playSound, setPage],
   );
+
   /**
    * Memo for the currently set `Contract Browser List`
    * @default `employed`
@@ -115,6 +123,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     }
     return tab;
   }, [filters, setFilter]);
+
   /**
    * Handles the ChangeEvent from the ContractList Tab to change the rendered Contract List
    * @param {React.SynteticEvent} _Event
@@ -132,10 +141,18 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     },
     [overwriteURLQuery],
   );
+
   /** Fetchs the Current User from `Auth` slice */
   const currentUser = useAppSelector(selectCurrentUser);
+
   /** Determines the id of the Current User if found */
   const userId = currentUser?.id;
+
+  /**
+   * Handles Expanding a DropDown Section of the Contract List to view the contracts by Subtype.
+   * @param {string}value - The Archetype string to pass to determine which collapse to expand.
+   * @see ContractListDropdown
+   */
   const handleExpandList = React.useCallback(
     (value: string) => {
       if (!value) return;
@@ -143,6 +160,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     },
     [setExpandedList],
   );
+
   /**
    * Handles the clickEvent on a {@link ContractManagerCard} in the {@link ContractList} to render the Contract in {@link SelectedContractManager}, or navigate to the {@link ContractPage} if a Breakpoint is reached.
    * @param {string} Id - The Id of a Contract.
@@ -161,6 +179,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     },
     [setSelectedId, navigate, playSound],
   );
+
   /**
    * Handles Deselecting a Contract from the {@link SelectedContractManager}
    * @fires setSelectedId()
@@ -169,6 +188,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   const handleContractDeselect = () => {
     setSelectedId(null);
   };
+
   /**
    * @async
    * Fetches the Bids from the backend
@@ -209,6 +229,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     },
     [dispatch, filters],
   );
+
   /**
    * Handles the Fetching of Contracts from the backend based on Params set by the {@link SearchTools}
    */
@@ -265,6 +286,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     },
     [dispatch, filters],
   );
+
   /**
    * The useEffect that runs {@link handleFetchContracts} & {@link handleFetchBids} depending on the current `ContractManagerTab`.
    * @param {string} currentTab - The Currently selected Tab
@@ -343,26 +365,48 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           const contractParams: IContractSearch = {
             page: page - 1,
             limit: 50,
-            status: ['COMPLETED'],
+            status: ['COMPLETED', 'CANCELED'],
             ...(userId && { ownerId: [userId] }),
           };
           dispatch(fetchContracts(contractParams));
+        }
+        break;
+      case 'completed':
+        {
+          const bidParams: IUserBidSearch = {
+            page: page - 1,
+            limit: 50,
+            status: ['ACCEPTED', 'EXPIRED'],
+          };
+          handleFetchBids(bidParams).then((contractIds) => {
+            const contractParams: IContractSearch = {
+              page: 0,
+              limit: 50,
+              status: ['CANCELED', 'COMPLETED'],
+              contractId: contractIds,
+            };
+            handleFetchContracts(contractParams);
+          });
         }
         break;
       default:
         break;
     }
   }, [filters, page, dispatch, handleFetchBids, handleFetchContracts, currentTab]);
+
   /** Selects the Contracts currently stored in the `Contracts` Slice */
   const contracts = useAppSelector((state) => selectContractsArray(state));
+
   /** A useEffect to ensure that the Selected Contract is Available in the `Contracts` Slice, otherwise cleares the SelectedId */
   React.useEffect(() => {
     if (selectedId && !contracts.some((contract) => contract.id === selectedId)) {
       setSelectedId(null);
     }
   }, [contracts, selectedId, setSelectedId]);
+
   /** Decides whether or not to display ScrollButtons for the Tabs Component */
   const displayScrollButtons = !!theme.breakpoints.down('lg');
+
   return (
     <Box
       data-testid="ContractsManager__AppContainer"
@@ -411,7 +455,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
               >
                 <Tab
                   data-testid="ContractManager__AcceptedTab"
-                  label="Accepted"
+                  label="Employed"
                   value="employed"
                 />
                 <Tab data-testid="ContractManger__OwnedTab" label="Owned" value="owned" />
@@ -424,6 +468,11 @@ export const ContractManagerApp: React.FC<unknown> = () => {
                   data-testid="ContractManager__OffersTab"
                   label="Invites"
                   value="offers"
+                />
+                <Tab
+                  data-testid="ContractManager__CompletedTab"
+                  label="Completed"
+                  value="completed"
                 />
                 <Tab
                   data-testid="ContractManager__HistoryTab"
@@ -449,7 +498,8 @@ export const ContractManagerApp: React.FC<unknown> = () => {
               pageCount={
                 currentTab === 'employed' ||
                 currentTab === 'pending' ||
-                currentTab === 'offers'
+                currentTab === 'offers' ||
+                currentTab === 'completed'
                   ? bidCount.pages
                   : contractCount.pages
               }

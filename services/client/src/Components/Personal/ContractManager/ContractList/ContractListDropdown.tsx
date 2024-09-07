@@ -6,12 +6,24 @@ import { Badge, Box, ButtonBase, Collapse, IconButton, Typography } from '@mui/m
 import { PropsWithChildren } from 'react';
 
 type ContractListDropdownProps = PropsWithChildren<{
+  /** @prop {void} - Function to trigger on Expand */
   onExpand: () => void;
+  /** @prop {boolean} - Boolean Value to evaluate if the dropdown is open or not */
   isExpanded: boolean;
+  /** @prop {string} - Which archetype Label to display and find the icon */
   archetype: string;
+  /** @prop {number} - The Total numbers of contracts to be displayed */
   count: number;
 }>;
 
+/**
+ * ### Contract List Dropdown
+ * @description
+ * A Dropdown box to contain contract items in a collapse with a button that triggers the collapses rendering. Sorts contracts by Contract Archetypes within the Contract List
+ * @version 0.1.0 - Sept 2024
+ * @memberof {@link ContractList}
+ * @author ThreeCrown - Sept 2024
+ */
 export const ContractListDropdown: React.FC<ContractListDropdownProps> = ({
   children,
   isExpanded,
@@ -19,10 +31,16 @@ export const ContractListDropdown: React.FC<ContractListDropdownProps> = ({
   archetype,
   count,
 }) => {
+  // LOGIC
+
+  /** Decide the text Color to render depending on expansion of collapse */
   const selectedColor = isExpanded ? 'secondary.main' : 'text.secondary';
+
+  /** Fetch the currently selected Archetype Object to render the Icon */
   const archetypeObj = contractArchetypes(selectedColor, 'large').find(
     (option) => option.archetype === archetype,
   );
+
   return (
     <Box
       sx={{
