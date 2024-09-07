@@ -8,7 +8,6 @@ import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
-import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
@@ -31,8 +30,6 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bidId, contrac
 
   const ownerView = bid?.status === 'PENDING';
 
-  Logger.info('Counter Offer', bid);
-  Logger.info('Counter Offer', contract);
   const handlePayChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = event.target;
