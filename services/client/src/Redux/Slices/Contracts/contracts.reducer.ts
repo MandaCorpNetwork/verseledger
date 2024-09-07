@@ -35,7 +35,6 @@ const contractsReducer = createSlice({
         _state.contracts = {};
       })
       .addCase(fetchContracts.fulfilled, (_state, action) => {
-        Logger.info('Fetching contracts fulfilled', action.payload);
         _state.isLoading = false;
         const pagination = action.payload?.pagination;
         const contracts = action.payload?.data;

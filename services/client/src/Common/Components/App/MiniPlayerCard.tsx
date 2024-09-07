@@ -9,18 +9,36 @@ import { IUserWithSettings } from 'vl-shared/src/schemas/UserSchema';
 import { useSoundEffect } from '@/AudioManager';
 
 type MiniPlayerCardProps = PropsWithChildren<{
+  /** @prop {IUserWithSettings} - User Object passed to the component */
   user?: IUserWithSettings;
 }>;
+
+/**
+ * ### Mini Player Card
+ * @description
+ * A small popper component to display Player Summary when hovering over a Child Component.
+ * @version 0.1.0 - Sept 2024
+ * @global
+ * @author ThreeCrown - Sept 2024
+ */
 export const MiniPlayerCard: React.FC<MiniPlayerCardProps> = (props) => {
   const { children, user } = props;
+
   // LOCAL STATES
+  /** A state that determines the Anchor Element */
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  /** A boolean state to determine if the Popper is open */
   const [popperOpen, setPopperOpen] = React.useState(false);
-  const popperTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+
   // HOOKS
+  /** A ref to timeout the Popper being open if you stop hovering over the child element. Prevents the Popper from Closing too fast if so you can move the mouse inside the popper */
+  const popperTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   const { playSound } = useSoundEffect();
   const navigate = useNavigate();
+
   // LOGIC
+
+  /** Handles the Mouse entering the Child Component */
   const handleMouseEnter = React.useCallback((e: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(e.currentTarget);
     setPopperOpen(true);
@@ -29,12 +47,14 @@ export const MiniPlayerCard: React.FC<MiniPlayerCardProps> = (props) => {
     }
   }, []);
 
+  /** Handles the Mouse Leaving the Child Component */
   const handleMouseLeave = React.useCallback(() => {
     popperTimeoutRef.current = setTimeout(() => {
       setPopperOpen(false);
     }, 100);
   }, []);
 
+  /** Handles the Mouse Entering to the Popper to prevent it from Closing */
   const handlePopperMouseEnter = React.useCallback(() => {
     if (popperTimeoutRef.current) {
       clearTimeout(popperTimeoutRef.current);
@@ -42,22 +62,32 @@ export const MiniPlayerCard: React.FC<MiniPlayerCardProps> = (props) => {
     setPopperOpen(true);
   }, []);
 
+  /** Handles the Mouse Leaving the Popper to ensure that it closes */
   const handlePopperMouseLeave = React.useCallback(() => {
     popperTimeoutRef.current = setTimeout(() => {
       setPopperOpen(false);
     }, 100);
   }, []);
+
+  /** Boolean Value to check if the the popper is opened based on two states to ensure that it closes itself if the user is no longer hovering over the popper */
   const open = popperOpen && Boolean(anchorEl);
+
+  /** Passes the value of the User's Profile Background for the Popper */
   const selectedUserImage = user?.Settings?.userPageImage;
+
+  /** Fetches the URL of the user's background based on the Page Image value */
   const getUserBackground = React.useCallback(() => {
     const backgroundOption = userBackgroundOptions.find(
       (option) => option.value === selectedUserImage,
     );
     return backgroundOption ? backgroundOption.url : userBackgroundOptions[0].url;
   }, [userBackgroundOptions, selectedUserImage]);
+
+  /** Handles the Click of the User Profile Button to navigate to the UserPage */
   const onProfileClick = React.useCallback((_event: React.SyntheticEvent) => {
     navigate(`/user/${user?.id}`);
   }, []);
+
   return (
     <>
       <Box onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>

@@ -782,7 +782,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               indicatorColor="secondary"
             >
               <SmallTabHolo label="Bidding Time" value="bid" />
-              <SmallTabHolo label="Contract Duration" value="start" />
+              <SmallTabHolo label="Duration" value="start" />
             </SmallTabsHolo>
           </ControlPanelBox>
           <DigiBox
