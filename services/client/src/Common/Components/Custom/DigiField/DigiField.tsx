@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Tooltip, Typography } from '@mui/material';
 import React, { PropsWithChildren } from 'react';
 
 type DigiFieldProps = PropsWithChildren<{
@@ -6,6 +6,8 @@ type DigiFieldProps = PropsWithChildren<{
   ['data-testid']?: string;
   /** @prop {string} label - The label for the field */
   label: string;
+  /** Tooltip Text */
+  tooltip?: string;
   /** @prop {React.ReactNode} startAdornment - The start adornment for the field */
   startAdornment?: React.ReactNode;
   /** @prop {React.ReactNode} endAdornment - The end adornment for the field */
@@ -52,6 +54,7 @@ const DigiFieldComponent: React.FC<DigiFieldProps> = (props) => {
     sx,
     slots,
     'data-testid': testid = 'infoField',
+    tooltip,
   } = props;
   return (
     <Box
@@ -110,20 +113,22 @@ const DigiFieldComponent: React.FC<DigiFieldProps> = (props) => {
         >
           {startAdornment}
         </div>
-        <Typography
-          data-testid={`DigiField-${testid}-children`}
-          variant={slots?.typography?.variant ?? 'body1'}
-          sx={{
-            color: 'text.primary',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            flex: '1',
-            ...slots?.typography?.sx,
-          }}
-        >
-          {children}
-        </Typography>
+        <Tooltip title={tooltip} arrow placement="bottom">
+          <Typography
+            data-testid={`DigiField-${testid}-children`}
+            variant={slots?.typography?.variant ?? 'body1'}
+            sx={{
+              color: 'text.primary',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              flex: '1',
+              ...slots?.typography?.sx,
+            }}
+          >
+            {children}
+          </Typography>
+        </Tooltip>
         <div
           data-testid={`DigiField-${testid}-endAdornment`}
           style={{ display: 'flex', alignItems: 'center' }}

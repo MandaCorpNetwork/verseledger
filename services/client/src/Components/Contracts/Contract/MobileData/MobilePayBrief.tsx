@@ -39,9 +39,12 @@ export const MobilePayBrief: React.FC<MobilePayBriefProps> = ({ contract }) => {
         <Typography
           data-testid="ContractPage-Pay&Briefing-Mobile__Pay_Title"
           variant="body2"
-          sx={{ fontWeight: 'bold' }}
+          sx={{ fontWeight: 'bold', display: 'inline-flex', alignItems: 'center' }}
         >
           Pay Info
+          <Typography variant="body2" sx={{ ml: '.5em', color: 'info.main' }}>
+            {contract.isBargaining && 'negotiable'}
+          </Typography>
         </Typography>
         <Box
           daya-testid="ContractPage-Pay&Briefing-Mobile__Fields_Wrapper"

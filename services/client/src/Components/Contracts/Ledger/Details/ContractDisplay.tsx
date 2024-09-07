@@ -474,9 +474,14 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 sx={{
                   fontWeight: 'bold',
                   cursor: 'default',
+                  display: 'inline-flex',
+                  alignItems: 'center',
                 }}
               >
                 Pay
+                <Typography variant="body2" sx={{ ml: '.5em', color: 'info.main' }}>
+                  {contract.isBargaining && 'negotiable'}
+                </Typography>
               </Typography>
               <IconButton
                 data-testid="ContractDisplay-PayandBriefing_PayExpansionButton"

@@ -1,14 +1,11 @@
 // import { QuickTimeButton } from '@Common/Components/App/QuickTimeButton';
-import { SelectTimeButton } from '@Common/Components/Buttons/SelectTimeButton';
-import { Close } from '@mui/icons-material';
+import { TimePicker } from '@Common/Components/TextFields/TimePicker';
 import {
   Box,
   Checkbox,
   FormControl,
   FormControlLabel,
   FormLabel,
-  IconButton,
-  TextField,
   Typography,
 } from '@mui/material';
 import { isMobile } from '@Utils/isMobile';
@@ -25,11 +22,12 @@ export const TimeInformation: React.FC<{
   formData: Partial<ICreateContractBody>;
   setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
+  const { formData, setFormData } = props;
+
+  const [afterBiddingChecked, setAfterBiddingChecked] = React.useState(false);
+
   const { playSound } = useSoundEffect();
   const mobile = isMobile();
-  const { formData, setFormData } = props;
-  const [heldDate, setHeldDate] = React.useState<Date | null>(null);
-  const [afterBiddingChecked, setAfterBiddingChecked] = React.useState(false);
 
   const handleAfterBiddingCheck = React.useCallback(() => {
     setAfterBiddingChecked((prevChecked) => {
@@ -45,8 +43,8 @@ export const TimeInformation: React.FC<{
   }, [formData, setFormData]);
 
   const handleTimeChange = React.useCallback(
-    (newTime: Date, field: string) => {
-      if (!heldDate) {
+    (newDate: Date | null, field: string) => {
+      if (!newDate || newDate === null) {
         enqueueSnackbar({
           variant: 'error',
           message: 'Please select a date first',
@@ -54,14 +52,6 @@ export const TimeInformation: React.FC<{
         playSound('error');
         return;
       }
-      const dateSelected = dayjs(heldDate);
-      const timeSelected = dayjs(newTime);
-      const combinedDateTime = dateSelected
-        .set('hour', timeSelected.hour())
-        .set('minute', timeSelected.minute());
-
-      const newDate = combinedDateTime.toDate();
-
       if (field === 'bidDate') {
         if (formData.startDate && newDate > formData.startDate) {
           enqueueSnackbar({
@@ -120,15 +110,8 @@ export const TimeInformation: React.FC<{
         setFormData({ ...formData, endDate: newDate ?? null });
       }
     },
-    [heldDate, setFormData],
+    [setFormData, formData, playSound, enqueueSnackbar],
   );
-
-  const formatDate = React.useCallback((date: Date | null) => {
-    if (date == null) {
-      return 'Manual Control';
-    }
-    return dayjs(date).format('D/M/YY HH:mm');
-  }, []);
 
   return (
     <Box
@@ -201,38 +184,11 @@ export const TimeInformation: React.FC<{
           }}
         >
           {formData.isEmergency && <LargeEmergencyOverlay />}
-          <TextField
+          <TimePicker
             label="Bid End Date"
-            color="secondary"
-            value={formatDate(formData.bidDate as Date)}
-            inputProps={{ style: { textAlign: 'center', cursor: 'default' } }}
-            InputProps={{
-              readOnly: true,
-              sx: {
-                cursor: 'default',
-              },
-              startAdornment: (
-                <SelectTimeButton
-                  onDateChange={(newDate) => setHeldDate(newDate)}
-                  onTimeChange={(newTime) => handleTimeChange(newTime, 'bidDate')}
-                />
-              ),
-              endAdornment: formData.bidDate && (
-                <IconButton
-                  data-testid="TimeInformation-Form-DateBox__BidDateControl_ClearButton"
-                  onClick={() => {
-                    setFormData({ ...formData, bidDate: null });
-                    playSound('clickMain');
-                  }}
-                >
-                  <Close />
-                </IconButton>
-              ),
-            }}
-            sx={{
-              my: '.5em',
-              maxWidth: '220px',
-            }}
+            value={formData.bidDate ?? null}
+            onChange={(date) => handleTimeChange(date, 'bidDate')}
+            onClear={() => setFormData({ ...formData, bidDate: null })}
           />
           <Box
             data-testid="TimeInformation-Form-DateBox__StartDateControl_Wrapper"
@@ -242,38 +198,11 @@ export const TimeInformation: React.FC<{
               justifyContent: 'center',
             }}
           >
-            <TextField
-              label="Contract Start Date"
-              color="secondary"
-              value={formatDate(formData.startDate as Date)}
-              inputProps={{ style: { textAlign: 'center', cursor: 'default' } }}
-              InputProps={{
-                readOnly: true,
-                sx: {
-                  cursor: 'default',
-                },
-                startAdornment: (
-                  <SelectTimeButton
-                    onDateChange={(newDate) => setHeldDate(newDate)}
-                    onTimeChange={(newTime) => handleTimeChange(newTime, 'startDate')}
-                  />
-                ),
-                endAdornment: formData.startDate && (
-                  <IconButton
-                    data-testid="TimeInformation-Form-DateBox__StartDateControl_ClearButton"
-                    onClick={() => {
-                      setFormData({ ...formData, startDate: null });
-                      playSound('clickMain');
-                    }}
-                  >
-                    <Close />
-                  </IconButton>
-                ),
-              }}
-              sx={{
-                my: '.5em',
-                maxWidth: '220px',
-              }}
+            <TimePicker
+              label="Start Date"
+              value={formData.startDate ?? null}
+              onChange={(date) => handleTimeChange(date, 'startDate')}
+              onClear={() => setFormData({ ...formData, bidDate: null })}
             />
             <FormControlLabel
               data-testid="startafterbidding-checkbox"
@@ -292,38 +221,11 @@ export const TimeInformation: React.FC<{
               }}
             />
           </Box>
-          <TextField
-            label="Contract End Date"
-            color="secondary"
-            value={formatDate(formData.endDate as Date)}
-            inputProps={{ style: { textAlign: 'center', cursor: 'default' } }}
-            InputProps={{
-              readOnly: true,
-              sx: {
-                cursor: 'default',
-              },
-              startAdornment: (
-                <SelectTimeButton
-                  onDateChange={(newDate) => setHeldDate(newDate)}
-                  onTimeChange={(newTime) => handleTimeChange(newTime, 'endDate')}
-                />
-              ),
-              endAdornment: formData.endDate && (
-                <IconButton
-                  data-testid="TimeInformation-Form-DateBox__EndDateControl_ClearButton"
-                  onClick={() => {
-                    setFormData({ ...formData, endDate: null });
-                    playSound('clickMain');
-                  }}
-                >
-                  <Close />
-                </IconButton>
-              ),
-            }}
-            sx={{
-              my: '.5em',
-              maxWidth: '220px',
-            }}
+          <TimePicker
+            label="End Date"
+            value={formData.endDate ?? null}
+            onChange={(date) => handleTimeChange(date, 'endDate')}
+            onClear={() => setFormData({ ...formData, bidDate: null })}
           />
         </Box>
       </FormControl>
