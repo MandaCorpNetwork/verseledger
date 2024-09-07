@@ -5,8 +5,8 @@ const TabListHolo = styled(Tabs)(({ theme }) => ({
   borderRight: '2px solid',
   borderRadius: '5px',
   borderColor: theme.palette.secondary.main,
-  boxShadow: '0 0px 5px 2px rgba(24,252,252,0.25)',
-  backgroundImage: 'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
+  boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
+  backgroundImage: 'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
   position: 'relative',
   '&:before': {
     content: '""',
@@ -21,9 +21,9 @@ const TabListHolo = styled(Tabs)(({ theme }) => ({
     opacity: 0.5,
   },
   '&:hover': {
-    backgroundImage: 'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
     borderColor: 'secondary.light',
-    boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
+    backgroundImage: 'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
+    boxShadow: '0 0px 5px 2px rgba(24,252,252,0.25)',
   },
   transition: 'all 0.3s',
 }));

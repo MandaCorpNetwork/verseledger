@@ -115,6 +115,27 @@ export const ProfileSettings: React.FC = () => {
                 autoWidth
                 value={currentBackground}
                 onChange={handleProfileBackgroundChange}
+                MenuProps={{
+                  sx: {
+                    maxHeight: '50%',
+                  },
+                  PaperProps: {
+                    sx: {
+                      '&::-webkit-scrollbar': {
+                        width: '5px',
+                        height: '5px',
+                      },
+                      '&::-webkit-scrollbar-track': {
+                        background: 'rgb(0,73,130)',
+                        borderRadius: '10px',
+                      },
+                      '&::-webkit-scrollbar-thumb': {
+                        borderRadius: '20px',
+                        background: 'rgb(24,252,252)',
+                      },
+                    },
+                  },
+                }}
               >
                 {userBackgroundOptions.map((option) => {
                   return (

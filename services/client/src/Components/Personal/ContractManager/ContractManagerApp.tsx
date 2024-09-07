@@ -66,12 +66,15 @@ export const ContractManagerApp: React.FC<unknown> = () => {
    * @default inProgress
    * @returns {string}
    */
-  const [expandedList, setExpandedList] = React.useState<string>('inProgress');
+  const [expandedList, setExpandedList] = React.useState<string | null>(null);
+  //TODO: Need to implement useParams for the selected contract instead of useState
+  // const { selectedContractId } = useParams();
   // HOOKS
   const dispatch = useAppDispatch();
   const mobile = isMobile();
   const theme = useTheme();
   const navigate = useNavigate();
+  // const location = useLocation();
   const { playSound } = useSoundEffect();
 
   // LOGIC

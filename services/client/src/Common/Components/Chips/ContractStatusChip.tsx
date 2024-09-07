@@ -22,6 +22,8 @@ export const ContractStatusChip: React.FC<ContractStatusChipProps> = (props) => 
     switch (status) {
       case 'BIDDING':
         return 'primary';
+      case 'PENDING':
+        return 'warning';
       case 'INPROGRESS':
         return 'info';
       case 'COMPLETE':

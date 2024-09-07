@@ -64,6 +64,10 @@ export const routingInfo: RouteObject[] = [
             element: <OverviewApp />,
           },
           {
+            path: '/dashboard/contracts/:selectedContractId',
+            element: <ContractManagerApp />,
+          },
+          {
             path: 'contracts',
             element: <ContractManagerApp />,
           },

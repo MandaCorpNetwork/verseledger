@@ -14,7 +14,7 @@ type ContractListProps = {
   page: number;
   setPage: (event: React.ChangeEvent<unknown>, newPage: number) => void;
   pageCount: number;
-  expandedList: string;
+  expandedList: string | null;
   setExpandedList: (value: string) => void;
 };
 
@@ -37,7 +37,7 @@ export const ContractList: React.FC<ContractListProps> = ({
         Logger.warn(`Archetype ${archetype} is not an option.`);
         return {
           count: 0,
-          content: <Typography>No Contracts To Display</Typography>,
+          content: <Typography align="center">No Contracts To Display</Typography>,
         };
       }
       const subtypeFilter = selectedArchetype.subTypes.map((sub) => sub.value);
@@ -60,7 +60,15 @@ export const ContractList: React.FC<ContractListProps> = ({
         count: filteredContracts.length,
         content:
           filteredContracts.length === 0 ? (
-            <Typography>No Contracts To Display</Typography>
+            <Typography
+              sx={{
+                ml: '2em',
+                color: 'grey',
+                textShadow: '0 2px 5px rgba(0,0,0), 0 0 8px rgba(255,141,15,.5)',
+              }}
+            >
+              No Contracts To Display
+            </Typography>
           ) : (
             content
           ),
