@@ -246,7 +246,7 @@ export const UserPage: React.FC = () => {
                 value={3}
                 readOnly={true}
                 size="medium"
-                sx={{ my: '1em' }}
+                sx={{ mt: '1em' }}
               />
             </Box>
             <DigiDisplay

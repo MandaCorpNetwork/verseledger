@@ -158,12 +158,27 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
           value={contractOwnership}
           onChange={handleContractOwershipChange}
           sx={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            maxHeight: '70%',
-            flexGrow: 1,
-            overflow: 'hidden',
+            border: '1px solid',
+            borderColor: 'success.dark',
+            boxShadow: '0 0px 10px rgba(24,252,252,0.5)',
+            borderRadius: '5px',
+            '&:hover': {
+              borderColor: 'primary.main',
+            },
+            '& .MuiToggleButton-root': {
+              color: 'secondary.dark',
+              backgroundColor: 'action.disabledBackground',
+              '&:hover': {
+                color: 'text.secondary',
+              },
+            },
+            '& .MuiToggleButton-root.Mui-selected': {
+              color: 'secondary.main',
+              backgroundColor: 'primary.main',
+              '&:hover': {
+                color: 'secondary.light',
+              },
+            },
           }}
         >
           <ToggleButton
