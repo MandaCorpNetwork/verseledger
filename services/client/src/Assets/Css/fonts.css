@@ -19,6 +19,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Banu';
+  src: url('../Fonts/Banu.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .saira-semi-condensed-thin {
   font-family: 'Saira Semi Condensed', sans-serif;
   font-weight: 100;
