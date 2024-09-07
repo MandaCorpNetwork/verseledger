@@ -64,7 +64,7 @@ export class RatingService {
   }
 
   public async notifyContractorsToRate(contract: Contract) {
-    for (const bid of contract.Bids) {
+    for (const bid of contract?.Bids ?? []) {
       const bidderId = bid.user_id;
       const status =
         contract.status === 'COMPLETED'

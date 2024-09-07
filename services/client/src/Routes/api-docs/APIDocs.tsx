@@ -12,6 +12,7 @@ export const APIDocs: React.FC = () => {
       <SwaggerUI
         url={`${URLUtil.backendHost}/api-docs/swagger.json`}
         requestSnippetsEnabled={true}
+        docExpansion="none"
         onComplete={(swagger) => {
           const token = AuthUtil.getAccessToken();
           if (token == null) return;

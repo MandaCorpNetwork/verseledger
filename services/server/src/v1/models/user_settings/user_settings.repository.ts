@@ -20,7 +20,8 @@ export class UserSettingsRepository {
     }[],
   ) {
     const response = await UserSettingsRepository.UserSettings.bulkCreate(
-      settings,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      settings as any,
       {
         updateOnDuplicate: ['value'],
         fields: ['value'],

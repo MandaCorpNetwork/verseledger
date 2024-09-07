@@ -34,6 +34,7 @@ import { stringArray } from 'vl-shared/src/utils/stringArray';
 @ApiPath({
   path: '/v1/users',
   name: 'Users',
+  description: 'User Searching',
   security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
 })
 @controller('/v1/users')

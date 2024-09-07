@@ -46,6 +46,7 @@ import { ContractToContractDTOMapper } from './mapping/contract.mapper';
 @ApiPath({
   path: '/v1/contracts',
   name: 'Contracts',
+  description: 'Methods related to Contracts',
   security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
 })
 @controller('/v1/contracts')
@@ -182,7 +183,7 @@ export class ContractController extends BaseHttpController {
     }
 
     const contract = await this.contractService.getContract(contractId);
-    if (contract == null) {
+    if (contract == null || contract.Bids == null) {
       throw nextFunc(new NotFoundError(contractId));
     }
     return this.ok(
@@ -444,9 +445,9 @@ export class ContractController extends BaseHttpController {
       const status = newBid.status ?? bid.status;
       if (status === 'ACCEPTED') throw new UnauthorizedError();
     }
-    if (newStatus) bid.set('status', newBid.status);
+    if (newStatus && newBid.status) bid.set('status', newBid.status);
 
-    if (newAmount) {
+    if (newAmount && newBid.amount != null) {
       bid.set('amount', newBid.amount);
       if (isContractOwner) {
         bid.set('status', 'INVITED');

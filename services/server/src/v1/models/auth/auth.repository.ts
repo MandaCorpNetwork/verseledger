@@ -28,7 +28,7 @@ export class AuthRepository {
   ) {
     const expiresRange =
       typeof expires === 'string' ? ms(expires) : new Date(expires).getTime();
-    const expiresAt = Date.now() + expiresRange;
+    const expiresAt = new Date(Date.now() + expiresRange);
     const token = jwt.sign(
       { id: user_id, type },
       Buffer.from(env.AUTH_SECRET, 'base64'),
@@ -44,7 +44,7 @@ export class AuthRepository {
     const newToken = await AuthRepository.ApiToken.create({
       user_id,
       name,
-      type,
+      type: type as 'access',
       token_id: jwtid,
       expiresAt,
     });

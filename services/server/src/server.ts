@@ -78,6 +78,7 @@ export const createServer = () => {
     app.use(
       swagger.express({
         definition: {
+          schemes: ['https', 'http'],
           consumes: [swagger.SwaggerDefinitionConstant.Consume.JSON],
           produces: [swagger.SwaggerDefinitionConstant.Produce.JSON],
           info: {

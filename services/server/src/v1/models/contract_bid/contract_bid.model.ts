@@ -11,6 +11,11 @@ import {
 import { Contract } from '@V1/models/contract/contract.model';
 import { User } from '@V1/models/user/user.model';
 import { IdUtil } from '@/utils/IdUtil';
+import {
+  CreationOptional,
+  InferAttributes,
+  InferCreationAttributes,
+} from 'sequelize';
 
 @Scopes(() => ({
   user: {
@@ -21,15 +26,18 @@ import { IdUtil } from '@/utils/IdUtil';
   },
 }))
 @Table({ tableName: 'contract_bids', timestamps: true })
-export class ContractBid extends Model {
+export class ContractBid extends Model<
+  InferAttributes<ContractBid>,
+  InferCreationAttributes<ContractBid>
+> {
   @Column({ type: DataType.VIRTUAL })
-  get __type(): 'ContractBid' {
+  get __type(): CreationOptional<'ContractBid'> {
     return 'ContractBid';
   }
   @PrimaryKey
   @Default(IdUtil.generateBidID)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare id: string;
+  declare id: CreationOptional<string>;
 
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare contract_id: string;
@@ -59,8 +67,8 @@ export class ContractBid extends Model {
     | 'EXPIRED';
 
   @BelongsTo(() => User, { foreignKey: 'user_id', targetKey: 'id' })
-  declare User: Awaited<User>;
+  declare User: CreationOptional<Awaited<User>>;
 
   @BelongsTo(() => Contract, { foreignKey: 'contract_id', targetKey: 'id' })
-  declare Contract: Awaited<Contract>;
+  declare Contract: CreationOptional<Awaited<Contract>>;
 }

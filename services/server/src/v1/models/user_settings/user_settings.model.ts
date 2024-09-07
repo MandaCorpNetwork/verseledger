@@ -9,17 +9,25 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { User } from '../user/user.model';
+import {
+  CreationOptional,
+  InferAttributes,
+  InferCreationAttributes,
+} from 'sequelize';
 
 @Table({ tableName: 'user_settings', timestamps: true })
-export class UserSettings extends Model {
+export class UserSettings extends Model<
+  InferAttributes<UserSettings>,
+  InferCreationAttributes<UserSettings>
+> {
   @Column({ type: DataType.VIRTUAL })
-  get __type(): 'UserSettings' {
+  get __type(): CreationOptional<'UserSettings'> {
     return 'UserSettings';
   }
   @PrimaryKey
   @Default(IdUtil.generateSettingsID)
   @Column({ type: DataType.STRING(IdUtil.IdLength + 128) })
-  declare id: string;
+  declare id: CreationOptional<string>;
 
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare user_id: string;
@@ -31,8 +39,8 @@ export class UserSettings extends Model {
   declare value: string;
 
   @BelongsTo(() => User, { foreignKey: 'user_id', targetKey: 'id' })
-  declare User: Awaited<User>;
+  declare User: CreationOptional<Awaited<User>>;
 
-  declare readonly createdAt: Date;
-  declare readonly updatedAt: Date;
+  declare readonly createdAt: CreationOptional<Date>;
+  declare readonly updatedAt: CreationOptional<Date>;
 }

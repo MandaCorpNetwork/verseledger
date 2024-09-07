@@ -13,6 +13,11 @@ import { User } from '@V1/models/user/user.model';
 import { IdUtil } from '@/utils/IdUtil';
 import { IRatingType } from 'vl-shared/src/schemas/UserRatingsSchema';
 import { Contract } from '@V1/models/contract/contract.model';
+import {
+  CreationOptional,
+  InferAttributes,
+  InferCreationAttributes,
+} from 'sequelize';
 
 @Scopes(() => ({
   submitter: {
@@ -26,15 +31,18 @@ import { Contract } from '@V1/models/contract/contract.model';
   },
 }))
 @Table({ tableName: 'user_ratings', timestamps: true })
-export class UserRating extends Model {
+export class UserRating extends Model<
+  InferAttributes<UserRating>,
+  InferCreationAttributes<UserRating>
+> {
   @Column({ type: DataType.VIRTUAL })
-  get __type(): 'Rating' {
+  get __type(): CreationOptional<'Rating'> {
     return 'Rating';
   }
   @PrimaryKey
   @Default(IdUtil.generateRatingID)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare id: string;
+  declare id: CreationOptional<string>;
 
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare submitter_id: string;
@@ -53,17 +61,17 @@ export class UserRating extends Model {
 
   @AllowNull
   @Column({ type: DataType.TEXT })
-  declare comment: string;
+  declare comment: CreationOptional<string>;
 
   @BelongsTo(() => User, { foreignKey: 'submitter_id', targetKey: 'id' })
-  declare Submitter: Awaited<User>;
+  declare Submitter: CreationOptional<Awaited<User>>;
 
   @BelongsTo(() => User, { foreignKey: 'reciever_id', targetKey: 'id' })
-  declare Reciever: Awaited<User>;
+  declare Reciever: CreationOptional<Awaited<User>>;
 
   @BelongsTo(() => Contract, { foreignKey: 'contract_id', targetKey: 'id' })
-  declare Contract: Awaited<Contract>;
+  declare Contract: CreationOptional<Awaited<Contract>>;
 
-  declare readonly createdAt: Date;
-  declare readonly updatedAt: Date;
+  declare readonly createdAt: CreationOptional<Date>;
+  declare readonly updatedAt: CreationOptional<Date>;
 }

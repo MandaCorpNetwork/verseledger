@@ -32,6 +32,7 @@ const env = new EnvService();
 @ApiPath({
   path: '/v1/auth',
   name: 'Auth',
+  description: 'Auth Token related calls. Privilaged Use.',
   security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
 })
 @controller('/v1/auth')
@@ -47,8 +48,9 @@ export class AuthController extends BaseHttpController {
 
   @ApiOperationGet({
     tags: ['Auth'],
-    description: 'Get user api tokens',
-    summary: 'Get user api tokens',
+    description:
+      'Get user api token identifiers. Actual tokens are never stored, and thus can not be retrieved after generation.',
+    summary: 'Get user api token identifiers',
     path: '/tokens',
     responses: {
       200: {
@@ -59,7 +61,7 @@ export class AuthController extends BaseHttpController {
     },
     consumes: [],
     parameters: {},
-    security: { VLAuthRefreshToken: [] },
+    security: { VLBearerAuth: [] },
   })
   @httpGet('/tokens', TYPES.VerifiedUserMiddleware)
   public async getTokens() {
@@ -70,8 +72,9 @@ export class AuthController extends BaseHttpController {
 
   @ApiOperationDelete({
     tags: ['Auth'],
-    description: 'Delete an API token',
-    summary: 'Delete an API token',
+    description:
+      'Delete an API token - Privilaged. Requests to this made with Access Tokens will 401',
+    summary: 'Delete an API token - Privilaged',
     path: '/tokens/{token_id}',
     responses: {
       200: {
@@ -84,7 +87,7 @@ export class AuthController extends BaseHttpController {
     parameters: {
       path: { token_id: { required: true, description: 'A Token ID' } },
     },
-    security: { VLAuthRefreshToken: [] },
+    security: { VLBearerAuth: [] },
   })
   @httpDelete('/tokens/:token_id', TYPES.VerifiedUserMiddleware)
   public async deleteTokens(@requestParam('token_id') token_id: string) {
@@ -94,8 +97,9 @@ export class AuthController extends BaseHttpController {
 
   @ApiOperationPost({
     tags: ['Auth'],
-    description: 'Create an API token',
-    summary: 'Create an API token',
+    description:
+      'Create an API token - Privilaged. Requests to this made with Access Tokens will 401',
+    summary: 'Create an API token - Privilaged',
     path: '/tokens',
     responses: {
       201: {
@@ -114,7 +118,7 @@ export class AuthController extends BaseHttpController {
         required: true,
       },
     },
-    security: { VLAuthRefreshToken: [] },
+    security: { VLBearerAuth: [] },
   })
   @httpPost('/tokens', TYPES.VerifiedUserMiddleware)
   public async createToken(
@@ -132,8 +136,9 @@ export class AuthController extends BaseHttpController {
 
   @ApiOperationPost({
     tags: ['Auth'],
-    description: 'Refresh the Current User',
-    summary: 'Refresh the Current User',
+    description:
+      'Refresh the Current User - Privilaged. Requests to this made with Access Tokens will 401',
+    summary: 'Refresh the Current User - Privilaged',
     path: '/refresh',
     responses: {
       200: {
@@ -144,7 +149,7 @@ export class AuthController extends BaseHttpController {
     },
     consumes: [],
     parameters: {},
-    security: { VLAuthRefreshToken: [] },
+    security: { VLBearerAuth: [] },
   })
   @httpPost('/refresh', TYPES.AuthMiddleware)
   public async refreshHeaders(
