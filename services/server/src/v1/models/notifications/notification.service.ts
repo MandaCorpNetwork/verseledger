@@ -51,40 +51,15 @@ export class NotificationService {
       resource,
       read: false,
     });
-    this.publish(`/topic/notifications/${user_id}`, text);
+    this.publish(`/topic/notifications-${user_id}`, text);
     return notification;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async publish(destination: string, body: Record<any, any> | string) {
-    //TODO: Wire up mode - STAGING
-    //return false
     return this.stomp.client.publish({
       destination,
       body: JSON.stringify(body),
     });
-  }
-
-  public async markAllRead(userId: string) {
-    const [updatedRows] = await Notification.update(
-      { read: true },
-      {
-        where: { user_id: userId, read: false },
-      },
-    );
-    return updatedRows;
-  }
-
-  public async markRead(userId: string, notificationId: string) {
-    const readNotification = await Notification.update(
-      { read: true },
-      {
-        where: {
-          user_id: userId,
-          id: notificationId,
-        },
-      },
-    );
-    return readNotification;
   }
 }
