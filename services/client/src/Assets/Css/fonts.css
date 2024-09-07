@@ -1,0 +1,95 @@
+@font-face {
+  font-family: 'DigiGraphic';
+  src: url('../Fonts/DigiGraphics.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Anita';
+  src: url('../Fonts/Anita.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Alenia';
+  src: url('../Fonts/Alenia.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.saira-semi-condensed-thin {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.saira-semi-condensed-extralight {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.saira-semi-condensed-light {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.saira-semi-condensed-regular {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.saira-semi-condensed-medium {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.saira-semi-condensed-semibold {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.saira-semi-condensed-bold {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.saira-semi-condensed-extrabold {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.saira-semi-condensed-black {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.jura-normal {
+  font-family: 'Jura', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.jura-bold {
+  font-family: 'Jura', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.jura-extrabold {
+  font-family: 'Jura', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
