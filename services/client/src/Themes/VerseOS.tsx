@@ -1,3 +1,4 @@
+import '@Assets/Css/fonts.css';
 import '@mui/material/Divider';
 import '@mui/material/Button';
 import '@mui/material/Typography';
@@ -84,6 +85,50 @@ export const verseOSTheme = createTheme({
       disabledBackground: 'rgb(0, 30, 100)',
     },
     divider: 'rgb(24, 252, 252)',
+  },
+  typography: {
+    fontFamily: ['Jura', 'Saira Semi Condensed', 'Arial', 'sans-serif'].join(','),
+    h1: {
+      fontFamily: 'Alenia',
+    },
+    h2: {
+      fontFamily: 'Alenia',
+    },
+    h3: {
+      fontFamily: 'Alenia',
+    },
+    h4: {
+      fontFamily: 'Alenia',
+    },
+    h5: {
+      fontFamily: 'Alenia',
+    },
+    h6: {
+      fontFamily: 'Alenia',
+    },
+    subtitle1: {
+      fontFamily: 'DigiGraphic',
+      wordSpacing: '2px',
+    },
+    subtitle2: {
+      fontFamily: 'DigiGraphic',
+    },
+    overline: {
+      fontFamily: 'DigiGraphic',
+      wordSpacing: '2px',
+    },
+    body1: {
+      fontFamily: 'Jura',
+    },
+    body2: {
+      fontFamily: 'Jura',
+    },
+    button: {
+      fontFamily: 'Anita',
+    },
+    caption: {
+      fontFamily: 'DigiGraphic',
+    },
   },
   components: {
     MuiTypography: {
