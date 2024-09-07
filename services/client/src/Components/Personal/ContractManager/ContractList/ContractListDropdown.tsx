@@ -74,7 +74,7 @@ export const ContractListDropdown: React.FC<ContractListDropdownProps> = ({
             textShadow: '0 0 5px rgba(0,0,0,.5)',
             alignItems: 'center',
             letterSpacing: '1.5px',
-            gap: '1em',
+            gap: '.5em',
             '&:hover': {
               color: 'text.primary',
               textShadow: '0 0 5px rgba(255,255,245,.6)',

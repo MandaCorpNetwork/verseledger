@@ -384,6 +384,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 my: '.5em',
                 justifyContent: 'space-between',
                 flexDirection: 'row',
+                py: '.2em',
               }}
             >
               <Typography

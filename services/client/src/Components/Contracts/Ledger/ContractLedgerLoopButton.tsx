@@ -74,15 +74,15 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
         width: '18em',
         height: '5em',
         display: 'flex',
-        border: '5px ridge',
+        border: '3px ridge',
         borderColor: currentFilterValues.includes(value)
           ? 'secondary.main'
-          : 'primary.main',
+          : 'primary.dark',
         borderRadius: '.4em',
         zIndex: '3',
         marginTop: '1em',
         '&:hover': {
-          border: '5px ridge',
+          border: '3px ridge',
           borderColor: 'primary.light',
           //width: '20em',
         },
@@ -97,10 +97,10 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
         <source src={videoSource} type="video/webm" />
       </video>
       <Typography
+        variant="h6"
         sx={{
-          fontWeight: 700,
-          fontSize: '1.2em',
           color: 'text.primary',
+          textShadow: '1px 4px 8px rgb(0,0,0)',
         }}
       >
         {title}
