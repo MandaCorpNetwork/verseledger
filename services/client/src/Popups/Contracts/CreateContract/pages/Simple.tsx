@@ -1,12 +1,5 @@
 import { PayField } from '@Common/Components/TextFields/PayField';
-import {
-  Box,
-  FormControlLabel,
-  MenuItem,
-  Select,
-  Switch,
-  TextField,
-} from '@mui/material';
+import { Box, FormControlLabel, MenuItem, Select, Switch } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';

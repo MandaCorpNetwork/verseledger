@@ -18,7 +18,7 @@ import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { URLUtil } from '@Utils/URLUtil';
 import { enqueueSnackbar } from 'notistack';
-import React, { memo, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { ILocationWithContractLocation } from 'vl-shared/src/schemas/LocationSchema';
