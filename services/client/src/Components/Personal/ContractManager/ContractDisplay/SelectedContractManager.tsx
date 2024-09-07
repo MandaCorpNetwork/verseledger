@@ -41,8 +41,33 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   contractId,
   deselectContract,
 }) => {
+  // LOCAL STATE
+  const [contractManagerTab, setContractManagerTab] = useState<string>('contractors');
+  const [timeTab, setTimeTab] = React.useState<string>('bid');
+  // HOOKS
   const navigate = useNavigate();
+  const { playSound } = useSoundEffect();
 
+  const contract = useAppSelector((root) => selectContract(root, contractId as string));
+
+  const memoizedContract = React.useMemo(() => {
+    return contract;
+  }, [contractId]);
+  const currentUser = useAppSelector(selectCurrentUser);
+  const isContractOwned = React.useMemo(() => {
+    if (memoizedContract.owner_id === currentUser?.id) {
+      return true;
+    } else {
+      return false;
+    }
+  }, [currentUser, contractId]);
+
+  const userBid = React.useMemo(() => {
+    if (isContractOwned) {
+      return null;
+    }
+    return memoizedContract.Bids?.find((bid) => bid.user_id === currentUser?.id) ?? null;
+  }, [currentUser, isContractOwned]);
   const handleCopyURL = React.useCallback((url: string) => {
     const prefix = URLUtil.frontendHost;
     if (navigator.clipboard) {
@@ -80,27 +105,6 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     [handleContractPageNav],
   );
 
-  const { playSound } = useSoundEffect();
-  const [contractManagerTab, setContractManagerTab] = useState<string>('contractors');
-  const [archetype, setArchetype] = React.useState<string | null>(null);
-  const [timeTab, setTimeTab] = React.useState<string>('bid');
-
-  const options = contractArchetypes('secondary.main', 'large');
-
-  const contract = useAppSelector((root) => selectContract(root, contractId as string));
-  const currentUser = useAppSelector(selectCurrentUser);
-
-  React.useEffect(() => {
-    const selectedArchetype = options.find((option) =>
-      option.subTypes.some((subtype) => subtype.value === contract.subtype),
-    );
-    if (selectedArchetype) {
-      setArchetype(selectedArchetype?.archetype);
-    } else {
-      setArchetype(null);
-    }
-  }, [contract.subtype]);
-
   const handleContractManageView = (_event: React.SyntheticEvent, newValue: string) => {
     playSound('clickMain');
     setContractManagerTab(newValue);
@@ -110,14 +114,14 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     (panel: string) => {
       switch (panel) {
         case 'contractors':
-          return <ContractorList contract={contract} />;
+          return <ContractorList contract={memoizedContract} />;
         case 'ships':
           return;
         default:
           return;
       }
     },
-    [contractManagerTab, contract],
+    [contractManagerTab, memoizedContract],
   );
 
   const handleTimeTab = React.useCallback(
@@ -128,44 +132,36 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     [timeTab],
   );
 
-  const timePanel = React.useCallback(
+  const renderTimePanel = React.useCallback(
     (panel: string) => {
       switch (panel) {
         case 'bid':
-          return <BiddingTimePanel contract={contract} />;
+          return <BiddingTimePanel contract={memoizedContract} />;
         case 'duration':
-          return <ContractDurationPanel contract={contract} />;
+          return <ContractDurationPanel contract={memoizedContract} />;
         default:
           return;
       }
     },
-    [timeTab, contract],
+    [timeTab, memoizedContract],
   );
 
   const contractLocations = React.useCallback(() => {
-    if (!contract.Locations) {
+    if (!memoizedContract.Locations) {
       return [] as ILocationWithContractLocation[];
     }
-    const validLocations = contract.Locations.filter(
+    const validLocations = memoizedContract.Locations.filter(
       (loc) => loc.ContractLocation !== undefined,
     );
     return validLocations as ILocationWithContractLocation[];
-  }, [contract]);
+  }, [memoizedContract]);
 
-  const isContractOwned = React.useMemo(() => {
-    if (contract.owner_id === currentUser?.id) {
-      return true;
-    } else {
-      return false;
-    }
-  }, [currentUser, contract.owner_id, contractId]);
+  const archetypes = contractArchetypes('secondary.main', 'large');
 
-  const userBid = React.useMemo(() => {
-    if (isContractOwned) {
-      return null;
-    }
-    return contract.Bids?.find((bid) => bid.user_id === currentUser?.id) ?? null;
-  }, [contract.Bids, currentUser, isContractOwned]);
+  const selectedArchetype =
+    archetypes.find((option) =>
+      option.subTypes.some((subtype) => subtype.value === memoizedContract.subtype),
+    ) || null;
 
   return (
     <Box
@@ -216,22 +212,24 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                 textShadow: '0 0 10px rgba(14,252,252,0.5)',
               }}
             >
-              {contract.title}
+              {memoizedContract.title}
             </Typography>
             <Box
               data-testid="SelectedContract-OverviewInfo-Header__ContractTypeContainer"
               sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
             >
-              <Tooltip title={archetype}>
-                {options.find((option) => option.archetype === archetype)
-                  ?.archetypeIcon ?? <Typography>???</Typography>}
+              <Tooltip title={selectedArchetype?.archetype}>
+                {selectedArchetype ? selectedArchetype.archetypeIcon : <></>}
               </Tooltip>
             </Box>
           </DigiDisplay>
-          <IconButton size="small" onClick={handleCopyURLCallback(contract.id)}>
+          <IconButton size="small" onClick={handleCopyURLCallback(memoizedContract.id)}>
             <Link fontSize="medium" />
           </IconButton>
-          <IconButton size="small" onClick={handleContractPageNavCallback(contract.id)}>
+          <IconButton
+            size="small"
+            onClick={handleContractPageNavCallback(memoizedContract.id)}
+          >
             <OpenInFull fontSize="medium" />
           </IconButton>
         </Box>
@@ -267,7 +265,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               >
                 Status
               </Typography>
-              <ContractStatusChip status={contract.status} />
+              <ContractStatusChip status={memoizedContract.status} />
             </DigiDisplay>
             <DigiDisplay
               data-testid="SelectedContract-OverviewInfo-Bottom__SubtypeChipWrapper"
@@ -284,7 +282,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               </Typography>
               <SubtypeChip
                 data-testid="ContractManager__SelectedContract"
-                subtype={contract.subtype}
+                subtype={memoizedContract.subtype}
                 size="medium"
               />
             </DigiDisplay>
@@ -296,11 +294,13 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
             <Typography variant="body2" sx={{ fontWeight: 'bold', cursor: 'default' }}>
               Pay Defaults
             </Typography>
-            <PayStructure payStructure={contract.payStructure} width="100%" />
+            <PayStructure payStructure={memoizedContract.payStructure} width="100%" />
             <PayDisplay
               label="Default Pay"
-              pay={contract.defaultPay}
-              structure={(contract.payStructure as ContractPayStructure) ?? undefined}
+              pay={memoizedContract.defaultPay}
+              structure={
+                (memoizedContract.payStructure as ContractPayStructure) ?? undefined
+              }
               sx={{
                 minWidth: '120px',
               }}
@@ -336,10 +336,10 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                 p: '.5em',
               }}
             >
-              {timePanel(timeTab)}
+              {renderTimePanel(timeTab)}
             </GlassDisplay>
           </Box>
-          <UserDisplay userid={contract.owner_id} />
+          <UserDisplay userid={memoizedContract.owner_id} />
         </Box>
       </DigiBox>
       <Box
@@ -393,7 +393,9 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
             alignItems: 'center',
           }}
         >
-          {contract.Locations && <LocationsDisplay locations={contractLocations()} />}
+          {memoizedContract.Locations && (
+            <LocationsDisplay locations={contractLocations()} />
+          )}
           <DigiBox
             data-testid="SelectedContract__BriefingWrapper"
             sx={{
@@ -426,7 +428,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                   color: 'text.primary',
                 }}
               >
-                {contract.briefing}
+                {memoizedContract.briefing}
               </Typography>
             </DigiDisplay>
           </DigiBox>
@@ -444,7 +446,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               Contract Controller
             </Typography>
             <ContractController
-              contract={contract}
+              contract={memoizedContract}
               userBid={userBid}
               isOwned={isContractOwned}
               deselectContract={deselectContract}
