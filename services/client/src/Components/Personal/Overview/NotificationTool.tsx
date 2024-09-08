@@ -1,83 +1,136 @@
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import { Typography } from '@mui/material';
+import { ArrowRight } from '@mui/icons-material';
+import { Collapse, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotifications';
-import { markRead } from '@Redux/Slices/Notifications/actions/patchMarkRead';
 import { selectNotificationsArray } from '@Redux/Slices/Notifications/notificationSelectors';
-import { parseResource } from '@Utils/notifResourceParse';
+import useNotification from '@Utils/Hooks/notificationHandler';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
 
 import { useSoundEffect } from '@/AudioManager';
 
 import { OverviewNotification } from './Notification';
 
 export const NotificationTool: React.FC = () => {
-  const notifications = useAppSelector(selectNotificationsArray);
-
+  const [isExpanded, setIsExpanded] = React.useState<string>('unread');
+  const { handleMarkRead, handleViewNotification, getNotificationTitle } =
+    useNotification();
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const { playSound } = useSoundEffect();
-
+  const { t } = useTranslation();
   React.useEffect(() => {
     dispatch(fetchNotifications());
   }, []);
 
-  const handleMarkRead = (notifyId: string) => {
-    playSound('close');
-    dispatch(markRead(notifyId));
-  };
+  const notifications = useAppSelector(selectNotificationsArray);
 
-  const handleViewNotification = (resource: string, notifyId: string) => {
-    const obj = parseResource(resource);
-    if (obj) {
-      if (obj.feature === 'contracts') {
-        playSound('navigate');
-        navigate(`contract?contractID=${obj.id}`);
-      }
-    } else {
-      playSound('denied');
-    }
-    handleMarkRead(notifyId);
-  };
+  const unreadNotifications = notifications.filter(
+    (notif: INotificationDisplay) => !notif.read,
+  );
 
-  const notifTitle = React.useCallback((resource: string) => {
-    const obj = parseResource(resource);
-    if (obj) {
-      if (obj.feature === 'contracts') {
-        return 'Contracts';
+  const readNotifications = notifications.filter(
+    (notif: INotificationDisplay) => notif.read,
+  );
+
+  const handleExpand = React.useCallback(
+    (value: string) => {
+      if (isExpanded === value) {
+        return playSound('denied');
       }
-    }
-    return 'Unknown';
-  }, []);
+      setIsExpanded(value);
+    },
+    [setIsExpanded, isExpanded, playSound],
+  );
+
   return (
     <GlassDisplay
       data-id="NotificationToolContent"
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        gap: '1em',
         padding: '1em',
         overflow: 'auto',
         height: { xs: '300px', md: '85%' },
       }}
     >
-      {notifications.length === 0 && (
-        <Typography align="center" sx={{ my: 'auto' }} variant="h6">
-          No Notifications
-        </Typography>
-      )}
-      {notifications.map((notif) => {
-        return (
-          <OverviewNotification
-            key={notif.id}
-            title={notifTitle(notif.resource)}
-            text={notif.text}
-            view={() => handleViewNotification(notif.resource, notif.id)}
-            onClose={() => handleMarkRead(notif.id)}
-          />
-        );
-      })}
+      <Typography
+        variant="dropDown"
+        onClick={() => handleExpand('unread')}
+        sx={{ color: isExpanded === 'unread' ? 'secondary.main' : 'text.secondary' }}
+      >
+        Unread Notifications
+        <ArrowRight
+          color={isExpanded === 'unread' ? 'secondary' : 'inherit'}
+          sx={{
+            transform: isExpanded === 'unread' ? 'rotate(90deg)' : 'rotate(0deg)',
+            transition: 'transform 150ms',
+          }}
+        />
+      </Typography>
+      <Collapse in={isExpanded === 'unread'} sx={{ gap: '1em' }}>
+        {unreadNotifications.map((notif) => {
+          return (
+            <OverviewNotification
+              key={notif.id}
+              title={getNotificationTitle(notif)}
+              text={t(notif.message)}
+              view={() => handleViewNotification(notif)}
+              onClose={() => handleMarkRead(notif.id)}
+            />
+          );
+        })}
+        {unreadNotifications.length === 0 && (
+          <Typography
+            align="center"
+            sx={{ my: 'auto', color: 'grey', textShadow: '0 0 6px rgba(0,0,0)' }}
+            variant="h6"
+          >
+            No Notifications
+          </Typography>
+        )}
+      </Collapse>
+      <Typography
+        variant="dropDown"
+        onClick={() => handleExpand('read')}
+        sx={{ color: isExpanded === 'read' ? 'secondary.main' : 'text.secondary' }}
+      >
+        Read Notifications
+        <ArrowRight
+          color={isExpanded === 'read' ? 'secondary' : 'inherit'}
+          sx={{
+            transform: isExpanded === 'read' ? 'rotate(90deg)' : 'rotate(0deg)',
+            transition: 'transform 150ms',
+          }}
+        />
+      </Typography>
+      <Collapse in={isExpanded === 'read'} sx={{ gap: '1em' }}>
+        {readNotifications.map((notif) => {
+          return (
+            <OverviewNotification
+              key={notif.id}
+              title={getNotificationTitle(notif)}
+              text={t(notif.message)}
+              view={() => handleViewNotification(notif)}
+              onClose={() => handleMarkRead(notif.id)}
+            />
+          );
+        })}
+        {readNotifications.length === 0 && (
+          <Typography
+            align="center"
+            sx={{
+              my: 'auto',
+              color: 'grey',
+              textShadow: '0 0 6px rgba(0,0,0)',
+            }}
+            variant="h6"
+          >
+            No Notifications
+          </Typography>
+        )}
+      </Collapse>
     </GlassDisplay>
   );
 };

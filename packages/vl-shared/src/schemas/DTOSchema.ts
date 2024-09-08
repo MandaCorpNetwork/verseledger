@@ -9,3 +9,8 @@ export type IDTOPartial<T extends Record<any, any>> = IDTOBase<true> & Partial<T
 export type IDTOComplete<T extends Record<any, any>> = IDTOBase<false> & T;
 
 export type IDTO<T extends Record<any, any>> = IDTOComplete<T> | IDTOPartial<T>;
+
+export type ITimestamped<T extends Record<any, any>> = T & {
+  createdAt: string;
+  updatedAt: string;
+};

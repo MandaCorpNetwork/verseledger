@@ -105,24 +105,29 @@ export const OverviewApp: React.FC<unknown> = () => {
                 justifyContent: 'space-between',
               }}
             >
-              <Typography
-                variant="h6"
-                sx={{
-                  mb: { xs: '.5em', md: '1.5em' },
-                  ml: '.5em',
-                  alignItems: 'center',
-                  display: 'flex',
-                  gap: '.8em',
-                }}
+              <Badge
+                badgeContent={
+                  <Typography variant="body2" sx={{ color: 'primary.contrastText' }}>
+                    {unreadCount}
+                  </Typography>
+                }
+                color="error"
+                max={99}
+                overlap="rectangular"
               >
-                Notifications
-                <Badge
-                  badgeContent={unreadCount}
-                  color="error"
-                  max={99}
-                  overlap="rectangular"
-                />
-              </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    mb: { xs: '.5em', md: '1.5em' },
+                    ml: '.5em',
+                    alignItems: 'center',
+                    display: 'flex',
+                    gap: '.8em',
+                  }}
+                >
+                  Notifications
+                </Typography>
+              </Badge>
               <Button
                 variant="text"
                 size="small"

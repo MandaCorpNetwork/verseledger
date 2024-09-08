@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { IDTOComplete, ITimestamped } from 'vl-shared/src/schemas/DTOSchema';
+import { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
 
 import { fetchNotifications } from './actions/getNotifications';
 import { fetchUnreadCount } from './actions/getUnreadCount';
@@ -12,7 +14,7 @@ const notificationsReducer = createSlice({
     unreadNotifications: 0,
     notificationsMap: {} as Record<
       string,
-      { id: string; text: string; resource: string; createdAt: Date }
+      IDTOComplete<ITimestamped<INotificationDisplay>>
     >,
   },
   reducers: {
@@ -26,12 +28,7 @@ const notificationsReducer = createSlice({
         _state.unreadNotifications = (action.payload as { unread: number }).unread;
       })
       .addCase(fetchNotifications.fulfilled, (state, action) => {
-        const notifications = action.payload as {
-          id: string;
-          text: string;
-          resource: string;
-          createdAt: Date;
-        }[];
+        const notifications = action.payload;
         state.notificationsMap = {};
         for (const notif of notifications) {
           state.notificationsMap[notif.id] = notif;
