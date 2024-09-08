@@ -15,7 +15,19 @@ import { IdUtil } from '@/utils/IdUtil';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { UserRating } from '@V1/models/user_ratings/user_ratings.model';
 import { UserSettings } from '../user_settings/user_settings.model';
-import { CreationOptional } from 'sequelize';
+import {
+  CreationOptional,
+  HasManyAddAssociationMixin,
+  HasManyAddAssociationsMixin,
+  HasManyCountAssociationsMixin,
+  HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+  HasManyHasAssociationMixin,
+  HasManyHasAssociationsMixin,
+  HasManyRemoveAssociationMixin,
+  HasManyRemoveAssociationsMixin,
+  HasManySetAssociationsMixin,
+} from 'sequelize';
 import { Notification } from '../notifications/notification.model';
 @DefaultScope(() => ({
   attributes: {
@@ -98,6 +110,40 @@ export class User extends Model implements IUser {
 
   @HasMany(() => Notification, 'user_id')
   declare Notifications: CreationOptional<Awaited<Notification[]>>;
+  declare getNotifications: HasManyGetAssociationsMixin<Awaited<Notification>>;
+  declare addNotification: HasManyAddAssociationMixin<
+    Awaited<Notification>,
+    string
+  >;
+  declare addNotifications: HasManyAddAssociationsMixin<
+    Awaited<Notification>,
+    string
+  >;
+  declare setNotifications: HasManySetAssociationsMixin<
+    Awaited<Notification>,
+    string
+  >;
+  declare removeNotification: HasManyRemoveAssociationMixin<
+    Awaited<Notification>,
+    string
+  >;
+  declare removeNotifications: HasManyRemoveAssociationsMixin<
+    Awaited<Notification>,
+    string
+  >;
+  declare hasNotification: HasManyHasAssociationMixin<
+    Awaited<Notification>,
+    string
+  >;
+  declare hasNotifications: HasManyHasAssociationsMixin<
+    Awaited<Notification>,
+    string
+  >;
+  declare countNotifications: HasManyCountAssociationsMixin;
+  declare createNotification: HasManyCreateAssociationMixin<
+    Awaited<Notification>,
+    'user_id'
+  >;
 
   declare readonly createdAt: CreationOptional<Date>;
   declare readonly updatedAt: CreationOptional<Date>;

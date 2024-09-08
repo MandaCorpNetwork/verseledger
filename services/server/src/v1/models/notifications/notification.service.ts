@@ -39,15 +39,11 @@ export class NotificationService {
     return `[${text}](${encodeURI(url)})`;
   }
 
-  public async createNotification({
-    user_id,
-    message,
-    action,
-  }: {
-    user_id: string;
-    message: string;
-    action?: string;
-  }) {
+  public async createNotification(
+    user_id: string,
+    message: string,
+    action?: string,
+  ) {
     const notification = await Notification.create({
       user_id,
       message,

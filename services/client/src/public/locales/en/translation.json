@@ -1,5 +1,19 @@
 {
   "@ERROR": {
     "UNEXPLAINED": "Sorry, an error has occurred."
+  },
+  "@UI": {
+    "SUBMIT": "Submit",
+    "CONFIRM": "Confirm",
+    "CANCEL": "Cancel"
+  },
+  "@NOTIFICATION": {
+    "MARK_READ": "Mark Read",
+    "MARK_ALL_READ": "Mark all Read",
+    "DISMISS": "Dismiss",
+    "DISMISS_ALL": "Dismiss All",
+    "MESSAGES": {
+      "VERIFY_RSI": "Please verify your RSI account."
+    }
   }
 }

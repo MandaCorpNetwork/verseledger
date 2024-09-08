@@ -207,7 +207,11 @@ export class AuthController extends BaseHttpController {
       });
     const dbUser = await this.userService.findOrCreateUserByDiscord(user.id);
     if (dbUser.newUser) {
-      //TODO: Create notification
+      this.notificationsService.createNotification(
+        dbUser.user.getDataValue('id'),
+        '@NOTIFICATION.MESSAGES.VERIFY_RSI',
+        'popup:$VERIFY',
+      );
     }
     return this.authService.signUser(dbUser.user.id);
   }
