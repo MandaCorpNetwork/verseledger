@@ -4,8 +4,9 @@ import { inject, injectable } from 'inversify';
 import { col, fn } from 'sequelize';
 import { type StompService } from '@V1/services/stomp.service';
 import { Logger } from '@/utils/Logger';
-import { NotificationToContractDTOMapper } from './mapping/NotificationToNotificationDTOMapper';
+import { NotificationToNotificationDTOMapper } from './mapping/NotificationToNotificationDTOMapper';
 import { INotificationAction } from 'vl-shared/src/schemas/NotificationSchema';
+import { NotificationsToNotificationDTOArrayMapper } from './mapping/NotificationsToNotificationDTOArrayMapper';
 
 @injectable()
 export class NotificationService {
@@ -15,11 +16,12 @@ export class NotificationService {
   @inject(TYPES.StompService) private socket!: StompService;
 
   public async getNotifications(userId: string, limit = 20) {
-    return Notification.findAll({
+    const notifications = await Notification.findAll({
       where: { user_id: userId },
       limit,
       order: [['createdAt', 'DESC']],
     });
+    return NotificationsToNotificationDTOArrayMapper.map(notifications);
   }
 
   public async getUnreadCount(userId: string) {
@@ -53,7 +55,7 @@ export class NotificationService {
     });
     this.socket.publish(
       `/topic/notifications-${user_id}`,
-      NotificationToContractDTOMapper.map(notification),
+      NotificationToNotificationDTOMapper.map(notification),
     );
     return notification;
   }

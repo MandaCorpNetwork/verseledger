@@ -1,6 +1,6 @@
-import { z } from "zod";
-import { IUserSettings } from "./UserSettings";
-import { IDTO } from "./DTOSchema";
+import { z } from 'zod';
+import { IUserSettings } from './UserSettings';
+import { IDTO } from './DTOSchema';
 
 export const UserSchema = z.object({
   id: z.string(),

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const UserSettingsSchema = z.object({
   soundPack: z.string().max(32),

@@ -27,6 +27,8 @@ export class NotificationDTO
   public toJSON() {
     return {
       ...this,
+      action:
+        typeof this.action === 'string' ? JSON.parse(this.action) : this.action,
       __partial: this.__partial,
     };
   }

@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { ITimestamped, TimestampedSchema } from "./TimestampedSchema";
+import { z } from 'zod';
+import { ITimestamped, TimestampedSchema } from './TimestampedSchema';
 
 export const ContractLocationSchema = z.object({
   constract_id: z.string(),
@@ -34,10 +34,7 @@ export const LocationSchema = z.object({
 
 export type ILocation = z.infer<typeof LocationSchema>;
 
-export const ContractTimestampedSchema = z.union([
-  LocationSchema,
-  TimestampedSchema,
-]);
+export const ContractTimestampedSchema = z.union([LocationSchema, TimestampedSchema]);
 
 export type ILocationTimestamped = ILocation & ITimestamped; // To allow type mixing
 

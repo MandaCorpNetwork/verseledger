@@ -3,7 +3,7 @@ import { Notification } from '../notification.model';
 import { NotificationDTO } from './NotificationDTO';
 import { INotification } from 'vl-shared/src/schemas/NotificationSchema';
 
-export class NotificationToContractDTOMapper extends Mapper<
+export class NotificationToNotificationDTOMapper extends Mapper<
   Notification,
   NotificationDTO
 > {

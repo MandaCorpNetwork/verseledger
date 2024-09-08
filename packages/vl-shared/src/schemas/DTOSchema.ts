@@ -4,8 +4,7 @@ export type IDTOBase<bPartial extends boolean> = {
   __type: string;
 };
 
-export type IDTOPartial<T extends Record<any, any>> = IDTOBase<true> &
-  Partial<T>;
+export type IDTOPartial<T extends Record<any, any>> = IDTOBase<true> & Partial<T>;
 
 export type IDTOComplete<T extends Record<any, any>> = IDTOBase<false> & T;
 

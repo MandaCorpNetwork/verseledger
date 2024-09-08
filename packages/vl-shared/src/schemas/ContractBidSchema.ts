@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { ITimestamped, TimestampedSchema } from "./TimestampedSchema";
-import { UserSchema } from "./UserSchema";
-import { ContractBidStatusSchema } from "./ContractBidStatusSchema";
+import { z } from 'zod';
+import { ITimestamped, TimestampedSchema } from './TimestampedSchema';
+import { UserSchema } from './UserSchema';
+import { ContractBidStatusSchema } from './ContractBidStatusSchema';
 
 export const ContractBidSchema = z.object({
   id: z.string().max(26),
