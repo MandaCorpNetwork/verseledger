@@ -1,5 +1,19 @@
 {
   "@ERROR": {
     "UNEXPLAINED": ".se bubu dzo."
+  },
+  "@UI": {
+    "SUBMIT": ".gingo.",
+    "CONFIRM": ".tobechu.",
+    "CANCEL": ".yafa."
+  },
+  "@NOTIFICATION": {
+    "MARK_READ": ".lamba.",
+    "MARK_ALL_READ": ".lambayæ.",
+    "DISMISS": ".mvangó.",
+    "DISMISS_ALL": ".ogoto ye mvangó.",
+    "MESSAGES": {
+      "VERIFY_RSI": "@TODO"
+    }
   }
 }

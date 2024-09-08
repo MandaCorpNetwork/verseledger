@@ -24,4 +24,12 @@ export class StompService {
   public get client() {
     return client;
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  publish(destination: string, body: Record<any, any> | string) {
+    return this.client.publish({
+      destination,
+      body: JSON.stringify(body),
+    });
+  }
 }

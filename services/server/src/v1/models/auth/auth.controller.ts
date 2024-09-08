@@ -27,7 +27,6 @@ import { VLAuthPrincipal } from '@/authProviders/VL.principal';
 import { AuthRepository } from './auth.repository';
 import { ApiTokenCreateSchema } from 'vl-shared/src/schemas/ApiTokenSchema';
 import { NotificationService } from '../notifications/notification.service';
-import { Notification } from '../notifications/notification.model';
 const env = new EnvService();
 @ApiPath({
   path: '/v1/auth',
@@ -208,11 +207,11 @@ export class AuthController extends BaseHttpController {
       });
     const dbUser = await this.userService.findOrCreateUserByDiscord(user.id);
     if (dbUser.newUser) {
-      await Notification.create({
-        user_id: dbUser.user.id,
-        text: '$VERIFY',
-        resource: '$VERIFY',
-      });
+      await this.notificationsService.createNotification(
+        dbUser.user.getDataValue('id'),
+        '@NOTIFICATION.MESSAGES.VERIFY_RSI',
+        { type: 'popup', popup: '$VERIFY' },
+      );
     }
     return this.authService.signUser(dbUser.user.id);
   }

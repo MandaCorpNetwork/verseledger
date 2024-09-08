@@ -1,5 +1,19 @@
 {
-    "@ERROR": {
-        "UNEXPLAINED": "エラーが発生しました。"
+  "@ERROR": {
+    "UNEXPLAINED": "エラーが発生しました。"
+  },
+  "@UI": {
+    "SUBMIT": "提出",
+    "CONFIRM": "確認",
+    "CANCEL": "中止"
+  },
+  "@NOTIFICATION": {
+    "MARK_READ": "既読",
+    "MARK_ALL_READ": "すべて既読",
+    "DISMISS": "却下",
+    "DISMISS_ALL": "すべて却下",
+    "MESSAGES": {
+      "VERIFY_RSI": "RSIのアカウントを確認してください。"
     }
+  }
 }

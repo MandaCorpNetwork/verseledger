@@ -54,37 +54,28 @@ export class RatingService {
         contract_id: contract.id,
       });
       createdRatings.push(newRating);
-      this.notifications.createNotification({
-        user_id: r.reciever_id,
-        text: `You have recieved a new rating ${submitter ? `from ${submitter.displayName}` : ''} for ${contract.title}`,
-        resource: `topic/ratings/${r.reciever_id}`,
-      });
+      //TODO: Create notification
     }
     return createdRatings;
   }
 
   public async notifyContractorsToRate(contract: Contract) {
     for (const bid of contract?.Bids ?? []) {
-      const bidderId = bid.user_id;
-      const status =
+      const _bidderId = bid.user_id;
+      const _status =
         contract.status === 'COMPLETED'
           ? 'Completed'
           : contract.status === 'CANCELED'
             ? 'Canceled'
             : 'Error';
-      this.notifications.createNotification({
-        user_id: bidderId,
-        text: `${contract.title} Contract has been ${status}. Please submit Ratings`,
-        resource: `topic/contracts/${contract.id}/status/rate`,
-      });
+      //TODO: Create notification
     }
   }
 
-  public async delayRatingContractors(submitterId: string, contract: Contract) {
-    this.notifications.createNotification({
-      user_id: submitterId,
-      text: `Pending Contract rating(s) on ${contract.title}.`,
-      resource: `topic/contracts/${contract.id}/status/rate`,
-    });
+  public async delayRatingContractors(
+    _submitterId: string,
+    _contract: Contract,
+  ) {
+    //TODO: Create notification
   }
 }
