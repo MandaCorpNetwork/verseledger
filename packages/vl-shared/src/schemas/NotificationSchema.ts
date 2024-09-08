@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const NotificationSchema = z.object({
   id: z.string().max(26),
@@ -9,10 +9,10 @@ export const NotificationSchema = z.object({
 });
 
 export const NotificationActionSchema = z.object({
-  type: z.enum(["popup", "link"]),
+  type: z.enum(['popup', 'link']),
   popup: z.string().nullish(),
   link: z.string().nullish(),
-  arguments: z.array(z.any()).nullish(),
+  arguments: z.any().nullish(),
 });
 
 export type INotification = z.infer<typeof NotificationSchema>;
