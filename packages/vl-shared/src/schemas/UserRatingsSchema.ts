@@ -1,6 +1,6 @@
-import { z } from "zod";
-import { ContractSubTypeSchema } from "./ContractSubTypeSchema";
-import { ITimestamped, TimestampedSchema } from "./TimestampedSchema";
+import { z } from 'zod';
+import { ContractSubTypeSchema } from './ContractSubTypeSchema';
+import { ITimestamped, TimestampedSchema } from './TimestampedSchema';
 
 export const RatingTypeSchema = z.enum([...ContractSubTypeSchema.options]);
 
@@ -18,10 +18,7 @@ export const UserRatingSchema = z.object({
 
 export type IUserRating = z.infer<typeof UserRatingSchema>;
 
-export const UserRatingTimestampedSchema = z.union([
-  UserRatingSchema,
-  TimestampedSchema,
-]);
+export const UserRatingTimestampedSchema = z.union([UserRatingSchema, TimestampedSchema]);
 
 export type IUserRatingTimestamped = IUserRating & ITimestamped; // To allow type mixing
 
@@ -37,6 +34,4 @@ export const CreateContractRatingsBodySchema = z.object({
   ratings: z.array(CreateUserRatingBodySchema).nullable(),
 });
 
-export type ICreateContractRatingsBody = z.infer<
-  typeof CreateContractRatingsBodySchema
->;
+export type ICreateContractRatingsBody = z.infer<typeof CreateContractRatingsBodySchema>;

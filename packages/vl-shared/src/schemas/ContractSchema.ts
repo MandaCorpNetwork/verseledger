@@ -1,15 +1,15 @@
-import { z } from "zod";
-import { ITimestamped, TimestampedSchema } from "./TimestampedSchema";
-import { ContractSubTypeSchema } from "./ContractSubTypeSchema";
-import { ContractPayStructureSchema } from "./ContractPayStructureSchema";
-import { LocationSchema } from "./LocationSchema";
-import { UserSchema } from "./UserSchema";
-import { ContractBidSchema } from "./ContractBidSchema";
+import { z } from 'zod';
+import { ITimestamped, TimestampedSchema } from './TimestampedSchema';
+import { ContractSubTypeSchema } from './ContractSubTypeSchema';
+import { ContractPayStructureSchema } from './ContractPayStructureSchema';
+import { LocationSchema } from './LocationSchema';
+import { UserSchema } from './UserSchema';
+import { ContractBidSchema } from './ContractBidSchema';
 
 export const ContractSchema = z.object({
-  id: z.string().max(26).describe("CUID2"),
-  owner_id: z.string().max(26).describe("CUID2"),
-  title: z.string().max(32).describe("Contract Title"),
+  id: z.string().max(26).describe('CUID2'),
+  owner_id: z.string().max(26).describe('CUID2'),
+  title: z.string().max(32).describe('Contract Title'),
   subtype: ContractSubTypeSchema,
   briefing: z.string().max(2048),
   bidDate: z.coerce.date().optional().nullable(),
@@ -35,10 +35,7 @@ export const ContractWithOwnerSchema = ContractSchema.extend({
 
 export type IContractWithOwner = z.infer<typeof ContractWithOwnerSchema>;
 
-export const ContractTimestampedSchema = z.union([
-  ContractSchema,
-  TimestampedSchema,
-]);
+export const ContractTimestampedSchema = z.union([ContractSchema, TimestampedSchema]);
 
 export type IContractTimestamped = IContract & ITimestamped; // To allow type mixing
 
@@ -47,9 +44,7 @@ export const CreateContractBodySchema = ContractSchema.omit({
   owner_id: true,
   Locations: true,
 }).extend({
-  Locations: z
-    .array(z.object({ location: z.string(), tag: z.string() }))
-    .optional(),
+  Locations: z.array(z.object({ location: z.string(), tag: z.string() })).optional(),
 });
 export type ICreateContractBody = z.infer<typeof CreateContractBodySchema>;
 
