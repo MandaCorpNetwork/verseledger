@@ -5,6 +5,7 @@ import { col, fn } from 'sequelize';
 import { type StompService } from '@V1/services/stomp.service';
 import { Logger } from '@/utils/Logger';
 import { NotificationToContractDTOMapper } from './mapping/NotificationToNotificationDTOMapper';
+import { INotificationAction } from 'vl-shared/src/schemas/NotificationSchema';
 
 @injectable()
 export class NotificationService {
@@ -42,12 +43,12 @@ export class NotificationService {
   public async createNotification(
     user_id: string,
     message: string,
-    action?: string,
+    action?: INotificationAction,
   ) {
     const notification = await Notification.create({
       user_id,
       message,
-      action,
+      action: action ? JSON.stringify(action) : undefined,
       read: false,
     });
     this.socket.publish(

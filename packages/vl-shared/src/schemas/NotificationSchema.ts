@@ -8,4 +8,12 @@ export const NotificationSchema = z.object({
   action: z.string().max(255).nullish(),
 });
 
+export const NotificationActionSchema = z.object({
+  type: z.enum(["popup", "link"]),
+  popup: z.string().nullish(),
+  link: z.string().nullish(),
+  arguments: z.array(z.any()).nullish(),
+});
+
 export type INotification = z.infer<typeof NotificationSchema>;
+export type INotificationAction = z.infer<typeof NotificationActionSchema>;

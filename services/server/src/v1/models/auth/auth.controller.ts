@@ -210,7 +210,7 @@ export class AuthController extends BaseHttpController {
       this.notificationsService.createNotification(
         dbUser.user.getDataValue('id'),
         '@NOTIFICATION.MESSAGES.VERIFY_RSI',
-        'popup:$VERIFY',
+        { type: 'popup', popup: '$VERIFY' },
       );
     }
     return this.authService.signUser(dbUser.user.id);
