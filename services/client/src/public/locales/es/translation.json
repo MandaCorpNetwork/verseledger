@@ -1,1 +1,16 @@
-{}
+{
+    "@ERROR": {
+        "UNEXPLAINED": "Lo siento, ha ocurrido un error."
+    },
+    "@UI": {
+        "SUBMIT": "Entregar",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+    "@NOTIFICATION": {
+        "MARK_READ": "He Leído",
+        "MARK_ALL_READ": "He Leído todo",
+        "DISMISS": "Despedir",
+        "DISMISS_ALL": "Despedir todo"
+    }
+}
