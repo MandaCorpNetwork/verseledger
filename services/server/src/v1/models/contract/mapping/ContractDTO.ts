@@ -11,6 +11,7 @@ import { DTOBase } from '@V1/DTO/DTOBase';
 import { LocationDTO } from '@V1/models/location/mapping/LocationDTO';
 import { ContractBidDTO } from '@V1/models/contract_bid/mapping/ContractBidDTO';
 import { UserDTO } from '@V1/models/user/mapping/UserDTO';
+import { RatingDTO } from '@V1/models/user_ratings/mapping/UserRatingDTO';
 
 @ApiModel({
   description: 'Contract Object',
@@ -23,6 +24,7 @@ export class ContractDTO extends DTOBase<IContract> implements IContract {
       Locations: LocationDTO,
       Bids: ContractBidDTO,
       Owner: UserDTO,
+      Ratings: RatingDTO,
     });
   }
 
@@ -46,6 +48,7 @@ export class ContractDTO extends DTOBase<IContract> implements IContract {
       Locations: undefined,
       Owner: undefined,
       User: undefined,
+      Rating: undefined,
     });
   }
 

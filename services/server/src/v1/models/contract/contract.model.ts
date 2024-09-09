@@ -83,6 +83,9 @@ import { UserSettings } from '../user_settings/user_settings.model';
   locations: {
     include: [{ model: Location, as: 'Locations' }],
   },
+  ratings: {
+    include: [{ model: UserRating, as: 'Ratings' }],
+  },
 }))
 @DefaultScope(() => ({
   attributes: {
