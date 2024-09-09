@@ -15,7 +15,7 @@ import { ApiPath } from 'swagger-express-ts';
   name: 'Notifications',
   security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
 })
-@controller('/v1/notifications')
+@controller('/v1/notifications', TYPES.AuthMiddleware)
 export class NotificationsController extends BaseHttpController {
   constructor(
     @inject(TYPES.UserService) private userService: UserService,
@@ -25,11 +25,14 @@ export class NotificationsController extends BaseHttpController {
     super();
   }
 
-  @httpGet('/') private getNotifications() {
+  @httpGet('/')
+  private getNotifications() {
     const userId = (this.httpContext.user as VLAuthPrincipal).id;
     return this.notificationService.getNotifications(userId, 20);
   }
-  @httpGet('/unreadCount') private async getUnreadCount() {
+
+  @httpGet('/unreadCount')
+  private async getUnreadCount() {
     const userId = (this.httpContext.user as VLAuthPrincipal).id;
     const unread = await this.notificationService.getUnreadCount(userId);
     return this.json({ unread });
