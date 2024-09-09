@@ -463,6 +463,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               mt: 'auto',
               width: '100%',
               flexDirection: 'column',
+              mb: '1em',
             }}
           >
             <Typography

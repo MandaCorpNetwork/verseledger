@@ -1,5 +1,5 @@
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
-import { Chip } from '@mui/material';
+import { Chip, Tooltip } from '@mui/material';
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
@@ -28,25 +28,27 @@ export const SubtypeChip: React.FC<SubtypeChipProps> = (props) => {
   const options = contractArchetypes('primary.main', iconSize);
   const dispatch = useAppDispatch();
   const archetypeObj = options.find((option) =>
-    option.subTypes.some((subType) => subType.label === subtype),
+    option.subTypes.some((subType) => subType.value === subtype),
   );
+
+  const subtypeObj = archetypeObj?.subTypes.find((subType) => subType.value === subtype);
 
   // Handler to open Archetype Info Popup
   const handleArchetypeOpen = () => {
     dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetypeObj?.archetype }));
   };
   return (
-    <>
+    <Tooltip title={subtypeObj?.label}>
       <Chip
         data-testid={`SubtypeChip__${testid}_root`}
-        label={subtype}
+        label={subtypeObj?.label}
         icon={archetypeObj ? archetypeObj.archetypeIcon : undefined}
         variant={variant}
         size={size}
         color={color}
         onClick={handleArchetypeOpen}
-        sx={{ ...sx }}
+        sx={{ ...sx, maxWidth: '120px' }}
       />
-    </>
+    </Tooltip>
   );
 };

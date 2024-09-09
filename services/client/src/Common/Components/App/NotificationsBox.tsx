@@ -155,9 +155,13 @@ export const NotificationsBox: React.FC = () => {
         >
           <List sx={{ listStyleType: 'disc', px: '.5em' }}>
             {unreadNotifications.map((notif) => {
+              const notificationMessage = t(
+                notif.message,
+                notif.action?.arguments,
+              ) as string;
               return (
                 <AppbarListItem key={notif.id} sx={{ my: '.5em' }}>
-                  <Tooltip title={notif.message} arrow>
+                  <Tooltip title={notificationMessage} arrow>
                     <ListItemText
                       primary={getNotificationTitle(notif)}
                       primaryTypographyProps={{
@@ -166,7 +170,7 @@ export const NotificationsBox: React.FC = () => {
                           textShadow: '0 0 5px rgba(255,255,255,.8)',
                         },
                       }}
-                      secondary={t(notif.message)}
+                      secondary={notificationMessage}
                       sx={{ cursor: 'default', color: 'inherit' }}
                       secondaryTypographyProps={{
                         sx: {
