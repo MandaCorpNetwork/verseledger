@@ -3,6 +3,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { markAllRead } from '@Redux/Slices/Notifications/actions/markAllRead';
 import { markRead } from '@Redux/Slices/Notifications/actions/patchMarkRead';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
 
@@ -13,33 +14,39 @@ function useNotification() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleMarkRead = (notifyId: string) => {
-    playSound('close');
-    dispatch(markRead(notifyId));
-  };
+  const handleMarkRead = React.useCallback(
+    (notifyId: string) => {
+      playSound('close');
+      dispatch(markRead(notifyId));
+    },
+    [playSound, dispatch],
+  );
 
-  const handleViewNotification = (notif: INotificationDisplay) => {
-    handleMarkRead(notif.id);
-    if (notif.action?.type === 'link') {
-      navigate(notif.action.link as string);
-    } else if (notif.action?.type === 'popup') {
-      switch (notif.action.popup) {
-        case '$VERIFY':
-          playSound('open');
-          dispatch(openPopup(POPUP_PLAYER_CARD, { userid: notif.user_id }));
-          break;
-        default:
-          break;
+  const handleViewNotification = React.useCallback(
+    (notif: INotificationDisplay) => {
+      handleMarkRead(notif.id);
+      if (notif.action?.type === 'link') {
+        navigate(notif.action.link as string);
+      } else if (notif.action?.type === 'popup') {
+        switch (notif.action.popup) {
+          case '$VERIFY':
+            playSound('open');
+            dispatch(openPopup(POPUP_PLAYER_CARD, { userid: notif.user_id }));
+            break;
+          default:
+            break;
+        }
       }
-    }
-  };
+    },
+    [handleMarkRead, playSound, dispatch, navigate],
+  );
 
-  const handleMarkAllRead = () => {
+  const handleMarkAllRead = React.useCallback(() => {
     playSound('close');
     dispatch(markAllRead());
-  };
+  }, [playSound, dispatch]);
 
-  const getNotificationTitle = (notif: INotificationDisplay) => {
+  const getNotificationTitle = React.useCallback((notif: INotificationDisplay) => {
     if (notif.action?.type === 'popup') {
       switch (notif.action.popup) {
         case '$VERIFY':
@@ -51,14 +58,17 @@ function useNotification() {
       return 'Unknown';
     }
     return 'Unknown';
-  };
+  }, []);
 
-  return {
-    handleMarkAllRead,
-    handleViewNotification,
-    handleMarkRead,
-    getNotificationTitle,
-  };
+  return React.useMemo(
+    () => ({
+      handleMarkAllRead,
+      handleViewNotification,
+      handleMarkRead,
+      getNotificationTitle,
+    }),
+    [handleMarkAllRead, handleViewNotification, handleMarkRead, getNotificationTitle],
+  );
 }
 
 export default useNotification;
