@@ -34,6 +34,13 @@ export const ContractItem: React.FC<ContractProps> = ({
     const endDate = dayjs(contract.endDate);
     const isAfter = dayjs().isAfter(endDate);
     if (isAfter) {
+      if (
+        contract.status === 'PENDING' ||
+        contract.status === 'BIDDING' ||
+        contract.status === 'INPROGRESS'
+      ) {
+        return `Expired ${endDate.fromNow()}`;
+      }
       return `Ended ${endDate.fromNow()}`;
     } else {
       return `Ends ${endDate.fromNow()}`;
