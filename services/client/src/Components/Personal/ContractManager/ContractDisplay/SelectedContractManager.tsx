@@ -12,7 +12,7 @@ import TabListHolo from '@Common/Components/Tabs/TabListHolo';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { Link, OpenInFull } from '@mui/icons-material';
-import { Box, IconButton, Tab, Tooltip, Typography } from '@mui/material';
+import { Box, IconButton, Rating, Tab, Tooltip, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
@@ -169,6 +169,17 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
       option.subTypes.some((subtype) => subtype.value === memoizedContract.subtype),
     ) || null;
 
+  const getContractorRating = React.useCallback(() => {
+    const userRatings = memoizedContract.Ratings?.filter(
+      (rating) => rating.reciever_id === memoizedContract.owner_id,
+    );
+    if (!userRatings || userRatings.length === 0) return 0;
+    const ratingSum = userRatings.reduce((acc, rating) => acc + rating.rating_value, 0);
+    return ratingSum / userRatings.length;
+  }, [memoizedContract]);
+
+  const ownerRating = getContractorRating();
+
   return (
     <Box
       data-testid="SelectedContractManagerWrapper"
@@ -218,6 +229,15 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               }}
             >
               {memoizedContract.title}
+              {(memoizedContract.status === 'COMPLETED' ||
+                memoizedContract.status === 'CANCELED') && (
+                <Rating
+                  readOnly
+                  value={ownerRating}
+                  disabled={ownerRating === 0}
+                  sx={{ ml: '.5em' }}
+                />
+              )}
             </Typography>
             <Box
               data-testid="SelectedContract-OverviewInfo-Header__ContractTypeContainer"
