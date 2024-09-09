@@ -25,7 +25,8 @@ export class NotificationsController extends BaseHttpController {
     super();
   }
 
-  @httpGet('/') private getNotifications() {
+  @httpGet('/')
+  private getNotifications() {
     const userId = (this.httpContext.user as VLAuthPrincipal).id;
     return this.notificationService.getNotifications(userId, 20);
   }
