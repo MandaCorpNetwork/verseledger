@@ -24,6 +24,7 @@ export const OverviewNotification: React.FC<OverviewNotificationProps> = ({
         px: { xs: '.2em', md: '1em' },
         alignItems: 'center',
         gap: '.5em',
+        my: '.5em',
       }}
     >
       <Typography

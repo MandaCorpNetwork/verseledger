@@ -160,11 +160,11 @@ export const contractArchetypes = (
     subTypes: [
       {
         label: 'Middleman',
-        value: 'Middleman',
+        value: 'MiddleMan',
       },
       {
         label: 'Redacted',
-        value: 'Redacted',
+        value: 'Other',
       },
     ],
   },

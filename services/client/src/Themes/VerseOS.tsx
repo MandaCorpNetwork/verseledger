@@ -24,6 +24,7 @@ declare module '@mui/material/Typography' {
     tip: true;
     paragraph: true;
     error: true;
+    dropDown: true;
   }
 }
 
@@ -168,6 +169,22 @@ export const verseOSTheme = createTheme({
             display: 'inline-block',
             textShadow: '0 0 6px rgba(0,0,0), 0 0 2px rgba(255,0,0,.4)',
             boxShadow: '0 4px 10px rgba(0,0,0,.6), 0 2px 6px rgba(255,0,0,.4)',
+          },
+        },
+        {
+          props: { variant: 'dropDown' },
+          style: {
+            display: 'flex',
+            flexDirection: 'row',
+            cursor: 'pointer',
+            fontWeight: 'bold',
+            fontSize: '14px',
+            textShadow: '0 0 5px rgba(33,150,243,.3)',
+            '&:hover': {
+              color: 'text.primary',
+              cursor: 'pointer',
+              textShadow: '0 0 5px rgba(255,255,245,.6)',
+            },
           },
         },
       ],

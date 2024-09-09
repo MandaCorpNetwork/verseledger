@@ -14,12 +14,12 @@ import {
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotifications';
-import { markAllRead } from '@Redux/Slices/Notifications/actions/markAllRead';
-import { markRead } from '@Redux/Slices/Notifications/actions/patchMarkRead';
 import { selectNotificationsArray } from '@Redux/Slices/Notifications/notificationSelectors';
-import { parseResource } from '@Utils/notifResourceParse';
+import useNotification from '@Utils/Hooks/notificationHandler';
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
 
 import { useSoundEffect } from '@/AudioManager';
 
@@ -28,46 +28,25 @@ import { AppbarListItem } from '../Lists/AppbarListItem';
 export const NotificationsBox: React.FC = () => {
   const notifications = useAppSelector(selectNotificationsArray);
 
+  const unreadNotifications = notifications.filter(
+    (notif: INotificationDisplay) => !notif.read,
+  );
+
+  const {
+    handleMarkRead,
+    handleViewNotification,
+    handleMarkAllRead,
+    getNotificationTitle,
+  } = useNotification();
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const { playSound } = useSoundEffect();
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchNotifications());
-  }, []);
-
-  const handleMarkAllRead = () => {
-    playSound('close');
-    dispatch(markAllRead());
-  };
-
-  const handleMarkRead = (notifyId: string) => {
-    playSound('close');
-    dispatch(markRead(notifyId));
-  };
-
-  const handleViewNotification = (resource: string, notifyId: string) => {
-    const obj = parseResource(resource);
-    if (obj) {
-      if (obj.feature === 'contracts') {
-        playSound('navigate');
-        navigate(`contract?contractID=${obj.id}`);
-      }
-    } else {
-      playSound('denied');
-    }
-    handleMarkRead(notifyId);
-  };
-
-  const notifTitle = React.useCallback((resource: string) => {
-    const obj = parseResource(resource);
-    if (obj) {
-      if (obj.feature === 'contracts') {
-        return 'Contracts';
-      }
-    }
-    return 'Unknown';
   }, []);
 
   return (
@@ -108,11 +87,11 @@ export const NotificationsBox: React.FC = () => {
               color="secondary"
               onClick={() => {
                 playSound('navigate');
-                navigate('/ledger/personal/overview');
+                navigate('/dashboard/overview');
               }}
-              disabled={location.pathname === '/ledger/personal/overview'}
+              disabled={location.pathname === '/dashboard/overview'}
             >
-              <Typography variant="overline">Overview</Typography>
+              <Typography variant="overline">{t('@NOTIFICATION.OVERVIEW')}</Typography>
             </Button>
             <Button
               variant="text"
@@ -121,7 +100,9 @@ export const NotificationsBox: React.FC = () => {
               onClick={handleMarkAllRead}
               disabled={notifications.length === 0}
             >
-              <Typography variant="overline">Mark All Read</Typography>
+              <Typography variant="overline">
+                {t('@NOTIFICATION.MARK_ALL_READ')}
+              </Typography>
             </Button>
           </Box>
         }
@@ -173,19 +154,19 @@ export const NotificationsBox: React.FC = () => {
           }}
         >
           <List sx={{ listStyleType: 'disc', px: '.5em' }}>
-            {notifications.map((notif) => {
+            {unreadNotifications.map((notif) => {
               return (
                 <AppbarListItem key={notif.id} sx={{ my: '.5em' }}>
-                  <Tooltip title={notif.text} arrow>
+                  <Tooltip title={notif.message} arrow>
                     <ListItemText
-                      primary={notifTitle(notif.resource)}
+                      primary={getNotificationTitle(notif)}
                       primaryTypographyProps={{
                         sx: {
                           color: 'text.primary',
                           textShadow: '0 0 5px rgba(255,255,255,.8)',
                         },
                       }}
-                      secondary={notif.text}
+                      secondary={t(notif.message)}
                       sx={{ cursor: 'default', color: 'inherit' }}
                       secondaryTypographyProps={{
                         sx: {
@@ -197,9 +178,7 @@ export const NotificationsBox: React.FC = () => {
                       }}
                     />
                   </Tooltip>
-                  <ListItemButton
-                    onClick={() => handleViewNotification(notif.resource, notif.id)}
-                  >
+                  <ListItemButton onClick={() => handleViewNotification(notif)}>
                     View
                   </ListItemButton>
                   <IconButton color="error" onClick={() => handleMarkRead(notif.id)}>

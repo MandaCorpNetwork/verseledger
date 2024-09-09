@@ -15,5 +15,14 @@ export const NotificationActionSchema = z.object({
   arguments: z.any().nullish(),
 });
 
+export const NotificationDisplaySchema = z.object({
+  id: z.string().max(26),
+  user_id: z.string().max(26),
+  read: z.boolean(),
+  message: z.string(),
+  action: NotificationActionSchema.nullish(),
+});
+
 export type INotification = z.infer<typeof NotificationSchema>;
 export type INotificationAction = z.infer<typeof NotificationActionSchema>;
+export type INotificationDisplay = z.infer<typeof NotificationDisplaySchema>;
