@@ -272,6 +272,7 @@ export class ContractService {
       'bids',
       'owner',
       'locations',
+      'ratings',
     ]).findAndCountAll({
       where: query,
       limit: Math.min(limit, 25),

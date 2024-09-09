@@ -5,6 +5,7 @@ import { ContractPayStructureSchema } from './ContractPayStructureSchema';
 import { LocationSchema } from './LocationSchema';
 import { UserSchema } from './UserSchema';
 import { ContractBidSchema } from './ContractBidSchema';
+import { UserRatingSchema } from './UserRatingsSchema';
 
 export const ContractSchema = z.object({
   id: z.string().max(26).describe('CUID2'),
@@ -25,6 +26,7 @@ export const ContractSchema = z.object({
   status: z.string(),
   Locations: z.array(LocationSchema).optional(),
   Bids: z.array(ContractBidSchema).optional(),
+  Ratings: z.array(UserRatingSchema).optional(),
 });
 
 export type IContract = z.infer<typeof ContractSchema>;
