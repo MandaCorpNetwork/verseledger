@@ -14,6 +14,7 @@ import { PopupManager } from '@/PopupManager';
 import { WidgetManager } from '@/WidgetManager';
 
 import { VLAppBar } from '../Common/Components/App/AppBar';
+import { AdminPage } from './Admin/AdminPage';
 import { APIDocs } from './api-docs/APIDocs';
 import { ContractPage } from './Contract/ContractPage';
 import { ContractLedgerPage } from './ContractLedger/ContractLedgerPage';
@@ -171,6 +172,10 @@ export const routingInfo: RouteObject[] = [
       {
         path: '/verse-news',
         element: <VerseNewsPage />,
+      },
+      {
+        path: '/admin',
+        element: <AdminPage />,
       },
       {
         path: '/sandbox',

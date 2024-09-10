@@ -5,6 +5,7 @@ import { Box, ButtonBase, IconButton } from '@mui/material';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 
+import AdminLoop from '@/Assets/media/MenuPage/AdminLoop.webm?url';
 import FreelancerLoop from '@/Assets/media/MenuPage/FreelancerLoop.webm?url';
 import JobsLoop from '@/Assets/media/MenuPage/JobsLoop.webm?url';
 import MadeByCommunity from '@/Assets/media/MenuPage/MadeByTheCommunity.png';
