@@ -1,3 +1,5 @@
+import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
+import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { ReadOnlyField } from '@Common/Components/TextFields/ReadOnlyField';
 import { ContentCopy } from '@mui/icons-material';
@@ -37,13 +39,15 @@ export const LocationInfoPopup: React.FC<LocationInfoProps> = ({ locationId }) =
         data-testid="LocationPopup__ContentWrapper"
         sx={{ display: 'flex', flexDirection: 'column' }}
       >
-        <Box
+        <PopupFormSelection
           data-testid="LocationPopup__ButtonWrapper"
           sx={{
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             mb: '1em',
+            py: '.5em',
+            px: '.2em',
           }}
         >
           <Button variant="outlined" color="success" size="small">
@@ -55,8 +59,8 @@ export const LocationInfoPopup: React.FC<LocationInfoProps> = ({ locationId }) =
           <Button variant="outlined" color="secondary" size="small">
             Open Explorer
           </Button>
-        </Box>
-        <Box
+        </PopupFormSelection>
+        <PopupFormDisplay
           data-testid="LocationPopup__TimeDataWrapper"
           sx={{
             display: 'flex',
@@ -78,8 +82,17 @@ export const LocationInfoPopup: React.FC<LocationInfoProps> = ({ locationId }) =
             <ReadOnlyField label="StarRise Time" />
             <ReadOnlyField label="StarSet Time" />
           </Box>
-        </Box>
-        <Box data-testid="LocationPopup__InformationWrapper">
+        </PopupFormDisplay>
+        <PopupFormDisplay
+          data-testid="LocationPopup__InformationWrapper"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            p: '.5em',
+            mt: '1em',
+          }}
+        >
           <Box
             data-testid="LocationPopup-Information__StaticInfo_Wrapper"
             sx={{
@@ -179,7 +192,7 @@ export const LocationInfoPopup: React.FC<LocationInfoProps> = ({ locationId }) =
               />
             </Box>
           </Box>
-        </Box>
+        </PopupFormDisplay>
       </Box>
     </VLPopup>
   );
