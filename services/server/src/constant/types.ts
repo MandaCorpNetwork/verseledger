@@ -13,4 +13,5 @@ export const TYPES = {
   PallyService: Symbol.for('PallyService'),
   ResourceEditorService: Symbol.for('ResourceEditorService'),
   RatingService: Symbol.for('RatingService'),
+  ChatService: Symbol.for('ChatService'),
 };

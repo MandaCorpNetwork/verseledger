@@ -46,7 +46,7 @@ export const NotificationsBox: React.FC = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    dispatch(fetchNotifications());
+    dispatch(fetchNotifications(true));
   }, []);
 
   return (
