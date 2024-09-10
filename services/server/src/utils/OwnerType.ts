@@ -9,5 +9,6 @@ export enum OwnerType {
   Notification = 'Notification',
   Rating = 'Rating',
   Setting = 'Setting',
+  DM = 'DM',
   INVALID = 'INVALID',
 }

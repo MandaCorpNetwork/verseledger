@@ -15,9 +15,13 @@ export class NotificationService {
   }
   @inject(TYPES.StompService) private socket!: StompService;
 
-  public async getNotifications(userId: string, limit = 20) {
+  public async getNotifications(
+    user_id: string,
+    limit = 20,
+    filter?: { unreadOnly: boolean },
+  ) {
     const notifications = await Notification.findAll({
-      where: { user_id: userId },
+      where: { user_id, ...(filter?.unreadOnly ? { read: false } : {}) },
       limit,
       order: [['createdAt', 'DESC']],
     });
@@ -40,6 +44,12 @@ export class NotificationService {
 
   createHyperlink(text: string, url: string) {
     return `[${text}](${encodeURI(url)})`;
+  }
+
+  public async markRead(notificationId: string) {
+    const notification = await Notification.findByPk(notificationId);
+    if (notification == null) return null;
+    return notification.set('read', true);
   }
 
   public async createNotification(

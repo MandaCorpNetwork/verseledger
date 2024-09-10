@@ -12,6 +12,7 @@ export enum IdPrefix {
   Notification = 'N-',
   Rating = 'R-',
   Setting = 'S-',
+  DM = 'D-',
 }
 
 export class IdUtil {
@@ -31,6 +32,7 @@ export class IdUtil {
     if (id.startsWith(IdPrefix.Notification)) return OwnerType.Notification;
     if (id.startsWith(IdPrefix.Rating)) return OwnerType.Rating;
     if (id.startsWith(IdPrefix.Setting)) return OwnerType.Setting;
+    if (id.startsWith(IdPrefix.DM)) return OwnerType.DM;
     return OwnerType.INVALID;
   }
 
@@ -75,6 +77,9 @@ export class IdUtil {
   }
   public static generateSettingsID() {
     return IdUtil.generateId(IdPrefix.Setting);
+  }
+  public static generateChatID() {
+    return IdUtil.generateId(IdPrefix.DM);
   }
   public static expressRegex(type: IdPrefix = IdPrefix.System) {
     return `${type}[a-z0-9]{24}`;
