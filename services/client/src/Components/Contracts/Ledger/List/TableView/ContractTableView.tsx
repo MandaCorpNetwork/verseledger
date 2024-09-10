@@ -1,5 +1,6 @@
 import { PayDisplay } from '@Common/Components/App/PayDisplay';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
 import { UserChip } from '@Common/Components/Chips/UserChip';
 import {
   Box,
@@ -48,13 +49,13 @@ interface Column {
   format?: (value: number) => string;
 }
 const columns: readonly Column[] = [
-  { id: 'title', label: 'Title', minWidth: 170 },
+  { id: 'title', label: 'Contract Title', minWidth: 170 },
   { id: 'subtype', label: 'Subtype', minWidth: 100 },
-  { id: 'owner', label: 'Owner', minWidth: 100 },
-  { id: 'pay', label: 'Pay', minWidth: 100 },
-  { id: 'location', label: 'Location', minWidth: 100 },
+  { id: 'owner', label: 'Contract Owner', minWidth: 100 },
+  { id: 'pay', label: 'Default Pay', minWidth: 100 },
+  { id: 'location', label: 'Start Location', minWidth: 100 },
   { id: 'createdDate', label: 'Date Created', minWidth: 70 },
-  { id: 'bidTime', label: 'Bid Time', minWidth: 70 },
+  { id: 'bidTime', label: 'Bid End', minWidth: 70 },
 ];
 
 type CreatedTimeDisplayProps = {
@@ -84,7 +85,11 @@ const BidTimeDisplay: React.FC<BidTimeDisplayProps> = ({ contract }) => {
   const bidRealtiveTimestamp = React.useCallback(() => {
     const now = dayjs();
     if (now >= bidDate) {
-      return 'Bidding Closed';
+      if (contract.status !== 'BIDDING') {
+        return 'Bidding Closed';
+      } else {
+        return 'Expired';
+      }
     }
     dayjs.extend(relativeTime);
     return now.to(bidDate);
@@ -99,6 +104,12 @@ const BidTimeDisplay: React.FC<BidTimeDisplayProps> = ({ contract }) => {
       </Typography>
     </Tooltip>
   );
+};
+
+const getStartLocationId = (contract: IContract) => {
+  return contract.Locations?.find(
+    (location) => location.ContractLocation?.tag === 'start',
+  )?.id;
 };
 
 export const ContractTableView: React.FC<ContractRowProps> = ({
@@ -127,14 +138,16 @@ export const ContractTableView: React.FC<ContractRowProps> = ({
           boxShadow: '0 0 15px 2px #0e318d',
           mx: 'auto',
           '&::-webkit-scrollbar': {
-            width: '10px',
+            width: '5px',
+            height: '5px',
           },
           '&::-webkit-scrollbar-track': {
-            background: 'rgb(8, 29, 68)',
+            background: 'rgb(0,73,130)',
+            borderRadius: '10px',
           },
           '&::-webkit-scrollbar-thumb': {
             borderRadius: '20px',
-            background: 'rgb(121, 192, 244, .5)',
+            background: 'rgb(24,252,252)',
           },
         }}
       >
@@ -192,7 +205,9 @@ export const ContractTableView: React.FC<ContractRowProps> = ({
                     {contract.title}
                   </Typography>
                 </TableCell>
-                <TableCell sx={{ textAlign: 'center' }}>{contract.subtype}</TableCell>
+                <TableCell sx={{ textAlign: 'center' }}>
+                  <SubtypeChip subtype={contract.subtype} />
+                </TableCell>
                 <TableCell sx={{ textAlign: 'center' }}>
                   <UserChip user_id={contract.owner_id} size="medium" />
                 </TableCell>
@@ -203,7 +218,7 @@ export const ContractTableView: React.FC<ContractRowProps> = ({
                   />
                 </TableCell>
                 <TableCell sx={{ textAlign: 'center' }}>
-                  <LocationChip locationId="Location" />
+                  <LocationChip locationId={getStartLocationId(contract) ?? ''} />
                 </TableCell>
                 <TableCell sx={{ textAlign: 'center' }}>
                   <CreatedTimeDisplay contract={contract} />
