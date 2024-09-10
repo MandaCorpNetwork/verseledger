@@ -174,6 +174,10 @@ export const routingInfo: RouteObject[] = [
         element: <VerseNewsPage />,
       },
       {
+        path: '/admin/:adminTab',
+        element: <AdminPage />,
+      },
+      {
         path: '/admin',
         element: <AdminPage />,
       },
