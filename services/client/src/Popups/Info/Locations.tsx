@@ -87,7 +87,7 @@ export const LocationInfoPopup: React.FC<LocationInfoProps> = ({ locationId }) =
             variant="outlined"
             color="success"
             size="small"
-            onClick={() => handleSetLocation}
+            onClick={() => handleSetLocationVerify}
             disabled={currentLocation.id === location?.id}
           >
             Set Location
