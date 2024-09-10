@@ -14,8 +14,15 @@ import {
 } from '@mui/material';
 import { Gauge, SparkLineChart } from '@mui/x-charts';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
-import { useAppSelector } from '@Redux/hooks';
+import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation';
+import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
 import { selectLocationById } from '@Redux/Slices/Locations/locationSelectors';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 export type LocationInfoProps = {
   locationId: string;
@@ -25,7 +32,33 @@ export const POPUP_LOCATION_INFO = 'locationInfo';
 
 export const LocationInfoPopup: React.FC<LocationInfoProps> = ({ locationId }) => {
   const location = useAppSelector((state) => selectLocationById(state, locationId));
+  const currentLocation = useAppSelector(selectUserLocation);
 
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const handleSetLocation = React.useCallback(
+    (selectedLocation: ILocation | null) => {
+      if (selectedLocation) {
+        dispatch(setUserLocation(selectedLocation));
+      }
+    },
+    [dispatch],
+  );
+
+  const handleSetLocationVerify = React.useCallback(() => {
+    dispatch(
+      openPopup(POPUP_YOU_SURE, {
+        title: 'Change Location',
+        subjectText: 'Change the current Location',
+        bodyText:
+          'This action will change your currently set location, which can impact certain experiences throughout Verse Ledger',
+        onAccept: handleSetLocation(location),
+        clickaway: 'true',
+        testid: 'LocationExplorer__SetLocation',
+      }),
+    );
+  }, [dispatch, handleSetLocation, location]);
   return (
     <VLPopup
       data-testid="Location__Popup"
@@ -50,13 +83,24 @@ export const LocationInfoPopup: React.FC<LocationInfoProps> = ({ locationId }) =
             px: '.2em',
           }}
         >
-          <Button variant="outlined" color="success" size="small">
+          <Button
+            variant="outlined"
+            color="success"
+            size="small"
+            onClick={() => handleSetLocation}
+            disabled={currentLocation.id === location?.id}
+          >
             Set Location
           </Button>
-          <Button variant="outlined" color="error" size="small">
+          <Button variant="outlined" color="error" size="small" disabled>
             Report Crime
           </Button>
-          <Button variant="outlined" color="secondary" size="small">
+          <Button
+            variant="outlined"
+            color="secondary"
+            size="small"
+            onClick={() => navigate(`/dashboard/explore/${location?.id}`)}
+          >
             Open Explorer
           </Button>
         </PopupFormSelection>
