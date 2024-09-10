@@ -482,6 +482,11 @@ export const DesktopController: React.FC<DesktopControllerProps> = ({
     if (!userBid) return;
     dispatch(openPopup(POPUP_COUNTER_OFFER_BID, { bidId: userBid.id, contract }));
   }, [dispatch, userBid, contract]);
+
+  const contractEnded = contract.status === 'COMPLETED' || contract.status === 'CANCLED';
+
+  const acceptedContractors =
+    contract.Bids?.filter((bid) => bid.status === 'ACCEPTED') ?? [];
   return (
     <ControlPanelBox
       data-testid="ContractPage-Bottom-Left__Controller_Wrapper"
@@ -492,7 +497,7 @@ export const DesktopController: React.FC<DesktopControllerProps> = ({
         gap: '.5em',
       }}
     >
-      {isOwned && contract.status === 'BIDDING' && (
+      {isOwned && contract.status === 'BIDDING' && acceptedContractors.length > 0 && (
         <Button
           data-testid="ContractPage-ContractController__EndBidding_Button"
           variant="outlined"
@@ -504,19 +509,21 @@ export const DesktopController: React.FC<DesktopControllerProps> = ({
           End Bidding
         </Button>
       )}
-      {isOwned && (contract.status === 'BIDDING' || contract.status === 'PENDING') && (
-        <Button
-          data-testid="ContractPage-ContractController__StartContract_Button"
-          variant="outlined"
-          color="secondary"
-          size="small"
-          fullWidth
-          onClick={handleStartContract}
-        >
-          Start
-        </Button>
-      )}
-      {isOwned && contract.status === 'INPROGRESS' && (
+      {isOwned &&
+        (contract.status === 'BIDDING' || contract.status === 'PENDING') &&
+        acceptedContractors.length > 0 && (
+          <Button
+            data-testid="ContractPage-ContractController__StartContract_Button"
+            variant="outlined"
+            color="secondary"
+            size="small"
+            fullWidth
+            onClick={handleStartContract}
+          >
+            Start
+          </Button>
+        )}
+      {isOwned && contract.status === 'INPROGRESS' && acceptedContractors.length > 0 && (
         <Button
           data-testid="ContractPage-ContractController__CompleteContract_Button"
           variant="outlined"
@@ -528,7 +535,7 @@ export const DesktopController: React.FC<DesktopControllerProps> = ({
           Complete
         </Button>
       )}
-      {isOwned && contract.status !== 'COMPLETED' && contract.status !== 'CANCELED' && (
+      {isOwned && !contractEnded && (
         <Button
           data-testid="ContractPage-ContractController__EditContract_Button"
           variant="outlined"
@@ -540,7 +547,7 @@ export const DesktopController: React.FC<DesktopControllerProps> = ({
           Edit
         </Button>
       )}
-      {isOwned && contract.status !== 'COMPLETED' && contract.status !== 'CANCELED' && (
+      {isOwned && !contractEnded && (
         <Button
           data-testid="ContractPage-ContractController__CancelContract_Button"
           variant="outlined"
@@ -554,7 +561,8 @@ export const DesktopController: React.FC<DesktopControllerProps> = ({
       )}
       {!isOwned &&
         userBid?.status === 'INVITED' &&
-        userBid?.amount === contract.defaultPay && (
+        userBid?.amount === contract.defaultPay &&
+        !contractEnded && (
           <Button
             data-testid="ContractPage-ContractController__AcceptInvite_Button"
             variant="outlined"
@@ -568,7 +576,8 @@ export const DesktopController: React.FC<DesktopControllerProps> = ({
         )}
       {!isOwned &&
         userBid?.status === 'INVITED' &&
-        userBid?.amount === contract.defaultPay && (
+        userBid?.amount === contract.defaultPay &&
+        !contractEnded && (
           <Button
             data-testid="ContractPage-ContractController__DeclineInvite_Button"
             variant="outlined"
@@ -582,7 +591,8 @@ export const DesktopController: React.FC<DesktopControllerProps> = ({
         )}
       {!isOwned &&
         userBid?.status === 'INVITED' &&
-        userBid?.amount !== contract.defaultPay && (
+        userBid?.amount !== contract.defaultPay &&
+        !contractEnded && (
           <Button
             data-testid="ContractPage-ContractController__DeclineInvite_Button"
             variant="outlined"
@@ -594,7 +604,7 @@ export const DesktopController: React.FC<DesktopControllerProps> = ({
             Open Offer
           </Button>
         )}
-      {!isOwned && userBid?.status === 'PENDING' && (
+      {!isOwned && userBid?.status === 'PENDING' && !contractEnded && (
         <Button
           data-testid="ContractPage-ContractController__CancelBid_Button"
           variant="outlined"
@@ -606,7 +616,7 @@ export const DesktopController: React.FC<DesktopControllerProps> = ({
           Cancel Bid
         </Button>
       )}
-      {!isOwned && userBid?.status === 'ACCEPTED' && (
+      {!isOwned && userBid?.status === 'ACCEPTED' && !contractEnded && (
         <Button
           data-testid="ContractPage-ContractController__Withdraw_Button"
           variant="outlined"
@@ -618,12 +628,12 @@ export const DesktopController: React.FC<DesktopControllerProps> = ({
           Withdraw
         </Button>
       )}
-      {!isOwned && userBid?.status === 'REJECTED' && (
+      {!isOwned && userBid?.status === 'REJECTED' && !contractEnded && (
         <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
           Bid has been Rejected
         </Typography>
       )}
-      {!isOwned && userBid?.status === 'DECLINED' && (
+      {!isOwned && userBid?.status === 'DECLINED' && !contractEnded && (
         <>
           <Button
             data-testid="ContractPage-ContractController__ResubmitBid_Button"
@@ -640,7 +650,7 @@ export const DesktopController: React.FC<DesktopControllerProps> = ({
           </Typography>
         </>
       )}
-      {!isOwned && userBid?.status === 'EXPIRED' && (
+      {!isOwned && userBid?.status === 'EXPIRED' && !contractEnded && (
         <>
           <Button
             data-testid="ContractPage-ContractController__ResubmitBid_Button"
@@ -658,7 +668,7 @@ export const DesktopController: React.FC<DesktopControllerProps> = ({
           </Typography>
         </>
       )}
-      {!isOwned && !userBid && contract.status === 'BIDDING' && (
+      {!isOwned && !userBid && contract.status === 'BIDDING' && !contractEnded && (
         <Button
           data-testid="ContractPage-ContractController__SubmitBid_Button"
           variant="outlined"
@@ -678,6 +688,7 @@ export const DesktopController: React.FC<DesktopControllerProps> = ({
           size="small"
           fullWidth
           onClick={openReview}
+          disabled={acceptedContractors.length === 0}
         >
           Submit Ratings
         </Button>

@@ -54,7 +54,8 @@ export class RatingService {
         contract_id: contract.id,
       });
       createdRatings.push(newRating);
-      //TODO: Create notification
+      //TODO: Need to send the updated data in the DTO
+      this.notifications.createNotification(newRating.getDataValue("reciever_id"), `@NOTIFICATIONS.MESSAGES.NEW_CONTRACT_RATING`, {type: 'link', link: `/ledger/contracts/${contract.id}`, arguments: {contractTitle: contract.title} })
     }
     return createdRatings;
   }

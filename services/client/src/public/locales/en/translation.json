@@ -14,7 +14,8 @@
     "DISMISS_ALL": "Dismiss All",
     "OVERVIEW": "Overview",
     "MESSAGES": {
-      "VERIFY_RSI": "Please verify your RSI account."
+      "VERIFY_RSI": "Please verify your RSI account.",
+      "NEW_CONTRACT_RATING": "Recieved new rating on: {{contractTitle}}"
     }
   }
 }

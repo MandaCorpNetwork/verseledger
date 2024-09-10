@@ -1,8 +1,9 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { Link } from '@mui/icons-material';
-import { Box, IconButton, Tooltip, Typography } from '@mui/material';
+import { Box, IconButton, Rating, Tooltip, Typography } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
+import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { useSoundEffect } from '@/AudioManager';
@@ -71,6 +72,17 @@ export const TitleBox: React.FC<TitleBoxProps> = ({
       enqueueSnackbar('Clipboard API not supported', { variant: 'warning' });
     }
   };
+
+  const getContractorRating = React.useCallback(() => {
+    const userRatings = contract.Ratings?.filter(
+      (rating) => rating.reciever_id === contract.owner_id,
+    );
+    if (!userRatings || userRatings.length === 0) return 0;
+    const ratingSum = userRatings.reduce((acc, rating) => acc + rating.rating_value, 0);
+    return ratingSum / userRatings.length;
+  }, [contract]);
+
+  const ownerRating = getContractorRating();
   return (
     <DigiBox
       data-testid="ContractPage__Info_Container"
@@ -108,6 +120,9 @@ export const TitleBox: React.FC<TitleBoxProps> = ({
             {contract?.title}
           </Typography>
         </Tooltip>
+        {(contract.status === 'COMPLETED' || contract.status === 'CANCELED') && (
+          <Rating readOnly value={ownerRating} disabled={ownerRating === 0} />
+        )}
         <IconButton
           data-testid="ContractPage-Info-TitleBar__PageLink_Button"
           size={mobile ? 'medium' : 'large'}

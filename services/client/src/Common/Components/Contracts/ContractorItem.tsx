@@ -2,7 +2,7 @@ import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { UserChip } from '@Common/Components/Chips/UserChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Rating, Typography } from '@mui/material';
 import { POPUP_COUNTER_OFFER_BID } from '@Popups/Contracts/ContractBids/CounterOffer';
 import { useAppDispatch } from '@Redux/hooks';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
@@ -132,6 +132,17 @@ export const Contractor: React.FC<ContractorProps> = ({
   );
 
   const bidStatusColor = getBidStatusColor(bid.status);
+
+  const getUserRating = React.useCallback(() => {
+    const userRatings = contract.Ratings?.filter(
+      (rating) => rating.reciever_id === user.id,
+    );
+    if (!userRatings || userRatings.length === 0) return 0;
+    const ratingSum = userRatings.reduce((acc, rating) => acc + rating.rating_value, 0);
+    return ratingSum / userRatings.length;
+  }, [contract]);
+
+  const userRating = getUserRating();
 
   return (
     <ControlPanelBox
@@ -280,26 +291,29 @@ export const Contractor: React.FC<ContractorProps> = ({
           />
         </Box>
       )}
-      {contractOwned && bid.status === 'ACCEPTED' && (
-        <Box
-          data-testid="ContractorsTab-ContractorList-Contractor__AcceptedControlsWrapper"
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-          }}
-        >
-          <Button
-            data-testid="ContractorsTab-ContractorList-Contractor-AcceptedControls__DismissButton"
-            color="error"
-            onClick={handleDismiss}
+      {contractOwned &&
+        bid.status === 'ACCEPTED' &&
+        contract.status !== 'COMPLETED' &&
+        contract.status !== 'CANCELED' && (
+          <Box
+            data-testid="ContractorsTab-ContractorList-Contractor__AcceptedControlsWrapper"
             sx={{
-              mx: '1em',
+              display: 'flex',
+              flexDirection: 'row',
             }}
           >
-            Dismiss
-          </Button>
-        </Box>
-      )}
+            <Button
+              data-testid="ContractorsTab-ContractorList-Contractor-AcceptedControls__DismissButton"
+              color="error"
+              onClick={handleDismiss}
+              sx={{
+                mx: '1em',
+              }}
+            >
+              Dismiss
+            </Button>
+          </Box>
+        )}
       {contractOwned && bid.status === 'REJECTED' && (
         <Typography
           data-testid="ContractorsTab-ContractorList-Contractor-BidControl__RejectedBidStatus"
@@ -327,6 +341,9 @@ export const Contractor: React.FC<ContractorProps> = ({
         <Button color="warning" variant="text" onClick={handleCancelInvite}>
           Cancel Invite
         </Button>
+      )}
+      {(contract.status === 'COMPLETED' || contract.status === 'CANCELED') && (
+        <Rating size="small" value={userRating} disabled={userRating === 0} readOnly />
       )}
     </ControlPanelBox>
   );

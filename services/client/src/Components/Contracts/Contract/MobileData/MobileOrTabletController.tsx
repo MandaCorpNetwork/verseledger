@@ -474,6 +474,11 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
     if (!userBid) return;
     dispatch(openPopup(POPUP_COUNTER_OFFER_BID, { bidId: userBid.id, contract }));
   }, [dispatch, userBid, contract]);
+
+  const contractEnded = contract.status === 'COMPLETED' || contract.status === 'CANCLED';
+
+  const acceptedContractors =
+    contract.Bids?.filter((bid) => bid.status === 'ACCEPTED') ?? [];
   return (
     <Box
       data-testid="ContractPage__ContractController_Small_Wrapper"
@@ -487,7 +492,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
         gap: '.5em',
       }}
     >
-      {isOwned && contract.status === 'BIDDING' && (
+      {isOwned && contract.status === 'BIDDING' && acceptedContractors.length > 0 && (
         <Button
           data-testid="ContractPage-ContractController__EndBidding_Button"
           variant="contained"
@@ -503,23 +508,25 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           End Bidding
         </Button>
       )}
-      {isOwned && (contract.status === 'BIDDING' || contract.status === 'PENDING') && (
-        <Button
-          data-testid="ContractPage-ContractController__StartContract_Button"
-          variant="contained"
-          color="secondary"
-          size="large"
-          fullWidth
-          onClick={handleStartContract}
-          sx={{
-            fontSize: '1em',
-            fontWeight: 'bold',
-          }}
-        >
-          Start Contract
-        </Button>
-      )}
-      {isOwned && contract.status === 'INPROGRESS' && (
+      {isOwned &&
+        (contract.status === 'BIDDING' || contract.status === 'PENDING') &&
+        acceptedContractors.length > 0 && (
+          <Button
+            data-testid="ContractPage-ContractController__StartContract_Button"
+            variant="contained"
+            color="secondary"
+            size="large"
+            fullWidth
+            onClick={handleStartContract}
+            sx={{
+              fontSize: '1em',
+              fontWeight: 'bold',
+            }}
+          >
+            Start Contract
+          </Button>
+        )}
+      {isOwned && contract.status === 'INPROGRESS' && acceptedContractors.length > 0 && (
         <Button
           data-testid="ContractPage-ContractController__CompleteContract_Button"
           variant="contained"
@@ -535,7 +542,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           Complete Contract
         </Button>
       )}
-      {isOwned && contract.status !== 'COMPLETED' && contract.status !== 'CANCELED' && (
+      {isOwned && contractEnded && (
         <Button
           data-testid="ContractPage-ContractController__EditContract_Button"
           variant="contained"
@@ -551,7 +558,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           Edit Contract
         </Button>
       )}
-      {isOwned && contract.status !== 'COMPLETED' && contract.status !== 'CANCELED' && (
+      {isOwned && contractEnded && (
         <Button
           data-testid="ContractPage-ContractController__CancelContract_Button"
           variant="contained"
@@ -569,7 +576,8 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
       )}
       {!isOwned &&
         userBid?.status === 'INVITED' &&
-        userBid?.amount === contract.defaultPay && (
+        userBid?.amount === contract.defaultPay &&
+        !contractEnded && (
           <Button
             data-testid="ContractPage-ContractController__AcceptInvite_Button"
             variant="contained"
@@ -587,7 +595,8 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
         )}
       {isOwned &&
         userBid?.status === 'INVITED' &&
-        userBid?.amount === contract.defaultPay && (
+        userBid?.amount === contract.defaultPay &&
+        !contractEnded && (
           <Button
             data-testid="ContractPage-ContractController__DeclineInvite_Button"
             variant="contained"
@@ -605,7 +614,8 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
         )}
       {!isOwned &&
         userBid?.status === 'INVITED' &&
-        userBid?.amount !== contract.defaultPay && (
+        userBid?.amount !== contract.defaultPay &&
+        !contractEnded && (
           <Button
             data-testid="ContractPage-ContractController__DeclineInvite_Button"
             variant="outlined"
@@ -617,7 +627,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
             Open Offer
           </Button>
         )}
-      {!isOwned && userBid?.status === 'PENDING' && (
+      {!isOwned && userBid?.status === 'PENDING' && !contractEnded && (
         <Button
           data-testid="ContractPage-ContractController__CancelBid_Button"
           variant="contained"
@@ -633,7 +643,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           Cancel Bid
         </Button>
       )}
-      {!isOwned && userBid?.status === 'ACCEPTED' && (
+      {!isOwned && userBid?.status === 'ACCEPTED' && !contractEnded && (
         <Button
           data-testid="ContractPage-ContractController__Withdraw_Button"
           variant="contained"
@@ -649,12 +659,12 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           Withdraw
         </Button>
       )}
-      {!isOwned && userBid?.status === 'REJECTED' && (
+      {!isOwned && userBid?.status === 'REJECTED' && !contractEnded && (
         <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
           Bid has been Rejected
         </Typography>
       )}
-      {!isOwned && userBid?.status === 'DECLINED' && (
+      {!isOwned && userBid?.status === 'DECLINED' && !contractEnded && (
         <>
           <Button
             data-testid="ContractPage-ContractController__ResubmitBid_Button"
@@ -675,7 +685,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           </Typography>
         </>
       )}
-      {!isOwned && userBid?.status === 'EXPIRED' && (
+      {!isOwned && userBid?.status === 'EXPIRED' && !contractEnded && (
         <>
           <Button
             data-testid="ContractPage-ContractController__ResubmitBid_Button"
@@ -697,7 +707,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           </Typography>
         </>
       )}
-      {!isOwned && !userBid && contract.status === 'BIDDING' && (
+      {!isOwned && !userBid && contract.status === 'BIDDING' && !contractEnded && (
         <Button
           data-testid="ContractPage-ContractController__SubmitBid_Button"
           variant="contained"
@@ -721,6 +731,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
           size="large"
           fullWidth
           onClick={openReview}
+          disabled={acceptedContractors.length === 0}
           sx={{
             fontSize: '1em',
             fontWeight: 'bold',
