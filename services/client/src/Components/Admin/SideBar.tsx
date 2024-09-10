@@ -106,6 +106,10 @@ export const AdminSideBar: React.FC = () => {
             right: 0,
             transform: `rotate(${isExpanded ? '180deg' : '0'})`,
             transition: 'transform 0.3s',
+            '&:hover': {
+              color: 'text.primary',
+              transform: 'scale(1.2)',
+            },
           }}
         >
           <KeyboardDoubleArrowRight fontSize="large" />
