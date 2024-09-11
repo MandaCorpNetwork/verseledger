@@ -149,7 +149,7 @@ export class RatingsController extends BaseHttpController {
     );
     this.ratingService.notifyContractorsToRate(contract);
     return this.created(
-      `/ratings/${newRatings.map((r) => r.id).join('&')}`,
+      newRatings.map((r) => `/v1/ratings/${r.id}`).join(';'),
       newRatings.map((r) => new RatingDTO(r as IUserRating)),
     );
   }
