@@ -1,6 +1,13 @@
-import { Paper } from '@mui/material';
-import { BarChart, HighlightScope } from '@mui/x-charts';
-
+import { Paper, Typography } from '@mui/material';
+import {
+  BarChart,
+  ChartsAxisContentProps,
+  ChartsTooltipCell,
+  ChartsTooltipMark,
+  ChartsTooltipRow,
+} from '@mui/x-charts';
+//TODO: Work on the Padding for the Band to ensure spacing is correct on smaller scale
+//TODO: Work on Developer Contribution BreakdownChart
 export const PatchBreakdown: React.FC = () => {
   const data = [
     {
@@ -36,50 +43,122 @@ export const PatchBreakdown: React.FC = () => {
       dataset={data}
       xAxis={[{ scaleType: 'band', dataKey: 'group' }]}
       series={[
-        { dataKey: 'unread', stack: 'unread', label: 'Unread' },
-        { dataKey: 'confirmed', stack: 'confirmed', label: 'Confirmed' },
-        { dataKey: 'completedOpen', stack: 'completed', label: 'Completed' },
-        { dataKey: 'ignored', stack: 'ignored', label: 'Ignored' },
-        { dataKey: 'total', stack: 'completedConfirmed', label: 'Total' },
-        { dataKey: 'completed', stack: 'completedConfirmed', label: 'Completed' },
-        { dataKey: 'assigned', stack: 'assigned', label: 'Assigned' },
-        { dataKey: 'unassigned', stack: 'assigned', label: 'Unassigned' },
+        {
+          dataKey: 'unread',
+          stack: 'unread',
+          label: 'Unread',
+          highlightScope: {
+            highlight: 'item',
+          },
+          color: 'rgb(255,0,0)',
+        },
+        {
+          dataKey: 'confirmed',
+          stack: 'confirmed',
+          label: 'Confirmed',
+          highlightScope: {
+            highlight: 'item',
+          },
+          color: 'rgb(255,141,15)',
+        },
+        {
+          dataKey: 'completedOpen',
+          stack: 'completed',
+          label: 'Completed',
+          highlightScope: {
+            highlight: 'item',
+          },
+          color: 'rgb(8,201,11)',
+        },
+        {
+          dataKey: 'ignored',
+          stack: 'ignored',
+          label: 'Ignored',
+          highlightScope: {
+            highlight: 'item',
+          },
+          color: 'rgb(100,100,100)',
+        },
+        {
+          dataKey: 'total',
+          stack: 'completedConfirmed',
+          label: 'Total',
+          highlightScope: {
+            highlight: 'item',
+          },
+          color: 'rgb(8,125,11)',
+        },
+        {
+          dataKey: 'completed',
+          stack: 'completedConfirmed',
+          label: 'Completed',
+          highlightScope: {
+            highlight: 'item',
+          },
+          color: 'rgb(8, 201, 11)',
+        },
+        {
+          dataKey: 'assigned',
+          stack: 'assigned',
+          label: 'Assigned',
+          highlightScope: {
+            highlight: 'item',
+          },
+          color: 'rgb(33, 150, 243)',
+        },
+        {
+          dataKey: 'unassigned',
+          stack: 'assigned',
+          label: 'Unassigned',
+          highlightScope: {
+            highlight: 'item',
+          },
+          color: 'rgb(14,49,180)',
+        },
       ]}
       width={400}
-      height={200}
+      height={100}
       slotProps={{
         legend: { hidden: true },
       }}
       tooltip={{
-        itemContent: CustomTooltipContent,
+        axisContent: CustomTooltipContent,
         trigger: 'axis',
       }}
     />
   );
 };
 
-const CustomTooltipContent: React.FC = (props) => {
-  const { itemData, series } = props;
-  const relevantDataKeys: Record<string, string[]> = {
-    'Open Bugs': ['unread', 'confirmed', 'ignored', 'completedOpen'],
-    'Current Confirmed': ['total', 'completed', 'assigned', 'unassigned'],
+const CustomTooltipContent: React.FC<ChartsAxisContentProps> = (props) => {
+  const { axisValue, series } = props;
+  const relevantDataKeys: Record<string, number[]> = {
+    'Open Bugs': [0, 1, 2, 3],
+    'Current Confirmed': [4, 5, 6, 7],
   };
-  const hoveredGroup = itemData.value;
-  const keys = relevantDataKeys[hoveredGroup] || [];
-
+  const relevantIndicies = relevantDataKeys[axisValue as string] || [];
   return (
-    <Paper sx={{ p: '1em' }}>
-      <p>Group: {hoveredGroup}</p>
-      {keys.map((key, idx) => {
-        const seriesItem = series.find((s) => s.label === key);
-        if (seriesItem) {
-          return (
-            <p key={idx}>
-              {key}: {seriesItem.data[itemData.dataIndex]}
-            </p>
-          );
-        }
-        return null;
+    <Paper sx={{ px: '1em' }}>
+      <p>{axisValue !== null ? axisValue.toString() : 'No data'}</p>
+      {relevantIndicies.map((index) => {
+        const item = series[index] as unknown as {
+          label: string;
+          getColor: () => string;
+          data: number[];
+        };
+        return (
+          // <p key={index}>{series[index].label}</p>
+          <ChartsTooltipRow key={index}>
+            <ChartsTooltipCell>
+              <ChartsTooltipMark color={item.getColor()} />
+            </ChartsTooltipCell>
+            <ChartsTooltipCell>
+              <Typography>{`${item.label}:`}</Typography>
+            </ChartsTooltipCell>
+            <ChartsTooltipCell>
+              <Typography>{item.data[0]}</Typography>
+            </ChartsTooltipCell>
+          </ChartsTooltipRow>
+        );
       })}
     </Paper>
   );

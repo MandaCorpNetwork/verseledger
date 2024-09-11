@@ -40,7 +40,13 @@ export const BugStatsBar: React.FC<BugStatsProps> = ({ tab }) => {
         <Box>
           <Button>Patch View</Button>
           <Button>Assignments</Button>
-          <Box>{chartTab === 'patch' && <PatchBreakdown />}</Box>
+          <Box
+            sx={{
+              bgcolor: 'rgba(0,0,0,.4)',
+            }}
+          >
+            {chartTab === 'patch' && <PatchBreakdown />}
+          </Box>
         </Box>
       </Box>
     </Box>
