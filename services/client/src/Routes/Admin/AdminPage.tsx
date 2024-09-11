@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { BugsPage } from '@/Components/Admin/Page/BugsPage';
+import { BugsPage } from '@/Components/Admin/Page/Bugs/BugsPage';
 import { MilestonesPage } from '@/Components/Admin/Page/MilestonesPage';
 import { OverviewPage } from '@/Components/Admin/Page/OverviewPage';
 import { QuestionsPage } from '@/Components/Admin/Page/QuestionsPage';
