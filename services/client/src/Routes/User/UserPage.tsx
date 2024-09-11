@@ -1,4 +1,5 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
+import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
@@ -29,12 +30,12 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useSoundEffect } from '@/AudioManager';
-import { ContractInfoPanel } from '@/Components/UserPage/Info/ContractsInfoPanel';
-import { FleetInfoPanel } from '@/Components/UserPage/Info/FleetInfoPanel';
-import { OrderInfoPanel } from '@/Components/UserPage/Info/OrdersInfoPanel';
-import { OrgsInfoPanel } from '@/Components/UserPage/Info/OrgsInfoPanel';
-import { ContractStatsPanel } from '@/Components/UserPage/Stats/ContractStatsPanel';
-import { OrderStatsPanel } from '@/Components/UserPage/Stats/OrderStatsPanel';
+import { ContractInfoPanel } from '@/Components/UserPage/Info/Panels/ContractsInfoPanel';
+import { FleetInfoPanel } from '@/Components/UserPage/Info/Panels/FleetInfoPanel';
+import { OrderInfoPanel } from '@/Components/UserPage/Info/Panels/OrdersInfoPanel';
+import { OrgsInfoPanel } from '@/Components/UserPage/Info/Panels/OrgsInfoPanel';
+import { ContractStatsPanel } from '@/Components/UserPage/Stats/Panels/ContractStatsPanel';
+import { OrderStatsPanel } from '@/Components/UserPage/Stats/Panels/OrderStatsPanel';
 
 /**
  * ### UserPage
@@ -62,7 +63,7 @@ export const UserPage: React.FC = () => {
   /** Gets the URL Query parameter for read only. */
   const { selectedUserId } = useParams();
   const [statsTab, setStatsTab] = React.useState<string>('contracts');
-  const [infoTab, setInfoTab] = React.useState<string>('fleet');
+  const [infoTab, setInfoTab] = React.useState<string>('contracts');
   const [_loading, setLoading] = React.useState<boolean>(true);
   const [_isError, setIsError] = React.useState<boolean>(false);
   // HOOKS
@@ -93,6 +94,7 @@ export const UserPage: React.FC = () => {
     }
   });
   /** @var {User}currentUser - Fetches the current user viewing the page. */
+  // TODO - Add ability to view player's current position and ship.
   // const currentUser = useAppSelector(selectCurrentUser);
   /**
    * @function handleStatsTabChange - Handles the tab changes for the user stats window.
@@ -105,7 +107,7 @@ export const UserPage: React.FC = () => {
       playSound('clickMain');
       setStatsTab(value);
     },
-    [statsTab],
+    [setStatsTab, playSound],
   );
   /**
    * Call back function created for the user stats panel.
@@ -133,7 +135,7 @@ export const UserPage: React.FC = () => {
       playSound('clickMain');
       setInfoTab(value);
     },
-    [infoTab],
+    [setInfoTab, playSound],
   );
   /**
    * Call back function created for the user info panel.
@@ -149,7 +151,7 @@ export const UserPage: React.FC = () => {
       case 'orders':
         return <OrderInfoPanel />;
       case 'contracts':
-        return <ContractInfoPanel />;
+        return <ContractInfoPanel user={selectedUser ?? null} />;
       default:
         return <FleetInfoPanel />;
     }
@@ -180,8 +182,11 @@ export const UserPage: React.FC = () => {
         backgroundImage: `url(${selectedUserBackground()})`,
         p: '1em',
         height: 'calc(100vh - 64px)',
+        width: '100%',
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
       <GlassDisplay
@@ -189,9 +194,10 @@ export const UserPage: React.FC = () => {
         sx={{
           p: '2em',
           width: '100%',
-          height: '100%',
+          height: '95%',
           mx: { xs: '0', md: '2em', lg: '5%' },
           backdropFilter: 'blur(5px)',
+          justifyContent: 'space-between',
         }}
       >
         <Box
@@ -199,8 +205,8 @@ export const UserPage: React.FC = () => {
           sx={{
             display: 'flex',
             flexDirection: { xs: 'column', md: 'column', lg: 'row' },
-            height: '25%',
             width: '100%',
+            my: '1em',
           }}
         >
           <Box
@@ -208,7 +214,6 @@ export const UserPage: React.FC = () => {
             sx={{
               display: 'flex',
               flexDirection: 'row',
-              height: '100%',
               width: '35%',
             }}
           >
@@ -221,6 +226,7 @@ export const UserPage: React.FC = () => {
                 justifyContent: 'center',
                 mx: '1em',
                 px: '1em',
+                height: '100%',
               }}
             >
               <Avatar
@@ -251,10 +257,10 @@ export const UserPage: React.FC = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignContent: 'space-around',
-                height: '100%',
                 mx: '1em',
                 p: '1em',
                 justifyContent: 'space-around',
+                minWidth: '250px',
               }}
             >
               <Box data-testid="UserPage-PlayerData_UsernameContainer">
@@ -372,6 +378,7 @@ export const UserPage: React.FC = () => {
                 minWidth: { xs: '300px', md: '500px' },
               }}
             >
+              <InDevOverlay />
               <DigiDisplay
                 data-testid="UserPage-Wrapper_LocationDisplay"
                 sx={{ py: '0.8em', display: 'flex', flexDirection: 'row', width: '100%' }}
@@ -489,11 +496,10 @@ export const UserPage: React.FC = () => {
           data-testid="UserPage_BottomRow"
           sx={{
             display: 'flex',
-            gap: '3em',
             flexDirection: { xs: 'column', md: 'column', lg: 'row' },
-            mt: '2em',
-            height: '75%',
+            height: '70%',
             width: '100%',
+            justifyContent: 'space-between',
           }}
         >
           <DigiDisplay
@@ -505,6 +511,7 @@ export const UserPage: React.FC = () => {
               justifyContent: 'flex-start',
             }}
           >
+            <InDevOverlay />
             <ControlPanelBox
               data-testid="UserPage-BottomRow_Stats_Tablist_Wrapper"
               sx={{
@@ -528,6 +535,7 @@ export const UserPage: React.FC = () => {
                   value="contracts"
                 />
                 <Tab
+                  disabled
                   data-testid="UserPage-Stats-Tablist_OrdersTab"
                   label="Orders"
                   value="orders"
@@ -541,7 +549,7 @@ export const UserPage: React.FC = () => {
           <DigiDisplay
             data-testid="UserPage-BottomRow_UserInfoContainer"
             sx={{
-              flexGrow: 1,
+              width: '60%',
               height: '100%',
               pt: '1em',
               justifyContent: 'flex-start',
@@ -564,16 +572,19 @@ export const UserPage: React.FC = () => {
                 indicatorColor="secondary"
               >
                 <Tab
+                  disabled
                   data-testid="UserPage-Info-Tablist_FleetTab"
                   label="Fleet"
                   value="fleet"
                 />
                 <Tab
+                  disabled
                   data-testid="UserPage-Info-Tablist_OrgsTab"
                   label="Orgs"
                   value="orgs"
                 />
                 <Tab
+                  disabled
                   data-testid="UserPage-Info-Tablist_OrdersTab"
                   label="Orders"
                   value="orders"
@@ -585,9 +596,12 @@ export const UserPage: React.FC = () => {
                 />
               </Tabs>
             </ControlPanelBox>
-            <Grow data-testid="UserPage-Info-Tab_Display_Wrapper" in={true}>
-              <Box data-testid="UserPage-Tab_Display_Box">{getInfoPanel()}</Box>
-            </Grow>
+            <Box
+              sx={{ width: '100%', p: '1em', height: '85%' }}
+              data-testid="UserPage-Tab_Display_Box"
+            >
+              {getInfoPanel()}
+            </Box>
           </DigiDisplay>
         </Box>
       </GlassDisplay>
