@@ -1,4 +1,5 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
+import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
@@ -377,6 +378,7 @@ export const UserPage: React.FC = () => {
                 minWidth: { xs: '300px', md: '500px' },
               }}
             >
+              <InDevOverlay />
               <DigiDisplay
                 data-testid="UserPage-Wrapper_LocationDisplay"
                 sx={{ py: '0.8em', display: 'flex', flexDirection: 'row', width: '100%' }}
@@ -509,6 +511,7 @@ export const UserPage: React.FC = () => {
               justifyContent: 'flex-start',
             }}
           >
+            <InDevOverlay />
             <ControlPanelBox
               data-testid="UserPage-BottomRow_Stats_Tablist_Wrapper"
               sx={{
