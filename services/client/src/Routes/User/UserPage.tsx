@@ -93,6 +93,7 @@ export const UserPage: React.FC = () => {
     }
   });
   /** @var {User}currentUser - Fetches the current user viewing the page. */
+  // TODO - Add ability to view player's current position and ship.
   // const currentUser = useAppSelector(selectCurrentUser);
   /**
    * @function handleStatsTabChange - Handles the tab changes for the user stats window.
