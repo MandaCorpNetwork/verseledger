@@ -65,8 +65,6 @@ export class RatingsController extends BaseHttpController {
     @requestBody() body: ICreateContractRatingsBody,
     @next() nextFunc: NextFunction,
   ) {
-    Logger.info('RatingData Post Attempt: ', body);
-    Logger.info('Validating Contract Id...');
     if (!IdUtil.isValidId(body.contract_id)) {
       Logger.error('Invalid Contract Id');
       throw nextFunc(
@@ -76,11 +74,8 @@ export class RatingsController extends BaseHttpController {
         ),
       );
     }
-    Logger.info('Validating Request Body...');
     const model = CreateContractRatingsBodySchema.parse(body);
-    Logger.info('Validating Submitter Authentication...');
     const submitter = this.httpContext.user as VLAuthPrincipal;
-    Logger.info('Fetching Contract...');
     const contract = await Contract.scope(['owner', 'bids']).findByPk(
       model.contract_id,
     );
@@ -100,7 +95,6 @@ export class RatingsController extends BaseHttpController {
       );
     }
     if (!model.ratings) {
-      Logger.info('No Ratings Provided, Attempting Delay Rating Service. . .');
       this.ratingService.delayRatingContractors(submitter.id, contract);
       if (contract.owner_id === submitter.id) {
         this.ratingService.notifyContractorsToRate(contract);
@@ -108,7 +102,6 @@ export class RatingsController extends BaseHttpController {
       return this.ok('Ratings submission delayed');
     }
     const validatedRatings = model.ratings.map((rating) => {
-      Logger.info(`Rating Provided: ${JSON.stringify(rating)}`);
       if (!IdUtil.isValidId(rating.reciever_id)) {
         Logger.error(`Invalid Reciever ID: ${rating.reciever_id}`);
         throw nextFunc(
@@ -141,7 +134,6 @@ export class RatingsController extends BaseHttpController {
       const ratingModel = CreateUserRatingBodySchema.strict().parse(rating);
       return ratingModel;
     });
-    Logger.info(validatedRatings);
     const newRatings = await this.ratingService.createContractRating(
       contract,
       submitter.details,
@@ -149,7 +141,7 @@ export class RatingsController extends BaseHttpController {
     );
     this.ratingService.notifyContractorsToRate(contract);
     return this.created(
-      `/ratings/${newRatings.map((r) => r.id).join('&')}`,
+      newRatings.map((r) => `/v1/ratings/${r.id}`).join(';'),
       newRatings.map((r) => new RatingDTO(r as IUserRating)),
     );
   }

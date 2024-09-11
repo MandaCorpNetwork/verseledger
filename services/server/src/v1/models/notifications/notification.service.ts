@@ -49,7 +49,7 @@ export class NotificationService {
   public async markRead(notificationId: string) {
     const notification = await Notification.findByPk(notificationId);
     if (notification == null) return null;
-    return notification.set('read', true);
+    return await notification.set('read', true).save();
   }
 
   public async createNotification(

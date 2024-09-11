@@ -27,6 +27,7 @@ import { VLAuthPrincipal } from '@/authProviders/VL.principal';
 import { AuthRepository } from './auth.repository';
 import { ApiTokenCreateSchema } from 'vl-shared/src/schemas/ApiTokenSchema';
 import { NotificationService } from '../notifications/notification.service';
+import { IdUtil } from '@/utils/IdUtil';
 const env = new EnvService();
 @ApiPath({
   path: '/v1/auth',
@@ -88,7 +89,10 @@ export class AuthController extends BaseHttpController {
     },
     security: { VLBearerAuth: [] },
   })
-  @httpDelete('/tokens/:token_id', TYPES.VerifiedUserMiddleware)
+  @httpDelete(
+    `/tokens/:token_id(${IdUtil.expressRegex(IdUtil.IdPrefix.System)})`,
+    TYPES.VerifiedUserMiddleware,
+  )
   public async deleteTokens(@requestParam('token_id') token_id: string) {
     const user_id = (this.httpContext.user as VLAuthPrincipal).id;
     return AuthRepository.invalidateToken({ token_id, user_id });
