@@ -252,7 +252,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                 </Typography>
                 <Box
                   data-testid="ContractBid-ContractDetails-ContractType__SubtypeChipWrapper"
-                  sx={{ my: '.2em' }}
+                  sx={{ mt: '.2em' }}
                 >
                   <SubtypeChip subtype={contract.subtype} />
                 </Box>
@@ -271,7 +271,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                 </Typography>
                 <Box
                   data-testid="ContractBid-ContractDetails-ContractStatus__ChipWrapper"
-                  sx={{ mx: 'auto', my: '.2em' }}
+                  sx={{ mx: 'auto', mt: '.2em' }}
                 >
                   <ContractStatusChip status={contract.status} />
                 </Box>
@@ -280,7 +280,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
           </Box>
           <DigiDisplay
             data-testid="ContractBid-ContractDetails__BriefingWrapper"
-            sx={{ my: '.5em', px: '1em' }}
+            sx={{ mt: '.5em', px: '1em' }}
           >
             <Typography
               data-testid="ContractBid-ContractDetails__BriefingTitle"

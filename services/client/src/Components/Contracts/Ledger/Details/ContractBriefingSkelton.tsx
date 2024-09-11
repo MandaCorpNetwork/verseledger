@@ -18,7 +18,7 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
           padding: '.5em',
           marginRight: 'auto',
           ml: '1em',
-          my: '1em',
+          mt: '1em',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -51,7 +51,7 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
             animation="wave"
             width={60}
             height={20}
-            sx={{ ml: 'auto', mr: 'auto', my: 'auto', mb: '5%', bgcolor: 'primary.dark' }}
+            sx={{ ml: 'auto', mr: 'auto', mt: 'auto', mb: '5%', bgcolor: 'primary.dark' }}
           />
           <Skeleton
             id="UserName"
@@ -117,7 +117,7 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
             animation="wave"
             width={200}
             height={50}
-            sx={{ bgcolor: 'primary.dark', my: '1em', mr: '1em' }}
+            sx={{ bgcolor: 'primary.dark', mt: '1em', mr: '1em' }}
           />
         </Box>
         <Box id="Contract-Type-Box" sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -135,7 +135,7 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
             animation="wave"
             width={80}
             height={40}
-            sx={{ bgcolor: 'primary.dark', zindex: '20', my: '2em' }}
+            sx={{ bgcolor: 'primary.dark', zindex: '20', mt: '2em' }}
           />
         </Box>
         <Box id="Contract-Pay-Box" sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -153,7 +153,7 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
             animation="wave"
             width={100}
             height={60}
-            sx={{ bgcolor: 'primary.dark', my: '2.8em' }}
+            sx={{ bgcolor: 'primary.dark', mt: '2.8em' }}
           />
         </Box>
       </Box>
@@ -203,7 +203,7 @@ export const ContractBriefingSkelton: React.FC<unknown> = () => {
             flexDirection: 'column',
             justifyContent: 'flex-start',
             alignItems: 'center',
-            my: '1em',
+            mt: '1em',
           }}
         >
           <Box

@@ -264,7 +264,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
             display: 'flex',
             flexDirection: 'row',
             width: '100%',
-            my: '.5em',
+            mt: '.5em',
             justifyContent: 'space-around',
           }}
         >
@@ -438,7 +438,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               data-testid="SelectedContract-Briefing__ContentWrapper"
               sx={{
                 mx: '10%',
-                my: '.5em',
+                mt: '.5em',
                 maxHeight: '150px',
                 p: '.5em',
                 overflow: 'auto',
@@ -460,7 +460,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
           <ControlPanelBox
             data-testid="SelectedContract__ControllerContainer"
             sx={{
-              my: 'auto',
+              mt: 'auto',
               width: '100%',
               flexDirection: 'column',
               mb: '1em',

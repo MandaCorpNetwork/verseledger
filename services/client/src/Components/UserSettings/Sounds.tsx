@@ -94,7 +94,7 @@ export const SoundSettings: React.FC = () => {
             data-testid="SoundSettings-Settings-SoundEffects__List_Wrapper"
             sx={{
               p: '.5em',
-              my: '.5em',
+              mt: '.5em',
               width: '100%',
               display: 'flex',
               justifyContent: 'center',

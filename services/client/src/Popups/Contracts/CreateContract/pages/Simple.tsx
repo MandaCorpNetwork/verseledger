@@ -75,7 +75,7 @@ export const PoolPayroll: React.FC<{
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        my: '.5em',
+        mt: '.5em',
         justifyContent: 'center',
       }}
     >
@@ -148,7 +148,7 @@ export const TimedPayroll: React.FC<{
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        my: '.5em',
+        mt: '.5em',
         justifyContent: 'center',
         gap: '.5em',
       }}

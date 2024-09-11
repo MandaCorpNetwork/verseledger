@@ -40,7 +40,7 @@ export const NotFoundPage: React.FC<unknown> = () => {
       >
         <source src={backgroundvideo} />
       </video>
-      <DigiDisplay sx={{ py: '1em', px: '5em', mb: 'auto', my: '5em' }}>
+      <DigiDisplay sx={{ py: '1em', px: '5em', mb: 'auto', mt: '5em' }}>
         <Typography
           variant="h1"
           sx={{

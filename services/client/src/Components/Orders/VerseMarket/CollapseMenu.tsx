@@ -107,7 +107,7 @@ export const CollapseMenu: React.FC<unknown> = () => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          my: '40px',
+          mt: '40px',
           alignItems: isExpanded ? 'flex-start' : 'center',
           transition: 'all 0.3s ease-in-out',
         }}
@@ -166,7 +166,7 @@ export const CollapseMenu: React.FC<unknown> = () => {
             data-testid="VerseMarket-Sidebar__CreateOrder_Button"
             sx={{
               mx: 'auto',
-              my: isExpanded ? 'auto' : 0,
+              mt: isExpanded ? 'auto' : 0,
               opacity: isExpanded ? 0 : 1,
               transition: 'all 0.3s ease-in-out',
             }}

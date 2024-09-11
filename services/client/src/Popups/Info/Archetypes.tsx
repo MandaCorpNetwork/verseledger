@@ -263,7 +263,7 @@ export const ArchetypeInfoPopup: React.FC<ArchetypeInfoProps> = ({ option, testi
           padding: '1em',
         }}
       >
-        <Box sx={{ justifyContent: 'center', display: 'flex', mb: '1em', my: '.5em' }}>
+        <Box sx={{ justifyContent: 'center', display: 'flex', mb: '1em', mt: '.5em' }}>
           {archetype.archetypeIcon}
         </Box>
         <Box>
@@ -307,7 +307,7 @@ export const ArchetypeInfoPopup: React.FC<ArchetypeInfoProps> = ({ option, testi
             fontSize: '.75em',
             maxWidth: '70%',
             mx: 'auto',
-            my: '.5em',
+            mt: '.5em',
           }}
         >
           Add SubType(s) from the Fleet Archetype with large ships & operations for better

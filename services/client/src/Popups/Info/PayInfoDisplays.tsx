@@ -28,7 +28,7 @@ export const FlatRateTab: React.FC<unknown> = () => {
       <Typography
         data-testid="FlatRate__MechanicsTitle"
         variant="body1"
-        sx={{ color: 'text.secondary', fontWeight: 'bold', my: '.5em' }}
+        sx={{ color: 'text.secondary', fontWeight: 'bold', mt: '.5em' }}
       >
         Mechanics:
       </Typography>
@@ -49,7 +49,7 @@ export const FlatRateTab: React.FC<unknown> = () => {
       <Typography
         data-testid="FlatRate__NegotiationTitle"
         variant="body1"
-        sx={{ color: 'text.secondary', fontWeight: 'bold', my: '.5em' }}
+        sx={{ color: 'text.secondary', fontWeight: 'bold', mt: '.5em' }}
       >
         Negotiation:
       </Typography>
@@ -71,7 +71,7 @@ export const FlatRateTab: React.FC<unknown> = () => {
       <Typography
         data-testid="FlatRate__ChangeDisclaimer"
         variant="body2"
-        sx={{ color: 'info.main', fontSize: '.8em', my: 'auto' }}
+        sx={{ color: 'info.main', fontSize: '.8em', mt: 'auto' }}
       >
         * Can be changed on a per-contractor basis in Contract Manager: Payroll
       </Typography>
@@ -106,7 +106,7 @@ export const PoolTab: React.FC<unknown> = () => {
       <Typography
         data-testid="FlatRate__MechanicsTitle"
         variant="body1"
-        sx={{ color: 'text.secondary', fontWeight: 'bold', my: '.5em' }}
+        sx={{ color: 'text.secondary', fontWeight: 'bold', mt: '.5em' }}
       >
         Mechanics:
       </Typography>
@@ -144,7 +144,7 @@ export const PoolTab: React.FC<unknown> = () => {
       <Typography
         data-testid="FlatRate__NegotiationTitle"
         variant="body1"
-        sx={{ color: 'text.secondary', fontWeight: 'bold', my: '.5em' }}
+        sx={{ color: 'text.secondary', fontWeight: 'bold', mt: '.5em' }}
       >
         Negotiation:
       </Typography>
@@ -166,7 +166,7 @@ export const PoolTab: React.FC<unknown> = () => {
       <Typography
         data-testid="FlatRate__ChangeDisclaimer"
         variant="body2"
-        sx={{ color: 'info.main', fontSize: '.8em', my: '.5em' }}
+        sx={{ color: 'info.main', fontSize: '.8em', mt: '.5em' }}
       >
         * Can be changed on a per-contractor basis in Contract Manager: Payroll
       </Typography>
@@ -201,7 +201,7 @@ export const TimedRateTab: React.FC<unknown> = () => {
       <Typography
         data-testid="FlatRate__MechanicsTitle"
         variant="body1"
-        sx={{ color: 'text.secondary', fontWeight: 'bold', my: '.5em' }}
+        sx={{ color: 'text.secondary', fontWeight: 'bold', mt: '.5em' }}
       >
         Mechanics:
       </Typography>
@@ -237,7 +237,7 @@ export const TimedRateTab: React.FC<unknown> = () => {
       <Typography
         data-testid="FlatRate__NegotiationTitle"
         variant="body1"
-        sx={{ color: 'text.secondary', fontWeight: 'bold', my: '.5em' }}
+        sx={{ color: 'text.secondary', fontWeight: 'bold', mt: '.5em' }}
       >
         Negotiation:
       </Typography>
@@ -258,7 +258,7 @@ export const TimedRateTab: React.FC<unknown> = () => {
       <Typography
         data-testid="FlatRate__ChangeDisclaimer"
         variant="body2"
-        sx={{ color: 'info.main', fontSize: '.8em', my: '.5em' }}
+        sx={{ color: 'info.main', fontSize: '.8em', mt: '.5em' }}
       >
         * Can be changed on a per-contractor basis in Contract Manager: Payroll
       </Typography>

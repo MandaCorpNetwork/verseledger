@@ -419,7 +419,7 @@ export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) =>
               <LinearProgress
                 variant="determinate"
                 value={progress}
-                sx={{ my: '.1em' }}
+                sx={{ mt: '.1em' }}
               />
             </Tooltip>
           </Box>

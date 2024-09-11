@@ -18,7 +18,7 @@ export const SandboxContent: React.FC<unknown> = () => {
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        my: '1em',
+        mt: '1em',
       }}
     >
       <Box sx={{ display: 'flex', gap: '1em' }}>

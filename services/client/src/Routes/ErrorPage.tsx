@@ -25,7 +25,7 @@ const ErrorPage: React.FC = () => {
           position: 'relative',
           display: 'flex',
           justifyContent: 'center',
-          my: '2em',
+          mt: '2em',
         }}
       >
         <Box

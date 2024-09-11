@@ -66,7 +66,7 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
         width: '100%',
         overflow: 'hidden',
         alignItems: 'center',
-        my: '.5em',
+        mt: '.5em',
         p: '1em',
       }}
     >
@@ -249,7 +249,7 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
               justifyContent: 'center',
               alignItems: 'center',
               gap: '1em',
-              my: 'auto',
+              mt: 'auto',
               mb: '.2em',
             }}
           >

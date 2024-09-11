@@ -106,7 +106,7 @@ export const Payroll: React.FC<{
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        my: '2em',
+        mt: '2em',
         width: '100%',
       }}
     >
@@ -260,7 +260,7 @@ export const Payroll: React.FC<{
           flexDirection: 'column',
           position: 'relative',
           ml: '10%',
-          my: '1em',
+          mt: '1em',
         }}
       >
         {formData.isEmergency && <LargeEmergencyOverlay />}

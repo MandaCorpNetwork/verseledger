@@ -117,7 +117,7 @@ export const TimeInformation: React.FC<{
     <Box
       data-testid="TimeInformation__Container"
       sx={{
-        my: '1em',
+        mt: '1em',
         display: 'flex',
         flexDirection: 'column',
       }}

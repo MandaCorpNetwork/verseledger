@@ -319,7 +319,7 @@ export const UserPage: React.FC = () => {
                     variant="overline"
                     sx={{
                       ml: '0.5em',
-                      my: '0.3em',
+                      mt: '0.3em',
                       color: 'grey',
                       textShadow: '0 5px 8px rgba(0,0,0,0.8), 0 2px 4px rgb(0,0,0)',
                     }}

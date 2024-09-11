@@ -139,7 +139,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
               onClick={handleAvatarClick}
               sx={{
                 mr: '.5em',
-                my: 'auto',
+                mt: 'auto',
                 mb: 'auto',
                 bgcolor: 'rgba(8,22,80,.9)',
                 '&:hover': {

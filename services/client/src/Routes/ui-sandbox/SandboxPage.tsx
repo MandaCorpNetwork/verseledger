@@ -33,7 +33,7 @@ export const Sandbox = () => {
           fontWeight: 'bold',
           letterSpacing: '2px',
           textAlign: 'center',
-          my: '1em',
+          mt: '1em',
           textShadow: '0 0 10px rgba(255,255,255,.5), 0 0 3px #000',
         }}
       >
@@ -44,7 +44,7 @@ export const Sandbox = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          my: '10%',
+          mt: '10%',
         }}
       >
         <GlassBox sx={{ width: '50%', p: '2em' }}>

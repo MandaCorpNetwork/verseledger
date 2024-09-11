@@ -99,7 +99,7 @@ export const Contractors: React.FC<{
   return (
     <Box
       data-testid="Contractors__Form_Container"
-      sx={{ my: '2em', width: '100%', minHeight: '150px' }}
+      sx={{ mt: '2em', width: '100%', minHeight: '150px' }}
     >
       <FormControl
         data-testid="Contractors__Form_Wrapper"
@@ -144,7 +144,7 @@ export const Contractors: React.FC<{
               data-testid="ContractorsForm-Invite__InviteListContainer"
               sx={{
                 flexDirection: 'column',
-                my: '1em',
+                mt: '1em',
                 p: '.5em',
               }}
             >

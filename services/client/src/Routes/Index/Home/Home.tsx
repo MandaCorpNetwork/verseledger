@@ -34,7 +34,7 @@ export const Home: React.FC<unknown> = () => {
             flexDirection: 'column',
             width: '50%',
             gap: '2em',
-            my: '4em',
+            mt: '4em',
             ml: '.5em',
           }}
         >

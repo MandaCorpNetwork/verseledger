@@ -135,7 +135,7 @@ const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx }) => {
               sx={{
                 ml: 'auto',
                 mr: 'auto',
-                my: 'auto',
+                mt: 'auto',
                 mb: '5%',
               }}
             />

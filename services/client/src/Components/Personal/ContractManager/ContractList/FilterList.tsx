@@ -56,7 +56,7 @@ export const FilterList: React.FC<FilterListProps> = ({ isOpen }) => {
     <ElevatedDropdownBox
       in={isOpen}
       data-testid="ContractManager-ContractList-SearchTools__FilterList_Collapse"
-      sx={{ p: '1em', my: '.5em' }}
+      sx={{ p: '1em', mt: '.5em' }}
     >
       <DropdownFilter
         filter="Subtype"

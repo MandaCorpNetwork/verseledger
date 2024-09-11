@@ -311,11 +311,11 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
             }}
           />
         </Box>
-        <Typography variant="tip" sx={{ px: '1em', my: '.5em' }}>
+        <Typography variant="tip" sx={{ px: '1em', mt: '.5em' }}>
           Max Duration on Contract
         </Typography>
       </DigiDisplay>
-      <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center', my: '.5em' }}>
+      <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center', mt: '.5em' }}>
         <Typography variant="tip" sx={{ fontSize: '.75em', px: '1em' }}>
           All times are in Local Time
         </Typography>

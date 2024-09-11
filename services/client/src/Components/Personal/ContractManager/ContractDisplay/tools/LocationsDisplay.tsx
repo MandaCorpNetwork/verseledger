@@ -139,7 +139,7 @@ export const LocationsDisplay: React.FC<LocationsDisplayProps> = ({ locations = 
                   overflowX: 'auto',
                   gap: '.5em',
                   maxWidth: '80%',
-                  my: '.5em',
+                  mt: '.5em',
                   '&::-webkit-scrollbar': {
                     width: '5px',
                     height: '5px',
