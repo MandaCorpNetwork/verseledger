@@ -5,7 +5,7 @@ import { IDTOComplete } from 'vl-shared/src/schemas/DTOSchema';
 
 import NetworkService from '@/Services/NetworkService';
 
-export const POST_CONTRACT_INVITE = 'POST /v1/contracts/:contractId/invite';
+export const POST_CONTRACT_INVITE = 'POST /v1/contracts/:contractId/bids/invite';
 
 export const postContractInvite = createAsyncThunk(
   POST_CONTRACT_INVITE,
@@ -14,7 +14,7 @@ export const postContractInvite = createAsyncThunk(
       IDTOComplete<IContractBid>,
       { userId: string }
     >(
-      `/v1/contracts/${contractId}/invite`,
+      `/v1/contracts/${contractId}/bids/invite`,
       { userId: userId },
       AuthUtil.getAccessHeader(),
     );

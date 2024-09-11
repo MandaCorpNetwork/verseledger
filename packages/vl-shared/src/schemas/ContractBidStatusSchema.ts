@@ -7,5 +7,7 @@ export const ContractBidStatusSchema = z.enum([
   'INVITED',
   'DECLINED',
   'EXPIRED',
+  'DISMISSED',
+  'WITHDRAWN',
 ]);
 export type IContractBidStatus = z.infer<typeof ContractBidStatusSchema>;

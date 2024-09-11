@@ -8,3 +8,4 @@ import './models/donation/donations.controller';
 import './models/user_ratings/ratings.controller';
 import './models/user_settings/user_settings.controller';
 import './models/chat/chat.controller';
+import './models/contract_bid/contract_bid.controller';
