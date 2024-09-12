@@ -1,0 +1,11 @@
+ALTER TABLE `contract_bids`
+MODIFY COLUMN `status` ENUM(
+    'PENDING',
+    'ACCEPTED',
+    'REJECTED',
+    'INVITED',
+    'DECLINED',
+    'EXPIRED',
+    'DISMISSED',
+    'WITHDRAWN'
+  ) NOT NULL DEFAULT 'PENDING';

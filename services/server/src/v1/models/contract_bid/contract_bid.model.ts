@@ -16,6 +16,7 @@ import {
   InferAttributes,
   InferCreationAttributes,
 } from 'sequelize';
+import { IContractBidStatus } from 'vl-shared/src/schemas/ContractBidStatusSchema';
 
 @Scopes(() => ({
   user: {
@@ -56,15 +57,11 @@ export class ContractBid extends Model<
       'INVITED',
       'DECLINED',
       'EXPIRED',
+      'DISMISSED',
+      'WITHDRAWN',
     ),
   })
-  declare status:
-    | 'PENDING'
-    | 'ACCEPTED'
-    | 'REJECTED'
-    | 'INVITED'
-    | 'DECLINED'
-    | 'EXPIRED';
+  declare status: IContractBidStatus;
 
   @BelongsTo(() => User, { foreignKey: 'user_id', targetKey: 'id' })
   declare User: CreationOptional<Awaited<User>>;

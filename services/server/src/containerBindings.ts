@@ -16,6 +16,7 @@ import { ResourceEditorService } from '@V1/services/resource_editor.service';
 import { RatingService } from '@V1/models/user_ratings/rating.service';
 import { UserSettingsService } from '@V1/models/user_settings/user_settings.service';
 import { ChatService } from '@V1/models/chat/chat.service';
+import { ContractBidsService } from '@V1/models/contract_bid/contract_bid.service';
 export const bindContainer = (container: Container) => {
   container
     .bind<EnvService>(TYPES.EnvService)
@@ -73,5 +74,9 @@ export const bindContainer = (container: Container) => {
   container
     .bind<ChatService>(TYPES.ChatService)
     .to(ChatService)
+    .inSingletonScope();
+  container
+    .bind<ContractBidsService>(TYPES.ContractBidsService)
+    .to(ContractBidsService)
     .inSingletonScope();
 };
