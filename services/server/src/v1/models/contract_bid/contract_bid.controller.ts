@@ -228,16 +228,15 @@ export class BidsController extends BaseHttpController {
     if (newStatus) {
       switch (newBid.status) {
         case 'ACCEPTED': {
-          if (!isContractOwner) {
-            if (bid.status != 'INVITED') throw new UnauthorizedError();
-            break;
-          }
-          if (bid.status != 'PENDING') throw new UnauthorizedError();
+          if (isContractOwner && bid.status != 'PENDING')
+            throw new UnauthorizedError();
+          if (bid.status != 'INVITED') throw new UnauthorizedError();
           break;
         }
-        case 'REJECTED': {
-          if (!isContractOwner) throw new UnauthorizedError();
-          if (bid.status != 'PENDING') throw new UnauthorizedError();
+        case 'PENDING': {
+          if (isContractOwner) throw new UnauthorizedError();
+          if (bid.status !== 'EXPIRED' && bid.status !== 'DECLINED')
+            throw new UnauthorizedError();
           break;
         }
         case 'DECLINED': {
@@ -245,14 +244,14 @@ export class BidsController extends BaseHttpController {
           if (bid.status != 'INVITED') throw new UnauthorizedError();
           break;
         }
-        case 'EXPIRED': {
-          if (bid.status === 'REJECTED') throw new UnauthorizedError();
+        case 'WITHDRAWN': {
+          if (isContractOwner) throw new UnauthorizedError();
+          if (bid.status !== 'ACCEPTED') throw new UnauthorizedError();
           break;
         }
-        case 'PENDING': {
-          if (isContractOwner) throw new UnauthorizedError();
-          if (bid.status !== 'EXPIRED' && bid.status !== 'DECLINED')
-            throw new UnauthorizedError();
+        case 'REJECTED': {
+          if (!isContractOwner) throw new UnauthorizedError();
+          if (bid.status != 'PENDING') throw new UnauthorizedError();
           break;
         }
         case 'INVITED': {
@@ -270,13 +269,11 @@ export class BidsController extends BaseHttpController {
           if (bid.status !== 'ACCEPTED') throw new UnauthorizedError();
           break;
         }
-        case 'WITHDRAWN': {
-          if (isContractOwner) throw new UnauthorizedError();
-          if (bid.status !== 'ACCEPTED') throw new UnauthorizedError();
-          break;
+        case 'EXPIRED': {
+          throw new UnauthorizedError();
         }
         default:
-          break;
+          throw new BadParameterError('status', 'status');
       }
     }
     if (newAmount) {
