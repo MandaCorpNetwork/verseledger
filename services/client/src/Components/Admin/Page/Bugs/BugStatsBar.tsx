@@ -1,3 +1,4 @@
+import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { SparkLineChart } from '@mui/x-charts';
 import React from 'react';
@@ -6,10 +7,28 @@ import { PatchBreakdown } from './BugCharts';
 
 type BugStatsProps = {
   tab: string;
+  count: number;
 };
 
-export const BugStatsBar: React.FC<BugStatsProps> = ({ tab }) => {
+export const BugStatsBar: React.FC<BugStatsProps> = ({ tab, count }) => {
   const [chartTab, setChartTab] = React.useState<string>('patch');
+  const getCountLabel = React.useCallback(() => {
+    switch (tab) {
+      case 'unread':
+        return 'Unread Reports';
+      case 'confirmed':
+        return 'Confirmed Reports';
+      case 'assigned':
+        return 'Assigned Reports';
+      case 'completed':
+        return 'Completed Bugs';
+      case 'ignored':
+        return 'Ignored Reports';
+      default:
+        return;
+    }
+  }, [tab]);
+  const countLabel = getCountLabel();
   return (
     <Box
       data-testid="AdminPage-Content-BugsPage-Stats__Wrapper"
@@ -17,37 +36,108 @@ export const BugStatsBar: React.FC<BugStatsProps> = ({ tab }) => {
     >
       <Typography
         data-testid="AdminPage-Content-BugsPage-Stats__Title"
-        variant="overline"
+        variant="h6"
+        sx={{
+          pl: '.5em',
+        }}
       >
         Stats
       </Typography>
       <Box
-        data-testid="AdminPagge-Content-BugsPage-Stats__Content_Wrapper"
-        sx={{ display: 'flex', flexxDirection: 'row', justifyContent: 'space-around' }}
+        data-testid="AdminPage-Content-BugsPage-Stats__Content_Container"
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+        }}
       >
-        <Typography data-testid={`AdminPage-Content-BugPage-Stats__${tab}_count`}>
-          Count
-        </Typography>
-        <Box>
-          <SparkLineChart height={100} data={[1, 3, 2, 5, 8]} showHighlight />
-        </Box>
-        <Box>
-          <Typography>Version</Typography>
-          <Typography>Patch</Typography>
-          <Typography>Last Update</Typography>
-          <Typography>Total Current Cycle</Typography>
-        </Box>
-        <Box>
-          <Button>Patch View</Button>
-          <Button>Assignments</Button>
+        <DigiDisplay
+          data-testid="AdminPage-Content-BugsPage-Stats__Content_Wrapper"
+          sx={{ p: '.5em' }}
+        >
+          <Typography
+            data-testid={`AdminPage-Content-BugPage-Stats__${tab}_countTitle`}
+            sx={{ textShadow: '0 3px 6px rgb(0,0,0)', color: 'text.primary' }}
+          >
+            {countLabel}: {count}
+          </Typography>
+        </DigiDisplay>
+
+        <DigiDisplay
+          data-testid="AdminPage-Content-BugPage-Stats__ActivityGraph_Wrapper"
+          sx={{ display: 'flex', height: '100%', flexDirection: 'column', px: '.5em' }}
+        >
+          <Typography variant="overline">Weekly Activity</Typography>
+          <SparkLineChart
+            data-testid="AdminPage-Content-BugPage-Stats__ActivityGraph"
+            height={80}
+            width={200}
+            data={[1, 3, 2, 5, 8]}
+            showHighlight
+          />
+        </DigiDisplay>
+        <DigiDisplay
+          data-testid="AdminPage-Content-BugPage-Stats__Version_Wrapper"
+          sx={{
+            px: '1em',
+            height: '100%',
+          }}
+        >
+          <Typography data-testid="AdminPage-Content-BugPage-Stats__Version_Title">
+            Version: 0.1.3
+          </Typography>
+          <Typography data-testid="AdminPage-Content-BugPage-Stats__UpdateDate_Title">
+            Last Update: 09/01/2024
+          </Typography>
+          <Typography data-testid="AdminPage-Content-BugPage-Stats__TotalBugCount_Title">
+            Bugs Found: XXX
+          </Typography>
+        </DigiDisplay>
+        <DigiDisplay
+          data-testid="AdminPage-Content-BugPage-Stats__ActiveGraph_Container"
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '1em',
+            height: '100%',
+            px: '.5em',
+          }}
+        >
           <Box
+            data-testid="AdminPage-Content-BugPage-Stats-ActiveGraph__Buttons_Wrapper"
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-around',
+              height: '100%',
+            }}
+          >
+            <Button
+              data-testid="AdminPage-Content-BugPage-Stats-ActiveGraph__PatchButton"
+              variant="contained"
+              size="small"
+            >
+              Patch View
+            </Button>
+            <Button
+              data-testid="AdminPage-Content-BugPage-Stats-ActiveGraph__PatchButton"
+              variant="contained"
+              size="small"
+            >
+              Assignments
+            </Button>
+          </Box>
+          <Box
+            data-testid="AdminPage-Content-BugPage-Stats-ActiveGraph__Graph_Wrapper"
             sx={{
               bgcolor: 'rgba(0,0,0,.4)',
+              borderRadius: '10px',
             }}
           >
             {chartTab === 'patch' && <PatchBreakdown />}
           </Box>
-        </Box>
+        </DigiDisplay>
       </Box>
     </Box>
   );

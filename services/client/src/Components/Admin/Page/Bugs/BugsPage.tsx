@@ -9,7 +9,7 @@ import { useSoundEffect } from '@/AudioManager';
 import { BugStatsBar } from './BugStatsBar';
 
 export const BugsPage: React.FC = () => {
-  const [bugsTab, setBugsTab] = React.useState<string>('recent');
+  const [bugsTab, setBugsTab] = React.useState<string>('unread');
   const { playSound } = useSoundEffect();
   const handleTabChange = React.useCallback(
     (_event: React.SyntheticEvent, newValue: string) => {
@@ -46,11 +46,15 @@ export const BugsPage: React.FC = () => {
           data-testid="AdminPage-Content-BugPage__Tabs_Wrapped"
           sx={{ px: '.5em', py: '.2em' }}
         >
-          <Tabs data-testid="dminPage-Content-BugPage__Tabs_Controller" value={bugsTab}>
+          <Tabs
+            data-testid="dminPage-Content-BugPage__Tabs_Controller"
+            value={bugsTab}
+            onChange={handleTabChange}
+          >
             <Tab
               data-testid="AdminPage-Content-BugPage-Tabs__Recent_Tab"
-              label="Recent"
-              value="recent"
+              label="Unread"
+              value="unread"
             />
             <Tab
               data-testid="AdminPage-Content-BugPage-Tabs__Confirmed_Tab"
@@ -80,7 +84,7 @@ export const BugsPage: React.FC = () => {
         sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, p: '1em' }}
       >
         <DigiBox data-testid="AdminPage-Content-BugPage__Stats_Container">
-          <BugStatsBar tab={bugsTab} />
+          <BugStatsBar tab={bugsTab} count={5} />
         </DigiBox>
       </GlassDisplay>
     </Box>
