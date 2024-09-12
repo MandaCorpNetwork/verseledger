@@ -6,8 +6,8 @@ export class UnauthorizedError extends NetworkError<
 > {
   constructor() {
     super(401, 'Unauthorized', {
-      code: 'missing_authorization',
-      message: 'Bearer Token missing or invalid.',
+      code: 'invalid_authorization',
+      message: 'Bearer Token missing or Invalid permissions.',
     });
   }
 }
