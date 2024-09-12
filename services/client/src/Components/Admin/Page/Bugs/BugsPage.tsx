@@ -6,6 +6,7 @@ import React from 'react';
 
 import { useSoundEffect } from '@/AudioManager';
 
+import { BugsList } from './BugsList';
 import { BugStatsBar } from './BugStatsBar';
 
 export const BugsPage: React.FC = () => {
@@ -86,6 +87,9 @@ export const BugsPage: React.FC = () => {
         <DigiBox data-testid="AdminPage-Content-BugPage__Stats_Container">
           <BugStatsBar tab={bugsTab} count={5} />
         </DigiBox>
+        <Box data-testid="AdminPage-Content-BugPage__List_Container" sx={{ p: '1em' }}>
+          <BugsList />
+        </Box>
       </GlassDisplay>
     </Box>
   );
