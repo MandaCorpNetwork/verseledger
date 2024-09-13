@@ -6,7 +6,7 @@ import React from 'react';
 
 import { useSoundEffect } from '@/AudioManager';
 
-import { BugsList } from './BugsList';
+import { BugReport } from './BugReport';
 import { BugStatsBar } from './BugStatsBar';
 
 export const BugsPage: React.FC = () => {
@@ -51,6 +51,7 @@ export const BugsPage: React.FC = () => {
             data-testid="dminPage-Content-BugPage__Tabs_Controller"
             value={bugsTab}
             onChange={handleTabChange}
+            indicatorColor="secondary"
           >
             <Tab
               data-testid="AdminPage-Content-BugPage-Tabs__Recent_Tab"
@@ -88,7 +89,7 @@ export const BugsPage: React.FC = () => {
           <BugStatsBar tab={bugsTab} count={5} />
         </DigiBox>
         <Box data-testid="AdminPage-Content-BugPage__List_Container" sx={{ p: '1em' }}>
-          <BugsList />
+          <BugReport />
         </Box>
       </GlassDisplay>
     </Box>
