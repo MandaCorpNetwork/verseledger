@@ -61,7 +61,7 @@ export const Contractor: React.FC<ContractorProps> = ({
     });
   };
   const handleDismiss = () => {
-    const updatedBid = { status: 'EXPIRED' as const };
+    const updatedBid = { status: 'DISMISSED' as const };
     dispatch(
       updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
     ).then((res) => {
@@ -122,6 +122,8 @@ export const Contractor: React.FC<ContractorProps> = ({
           return 'secondary';
         case 'DECLINED':
           return 'warning';
+        case 'WITHDRAWN':
+          return 'warning';
         case 'EXPIRED':
           return 'primary';
         default:
@@ -143,6 +145,11 @@ export const Contractor: React.FC<ContractorProps> = ({
   }, [contract]);
 
   const userRating = getUserRating();
+
+  const isEnded = contract.status === 'CANCELED' || contract.status === 'COMPLETED';
+
+  const hasAccepted =
+    bid.status === 'ACCEPTED' || bid.status === 'DISMISSED' || bid.status === 'WITHDRAWN';
 
   return (
     <ControlPanelBox
@@ -167,15 +174,15 @@ export const Contractor: React.FC<ContractorProps> = ({
         color={bidStatusColor}
         sx={{ maxWidth: '125px' }}
       />
-      {bid.status === 'PENDING' ||
-        (bid.status === 'INVITED' && bid.amount !== contract.defaultPay && (
+      {(bid.status === 'PENDING' || bid.status === 'INVITED') &&
+        bid.amount !== contract.defaultPay && (
           <PayDisplay
             label="Current Offer"
             pay={bid.amount}
             structure={contract.payStructure as ContractPayStructure}
             sx={{ width: '120px' }}
           />
-        ))}
+        )}
       {bid.status === 'ACCEPTED' && (
         <Typography
           variant={contractOwned ? 'body2' : 'overline'}
@@ -185,6 +192,14 @@ export const Contractor: React.FC<ContractorProps> = ({
         </Typography>
       )}
       {bid.status === 'EXPIRED' && (
+        <Typography
+          variant="overline"
+          sx={{ color: 'warning.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
+        >
+          Cancled Bid
+        </Typography>
+      )}
+      {bid.status === 'WITHDRAWN' && (
         <Typography
           variant="overline"
           sx={{ color: 'error.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
@@ -203,9 +218,17 @@ export const Contractor: React.FC<ContractorProps> = ({
       {bid.status === 'INVITED' && bid.amount !== contract.defaultPay && (
         <Typography
           variant="overline"
-          sx={{ color: 'warning.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
+          sx={{ color: 'info.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
         >
           {contractOwned ? 'Counter Offer Sent' : 'Counter Recieved'}
+        </Typography>
+      )}
+      {bid.status === 'DISMISSED' && (
+        <Typography
+          variant="overline"
+          sx={{ color: 'error.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
+        >
+          Contractor Dismissed
         </Typography>
       )}
       {contractOwned &&
@@ -230,7 +253,8 @@ export const Contractor: React.FC<ContractorProps> = ({
         )}
       {contractOwned &&
         bid.status === 'PENDING' &&
-        bid.amount === contract.defaultPay && (
+        bid.amount === contract.defaultPay &&
+        !isEnded && (
           <Box data-testid="ContractorsTab-ContractorList-Contractor__BidControlButtonWrapper">
             <Button
               data-testid="ContractorsTab-ContractorList-Contractor-BidControls__AcceptButton"
@@ -253,7 +277,8 @@ export const Contractor: React.FC<ContractorProps> = ({
         )}
       {contractOwned &&
         bid.status === 'PENDING' &&
-        bid.amount !== contract.defaultPay && (
+        bid.amount !== contract.defaultPay &&
+        !isEnded && (
           <Box data-testid="ContractorsTab-ContractorList-Contractor-BidControls__OpenOfferButton_Wrapper">
             <Button
               data-testid="ContractorsTab-ContractorList-Contractor-BidControls__OpenOfferButton"
@@ -276,7 +301,7 @@ export const Contractor: React.FC<ContractorProps> = ({
           </DigiField>
         </Box>
       )}
-      {contractOwned && bid.status === 'ACCEPTED' && (
+      {contractOwned && hasAccepted && (
         <Box
           data-testid="ContractorsTab-ContractorList-Contractor-AcceptedControls__PayLabelWrapper"
           sx={{
@@ -291,29 +316,26 @@ export const Contractor: React.FC<ContractorProps> = ({
           />
         </Box>
       )}
-      {contractOwned &&
-        bid.status === 'ACCEPTED' &&
-        contract.status !== 'COMPLETED' &&
-        contract.status !== 'CANCELED' && (
-          <Box
-            data-testid="ContractorsTab-ContractorList-Contractor__AcceptedControlsWrapper"
+      {contractOwned && bid.status === 'ACCEPTED' && !isEnded && (
+        <Box
+          data-testid="ContractorsTab-ContractorList-Contractor__AcceptedControlsWrapper"
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+          }}
+        >
+          <Button
+            data-testid="ContractorsTab-ContractorList-Contractor-AcceptedControls__DismissButton"
+            color="error"
+            onClick={handleDismiss}
             sx={{
-              display: 'flex',
-              flexDirection: 'row',
+              mx: '1em',
             }}
           >
-            <Button
-              data-testid="ContractorsTab-ContractorList-Contractor-AcceptedControls__DismissButton"
-              color="error"
-              onClick={handleDismiss}
-              sx={{
-                mx: '1em',
-              }}
-            >
-              Dismiss
-            </Button>
-          </Box>
-        )}
+            Dismiss
+          </Button>
+        </Box>
+      )}
       {contractOwned && bid.status === 'REJECTED' && (
         <Typography
           data-testid="ContractorsTab-ContractorList-Contractor-BidControl__RejectedBidStatus"
@@ -327,22 +349,26 @@ export const Contractor: React.FC<ContractorProps> = ({
           Rejected Bid
         </Typography>
       )}
-      {contractOwned && bid.status === 'REJECTED' && (
-        <Button color="warning" onClick={handleInvite}>
-          Reinvite Contractor
-        </Button>
-      )}
+      {contractOwned &&
+        (bid.status === 'REJECTED' ||
+          bid.status === 'DISMISSED' ||
+          bid.status === 'WITHDRAWN') &&
+        !isEnded && (
+          <Button color="warning" onClick={handleInvite}>
+            Reinvite Contractor
+          </Button>
+        )}
       {contractOwned && bid.status === 'DECLINED' && (
         <Typography variant="overline" sx={{ color: 'warning.main' }}>
           Declined Invitation
         </Typography>
       )}
-      {contractOwned && bid.status === 'INVITED' && (
+      {contractOwned && bid.status === 'INVITED' && !isEnded && (
         <Button color="warning" variant="text" onClick={handleCancelInvite}>
           Cancel Invite
         </Button>
       )}
-      {(contract.status === 'COMPLETED' || contract.status === 'CANCELED') && (
+      {isEnded && hasAccepted && (
         <Rating size="small" value={userRating} disabled={userRating === 0} readOnly />
       )}
     </ControlPanelBox>
