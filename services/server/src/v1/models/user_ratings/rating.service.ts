@@ -73,12 +73,9 @@ export class RatingService {
     for (const bid of contract?.Bids ?? []) {
       if (recievingBidStatus.includes(bid.status)) {
         const _bidderId = bid.user_id;
-        const _status =
-          contract.status === 'COMPLETED'
-            ? 'Completed'
-            : contract.status === 'CANCELED'
-              ? 'Canceled'
-              : 'Error';
+        const _status = contract.status
+          .toLowerCase()
+          .replace(/^\w/, (c) => c.toUpperCase());
         this.notifications.createNotification(
           _bidderId,
           `@NOTIFICATIONS.MESSAGES.CONTRACT_COMPLETED`,

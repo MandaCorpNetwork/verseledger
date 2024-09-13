@@ -202,10 +202,11 @@ export class ContractController extends BaseHttpController {
         contract.set(key, newContract[key]);
       }
     }
+    // Store the Old Contract to pass to the Notif Service
+    const oldContract = contract;
     await contract.save();
-
-    //TODO: Notifications
-
+    // Run the Notif Service after the contract has been Saved.
+    this.contractService.notifyContractUpdate(oldContract, contract);
     if (contract)
       return this.ok(ContractToContractDTOMapper.map(contract).strip());
   }
