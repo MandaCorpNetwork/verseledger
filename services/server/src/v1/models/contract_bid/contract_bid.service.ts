@@ -8,6 +8,7 @@ import { User } from '@V1/models/user/user.model';
 import { ContractBidDTO } from '@V1/models/contract_bid/mapping/ContractBidDTO';
 import { Logger } from '@/utils/Logger';
 import { StompService } from '@V1/services/stomp.service';
+import { NotificationService } from '../notifications/notification.service';
 
 @injectable()
 export class ContractBidsService {
@@ -17,6 +18,8 @@ export class ContractBidsService {
 
   @inject(TYPES.StompService)
   private socket!: StompService;
+  @inject(TYPES.NotificationService)
+  private notifications!: NotificationService;
 
   public async getBid(contractId: string, bidId: string, scope: string[] = []) {
     const bid = await ContractBid.scope(scope).findOne({
@@ -76,7 +79,9 @@ export class ContractBidsService {
       status: 'PENDING',
       amount,
     });
-    this.socket.publish('/topic/newBid', new ContractBidDTO(bid));
+    this.notifyBid(contract, bid);
+    // This doesn't handle if it's an Offer or bid and the message won't be as informative
+    // this.socket.publish('/topic/newBid', new ContractBidDTO(bid));
     return bid;
   }
 
@@ -127,10 +132,100 @@ export class ContractBidsService {
       status: 'INVITED',
       amount,
     });
-    this.socket.publish(
-      `/topic/notifications/${userId}`,
-      `You have been invited to ${contract.title} by ${ownerUser.displayName}`,
-    );
+    this.notifyBid(contract, bid);
+    // this.socket.publish(
+    //   `/topic/notifications/${userId}`,
+    //   `You have been invited to ${contract.title} by ${ownerUser.displayName}`,
+    // );
     return bid;
+  }
+
+  // Bid Notification Method to handle any kind of Bid Creation or Update
+  public async notifyBid(_contract: Contract, _bid: ContractBid) {
+    const isOffer = _bid.amount !== _contract.defaultPay;
+    const ownerNotif = ['PENDING', 'DECLINED', 'WITHDRAWN'];
+    const bidderNotif = [
+      'INVITED',
+      'REJECTED',
+      'EXPIRED',
+      'DISMISSED',
+    ];
+    const getMessage = () => {
+      switch (_bid.status) {
+        case 'PENDING':
+          return isOffer ? 'BID_PENDING_OFFER' : 'BID_PENDING';
+        case 'DECLINED':
+          return isOffer ? 'BID_DECLINED_OFFER' : 'BID_DECLINED';
+        case 'ACCEPTED':
+          return 'BID_ACCEPTED';
+        case 'WITHDRAWN':
+          return 'BID_WITHDRAWN';
+        case 'INVITED':
+          return isOffer ? 'BID_INVITED_OFFER' : 'BID_INVITED';
+        case 'REJECTED':
+          return isOffer ? 'BID_REJECTED_OFFER' : 'BID_REJECTED';
+        case 'EXPIRED':
+          return 'BID_EXPIRED';
+        case 'DISMISSED':
+          return 'BID_DISMISSED';
+        default:
+          return;
+      }
+    };
+    const message = getMessage();
+    if (!message) return;
+    if (ownerNotif.includes(_bid.status)) {
+      this.notifications.createNotification(
+        _contract.owner_id,
+        `@NOTIFICATIONS.MESSAGES.${message}`,
+        {
+          type: 'link',
+          link: `/ledger/contracts/${_contract.id}`,
+          arguments: {
+            contractTitle: _contract.title,
+            bidderName: _bid.User.displayName,
+          },
+        },
+      );
+    }
+    if (bidderNotif.includes(_bid.status)) {
+      this.notifications.createNotification(
+        _contract.owner_id,
+        `@NOTIFICATIONS.MESSAGES.${message}`,
+        {
+          type: 'link',
+          link: `/ledger/contracts/${_contract.id}`,
+          arguments: {
+            contractTitle: _contract.title,
+            ownerName: _contract.Owner?.displayName,
+          },
+        },
+      );
+    }
+    if (_bid.status === 'ACCEPTED') {
+      this.notifications.createNotification(
+        _contract.owner_id,
+        `@NOTIFICATIONS.MESSAGES.${message}`,
+        {
+          type: 'link',
+          link: `/ledger/contracts/${_contract.id}`,
+          arguments: {
+            contractTitle: _contract.title,
+            bidderName: _bid.User.displayName,
+          },
+        },
+      );this.notifications.createNotification(
+        _bid.user_id,
+        `@NOTIFICATIONS.MESSAGES.${message}`,
+        {
+          type: 'link',
+          link: `/ledger/contracts/${_contract.id}`,
+          arguments: {
+            contractTitle: _contract.title,
+            bidderName: _bid.User.displayName,
+          },
+        },
+      );
+    }
   }
 }
