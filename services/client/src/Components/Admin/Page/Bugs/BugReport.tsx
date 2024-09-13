@@ -1,9 +1,9 @@
 import { ExpandMore } from '@mui/icons-material';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 
-type BugReportProps = {
-  bugForm: object;
-};
+// type BugReportProps = {
+//   bugForm: object;
+// };
 
 export const BugReport: React.FC = () => {
   return (

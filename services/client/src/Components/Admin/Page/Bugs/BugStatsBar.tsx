@@ -12,6 +12,10 @@ type BugStatsProps = {
 
 export const BugStatsBar: React.FC<BugStatsProps> = ({ tab, count }) => {
   const [chartTab, setChartTab] = React.useState<string>('patch');
+
+  const handleChangeChart = React.useCallback((chart: string) => {
+    setChartTab(chart);
+  }, []);
   const getCountLabel = React.useCallback(() => {
     switch (tab) {
       case 'unread':
@@ -117,6 +121,7 @@ export const BugStatsBar: React.FC<BugStatsProps> = ({ tab, count }) => {
               data-testid="AdminPage-Content-BugPage-Stats-ActiveGraph__PatchButton"
               variant="contained"
               size="small"
+              onClick={() => handleChangeChart('patch')}
             >
               Patch View
             </Button>
@@ -124,6 +129,7 @@ export const BugStatsBar: React.FC<BugStatsProps> = ({ tab, count }) => {
               data-testid="AdminPage-Content-BugPage-Stats-ActiveGraph__PatchButton"
               variant="contained"
               size="small"
+              disabled
             >
               Assignments
             </Button>
@@ -143,21 +149,21 @@ export const BugStatsBar: React.FC<BugStatsProps> = ({ tab, count }) => {
   );
 };
 
-const bugReportHeartbeatData = [
-  {
-    label: 'New Reports',
-    values: [3, 5, 8, 10, 15, 4],
-  },
-  {
-    label: 'Confirmed Reports',
-    values: [1, 3, 7, 5, 3, 9],
-  },
-  {
-    label: 'Personal Assignments',
-    values: [1, 1, 3, 3, 1, 5],
-  },
-  {
-    label: 'Completed Bugs',
-    values: [0, 2, 2, 6, 3, 8],
-  },
-];
+// const bugReportHeartbeatData = [
+//   {
+//     label: 'New Reports',
+//     values: [3, 5, 8, 10, 15, 4],
+//   },
+//   {
+//     label: 'Confirmed Reports',
+//     values: [1, 3, 7, 5, 3, 9],
+//   },
+//   {
+//     label: 'Personal Assignments',
+//     values: [1, 1, 3, 3, 1, 5],
+//   },
+//   {
+//     label: 'Completed Bugs',
+//     values: [0, 2, 2, 6, 3, 8],
+//   },
+// ];
