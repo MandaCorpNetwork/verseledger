@@ -69,15 +69,30 @@ export class RatingService {
   }
 
   public async notifyContractorsToRate(contract: Contract) {
+    const recievingBidStatus = ['WITHDRAWN', 'DISMISSED', 'ACCEPTED'];
     for (const bid of contract?.Bids ?? []) {
-      const _bidderId = bid.user_id;
-      const _status =
-        contract.status === 'COMPLETED'
-          ? 'Completed'
-          : contract.status === 'CANCELED'
-            ? 'Canceled'
-            : 'Error';
-      //TODO: Create notification
+      if (recievingBidStatus.includes(bid.status)) {
+        const _bidderId = bid.user_id;
+        const _status =
+          contract.status === 'COMPLETED'
+            ? 'Completed'
+            : contract.status === 'CANCELED'
+              ? 'Canceled'
+              : 'Error';
+        this.notifications.createNotification(
+          _bidderId,
+          `@NOTIFICATIONS.MESSAGES.CONTRACT_COMPLETED`,
+          {
+            type: 'link',
+            link: `/ledger/contracts/${contract.id}`,
+            arguments: {
+              contractTitle: contract.title,
+              contractStatus: _status,
+            },
+          },
+        );
+        //TODO: Need to send the updated data in the DTO
+      }
     }
   }
 
@@ -85,6 +100,15 @@ export class RatingService {
     _submitterId: string,
     _contract: Contract,
   ) {
-    //TODO: Create notification
+    //TODO: Need to send the updated data in the DTO
+    this.notifications.createNotification(
+      _submitterId,
+      `@NOTIFICATIONS.MESSAGES.CONTRACT_RATING_PENDING`,
+      {
+        type: 'link',
+        link: `/ledger/contracts/${_contract.id}`,
+        arguments: { contractTitle: _contract.title },
+      },
+    );
   }
 }

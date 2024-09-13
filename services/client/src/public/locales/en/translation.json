@@ -15,7 +15,9 @@
     "OVERVIEW": "Overview",
     "MESSAGES": {
       "VERIFY_RSI": "Please verify your RSI account.",
-      "NEW_CONTRACT_RATING": "Recieved new rating on: {{contractTitle}}"
+      "NEW_CONTRACT_RATING": "Recieved new rating on: {{contractTitle}}",
+      "CONTRACT_COMPLETED": "{{contractTitle}} has been {{contractStatus}}. Please Submit Ratings",
+      "CONTRACT_RATING_PENDING": "Awaiting Rating Submission for {{contractTitle}}"
     }
   }
 }
