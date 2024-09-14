@@ -45,7 +45,7 @@ export class Notification extends Model<
   declare readonly message: string;
 
   @AllowNull
-  @Column({ type: DataType.STRING(255) })
+  @Column({ type: DataType.JSON() })
   declare readonly action: CreationOptional<string | null>;
 
   @BelongsTo(() => User)

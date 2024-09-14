@@ -31,8 +31,9 @@ import { ContractBidStatusSchema } from 'vl-shared/src/schemas/ContractBidStatus
 import { z } from 'zod';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { ContractBidsService } from './contract_bid.service';
+
 @ApiPath({
-  path: '/v1/contracts/{contractId}',
+  path: '/v1/contracts/{contractId}/bids',
   name: 'Bids',
   description: 'Methods related to Bids',
   security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },

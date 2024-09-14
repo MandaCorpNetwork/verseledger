@@ -4,6 +4,7 @@ import { TYPES } from '@Constant/types';
 import { EnvService } from '@V1/services/env.service';
 import { Logger } from '@/utils/Logger';
 import { AuthRepository } from './auth.repository';
+import { ApiPermission } from 'vl-shared/src/enum/ApiPermission';
 @injectable()
 export class AuthService {
   constructor() {
@@ -23,6 +24,7 @@ export class AuthService {
       id: string;
       exp: number;
       type: 'access' | 'refresh' | 'api';
+      roles: ApiPermission[];
     };
   }
 
@@ -62,8 +64,9 @@ export class AuthService {
     user_id: string,
     expires?: Date | number | `${number}${'d' | 'h' | 's' | 'm' | 'y'}`,
     name?: string,
+    roles?: ApiPermission[],
   ) {
-    return AuthRepository.createApiToken(user_id, expires, 'api', name);
+    return AuthRepository.createApiToken(user_id, expires, 'api', name, roles);
   }
 
   async getApiTokens(user_id: string) {
