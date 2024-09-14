@@ -16,7 +16,11 @@ export class VLAuthPrincipal implements interfaces.Principal {
     return true;
   }
   async isInRole(role: ApiPermission): Promise<boolean> {
-    return this.roles.has(ApiPermission.ADMIN) || this.roles.has(role);
+    return (
+      this.roles.has(role) ||
+      (role.includes('_') &&
+        this.roles.has(role.split('_')[0] as ApiPermission))
+    );
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
