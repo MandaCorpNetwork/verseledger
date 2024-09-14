@@ -201,7 +201,7 @@ export class ContractService {
     const notifyUser = (userId: string, contract: Contract) => {
       this.notifications.createNotification(
         userId,
-        `@NOTIFICATIONS.MESSAGES.CONTRACT_UPDATED`,
+        `@NOTIFICATION.MESSAGES.CONTRACT_UPDATED`,
         {
           type: 'link',
           link: `/ledger/contracts/${contract.id}`,

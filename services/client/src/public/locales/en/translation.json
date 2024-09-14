@@ -7,6 +7,15 @@
     "CONFIRM": "Confirm",
     "CANCEL": "Cancel"
   },
+  "@STATUS": {
+    "CONTRACT": {
+      "COMPLETED": "Completed",
+      "CANCELED": "Canceled",
+      "INPROGRESS": "In Progress", 
+      "PENDING": "Pending",
+      "BIDDING": "Bidding"
+    }
+  },
   "@NOTIFICATION": {
     "MARK_READ": "Mark Read",
     "MARK_ALL_READ": "Mark all Read",
@@ -18,16 +27,15 @@
       "NEW_CONTRACT_RATING": "Recieved new rating on: {{contractTitle}}",
       "CONTRACT_COMPLETED": "{{contractTitle}} has been {{contractStatus}}. Please Submit Ratings",
       "CONTRACT_RATING_PENDING": "Awaiting Rating Submission for {{contractTitle}}",
-      "CONTRACT_SPECIFIC_UPDATE": "{{changedKey}} on {{contractTitle}} was updated: {{changedValue}}",
-      "CONTRACT_GENERIC_UPDATE": "{{contractTitle}} has been updated.",
-      "BID_PENDING_OFFER": "{{bidderName}} sent an offer on {{contractTitle}}",
-      "BID_PENDING": "New Bid from {{bidderName}} on {{contractTitle}}",
-      "BID_DECLINED_OFFER": "{{bidderName}} declined Offer on {{contractTitle}}",
-      "BID_DECLINED": "Invite declined by {{bidderName}} on {{contractTitle}}",
-      "BID_ACCEPTED": "{{bidderName}} is now Active on {{contractTitle}}",
-      "BID_WITHDRAWN": "{{bidderName}} has Withdrawn from {{contractTitle}}",
-      "BID_INVITED_OFFER": "Recieved an Offer from {{ownerName}} for {{contractTitle}}",
-      "BID_INVITED": "{{ownerName}} has Invited you to {{contractTitle}}",
+      "CONTRACT_UPDATED": "{{contractTitle}} has been updated.",
+      "BID_PENDING_OFFER": "{{name}} sent an offer on {{contractTitle}}",
+      "BID_PENDING": "New Bid from {{name}} on {{contractTitle}}",
+      "BID_DECLINED_OFFER": "{{name}} declined Offer on {{contractTitle}}",
+      "BID_DECLINED": "Invite declined by {{name}} on {{contractTitle}}",
+      "BID_ACCEPTED": "{{name}} is now Active on {{contractTitle}}",
+      "BID_WITHDRAWN": "{{name}} has Withdrawn from {{contractTitle}}",
+      "BID_INVITED_OFFER": "Recieved an Offer from {{name}} for {{contractTitle}}",
+      "BID_INVITED": "{{name}} has Invited you to {{contractTitle}}",
       "BID_REJECTED_OFFER": "Offer Rejected for {{contractTitle}}",
       "BID_REJECTED": "Bid Rejected for {{contractTitle}}",
       "BID_EXPIRED": "Bid has Expired for {{contractTitle}}",

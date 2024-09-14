@@ -5,10 +5,11 @@ import { TYPES } from '@/constant/types';
 import { NotFoundError } from '@V1/errors/NotFoundError';
 import { BadRequestError } from '@V1/errors/BadRequest';
 import { User } from '@V1/models/user/user.model';
-import { ContractBidDTO } from '@V1/models/contract_bid/mapping/ContractBidDTO';
 import { Logger } from '@/utils/Logger';
 import { StompService } from '@V1/services/stomp.service';
 import { NotificationService } from '../notifications/notification.service';
+
+const ownerNotif = new Set(['PENDING', 'DECLINED', 'WITHDRAWN']);
 
 @injectable()
 export class ContractBidsService {
@@ -141,17 +142,10 @@ export class ContractBidsService {
   }
 
   // Bid Notification Method to handle any kind of Bid Creation or Update
-  public async notifyBid(_contract: Contract, _bid: ContractBid) {
-    const isOffer = _bid.amount !== _contract.defaultPay;
-    const ownerNotif = ['PENDING', 'DECLINED', 'WITHDRAWN'];
-    const bidderNotif = [
-      'INVITED',
-      'REJECTED',
-      'EXPIRED',
-      'DISMISSED',
-    ];
+  public async notifyBid(contract: Contract, bid: ContractBid) {
+    const isOffer = bid.amount !== contract.defaultPay;
     const getMessage = () => {
-      switch (_bid.status) {
+      switch (bid.status) {
         case 'PENDING':
           return isOffer ? 'BID_PENDING_OFFER' : 'BID_PENDING';
         case 'DECLINED':
@@ -174,55 +168,30 @@ export class ContractBidsService {
     };
     const message = getMessage();
     if (!message) return;
-    if (ownerNotif.includes(_bid.status)) {
+    if (bid.status === 'ACCEPTED') {
       this.notifications.createNotification(
-        _contract.owner_id,
-        `@NOTIFICATIONS.MESSAGES.${message}`,
+        [contract.owner_id, bid.user_id],
+        `@NOTIFICATION.MESSAGES.${message}`,
         {
           type: 'link',
-          link: `/ledger/contracts/${_contract.id}`,
+          link: `/ledger/contracts/${contract.id}`,
           arguments: {
-            contractTitle: _contract.title,
-            bidderName: _bid.User.displayName,
+            contractTitle: contract.title,
+            name: bid.User.displayName,
           },
         },
       );
-    }
-    if (bidderNotif.includes(_bid.status)) {
+    } else {
       this.notifications.createNotification(
-        _contract.owner_id,
-        `@NOTIFICATIONS.MESSAGES.${message}`,
+        contract.owner_id,
+        `@NOTIFICATION.MESSAGES.${message}`,
         {
           type: 'link',
-          link: `/ledger/contracts/${_contract.id}`,
+          link: `/ledger/contracts/${contract.id}`,
           arguments: {
-            contractTitle: _contract.title,
-            ownerName: _contract.Owner?.displayName,
-          },
-        },
-      );
-    }
-    if (_bid.status === 'ACCEPTED') {
-      this.notifications.createNotification(
-        _contract.owner_id,
-        `@NOTIFICATIONS.MESSAGES.${message}`,
-        {
-          type: 'link',
-          link: `/ledger/contracts/${_contract.id}`,
-          arguments: {
-            contractTitle: _contract.title,
-            bidderName: _bid.User.displayName,
-          },
-        },
-      );this.notifications.createNotification(
-        _bid.user_id,
-        `@NOTIFICATIONS.MESSAGES.${message}`,
-        {
-          type: 'link',
-          link: `/ledger/contracts/${_contract.id}`,
-          arguments: {
-            contractTitle: _contract.title,
-            bidderName: _bid.User.displayName,
+            contractTitle: contract.title,
+            name: (ownerNotif.has(bid.status) ? bid.User : contract.Owner)
+              ?.displayName,
           },
         },
       );

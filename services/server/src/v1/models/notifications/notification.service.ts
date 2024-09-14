@@ -53,10 +53,19 @@ export class NotificationService {
   }
 
   public async createNotification(
-    user_id: string,
+    user_id: string | string[],
     message: string,
     action?: INotificationAction,
-  ) {
+  ): Promise<boolean> {
+    if (typeof user_id !== 'string') {
+      return (
+        await Promise.all(
+          (user_id as string[]).map((id) =>
+            this.createNotification(id, message, action),
+          ),
+        )
+      ).reduce((prev, current) => prev && current, true);
+    }
     const notification = await Notification.create({
       user_id,
       message,
@@ -67,6 +76,6 @@ export class NotificationService {
       `/topic/notifications-${user_id}`,
       NotificationToNotificationDTOMapper.map(notification),
     );
-    return notification;
+    return notification != null;
   }
 }

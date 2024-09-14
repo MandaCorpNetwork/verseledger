@@ -57,7 +57,7 @@ export class RatingService {
       //TODO: Need to send the updated data in the DTO
       this.notifications.createNotification(
         newRating.getDataValue('reciever_id'),
-        `@NOTIFICATIONS.MESSAGES.NEW_CONTRACT_RATING`,
+        `@NOTIFICATION.MESSAGES.NEW_CONTRACT_RATING`,
         {
           type: 'link',
           link: `/ledger/contracts/${contract.id}`,
@@ -72,19 +72,16 @@ export class RatingService {
     const recievingBidStatus = ['WITHDRAWN', 'DISMISSED', 'ACCEPTED'];
     for (const bid of contract?.Bids ?? []) {
       if (recievingBidStatus.includes(bid.status)) {
-        const _bidderId = bid.user_id;
-        const _status = contract.status
-          .toLowerCase()
-          .replace(/^\w/, (c) => c.toUpperCase());
+        const bidderId = bid.user_id;
         this.notifications.createNotification(
-          _bidderId,
-          `@NOTIFICATIONS.MESSAGES.CONTRACT_COMPLETED`,
+          bidderId,
+          `@NOTIFICATION.MESSAGES.CONTRACT_COMPLETED`,
           {
             type: 'link',
             link: `/ledger/contracts/${contract.id}`,
             arguments: {
               contractTitle: contract.title,
-              contractStatus: _status,
+              contractStatus: contract.status,
             },
           },
         );
@@ -100,7 +97,7 @@ export class RatingService {
     //TODO: Need to send the updated data in the DTO
     this.notifications.createNotification(
       _submitterId,
-      `@NOTIFICATIONS.MESSAGES.CONTRACT_RATING_PENDING`,
+      `@NOTIFICATION.MESSAGES.CONTRACT_RATING_PENDING`,
       {
         type: 'link',
         link: `/ledger/contracts/${_contract.id}`,
