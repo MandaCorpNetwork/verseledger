@@ -28,8 +28,6 @@ type MorTController = {
  * ### MobileOrTabletController
  * @description
  * Displays Contract Controller Buttons for a Contract on a Mobile or Tablet Screen.
- * @version 0.1.3
- * @memberof {@link ContractPage}
  * @param {MorTController} props - The props for the component
  * @returns {React.FC}
  * @author ThreeCrown - @ThreeCrown
@@ -480,10 +478,18 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
 
   const getResubmitText = React.useCallback(() => {
     if (!userBid) return;
-    if (userBid.status === 'DECLINED') return 'You declined an Invite';
-    if (userBid.status === 'EXPIRED') return 'Bid has Expired';
-    if (userBid.status === 'WITHDRAWN') return 'You Withdrew from the Contract';
-    if (userBid.status === 'DISMISSED') return 'You were Dismissed from the Contract';
+    switch (userBid.status) {
+      case 'DECLINED':
+        return 'You declined an Invite';
+      case 'EXPIRED':
+        return 'Bid has Expired';
+      case 'WITHDRAWN':
+        return 'You Withdrew from the Contract';
+      case 'DISMISSED':
+        return 'You were Dismissed from the Contract';
+      default:
+        return;
+    }
   }, [userBid]);
 
   const resubmitText = getResubmitText();
