@@ -271,7 +271,8 @@ export class BidsController extends BaseHttpController {
           break;
         }
         case 'EXPIRED': {
-          if (bid.status !== 'PENDING' && bid.status !== 'INVITED') throw new UnauthorizedError();
+          if (bid.status !== 'PENDING' && bid.status !== 'INVITED')
+            throw new UnauthorizedError();
           break;
         }
         default:

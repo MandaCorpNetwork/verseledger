@@ -11,7 +11,7 @@
     "CONTRACT": {
       "COMPLETED": "Completed",
       "CANCELED": "Canceled",
-      "INPROGRESS": "In Progress", 
+      "INPROGRESS": "In Progress",
       "PENDING": "Pending",
       "BIDDING": "Bidding"
     }
