@@ -133,6 +133,7 @@ export class AuthController extends BaseHttpController {
       owner_id,
       body.expires as Date,
       body.name,
+      body.roles,
     );
     return this.created(`/v1/auth/tokens/${token.token_id}`, token);
   }

@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import ms from 'ms';
 import { EnvService } from '@V1/services/env.service';
 import { Op } from 'sequelize';
+import { ApiPermission } from 'vl-shared/src/enum/ApiPermission';
 
 const env = new EnvService();
 @injectable()
@@ -24,13 +25,14 @@ export class AuthRepository {
     expires: Date | number | `${number}${'d' | 'h' | 's' | 'm' | 'y'}` = '1h',
     type = 'access',
     name = 'USER TOKEN',
+    roles: ApiPermission[] = [ApiPermission.ADMIN],
     jwtid: string = IdUtil.generateSystemID(),
   ) {
     const expiresRange =
       typeof expires === 'string' ? ms(expires) : new Date(expires).getTime();
     const expiresAt = new Date(Date.now() + expiresRange);
     const token = jwt.sign(
-      { id: user_id, type },
+      { id: user_id, type, roles },
       Buffer.from(env.AUTH_SECRET, 'base64'),
       {
         algorithm: 'HS512',
@@ -46,6 +48,7 @@ export class AuthRepository {
       name,
       type: type as 'access',
       token_id: jwtid,
+      roles: JSON.stringify(roles),
       expiresAt,
     });
     return { ...newToken.toJSON(), token };
@@ -55,8 +58,22 @@ export class AuthRepository {
     jwtid: string = IdUtil.generateSystemID(),
   ) {
     const [accessToken, refreshToken] = await Promise.all([
-      AuthRepository.createApiToken(user_id, '1h', 'access', undefined, jwtid),
-      AuthRepository.createApiToken(user_id, '2d', 'refresh', undefined, jwtid),
+      AuthRepository.createApiToken(
+        user_id,
+        '1h',
+        'access',
+        undefined,
+        [ApiPermission.ADMIN],
+        jwtid,
+      ),
+      AuthRepository.createApiToken(
+        user_id,
+        '2d',
+        'refresh',
+        undefined,
+        [ApiPermission.ADMIN],
+        jwtid,
+      ),
     ]);
     return { accessToken, refreshToken };
   }

@@ -38,6 +38,10 @@ export class ApiToken extends Model<
   @Column({ type: DataType.STRING(32) })
   declare name: CreationOptional<string>;
 
+  @Default('USER TOKEN')
+  @Column({ type: DataType.JSON() })
+  declare roles: CreationOptional<string>;
+
   @Column({ type: DataType.DATE })
   declare expiresAt: CreationOptional<Date>;
 }

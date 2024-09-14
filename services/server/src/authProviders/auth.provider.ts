@@ -70,6 +70,7 @@ export class AuthProvider implements interfaces.AuthProvider {
         where: { id: user.id },
       })) as User,
       user.type,
+      user.roles,
     );
     return principal;
   }
