@@ -192,200 +192,29 @@ export class ContractService {
     return contracts;
   }
 
-  // A Notification that gets sent out when there are Multiple Updates
-  public async notifyContractMultiUpdates(_contract: Contract) {
-    if (!_contract.Bids) return;
-    for (const bid of _contract.Bids) {
-      if (bid.status === 'ACCEPTED') {
-        this.notifications.createNotification(
-          bid.user_id,
-          `@NOTIFICATIONS.MESSAGES.CONTRACT_UPDATES`,
-          {
-            type: 'link',
-            link: `/ledger/contracts/${_contract.id}`,
-            arguments: {
-              contractTitle: _contract.title,
-            },
+  // Notification on an updated Contract
+  public async notifyContractUpdate(newContract: Contract) {
+    if (!newContract.Bids) return;
+    // Doesn't update users on these Status' because it is handled by the Ratings service
+    const statusIgnore = ['COMPLETED', 'CANCELED'];
+    if (statusIgnore.includes(newContract.status)) return;
+    const notifyUser = (userId: string, contract: Contract) => {
+      this.notifications.createNotification(
+        userId,
+        `@NOTIFICATIONS.MESSAGES.CONTRACT_UPDATED`,
+        {
+          type: 'link',
+          link: `/ledger/contracts/${contract.id}`,
+          arguments: {
+            contractTitle: contract.title,
           },
-        );
-      }
-    }
-  }
-
-  // A Generic Notification Constructor for any singular Contract Update
-  public async notifyGenericContractUpdate(_contract: Contract, key?: string, value?: string) {
-    if (!_contract.Bids) return;
-
-    // Check if Key is set to decide if to send a Generic Message or Specific Message
-    const message = key
-      ? '@NOTIFICATIONS.MESSAGES.CONTRACT_SPECIFIC_UPDATE'
-      : '@NOTIFICATIONS.MESSAGES.CONTRACT_GENERIC_UPDATE';
-    for (const bid of _contract.Bids) {
-      if (bid.status === 'ACCEPTED') {
-        this.notifications.createNotification(
-          bid.user_id,
-          message,
-          {
-            type: 'link',
-            link: `/ledger/contracts/${_contract.id}`,
-            arguments: {
-              contractTitle: _contract.title,
-              changedKey: key || null,
-              changedValue: value || null,
-            },
-          },
-        );
-      }
-    }
-  }
-
-  // Method to determine the Update(s) made and send out the appropriate Notification
-  public async notifyContractUpdate(
-    _currentContract: Contract,
-    _newContract: Contract,
-  ) {
-    if (!_newContract.Bids) return;
-    const changedFields: string[] = [];
-
-    // For Loop to check which fields have changed and push the key to an array
-    for (const key in _newContract) {
-      const contractKey = key as keyof Contract;
-      if (_newContract[contractKey] !== _currentContract[contractKey]) {
-        changedFields.push(contractKey);
-      }
-    }
-
-    // A Value to check if only the Status Changed.
-    // When a Status Changes it sends a corresponding Date update with it
-    const statusChanged =
-      changedFields.length === 2 && changedFields.includes('status');
-    
-    // Checks if more than One field has changed.
-    // Decides whether to send a GenericUpdate or MultiUpdate Notif
-    if (changedFields.length > 1) {
-      // Catch if the Multiple Fields is just a Status Update
-      if (statusChanged) {
-        // Checks if the Status is a completed status, which is handled by the Ratings Controller
-        if (
-          _newContract.status !== 'COMPLETED' &&
-          _newContract.status !== 'CANCELED'
-        ) {
-          // Pass a custom string for 'In Progress'
-          const _status =
-            _newContract.status === 'INPROGRESS'
-              ? 'In Progress'
-              : _newContract.status
-                  .toLowerCase()
-                  .replace(/^\w/, (c) => c.toUpperCase());
-          this.notifyGenericContractUpdate(_newContract, 'Status', _status);
-        }
-        // Returns if it's just a Status Update
-        return;
-      }
-      // Uses the MultiUpdate Notif if it's not a Status Update
-      this.notifyContractMultiUpdates(_newContract);
-    } else {
-      // If it is a singular update we use a Switch to Dictate the Correct String Value to be sent
-      switch (changedFields[0]) {
-        case 'defaultPay': {
-          // Check the Pay Structure for appropriate String
-          const getValueString = () => {
-            if (_newContract.payStructure === 'FLATRATE') {
-              return `¤ ${_newContract.defaultPay.toLocaleString()}`;
-            } else if (_newContract.payStructure === 'HOURLY') {
-              return `¤ ${_newContract.defaultPay.toLocaleString()} /HR`;
-            } else if (_newContract.payStructure === 'POOL') {
-              return `${_newContract.defaultPay} %`;
-            }
-            return _newContract.defaultPay.toLocaleString();
-          };
-          const valueString = getValueString();
-          return this.notifyGenericContractUpdate(
-            _newContract,
-            'Default Pay',
-            valueString,
-          );
-        }
-        case 'payStructure': {
-          const label = _newContract.payStructure
-            .toLowerCase()
-            .replace(/^\w/, (c) => c.toUpperCase());
-          return this.notifyGenericContractUpdate(
-            _newContract,
-            'Pay Structure',
-            label,
-          );
-        }
-        case 'isBonusPay': {
-          const label = _newContract.isBonusPay ? 'Included' : 'Removed';
-          return this.notifyGenericContractUpdate(
-            _newContract,
-            'Bonus Pay',
-            label,
-          );
-        }
-        case 'isBargaining': {
-          const label = _newContract.isBargaining
-            ? 'Negotiable'
-            : 'Non Negotiable';
-          return this.notifyGenericContractUpdate(
-            _newContract,
-            'Negotiation',
-            label,
-          );
-        }
-        case 'contractorLimit': {
-          return this.notifyGenericContractUpdate(
-            _newContract,
-            'Contractor Limit',
-            _newContract.contractorLimit.toString(),
-          );
-        }
-        case 'startDate': {
-          // Check if the Date change is Before or After the current set date
-          const label =
-            _newContract.startDate < _currentContract.startDate
-              ? 'Sooner'
-              : 'Later';
-          return this.notifyGenericContractUpdate(
-            _newContract,
-            'Start Date',
-            label,
-          );
-        }
-        case 'endDate': {
-          // Check if the Date change is Before or After the current set date
-          const label =
-            _newContract.endDate < _currentContract.endDate
-              ? 'Sooner'
-              : 'Later';
-          return this.notifyGenericContractUpdate(
-            _newContract,
-            'End Date',
-            label,
-          );
-        }
-        case 'bidDate': {
-          // Check if the Date change is Before or After the current set date
-          const label =
-            _newContract.bidDate < _currentContract.bidDate
-              ? 'Sooner'
-              : 'Later';
-          return this.notifyGenericContractUpdate(
-            _newContract,
-            'Bid End Date',
-            label,
-          );
-        }
-        case 'ratingLimit':
-          return this.notifyGenericContractUpdate(
-            _newContract,
-            'Rating Limit',
-            _newContract.ratingLimit.toString(),
-          );
-        // Return a generic update for anything else which is deemed not important
-        default:
-          return this.notifyGenericContractUpdate(_newContract);
+        },
+      );
+    };
+    const recievingBidStatus = ['WITHDRAWN', 'DISMISSED', 'ACCEPTED'];
+    for (const bid of newContract.Bids) {
+      if (recievingBidStatus.includes(bid.status)) {
+        notifyUser(bid.user_id, newContract);
       }
     }
   }
