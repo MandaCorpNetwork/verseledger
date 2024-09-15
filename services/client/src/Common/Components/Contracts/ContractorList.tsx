@@ -23,8 +23,7 @@ type ContractorListProps = {
  * @description
  * Displays the list of Contractors with a Bid connected to the Contract.
  * Depending on the user's access level, the user will see different levels of information. If user is the owner will be able to manage the bids & send Invites.
- * @version 0.1.8
- * @memberof {@link ContractPage} {@link ContractDisplay} {@link SelectedContractManager}
+ * @version 0.1.9
  * @param {ContractorListProps} props - The props for the component
  * @returns {React.FC}
  * #### Functional Components
@@ -45,7 +44,7 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
   /** @var {IContractBid} userBid - The bid of the current user if exists */
   const userBid = contract.Bids?.find((bid) => bid.user_id === currentUser?.id);
 
-  const privledgedAccess = userBid?.status === 'ACCEPTED' || 'INVITED';
+  const privledgedAccess = userBid?.status === 'ACCEPTED' || 'INVITED' || 'WITHDRAWN';
 
   /** @var {IContractBid[]} contractors - The complete list of bids on the contract */
   const contractors = contract.Bids;
@@ -68,15 +67,19 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
 
   /** @var {IContractBid[]} contractorViewableList - The list of contractors that are viewable to a user with a `privledged` access level */
   const contractorViewableList = contractors?.filter((bid) =>
-    ['ACCEPTED', 'WITHDRAWN', 'INVITED'].includes(bid.status),
+    ['ACCEPTED', 'WITHDRAWN', 'INVITED', 'DISMISSED', 'DECLINED', 'PENDING'].includes(
+      bid.status,
+    ),
   );
 
   /** @var {IContractBidStatus[]} contractorOrder - The order of the displayed bids by status */
   const contractorOrder = [
     'ACCPTED',
+    'WITHDRAWN',
     'PENDING',
     'INVITED',
     'DECLINED',
+    'DISMISSED',
     'EXPIRED',
     'REJECTED',
   ];
@@ -257,32 +260,6 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
           acceptedBids &&
           (acceptedBids.length > 0 ? (
             acceptedBids?.map((contractor) => (
-              <Contractor
-                key={contractor.id}
-                bid={contractor}
-                user={contractor.User as IUser}
-                contractOwned={isOwner}
-                contract={contract}
-              />
-            ))
-          ) : (
-            <Typography
-              align="center"
-              variant="h6"
-              sx={{
-                textAlign: 'center',
-                width: '100%',
-                color: 'grey',
-                textShadow: '0 0 3px rgb(0,0,0), 0 0 10px rgba(0,0,0,.7)',
-              }}
-            >
-              No Contractors
-            </Typography>
-          ))}
-        {(contract.status === 'COMPLETED' || contract.status === 'CANCELED') &&
-          acceptedBids &&
-          (acceptedBids.length > 0 ? (
-            acceptedBids.map((contractor) => (
               <Contractor
                 key={contractor.id}
                 bid={contractor}

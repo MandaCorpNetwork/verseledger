@@ -202,12 +202,13 @@ export class ContractController extends BaseHttpController {
         contract.set(key, newContract[key]);
       }
     }
+
     await contract.save();
-
-    //TODO: Notifications
-
-    if (contract)
+    if (contract) {
+      // Run the Notif Service after the contract has been Saved.
+      this.contractService.notifyContractUpdate(contract);
       return this.ok(ContractToContractDTOMapper.map(contract).strip());
+    }
   }
 
   @ApiOperationGet({

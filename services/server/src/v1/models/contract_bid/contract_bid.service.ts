@@ -5,9 +5,11 @@ import { TYPES } from '@/constant/types';
 import { NotFoundError } from '@V1/errors/NotFoundError';
 import { BadRequestError } from '@V1/errors/BadRequest';
 import { User } from '@V1/models/user/user.model';
-import { ContractBidDTO } from '@V1/models/contract_bid/mapping/ContractBidDTO';
 import { Logger } from '@/utils/Logger';
 import { StompService } from '@V1/services/stomp.service';
+import { NotificationService } from '../notifications/notification.service';
+
+const ownerNotif = new Set(['PENDING', 'DECLINED', 'WITHDRAWN']);
 
 @injectable()
 export class ContractBidsService {
@@ -17,6 +19,8 @@ export class ContractBidsService {
 
   @inject(TYPES.StompService)
   private socket!: StompService;
+  @inject(TYPES.NotificationService)
+  private notifications!: NotificationService;
 
   public async getBid(contractId: string, bidId: string, scope: string[] = []) {
     const bid = await ContractBid.scope(scope).findOne({
@@ -76,7 +80,9 @@ export class ContractBidsService {
       status: 'PENDING',
       amount,
     });
-    this.socket.publish('/topic/newBid', new ContractBidDTO(bid));
+    this.notifyBid(contract, bid);
+    // This doesn't handle if it's an Offer or bid and the message won't be as informative
+    // this.socket.publish('/topic/newBid', new ContractBidDTO(bid));
     return bid;
   }
 
@@ -127,10 +133,68 @@ export class ContractBidsService {
       status: 'INVITED',
       amount,
     });
-    this.socket.publish(
-      `/topic/notifications/${userId}`,
-      `You have been invited to ${contract.title} by ${ownerUser.displayName}`,
-    );
+    this.notifyBid(contract, bid);
+    // this.socket.publish(
+    //   `/topic/notifications/${userId}`,
+    //   `You have been invited to ${contract.title} by ${ownerUser.displayName}`,
+    // );
     return bid;
+  }
+
+  // Bid Notification Method to handle any kind of Bid Creation or Update
+  public async notifyBid(contract: Contract, bid: ContractBid) {
+    const isOffer = bid.amount !== contract.defaultPay;
+    const getMessage = () => {
+      switch (bid.status) {
+        case 'PENDING':
+          return isOffer ? 'BID_PENDING_OFFER' : 'BID_PENDING';
+        case 'DECLINED':
+          return isOffer ? 'BID_DECLINED_OFFER' : 'BID_DECLINED';
+        case 'ACCEPTED':
+          return 'BID_ACCEPTED';
+        case 'WITHDRAWN':
+          return 'BID_WITHDRAWN';
+        case 'INVITED':
+          return isOffer ? 'BID_INVITED_OFFER' : 'BID_INVITED';
+        case 'REJECTED':
+          return isOffer ? 'BID_REJECTED_OFFER' : 'BID_REJECTED';
+        case 'EXPIRED':
+          return 'BID_EXPIRED';
+        case 'DISMISSED':
+          return 'BID_DISMISSED';
+        default:
+          return;
+      }
+    };
+    const message = getMessage();
+    if (!message) return;
+    if (bid.status === 'ACCEPTED') {
+      this.notifications.createNotification(
+        [contract.owner_id, bid.user_id],
+        `@NOTIFICATION.MESSAGES.${message}`,
+        {
+          type: 'link',
+          link: `/ledger/contracts/${contract.id}`,
+          arguments: {
+            contractTitle: contract.title,
+            name: bid.User.displayName,
+          },
+        },
+      );
+    } else {
+      this.notifications.createNotification(
+        contract.owner_id,
+        `@NOTIFICATION.MESSAGES.${message}`,
+        {
+          type: 'link',
+          link: `/ledger/contracts/${contract.id}`,
+          arguments: {
+            contractTitle: contract.title,
+            name: (ownerNotif.has(bid.status) ? bid.User : contract.Owner)
+              ?.displayName,
+          },
+        },
+      );
+    }
   }
 }

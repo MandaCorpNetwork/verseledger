@@ -8,7 +8,6 @@ import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContract';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
@@ -43,7 +42,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     if (!userBid) {
       enqueueSnackbar(`Invite doesn't Exist`, { variant: 'error' });
       playSound('error');
-      return Logger.info('no user bid');
+      return;
     }
     const updatedBid = { status: 'ACCEPTED' as const };
     dispatch(
@@ -70,7 +69,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     if (!userBid) {
       enqueueSnackbar(`Invite doesn't Exist`, { variant: 'error' });
       playSound('error');
-      return Logger.info('no user bid');
+      return;
     }
     const updatedBid = { status: 'DECLINED' as const };
     dispatch(
@@ -88,15 +87,15 @@ export const ContractController: React.FC<ContractControllerProps> = ({
   }, [userBid, enqueueSnackbar, playSound, dispatch, contract, deselectContract]);
   /**
    * @function handleWithdrawBid - Handles the Withdraw Bid button click
-   * @return {void} - Updates the bidStatus to `EXPIRED`
+   * @return {void} - Updates the bidStatus to `WITHDRAWN`
    */
   const handleWithdrawBid = React.useCallback(() => {
     if (!userBid) {
       enqueueSnackbar(`Bid doesn't Exist`, { variant: 'error' });
       playSound('error');
-      return Logger.info('no user bid');
+      return;
     }
-    const updatedBid = { status: 'EXPIRED' as const };
+    const updatedBid = { status: 'WITHDRAWN' as const };
     dispatch(
       updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
     ).then((res) => {
@@ -121,6 +120,40 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     enqueueSnackbar,
   ]);
   /**
+   * @function handleCancelBid - Handles the Cancel Bid Button
+   * @return {void} - Updates the bidStatus to `EXPIRED`
+   */
+  const handleCancelBid = React.useCallback(() => {
+    if (!userBid) {
+      enqueueSnackbar(`Bid doesn't Exist`, { variant: 'error' });
+      playSound('error');
+      return;
+    }
+    const updatedBid = { status: 'EXPIRED' as const };
+    dispatch(
+      updateBid({ contractId: contract.id, bidId: userBid.id, bidData: updatedBid }),
+    ).then((res) => {
+      if (updateBid.fulfilled.match(res)) {
+        if (location.pathname === '/personal/ledger/contracts?cmTab=pending') {
+          overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'pending' });
+        }
+        enqueueSnackbar('Canceled Bid', { variant: 'warning' });
+        playSound('warning');
+      } else {
+        enqueueSnackbar('Error Resigning', { variant: 'error' });
+        playSound('error');
+      }
+    });
+  }, [
+    userBid,
+    contract,
+    overwriteURLQuery,
+    dispatch,
+    location,
+    playSound,
+    enqueueSnackbar,
+  ]);
+  /**
    * @function handleResubmitBid - Handles the Resubmit Bid button click
    * @return {void} - Opens the Submit Bid popup
    * @see {@link POPUP_SUBMIT_CONTRACT_BID}
@@ -129,11 +162,18 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     if (!userBid) {
       enqueueSnackbar(`Bid doesn't Exist`, { variant: 'error' });
       playSound('error');
-      return Logger.info('no user bid');
+      return;
     }
     dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
   }, [userBid, dispatch]);
-
+  const getResubmitBidText = React.useCallback(() => {
+    if (!userBid) return;
+    if (userBid.status === 'DISMISSED')
+      return 'You have been Dismissed from this Contract';
+    if (userBid.status === 'WITHDRAWN') return 'You have Withdrawn from this Contract';
+    if (userBid.status === 'EXPIRED') return 'Your Bid has Expired on this Contract';
+  }, [userBid]);
+  const resubmitBidText = getResubmitBidText();
   /**
    * @function getUpdatedContractStatus - Updates the contract object to pass to a PATCH request
    * @param {Partial<IContract>} contract - The contract to update
@@ -283,7 +323,6 @@ export const ContractController: React.FC<ContractControllerProps> = ({
   /**
    * @function getActiveBidUsers - Returns the users that have an `ACCEPTED` bid on the contract
    * @returns {IUser[]} - The users that have an `ACCEPTED` bid on the contract
-   * TODO: Need to add Withdraw Bid Status still to allow rating contractors that leave a contract
    */
   const getActiveBidUsers = React.useCallback(() => {
     return contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').map(
@@ -459,32 +498,21 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     if (contract.status === 'COMPLETED' || contract.status === 'CANCELED') {
       playSound('denied');
       enqueueSnackbar('Not able to edit this Contract', { variant: 'error' });
-      return Logger.info('contract is completed or canceled');
+      return;
     }
     playSound('open');
     dispatch(openPopup(POPUP_EDIT_CONTRACT, { contract: contract }));
   }, [contract, dispatch, playSound, enqueueSnackbar]);
-  /**
-   * @function displayReview - Determines if the user can open the review popup
-   * @returns {boolean} - Whether the user can open the review popup
-   */
-  const displayReview = React.useCallback(() => {
-    if (contract.status === 'COMPLETED' || contract.status === 'CANCELED') {
-      if (isOwned) {
-        return true;
-      } else if (userBid?.status === 'ACCEPTED') {
-        return true;
-      }
-    } else {
-      return false;
-    }
-  }, [contract, userBid, isOwned]);
 
   const contractEnded = contract.status === 'COMPLETED' || contract.status === 'CANCLED';
 
   const acceptedContractors =
     contract.Bids?.filter((bid) => bid.status === 'ACCEPTED') ?? [];
 
+  const hasAccepted =
+    userBid?.status === 'ACCEPTED' ||
+    userBid?.status === 'DISMISSED' ||
+    userBid?.status === 'WITHDRAWN';
   return (
     <Box
       data-testid="SelectedContract-Controller__Controls_Wrapper"
@@ -592,7 +620,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
           color="warning"
           size="medium"
           fullWidth
-          onClick={handleWithdrawBid}
+          onClick={handleCancelBid}
         >
           Cancel Bid
         </Button>
@@ -630,23 +658,27 @@ export const ContractController: React.FC<ContractControllerProps> = ({
           </Typography>
         </>
       )}
-      {!isOwned && userBid?.status === 'EXPIRED' && !contractEnded && (
-        <>
-          <Button
-            data-testid="SelectedContract-Controller-Process__ResubmitBid_Button"
-            variant="outlined"
-            color="secondary"
-            size="medium"
-            fullWidth
-            onClick={handleResubmitBid}
-          >
-            Resubmit Bid
-          </Button>
-          <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
-            You are removed from the Active Contractors. Please resubmit a bid.
-          </Typography>
-        </>
-      )}
+      {!isOwned &&
+        (userBid?.status === 'EXPIRED' ||
+          userBid?.status === 'DISMISSED' ||
+          userBid?.status === 'WITHDRAWN') &&
+        !contractEnded && (
+          <>
+            <Button
+              data-testid="SelectedContract-Controller-Process__ResubmitBid_Button"
+              variant="outlined"
+              color="secondary"
+              size="medium"
+              fullWidth
+              onClick={handleResubmitBid}
+            >
+              Resubmit Bid
+            </Button>
+            <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
+              {resubmitBidText}
+            </Typography>
+          </>
+        )}
       {!isOwned && userBid?.status === null && !contractEnded && (
         <Button
           data-testid="SelectedContract-Controller-Process__SubmitBidButton"
@@ -658,7 +690,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
           Submit Bid
         </Button>
       )}
-      {displayReview() && (
+      {(isOwned || hasAccepted) && contractEnded && (
         <Button
           data-testid="SelectedContract-Controller-Process__ReviewButton"
           variant="outlined"

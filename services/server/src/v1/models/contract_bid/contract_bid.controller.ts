@@ -271,7 +271,9 @@ export class BidsController extends BaseHttpController {
           break;
         }
         case 'EXPIRED': {
-          throw new UnauthorizedError();
+          if (bid.status !== 'PENDING' && bid.status !== 'INVITED')
+            throw new UnauthorizedError();
+          break;
         }
         default:
           throw new BadParameterError('status', 'status');
@@ -294,8 +296,11 @@ export class BidsController extends BaseHttpController {
       }
     }
     await bid.save();
-    //TODO: Notifications
-    if (bid.Contract) return this.ok(new ContractBidDTO(bid.toJSON()).strip());
+
+    if (bid.Contract) {
+      this.bidsService.notifyBid(contract, bid);
+      return this.ok(new ContractBidDTO(bid.toJSON()).strip());
+    }
   }
 
   @ApiOperationPost({
