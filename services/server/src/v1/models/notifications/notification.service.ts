@@ -69,4 +69,11 @@ export class NotificationService {
     );
     return notification;
   }
+
+  public async dismiss(notification_id: string, user_id?: string) {
+    return Notification.destroy({ where: { id: notification_id, user_id } });
+  }
+  public async dismissAll(user_id: string) {
+    return Notification.destroy({ where: { user_id } });
+  }
 }
