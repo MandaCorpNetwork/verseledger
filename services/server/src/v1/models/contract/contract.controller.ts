@@ -204,10 +204,11 @@ export class ContractController extends BaseHttpController {
     }
 
     await contract.save();
-    // Run the Notif Service after the contract has been Saved.
-    this.contractService.notifyContractUpdate(contract);
-    if (contract)
+    if (contract) {
+      // Run the Notif Service after the contract has been Saved.
+      this.contractService.notifyContractUpdate(contract);
       return this.ok(ContractToContractDTOMapper.map(contract).strip());
+    }
   }
 
   @ApiOperationGet({

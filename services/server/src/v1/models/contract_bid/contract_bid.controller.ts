@@ -296,8 +296,11 @@ export class BidsController extends BaseHttpController {
       }
     }
     await bid.save();
-    this.bidsService.notifyBid(contract, bid);
-    if (bid.Contract) return this.ok(new ContractBidDTO(bid.toJSON()).strip());
+
+    if (bid.Contract) {
+      this.bidsService.notifyBid(contract, bid);
+      return this.ok(new ContractBidDTO(bid.toJSON()).strip());
+    }
   }
 
   @ApiOperationPost({

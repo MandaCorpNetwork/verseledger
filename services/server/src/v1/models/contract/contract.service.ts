@@ -21,6 +21,9 @@ import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructur
 import { StompService } from '@V1/services/stomp.service';
 import { NotificationService } from '../notifications/notification.service';
 
+const recievingBidStatus = new Set(['WITHDRAWN', 'DISMISSED', 'ACCEPTED']);
+const statusIgnore = new Set(['COMPLETED', 'CANCELED']);
+
 @injectable()
 export class ContractService {
   constructor() {
@@ -196,8 +199,7 @@ export class ContractService {
   public async notifyContractUpdate(newContract: Contract) {
     if (!newContract.Bids) return;
     // Doesn't update users on these Status' because it is handled by the Ratings service
-    const statusIgnore = ['COMPLETED', 'CANCELED'];
-    if (statusIgnore.includes(newContract.status)) return;
+    if (statusIgnore.has(newContract.status)) return;
     const notifyUser = (userId: string, contract: Contract) => {
       this.notifications.createNotification(
         userId,
@@ -211,9 +213,8 @@ export class ContractService {
         },
       );
     };
-    const recievingBidStatus = ['WITHDRAWN', 'DISMISSED', 'ACCEPTED'];
     for (const bid of newContract.Bids) {
-      if (recievingBidStatus.includes(bid.status)) {
+      if (recievingBidStatus.has(bid.status)) {
         notifyUser(bid.user_id, newContract);
       }
     }

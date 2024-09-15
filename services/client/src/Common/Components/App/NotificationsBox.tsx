@@ -155,7 +155,6 @@ export const NotificationsBox: React.FC = () => {
         >
           <List sx={{ listStyleType: 'disc', px: '.5em' }}>
             {unreadNotifications.map((notif) => {
-              console.log(notif);
               const notificationMessage = t(
                 notif.message,
                 notif.action?.arguments,

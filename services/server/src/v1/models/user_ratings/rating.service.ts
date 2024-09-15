@@ -91,17 +91,17 @@ export class RatingService {
   }
 
   public async delayRatingContractors(
-    _submitterId: string,
-    _contract: Contract,
+    submitterId: string,
+    contract: Contract,
   ) {
     //TODO: Need to send the updated data in the DTO
     this.notifications.createNotification(
-      _submitterId,
+      submitterId,
       `@NOTIFICATION.MESSAGES.CONTRACT_RATING_PENDING`,
       {
         type: 'link',
-        link: `/ledger/contracts/${_contract.id}`,
-        arguments: { contractTitle: _contract.title },
+        link: `/ledger/contracts/${contract.id}`,
+        arguments: { contractTitle: contract.title },
       },
     );
   }
