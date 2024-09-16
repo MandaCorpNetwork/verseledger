@@ -90,10 +90,7 @@ export class RatingService {
     }
   }
 
-  public async delayRatingContractors(
-    submitterId: string,
-    contract: Contract,
-  ) {
+  public async delayRatingContractors(submitterId: string, contract: Contract) {
     //TODO: Need to send the updated data in the DTO
     this.notifications.createNotification(
       submitterId,
