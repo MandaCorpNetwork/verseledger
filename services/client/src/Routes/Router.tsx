@@ -1,8 +1,13 @@
 import { Outlet, RouteObject } from 'react-router-dom';
 
+import { Marketplace } from '@/Components/Orders/VerseMarket/Marketplace/Marketplace';
+import { OpenOrders } from '@/Components/Orders/VerseMarket/OpenOrders/OpenOrders';
+import { OrderHistory } from '@/Components/Orders/VerseMarket/OrderHistory/OrderHistory';
 import { ContractManagerApp } from '@/Components/Personal/ContractManager/ContractManagerApp';
 import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
+import { InventoryApp } from '@/Components/Personal/Inventory/InventoryApp';
 import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
+import { RouteApp } from '@/Components/Personal/Routes/RouteApp';
 import { PopupManager } from '@/PopupManager';
 import { DiscordLoginUtility } from '@/Utils/discordLoginUtility';
 import { WidgetManager } from '@/WidgetManager';
@@ -19,6 +24,7 @@ import { SecureRoute } from './SecureRoute';
 import { Sandbox } from './ui-sandbox/SandboxPage';
 import { UserPage } from './User/UserPage';
 import { VerseMarketPage } from './VerseMarket/VerseMarketPage';
+
 export const routingInfo: RouteObject[] = [
   {
     path: '/',
@@ -95,8 +101,20 @@ export const routingInfo: RouteObject[] = [
             element: <ContractManagerApp />,
           },
           {
+            path: '/dashboard/explore/:selectedLocationId',
+            element: <ExploreApp />,
+          },
+          {
             path: 'explore',
             element: <ExploreApp />,
+          },
+          {
+            path: 'routes',
+            element: <RouteApp />,
+          },
+          {
+            path: 'inventory',
+            element: <InventoryApp />,
           },
         ],
       },
@@ -107,6 +125,37 @@ export const routingInfo: RouteObject[] = [
             <VerseMarketPage />
           </SecureRoute>
         ),
+        children: [
+          {
+            index: true,
+            path: 'marketplace',
+            element: <Marketplace />,
+          },
+          {
+            path: '/verse-market/marketplace/:selectedItemId',
+            element: <Marketplace />,
+          },
+          {
+            path: 'marketplace',
+            element: <Marketplace />,
+          },
+          {
+            path: '/verse-market/open-order/:selectedOrderId',
+            element: <OpenOrders />,
+          },
+          {
+            path: 'open-orders',
+            element: <OpenOrders />,
+          },
+          {
+            path: '/verse-market/order-history/:selectedOrderId',
+            element: <OrderHistory />,
+          },
+          {
+            path: 'order-history',
+            element: <OrderHistory />,
+          },
+        ],
       },
       {
         path: '/sandbox',

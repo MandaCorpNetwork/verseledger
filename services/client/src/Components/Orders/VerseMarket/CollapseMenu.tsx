@@ -14,18 +14,34 @@ import {
   ListItemText,
   Tooltip,
 } from '@mui/material';
-import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { isMobile } from '@Utils/isMobile';
-import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useSoundEffect } from '@/AudioManager';
+
+const marketPages = [
+  {
+    label: 'Marketplace',
+    icon: <Store color="inherit" fontSize="large" />,
+    value: '/verse-market/marketplace',
+  },
+  {
+    label: 'Open Orders',
+    icon: <RequestQuote color="inherit" fontSize="large" />,
+    value: '/verse-market/open-orders',
+  },
+  {
+    label: 'Order History',
+    icon: <History color="inherit" fontSize="large" />,
+    value: '/verse-market/order-history',
+  },
+];
 
 /**
  * ### CollapseMenu
  * @description
  * This is the menu that appears on the left side of the VerseMarket page. It contains buttons for navigating to different sections of the page.
- * @version 0.1.0
  * @returns {React.FC}
  * #### Functional Components
  * #### Styled Components
@@ -35,11 +51,12 @@ export const CollapseMenu: React.FC<unknown> = () => {
   // LOCAL STATES
   /** State that controls the expanded state of the menu. */
   const [isExpanded, setIsExpanded] = React.useState(false);
-  const [filters, , overwriteFilters] = useURLQuery();
 
   // HOOKS
   const { playSound } = useSoundEffect();
   const mobile = isMobile();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // LOGIC
   /**
@@ -58,19 +75,18 @@ export const CollapseMenu: React.FC<unknown> = () => {
    */
   const handleTabChange = React.useCallback(
     (_event: React.SyntheticEvent, newValue: string) => {
-      if (filters.get(QueryNames.VerseMarketTab) === newValue) {
+      const currentPath = location.pathname;
+      if (currentPath === newValue) {
         playSound('denied');
         return;
       }
       playSound('clickMain');
-      overwriteFilters({
-        [QueryNames.VerseMarketTab]: newValue,
-      });
+      navigate(newValue);
     },
-    [playSound, overwriteFilters],
+    [playSound, navigate, location],
   );
 
-  const currentTab = filters.get(QueryNames.VerseMarketTab) ?? 'market';
+  const currentTab = location.pathname ?? '/verse-market/marketplace';
   return (
     <Collapse
       data-testid="VerseMarket__Sidebar"
@@ -112,23 +128,7 @@ export const CollapseMenu: React.FC<unknown> = () => {
           transition: 'all 0.3s ease-in-out',
         }}
       >
-        {[
-          {
-            label: 'Marketplace',
-            icon: <Store color="inherit" fontSize="large" />,
-            value: 'market',
-          },
-          {
-            label: 'Open Orders',
-            icon: <RequestQuote color="inherit" fontSize="large" />,
-            value: 'orders',
-          },
-          {
-            label: 'Order History',
-            icon: <History color="inherit" fontSize="large" />,
-            value: 'history',
-          },
-        ].map((item) => (
+        {marketPages.map((item) => (
           <ListItemButton
             data-testid={`VerseMarket-Sidebar__${item.label}_Button`}
             key={item.value}

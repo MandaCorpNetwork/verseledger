@@ -1,16 +1,14 @@
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { Box } from '@mui/material';
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 import { CollapseMenu } from '@/Components/Orders/VerseMarket/CollapseMenu';
-import { ItemBrowser } from '@/Components/Orders/VerseMarket/ItemBrowser/ItemBrowser';
-import { ItemDisplay } from '@/Components/Orders/VerseMarket/ItemDisplay';
 
 /**
  * ### VerseMarketPage
  * @summary
  * This is the main page for the VerseMarket. This is where users go to trade goods between each other and view current market values.
- * @version 0.1.0
  * @returns {JSX.Element}
  * #### Functional Components
  * @component {@link CollapseMenu}
@@ -44,16 +42,14 @@ export const VerseMarketPage: React.FC<unknown> = () => {
       >
         <CollapseMenu />
         <Box
-          data-testid="VerseMarket__MarketplaceWrapper"
+          data-testid="VerseMarket__Outlet_Wrapper"
           sx={{
             height: '100%',
-            maxWidth: '90%',
             display: 'flex',
-            flexDirection: 'row',
+            flexGrow: 1,
           }}
         >
-          <ItemBrowser />
-          <ItemDisplay />
+          <Outlet />
         </Box>
       </Box>
     </VLViewport>

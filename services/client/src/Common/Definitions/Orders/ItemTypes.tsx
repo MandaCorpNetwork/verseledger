@@ -30,7 +30,7 @@ import {
   utilityListHeader,
   vehiclesComponentsListHeader,
   vehiclesListHeader,
-} from '@/Components/Orders/VerseMarket/ItemBrowser/TableColumns';
+} from '@/Components/Orders/VerseMarket/Marketplace/ItemBrowser/TableColumns';
 
 export const ItemTypes = (
   color: string,
