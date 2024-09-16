@@ -2,7 +2,9 @@ import { Outlet, RouteObject } from 'react-router-dom';
 
 import { ContractManagerApp } from '@/Components/Personal/ContractManager/ContractManagerApp';
 import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
+import { InventoryApp } from '@/Components/Personal/Inventory/InventoryApp';
 import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
+import { RouteApp } from '@/Components/Personal/Routes/RouteApp';
 import { PopupManager } from '@/PopupManager';
 import { DiscordLoginUtility } from '@/Utils/discordLoginUtility';
 import { WidgetManager } from '@/WidgetManager';
@@ -19,6 +21,7 @@ import { SecureRoute } from './SecureRoute';
 import { Sandbox } from './ui-sandbox/SandboxPage';
 import { UserPage } from './User/UserPage';
 import { VerseMarketPage } from './VerseMarket/VerseMarketPage';
+
 export const routingInfo: RouteObject[] = [
   {
     path: '/',
@@ -97,6 +100,14 @@ export const routingInfo: RouteObject[] = [
           {
             path: 'explore',
             element: <ExploreApp />,
+          },
+          {
+            path: 'routes',
+            element: <RouteApp />,
+          },
+          {
+            path: 'inventory',
+            element: <InventoryApp />,
           },
         ],
       },
