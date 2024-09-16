@@ -4,7 +4,9 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { VitePWA, VitePWAOptions } from 'vite-plugin-pwa';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
-const appManifest: Partial<VitePWAOptions> = {};
+const appManifest: Partial<VitePWAOptions> = {
+  workbox: { maximumFileSizeToCacheInBytes: 5000000 },
+};
 
 export default defineConfig({
   root: './src',
