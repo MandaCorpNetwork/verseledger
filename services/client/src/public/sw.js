@@ -13,6 +13,7 @@ self.addEventListener('push', (event) => {
   event.waitUntil(
     new Promise((resolve) => {
       if (Notification.permission === 'granted') {
+        if (!document.hidden) return resolve(true);
         resolve(self.registration.showNotification('Verseledger', { body: payload }));
       } else resolve(false);
     }),
