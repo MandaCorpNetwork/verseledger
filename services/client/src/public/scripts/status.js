@@ -1,6 +1,6 @@
 (function () {
   var frame = document.createElement('iframe');
-  frame.src = 'https://hg227kcdrgd8.statuspage.io/embed/frame';
+  frame.src = 'https://453tt7dpwtfm.statuspage.io/embed/frame';
   frame.style.position = 'fixed';
   frame.style.border = 'none';
   frame.style.boxShadow = '0 20px 32px -8px rgba(9,20,66,0.25)';
