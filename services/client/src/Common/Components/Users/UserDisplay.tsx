@@ -4,21 +4,25 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { selectUserById } from '@Redux/Slices/Users/userSelectors';
 import { memo } from 'react';
+import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 import { useSoundEffect } from '@/AudioManager';
 
 import { MiniPlayerCard } from '../App/MiniPlayerCard';
 
 type UserDisplayProps = {
-  userid: string;
+  user?: IUser;
+  userid?: string;
   sx?: object;
 };
 
-const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx }) => {
+const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx, user }) => {
   const { playSound } = useSoundEffect();
   const dispatch = useAppDispatch();
 
-  const user = useAppSelector((state) => selectUserById(state, userid));
+  const foundUser = userid
+    ? useAppSelector((state) => selectUserById(state, userid))
+    : user;
 
   const handlePlayerCardOpen = () => {
     playSound('open');
@@ -37,7 +41,7 @@ const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx }) => {
         ...sx,
       }}
     >
-      <MiniPlayerCard user={user ?? undefined}>
+      <MiniPlayerCard user={foundUser ?? undefined}>
         <ButtonBase
           data-testid="UserDisplay__PlayerDataButton"
           onClick={handlePlayerCardOpen}
@@ -110,7 +114,7 @@ const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx }) => {
         >
           <Avatar
             data-testid="UserDisplay-PlayerData__Avatar"
-            src={user?.pfp}
+            src={foundUser?.pfp}
             //alt={user.userName}
             sx={{
               backgroundImage:
@@ -144,7 +148,7 @@ const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx }) => {
               noWrap
               sx={{ ml: 'auto', mr: 'auto', maxWidth: '100%' }}
             >
-              {user?.handle}
+              {foundUser?.handle}
             </Typography>
           </Box>
         </ButtonBase>

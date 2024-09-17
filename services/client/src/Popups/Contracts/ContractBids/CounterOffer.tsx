@@ -10,26 +10,25 @@ import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
+import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 
 import { useSoundEffect } from '@/AudioManager';
 
 export const POPUP_COUNTER_OFFER_BID = 'counterOfferBid';
 
 export type CounterOfferBidProps = {
-  bidId: string;
-  contract: IContract;
+  bid: IContractBid;
+  contract: IContractWithOwner;
 };
 
-export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bidId, contract }) => {
-  const bid = contract.Bids?.find((bid) => bid.id === bidId);
+export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract }) => {
   const { playSound } = useSoundEffect();
   const [counterAmount, setCounterAmount] = React.useState<number | null>(null);
   const dispatch = useAppDispatch();
 
   const ownerView = bid?.status === 'PENDING';
-
   const handlePayChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = event.target;
@@ -126,7 +125,7 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bidId, contrac
         <DigiBox data-testid="CounterOffer__Wrapper" sx={{ p: '.5em', gap: '1em' }}>
           <UserDisplay
             data-testid="CounterOffer__User"
-            userid={ownerView ? bid?.user_id : contract.owner_id}
+            user={ownerView ? bid?.User : contract.Owner}
           />
           <DigiDisplay sx={{ p: '.5em' }}>
             <Typography>{ownerView ? 'Bid Proposal' : 'Counter Offer'}</Typography>
