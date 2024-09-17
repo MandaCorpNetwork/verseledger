@@ -25,7 +25,7 @@ export const FeedbackPopup: React.FC = () => {
   const onSubmit = React.useCallback(() => {
     if (page >= 1) dispatch(closePopup(POPUP_FEEDBACK));
     setPage(page + 1);
-  }, [page]);
+  }, [dispatch, page]);
 
   return (
     <VLPopup

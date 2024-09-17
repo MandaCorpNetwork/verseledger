@@ -132,7 +132,7 @@ const getInterval = (endDateJs: Dayjs) => {
 
 export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) => {
   const contractStatus = contract.status;
-  const bidEnd = dayjs(contract.bidDate);
+  // const bidEnd = dayjs(contract.bidDate);
   const startDate = dayjs(contract.startDate);
   const endDate = dayjs(contract.endDate);
 
@@ -160,7 +160,7 @@ export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) =>
     if (!contract.endDate) return null;
     if (now.isAfter(endDate)) return 'Invalid End Time';
     return now.to(endDate, true);
-  }, [contractStatus, bidEnd, contract.bidDate]);
+  }, [contractStatus, contract.endDate, endDate]);
 
   const timeRemaining = getTimeRemaining();
 
@@ -171,7 +171,7 @@ export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) =>
     if (contract.endDate) return null;
     if (now.isBefore(startDate)) return null;
     return now.to(startDate, true);
-  }, [contractStatus, startDate, contract.startDate]);
+  }, [contractStatus, contract.startDate, contract.endDate, startDate]);
 
   const timeElapsed = getTimeElapsed();
 
@@ -179,7 +179,7 @@ export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) =>
     if (!contract.startDate || !contract.endDate) return null;
     if (startDate.isAfter(endDate)) return 'Invalid Start Time';
     return startDate.to(endDate, true);
-  }, [contractStatus, startDate, contract.startDate, contract.endDate, endDate]);
+  }, [startDate, contract.startDate, contract.endDate, endDate]);
 
   const contractDuration = getContractDuration();
 
@@ -221,7 +221,7 @@ export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) =>
       }
       setProgress(null);
     };
-  }, [contract]);
+  }, [contract, contractStatus, endDate, startDate]);
 
   return (
     <Box

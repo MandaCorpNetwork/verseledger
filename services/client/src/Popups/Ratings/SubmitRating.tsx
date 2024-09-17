@@ -49,7 +49,7 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
   const getOptions = React.useCallback(() => {
     const validUsers = users.filter((user) => user.id !== currentUser?.id);
     return validUsers.map((user) => user);
-  }, [users]);
+  }, [currentUser?.id, users]);
   const options = getOptions();
 
   // Handle adding or updating an option on the dataForm

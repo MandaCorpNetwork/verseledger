@@ -63,7 +63,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
   React.useEffect(() => {
     //API Call
     dispatch(fetchLocations());
-  }, []);
+  }, [dispatch]);
 
   React.useEffect(() => {
     if (currentUserLocation && locations.length > 0) {

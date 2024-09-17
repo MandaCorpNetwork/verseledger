@@ -101,7 +101,7 @@ export const SearchTools: React.FC = () => {
   const checkIsQueried = React.useCallback(() => {
     if (filterCount > 0) return true;
     return false;
-  }, [filters]);
+  }, [filterCount]);
   /** Calls {@link checkIsQueried} */
   const isQueried = checkIsQueried();
 

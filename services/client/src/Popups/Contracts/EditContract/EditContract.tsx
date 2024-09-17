@@ -20,7 +20,7 @@ import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContr
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { IContract, ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 
 export const POPUP_EDIT_CONTRACT = 'contracts_edit';
@@ -108,7 +108,7 @@ export const EditContractPopup: React.FC<EditContractPopupProps> = ({ contract }
     status: contract.status,
   });
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     dispatch(
       openPopup(POPUP_YOU_SURE, {
         title: 'Cancel Contract Editing',
@@ -119,7 +119,7 @@ export const EditContractPopup: React.FC<EditContractPopupProps> = ({ contract }
         testid: 'EditContractPopup',
       }),
     );
-  };
+  }, [dispatch]);
 
   const [invites, setInvites] = useState<User[]>([]);
 
@@ -176,14 +176,14 @@ export const EditContractPopup: React.FC<EditContractPopupProps> = ({ contract }
       });
     }
     setPage(Math.min(page + 1, steps.length));
-  }, [page, formData, invites]);
+  }, [page, formData, dispatch, contract.id, invites]);
 
   const onCancel = React.useCallback(() => {
     if (page == 0) {
       return handleClose();
     }
     setPage(Math.max(page - 1, 0));
-  }, [page]);
+  }, [handleClose, page]);
   return (
     <VLPopup
       minWidth="800px"

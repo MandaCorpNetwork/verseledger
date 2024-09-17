@@ -45,7 +45,7 @@ export const BugForm: React.FC<{
         setFormData({ ...formData, browser: newBrowser });
       }
     },
-    [setFormData, formData, playSound],
+    [isBugForm, playSound, setFormData, formData],
   );
 
   const handleChange = React.useCallback(
@@ -54,7 +54,7 @@ export const BugForm: React.FC<{
         setFormData({ ...formData, [field]: e.target.value });
       }
     },
-    [setFormData, formData],
+    [isBugForm, setFormData, formData],
   );
 
   if (formData.type !== 'BUG') return null;

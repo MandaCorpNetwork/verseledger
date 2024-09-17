@@ -3,7 +3,7 @@ import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
 import { Discord, KoFi, Patreon } from '@Common/Definitions/CustomIcons';
 import { Box, ButtonBase, IconButton } from '@mui/material';
 import { isDev } from '@Utils/isDev';
-import { isMobile } from '@Utils/isMobile';
+import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 
 import FreelancerLoop from '@/Assets/media/MenuPage/FreelancerLoop.webm?url';
@@ -19,7 +19,7 @@ import { HomeNavButtonMobile } from '@/Components/Home/HomeNavButtonMobile';
 import { HomeNavButton } from '../../../Components/Home/HomeNavButton';
 
 export const Home: React.FC<unknown> = () => {
-  const mobile = isMobile();
+  const mobile = useIsMobile();
   const dev = isDev();
   const { playSound } = useSoundEffect();
   return (

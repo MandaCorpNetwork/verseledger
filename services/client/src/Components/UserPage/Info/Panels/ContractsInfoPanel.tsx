@@ -87,7 +87,7 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
         enqueueSnackbar('Error fetching bids', { variant: 'error' });
       }
     },
-    [enqueueSnackbar, dispatch],
+    [dispatch],
   );
   /** Gets the contracts from database for search params. */
   const handleFetchContracts = React.useCallback(

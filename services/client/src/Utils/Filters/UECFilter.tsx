@@ -89,7 +89,7 @@ export const UECFilter: React.FC<unknown> = () => {
     } else {
       setFilter(QueryNames.UECRangeMax, []);
     }
-  }, [localMin, localMax]);
+  }, [localMin, localMax, setFilter]);
 
   const handlePayError = React.useCallback(() => {
     if (localMin !== '' && localMax !== '' && Number(localMin) > Number(localMax)) {

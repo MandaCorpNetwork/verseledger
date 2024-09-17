@@ -22,7 +22,7 @@ export const NotificationTool: React.FC = () => {
   const { t } = useTranslation();
   React.useEffect(() => {
     dispatch(fetchNotifications());
-  }, []);
+  }, [dispatch]);
 
   const notifications = useAppSelector(selectNotificationsArray);
 

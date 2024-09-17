@@ -37,12 +37,12 @@ export const YouSurePopup: React.FC<YouSurePopupProps> = (props) => {
   const onCancelDefault = useCallback(() => {
     playSound('warning');
     dispatch(closePopup(POPUP_YOU_SURE));
-  }, []);
+  }, [dispatch, playSound]);
   const onAcceptInject = useCallback(() => {
     playSound('close');
     dispatch(closePopup(POPUP_YOU_SURE));
     onAccept?.();
-  }, []);
+  }, [dispatch, onAccept, playSound]);
   return (
     <VLPopup
       name={POPUP_YOU_SURE}

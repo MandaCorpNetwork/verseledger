@@ -88,7 +88,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
         }
       });
     },
-    [dispatch, playSound, enqueueSnackbar, location, navigate],
+    [contract.Bids, dispatch, currentUser?.id, playSound, location.pathname, navigate],
   );
 
   const handleNegotiateBid = React.useCallback(
@@ -139,7 +139,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
         }
       });
     },
-    [contract, playSound, enqueueSnackbar, dispatch],
+    [contract.payStructure, dispatch, maxLimit, playSound],
   );
 
   const handleSubmitBid = React.useCallback(() => {
@@ -163,7 +163,15 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
         handleNegotiateBid(contract.id, negotiateFormData);
       }
     }
-  }, [contract, dispatch, negotiateFormData, enqueueSnackbar, playSound]);
+  }, [
+    contract.isBargaining,
+    contract.id,
+    contract.defaultPay,
+    handlePostBid,
+    negotiateFormData,
+    dispatch,
+    handleNegotiateBid,
+  ]);
 
   return (
     <VLPopup

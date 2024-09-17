@@ -7,8 +7,8 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
-import { isMobile } from '@Utils/isMobile';
-import { isTablet } from '@Utils/isTablet';
+import { useIsMobile } from '@Utils/isMobile';
+import { useIsTablet } from '@Utils/isTablet';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -88,8 +88,8 @@ export const ContractPage: React.FC<unknown> = () => {
 
   // HOOKS
   const dispatch = useAppDispatch();
-  const mobile = isMobile();
-  const tablet = isTablet();
+  const mobile = useIsMobile();
+  const tablet = useIsTablet();
   const { playSound } = useSoundEffect();
   const navigate = useNavigate();
 
@@ -130,7 +130,7 @@ export const ContractPage: React.FC<unknown> = () => {
     if (!loading && !contract && !error) {
       navigate('/contract/ledger');
     }
-  }, [contract, isLoading, navigate]);
+  }, [contract, error, isLoading, loading, navigate]);
 
   /** @generator {object} archetypeOption - The archetype options for the contract */
   const archetypeOptions = contractArchetypes('secondary.main', 'inherit');
@@ -254,7 +254,7 @@ export const ContractPage: React.FC<unknown> = () => {
       playSound('clickMain');
       setTimeTab(value);
     },
-    [timeTab],
+    [playSound],
   );
 
   /**
@@ -278,7 +278,7 @@ export const ContractPage: React.FC<unknown> = () => {
           return;
       }
     },
-    [timeTab, contract],
+    [contract],
   );
 
   /**
@@ -292,7 +292,7 @@ export const ContractPage: React.FC<unknown> = () => {
       playSound('clickMain');
       setActiveDataTab(value);
     },
-    [activeDataTab],
+    [playSound],
   );
 
   /**
@@ -318,7 +318,7 @@ export const ContractPage: React.FC<unknown> = () => {
           return;
       }
     },
-    [activeDataTab, contract],
+    [contract],
   );
 
   /**

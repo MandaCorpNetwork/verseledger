@@ -9,7 +9,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { enqueueSnackbar } from 'notistack';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -41,7 +41,7 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bidId, contrac
       const inputValue = Number(value.replace(/[^\d.]/g, ''));
       setCounterAmount(inputValue);
     },
-    [counterAmount],
+    [playSound],
   );
 
   const handlePayClear = () => {
@@ -49,37 +49,43 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bidId, contrac
     setCounterAmount(currentOffer);
   };
 
-  const handleAcceptOffer = (contractId: string, bidId: string) => {
-    const updatedBid = { status: 'ACCEPTED' as const };
-    dispatch(
-      updateBid({ contractId: contractId, bidId: bidId, bidData: updatedBid }),
-    ).then((res) => {
-      if (updateBid.fulfilled.match(res)) {
-        enqueueSnackbar('Bid Accepted', { variant: 'success' });
-        playSound('success');
-        dispatch(closePopup(POPUP_COUNTER_OFFER_BID));
-      } else {
-        enqueueSnackbar('Error Accepting Bid', { variant: 'error' });
-        playSound('error');
-      }
-    });
-  };
+  const handleAcceptOffer = useCallback(
+    (contractId: string, bidId: string) => {
+      const updatedBid = { status: 'ACCEPTED' as const };
+      dispatch(
+        updateBid({ contractId: contractId, bidId: bidId, bidData: updatedBid }),
+      ).then((res) => {
+        if (updateBid.fulfilled.match(res)) {
+          enqueueSnackbar('Bid Accepted', { variant: 'success' });
+          playSound('success');
+          dispatch(closePopup(POPUP_COUNTER_OFFER_BID));
+        } else {
+          enqueueSnackbar('Error Accepting Bid', { variant: 'error' });
+          playSound('error');
+        }
+      });
+    },
+    [dispatch, playSound],
+  );
 
-  const handleCounterOffer = (contractId: string, bidId: string, amount: number) => {
-    const updatedBid = { amount: amount };
-    dispatch(
-      updateBid({ contractId: contractId, bidId: bidId, bidData: updatedBid }),
-    ).then((res) => {
-      if (updateBid.fulfilled.match(res)) {
-        enqueueSnackbar('Bid Counter Offer Sent', { variant: 'success' });
-        playSound('send');
-        dispatch(closePopup(POPUP_COUNTER_OFFER_BID));
-      } else {
-        enqueueSnackbar('Error Sending Counter Offer', { variant: 'error' });
-        playSound('error');
-      }
-    });
-  };
+  const handleCounterOffer = useCallback(
+    (contractId: string, bidId: string, amount: number) => {
+      const updatedBid = { amount: amount };
+      dispatch(
+        updateBid({ contractId: contractId, bidId: bidId, bidData: updatedBid }),
+      ).then((res) => {
+        if (updateBid.fulfilled.match(res)) {
+          enqueueSnackbar('Bid Counter Offer Sent', { variant: 'success' });
+          playSound('send');
+          dispatch(closePopup(POPUP_COUNTER_OFFER_BID));
+        } else {
+          enqueueSnackbar('Error Sending Counter Offer', { variant: 'error' });
+          playSound('error');
+        }
+      });
+    },
+    [dispatch, playSound],
+  );
 
   const handleSubmit = React.useCallback(() => {
     if (!bid) return enqueueSnackbar('Bid Not Found', { variant: 'error' });
@@ -88,7 +94,7 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bidId, contrac
     } else {
       handleAcceptOffer(contract?.id, bid.id);
     }
-  }, [counterAmount, contract, bid]);
+  }, [bid, counterAmount, handleCounterOffer, contract?.id, handleAcceptOffer]);
 
   const handleRejectOffer = () => {
     if (!bid) return enqueueSnackbar('Bid Not Found', { variant: 'error' });

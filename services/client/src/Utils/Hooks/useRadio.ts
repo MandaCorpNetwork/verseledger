@@ -75,7 +75,7 @@ export const useRadio = (url: string): RadioControls => {
     return () => {
       audio.pause();
     };
-  }, [currentStationSource, radioSources, isPlaying]);
+  }, [currentStationSource, isPlaying]);
 
   return {
     isPlaying,

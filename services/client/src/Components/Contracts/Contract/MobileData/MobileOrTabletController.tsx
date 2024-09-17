@@ -9,7 +9,7 @@ import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
 import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContract';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { enqueueSnackbar } from 'notistack';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -52,26 +52,29 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
    * @param {Date} bidDate - The bid date of the contract if it exists
    * @returns {Partial<IContract>} - The updated contract object
    */
-  const getUpdatedContractStatus = (
-    contract: Partial<IContract>,
-    status: string,
-    startDate?: Date,
-    endDate?: Date,
-    bidDate?: Date,
-  ) => {
-    return {
-      status,
-      title: contract.title,
-      subtype: contract.subtype,
-      briefing: contract.briefing,
-      contractorLimit: contract.contractorLimit,
-      payStructure: contract.payStructure,
-      defaultPay: contract.defaultPay,
-      ...(startDate && { startDate }),
-      ...(endDate && { endDate }),
-      ...(bidDate && { bidDate }),
-    };
-  };
+  const getUpdatedContractStatus = useCallback(
+    (
+      contract: Partial<IContract>,
+      status: string,
+      startDate?: Date,
+      endDate?: Date,
+      bidDate?: Date,
+    ) => {
+      return {
+        status,
+        title: contract.title,
+        subtype: contract.subtype,
+        briefing: contract.briefing,
+        contractorLimit: contract.contractorLimit,
+        payStructure: contract.payStructure,
+        defaultPay: contract.defaultPay,
+        ...(startDate && { startDate }),
+        ...(endDate && { endDate }),
+        ...(bidDate && { bidDate }),
+      };
+    },
+    [],
+  );
 
   /**
    * @function endBidding - Ends the bidding on the contract
@@ -100,7 +103,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
         }
       });
     }
-  }, [contract, getUpdatedContractStatus, dispatch]);
+  }, [contract, dispatch, getUpdatedContractStatus, playSound]);
   /**
    * @function handleEndBidding - Handles the end bidding button click
    * @returns {void} - Opens a verification popup to end the bidding
@@ -123,7 +126,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
     } else {
       endBidding();
     }
-  }, [dispatch, contract]);
+  }, [contract.bidDate, contract.title, dispatch, endBidding]);
 
   /**
    * @function startContract - Starts the contract with status INPROGRESS
@@ -145,7 +148,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
         }
       });
     }
-  }, [contract, dispatch]);
+  }, [contract, dispatch, getUpdatedContractStatus, playSound]);
   /**
    * @function getStartBodyText - Returns the body text for the start contract verification popup
    * @returns {string} - The body text for the start contract verification popup
@@ -190,7 +193,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
     } else {
       startContract();
     }
-  }, [contract, dispatch, startContract]);
+  }, [contract.startDate, contract.title, dispatch, startBodyText, startContract]);
 
   /**
    * @function getActiveBidUsers - Returns the users that have an `ACCEPTED` bid on the contract
@@ -216,7 +219,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
         dispatch(openPopup(POPUP_SUBMIT_RATING, { users: contractUsers, contract }));
       }
     }
-  }, [contractUsers, dispatch]);
+  }, [contract, contractUsers, dispatch]);
 
   /**
    * @function completeContract - Completes the contract with status `COMPLETED` and sets the End Date to the current date.
@@ -241,14 +244,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
         playSound('error');
       }
     });
-  }, [
-    contract,
-    dispatch,
-    getUpdatedContractStatus,
-    playSound,
-    openReview,
-    enqueueSnackbar,
-  ]);
+  }, [contract, dispatch, getUpdatedContractStatus, playSound, openReview]);
   /**
    * @function getCompleteBodyText - Determines the Text to pass to the Verify Popup for completing a Contract
    * @returns {string} - The body text for the complete contract verification popup
@@ -312,14 +308,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
         }
       });
     }
-  }, [
-    contract,
-    getUpdatedContractStatus,
-    dispatch,
-    enqueueSnackbar,
-    playSound,
-    openReview,
-  ]);
+  }, [contract, getUpdatedContractStatus, dispatch, playSound, openReview]);
   /**
    * @function getCancelBodyText - Determines the Text to pass to the Verify Popup for canceling a Contract
    * @returns {string} - The body text for the cancel contract verification popup
@@ -355,7 +344,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
         bodyText: cancelBodyText,
       }),
     );
-  }, [dispatch, cancelContract, cancelBodyText]);
+  }, [dispatch, cancelContract, contract.title, cancelBodyText]);
 
   /**
    * @function handleEditContract - Handles the edit contract button click
@@ -369,7 +358,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
     }
     playSound('open');
     dispatch(openPopup(POPUP_EDIT_CONTRACT, { contract: contract }));
-  }, [contract, dispatch, playSound, enqueueSnackbar]);
+  }, [contract, dispatch, playSound]);
 
   /**
    * @function handleAcceptInvite - Handles the Accept Invite button click
@@ -393,7 +382,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
         playSound('error');
       }
     });
-  }, [userBid, contract, dispatch, playSound, enqueueSnackbar]);
+  }, [userBid, contract, dispatch, playSound]);
 
   /**
    * @function handleDeclineInvite - Handles the Decline Invite button click
@@ -417,7 +406,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
         playSound('error');
       }
     });
-  }, [userBid, enqueueSnackbar, playSound, dispatch, contract]);
+  }, [userBid, playSound, dispatch, contract]);
 
   /**
    * @function handleWithdrawBid - Handles the Withdraw Bid button click
@@ -441,7 +430,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
         playSound('error');
       }
     });
-  }, [userBid, contract, dispatch, location, playSound, enqueueSnackbar]);
+  }, [userBid, contract, dispatch, playSound]);
 
   /**
    * @function handleCancelBid - Handles the Cancel Bid Button
@@ -465,7 +454,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
         playSound('error');
       }
     });
-  }, [userBid, contract, dispatch, location, playSound, enqueueSnackbar]);
+  }, [userBid, contract, dispatch, playSound]);
 
   /**
    * @function handleResubmitBid - Handles the Resubmit Bid button click
@@ -474,7 +463,7 @@ export const MobileOrTabletController: React.FC<MorTController> = ({
    */
   const handleResubmitBid = React.useCallback(() => {
     dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
-  }, [userBid, dispatch]);
+  }, [dispatch, contract]);
 
   const getResubmitText = React.useCallback(() => {
     if (!userBid) return;

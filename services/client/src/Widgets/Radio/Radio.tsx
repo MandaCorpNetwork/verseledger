@@ -11,9 +11,9 @@ import {
 import { Box, IconButton, Slider, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { closeWidget } from '@Redux/Slices/Widgets/widgets.actions';
-import scrollSlider from '@Utils/Hooks/scrollSlider';
+import useScrollSlider from '@Utils/Hooks/scrollSlider';
 import { enqueueSnackbar } from 'notistack';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { useRadioController } from '@/AudioProvider';
 
@@ -35,10 +35,10 @@ export const RadioWidget: React.FC = () => {
   } = useRadioController();
   const dispatch = useAppDispatch();
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     pause();
     dispatch(closeWidget(WIDGET_RADIO));
-  };
+  }, [dispatch, pause]);
 
   // Close the widget if the radio stops playing for some reason
   React.useEffect(() => {
@@ -46,7 +46,7 @@ export const RadioWidget: React.FC = () => {
       enqueueSnackbar('Radio Playback Error', { variant: 'error' });
       handleClose();
     }
-  }, [isPlaying]);
+  }, [handleClose, isPlaying]);
 
   const VolumeIcon = () => {
     if (isMuted) {
@@ -61,7 +61,7 @@ export const RadioWidget: React.FC = () => {
   };
 
   const sliderRef = React.useRef<HTMLDivElement>(null);
-  scrollSlider(sliderRef, (newValue) => setVolume(newValue), volume);
+  useScrollSlider(sliderRef, (newValue) => setVolume(newValue), volume);
 
   const handleVolumeChange = (_: Event, value: number | number[]) => {
     const newVolume = Array.isArray(value) ? value[0] : value;

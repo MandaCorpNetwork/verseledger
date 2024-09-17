@@ -66,7 +66,7 @@ export const FeatureQueForm: React.FC<{
         setFormData({ ...formData, concern: newConcern });
       }
     },
-    [setFormData, formData, playSound],
+    [isFeatureUpdateForm, playSound, setFormData, formData],
   );
 
   const handleTableSelect = React.useCallback(
@@ -77,7 +77,7 @@ export const FeatureQueForm: React.FC<{
         setFormData({ ...formData, table: newTable });
       }
     },
-    [setFormData, formData, playSound],
+    [isFeatureUpdateForm, playSound, setFormData, formData],
   );
 
   const handleServiceSelect = React.useCallback(
@@ -88,7 +88,7 @@ export const FeatureQueForm: React.FC<{
         setFormData({ ...formData, service: newService });
       }
     },
-    [setFormData, formData, playSound],
+    [isFeatureUpdateForm, playSound, setFormData, formData],
   );
 
   const handleChange = React.useCallback(
@@ -97,7 +97,7 @@ export const FeatureQueForm: React.FC<{
         setFormData({ ...formData, [field]: e.target.value });
       }
     },
-    [setFormData, formData],
+    [isFeatureUpdateForm, setFormData, formData],
   );
 
   const handleAddNeedOpen = (type: string) => (e: React.MouseEvent<HTMLElement>) => {

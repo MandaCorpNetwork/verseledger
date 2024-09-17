@@ -169,36 +169,29 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
    * @param {IFilters} filter - The Filter Option
    * @returns {QueryNames[]} An array of query names associated with the filter.
    */
-  const getFilterToClear = React.useCallback(
-    (filter: string): QueryNames[] => {
-      switch (filter) {
-        case 'Subtype':
-          return [QueryNames.Subtype];
-        case 'Locations':
-          return [QueryNames.Locations];
-        case 'Scheduling':
-          return [
-            QueryNames.BidAfter,
-            QueryNames.BidBefore,
-            QueryNames.EndAfter,
-            QueryNames.EndBefore,
-            QueryNames.StartAfter,
-            QueryNames.StartBefore,
-          ];
-        case 'Ratings':
-          return [QueryNames.EmployerRating, QueryNames.ContractorRating];
-        case 'Pay':
-          return [
-            QueryNames.UECRangeMin,
-            QueryNames.UECRangeMax,
-            QueryNames.PayStructure,
-          ];
-        default:
-          return [];
-      }
-    },
-    [filter],
-  );
+  const getFilterToClear = React.useCallback((filter: string): QueryNames[] => {
+    switch (filter) {
+      case 'Subtype':
+        return [QueryNames.Subtype];
+      case 'Locations':
+        return [QueryNames.Locations];
+      case 'Scheduling':
+        return [
+          QueryNames.BidAfter,
+          QueryNames.BidBefore,
+          QueryNames.EndAfter,
+          QueryNames.EndBefore,
+          QueryNames.StartAfter,
+          QueryNames.StartBefore,
+        ];
+      case 'Ratings':
+        return [QueryNames.EmployerRating, QueryNames.ContractorRating];
+      case 'Pay':
+        return [QueryNames.UECRangeMin, QueryNames.UECRangeMax, QueryNames.PayStructure];
+      default:
+        return [];
+    }
+  }, []);
 
   /**
    * Handles clearing all the Queries associated with the specific Filter.
@@ -213,7 +206,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
       setFilters(filterToUpdate, []);
     });
     playSound('toggleOff');
-  }, [setFilters, filter, playSound]);
+  }, [getFilterToClear, filter, playSound, setFilters]);
 
   /**
    * Determins the Text Color of the Label based on 2 Conditions
@@ -221,13 +214,10 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
    * @param {boolean} isExpanded - Indicates if the filter is expanded or not
    * @returns {string} The color value to be used.
    */
-  const getLabelColor = React.useCallback(
-    (isDisabled: boolean, isExpanded: boolean) => {
-      if (isDisabled) return 'text.disabled';
-      return isExpanded ? 'secondary.main' : 'text.secondary';
-    },
-    [filter, isDisabled, isExpanded],
-  );
+  const getLabelColor = React.useCallback((isDisabled: boolean, isExpanded: boolean) => {
+    if (isDisabled) return 'text.disabled';
+    return isExpanded ? 'secondary.main' : 'text.secondary';
+  }, []);
   /** Calls {@link getLabelColor} */
   const labelColor = getLabelColor(isDisabled, isExpanded);
 

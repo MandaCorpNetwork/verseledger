@@ -23,8 +23,8 @@ import { POPUP_CREATE_CONTRACT } from '@Popups/Contracts/CreateContract/CreateCo
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { isMobile } from '@Utils/isMobile';
-import { isTablet } from '@Utils/isTablet';
+import { useIsMobile } from '@Utils/isMobile';
+import { useIsTablet } from '@Utils/isTablet';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -101,8 +101,8 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
   const navigate = useNavigate();
-  const mobile = isMobile();
-  const tablet = isTablet();
+  const mobile = useIsMobile();
+  const tablet = useIsTablet();
   // LOGIC
   /**
    * @function handleMobileSearchOpen() - Handles the clickEvent that sets the {@link mobileSearchOpen} state
@@ -127,7 +127,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
         navigate(`/ledger/contracts/${id}`);
       }
     },
-    [setSelectedId],
+    [mobile, navigate, playSound, tablet],
   );
   /**
    * @function handleContractClose() - Handles the clickEvent that sets the {@link selectedId} state to `null` */
@@ -139,7 +139,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   const openCreateContract = useCallback(() => {
     playSound('open');
     dispatch(openPopup(POPUP_CREATE_CONTRACT));
-  }, [dispatch]);
+  }, [dispatch, playSound]);
   /** @function handleDrawerOpen - Handles the clickEvent that toggles the {@link isExpanded} state */
   const handleDrawerOpen = () => {
     if (isExpanded) {
