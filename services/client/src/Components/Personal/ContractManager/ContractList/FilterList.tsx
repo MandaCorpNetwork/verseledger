@@ -15,8 +15,6 @@ type FilterListProps = {
  * ### FilterList
  * @description
  * An {@link ElevatedDropdownBox} containing Filters for {@link ContractManagerApp}.
- * @version 0.1.2
- * @memberof {@link SearchTools}
  * @prop {boolean} isOpen - Determines if the filter list is currently open.
  * @example
  * <FilterList isOpen={true} />
@@ -31,8 +29,6 @@ export const FilterList: React.FC<FilterListProps> = ({ isOpen }) => {
   // LOCAL STATES
   /**
    * State determins which Dropdown Filer is currently open.
-   * @const
-   * @type [string | null, React.Dispatch<React.SetStateAction<string | null>]
    * @default {null}
    * @returns {string} - The current expanded filter.
    */
@@ -52,7 +48,7 @@ export const FilterList: React.FC<FilterListProps> = ({ isOpen }) => {
       playSound('clickMain');
       setExpanded((prev) => (prev === panel ? null : panel));
     },
-    [playSound],
+    [playSound, setExpanded],
   );
 
   return (

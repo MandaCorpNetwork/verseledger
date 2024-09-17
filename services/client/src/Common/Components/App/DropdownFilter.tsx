@@ -54,12 +54,12 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
    * Determines if the filter is disabled.
    * @returns {boolean} True if the filter is disabled, otherwise false.
    */
-  const setDisabled = () => {
+  const setDisabled = React.useCallback(() => {
     if (filter === 'Locations') {
       return true;
     }
     return false;
-  };
+  }, [filter]);
 
   const isDisabled = setDisabled();
 
@@ -129,19 +129,21 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
 
   /**
    * Finds the Values of a Filter for Filter Arrays
-   * @arg {IFilters} FilterName - The filter to be checked.
    * @returns {string[]}
    */
-  const getFilterValues = (filterName: string) => {
-    switch (filterName) {
-      case 'Subtype':
-        return filters.getAll(QueryNames.Subtype);
-      case 'Locations':
-        return filters.getAll(QueryNames.Locations);
-      default:
-        return [];
-    }
-  };
+  const getFilterValues = React.useCallback(
+    (filterName: string) => {
+      switch (filterName) {
+        case 'Subtype':
+          return filters.getAll(QueryNames.Subtype);
+        case 'Locations':
+          return filters.getAll(QueryNames.Locations);
+        default:
+          return [];
+      }
+    },
+    [filters],
+  );
   /** Calls {@link getFilterValues} */
   const filterValues = getFilterValues(filter);
 

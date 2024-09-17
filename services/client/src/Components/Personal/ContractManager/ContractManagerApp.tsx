@@ -139,7 +139,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
       playSound('clickMain');
       overwriteURLQuery({ [QueryNames.ContractManagerTab]: newValue });
     },
-    [overwriteURLQuery, playSound],
+    [overwriteURLQuery, playSound, setSelectedId],
   );
 
   /** Fetchs the Current User from `Auth` slice */
@@ -202,26 +202,20 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         const fetchBids = await dispatch(fetchContractBidsOfUser(bidParams));
         if (fetchContractBidsOfUser.fulfilled.match(fetchBids)) {
           const bids = fetchBids.payload.data;
-          Logger.info('Attempting to parse fetched bids...');
           if (bids && Array.isArray(bids)) {
             const contractIds = bids.map((bid: IContractBid) => bid.contract_id);
-            Logger.info(`Bids fetched succesfully:`, bids);
-            Logger.info(`ContractIds fetched succesfully:`, contractIds);
             return contractIds;
           } else {
-            Logger.error('No valid bids found in response:', fetchBids.payload);
             enqueueSnackbar('No Bids found', { variant: 'warning' });
             playSound('warning');
             return [];
           }
         } else {
-          Logger.error('Fetch Bids not Fufilled:');
           enqueueSnackbar('Error fetching bids', { variant: 'error' });
           playSound('error');
           return [];
         }
-      } catch (error) {
-        Logger.error('Error fetching bids for client', error);
+      } catch (_e) {
         enqueueSnackbar('Unknown Error Occurred', { variant: 'error' });
         playSound('error');
         return [];
