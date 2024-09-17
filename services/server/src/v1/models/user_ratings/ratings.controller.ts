@@ -7,7 +7,6 @@ import { TYPES } from '@Constant/types';
 import { BadParameterError } from '@V1/errors/BadParameter';
 import { BadRequestError } from '@V1/errors/BadRequest';
 import { NotFoundError } from '@V1/errors/NotFoundError';
-import { Contract } from '@V1/models/contract/contract.model';
 import { RatingService } from '@V1/models/user_ratings/rating.service';
 import { NextFunction } from 'express';
 import { inject } from 'inversify';

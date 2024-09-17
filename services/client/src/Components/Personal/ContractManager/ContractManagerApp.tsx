@@ -13,7 +13,6 @@ import {
 } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser';
 import { useIsMobile } from '@Utils/isMobile';
-import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
