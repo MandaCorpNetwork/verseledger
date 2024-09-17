@@ -1,8 +1,7 @@
 import { Avatar, Box, ButtonBase, Rating, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
-import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { selectUserById } from '@Redux/Slices/Users/userSelectors';
 import { memo } from 'react';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
@@ -11,22 +10,17 @@ import { useSoundEffect } from '@/AudioManager';
 import { MiniPlayerCard } from '../App/MiniPlayerCard';
 
 type UserDisplayProps = {
-  user?: IUser;
-  userid?: string;
+  user: IUser;
   sx?: object;
 };
 
-const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx, user }) => {
+const UserDisplayComponent: React.FC<UserDisplayProps> = ({ sx, user }) => {
   const { playSound } = useSoundEffect();
   const dispatch = useAppDispatch();
 
-  const foundUser = userid
-    ? useAppSelector((state) => selectUserById(state, userid))
-    : user;
-
   const handlePlayerCardOpen = () => {
     playSound('open');
-    dispatch(openPopup(POPUP_PLAYER_CARD, { userid }));
+    dispatch(openPopup(POPUP_PLAYER_CARD, { userid: user.id }));
   };
 
   return (
@@ -41,7 +35,7 @@ const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx, user }) 
         ...sx,
       }}
     >
-      <MiniPlayerCard user={foundUser ?? undefined}>
+      <MiniPlayerCard user={user ?? undefined}>
         <ButtonBase
           data-testid="UserDisplay__PlayerDataButton"
           onClick={handlePlayerCardOpen}
@@ -114,7 +108,7 @@ const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx, user }) 
         >
           <Avatar
             data-testid="UserDisplay-PlayerData__Avatar"
-            src={foundUser?.pfp}
+            src={user?.pfp}
             //alt={user.userName}
             sx={{
               backgroundImage:
@@ -148,7 +142,7 @@ const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx, user }) 
               noWrap
               sx={{ ml: 'auto', mr: 'auto', maxWidth: '100%' }}
             >
-              {foundUser?.handle}
+              {user?.handle}
             </Typography>
           </Box>
         </ButtonBase>

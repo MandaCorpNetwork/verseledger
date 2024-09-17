@@ -16,7 +16,7 @@ import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 
 import { useSoundEffect } from '@/AudioManager';
 
@@ -29,7 +29,7 @@ export const POPUP_SUBMIT_CONTRACT_BID = 'submitContractBid';
 
 // Props to Pass in Contract Object
 export type ContractBidProps = {
-  contract: IContract;
+  contract: IContractWithOwner;
 };
 
 export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
@@ -233,7 +233,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
               gap: '.5em',
             }}
           >
-            <UserDisplay userid={contract.owner_id} sx={{ alignSelf: 'center' }} />
+            <UserDisplay user={contract.Owner} sx={{ alignSelf: 'center' }} />
             <Box
               sx={{
                 display: 'flex',

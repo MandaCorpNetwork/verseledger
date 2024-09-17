@@ -5,11 +5,11 @@ import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { Box, Typography } from '@mui/material';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 
 type MobileInfoProps = {
   /** @prop {IContract} contract - The contract to display information for */
-  contract: IContract;
+  contract: IContractWithOwner;
   /** @prop {string} archetype - The archetype of the contract */
   archetype: string;
 };
@@ -99,7 +99,7 @@ export const MobileInfo: React.FC<MobileInfoProps> = ({ contract, archetype }) =
             />
           )}
         </DigiDisplay>
-        <UserDisplay userid={contract?.owner_id} />
+        <UserDisplay user={contract.Owner} />
       </Box>
     </Box>
   );

@@ -32,7 +32,7 @@ import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 
 import { useSoundEffect } from '@/AudioManager';
 
@@ -40,7 +40,7 @@ import { BiddingTimePanel, ContractDurationPanel } from './TimePanel';
 
 type ContractDisplayProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  contract: IContract;
+  contract: IContractWithOwner;
 };
 
 export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) => {
@@ -346,7 +346,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               />
             </Box>
           </DigiDisplay>
-          <UserDisplay userid={contract.owner_id} />
+          <UserDisplay user={contract.Owner} />
         </Box>
       </DigiBox>
       <Box

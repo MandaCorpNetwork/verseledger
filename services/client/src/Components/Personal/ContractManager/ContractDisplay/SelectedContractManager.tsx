@@ -21,6 +21,7 @@ import { enqueueSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
+import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 import { ILocationWithContractLocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { useSoundEffect } from '@/AudioManager';
@@ -51,7 +52,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   const contract = useAppSelector((root) => selectContract(root, contractId as string));
 
   const memoizedContract = React.useMemo(() => {
-    return contract;
+    return contract as IContractWithOwner;
   }, [contract]);
 
   const currentUser = useAppSelector(selectCurrentUser);
@@ -364,7 +365,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
               {renderTimePanel(timeTab)}
             </GlassDisplay>
           </Box>
-          <UserDisplay userid={memoizedContract.owner_id} />
+          <UserDisplay user={memoizedContract.Owner} />
         </Box>
       </DigiBox>
       <Box

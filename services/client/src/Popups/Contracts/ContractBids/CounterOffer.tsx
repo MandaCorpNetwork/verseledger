@@ -13,6 +13,7 @@ import React, { useCallback } from 'react';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
+import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 import { useSoundEffect } from '@/AudioManager';
 
@@ -131,7 +132,7 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
         <DigiBox data-testid="CounterOffer__Wrapper" sx={{ p: '.5em', gap: '1em' }}>
           <UserDisplay
             data-testid="CounterOffer__User"
-            user={ownerView ? bid?.User : contract.Owner}
+            user={ownerView ? (bid.User as IUser) : (contract.Owner as IUser)}
           />
           <DigiDisplay sx={{ p: '.5em' }}>
             <Typography>{ownerView ? 'Bid Proposal' : 'Counter Offer'}</Typography>

@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { Logger } from '@Utils/Logger';
 import React, { useEffect } from 'react';
+import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 
 import { ContractDisplay } from '@/Components/Contracts/Ledger/Details/ContractDisplay';
 import { useAppSelector } from '@/Redux/hooks';
@@ -36,7 +37,7 @@ export const ContractDisplayContainer: React.FC<ContractDisplayContainer> = ({
       }}
     >
       {pickedContract ? (
-        <ContractDisplay contract={pickedContract} />
+        <ContractDisplay contract={pickedContract as IContractWithOwner} />
       ) : (
         <Box
           data-testid="ContractLedger-ContractDisplayContainer__EmptyContract"

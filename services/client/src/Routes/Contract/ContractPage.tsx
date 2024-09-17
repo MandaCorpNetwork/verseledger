@@ -12,7 +12,7 @@ import { useIsTablet } from '@Utils/isTablet';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContract, IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 import { useSoundEffect } from '@/AudioManager';
@@ -115,7 +115,7 @@ export const ContractPage: React.FC<unknown> = () => {
   /** @var {IContract | null} contract - The Contract from the Redux Store */
   const contract = useAppSelector((root) =>
     selectContract(root, selectedContractId as string),
-  );
+  ) as IContractWithOwner;
 
   /** @var {boolean} isLoading - The loading state of the contract */
   const isLoading = useAppSelector((state) => state.contracts.isLoading);

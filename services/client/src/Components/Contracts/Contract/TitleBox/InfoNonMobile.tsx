@@ -5,13 +5,13 @@ import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { Box, Typography } from '@mui/material';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 
 import { DesktopPayInfo } from './DesktopPayInfo';
 
 type InfoNonMobileProps = {
   /** @prop {IContract} contract - The contract to display information for */
-  contract: IContract;
+  contract: IContractWithOwner;
   /** @prop {string} archetype - The archetype of the contract */
   archetype: string;
   /** @prop {boolean} tablet - Whether the screen is tablet or not */
@@ -134,7 +134,7 @@ export const InfoNonMobile: React.FC<InfoNonMobileProps> = ({
         </DigiField>
       </DigiDisplay>
       {!tablet && <DesktopPayInfo contract={contract} />}
-      <UserDisplay userid={contract.owner_id} />
+      <UserDisplay user={contract.Owner} />
     </>
   );
 };
