@@ -148,7 +148,7 @@ export const Contractor: React.FC<ContractorProps> = ({
     if (!userRatings || userRatings.length === 0) return 0;
     const ratingSum = userRatings.reduce((acc, rating) => acc + rating.rating_value, 0);
     return ratingSum / userRatings.length;
-  }, [contract, user?.id]);
+  }, [contract, user]);
 
   const userRating = getUserRating();
 
