@@ -1,28 +1,26 @@
 import { Avatar, Box, ButtonBase, Rating, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
-import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { selectUserById } from '@Redux/Slices/Users/userSelectors';
 import { memo } from 'react';
+import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 import { useSoundEffect } from '@/AudioManager';
 
 import { MiniPlayerCard } from '../App/MiniPlayerCard';
 
 type UserDisplayProps = {
-  userid: string;
+  user: IUser;
   sx?: object;
 };
 
-const UserDisplayComponent: React.FC<UserDisplayProps> = ({ userid, sx }) => {
+const UserDisplayComponent: React.FC<UserDisplayProps> = ({ sx, user }) => {
   const { playSound } = useSoundEffect();
   const dispatch = useAppDispatch();
 
-  const user = useAppSelector((state) => selectUserById(state, userid));
-
   const handlePlayerCardOpen = () => {
     playSound('open');
-    dispatch(openPopup(POPUP_PLAYER_CARD, { userid }));
+    dispatch(openPopup(POPUP_PLAYER_CARD, { userid: user.id }));
   };
 
   return (

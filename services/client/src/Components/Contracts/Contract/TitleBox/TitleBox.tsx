@@ -4,7 +4,7 @@ import { Link } from '@mui/icons-material';
 import { Box, IconButton, Rating, Tooltip, Typography } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 
 import { useSoundEffect } from '@/AudioManager';
 
@@ -13,7 +13,7 @@ import { MobileInfo } from './MobileInfo';
 
 type TitleBoxProps = {
   /** @prop {IContract} contract - The contract to display information for */
-  contract: IContract;
+  contract: IContractWithOwner;
   /** @prop {boolean} mobile - Whether the screen is mobile or not */
   mobile: boolean;
   /** @prop {boolean} tablet - Whether the screen is tablet or not */
