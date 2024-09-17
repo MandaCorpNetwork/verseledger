@@ -1,11 +1,23 @@
+import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import { LocationSelection } from '@Common/Components/App/LocationSelection';
 import { ReadOnlyField } from '@Common/Components/TextFields/ReadOnlyField';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { Gauge, SparkLineChart } from '@mui/x-charts';
+import { isDev } from '@Utils/isDev';
 
 export const ExploreApp: React.FC<unknown> = () => {
+  const dev = isDev();
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        height: '100%',
+        width: '100%',
+        position: 'relative',
+      }}
+    >
+      {!dev && <InDevOverlay supportButton={true} />}
       <Box
         sx={{ display: 'flex', flexDirection: 'column', height: '100%', width: '35%' }}
       >
