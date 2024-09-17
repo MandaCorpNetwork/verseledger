@@ -106,11 +106,7 @@ export const OverviewApp: React.FC<unknown> = () => {
               }}
             >
               <Badge
-                badgeContent={
-                  <Typography variant="body2" sx={{ color: 'primary.contrastText' }}>
-                    {unreadCount}
-                  </Typography>
-                }
+                badgeContent={unreadCount}
                 color="error"
                 max={99}
                 overlap="rectangular"

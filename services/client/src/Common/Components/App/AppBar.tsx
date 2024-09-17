@@ -221,14 +221,7 @@ export const VLAppBar: React.FC<unknown> = () => {
                   color="inherit"
                   onClick={notificationsOnClick}
                 >
-                  <Badge
-                    badgeContent={
-                      <Typography variant="body2" sx={{ color: 'primary.contrastText' }}>
-                        {unreadCount}
-                      </Typography>
-                    }
-                    color="error"
-                  >
+                  <Badge badgeContent={unreadCount} color="error">
                     {notificationsOpen ? (
                       <NotificationsIcon />
                     ) : (

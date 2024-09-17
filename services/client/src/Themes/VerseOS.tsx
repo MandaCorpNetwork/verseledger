@@ -490,5 +490,14 @@ export const verseOSTheme = createTheme({
         },
       },
     },
+    MuiBadge: {
+      styleOverrides: {
+        colorError: {
+          color: 'rgb(255,255,255)',
+          fontWeight: 'bold',
+          textShadow: '0 2px 4px rgb(0,0,0)',
+        },
+      },
+    },
   },
 });
