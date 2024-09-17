@@ -20,10 +20,12 @@ import { DashboardPage } from './Dashboard/DashboardPage';
 import ErrorPage from './ErrorPage';
 import { Home } from './Index/Home/Home';
 import { NotFoundPage } from './NotFound/NotFound';
+import { OrgLedgerPage } from './OrgLedger/OrgLedgerPage';
 import { SecureRoute } from './SecureRoute';
 import { Sandbox } from './ui-sandbox/SandboxPage';
 import { UserPage } from './User/UserPage';
 import { VerseMarketPage } from './VerseMarket/VerseMarketPage';
+import { VerseNewsPage } from './VerseNews/VerseNews';
 
 export const routingInfo: RouteObject[] = [
   {
@@ -128,7 +130,6 @@ export const routingInfo: RouteObject[] = [
         children: [
           {
             index: true,
-            path: 'marketplace',
             element: <Marketplace />,
           },
           {
@@ -136,6 +137,7 @@ export const routingInfo: RouteObject[] = [
             element: <Marketplace />,
           },
           {
+            index: true,
             path: 'marketplace',
             element: <Marketplace />,
           },
@@ -156,6 +158,14 @@ export const routingInfo: RouteObject[] = [
             element: <OrderHistory />,
           },
         ],
+      },
+      {
+        path: '/orgs',
+        element: <OrgLedgerPage />,
+      },
+      {
+        path: '/verse-news',
+        element: <VerseNewsPage />,
       },
       {
         path: '/sandbox',

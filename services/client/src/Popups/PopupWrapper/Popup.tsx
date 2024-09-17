@@ -92,7 +92,7 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
       <DialogTitle
         variant="h5"
         data-testid={`VLPopup__${testid}__Title`}
-        sx={{ width: '100%', display: 'flex' }}
+        sx={{ width: '100%', display: 'flex', alignItems: 'center' }}
       >
         {title}
         {!onSubmit && (

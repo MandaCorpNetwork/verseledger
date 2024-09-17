@@ -511,7 +511,7 @@ export const UserPage: React.FC = () => {
               justifyContent: 'flex-start',
             }}
           >
-            <InDevOverlay />
+            <InDevOverlay supportButton={true} />
             <ControlPanelBox
               data-testid="UserPage-BottomRow_Stats_Tablist_Wrapper"
               sx={{

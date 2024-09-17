@@ -1,5 +1,7 @@
+import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { Box } from '@mui/material';
+import { isDev } from '@Utils/isDev';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
@@ -18,7 +20,8 @@ import { CollapseMenu } from '@/Components/Orders/VerseMarket/CollapseMenu';
  * @component {@link VLViewport}
  * @author ThreeCrown - Aug 2024
  */
-export const VerseMarketPage: React.FC<unknown> = () => {
+export const VerseMarketPage: React.FC = () => {
+  const dev = isDev();
   return (
     <VLViewport
       data-testid="VerseMarketPage"
@@ -28,8 +31,10 @@ export const VerseMarketPage: React.FC<unknown> = () => {
         width: '100%',
         height: 'calc(100vh - 64px)',
         overflow: 'hidden',
+        position: 'relative',
       }}
     >
+      {!dev && <InDevOverlay supportButton={true} />}
       <Box
         data-testid="VerseMarket__Wrapper"
         sx={{

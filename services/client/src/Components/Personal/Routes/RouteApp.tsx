@@ -1,7 +1,10 @@
+import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { Box, Button, Typography } from '@mui/material';
+import { isDev } from '@Utils/isDev';
 
 export const RouteApp: React.FC<unknown> = () => {
+  const dev = isDev();
   return (
     <Box
       data-testid="RouteTool__AppContainer"
@@ -12,8 +15,10 @@ export const RouteApp: React.FC<unknown> = () => {
         height: '100%',
         width: '100%',
         p: '1em',
+        position: 'relative',
       }}
     >
+      {!dev && <InDevOverlay />}
       <GlassBox data-testid="RouteTool__RouteViewer_Container" sx={{ p: '1em' }}>
         <Box
           data-testid="RouteTool-RouteViewer__Title_Wrapper"

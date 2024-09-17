@@ -39,6 +39,7 @@ import {
   SubmitRatingPopup,
   SubmitRatingPopupProps,
 } from '@Popups/Ratings/SubmitRating';
+import { POPUP_SUPPORT_DEVELOPMENT, SupportDevPopup } from '@Popups/Support/SupportDev';
 import { CreateTokenPopup, POPUP_CREATE_TOKEN } from '@Popups/Tokens/CreateToken';
 import {
   POPUP_SHOW_TOKEN,
@@ -100,6 +101,9 @@ export const PopupManager: React.FC = () => {
   const submitRatingPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_SUBMIT_RATING),
   );
+  const supportDevPopup = useAppSelector((state) =>
+    selectPopup(state, POPUP_SUPPORT_DEVELOPMENT),
+  );
   return (
     <>
       {verifyUserPopup.open && <VerifyUserPopup />}
@@ -137,6 +141,7 @@ export const PopupManager: React.FC = () => {
       {submitRatingPopup.open && (
         <SubmitRatingPopup {...(submitRatingPopup.props as SubmitRatingPopupProps)} />
       )}
+      {supportDevPopup.open && <SupportDevPopup />}
     </>
   );
 };
