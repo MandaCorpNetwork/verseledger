@@ -186,8 +186,6 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
         }}
       >
         {isOwner &&
-          contract.status !== 'COMPLETED' &&
-          contract.status !== 'CANCELED' &&
           contractors &&
           (contractors?.length > 0 ? (
             contractors

@@ -32,11 +32,7 @@ export class RatingService {
         },
       },
     });
-    if (recentRating)
-      throw new BadRequestError(
-        'You can only submit one rating per user per week',
-        'duplicate_entry',
-      );
+    if (recentRating) return recentRating;
   }
 
   public async createContractRating(
@@ -47,6 +43,8 @@ export class RatingService {
     const createdRatings: UserRating[] = [];
     for (const r of ratings) {
       const tempRatingType = contract.subtype;
+      const recentRating = await this.checkRecentRating(submitter.id, contract.subtype, r.reciever_id);
+      if (recentRating) continue;
       const newRating = await UserRating.create({
         ...r,
         rating_type: tempRatingType,
