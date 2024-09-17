@@ -10,7 +10,7 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
@@ -60,7 +60,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         playSound('error');
       }
     });
-  }, [userBid, contract, dispatch, overwriteURLQuery, playSound, enqueueSnackbar]);
+  }, [userBid, contract, dispatch, overwriteURLQuery, playSound]);
   /**
    * @function handleDeclineInvite - Handles the Decline Invite button click
    * @return {void} - Updates the bidStatus to `DECLINED`
@@ -84,7 +84,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         playSound('error');
       }
     });
-  }, [userBid, enqueueSnackbar, playSound, dispatch, contract, deselectContract]);
+  }, [userBid, playSound, dispatch, contract, deselectContract]);
   /**
    * @function handleWithdrawBid - Handles the Withdraw Bid button click
    * @return {void} - Updates the bidStatus to `WITHDRAWN`
@@ -110,15 +110,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         playSound('error');
       }
     });
-  }, [
-    userBid,
-    contract,
-    overwriteURLQuery,
-    dispatch,
-    location,
-    playSound,
-    enqueueSnackbar,
-  ]);
+  }, [userBid, contract, overwriteURLQuery, dispatch, location, playSound]);
   /**
    * @function handleCancelBid - Handles the Cancel Bid Button
    * @return {void} - Updates the bidStatus to `EXPIRED`
@@ -144,15 +136,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         playSound('error');
       }
     });
-  }, [
-    userBid,
-    contract,
-    overwriteURLQuery,
-    dispatch,
-    location,
-    playSound,
-    enqueueSnackbar,
-  ]);
+  }, [userBid, contract, overwriteURLQuery, dispatch, location, playSound]);
   /**
    * @function handleResubmitBid - Handles the Resubmit Bid button click
    * @return {void} - Opens the Submit Bid popup
@@ -165,7 +149,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
       return;
     }
     dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
-  }, [userBid, dispatch]);
+  }, [userBid, dispatch, contract, playSound]);
   const getResubmitBidText = React.useCallback(() => {
     if (!userBid) return;
     if (userBid.status === 'DISMISSED')
@@ -183,26 +167,29 @@ export const ContractController: React.FC<ContractControllerProps> = ({
    * @param {Date} bidDate - The bid date of the contract if it exists
    * @returns {Partial<IContract>} - The updated contract object
    */
-  const getUpdatedContractStatus = (
-    contract: Partial<IContract>,
-    status: string,
-    startDate?: Date,
-    endDate?: Date,
-    bidDate?: Date,
-  ) => {
-    return {
-      status,
-      title: contract.title,
-      subtype: contract.subtype,
-      briefing: contract.briefing,
-      contractorLimit: contract.contractorLimit,
-      payStructure: contract.payStructure,
-      defaultPay: contract.defaultPay,
-      ...(startDate && { startDate }),
-      ...(endDate && { endDate }),
-      ...(bidDate && { bidDate }),
-    };
-  };
+  const getUpdatedContractStatus = useCallback(
+    (
+      contract: Partial<IContract>,
+      status: string,
+      startDate?: Date,
+      endDate?: Date,
+      bidDate?: Date,
+    ) => {
+      return {
+        status,
+        title: contract.title,
+        subtype: contract.subtype,
+        briefing: contract.briefing,
+        contractorLimit: contract.contractorLimit,
+        payStructure: contract.payStructure,
+        defaultPay: contract.defaultPay,
+        ...(startDate && { startDate }),
+        ...(endDate && { endDate }),
+        ...(bidDate && { bidDate }),
+      };
+    },
+    [],
+  );
   /**
    * @function endBidding - Ends the bidding on the contract
    * @returns {void} - Closes the bidding on the contract.
@@ -230,7 +217,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         }
       });
     }
-  }, [contract, getUpdatedContractStatus, dispatch]);
+  }, [contract, dispatch, getUpdatedContractStatus, playSound]);
   /**
    * @function handleEndBidding - Handles the end bidding button click
    * @returns {void} - Opens a verification popup to end the bidding
@@ -253,7 +240,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     } else {
       endBidding();
     }
-  }, [dispatch, contract]);
+  }, [contract.bidDate, contract.title, dispatch, endBidding]);
   /**
    * @function startContract - Starts the contract with status INPROGRESS
    * @returns {void} - Starts the contract with status INPROGRESS and sets the Start Date to the current date.
@@ -274,7 +261,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         }
       });
     }
-  }, [contract, dispatch]);
+  }, [contract, dispatch, getUpdatedContractStatus, playSound]);
   /**
    * @function getStartBodyText - Returns the body text for the start contract verification popup
    * @returns {string} - The body text for the start contract verification popup
@@ -319,7 +306,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     } else {
       startContract();
     }
-  }, [contract, dispatch, startContract]);
+  }, [contract.startDate, contract.title, dispatch, startBodyText, startContract]);
   /**
    * @function getActiveBidUsers - Returns the users that have an `ACCEPTED` bid on the contract
    * @returns {IUser[]} - The users that have an `ACCEPTED` bid on the contract
@@ -342,7 +329,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         dispatch(openPopup(POPUP_SUBMIT_RATING, { users: contractUsers, contract }));
       }
     }
-  }, [contractUsers, dispatch]);
+  }, [contract, contractUsers, dispatch]);
   /**
    * @function completeContract - Completes the contract with status `COMPLETED` and sets the End Date to the current date.
    */
@@ -376,7 +363,6 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     overwriteURLQuery,
     playSound,
     openReview,
-    enqueueSnackbar,
   ]);
   /**
    * @function getCompleteBodyText - Determines the Text to pass to the Verify Popup for completing a Contract
@@ -449,7 +435,6 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     getUpdatedContractStatus,
     dispatch,
     overwriteURLQuery,
-    enqueueSnackbar,
     playSound,
     openReview,
   ]);
@@ -488,7 +473,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
         bodyText: cancelBodyText,
       }),
     );
-  }, [dispatch, cancelContract, cancelBodyText]);
+  }, [dispatch, cancelContract, contract.title, cancelBodyText]);
   /**
    * @function handleEditContract - Handles the edit contract button click
    * @returns {void} - Opens the edit contract popup
@@ -502,7 +487,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
     }
     playSound('open');
     dispatch(openPopup(POPUP_EDIT_CONTRACT, { contract: contract }));
-  }, [contract, dispatch, playSound, enqueueSnackbar]);
+  }, [contract, dispatch, playSound]);
 
   const contractEnded = contract.status === 'COMPLETED' || contract.status === 'CANCLED';
 

@@ -44,7 +44,7 @@ export const UserIssueForm: React.FC<{
         setFormData({ ...formData, [field]: e.target.value });
       }
     },
-    [setFormData, formData],
+    [isUserIssueForm, setFormData, formData],
   );
 
   if (formData.type !== 'USER_ISSUE') return null;

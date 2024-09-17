@@ -47,10 +47,13 @@ export const FilterList: React.FC<FilterListProps> = ({ isOpen }) => {
    * - `playSound('clickMain')`
    * - `setExpanded` - Sets the expanded filter.
    */
-  const handleExpand = React.useCallback((panel: string) => {
-    playSound('clickMain');
-    setExpanded((prev) => (prev === panel ? null : panel));
-  }, []);
+  const handleExpand = React.useCallback(
+    (panel: string) => {
+      playSound('clickMain');
+      setExpanded((prev) => (prev === panel ? null : panel));
+    },
+    [playSound],
+  );
 
   return (
     <ElevatedDropdownBox

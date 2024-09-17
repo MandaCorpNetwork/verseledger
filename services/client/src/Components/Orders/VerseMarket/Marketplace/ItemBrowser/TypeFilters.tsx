@@ -37,7 +37,7 @@ export const ItemTypeFilters: React.FC<unknown> = () => {
       playSound('clickMain');
       setFilter(QueryNames.ItemType, type);
     },
-    [setFilter],
+    [playSound, setFilter],
   );
 
   /** @var {currentFilter} - The current filter */

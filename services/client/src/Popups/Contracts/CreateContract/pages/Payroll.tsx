@@ -15,7 +15,7 @@ import {
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { isMobile } from '@Utils/isMobile';
+import { useIsMobile } from '@Utils/isMobile';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
@@ -56,7 +56,7 @@ export const Payroll: React.FC<{
   const [evenSplit, setEvenSplit] = React.useState(false);
 
   const dispatch = useAppDispatch();
-  const mobile = isMobile();
+  const mobile = useIsMobile();
 
   const handlePayStructureInfo = () => {
     dispatch(openPopup(POPUP_PAY_STRUCTURES));

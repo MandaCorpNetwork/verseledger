@@ -44,13 +44,13 @@ export const AuthManager: React.FC = () => {
     if (accessTokenContents.exp * 1000 - Date.now() <= 1000 * 60 * 20) {
       dispatch(updateTokens());
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     checkKeys();
     const interval = setInterval(checkKeys, 1000 * 60);
     return () => clearInterval(interval);
-  }, []);
+  }, [dispatch, checkKeys]);
 
   return <></>;
 };

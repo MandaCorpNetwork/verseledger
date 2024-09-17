@@ -93,7 +93,7 @@ const BidTimeDisplay: React.FC<BidTimeDisplayProps> = ({ contract }) => {
     }
     dayjs.extend(relativeTime);
     return now.to(bidDate);
-  }, [bidDate]);
+  }, [bidDate, contract.status]);
   return (
     <Tooltip title={bidTimeStamp}>
       <Typography

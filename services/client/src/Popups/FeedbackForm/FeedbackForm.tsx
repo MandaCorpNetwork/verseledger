@@ -43,7 +43,7 @@ export const FeedbackForm: React.FC<{
       playSound('clickMain');
       setFormData({ type: newType });
     },
-    [setFormData],
+    [playSound, setFormData],
   );
 
   const renderForm = React.useCallback(() => {
@@ -61,7 +61,7 @@ export const FeedbackForm: React.FC<{
       default:
         return null;
     }
-  }, [formData.type]);
+  }, [formData, setFormData]);
   return (
     <GlassBox
       data-testid="Feedback-Popup__Form_Container"

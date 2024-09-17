@@ -39,7 +39,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
     } else {
       setArchetype(null);
     }
-  }, [contract.subtype]);
+  }, [archetypes, contract.subtype]);
 
   const handleClick = () => {
     if (onClick) {
@@ -54,7 +54,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
   const handleAvatarClick = React.useCallback(() => {
     const userid = user?.id;
     dispatch(openPopup(POPUP_PLAYER_CARD, { userid }));
-  }, [user]);
+  }, [dispatch, user?.id]);
 
   const startLocationId = contract?.Locations?.find(
     (location) => location.ContractLocation?.tag === 'start',

@@ -55,7 +55,7 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
         testid: 'LocationExplorer__SetLocation',
       }),
     );
-  }, []);
+  }, [dispatch, handleSetLocation]);
   return (
     <Box
       data-testid="LocationExplorerComponent"
@@ -199,7 +199,7 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
                 sx={{ width: '6em' }}
                 value="UEE"
               />
-              {/* Plan on replacing the Saftey Rating & Population Status with Gauge Component from MuiCharts 
+              {/* Plan on replacing the Saftey Rating & Population Status with Gauge Component from MuiCharts
               <Box
                 data-testid="LocationStatisticsData"
                 sx={{

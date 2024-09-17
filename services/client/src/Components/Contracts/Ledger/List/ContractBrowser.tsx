@@ -1,13 +1,12 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Button } from '@mui/material';
+import { Box, Button, debounce } from '@mui/material';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
 import {
   selectContractPagination,
   selectContractsArray,
 } from '@Redux/Slices/Contracts/selectors/contractSelectors';
-import useDebounce from '@Utils/Hooks/useDebounce';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { isMobile } from '@Utils/isMobile';
+import { useIsMobile } from '@Utils/isMobile';
 import { Logger } from '@Utils/Logger';
 import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
 import React from 'react';
@@ -35,7 +34,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   selectedId,
 }) => {
   const { playSound } = useSoundEffect();
-  const mobile = isMobile();
+  const mobile = useIsMobile();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dispatch = useAppDispatch();
   const [view, setView] = React.useState('ContractCardView');
@@ -67,10 +66,10 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
     contractOnClose();
   };
 
-  const debouncedSearch = React.useCallback(
-    useDebounce((params: IContractSearch) => {
+  const search = React.useCallback(
+    (params: IContractSearch) => {
       dispatch(fetchContracts(params));
-    }, 300),
+    },
     [dispatch],
   );
 
@@ -142,8 +141,8 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
         isEmergency: 'true',
       }),
     };
-    debouncedSearch(params);
-  }, [filters, page, rowsPerPage, debouncedSearch]);
+    debounce(() => search(params), 300)();
+  }, [filters, page, rowsPerPage, search]);
 
   const contracts = useAppSelector((state) => selectContractsArray(state));
 

@@ -34,7 +34,7 @@ export const UserSearch: React.FC<UserSearchProps> = ({
 
   // UserList Test Fetcher for Component Build
   const handleSearch = React.useCallback(
-    debounce(async (searchTerm: string) => {
+    async (searchTerm: string) => {
       setLoading(true);
       try {
         const searchResults = await dispatch(fetchSearchUsers(searchTerm)).unwrap();
@@ -45,18 +45,18 @@ export const UserSearch: React.FC<UserSearchProps> = ({
       } finally {
         setLoading(false);
       }
-    }, 300),
+    },
     [dispatch],
   );
 
   React.useEffect(() => {
     if (inputValue.trim().length > 0) {
-      handleSearch(inputValue);
+      debounce(() => handleSearch(inputValue), 300)();
     } else {
       setOptions([]);
       setLoading(false);
     }
-  }, [inputValue]);
+  }, [handleSearch, inputValue]);
 
   const handleInputFocus = () => {
     setInputValue(''); // Clear input value

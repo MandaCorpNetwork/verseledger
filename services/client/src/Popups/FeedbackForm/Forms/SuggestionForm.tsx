@@ -51,7 +51,7 @@ export const SuggestionForm: React.FC<{
         setFormData({ ...formData, [field]: e.target.value });
       }
     },
-    [setFormData, formData],
+    [isSuggestionForm, setFormData, formData],
   );
 
   const handlePublicToggle = React.useCallback(
@@ -60,7 +60,7 @@ export const SuggestionForm: React.FC<{
         setFormData({ ...formData, public: e.target.checked });
       }
     },
-    [setFormData, formData],
+    [isSuggestionForm, setFormData, formData],
   );
 
   if (formData.type !== 'SUGGESTION') return null;

@@ -155,7 +155,7 @@ export const UserPage: React.FC = () => {
       default:
         return <FleetInfoPanel />;
     }
-  }, [infoTab]);
+  }, [infoTab, selectedUser]);
 
   /**
    * Gets the User ProfileBackground for the found user or passes default if none
@@ -174,7 +174,7 @@ export const UserPage: React.FC = () => {
       (option) => option.value === selectedUserImage,
     );
     return backgroundOption ? backgroundOption.url : userBackgroundOptions[0].url;
-  }, [userBackgroundOptions, selectedUserImage]);
+  }, [selectedUserImage]);
   return (
     <UserViewport
       data-testid="UserPage_PageContainer"

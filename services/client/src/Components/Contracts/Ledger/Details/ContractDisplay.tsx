@@ -69,7 +69,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
     } else {
       setArchetype(null);
     }
-  }, [contract.subtype]);
+  }, [contract.subtype, options]);
 
   const handleArchetypeOpen = () => {
     playSound('open');
@@ -81,7 +81,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       playSound('clickMain');
       setActiveDataTab(value);
     },
-    [activeDataTab],
+    [playSound],
   );
 
   const handleTimeTabChange = React.useCallback(
@@ -89,7 +89,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       playSound('clickMain');
       setTimeTab(value);
     },
-    [timeTab],
+    [playSound],
   );
 
   const toggleBriefingExpand = React.useCallback(() => {
@@ -99,7 +99,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       playSound('toggleOn');
     }
     setBriefingExpanded(!briefingExpanded);
-  }, [briefingExpanded]);
+  }, [briefingExpanded, playSound]);
 
   const togglePayExpand = React.useCallback(() => {
     if (payExpanded) {
@@ -108,7 +108,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       playSound('toggleOn');
     }
     setPayExpanded(!payExpanded);
-  }, [payExpanded]);
+  }, [payExpanded, playSound]);
 
   const toggleLocationsExpand = React.useCallback(() => {
     if (locationsExpanded) {
@@ -117,7 +117,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       playSound('toggleOn');
     }
     setLocationsExpanded(!locationsExpanded);
-  }, [locationsExpanded]);
+  }, [locationsExpanded, playSound]);
 
   const contractTimePanel = React.useCallback(
     (panel: string) => {
@@ -130,7 +130,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           return;
       }
     },
-    [timeTab, contract],
+    [contract],
   );
 
   const activeDataPanel = React.useCallback(
@@ -145,7 +145,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           return;
       }
     },
-    [activeDataTab, contract],
+    [contract],
   );
 
   const handleSubmitBidPopup = () => {

@@ -8,7 +8,7 @@ import {
   FormLabel,
   Typography,
 } from '@mui/material';
-import { isMobile } from '@Utils/isMobile';
+import { useIsMobile } from '@Utils/isMobile';
 import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
@@ -27,7 +27,7 @@ export const TimeInformation: React.FC<{
   const [afterBiddingChecked, setAfterBiddingChecked] = React.useState(false);
 
   const { playSound } = useSoundEffect();
-  const mobile = isMobile();
+  const mobile = useIsMobile();
 
   const handleAfterBiddingCheck = React.useCallback(() => {
     setAfterBiddingChecked((prevChecked) => {
@@ -40,7 +40,7 @@ export const TimeInformation: React.FC<{
       }
       return newChecked;
     });
-  }, [formData, setFormData]);
+  }, [formData, playSound, setFormData]);
 
   const handleTimeChange = React.useCallback(
     (newDate: Date | null, field: string) => {
@@ -110,7 +110,7 @@ export const TimeInformation: React.FC<{
         setFormData({ ...formData, endDate: newDate ?? null });
       }
     },
-    [setFormData, formData, playSound, enqueueSnackbar],
+    [setFormData, formData, playSound],
   );
 
   return (
@@ -233,7 +233,7 @@ export const TimeInformation: React.FC<{
   );
 };
 
-/* 
+/*
   Quick Time Buttons for fast time manipulation.
   Need to be able to read which field is focused in order to utilize this functionality.
 <Typography

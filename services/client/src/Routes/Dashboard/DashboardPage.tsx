@@ -60,7 +60,7 @@ export const DashboardPage: React.FC<unknown> = () => {
           break;
       }
     },
-    [currentLocation, navigate],
+    [currentLocation, navigate, playSound],
   );
   return (
     <VLViewport

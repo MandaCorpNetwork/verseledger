@@ -51,7 +51,7 @@ export const QuestionForm: React.FC<{
         setFormData({ ...formData, [field]: e.target.value });
       }
     },
-    [setFormData, formData],
+    [isQuestionForm, setFormData, formData],
   );
 
   const handlePublicToggle = React.useCallback(
@@ -60,7 +60,7 @@ export const QuestionForm: React.FC<{
         setFormData({ ...formData, public: e.target.checked });
       }
     },
-    [setFormData, formData],
+    [isQuestionForm, setFormData, formData],
   );
 
   if (formData.type !== 'QUESTION') return null;

@@ -23,7 +23,7 @@ const VLWidgetComponent: React.FC<VLWidgetProps> = (props) => {
   const dispatch = useAppDispatch();
   const onCloseDefault = React.useCallback(() => {
     dispatch(closeWidget(name));
-  }, []);
+  }, [dispatch, name]);
   const widgetPosition = useAppSelector((state) => selectWidgetPosition(state, name));
 
   const widgetRef = React.useRef<HTMLDivElement | null>(null);

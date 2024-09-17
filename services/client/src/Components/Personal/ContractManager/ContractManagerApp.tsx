@@ -12,7 +12,7 @@ import {
   selectContractsArray,
 } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser';
-import { isMobile } from '@Utils/isMobile';
+import { useIsMobile } from '@Utils/isMobile';
 import { Logger } from '@Utils/Logger';
 import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
@@ -76,7 +76,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   // const { selectedContractId } = useParams();
   // HOOKS
   const dispatch = useAppDispatch();
-  const mobile = isMobile();
+  const mobile = useIsMobile();
   const theme = useTheme();
   const navigate = useNavigate();
   // const location = useLocation();
@@ -139,7 +139,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
       playSound('clickMain');
       overwriteURLQuery({ [QueryNames.ContractManagerTab]: newValue });
     },
-    [overwriteURLQuery],
+    [overwriteURLQuery, playSound],
   );
 
   /** Fetchs the Current User from `Auth` slice */
@@ -177,7 +177,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
       setSelectedId(id);
       playSound('open');
     },
-    [setSelectedId, navigate, playSound],
+    [mobile, playSound, navigate],
   );
 
   /**
@@ -227,7 +227,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         return [];
       }
     },
-    [dispatch, filters],
+    [dispatch, playSound],
   );
 
   /**
@@ -392,7 +392,15 @@ export const ContractManagerApp: React.FC<unknown> = () => {
       default:
         break;
     }
-  }, [filters, page, dispatch, handleFetchBids, handleFetchContracts, currentTab]);
+  }, [
+    filters,
+    page,
+    dispatch,
+    handleFetchBids,
+    handleFetchContracts,
+    currentTab,
+    userId,
+  ]);
 
   /** Selects the Contracts currently stored in the `Contracts` Slice */
   const contracts = useAppSelector((state) => selectContractsArray(state));

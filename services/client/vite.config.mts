@@ -4,16 +4,22 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { VitePWA, VitePWAOptions } from 'vite-plugin-pwa';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
-const appManifest: Partial<VitePWAOptions> = {};
+const PWA_OPTIONS: Partial<VitePWAOptions> = {
+  workbox: { maximumFileSizeToCacheInBytes: 5000000 },
+  strategies: 'injectManifest',
+  injectRegister: 'auto',
+  registerType: 'autoUpdate',
+  devOptions: { enabled: true, type: 'module' },
+  filename: 'sw.js',
+};
 
 export default defineConfig({
+  appType: 'spa',
   root: './src',
-  build: {
-    outDir: '../build',
-  },
+  build: { outDir: '../build' },
   plugins: [
     react({ tsDecorators: true }),
-    VitePWA(appManifest),
+    ...VitePWA(PWA_OPTIONS),
     tsconfigPaths(),
     nodePolyfills(),
   ],

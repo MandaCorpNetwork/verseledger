@@ -11,8 +11,8 @@ import {
   VolumeUp,
 } from '@mui/icons-material';
 import { Box, Button, IconButton, Slider, Typography, useTheme } from '@mui/material';
-import scrollSlider from '@Utils/Hooks/scrollSlider';
-import { isMobile } from '@Utils/isMobile';
+import useScrollSlider from '@Utils/Hooks/scrollSlider';
+import { useIsMobile } from '@Utils/isMobile';
 import React, { useRef } from 'react';
 
 import { useSoundEffect } from '@/AudioManager';
@@ -33,10 +33,10 @@ export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) 
     toggleMute,
   } = useRadioController();
   const sliderRef = useRef<HTMLDivElement>(null);
-  scrollSlider(sliderRef, (newValue) => setVolume(newValue), volume);
+  useScrollSlider(sliderRef, (newValue) => setVolume(newValue), volume);
   const { playSound } = useSoundEffect();
   const theme = useTheme();
-  const mobile = isMobile();
+  const mobile = useIsMobile();
 
   const handleVolumeChange = (_: Event, value: number | number[]) => {
     const newVolume = Array.isArray(value) ? value[0] : value;

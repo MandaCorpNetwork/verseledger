@@ -41,16 +41,19 @@ export const PlayerCardPopup: React.FC<PlayerCardPopupProps> = ({ userid }) => {
   /**
    * Navigates to user window and then closes the player card popup from previous window.
    */
-  const onProfileClick = React.useCallback((_event: React.SyntheticEvent) => {
-    dispatch(closePopup(POPUP_PLAYER_CARD));
-    navigate(`/user/${user?.id}`);
-  }, []);
+  const onProfileClick = React.useCallback(
+    (_event: React.SyntheticEvent) => {
+      dispatch(closePopup(POPUP_PLAYER_CARD));
+      navigate(`/user/${user?.id}`);
+    },
+    [dispatch, navigate, user?.id],
+  );
 
   const handleTabChange = React.useCallback(
     (_event: React.SyntheticEvent, newValue: string) => {
       setTabValue(newValue);
     },
-    [tabValue],
+    [],
   );
 
   return (

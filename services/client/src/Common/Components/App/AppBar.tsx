@@ -70,7 +70,7 @@ export const VLAppBar: React.FC<unknown> = () => {
     if (isLoggedIn) {
       dispatch(fetchUserSettings());
     }
-  }, [isLoggedIn]);
+  }, [dispatch, isLoggedIn]);
 
   const profilePopupState: PopupState = usePopupState({
     variant: 'popover',
@@ -126,13 +126,13 @@ export const VLAppBar: React.FC<unknown> = () => {
       setNotificationsOpen(true);
       setNotificationsAnchorEl(event.currentTarget);
     },
-    [setNotificationsOpen],
+    [playSound],
   );
   const notificationsOnClose = useCallback(() => {
     playSound('close');
     setNotificationsOpen(false);
     setNotificationsAnchorEl(null);
-  }, [setNotificationsOpen]);
+  }, [playSound]);
 
   const navigate = useNavigate();
   function handleLogoClick() {
@@ -143,7 +143,7 @@ export const VLAppBar: React.FC<unknown> = () => {
   useEffect(() => {
     if (currentUser == null) return;
     dispatch(fetchUnreadCount());
-  }, [currentUser?.id]);
+  }, [currentUser, dispatch]);
 
   const unreadCount = useAppSelector(selectNotificationsUnreadCount);
 
@@ -158,14 +158,14 @@ export const VLAppBar: React.FC<unknown> = () => {
       setLocationSelectOpen(true);
       setLocationSelectAnchorEl(event.currentTarget);
     },
-    [setLocationSelectOpen],
+    [playSound],
   );
 
   const locationSelectOnClose = useCallback(() => {
     playSound('close');
     setLocationSelectOpen(false);
     setLocationSelectAnchorEl(null);
-  }, [setLocationSelectOpen]);
+  }, [playSound]);
 
   const handleLocationSelect = React.useCallback(
     (location: ILocation | null) => {
@@ -174,7 +174,7 @@ export const VLAppBar: React.FC<unknown> = () => {
         dispatch(setUserLocation(location));
       }
     },
-    [dispatch],
+    [playSound, dispatch],
   );
 
   const handleLocationPopup = () => {
@@ -221,14 +221,7 @@ export const VLAppBar: React.FC<unknown> = () => {
                   color="inherit"
                   onClick={notificationsOnClick}
                 >
-                  <Badge
-                    badgeContent={
-                      <Typography variant="body2" sx={{ color: 'primary.contrastText' }}>
-                        {unreadCount}
-                      </Typography>
-                    }
-                    color="error"
-                  >
+                  <Badge badgeContent={unreadCount} color="error">
                     {notificationsOpen ? (
                       <NotificationsIcon />
                     ) : (

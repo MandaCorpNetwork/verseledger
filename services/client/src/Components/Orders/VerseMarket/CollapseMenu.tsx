@@ -14,7 +14,7 @@ import {
   ListItemText,
   Tooltip,
 } from '@mui/material';
-import { isMobile } from '@Utils/isMobile';
+import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -54,7 +54,7 @@ export const CollapseMenu: React.FC<unknown> = () => {
 
   // HOOKS
   const { playSound } = useSoundEffect();
-  const mobile = isMobile();
+  const mobile = useIsMobile();
   const navigate = useNavigate();
   const location = useLocation();
 

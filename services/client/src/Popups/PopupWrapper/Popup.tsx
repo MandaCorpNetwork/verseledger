@@ -60,7 +60,7 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
   const onCloseDefault = useCallback(() => {
     playSound('close');
     dispatch(closePopup(name));
-  }, []);
+  }, [dispatch, name, playSound]);
   return (
     <Dialog
       open={true}

@@ -32,10 +32,7 @@ export const LocationChip: React.FC<LocationChipProps> = (props) => {
   const { playSound } = useSoundEffect();
   const dispatch = useAppDispatch();
 
-  const location =
-    locationId !== ''
-      ? useAppSelector((state) => selectLocationById(state, locationId))
-      : null;
+  const location = useAppSelector((state) => selectLocationById(state, locationId));
 
   const handleLocationInfoPopup = () => {
     if (locationId !== '') {

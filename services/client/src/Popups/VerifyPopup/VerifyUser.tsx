@@ -41,7 +41,7 @@ export const VerifyUserPopup: React.FC = () => {
         setPopupState('validate');
       }
     });
-  }, []);
+  }, [dispatch]);
 
   const [rsiHandleInput, setRsiHandleInput] = useState('');
 
@@ -56,7 +56,7 @@ export const VerifyUserPopup: React.FC = () => {
         setPopupState('validate');
       }
     });
-  }, [rsiHandleInput]);
+  }, [dispatch, rsiHandleInput]);
 
   return (
     <VLPopup
