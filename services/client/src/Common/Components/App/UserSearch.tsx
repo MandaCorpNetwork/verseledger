@@ -12,6 +12,7 @@ import {
 import { TextFieldProps } from '@mui/material/TextField';
 import { useAppDispatch } from '@Redux/hooks';
 import { fetchSearchUsers } from '@Redux/Slices/Users/Actions/fetchSearchUsers';
+import { fetchSearchUserId } from '@Redux/Slices/Users/Actions/fetchUserById';
 import React from 'react';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
@@ -63,12 +64,21 @@ export const UserSearch: React.FC<UserSearchProps> = ({
     setLoading(false);
   };
 
+  const handleUserSelect = React.useCallback(
+    (user: User | null) => {
+      if (user == null) return;
+      dispatch(fetchSearchUserId({ userId: user.id, scope: ['profile'] }));
+      onUserSelect(user);
+    },
+    [dispatch, onUserSelect],
+  );
+
   return (
     <Box>
       <Autocomplete
         data-testid="UserSearch__invite-user-autocomplete"
         onChange={(_, newValue) => {
-          onUserSelect(newValue);
+          handleUserSelect(newValue);
         }}
         inputValue={inputValue}
         onInputChange={(_, newInputValue) => {

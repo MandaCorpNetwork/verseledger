@@ -7,7 +7,6 @@ import { TYPES } from '@Constant/types';
 import { BadParameterError } from '@V1/errors/BadParameter';
 import { BadRequestError } from '@V1/errors/BadRequest';
 import { NotFoundError } from '@V1/errors/NotFoundError';
-import { Contract } from '@V1/models/contract/contract.model';
 import { RatingService } from '@V1/models/user_ratings/rating.service';
 import { NextFunction } from 'express';
 import { inject } from 'inversify';
@@ -17,6 +16,7 @@ import {
   httpPost,
   next,
   requestBody,
+  requestParam,
 } from 'inversify-express-utils';
 import { ApiOperationPost, ApiPath } from 'swagger-express-ts';
 import {
@@ -25,6 +25,7 @@ import {
   ICreateContractRatingsBody,
   IUserRating,
 } from 'vl-shared/src/schemas/UserRatingsSchema';
+import { ContractService } from '../contract/contract.service';
 
 @ApiPath({
   path: '/v1/ratings',
@@ -35,6 +36,7 @@ import {
 export class RatingsController extends BaseHttpController {
   constructor(
     @inject(TYPES.RatingService) private ratingService: RatingService,
+    @inject(TYPES.ContractService) private contractService: ContractService,
   ) {
     super();
   }
@@ -62,24 +64,23 @@ export class RatingsController extends BaseHttpController {
   })
   @httpPost('/contract', TYPES.VerifiedUserMiddleware)
   private async createContractRatings(
+    @requestParam('contractId') contractId: string,
     @requestBody() body: ICreateContractRatingsBody,
     @next() nextFunc: NextFunction,
   ) {
     try {
-      if (!IdUtil.isValidId(body.contract_id)) {
+      if (!IdUtil.isValidId(contractId)) {
         Logger.error('Invalid Contract Id');
         throw nextFunc(
           new BadParameterError(
             'contractId',
-            `/contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/ratings`,
+            `/v1/contracts/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/ratings/contract`,
           ),
         );
       }
       const model = CreateContractRatingsBodySchema.parse(body);
       const submitter = this.httpContext.user as VLAuthPrincipal;
-      const contract = await Contract.scope(['owner', 'bids']).findByPk(
-        model.contract_id,
-      );
+      const contract = await this.contractService.getContract(contractId, ['owner']);
       if (contract == null) {
         Logger.error(`Contract(${model.contract_id}) not found`);
         throw nextFunc(
@@ -132,11 +133,7 @@ export class RatingsController extends BaseHttpController {
             ),
           );
         }
-        this.ratingService.checkRecentRating(
-          submitter.details.id,
-          contract.subtype,
-          rating.reciever_id,
-        );
+        Logger.info('Looking for recent ratings...');
         const ratingModel = CreateUserRatingBodySchema.strict().parse(rating);
         return ratingModel;
       });

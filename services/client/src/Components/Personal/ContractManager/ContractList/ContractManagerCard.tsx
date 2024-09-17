@@ -36,9 +36,9 @@ export const ContractManagerCard: React.FC<ContractManagerCardProps> = ({
   // LOGIC
 
   /** Handles the click on a button. Passes contractId to the setSelectedId function */
-  const handleClick = () => {
+  const handleClick = React.useCallback(() => {
     setSelectedId(contract.id);
-  };
+  }, [setSelectedId, contract.id]);
 
   /** Boolean to decide if this contract is selected */
   const isSelected = selectedId === contract.id;

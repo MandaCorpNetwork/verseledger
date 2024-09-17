@@ -47,7 +47,6 @@ export const SearchTools: React.FC = () => {
   // LOGIC
   /**
    * Handles the clickEvent that displays the SearchTools
-   * @fires setSearchToolsOpen - Sets the SearchTools to be displayed or not
    */
   const toggleSearchTools = React.useCallback(() => {
     setSearchToolsOpen(!searchToolsOpen);
@@ -55,7 +54,6 @@ export const SearchTools: React.FC = () => {
 
   /**
    * Handles the clickEvent that displays the {@link FilterList}
-   * @fires setFilterListOpen - Sets the FilterList collapse to render or not
    */
   const toggleFilterList = React.useCallback(() => {
     setFilterListOpen(!filterListOpen);

@@ -47,7 +47,7 @@ const bidsReducer = createSlice({
       .addCase(updateBid.fulfilled, (_state, action) => {
         const updatedBid = action.payload;
         if (updatedBid) {
-          _state.bids[updatedBid.id] = updatedBid;
+          _state.bids[updatedBid.id] = { ..._state.bids[updatedBid.id], ...updatedBid };
         } else {
           Logger.warn('Payload data is undefined or empty');
         }

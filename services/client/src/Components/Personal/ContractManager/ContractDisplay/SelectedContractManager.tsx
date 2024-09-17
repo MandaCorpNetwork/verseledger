@@ -161,7 +161,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
       (loc) => loc.ContractLocation !== undefined,
     );
     return validLocations as ILocationWithContractLocation[];
-  }, [memoizedContract]);
+  }, [memoizedContract.Locations]);
 
   const archetypes = contractArchetypes('secondary.main', 'large');
 

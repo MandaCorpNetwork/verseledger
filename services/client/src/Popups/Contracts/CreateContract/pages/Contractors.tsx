@@ -37,7 +37,7 @@ export const Contractors: React.FC<{
       ...formData,
       ratingLimit: undefined,
     }));
-  }, [setFormData]);
+  }, [setFormData, setRatingDisabled]);
 
   const handleUserInvite = React.useCallback(
     (selectedUser: User | null) => {
