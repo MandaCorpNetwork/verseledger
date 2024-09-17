@@ -6,6 +6,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 const PWA_OPTIONS: Partial<VitePWAOptions> = {
   workbox: { maximumFileSizeToCacheInBytes: 5000000 },
+  injectManifest: { maximumFileSizeToCacheInBytes: 5000000 },
   strategies: 'injectManifest',
   injectRegister: 'auto',
   registerType: 'autoUpdate',
