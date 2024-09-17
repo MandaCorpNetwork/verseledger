@@ -20,7 +20,7 @@ export const DeveloperSettings: React.FC<DeveloperSettingsProps> = ({ onClose })
   const tokens = useAppSelector(selectTokensArray);
   useEffect(() => {
     dispatch(fetchUserTokens());
-  }, []);
+  }, [dispatch]);
   const deleteToken = React.useCallback(
     (token_id: string) => {
       dispatch(deleteUserToken(token_id));

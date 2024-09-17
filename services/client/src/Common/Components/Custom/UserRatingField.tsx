@@ -34,7 +34,7 @@ export const UserRatingField: React.FC<UserRatingFieldProps> = ({
         [field]: value,
       } as ICreateUserRatingBody);
     },
-    [setFormData, user.id],
+    [contractId, formData, setFormData, user.id],
   );
 
   return (

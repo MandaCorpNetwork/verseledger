@@ -85,7 +85,7 @@ const PayDigiField: React.FC<PayLabelProps> = ({
     if (structure === 'HOURLY') {
       return <Typography variant={textSize}>/HR</Typography>;
     }
-  }, [structure]);
+  }, [structure, textSize]);
   const paySuffix = getPaySuffix();
 
   return (

@@ -182,7 +182,9 @@ export class ContractBidsService {
         },
       );
     } else {
-      const reciever = ownerNotif.has(bid.status) ? bid.User : contract.Owner ?? bid.User;
+      const reciever = ownerNotif.has(bid.status)
+        ? bid.User
+        : (contract.Owner ?? bid.User);
       this.notifications.createNotification(
         reciever.id,
         `@NOTIFICATION.MESSAGES.${message}`,

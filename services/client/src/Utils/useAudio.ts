@@ -44,7 +44,7 @@ export const useSound = (
         Logger.error(`SoundEffect: ${soundType} not found in`, currentSoundPack);
       }
     },
-    [howlsRef.current, currentSoundPack],
+    [currentSoundPack],
   );
 
   const switchSoundPack = React.useCallback(
@@ -56,7 +56,7 @@ export const useSound = (
         Logger.error(`SoundEffect: ${packName} not found`);
       }
     },
-    [soundEffectPacks, setCurrentSoundPack],
+    [setCurrentSoundPack],
   );
 
   return React.useMemo(

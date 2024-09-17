@@ -27,6 +27,6 @@ export const DiscordLoginUtility = () => {
         localStorage.removeItem('returnPath');
         navigate(newPath ?? '/');
       });
-  }, []);
+  }, [dispatch, navigate, searchParams]);
   return <></>;
 };

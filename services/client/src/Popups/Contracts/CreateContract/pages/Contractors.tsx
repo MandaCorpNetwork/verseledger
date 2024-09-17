@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
-import { isMobile } from '@Utils/isMobile';
+import { useIsMobile } from '@Utils/isMobile';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
@@ -27,8 +27,9 @@ export const Contractors: React.FC<{
   setInvites: React.Dispatch<React.SetStateAction<Array<User>>>;
 }> = (props) => {
   const { formData, setFormData, invites, setInvites } = props;
-  const mobile = isMobile();
+  const mobile = useIsMobile();
   const [ratingDisabled, setRatingDisabled] = React.useState(true);
+  const currentUser = useAppSelector(selectCurrentUser);
 
   const handleRatingToggle = React.useCallback(() => {
     setRatingDisabled((ratingDisabled) => !ratingDisabled);
@@ -36,7 +37,7 @@ export const Contractors: React.FC<{
       ...formData,
       ratingLimit: undefined,
     }));
-  }, [setRatingDisabled, ratingDisabled]);
+  }, [setFormData]);
 
   const handleUserInvite = React.useCallback(
     (selectedUser: User | null) => {
@@ -59,7 +60,7 @@ export const Contractors: React.FC<{
         setInvites((invites) => [...invites, selectedUser]);
       }
     },
-    [setInvites, invites],
+    [currentUser?.id, invites, setInvites],
   );
 
   const handleRemoveInvite = React.useCallback(
@@ -68,8 +69,6 @@ export const Contractors: React.FC<{
     },
     [setInvites],
   );
-
-  const currentUser = useAppSelector(selectCurrentUser);
 
   const handleMaxContractorInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const filteredValue = filterNumericInput(event.target.value);

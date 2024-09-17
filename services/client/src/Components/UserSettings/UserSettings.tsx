@@ -48,7 +48,7 @@ export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => 
   const { playSound } = useSoundEffect();
   const [selectedSetting, setSelectedSetting] =
     React.useState<settingsListItem>('Profile');
-  const [currentSetting, setCurrentSetting] = React.useState<string>('Profile');
+  const [_, setCurrentSetting] = React.useState<string>('Profile');
   const [transitioning, setTransitioning] = React.useState<boolean>(false);
 
   const settingsPageRender = React.useCallback(() => {
@@ -68,7 +68,7 @@ export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => 
       case 'Notifications':
         return <NotificationSettings />;
     }
-  }, [currentSetting]);
+  }, [onClose, selectedSetting]);
 
   const handleSettingSelection = React.useCallback(
     (setting: settingsListItem) => {
@@ -80,7 +80,7 @@ export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => 
         playSound('denied');
       }
     },
-    [selectedSetting],
+    [playSound, selectedSetting],
   );
 
   React.useEffect(() => {

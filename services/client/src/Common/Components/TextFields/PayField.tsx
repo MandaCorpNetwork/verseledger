@@ -51,7 +51,7 @@ export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
       if (errorColor) return 'error';
       return 'secondary';
     }
-  }, [maxLimit, structure, value]);
+  }, [errorColor, maxLimit, structure, value]);
 
   const color = getColor();
 
@@ -70,7 +70,7 @@ export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
         </Typography>
       );
     }
-  }, [structure]);
+  }, [color, structure]);
   const paySuffix = getPaySuffix();
   return (
     <Tooltip title={value} arrow>

@@ -47,7 +47,7 @@ export const NotificationsBox: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchNotifications(true));
-  }, []);
+  }, [dispatch]);
 
   return (
     <Card

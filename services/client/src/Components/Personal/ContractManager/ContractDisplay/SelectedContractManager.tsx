@@ -52,7 +52,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
 
   const memoizedContract = React.useMemo(() => {
     return contract;
-  }, [contractId]);
+  }, [contract]);
 
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -90,7 +90,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
         enqueueSnackbar('Clipboard API not supported', { variant: 'warning' });
       }
     },
-    [playSound, enqueueSnackbar],
+    [playSound],
   );
 
   const handleCopyURLCallback = React.useCallback(
@@ -127,7 +127,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
           return;
       }
     },
-    [contractManagerTab, memoizedContract],
+    [memoizedContract],
   );
 
   const handleTimeTab = React.useCallback(
@@ -135,7 +135,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
       playSound('clickMain');
       setTimeTab(value);
     },
-    [timeTab, playSound, setTimeTab],
+    [playSound, setTimeTab],
   );
 
   const renderTimePanel = React.useCallback(
@@ -149,7 +149,7 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
           return;
       }
     },
-    [timeTab, memoizedContract],
+    [memoizedContract],
   );
 
   const contractLocations = React.useCallback(() => {

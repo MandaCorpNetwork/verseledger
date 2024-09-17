@@ -81,12 +81,15 @@ export const MiniPlayerCard: React.FC<MiniPlayerCardProps> = (props) => {
       (option) => option.value === selectedUserImage,
     );
     return backgroundOption ? backgroundOption.url : userBackgroundOptions[0].url;
-  }, [userBackgroundOptions, selectedUserImage]);
+  }, [selectedUserImage]);
 
   /** Handles the Click of the User Profile Button to navigate to the UserPage */
-  const onProfileClick = React.useCallback((_event: React.SyntheticEvent) => {
-    navigate(`/user/${user?.id}`);
-  }, []);
+  const onProfileClick = React.useCallback(
+    (_event: React.SyntheticEvent) => {
+      navigate(`/user/${user?.id}`);
+    },
+    [navigate, user?.id],
+  );
 
   return (
     <>

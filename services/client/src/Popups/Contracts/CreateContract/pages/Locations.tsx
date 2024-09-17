@@ -3,7 +3,7 @@ import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { Box, FormControl, FormLabel, TextField, Typography } from '@mui/material';
-import { isMobile } from '@Utils/isMobile';
+import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
@@ -16,7 +16,7 @@ export const Locations: React.FC<{
   setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
   const { playSound } = useSoundEffect();
-  const mobile = isMobile();
+  const mobile = useIsMobile();
   const { formData, setFormData } = props;
 
   const handleAddStartLocation = React.useCallback(
@@ -40,7 +40,7 @@ export const Locations: React.FC<{
         };
       });
     },
-    [setFormData],
+    [playSound, setFormData],
   );
 
   const handleAddEndLocation = React.useCallback(
@@ -64,7 +64,7 @@ export const Locations: React.FC<{
         };
       });
     },
-    [setFormData],
+    [playSound, setFormData],
   );
 
   const handleAddOtherLocation = React.useCallback(
@@ -79,7 +79,7 @@ export const Locations: React.FC<{
         ],
       }));
     },
-    [setFormData],
+    [playSound, setFormData],
   );
 
   const handleRemoveLocation = React.useCallback(

@@ -91,7 +91,7 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
       Logger.info(`Form Data: ${formData}`);
       // setDisplayValue(inputValue.toLocaleString());
     },
-    [formData],
+    [formData, maxLimit, playSound, pool, setFormData],
   );
 
   const handlePayClear = () => {

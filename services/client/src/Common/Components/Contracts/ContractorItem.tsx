@@ -109,29 +109,26 @@ export const Contractor: React.FC<ContractorProps> = ({
     dispatch(openPopup(POPUP_COUNTER_OFFER_BID, { bid, contract }));
   };
 
-  const getBidStatusColor = React.useCallback(
-    (status: string) => {
-      switch (status) {
-        case 'PENDING':
-          return 'info';
-        case 'ACCEPTED':
-          return 'success';
-        case 'REJECTED':
-          return 'error';
-        case 'INVITED':
-          return 'secondary';
-        case 'DECLINED':
-          return 'warning';
-        case 'WITHDRAWN':
-          return 'warning';
-        case 'EXPIRED':
-          return 'primary';
-        default:
-          return 'secondary';
-      }
-    },
-    [contract],
-  );
+  const getBidStatusColor = React.useCallback((status: string) => {
+    switch (status) {
+      case 'PENDING':
+        return 'info';
+      case 'ACCEPTED':
+        return 'success';
+      case 'REJECTED':
+        return 'error';
+      case 'INVITED':
+        return 'secondary';
+      case 'DECLINED':
+        return 'warning';
+      case 'WITHDRAWN':
+        return 'warning';
+      case 'EXPIRED':
+        return 'primary';
+      default:
+        return 'secondary';
+    }
+  }, []);
 
   const bidStatusColor = getBidStatusColor(bid.status);
 
@@ -142,7 +139,7 @@ export const Contractor: React.FC<ContractorProps> = ({
     if (!userRatings || userRatings.length === 0) return 0;
     const ratingSum = userRatings.reduce((acc, rating) => acc + rating.rating_value, 0);
     return ratingSum / userRatings.length;
-  }, [contract]);
+  }, [contract, user.id]);
 
   const userRating = getUserRating();
 

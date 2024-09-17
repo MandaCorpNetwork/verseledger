@@ -1,5 +1,5 @@
 import { Box, TablePagination } from '@mui/material';
-import { isMobile } from '@Utils/isMobile';
+import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -26,7 +26,7 @@ export const ContractCardDisplay: React.FC<ContractCardDisplayProps> = ({
   onChangeRowsPerPage,
   totalContracts,
 }) => {
-  const mobile = isMobile();
+  const mobile = useIsMobile();
   return (
     <Box
       data-testid="Contract-Card__DisplayContainer"

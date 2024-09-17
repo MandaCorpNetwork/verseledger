@@ -60,7 +60,7 @@ export const RatingsFilter: React.FC<unknown> = () => {
     (newValue: number | number[], field: QueryNames) => {
       setFilter(field, newValue.toString());
     },
-    [setFilter, filter],
+    [setFilter],
   );
 
   return (

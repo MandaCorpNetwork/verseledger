@@ -19,7 +19,7 @@ import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
-import { isMobile } from '@Utils/isMobile';
+import { useIsMobile } from '@Utils/isMobile';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
@@ -43,7 +43,7 @@ export const ContractDetails: React.FC<{
 }> = (props) => {
   const { playSound } = useSoundEffect();
   const dispatch = useAppDispatch();
-  const mobile = isMobile();
+  const mobile = useIsMobile();
   const { formData, setFormData } = props;
   const [archetype, setArchetype] = React.useState<string | null>(null);
   const [filteredSubtypes, setFilteredSubtypes] = React.useState<string[]>(flatOptions);
@@ -70,7 +70,7 @@ export const ContractDetails: React.FC<{
         setFilteredSubtypes(filteredSubtypes);
       }
     },
-    [archetype, flatOptions, optionsMap, setArchetype, setFilteredSubtypes],
+    [archetype, playSound],
   );
 
   const handleArchetypeOpen = () => {
@@ -94,7 +94,7 @@ export const ContractDetails: React.FC<{
         setSelectedSubtype(newValue);
       }
     },
-    [setFormData, selectedSubtype, setSelectedSubtype, archetype, setArchetype, formData],
+    [setFormData, setSelectedSubtype, archetype, setArchetype],
   );
 
   const toggleEmergencyMode = React.useCallback(() => {
@@ -112,7 +112,7 @@ export const ContractDetails: React.FC<{
         endDate: undefined,
       });
     }
-  }, [formData, setFormData]);
+  }, [formData, playSound, setFormData]);
 
   const checkEmergencyAvailable = () => {
     if (

@@ -1,6 +1,6 @@
 import { RefObject, useEffect } from 'react';
 
-const scrollSlider = (
+const useScrollSlider = (
   sliderRef: RefObject<HTMLDivElement>,
   onChange: (value: number) => void,
   currentValue: number,
@@ -27,4 +27,4 @@ const scrollSlider = (
   }, [sliderRef, onChange, currentValue]);
 };
 
-export default scrollSlider;
+export default useScrollSlider;
