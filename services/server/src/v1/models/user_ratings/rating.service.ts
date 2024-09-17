@@ -42,7 +42,11 @@ export class RatingService {
     const createdRatings: UserRating[] = [];
     for (const r of ratings) {
       const tempRatingType = contract.subtype;
-      const recentRating = await this.checkRecentRating(submitter.id, contract.subtype, r.reciever_id);
+      const recentRating = await this.checkRecentRating(
+        submitter.id,
+        contract.subtype,
+        r.reciever_id,
+      );
       if (recentRating) continue;
       const newRating = await UserRating.create({
         ...r,

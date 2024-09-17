@@ -80,7 +80,9 @@ export class RatingsController extends BaseHttpController {
       }
       const model = CreateContractRatingsBodySchema.parse(body);
       const submitter = this.httpContext.user as VLAuthPrincipal;
-      const contract = await this.contractService.getContract(contractId, ['owner']);
+      const contract = await this.contractService.getContract(contractId, [
+        'owner',
+      ]);
       if (contract == null) {
         Logger.error(`Contract(${model.contract_id}) not found`);
         throw nextFunc(
