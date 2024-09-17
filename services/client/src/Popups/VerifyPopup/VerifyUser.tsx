@@ -7,6 +7,7 @@ import {
   FormControl,
   Link,
   TextField,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
@@ -124,15 +125,17 @@ export const VerifyUserPopup: React.FC = () => {
             Not You? Change RSI Handle
           </Button>
           <Typography sx={{ mt: '1em' }}>
-            Please add the following code to your{' '}
-            <Link
-              sx={{ color: 'text.secondary' }}
-              rel="noopener noreferrer"
-              href="https://robertsspaceindustries.com/account/profile"
-              target="_blank"
-            >
-              RSI Short Bio <OpenInNewIcon fontSize="small" sx={{ margin: 'auto' }} />
-            </Link>
+            Please add the code below to your{' '}
+            <Tooltip title="Click Me">
+              <Link
+                sx={{ color: 'text.secondary' }}
+                rel="noopener noreferrer"
+                href="https://robertsspaceindustries.com/account/profile"
+                target="_blank"
+              >
+                RSI Short Bio <OpenInNewIcon fontSize="small" sx={{ margin: 'auto' }} />
+              </Link>
+            </Tooltip>
             .
           </Typography>
           <Typography variant="subtitle2" color="text.disabled">
