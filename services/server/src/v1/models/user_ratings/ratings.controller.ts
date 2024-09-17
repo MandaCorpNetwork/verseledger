@@ -65,84 +65,93 @@ export class RatingsController extends BaseHttpController {
     @requestBody() body: ICreateContractRatingsBody,
     @next() nextFunc: NextFunction,
   ) {
-    if (!IdUtil.isValidId(body.contract_id)) {
-      Logger.error('Invalid Contract Id');
-      throw nextFunc(
-        new BadParameterError(
-          'contractId',
-          `/contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/ratings`,
-        ),
-      );
-    }
-    const model = CreateContractRatingsBodySchema.parse(body);
-    const submitter = this.httpContext.user as VLAuthPrincipal;
-    const contract = await Contract.scope(['owner', 'bids']).findByPk(
-      model.contract_id,
-    );
-    if (contract == null) {
-      Logger.error(`Contract(${model.contract_id}) not found`);
-      throw nextFunc(
-        new NotFoundError(`Contract(${model.contract_id}) not found`),
-      );
-    }
-    if (contract.status !== 'COMPLETED' && contract.status !== 'CANCELED') {
-      Logger.error(
-        `Contract(${model.contract_id}) is not completed or canceled`,
-      );
-      throw new BadRequestError(
-        'Ratings can only be submitted on closed contracts',
-        'invalid_status',
-      );
-    }
-    if (!model.ratings) {
-      this.ratingService.delayRatingContractors(submitter.id, contract);
-      if (contract.owner_id === submitter.id) {
-        this.ratingService.notifyContractorsToRate(contract);
-      }
-      return this.ok('Ratings submission delayed');
-    }
-    const validatedRatings = model.ratings.map((rating) => {
-      if (!IdUtil.isValidId(rating.reciever_id)) {
-        Logger.error(`Invalid Reciever ID: ${rating.reciever_id}`);
+    try {
+      if (!IdUtil.isValidId(body.contract_id)) {
+        Logger.error('Invalid Contract Id');
         throw nextFunc(
           new BadParameterError(
-            `reciever_id`,
-            `/contract(${contract.id})/rating(${IdUtil.expressRegex(IdUtil.IdPrefix.User)})`,
+            'contractId',
+            `/contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/ratings`,
           ),
         );
       }
-      if (submitter.details.id === rating.reciever_id) {
-        Logger.error(`Cannot rate self`);
+      const model = CreateContractRatingsBodySchema.parse(body);
+      const submitter = this.httpContext.user as VLAuthPrincipal;
+      const contract = await Contract.scope(['owner', 'bids']).findByPk(
+        model.contract_id,
+      );
+      if (contract == null) {
+        Logger.error(`Contract(${model.contract_id}) not found`);
+        throw nextFunc(
+          new NotFoundError(`Contract(${model.contract_id}) not found`),
+        );
+      }
+      if (contract.status !== 'COMPLETED' && contract.status !== 'CANCELED') {
+        Logger.error(
+          `Contract(${model.contract_id}) is not completed or canceled`,
+        );
         throw nextFunc(
           new BadRequestError(
-            'You can not rate yourself',
-            'resource_ownership',
+            'Ratings can only be submitted on closed contracts',
+            'invalid_status',
           ),
         );
       }
-      if (contract.id !== rating.contract_id) {
-        Logger.error(`Contract Id doesn't Match Provided`);
-        throw nextFunc(
-          new BadRequestError('Contract ID does not match', 'invalid_resource'),
-        );
+      if (!model.ratings) {
+        this.ratingService.delayRatingContractors(submitter.id, contract);
+        if (contract.owner_id === submitter.id) {
+          this.ratingService.notifyContractorsToRate(contract);
+        }
+        return this.ok('Ratings submission delayed');
       }
-      this.ratingService.checkRecentRating(
-        submitter.details.id,
-        contract.subtype,
-        rating.reciever_id,
+      const validatedRatings = model.ratings.map((rating) => {
+        if (!IdUtil.isValidId(rating.reciever_id)) {
+          Logger.error(`Invalid Reciever ID: ${rating.reciever_id}`);
+          throw nextFunc(
+            new BadParameterError(
+              `reciever_id`,
+              `/contract(${contract.id})/rating(${IdUtil.expressRegex(IdUtil.IdPrefix.User)})`,
+            ),
+          );
+        }
+        if (submitter.details.id === rating.reciever_id) {
+          Logger.error(`Cannot rate self`);
+          throw nextFunc(
+            new BadRequestError(
+              'You can not rate yourself',
+              'resource_ownership',
+            ),
+          );
+        }
+        if (contract.id !== rating.contract_id) {
+          Logger.error(`Contract Id doesn't Match Provided`);
+          throw nextFunc(
+            new BadRequestError(
+              'Contract ID does not match',
+              'invalid_resource',
+            ),
+          );
+        }
+        this.ratingService.checkRecentRating(
+          submitter.details.id,
+          contract.subtype,
+          rating.reciever_id,
+        );
+        const ratingModel = CreateUserRatingBodySchema.strict().parse(rating);
+        return ratingModel;
+      });
+      const newRatings = await this.ratingService.createContractRating(
+        contract,
+        submitter.details,
+        validatedRatings,
       );
-      const ratingModel = CreateUserRatingBodySchema.strict().parse(rating);
-      return ratingModel;
-    });
-    const newRatings = await this.ratingService.createContractRating(
-      contract,
-      submitter.details,
-      validatedRatings,
-    );
-    this.ratingService.notifyContractorsToRate(contract);
-    return this.created(
-      newRatings.map((r) => `/v1/ratings/${r.id}`).join(';'),
-      newRatings.map((r) => new RatingDTO(r as IUserRating)),
-    );
+      this.ratingService.notifyContractorsToRate(contract);
+      return this.created(
+        newRatings.map((r) => `/v1/ratings/${r.id}`).join(';'),
+        newRatings.map((r) => new RatingDTO(r as IUserRating)),
+      );
+    } catch (e) {
+      Logger.error(e);
+    }
   }
 }
