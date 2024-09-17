@@ -17,8 +17,8 @@ import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { useSoundEffect } from '@/AudioManager';
 
 type ContractorProps = {
-  bid: IContractBid;
-  user: IUser;
+  bid: IContractBid | null;
+  user: IUser | null;
   contractOwned: boolean;
   contract: IContract;
 };
@@ -32,8 +32,9 @@ export const Contractor: React.FC<ContractorProps> = ({
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
   // const closed = contract.status === 'COMPLETED' || contract.status === 'CANCELED';
-  const handleAccept = () => {
+  const handleAccept = React.useCallback(() => {
     const updatedBid = { status: 'ACCEPTED' as const };
+    if (bid == null) return;
     dispatch(
       updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
     ).then((res) => {
@@ -45,9 +46,11 @@ export const Contractor: React.FC<ContractorProps> = ({
         playSound('error');
       }
     });
-  };
-  const handleReject = () => {
+  }, [dispatch, playSound, bid]);
+
+  const handleReject = React.useCallback(() => {
     const updatedBid = { status: 'REJECTED' as const };
+    if (bid == null) return;
     dispatch(
       updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
     ).then((res) => {
@@ -59,9 +62,11 @@ export const Contractor: React.FC<ContractorProps> = ({
         playSound('error');
       }
     });
-  };
-  const handleDismiss = () => {
+  }, [bid, playSound, dispatch]);
+
+  const handleDismiss = React.useCallback(() => {
     const updatedBid = { status: 'DISMISSED' as const };
+    if (bid == null) return;
     dispatch(
       updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
     ).then((res) => {
@@ -73,10 +78,11 @@ export const Contractor: React.FC<ContractorProps> = ({
         playSound('error');
       }
     });
-  };
+  }, [bid, dispatch, playSound]);
 
-  const handleInvite = () => {
+  const handleInvite = React.useCallback(() => {
     const updatedBid = { status: 'INVITED' as const };
+    if (bid == null) return;
     dispatch(
       updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
     ).then((res) => {
@@ -88,10 +94,12 @@ export const Contractor: React.FC<ContractorProps> = ({
         playSound('error');
       }
     });
-  };
+  }, [bid, dispatch, playSound]);
 
-  const handleCancelInvite = () => {
+  const handleCancelInvite = React.useCallback(() => {
     const updatedBid = { status: 'EXPIRED' as const };
+    if (bid == null) return;
+    console.log(bid);
     dispatch(
       updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
     ).then((res) => {
@@ -103,13 +111,13 @@ export const Contractor: React.FC<ContractorProps> = ({
         playSound('error');
       }
     });
-  };
+  }, [bid, playSound, dispatch]);
 
-  const handleOpenOffer = () => {
+  const handleOpenOffer = React.useCallback(() => {
     dispatch(openPopup(POPUP_COUNTER_OFFER_BID, { bid, contract }));
-  };
+  }, [dispatch, bid, contract]);
 
-  const getBidStatusColor = React.useCallback((status: string) => {
+  const getBidStatusColor = React.useCallback((status: string | null) => {
     switch (status) {
       case 'PENDING':
         return 'info';
@@ -130,23 +138,27 @@ export const Contractor: React.FC<ContractorProps> = ({
     }
   }, []);
 
-  const bidStatusColor = getBidStatusColor(bid.status);
+  const bidStatusColor = bid ? getBidStatusColor(bid.status) : 'secondary';
 
   const getUserRating = React.useCallback(() => {
+    if (user == null) return;
     const userRatings = contract.Ratings?.filter(
       (rating) => rating.reciever_id === user.id,
     );
     if (!userRatings || userRatings.length === 0) return 0;
     const ratingSum = userRatings.reduce((acc, rating) => acc + rating.rating_value, 0);
     return ratingSum / userRatings.length;
-  }, [contract, user.id]);
+  }, [contract, user?.id]);
 
   const userRating = getUserRating();
 
   const isEnded = contract.status === 'CANCELED' || contract.status === 'COMPLETED';
 
   const hasAccepted =
-    bid.status === 'ACCEPTED' || bid.status === 'DISMISSED' || bid.status === 'WITHDRAWN';
+    bid &&
+    (bid.status === 'ACCEPTED' ||
+      bid.status === 'DISMISSED' ||
+      bid.status === 'WITHDRAWN');
 
   return (
     <ControlPanelBox
@@ -165,13 +177,15 @@ export const Contractor: React.FC<ContractorProps> = ({
         },
       }}
     >
-      <UserChip
-        user={user}
-        size="medium"
-        color={bidStatusColor}
-        sx={{ maxWidth: '125px' }}
-      />
-      {(bid.status === 'PENDING' || bid.status === 'INVITED') &&
+      {user && (
+        <UserChip
+          user={user}
+          size="medium"
+          color={bidStatusColor}
+          sx={{ maxWidth: '125px' }}
+        />
+      )}
+      {(bid?.status === 'PENDING' || bid?.status === 'INVITED') &&
         bid.amount !== contract.defaultPay && (
           <PayDisplay
             label="Current Offer"
@@ -180,7 +194,7 @@ export const Contractor: React.FC<ContractorProps> = ({
             sx={{ width: '120px' }}
           />
         )}
-      {bid.status === 'ACCEPTED' && (
+      {bid?.status === 'ACCEPTED' && (
         <Typography
           variant={contractOwned ? 'body2' : 'overline'}
           sx={{ color: 'success.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
@@ -188,7 +202,7 @@ export const Contractor: React.FC<ContractorProps> = ({
           Active
         </Typography>
       )}
-      {bid.status === 'EXPIRED' && (
+      {bid?.status === 'EXPIRED' && (
         <Typography
           variant="overline"
           sx={{ color: 'warning.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
@@ -196,7 +210,7 @@ export const Contractor: React.FC<ContractorProps> = ({
           Cancled Bid
         </Typography>
       )}
-      {bid.status === 'WITHDRAWN' && (
+      {bid?.status === 'WITHDRAWN' && (
         <Typography
           variant="overline"
           sx={{ color: 'error.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
@@ -204,7 +218,7 @@ export const Contractor: React.FC<ContractorProps> = ({
           Withdrawn Contractor
         </Typography>
       )}
-      {bid.status === 'INVITED' && bid.amount === contract.defaultPay && (
+      {bid?.status === 'INVITED' && bid?.amount === contract.defaultPay && (
         <Typography
           variant="overline"
           sx={{ color: 'secondary.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
@@ -212,7 +226,7 @@ export const Contractor: React.FC<ContractorProps> = ({
           Invited Contractor
         </Typography>
       )}
-      {bid.status === 'INVITED' && bid.amount !== contract.defaultPay && (
+      {bid?.status === 'INVITED' && bid?.amount !== contract.defaultPay && (
         <Typography
           variant="overline"
           sx={{ color: 'info.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
@@ -220,7 +234,7 @@ export const Contractor: React.FC<ContractorProps> = ({
           {contractOwned ? 'Counter Offer Sent' : 'Counter Recieved'}
         </Typography>
       )}
-      {bid.status === 'DISMISSED' && (
+      {bid?.status === 'DISMISSED' && (
         <Typography
           variant="overline"
           sx={{ color: 'error.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
@@ -229,8 +243,8 @@ export const Contractor: React.FC<ContractorProps> = ({
         </Typography>
       )}
       {contractOwned &&
-        bid.status === 'PENDING' &&
-        bid.amount === contract.defaultPay && (
+        bid?.status === 'PENDING' &&
+        bid?.amount === contract.defaultPay && (
           <Typography
             variant="overline"
             sx={{ color: 'warning.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
@@ -239,8 +253,8 @@ export const Contractor: React.FC<ContractorProps> = ({
           </Typography>
         )}
       {contractOwned &&
-        bid.status === 'PENDING' &&
-        bid.amount !== contract.defaultPay && (
+        bid?.status === 'PENDING' &&
+        bid?.amount !== contract.defaultPay && (
           <Typography
             variant="overline"
             sx={{ color: 'warning.main', textShadow: '0 0 5px rgba(0,0,0,.7)' }}
@@ -249,8 +263,8 @@ export const Contractor: React.FC<ContractorProps> = ({
           </Typography>
         )}
       {contractOwned &&
-        bid.status === 'PENDING' &&
-        bid.amount === contract.defaultPay &&
+        bid?.status === 'PENDING' &&
+        bid?.amount === contract.defaultPay &&
         !isEnded && (
           <Box data-testid="ContractorsTab-ContractorList-Contractor__BidControlButtonWrapper">
             <Button
@@ -273,8 +287,8 @@ export const Contractor: React.FC<ContractorProps> = ({
           </Box>
         )}
       {contractOwned &&
-        bid.status === 'PENDING' &&
-        bid.amount !== contract.defaultPay &&
+        bid?.status === 'PENDING' &&
+        bid?.amount !== contract.defaultPay &&
         !isEnded && (
           <Box data-testid="ContractorsTab-ContractorList-Contractor-BidControls__OpenOfferButton_Wrapper">
             <Button
@@ -286,7 +300,7 @@ export const Contractor: React.FC<ContractorProps> = ({
             </Button>
           </Box>
         )}
-      {bid.status === 'ACCEPTED' && (
+      {bid?.status === 'ACCEPTED' && (
         <Box
           data-testid="ContractorsTab-ContractorList-Contractor-AcceptedControls__PayLabelWrapper"
           sx={{
@@ -313,7 +327,7 @@ export const Contractor: React.FC<ContractorProps> = ({
           />
         </Box>
       )}
-      {contractOwned && bid.status === 'ACCEPTED' && !isEnded && (
+      {contractOwned && bid?.status === 'ACCEPTED' && !isEnded && (
         <Box
           data-testid="ContractorsTab-ContractorList-Contractor__AcceptedControlsWrapper"
           sx={{
@@ -333,7 +347,7 @@ export const Contractor: React.FC<ContractorProps> = ({
           </Button>
         </Box>
       )}
-      {contractOwned && bid.status === 'REJECTED' && (
+      {contractOwned && bid?.status === 'REJECTED' && (
         <Typography
           data-testid="ContractorsTab-ContractorList-Contractor-BidControl__RejectedBidStatus"
           variant="body2"
@@ -347,20 +361,20 @@ export const Contractor: React.FC<ContractorProps> = ({
         </Typography>
       )}
       {contractOwned &&
-        (bid.status === 'REJECTED' ||
-          bid.status === 'DISMISSED' ||
-          bid.status === 'WITHDRAWN') &&
+        (bid?.status === 'REJECTED' ||
+          bid?.status === 'DISMISSED' ||
+          bid?.status === 'WITHDRAWN') &&
         !isEnded && (
           <Button color="warning" onClick={handleInvite}>
             Reinvite Contractor
           </Button>
         )}
-      {contractOwned && bid.status === 'DECLINED' && (
+      {contractOwned && bid?.status === 'DECLINED' && (
         <Typography variant="overline" sx={{ color: 'warning.main' }}>
           Declined Invitation
         </Typography>
       )}
-      {contractOwned && bid.status === 'INVITED' && !isEnded && (
+      {contractOwned && bid?.status === 'INVITED' && !isEnded && (
         <Button color="warning" variant="text" onClick={handleCancelInvite}>
           Cancel Invite
         </Button>
