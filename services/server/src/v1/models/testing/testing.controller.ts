@@ -33,15 +33,16 @@ export class TestingnController extends BaseHttpController {
 
   @httpPost('/users/unverified')
   async createUnverifiedUser() {
-    return this.userService.findOrCreateUserByDiscord('0');
+    return this.userService.findOrCreateUser('0', 'DISCORD');
   }
   @httpPost('/users/verified')
   async createVerifiedUser(
     @queryParam('name') name: string = 'Verified User',
     @queryParam('id') id: number = 1,
   ) {
-    const { user } = await this.userService.findOrCreateUserByDiscord(
+    const { user } = await this.userService.findOrCreateUser(
       id.toString(),
+      'DISCORD',
     );
     if (user.verified == false) {
       user.verified = true;

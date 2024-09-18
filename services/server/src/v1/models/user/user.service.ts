@@ -8,6 +8,7 @@ import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
 import { IContractBidStatus } from 'vl-shared/src/schemas/ContractBidStatusSchema';
 import { optionalSet, queryIn } from '@/utils/Sequelize/queryIn';
+import { UserAuth } from '../auth/user_auth.model';
 
 @injectable()
 export class UserService {
@@ -53,25 +54,28 @@ export class UserService {
     return { ...bids, count };
   }
 
-  public async findOrCreateUserByDiscord(
+  public async findOrCreateUser(
     id: string,
+    type: UserAuth['type'],
     handle?: string,
     pfp?: string,
   ) {
-    const user = await User.scope('discord').findOne({
-      where: { discord_id: id },
+    const auth = await UserAuth.findOne({
+      where: {
+        identifier: id,
+        type,
+      },
     });
-    if (user == null) {
-      return {
-        newUser: true,
-        user: await User.scope('discord').create({
-          discord_id: id,
-          pfp,
-          handle,
-        }),
-      };
+    if (auth) {
+      return { newUser: false, user: await auth.getUser() };
+    } else {
+      const user = await User.create({
+        pfp,
+        handle,
+      });
+      await UserAuth.create({ identifier: id, type, user_id: user.id });
+      return { newUser: true, user };
     }
-    return { newUser: false, user };
   }
 
   public async updateUser(id: string, data: Partial<IUser>) {

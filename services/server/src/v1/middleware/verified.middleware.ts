@@ -12,13 +12,12 @@ export class VerifiedUserMiddleware extends BaseMiddleware {
     next: NextFunction,
   ): Promise<void> {
     const user = this.httpContext.user as VLAuthPrincipal;
-    if (!(await user.isAuthenticated())) {
-      return next(new UnauthorizedError());
-    }
-    const isVerified =
-      (await User.findByPk(user.id, { attributes: ['verified'] }))?.verified ??
-      false;
-    if (!isVerified) return next(new NotVerifiedError());
-    next();
+    user.isAuthenticated().then((authenticated) => {
+      if (!authenticated) return next(new UnauthorizedError());
+      User.findByPk(user.id, { attributes: ['verified'] }).then((user) => {
+        if (user?.verified) return next();
+        return next(new NotVerifiedError());
+      });
+    });
   }
 }

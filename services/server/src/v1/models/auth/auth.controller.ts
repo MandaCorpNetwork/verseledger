@@ -210,7 +210,7 @@ export class AuthController extends BaseHttpController {
             return user as { id: string; username: string; avatar: string };
           });
       });
-    const dbUser = await this.userService.findOrCreateUserByDiscord(user.id);
+    const dbUser = await this.userService.findOrCreateUser(user.id, 'DISCORD');
     if (dbUser.newUser) {
       await this.notificationsService.createNotification(
         dbUser.user.getDataValue('id'),

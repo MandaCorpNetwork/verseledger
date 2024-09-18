@@ -100,10 +100,7 @@ export class UsersController extends BaseHttpController {
   @httpGet('/@me', TYPES.AuthMiddleware)
   public async getSelf() {
     const principal = this.httpContext.user as VLAuthPrincipal;
-    const user = await this.userService.getUser(principal.id, [
-      'discord',
-      'settings',
-    ]);
+    const user = await this.userService.getUser(principal.id, ['settings']);
     if (user == null) return this.notFound();
     return UserToUserDTOMapper.map(user);
   }

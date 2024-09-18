@@ -47,6 +47,7 @@
     "csv-parse": "5.5.6",
     "dotenv": "16.4.5",
     "express": "4.21.0",
+    "googleapis": "^144.0.0",
     "inversify": "6.0.2",
     "inversify-express-utils": "6.4.6",
     "jsonwebtoken": "9.0.2",
