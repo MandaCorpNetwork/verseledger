@@ -2,7 +2,6 @@ import {
   Column,
   DataType,
   Default,
-  DefaultScope,
   HasMany,
   Model,
   PrimaryKey,
@@ -27,22 +26,16 @@ import {
   HasManyRemoveAssociationMixin,
   HasManyRemoveAssociationsMixin,
   HasManySetAssociationsMixin,
+  NonAttribute,
 } from 'sequelize';
 import { Notification } from '../notifications/notification.model';
-@DefaultScope(() => ({
-  attributes: {
-    exclude: ['discord_id'],
-  },
-}))
+import { UserAuth } from '../auth/user_auth.model';
 @Scopes(() => ({
   bids: {
     include: [{ model: ContractBid, as: 'PostedBids' }],
   },
   bidsWithContracts: {
     include: [{ model: ContractBid, as: 'PostedBids', include: [Contract] }],
-  },
-  discord: {
-    attributes: { include: ['discord_id'] },
   },
   contracts: {
     include: [{ model: Contract, as: 'PostedContracts' }],
@@ -71,9 +64,6 @@ export class User extends Model implements IUser {
   @Default(IdUtil.generateUserID)
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare readonly id: CreationOptional<string>;
-
-  @Column({ type: DataType.STRING(20) })
-  declare discord_id: CreationOptional<string | null>;
 
   @Default(IdUtil.generateSystemID)
   @Column({ type: DataType.STRING(32) })
@@ -107,6 +97,11 @@ export class User extends Model implements IUser {
 
   @HasMany(() => UserSettings, 'user_id')
   declare Settings: CreationOptional<Awaited<UserSettings[]>>;
+
+  @HasMany(() => UserAuth, `user_id`)
+  declare Auth?: NonAttribute<Awaited<UserAuth[]>>;
+  declare createAuth: HasManyCreateAssociationMixin<Awaited<UserAuth>>;
+  declare hasAuth: HasManyHasAssociationMixin<Awaited<UserAuth>, string>;
 
   @HasMany(() => Notification, 'user_id')
   declare Notifications: CreationOptional<Awaited<Notification[]>>;

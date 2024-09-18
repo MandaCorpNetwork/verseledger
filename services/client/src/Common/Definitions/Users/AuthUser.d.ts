@@ -1,6 +1,5 @@
 type AuthUser = {
   id: string;
-  discord_id: string;
   displayName: string;
   verified: boolean;
   handle: string;
