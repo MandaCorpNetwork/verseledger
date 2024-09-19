@@ -19,6 +19,7 @@ import {
 import { Box } from '@mui/system';
 import { POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
 import { POPUP_LOCATION_INFO } from '@Popups/Info/Locations';
+import { POPUP_LOGIN } from '@Popups/Login/LoginPopup';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { fetchUserSettings } from '@Redux/Slices/Auth/Actions/fetchUserSettings';
 import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation';
@@ -44,7 +45,6 @@ import {
   selectUserLocation,
 } from '@/Redux/Slices/Auth/authSelectors';
 import { AuthUtil } from '@/Utils/AuthUtil';
-import { URLUtil } from '@/Utils/URLUtil';
 
 import { UserSettings } from '../../../Components/UserSettings/UserSettings';
 import { LocationSearch } from './LocationSearch';
@@ -244,10 +244,7 @@ export const VLAppBar: React.FC<unknown> = () => {
             ) : (
               <Button
                 onClick={() => {
-                  const loginURL = `https://discord.com/oauth2/authorize?client_id=1160393986440179823&response_type=code&redirect_uri=${encodeURIComponent(URLUtil.frontendHost)}%2Foauth%2Fdiscord%2Fcallback&scope=identify+openid`;
-                  localStorage.setItem('returnPath', window.location.pathname);
-                  playSound('navigate');
-                  window.location = loginURL as unknown as Location;
+                  dispatch(openPopup(POPUP_LOGIN));
                 }}
                 color="secondary"
               >

@@ -2,14 +2,32 @@ export const envConfig = {
   DISCORD_CLIENT_ID: {
     type: 'string',
     description: 'https://discord.com/developers/applications',
-    optional: false,
+    optional: true,
     default: null,
   },
   DISCORD_CLIENT_SECRET: {
     type: 'string',
     description: 'https://discord.com/developers/applications',
-    optional: false,
+    optional: true,
     default: null,
+  },
+  GOOGLE_CLIENT_ID: {
+    type: 'string',
+    description: '',
+    optional: true,
+    default: null,
+  },
+  GOOGLE_CLIENT_SECRET: {
+    type: 'string',
+    description: '',
+    optional: true,
+    default: null,
+  },
+  FRONTEND_HOST: {
+    type: 'string',
+    description: 'https://discord.com/developers/applications',
+    optional: true,
+    default: 'http://localhost:3000',
   },
   MYSQL_DATABASE: {
     type: 'string',

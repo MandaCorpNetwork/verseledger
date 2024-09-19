@@ -1,10 +1,10 @@
 import Error from '@Assets/media/error.gif';
 import { Box, Button, Typography } from '@mui/material';
+import { POPUP_LOGIN } from '@Popups/Login/LoginPopup';
 import { POPUP_VERIFY_USER } from '@Popups/VerifyPopup/VerifyUser';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { URLUtil } from '@Utils/URLUtil';
 import React, { PropsWithChildren } from 'react';
 
 type SecureRouteProps = {
@@ -70,9 +70,7 @@ export const SecureRoute: React.FC<PropsWithChildren<SecureRouteProps>> = (props
                 ) : (
                   <Button
                     onClick={() => {
-                      const loginURL = `https://discord.com/oauth2/authorize?client_id=1160393986440179823&response_type=code&redirect_uri=${encodeURIComponent(URLUtil.frontendHost)}%2Foauth%2Fdiscord%2Fcallback&scope=identify+openid`;
-                      localStorage.setItem('returnPath', window.location.pathname);
-                      window.location = loginURL as unknown as Location;
+                      dispatch(openPopup(POPUP_LOGIN));
                     }}
                     color="secondary"
                   >

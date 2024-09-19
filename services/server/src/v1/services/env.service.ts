@@ -10,6 +10,11 @@ export class EnvService implements EnvironmentConfig {
   public DISCORD_CLIENT_ID!: string;
   public DISCORD_CLIENT_SECRET!: string;
 
+  public GOOGLE_CLIENT_ID!: string;
+  public GOOGLE_CLIENT_SECRET!: string;
+
+  public FRONTEND_HOST!: string;
+
   public PALLY_WS!: string;
   public PALLY_CHANNEL!: string;
 

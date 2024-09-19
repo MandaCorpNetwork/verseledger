@@ -1,3 +1,5 @@
+import { DiscordLoginUtility } from '@Utils/discordLoginUtility';
+import { GoogleLoginUtility } from '@Utils/GoogleLoginUtility';
 import { Outlet, RouteObject } from 'react-router-dom';
 
 import { Marketplace } from '@/Components/Orders/VerseMarket/Marketplace/Marketplace';
@@ -9,7 +11,6 @@ import { InventoryApp } from '@/Components/Personal/Inventory/InventoryApp';
 import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
 import { RouteApp } from '@/Components/Personal/Routes/RouteApp';
 import { PopupManager } from '@/PopupManager';
-import { DiscordLoginUtility } from '@/Utils/discordLoginUtility';
 import { WidgetManager } from '@/WidgetManager';
 
 import { VLAppBar } from '../Common/Components/App/AppBar';
@@ -44,6 +45,10 @@ export const routingInfo: RouteObject[] = [
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: '/oauth/google/callback',
+        element: <GoogleLoginUtility />,
       },
       {
         path: '/oauth/discord/callback',
