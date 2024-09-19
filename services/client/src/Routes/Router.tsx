@@ -1,4 +1,4 @@
-import { DiscordLoginUtility } from '@Utils/DiscordLoginUtility';
+import { DiscordLoginUtility } from '@Utils/discordLoginUtility';
 import { GoogleLoginUtility } from '@Utils/GoogleLoginUtility';
 import { Outlet, RouteObject } from 'react-router-dom';
 
