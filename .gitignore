@@ -10,4 +10,4 @@ dist
 **/cypress/screenshots/
 services/client/src/CrownsScratch.scratch
 *.log
-dev-dist/
+services/client/src/dev-dist
