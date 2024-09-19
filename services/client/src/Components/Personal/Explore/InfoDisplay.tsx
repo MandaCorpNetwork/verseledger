@@ -1,11 +1,22 @@
+import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { ReadOnlyField } from '@Common/Components/TextFields/ReadOnlyField';
-import { Box, Divider, TextField, Typography } from '@mui/material';
+import { Box, Chip, Divider, TextField, Typography } from '@mui/material';
 import { SparkLineChart } from '@mui/x-charts';
+import { isDev } from '@Utils/isDev';
+import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
-export const InfoDisplay: React.FC = () => {
+type InfoDisplayProps = {
+  selectedLocation: ILocation | null;
+  currentLocation: ILocation | null;
+};
+export const InfoDisplay: React.FC<InfoDisplayProps> = ({
+  selectedLocation,
+  currentLocation,
+}) => {
+  const dev = isDev();
   return (
     <GlassDisplay
       data-testid="ExploreApp__Information_Wrapper"
@@ -13,16 +24,20 @@ export const InfoDisplay: React.FC = () => {
     >
       <DigiDisplay
         data-testid="ExploreApp-Information__Title_Wrapper"
-        sx={{ px: '1em', py: '.2em' }}
+        sx={{ px: '1em', py: '.2em', flexDirection: 'row', gap: '1em' }}
       >
         <Typography data-testid="ExploreApp-Information__Title" variant="h6">
-          Location Name
+          {selectedLocation?.waypoint_name}
         </Typography>
+        {selectedLocation?.id == currentLocation?.id && (
+          <Chip label="Current Location" variant="filled" color="info" />
+        )}
       </DigiDisplay>
       <DigiBox
         data-testid="ExploreApp-Information__Time_Wrapper"
         sx={{ flexDirection: 'row' }}
       >
+        {!dev && <InDevOverlay />}
         <ReadOnlyField label="Local Time" />
         <ReadOnlyField label="StarRise Time" />
         <ReadOnlyField label="StarSet Time" />
@@ -38,6 +53,7 @@ export const InfoDisplay: React.FC = () => {
           gap: '1em',
         }}
       >
+        {!dev && <InDevOverlay />}
         <DigiDisplay
           data-testid="ExploreApp-Information-Parent&Population__Parents_Wrapper"
           sx={{ px: '.5em', justifyContent: 'flex-start' }}
@@ -100,6 +116,7 @@ export const InfoDisplay: React.FC = () => {
         data-testid="ExploreApp-Information__Data_Container"
         sx={{ width: '100%', px: '.5em', alignItems: 'center', py: '.5em' }}
       >
+        {!dev && <InDevOverlay />}
         <Typography data-testid="ExploreApp-Information__Data_Title" variant="overline">
           Location Description & Lore
         </Typography>

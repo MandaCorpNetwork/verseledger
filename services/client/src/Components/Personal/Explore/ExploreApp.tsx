@@ -1,31 +1,30 @@
 import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import { LocationSearch } from '@Common/Components/App/LocationSearch';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import { ReadOnlyField } from '@Common/Components/TextFields/ReadOnlyField';
-import { Box, Button, Divider, TextField, Typography } from '@mui/material';
-import { Gauge, SparkLineChart } from '@mui/x-charts';
+import { Box, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
+import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
 import { selectLocationById } from '@Redux/Slices/Locations/locationSelectors';
 import { isDev } from '@Utils/isDev';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-import { InfoDisplay } from './InfoDisplay';
-import { ExploreMap } from './ExplorerMap';
+
 import { ExploreController } from './ExploreController';
+import { ExploreMap } from './ExplorerMap';
+import { InfoDisplay } from './InfoDisplay';
 
 export const ExploreApp: React.FC<unknown> = () => {
   const { selectedLocationId } = useParams();
+  const dev = isDev();
+  const navigate = useNavigate();
+  const currentLocation = useAppSelector(selectUserLocation);
   const selectedLocation = useAppSelector((state) => {
     if (selectedLocationId) {
       return selectLocationById(state, selectedLocationId);
     }
   });
-  const dev = isDev();
-  const navigate = useNavigate();
   const handleLocationSelect = React.useCallback(
     (location: ILocation | null) => {
       if (location != null) {
@@ -46,18 +45,39 @@ export const ExploreApp: React.FC<unknown> = () => {
         gap: '1em',
       }}
     >
-      {!dev && <InDevOverlay supportButton={true} />}
       <GlassBox
         data-testid="ExploreApp__Information_Container"
         sx={{
           height: '100%',
-          maxWidth: '35%',
+          width: '35%',
           gap: '1em',
           p: '1em',
         }}
       >
         <LocationSearch onLocationSelect={handleLocationSelect} />
-        <InfoDisplay />
+        {selectedLocationId ? (
+          <InfoDisplay
+            selectedLocation={selectedLocation ?? null}
+            currentLocation={currentLocation}
+          />
+        ) : (
+          <GlassDisplay
+            data-testid="ExploreApp-Information__NoLocation_Wrapper"
+            sx={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}
+          >
+            <Typography
+              data-testid="ExploreApp-Information__NoLocation_Title"
+              variant="h5"
+              sx={{
+                letterSpacing: '2px',
+                color: 'grey',
+                textShadow: '0 3px 6px rgb(0,0,0)',
+              }}
+            >
+              No Selected Location
+            </Typography>
+          </GlassDisplay>
+        )}
       </GlassBox>
       <GlassBox
         data-testid="ExploreApp__Explorer_Container"
@@ -69,6 +89,7 @@ export const ExploreApp: React.FC<unknown> = () => {
           alignItems: 'center',
         }}
       >
+        {!dev && <InDevOverlay supportButton={true} />}
         <ExploreMap />
         <ExploreController />
       </GlassBox>
