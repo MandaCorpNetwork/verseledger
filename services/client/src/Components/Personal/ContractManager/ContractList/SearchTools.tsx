@@ -40,7 +40,7 @@ export const SearchTools: React.FC = () => {
   /**
    * ReadOnly state of Filters from useURLQuery Hook
    */
-  const [filters] = useURLQuery();
+  const { searchParams } = useURLQuery();
   // HOOKS
   const theme = useTheme();
 
@@ -64,17 +64,17 @@ export const SearchTools: React.FC = () => {
    * @returns {number}
    */
   const getFilterCount = React.useCallback(() => {
-    const subtypes = filters.getAll(QueryNames.Subtype);
-    const bidDateBefore = filters.has(QueryNames.BidBefore) ? 1 : 0;
-    const bidDateAfter = filters.has(QueryNames.BidAfter) ? 1 : 0;
-    const startDateBefore = filters.has(QueryNames.StartBefore) ? 1 : 0;
-    const startDateAfter = filters.has(QueryNames.StartAfter) ? 1 : 0;
-    const endDateBefore = filters.has(QueryNames.EndBefore) ? 1 : 0;
-    const endDateAfter = filters.has(QueryNames.EndAfter) ? 1 : 0;
-    const duration = filters.has(QueryNames.Duration) ? 1 : 0;
-    const payStructure = filters.has(QueryNames.PayStructure) ? 1 : 0;
-    const payMin = filters.has(QueryNames.UECRangeMin) ? 1 : 0;
-    const payMax = filters.has(QueryNames.UECRangeMax) ? 1 : 0;
+    const subtypes = searchParams.getAll(QueryNames.Subtype);
+    const bidDateBefore = searchParams.has(QueryNames.BidBefore) ? 1 : 0;
+    const bidDateAfter = searchParams.has(QueryNames.BidAfter) ? 1 : 0;
+    const startDateBefore = searchParams.has(QueryNames.StartBefore) ? 1 : 0;
+    const startDateAfter = searchParams.has(QueryNames.StartAfter) ? 1 : 0;
+    const endDateBefore = searchParams.has(QueryNames.EndBefore) ? 1 : 0;
+    const endDateAfter = searchParams.has(QueryNames.EndAfter) ? 1 : 0;
+    const duration = searchParams.has(QueryNames.Duration) ? 1 : 0;
+    const payStructure = searchParams.has(QueryNames.PayStructure) ? 1 : 0;
+    const payMin = searchParams.has(QueryNames.UECRangeMin) ? 1 : 0;
+    const payMax = searchParams.has(QueryNames.UECRangeMax) ? 1 : 0;
     return (
       subtypes.length +
       bidDateBefore +
@@ -88,7 +88,7 @@ export const SearchTools: React.FC = () => {
       payMin +
       payMax
     );
-  }, [filters]);
+  }, [searchParams]);
   /** Calls {@link getFilterCount} */
   const filterCount = getFilterCount();
 

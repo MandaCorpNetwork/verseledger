@@ -13,7 +13,7 @@ type SearchBarProps = {
 
 export const SearchBar: React.FC<SearchBarProps> = ({ size, label, placeholder }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [, setFilters] = useURLQuery();
+  const { setFilters } = useURLQuery();
 
   const handleSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilters(QueryNames.SearchQuery, event.target.value);

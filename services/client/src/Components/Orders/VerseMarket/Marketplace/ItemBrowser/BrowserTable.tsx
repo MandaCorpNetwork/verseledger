@@ -20,12 +20,12 @@ import { allItemsHeader } from './TableColumns';
  */
 export const MarketBrowserTable: React.FC = () => {
   // LOCAL STATE
-  const [filter] = useURLQuery();
+  const { searchParams } = useURLQuery();
   // HOOKS
 
   // LOGIC
   /** @var {currentFilter} - The current filter */
-  const currentFilter = filter.get(QueryNames.ItemType) || 'all';
+  const currentFilter = searchParams.get(QueryNames.ItemType) || 'all';
 
   /**
    * @function currentHeader - Fetches the current Header Object from the ItemTypes array to pass to the table depending on the selected filter.

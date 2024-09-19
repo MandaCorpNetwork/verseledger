@@ -72,17 +72,12 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   // LOCAL STATES
   /**
    * State determines the selected contract ID
-   * @type [IContract['id'] | null, React.Dispatch<React.SetStateAction<IContract['id'] | null>>]
    * @default {null}
-   * @returns {IContract['id'] | null}
-   * TODO: Utilize the useURLQuery to store the selected contract ID
    */
   const [selectedId, setSelectedId] = useState<IContract['id'] | null>(null);
   /**
    * State determins if the Side Panel is expanded
-   * @type [boolean, React.Dispatch<React.SetStateAction<boolean>>]
    * @default {false}
-   * @returns {boolean}
    * TODO: Move the Side Panel into it's own component
    */
   const [isExpanded, setExpanded] = useState(false);
@@ -96,7 +91,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   /**
    * State using the useURLQuery hook to store & read the URL query parameters
    */
-  const [filters, setFilters] = useURLQuery();
+  const { searchParams, setFilters } = useURLQuery();
   // HOOKS
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
@@ -196,9 +191,9 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
    * @returns {string[]} - An array of strings representing the current filter values
    */
   const currentFilterValues = useMemo(() => {
-    const archetypeFilters = filters.getAll(QueryNames.Archetype);
+    const archetypeFilters = searchParams.getAll(QueryNames.Archetype);
     return Array.isArray(archetypeFilters) ? archetypeFilters : [archetypeFilters];
-  }, [filters]);
+  }, [searchParams]);
   /**
    * @function handleArchetypeChange() - Handles the clickEvent that sets the {@link filters} state for a list of Subtypes connected to a specific Archetype
    * @param value - The value of the archetype

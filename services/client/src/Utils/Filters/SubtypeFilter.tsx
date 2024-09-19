@@ -42,12 +42,12 @@ type SubTypeFilterProps = {
 
 export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
   const { playSound } = useSoundEffect();
-  const [filters, setFilters] = useURLQuery();
+  const { searchParams, setFilters } = useURLQuery();
 
   const currentFilterValues = useMemo(() => {
-    const subtypeFilters = filters.getAll(QueryNames.Subtype);
+    const subtypeFilters = searchParams.getAll(QueryNames.Subtype);
     return Array.isArray(subtypeFilters) ? subtypeFilters : [subtypeFilters];
-  }, [filters]);
+  }, [searchParams]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleChange = (_event: React.SyntheticEvent, newValue: { value: string }[]) => {

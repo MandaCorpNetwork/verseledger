@@ -12,7 +12,7 @@ type LocationFilterProps = {
 
 export const LocationsFilter: React.FC<LocationFilterProps> = ({ size }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [, setFilters] = useURLQuery();
+  const { setFilters } = useURLQuery();
   const handleChange = (_event: React.SyntheticEvent, newValue: { label: string }[]) => {
     setFilters(
       QueryNames.Locations,
