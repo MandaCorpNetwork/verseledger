@@ -26,6 +26,8 @@ import {
   HasManyRemoveAssociationMixin,
   HasManyRemoveAssociationsMixin,
   HasManySetAssociationsMixin,
+  InferAttributes,
+  InferCreationAttributes,
   NonAttribute,
 } from 'sequelize';
 import { Notification } from '../notifications/notification.model';
@@ -55,7 +57,10 @@ import { UserAuth } from '../auth/user_auth.model';
   },
 }))
 @Table({ tableName: 'users', timestamps: true })
-export class User extends Model implements IUser {
+export class User
+  extends Model<InferAttributes<User>, InferCreationAttributes<User>>
+  implements IUser
+{
   @Column({ type: DataType.VIRTUAL })
   get __type(): CreationOptional<'User'> {
     return 'User';
@@ -77,26 +82,26 @@ export class User extends Model implements IUser {
     'https://cdn.robertsspaceindustries.com/static/spectrum/images/member-avatar-default.jpg',
   )
   @Column({ type: DataType.TEXT() })
-  declare pfp: string;
+  declare pfp: CreationOptional<string>;
 
   @Default(false)
   @Column({ type: DataType.BOOLEAN() })
   declare verified: CreationOptional<boolean>;
 
   @HasMany(() => Contract, 'owner_user_id')
-  declare PostedContracts: CreationOptional<Awaited<Contract>[]>;
+  declare PostedContracts: NonAttribute<Awaited<Contract>[]>;
 
   @HasMany(() => ContractBid, 'user_id')
-  declare PostedBids: CreationOptional<Awaited<ContractBid>[]>;
+  declare PostedBids: NonAttribute<Awaited<ContractBid>[]>;
 
   @HasMany(() => UserRating, 'submitter_id')
-  declare SubmittedRatings: CreationOptional<Awaited<UserRating>[]>;
+  declare SubmittedRatings: NonAttribute<Awaited<UserRating>[]>;
 
   @HasMany(() => UserRating, 'reciever_id')
-  declare ReceivedRatings: CreationOptional<Awaited<UserRating>[]>;
+  declare ReceivedRatings: NonAttribute<Awaited<UserRating>[]>;
 
   @HasMany(() => UserSettings, 'user_id')
-  declare Settings: CreationOptional<Awaited<UserSettings[]>>;
+  declare Settings: NonAttribute<Awaited<UserSettings[]>>;
 
   @HasMany(() => UserAuth, `user_id`)
   declare Auth?: NonAttribute<Awaited<UserAuth[]>>;
@@ -104,7 +109,7 @@ export class User extends Model implements IUser {
   declare hasAuth: HasManyHasAssociationMixin<Awaited<UserAuth>, string>;
 
   @HasMany(() => Notification, 'user_id')
-  declare Notifications: CreationOptional<Awaited<Notification[]>>;
+  declare Notifications: NonAttribute<Awaited<Notification[]>>;
   declare getNotifications: HasManyGetAssociationsMixin<Awaited<Notification>>;
   declare addNotification: HasManyAddAssociationMixin<
     Awaited<Notification>,

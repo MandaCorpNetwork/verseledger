@@ -37,8 +37,8 @@ export class AuthRepository {
       {
         algorithm: 'HS512',
         jwtid,
-        audience: 'verseledger.space',
-        issuer: 'api.verseledger.space',
+        audience: 'verseledger.net',
+        issuer: 'api.verseledger.net',
         expiresIn: ms(expiresRange),
         subject: user_id,
       },

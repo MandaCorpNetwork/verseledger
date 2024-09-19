@@ -204,9 +204,7 @@ export class AuthController extends BaseHttpController {
       client_secret: env.DISCORD_CLIENT_SECRET,
       grant_type: 'authorization_code',
       code: reqBody.code,
-      //TODO: Wire up mode - STAGING
-      //redirect_uri: 'https://stg.verseledger.net/oauth/discord/callback',
-      redirect_uri: `http://localhost:3000/oauth/discord/callback`,
+      redirect_uri: `${env.FRONTEND_HOST}/oauth/discord/callback`,
       scope: 'identify',
     });
     const user = await fetch('https://discord.com/api/v10/oauth2/token', {
@@ -248,8 +246,7 @@ export class AuthController extends BaseHttpController {
       grant_type: 'authorization_code',
       code: reqBody.code,
       //TODO: Wire up mode - STAGING
-      //redirect_uri: 'https://stg.verseledger.net/oauth/discord/callback',
-      redirect_uri: `http://localhost:3000/oauth/google/callback`,
+      redirect_uri: `${env.FRONTEND_HOST}/oauth/google/callback`,
       scope: 'openid',
     });
     const user = await fetch('https://oauth2.googleapis.com/token', {

@@ -25,9 +25,21 @@ export const envConfig = {
   },
   FRONTEND_HOST: {
     type: 'string',
-    description: 'https://discord.com/developers/applications',
+    description: '',
     optional: true,
     default: 'http://localhost:3000',
+  },
+  BACKEND_HOST: {
+    type: 'string',
+    description: '',
+    optional: true,
+    default: 'http://localhost:3030',
+  },
+  BROKER_HOST: {
+    type: 'string',
+    description: '',
+    optional: true,
+    default: 'ws://localhost:61616',
   },
   MYSQL_DATABASE: {
     type: 'string',

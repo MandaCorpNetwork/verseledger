@@ -4,12 +4,12 @@ import { Client } from '@stomp/stompjs';
 
 import { WebSocket } from 'ws';
 import { Logger } from '@/utils/Logger';
+import { EnvService } from './env.service';
 Object.assign(global, { WebSocket });
+const env = new EnvService();
 //TODO: Set Up Users
 const client = new Client({
-  //TODO: Wire up mode - STAGING
-  //brokerURL: 'wss://ws.stg.verseledger.net/ws',
-  brokerURL: 'ws://localhost:61616/ws',
+  brokerURL: `${env.BROKER_HOST}/ws`,
   connectHeaders: {
     login: 'Server',
   },

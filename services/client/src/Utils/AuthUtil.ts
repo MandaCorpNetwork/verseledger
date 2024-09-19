@@ -31,7 +31,7 @@ export class AuthUtil {
       Logger.info('Token Null:');
       return false;
     }
-    if (token.iss !== 'api.verseledger.space') {
+    if (token.iss !== 'api.verseledger.net') {
       Logger.info('Bad Issuer', token.iss);
       return false;
     }
