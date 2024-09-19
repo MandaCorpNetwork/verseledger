@@ -37,14 +37,15 @@ export const Home: React.FC<unknown> = () => {
             ml: '.5em',
           }}
         >
+          <HomeNavButtonMobile title="Dashboard" to="/dashboard" />
           <HomeNavButtonMobile title="Contract Ledger" to="/ledger/contracts" />
           <HomeNavButtonMobile title="Verse Market" to="/verse-market" />
-          <HomeNavButtonMobile title="Personal Ledger" to="/dashboard" />
           <HomeNavButtonMobile title="Org Ledger" to="/orgs" />
           <HomeNavButtonMobile title="Verse News" to="/verse-news" />
         </Box>
       ) : (
         <>
+          <HomeNavButton title="Dashboard" to="/dashboard" videoSource={FreelancerLoop} />
           <HomeNavButton
             title="Contract Ledger"
             to="/ledger/contracts"
@@ -54,11 +55,6 @@ export const Home: React.FC<unknown> = () => {
             title="Verse Market"
             videoSource={MarketLoop}
             to="/verse-market"
-          />
-          <HomeNavButton
-            title="Personal Ledger"
-            to="/dashboard"
-            videoSource={FreelancerLoop}
           />
           <HomeNavButton title="Org Ledger" videoSource={OrgLoop} to="/orgs" />
           <HomeNavButton title="Verse News" videoSource={VerseNews} to="/verse-news" />

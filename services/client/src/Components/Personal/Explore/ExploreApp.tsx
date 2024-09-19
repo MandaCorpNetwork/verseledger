@@ -1,120 +1,98 @@
 import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
-import { LocationSelection } from '@Common/Components/App/LocationSelection';
-import { ReadOnlyField } from '@Common/Components/TextFields/ReadOnlyField';
-import { Box, Button, TextField, Typography } from '@mui/material';
-import { Gauge, SparkLineChart } from '@mui/x-charts';
+import { LocationSearch } from '@Common/Components/App/LocationSearch';
+import GlassBox from '@Common/Components/Boxes/GlassBox';
+import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import { Box, Typography } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
+import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
+import { selectLocationById } from '@Redux/Slices/Locations/locationSelectors';
 import { isDev } from '@Utils/isDev';
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+
+import { ExploreController } from './ExploreController';
+import { ExploreMap } from './ExplorerMap';
+import { InfoDisplay } from './InfoDisplay';
 
 export const ExploreApp: React.FC<unknown> = () => {
+  const { selectedLocationId } = useParams();
   const dev = isDev();
+  const navigate = useNavigate();
+  const currentLocation = useAppSelector(selectUserLocation);
+  const selectedLocation = useAppSelector((state) => {
+    if (selectedLocationId) {
+      return selectLocationById(state, selectedLocationId);
+    }
+  });
+  const handleLocationSelect = React.useCallback(
+    (location: ILocation | null) => {
+      if (location != null) {
+        navigate(`/dashboard/explore/${location.id}`);
+      }
+    },
+    [navigate],
+  );
   return (
     <Box
+      data-testid="ExploreApp__Container"
       sx={{
         display: 'flex',
         flexDirection: 'row',
         height: '100%',
         width: '100%',
         position: 'relative',
+        gap: '1em',
       }}
     >
-      {!dev && <InDevOverlay supportButton={true} />}
-      <Box
-        sx={{ display: 'flex', flexDirection: 'column', height: '100%', width: '35%' }}
+      <GlassBox
+        data-testid="ExploreApp__Information_Container"
+        sx={{
+          height: '100%',
+          width: '35%',
+          gap: '1em',
+          p: '1em',
+        }}
       >
-        <Box
-          sx={{ display: 'flex', flexDirection: 'column', height: '40%', width: '100%' }}
-        >
-          <LocationSelection />
-          <Box>
-            <ReadOnlyField label="Local Time" />
-            <ReadOnlyField label="StarRise Time" />
-            <ReadOnlyField label="StarSet Time" />
-          </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <TextField
-              size="small"
-              label="Jurisdiction"
-              sx={{ width: '6em' }}
-              value="UEE"
-            />
-            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-              <Box>
-                <Typography>Safety Rating</Typography>
-                <Gauge
-                  value={75}
-                  startAngle={-110}
-                  endAngle={110}
-                  text={`Dangerous`}
-                  width={150}
-                  height={150}
-                />
-              </Box>
-              <Box sx={{ flexGrow: 1 }}>
-                <Typography>Population</Typography>
-                <SparkLineChart
-                  height={150}
-                  data={[2500, 800, 1500, 900, 700, 600, 3200]}
-                />
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-        <Box
-          sx={{ display: 'flex', flexDirection: 'column', height: '60%', width: '100%' }}
-        >
-          <Box>
-            <Typography>Location Descriiption & Lore</Typography>
-          </Box>
-          <Box>
-            <ReadOnlyField label="Daily Crime" />
-            <ReadOnlyField label="Surface Elevation" />
-            <ReadOnlyField label="Avg. Temperature" />
-            <ReadOnlyField label="Hazards" />
-            <ReadOnlyField label="Gravity" />
-            <ReadOnlyField label="Atmosphere" />
-          </Box>
-          <Box>
-            <TextField
-              label="Amenities"
-              value="Insert Amenities Here"
-              multiline
-              rows={5}
-            />
-            <TextField label="Shops" value="Insert Shops" multiline rows={5} />
-          </Box>
-        </Box>
-      </Box>
-      <Box
-        sx={{ display: 'flex', flexDirection: 'column', height: '100%', width: '65%' }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            height: '80%',
-            width: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Typography
-            sx={{
-              position: 'relative',
-              zIndex: 1,
-              fontSize: '14px',
-            }}
+        <LocationSearch onLocationSelect={handleLocationSelect} />
+        {selectedLocationId ? (
+          <InfoDisplay
+            selectedLocation={selectedLocation ?? null}
+            currentLocation={currentLocation}
+          />
+        ) : (
+          <GlassDisplay
+            data-testid="ExploreApp-Information__NoLocation_Wrapper"
+            sx={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}
           >
-            Map In Construction
-          </Typography>
-        </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%', height: '20%' }}>
-          <Box>
-            <Button>Set Location</Button>
-            <Button>View Logistics</Button>
-            <Button>View Market</Button>
-            <Button>Report Crime</Button>
-          </Box>
-        </Box>
-      </Box>
+            <Typography
+              data-testid="ExploreApp-Information__NoLocation_Title"
+              variant="h5"
+              sx={{
+                letterSpacing: '2px',
+                color: 'grey',
+                textShadow: '0 3px 6px rgb(0,0,0)',
+              }}
+            >
+              No Selected Location
+            </Typography>
+          </GlassDisplay>
+        )}
+      </GlassBox>
+      <GlassBox
+        data-testid="ExploreApp__Explorer_Container"
+        sx={{
+          height: '100%',
+          flexGrow: '1',
+          p: '1em',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        {!dev && <InDevOverlay supportButton={true} />}
+        <ExploreMap />
+        <ExploreController />
+      </GlassBox>
     </Box>
   );
 };
