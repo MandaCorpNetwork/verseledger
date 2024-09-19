@@ -27,7 +27,7 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
         sx={{ px: '1em', py: '.2em', flexDirection: 'row', gap: '1em' }}
       >
         <Typography data-testid="ExploreApp-Information__Title" variant="h6">
-          {selectedLocation?.waypoint_name}
+          {selectedLocation?.short_name}
         </Typography>
         {selectedLocation?.id == currentLocation?.id && (
           <Chip label="Current Location" variant="filled" color="info" />

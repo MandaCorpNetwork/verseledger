@@ -6,6 +6,7 @@ import { ContentCopy } from '@mui/icons-material';
 import {
   Box,
   Button,
+  Chip,
   IconButton,
   InputAdornment,
   TextField,
@@ -13,12 +14,16 @@ import {
   Typography,
 } from '@mui/material';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
-import { useAppDispatch } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation';
+import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 // import { Gauge, gaugeClasses } from '@mui/x-charts';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+
+import { useSoundEffect } from '@/AudioManager';
 
 type LocationExplorerToolProps = {
   selectedLocation: ILocation | null;
@@ -30,6 +35,9 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
   selectedLocation,
 }) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { playSound } = useSoundEffect();
+  const currentLocation = useAppSelector(selectUserLocation);
   const handleLocationSelect = (location: ILocation | null) => {
     setSelectedLocation(location);
   };
@@ -56,6 +64,15 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
       }),
     );
   }, [dispatch, handleSetLocation]);
+
+  const handleOpenInfo = React.useCallback(
+    (locationId: string | null | undefined) => {
+      if (locationId == null) return playSound('denied');
+      playSound('navigate');
+      navigate(`/dashboard/explore/${locationId}`);
+    },
+    [playSound, navigate],
+  );
   return (
     <Box
       data-testid="LocationExplorerComponent"
@@ -93,9 +110,10 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
             sx={{
               width: { xs: '100%', md: '60%' },
               p: '.5em',
+              justifyContent: 'stretch',
             }}
           >
-            <LocationSearch onLocationSelect={handleLocationSelect} />
+            <LocationSearch onLocationSelect={handleLocationSelect} width="100%" />
           </ControlPanelBox>
           <DigiBox
             data-testid="LocationExplorer-TopBox-LeftBox__LocationInfoWrapper"
@@ -109,9 +127,29 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
                 <Typography
                   variant="body1"
                   align="center"
-                  sx={{ color: 'text.secondary', fontWeight: 'bold' }}
+                  sx={{
+                    color: 'text.secondary',
+                    fontWeight: 'bold',
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    gap: '.2em',
+                  }}
                 >
                   {selectedLocation?.waypoint_name}
+                  {currentLocation?.id == selectedLocation.id && (
+                    <Chip
+                      label="Current Location"
+                      variant="filled"
+                      color="info"
+                      size="small"
+                      sx={{
+                        fontSize: '12px',
+                        fontWeight: 'bold',
+                        textShadow: '0 2px 4px rgba(0,0,0,.6)',
+                      }}
+                    />
+                  )}
                 </Typography>
                 <TextField
                   size="small"
@@ -258,8 +296,14 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
               <Button color="secondary" onClick={handleSetLocationVerify}>
                 Set Location
               </Button>
-              <Button color="warning">Report Crime</Button>
-              <Button color="error">Jump To</Button>
+              <Button color="warning">Add Stop</Button>
+              <Button
+                color="info"
+                disabled={!selectedLocation}
+                onClick={() => handleOpenInfo(selectedLocation?.id)}
+              >
+                Open Info
+              </Button>
             </ControlPanelBox>
           </Box>
         </Box>
