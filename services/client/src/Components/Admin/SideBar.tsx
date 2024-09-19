@@ -12,8 +12,8 @@ import {
   TipsAndUpdatesTwoTone,
 } from '@mui/icons-material';
 import { Box, Button, Grow, IconButton, Slide, Tooltip } from '@mui/material';
-import { isMobile } from '@Utils/isMobile';
-import { isTablet } from '@Utils/isTablet';
+import { useIsMobile } from '@Utils/isMobile';
+import { useIsTablet } from '@Utils/isTablet';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -74,8 +74,8 @@ const adminTabs = [
 export const AdminSideBar: React.FC = () => {
   const { adminTab } = useParams();
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
-  const mobile = isMobile();
-  const tablet = isTablet();
+  const mobile = useIsMobile();
+  const tablet = useIsTablet();
   const { playSound } = useSoundEffect();
   const navigate = useNavigate();
 
@@ -86,7 +86,7 @@ export const AdminSideBar: React.FC = () => {
       playSound('toggleOn');
     }
     setIsExpanded(!isExpanded);
-  }, [setIsExpanded, isExpanded]);
+  }, [setIsExpanded, isExpanded, playSound]);
 
   return (
     <SideControlPanel
