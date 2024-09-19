@@ -62,6 +62,7 @@ export const Home: React.FC<unknown> = () => {
           />
           <HomeNavButton title="Org Ledger" videoSource={OrgLoop} to="/orgs" />
           <HomeNavButton title="Verse News" videoSource={VerseNews} to="/verse-news" />
+          <HomeNavButton title="Admin" videoSource={AdminLoop} to="/admin" />
         </>
       )}
 
