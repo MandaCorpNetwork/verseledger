@@ -29,6 +29,7 @@ import {
   POPUP_LOCATION_INFO,
 } from '@Popups/Info/Locations';
 import { PayStructuresPopup, POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
+import { LoginPopup, POPUP_LOGIN } from '@Popups/Login/LoginPopup';
 import {
   PlayerCardPopup,
   PlayerCardPopupProps,
@@ -104,6 +105,7 @@ export const PopupManager: React.FC = () => {
   const supportDevPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_SUPPORT_DEVELOPMENT),
   );
+  const loginPopup = useAppSelector((state) => selectPopup(state, POPUP_LOGIN));
   return (
     <>
       {verifyUserPopup.open && <VerifyUserPopup />}
@@ -142,6 +144,7 @@ export const PopupManager: React.FC = () => {
         <SubmitRatingPopup {...(submitRatingPopup.props as SubmitRatingPopupProps)} />
       )}
       {supportDevPopup.open && <SupportDevPopup />}
+      {loginPopup.open && <LoginPopup />}
     </>
   );
 };

@@ -55,14 +55,14 @@ export class UserService {
   }
 
   public async findOrCreateUser(
-    id: string,
+    identifier: string,
     type: UserAuth['type'],
     handle?: string,
     pfp?: string,
   ) {
     const auth = await UserAuth.findOne({
       where: {
-        identifier: id,
+        identifier,
         type,
       },
     });
@@ -73,7 +73,7 @@ export class UserService {
         pfp,
         handle,
       });
-      await UserAuth.create({ identifier: id, type, user_id: user.id });
+      await UserAuth.create({ identifier, type, user_id: user.id });
       return { newUser: true, user };
     }
   }

@@ -1,0 +1,45 @@
+import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
+import { Button } from '@mui/material';
+import { VLPopup } from '@Popups/PopupWrapper/Popup';
+import { useAppDispatch } from '@Redux/hooks';
+import { getLoginMethods } from '@Redux/Slices/Auth/Actions/getLoginMethods';
+import React, { useEffect, useState } from 'react';
+
+export const POPUP_LOGIN = 'POPUP_LOGIN';
+
+export const LoginPopup: React.FC = () => {
+  const [loginMethods, setLoginMethods] =
+    useState<{ type: string; redirect: string }[]>();
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getLoginMethods()).then((response) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      setLoginMethods((response.payload as any).data);
+    });
+  }, [dispatch]);
+
+  const onClick = React.useCallback(() => {
+    localStorage.setItem('returnPath', window.location.pathname);
+  }, []);
+  return (
+    <VLPopup name={POPUP_LOGIN} title="Login" data-testid="Login">
+      {loginMethods != null ? (
+        loginMethods.map((method) => {
+          return (
+            <Button
+              key={method.type}
+              variant="popupButton"
+              onClick={onClick}
+              href={method.redirect}
+            >
+              Login with {method.type}
+            </Button>
+          );
+        })
+      ) : (
+        <LoadingWheel />
+      )}
+    </VLPopup>
+  );
+};

@@ -28,6 +28,7 @@ import { AuthRepository } from './auth.repository';
 import { ApiTokenCreateSchema } from 'vl-shared/src/schemas/ApiTokenSchema';
 import { NotificationService } from '../notifications/notification.service';
 import { IdUtil } from '@/utils/IdUtil';
+
 const env = new EnvService();
 @ApiPath({
   path: '/v1/auth',
@@ -96,6 +97,24 @@ export class AuthController extends BaseHttpController {
   public async deleteTokens(@requestParam('token_id') token_id: string) {
     const user_id = (this.httpContext.user as VLAuthPrincipal).id;
     return AuthRepository.invalidateToken({ token_id, user_id });
+  }
+
+  @httpGet('/login')
+  private async getLoginMethods() {
+    return [
+      env.DISCORD_CLIENT_ID && env.DISCORD_CLIENT_SECRET
+        ? {
+            type: 'discord',
+            redirect: `https://discord.com/oauth2/authorize?client_id=1160393986440179823&response_type=code&redirect_uri=${encodeURIComponent(env.FRONTEND_HOST)}%2Foauth%2Fdiscord%2Fcallback&scope=identify+openid`,
+          }
+        : undefined,
+      env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET
+        ? {
+            type: 'google',
+            redirect: `https://accounts.google.com/o/oauth2/auth?client_id=1034763283033-6ievnkrq0noh091rhj1nc7qlp4ulk0ap.apps.googleusercontent.com&redirect_uri=${encodeURIComponent(env.FRONTEND_HOST)}%2Foauth%2Fgoogle%2Fcallback&scope=openid&response_type=code`,
+          }
+        : undefined,
+    ].filter((a) => a);
   }
 
   @ApiOperationPost({
@@ -211,6 +230,51 @@ export class AuthController extends BaseHttpController {
           });
       });
     const dbUser = await this.userService.findOrCreateUser(user.id, 'DISCORD');
+    if (dbUser.newUser) {
+      await this.notificationsService.createNotification(
+        dbUser.user.getDataValue('id'),
+        '@NOTIFICATION.MESSAGES.VERIFY_RSI',
+        { type: 'popup', popup: '$VERIFY' },
+      );
+    }
+    return this.authService.signUser(dbUser.user.id);
+  }
+
+  @httpPost('/google')
+  public async loginWithGoogle(@requestBody() reqBody: { code: string }) {
+    const body = new URLSearchParams({
+      client_id: env.GOOGLE_CLIENT_ID,
+      client_secret: env.GOOGLE_CLIENT_SECRET,
+      grant_type: 'authorization_code',
+      code: reqBody.code,
+      //TODO: Wire up mode - STAGING
+      //redirect_uri: 'https://stg.verseledger.net/oauth/discord/callback',
+      redirect_uri: `http://localhost:3000/oauth/google/callback`,
+      scope: 'openid',
+    });
+    const user = await fetch('https://oauth2.googleapis.com/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body,
+    })
+      .then((res) => res.json())
+      .then((body) => {
+        const { token_type, access_token } = body as {
+          access_token: string;
+          token_type: string;
+        };
+        return fetch(`https://www.googleapis.com/oauth2/v3/userinfo`, {
+          headers: { Authorization: `${token_type} ${access_token}` },
+        })
+          .then((r) => r.json())
+          .then((user) => {
+            return {
+              id: (user as { sub: string }).sub,
+              avatar: (user as { picture: string }).picture,
+            } as { id: string; avatar: string };
+          });
+      });
+    const dbUser = await this.userService.findOrCreateUser(user.id, 'GOOGLE');
     if (dbUser.newUser) {
       await this.notificationsService.createNotification(
         dbUser.user.getDataValue('id'),

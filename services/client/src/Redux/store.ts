@@ -11,7 +11,10 @@ export const setupStore = (preloadState?: Partial<RootState>) =>
     preloadedState: preloadState,
     devTools: isDev(),
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(updateLocationsMiddleware, updateUsersMiddleware),
+      getDefaultMiddleware({ serializableCheck: false }).concat(
+        updateLocationsMiddleware,
+        updateUsersMiddleware,
+      ),
   });
 export type RootState = ReturnType<typeof coreReducer>;
 export type AppStore = ReturnType<typeof setupStore>;
