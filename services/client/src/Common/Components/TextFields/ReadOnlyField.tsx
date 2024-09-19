@@ -11,6 +11,7 @@ export const ReadOnlyField: React.FC<TimeFieldProps> = ({ label, sx }) => {
       <TextField
         label={label}
         size="small"
+        color="secondary"
         InputProps={{ readOnly: true }}
         value={label}
         sx={{ width: '10em', margin: '.5em', ...sx }}

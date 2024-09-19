@@ -1,0 +1,145 @@
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import { ReadOnlyField } from '@Common/Components/TextFields/ReadOnlyField';
+import { Box, Divider, TextField, Typography } from '@mui/material';
+import { SparkLineChart } from '@mui/x-charts';
+
+export const InfoDisplay: React.FC = () => {
+  return (
+    <GlassDisplay
+      data-testid="ExploreApp__Information_Wrapper"
+      sx={{ width: '100%', p: '1em', alignItems: 'center', gap: '.5em' }}
+    >
+      <DigiDisplay
+        data-testid="ExploreApp-Information__Title_Wrapper"
+        sx={{ px: '1em', py: '.2em' }}
+      >
+        <Typography data-testid="ExploreApp-Information__Title" variant="h6">
+          Location Name
+        </Typography>
+      </DigiDisplay>
+      <DigiBox
+        data-testid="ExploreApp-Information__Time_Wrapper"
+        sx={{ flexDirection: 'row' }}
+      >
+        <ReadOnlyField label="Local Time" />
+        <ReadOnlyField label="StarRise Time" />
+        <ReadOnlyField label="StarSet Time" />
+      </DigiBox>
+      <DigiBox
+        data-testid="ExploreApp-Information__Parent&Population_Wrapper"
+        sx={{
+          flexDirection: 'row',
+          width: '100%',
+          py: '.5em',
+          px: '1em',
+          justifyContent: 'space-between',
+          gap: '1em',
+        }}
+      >
+        <DigiDisplay
+          data-testid="ExploreApp-Information-Parent&Population__Parents_Wrapper"
+          sx={{ px: '.5em', justifyContent: 'flex-start' }}
+        >
+          <Typography
+            data-testid="ExploreApp-Information-Parent&Population__Parents_Title"
+            variant="overline"
+          >
+            Parent Locations
+          </Typography>
+          <Divider variant="fullWidth" sx={{ width: '80%' }} />
+          <Box
+            data-testid="ExploreApp-Information-Parent&Population-Parent__ListWrapper"
+            sx={{
+              width: '100%',
+              flexGrow: '1',
+              justifyContent: 'space-around',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <Typography
+              data-testid="ExploreApp-Information-Parent&Population-Parent__StarTitle"
+              color="textPrimary"
+            >
+              Star:
+            </Typography>
+            <Typography
+              data-testid="ExploreApp-Information-Parent&Population-Parent__PlanetTitle"
+              color="textPrimary"
+            >
+              Planet:
+            </Typography>
+            <Typography
+              data-testid="ExploreApp-Information-Parent&Population-Parent__MoonTitle"
+              color="textPrimary"
+            >
+              Moon:
+            </Typography>
+          </Box>
+        </DigiDisplay>
+        <DigiDisplay
+          data-testid="ExploreApp-Information-Parent&Population__Population_Wrapper"
+          sx={{ flexGrow: 1, px: '1em' }}
+        >
+          <Typography
+            data-testid="ExploreApp-Information-Parent&Population__Population_Title"
+            variant="overline"
+          >
+            Population
+          </Typography>
+          <SparkLineChart
+            data-testid="ExploreApp-Information-Parent&Population__Population_Chart"
+            height={100}
+            data={[2500, 800, 1500, 900, 700, 600, 3200]}
+          />
+        </DigiDisplay>
+      </DigiBox>
+      <DigiBox
+        data-testid="ExploreApp-Information__Data_Container"
+        sx={{ width: '100%', px: '.5em', alignItems: 'center', py: '.5em' }}
+      >
+        <Typography data-testid="ExploreApp-Information__Data_Title" variant="overline">
+          Location Description & Lore
+        </Typography>
+        <DigiDisplay
+          data-testid="ExploreApp-Information-Data__Data_Wrapper"
+          sx={{ flexDirection: 'row', width: '100%', flexWrap: 'wrap' }}
+        >
+          <ReadOnlyField label="Jurisdiction" />
+          <ReadOnlyField label="Surface Elevation" />
+          <ReadOnlyField label="Avg. Temperature" />
+          <ReadOnlyField label="Hazards" />
+          <ReadOnlyField label="Gravity" />
+          <ReadOnlyField label="Atmosphere" />
+        </DigiDisplay>
+        <DigiDisplay
+          data-testid="ExploreApp-Information-Data__FacilityLists_Wrapper"
+          sx={{
+            flexDirection: 'row',
+            width: '100%',
+            p: '.5em',
+            my: '.5em',
+            justifyContent: 'space-around',
+          }}
+        >
+          <TextField
+            label="Amenities"
+            value="Insert Amenities Here"
+            color="secondary"
+            multiline
+            rows={3}
+          />
+          <TextField
+            label="Shops"
+            color="secondary"
+            value="Insert Shops"
+            multiline
+            rows={3}
+          />
+        </DigiDisplay>
+      </DigiBox>
+    </GlassDisplay>
+  );
+};
