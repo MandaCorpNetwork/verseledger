@@ -38,12 +38,12 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
   };
   //Hovering animation
 
-  const [filters, setFilters] = useURLQuery();
+  const { searchParams, setFilters } = useURLQuery();
 
   const currentFilterValues = useMemo(() => {
-    const archetypeFilters = filters.getAll(QueryNames.Archetype);
+    const archetypeFilters = searchParams.getAll(QueryNames.Archetype);
     return Array.isArray(archetypeFilters) ? archetypeFilters : [archetypeFilters];
-  }, [filters]);
+  }, [searchParams]);
 
   const handleArchetypeChange = (value: string) => {
     const video = document.getElementById(videoSource) as HTMLVideoElement;

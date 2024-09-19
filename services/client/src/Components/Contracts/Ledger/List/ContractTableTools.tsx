@@ -31,7 +31,7 @@ import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 export const ContractTableTools: React.FC<unknown> = () => {
   // LOCAL STATES
   /** State using the useURLQuery hook to store & read the URL query parameters */
-  const [filters, setFilter] = useURLQuery();
+  const { searchParams, setFilters } = useURLQuery();
   /**
    * State determines if the FilterList Collapse is expanded
    * @type [boolean, React.Dispatch<React.SetStateAction<boolean>>]
@@ -68,18 +68,18 @@ export const ContractTableTools: React.FC<unknown> = () => {
    * @returns {number} - The number of filters currently applied.
    */
   const getFilterCount = React.useCallback(() => {
-    const subtypes = filters.getAll(QueryNames.Subtype);
-    const bidDateBefore = filters.has(QueryNames.BidBefore) ? 1 : 0;
-    const bidDateAfter = filters.has(QueryNames.BidAfter) ? 1 : 0;
-    const startDateBefore = filters.has(QueryNames.StartBefore) ? 1 : 0;
-    const startDateAfter = filters.has(QueryNames.StartAfter) ? 1 : 0;
-    const endDateBefore = filters.has(QueryNames.EndBefore) ? 1 : 0;
-    const endDateAfter = filters.has(QueryNames.EndAfter) ? 1 : 0;
-    const duration = filters.has(QueryNames.Duration) ? 1 : 0;
-    const contractorRating = filters.has(QueryNames.ContractorRating) ? 1 : 0;
-    const payStructure = filters.has(QueryNames.PayStructure) ? 1 : 0;
-    const payMin = filters.has(QueryNames.UECRangeMin) ? 1 : 0;
-    const payMax = filters.has(QueryNames.UECRangeMax) ? 1 : 0;
+    const subtypes = searchParams.getAll(QueryNames.Subtype);
+    const bidDateBefore = searchParams.has(QueryNames.BidBefore) ? 1 : 0;
+    const bidDateAfter = searchParams.has(QueryNames.BidAfter) ? 1 : 0;
+    const startDateBefore = searchParams.has(QueryNames.StartBefore) ? 1 : 0;
+    const startDateAfter = searchParams.has(QueryNames.StartAfter) ? 1 : 0;
+    const endDateBefore = searchParams.has(QueryNames.EndBefore) ? 1 : 0;
+    const endDateAfter = searchParams.has(QueryNames.EndAfter) ? 1 : 0;
+    const duration = searchParams.has(QueryNames.Duration) ? 1 : 0;
+    const contractorRating = searchParams.has(QueryNames.ContractorRating) ? 1 : 0;
+    const payStructure = searchParams.has(QueryNames.PayStructure) ? 1 : 0;
+    const payMin = searchParams.has(QueryNames.UECRangeMin) ? 1 : 0;
+    const payMax = searchParams.has(QueryNames.UECRangeMax) ? 1 : 0;
     return (
       subtypes.length +
       bidDateBefore +
@@ -94,7 +94,7 @@ export const ContractTableTools: React.FC<unknown> = () => {
       payMin +
       payMax
     );
-  }, [filters]);
+  }, [searchParams]);
   /** Calls {@link getFilterCount} */
   const filterCount = getFilterCount();
   /**
@@ -102,8 +102,8 @@ export const ContractTableTools: React.FC<unknown> = () => {
    * @returns {boolean} - True if the emergency mode is enabled and true in the URL query parameters, false otherwise.
    */
   const emergencyMode = React.useMemo(() => {
-    return filters.get(QueryNames.Emergency) === 'true';
-  }, [filters]);
+    return searchParams.get(QueryNames.Emergency) === 'true';
+  }, [searchParams]);
   /**
    * @function handleEmergencyMode - Handles the clickEvent that toggles the emergency mode
    * @fires setFilter()
@@ -112,11 +112,11 @@ export const ContractTableTools: React.FC<unknown> = () => {
    */
   const handleEmergencyMode = React.useCallback(() => {
     if (emergencyMode) {
-      setFilter(QueryNames.Emergency, []);
+      setFilters(QueryNames.Emergency, []);
     } else {
-      setFilter(QueryNames.Emergency, 'true');
+      setFilters(QueryNames.Emergency, 'true');
     }
-  }, [emergencyMode, setFilter]);
+  }, [emergencyMode, setFilters]);
 
   const sortOptions = [
     {

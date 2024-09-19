@@ -20,7 +20,7 @@ import { useSoundEffect } from '@/AudioManager';
  */
 export const ItemTypeFilters: React.FC<unknown> = () => {
   // LOCAL STATES
-  const [filter, setFilter] = useURLQuery();
+  const { searchParams, setFilters } = useURLQuery();
 
   // HOOKS
   const { playSound } = useSoundEffect();
@@ -35,13 +35,13 @@ export const ItemTypeFilters: React.FC<unknown> = () => {
   const handleFilterSelect = React.useCallback(
     (type: string) => {
       playSound('clickMain');
-      setFilter(QueryNames.ItemType, type);
+      setFilters(QueryNames.ItemType, type);
     },
-    [playSound, setFilter],
+    [playSound, setFilters],
   );
 
   /** @var {currentFilter} - The current filter */
-  const currentFilter = filter.get(QueryNames.ItemType);
+  const currentFilter = searchParams.get(QueryNames.ItemType);
   return (
     <DigiBox
       data-testid="VerseMarket-Marketplace-Browser__TypeFilterWrapper"
