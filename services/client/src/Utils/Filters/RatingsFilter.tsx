@@ -47,20 +47,20 @@ const DisabledRatingSliderMarks = [
 
 export const RatingsFilter: React.FC<unknown> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [filter, setFilter] = useURLQuery();
+  const { searchParams, setFilters } = useURLQuery();
 
   const currentFilterValue = React.useMemo(() => {
     return (queryName: QueryNames): number | null => {
-      const value = filter.get(queryName);
+      const value = searchParams.get(queryName);
       return value ? parseInt(value, 10) : null;
     };
-  }, [filter]);
+  }, [searchParams]);
 
   const handleFilterSlide = React.useCallback(
     (newValue: number | number[], field: QueryNames) => {
-      setFilter(field, newValue.toString());
+      setFilters(field, newValue.toString());
     },
-    [setFilter],
+    [setFilters],
   );
 
   return (

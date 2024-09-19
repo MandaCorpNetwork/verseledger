@@ -38,7 +38,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dispatch = useAppDispatch();
   const [view, setView] = React.useState('ContractCardView');
-  const [filters] = useURLQuery();
+  const { searchParams } = useURLQuery();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
 
@@ -75,8 +75,10 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
 
   React.useEffect(() => {
     // Subtype Filter Initialization
-    const selectedSubtypes = filters.getAll(QueryNames.Subtype) as IContractSubType[];
-    const selectedArchetype = filters.getAll(QueryNames.Archetype) as string[];
+    const selectedSubtypes = searchParams.getAll(
+      QueryNames.Subtype,
+    ) as IContractSubType[];
+    const selectedArchetype = searchParams.getAll(QueryNames.Archetype) as string[];
     const archetypeToSub: IContractSubType[] = selectedArchetype.flatMap(
       (a) => ArchetypeToSubtypes[a] ?? [],
     );
@@ -84,18 +86,20 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
       new Set([...selectedSubtypes, ...archetypeToSub]),
     );
     Logger.info('Selected Subtypes: ', combinedSubtypes);
-    const bidBefore = new Date(filters.get(QueryNames.BidBefore) as string);
-    const bidAfter = new Date(filters.get(QueryNames.BidAfter) as string);
-    const startBefore = new Date(filters.get(QueryNames.StartBefore) as string);
-    const startAfter = new Date(filters.get(QueryNames.StartAfter) as string);
-    const endBefore = new Date(filters.get(QueryNames.EndBefore) as string);
-    const endAfter = new Date(filters.get(QueryNames.EndAfter) as string);
-    const duration = parseInt(filters.get(QueryNames.Duration) as string, 10);
-    const payStructure = filters.get(QueryNames.PayStructure) as IContractPayStructure;
-    const contractorRating = filters.get(QueryNames.ContractorRating) as string;
-    const minPay = Number(filters.get(QueryNames.UECRangeMin) as string);
-    const maxPay = Number(filters.get(QueryNames.UECRangeMax) as string);
-    const emergency = filters.get(QueryNames.Emergency) as string;
+    const bidBefore = new Date(searchParams.get(QueryNames.BidBefore) as string);
+    const bidAfter = new Date(searchParams.get(QueryNames.BidAfter) as string);
+    const startBefore = new Date(searchParams.get(QueryNames.StartBefore) as string);
+    const startAfter = new Date(searchParams.get(QueryNames.StartAfter) as string);
+    const endBefore = new Date(searchParams.get(QueryNames.EndBefore) as string);
+    const endAfter = new Date(searchParams.get(QueryNames.EndAfter) as string);
+    const duration = parseInt(searchParams.get(QueryNames.Duration) as string, 10);
+    const payStructure = searchParams.get(
+      QueryNames.PayStructure,
+    ) as IContractPayStructure;
+    const contractorRating = searchParams.get(QueryNames.ContractorRating) as string;
+    const minPay = Number(searchParams.get(QueryNames.UECRangeMin) as string);
+    const maxPay = Number(searchParams.get(QueryNames.UECRangeMax) as string);
+    const emergency = searchParams.get(QueryNames.Emergency) as string;
 
     const params: IContractSearch = {
       page: page,
@@ -142,7 +146,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
       }),
     };
     debounce(() => search(params), 300)();
-  }, [filters, page, rowsPerPage, search]);
+  }, [searchParams, page, rowsPerPage, search]);
 
   const contracts = useAppSelector((state) => selectContractsArray(state));
 

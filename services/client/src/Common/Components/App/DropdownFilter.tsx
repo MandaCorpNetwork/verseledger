@@ -44,7 +44,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
   onExpand,
 }) => {
   // LOCAL STATES
-  const [filters, setFilters] = useURLQuery();
+  const { searchParams, setFilters } = useURLQuery();
 
   // HOOKS
   const { playSound } = useSoundEffect();
@@ -94,35 +94,35 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
     (filterName: string) => {
       switch (filterName) {
         case 'Subtype':
-          return filters.has(QueryNames.Subtype);
+          return searchParams.has(QueryNames.Subtype);
         case 'Locations':
-          return filters.has(QueryNames.Locations);
+          return searchParams.has(QueryNames.Locations);
         case 'Scheduling':
           return (
-            filters.has(QueryNames.BidBefore) ||
-            filters.has(QueryNames.BidAfter) ||
-            filters.has(QueryNames.StartBefore) ||
-            filters.has(QueryNames.StartAfter) ||
-            filters.has(QueryNames.EndBefore) ||
-            filters.has(QueryNames.EndAfter) ||
-            filters.has(QueryNames.Duration)
+            searchParams.has(QueryNames.BidBefore) ||
+            searchParams.has(QueryNames.BidAfter) ||
+            searchParams.has(QueryNames.StartBefore) ||
+            searchParams.has(QueryNames.StartAfter) ||
+            searchParams.has(QueryNames.EndBefore) ||
+            searchParams.has(QueryNames.EndAfter) ||
+            searchParams.has(QueryNames.Duration)
           );
         case 'Ratings':
           return (
-            filters.has(QueryNames.EmployerRating) ||
-            filters.has(QueryNames.ContractorRating)
+            searchParams.has(QueryNames.EmployerRating) ||
+            searchParams.has(QueryNames.ContractorRating)
           );
         case 'Pay':
           return (
-            filters.has(QueryNames.UECRangeMax) ||
-            filters.has(QueryNames.UECRangeMin) ||
-            filters.has(QueryNames.PayStructure)
+            searchParams.has(QueryNames.UECRangeMax) ||
+            searchParams.has(QueryNames.UECRangeMin) ||
+            searchParams.has(QueryNames.PayStructure)
           );
         default:
           return 0;
       }
     },
-    [filters],
+    [searchParams],
   );
   /** Calls {@link checkFilterSet} */
   const isFiltersSet = checkFilterSet(filter);
@@ -135,14 +135,14 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
     (filterName: string) => {
       switch (filterName) {
         case 'Subtype':
-          return filters.getAll(QueryNames.Subtype);
+          return searchParams.getAll(QueryNames.Subtype);
         case 'Locations':
-          return filters.getAll(QueryNames.Locations);
+          return searchParams.getAll(QueryNames.Locations);
         default:
           return [];
       }
     },
-    [filters],
+    [searchParams],
   );
   /** Calls {@link getFilterValues} */
   const filterValues = getFilterValues(filter);
@@ -157,13 +157,13 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
   const handleDeleteFilterItem = useCallback(
     (valueToDelete: string) => {
       const filterToUpdate = QueryNames[filter as keyof typeof QueryNames];
-      const updatedFilters = filters
+      const updatedFilters = searchParams
         .getAll(valueToDelete)
         .filter((value) => value !== valueToDelete);
       playSound('toggleOff');
       setFilters(filterToUpdate, updatedFilters);
     },
-    [filters, setFilters, filter, playSound],
+    [searchParams, setFilters, filter, playSound],
   );
 
   /**

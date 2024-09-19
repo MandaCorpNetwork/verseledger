@@ -22,16 +22,16 @@ const structureOptions = [
 
 export const UECFilter: React.FC<unknown> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [filter, setFilter] = useURLQuery();
+  const { searchParams, setFilters } = useURLQuery();
   const [localMin, setLocalMin] = React.useState<string>('');
   const [localMax, setLocalMax] = React.useState<string>('');
 
   const handlePayStructure = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const selectedValue = event.target.value;
-      setFilter(QueryNames.PayStructure, selectedValue);
+      setFilters(QueryNames.PayStructure, selectedValue);
     },
-    [setFilter],
+    [setFilters],
   );
 
   const handleClearPay = React.useCallback(
@@ -41,9 +41,9 @@ export const UECFilter: React.FC<unknown> = () => {
       } else if (field === QueryNames.UECRangeMax) {
         setLocalMax('');
       }
-      setFilter(field, []);
+      setFilters(field, []);
     },
-    [setLocalMax, setLocalMin, setFilter],
+    [setLocalMax, setLocalMin, setFilters],
   );
 
   const filterNumericInput = (input: string) => {
@@ -55,7 +55,7 @@ export const UECFilter: React.FC<unknown> = () => {
       if (pay === 0) {
         return '';
       }
-      const payStructure = filter.get(QueryNames.PayStructure);
+      const payStructure = searchParams.get(QueryNames.PayStructure);
       switch (payStructure) {
         case 'FLATRATE':
           return pay.toLocaleString();
@@ -67,29 +67,29 @@ export const UECFilter: React.FC<unknown> = () => {
           return pay.toLocaleString();
       }
     },
-    [filter],
+    [searchParams],
   );
 
   React.useEffect(() => {
     if (localMin === '' && localMax === '') {
-      setFilter(QueryNames.UECRangeMin, []);
-      setFilter(QueryNames.UECRangeMax, []);
+      setFilters(QueryNames.UECRangeMin, []);
+      setFilters(QueryNames.UECRangeMax, []);
       return;
     }
     if (localMin !== '' && localMax !== '' && Number(localMin) > Number(localMax)) {
       return;
     }
     if (localMin !== '') {
-      setFilter(QueryNames.UECRangeMin, localMin);
+      setFilters(QueryNames.UECRangeMin, localMin);
     } else {
-      setFilter(QueryNames.UECRangeMin, []);
+      setFilters(QueryNames.UECRangeMin, []);
     }
     if (localMax !== '') {
-      setFilter(QueryNames.UECRangeMax, localMax);
+      setFilters(QueryNames.UECRangeMax, localMax);
     } else {
-      setFilter(QueryNames.UECRangeMax, []);
+      setFilters(QueryNames.UECRangeMax, []);
     }
-  }, [localMin, localMax, setFilter]);
+  }, [localMin, localMax, setFilters]);
 
   const handlePayError = React.useCallback(() => {
     if (localMin !== '' && localMax !== '' && Number(localMin) > Number(localMax)) {
@@ -108,12 +108,12 @@ export const UECFilter: React.FC<unknown> = () => {
         <TextField
           select
           size="small"
-          value={filter.get(QueryNames.PayStructure) ?? ''}
+          value={searchParams.get(QueryNames.PayStructure) ?? ''}
           label="Pay Structure"
           color="secondary"
           onChange={handlePayStructure}
           InputProps={{
-            endAdornment: filter.get(QueryNames.PayStructure) ? (
+            endAdornment: searchParams.get(QueryNames.PayStructure) ? (
               <InputAdornment position="end">
                 <IconButton
                   edge="end"
@@ -145,7 +145,8 @@ export const UECFilter: React.FC<unknown> = () => {
           onClear={() => handleClearPay(QueryNames.UECRangeMin)}
           value={formatPayString(Number(localMin))}
           structure={
-            (filter.get(QueryNames.PayStructure) as ContractPayStructure) ?? 'FLATRATE'
+            (searchParams.get(QueryNames.PayStructure) as ContractPayStructure) ??
+            'FLATRATE'
           }
           sx={{ maxWidth: '150px' }}
         />
@@ -156,7 +157,8 @@ export const UECFilter: React.FC<unknown> = () => {
           onClear={() => handleClearPay(QueryNames.UECRangeMax)}
           value={formatPayString(Number(localMax))}
           structure={
-            (filter.get(QueryNames.PayStructure) as ContractPayStructure) ?? 'FLATRATE'
+            (searchParams.get(QueryNames.PayStructure) as ContractPayStructure) ??
+            'FLATRATE'
           }
           sx={{ maxWidth: '150px' }}
         />

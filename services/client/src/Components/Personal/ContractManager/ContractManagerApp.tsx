@@ -47,7 +47,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   // LOCAL STATES
 
   /** State uses {@link useURLQuery} hook to view & set filters */
-  const [filters, setFilter, overwriteURLQuery] = useURLQuery();
+  const { searchParams, setFilters, overwriteURLQuery } = useURLQuery();
 
   /**
    * State Determins the Selected Contract Id
@@ -115,13 +115,13 @@ export const ContractManagerApp: React.FC<unknown> = () => {
    * @returns {string} Filter value of `QueryNames.ContractManagerTab`
    */
   const currentTab = React.useMemo(() => {
-    const tab = filters.get(QueryNames.ContractManagerTab);
+    const tab = searchParams.get(QueryNames.ContractManagerTab);
     if (!tab) {
-      setFilter(QueryNames.ContractManagerTab, 'employed');
+      setFilters(QueryNames.ContractManagerTab, 'employed');
       return 'employed';
     }
     return tab;
-  }, [filters, setFilter]);
+  }, [searchParams, setFilters]);
 
   /**
    * Handles the ChangeEvent from the ContractList Tab to change the rendered Contract List
@@ -228,17 +228,19 @@ export const ContractManagerApp: React.FC<unknown> = () => {
    */
   const handleFetchContracts = React.useCallback(
     (params: IContractSearch) => {
-      const subtypes = filters.getAll(QueryNames.Subtype) as IContractSubType[];
-      const bidBefore = new Date(filters.get(QueryNames.BidBefore) as string);
-      const bidAfter = new Date(filters.get(QueryNames.BidAfter) as string);
-      const startBefore = new Date(filters.get(QueryNames.StartBefore) as string);
-      const startAfter = new Date(filters.get(QueryNames.StartAfter) as string);
-      const endBefore = new Date(filters.get(QueryNames.EndBefore) as string);
-      const endAfter = new Date(filters.get(QueryNames.EndAfter) as string);
-      const duration = parseInt(filters.get(QueryNames.Duration) as string, 10);
-      const payStructure = filters.get(QueryNames.PayStructure) as IContractPayStructure;
-      const minPay = Number(filters.get(QueryNames.UECRangeMin) as string);
-      const maxPay = Number(filters.get(QueryNames.UECRangeMax) as string);
+      const subtypes = searchParams.getAll(QueryNames.Subtype) as IContractSubType[];
+      const bidBefore = new Date(searchParams.get(QueryNames.BidBefore) as string);
+      const bidAfter = new Date(searchParams.get(QueryNames.BidAfter) as string);
+      const startBefore = new Date(searchParams.get(QueryNames.StartBefore) as string);
+      const startAfter = new Date(searchParams.get(QueryNames.StartAfter) as string);
+      const endBefore = new Date(searchParams.get(QueryNames.EndBefore) as string);
+      const endAfter = new Date(searchParams.get(QueryNames.EndAfter) as string);
+      const duration = parseInt(searchParams.get(QueryNames.Duration) as string, 10);
+      const payStructure = searchParams.get(
+        QueryNames.PayStructure,
+      ) as IContractPayStructure;
+      const minPay = Number(searchParams.get(QueryNames.UECRangeMin) as string);
+      const maxPay = Number(searchParams.get(QueryNames.UECRangeMax) as string);
       const contractParams = {
         ...(subtypes.length > 0 && {
           subtype: subtypes,
@@ -277,7 +279,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
       };
       dispatch(fetchContracts(contractParams));
     },
-    [dispatch, filters],
+    [dispatch, searchParams],
   );
 
   /**
@@ -386,7 +388,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         break;
     }
   }, [
-    filters,
+    searchParams,
     page,
     dispatch,
     handleFetchBids,

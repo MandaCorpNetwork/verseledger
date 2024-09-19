@@ -46,5 +46,5 @@ export const useURLQuery = () => {
     [searchParams, setSearchParams],
   );
 
-  return [searchParams, setFilters, overwriteURLQuery];
+  return { searchParams, setFilters, overwriteURLQuery };
 };

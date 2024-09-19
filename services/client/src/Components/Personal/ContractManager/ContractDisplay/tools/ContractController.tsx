@@ -30,7 +30,7 @@ export const ContractController: React.FC<ContractControllerProps> = ({
   isOwned,
   deselectContract,
 }) => {
-  const [, , overwriteURLQuery] = useURLQuery();
+  const { overwriteURLQuery } = useURLQuery();
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
   const location = useLocation();

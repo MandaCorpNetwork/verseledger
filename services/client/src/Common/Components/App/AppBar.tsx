@@ -195,7 +195,7 @@ export const VLAppBar: React.FC<unknown> = () => {
           <Box sx={{ display: 'flex' }}>
             {isLoggedIn ? (
               <>
-                <Tooltip title="Select Location" arrow>
+                <Tooltip title="Set Location" arrow>
                   <IconButton
                     size="large"
                     color="inherit"

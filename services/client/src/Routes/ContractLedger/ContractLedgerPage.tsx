@@ -91,7 +91,7 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   /**
    * State using the useURLQuery hook to store & read the URL query parameters
    */
-  const [searchParams, setFilters] = useURLQuery();
+  const { searchParams, setFilters } = useURLQuery();
   // HOOKS
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
