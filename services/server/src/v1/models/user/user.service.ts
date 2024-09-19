@@ -82,7 +82,8 @@ export class UserService {
     const user = await this.getUser(id);
     if (user == null) return false;
     for (const key in data) {
-      user.set(key, data[key as keyof IUser]);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      user.set(key as any, data[key as keyof IUser]);
     }
     await user
       .save()
@@ -103,7 +104,7 @@ export class UserService {
     const users = await User.findAll({
       where: handle
         ? {
-            rsi_handle: {
+            handle: {
               [Op.substring]: handle,
             },
           }
@@ -113,9 +114,9 @@ export class UserService {
     return users;
   }
 
-  public async getValidationToken(userId: string) {
+  public async getValidationToken(user_id: string) {
     return UserValidation.findOne({
-      where: { user_id: userId, expiresAt: { [Op.gt]: new Date(Date.now()) } },
+      where: { user_id, expiresAt: { [Op.gt]: new Date(Date.now()) } },
     });
   }
 
@@ -127,6 +128,9 @@ export class UserService {
       where: { user_id: userId, handle, expiresAt: { [Op.gt]: new Date() } },
     });
     if (validation != null) throw new Error('Existing Token');
+    const existingUser = await User.count({ where: { handle } });
+    if (existingUser > 0)
+      throw new Error('RSI Account is already linked to another account');
     return await UserValidation.create({
       user_id: userId,
       handle: rsiUser.nickname,
@@ -140,8 +144,15 @@ export class UserService {
     });
     if (validation == null) throw new Error('No Valid Validation Token');
     const response = await RSIService.getUserByHandle(validation.handle);
+
     const rsiUser = response?.data?.data?.creator;
     if (rsiUser == null) throw new Error('Invalid Handle');
+
+    const existingUser = await User.count({
+      where: { handle: rsiUser.nickname },
+    });
+    if (existingUser > 0) throw new Error('User already linked');
+
     const user = await User.findByPk(userId);
     if (user == null) throw new Error('What the Fuck?');
     if (rsiUser.bio.includes(validation.id)) {

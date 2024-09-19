@@ -14,6 +14,8 @@ export class EnvService implements EnvironmentConfig {
   public GOOGLE_CLIENT_SECRET!: string;
 
   public FRONTEND_HOST!: string;
+  public BACKEND_HOST!: string;
+  public BROKER_HOST!: string;
 
   public PALLY_WS!: string;
   public PALLY_CHANNEL!: string;

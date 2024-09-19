@@ -14,10 +14,6 @@ import { inject } from 'inversify';
 import { UserService } from '@V1/models/user/user.service';
 import { AuthService } from '@V1/models/auth/auth.service';
 import { VLAuthPrincipal } from '@/authProviders/VL.principal';
-import { User } from '@V1/models/user/user.model';
-import { Organization } from '@V1/models/organization/organization.model';
-import { OrganizationMember } from '@V1/models/organization/organization_member.model';
-import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { ContractService } from '@V1/models/contract/contract.service';
 import { NextFunction } from 'express';
 import { NetworkError } from '@V1/errors/NetworkError';
@@ -105,51 +101,6 @@ export class UsersController extends BaseHttpController {
     return UserToUserDTOMapper.map(user);
   }
 
-  @httpGet('/new')
-  public async createEmptyUser() {
-    //if (handle == null || handle.trim() == '') return this.badRequest();
-    const u = await User.create();
-    const o = await Organization.create({
-      title: 'Manda',
-      rsi_handle: 'mandacorp',
-      owner_id: u.id,
-    });
-    const c = await OrganizationMember.create({
-      user_id: u.id,
-      org_id: o.id,
-      role: 'OWNER',
-    });
-    const oc = await this.contractService.createContract({
-      title: 'orgContract',
-      subtype: 'weeee',
-      briefing: '',
-      owner_id: o.id,
-      bidDate: new Date(),
-      ratingLimit: 0,
-      payStructure: ContractPayStructure.FLATRATE,
-      defaultPay: 0,
-      status: 'BIDDING',
-    });
-    const uc = await this.contractService.createContract({
-      title: 'userContract',
-      subtype: 'weeee',
-      briefing: '',
-      owner_id: u.id,
-      bidDate: new Date(),
-      ratingLimit: 0,
-      payStructure: ContractPayStructure.FLATRATE,
-      defaultPay: 0,
-      status: 'BIDDING',
-    });
-    return {
-      user: u,
-      org: o,
-      membership: c,
-      orgContract: oc,
-      userContract: uc,
-    };
-  }
-
   @ApiOperationGet({
     tags: ['Users'],
     deprecated: true,
@@ -203,6 +154,7 @@ export class UsersController extends BaseHttpController {
       throw nextFunc(error);
     }
   }
+
   @httpDelete('/validate')
   public async validateUserClear(@next() nextFunc: NextFunction) {
     const principal = this.httpContext.user as VLAuthPrincipal;
@@ -215,6 +167,7 @@ export class UsersController extends BaseHttpController {
       throw nextFunc(error);
     }
   }
+
   @httpPost('/validate/check')
   public async validateUserCheck(@next() nextFunc: NextFunction) {
     const principal = this.httpContext.user as VLAuthPrincipal;

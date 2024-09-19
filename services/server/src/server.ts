@@ -31,13 +31,7 @@ export const createServer = () => {
   server.setConfig((app) => {
     app.use(
       cors({
-        origin: [
-          `http://localhost:3000`,
-          `http://localhost:${env.EXPRESS_PORT}`,
-          `https://verseledger.net`,
-          `https://stg.verseledger.net`,
-          `https://api.stg.verseledger.net`,
-        ],
+        origin: [env.FRONTEND_HOST, env.BACKEND_HOST, env.BROKER_HOST],
       }),
     );
     app.use((req, res, next) => {
