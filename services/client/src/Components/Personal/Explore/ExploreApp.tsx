@@ -1,14 +1,36 @@
 import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
-import { LocationSelection } from '@Common/Components/App/LocationSelection';
+import { LocationSearch } from '@Common/Components/App/LocationSearch';
+import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { ReadOnlyField } from '@Common/Components/TextFields/ReadOnlyField';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { Gauge, SparkLineChart } from '@mui/x-charts';
+import { useAppSelector } from '@Redux/hooks';
+import { selectLocationById } from '@Redux/Slices/Locations/locationSelectors';
 import { isDev } from '@Utils/isDev';
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 export const ExploreApp: React.FC<unknown> = () => {
+  const { selectedLocationId } = useParams();
+  const currentLocation = useAppSelector((state) => {
+    if (selectedLocationId) {
+      return selectLocationById(state, selectedLocationId);
+    }
+  });
   const dev = isDev();
+  const navigate = useNavigate();
+  const handleLocationSelect = React.useCallback(
+    (location: ILocation | null) => {
+      if (location != null) {
+        navigate(`/dashboard/explore/${location.id}`);
+      }
+    },
+    [navigate],
+  );
   return (
     <Box
+      data-testid="ExploreApp__Container"
       sx={{
         display: 'flex',
         flexDirection: 'row',
@@ -18,13 +40,14 @@ export const ExploreApp: React.FC<unknown> = () => {
       }}
     >
       {!dev && <InDevOverlay supportButton={true} />}
-      <Box
+      <GlassBox
         sx={{ display: 'flex', flexDirection: 'column', height: '100%', width: '35%' }}
       >
+        <LocationSearch onLocationSelect={handleLocationSelect} />
+        
         <Box
           sx={{ display: 'flex', flexDirection: 'column', height: '40%', width: '100%' }}
         >
-          <LocationSelection />
           <Box>
             <ReadOnlyField label="Local Time" />
             <ReadOnlyField label="StarRise Time" />
@@ -83,7 +106,7 @@ export const ExploreApp: React.FC<unknown> = () => {
             <TextField label="Shops" value="Insert Shops" multiline rows={5} />
           </Box>
         </Box>
-      </Box>
+      </GlassBox>
       <Box
         sx={{ display: 'flex', flexDirection: 'column', height: '100%', width: '65%' }}
       >

@@ -95,10 +95,7 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
               p: '.5em',
             }}
           >
-            <LocationSearch
-              onLocationSelect={handleLocationSelect}
-              sx={{ width: '100%' }}
-            />
+            <LocationSearch onLocationSelect={handleLocationSelect} />
           </ControlPanelBox>
           <DigiBox
             data-testid="LocationExplorer-TopBox-LeftBox__LocationInfoWrapper"
