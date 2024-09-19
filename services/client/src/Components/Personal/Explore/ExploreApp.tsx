@@ -14,6 +14,8 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { InfoDisplay } from './InfoDisplay';
+import { ExploreMap } from './ExplorerMap';
+import { ExploreController } from './ExploreController';
 
 export const ExploreApp: React.FC<unknown> = () => {
   const { selectedLocationId } = useParams();
@@ -41,6 +43,7 @@ export const ExploreApp: React.FC<unknown> = () => {
         height: '100%',
         width: '100%',
         position: 'relative',
+        gap: '1em',
       }}
     >
       {!dev && <InDevOverlay supportButton={true} />}
@@ -48,7 +51,7 @@ export const ExploreApp: React.FC<unknown> = () => {
         data-testid="ExploreApp__Information_Container"
         sx={{
           height: '100%',
-          width: '35%',
+          maxWidth: '35%',
           gap: '1em',
           p: '1em',
         }}
@@ -56,37 +59,19 @@ export const ExploreApp: React.FC<unknown> = () => {
         <LocationSearch onLocationSelect={handleLocationSelect} />
         <InfoDisplay />
       </GlassBox>
-      <Box
-        sx={{ display: 'flex', flexDirection: 'column', height: '100%', width: '65%' }}
+      <GlassBox
+        data-testid="ExploreApp__Explorer_Container"
+        sx={{
+          height: '100%',
+          flexGrow: '1',
+          p: '1em',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            height: '80%',
-            width: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Typography
-            sx={{
-              position: 'relative',
-              zIndex: 1,
-              fontSize: '14px',
-            }}
-          >
-            Map In Construction
-          </Typography>
-        </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%', height: '20%' }}>
-          <Box>
-            <Button>Set Location</Button>
-            <Button>View Logistics</Button>
-            <Button>View Market</Button>
-            <Button>Report Crime</Button>
-          </Box>
-        </Box>
-      </Box>
+        <ExploreMap />
+        <ExploreController />
+      </GlassBox>
     </Box>
   );
 };
