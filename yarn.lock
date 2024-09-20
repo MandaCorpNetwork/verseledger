@@ -2853,10 +2853,10 @@
   resolved "https://registry.yarnpkg.com/@rtsao/scc/-/scc-1.1.0.tgz#927dd2fae9bc3361403ac2c7a00c32ddce9ad7e8"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@scalar/api-client@2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@scalar/api-client/-/api-client-2.1.1.tgz#98c8a14f1f7502cf3cbac1a40500f24aab4fdcc6"
-  integrity sha512-x7BDG97L/0ql4sr2wxeQueNN8d1bGsZUYm17VWwdmOO/3n+XrjyOCwy8cInN9BElCUA0SS5Ma7xsKWQbii7skQ==
+"@scalar/api-client@2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@scalar/api-client/-/api-client-2.1.2.tgz#d8027da5c3df947ef80fcc099e98cb4f5bc4629d"
+  integrity sha512-fK2y1Jntrxsf4AzvFu8Gqlp8mx4d71JgVT0O57HNA3eZOgqjjxMRwLzf0eRyXIBavKDmwCoGvWI/fAYAFpVEbg==
   dependencies:
     "@headlessui/tailwindcss" "^0.2.0"
     "@headlessui/vue" "^1.7.20"
@@ -2884,20 +2884,20 @@
     zod "^3.23.8"
 
 "@scalar/api-reference-react@^0.3.89":
-  version "0.3.89"
-  resolved "https://registry.yarnpkg.com/@scalar/api-reference-react/-/api-reference-react-0.3.89.tgz#ee2656567f821404435f57475da8a269f0b70ac1"
-  integrity sha512-1iSayf/K5nMhnpxjKthFXG/AdyZEno9a+lZyIKHspkJmbP14fSyQMdn5M3X2a9NwfsBhUXxOj600kFwTr3f0Nw==
+  version "0.3.90"
+  resolved "https://registry.yarnpkg.com/@scalar/api-reference-react/-/api-reference-react-0.3.90.tgz#b46cb9287c9d615ae2b73516a3e742f773c695f1"
+  integrity sha512-tboMwYIa5ehG4S1N4wrdOwhufGjEyJou/qyJ7boAOu9oMWvfKPGFAwiaYh6X0ChOdrNq0XLOqcjFdxDal6JUfA==
   dependencies:
-    "@scalar/api-reference" "1.25.13"
+    "@scalar/api-reference" "1.25.14"
 
-"@scalar/api-reference@1.25.13":
-  version "1.25.13"
-  resolved "https://registry.yarnpkg.com/@scalar/api-reference/-/api-reference-1.25.13.tgz#b81a6d1911fa0e846b522f1ac91b54d4b5c62d88"
-  integrity sha512-G/0g/l/uzUHLXPlSFhUBiwIitJvuLWkCYDljEM8IcMQOMNFwLE3+VwpEN8NcSv8KQckLKZ4OpqDy2im99K+gZQ==
+"@scalar/api-reference@1.25.14":
+  version "1.25.14"
+  resolved "https://registry.yarnpkg.com/@scalar/api-reference/-/api-reference-1.25.14.tgz#7bea3e414a187259e8ba6d083bf8abc0a5b8d890"
+  integrity sha512-IgFQholaeI08SE6q1jgu237pwvYPQL0Blke3SGUunv8q3OZA1h/SKcofnb3cW7AB3HaHp/w20D2cymmhAFhZPg==
   dependencies:
     "@floating-ui/vue" "^1.0.2"
     "@headlessui/vue" "^1.7.20"
-    "@scalar/api-client" "2.1.1"
+    "@scalar/api-client" "2.1.2"
     "@scalar/code-highlight" "0.0.11"
     "@scalar/components" "0.12.45"
     "@scalar/oas-utils" "0.2.44"
