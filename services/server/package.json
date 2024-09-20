@@ -69,8 +69,5 @@
   "trustedDependencies": [
     "@swc/core",
     "esbuild"
-  ],
-  "resolutions": {
-    "@types/mime": "3.0.4"
-  }
+  ]
 }
