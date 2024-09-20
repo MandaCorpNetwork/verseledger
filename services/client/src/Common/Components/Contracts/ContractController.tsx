@@ -307,11 +307,11 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
 
   const openReview = React.useCallback(() => {
     if (currentContractors && currentContractors.length !== 0) {
-      if (!completedReviews) {
+      if (!reviewCompleted) {
         dispatch(openPopup(POPUP_SUBMIT_RATING), { users: currentContractors, contract });
       }
     }
-  }, [currentContractors, contract, dispatch, completedReviews]);
+  }, [currentContractors, contract, dispatch, reviewCompleted]);
 
   const completeContract = React.useCallback(() => {
     const now = new Date();
@@ -630,7 +630,7 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
           size="medium"
           fullWidth
           onClick={openReview}
-          disabled={(Boolean(completedReviews) || currentContractors?.length) == 0}
+          disabled={(reviewCompleted || currentContractors?.length) == 0}
         >
           Submit Ratings
         </Button>
