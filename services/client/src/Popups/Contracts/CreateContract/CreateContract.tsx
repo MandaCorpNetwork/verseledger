@@ -209,7 +209,7 @@ export const CreateContractPopup: React.FC = () => {
             testid: 'CreateContractPopup_Cancel',
           }),
         );
-        return false;
+        return;
       }}
       name={POPUP_CREATE_CONTRACT}
       title="Create Contract"

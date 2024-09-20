@@ -116,10 +116,9 @@ export const UserPage: React.FC = () => {
    */
   const getStatsPanel = React.useCallback(() => {
     switch (statsTab) {
-      case 'contracts':
-        return <ContractStatsPanel />;
       case 'orders':
         return <OrderStatsPanel />;
+      case 'contracts':
       default:
         return <ContractStatsPanel />;
     }
@@ -144,14 +143,13 @@ export const UserPage: React.FC = () => {
    */
   const getInfoPanel = React.useCallback(() => {
     switch (infoTab) {
-      case 'fleet':
-        return <FleetInfoPanel />;
       case 'orgs':
         return <OrgsInfoPanel />;
       case 'orders':
         return <OrderInfoPanel />;
       case 'contracts':
         return <ContractInfoPanel user={selectedUser ?? null} />;
+      case 'fleet':
       default:
         return <FleetInfoPanel />;
     }

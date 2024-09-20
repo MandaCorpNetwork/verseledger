@@ -313,7 +313,6 @@ export const ContractPage: React.FC<unknown> = () => {
         case 'contractors':
           return <ContractorList contract={contract} />;
         case 'ships':
-          return;
         default:
           return;
       }

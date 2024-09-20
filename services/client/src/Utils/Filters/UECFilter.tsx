@@ -57,12 +57,10 @@ export const UECFilter: React.FC<unknown> = () => {
       }
       const payStructure = searchParams.get(QueryNames.PayStructure);
       switch (payStructure) {
-        case 'FLATRATE':
-          return pay.toLocaleString();
-        case 'HOURLY':
-          return pay.toLocaleString();
         case 'POOL':
           return pay > 100 ? 'Over Limit' : pay.toString();
+        case 'FLATRATE':
+        case 'HOURLY':
         default:
           return pay.toLocaleString();
       }

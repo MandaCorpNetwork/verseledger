@@ -34,11 +34,10 @@ export const PayInput: React.FC<PayInputProps> = ({
     const poolPay = structure === 'POOL' && value > 100 ? 'Over Limit' : value;
     switch (structure) {
       case 'FLATRATE':
+      case 'HOURLY':
         return value.toLocaleString();
       case 'POOL':
         return poolPay;
-      case 'HOURLY':
-        return value.toLocaleString();
     }
   }, [value, structure]);
   const formattedPay = payString();
