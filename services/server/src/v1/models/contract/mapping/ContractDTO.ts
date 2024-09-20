@@ -82,6 +82,7 @@ export class ContractDTO extends DTOBase<IContract> implements IContract {
 
   @ApiModelProperty({
     description: 'TODO',
+    type: 'string',
     required: true,
     example: 123456789,
   })
@@ -117,6 +118,7 @@ export class ContractDTO extends DTOBase<IContract> implements IContract {
 
   @ApiModelProperty({
     description: 'TODO',
+    type: 'string',
     required: true,
     example: 123456789,
   })
@@ -160,6 +162,7 @@ export class ContractDTO extends DTOBase<IContract> implements IContract {
   @ApiModelProperty({
     description: 'TODO',
     required: true,
+    type: 'string',
     example: 123456789,
   })
   startDate!: Date;

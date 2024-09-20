@@ -42,9 +42,8 @@ export class RatingsController extends BaseHttpController {
   }
 
   @ApiOperationPost({
-    tags: ['Contract Ratings'],
-    description: 'Create Ratings for a Contract',
-    summary:
+    summary: 'Create Ratings for a Contract',
+    description:
       'Create Ratings for the Users on a specific Contract after it is Completed or Canceled',
     responses: {
       200: {

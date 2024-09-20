@@ -1,4 +1,4 @@
-import '@Assets/Css/contractDetails.scss';
+import '@Assets/Css/contractDetails.css';
 
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';

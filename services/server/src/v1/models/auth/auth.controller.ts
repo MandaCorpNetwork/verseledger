@@ -48,7 +48,6 @@ export class AuthController extends BaseHttpController {
   }
 
   @ApiOperationGet({
-    tags: ['Auth'],
     description:
       'Get user api token identifiers. Actual tokens are never stored, and thus can not be retrieved after generation.',
     summary: 'Get user api token identifiers',
@@ -60,8 +59,6 @@ export class AuthController extends BaseHttpController {
         model: 'Unknown',
       },
     },
-    consumes: [],
-    parameters: {},
     security: { VLBearerAuth: [] },
   })
   @httpGet('/tokens', TYPES.VerifiedUserMiddleware)
@@ -72,7 +69,6 @@ export class AuthController extends BaseHttpController {
   }
 
   @ApiOperationDelete({
-    tags: ['Auth'],
     description:
       'Delete an API token - Privilaged. Requests to this made with Access Tokens will 401',
     summary: 'Delete an API token - Privilaged',
@@ -84,9 +80,10 @@ export class AuthController extends BaseHttpController {
         model: 'Unknown',
       },
     },
-    consumes: [],
     parameters: {
-      path: { token_id: { required: true, description: 'A Token ID' } },
+      path: {
+        token_id: { required: true, description: 'A Token ID', type: 'string' },
+      },
     },
     security: { VLBearerAuth: [] },
   })
@@ -118,7 +115,6 @@ export class AuthController extends BaseHttpController {
   }
 
   @ApiOperationPost({
-    tags: ['Auth'],
     description:
       'Create an API token - Privilaged. Requests to this made with Access Tokens will 401',
     summary: 'Create an API token - Privilaged',
@@ -134,7 +130,7 @@ export class AuthController extends BaseHttpController {
     parameters: {
       body: {
         properties: {
-          expires: { type: 'date | string', required: true },
+          expires: { type: 'string', required: true },
           name: { type: 'string', required: true },
         },
         required: true,
@@ -158,7 +154,6 @@ export class AuthController extends BaseHttpController {
   }
 
   @ApiOperationPost({
-    tags: ['Auth'],
     description:
       'Refresh the Current User - Privilaged. Requests to this made with Access Tokens will 401',
     summary: 'Refresh the Current User - Privilaged',

@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import '@/Routes/Index/Home/Home.scss';
+import '@/Routes/Index/Home/Home.css';
 
 import { UnderConstruction } from '@Common/Components/App/UnderContruction';
 import { useTheme } from '@emotion/react';

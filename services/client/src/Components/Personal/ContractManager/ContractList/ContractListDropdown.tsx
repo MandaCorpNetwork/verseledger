@@ -1,4 +1,4 @@
-import '@Assets/Css/ripple.scss';
+import '@Assets/Css/ripple.css';
 
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { ArrowRight } from '@mui/icons-material';

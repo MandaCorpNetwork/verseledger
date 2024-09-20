@@ -1,4 +1,4 @@
-import '@Assets/Css/ripple.scss';
+import '@Assets/Css/ripple.css';
 
 import { SideControlPanel } from '@Common/Components/Collapse/SideControlPanel';
 import {

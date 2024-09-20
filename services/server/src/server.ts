@@ -80,8 +80,12 @@ export const createServer = () => {
             version: '1.0',
           },
           models: {
-            ContractArray: { properties: {} },
-            Unknown: { properties: {} },
+            ContractArray: {
+              properties: { TODO: { type: 'string', required: true } },
+            },
+            Unknown: {
+              properties: { TODO: { type: 'string', required: true } },
+            },
           },
           securityDefinitions: {
             VLBearerAuth: {

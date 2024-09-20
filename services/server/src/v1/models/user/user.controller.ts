@@ -44,7 +44,6 @@ export class UsersController extends BaseHttpController {
   }
 
   @ApiOperationGet({
-    tags: ['Users'],
     description: 'Get a User',
     summary: 'Get a User',
     path: '/{userId}',
@@ -57,7 +56,9 @@ export class UsersController extends BaseHttpController {
     },
     consumes: [],
     parameters: {
-      path: { userId: { required: true, description: 'A User ID' } },
+      path: {
+        userId: { required: true, description: 'A User ID', type: 'string' },
+      },
     },
     security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
@@ -78,7 +79,6 @@ export class UsersController extends BaseHttpController {
   }
 
   @ApiOperationGet({
-    tags: ['Users'],
     description: 'Get Current User',
     summary: 'Get Current User',
     path: '/@me',
@@ -102,7 +102,6 @@ export class UsersController extends BaseHttpController {
   }
 
   @ApiOperationGet({
-    tags: ['Users'],
     deprecated: true,
     description: 'Get all Users',
     summary: 'Get all Users',
@@ -116,7 +115,13 @@ export class UsersController extends BaseHttpController {
     },
     consumes: [],
     parameters: {
-      path: { locationId: { required: true, description: 'A Location ID' } },
+      path: {
+        locationId: {
+          required: true,
+          description: 'A Location ID',
+          type: 'string',
+        },
+      },
     },
     security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
@@ -181,7 +186,6 @@ export class UsersController extends BaseHttpController {
   }
 
   @ApiOperationGet({
-    tags: ['Users'],
     description: 'Search Users',
     summary: 'Search Users',
     path: '/search',
@@ -196,6 +200,7 @@ export class UsersController extends BaseHttpController {
     parameters: {
       query: {
         q: {
+          type: 'string',
           required: true,
           description: 'User Handle or Name. Handles must prefix with "@"',
         },
