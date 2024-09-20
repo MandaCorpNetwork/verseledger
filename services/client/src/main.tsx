@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import './main.scss';
+import './main.css';
 import './i18n';
 
 import { LocalizationProvider } from '@mui/x-date-pickers';

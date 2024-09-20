@@ -5,6 +5,7 @@ import { isDev } from '@Utils/isDev';
 
 import { CurrentDestination } from './CurrentDestination';
 import { DestinationQue } from './DestinationQue';
+import { Mission } from './Mission';
 import { NextDestination } from './NextDestination';
 
 export const RouteApp: React.FC<unknown> = () => {
@@ -74,7 +75,89 @@ export const RouteApp: React.FC<unknown> = () => {
             Add Mission
           </Button>
         </Box>
+        <Mission />
       </GlassBox>
     </Box>
   );
 };
+
+const sampleMissions = [
+  {
+    missionId: '445345',
+    objectives: [
+      {
+        packageId: '556423',
+        pickupLocation: 'Everus Harbor',
+        dropoffLocation: 'Lorville',
+        contents: 'Unknown',
+        scu: '1',
+      },
+      {
+        packageId: '777685',
+        pickupLocation: 'HDMS-Razor',
+        dropoffLocation: 'Klecher',
+        contents: 'Unknown',
+        scu: '1',
+      },
+      {
+        packageId: '888542',
+        pickupLocation: 'HDSF-Callifer',
+        dropoffLocation: 'New Babbage',
+        contents: 'Unknown',
+        scu: '1',
+      },
+    ],
+  },
+  {
+    missionId: '885463',
+    objectives: [
+      {
+        packageId: '885745',
+        pickupLocation: 'Everus Harbor',
+        dropoffLocation: 'Lorville',
+        contents: 'Copper',
+        scu: '10',
+      },
+      {
+        packageId: '356998',
+        pickupLocation: 'HDMS-Razor',
+        dropoffLocation: 'Klecher',
+        contents: 'Medical Supplies',
+        scu: '20',
+      },
+      {
+        packageId: '448756',
+        pickupLocation: 'HDSF-Callifer',
+        dropoffLocation: 'New Babbage',
+        contents: 'Tungsten',
+        scu: '15',
+      },
+    ],
+  },
+  {
+    missionId: '886547',
+    objectives: [
+      {
+        packageId: '223542',
+        pickupLocation: 'Everus Harbor',
+        dropoffLocation: 'Lorville',
+        contents: 'Unknown',
+        scu: '1',
+      },
+      {
+        packageId: '339654',
+        pickupLocation: 'HDMS-Razor',
+        dropoffLocation: 'Klecher',
+        contents: 'Unknown',
+        scu: '1',
+      },
+      {
+        packageId: '778545',
+        pickupLocation: 'HDSF-Callifer',
+        dropoffLocation: 'New Babbage',
+        contents: 'Unknown',
+        scu: '1',
+      },
+    ],
+  },
+];
