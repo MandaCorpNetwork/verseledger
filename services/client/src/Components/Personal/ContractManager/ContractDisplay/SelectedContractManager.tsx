@@ -4,6 +4,7 @@ import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
 import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
+import { ContractController } from '@Common/Components/Contracts/ContractController';
 import { ContractorList } from '@Common/Components/Contracts/ContractorList';
 import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
 import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
@@ -14,7 +15,6 @@ import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchet
 import { Link, OpenInFull } from '@mui/icons-material';
 import { Box, IconButton, Rating, Tab, Tooltip, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
-import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { URLUtil } from '@Utils/URLUtil';
 import { enqueueSnackbar } from 'notistack';
@@ -30,7 +30,6 @@ import {
   ContractDurationPanel,
 } from '@/Components/Contracts/Ledger/Details/TimePanel';
 
-import { ContractController } from './tools/ContractController';
 import { LocationsDisplay } from './tools/LocationsDisplay';
 
 type SelectedContractManagerProps = {
@@ -54,23 +53,6 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
   const memoizedContract = React.useMemo(() => {
     return contract as IContractWithOwner;
   }, [contract]);
-
-  const currentUser = useAppSelector(selectCurrentUser);
-
-  const isContractOwned = React.useMemo(() => {
-    if (memoizedContract.owner_id === currentUser?.id) {
-      return true;
-    } else {
-      return false;
-    }
-  }, [currentUser, memoizedContract]);
-
-  const userBid = React.useMemo(() => {
-    if (isContractOwned) {
-      return null;
-    }
-    return memoizedContract.Bids?.find((bid) => bid.user_id === currentUser?.id) ?? null;
-  }, [currentUser, isContractOwned, memoizedContract]);
 
   const handleCopyURL = React.useCallback(
     (url: string) => {
@@ -474,9 +456,8 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
             </Typography>
             <ContractController
               contract={memoizedContract}
-              userBid={userBid}
-              isOwned={isContractOwned}
               deselectContract={deselectContract}
+              dashboard
             />
           </ControlPanelBox>
         </Box>

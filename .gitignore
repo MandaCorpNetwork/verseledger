@@ -11,3 +11,6 @@ dist
 services/client/src/CrownsScratch.scratch
 *.log
 services/client/src/dev-dist
+packages/vl-shared/package-lock.json
+packages/vl-shared/package.json
+packages/vl-shared/package.json
