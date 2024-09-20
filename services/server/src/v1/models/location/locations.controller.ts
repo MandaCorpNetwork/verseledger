@@ -31,7 +31,6 @@ export class LocationController extends BaseHttpController {
   }
 
   @ApiOperationGet({
-    tags: ['Locations'],
     description: 'Get a Location',
     summary: 'Get a Location',
     path: '/{locationId}',
@@ -44,7 +43,13 @@ export class LocationController extends BaseHttpController {
     },
     consumes: [],
     parameters: {
-      path: { locationId: { required: true, description: 'A Location ID' } },
+      path: {
+        locationId: {
+          required: true,
+          description: 'A Location ID',
+          type: 'string',
+        },
+      },
     },
     security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
@@ -59,7 +64,6 @@ export class LocationController extends BaseHttpController {
   }
 
   @ApiOperationGet({
-    tags: ['Locations'],
     description: 'Get all Location',
     summary: 'Get all Location',
     path: '/',
@@ -72,7 +76,13 @@ export class LocationController extends BaseHttpController {
     },
     consumes: [],
     parameters: {
-      path: { locationId: { required: true, description: 'A Location ID' } },
+      path: {
+        locationId: {
+          required: true,
+          description: 'A Location ID',
+          type: 'string',
+        },
+      },
     },
     security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })

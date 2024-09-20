@@ -1,4 +1,4 @@
-import { ApiModel } from 'swagger-express-ts';
+import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
 import { DTOBase } from '@V1/DTO/DTOBase';
 import { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
 
@@ -30,9 +30,34 @@ export class UserSettingsDTO
     return { ...this, __partial: this.__partial };
   }
 
+  @ApiModelProperty({
+    description: 'ID of Contract',
+    required: true,
+    example: 'C-pu2lqjxks971z5ov62t9eg9p',
+  })
   public animations!: string;
+  @ApiModelProperty({
+    description: 'ID of Contract',
+    required: true,
+    example: 'C-pu2lqjxks971z5ov62t9eg9p',
+  })
   public quality!: string;
+  @ApiModelProperty({
+    description: 'ID of Contract',
+    required: true,
+    example: 'C-pu2lqjxks971z5ov62t9eg9p',
+  })
   public soundPack!: string;
+  @ApiModelProperty({
+    description: 'ID of Contract',
+    required: true,
+    example: 'C-pu2lqjxks971z5ov62t9eg9p',
+  })
   public theme!: string;
+  @ApiModelProperty({
+    description: 'ID of Contract',
+    required: true,
+    example: 'C-pu2lqjxks971z5ov62t9eg9p',
+  })
   public userPageImage!: string;
 }

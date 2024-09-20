@@ -1,5 +1,5 @@
 ///<reference types="vite/client" />
-import './ContractLedgerLoopButton.scss';
+import './ContractLedgerLoopButton.css';
 
 import { Button, SxProps, Typography } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';

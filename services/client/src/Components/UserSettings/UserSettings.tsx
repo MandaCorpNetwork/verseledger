@@ -1,4 +1,4 @@
-import '@Assets/Css/ripple.scss';
+import '@Assets/Css/ripple.css';
 
 import { DepressedListButton } from '@Common/Components/Lists/DepressedListButton';
 import { Close } from '@mui/icons-material';

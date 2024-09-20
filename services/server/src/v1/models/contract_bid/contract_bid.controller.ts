@@ -50,7 +50,6 @@ export class BidsController extends BaseHttpController {
   }
 
   @ApiOperationGet({
-    tags: ['Bids'],
     description: "Get a Contract's Bids",
     summary: 'Get Bids',
     path: '/',
@@ -63,7 +62,13 @@ export class BidsController extends BaseHttpController {
     },
     consumes: [],
     parameters: {
-      path: { contractId: { required: true, description: 'A Contract ID' } },
+      path: {
+        contractId: {
+          required: true,
+          description: 'A Contract ID',
+          type: 'string',
+        },
+      },
     },
     security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
@@ -97,7 +102,6 @@ export class BidsController extends BaseHttpController {
   }
 
   @ApiOperationGet({
-    tags: ['Bids'],
     description: 'Get a Bid',
     summary: 'Get a Bid',
     path: '/{bidId}',
@@ -111,8 +115,12 @@ export class BidsController extends BaseHttpController {
     consumes: [],
     parameters: {
       path: {
-        contractId: { required: true, description: 'A Contract ID' },
-        bidId: { required: true, description: 'A Bid ID' },
+        contractId: {
+          required: true,
+          description: 'A Contract ID',
+          type: 'string',
+        },
+        bidId: { required: true, description: 'A Bid ID', type: 'string' },
       },
     },
     security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
@@ -151,9 +159,8 @@ export class BidsController extends BaseHttpController {
   }
 
   @ApiOperationPatch({
-    tags: ['Bids'],
-    description: 'Get a Bid',
-    summary: 'Get a Bid',
+    description: 'Update a Bid',
+    summary: 'Update a Bid',
     path: '/{bidId}',
     responses: {
       200: {
@@ -165,11 +172,16 @@ export class BidsController extends BaseHttpController {
     consumes: [],
     parameters: {
       path: {
-        contractId: { required: true, description: 'A Contract ID' },
-        bidId: { required: true, description: 'A Bid ID' },
+        contractId: {
+          required: true,
+          description: 'A Contract ID',
+          type: 'string',
+        },
+        bidId: { required: true, description: 'A Bid ID', type: 'string' },
       },
       body: {
-        properties: {},
+        allowEmptyValue: true,
+        required: false,
       },
     },
     security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
@@ -304,7 +316,7 @@ export class BidsController extends BaseHttpController {
   }
 
   @ApiOperationPost({
-    tags: ['Bids', 'Invites'],
+    tags: ['Invites'],
     description:
       'Bid on a Contract. If the user is Invited, will automatically Accept.',
     summary: 'Bid on a Contract / Accept an Invite',
@@ -319,7 +331,11 @@ export class BidsController extends BaseHttpController {
     consumes: [],
     parameters: {
       path: {
-        contractId: { required: true, description: 'A Contract ID' },
+        contractId: {
+          required: true,
+          description: 'A Contract ID',
+          type: 'string',
+        },
       },
     },
     security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
@@ -351,7 +367,7 @@ export class BidsController extends BaseHttpController {
   }
 
   @ApiOperationPost({
-    tags: ['Bids', 'Invites'],
+    tags: ['Invites'],
     description: 'Invite a user to a contract',
     summary: 'Invite a user to a contract',
     path: '/invite',
@@ -365,7 +381,11 @@ export class BidsController extends BaseHttpController {
     consumes: [],
     parameters: {
       path: {
-        contractId: { required: true, description: 'A Contract ID' },
+        contractId: {
+          required: true,
+          description: 'A Contract ID',
+          type: 'string',
+        },
       },
       body: {
         properties: {

@@ -55,7 +55,6 @@ export class ContractController extends BaseHttpController {
   }
 
   @ApiOperationPost({
-    tags: ['Contracts'],
     description: 'Create a new Contract',
     summary: 'Create Contract',
     responses: {
@@ -102,7 +101,6 @@ export class ContractController extends BaseHttpController {
   }
 
   @ApiOperationGet({
-    tags: ['Contracts'],
     description: 'Get a Contract',
     summary: 'Get a Contract',
     path: '/{contractId}',
@@ -115,7 +113,13 @@ export class ContractController extends BaseHttpController {
     },
     consumes: [],
     parameters: {
-      path: { contractId: { required: true, description: 'A Contract ID' } },
+      path: {
+        contractId: {
+          required: true,
+          description: 'A Contract ID',
+          type: 'string',
+        },
+      },
     },
     security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
@@ -144,7 +148,6 @@ export class ContractController extends BaseHttpController {
   }
 
   @ApiOperationPatch({
-    tags: ['Contracts'],
     description: 'Update a Contract',
     summary: 'Update a Contract',
     path: '/{contractId}',
@@ -158,10 +161,14 @@ export class ContractController extends BaseHttpController {
     consumes: [],
     parameters: {
       path: {
-        contractId: { required: true, description: 'A Contract ID' },
+        contractId: {
+          required: true,
+          description: 'A Contract ID',
+          type: 'string',
+        },
       },
       body: {
-        properties: {},
+        required: false,
       },
     },
     security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
@@ -212,7 +219,6 @@ export class ContractController extends BaseHttpController {
   }
 
   @ApiOperationGet({
-    tags: ['Contracts'],
     description: 'Search Contracts',
     summary: 'Search Contracts',
     path: '/',
@@ -312,7 +318,6 @@ export class ContractController extends BaseHttpController {
   }
 
   @ApiOperationGet({
-    tags: ['Contracts'],
     description: 'Get Contracts from Bids',
     summary: 'Get Contracts from Bids that match a user & status',
     path: '/bids',
