@@ -26,7 +26,7 @@ export const Objective: React.FC<ObjectiveProps> = ({
   objectiveType,
   objective,
 }) => {
-  const isDelivery = (obj: IDelivery | IContract): obj is IDelivery =>
+  const isDelivery = (_objective: IDelivery | IContract): _objective is IDelivery =>
     objectiveType === 'Delivery';
   return (
     <DigiDisplay
