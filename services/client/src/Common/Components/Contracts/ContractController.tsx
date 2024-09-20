@@ -47,7 +47,10 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
 
   const getContractors = React.useCallback(() => {
     return contract.Bids?.filter(
-      (bid) => bid.status === 'ACCEPTED' || 'WITHDRAWN' || 'DISMISSED',
+      (bid) =>
+        bid.status === 'ACCEPTED' ||
+        bid.status === 'WITHDRAWN' ||
+        bid.status === 'DISMISSED',
     ).map((bid) => bid.User);
   }, [contract.Bids]);
 
