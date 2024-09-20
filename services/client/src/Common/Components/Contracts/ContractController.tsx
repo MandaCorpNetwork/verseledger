@@ -462,7 +462,7 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
     >
       {isOwned && contract.status === 'BIDDING' && (
         <Button
-          data-testid="ContractController__StartContract_Button"
+          data-testid="ContractController__EndBidding_Button"
           variant={variant}
           color="secondary"
           size="medium"
@@ -488,7 +488,7 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
       )}
       {isOwned && contract.status === 'INPROGRESS' && (
         <Button
-          data-testid="ContractController__StartContract_Button"
+          data-testid="ContractController__CompleteContract_Button"
           variant={variant}
           color="success"
           size="medium"
@@ -501,7 +501,7 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
       )}
       {isOwned && !contractEnded && (
         <Button
-          data-testid="ContractController__StartContract_Button"
+          data-testid="ContractController__EditContract_Button"
           variant={variant}
           color="info"
           size="medium"
@@ -513,7 +513,7 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
       )}
       {isOwned && !contractEnded && (
         <Button
-          data-testid="ContractController__StartContract_Button"
+          data-testid="ContractController__CancelContract_Button"
           variant={variant}
           color={contract.status !== 'INPROGRESS' ? 'warning' : 'error'}
           size="medium"
@@ -525,7 +525,7 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
       )}
       {!isOwned && userBid?.status === 'INVITED' && !contractEnded && (
         <Button
-          data-testid="ContractController__StartContract_Button"
+          data-testid="ContractController__AcceptInvite_Button"
           variant={variant}
           color="success"
           size="medium"
@@ -537,7 +537,7 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
       )}
       {!isOwned && userBid?.status === 'INVITED' && !contractEnded && (
         <Button
-          data-testid="ContractController__StartContract_Button"
+          data-testid="ContractController__DeclineInvite_Button"
           variant={variant}
           color="error"
           size="medium"
@@ -549,7 +549,7 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
       )}
       {!isOwned && userBid?.status === 'PENDING' && !contractEnded && (
         <Button
-          data-testid="ContractController__StartContract_Button"
+          data-testid="ContractController__CancelBid_Button"
           variant={variant}
           color="success"
           size="medium"
@@ -561,7 +561,7 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
       )}
       {!isOwned && userBid?.status === 'ACCEPTED' && !contractEnded && (
         <Button
-          data-testid="ContractController__StartContract_Button"
+          data-testid="ContractController__WithdrawBid_Button"
           variant={variant}
           color="success"
           size="medium"
@@ -572,14 +572,17 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
         </Button>
       )}
       {!isOwned && userBid?.status === 'REJECTED' && !contractEnded && (
-        <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
+        <Typography
+          data-testid="ContractController__RejectedBid_Text"
+          sx={{ fontWeight: 'bold', color: 'info.main' }}
+        >
           Bid was Rejected
         </Typography>
       )}
       {!isOwned && userBid?.status === 'DECLINED' && !contractEnded && (
         <>
           <Button
-            data-testid="ContractController__StartContract_Button"
+            data-testid="ContractController__SubmitBid_Button"
             variant={variant}
             color="success"
             size="medium"
@@ -596,7 +599,7 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
       {!isOwned && hasAccepted && !contractEnded && (
         <>
           <Button
-            data-testid="ContractController__StartContract_Button"
+            data-testid="ContractController__ResubmitBid_Button"
             variant={variant}
             color="secondary"
             size="medium"
@@ -605,14 +608,17 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
           >
             Resubmit Bid
           </Button>
-          <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
+          <Typography
+            data-testid="ContractController__Resubmit_Text"
+            sx={{ fontWeight: 'bold', color: 'info.main' }}
+          >
             {resubmitBidText}
           </Typography>
         </>
       )}
       {!isOwned && !userBid && !contractEnded && (
         <Button
-          data-testid="ContractController__StartContract_Button"
+          data-testid="ContractController__SubmitBid_Button"
           variant={variant}
           color="secondary"
           size="medium"
@@ -624,7 +630,7 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
       )}
       {(isOwned || hasAccepted) && contractEnded && (
         <Button
-          data-testid="ContractController__StartContract_Button"
+          data-testid="ContractController__SubmitRatings_Button"
           variant={variant}
           color="info"
           size="medium"
