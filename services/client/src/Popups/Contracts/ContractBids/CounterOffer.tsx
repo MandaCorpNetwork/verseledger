@@ -132,7 +132,7 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
         <DigiBox data-testid="CounterOffer__Wrapper" sx={{ p: '.5em', gap: '1em' }}>
           <UserDisplay
             data-testid="CounterOffer__User"
-            user={ownerView ? (bid.User as IUser) : (contract.Owner as IUser)}
+            user={ownerView ? (bid?.User as IUser) : (contract.Owner as IUser)}
           />
           <DigiDisplay sx={{ p: '.5em' }}>
             <Typography>{ownerView ? 'Bid Proposal' : 'Counter Offer'}</Typography>

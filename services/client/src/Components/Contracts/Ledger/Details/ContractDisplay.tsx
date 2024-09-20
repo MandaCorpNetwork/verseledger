@@ -140,7 +140,6 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         case 'contractors':
           return <ContractorList contract={contract} />;
         case 'ships':
-          return;
         default:
           return;
       }

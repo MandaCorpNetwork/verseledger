@@ -105,7 +105,6 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
         case 'contractors':
           return <ContractorList contract={memoizedContract} />;
         case 'ships':
-          return;
         default:
           return;
       }

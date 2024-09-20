@@ -45,8 +45,10 @@ export class ObjectUtils {
           } else {
             // @ts-expect-error Index {}
             updated[oldProp] =
-              deep && this.isObject(oldPropValue) && this.isObject(newPropValue)
-                ? this.diff(oldPropValue, newPropValue, deep)
+              deep &&
+              ObjectUtils.isObject(oldPropValue) &&
+              ObjectUtils.isObject(newPropValue)
+                ? ObjectUtils.diff(oldPropValue, newPropValue, deep)
                 : { newValue: newPropValue };
           }
         } else {
@@ -61,7 +63,7 @@ export class ObjectUtils {
         const newPropValue = newObj[newProp];
         if (Object.prototype.hasOwnProperty.call(oldObj, newProp)) {
           if (oldPropValue !== newPropValue) {
-            if (!deep || !this.isObject(oldPropValue)) {
+            if (!deep || !ObjectUtils.isObject(oldPropValue)) {
               // @ts-expect-error Index {}
               updated[newProp].oldValue = oldPropValue;
             }

@@ -16,8 +16,6 @@ export const DashboardPage: React.FC<unknown> = () => {
 
   const currentLocation = React.useMemo(() => {
     switch (location.pathname) {
-      case `${prefix}/overview`:
-        return 'Overview';
       case `${prefix}/contracts`:
         return 'Contracts';
       case `${prefix}/explore`:
@@ -26,6 +24,8 @@ export const DashboardPage: React.FC<unknown> = () => {
         return 'Routes';
       case `${prefix}/inventory`:
         return 'Inventory';
+
+      case `${prefix}/overview`:
       default:
         return 'Overview';
     }
@@ -40,9 +40,6 @@ export const DashboardPage: React.FC<unknown> = () => {
       }
       playSound('navigate');
       switch (iconKey) {
-        case 'Overview':
-          navigate(`${prefix}/overview`);
-          break;
         case 'Contracts':
           navigate(`${prefix}/contracts`);
           break;
@@ -55,6 +52,7 @@ export const DashboardPage: React.FC<unknown> = () => {
         case 'Inventory':
           navigate(`${prefix}/inventory`);
           break;
+        case 'Overview':
         default:
           navigate(`${prefix}/overview`);
           break;

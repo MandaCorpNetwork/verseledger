@@ -20,8 +20,6 @@ export const ContractStatusChip: React.FC<ContractStatusChipProps> = (props) => 
   // Defines the color for the Status Chip
   const statusChipColor = React.useCallback(() => {
     switch (status) {
-      case 'BIDDING':
-        return 'primary';
       case 'PENDING':
         return 'warning';
       case 'INPROGRESS':
@@ -30,6 +28,7 @@ export const ContractStatusChip: React.FC<ContractStatusChipProps> = (props) => 
         return 'success';
       case 'CANCELED':
         return 'error';
+      case 'BIDDING':
       default:
         return 'primary';
     }

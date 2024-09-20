@@ -24,7 +24,7 @@ export class VLAuthPrincipal implements interfaces.Principal {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async isResourceOwner(resourceId: any): Promise<boolean> {
-    return resourceId == resourceId;
+  async isResourceOwner(_resourceId: any): Promise<boolean> {
+    return true;
   }
 }

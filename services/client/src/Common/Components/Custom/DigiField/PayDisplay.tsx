@@ -58,11 +58,10 @@ const PayDigiField: React.FC<PayLabelProps> = ({
     const poolPay = structure === 'POOL' && pay > 100 ? 'Over Limit' : pay;
     switch (structure) {
       case 'FLATRATE':
+      case 'HOURLY':
         return pay.toLocaleString();
       case 'POOL':
         return poolPay;
-      case 'HOURLY':
-        return pay.toLocaleString();
     }
   }, [structure, pay]);
   /** Calls {@link payString} and returns the result */

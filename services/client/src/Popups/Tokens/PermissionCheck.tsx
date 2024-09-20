@@ -34,7 +34,7 @@ export const PermissionCheck: React.FC<PermissionCheckProps> = (props) => {
   return (
     <FormControlLabel
       sx={{ ml: indent ? 3 : 0 }}
-      label={label ?? value.replace('_', '::')}
+      label={label ?? value.replace(/_/g, '::')}
       control={
         <Checkbox
           value={value}

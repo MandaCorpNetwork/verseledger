@@ -92,9 +92,7 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
    * - If the number of contractors is greater than the contractor limit, return `warning.main`
    */
   const getContractorCountColor = React.useCallback(() => {
-    if (acceptedBids === undefined) {
-      return 'text.secondary';
-    } else if (acceptedBids.length < contract.contractorLimit) {
+    if (acceptedBids === undefined || acceptedBids.length < contract.contractorLimit) {
       return 'text.secondary';
     } else if (acceptedBids.length === contract.contractorLimit) {
       return 'success.main';

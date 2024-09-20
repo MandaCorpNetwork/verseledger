@@ -125,14 +125,12 @@ export const Contractor: React.FC<ContractorProps> = ({
         return 'success';
       case 'REJECTED':
         return 'error';
-      case 'INVITED':
-        return 'secondary';
       case 'DECLINED':
-        return 'warning';
       case 'WITHDRAWN':
         return 'warning';
       case 'EXPIRED':
         return 'primary';
+      case 'INVITED':
       default:
         return 'secondary';
     }
