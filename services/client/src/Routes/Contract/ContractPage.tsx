@@ -1,5 +1,6 @@
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
+import { ContractController } from '@Common/Components/Contracts/ContractController';
 import { ContractorList } from '@Common/Components/Contracts/ContractorList';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { LoadingScreen } from '@Common/LoadingObject/LoadingScreen';
@@ -19,7 +20,6 @@ import { useSoundEffect } from '@/AudioManager';
 import { DesktopContractBody } from '@/Components/Contracts/Contract/DesktopComponents/DesktopContractBody';
 import { DesktopReturn } from '@/Components/Contracts/Contract/DesktopComponents/DesktopReturn';
 import { MobileLocations } from '@/Components/Contracts/Contract/MobileData/MobileLocations';
-import { MobileOrTabletController } from '@/Components/Contracts/Contract/MobileData/MobileOrTabletController';
 import { MobileOrTabletReturn } from '@/Components/Contracts/Contract/MobileData/MobileOrTabletReturn';
 import { MobilePayBrief } from '@/Components/Contracts/Contract/MobileData/MobilePayBrief';
 import { TabletDetails } from '@/Components/Contracts/Contract/MobileData/TabletData/TabletDetails';
@@ -434,11 +434,7 @@ export const ContractPage: React.FC<unknown> = () => {
             />
           )}
           {(mobile || tablet) && contract && (
-            <MobileOrTabletController
-              isOwned={isOwner}
-              userBid={userBid}
-              contract={contract}
-            />
+            <ContractController contract={contract} mobileView />
           )}
           {!mobile && !tablet && contract && (
             <DesktopContractBody

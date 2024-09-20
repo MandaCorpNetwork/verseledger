@@ -4,6 +4,7 @@ import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import { ContractController } from '@Common/Components/Contracts/ContractController';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHolo';
 import { Box, Typography } from '@mui/material';
@@ -11,8 +12,6 @@ import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import { Logger } from '@Utils/Logger';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
-
-import { DesktopController } from './DesktopController';
 
 type DesktopBodyProps = {
   /** @prop {IContract} contract - The contract to display information for */
@@ -343,7 +342,7 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
             </Typography>
           )}
         </DigiBox>
-        <DesktopController isOwned={isOwned} userBid={userBid} contract={contract} />
+        <ContractController contract={contract} />
       </Box>
     </Box>
   );
