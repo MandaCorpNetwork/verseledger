@@ -1,22 +1,19 @@
-import 'swagger-ui-react/swagger-ui.css';
+import '@scalar/api-reference-react/style.css';
 
 import { Box } from '@mui/material';
-import { AuthUtil } from '@Utils/AuthUtil';
+import { ApiReferenceReact } from '@scalar/api-reference-react';
 import { URLUtil } from '@Utils/URLUtil';
 import React from 'react';
-import SwaggerUI from 'swagger-ui-react';
 
 export const APIDocs: React.FC = () => {
   return (
     <Box sx={{ backgroundColor: '#FFF' }}>
-      <SwaggerUI
-        url={`${URLUtil.backendHost}/api-docs/swagger.json`}
-        requestSnippetsEnabled={true}
-        docExpansion="none"
-        onComplete={(swagger) => {
-          const token = AuthUtil.getAccessToken();
-          if (token == null) return;
-          swagger.preauthorizeApiKey('VLBearerAuth', `Bearer ${token}`);
+      <ApiReferenceReact
+        configuration={{
+          spec: { url: `${URLUtil.backendHost}/api-docs/swagger.json` },
+          theme: 'purple',
+          hideDarkModeToggle: true,
+          hideTestRequestButton: true,
         }}
       />
     </Box>
