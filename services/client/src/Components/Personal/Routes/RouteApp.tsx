@@ -1,7 +1,11 @@
 import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { Box, Button, Typography } from '@mui/material';
+import { POPUP_CREATE_MISSION } from '@Popups/Mission/AddMission';
+import { useAppDispatch } from '@Redux/hooks';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { isDev } from '@Utils/isDev';
+import React from 'react';
 
 import { CurrentDestination } from './CurrentDestination';
 import { DestinationQue } from './DestinationQue';
@@ -10,6 +14,11 @@ import { NextDestination } from './NextDestination';
 
 export const RouteApp: React.FC<unknown> = () => {
   const dev = isDev();
+  const dispatch = useAppDispatch();
+
+  const handleAddMission = React.useCallback(() => {
+    dispatch(openPopup(POPUP_CREATE_MISSION));
+  }, [dispatch]);
   return (
     <Box
       data-testid="RouteTool__AppContainer"
@@ -41,6 +50,12 @@ export const RouteApp: React.FC<unknown> = () => {
             Route Viewer
           </Typography>
           <Button
+            data-testid="RouteTool-RouteViewer__OpenWidget__Button"
+            variant="popupButton"
+          >
+            Open Widget
+          </Button>
+          <Button
             data-testid="RouteTool-RouteViewer__AddStop__Button"
             variant="popupButton"
           >
@@ -71,6 +86,7 @@ export const RouteApp: React.FC<unknown> = () => {
           <Button
             data-testid="RouteTool-MissionViewer__AddMission_Button"
             variant="popupButton"
+            onClick={handleAddMission}
           >
             Add Mission
           </Button>
