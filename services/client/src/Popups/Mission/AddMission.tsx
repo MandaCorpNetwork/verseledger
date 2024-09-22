@@ -14,9 +14,11 @@ import { POPUP_ADD_LOCATION } from '@Popups/AddLocation/AddLocation';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { addMission } from '@Redux/Slices/Routes/routes.reducer';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import { IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
 
 export const POPUP_CREATE_MISSION = 'create_mission';
 
@@ -92,13 +94,24 @@ export const AddMissionPopup: React.FC = () => {
     },
     [handleObjectiveChange, dispatch],
   );
+
+  const handleSubmit = React.useCallback(() => {
+    if (missionId != null && objectives.length > 0) {
+      const mission: IMission = {
+        missionId,
+        objectives: objectives as IObjective[],
+      };
+      dispatch(addMission(mission));
+      dispatch(closePopup(POPUP_CREATE_MISSION));
+    }
+  }, [dispatch, objectives, missionId]);
   return (
     <VLPopup
       data-testid="CreateMission_Form"
       name={POPUP_CREATE_MISSION}
       title="Create Mission"
-      onCancel={() => {}}
-      onSubmit={() => {}}
+      onCancel={() => dispatch(closePopup(POPUP_CREATE_MISSION))}
+      onSubmit={handleSubmit}
       submitText="Create"
       sx={{
         minWidth: '800px',
