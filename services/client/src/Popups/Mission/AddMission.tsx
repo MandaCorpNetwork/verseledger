@@ -105,6 +105,17 @@ export const AddMissionPopup: React.FC = () => {
       dispatch(closePopup(POPUP_CREATE_MISSION));
     }
   }, [dispatch, objectives, missionId]);
+
+  const validateForm = React.useCallback(() => {
+    return (
+      missionId != null &&
+      objectives.every((obj) => {
+        return obj.packageId != null && obj.pickup != null && obj.dropOff != null;
+      })
+    );
+  }, [missionId, objectives]);
+
+  const isValid = validateForm();
   return (
     <VLPopup
       data-testid="CreateMission_Form"
@@ -112,6 +123,7 @@ export const AddMissionPopup: React.FC = () => {
       title="Create Mission"
       onCancel={() => dispatch(closePopup(POPUP_CREATE_MISSION))}
       onSubmit={handleSubmit}
+      submitDisabled={!isValid}
       submitText="Create"
       sx={{
         minWidth: '800px',

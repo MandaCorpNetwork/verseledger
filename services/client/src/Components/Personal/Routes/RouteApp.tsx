@@ -2,10 +2,12 @@ import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_CREATE_MISSION } from '@Popups/Mission/AddMission';
-import { useAppDispatch } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { selectMissions } from '@Redux/Slices/Routes/routes.selectors';
 import { isDev } from '@Utils/isDev';
 import React from 'react';
+import { IMission } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { CurrentDestination } from './CurrentDestination';
 import { DestinationQue } from './DestinationQue';
@@ -15,6 +17,8 @@ import { NextDestination } from './NextDestination';
 export const RouteApp: React.FC<unknown> = () => {
   const dev = isDev();
   const dispatch = useAppDispatch();
+
+  const missions = useAppSelector(selectMissions);
 
   const handleAddMission = React.useCallback(() => {
     dispatch(openPopup(POPUP_CREATE_MISSION));
@@ -91,89 +95,10 @@ export const RouteApp: React.FC<unknown> = () => {
             Add Mission
           </Button>
         </Box>
-        <Mission />
+        {missions.map((mission: IMission) => (
+          <Mission key={mission.missionId} mission={mission} />
+        ))}
       </GlassBox>
     </Box>
   );
 };
-
-const sampleMissions = [
-  {
-    missionId: '445345',
-    objectives: [
-      {
-        packageId: '556423',
-        pickupLocation: 'Everus Harbor',
-        dropoffLocation: 'Lorville',
-        contents: 'Unknown',
-        scu: '1',
-      },
-      {
-        packageId: '777685',
-        pickupLocation: 'HDMS-Razor',
-        dropoffLocation: 'Klecher',
-        contents: 'Unknown',
-        scu: '1',
-      },
-      {
-        packageId: '888542',
-        pickupLocation: 'HDSF-Callifer',
-        dropoffLocation: 'New Babbage',
-        contents: 'Unknown',
-        scu: '1',
-      },
-    ],
-  },
-  {
-    missionId: '885463',
-    objectives: [
-      {
-        packageId: '885745',
-        pickupLocation: 'Everus Harbor',
-        dropoffLocation: 'Lorville',
-        contents: 'Copper',
-        scu: '10',
-      },
-      {
-        packageId: '356998',
-        pickupLocation: 'HDMS-Razor',
-        dropoffLocation: 'Klecher',
-        contents: 'Medical Supplies',
-        scu: '20',
-      },
-      {
-        packageId: '448756',
-        pickupLocation: 'HDSF-Callifer',
-        dropoffLocation: 'New Babbage',
-        contents: 'Tungsten',
-        scu: '15',
-      },
-    ],
-  },
-  {
-    missionId: '886547',
-    objectives: [
-      {
-        packageId: '223542',
-        pickupLocation: 'Everus Harbor',
-        dropoffLocation: 'Lorville',
-        contents: 'Unknown',
-        scu: '1',
-      },
-      {
-        packageId: '339654',
-        pickupLocation: 'HDMS-Razor',
-        dropoffLocation: 'Klecher',
-        contents: 'Unknown',
-        scu: '1',
-      },
-      {
-        packageId: '778545',
-        pickupLocation: 'HDSF-Callifer',
-        dropoffLocation: 'New Babbage',
-        contents: 'Unknown',
-        scu: '1',
-      },
-    ],
-  },
-];
