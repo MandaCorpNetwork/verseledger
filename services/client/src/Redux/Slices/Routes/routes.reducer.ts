@@ -18,10 +18,14 @@ const routesReducer = createSlice({
       const mission = action.payload;
       state.missions[mission.missionId] = mission;
     },
+    addDestination: (state, action: PayloadAction<IDestination>) => {
+      const destination = action.payload;
+      state.destinations[destination.location.id] = destination;
+    },
   },
   extraReducers() {},
 });
 
 export default routesReducer;
 
-export const { addMission } = routesReducer.actions;
+export const { addMission, addDestination } = routesReducer.actions;
