@@ -23,7 +23,7 @@ export const destinationCreation: Middleware<unknown, RootState> =
           const pickupDestination: IDestination = {
             stopNumber: Object.keys(state.routes.destinations).length + 1,
             location: objective.pickup,
-            reason: 'Pickup', // Customize this based on your use case
+            reason: 'Delivery', // Customize this based on your use case
             objectives: mission.objectives.filter(
               (obj) =>
                 obj.pickup?.id === objective.pickup.id ||
@@ -41,7 +41,7 @@ export const destinationCreation: Middleware<unknown, RootState> =
           const dropOffDestination: IDestination = {
             stopNumber: Object.keys(state.routes.destinations).length + 1,
             location: objective.dropOff,
-            reason: 'Dropoff', // Customize this based on your use case
+            reason: 'Delivery', // Customize this based on your use case
             objectives: mission.objectives.filter(
               (obj) =>
                 obj.pickup?.id === objective.dropOff.id ||

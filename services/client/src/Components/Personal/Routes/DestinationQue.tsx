@@ -1,4 +1,5 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import {
   Table,
   TableBody,
@@ -7,7 +8,9 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
+import { calcDistance } from '@Utils/distanceUtils';
 import React from 'react';
+import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
 interface Column {
   id: string;
@@ -18,10 +21,23 @@ interface Column {
 const columns: readonly Column[] = [
   { id: 'destination', label: 'Destination', align: 'left' },
   { id: 'reason', label: 'Stop Reason', align: 'center' },
-  { id: 'time', label: 'Travel Time', align: 'center' },
+  { id: 'distance', label: 'Travel Distance', align: 'center' },
 ];
 
-export const DestinationQue: React.FC = () => {
+type DestinationQueProps = {
+  destinations: IDestination[];
+};
+
+export const DestinationQue: React.FC<DestinationQueProps> = ({ destinations }) => {
+  const distances = React.useMemo(() => {
+    const distArr: (string | null)[] = [];
+    for (let i = 1; i < destinations.length; i++) {
+      const prevLocation = destinations[i - 1].location;
+      const currentLocation = destinations[i].location;
+      distArr.push(calcDistance(prevLocation, currentLocation));
+    }
+    return distArr;
+  }, [destinations]);
   return (
     <DigiBox
       data-testid="RouteTool-RouteViewer__DestinationQue_Container"
@@ -56,14 +72,16 @@ export const DestinationQue: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {tempDestinationData.map((place, index) => (
+            {destinations.map((place, index) => (
               <TableRow key={index} hover>
                 <TableCell>
                   {`${index + 1}. `}
-                  {place.destination}
+                  <LocationChip locationId={place.location.id} />
                 </TableCell>
                 <TableCell sx={{ textAlign: 'center' }}>{place.reason}</TableCell>
-                <TableCell sx={{ textAlign: 'center' }}>{place.time}</TableCell>
+                <TableCell sx={{ textAlign: 'center' }}>
+                  {index === 0 ? '—' : `${distances[index - 1]} km`}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -72,10 +90,3 @@ export const DestinationQue: React.FC = () => {
     </DigiBox>
   );
 };
-
-const tempDestinationData = [
-  { destination: 'Lorville', reason: 'Mission', time: '5 minutes' },
-  { destination: 'Everus Harbor', reason: 'Mission', time: '1 minute' },
-  { destination: 'Crusader', reason: 'Crew Stop', time: '7 minutes' },
-  { destination: 'Colliope', reason: 'Mission', time: '9 minutes' },
-];
