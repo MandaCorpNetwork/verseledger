@@ -1,6 +1,7 @@
 import Error from '@Assets/media/error.gif';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useRouteError } from 'react-router-dom';
 
@@ -8,6 +9,15 @@ import { useSoundEffect } from '@/AudioManager';
 
 const ErrorPage: React.FC = () => {
   const error = useRouteError() as { error: Error } & Error;
+  const errorMessage = error?.error?.message ?? error?.message;
+  //? Oops
+  if (errorMessage == `Cannot destructure property 'type' of 'vnode' as it is null.`) {
+    enqueueSnackbar('Encountered known error, Reloading application...', {
+      variant: 'error',
+      autoHideDuration: 5000,
+    });
+    window.location.reload();
+  }
   const { playSound } = useSoundEffect();
   React.useEffect(() => {
     playSound('error');
@@ -57,7 +67,7 @@ const ErrorPage: React.FC = () => {
             }}
           >
             <Typography variant="subtitle1">
-              {error?.error?.message ?? error?.message ?? 'Something went Wrong'}
+              {errorMessage ?? 'Something went Wrong'}
             </Typography>
           </Box>
         </Box>
