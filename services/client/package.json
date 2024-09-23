@@ -14,7 +14,7 @@
     "@mui/x-charts": "7.18.0",
     "@mui/x-data-grid": "7.18.0",
     "@mui/x-date-pickers": "7.18.0",
-    "@react-three/fiber": "8.17.7",
+    "@react-three/fiber": "8.17.8",
     "@reduxjs/toolkit": "2.2.7",
     "@scalar/api-reference-react": "0.3.93",
     "axios": "1.7.7",
