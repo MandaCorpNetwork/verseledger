@@ -3,6 +3,8 @@ import { TuningTick } from '@Common/Components/Boxes/TuningTick';
 import { Box } from '@mui/material';
 import React from 'react';
 
+import { useSoundEffect } from '@/AudioManager';
+
 import { TuningConfig } from './Tuning';
 
 export const ConfigGroup: React.FC<{
@@ -10,8 +12,10 @@ export const ConfigGroup: React.FC<{
   groupKey: keyof TuningConfig;
   configKey: keyof TuningConfig;
   config: TuningConfig;
-}> = ({ setConfig, groupKey, configKey, config }) => {
+  icon: React.ReactNode;
+}> = ({ setConfig, groupKey, configKey, config, icon }) => {
   const [hoveredTick, setHoveredTick] = React.useState<number | null>(null);
+  const { playSound } = useSoundEffect();
   const handleMouseEnter = (index: number) => {
     setHoveredTick(index);
   };
@@ -46,16 +50,23 @@ export const ConfigGroup: React.FC<{
             data-testid="ShipTuning-TuningEditor-ConfigGroup__Config__TickBox"
             key={index}
             onClick={() => handleConfigValue(reversedIndex + 1)}
-            onMouseEnter={() => handleMouseEnter(reversedIndex)}
+            onMouseEnter={() => {
+              handleMouseEnter(reversedIndex);
+              if (!isDisabled) playSound('hover');
+            }}
             onMouseLeave={handleMouseLeave}
             sx={{
               backgroundColor: isDisabled
-                ? 'black'
+                ? 'primary.dark'
                 : reversedIndex + 1 <= (config[configKey] as number)
                   ? 'secondary.main'
                   : hoveredTick != null && reversedIndex <= hoveredTick
                     ? 'secondary.main'
                     : 'secondary.dark',
+              '&:hover': {
+                backgroundColor: isDisabled ? 'primary.dark' : 'secondary.main',
+                borderColor: isDisabled ? 'action.disabledBackground' : 'secondary.light',
+              },
             }}
           />
         );
@@ -64,8 +75,14 @@ export const ConfigGroup: React.FC<{
         onClick={handleGroupToggle}
         sx={{
           backgroundColor: config[groupKey] ? 'secondary.main' : 'secondary.dark',
+          alignItems: 'center',
+          justifyContent: 'center',
+          display: 'flex',
+          opacity: '.9',
         }}
-      />
+      >
+        {icon}
+      </TuningGroup>
     </Box>
   );
 };

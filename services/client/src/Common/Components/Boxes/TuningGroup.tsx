@@ -8,6 +8,7 @@ export const TuningGroup = styled(Box)(({ theme }) => ({
   border: '2px solid',
   borderColor: theme.palette.primary.light,
   cursor: 'pointer',
+  transition: 'all 0.2s ease-in-out',
   '&:hover': {
     backgroundColor: theme.palette.secondary.main,
     borderColor: theme.palette.secondary.light,
