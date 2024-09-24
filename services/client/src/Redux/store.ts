@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { isDev } from '../Utils/isDev';
 import { coreReducer } from './reducers';
 import { updateLocationsMiddleware } from './Slices/Locations/updateLocations.middleware';
+import { destinationCreation } from './Slices/Routes/actions/destinationCreation.middleware';
 import { updateUsersMiddleware } from './Slices/Users/updateUsers';
 
 export const setupStore = (preloadState?: Partial<RootState>) =>
@@ -14,6 +15,7 @@ export const setupStore = (preloadState?: Partial<RootState>) =>
       getDefaultMiddleware({ serializableCheck: false }).concat(
         updateLocationsMiddleware,
         updateUsersMiddleware,
+        destinationCreation,
       ),
   });
 export type RootState = ReturnType<typeof coreReducer>;

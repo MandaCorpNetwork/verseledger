@@ -1,4 +1,9 @@
 import {
+  AddLocationPopup,
+  AddLocationProps,
+  POPUP_ADD_LOCATION,
+} from '@Popups/AddLocation/AddLocation';
+import {
   ContractBidProps,
   POPUP_SUBMIT_CONTRACT_BID,
   SubmitContractBid,
@@ -30,6 +35,7 @@ import {
 } from '@Popups/Info/Locations';
 import { PayStructuresPopup, POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { LoginPopup, POPUP_LOGIN } from '@Popups/Login/LoginPopup';
+import { AddMissionPopup, POPUP_CREATE_MISSION } from '@Popups/Mission/AddMission';
 import {
   PlayerCardPopup,
   PlayerCardPopupProps,
@@ -106,6 +112,12 @@ export const PopupManager: React.FC = () => {
     selectPopup(state, POPUP_SUPPORT_DEVELOPMENT),
   );
   const loginPopup = useAppSelector((state) => selectPopup(state, POPUP_LOGIN));
+  const createMissionPopup = useAppSelector((state) =>
+    selectPopup(state, POPUP_CREATE_MISSION),
+  );
+  const addLocationPopup = useAppSelector((state) =>
+    selectPopup(state, POPUP_ADD_LOCATION),
+  );
   return (
     <>
       {verifyUserPopup.open && <VerifyUserPopup />}
@@ -145,6 +157,10 @@ export const PopupManager: React.FC = () => {
       )}
       {supportDevPopup.open && <SupportDevPopup />}
       {loginPopup.open && <LoginPopup />}
+      {createMissionPopup.open && <AddMissionPopup />}
+      {addLocationPopup.open && (
+        <AddLocationPopup {...(addLocationPopup.props as AddLocationProps)} />
+      )}
     </>
   );
 };
