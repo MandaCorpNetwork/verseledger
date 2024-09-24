@@ -5,7 +5,7 @@ import React from 'react';
 
 import { useSoundEffect } from '@/AudioManager';
 
-import { TuningConfig } from './Tuning';
+import { TuningConfig } from './TuningEditor';
 
 export const ConfigGroup: React.FC<{
   setConfig: React.Dispatch<React.SetStateAction<TuningConfig>>;
@@ -16,17 +16,22 @@ export const ConfigGroup: React.FC<{
 }> = ({ setConfig, groupKey, configKey, config, icon }) => {
   const [hoveredTick, setHoveredTick] = React.useState<number | null>(null);
   const { playSound } = useSoundEffect();
-  const handleMouseEnter = (index: number) => {
-    setHoveredTick(index);
-  };
-  const handleMouseLeave = () => {
+  const isDisabled = !config[groupKey];
+  const handleMouseEnter = React.useCallback(
+    (index: number) => {
+      setHoveredTick(index);
+    },
+    [setHoveredTick],
+  );
+  const handleMouseLeave = React.useCallback(() => {
     setHoveredTick(null);
-  };
+  }, [setHoveredTick]);
   const handleConfigValue = React.useCallback(
     (index: number) => {
+      if (isDisabled) return playSound('denied');
       setConfig((prev) => ({ ...prev, [configKey]: index }));
     },
-    [setConfig, configKey],
+    [setConfig, configKey, playSound, isDisabled],
   );
   const handleGroupToggle = React.useCallback(() => {
     setConfig((prev) => ({ ...prev, [groupKey]: !prev[groupKey] }));
@@ -37,7 +42,6 @@ export const ConfigGroup: React.FC<{
       }));
     }
   }, [groupKey, setConfig, configKey, config]);
-  const isDisabled = !config[groupKey];
   return (
     <Box
       data-testid="ShipTuning-TuningEditor__ConfigGroup_Wrapper"
@@ -52,7 +56,6 @@ export const ConfigGroup: React.FC<{
             onClick={() => handleConfigValue(reversedIndex + 1)}
             onMouseEnter={() => {
               handleMouseEnter(reversedIndex);
-              if (!isDisabled) playSound('hover');
             }}
             onMouseLeave={handleMouseLeave}
             sx={{
