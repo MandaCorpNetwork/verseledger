@@ -1,6 +1,12 @@
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { Exploration } from '@Common/Definitions/CustomIcons';
-import { Apps, Inventory, Route, TextSnippet } from '@mui/icons-material';
+import {
+  Apps,
+  Inventory,
+  Route,
+  StackedBarChart,
+  TextSnippet,
+} from '@mui/icons-material';
 import { ButtonGroup, Divider, IconButton, Tooltip } from '@mui/material';
 import { IconButtonProps } from '@mui/material/IconButton';
 import React from 'react';
@@ -50,6 +56,7 @@ export const AppToolBar: React.FC<AppToolBarProps> = ({
     { key: 'Overview', icon: <Apps key="apps" fontSize="large" /> },
     { key: 'Contracts', icon: <TextSnippet key="text-snippet" fontSize="large" /> },
     { key: 'Explore', icon: <Exploration key="explore" fontSize="large" /> },
+    { key: 'Tuning', icon: <StackedBarChart key="tuning" fontSize="large" /> },
     { key: 'Routes', icon: <Route key="route" fontSize="large" /> },
     { key: 'Inventory', icon: <Inventory key="inventory" fontSize="large" /> },
   ];
