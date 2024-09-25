@@ -4,6 +4,9 @@ volumes:
 
 services:
   vl-app:
+    depends_on:
+      vl-db:
+        condition: service_healthy
     container_name: vl-app
     profiles:
       - build
@@ -29,28 +32,41 @@ services:
       MYSQL_ROOT_PASSWORD: 'verseledger-password'
     ports:
       - '3306:3306'
+    healthcheck:
+      test: "mysql $$MYSQL_DATABASE -uroot -p$$MYSQL_ROOT_PASSWORD -e 'SELECT 1;'"
+      interval: 1s
+      timeout: 30s
+      retries: 10
+      start_period: 10s
     expose:
       - '3306'
     volumes:
       - vl-db:/var/lib/mysql
-  vl-activemq:
-    container_name: vl-activemq
+  vl-rabbitmq:
+    depends_on:
+      vl-db:
+        condition: service_healthy
+    container_name: vl-rabbitmq
     profiles:
       - local
-    image: apache/activemq-artemis:latest
-    environment:
-      ARTEMIS_USER: 'verseledger-app'
-      ARTEMIS_PASSWORD: 'verseledger-password'
-      ANONYMOUS_LOGIN: true
+    image: rabbitmq:4-management
     ports:
-      - '61616:61616'
-      - '8161:8161'
+      - '61616:61613'
+      - '5672:5672'
+      - '15672:15672'
+      - '15674:15674'
     expose:
-      - '8161'
+      - '5672'
+      - '15672'
       - '61616'
+      - '15674'
     volumes:
-      - vl-activemq:/var/lib/artemis-instance
+      - ./rabbit/rabbit.conf:/etc/rabbitmq/rabbitmq.conf
+      - ./rabbit/enabled_plugins:/etc/rabbitmq/enabled_plugins
   vl-adminer:
+    depends_on:
+      vl-db:
+        condition: service_healthy
     container_name: vl-adminer
     profiles:
       - local

@@ -17,9 +17,8 @@ export const StompProvider: React.FC<PropsWithChildren> = (props) => {
           ? {
               login: currentUser.id,
               passcode: AuthUtil.getAccessToken() as string,
-              Authorization: AuthUtil.getAccessHeader()?.Authorization as string,
             }
-          : { login: 'Anonymous', passcode: 'guest' }
+          : { login: 'guest', passcode: 'guest' }
       }
       reconnectDelay={1000}
       debug={Logger.info}

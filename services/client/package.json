@@ -9,8 +9,9 @@
     "@emotion/styled": "11.13.0",
     "@hyperjump/browser": "1.1.6",
     "@mui/icons-material": "6.1.1",
-    "@mui/lab": "5.0.0-alpha.173",
+    "@mui/lab": "6.0.0-beta.10",
     "@mui/material": "6.1.1",
+    "@mui/system": "^6.1.1",
     "@mui/x-charts": "7.18.0",
     "@mui/x-data-grid": "7.18.0",
     "@mui/x-date-pickers": "7.18.0",
@@ -43,7 +44,7 @@
     "redux": "5.0.1",
     "redux-logger": "3.0.6",
     "redux-thunk": "3.1.0",
-    "tailwindcss": "^3.4.12",
+    "tailwindcss": "3.4.12",
     "three": "0.168.0"
   },
   "scripts": {

@@ -1,6 +1,6 @@
-import { z } from "zod";
-import { LocationSchema } from "./LocationSchema";
-import { ContractSchema } from "./ContractSchema";
+import { z } from 'zod';
+import { LocationSchema } from './LocationSchema';
+import { ContractSchema } from './ContractSchema';
 
 export const ObjectiveSchema = z.object({
   packageId: z.number(),

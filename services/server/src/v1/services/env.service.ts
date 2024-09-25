@@ -28,6 +28,10 @@ export class EnvService implements EnvironmentConfig {
 
   public EXPRESS_PORT!: number;
 
+  public RABBIT_USER!: string;
+  public RABBIT_PASS!: string;
+  public RABBIT_HOST!: string;
+
   public AUTH_SECRET!: string;
   // SERVICE CODE
   constructor() {

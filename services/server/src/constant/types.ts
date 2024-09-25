@@ -8,6 +8,7 @@ export const TYPES = {
   AuthMiddleware: Symbol.for('AuthMiddleware'),
   VerifiedUserMiddleware: Symbol.for('VerifiedUserMiddleware'),
   StompService: Symbol.for('StompService'),
+  RabbitService: Symbol.for('RabbitService'),
   TestingMiddleware: Symbol.for('TestingMiddleware'),
   Logger: Symbol.for('Logger'),
   PallyService: Symbol.for('PallyService'),

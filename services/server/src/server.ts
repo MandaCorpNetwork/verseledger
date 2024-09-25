@@ -17,6 +17,13 @@ import { NotFoundError } from '@V1/errors/NotFoundError';
 import { Logger } from './utils/Logger';
 import { methodToColor } from './utils/methodToColor';
 import { ZodError } from 'zod';
+import fs from 'node:fs';
+import https from 'https';
+import http from 'http';
+
+const key = fs.readFileSync('./src/SSL/key.pem');
+const cert = fs.readFileSync('./src/SSL/cert.pem');
+
 export const createServer = () => {
   bindContainer(container);
   const env = new EnvService();
@@ -125,7 +132,12 @@ export const createServer = () => {
       res.status(500).send('An unexpected error has occured');
     }
   });
-  app.listen(env.EXPRESS_PORT, () => {
-    Logger.info(`App listening on port ${env.EXPRESS_PORT}`);
+  const httpsServer = https.createServer({ key, cert }, app);
+  const httpServer = http.createServer(app);
+  httpsServer.listen(env.EXPRESS_PORT, () => {
+    Logger.info(`App listening HTTPS on port ${env.EXPRESS_PORT}`);
+  });
+  httpServer.listen(env.EXPRESS_PORT + 2, () => {
+    Logger.info(`App listening HTTP on port ${env.EXPRESS_PORT + 2}`);
   });
 };

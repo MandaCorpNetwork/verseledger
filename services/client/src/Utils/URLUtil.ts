@@ -5,7 +5,7 @@ export class URLUtil {
   public static get messageBroker() {
     switch (URLUtil.siteMode) {
       case 'LOCAL':
-        return 'ws://localhost:61616/ws';
+        return 'ws://localhost:15674/ws';
       case 'PRODUCTION':
         return 'wss://ws.verseledger.net/ws';
       case 'STAGING':
@@ -29,7 +29,7 @@ export class URLUtil {
   public static get backendHost() {
     switch (URLUtil.siteMode) {
       case 'LOCAL':
-        return 'http://localhost:3030';
+        return 'https://localhost:3030';
       case 'PRODUCTION':
         return 'https://api.verseledger.net';
       case 'STAGING':

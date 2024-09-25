@@ -22,7 +22,7 @@ export const AuthManager: React.FC = () => {
   });
   const currentUser = useAppSelector(selectCurrentUser);
 
-  useSubscription(`/topic/notifications/${currentUser?.id ?? 'global'}`, (message) => {
+  useSubscription(`/topic/notifications-${currentUser?.id ?? 'global'}`, (message) => {
     const contract = JSON.parse(message.body);
     enqueueSnackbar({
       variant: 'info',

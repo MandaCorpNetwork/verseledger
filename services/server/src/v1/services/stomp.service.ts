@@ -11,7 +11,8 @@ const env = new EnvService();
 const client = new Client({
   brokerURL: `${env.BROKER_HOST}/ws`,
   connectHeaders: {
-    login: 'Server',
+    login: env.RABBIT_USER,
+    password: env.RABBIT_PASS,
   },
 });
 client.activate();

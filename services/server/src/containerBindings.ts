@@ -17,6 +17,7 @@ import { RatingService } from '@V1/models/user_ratings/rating.service';
 import { UserSettingsService } from '@V1/models/user_settings/user_settings.service';
 import { ChatService } from '@V1/models/chat/chat.service';
 import { ContractBidsService } from '@V1/models/contract_bid/contract_bid.service';
+import { RabbitService } from '@V1/services/rabbit.service';
 export const bindContainer = (container: Container) => {
   container
     .bind<EnvService>(TYPES.EnvService)
@@ -57,6 +58,10 @@ export const bindContainer = (container: Container) => {
   container
     .bind<StompService>(TYPES.StompService)
     .to(StompService)
+    .inSingletonScope();
+  container
+    .bind<RabbitService>(TYPES.RabbitService)
+    .to(RabbitService)
     .inSingletonScope();
   container.bind<Logger>(TYPES.Logger).to(Logger).inSingletonScope();
   container

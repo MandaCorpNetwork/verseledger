@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "dev": "concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client dev\" \"manypkg run server dev\"",
+    "dev-docker": "concurrently -p \"[{name}]\" -n \"DOCKER,CLIENT,SERVER\" -c \"bgYellow.bold,bgGreen.bold,bgBlue.bold\" \"docker compose --profile local up\" \"wait-on http://localhost:15672 && manypkg run client dev\" \"wait-on http://localhost:15672 && manypkg run server dev\"",
     "postinstall": "preconstruct dev && manypkg check",
     "clean": "yarn manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules",
     "test": "yarn test:server && yarn test:client",
@@ -29,7 +30,8 @@
     "@changesets/cli": "2.27.8",
     "@manypkg/cli": "0.21.4",
     "@preconstruct/cli": "2.8.7",
-    "concurrently": "9.0.1"
+    "concurrently": "9.0.1",
+    "wait-on": "^8.0.1"
   },
   "preconstruct": {
     "packages": [

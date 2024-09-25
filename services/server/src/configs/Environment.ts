@@ -39,7 +39,7 @@ export const envConfig = {
     type: 'string',
     description: '',
     optional: true,
-    default: 'ws://localhost:61616',
+    default: 'ws://localhost:15674',
   },
   MYSQL_DATABASE: {
     type: 'string',
@@ -94,6 +94,24 @@ export const envConfig = {
     description: 'pally.gg channel',
     optional: true,
     default: null,
+  },
+  RABBIT_USER: {
+    type: 'string',
+    description: 'RabbitMQ Login',
+    optional: true,
+    default: 'guest',
+  },
+  RABBIT_PASS: {
+    type: 'string',
+    description: 'RabbitMQ Login',
+    optional: true,
+    default: 'guest',
+  },
+  RABBIT_HOST: {
+    type: 'string',
+    description: 'RabbitMQ Login',
+    optional: true,
+    default: 'localhost:5672',
   },
 } as const;
 
