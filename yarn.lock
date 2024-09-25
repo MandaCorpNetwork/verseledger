@@ -2893,17 +2893,17 @@
     whatwg-mimetype "^4.0.0"
     zod "^3.23.8"
 
-"@scalar/api-reference-react@0.3.95":
-  version "0.3.95"
-  resolved "https://registry.yarnpkg.com/@scalar/api-reference-react/-/api-reference-react-0.3.95.tgz#7cc3ade76613d298d4f52923747951232ed65171"
-  integrity sha512-Qd4JUd5jNXXOOGbzX5o5LJKWxm8sH/a7+0PzCe9n8e8U0hZPP/LHFrXmQrwWzx786nCRf2rJrS3rE91MFCpEUA==
+"@scalar/api-reference-react@0.3.97":
+  version "0.3.97"
+  resolved "https://registry.yarnpkg.com/@scalar/api-reference-react/-/api-reference-react-0.3.97.tgz#3e5f717820f1ff37c966013c3544f6606f58e077"
+  integrity sha512-zO5Nqhe1S8tMR2yJ7Uv2/4bk348fonLs9Qkt4QhKP0G+wV6kmCHxGF4JGzkpBvlMfIl773GE61BzMrrj1uv0YQ==
   dependencies:
-    "@scalar/api-reference" "1.25.19"
+    "@scalar/api-reference" "1.25.21"
 
-"@scalar/api-reference@1.25.19":
-  version "1.25.19"
-  resolved "https://registry.yarnpkg.com/@scalar/api-reference/-/api-reference-1.25.19.tgz#23c0ca8df0a6d8219d42be0f8c8a635c6281c4f0"
-  integrity sha512-oTKVC3dQEuCjp0u4bQ6H2sF7vwE1i191RFA0CdDLW+a1ZclN6emITKCQb64gPjS3mCsrWU54nf01pxYdC44VCw==
+"@scalar/api-reference@1.25.21":
+  version "1.25.21"
+  resolved "https://registry.yarnpkg.com/@scalar/api-reference/-/api-reference-1.25.21.tgz#c9e400a6255fc9c17c49c0ab21e87957695a10cd"
+  integrity sha512-r+A/9LABXUjlGz+AfQDm/ML6h4m1FMA7zu2kHCf1d5uKkxdNQRhaPS2W4SvYne/VeyTKjN1CqqIGeFlCdOdPnw==
   dependencies:
     "@floating-ui/vue" "^1.0.2"
     "@headlessui/vue" "^1.7.20"
