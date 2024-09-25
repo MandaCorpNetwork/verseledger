@@ -10,6 +10,7 @@ import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
 import { InventoryApp } from '@/Components/Personal/Inventory/InventoryApp';
 import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
 import { RouteApp } from '@/Components/Personal/Routes/RouteApp';
+import { ShipTuning } from '@/Components/Personal/Tuning/Tuning';
 import { PopupManager } from '@/PopupManager';
 import { WidgetManager } from '@/WidgetManager';
 
@@ -123,6 +124,10 @@ export const routingInfo: RouteObject[] = [
           {
             path: 'inventory',
             element: <InventoryApp />,
+          },
+          {
+            path: 'tuning',
+            element: <ShipTuning />,
           },
         ],
       },

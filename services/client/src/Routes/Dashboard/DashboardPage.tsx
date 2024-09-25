@@ -24,7 +24,8 @@ export const DashboardPage: React.FC<unknown> = () => {
         return 'Routes';
       case `${prefix}/inventory`:
         return 'Inventory';
-
+      case `${prefix}/tuning`:
+        return 'Tuning';
       case `${prefix}/overview`:
       default:
         return 'Overview';
@@ -51,6 +52,9 @@ export const DashboardPage: React.FC<unknown> = () => {
           break;
         case 'Inventory':
           navigate(`${prefix}/inventory`);
+          break;
+        case 'Tuning':
+          navigate(`${prefix}/tuning`);
           break;
         case 'Overview':
         default:

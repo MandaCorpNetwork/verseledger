@@ -786,6 +786,114 @@ const MissilesIconSVG = (
   </svg>
 );
 
+const PowerIconSVG = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    id="Layer_1"
+    x="0"
+    y="0"
+    version="1.1"
+    viewBox="0 0 50 50"
+  >
+    <path
+      d="M43 50h-6.9v-3.8h5.3l4.8-4.8V8.6l-4.9-4.8H36V0h7l7 7v36l-7 7zm-29.1 0H7l-7-7V7l7-7h6.9v3.8H8.6L3.8 8.6v32.8l4.8 4.8h5.3V50zm4.7-7.1 13.9-19.3-7-.6 5.9-14.3H20.3l-2.7 16.8 4.4.5-3.4 16.9z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+const CoolerIconSVG = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    id="Layer_1"
+    x="0"
+    y="0"
+    version="1.1"
+    viewBox="0 0 50 50"
+  >
+    <path
+      d="M25.6.1c-5.3 0-10.5 1.8-14.7 5C-.3 12.5-3.4 27.7 4 38.9s22.6 14.4 33.8 6.9c.9-.6 1.7-1.2 2.4-1.9 10.8-8 13-23.4 4.9-34.1C40.5 3.7 33.3.1 25.6.1zm13 36.2c-3.3-.2-6.5-2-8.3-4.8l-.9-1.3-3.6 1.2.3 2.2c.7 4.4 3.9 8 8.3 9l2.6.7c-3.4 2.2-7.4 3.2-11.4 3.2-.5 0-.9 0-1.4-.1l-2.3-4.8c-1.5-3-1.5-6.5 0-9.6l.7-1.4-2.9-2.5-1.7 1.3c-3.5 2.7-5 7.4-3.7 11.7l.8 2.6c-3.9-2.2-7.1-5.5-9.2-9.5l2.9-4.4c1.9-2.8 5-4.6 8.3-4.8l1.6-.1.8-3.8-2.1-.8c-4.1-1.7-8.9-.6-11.9 2.6l-2 2.1v-.6c0-4.3 1.3-8.5 3.7-12l5.4.4c3.3.2 6.5 2 8.3 4.8l.9 1.3 3.6-1.2-.3-2.2c-.7-4.4-3.9-8-8.3-9L14.2 6c3.4-2.2 7.4-3.2 11.4-3.2.5 0 .9 0 1.4.1l2.3 4.8c1.5 3 1.5 6.5 0 9.6l-.8 1.3 2.9 2.5 1.8-1.4c3.5-2.7 5-7.4 3.7-11.7l-.8-2.6c3.9 2.2 7.1 5.5 9.2 9.5l-3.1 4.4c-1.9 2.8-5 4.6-8.3 4.8l-1.6.1-.8 3.8 2.1.8c4.1 1.7 8.9.6 11.9-2.6l2-2.1v.6c0 4.3-1.3 8.5-3.6 12.1 0-.1-5.3-.5-5.3-.5z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+const ShieldIconSVG = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    id="Layer_1"
+    x="0"
+    y="0"
+    version="1.1"
+    viewBox="0 0 50 50"
+  >
+    <path
+      d="M46.5 31.1 50 25l-3.5-6h-4.7l-3.1-5.5L41 9.4l-3.5-6.1h-7l-2.4 4.1h-6.3l-2.4-4.1h-7L9 9.4l2.4 4.1-3.1 5.4H3.5L0 25l3.5 6.1h4.7l3.1 5.4-2.4 4 3.5 6.1h7l2.4-4.1h6.3l2.4 4.1h7l3.5-6.1-2.4-4.1 3.2-5.4h4.7zm-16 3.4-2.4 4.1h-6.3l-2.4-4.1h-4.7l-3.1-5.4L14 25l-2.4-4.1 3.1-5.4h4.7l2.4-4.1h6.3l2.4 4.1h4.7l3.1 5.4L36 25l2.3 4.1-3.1 5.4h-4.7z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+const ThrusterIconSVG = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    id="Layer_1"
+    x="0"
+    y="0"
+    version="1.1"
+    viewBox="0 0 50 50"
+  >
+    <path
+      d="m35.8 3.1 7.8 11.2-1.9 3.5-5.3-5.1c-1.8-1.8-4.3-2.8-6.9-2.8h-9.2c-2.6 0-5.1 1-6.9 2.8L8.1 18l-1.8-3.7 7.8-11.2c1.4-2 3.7-3.1 6.1-3.1h9.6c2.4 0 4.6 1.2 6 3.1zM25 41.5l9.2-22.4 9.2 9.6-6.9-.8L25 50 13.4 27.8l-6.8.8 9.2-9.6L25 41.5zM21.6 15h6.9c.8 0 1.5.7 1.4 1.5 0 .2 0 .3-.1.5L25 27.8l-4.7-10.7c-.3-.8.1-1.6.9-1.9.1-.1.3-.1.5-.1V15z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+const ScannerIconSVG = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    id="Layer_1"
+    x="0"
+    y="0"
+    version="1.1"
+    viewBox="0 0 50 50"
+  >
+    <path
+      d="M49.7 22.5c-.8-1-1.6-1.9-2.5-2.8-6-6-13.9-9.2-22.2-9.2-8.4 0-16.3 3.3-22.2 9.2-.9.9-1.7 1.8-2.5 2.8-.2.2-.3.6-.3.9 0 .5.2.9.6 1.1.2.2.6.3.9.3.5 0 .9-.2 1.1-.6.7-.9 1.5-1.8 2.3-2.6 5.4-5.4 12.6-8.3 20.2-8.3 7.7 0 14.8 2.9 20.2 8.3.8.8 1.6 1.6 2.3 2.6.3.3.7.6 1.1.6.3 0 .7-.1.9-.3.3-.3.6-.7.6-1.1-.2-.3-.3-.7-.5-.9z"
+      fill="currentColor"
+    />
+    <path
+      d="M39.6 25.8c-3.9-3.9-9.1-6.1-14.6-6.1s-10.7 2.1-14.6 6.1c-.9.9-1.7 1.9-2.5 3-.2.2-.2.6-.2.8 0 .5.2.9.7 1.2.2.2.6.2.8.2.5 0 .9-.2 1.2-.7.7-.9 1.4-1.8 2.1-2.6 3.4-3.4 7.9-5.2 12.6-5.2s9.2 1.8 12.6 5.2c.8.8 1.5 1.7 2.1 2.6.2.5.7.7 1.2.7.2 0 .6-.1.8-.2.5-.2.7-.7.7-1.2 0-.2-.1-.6-.2-.8-1-1.1-1.8-2.1-2.7-3z"
+      fill="currentColor"
+    />
+    <path
+      d="M32.3 32.1c-1.9-1.9-4.6-3-7.3-3-2.8 0-5.4 1.1-7.3 3-1 1-1.8 2.3-2.4 3.6-.1.2-.1.3-.1.6 0 .6.3 1.1.9 1.4.2.1.3.1.6.1.6 0 1.1-.3 1.4-.9.3-1 .9-1.8 1.7-2.6C21.2 32.7 23 32 25 32s3.9.8 5.3 2.3c.8.8 1.4 1.6 1.7 2.6.2.6.8.9 1.4.9.2 0 .3 0 .6-.1.6-.2.9-.8.9-1.4 0-.2 0-.3-.1-.6-.7-1.4-1.5-2.6-2.5-3.6z"
+      fill="currentColor"
+    />
+    <circle cx="25" cy="40.4" r="2.8" fill="currentColor" />
+  </svg>
+);
+
+const WeaponsIconSVG = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    id="Layer_1"
+    x="0"
+    y="0"
+    version="1.1"
+    viewBox="0 0 50 50"
+  >
+    <g id="HUD_modes_x5F_icon">
+      <path
+        id="gun"
+        d="M0 17.8h7.1c0-2.4-.3-4.9-1.1-7.3L4.2 5.3c-.2-.6-1-.6-1.3 0l-1.8 5.3C.5 12.9 0 15.4 0 17.8zm6 22v3.1h1.1v2.4H0v-2.4h1.3v-3.1H0V20.7h7.1v19.1H6zm8.2-22h7.1c0-2.4-.3-4.9-1.1-7.3l-1.8-5.3c-.2-.6-1.1-.6-1.3 0l-1.8 5.3c-.6 2.4-1.1 4.9-1.1 7.3zm6 22v3.1h1.2v2.4h-7.2v-2.4h1.3v-3.1h-1.3V20.7h7.2v19.1h-1.2zm22.5-22h7.1c0-2.4-.3-4.9-1.1-7.3l-1.8-5.3c-.2-.6-1.1-.6-1.3 0l-1.8 5.3c-.6 2.4-1.1 4.9-1.1 7.3zm6 22v3.1H50v2.4h-7.3v-2.4H44v-3.1h-1.3V20.7H50v19.1h-1.3zm-20.2-22h7.1c0-2.4-.3-4.9-1.1-7.3l-1.8-5.3c-.2-.6-1.1-.6-1.3 0l-1.8 5.3c-.6 2.4-1.1 4.9-1.1 7.3zm6 22v3.1h1.3v2.4h-7.3v-2.4h1.3v-3.1h-1.3V20.7h7.3v19.1h-1.3z"
+        fill="currentColor"
+      />
+    </g>
+  </svg>
+);
+
 export const Fleet = createSvgIcon(FleetIconSVG, 'Fleet');
 export const Logistics = createSvgIcon(LogisticsIconSVG, 'Logistics');
 export const RRR = createSvgIcon(RRRIconSVG, 'RRR');
@@ -813,3 +921,9 @@ export const Vehicles = createSvgIcon(ShipIconSVG, 'Vehicles');
 export const PersonalWeapons = createSvgIcon(PersonalWeaponsIconSVG, 'PersonalWeapons');
 export const VehicleWeapons = createSvgIcon(VehicleWeaponsIconSvg, 'VehicleWeapons');
 export const Missiles = createSvgIcon(MissilesIconSVG, 'Missiles');
+export const Power = createSvgIcon(PowerIconSVG, 'Power');
+export const Cooler = createSvgIcon(CoolerIconSVG, 'Cooler');
+export const Shield = createSvgIcon(ShieldIconSVG, 'Shield');
+export const Thruster = createSvgIcon(ThrusterIconSVG, 'Thruster');
+export const Scanner = createSvgIcon(ScannerIconSVG, 'Scanner');
+export const Weapons = createSvgIcon(WeaponsIconSVG, 'Weapons');
