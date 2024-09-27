@@ -78,6 +78,19 @@ export class User
   @Column({ type: DataType.STRING(32) })
   declare displayName: CreationOptional<string>;
 
+  @Default('Unverified User')
+  @Default(0)
+  @Column({ type: DataType.INTEGER() })
+  declare total_ratings: CreationOptional<number>;
+
+  @Default(-1)
+  @Column({ type: DataType.DOUBLE() })
+  declare display_rating: CreationOptional<number>;
+
+  @Default(-1)
+  @Column({ type: DataType.DOUBLE() })
+  declare weighted_rating: CreationOptional<number>;
+
   @Default(
     'https://cdn.robertsspaceindustries.com/static/spectrum/images/member-avatar-default.jpg',
   )
