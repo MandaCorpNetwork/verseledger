@@ -42,10 +42,10 @@ export const LocationChip: React.FC<LocationChipProps> = (props) => {
   };
 
   return (
-    <Tooltip title={location ? location.short_name : 'Redacted'}>
+    <Tooltip title={location ? location.waypoint_name : 'Redacted'}>
       <Chip
         data-testid={`LocationChip__${testid}_root`}
-        label={location ? location.short_name : 'Redacted'}
+        label={location ? location.waypoint_name : 'Redacted'}
         color={color}
         variant={variant}
         icon={<Place fontSize={iconSize} />}
@@ -53,6 +53,7 @@ export const LocationChip: React.FC<LocationChipProps> = (props) => {
         onClick={handleLocationInfoPopup}
         onDelete={onDelete ? () => onDelete(locationId) : undefined}
         sx={{
+          maxWidth: '100px',
           ...sx,
         }}
       />

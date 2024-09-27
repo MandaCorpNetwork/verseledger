@@ -2,12 +2,22 @@ import { z } from 'zod';
 import { LocationSchema } from './LocationSchema';
 import { ContractSchema } from './ContractSchema';
 
+export const ObjectiveStatusSchema = z.enum([
+  'PENDING',
+  'OBTAINED',
+  'COMPLETED',
+  'INTERUPTED',
+]);
+
+export type IObjectiveStatus = z.infer<typeof ObjectiveStatusSchema>;
+
 export const ObjectiveSchema = z.object({
   packageId: z.number(),
   pickup: LocationSchema,
   dropOff: LocationSchema,
   contents: z.string(),
   scu: z.number().nullable(),
+  status: ObjectiveStatusSchema,
 });
 
 export type IObjective = z.infer<typeof ObjectiveSchema>;

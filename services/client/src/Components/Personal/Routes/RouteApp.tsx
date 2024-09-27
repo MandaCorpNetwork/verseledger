@@ -1,5 +1,6 @@
 import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
+import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_CREATE_MISSION } from '@Popups/Mission/AddMission';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -85,7 +86,7 @@ export const RouteApp: React.FC<unknown> = () => {
       </GlassBox>
       <GlassBox
         data-testid="RouteTool__MissionViewer_Container"
-        sx={{ p: '1em', gap: '1em' }}
+        sx={{ p: '1em', gap: '1em', overflow: 'hidden', height: '100%' }}
       >
         <Box
           data-testid="RouteTool-MissionViewer__TitleWrapper"
@@ -108,9 +109,11 @@ export const RouteApp: React.FC<unknown> = () => {
             Add Mission
           </Button>
         </Box>
-        {missions.map((mission: IMission) => (
-          <Mission key={mission.missionId} mission={mission} />
-        ))}
+        <GlassDisplay sx={{ height: '90%', overflow: 'auto', gap: '1em' }}>
+          {missions.map((mission: IMission) => (
+            <Mission key={mission.missionId} mission={mission} />
+          ))}
+        </GlassDisplay>
       </GlassBox>
     </Box>
   );
