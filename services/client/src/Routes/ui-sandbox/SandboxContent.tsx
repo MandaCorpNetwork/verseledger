@@ -15,7 +15,7 @@ export const SandboxContent: React.FC<unknown> = () => {
       }}
     >
       <Box sx={{ display: 'flex', gap: '1em' }}>
-        <RatingDisplay size="medium" value={3} variant="defined" />
+        <RatingDisplay size="small" value={3} variant="defined" />
       </Box>
     </Box>
   );
