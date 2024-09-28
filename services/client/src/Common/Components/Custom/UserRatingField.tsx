@@ -63,7 +63,7 @@ export const UserRatingField: React.FC<UserRatingFieldProps> = ({
         <RatingDisplay
           onSelect={(value) => updateFormData('rating_value', value)}
           size="medium"
-          value={formData.rating_value}
+          value={formData?.rating_value ?? 0}
         />
       </Box>
       <Button

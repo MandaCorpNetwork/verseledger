@@ -46,6 +46,8 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
   const variant = mobileView ? 'contained' : 'outlined';
 
   const getContractors = React.useCallback(() => {
+    //CHECK: Successfully Finds Bid
+    // console.log('Found Bids:', contract.Bids);
     return contract.Bids?.filter(
       (bid) =>
         bid.status === 'ACCEPTED' ||
@@ -310,11 +312,15 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
 
   const openReview = React.useCallback(() => {
     if (currentContractors && currentContractors.length !== 0) {
-      if (!reviewCompleted) {
-        dispatch(openPopup(POPUP_SUBMIT_RATING), { users: currentContractors, contract });
-      }
+      //TODO: Fix reviewCompleted
+      dispatch(
+        openPopup(POPUP_SUBMIT_RATING, {
+          users: currentContractors,
+          contract: contract,
+        }),
+      );
     }
-  }, [currentContractors, contract, dispatch, reviewCompleted]);
+  }, [currentContractors, contract, dispatch]);
 
   const completeContract = React.useCallback(() => {
     const now = new Date();

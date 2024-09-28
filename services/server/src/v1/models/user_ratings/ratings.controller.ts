@@ -65,11 +65,12 @@ export class RatingsController extends BaseHttpController {
   })
   @httpPost('/contract', TYPES.VerifiedUserMiddleware)
   private async createContractRatings(
-    @requestParam('contractId') contractId: string,
     @requestBody() body: ICreateContractRatingsBody,
     @next() nextFunc: NextFunction,
-  ) {
+  ){
     try {
+      const model = CreateContractRatingsBodySchema.parse(body);
+      const contractId = model.contract_id;
       if (!IdUtil.isValidId(contractId)) {
         Logger.error('Invalid Contract Id');
         throw nextFunc(
@@ -79,7 +80,6 @@ export class RatingsController extends BaseHttpController {
           ),
         );
       }
-      const model = CreateContractRatingsBodySchema.parse(body);
       const submitter = this.httpContext.user as VLAuthPrincipal;
       const contract = await this.contractService.getContract(contractId, [
         'owner',

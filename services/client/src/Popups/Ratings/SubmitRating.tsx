@@ -47,6 +47,7 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
 
   // Retreives the Users availble to bid
   const getOptions = React.useCallback(() => {
+    if (users == null) return;
     const validUsers = users.filter((user) => user.id !== currentUser?.id);
     return validUsers.map((user) => user);
   }, [currentUser?.id, users]);
@@ -166,19 +167,20 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
             </>
           )}
           {contract && <Typography>Contractors</Typography>}
-          {options.map((user) => (
-            <UserRatingField
-              key={user.id}
-              user={user}
-              contractId={contract && contract.id}
-              formData={
-                formData?.find(
-                  (data) => data.reciever_id === user.id,
-                ) as ICreateUserRatingBody
-              }
-              setFormData={handleFormDataChange}
-            />
-          ))}
+          {options &&
+            options.map((user) => (
+              <UserRatingField
+                key={user.id}
+                user={user}
+                contractId={contract && contract.id}
+                formData={
+                  formData?.find(
+                    (data) => data.reciever_id === user.id,
+                  ) as ICreateUserRatingBody
+                }
+                setFormData={handleFormDataChange}
+              />
+            ))}
         </GlassBox>
       </FormControl>
     </VLPopup>

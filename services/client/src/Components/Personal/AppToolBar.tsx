@@ -7,23 +7,23 @@ import {
   StackedBarChart,
   TextSnippet,
 } from '@mui/icons-material';
-import { ButtonGroup, Divider, IconButton, Tooltip } from '@mui/material';
+import { Box, ButtonGroup, Divider, IconButton, Tooltip } from '@mui/material';
 import { IconButtonProps } from '@mui/material/IconButton';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-interface IconButtonWithDividerProps extends IconButtonProps {
-  children: React.ReactNode;
+type IconButtonWithDividerProps = {
   isSelected: boolean;
-}
+  buttonProps?: IconButtonProps;
+};
 
-const IconButtonWithDivider: React.FC<IconButtonWithDividerProps> = ({
+const IconButtonWithDivider: React.FC<PropsWithChildren<IconButtonWithDividerProps>> = ({
   children,
   isSelected,
-  ...props
+  buttonProps,
 }) => (
-  <>
+  <Box sx={{ display: 'flex' }}>
     <IconButton
-      {...props}
+      {...(buttonProps ?? {})}
       data-testid="PersonalLedger-AppToolBar__IconButtonWithDivider"
       sx={{
         color: isSelected ? 'secondary.main' : 'secondary.dark',
@@ -40,7 +40,7 @@ const IconButtonWithDivider: React.FC<IconButtonWithDividerProps> = ({
       sx={{ height: '24px', mt: 'auto', mb: 'auto', mx: '1em' }}
       color="#065691"
     />
-  </>
+  </Box>
 );
 
 type AppToolBarProps = {
@@ -87,10 +87,11 @@ export const AppToolBar: React.FC<AppToolBarProps> = ({
               data-testid="PersonalLedger-AppToolBar__Tooltip"
             >
               <IconButtonWithDivider
-                color="secondary"
-                key={item.key}
+                buttonProps={{
+                  color: 'secondary',
+                  onClick: () => setSelectedApp(item.key),
+                }}
                 isSelected={selectedApp === item.key}
-                onClick={() => setSelectedApp(item.key)}
               >
                 {item.icon}
               </IconButtonWithDivider>
@@ -104,7 +105,6 @@ export const AppToolBar: React.FC<AppToolBarProps> = ({
               <IconButton
                 data-testid="PersonalLedger-AppToolBar__LastIconButton"
                 color="secondary"
-                key={item.key}
                 sx={{
                   color: selectedApp === item.key ? 'secondary.main' : 'secondary.dark',
                   '&:hover': { color: 'primary.light', transform: 'scale(1.2)' },

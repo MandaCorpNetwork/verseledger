@@ -134,3 +134,5 @@ export const NotificationTool: React.FC = () => {
     </GlassDisplay>
   );
 };
+
+export default NotificationTool;
