@@ -36,6 +36,7 @@ const destinationCreation: Middleware<unknown, RootState> =
 
     const result = next(action);
     const state = getState();
+    const currentLocation = state.auth.userLocation;
 
     //Checks if the addMission is ran
     if ((action as PayloadAction<IMission>).type === 'routes/addMission') {
@@ -83,6 +84,13 @@ const destinationCreation: Middleware<unknown, RootState> =
           });
         }
       });
+
+      // Organizes the Destinations using the Bellman Ford Algorithm
+      // Each Destination Needs Sorted with it's parent Location
+      const groupedDestinations = parents.forEach((parent) => return { parent: parent, destinations: destinations.filter((destination) => destination.location.parent === parent.short_name) });
+
+      
+
     }
 
     return result;
