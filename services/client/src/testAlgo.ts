@@ -113,6 +113,7 @@ const destinationCreation: Middleware<unknown, RootState> =
       // Sets the StopNumber if the Reason is 'Checkpoint' or 'Mission'
       // Will allow us to Put in Custom Stops later where we set the stop number and add one to all the stopNumbers after it
       destinations.forEach((destination) => destination.reason === 'Mission' || destination.reason === "Checkpoint" && destination.stopNumber = index);
+      // Organizes 
     }
 
     return result;
