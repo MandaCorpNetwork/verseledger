@@ -30,9 +30,6 @@ const destinationCreation: Middleware<unknown, RootState> =
   ({ dispatch, getState }: { dispatch: AppDispatch; getState: () => RootState }) =>
   (next) =>
   (action) => {
-    // Define all Parent Locations
-    // location.category === 'Planet'
-    const parents = []; //Find all locations that have category of 'Planet' and store the location objects in an array of objects.
 
     const result = next(action);
     const state = getState();
@@ -46,6 +43,9 @@ const destinationCreation: Middleware<unknown, RootState> =
       const destinations = state.routes.destinations;
       // Define all Objectives
       const objectives = missions.map((mission) => mission.objectives);
+      // Define all Parent Locations
+      // location.category === 'Planet'
+      const parents = [];
 
       //Start Evaluating Every Objective to create Destinations
       objectives.forEach((objective) => {
@@ -85,13 +85,36 @@ const destinationCreation: Middleware<unknown, RootState> =
         }
       });
 
+
+
       // Organizes the Destinations using the Bellman Ford Algorithm
       // Each Destination Needs Sorted with it's parent Location
       const groupedDestinations = parents.forEach((parent) => return { parent: parent, destinations: destinations.filter((destination) => destination.location.parent === parent.short_name) });
 
-      
+      const currentParent = parents.find((parent) => currentLocation.parent === parent.short_name);
 
+      // Run Bellman-Ford Algo for Grouped Destinations.
+      // CurrentLocation & CurrentParent are the Initial Locations
+      // If the value1's parent =  value2's parent then evaluate distance based on value1 & value2
+      // If They do not equal, then evaluate distance based on value1's parent vs value2's parent
+      // If no Parent's are equal to the parent of the Current Location, then the first Destination should be to the closest Parent from GroupedDestinations within the standard efficency arethmatic of the algorithm
+      // When Jumping to a different Parent, a New Destination should be Created for that Parent: 
+      const relevantParent = location; //The Parent needing to be jumped to to get to the next Locations
+      destinations.push({ location: relevantParent, reason: 'Checkpoint' });
+      // I'm not sure how to evaluate the first stop on a planet. Each stop's x,y,z is local to the Parent and not relative to the Parent's X,Y,Z.
+      // Once we know the first Location, use Belman Ford Algo for each destination for this Parent.
+      // If an Objective on a Destination has not yet had the Pickup Location visted then that Objective should be moved to a new Destination object with the same Location. 
+      //If the Pickup Location is on the SAME PARENT as the Dropoff then we should keep this within the groupedDestination it was in.
+      //If the Pickup Location is on a DIFFERENT PARENT as the Dropoff AND the destination location = dropoff location then the Objective should be moved to a new Destination and that Destination should be moved to a new groupedDestination.
+      // So I suppose we should be running Bellman Ford on the Grouped Destinations & then run again for each GroupedDestinations Destinations. 
+      // Sometimes will be coming from one Parent to another, getting a pickup, and needing to go back to the previous parent, But want to ensure Bellman Ford Accounts for this
+      
+      // Sets StopNumber for Sorting
+      // Sets the StopNumber if the Reason is 'Checkpoint' or 'Mission'
+      // Will allow us to Put in Custom Stops later where we set the stop number and add one to all the stopNumbers after it
+      destinations.forEach((destination) => destination.reason === 'Mission' || destination.reason === "Checkpoint" && destination.stopNumber = index);
     }
 
     return result;
-  };
+      };
+  
