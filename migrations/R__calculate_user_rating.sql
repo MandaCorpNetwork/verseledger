@@ -9,19 +9,22 @@ BEGIN
   DECLARE total_positive INT DEFAULT 0;
   DECLARE total_negative INT DEFAULT 0;
 
+  DECLARE rating_minus_one INT DEFAULT 0;
+  DECLARE rating_minus_two INT DEFAULT 0;
+  DECLARE rating_minus_three INT DEFAULT 0;
   DECLARE rating_one INT DEFAULT 0;
   DECLARE rating_two INT DEFAULT 0;
   DECLARE rating_three INT DEFAULT 0;
-  DECLARE rating_four INT DEFAULT 0;
-  DECLARE rating_five INT DEFAULT 0;
 
+  SELECT COUNT (id) INTO rating_minus_one FROM `user_ratings` WHERE `reciever_id` = `user_id` AND `rating_value` = -1;
+  SELECT COUNT (id) INTO rating_minus_two FROM `user_ratings` WHERE `reciever_id` = `user_id` AND `rating_value` = -2;
+  SELECT COUNT (id) INTO rating_minus_three FROM `user_ratings` WHERE `reciever_id` = `user_id` AND `rating_value` = -3;
   SELECT COUNT (id) INTO rating_one FROM `user_ratings` WHERE `reciever_id` = `user_id` AND `rating_value` = 1;
   SELECT COUNT (id) INTO rating_two FROM `user_ratings` WHERE `reciever_id` = `user_id` AND `rating_value` = 2;
-  SELECT COUNT (id) INTO rating_four FROM `user_ratings` WHERE `reciever_id` = `user_id` AND `rating_value` = 4;
-  SELECT COUNT (id) INTO rating_five FROM `user_ratings` WHERE `reciever_id` = `user_id` AND `rating_value` = 5;
+  SELECT COUNT (id) INTO rating_three FROM `user_ratings` WHERE `reciever_id` = `user_id` AND `rating_value` = 3;
 
-  SET total_positive = rating_four + (rating_five * 2);
-  SET total_negative = (rating_one * 2) + rating_two ;
+  SET total_positive = rating_one + (rating_two * 2) + (rating_three * 3);
+  SET total_negative = rating_minus_one + (rating_minus_two*2) + (rating_minus_three*3) ;
   SET total_ratings = total_positive + total_negative;
 
   SET display_rating = total_positive / total_ratings;
@@ -32,7 +35,6 @@ BEGIN
 
   SELECT weighted_rating;
   SELECT display_rating;
-  SELECT (rating_one+rating_two+rating_four+rating_five) AS total_rating;
+  SELECT (rating_minus_one+rating_minus_two+rating_minus_three+rating_one+rating_two+rating_three) AS total_rating;
 END//
 DELIMITER ;
-
