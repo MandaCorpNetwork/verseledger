@@ -1,10 +1,12 @@
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { UserChip } from '@Common/Components/Chips/UserChip';
 import { AddComment } from '@mui/icons-material';
-import { Box, Button, Grow, Rating, TextField } from '@mui/material';
+import { Box, Button, Grow, TextField } from '@mui/material';
 import React from 'react';
 import { ICreateUserRatingBody } from 'vl-shared/src/schemas/UserRatingsSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
+
+import { RatingDisplay } from '../App/RatingDisplay';
 
 type UserRatingFieldProps = {
   user: IUser;
@@ -58,7 +60,11 @@ export const UserRatingField: React.FC<UserRatingFieldProps> = ({
         }}
       >
         <UserChip user={user} size="medium" />
-        <Rating onChange={(_e, value) => updateFormData('rating_value', value)} />
+        <RatingDisplay
+          onSelect={(value) => updateFormData('rating_value', value)}
+          size="medium"
+          value={formData.rating_value}
+        />
       </Box>
       <Button
         variant="outlined"

@@ -1,5 +1,6 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
 import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
+import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
@@ -13,7 +14,6 @@ import {
   Box,
   Grow,
   IconButton,
-  Rating,
   Tab,
   Tabs,
   Tooltip,
@@ -82,7 +82,7 @@ export const UserPage: React.FC = () => {
           setIsError(true);
         });
     }
-  }, [selectedUserId, dispatch]);
+  }, [selectedUserId, dispatch, setLoading]);
   /**
    * @function selectedUser - Fetches the user object from the state based on the selected user id.
    * @param {string}userId
@@ -241,12 +241,11 @@ export const UserPage: React.FC = () => {
                 }}
                 variant="rounded"
               />
-              <Rating
-                data-testid="UserPage-PlayerData_UserRating"
+              <RatingDisplay
                 value={3}
-                readOnly={true}
                 size="medium"
                 sx={{ mt: '1em' }}
+                variant="defined"
               />
             </Box>
             <DigiDisplay

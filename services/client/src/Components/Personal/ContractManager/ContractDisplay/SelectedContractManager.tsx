@@ -1,3 +1,4 @@
+import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
@@ -13,7 +14,7 @@ import TabListHolo from '@Common/Components/Tabs/TabListHolo';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { Link, OpenInFull } from '@mui/icons-material';
-import { Box, IconButton, Rating, Tab, Tooltip, Typography } from '@mui/material';
+import { Box, IconButton, Tab, Tooltip, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
 import { URLUtil } from '@Utils/URLUtil';
@@ -208,15 +209,18 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
                 maxWidth: '100%',
                 cursor: 'default',
                 textShadow: '0 2px 8px rgba(0,0,0,0.5)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               {memoizedContract.title}
               {(memoizedContract.status === 'COMPLETED' ||
                 memoizedContract.status === 'CANCELED') && (
-                <Rating
-                  readOnly
+                <RatingDisplay
                   value={ownerRating}
-                  disabled={ownerRating === 0}
+                  variant="defined"
+                  size="small"
                   sx={{ ml: '.5em' }}
                 />
               )}
