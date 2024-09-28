@@ -68,7 +68,8 @@ export class ContractBidsService {
       );
     if (
       contract.contractorLimit !== 0 &&
-      (contract?.Bids?.length ?? 0) >= contract.contractorLimit
+      (contract?.Bids?.filter((bid) => bid.status === 'ACCEPTED')?.length ??
+        0) >= contract.contractorLimit
     )
       throw new BadRequestError(
         'The Contractor Limit has been reached',
@@ -116,7 +117,8 @@ export class ContractBidsService {
       );
     if (
       contract.contractorLimit !== 0 &&
-      (contract?.Bids?.length ?? 0) >= contract.contractorLimit
+      (contract?.Bids?.filter((bid) => bid.status === 'ACCEPTED')?.length ??
+        0) >= contract.contractorLimit
     )
       throw new BadRequestError(
         'The Contractor Limit has been reached',

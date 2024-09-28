@@ -66,4 +66,25 @@ export class UserDTO extends DTOBase<IUser> implements IUser {
     example: 'My Awesome Contract',
   })
   verified!: boolean;
+
+  @ApiModelProperty({
+    description: 'Title of Contract',
+    required: true,
+    example: 'My Awesome Contract',
+  })
+  total_ratings!: number;
+
+  @ApiModelProperty({
+    description: 'Title of Contract',
+    required: true,
+    example: 'My Awesome Contract',
+  })
+  display_rating!: number;
+
+  @ApiModelProperty({
+    description: 'Title of Contract',
+    required: true,
+    example: 'My Awesome Contract',
+  })
+  weighted_rating!: number;
 }

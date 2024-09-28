@@ -23,6 +23,7 @@ BEGIN
   SET total_positive = rating_four + (rating_five * 2);
   SET total_negative = (rating_one * 2) + rating_two ;
   SET total_ratings = total_positive + total_negative;
+
   SET display_rating = total_positive / total_ratings;
 
   SET weighted_rating = ((total_positive + 1.9208) / (total_positive + total_negative) -
@@ -34,3 +35,4 @@ BEGIN
   SELECT (rating_one+rating_two+rating_four+rating_five) AS total_rating;
 END//
 DELIMITER ;
+

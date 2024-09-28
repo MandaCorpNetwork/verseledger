@@ -26,6 +26,7 @@ import {
   IUserRating,
 } from 'vl-shared/src/schemas/UserRatingsSchema';
 import { ContractService } from '../contract/contract.service';
+import { UserRepository } from '../user/user.repository';
 
 @ApiPath({
   path: '/v1/ratings',
@@ -143,6 +144,8 @@ export class RatingsController extends BaseHttpController {
         submitter.details,
         validatedRatings,
       );
+      for (const r of newRatings)
+        UserRepository.updateUserRating(r.reciever_id);
       this.ratingService.notifyContractorsToRate(contract);
       return this.created(
         newRatings.map((r) => `/v1/ratings/${r.id}`).join(';'),
