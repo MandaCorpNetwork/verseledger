@@ -1,5 +1,6 @@
 import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
 import { Box } from '@mui/material';
+import React from 'react';
 
 export const SandboxContent: React.FC<unknown> = () => {
   return (
