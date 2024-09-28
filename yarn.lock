@@ -2863,17 +2863,17 @@
   resolved "https://registry.yarnpkg.com/@rtsao/scc/-/scc-1.1.0.tgz#927dd2fae9bc3361403ac2c7a00c32ddce9ad7e8"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@scalar/api-client@2.1.8":
-  version "2.1.8"
-  resolved "https://registry.yarnpkg.com/@scalar/api-client/-/api-client-2.1.8.tgz#ed037574329f47d484fc7b0f9ef21055f6ee710e"
-  integrity sha512-KMSlSce237xidz8P+hv43uuUm49gwOqMlTIavWyFFbflxhpTBM9sVsE+MZFnx3YW407cS2mMKOuyhXZxVoZtaw==
+"@scalar/api-client@2.1.9":
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/@scalar/api-client/-/api-client-2.1.9.tgz#54abaac673c5d936ae393b5e101446eda1a9fdd2"
+  integrity sha512-+KEuIk7GPTxeLMzGKXRJyTxuGDPU5FZSvXcWQD2ArgBV5RSzjl9qhKcCgeiPV18fTlgDRPpK7x9WNfY/w8dL8w==
   dependencies:
     "@headlessui/tailwindcss" "^0.2.0"
     "@headlessui/vue" "^1.7.20"
     "@scalar/components" "0.12.48"
     "@scalar/draggable" "0.1.5"
     "@scalar/icons" "0.1.0"
-    "@scalar/oas-utils" "0.2.48"
+    "@scalar/oas-utils" "0.2.49"
     "@scalar/object-utils" "1.1.9"
     "@scalar/openapi-parser" "0.8.4"
     "@scalar/openapi-types" "0.1.1"
@@ -2894,24 +2894,24 @@
     whatwg-mimetype "^4.0.0"
     zod "^3.23.8"
 
-"@scalar/api-reference-react@0.3.98":
-  version "0.3.98"
-  resolved "https://registry.yarnpkg.com/@scalar/api-reference-react/-/api-reference-react-0.3.98.tgz#c1cfdb8e5dc4730eea44f48e13b4abc49420adf6"
-  integrity sha512-LW46NxxaBC1BrmHdKBr9L2jdSl4nPgzYQrqF5MDcfld++dcorDUHU6Xo5j4Bzwx7nr7dXdFvtYZ6S0KQtHgnAQ==
+"@scalar/api-reference-react@0.3.99":
+  version "0.3.99"
+  resolved "https://registry.yarnpkg.com/@scalar/api-reference-react/-/api-reference-react-0.3.99.tgz#f6801338ab89a3eaa9f62274903b0326dd1a95a4"
+  integrity sha512-lPgEN8SVMx4v+kM8apUvyOeAtKj+GleQPe30woWRxdnX+G/C9gTI9Nl/kRBV9cI7Jx83xPW8i8gCBPtiel64rg==
   dependencies:
-    "@scalar/api-reference" "1.25.22"
+    "@scalar/api-reference" "1.25.23"
 
-"@scalar/api-reference@1.25.22":
-  version "1.25.22"
-  resolved "https://registry.yarnpkg.com/@scalar/api-reference/-/api-reference-1.25.22.tgz#0b166d8c9651d319a31f8f4ed7c13ca6b5646393"
-  integrity sha512-k/jOJD7m9cl14pxWbT5cc/z0JxDiOd/tKr6xoPeQdxpJElvf01wDZP3J56y30UKypDopJMTodNoI2f8VmSoadQ==
+"@scalar/api-reference@1.25.23":
+  version "1.25.23"
+  resolved "https://registry.yarnpkg.com/@scalar/api-reference/-/api-reference-1.25.23.tgz#b0cf650ebe482cf9642a9ab3c95db43714d8196d"
+  integrity sha512-I1kyp6QWH+4Dw2coq20Pg7cHXzP+ida/tHGZPEdkMwXgJJQ7Ujqt5CgtSiAcBFx/GK9KCKDV1W1w7jECb16Pxw==
   dependencies:
     "@floating-ui/vue" "^1.0.2"
     "@headlessui/vue" "^1.7.20"
-    "@scalar/api-client" "2.1.8"
+    "@scalar/api-client" "2.1.9"
     "@scalar/code-highlight" "0.0.11"
     "@scalar/components" "0.12.48"
-    "@scalar/oas-utils" "0.2.48"
+    "@scalar/oas-utils" "0.2.49"
     "@scalar/openapi-parser" "0.8.4"
     "@scalar/openapi-types" "0.1.1"
     "@scalar/snippetz" "0.2.3"
@@ -2984,10 +2984,10 @@
   dependencies:
     vue "^3.4.29"
 
-"@scalar/oas-utils@0.2.48":
-  version "0.2.48"
-  resolved "https://registry.yarnpkg.com/@scalar/oas-utils/-/oas-utils-0.2.48.tgz#269227122014a034752f0c8bcdd3f8e5c6d4cfb9"
-  integrity sha512-nHJ8Zqs2k8oS7i3XVL58cUCrDI1i4kAa6S5WAg8qi7BxuSl85Ha3taGeUi798XMfLJB3XA89KrwoNxmi2nEazA==
+"@scalar/oas-utils@0.2.49":
+  version "0.2.49"
+  resolved "https://registry.yarnpkg.com/@scalar/oas-utils/-/oas-utils-0.2.49.tgz#2ec2d964345b5089a2b3006e99b936ce090b0935"
+  integrity sha512-0Fr+ZKapeJtBMQWMPCh/gCdO2lxf804nZQ6hvmT6e3cgRUyARQ97bz03QqWYgHyKLUA9b9ttlWTnFApPQNqBsA==
   dependencies:
     "@hyperjump/json-schema" "^1.9.6"
     "@scalar/object-utils" "1.1.9"
