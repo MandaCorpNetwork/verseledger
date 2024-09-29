@@ -52,37 +52,37 @@ const destinationCreation: Middleware<unknown, RootState> =
         //Checks if the Objective has already been completed
         if (objective.status === 'Completed') return;
 
-        // Checks if a destination exists for the Objective's Pickup Location
-        if (destinations.includes(objective.pickup)) {
-          //If Destination Exists, finds the destination and pushes the Objective to the Array of Objectives that exists on the Destination
-          const destination = destinations.find(
-            (destination) => destination.location.id === objective.pickup.id,
-          );
-          destination[objectives].push(objective);
+        // Handle Pickup Locations
+        // Check to see if the pickupLocation already exists as a Destination
+        const pickupExists = destinations.find(dest => dest.location.id === objective.pickup.id);
+        if (pickupExists) {
+          // If the destination exists, pushes the objective to the Destination
+          pickupExists.objectives.push(objective);
         } else {
-          //If the Destination doesn't exist, creates a new destination with the Objective.
+          // If a Destination does not exist, creates one.
           destinations.push({
             location: objective.pickup,
             reason: 'Mission',
-            objectives: [objective],
-          });
+            objectives: [objective]
+          })
         }
 
-        // Checks if a destination exists for the Objective's DropOff Location
-        if (destinations.includes(objective.dropOff)) {
-          //If Destination Exists, finds the destination and pushes the Objective to the Array of Objectives that exists on the Destination
-          const destination = destinations.find(
-            (destination) => destination.location.id === objective.dropOff.id,
-          );
-          destination[objectives].push(objective);
-        } else {
-          //If the Destination doesn't exist, creates a new destination with the Objective.
-          destinations.push({
-            location: objective.dropOff,
-            reason: 'Mission',
-            objectives: [objective],
-          });
-        }
+
+        // Handle Dropoff Locations
+                // Check to see if the pickupLocation already exists as a Destination
+                const pickupExists = destinations.find(dest => dest.location.id === objective.pickup.id);
+                if (pickupExists) {
+                  // If the destination exists, pushes the objective to the Destination
+                  pickupExists.objectives.push(objective);
+                } else {
+                  // If a Destination does not exist, creates one.
+                  destinations.push({
+                    location: objective.pickup,
+                    reason: 'Mission',
+                    objectives: [objective]
+                  })
+                }
+        
       });
 
 
