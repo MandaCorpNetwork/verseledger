@@ -46,6 +46,8 @@ const destinationCreation: Middleware<unknown, RootState> =
       // Define all Parent Locations
       // location.category === 'Planet'
       const parents = [];
+      // Set the Current Parent Location
+      const currentParent = parents.find((parent) => currentLocation.parent === parent.short_name);
 
       //Start Evaluating Every Objective to create Destinations
       objectives.forEach((objective) => {
@@ -69,29 +71,49 @@ const destinationCreation: Middleware<unknown, RootState> =
 
 
         // Handle Dropoff Locations
-                // Check to see if the pickupLocation already exists as a Destination
-                const pickupExists = destinations.find(dest => dest.location.id === objective.pickup.id);
-                if (pickupExists) {
-                  // If the destination exists, pushes the objective to the Destination
-                  pickupExists.objectives.push(objective);
-                } else {
-                  // If a Destination does not exist, creates one.
-                  destinations.push({
-                    location: objective.pickup,
-                    reason: 'Mission',
-                    objectives: [objective]
-                  })
-                }
+        // Check to see if the dropOffLocation already exists as a Destination
+        const dropOffExists = destinations.find(dest => dest.location.id === objective.dropOff.id);
+        if (pickupExists) {
+          // If the destination exists, pushes the objective to the Destination
+          pickupExists.objectives.push(objective);
+        } else {
+          // If a Destination does not exist, creates one.
+          destinations.push({
+            location: objective.dropOff,
+            reason: 'Mission',
+            objectives: [objective]
+          })
+        }
         
       });
 
+      // Organize the Destinations by Parent:
+      const groupedDestinations = parents.map(parent => 
+        ({ parent: parent, destinations: destinations.filter(dest => 
+          dest.location.parent === parent.short_name)}))
 
+      // Bellman-Ford Integration
 
-      // Organizes the Destinations using the Bellman Ford Algorithm
-      // Each Destination Needs Sorted with it's parent Location
-      const groupedDestinations = parents.forEach((parent) => return { parent: parent, destinations: destinations.filter((destination) => destination.location.parent === parent.short_name) });
+      //Define Graph
+      const graph = createGraph(groupedDestinations, currentLocation);
 
-      const currentParent = parents.find((parent) => currentLocation.parent === parent.short_name);
+      //Calculate an Optimal Path
+      const shortestPath = bellmanFord(graph, currentParent);
+
+      // Update Stop numbers based on the calculated shortest Path
+      assignStopNumbers(shortestPath, destinations);
+
+      // Add checkpoints or additional stops if needed
+      if (requiresCheckpoint(currentParent, shortestPath)) {
+        destinations.push({
+          location: relevantParent,
+          reason: 'Checkpoint',
+          stopNumber: getNextStopNumber(destinations),
+        });
+      }
+
+      // Reorder destinations to ensure pickups happen before dropoffs
+      reorderDestinations(destinations);
 
       // Run Bellman-Ford Algo for Grouped Destinations.
       // CurrentLocation & CurrentParent are the Initial Locations
@@ -119,3 +141,75 @@ const destinationCreation: Middleware<unknown, RootState> =
     return result;
       };
   
+
+      // Helper Functions
+
+      //Create Graph from grouped destinations for Bellman-Ford
+      function createGraph(groupedDestinations, currentLocation) {
+        let graph = {};
+
+        groupedDestinations.forEach(group => {
+          group.destinations.forEach(dest => {
+            const from = group.parent.short_name;
+            const to = dest.location.short_name;
+            const cost = calculateCost(currentLocation, dest.location);
+            graph[from] = graph[from] || {};
+            graph[from][to] = cost;
+          });
+        });
+
+        return graph;
+      }
+
+      // Bellman-Ford Algo Implement
+      function bellmanFord(graph, start) {
+        let distances = {};
+        let previous = {};
+
+        // Initialize distances and previous nodes
+        for (let node in graph) {
+          distances[node] = Infinity;
+          previous[node] = null;
+        }
+        distances[start] = 0;
+
+        // Relax edges (V-1) times
+        for (let i = 0; i < Object.keys(graph).length - 1; i++) {
+          for (let from in graph) {
+            if (distance[from] + graph[from][to] < distances[to]) {
+              distances[to] = distances[from] + graph[from][to];
+              previous[to] = from;
+            }
+          }
+        }
+
+        //Check for negative cycles (optional)
+        for (let from in graph) {
+          for (let to in graph[from]) {
+            if (distances[from] + graph[from][to] < distances[to]) {
+              throw new Error("Graoh contains a negative-weight cycle")
+            }
+          }
+        }
+      }
+
+      // Assign Stop Numbers to destinations based on the Bellman-Ford output
+      function assignStopNumbers(shortestPath, destinations) {
+        shortestPath.forEach((location, index) => {
+          const destination = destinations.find(dest => dest.location.short_name === location);
+          if (destination) {
+            destination.stopNumber = index + 1;
+          }
+        });
+      }
+
+      // Checks if a Checkpoint is required
+      function requiresCheckpoint(currentParent, shortestPath) {
+        // Logic to Determine if a checkpoint is needed
+        return false; // Placeholder
+      }
+
+      // Reorder destinations to ensure proper pickup before dropoff order
+      function reorderDestinations(destinations) {
+        destinations.sort((a, b) => a.stopNumber - b.stopNumber);
+      }
