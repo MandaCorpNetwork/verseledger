@@ -11,15 +11,6 @@ export const ObjectiveStatusSchema = z.enum([
 
 export type IObjectiveStatus = z.infer<typeof ObjectiveStatusSchema>;
 
-export const ObjectiveStatusSchema = z.enum([
-  'PENDING',
-  'COLLECTED',
-  'COMPLETED',
-  'MISSING'
-]);
-
-export type IObjectiveStatus = z.infer<typeof ObjectiveStatusSchema>;
-
 export const ObjectiveSchema = z.object({
   packageId: z.number(),
   pickup: LocationSchema,

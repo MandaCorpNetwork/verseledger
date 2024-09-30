@@ -1,9 +1,13 @@
 //Psuedo & WhiteText For Middleware algo
 
+import { fetchSearchedLocations } from '@Redux/Slices/Locations/actions/fetchSearchedLocations';
 import { AppDispatch, RootState } from '@Redux/store';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Middleware } from 'redux';
-import { IMission } from 'vl-shared/src/schemas/RoutesSchema';
+import { IMission, IObjective, IDestination } from 'vl-shared/src/schemas/RoutesSchema';
+import { ILocationSearch } from 'vl-shared/src/schemas/SearchSchema';
+import { Logger } from '@Utils/Logger';
+import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 /*
 Explination:
@@ -37,79 +41,107 @@ const destinationCreation: Middleware<unknown, RootState> =
 
     //Checks if the addMission is ran
     if ((action as PayloadAction<IMission>).type === 'routes/addMission') {
+
+      // **Fetch Current Route State Data**
+
       // Define all missions Existing on the state
       const missions = state.routes.missions;
       // Define all destinations existing on the state
-      const destinations = state.routes.destinations;
+      const destinations: IDestination[] = Object.values(state.routes.destinations);
       // Define all Objectives
-      const objectives = missions.map((mission) => mission.objectives);
-      // Define all Parent Locations
-      // location.category === 'Planet'
-      const parents = [];
-      // Set the Current Parent Location
-      const currentParent = parents.find((parent) => currentLocation.parent === parent.short_name);
+      const objectives =
+        Object.values(missions)
+        .filter(mission => mission.objectives && mission.objectives.length > 0)
+        .flatMap((mission) => mission.objectives);
+      
+      // TODO: Get more efficient way to find parent Locations other than a String
+      // Set Params to search for Parent Locations
+      const parentParams: ILocationSearch = {
+        page: 0,
+        limit: 200,
+        category: 'Planet'
+      };
+      // Fetch the Parent Locations
+      const parents = await dispatch(fetchSearchedLocations(parentParams)).then((res) => {
+        if (fetchSearchedLocations.fulfilled.match(res) && res.payload) {
+          return res.payload.data as ILocation[];
+        } else {
+          return null;
+        }
+      });
 
-      //Start Evaluating Every Objective to create Destinations
-      objectives.forEach((objective) => {
+      // Escape Process if Parents fails to Fetch
+      if (parents == null) return Logger.warn('Parent Locations Search Failed');
+
+      // Set the Current Parent Location
+      const currentParent = parents.find((parent) => currentLocation.parent === parent.short_name) ?? null;
+
+      // **Start Evaluating Every Objective to create Destinations**
+
+      objectives.forEach((objective: IObjective) => {
         //Checks if the Objective has already been completed
-        if (objective.status === 'Completed') return;
+        if (objective.status === 'COMPLETED') return;
 
         // Handle Pickup Locations
         // Check to see if the pickupLocation already exists as a Destination
-        const pickupExists = destinations.find(dest => dest.location.id === objective.pickup.id);
-        if (pickupExists) {
+        const pickupExists = destinations.find((dest: IDestination) => dest.location.id === objective.pickup.id);
+
+        if (pickupExists && pickupExists.objectives) {
           // If the destination exists, pushes the objective to the Destination
           pickupExists.objectives.push(objective);
         } else {
           // If a Destination does not exist, creates one.
-          destinations.push({
+          const newDestination: IDestination = {
+            stopNumber: destinations.length + 1,
             location: objective.pickup,
             reason: 'Mission',
             objectives: [objective]
-          })
+          }
+          state.routes.destinations[newDestination.stopNumber] = newDestination;
         }
 
 
         // Handle Dropoff Locations
         // Check to see if the dropOffLocation already exists as a Destination
         const dropOffExists = destinations.find(dest => dest.location.id === objective.dropOff.id);
-        if (pickupExists) {
+        if (dropOffExists && dropOffExists.objectives) {
           // If the destination exists, pushes the objective to the Destination
-          pickupExists.objectives.push(objective);
+          dropOffExists.objectives.push(objective);
         } else {
           // If a Destination does not exist, creates one.
-          destinations.push({
+          const newDestination: IDestination = {
+            stopNumber: destinations.length + 1,
             location: objective.dropOff,
             reason: 'Mission',
             objectives: [objective]
-          })
+          }
+          state.routes.destinations[newDestination.stopNumber] = newDestination;
         }
-        
       });
 
-      // Organize the Destinations by Parent:
+      // Group Destinations with their Parent Locations
       const groupedDestinations = parents.map(parent => 
         ({ parent: parent, destinations: destinations.filter(dest => 
           dest.location.parent === parent.short_name)}))
 
-      // Bellman-Ford Integration
+      // **Bellman-Ford Integration**
 
       //Define Graph
       const graph = createGraph(groupedDestinations, currentLocation);
 
       //Calculate an Optimal Path
-      const shortestPath = bellmanFord(graph, currentParent);
+      const shortestPath = bellmanRouting(graph, currentParent);
 
       // Update Stop numbers based on the calculated shortest Path
       assignStopNumbers(shortestPath, destinations);
 
       // Add checkpoints or additional stops if needed
       if (requiresCheckpoint(currentParent, shortestPath)) {
-        destinations.push({
-          location: relevantParent,
+        const newDestination: IDestination = {
+          location: relevantParent, //TODO
           reason: 'Checkpoint',
-          stopNumber: getNextStopNumber(destinations),
-        });
+          stopNumber: getNextStopNumber(destinations), //TODO
+        }
       }
 
       // Reorder destinations to ensure pickups happen before dropoffs
@@ -121,8 +153,9 @@ const destinationCreation: Middleware<unknown, RootState> =
       // If They do not equal, then evaluate distance based on value1's parent vs value2's parent
       // If no Parent's are equal to the parent of the Current Location, then the first Destination should be to the closest Parent from GroupedDestinations within the standard efficency arethmatic of the algorithm
       // When Jumping to a different Parent, a New Destination should be Created for that Parent: 
-      const relevantParent = location; //The Parent needing to be jumped to to get to the next Locations
-      destinations.push({ location: relevantParent, reason: 'Checkpoint' });
+      // const relevantParent = location;
+      //The Parent needing to be jumped to to get to the next Locations
+      // destinations.push({ location: relevantParent, reason: 'Checkpoint' });
       // I'm not sure how to evaluate the first stop on a planet. Each stop's x,y,z is local to the Parent and not relative to the Parent's X,Y,Z.
       // Once we know the first Location, use Belman Ford Algo for each destination for this Parent.
       // If an Objective on a Destination has not yet had the Pickup Location visted then that Objective should be moved to a new Destination object with the same Location. 
@@ -134,7 +167,7 @@ const destinationCreation: Middleware<unknown, RootState> =
       // Sets StopNumber for Sorting
       // Sets the StopNumber if the Reason is 'Checkpoint' or 'Mission'
       // Will allow us to Put in Custom Stops later where we set the stop number and add one to all the stopNumbers after it
-      destinations.forEach((destination) => destination.reason === 'Mission' || destination.reason === "Checkpoint" && destination.stopNumber = index);
+      destinations.forEach((destination) => destination.reason === 'Mission' || destination.reason === "Checkpoint" && destination.stopNumber = index); //TODO ??
       // Organizes 
     }
 
@@ -145,7 +178,7 @@ const destinationCreation: Middleware<unknown, RootState> =
       // Helper Functions
 
       //Create Graph from grouped destinations for Bellman-Ford
-      function createGraph(groupedDestinations, currentLocation) {
+      function createGraph(groupedDestinations, currentLocation: ILocation) {
         let graph = {};
 
         groupedDestinations.forEach(group => {
@@ -162,7 +195,7 @@ const destinationCreation: Middleware<unknown, RootState> =
       }
 
       // Bellman-Ford Algo Implement
-      function bellmanFord(graph, start) {
+      function bellmanRouting(graph, start) {
         let distances = {};
         let previous = {};
 
