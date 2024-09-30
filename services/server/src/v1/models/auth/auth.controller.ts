@@ -28,6 +28,7 @@ import { AuthRepository } from './auth.repository';
 import { ApiTokenCreateSchema } from 'vl-shared/src/schemas/ApiTokenSchema';
 import { NotificationService } from '../notifications/notification.service';
 import { IdUtil } from '@/utils/IdUtil';
+import { UserRepository } from '../user/user.repository';
 
 const env = new EnvService();
 @ApiPath({
@@ -230,6 +231,7 @@ export class AuthController extends BaseHttpController {
         { type: 'popup', popup: '$VERIFY' },
       );
     }
+    UserRepository.updateUserRating(dbUser.user.id);
     return this.authService.signUser(dbUser.user.id);
   }
 
@@ -274,6 +276,7 @@ export class AuthController extends BaseHttpController {
         { type: 'popup', popup: '$VERIFY' },
       );
     }
+    UserRepository.updateUserRating(dbUser.user.id);
     return this.authService.signUser(dbUser.user.id);
   }
 }
