@@ -9,6 +9,8 @@ import { ILocationSearch } from 'vl-shared/src/schemas/SearchSchema';
 
 import NetworkService from '@/Services/NetworkService';
 
+// import NetworkService from '@/Services/NetworkService';
+
 export const fetchSearchedLocations = createAsyncThunk(
   '/v1/locations/search',
   async (params: ILocationSearch) => {
