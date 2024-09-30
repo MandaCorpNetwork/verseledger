@@ -11,15 +11,6 @@ export const ObjectiveStatusSchema = z.enum([
 
 export type IObjectiveStatus = z.infer<typeof ObjectiveStatusSchema>;
 
-export const ObjectiveStatusSchema = z.enum([
-  'PENDING',
-  'COLLECTED',
-  'COMPLETED',
-  'MISSING'
-]);
-
-export type IObjectiveStatus = z.infer<typeof ObjectiveStatusSchema>;
-
 export const ObjectiveSchema = z.object({
   packageId: z.number(),
   pickup: LocationSchema,
@@ -43,7 +34,14 @@ export const DestinationSchema = z.object({
   location: LocationSchema,
   reason: z.string(),
   objectives: z.array(ObjectiveSchema).optional(),
-  contract: ContractSchema,
+  contract: ContractSchema.optional(),
 });
 
 export type IDestination = z.infer<typeof DestinationSchema>;
+
+export const GroupedDestinationsSchema = z.object({
+  parent: LocationSchema,
+  destinations: z.array(DestinationSchema),
+});
+
+export type IGroupedDestinations = z.infer<typeof GroupedDestinationsSchema>;

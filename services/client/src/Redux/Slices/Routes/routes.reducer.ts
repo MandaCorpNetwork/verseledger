@@ -4,7 +4,7 @@ import { IDestination, IMission } from 'vl-shared/src/schemas/RoutesSchema';
 const routesReducer = createSlice({
   name: 'routes',
   initialState: {
-    destinations: {} as Record<string, IDestination>,
+    destinations: {} as Record<number, IDestination>,
     missions: {} as Record<string, IMission>,
   },
   reducers: {
@@ -20,7 +20,7 @@ const routesReducer = createSlice({
     },
     addDestination: (state, action: PayloadAction<IDestination>) => {
       const destination = action.payload;
-      state.destinations[destination.location.id] = destination;
+      state.destinations[destination.stopNumber] = destination;
     },
   },
   extraReducers() {},
