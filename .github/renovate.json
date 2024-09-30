@@ -3,16 +3,5 @@
   "extends": [
     "config:recommended"
   ],
-  "dependencyDashboard": true,
-  "packageRules": [
-    {
-      "matchCategories": [
-        "npm"
-      ],
-      "matchUpdateTypes": [
-        "patch"
-      ],
-      "automerge": true
-    }
-  ]
+  "dependencyDashboard": true
 }
