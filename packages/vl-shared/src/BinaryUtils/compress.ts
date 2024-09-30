@@ -1,5 +1,5 @@
 export const compress = async (input: Buffer) => {
-  const cs = new CompressionStream("gzip");
+  const cs = new CompressionStream('gzip');
   const writer = cs.writable.getWriter();
   writer.write(input);
   writer.close();
