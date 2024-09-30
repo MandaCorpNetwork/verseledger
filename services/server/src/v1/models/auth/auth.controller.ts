@@ -8,6 +8,7 @@ import {
   requestBody,
   requestHeaders,
   requestParam,
+  request,
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
@@ -29,6 +30,7 @@ import { ApiTokenCreateSchema } from 'vl-shared/src/schemas/ApiTokenSchema';
 import { NotificationService } from '../notifications/notification.service';
 import { IdUtil } from '@/utils/IdUtil';
 import { UserRepository } from '../user/user.repository';
+import { encode, decode } from 'vl-shared/src/utils/BinaryUtils';
 
 const env = new EnvService();
 @ApiPath({
@@ -46,6 +48,12 @@ export class AuthController extends BaseHttpController {
     private readonly notificationsService: NotificationService,
   ) {
     super();
+  }
+  @httpPost('/encode')
+  public encodeSomething(@requestBody() reqBody: any) {
+    const encoded = encode(reqBody);
+    const decoded = decode(encoded);
+    return { encoded: encoded.toString('utf8'), decoded };
   }
 
   @ApiOperationGet({
