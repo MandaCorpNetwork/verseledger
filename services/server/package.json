@@ -25,7 +25,7 @@
     "nodemon": "3.1.7",
     "prettier": "3.3.3",
     "typescript": "5.6.2",
-    "vitest": "2.1.1"
+    "vitest": "2.1.2"
   },
   "scripts": {
     "lint:check": "tsc --noEmit && npx eslint ./src",
