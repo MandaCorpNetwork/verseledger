@@ -8,7 +8,6 @@ import {
   requestBody,
   requestHeaders,
   requestParam,
-  request,
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
@@ -48,12 +47,6 @@ export class AuthController extends BaseHttpController {
     private readonly notificationsService: NotificationService,
   ) {
     super();
-  }
-  @httpPost('/encode')
-  public encodeSomething(@requestBody() reqBody: any) {
-    const encoded = encode(reqBody);
-    const decoded = decode(encoded);
-    return { encoded: encoded.toString('utf8'), decoded };
   }
 
   @ApiOperationGet({

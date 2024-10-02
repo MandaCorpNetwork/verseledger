@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { fetchLocations } from './actions/fetchLocations';
+import { fetchSearchedLocations } from './actions/fetchSearchedLocations';
 const locationsReducer = createSlice({
   name: 'locations',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,6 +26,17 @@ const locationsReducer = createSlice({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       for (const location of action.payload as ILocation[]) {
         _state[location.id] = location;
+      }
+    });
+    builder.addCase(fetchSearchedLocations.fulfilled, (_state, action) => {
+      const locations = action.payload?.data;
+      if (locations) {
+        locations.forEach((location) => {
+          _state[location.id] = {
+            ..._state[location.id],
+            ...location,
+          };
+        });
       }
     });
   },

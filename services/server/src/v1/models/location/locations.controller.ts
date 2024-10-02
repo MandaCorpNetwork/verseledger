@@ -2,6 +2,8 @@ import {
   BaseHttpController,
   controller,
   httpGet,
+  next,
+  queryParam,
   requestParam,
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
@@ -15,6 +17,14 @@ import { NotFoundError } from '@V1/errors/NotFoundError';
 import { parse } from 'csv-parse/sync';
 import fs from 'fs';
 import { ApiOperationGet, ApiPath } from 'swagger-express-ts';
+import { LocationSearchSchema } from 'vl-shared/src/schemas/SearchSchema';
+import { NextFunction } from 'express';
+import { Logger } from '@/utils/Logger';
+import { BadRequestError } from '@V1/errors/BadRequest';
+import { LocationService } from './locations.services';
+import { PaginatedDataDTO } from '@V1/DTO';
+import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import { LocationDTO } from './mapping/LocationDTO';
 @ApiPath({
   path: '/v1/locations',
   name: 'Locations',
@@ -27,10 +37,88 @@ export class LocationController extends BaseHttpController {
     @inject(TYPES.AuthService) private readonly authService: AuthService,
     @inject(TYPES.ContractService)
     private readonly contractService: ContractService,
+    @inject(TYPES.LocationService) private readonly locationService: LocationService,
   ) {
     super();
   }
 
+  @ApiOperationGet({
+    summary: 'Search for Locations',
+    description: 'Pass search parameters to find an array of locations',
+    path: '/search',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Found',
+        model: 'Unknown',
+      },
+    },
+    consumes: [],
+    parameters: {
+      query: {
+        'search[id]': {
+          required: false,
+          description: 'List of Ids',
+          type: 'string',
+        },
+        'search[category]': {
+          required: false,
+          description: 'List of Categories',
+          type: 'string',
+        },
+        'search[parent]': {
+          required: false,
+          description: 'List of Parent Locations',
+          type: 'string',
+        },
+        'search[short_name]': {
+          required: false,
+          description: 'List of Short Names',
+          type: 'string',
+        },
+        'search[waypoint_name]': {
+          required: false,
+          description: 'List of Waypoint Names',
+          type: 'string',
+        },
+        'search[limit]': {
+          required: false,
+          description: 'Limit number of results',
+          minimum: 0,
+          default: 25,
+          type: 'number',
+        },
+      },
+    },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: []},
+  })
+  @httpGet('/search', TYPES.VerifiedUserMiddleware)
+  private async searchLocations(
+    @next() nextFunc: NextFunction,
+    @queryParam('search') searchRaw?: unknown,
+  ) {
+    let search: ReturnType<(typeof LocationSearchSchema)['parse']>;
+    try {
+      search = LocationSearchSchema.strict().optional().parse(searchRaw)!;
+    } catch (error) {
+      Logger.error(error);
+      throw new BadRequestError('Incorrect Request Body', '400');
+    }
+    const locationSearch = await this.locationService.search(search!);
+    const locations = locationSearch.rows;
+
+    const response = new PaginatedDataDTO(
+      locations as ILocation[],
+      {
+        total: locationSearch.count,
+        limit: Math.min(25, search?.limit ?? 25),
+        page: search?.page ?? 0,
+      },
+      LocationDTO,
+    );
+    return this.ok(response);
+  }
+    
   @ApiOperationGet({
     description: 'Get a Location',
     summary: 'Get a Location',
