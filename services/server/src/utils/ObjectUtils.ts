@@ -35,10 +35,10 @@ export class ObjectUtils {
     const removed = {};
     const unchanged = {};
     for (const oldProp in oldObj) {
-      if (Object.prototype.hasOwnProperty.call(oldObj, oldProp)) {
+      if (Object.hasOwn(oldObj, oldProp)) {
         const newPropValue = newObj[oldProp];
         const oldPropValue = oldObj[oldProp];
-        if (Object.prototype.hasOwnProperty.call(newObj, oldProp)) {
+        if (Object.hasOwn(newObj, oldProp)) {
           if (newPropValue === oldPropValue) {
             // @ts-expect-error Index {}
             unchanged[oldProp] = oldPropValue;
@@ -58,10 +58,10 @@ export class ObjectUtils {
       }
     }
     for (const newProp in newObj) {
-      if (Object.prototype.hasOwnProperty.call(newObj, newProp)) {
+      if (Object.hasOwn(newObj, newProp)) {
         const oldPropValue = oldObj[newProp];
         const newPropValue = newObj[newProp];
-        if (Object.prototype.hasOwnProperty.call(oldObj, newProp)) {
+        if (Object.hasOwn(oldObj, newProp)) {
           if (oldPropValue !== newPropValue) {
             if (!deep || !ObjectUtils.isObject(oldPropValue)) {
               // @ts-expect-error Index {}

@@ -15,7 +15,7 @@ export class RatingService {
   }
 
   @inject(TYPES.NotificationService)
-  private notifications!: NotificationService;
+  private readonly notifications!: NotificationService;
   public async checkRecentRating(
     submitterId: string,
     ratingType: string,

@@ -49,7 +49,8 @@ import { ContractToContractDTOMapper } from './mapping/contract.mapper';
 @controller('/v1/contracts')
 export class ContractController extends BaseHttpController {
   constructor(
-    @inject(TYPES.ContractService) private contractService: ContractService,
+    @inject(TYPES.ContractService)
+    private readonly contractService: ContractService,
   ) {
     super();
   }
@@ -357,7 +358,7 @@ export class ContractController extends BaseHttpController {
     try {
       const contracts = await this.contractService.getContractsByUserId(
         userId,
-        status as IContractBid['status'],
+        status,
       );
       return contracts;
     } catch (error) {

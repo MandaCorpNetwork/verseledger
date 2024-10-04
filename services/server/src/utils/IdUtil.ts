@@ -16,9 +16,9 @@ export enum IdPrefix {
 }
 
 export class IdUtil {
-  static IdPrefix = IdPrefix;
+  static readonly IdPrefix = IdPrefix;
 
-  public static IdLength = 26;
+  public static readonly IdLength = 26;
 
   public static getOwnerType(id: string) {
     if (id == null || id.trim().length != 26) return OwnerType.INVALID;

@@ -31,9 +31,9 @@ export class ContractService {
   }
 
   @inject(TYPES.StompService)
-  private socket!: StompService;
+  private readonly socket!: StompService;
   @inject(TYPES.NotificationService)
-  private notifications!: NotificationService;
+  private readonly notifications!: NotificationService;
   public async getContracts() {
     return Contract.scope(['locations', 'owner', 'bids']).findAll();
   }
@@ -181,7 +181,7 @@ export class ContractService {
     const contractBids = await ContractBid.findAll({
       where: {
         user_id: userId,
-        status: bidStatus ? bidStatus : { [Op.ne]: 'REJECTED' },
+        status: bidStatus ?? { [Op.ne]: 'REJECTED' },
       },
     });
     const contractIds = contractBids.map((bid) => bid.contract_id);

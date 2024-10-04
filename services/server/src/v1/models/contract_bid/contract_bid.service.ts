@@ -18,9 +18,9 @@ export class ContractBidsService {
   }
 
   @inject(TYPES.StompService)
-  private socket!: StompService;
+  private readonly socket!: StompService;
   @inject(TYPES.NotificationService)
-  private notifications!: NotificationService;
+  private readonly notifications!: NotificationService;
 
   public async getBid(contractId: string, bidId: string, scope: string[] = []) {
     const bid = await ContractBid.scope(scope).findOne({

@@ -26,9 +26,9 @@ import { ApiPath } from 'swagger-express-ts';
 @controller('/v1/notifications', TYPES.AuthMiddleware)
 export class NotificationsController extends BaseHttpController {
   constructor(
-    @inject(TYPES.UserService) private userService: UserService,
+    @inject(TYPES.UserService) private readonly userService: UserService,
     @inject(TYPES.NotificationService)
-    private notificationService: NotificationService,
+    private readonly notificationService: NotificationService,
   ) {
     super();
   }

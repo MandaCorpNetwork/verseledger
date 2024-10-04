@@ -1,5 +1,5 @@
 export class Identifier {
-  private _id: string;
+  private readonly _id: string;
   constructor(value: string) {
     this._id = value;
   }

@@ -23,9 +23,10 @@ import { ApiOperationGet, ApiPath } from 'swagger-express-ts';
 @controller('/v1/locations')
 export class LocationController extends BaseHttpController {
   constructor(
-    @inject(TYPES.UserService) private userService: UserService,
-    @inject(TYPES.AuthService) private authService: AuthService,
-    @inject(TYPES.ContractService) private contractService: ContractService,
+    @inject(TYPES.UserService) private readonly userService: UserService,
+    @inject(TYPES.AuthService) private readonly authService: AuthService,
+    @inject(TYPES.ContractService)
+    private readonly contractService: ContractService,
   ) {
     super();
   }

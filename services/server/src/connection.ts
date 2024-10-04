@@ -25,7 +25,6 @@ export const setupModels = (env: {
     benchmark: true,
     logging(sql) {
       Logger.withType(chalk.bold.bgGreen('[$SQL]'), sql);
-      return;
     },
   });
 };

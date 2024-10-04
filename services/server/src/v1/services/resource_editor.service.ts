@@ -7,8 +7,9 @@ import { Logger } from '@/utils/Logger';
 @injectable()
 export class ResourceEditorService {
   constructor(
-    @inject(TYPES.UserService) private userService: UserService,
-    @inject(TYPES.ContractService) private contractService: ContractService,
+    @inject(TYPES.UserService) private readonly userService: UserService,
+    @inject(TYPES.ContractService)
+    private readonly contractService: ContractService,
   ) {
     Logger.init();
   }

@@ -36,7 +36,7 @@ export class EnvService implements EnvironmentConfig {
     this.warnStack = [];
     for (const tempProp in envConfig) {
       const prop = tempProp as keyof typeof envConfig;
-      const type = envConfig[prop].type as 'string' | 'number';
+      const type = envConfig[prop].type;
       const optional = envConfig[prop].optional;
       const defaultValue = envConfig[prop].default;
       const description = envConfig[prop].description as string;
@@ -68,7 +68,7 @@ export class EnvService implements EnvironmentConfig {
           break;
         }
         case 'number': {
-          this[prop] = parseFloat(envar as string) as never;
+          this[prop] = parseFloat(envar) as never;
           break;
         }
       }
@@ -88,6 +88,6 @@ export class EnvService implements EnvironmentConfig {
       process.exit(1);
     }
   }
-  private errorStack: string[];
-  private warnStack: string[];
+  private readonly errorStack: string[];
+  private readonly warnStack: string[];
 }

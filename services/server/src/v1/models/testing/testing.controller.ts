@@ -18,9 +18,10 @@ import { User } from '@V1/models/user/user.model';
 @controller('/@TESTING', TYPES.TestingMiddleware)
 export class TestingnController extends BaseHttpController {
   constructor(
-    @inject(TYPES.UserService) private userService: UserService,
-    @inject(TYPES.AuthService) private authService: AuthService,
-    @inject(TYPES.ContractService) private contractService: ContractService,
+    @inject(TYPES.UserService) private readonly userService: UserService,
+    @inject(TYPES.AuthService) private readonly authService: AuthService,
+    @inject(TYPES.ContractService)
+    private readonly contractService: ContractService,
   ) {
     super();
   }
@@ -44,7 +45,7 @@ export class TestingnController extends BaseHttpController {
       id.toString(),
       'DISCORD',
     );
-    if (user.verified == false) {
+    if (!user.verified) {
       user.verified = true;
       user.displayName = name;
       user.handle = name.toLowerCase().replaceAll(' ', '_');

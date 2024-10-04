@@ -14,8 +14,8 @@ import { Logger } from '@/utils/Logger';
 @controller('/v1/chat')
 export class ChatController extends BaseHttpController {
   constructor(
-    @inject(TYPES.UserService) private userService: UserService,
-    @inject(TYPES.ChatService) private ChatService: ChatService,
+    @inject(TYPES.UserService) private readonly userService: UserService,
+    @inject(TYPES.ChatService) private readonly chatService: ChatService,
   ) {
     super();
   }

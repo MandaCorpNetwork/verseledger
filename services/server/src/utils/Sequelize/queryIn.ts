@@ -14,7 +14,7 @@ export const optionalSet = <T extends Record<any, any>>(
 export const queryIn = <T>(values: T | T[]): WhereOptions | undefined => {
   if (values != null) {
     if (Array.isArray(values)) {
-      switch ((values as Array<T>).length) {
+      switch (values.length) {
         case 0:
           return undefined;
         case 1:
