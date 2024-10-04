@@ -16,7 +16,7 @@
     "@mui/x-date-pickers": "7.18.0",
     "@react-three/fiber": "8.17.9",
     "@reduxjs/toolkit": "2.2.7",
-    "@scalar/api-reference-react": "0.3.102",
+    "@scalar/api-reference-react": "0.3.103",
     "axios": "1.7.7",
     "chalk": "^4",
     "color-convert": "2.0.1",
