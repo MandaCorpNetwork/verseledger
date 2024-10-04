@@ -13,7 +13,7 @@ export class NotificationService {
   constructor() {
     Logger.init();
   }
-  @inject(TYPES.StompService) private socket!: StompService;
+  @inject(TYPES.StompService) private readonly socket!: StompService;
 
   public async getNotifications(
     user_id: string,
@@ -60,9 +60,7 @@ export class NotificationService {
     if (typeof user_id !== 'string') {
       return (
         await Promise.all(
-          (user_id as string[]).map((id) =>
-            this.createNotification(id, message, action),
-          ),
+          user_id.map((id) => this.createNotification(id, message, action)),
         )
       ).reduce((prev, current) => prev && current, true);
     }

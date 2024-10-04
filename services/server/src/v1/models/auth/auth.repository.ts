@@ -10,7 +10,7 @@ import { ApiPermission } from 'vl-shared/src/enum/ApiPermission';
 const env = new EnvService();
 @injectable()
 export class AuthRepository {
-  private static ApiToken = ApiToken;
+  private static readonly ApiToken = ApiToken;
   public static async invalidateToken(token: {
     user_id: string;
     token_id: string;

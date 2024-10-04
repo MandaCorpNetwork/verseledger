@@ -36,9 +36,10 @@ import { stringArray } from 'vl-shared/src/utils/stringArray';
 @controller('/v1/users')
 export class UsersController extends BaseHttpController {
   constructor(
-    @inject(TYPES.UserService) private userService: UserService,
-    @inject(TYPES.AuthService) private authService: AuthService,
-    @inject(TYPES.ContractService) private contractService: ContractService,
+    @inject(TYPES.UserService) private readonly userService: UserService,
+    @inject(TYPES.AuthService) private readonly authService: AuthService,
+    @inject(TYPES.ContractService)
+    private readonly contractService: ContractService,
   ) {
     super();
   }
@@ -243,7 +244,7 @@ export class UsersController extends BaseHttpController {
       throw new GenericError(400, (error as ZodError).issues);
     }
 
-    const bidInfo = await this.userService.getUserBids(user as string, search);
+    const bidInfo = await this.userService.getUserBids(user, search);
     const bids = bidInfo.rows;
     const limit = Math.min(25, search.limit ?? 10);
     const page = search.page ?? 0;

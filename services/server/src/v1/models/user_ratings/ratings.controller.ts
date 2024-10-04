@@ -36,8 +36,9 @@ import { UserRepository } from '../user/user.repository';
 @controller('/v1/ratings')
 export class RatingsController extends BaseHttpController {
   constructor(
-    @inject(TYPES.RatingService) private ratingService: RatingService,
-    @inject(TYPES.ContractService) private contractService: ContractService,
+    @inject(TYPES.RatingService) private readonly ratingService: RatingService,
+    @inject(TYPES.ContractService)
+    private readonly contractService: ContractService,
   ) {
     super();
   }

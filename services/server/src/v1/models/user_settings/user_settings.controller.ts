@@ -19,7 +19,7 @@ import {
 export class UserSettingsController extends BaseHttpController {
   constructor(
     @inject(TYPES.UserSettingsService)
-    private userSettingsService: UserSettingsService,
+    private readonly userSettingsService: UserSettingsService,
   ) {
     super();
   }

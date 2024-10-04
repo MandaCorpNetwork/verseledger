@@ -3,7 +3,7 @@ import { UserSettings } from './user_settings.model';
 
 @injectable()
 export class UserSettingsRepository {
-  private static UserSettings = UserSettings;
+  private static readonly UserSettings = UserSettings;
   public static async getUserSettings(user_id: string) {
     return UserSettingsRepository.UserSettings.findAll({
       where: {

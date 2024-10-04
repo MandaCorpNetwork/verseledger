@@ -40,10 +40,10 @@ const env = new EnvService();
 @controller('/v1/auth')
 export class AuthController extends BaseHttpController {
   constructor(
-    @inject(TYPES.UserService) private userService: UserService,
-    @inject(TYPES.AuthService) private authService: AuthService,
+    @inject(TYPES.UserService) private readonly userService: UserService,
+    @inject(TYPES.AuthService) private readonly authService: AuthService,
     @inject(TYPES.NotificationService)
-    private notificationsService: NotificationService,
+    private readonly notificationsService: NotificationService,
   ) {
     super();
   }

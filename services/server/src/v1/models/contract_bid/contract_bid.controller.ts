@@ -43,8 +43,10 @@ import { ContractBidsService } from './contract_bid.service';
 )
 export class BidsController extends BaseHttpController {
   constructor(
-    @inject(TYPES.ContractService) private contractService: ContractService,
-    @inject(TYPES.ContractBidsService) private bidsService: ContractBidsService,
+    @inject(TYPES.ContractService)
+    private readonly contractService: ContractService,
+    @inject(TYPES.ContractBidsService)
+    private readonly bidsService: ContractBidsService,
   ) {
     super();
   }
@@ -88,7 +90,7 @@ export class BidsController extends BaseHttpController {
     }
 
     const contract = await this.contractService.getContract(contractId);
-    if (contract == null || contract.Bids == null) {
+    if (contract?.Bids == null) {
       throw nextFunc(new NotFoundError(contractId));
     }
     return this.ok(

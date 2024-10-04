@@ -7,8 +7,8 @@ import { PallyService } from '@V1/services/pally.service';
 @controller('/v1/donations')
 export class DonationController extends BaseHttpController {
   constructor(
-    @inject(TYPES.UserService) private userService: UserService,
-    @inject(TYPES.PallyService) private pallyService: PallyService,
+    @inject(TYPES.UserService) private readonly userService: UserService,
+    @inject(TYPES.PallyService) private readonly pallyService: PallyService,
   ) {
     super();
   }
