@@ -30,7 +30,7 @@ export const MissionSchema = z.object({
 export type IMission = z.infer<typeof MissionSchema>;
 
 export const DestinationSchema = z.object({
-  stopNumber: z.number().nullable(),
+  stopNumber: z.number(),
   location: LocationSchema,
   reason: z.string(),
   objectives: z.array(ObjectiveSchema).optional(),

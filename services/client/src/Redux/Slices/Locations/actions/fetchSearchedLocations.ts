@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AuthUtil } from '@Utils/AuthUtil';
 import { composeQuery } from '@Utils/composeQuery';
 import { Logger } from '@Utils/Logger';
 import { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
@@ -13,6 +14,7 @@ export const fetchSearchedLocations = createAsyncThunk(
     try {
       const response = await NetworkService.GET<IPaginatedData<ILocation>>(
         `/v1/locations?${composeQuery({ search: params })}`,
+        AuthUtil.getAccessHeader(),
       );
       return response.data;
     } catch (error) {

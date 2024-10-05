@@ -22,23 +22,24 @@ const locationsReducer = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase(fetchLocations.fulfilled, (_state, action) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      for (const location of action.payload as ILocation[]) {
-        _state[location.id] = location;
-      }
-    });
-    builder.addCase(fetchSearchedLocations.fulfilled, (_state, action) => {
-      const locations = action.payload?.data;
-      if (locations) {
-        locations.forEach((location) => {
-          _state[location.id] = {
-            ..._state[location.id],
-            ...location,
-          };
-        });
-      }
-    });
+    builder
+      .addCase(fetchLocations.fulfilled, (_state, action) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        for (const location of action.payload as ILocation[]) {
+          _state[location.id] = location;
+        }
+      })
+      .addCase(fetchSearchedLocations.fulfilled, (_state, action) => {
+        const locations = action.payload?.data;
+        if (locations) {
+          locations.forEach((location) => {
+            _state[location.id] = {
+              ..._state[location.id],
+              ...location,
+            };
+          });
+        }
+      });
   },
 });
 

@@ -15,7 +15,6 @@ export const setupStore = (preloadState?: Partial<RootState>) =>
       getDefaultMiddleware({ serializableCheck: false }).concat(
         updateLocationsMiddleware,
         updateUsersMiddleware,
-        // destinationCreation,
       ),
   });
 export type RootState = ReturnType<typeof coreReducer>;
