@@ -31,10 +31,10 @@ export class LocationService {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const query = {} as any;
     optionalSet(query, 'id', queryIn(id));
-    optionalSet(query, 'id', queryIn(parent));
-    optionalSet(query, 'id', queryIn(category));
-    optionalSet(query, 'id', queryIn(short_name));
-    optionalSet(query, 'id', queryIn(waypoint_name));
+    optionalSet(query, 'parent', queryIn(parent));
+    optionalSet(query, 'category', queryIn(category));
+    optionalSet(query, 'short_name', queryIn(short_name));
+    optionalSet(query, 'waypoint_name', queryIn(waypoint_name));
 
     const locations = await Location.findAndCountAll({
       where: query,

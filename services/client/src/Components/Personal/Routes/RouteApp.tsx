@@ -61,7 +61,7 @@ export const RouteApp: React.FC<unknown> = () => {
     // Set Params to search for Parent Locations
     const parentParams: ILocationSearch = {
       page: 0,
-      limit: 200,
+      limit: 25,
       category: 'Planet',
     };
 

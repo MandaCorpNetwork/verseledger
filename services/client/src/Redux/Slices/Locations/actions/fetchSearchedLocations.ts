@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { composeQuery } from '@Utils/composeQuery';
 import { Logger } from '@Utils/Logger';
+import { IDTOComplete } from 'vl-shared/src/schemas/DTOSchema';
 import { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { ILocationSearch } from 'vl-shared/src/schemas/SearchSchema';
@@ -12,7 +13,7 @@ export const fetchSearchedLocations = createAsyncThunk(
   '/v1/locations/search',
   async (params: ILocationSearch) => {
     try {
-      const response = await NetworkService.GET<IPaginatedData<ILocation>>(
+      const response = await NetworkService.GET<IDTOComplete<IPaginatedData<ILocation>>>(
         `/v1/locations?${composeQuery({ search: params })}`,
         AuthUtil.getAccessHeader(),
       );
