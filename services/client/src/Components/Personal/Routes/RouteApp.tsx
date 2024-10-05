@@ -33,6 +33,7 @@ import { Logger } from '@Utils/Logger';
 type Graph = Record<string, Record<string, number>>;
 
 export const RouteApp: React.FC<unknown> = () => {
+  const [parents, setParents] = React.useState<ILocation[] | null>(null);
   const dev = isDev();
   const dispatch = useAppDispatch();
 
