@@ -135,4 +135,14 @@ export class MathX {
       .add(toTangent.multiply(3 * num1 * num2))
       .add(to.multiply(num4)).normalized;
   }
+
+  public static distanceSqr(a: Float3, b: Float3) {
+    return (
+      (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y) + (a.z - b.z) * (a.z - b.z)
+    );
+  }
+
+  public static distance(a: Float3, b: Float3) {
+    return Math.sqrt(MathX.distanceSqr(a, b));
+  }
 }
