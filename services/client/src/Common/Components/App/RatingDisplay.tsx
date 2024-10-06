@@ -13,16 +13,6 @@ export const RatingDisplay: React.FC<RatingDisplayProps> = (props) => {
   const { variant = 'submission', onSelect, sx, size = 'medium', value } = props;
   const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
 
-  const getCalculatedRating = React.useCallback(() => {
-    if (variant === 'defined') {
-      if (value < 0) return 0;
-      return value;
-    }
-    return 0;
-  }, [variant, value]);
-
-  const calculatedRating = getCalculatedRating();
-
   const ratingBackground = React.useCallback(
     (color: 'red' | 'green', filled: boolean, isHovered: boolean = false) => {
       if (isHovered && variant === 'submission') {
@@ -94,17 +84,26 @@ export const RatingDisplay: React.FC<RatingDisplayProps> = (props) => {
   };
 
   const renderDefinedVariant = () => {
-    const redThresholds = [0.1, 0.2, 0.3, 0.4, 0.49];
-    const greenThresholds = [0.51, 0.7, 0.8, 0.9, 1.0];
+    const calculateFilledBars = (rating: number, isRed: boolean) => {
+      if (rating < 0) return 0; // No filled bars for negative values
 
-    const redFilledBars = redThresholds.filter(
-      (threshold) => calculatedRating > threshold,
-    ).length;
-    const greenFilledBars = greenThresholds.filter(
-      (threshold) => calculatedRating > threshold,
-    ).length;
+      // Calculate number of red or green filled bars based on thresholds
+      if (isRed) {
+        if (rating <= 0.1) return 5; // Max red bars if rating is 0.1 or less
+        if (rating < 0.5) return Math.ceil((0.5 - rating) / 0.1); // Fewer red bars as rating approaches 0.5
+        return 0; // No red bars if rating is 0.5 or more
+      } else {
+        if (rating >= 0.9) return 5; // Max green bars if rating is 0.9 or more
+        if (rating > 0.5) return Math.ceil((rating - 0.5) / 0.1); // More green bars as rating approaches 0.9
+        return 0; // No green bars if rating is 0.5 or less
+      }
+    };
+
+    const redFilledBars = calculateFilledBars(value, true);
+    const greenFilledBars = calculateFilledBars(value, false);
+
     return (
-      <Tooltip title="No Rating Available" disableHoverListener={calculatedRating > 0}>
+      <Tooltip title="No Rating Available" disableHoverListener={value > 0}>
         <Box
           data-testid={`RatingsDisplay__TestId_Root`}
           sx={{ display: 'inline-flex', gap: '.2em', ...sx }}
