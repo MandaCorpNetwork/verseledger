@@ -119,23 +119,23 @@ export class FloatQ {
     );
   }
 
-  public static AxisAngle(axis: Float3, angle: number) {
-    return FloatQ.AxisAngleRad(axis, angle * (Math.PI / 180.0));
+  public static axisAngle(axis: Float3, angle: number) {
+    return FloatQ.axisAngleRad(axis, angle * (Math.PI / 180.0));
   }
 
-  public static AxisAngleRad(axis: Float3, radians: number) {
+  public static axisAngleRad(axis: Float3, radians: number) {
     radians *= 0.5;
     const newAxis = axis.normalized.multiply(Math.sin(radians));
     return new FloatQ(newAxis.x, newAxis.y, newAxis.z, Math.cos(radians));
   }
 
-  public static LookRotation(forward: Float3, up = Float3.Up()) {
+  public static lookRotation(forward: Float3, up = Float3.Up()) {
     if (forward.equals(Float3.Zero())) return FloatQ.Identity();
     const normalized = forward.normalized;
     let b = MathX.cross(up, normalized);
     b = !b.equals(Float3.Zero())
       ? b.normalized
-      : FloatQ.Euler(-90, 0, 0).multiply(normalized);
+      : FloatQ.euler(-90, 0, 0).multiply(normalized);
     const float3 = MathX.cross(normalized, b);
     const num1 = b.x + float3.y + normalized.z;
     let w, x, y, z;
@@ -171,17 +171,17 @@ export class FloatQ {
     return new FloatQ(x, y, z, w);
   }
 
-  public static Euler(x: number, y: number, z: number): FloatQ;
-  public static Euler(rotation: Float3): FloatQ;
-  public static Euler(rotation: number | Float3, y?: number, z?: number): FloatQ {
-    if (!(rotation instanceof Float3)) return FloatQ.Euler(new Float3(rotation, y, z));
-    return FloatQ.EulerRad(rotation.multiply(Math.PI / 180));
+  public static euler(x: number, y: number, z: number): FloatQ;
+  public static euler(rotation: Float3): FloatQ;
+  public static euler(rotation: number | Float3, y?: number, z?: number): FloatQ {
+    if (!(rotation instanceof Float3)) return FloatQ.euler(new Float3(rotation, y, z));
+    return FloatQ.eulerRad(rotation.multiply(Math.PI / 180));
   }
 
-  public static EulerRad(x: number, y: number, z: number): FloatQ;
-  public static EulerRad(rotation: Float3): FloatQ;
-  public static EulerRad(rotation: number | Float3, y?: number, z?: number): FloatQ {
-    if (!(rotation instanceof Float3)) return FloatQ.EulerRad(new Float3(rotation, y, z));
+  public static eulerRad(x: number, y: number, z: number): FloatQ;
+  public static eulerRad(rotation: Float3): FloatQ;
+  public static eulerRad(rotation: number | Float3, y?: number, z?: number): FloatQ {
+    if (!(rotation instanceof Float3)) return FloatQ.eulerRad(new Float3(rotation, y, z));
     const r = rotation.multiply(0.5);
 
     const num1 = Math.sin(r.x);
@@ -198,9 +198,9 @@ export class FloatQ {
     );
   }
 
-  public static FromToRotation(from: FloatQ, to: FloatQ): FloatQ;
-  public static FromToRotation(from: Float3, to: Float3): FloatQ;
-  public static FromToRotation(from: FloatQ | Float3, to: FloatQ | Float3): FloatQ {
+  public static fromToRotation(from: FloatQ, to: FloatQ): FloatQ;
+  public static fromToRotation(from: Float3, to: Float3): FloatQ;
+  public static fromToRotation(from: FloatQ | Float3, to: FloatQ | Float3): FloatQ {
     if (from instanceof FloatQ && to instanceof FloatQ) return to.multiply(from.inverted);
     if (from instanceof Float3 && to instanceof Float3) {
       const num = MathX.dot(from, to);
@@ -223,7 +223,7 @@ export class FloatQ {
             a = new Float3(0, 1);
             float3_2 = MathX.cross(a, from);
           }
-          return FloatQ.AxisAngleRad(float3_2.normalized, 3.14159274);
+          return FloatQ.axisAngleRad(float3_2.normalized, 3.14159274);
         }
       }
       return FloatQ.Identity();
