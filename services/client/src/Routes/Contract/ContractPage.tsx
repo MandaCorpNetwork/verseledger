@@ -173,7 +173,7 @@ export const ContractPage: React.FC<unknown> = () => {
     [],
   );
   /** Calls {@link checkIsOwner()} */
-  const isOwner = checkIsOwner(contract, currentUser);
+  const isOwner = checkIsOwner(contract, currentUser as unknown as IUser);
 
   /**
    * @function getUserBid - Gets the user's bid from the contract if it exists

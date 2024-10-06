@@ -127,7 +127,7 @@ const UserDisplayComponent: React.FC<UserDisplayProps> = ({ sx, user }) => {
           >
             <RatingDisplay
               size="small"
-              value={4}
+              value={user.display_rating}
               variant="defined"
               sx={{
                 ml: 'auto',

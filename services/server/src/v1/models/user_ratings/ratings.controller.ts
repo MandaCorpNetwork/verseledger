@@ -16,7 +16,6 @@ import {
   httpPost,
   next,
   requestBody,
-  requestParam,
 } from 'inversify-express-utils';
 import { ApiOperationPost, ApiPath } from 'swagger-express-ts';
 import {
@@ -67,7 +66,7 @@ export class RatingsController extends BaseHttpController {
   private async createContractRatings(
     @requestBody() body: ICreateContractRatingsBody,
     @next() nextFunc: NextFunction,
-  ){
+  ) {
     try {
       const model = CreateContractRatingsBodySchema.parse(body);
       const contractId = model.contract_id;

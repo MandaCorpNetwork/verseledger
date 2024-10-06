@@ -13,6 +13,16 @@ export const RatingDisplay: React.FC<RatingDisplayProps> = (props) => {
   const { variant = 'submission', onSelect, sx, size = 'medium', value } = props;
   const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
 
+  const getCalculatedRating = React.useCallback(() => {
+    if (variant === 'defined') {
+      if (value < 0) return 0;
+      return value;
+    }
+    return 0;
+  }, [variant, value]);
+
+  const calculatedRating = getCalculatedRating();
+
   const ratingBackground = React.useCallback(
     (color: 'red' | 'green', filled: boolean, isHovered: boolean = false) => {
       if (isHovered && variant === 'submission') {
@@ -84,28 +94,39 @@ export const RatingDisplay: React.FC<RatingDisplayProps> = (props) => {
   };
 
   const renderDefinedVariant = () => {
+    const redThresholds = [0.1, 0.2, 0.3, 0.4, 0.49];
+    const greenThresholds = [0.51, 0.7, 0.8, 0.9, 1.0];
+
+    const redFilledBars = redThresholds.filter(
+      (threshold) => calculatedRating > threshold,
+    ).length;
+    const greenFilledBars = greenThresholds.filter(
+      (threshold) => calculatedRating > threshold,
+    ).length;
     return (
-      <Box
-        data-testid={`RatingsDisplay__TestId_Root`}
-        sx={{ display: 'inline-flex', gap: '.2em', ...sx }}
-      >
-        {[...Array(5)]
-          .map((_, index) => (
-            <RedRating
-              key={`red-${index}`}
-              filled={value < 0 && Math.abs(value) > index}
+      <Tooltip title="No Rating Available" disableHoverListener={calculatedRating > 0}>
+        <Box
+          data-testid={`RatingsDisplay__TestId_Root`}
+          sx={{ display: 'inline-flex', gap: '.2em', ...sx }}
+        >
+          {[...Array(5)]
+            .map((_, index) => (
+              <RedRating
+                key={`red-${index}`}
+                filled={index < redFilledBars}
+                index={index}
+              />
+            ))
+            .reverse()}
+          {[...Array(5)].map((_, index) => (
+            <GreenRating
+              key={`green-${index}`}
+              filled={index < greenFilledBars}
               index={index}
             />
-          ))
-          .reverse()}
-        {[...Array(5)].map((_, index) => (
-          <GreenRating
-            key={`green-${index}`}
-            filled={value > 0 && value > index}
-            index={index}
-          />
-        ))}
-      </Box>
+          ))}
+        </Box>
+      </Tooltip>
     );
   };
 

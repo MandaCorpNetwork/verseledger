@@ -242,7 +242,7 @@ export const UserPage: React.FC = () => {
                 variant="rounded"
               />
               <RatingDisplay
-                value={3}
+                value={selectedUser?.display_rating ?? -1}
                 size="medium"
                 sx={{ mt: '1em' }}
                 variant="defined"

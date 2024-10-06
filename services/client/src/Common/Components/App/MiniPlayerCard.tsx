@@ -166,7 +166,11 @@ export const MiniPlayerCard: React.FC<MiniPlayerCardProps> = (props) => {
                 >
                   @{user?.handle}
                 </Typography>
-                <RatingDisplay value={4} variant="defined" size="small" />
+                <RatingDisplay
+                  value={user?.display_rating ?? -1}
+                  variant="defined"
+                  size="small"
+                />
               </Box>
             </Box>
             <Box

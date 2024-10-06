@@ -65,7 +65,7 @@ export const UserSearch: React.FC<UserSearchProps> = ({
   };
 
   const handleUserSelect = React.useCallback(
-    (user: User | null) => {
+    (user: IUser | null) => {
       if (user == null) return;
       dispatch(fetchSearchUserId({ userId: user.id, scope: ['profile'] }));
       onUserSelect(user);
@@ -78,7 +78,7 @@ export const UserSearch: React.FC<UserSearchProps> = ({
       <Autocomplete
         data-testid="UserSearch__invite-user-autocomplete"
         onChange={(_, newValue) => {
-          handleUserSelect(newValue);
+          handleUserSelect(newValue as unknown as IUser);
         }}
         inputValue={inputValue}
         onInputChange={(_, newInputValue) => {
