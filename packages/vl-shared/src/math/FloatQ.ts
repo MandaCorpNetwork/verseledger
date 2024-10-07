@@ -205,10 +205,8 @@ export class FloatQ {
     if (from instanceof Float3 && to instanceof Float3) {
       const num = MathX.dot(from, to);
       if (!from.equals(to)) {
-        const local1 = from;
         let a = Float3.Zero();
-        const local2 = a;
-        if (!local1.equals(local2) && !to.equals(Float3.Zero())) {
+        if (!from.equals(a) && !to.equals(Float3.Zero())) {
           const float3_1 = MathX.cross(from, to);
           if (float3_1.sqrMagnitude > 9.99999993922529e-9 || num >= 0.0)
             return new FloatQ(
@@ -267,6 +265,10 @@ export class FloatQ {
     return (
       this.x == other.x && this.y == other.y && this.z == other.z && this.w == other.w
     );
+  }
+
+  public get three() {
+    return [this.x, this.y, this.z, this.w] as const;
   }
 
   public multiply(other: Float3): Float3;

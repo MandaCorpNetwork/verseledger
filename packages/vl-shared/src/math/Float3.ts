@@ -101,6 +101,10 @@ export class Float3 {
     return this.x == other.x && this.y == other.y && this.z == other.z;
   }
 
+  public get three() {
+    return [this.x, this.y, this.z] as const;
+  }
+
   public multiply(other: Float3): Float3;
   public multiply(other: number): Float3;
   public multiply(x: number, y: number, z: number): Float3;
