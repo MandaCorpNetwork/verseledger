@@ -137,7 +137,6 @@ export class ContractService {
     optionalSet(query, 'ratingLimit', queryBelow(contractorRatingLimit));
     optionalSet(query, 'payStructure', queryIn(payStructure));
     optionalSet(query, 'defaultPay', queryBetween(minPay, maxPay));
-    //TODO: Fix this query because if the search is not sent with an emergency query specified it returns contracts not registered as Emergency
     optionalSet(query, 'isEmergency', queryIn(emergency));
 
     if (bidDate) {

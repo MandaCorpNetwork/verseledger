@@ -15,3 +15,14 @@ export const selectLocationById = createSelector(
     return locations[id] as ILocation | null;
   },
 );
+
+export const selectLocationsByParams = createSelector(
+  [selectLocationsArray, (_, params: Partial<ILocation>) => params],
+  (locations, params) => {
+    return locations.filter((location) => {
+      return Object.entries(params).every(
+        ([key, value]) => location[key as keyof ILocation] === value,
+      );
+    });
+  },
+);

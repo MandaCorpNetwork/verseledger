@@ -5,7 +5,8 @@ import { Box, Button, Typography } from '@mui/material';
 import { POPUP_CREATE_MISSION } from '@Popups/Mission/AddMission';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
-import { fetchSearchedLocations } from '@Redux/Slices/Locations/actions/fetchSearchedLocations';
+import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations';
+import { selectLocationsByParams } from '@Redux/Slices/Locations/locationSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { addDestination } from '@Redux/Slices/Routes/routes.reducer';
 import {
@@ -22,17 +23,16 @@ import {
   IMission,
   IObjective,
 } from 'vl-shared/src/schemas/RoutesSchema';
-import { ILocationSearch } from 'vl-shared/src/schemas/SearchSchema';
 
 import { CurrentDestination } from './CurrentDestination';
 import { DestinationQue } from './DestinationQue';
 import { Mission } from './Mission';
 import { NextDestination } from './NextDestination';
+import { Logger } from '@Utils/Logger';
 
 type Graph = Record<string, Record<string, number>>;
 
 export const RouteApp: React.FC<unknown> = () => {
-  const [parents, setParents] = React.useState<ILocation[] | null>(null);
   const dev = isDev();
   const dispatch = useAppDispatch();
 
@@ -53,22 +53,16 @@ export const RouteApp: React.FC<unknown> = () => {
   // TODO: Get more efficient way to find parent Locations other than a String
 
   // Fetch the Parent Locations
-  React.useEffect(() => {
-    // Set Params to search for Parent Locations
-    const parentParams: ILocationSearch = {
-      page: 0,
-      limit: 25,
-      category: 'Planet',
-    };
 
-    dispatch(fetchSearchedLocations(parentParams)).then((res) => {
-      if (fetchSearchedLocations.fulfilled.match(res) && res.payload) {
-        setParents(res.payload.data);
-      } else {
-        setParents(null);
-      }
-    });
+  //Fetch All Locations
+  React.useEffect(() => {
+    dispatch(fetchLocations());
   }, [dispatch]);
+
+  // Select the parent Locations from the Slice
+  const parents = useAppSelector((state) =>
+    selectLocationsByParams(state, { category: 'Planet' }),
+  );
 
   // Create Destinations for Objectives
   React.useEffect(() => {
@@ -107,6 +101,7 @@ export const RouteApp: React.FC<unknown> = () => {
         destinations.push(newDestination);
       }
     });
+    Logger.info('Destinations', destinations);
   }, [objectives, destinations]);
 
   // Group Destinations with their Parent Locations
@@ -129,7 +124,8 @@ export const RouteApp: React.FC<unknown> = () => {
   }, [parents, userLocation]);
 
   const currentLocation: IGroupedLocation = React.useMemo(() => {
-    if (currentParent == null) return {} as IGroupedLocation;
+    if (currentParent == null)
+      return { parent: userLocation, location: userLocation } as IGroupedLocation;
     return {
       parent: currentParent,
       location: userLocation,
@@ -176,6 +172,7 @@ export const RouteApp: React.FC<unknown> = () => {
           graph[fromParent][toChild] = calculateCost(dest.location, group.parent);
         });
       });
+      Logger.info('Graph', graph);
 
       return graph;
     },

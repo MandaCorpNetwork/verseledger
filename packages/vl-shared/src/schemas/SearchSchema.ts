@@ -49,7 +49,7 @@ export type IUserBidSearch = z.infer<typeof UserBidsSearchSchema>;
 export const LocationSearchSchema = SearchSchema.extend({
   id: stringArray(z.string()).optional(),
   parent: stringArray(z.string()).optional(),
-  category: z.string().optional(),
+  category: stringArray(z.string()).optional(),
   short_name: stringArray(z.string()).optional(),
   waypoint_name: stringArray(z.string()).optional(),
 });

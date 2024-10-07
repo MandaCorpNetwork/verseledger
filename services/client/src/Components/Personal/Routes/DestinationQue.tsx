@@ -8,7 +8,6 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import { calcDistance } from '@Utils/distanceUtils';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
@@ -29,15 +28,6 @@ type DestinationQueProps = {
 };
 
 export const DestinationQue: React.FC<DestinationQueProps> = ({ destinations }) => {
-  const distances = React.useMemo(() => {
-    const distArr: (string | null)[] = [];
-    for (let i = 1; i < destinations.length; i++) {
-      const prevLocation = destinations[i - 1].location;
-      const currentLocation = destinations[i].location;
-      distArr.push(calcDistance(prevLocation, currentLocation));
-    }
-    return distArr;
-  }, [destinations]);
   return (
     <DigiBox
       data-testid="RouteTool-RouteViewer__DestinationQue_Container"
@@ -80,7 +70,7 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({ destinations }) 
                 </TableCell>
                 <TableCell sx={{ textAlign: 'center' }}>{place.reason}</TableCell>
                 <TableCell sx={{ textAlign: 'center' }}>
-                  {index === 0 ? '—' : `${distances[index - 1]} km`}
+                  {index === 0 ? '—' : `km`}
                 </TableCell>
               </TableRow>
             ))}
