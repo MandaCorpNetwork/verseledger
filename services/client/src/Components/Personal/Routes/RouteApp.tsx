@@ -14,6 +14,7 @@ import {
   selectMissions,
 } from '@Redux/Slices/Routes/routes.selectors';
 import { isDev } from '@Utils/isDev';
+import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import {
@@ -28,12 +29,8 @@ import { CurrentDestination } from './CurrentDestination';
 import { DestinationQue } from './DestinationQue';
 import { Mission } from './Mission';
 import { NextDestination } from './NextDestination';
-import { Logger } from '@Utils/Logger';
-
-type Graph = Record<string, Record<string, number>>;
 
 export const RouteApp: React.FC<unknown> = () => {
-  const [parents, setParents] = React.useState<ILocation[] | null>(null);
   const dev = isDev();
   const dispatch = useAppDispatch();
 
