@@ -1,5 +1,6 @@
 import { Float3 } from 'vl-shared/src/math';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import { IDestination, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
 
 interface MappedLocation {
   location: ILocation;
@@ -48,4 +49,98 @@ export function createDestID() {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
+}
+
+function objectiveToDestination(
+  location: ILocation,
+  objective: IObjective,
+  destinations: IDestination[],
+  newDestinations: IDestination[],
+  updatedDestinations: IDestination[],
+) {
+  const existingDestination = destinations.find(
+    (dest: IDestination) => dest.location.id === location.id,
+  );
+  const updatedDestination = updatedDestinations.find(
+    (dest: IDestination) => dest.location.id === location.id,
+  );
+  const newExistingDestination = newDestinations.find(
+    (dest: IDestination) => dest.location.id === location.id,
+  );
+
+  if (existingDestination || updatedDestination || newExistingDestination) {
+    if (existingDestination) {
+      const newDestination = {
+        ...existingDestination,
+        objectives: [...(existingDestination.objectives || []), objective],
+      };
+      updatedDestinations.push(newDestination);
+    } else if (updatedDestination) {
+      updatedDestination.objectives = [
+        ...(updatedDestination.objectives || []),
+        objective,
+      ];
+    } else if (newExistingDestination) {
+      newExistingDestination.objectives = [
+        ...(newExistingDestination.objectives || []),
+        objective,
+      ];
+    }
+  } else {
+    const newDestination: IDestination = {
+      id: createDestID(),
+      stopNumber: destinations.length + 1,
+      location,
+      reason: 'Mission',
+      objectives: [objective],
+    };
+    newDestinations.push(newDestination);
+  }
+}
+
+export function destinationsFromObjectives(
+  objectives: IObjective[],
+  destinations: IDestination[],
+  userLocation: ILocation,
+) {
+  const onLocation = destinations.find(
+    (dest: IDestination) => dest.location.id === userLocation.id,
+  );
+  const updatedDestinations: IDestination[] = [];
+  const newDestinations: IDestination[] = [];
+
+  if (!onLocation && userLocation.id != null) {
+    updatedDestinations.push(
+      ...destinations.map((dest) => ({
+        ...dest,
+        stopNumber: dest.stopNumber + 1,
+      })),
+    );
+    const newDestination: IDestination = {
+      id: createDestID(),
+      stopNumber: 1,
+      location: userLocation,
+      reason: 'Start',
+    };
+    newDestinations.push(newDestination);
+  }
+
+  objectives.forEach((objective: IObjective) => {
+    if (objective.status === 'COMPLETED') return;
+    objectiveToDestination(
+      objective.pickup,
+      objective,
+      destinations,
+      newDestinations,
+      updatedDestinations,
+    );
+    objectiveToDestination(
+      objective.dropOff,
+      objective,
+      destinations,
+      newDestinations,
+      updatedDestinations,
+    );
+  });
+  return { updatedDestinations, newDestinations };
 }

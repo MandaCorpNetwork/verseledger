@@ -63,7 +63,7 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({ destinations }) 
           </TableHead>
           <TableBody>
             {destinations.map((place, index) => (
-              <TableRow key={index} hover>
+              <TableRow key={place.id} hover>
                 <TableCell>
                   {`${index + 1}. `}
                   <LocationChip locationId={place.location.id} />

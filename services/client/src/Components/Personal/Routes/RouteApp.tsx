@@ -13,7 +13,6 @@ import {
   selectMissions,
 } from '@Redux/Slices/Routes/routes.selectors';
 import { isDev } from '@Utils/isDev';
-import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { MathX } from 'vl-shared/src/math';
 import { IDestination, IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
@@ -27,8 +26,6 @@ export const RouteApp: React.FC<unknown> = () => {
   const dev = isDev();
   const dispatch = useAppDispatch();
 
-  const userLocation = useAppSelector(selectUserLocation);
-
   const missions = useAppSelector(selectMissions);
 
   const destinations = useAppSelector(selectDestinations);
@@ -36,10 +33,6 @@ export const RouteApp: React.FC<unknown> = () => {
   const handleAddMission = React.useCallback(() => {
     dispatch(openPopup(POPUP_CREATE_MISSION));
   }, [dispatch]);
-
-  const objectives: IObjective[] = missions
-    .filter((mission) => mission.objectives && mission.objectives.length > 0)
-    .flatMap((mission) => mission.objectives);
 
   //Fetch All Locations
   React.useEffect(() => {
@@ -51,69 +44,6 @@ export const RouteApp: React.FC<unknown> = () => {
   const locationTree = React.useMemo(() => {
     return binaryLocationTree(locations);
   }, [locations]);
-
-  // Create Destinations
-  React.useEffect(() => {
-    const onLocation = destinations.find(
-      (dest: IDestination) => dest.location.id === userLocation.id,
-    );
-    if (onLocation) {
-      return;
-    } else {
-      //TODO: Add logic for updatind the stop numbers with a new start location
-      // if (destinations[0]) {
-      //   const updatedDestinations = destinations.map((dest: IDestination) => ({
-      //     ...dest,
-      //     stopNumber: dest.stopNumber + 1,
-      //   }));
-      // }
-      const newDestination: IDestination = {
-        id: createDestID(),
-        stopNumber: 1,
-        location: userLocation,
-        reason: 'Start',
-      };
-      destinations.push(newDestination);
-    }
-
-    objectives.forEach((objective: IObjective) => {
-      if (objective.status === 'COMPLETED') return;
-
-      const existingPickup = destinations.find(
-        (dest: IDestination) => dest.location.id === objective.pickup.id,
-      );
-
-      if (existingPickup && existingPickup.objectives) {
-        existingPickup.objectives.push(objective);
-      } else {
-        const newDestination: IDestination = {
-          id: createDestID(),
-          stopNumber: destinations.length + 1,
-          location: objective.pickup,
-          reason: 'Mission',
-          objectives: [objective],
-        };
-        destinations.push(newDestination);
-      }
-
-      const existingDropOff = destinations.find(
-        (dest: IDestination) => dest.location.id === objective.dropOff.id,
-      );
-
-      if (existingDropOff && existingDropOff.objectives) {
-        existingDropOff.objectives.push(objective);
-      } else {
-        const newDestination: IDestination = {
-          id: createDestID(),
-          stopNumber: destinations.length + 1,
-          location: objective.dropOff,
-          reason: 'Mission',
-          objectives: [objective],
-        };
-        destinations.push(newDestination);
-      }
-    });
-  }, [objectives, destinations, userLocation]);
 
   // Floyd Warshall Algo Implement
   const floydWarshallRoute = React.useCallback(() => {
