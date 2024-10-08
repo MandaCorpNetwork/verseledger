@@ -51,12 +51,31 @@ export const RouteApp: React.FC<unknown> = () => {
   const locationTree = React.useMemo(() => {
     return binaryLocationTree(locations);
   }, [locations]);
-  console.log(locationTree);
 
-  // TODO: Get more efficient way to find parent Locations other than a String
-
-  // Create Destinations for Objectives
+  // Create Destinations
   React.useEffect(() => {
+    const onLocation = destinations.find(
+      (dest: IDestination) => dest.location.id === userLocation.id,
+    );
+    if (onLocation) {
+      return;
+    } else {
+      //TODO: Add logic for updatind the stop numbers with a new start location
+      // if (destinations[0]) {
+      //   const updatedDestinations = destinations.map((dest: IDestination) => ({
+      //     ...dest,
+      //     stopNumber: dest.stopNumber + 1,
+      //   }));
+      // }
+      const newDestination: IDestination = {
+        id: createDestID(),
+        stopNumber: 1,
+        location: userLocation,
+        reason: 'Start',
+      };
+      destinations.push(newDestination);
+    }
+
     objectives.forEach((objective: IObjective) => {
       if (objective.status === 'COMPLETED') return;
 
@@ -94,18 +113,9 @@ export const RouteApp: React.FC<unknown> = () => {
         destinations.push(newDestination);
       }
     });
-  }, [objectives, destinations]);
+  }, [objectives, destinations, userLocation]);
 
-  // Measures the Distance from each Location to find efficient Routes To and From Various Destination points within all Objectives
-
-  // LOCATIONS:
-  // Pickup Location
-  // DropOff Location
-  // Jumps between Parents
-
-  //Efficency Routing from Locations to the next Location while accounting for new Checkpoints
-
-  // Bellman-Ford Algo Implement
+  // Floyd Warshall Algo Implement
   const floydWarshallRoute = React.useCallback(() => {
     const numLocations = destinations.length; //Total Amount of SET stops
     const distMatrix: number[][] = Array.from({ length: numLocations }, () =>
@@ -159,7 +169,9 @@ export const RouteApp: React.FC<unknown> = () => {
       return path;
     };
 
-    const startLocation = 0;
+    const startLocationIndex = destinations.findIndex((dest) => dest.reason === 'Start');
+
+    const startLocation = startLocationIndex ?? 0;
     let currentLocation = startLocation;
 
     const visited = new Set<number>();
@@ -189,11 +201,6 @@ export const RouteApp: React.FC<unknown> = () => {
         break;
       }
     }
-
-    Logger.info('DestMatix', distMatrix);
-    Logger.info('Next', next);
-    Logger.info('Route Stops', destinations);
-    Logger.info('Optimized Route Path', orderedDestinations);
 
     //Organize the Array of Destinations. Maybe by changing the stop numbers.
     return orderedDestinations;
