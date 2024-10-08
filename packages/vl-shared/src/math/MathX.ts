@@ -3,8 +3,6 @@ import { Float3 } from './Float3';
 import { FloatQ } from './FloatQ';
 
 export class MathX {
-  private static readonly orthoX = FloatQ.axisAngle(Float3.Right(), 90);
-  private static readonly orthoY = FloatQ.axisAngle(Float3.Up(), 90);
   public static abs(value: Float3): Float3;
   public static abs(value: FloatQ): FloatQ;
   public static abs(value: number): number;
@@ -84,8 +82,9 @@ export class MathX {
 
   public static orthonormals(normal: Float3) {
     const normalized = normal.normalized;
-    let b = MathX.orthoX.multiply(normalized);
-    if (MathX.dot(normal, b) > 0.60000002384185791) b = MathX.orthoY.multiply(normalized);
+    let b = FloatQ.axisAngle(Float3.Right(), 90).multiply(normalized);
+    if (MathX.dot(normal, b) > 0.60000002384185791)
+      b = FloatQ.axisAngle(Float3.Up(), 90).multiply(normalized);
     const ortho0 = MathX.cross(normal, b);
     const ortho1 = MathX.cross(normal, ortho0);
     return { ortho0, ortho1 };
