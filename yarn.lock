@@ -3737,10 +3737,10 @@
   resolved "https://registry.yarnpkg.com/@rtsao/scc/-/scc-1.1.0.tgz#927dd2fae9bc3361403ac2c7a00c32ddce9ad7e8"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@scalar/api-client@2.1.16":
-  version "2.1.16"
-  resolved "https://registry.yarnpkg.com/@scalar/api-client/-/api-client-2.1.16.tgz#bff0b0db46ca2bd1eb554ec92e9ad92eb7848e1e"
-  integrity sha512-dmRKK4esU7yxkDDIFPVclbPfOPuy1lDM7GMb2IZvhrzgXN6YgqFNjHaSuqc7ob4Uy5w+mfwriQALdGx349dlnw==
+"@scalar/api-client@2.1.17":
+  version "2.1.17"
+  resolved "https://registry.yarnpkg.com/@scalar/api-client/-/api-client-2.1.17.tgz#273d2739d5bddde9c9d2fdd73006e33b5a1df284"
+  integrity sha512-EmpgIZy8Rqtcu1dzq70vcs7hGlXdyFamoDPmxkwe24LrTg5/qmHUMVzfzivcm4Nf8LmiZH2+HsitQk7IUovjWw==
   dependencies:
     "@headlessui/tailwindcss" "^0.2.0"
     "@headlessui/vue" "^1.7.20"
@@ -3769,21 +3769,21 @@
     yaml "^2.4.5"
     zod "^3.23.8"
 
-"@scalar/api-reference-react@0.3.106":
-  version "0.3.106"
-  resolved "https://registry.yarnpkg.com/@scalar/api-reference-react/-/api-reference-react-0.3.106.tgz#fb84a4e837a0bbdc3d9cda33e0ae8fd0b7d8b34e"
-  integrity sha512-e/2buC6TAkl0pqI19MbTpd5OMb9r1WRsRKPOvuBpOZi8DE7nTiEDTmqRGw1amnKx2JDmp0fb4Kvr+vZ4AL+bWA==
+"@scalar/api-reference-react@0.3.107":
+  version "0.3.107"
+  resolved "https://registry.yarnpkg.com/@scalar/api-reference-react/-/api-reference-react-0.3.107.tgz#47194afd278765c8d6d32fecd9c64fb1553d1a94"
+  integrity sha512-6soYj10jsLsK55KIgtBg3T7XZlVbwLaeeCLsBRW2NLP94AYFPkMyXfaWCvayM/rmReCtVnRVdaur6CVJNB+Xfw==
   dependencies:
-    "@scalar/api-reference" "1.25.30"
+    "@scalar/api-reference" "1.25.31"
 
-"@scalar/api-reference@1.25.30":
-  version "1.25.30"
-  resolved "https://registry.yarnpkg.com/@scalar/api-reference/-/api-reference-1.25.30.tgz#85abc9b58bd231079fa43bc34b2b6939f5453d14"
-  integrity sha512-Q2DU+nhzTn7yNuCrY9MI/54KWTbEKFa8E0AMo+0hkZtZoJJBvNIzrqUcSWONaU/InOOzKhH7dvBHQRjcWWhBYg==
+"@scalar/api-reference@1.25.31":
+  version "1.25.31"
+  resolved "https://registry.yarnpkg.com/@scalar/api-reference/-/api-reference-1.25.31.tgz#89f42368cb92d5c5d2f72a9652ff3ec35ff6e5a7"
+  integrity sha512-L7fa2uvryKXHDS31fMbHZVyRgSESdpDN2pUrZZNpjMfW96a22HoGUNcO4shpPGjWJNltGPgF6i46TWPKJLBNAQ==
   dependencies:
     "@floating-ui/vue" "^1.0.2"
     "@headlessui/vue" "^1.7.20"
-    "@scalar/api-client" "2.1.16"
+    "@scalar/api-client" "2.1.17"
     "@scalar/code-highlight" "0.0.11"
     "@scalar/components" "0.12.50"
     "@scalar/oas-utils" "0.2.52"
