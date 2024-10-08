@@ -30,6 +30,7 @@ export const MissionSchema = z.object({
 export type IMission = z.infer<typeof MissionSchema>;
 
 export const DestinationSchema = z.object({
+  id: z.string(),
   stopNumber: z.number(),
   location: LocationSchema,
   reason: z.string(),

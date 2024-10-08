@@ -26,3 +26,14 @@ export const selectLocationsByParams = createSelector(
     });
   },
 );
+
+export const selectParentLocations = createSelector(
+  [selectLocationsArray],
+  (locations) => {
+    return locations.filter((location) => location.category === 'Parent');
+  },
+);
+
+export const selectOMs = createSelector([selectLocationsArray], (locations) => {
+  return locations.filter((location) => location.short_name === `^OM/d/i`);
+});
