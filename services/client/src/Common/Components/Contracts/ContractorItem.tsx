@@ -2,7 +2,7 @@ import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { UserChip } from '@Common/Components/Chips/UserChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
-import { Box, Button, Rating, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { POPUP_COUNTER_OFFER_BID } from '@Popups/Contracts/ContractBids/CounterOffer';
 import { useAppDispatch } from '@Redux/hooks';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
@@ -15,6 +15,8 @@ import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 import { useSoundEffect } from '@/AudioManager';
+
+import { RatingDisplay } from '../App/RatingDisplay';
 
 type ContractorProps = {
   bid: IContractBid | null;
@@ -378,7 +380,7 @@ export const Contractor: React.FC<ContractorProps> = ({
         </Button>
       )}
       {isEnded && hasAccepted && (
-        <Rating size="small" value={userRating} disabled={userRating === 0} readOnly />
+        <RatingDisplay size="small" value={userRating ?? 0} variant="defined" />
       )}
     </ControlPanelBox>
   );

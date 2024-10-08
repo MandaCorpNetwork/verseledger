@@ -12,7 +12,7 @@ export const UserRatingSchema = z.object({
   reciever_id: z.string().max(26),
   contract_id: z.string().max(26).optional(),
   rating_type: RatingTypeSchema,
-  rating_value: z.number().int().min(1).max(5),
+  rating_value: z.number().int().min(-3).max(3),
   comment: z.string().max(300).optional(),
 });
 

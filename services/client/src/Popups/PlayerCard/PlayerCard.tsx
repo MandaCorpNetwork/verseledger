@@ -1,4 +1,5 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
+import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
 import { AccountBox, Message } from '@mui/icons-material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import {
@@ -6,7 +7,6 @@ import {
   Box,
   Button,
   IconButton,
-  Rating,
   Skeleton,
   Tab,
   Typography,
@@ -75,7 +75,11 @@ export const PlayerCardPopup: React.FC<PlayerCardPopupProps> = ({ userid }) => {
                 >
                   @{user?.handle}
                 </Typography>
-                <Rating readOnly value={4} />
+                <RatingDisplay
+                  value={user.display_rating}
+                  variant="defined"
+                  size="small"
+                />
               </Box>
             </>
           ) : (

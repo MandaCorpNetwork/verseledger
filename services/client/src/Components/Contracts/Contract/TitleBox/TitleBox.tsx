@@ -1,7 +1,8 @@
+import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { Link } from '@mui/icons-material';
-import { Box, IconButton, Rating, Tooltip, Typography } from '@mui/material';
+import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
@@ -121,7 +122,7 @@ export const TitleBox: React.FC<TitleBoxProps> = ({
           </Typography>
         </Tooltip>
         {(contract.status === 'COMPLETED' || contract.status === 'CANCELED') && (
-          <Rating readOnly value={ownerRating} disabled={ownerRating === 0} />
+          <RatingDisplay value={ownerRating} variant="defined" size="small" />
         )}
         <IconButton
           data-testid="ContractPage-Info-TitleBar__PageLink_Button"

@@ -1,4 +1,4 @@
-import { Avatar, Box, ButtonBase, Rating, Typography } from '@mui/material';
+import { Avatar, Box, ButtonBase, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
@@ -8,6 +8,7 @@ import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { useSoundEffect } from '@/AudioManager';
 
 import { MiniPlayerCard } from '../App/MiniPlayerCard';
+import { RatingDisplay } from '../App/RatingDisplay';
 
 type UserDisplayProps = {
   user: IUser;
@@ -124,12 +125,10 @@ const UserDisplayComponent: React.FC<UserDisplayProps> = ({ sx, user }) => {
             data-testid="UserDisplay-PlayerData__InfoWrapper"
             sx={{ display: 'flex', flexDirection: 'column', ml: '.5em', width: '70%' }}
           >
-            <Rating
-              data-testid="UserDisplay-PlayerData__UserRating"
-              name="Rating"
+            <RatingDisplay
               size="small"
-              value={3}
-              readOnly
+              value={user.display_rating}
+              variant="defined"
               sx={{
                 ml: 'auto',
                 mr: 'auto',

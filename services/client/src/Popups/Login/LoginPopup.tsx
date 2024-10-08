@@ -23,7 +23,7 @@ export const LoginPopup: React.FC = () => {
     localStorage.setItem('returnPath', window.location.pathname);
   }, []);
   return (
-    <VLPopup name={POPUP_LOGIN} title="Login" data-testid="Login">
+    <VLPopup name={POPUP_LOGIN} title="Login" data-testid="Login" sx={{ p: '1em' }}>
       {loginMethods != null ? (
         loginMethods.map((method) => {
           return (

@@ -1,4 +1,5 @@
 import GlassBox from '@Common/Components/Boxes/GlassBox';
+import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
 import { PowerSettingsNew, Sync } from '@mui/icons-material';
 import { Badge, Box, Button, IconButton, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -6,7 +7,7 @@ import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
 import { markAllRead } from '@Redux/Slices/Notifications/actions/markAllRead';
 import { selectNotificationsUnreadCount } from '@Redux/Slices/Notifications/notificationSelectors';
 import { closeWidget, openWidget } from '@Redux/Slices/Widgets/widgets.actions';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { useSoundEffect } from '@/AudioManager';
@@ -16,7 +17,8 @@ import { LocationExplorerTool } from '@/Components/Personal/Overview/LocationExp
 import { RadioStationApp } from '@/Components/Personal/Overview/RadioStationApp';
 import { WIDGET_RADIO } from '@/Widgets/Radio/Radio';
 
-import { NotificationTool } from './NotificationTool';
+//TODO: Need to Rework the Loading Logic for the Notification Tool
+const NotificationToolComponent = React.lazy(() => import('./NotificationTool'));
 
 export const OverviewApp: React.FC<unknown> = () => {
   const { isPlaying, play, pause } = useRadioController();
@@ -134,8 +136,9 @@ export const OverviewApp: React.FC<unknown> = () => {
                 <Typography variant="overline">Mark All Read</Typography>
               </Button>
             </Box>
-
-            <NotificationTool />
+            <Suspense fallback={<LoadingWheel />}>
+              <NotificationToolComponent />
+            </Suspense>
           </GlassBox>
           <GlassBox
             data-testid="RadioFrequenciesToolContainer"
