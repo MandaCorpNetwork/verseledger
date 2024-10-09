@@ -9,13 +9,17 @@ import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations';
 import { selectLocationsArray } from '@Redux/Slices/Locations/locationSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import {
+  addDestinations,
+  updateDestinations,
+} from '@Redux/Slices/Routes/actions/destinationActions';
+import {
   selectDestinations,
   selectMissions,
 } from '@Redux/Slices/Routes/routes.selectors';
 import { isDev } from '@Utils/isDev';
 import React from 'react';
 import { MathX } from 'vl-shared/src/math';
-import { IDestination, IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination, IMission } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { CurrentDestination } from './CurrentDestination';
 import { DestinationQue } from './DestinationQue';
@@ -29,6 +33,8 @@ export const RouteApp: React.FC<unknown> = () => {
   const missions = useAppSelector(selectMissions);
 
   const destinations = useAppSelector(selectDestinations);
+
+  const userLocation = useAppSelector(selectUserLocation);
 
   const handleAddMission = React.useCallback(() => {
     dispatch(openPopup(POPUP_CREATE_MISSION));
@@ -101,7 +107,7 @@ export const RouteApp: React.FC<unknown> = () => {
 
     const startLocationIndex = destinations.findIndex((dest) => dest.reason === 'Start');
 
-    const startLocation = startLocationIndex ?? 0;
+    const startLocation = startLocationIndex !== -1 ? startLocationIndex : 0;
     let currentLocation = startLocation;
 
     const visited = new Set<number>();
@@ -121,6 +127,23 @@ export const RouteApp: React.FC<unknown> = () => {
       if (nextLocation !== -1) {
         const path = reconstructPath(currentLocation, nextLocation);
         path.forEach((index) => {
+          const current = destinations[currentLocation];
+          const next = destinations[nextLocation];
+          const nextMappedLocation = locationTree.get(next.location.id);
+          if (
+            nextMappedLocation &&
+            current.location.parent !== next.location.parent &&
+            nextMappedLocation.parent
+          ) {
+            const checkpoint: IDestination = {
+              id: createDestID(),
+              stopNumber: orderedDestinations.length + 1,
+              reason: 'Checkpoint',
+              location: nextMappedLocation.parent.location,
+            };
+            dispatch(addDestinations([checkpoint]));
+            orderedDestinations.push(checkpoint);
+          }
           const destination = destinations[index];
           if (!orderedDestinations.includes(destination)) {
             orderedDestinations.push(destination);
@@ -131,15 +154,41 @@ export const RouteApp: React.FC<unknown> = () => {
         break;
       }
     }
-
     //Organize the Array of Destinations. Maybe by changing the stop numbers.
     return orderedDestinations;
-  }, [locationTree, destinations]);
+  }, [locationTree, destinations, dispatch]);
+
+  // Start Location Initializer
+  const initializeStartLocation = React.useCallback(() => {
+    const onLocation = destinations.find(
+      (dest: IDestination) => dest.location.id === userLocation.id,
+    );
+    const updatedDestinations: IDestination[] = [];
+    if (!onLocation && userLocation.id != null) {
+      updatedDestinations.push(
+        ...destinations.map((dest) => ({
+          ...dest,
+          stopNumber: dest.stopNumber + 1,
+        })),
+      );
+      const newDestination: IDestination = {
+        id: createDestID(),
+        stopNumber: 1,
+        location: userLocation,
+        reason: 'Start',
+      };
+      dispatch(updateDestinations(updatedDestinations));
+      dispatch(addDestinations([newDestination]));
+    }
+  }, [dispatch, userLocation, destinations]);
 
   const getShortestPathing = React.useCallback(() => {
-    const shortestPaths = floydWarshallRoute();
-    return shortestPaths;
-  }, [floydWarshallRoute]);
+    // Initialize Start Location
+    initializeStartLocation();
+    const shortestPath = floydWarshallRoute();
+    console.log('Route Order', shortestPath);
+    return shortestPath;
+  }, [floydWarshallRoute, initializeStartLocation]);
   return (
     <Box
       data-testid="RouteTool__AppContainer"
