@@ -13,7 +13,19 @@ export const ConfigGroup: React.FC<{
   configKey: keyof TuningConfig;
   config: TuningConfig;
   icon: React.ReactNode;
-}> = ({ setConfig, groupKey, configKey, config, icon }) => {
+  availablePips: number;
+  minimumPips?: number;
+  assignedPips: number;
+}> = ({
+  setConfig,
+  groupKey,
+  configKey,
+  config,
+  icon,
+  availablePips,
+  minimumPips,
+  assignedPips,
+}) => {
   const [hoveredTick, setHoveredTick] = React.useState<number | null>(null);
   const { playSound } = useSoundEffect();
   const isDisabled = !config[groupKey];
