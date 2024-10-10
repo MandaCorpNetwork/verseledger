@@ -17,7 +17,7 @@ export const MinimumTuningTick: React.FC<MinimumTuningTickProps> = ({ minimumTic
         justifyContent: 'space-around',
       }}
     >
-      {[...Array(minimumTicks - 1)].map((_, index) => (
+      {[...Array(minimumTicks - 1)].map((index) => (
         <Divider
           key={index}
           sx={{ width: '70%', mx: 'auto', borderBottomWidth: '2px' }}

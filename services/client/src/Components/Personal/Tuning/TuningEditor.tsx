@@ -13,49 +13,41 @@ import { Box, Button, Divider, Typography } from '@mui/material';
 import React from 'react';
 
 import { ConfigGroup } from './ConfigGroup';
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+
+export type PowerConfig = {
+  active: boolean;
+  totalPips: number;
+  assignedPips: number;
+  id: number;
+};
+
+export type TuningOption = {
+  active: boolean;
+  totalPips: number;
+  assignedPips: number;
+  minimumPips: number;
+  id: number;
+  type:
+    | 'Weapons'
+    | 'Thrusters'
+    | 'Shields'
+    | 'LifeSupport'
+    | 'Scanner'
+    | 'Cooler'
+    | 'QuantumDrive';
+};
 
 export type TuningConfig = {
-  powerOne: number;
-  powerOneToggle: boolean;
-  powerTwo: number;
-  powerTwoToggle: boolean;
-  weapons: number;
-  weaponsToggle: boolean;
-  thrusters: number;
-  thrustersToggle: boolean;
-  shields: number;
-  shieldsToggle: boolean;
-  lifeSupport: number;
-  lifeSupportToggle: boolean;
-  scanner: number;
-  scannerToggle: boolean;
-  coolerOne: number;
-  coolerOneToggle: boolean;
-  coolerTwo: number;
-  coolerTwoToggle: boolean;
+  powerConfig: PowerConfig[];
+  tuningOptions: TuningOption[];
 };
 
 export const TuningEditor: React.FC = () => {
-  const [config, setConfig] = React.useState<TuningConfig>({
-    powerOne: 0,
-    powerOneToggle: false,
-    powerTwo: 0,
-    powerTwoToggle: false,
-    weapons: 0,
-    weaponsToggle: false,
-    thrusters: 0,
-    thrustersToggle: false,
-    shields: 0,
-    shieldsToggle: false,
-    lifeSupport: 0,
-    lifeSupportToggle: false,
-    scanner: 0,
-    scannerToggle: false,
-    coolerOne: 0,
-    coolerOneToggle: false,
-    coolerTwo: 0,
-    coolerTwoToggle: false,
-  });
+  const [config, setConfig] = React.useState<TuningConfig>();
+  const addOption = React.useCallback(() => {}, []);
+  const removeOption = React.useCallback(() => {}, []);
   return (
     <GlassBox data-testid="ShipTuning__TuningEditor_Container" sx={{ p: '.5em' }}>
       <Typography
@@ -84,7 +76,7 @@ export const TuningEditor: React.FC = () => {
             boxShadow: '0 4px 8px rgb(0,0,0)',
           }}
         >
-          <ConfigGroup
+          {/* <ConfigGroup
             setConfig={setConfig}
             groupKey="powerOneToggle"
             configKey="powerOne"
@@ -96,20 +88,7 @@ export const TuningEditor: React.FC = () => {
                 }}
               />
             }
-          />
-          <ConfigGroup
-            setConfig={setConfig}
-            groupKey="powerTwoToggle"
-            configKey="powerTwo"
-            config={config}
-            icon={
-              <Power
-                sx={{
-                  color: config['powerTwoToggle'] ? 'text.primary' : 'secondary.light',
-                }}
-              />
-            }
-          />
+          /> */}
         </Box>
         <Box
           sx={{
@@ -120,7 +99,7 @@ export const TuningEditor: React.FC = () => {
             p: '1em',
           }}
         >
-          <ConfigGroup
+          {/* <ConfigGroup
             setConfig={setConfig}
             groupKey="weaponsToggle"
             configKey="weapons"
@@ -132,48 +111,9 @@ export const TuningEditor: React.FC = () => {
                 }}
               />
             }
-          />
-          <ConfigGroup
-            setConfig={setConfig}
-            groupKey="thrustersToggle"
-            configKey="thrusters"
-            config={config}
-            icon={
-              <Thruster
-                sx={{
-                  color: config['thrustersToggle'] ? 'text.primary' : 'secondary.light',
-                }}
-              />
-            }
-          />
-          <ConfigGroup
-            setConfig={setConfig}
-            groupKey="shieldsToggle"
-            configKey="shields"
-            config={config}
-            icon={
-              <Shield
-                sx={{
-                  color: config['shieldsToggle'] ? 'text.primary' : 'secondary.light',
-                }}
-              />
-            }
-          />
+          /> */}
           <Divider orientation="vertical" sx={{ height: '90%', borderWidth: '1px' }} />
-          <ConfigGroup
-            setConfig={setConfig}
-            groupKey="lifeSupportToggle"
-            configKey="lifeSupport"
-            config={config}
-            icon={
-              <MedicalItems
-                sx={{
-                  color: config['lifeSupportToggle'] ? 'text.primary' : 'secondary.light',
-                }}
-              />
-            }
-          />
-          <ConfigGroup
+          {/* <ConfigGroup
             setConfig={setConfig}
             groupKey="scannerToggle"
             configKey="scanner"
@@ -185,9 +125,9 @@ export const TuningEditor: React.FC = () => {
                 }}
               />
             }
-          />
+          /> */}
           <Divider orientation="vertical" sx={{ borderWidth: '1px' }} />
-          <ConfigGroup
+          {/* <ConfigGroup
             setConfig={setConfig}
             groupKey="coolerOneToggle"
             configKey="coolerOne"
@@ -199,22 +139,18 @@ export const TuningEditor: React.FC = () => {
                 }}
               />
             }
-          />
-          <ConfigGroup
-            setConfig={setConfig}
-            groupKey="coolerTwoToggle"
-            configKey="coolerTwo"
-            config={config}
-            icon={
-              <Cooler
-                sx={{
-                  color: config['coolerTwoToggle'] ? 'text.primary' : 'secondary.light',
-                }}
-              />
-            }
-          />
+          /> */}
         </Box>
       </GlassDisplay>
+      <DigiBox>
+        <DigiDisplay>
+          <Typography>Power Setup</Typography>
+          <Button>Add </Button>
+        </DigiDisplay>
+        <DigiDisplay>
+          <Typography>Components Setup</Typography>
+        </DigiDisplay>
+      </DigiBox>
       <Box
         data-testid="ShipTuning-TuningEditor__ConfigButtons_Wrapper"
         sx={{ m: 'auto', gap: '1em', display: 'flex' }}
