@@ -154,8 +154,17 @@ export const RouteApp: React.FC<unknown> = () => {
         break;
       }
     }
-    //Organize the Array of Destinations. Maybe by changing the stop numbers.
-    return orderedDestinations;
+    //Organize the Array of Destinations by reassigning their stop numbers.
+    const updatedDestinations = orderedDestinations.map((destinations, index) => {
+      return {
+        ...destinations,
+        stopNumber: index + 1,
+      };
+    });
+
+    dispatch(updateDestinations(updatedDestinations));
+
+    return updatedDestinations;
   }, [locationTree, destinations, dispatch]);
 
   // Start Location Initializer
