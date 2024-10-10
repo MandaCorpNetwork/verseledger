@@ -1,4 +1,4 @@
-import { Float3 } from 'vl-shared/src/math';
+import { Float3, MathX } from 'vl-shared/src/math';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { IDestination, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
 
@@ -143,4 +143,105 @@ export function destinationsFromObjectives(
     );
   });
   return { updatedDestinations, newDestinations };
+}
+
+export function floydWarshallRoute(
+  destinations: IDestination[],
+  locationTree: Map<string, MappedLocation>,
+) {
+  // Total amount of SET Stops
+  const numLocations = destinations.length;
+
+  // Matrix allowing for the sorting of distances
+  const distMatrix: number[][] = Array.from({ length: numLocations }, () =>
+    Array(numLocations).fill(Infinity),
+  );
+
+  // The Identification of each stop
+  const next: (number | null)[][] = Array.from({ length: numLocations }, () =>
+    Array(numLocations).fill(null),
+  );
+
+  // All available Location Ids to pull from the Location Tree
+  const locationIds = destinations.map((dest) => dest.location.id);
+
+  //**Algorithm Usage */
+  // Initialize Distance Matrix
+  for (let i = 0; i < numLocations; i++) {
+    for (let j = 0; j < numLocations; j++) {
+      if (i === j) {
+        distMatrix[i][j] = 0;
+      } else {
+        const locA = locationTree.get(locationIds[i])?.position;
+        const locB = locationTree.get(locationIds[j])?.position;
+        if (locA && locB) {
+          distMatrix[i][j] = MathX.distance(locA, locB);
+          next[i][j] = j;
+        }
+      }
+    }
+  }
+
+  // Floyd-Warshall Algo for all pairs shortest paths
+  for (let k = 0; k < numLocations; k++) {
+    for (let i = 0; i < numLocations; i++) {
+      for (let j = 0; j < numLocations; j++) {
+        if (distMatrix[i][j] > distMatrix[i][k] + distMatrix[k][j]) {
+          distMatrix[i][j] = distMatrix[i][k] + distMatrix[k][j];
+          next[i][j] = next[i][k];
+        }
+      }
+    }
+  }
+
+  //** Returned Array of Ordered Destinations */
+  const orderedDestinations: IDestination[] = [];
+
+  const reconstructPath = (start: number, end: number): number[] => {
+    if (next[start][end] === null) return [];
+    const path: number[] = [start];
+    let current = start;
+    path.push(current);
+
+    while (current !== end) {
+      current = next[current][end]!;
+      path.push(current);
+    }
+    return path;
+  };
+
+  const startLocationIndex = destinations.findIndex((dest) => dest.reason === 'Start');
+
+  const startLocation = startLocationIndex !== -1 ? startLocationIndex : 0;
+  let currentLocation = startLocation;
+
+  const visited = new Set<number>();
+
+  while (visited.size < numLocations) {
+    visited.add(currentLocation);
+    let nextLocation = -1;
+    let minDistance = Infinity;
+
+    for (let i = 0; i < numLocations; i++) {
+      if (!visited.has(i) && distMatrix[currentLocation][i] < minDistance) {
+        minDistance = distMatrix[currentLocation][i];
+        nextLocation = i;
+      }
+    }
+
+    if (nextLocation !== -1) {
+      const path = reconstructPath(currentLocation, nextLocation);
+      path.forEach((index) => {
+        const destination = destinations[index];
+        if (!orderedDestinations.includes(destination)) {
+          orderedDestinations.push(destination);
+        }
+      });
+      currentLocation = nextLocation;
+    } else {
+      break;
+    }
+  }
+  console.log('Calculated Effecient Route', orderedDestinations);
+  return orderedDestinations;
 }

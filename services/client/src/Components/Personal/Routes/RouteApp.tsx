@@ -18,7 +18,6 @@ import {
 } from '@Redux/Slices/Routes/routes.selectors';
 import { isDev } from '@Utils/isDev';
 import React from 'react';
-import { MathX } from 'vl-shared/src/math';
 import { IDestination, IMission } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { CurrentDestination } from './CurrentDestination';
@@ -51,113 +50,29 @@ export const RouteApp: React.FC<unknown> = () => {
     return binaryLocationTree(locations);
   }, [locations]);
 
-  // Floyd Warshall Algo Implement
-  const floydWarshallRoute = React.useCallback(() => {
-    const numLocations = destinations.length; //Total Amount of SET stops
-    const distMatrix: number[][] = Array.from({ length: numLocations }, () =>
-      Array(numLocations).fill(Infinity),
-    ); // Matrix allowing for the sorting of distances
-    const next: (number | null)[][] = Array.from({ length: numLocations }, () =>
-      Array(numLocations).fill(null),
-    ); // The Identification of each stop
-    const locationIds = destinations.map((dest) => dest.location.id); // All available Location Ids to pull from the Location Tree
-
-    // Initialize Distance Matrix
-    for (let i = 0; i < numLocations; i++) {
-      for (let j = 0; j < numLocations; j++) {
-        if (i === j) {
-          distMatrix[i][j] = 0;
-        } else {
-          const locA = locationTree.get(locationIds[i])?.position;
-          const locB = locationTree.get(locationIds[j])?.position;
-          if (locA && locB) {
-            distMatrix[i][j] = MathX.distance(locA, locB);
-            next[i][j] = j;
-          }
-        }
-      }
-    }
-
-    // Floyd-Warshall Algo for all pairs shortest paths
-    for (let k = 0; k < numLocations; k++) {
-      for (let i = 0; i < numLocations; i++) {
-        for (let j = 0; j < numLocations; j++) {
-          if (distMatrix[i][j] > distMatrix[i][k] + distMatrix[k][j]) {
-            distMatrix[i][j] = distMatrix[i][k] + distMatrix[k][j];
-            next[i][j] = next[i][k];
-          }
-        }
-      }
-    }
-
-    const orderedDestinations: IDestination[] = [];
-
-    const reconstructPath = (start: number, end: number): number[] => {
-      if (next[start][end] === null) return [];
-      const path: number[] = [start];
-      let current = start;
-      path.push(current);
-
-      while (current !== end) {
-        current = next[current][end]!;
-        path.push(current);
-      }
-      return path;
-    };
-
-    const startLocationIndex = destinations.findIndex((dest) => dest.reason === 'Start');
-
-    const startLocation = startLocationIndex !== -1 ? startLocationIndex : 0;
-    let currentLocation = startLocation;
-
-    const visited = new Set<number>();
-
-    while (visited.size < numLocations) {
-      visited.add(currentLocation);
-      let nextLocation = -1;
-      let minDistance = Infinity;
-
-      for (let i = 0; i < numLocations; i++) {
-        if (!visited.has(i) && distMatrix[currentLocation][i] < minDistance) {
-          minDistance = distMatrix[currentLocation][i];
-          nextLocation = i;
-        }
-      }
-
-      if (nextLocation !== -1) {
-        const path = reconstructPath(currentLocation, nextLocation);
-        path.forEach((index) => {
-          const destination = destinations[index];
-          if (!orderedDestinations.includes(destination)) {
-            orderedDestinations.push(destination);
-          }
-        });
-        currentLocation = nextLocation;
-      } else {
-        break;
-      }
-    }
-
-    return orderedDestinations;
-  }, [locationTree, destinations]);
-
   const checkpointChecker = React.useCallback(
     (orderedDestinations: IDestination[]) => {
       const updatedDestinations: IDestination[] = [];
-      for (let i = 0; i < orderedDestinations.length; i++) {
+      console.log('Checkpoint Check Initialization...');
+      console.log('Passed Array:', orderedDestinations);
+      console.log('Initialized Update:', updatedDestinations);
+      for (let i = 0; i < orderedDestinations.length - 1; i++) {
         const current = orderedDestinations[i];
         const next = orderedDestinations[i + 1];
-        console.log('Next', next);
+        console.log(`Step ${i}`);
+        updatedDestinations.push(current);
         if (next) {
           const nextMappedLocation = locationTree.get(next.location.id);
           if (
             nextMappedLocation &&
             current.location.parent !== next.location.parent &&
-            next.location.parent != null
+            next.location.parent != null &&
+            current.location !== next.location
           ) {
+            console.log(`Creating Checkpoint between`, current, next);
             const checkpoint: IDestination = {
               id: createDestID(),
-              stopNumber: updatedDestinations.length + 1,
+              stopNumber: 0,
               reason: 'Checkpoint',
               location: nextMappedLocation.parent.location,
             };
@@ -165,15 +80,26 @@ export const RouteApp: React.FC<unknown> = () => {
             dispatch(addDestinations([checkpoint]));
           }
         }
-        updatedDestinations.push({
-          ...current,
-          stopNumber: updatedDestinations.length + 1,
-        });
       }
-      dispatch(updateDestinations(updatedDestinations));
+      updatedDestinations.push(orderedDestinations[orderedDestinations.length - 1]);
+      console.log('Route with Checkpoints', updatedDestinations);
       return updatedDestinations;
     },
     [locationTree, dispatch],
+  );
+
+  const stopReorder = React.useCallback(
+    (orderedDestinations: IDestination[]) => {
+      console.log('Stop Reorder Initialization..', orderedDestinations);
+      const updatedDestinations = orderedDestinations.map((destination, index) => ({
+        ...destination,
+        stopNumber: index + 1,
+      }));
+      dispatch(updateDestinations(updatedDestinations));
+      console.log('Updated Stop Order', updatedDestinations);
+      return updatedDestinations;
+    },
+    [dispatch],
   );
 
   // Start Location Initializer
@@ -203,11 +129,18 @@ export const RouteApp: React.FC<unknown> = () => {
   const getShortestPathing = React.useCallback(() => {
     // Initialize Start Location
     initializeStartLocation();
-    const shortestPath = floydWarshallRoute();
-    const updatedLocations = checkpointChecker(shortestPath);
-    console.log('Route Order', updatedLocations);
+    const shortestPath = floydWarshallRoute(destinations, locationTree);
+    const pathWithCheckpoints = checkpointChecker(shortestPath);
+    const updatedLocations = stopReorder(pathWithCheckpoints);
+    console.log('Final Order:', updatedLocations);
     return updatedLocations;
-  }, [floydWarshallRoute, initializeStartLocation, checkpointChecker]);
+  }, [
+    initializeStartLocation,
+    checkpointChecker,
+    stopReorder,
+    destinations,
+    locationTree,
+  ]);
   return (
     <Box
       data-testid="RouteTool__AppContainer"
