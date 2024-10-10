@@ -60,6 +60,8 @@ export const RouteApp: React.FC<unknown> = () => {
         const current = orderedDestinations[i];
         const next = orderedDestinations[i + 1];
         console.log(`Step ${i}`);
+        console.log('Current', current);
+        console.log('Next', next);
         updatedDestinations.push(current);
         if (next) {
           const nextMappedLocation = locationTree.get(next.location.id);
@@ -67,7 +69,8 @@ export const RouteApp: React.FC<unknown> = () => {
             nextMappedLocation &&
             current.location.parent !== next.location.parent &&
             next.location.parent != null &&
-            current.location !== next.location
+            current.location !== next.location &&
+            current.reason !== 'Checkpoint'
           ) {
             console.log(`Creating Checkpoint between`, current, next);
             const checkpoint: IDestination = {
