@@ -127,23 +127,6 @@ export const RouteApp: React.FC<unknown> = () => {
       if (nextLocation !== -1) {
         const path = reconstructPath(currentLocation, nextLocation);
         path.forEach((index) => {
-          const current = destinations[currentLocation];
-          const next = destinations[nextLocation];
-          const nextMappedLocation = locationTree.get(next.location.id);
-          if (
-            nextMappedLocation &&
-            current.location.parent !== next.location.parent &&
-            nextMappedLocation.parent
-          ) {
-            const checkpoint: IDestination = {
-              id: createDestID(),
-              stopNumber: orderedDestinations.length + 1,
-              reason: 'Checkpoint',
-              location: nextMappedLocation.parent.location,
-            };
-            dispatch(addDestinations([checkpoint]));
-            orderedDestinations.push(checkpoint);
-          }
           const destination = destinations[index];
           if (!orderedDestinations.includes(destination)) {
             orderedDestinations.push(destination);
@@ -154,18 +137,44 @@ export const RouteApp: React.FC<unknown> = () => {
         break;
       }
     }
-    //Organize the Array of Destinations by reassigning their stop numbers.
-    const updatedDestinations = orderedDestinations.map((destinations, index) => {
-      return {
-        ...destinations,
-        stopNumber: index + 1,
-      };
-    });
 
-    dispatch(updateDestinations(updatedDestinations));
+    return orderedDestinations;
+  }, [locationTree, destinations]);
 
-    return updatedDestinations;
-  }, [locationTree, destinations, dispatch]);
+  const checkpointChecker = React.useCallback(
+    (orderedDestinations: IDestination[]) => {
+      const updatedDestinations: IDestination[] = [];
+      for (let i = 0; i < orderedDestinations.length; i++) {
+        const current = orderedDestinations[i];
+        const next = orderedDestinations[i + 1];
+        console.log('Next', next);
+        if (next) {
+          const nextMappedLocation = locationTree.get(next.location.id);
+          if (
+            nextMappedLocation &&
+            current.location.parent !== next.location.parent &&
+            next.location.parent != null
+          ) {
+            const checkpoint: IDestination = {
+              id: createDestID(),
+              stopNumber: updatedDestinations.length + 1,
+              reason: 'Checkpoint',
+              location: nextMappedLocation.parent.location,
+            };
+            updatedDestinations.push(checkpoint);
+            dispatch(addDestinations([checkpoint]));
+          }
+        }
+        updatedDestinations.push({
+          ...current,
+          stopNumber: updatedDestinations.length + 1,
+        });
+      }
+      dispatch(updateDestinations(updatedDestinations));
+      return updatedDestinations;
+    },
+    [locationTree, dispatch],
+  );
 
   // Start Location Initializer
   const initializeStartLocation = React.useCallback(() => {
@@ -195,9 +204,10 @@ export const RouteApp: React.FC<unknown> = () => {
     // Initialize Start Location
     initializeStartLocation();
     const shortestPath = floydWarshallRoute();
-    console.log('Route Order', shortestPath);
-    return shortestPath;
-  }, [floydWarshallRoute, initializeStartLocation]);
+    const updatedLocations = checkpointChecker(shortestPath);
+    console.log('Route Order', updatedLocations);
+    return updatedLocations;
+  }, [floydWarshallRoute, initializeStartLocation, checkpointChecker]);
   return (
     <Box
       data-testid="RouteTool__AppContainer"

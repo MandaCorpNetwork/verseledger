@@ -28,6 +28,9 @@ type DestinationQueProps = {
 };
 
 export const DestinationQue: React.FC<DestinationQueProps> = ({ destinations }) => {
+  const sortedDestinations = React.useMemo(() => {
+    return [...destinations].sort((a, b) => a.stopNumber - b.stopNumber);
+  }, [destinations]);
   return (
     <DigiBox
       data-testid="RouteTool-RouteViewer__DestinationQue_Container"
@@ -62,7 +65,7 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({ destinations }) 
             </TableRow>
           </TableHead>
           <TableBody>
-            {destinations.map((place, index) => (
+            {sortedDestinations.map((place, index) => (
               <TableRow key={place.id} hover>
                 <TableCell>
                   {`${index + 1}. `}
