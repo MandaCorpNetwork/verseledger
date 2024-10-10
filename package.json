@@ -28,7 +28,7 @@
     "@babel/preset-typescript": "7.25.7",
     "@changesets/cli": "2.27.9",
     "@manypkg/cli": "0.21.4",
-    "@preconstruct/cli": "2.8.8",
+    "@preconstruct/cli": "2.8.9",
     "concurrently": "9.0.1"
   },
   "preconstruct": {
