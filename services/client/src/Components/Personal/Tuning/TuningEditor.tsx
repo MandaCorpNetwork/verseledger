@@ -225,6 +225,9 @@ export const TuningEditor: React.FC = () => {
         <Button variant="contained" color="info">
           Export Config
         </Button>
+        <Button variant="contained" color="info">
+          Import Config
+        </Button>
       </Box>
     </GlassBox>
   );
