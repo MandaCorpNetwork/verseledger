@@ -1,3 +1,5 @@
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import {
@@ -9,12 +11,10 @@ import {
   Thruster,
   Weapons,
 } from '@Common/Definitions/CustomIcons';
-import { Box, Button, Divider, Typography } from '@mui/material';
+import { Box, Button, Divider, TextField, Typography } from '@mui/material';
 import React from 'react';
 
 import { ConfigGroup } from './ConfigGroup';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 
 export type PowerConfig = {
   active: boolean;
@@ -24,10 +24,6 @@ export type PowerConfig = {
 };
 
 export type TuningOption = {
-  active: boolean;
-  totalPips: number;
-  assignedPips: number;
-  minimumPips: number;
   id: number;
   type:
     | 'Weapons'
@@ -37,6 +33,10 @@ export type TuningOption = {
     | 'Scanner'
     | 'Cooler'
     | 'QuantumDrive';
+  active: boolean;
+  totalPips: number;
+  assignedPips: number;
+  minimumPips: number;
 };
 
 export type TuningConfig = {
@@ -44,9 +44,128 @@ export type TuningConfig = {
   tuningOptions: TuningOption[];
 };
 
+const initialTune: TuningConfig = {
+  powerConfig: [
+    {
+      active: false,
+      totalPips: 5,
+      assignedPips: 0,
+      id: 1,
+    },
+  ],
+  tuningOptions: [
+    {
+      id: 1,
+      type: 'Weapons',
+      active: false,
+      totalPips: 5,
+      assignedPips: 0,
+      minimumPips: 0,
+    },
+    {
+      id: 1,
+      type: 'Shields',
+      active: false,
+      totalPips: 5,
+      assignedPips: 0,
+      minimumPips: 0,
+    },
+    {
+      id: 1,
+      type: 'Thrusters',
+      active: false,
+      totalPips: 5,
+      assignedPips: 0,
+      minimumPips: 0,
+    },
+    {
+      id: 1,
+      type: 'Scanner',
+      active: false,
+      totalPips: 5,
+      assignedPips: 0,
+      minimumPips: 2,
+    },
+    {
+      id: 1,
+      type: 'LifeSupport',
+      active: false,
+      totalPips: 5,
+      assignedPips: 0,
+      minimumPips: 2,
+    },
+    {
+      id: 1,
+      type: 'QuantumDrive',
+      active: false,
+      totalPips: 5,
+      assignedPips: 0,
+      minimumPips: 2,
+    },
+    {
+      id: 1,
+      type: 'Cooler',
+      active: false,
+      totalPips: 5,
+      assignedPips: 0,
+      minimumPips: 2,
+    },
+  ],
+};
+
 export const TuningEditor: React.FC = () => {
-  const [config, setConfig] = React.useState<TuningConfig>();
-  const addOption = React.useCallback(() => {}, []);
+  const [config, setConfig] = React.useState<TuningConfig>(initialTune);
+  const handleAddOption = React.useCallback(
+    (
+      type:
+        | 'Power'
+        | 'Weapons'
+        | 'Thrusters'
+        | 'Shields'
+        | 'LifeSupport'
+        | 'Scanner'
+        | 'Cooler'
+        | 'QuantumDrive',
+    ) => {
+      setConfig((prevConfig) => {
+        if (type === 'Power') {
+          const newPowerConfig: PowerConfig = {
+            active: false,
+            totalPips: 5,
+            assignedPips: 0,
+            id: prevConfig.powerConfig.length + 1,
+          };
+          return {
+            ...prevConfig,
+            powerConnfig: [...prevConfig.powerConfig, newPowerConfig],
+          };
+        } else {
+          const optionsOfType = prevConfig.tuningOptions.filter(
+            (option) => option.type === type,
+          );
+          const newTuningOption: TuningOption = {
+            active: false,
+            totalPips: 5,
+            assignedPips: 0,
+            minimumPips: 0,
+            id: optionsOfType.length + 1,
+            type,
+          };
+          return {
+            ...prevConfig,
+            tuningOptions: [...prevConfig.tuningOptions, newTuningOption],
+          };
+        }
+      });
+    },
+    [setConfig],
+  );
+  const handleEditPips = React.useCallback(
+    (outlier: 'max' | 'min', value: 'string') => {
+      
+    },
+    [],
+  );
   const removeOption = React.useCallback(() => {}, []);
   return (
     <GlassBox data-testid="ShipTuning__TuningEditor_Container" sx={{ p: '.5em' }}>
@@ -142,13 +261,61 @@ export const TuningEditor: React.FC = () => {
           /> */}
         </Box>
       </GlassDisplay>
-      <DigiBox>
-        <DigiDisplay>
-          <Typography>Power Setup</Typography>
-          <Button>Add </Button>
+      <DigiBox
+        data-testid="ShipTuning-TuningEditor__ConfigSetup_Wrapper"
+        sx={{ p: '1em', mt: '1em' }}
+      >
+        <DigiDisplay
+          data-testid="ShipTuning-TuningEditor-ConfigSetup__PowerSetup_Wrapper"
+          sx={{ p: '.5em', display: 'flex', flexDirection: 'column', gap: '.2em' }}
+        >
+          <Box
+            data-testid="ShipTuning-TuningEditor-ConfigSetup-PowerSetup__TitleBar_Wrapper"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-around',
+              width: '100%',
+            }}
+          >
+            <Typography data-testid="ShipTuning-TuningEditor-ConfigSetup-PowerSetup-TitleBar__Title">
+              Power Setup
+            </Typography>
+            <Button
+              data-testid="ShipTuning-TuningEditor-ConfigSetup-PowerSetup-TitleBar__AddSupply_Button"
+              color="secondary"
+              size="small"
+              variant="outlined"
+              onClick={() => handleAddOption('Power')}
+            >
+              Add Supply
+            </Button>
+          </Box>
+          {config?.powerConfig?.map((config) => (
+            <Box
+              key={config.id}
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                width: '100%',
+                px: '.5em',
+              }}
+            >
+              <Typography>{config.id}.</Typography>
+              <TextField label="Max Pips" size="small" color="secondary" />
+              <Button variant="outlined" size="small" color="error">
+                Remove
+              </Button>
+            </Box>
+          ))}
         </DigiDisplay>
         <DigiDisplay>
-          <Typography>Components Setup</Typography>
+          <Box>
+            <Typography>Components Setup</Typography>
+            <Button>Add Component</Button>
+          </Box>
         </DigiDisplay>
       </DigiBox>
       <Box
