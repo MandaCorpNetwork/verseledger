@@ -23,8 +23,8 @@ export const CurrentConfig: React.FC<CurrentConfigProps> = ({
         p: '1em',
         background: 'linear-gradient(135deg, rgba(14,35,141,.5), rgba(0,1,19,.5))',
         mb: '1em',
-        flexGrow: 1,
-        overflow: 'auto',
+        overflowX: 'auto',
+        width: '100%',
       }}
     >
       <Box

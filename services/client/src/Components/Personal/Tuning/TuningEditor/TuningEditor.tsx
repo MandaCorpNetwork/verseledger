@@ -105,7 +105,10 @@ const initialTune: TuningConfig = {
 export const TuningEditor: React.FC = () => {
   const [config, setConfig] = React.useState<TuningConfig>(initialTune);
   return (
-    <GlassBox data-testid="ShipTuning__TuningEditor_Container" sx={{ p: '.5em' }}>
+    <GlassBox
+      data-testid="ShipTuning__TuningEditor_Container"
+      sx={{ p: '.5em', maxWidth: '45%' }}
+    >
       <Typography
         data-testid="ShipTuning__TuningEditor_Title"
         variant="h5"

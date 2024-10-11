@@ -1,5 +1,15 @@
+import { MinimumTuningTick } from '@Common/Components/Boxes/MinimumTuningTick';
 import { TuningGroup } from '@Common/Components/Boxes/TuningGroup';
 import { TuningTick } from '@Common/Components/Boxes/TuningTick';
+import {
+  Cooler,
+  MedicalItems,
+  Scanner,
+  Shield,
+  Thruster,
+  Weapons,
+} from '@Common/Definitions/CustomIcons';
+import { QuestionMark } from '@mui/icons-material';
 import { Box } from '@mui/material';
 import React from 'react';
 
@@ -13,74 +23,143 @@ export const ConfigGroup: React.FC<{
 }> = ({ setConfig, config }) => {
   const [hoveredTick, setHoveredTick] = React.useState<number | null>(null);
   const { playSound } = useSoundEffect();
-  const isDisabled = !config.active;
+  const isActive = config.active;
+
   const handleMouseEnter = React.useCallback(
     (index: number) => {
       setHoveredTick(index);
     },
     [setHoveredTick],
   );
-  // const handleMouseLeave = React.useCallback(() => {
-  //   setHoveredTick(null);
-  // }, [setHoveredTick]);
-  // const handleConfigValue = React.useCallback(
-  //   (index: number) => {
-  //     if (isDisabled) return playSound('denied');
-  //     setConfig((prev) => ({ ...prev, [configKey]: index }));
-  //   },
-  //   [setConfig, configKey, playSound, isDisabled],
-  // );
-  // const handleGroupToggle = React.useCallback(() => {
-  //   setConfig((prev) => ({ ...prev, [groupKey]: !prev[groupKey] }));
-  //   if (!config[groupKey]) {
-  //     setConfig((prev) => ({
-  //       ...prev,
-  //       [configKey]: 0,
-  //     }));
-  //   }
-  // }, [groupKey, setConfig, configKey, config]);
+
+  const handleMouseLeave = React.useCallback(() => {
+    setHoveredTick(null);
+  }, [setHoveredTick]);
+
+  const handleConfigValue = React.useCallback(
+    (index: number) => {
+      if (isActive) return playSound('denied');
+      setConfig((prev) => ({
+        ...prev,
+        tuningOptions: prev.tuningOptions.map((option) => {
+          if (option.id === config.id && config.type == option.type) {
+            return {
+              ...option,
+              assignedPips: index,
+            };
+          }
+          return option;
+        }),
+      }));
+    },
+    [setConfig, config, playSound, isActive],
+  );
+  const handleGroupToggle = React.useCallback(() => {
+    setConfig((prev) => ({
+      ...prev,
+      tuningOptions: prev.tuningOptions.map((option) => {
+        if (option.id === config.id && option.type === config.type) {
+          return {
+            ...option,
+            active: !option.active,
+          };
+        }
+        return option;
+      }),
+    }));
+  }, [setConfig, config]);
+
+  const renderIcon = React.useCallback((type: string) => {
+    switch (type) {
+      case 'Weapons':
+        return <Weapons />;
+      case 'Thrusters':
+        return <Thruster />;
+      case 'Shields':
+        return <Shield />;
+      case 'LifeSupport':
+        return <MedicalItems />;
+      case 'Scanner':
+        return <Scanner />;
+      case 'Cooler':
+        return <Cooler />;
+      case 'QuantumDrive':
+        return <Thruster />;
+      default:
+        return <QuestionMark />;
+    }
+  }, []);
+
   return (
     <Box
-      data-testid="ShipTuning-TuningEditor__ConfigGroup_Wrapper"
-      sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '.2em' }}
+      data-testid={`ShipTuning-TuningEditor__ConfigGroup_Wrapper`}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        gap: '.5em',
+        minWidth: 'fit-content',
+      }}
     >
-      {/* {Array.from({ length: 15 }, (_, index) => {
-        const reversedIndex = 14 - index;
-        return (
-          // <TuningTick
-          //   data-testid="ShipTuning-TuningEditor-ConfigGroup__Config__TickBox"
-          //   key={index}
-          //   onClick={() => handleConfigValue(reversedIndex + 1)}
-          //   onMouseEnter={() => {
-          //     handleMouseEnter(reversedIndex);
-          //   }}
-          //   onMouseLeave={handleMouseLeave}
-          //   sx={{
-          //     backgroundColor: isDisabled
-          //       ? 'primary.dark'
-          //       : reversedIndex + 1 <= (config[configKey] as number)
-          //         ? 'secondary.main'
-          //         : hoveredTick != null && reversedIndex <= hoveredTick
-          //           ? 'secondary.main'
-          //           : 'secondary.dark',
-          //     '&:hover': {
-          //       backgroundColor: isDisabled ? 'primary.dark' : 'secondary.main',
-          //       borderColor: isDisabled ? 'action.disabledBackground' : 'secondary.light',
-          //     },
-          //   }}
-          // />
-        );
-      })} */}
-      <TuningGroup
-        // onClick={handleGroupToggle}
+      <Box
+        data-testid={`ShipTuning-TuningEditor__ConfigGroup_Wrapper`}
         sx={{
-          // backgroundColor: config[groupKey] ? 'secondary.main' : 'secondary.dark',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '.2em',
+          flexWrap: 'wrap-reverse',
+          height: '90%',
+          justifyContent: 'flex-end',
+        }}
+      >
+        {Array.from({ length: config.totalPips - config.minimumPips }, (_, index) => {
+          const reversedIndex = config.totalPips - config.minimumPips - 1 - index;
+          return (
+            <TuningTick
+              data-testid={`ShipTuning-TuningEditor__ConfigGroup_Wrapper`}
+              key={index}
+              onClick={() => handleConfigValue(reversedIndex + 1 + config.minimumPips)}
+              onMouseEnter={() => handleMouseEnter(reversedIndex)}
+              onMouseLeave={handleMouseLeave}
+              sx={{
+                backgroundColor: !isActive
+                  ? 'primary.dark'
+                  : reversedIndex + 1 <= config.assignedPips
+                    ? 'secondary.main'
+                    : hoveredTick != null && reversedIndex <= hoveredTick
+                      ? 'secondary.main'
+                      : 'secondary.dark',
+                '&:hover': {
+                  backgroundColor: isActive ? 'secondary.main' : 'primary.dark',
+                  borderColor: isActive ? 'secondary.light' : 'action.disabledBackground',
+                },
+              }}
+            />
+          );
+        })}
+        {config.minimumPips > 0 && (
+          <MinimumTuningTick
+            minimumTicks={config.minimumPips}
+            isActive={isActive}
+            hoveredTick={Boolean(hoveredTick)}
+            onClick={() => handleConfigValue(config.minimumPips)}
+            isSet={config.minimumPips === config.assignedPips}
+          />
+        )}
+      </Box>
+      <TuningGroup
+        onClick={handleGroupToggle}
+        sx={{
+          backgroundColor: isActive ? 'secondary.main' : 'secondary.dark',
           alignItems: 'center',
           justifyContent: 'center',
           display: 'flex',
           opacity: '.9',
         }}
-      ></TuningGroup>
+      >
+        {renderIcon(config.type)}
+      </TuningGroup>
     </Box>
   );
 };

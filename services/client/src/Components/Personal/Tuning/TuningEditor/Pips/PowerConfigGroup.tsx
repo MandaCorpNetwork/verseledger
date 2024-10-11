@@ -3,30 +3,41 @@ import { TuningTick } from '@Common/Components/Boxes/TuningTick';
 import { Power } from '@Common/Definitions/CustomIcons';
 import { Box } from '@mui/material';
 import React from 'react';
+import { PowerConfig } from '../TuningEditor';
 
 type PowerConfigProps = {
-  active: boolean;
-  availablePips: number;
   minimumPips?: number;
-  assignedPips: number;
+  config: PowerConfig;
 };
 
 export const PowerConfigGroup: React.FC<PowerConfigProps> = ({
-  active,
-  availablePips,
   minimumPips = 0,
-  assignedPips,
+  config,
 }) => {
   return (
     <Box
       data-testid="ShipTuning-TuningEditor__PowerConfigGroup_Wrapper"
-      sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '.2em' }}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '.2em',
+        justifyContent: 'flex-end',
+      }}
     >
-      {Array.from({ length: availablePips }, (_, index) => {
+      {Array.from({ length: availablePips - minimumPips }, (_, index) => {
         const reversedIndex = 14 - index;
         return <TuningTick key={index} />;
       })}
-      <TuningGroup>
+      <TuningGroup
+        sx={{
+          backgroundColor: active ? 'secondary.main' : 'secondary.dark',
+          alignItems: 'center',
+          justifyContent: 'center',
+          display: 'flex',
+          opacity: '.9',
+        }}
+      >
         <Power />
       </TuningGroup>
     </Box>
