@@ -37,7 +37,8 @@ export class LocationController extends BaseHttpController {
     @inject(TYPES.AuthService) private readonly authService: AuthService,
     @inject(TYPES.ContractService)
     private readonly contractService: ContractService,
-    @inject(TYPES.LocationService) private readonly locationService: LocationService,
+    @inject(TYPES.LocationService)
+    private readonly locationService: LocationService,
   ) {
     super();
   }
@@ -90,7 +91,7 @@ export class LocationController extends BaseHttpController {
         },
       },
     },
-    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: []},
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpGet('/search', TYPES.VerifiedUserMiddleware)
   private async searchLocations(
@@ -118,7 +119,7 @@ export class LocationController extends BaseHttpController {
     );
     return this.ok(response);
   }
-    
+
   @ApiOperationGet({
     description: 'Get a Location',
     summary: 'Get a Location',

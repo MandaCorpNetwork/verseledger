@@ -29,7 +29,6 @@ import { ApiTokenCreateSchema } from 'vl-shared/src/schemas/ApiTokenSchema';
 import { NotificationService } from '../notifications/notification.service';
 import { IdUtil } from '@/utils/IdUtil';
 import { UserRepository } from '../user/user.repository';
-import { encode, decode } from 'vl-shared/src/utils/BinaryUtils';
 
 const env = new EnvService();
 @ApiPath({
