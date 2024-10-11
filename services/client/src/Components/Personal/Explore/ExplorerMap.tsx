@@ -2,12 +2,24 @@
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { Box } from '@mui/material';
 import { OrbitControls, Sphere, Text } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import { useAppSelector } from '@Redux/hooks';
 import { selectLocationsArray } from '@Redux/Slices/Locations/locationSelectors';
 import { useEffect, useState } from 'react';
+import { CubeTextureLoader } from 'three';
 
 import { binaryLocationTree, MappedLocation } from '../Routes/RouteUtilities';
+
+const SkyBox: React.FC = () => {
+  const { scene } = useThree();
+  const loader = new CubeTextureLoader();
+  const texture = loader
+    .setPath('/Assets/media/Skybox/')
+    .load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
+  scene.background = texture;
+  return null;
+};
+
 export const ExploreMap: React.FC = () => {
   const locations = useAppSelector(selectLocationsArray);
   const [locationMap, setLocationMap] = useState([] as [string, MappedLocation][]);
@@ -43,6 +55,7 @@ export const ExploreMap: React.FC = () => {
         }}
       >
         <Canvas>
+          <SkyBox />
           <OrbitControls zoomSpeed={5} />
           <ambientLight intensity={1} />
           {locationMap
