@@ -2,7 +2,7 @@ import { Float3, MathX } from 'vl-shared/src/math';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { IDestination, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
 
-interface MappedLocation {
+export interface MappedLocation {
   location: ILocation;
   children: Map<string, MappedLocation>;
   parent: MappedLocation;
