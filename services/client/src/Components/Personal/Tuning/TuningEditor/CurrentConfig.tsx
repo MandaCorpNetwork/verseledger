@@ -38,12 +38,7 @@ export const CurrentConfig: React.FC<CurrentConfigProps> = ({
         }}
       >
         {currentConfig.powerConfig.map((supply) => (
-          <PowerConfigGroup
-            key={supply.id}
-            availablePips={supply.totalPips}
-            assignedPips={supply.assignedPips}
-            active={supply.active}
-          />
+          <PowerConfigGroup key={supply.id} config={supply} setConfig={setConfig} />
         ))}
       </Box>
       <Box

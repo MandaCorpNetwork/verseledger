@@ -89,7 +89,6 @@ export const ConfigGroup: React.FC<{
         return <QuestionMark />;
     }
   }, []);
-
   return (
     <Box
       data-testid={`ShipTuning-TuningEditor__ConfigGroup_Wrapper`}
@@ -142,7 +141,7 @@ export const ConfigGroup: React.FC<{
           <MinimumTuningTick
             minimumTicks={config.minimumPips}
             isActive={isActive}
-            hoveredTick={Boolean(hoveredTick)}
+            hoveredTick={hoveredTick != null}
             onClick={() => handleConfigValue(config.minimumPips)}
             isSet={config.minimumPips === config.assignedPips}
           />
