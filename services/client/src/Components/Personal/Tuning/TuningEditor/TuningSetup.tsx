@@ -5,7 +5,7 @@ import { Box, Button, TextField, Typography } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 
-import { PowerConfig, TuningConfig, TuningOption } from '../TuningEditor';
+import { PowerConfig, TuningConfig, TuningOption } from './TuningEditor';
 
 type TuningSetupProps = {
   tuningSetup: TuningConfig;
@@ -155,6 +155,7 @@ export const TuningSetup: React.FC<TuningSetupProps> = ({ tuningSetup, setConfig
         maxHeight: '35%',
         overflow: 'auto',
         width: '100%',
+        mt: 'auto',
       }}
     >
       <DigiBox

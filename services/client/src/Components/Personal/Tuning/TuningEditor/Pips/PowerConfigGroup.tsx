@@ -5,12 +5,14 @@ import { Box } from '@mui/material';
 import React from 'react';
 
 type PowerConfigProps = {
+  active: boolean;
   availablePips: number;
   minimumPips?: number;
   assignedPips: number;
 };
 
 export const PowerConfigGroup: React.FC<PowerConfigProps> = ({
+  active,
   availablePips,
   minimumPips = 0,
   assignedPips,

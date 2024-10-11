@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { isDev } from '@Utils/isDev';
 import React from 'react';
 
-import { TuningEditor } from './TuningEditor';
+import { TuningEditor } from './TuningEditor/TuningEditor';
 import { TuningExplorer } from './TuningExplorer';
 
 export const ShipTuning: React.FC = () => {
