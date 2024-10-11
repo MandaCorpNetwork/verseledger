@@ -57,7 +57,6 @@ export const ExploreMap: React.FC = () => {
         <Canvas>
           <SkyBox />
           <OrbitControls zoomSpeed={5} />
-          <ambientLight intensity={1} />
           {locationMap
             .filter(
               (l) =>
