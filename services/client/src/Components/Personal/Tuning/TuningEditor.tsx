@@ -12,9 +12,11 @@ import {
   Weapons,
 } from '@Common/Definitions/CustomIcons';
 import { Box, Button, Divider, TextField, Typography } from '@mui/material';
+import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 
 import { ConfigGroup } from './ConfigGroup';
+import { TuningSetup } from './TuningEditor/TuningSetup';
 
 export type PowerConfig = {
   active: boolean;
@@ -115,58 +117,7 @@ const initialTune: TuningConfig = {
 
 export const TuningEditor: React.FC = () => {
   const [config, setConfig] = React.useState<TuningConfig>(initialTune);
-  const handleAddOption = React.useCallback(
-    (
-      type:
-        | 'Power'
-        | 'Weapons'
-        | 'Thrusters'
-        | 'Shields'
-        | 'LifeSupport'
-        | 'Scanner'
-        | 'Cooler'
-        | 'QuantumDrive',
-    ) => {
-      setConfig((prevConfig) => {
-        if (type === 'Power') {
-          const newPowerConfig: PowerConfig = {
-            active: false,
-            totalPips: 5,
-            assignedPips: 0,
-            id: prevConfig.powerConfig.length + 1,
-          };
-          return {
-            ...prevConfig,
-            powerConnfig: [...prevConfig.powerConfig, newPowerConfig],
-          };
-        } else {
-          const optionsOfType = prevConfig.tuningOptions.filter(
-            (option) => option.type === type,
-          );
-          const newTuningOption: TuningOption = {
-            active: false,
-            totalPips: 5,
-            assignedPips: 0,
-            minimumPips: 0,
-            id: optionsOfType.length + 1,
-            type,
-          };
-          return {
-            ...prevConfig,
-            tuningOptions: [...prevConfig.tuningOptions, newTuningOption],
-          };
-        }
-      });
-    },
-    [setConfig],
-  );
-  const handleEditPips = React.useCallback(
-    (outlier: 'max' | 'min', value: 'string') => {
-      
-    },
-    [],
-  );
-  const removeOption = React.useCallback(() => {}, []);
+
   return (
     <GlassBox data-testid="ShipTuning__TuningEditor_Container" sx={{ p: '.5em' }}>
       <Typography
@@ -261,63 +212,7 @@ export const TuningEditor: React.FC = () => {
           /> */}
         </Box>
       </GlassDisplay>
-      <DigiBox
-        data-testid="ShipTuning-TuningEditor__ConfigSetup_Wrapper"
-        sx={{ p: '1em', mt: '1em' }}
-      >
-        <DigiDisplay
-          data-testid="ShipTuning-TuningEditor-ConfigSetup__PowerSetup_Wrapper"
-          sx={{ p: '.5em', display: 'flex', flexDirection: 'column', gap: '.2em' }}
-        >
-          <Box
-            data-testid="ShipTuning-TuningEditor-ConfigSetup-PowerSetup__TitleBar_Wrapper"
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-around',
-              width: '100%',
-            }}
-          >
-            <Typography data-testid="ShipTuning-TuningEditor-ConfigSetup-PowerSetup-TitleBar__Title">
-              Power Setup
-            </Typography>
-            <Button
-              data-testid="ShipTuning-TuningEditor-ConfigSetup-PowerSetup-TitleBar__AddSupply_Button"
-              color="secondary"
-              size="small"
-              variant="outlined"
-              onClick={() => handleAddOption('Power')}
-            >
-              Add Supply
-            </Button>
-          </Box>
-          {config?.powerConfig?.map((config) => (
-            <Box
-              key={config.id}
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                width: '100%',
-                px: '.5em',
-              }}
-            >
-              <Typography>{config.id}.</Typography>
-              <TextField label="Max Pips" size="small" color="secondary" />
-              <Button variant="outlined" size="small" color="error">
-                Remove
-              </Button>
-            </Box>
-          ))}
-        </DigiDisplay>
-        <DigiDisplay>
-          <Box>
-            <Typography>Components Setup</Typography>
-            <Button>Add Component</Button>
-          </Box>
-        </DigiDisplay>
-      </DigiBox>
+      <TuningSetup tuningSetup={config} setConfig={setConfig} />
       <Box
         data-testid="ShipTuning-TuningEditor__ConfigButtons_Wrapper"
         sx={{ m: 'auto', gap: '1em', display: 'flex' }}
