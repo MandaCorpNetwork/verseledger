@@ -24,18 +24,6 @@ import { IDestination, IMission } from 'vl-shared/src/schemas/RoutesSchema';
 import { binaryLocationTree, getEfficentDistancePath } from '../RouteUtilities';
 import { StaticDestinationTable } from './StaticDestinationTable';
 
-interface Column {
-  id: string;
-  label: string;
-  align?: 'left' | 'center';
-}
-
-const columns: readonly Column[] = [
-  { id: 'destination', label: 'Destination', align: 'left' },
-  { id: 'reason', label: 'Stop Reason', align: 'center' },
-  { id: 'distance', label: 'Travel Distance', align: 'center' },
-];
-
 type DestinationQueProps = {
   destinations: IDestination[];
   missions: IMission[];

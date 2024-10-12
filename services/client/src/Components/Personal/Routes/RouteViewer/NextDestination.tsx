@@ -94,27 +94,3 @@ export const NextDestination: React.FC<NextDestinationProps> = ({
     </DigiBox>
   );
 };
-
-const testObjectives = [
-  {
-    type: 'Drop-Off',
-    packageId: '554653',
-    mission: '655343',
-    contents: 'Copper',
-    scu: '5',
-  },
-  {
-    type: 'Pickup',
-    packageId: '877564',
-    mission: '936654',
-    contents: 'Unknown',
-    scu: '1',
-  },
-  {
-    type: 'Drop-Off',
-    packageId: '778475',
-    mission: '887893',
-    contents: 'Unknown',
-    scu: '1',
-  },
-];
