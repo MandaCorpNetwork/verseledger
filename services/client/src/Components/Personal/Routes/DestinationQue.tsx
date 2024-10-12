@@ -1,6 +1,7 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import {
+  Box,
   Table,
   TableBody,
   TableCell,
@@ -32,54 +33,60 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({ destinations }) 
     return [...destinations].sort((a, b) => a.stopNumber - b.stopNumber);
   }, [destinations]);
   return (
-    <DigiBox
+    <Box
       data-testid="RouteTool-RouteViewer__DestinationQue_Container"
-      sx={{ flexGrow: '1', justifyContent: 'flex-start', overflow: 'hidden' }}
+      sx={{ flexGrow: '1', display: 'flex' }}
     >
-      <TableContainer
-        sx={{
-          maxHeight: '100%',
-          overflow: 'auto',
-          '&::-webkit-scrollbar': {
-            width: '5px',
-            height: '5px',
-          },
-          '&::-webkit-scrollbar-track': {
-            background: 'rgb(0,73,130)',
-            borderRadius: '10px',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            borderRadius: '20px',
-            background: 'rgb(24,252,252)',
-          },
-        }}
+      <DigiBox></DigiBox>
+      <DigiBox
+        data-testid="RouteTool-RouteViewer__DestinationQue_Container"
+        sx={{ flexGrow: '1', justifyContent: 'flex-start', overflow: 'hidden' }}
       >
-        <Table stickyHeader>
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell key={column.id} align={column.align} component="th">
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {sortedDestinations.map((place, index) => (
-              <TableRow key={place.id} hover>
-                <TableCell>
-                  {`${index + 1}. `}
-                  <LocationChip locationId={place.location.id} />
-                </TableCell>
-                <TableCell sx={{ textAlign: 'center' }}>{place.reason}</TableCell>
-                <TableCell sx={{ textAlign: 'center' }}>
-                  {index === 0 ? '—' : `km`}
-                </TableCell>
+        <TableContainer
+          sx={{
+            maxHeight: '100%',
+            overflow: 'auto',
+            '&::-webkit-scrollbar': {
+              width: '5px',
+              height: '5px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: 'rgb(0,73,130)',
+              borderRadius: '10px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              borderRadius: '20px',
+              background: 'rgb(24,252,252)',
+            },
+          }}
+        >
+          <Table stickyHeader>
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell key={column.id} align={column.align} component="th">
+                    {column.label}
+                  </TableCell>
+                ))}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </DigiBox>
+            </TableHead>
+            <TableBody>
+              {sortedDestinations.map((place, index) => (
+                <TableRow key={place.id} hover>
+                  <TableCell>
+                    {`${index + 1}. `}
+                    <LocationChip locationId={place.location.id} />
+                  </TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{place.reason}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>
+                    {index === 0 ? '—' : `km`}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </DigiBox>
+    </Box>
   );
 };

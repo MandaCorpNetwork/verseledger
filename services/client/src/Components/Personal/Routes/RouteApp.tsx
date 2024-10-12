@@ -132,7 +132,7 @@ export const RouteApp: React.FC<unknown> = () => {
   const getShortestPathing = React.useCallback(() => {
     // Initialize Start Location
     initializeStartLocation();
-    const shortestPath = floydWarshallRoute(destinations, locationTree);
+    const shortestPath = floydWarshallVRPPDRoute(destinations, locationTree);
     const pathWithCheckpoints = checkpointChecker(shortestPath);
     const updatedLocations = stopReorder(pathWithCheckpoints);
     console.log('Final Order:', updatedLocations);

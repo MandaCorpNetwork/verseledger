@@ -1,6 +1,6 @@
 import { Float3, MathX } from 'vl-shared/src/math';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-import { IDestination, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination, IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
 
 export interface MappedLocation {
   location: ILocation;
@@ -145,30 +145,151 @@ export function destinationsFromObjectives(
   return { updatedDestinations, newDestinations };
 }
 
-export function floydWarshallRoute(
-  destinations: IDestination[],
+function validateDropOff(pickedUpPackages: IObjective[], target: IObjective): boolean {
+  return Boolean(pickedUpPackages.find((obj) => obj.packageId === target.packageId));
+}
+
+function validateCapacity(
+  maxLoad: number,
+  currentLoad: number,
+  availableLoads: IObjective[],
+): IObjective[] {
+  // Validate If an Objective would Exceed the MaxLoad
+  const validLoads = availableLoads.filter((load) => {
+    const loadValue = load.scu ?? 0;
+    return currentLoad + loadValue <= maxLoad;
+  });
+
+  // Sort Loads to Prioritize More Objectives over Singular Objectives with large Loads
+  validLoads.sort((a, b) => (a.scu ?? 0) - (b.scu ?? 0));
+
+  // Pick out as many loads without exceeding Max Load
+  const selectedObjectives: IObjective[] = [];
+  let totalLoad = currentLoad;
+  for (const obj of validLoads) {
+    const loadValue = obj.scu ?? 0;
+    if (totalLoad + loadValue <= maxLoad) {
+      selectedObjectives.push(obj);
+      totalLoad += loadValue;
+    }
+  }
+
+  return selectedObjectives;
+}
+
+function checkpointValidation(
+  current: ILocation,
+  next: ILocation,
+  nextMapped: MappedLocation,
+): IDestination | undefined {
+  if (current.parent !== next.parent && next.parent != null) {
+    const newDestination: IDestination = {
+      id: createDestID(),
+      reason: 'Checkpoint',
+      stopNumber: 0,
+      location: nextMapped.parent.location,
+    };
+    return newDestination;
+  }
+  return undefined;
+}
+
+function createStartDestination(location: ILocation): IDestination {
+  const newDestination = {
+    id: createDestID(),
+    reason: 'Start',
+    stopNumber: 0,
+    location,
+  };
+  return newDestination;
+}
+
+function createMissionDestination(
+  location: ILocation,
+  objectives: IObjective[],
+): IDestination {
+  const newDestination = {
+    id: createDestID(),
+    reason: 'Mission',
+    stopNumber: 0,
+    location,
+    objectives,
+  };
+  return newDestination;
+}
+
+export function getEfficentDistancePath(
+  missions: IMission[],
+  userLocation: ILocation | null,
   locationTree: Map<string, MappedLocation>,
-) {
-  // Total amount of SET Stops
-  const numLocations = destinations.length;
-
-  // Matrix allowing for the sorting of distances
-  const distMatrix: number[][] = Array.from({ length: numLocations }, () =>
-    Array(numLocations).fill(Infinity),
+  maxLoad: number,
+  existingLoad: number,
+): IDestination[] {
+  // *Initial Values*
+  // The Constructed Path to be built from Destinations
+  const constructedPath: IDestination[] = [];
+  // Initialize the Current Load
+  let currentLoad: number = existingLoad;
+  // The Pickup Objectives
+  const pickups: { objective: IObjective; location: ILocation }[] = missions.flatMap(
+    (mission) =>
+      mission.objectives.map((obj) => ({
+        objective: obj,
+        location: obj.pickup,
+      })),
   );
-
-  // The Identification of each stop
-  const next: (number | null)[][] = Array.from({ length: numLocations }, () =>
-    Array(numLocations).fill(null),
+  // The DropOff Objectives
+  const dropOffs: { objective: IObjective; location: ILocation }[] = missions.flatMap(
+    (mission) =>
+      mission.objectives.map((obj) => ({
+        objective: obj,
+        location: obj.dropOff,
+      })),
   );
+  // Initialize the Start Location
+  const startLocation = userLocation || pickups[0].location;
+  // Unique Locations Check
+  const uniqueLocations = new Set<string>();
+  missions.forEach((mission) => {
+    mission.objectives.forEach((obj) => {
+      uniqueLocations.add(obj.pickup.id);
+      uniqueLocations.add(obj.dropOff.id);
+    });
+  });
+  if (userLocation) {
+    uniqueLocations.add(userLocation.id);
+  }
+  // The Total amount of Locations to be visited
+  const totalLocations = uniqueLocations.size;
+  // The Total Number of Stops
+  const totalStops = missions.reduce(
+    (acc, mission) => acc + mission.objectives.length * 2,
+    0,
+  );
+  // Initialize the Distance Matrix
+  const distMatrix: number[][] = Array.from({ length: totalLocations }, () =>
+    Array(totalLocations).fill(Infinity),
+  );
+  // Initialize the Next Function
+  const next: (number | null)[][] = Array.from({ length: totalLocations }, () =>
+    Array(totalLocations).fill(null),
+  );
+  // All available Location Ids to Pull the Mapped Locations from the Location Tree
+  const locationIds: string[] = Array.from(
+    new Set(
+      missions.flatMap((mission) =>
+        mission.objectives.flatMap((obj) => [obj.pickup.id, obj.dropOff.id]),
+      ),
+    ),
+  );
+  // Push Start Location Id to locationIds for the Pathing Matrix
+  if (userLocation && !locationIds.includes(userLocation.id)) {
+    locationIds.push(userLocation.id);
+  }
 
-  // All available Location Ids to pull from the Location Tree
-  const locationIds = destinations.map((dest) => dest.location.id);
-
-  //**Algorithm Usage */
-  // Initialize Distance Matrix
-  for (let i = 0; i < numLocations; i++) {
-    for (let j = 0; j < numLocations; j++) {
+  // *Distance Matrix Initalization*
+  for (let i = 0; i < totalLocations; i++) {
+    for (let j = 0; j < totalLocations; j++) {
       if (i === j) {
         distMatrix[i][j] = 0;
       } else {
@@ -182,10 +303,11 @@ export function floydWarshallRoute(
     }
   }
 
+  // **Shortest Path Algo**
   // Floyd-Warshall Algo for all pairs shortest paths
-  for (let k = 0; k < numLocations; k++) {
-    for (let i = 0; i < numLocations; i++) {
-      for (let j = 0; j < numLocations; j++) {
+  for (let k = 0; k < totalLocations; k++) {
+    for (let i = 0; i < totalLocations; i++) {
+      for (let j = 0; j < totalLocations; j++) {
         if (distMatrix[i][j] > distMatrix[i][k] + distMatrix[k][j]) {
           distMatrix[i][j] = distMatrix[i][k] + distMatrix[k][j];
           next[i][j] = next[i][k];
@@ -194,54 +316,90 @@ export function floydWarshallRoute(
     }
   }
 
-  //** Returned Array of Ordered Destinations */
-  const orderedDestinations: IDestination[] = [];
+  // **Construct Path**
+  // Push the Start Location to the Constructed Path Array
+  if (userLocation) {
+    constructedPath.push(createStartDestination(userLocation));
+  }
 
-  const reconstructPath = (start: number, end: number): number[] => {
-    if (next[start][end] === null) return [];
-    const path: number[] = [start];
-    let current = start;
-    path.push(current);
-
-    while (current !== end) {
-      current = next[current][end]!;
-      path.push(current);
-    }
-    return path;
-  };
-
-  const startLocationIndex = destinations.findIndex((dest) => dest.reason === 'Start');
-
-  const startLocation = startLocationIndex !== -1 ? startLocationIndex : 0;
+  // Set the currentLocation for the Path
   let currentLocation = startLocation;
+  let currentLocationIndex = locationIds.indexOf(currentLocation.id);
+  const pickedUpPackages: IObjective[] = [];
+  const assignedObjectives = new Set<number>();
 
-  const visited = new Set<number>();
+  while (assignedObjectives.size < totalStops) {
+    //Find the Objectives Related to the current Location.
+    const availablePickups = pickups
+      .filter((obj) => obj.location.id === currentLocation.id)
+      .map((obj) => obj.objective);
+    const availableDropOffs = dropOffs
+      .filter((obj) => obj.location.id === currentLocation.id)
+      .map((obj) => obj.objective);
 
-  while (visited.size < numLocations) {
-    visited.add(currentLocation);
-    let nextLocation = -1;
+    //Initialize Objectives to pass to new Destination
+    const tempObjectives: IObjective[] = [];
+
+    // Validate DropOffs
+    const validDrops = availableDropOffs.filter((obj) => {
+      const valid = validateDropOff(pickedUpPackages, obj);
+      if (valid) {
+        currentLoad -= obj.scu ?? 0;
+        return true;
+      } else {
+        return false;
+      }
+    });
+    tempObjectives.push(...validDrops);
+
+    // Validate Pickups
+    const validPickups = validateCapacity(maxLoad, currentLoad, availablePickups);
+    tempObjectives.push(...validPickups);
+    pickedUpPackages.push(...validPickups);
+
+    const pickedLoad = validPickups.reduce((acc, obj) => acc + (obj.scu ?? 0), 0);
+
+    if (tempObjectives.length > 0) {
+      // Push the Current Destination to constructedPath
+      constructedPath.push(createMissionDestination(currentLocation, tempObjectives));
+      tempObjectives.forEach((obj) => assignedObjectives.add(obj.packageId));
+      currentLoad += pickedLoad;
+    }
+
+    // Find Next Location
+    let nextLocation: number | null = null;
     let minDistance = Infinity;
 
-    for (let i = 0; i < numLocations; i++) {
-      if (!visited.has(i) && distMatrix[currentLocation][i] < minDistance) {
-        minDistance = distMatrix[currentLocation][i];
+    for (let i = 0; i < totalStops; i++) {
+      if (
+        !assignedObjectives.has(i) &&
+        distMatrix[currentLocationIndex][i] < minDistance
+      ) {
+        minDistance = distMatrix[currentLocationIndex][i];
         nextLocation = i;
       }
     }
 
-    if (nextLocation !== -1) {
-      const path = reconstructPath(currentLocation, nextLocation);
-      path.forEach((index) => {
-        const destination = destinations[index];
-        if (!orderedDestinations.includes(destination)) {
-          orderedDestinations.push(destination);
-        }
-      });
-      currentLocation = nextLocation;
-    } else {
-      break;
+    // After Finding the Next Location, run Checkpoint Validation
+    if (nextLocation !== null) {
+      const nextMapped = locationTree.get(locationIds[nextLocation]);
+      if (nextMapped) {
+        const checkpoint = checkpointValidation(
+          currentLocation,
+          nextMapped.location,
+          nextMapped,
+        );
+        if (checkpoint) constructedPath.push(checkpoint);
+        currentLocation = nextMapped.location;
+        currentLocationIndex = nextLocation;
+      }
     }
   }
-  console.log('Calculated Effecient Route', orderedDestinations);
-  return orderedDestinations;
+
+  // Lastly, set all Destination StopNumbers to their Index in the Array
+  const orderedPath = constructedPath.map((dest, index) => ({
+    ...dest,
+    stopNumber: index,
+  }));
+  return orderedPath;
 }
