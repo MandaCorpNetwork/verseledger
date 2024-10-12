@@ -1,7 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IDestination, IMission } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { addDestinations, updateDestinations } from './actions/destinationActions';
+import {
+  addDestinations,
+  replaceDestinations,
+  updateDestinations,
+} from './actions/destinationActions';
 import { createMission, updateMission } from './actions/missionActions';
 
 const routesReducer = createSlice({
@@ -51,6 +55,15 @@ const routesReducer = createSlice({
                 ...destination,
               };
             }
+          });
+        }
+      })
+      .addCase(replaceDestinations, (state, action) => {
+        const newDestinations = action.payload;
+        if (newDestinations) {
+          state.destinations = {};
+          newDestinations.forEach((destination) => {
+            state.destinations[destination.id] = destination;
           });
         }
       });

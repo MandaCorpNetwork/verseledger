@@ -35,7 +35,7 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({ destinations }) 
   return (
     <Box
       data-testid="RouteTool-RouteViewer__DestinationQue_Container"
-      sx={{ flexGrow: '1', display: 'flex' }}
+      sx={{ flexGrow: '1', display: 'flex', height: '90%' }}
     >
       <DigiBox></DigiBox>
       <DigiBox

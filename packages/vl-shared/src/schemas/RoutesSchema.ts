@@ -39,17 +39,3 @@ export const DestinationSchema = z.object({
 });
 
 export type IDestination = z.infer<typeof DestinationSchema>;
-
-export const GroupedDestinationsSchema = z.object({
-  parent: LocationSchema,
-  destinations: z.array(DestinationSchema),
-});
-
-export type IGroupedDestinations = z.infer<typeof GroupedDestinationsSchema>;
-
-export const GroupedLocationSchema = z.object({
-  parent: LocationSchema,
-  location: LocationSchema,
-});
-
-export type IGroupedLocation = z.infer<typeof GroupedLocationSchema>;

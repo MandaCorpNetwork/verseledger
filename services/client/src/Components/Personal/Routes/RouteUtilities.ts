@@ -225,6 +225,7 @@ export function getEfficentDistancePath(
   maxLoad: number,
   existingLoad: number,
 ): IDestination[] {
+  const foundUserLocation = Boolean(userLocation && userLocation.id);
   // *Initial Values*
   // The Constructed Path to be built from Destinations
   const constructedPath: IDestination[] = [];
@@ -247,7 +248,7 @@ export function getEfficentDistancePath(
       })),
   );
   // Initialize the Start Location
-  const startLocation = userLocation || pickups[0].location;
+  const startLocation = foundUserLocation ? userLocation : pickups[0].location;
   // Unique Locations Check
   const uniqueLocations = new Set<string>();
   missions.forEach((mission) => {
@@ -256,7 +257,7 @@ export function getEfficentDistancePath(
       uniqueLocations.add(obj.dropOff.id);
     });
   });
-  if (userLocation) {
+  if (foundUserLocation && userLocation) {
     uniqueLocations.add(userLocation.id);
   }
   // The Total amount of Locations to be visited
@@ -283,7 +284,7 @@ export function getEfficentDistancePath(
     ),
   );
   // Push Start Location Id to locationIds for the Pathing Matrix
-  if (userLocation && !locationIds.includes(userLocation.id)) {
+  if (foundUserLocation && userLocation && !locationIds.includes(userLocation.id)) {
     locationIds.push(userLocation.id);
   }
 
@@ -318,81 +319,132 @@ export function getEfficentDistancePath(
 
   // **Construct Path**
   // Push the Start Location to the Constructed Path Array
-  if (userLocation) {
+  if (userLocation && userLocation.id) {
     constructedPath.push(createStartDestination(userLocation));
   }
 
   // Set the currentLocation for the Path
   let currentLocation = startLocation;
-  let currentLocationIndex = locationIds.indexOf(currentLocation.id);
+  let currentLocationIndex = locationIds.indexOf(currentLocation!.id);
+  // Track Picked Up Packages
   const pickedUpPackages: IObjective[] = [];
+  // Track Dropped Packages
+  const droppedPackages: IObjective[] = [];
+  // Track objectives by package ID to mark them as picked up or dropped off
   const assignedObjectives = new Set<number>();
+  // Track visited locations by index
+  const visitedLocations = new Set<number>();
 
-  while (assignedObjectives.size < totalStops) {
-    //Find the Objectives Related to the current Location.
-    const availablePickups = pickups
-      .filter((obj) => obj.location.id === currentLocation.id)
-      .map((obj) => obj.objective);
-    const availableDropOffs = dropOffs
-      .filter((obj) => obj.location.id === currentLocation.id)
-      .map((obj) => obj.objective);
+  console.log('Initial State:', {
+    'Total Locations': totalLocations,
+    'Total Stops': totalStops,
+    'Constructed Path': constructedPath,
+    'Current Load': currentLoad,
+    'Start Location': currentLocation,
+    'Start Location Index': currentLocationIndex,
+  });
 
-    //Initialize Objectives to pass to new Destination
-    const tempObjectives: IObjective[] = [];
-
-    // Validate DropOffs
-    const validDrops = availableDropOffs.filter((obj) => {
-      const valid = validateDropOff(pickedUpPackages, obj);
-      if (valid) {
-        currentLoad -= obj.scu ?? 0;
-        return true;
-      } else {
-        return false;
-      }
+  while (visitedLocations.size < totalStops) {
+    console.log('Current Loop State:', {
+      'Current Location': currentLocation,
+      'Current Location Index': currentLocationIndex,
+      'Current Load': currentLoad,
+      AssignedObjectives: Array.from(assignedObjectives),
     });
-    tempObjectives.push(...validDrops);
-
-    // Validate Pickups
-    const validPickups = validateCapacity(maxLoad, currentLoad, availablePickups);
-    tempObjectives.push(...validPickups);
-    pickedUpPackages.push(...validPickups);
-
-    const pickedLoad = validPickups.reduce((acc, obj) => acc + (obj.scu ?? 0), 0);
-
-    if (tempObjectives.length > 0) {
-      // Push the Current Destination to constructedPath
-      constructedPath.push(createMissionDestination(currentLocation, tempObjectives));
-      tempObjectives.forEach((obj) => assignedObjectives.add(obj.packageId));
-      currentLoad += pickedLoad;
+    if (currentLocationIndex === -1) {
+      console.error('Start Location not found in Location Ids Array');
+      return [];
     }
+    if (currentLocation != null) {
+      //Find the Objectives Related to the current Location.
+      const availablePickups = pickups
+        .filter(
+          (obj) =>
+            obj.location.id === currentLocation!.id &&
+            !pickedUpPackages.some(
+              (picked) => picked.packageId === obj.objective.packageId,
+            ),
+        )
+        .map((obj) => obj.objective);
+      const availableDropOffs = dropOffs
+        .filter(
+          (obj) =>
+            obj.location.id === currentLocation!.id &&
+            !droppedPackages.some(
+              (picked) => picked.packageId === obj.objective.packageId,
+            ),
+        )
+        .map((obj) => obj.objective);
 
-    // Find Next Location
-    let nextLocation: number | null = null;
-    let minDistance = Infinity;
+      //Initialize Objectives to pass to new Destination
+      const tempObjectives: IObjective[] = [];
 
-    for (let i = 0; i < totalStops; i++) {
-      if (
-        !assignedObjectives.has(i) &&
-        distMatrix[currentLocationIndex][i] < minDistance
-      ) {
-        minDistance = distMatrix[currentLocationIndex][i];
-        nextLocation = i;
+      // Validate DropOffs
+      const validDrops = availableDropOffs.filter((obj) => {
+        const valid = validateDropOff(pickedUpPackages, obj);
+        if (valid) {
+          currentLoad -= obj.scu ?? 0;
+          return true;
+        } else {
+          return false;
+        }
+      });
+      tempObjectives.push(...validDrops);
+      droppedPackages.push(...validDrops);
+
+      // Validate Pickups
+      const validPickups = validateCapacity(maxLoad, currentLoad, availablePickups);
+      tempObjectives.push(...validPickups);
+      pickedUpPackages.push(...validPickups);
+
+      const pickedLoad = validPickups.reduce((acc, obj) => acc + (obj.scu ?? 0), 0);
+
+      if (tempObjectives.length > 0) {
+        // Push the Current Destination to constructedPath
+        constructedPath.push(createMissionDestination(currentLocation, tempObjectives));
+        tempObjectives.forEach((obj) => assignedObjectives.add(obj.packageId));
+        currentLoad += pickedLoad;
       }
-    }
 
-    // After Finding the Next Location, run Checkpoint Validation
-    if (nextLocation !== null) {
-      const nextMapped = locationTree.get(locationIds[nextLocation]);
-      if (nextMapped) {
-        const checkpoint = checkpointValidation(
-          currentLocation,
-          nextMapped.location,
-          nextMapped,
-        );
-        if (checkpoint) constructedPath.push(checkpoint);
-        currentLocation = nextMapped.location;
-        currentLocationIndex = nextLocation;
+      // Mark Current location as visited
+      visitedLocations.add(currentLocationIndex);
+
+      // Find Next Location
+      let nextLocation: number | null = null;
+      let minDistance = Infinity;
+
+      for (let i = 0; i < totalStops; i++) {
+        if (
+          !visitedLocations.has(i) &&
+          distMatrix[currentLocationIndex][i] < minDistance
+        ) {
+          minDistance = distMatrix[currentLocationIndex][i];
+          nextLocation = i;
+        }
       }
+
+      // After Finding the Next Location, run Checkpoint Validation
+      if (nextLocation !== null) {
+        const nextMapped = locationTree.get(locationIds[nextLocation]);
+        if (nextMapped) {
+          const checkpoint = checkpointValidation(
+            currentLocation,
+            nextMapped.location,
+            nextMapped,
+          );
+          if (checkpoint) constructedPath.push(checkpoint);
+
+          //Update Current Location
+          currentLocation = nextMapped.location;
+          currentLocationIndex = nextLocation;
+        }
+      } else {
+        console.log('No Next Location Found, ending Loop...');
+        break;
+      }
+    } else {
+      console.log('Current Location became null unexpectedly, exiting loop');
+      break;
     }
   }
 

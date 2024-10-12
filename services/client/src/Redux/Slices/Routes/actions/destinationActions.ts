@@ -6,3 +6,7 @@ export const addDestinations = createAction<IDestination[]>('routes/addDestinati
 export const updateDestinations = createAction<IDestination[]>(
   'routes/updateDestinations',
 );
+
+export const replaceDestinations = createAction<IDestination[]>(
+  'routes/replaceDestinations',
+);
