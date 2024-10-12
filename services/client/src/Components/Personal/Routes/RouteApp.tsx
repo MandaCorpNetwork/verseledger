@@ -16,45 +16,21 @@ import { isDev } from '@Utils/isDev';
 import React from 'react';
 import { IMission } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { DestinationQue } from './DestinationQue';
 import { Mission } from './Mission';
 import { NextDestination } from './NextDestination';
 
 export const RouteApp: React.FC<unknown> = () => {
-  const dev = isDev();
   const dispatch = useAppDispatch();
 
   const missions = useAppSelector(selectMissions);
 
   const destinations = useAppSelector(selectDestinations);
 
-  const userLocation = useAppSelector(selectUserLocation);
-
   const handleAddMission = React.useCallback(() => {
     dispatch(openPopup(POPUP_CREATE_MISSION));
   }, [dispatch]);
 
   //Fetch All Locations
-  React.useEffect(() => {
-    dispatch(fetchLocations());
-  }, [dispatch]);
-
-  const locations = useAppSelector(selectLocationsArray);
-
-  const locationTree = React.useMemo(() => {
-    return binaryLocationTree(locations);
-  }, [locations]);
-
-  const evaluateDistanceRoute = React.useCallback(() => {
-    const route = getEfficentDistancePath(
-      missions,
-      userLocation ?? null,
-      locationTree,
-      200,
-      0,
-    );
-    dispatch(replaceDestinations(route));
-  }, [missions, userLocation, locationTree, dispatch]);
   return (
     <Box
       data-testid="RouteTool__AppContainer"
@@ -68,22 +44,7 @@ export const RouteApp: React.FC<unknown> = () => {
       }}
     >
       <RouteViewer destinations={destinations} />
-      <GlassBox
-        data-testid="RouteTool__DestinationList__Wrapper"
-        sx={{ p: '1em', gap: '1em' }}
-      >
-        <Typography
-          data-testid="RouteTool__DestinationList_Title"
-          variant="h5"
-          sx={{ justifyContent: 'space-between', display: 'inline-flex' }}
-        >
-          Destinations
-          <Button variant="popupButton" onClick={() => evaluateDistanceRoute()}>
-            Calculate Route
-          </Button>
-        </Typography>
-        <DestinationQue destinations={destinations} />
-      </GlassBox>
+      <DestinationQue destinations={destinations} missions={missions} />
       <GlassBox
         data-testid="RouteTool__MissionViewer_Container"
         sx={{ p: '1em', gap: '1em', overflow: 'hidden', height: '100%' }}

@@ -21,7 +21,7 @@ import {
 } from '@Redux/Slices/Routes/actions/destinationActions';
 import { createMission } from '@Redux/Slices/Routes/actions/missionActions';
 import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
-import { enqueueSnackbar } from 'notistack';
+import { numericalFilter } from '@Utils/numericFilter';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
@@ -54,22 +54,13 @@ export const AddMissionPopup: React.FC = () => {
     [dispatch],
   );
 
-  const numericFilter = React.useCallback((value: string) => {
-    const filteredValue = value.replace(/[^0-9]/g, ''); // Allow only digits
-    if (value !== filteredValue) {
-      enqueueSnackbar('Please only use Numbers', { variant: 'error' });
-    }
-    return filteredValue; // Return filtered value
-  }, []);
-
   const handleObjectiveChange = React.useCallback(
     (index: number, field: keyof Objective, value: string | number | ILocation) => {
       if ((field === 'scu' || field === 'packageId') && typeof value === 'string') {
-        const filteredValue = numericFilter(value);
-        const numericValue = filteredValue ? Number(filteredValue) : null;
+        const filteredValue = numericalFilter(value);
         setObjectives((prevObjectives) =>
           prevObjectives.map((obj, i) =>
-            i === index ? { ...obj, [field]: numericValue } : obj,
+            i === index ? { ...obj, [field]: filteredValue } : obj,
           ),
         );
         return;
@@ -78,7 +69,7 @@ export const AddMissionPopup: React.FC = () => {
         prevObjectives.map((obj, i) => (i === index ? { ...obj, [field]: value } : obj)),
       );
     },
-    [setObjectives, numericFilter],
+    [setObjectives],
   );
 
   const handleAddObjective = React.useCallback(() => {
@@ -156,9 +147,7 @@ export const AddMissionPopup: React.FC = () => {
           color="secondary"
           required
           value={missionId !== null ? missionId.toString() : ''}
-          onChange={(e) =>
-            setMissionId(Number(numericFilter(e.currentTarget.value)) || null)
-          }
+          onChange={(e) => setMissionId(numericalFilter(e.currentTarget.value))}
           sx={{
             maxWidth: '150px',
             mb: '.5em',

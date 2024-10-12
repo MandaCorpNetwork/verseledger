@@ -134,7 +134,7 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({ destinations }) => {
       )}
       {(destinations.length === 0 || destinations == null) && (
         <Typography
-          variant="h5"
+          variant="h4"
           sx={{
             textAlign: 'center',
             width: '100%',
@@ -143,7 +143,7 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({ destinations }) => {
             mt: '5em',
           }}
         >
-          No Destinations
+          No Routes
         </Typography>
       )}
     </GlassBox>
