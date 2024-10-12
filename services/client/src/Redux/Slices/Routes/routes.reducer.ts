@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IDestination, IMission } from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination, IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
 
 import {
   addDestinations,
@@ -7,7 +7,7 @@ import {
   replaceDestinations,
   updateDestinations,
 } from './actions/destinationActions';
-import { createMission, updateMission } from './actions/missionActions';
+import { abandonMission, createMission, updateMission } from './actions/missionActions';
 import { updateObjective } from './actions/objectiveActions';
 
 const routesReducer = createSlice({
@@ -103,6 +103,37 @@ const routesReducer = createSlice({
         const destinationId = action.payload;
 
         delete state.destinations[destinationId];
+      })
+      .addCase(abandonMission, (state, action) => {
+        const abandonedMission = action.payload;
+
+        delete state.missions[abandonedMission.missionId];
+
+        const filteredDestinationsArray = Object.values(state.destinations).filter(
+          (destination) => {
+            if (Array.isArray(destination.objectives)) {
+              destination.objectives = destination.objectives.filter(
+                (objective: IObjective) =>
+                  !abandonedMission.objectives.some(
+                    (abandoned) => abandoned.packageId === objective.packageId,
+                  ),
+              );
+              if (
+                destination.reason === 'Mission' &&
+                (!destination.objectives || destination.objectives.length === 0)
+              ) {
+                return false;
+              }
+              return true;
+            }
+          },
+        );
+        state.destinations = filteredDestinationsArray.reduce<
+          Record<string, IDestination>
+        >((acc, destination) => {
+          acc[destination.id] = destination;
+          return acc;
+        }, {});
       });
   },
 });

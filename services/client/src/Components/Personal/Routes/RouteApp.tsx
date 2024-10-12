@@ -3,16 +3,11 @@ import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_CREATE_MISSION } from '@Popups/Mission/AddMission';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
-import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations';
-import { selectLocationsArray } from '@Redux/Slices/Locations/locationSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { replaceDestinations } from '@Redux/Slices/Routes/actions/destinationActions';
 import {
   selectDestinations,
   selectMissions,
 } from '@Redux/Slices/Routes/routes.selectors';
-import { isDev } from '@Utils/isDev';
 import React from 'react';
 import { IMission } from 'vl-shared/src/schemas/RoutesSchema';
 
@@ -70,10 +65,24 @@ export const RouteApp: React.FC<unknown> = () => {
             Add Mission
           </Button>
         </Box>
-        <GlassDisplay sx={{ height: '90%', overflow: 'auto', gap: '1em' }}>
+        <GlassDisplay sx={{ height: '90%', overflow: 'auto', gap: '1em', p: '.5em' }}>
           {missions.map((mission: IMission) => (
             <Mission key={mission.missionId} mission={mission} />
           ))}
+          {missions.length === 0 && (
+            <Typography
+              variant="h6"
+              sx={{
+                textAlign: 'center',
+                width: '100%',
+                color: 'grey',
+                textShadow: '0 0 3px rgb(0,0,0), 0 0 10px rgba(0,0,0,.7)',
+                mt: '5em',
+              }}
+            >
+              Add A Mission To Begin
+            </Typography>
+          )}
         </GlassDisplay>
       </GlassBox>
     </Box>
