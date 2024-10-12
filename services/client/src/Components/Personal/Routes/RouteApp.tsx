@@ -11,8 +11,9 @@ import {
 import React from 'react';
 import { IMission } from 'vl-shared/src/schemas/RoutesSchema';
 
+import { DestinationQue } from './DestinationQue/DestinationQue';
 import { Mission } from './Mission';
-import { NextDestination } from './NextDestination';
+import { RouteViewer } from './RouteViewer/RouteViewer';
 
 export const RouteApp: React.FC<unknown> = () => {
   const dispatch = useAppDispatch();
