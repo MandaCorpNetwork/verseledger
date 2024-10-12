@@ -3,10 +3,12 @@ import { IDestination, IMission } from 'vl-shared/src/schemas/RoutesSchema';
 
 import {
   addDestinations,
+  deleteDestination,
   replaceDestinations,
   updateDestinations,
 } from './actions/destinationActions';
 import { createMission, updateMission } from './actions/missionActions';
+import { updateObjective } from './actions/objectiveActions';
 
 const routesReducer = createSlice({
   name: 'routes',
@@ -66,6 +68,41 @@ const routesReducer = createSlice({
             state.destinations[destination.id] = destination;
           });
         }
+      })
+      .addCase(updateObjective, (state, action) => {
+        const updatedObjective = action.payload.objective;
+        const missionId = action.payload.missionId;
+        const destinationId = action.payload.destinationId;
+
+        const mission = state.missions[missionId];
+        if (mission) {
+          const objectiveIndex = mission.objectives.findIndex(
+            (obj) => obj.packageId === updatedObjective.packageId,
+          );
+          if (objectiveIndex !== -1) {
+            mission.objectives[objectiveIndex] = {
+              ...updatedObjective,
+            };
+          }
+        }
+        const destination = state.destinations[destinationId];
+        if (destination) {
+          if (destination.objectives) {
+            const objectiveIndex = destination.objectives?.findIndex(
+              (obj) => obj.packageId === updatedObjective.packageId,
+            );
+            if (objectiveIndex !== -1) {
+              destination.objectives[objectiveIndex] = {
+                ...updatedObjective,
+              };
+            }
+          }
+        }
+      })
+      .addCase(deleteDestination, (state, action) => {
+        const destinationId = action.payload;
+
+        delete state.destinations[destinationId];
       });
   },
 });

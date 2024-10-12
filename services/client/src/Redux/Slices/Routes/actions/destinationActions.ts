@@ -10,3 +10,5 @@ export const updateDestinations = createAction<IDestination[]>(
 export const replaceDestinations = createAction<IDestination[]>(
   'routes/replaceDestinations',
 );
+
+export const deleteDestination = createAction<string>('routes/deleteDestination');

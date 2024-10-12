@@ -1,4 +1,3 @@
-import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { Box, Button, Typography } from '@mui/material';
@@ -8,20 +7,15 @@ import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations';
 import { selectLocationsArray } from '@Redux/Slices/Locations/locationSelectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import {
-  addDestinations,
-  replaceDestinations,
-  updateDestinations,
-} from '@Redux/Slices/Routes/actions/destinationActions';
+import { replaceDestinations } from '@Redux/Slices/Routes/actions/destinationActions';
 import {
   selectDestinations,
   selectMissions,
 } from '@Redux/Slices/Routes/routes.selectors';
 import { isDev } from '@Utils/isDev';
 import React from 'react';
-import { IDestination, IMission } from 'vl-shared/src/schemas/RoutesSchema';
+import { IMission } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { CurrentDestination } from './CurrentDestination';
 import { DestinationQue } from './DestinationQue';
 import { Mission } from './Mission';
 import { NextDestination } from './NextDestination';
@@ -73,40 +67,7 @@ export const RouteApp: React.FC<unknown> = () => {
         position: 'relative',
       }}
     >
-      <GlassBox
-        data-testid="RouteTool__RouteViewer_Container"
-        sx={{ p: '1em', gap: '1em' }}
-      >
-        {!dev && <InDevOverlay />}
-        <Box
-          data-testid="RouteTool-RouteViewer__Title_Wrapper"
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '1em',
-          }}
-        >
-          <Typography data-testid="RouteTool-RouteViewer__Title" variant="h5">
-            Route Viewer
-          </Typography>
-          <Button
-            data-testid="RouteTool-RouteViewer__OpenWidget__Button"
-            variant="popupButton"
-          >
-            Open Widget
-          </Button>
-          <Button
-            data-testid="RouteTool-RouteViewer__AddStop__Button"
-            variant="popupButton"
-          >
-            Add Stop
-          </Button>
-        </Box>
-        <CurrentDestination />
-        <NextDestination />
-      </GlassBox>
+      <RouteViewer destinations={destinations} />
       <GlassBox
         data-testid="RouteTool__DestinationList__Wrapper"
         sx={{ p: '1em', gap: '1em' }}
