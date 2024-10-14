@@ -84,35 +84,34 @@ export class ContractDTO extends DTOBase<IContract> implements IContract {
     description: 'TODO',
     type: 'string',
     required: true,
-    example: 123456789,
+    example: new Date(new Date().setFullYear(2954)),
   })
   bidDate!: Date;
 
   @ApiModelProperty({
     description: 'TODO',
     required: true,
-    example: 123456789,
   })
   Locations!: ILocation[];
 
   @ApiModelProperty({
     description: 'TODO',
     required: true,
-    example: 123456789,
+    example: 'This is a Briefing',
   })
   briefing!: string;
 
   @ApiModelProperty({
     description: 'TODO',
     required: true,
-    example: 123456789,
+    example: 5,
   })
   contractorLimit!: number;
 
   @ApiModelProperty({
     description: 'TODO',
     required: true,
-    example: 123456789,
+    example: 20_000,
   })
   defaultPay!: number;
 
@@ -120,42 +119,42 @@ export class ContractDTO extends DTOBase<IContract> implements IContract {
     description: 'TODO',
     type: 'string',
     required: true,
-    example: 123456789,
+    example: new Date(new Date().setFullYear(2954)),
   })
   endDate!: Date;
 
   @ApiModelProperty({
     description: 'TODO',
     required: true,
-    example: 123456789,
+    example: true,
   })
   isBargaining!: boolean;
 
   @ApiModelProperty({
     description: 'TODO',
     required: true,
-    example: 123456789,
+    example: false,
   })
   isBonusPay!: boolean;
 
   @ApiModelProperty({
     description: 'TODO',
     required: true,
-    example: 123456789,
+    example: false,
   })
   isEmergency!: boolean;
 
   @ApiModelProperty({
     description: 'TODO',
     required: true,
-    example: 123456789,
+    example: 'FLAT_RATE',
   })
   payStructure!: IContractPayStructure;
 
   @ApiModelProperty({
     description: 'TODO',
     required: true,
-    example: 123456789,
+    example: 0.6,
   })
   ratingLimit!: number;
 
@@ -163,14 +162,14 @@ export class ContractDTO extends DTOBase<IContract> implements IContract {
     description: 'TODO',
     required: true,
     type: 'string',
-    example: 123456789,
+    example: new Date(new Date().setFullYear(2954)),
   })
   startDate!: Date;
 
   @ApiModelProperty({
     description: 'TODO',
     required: true,
-    example: 123456789,
+    example: 'PENDING',
   })
   status!: string;
 }
