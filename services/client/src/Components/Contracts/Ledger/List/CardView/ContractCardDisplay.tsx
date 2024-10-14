@@ -1,9 +1,8 @@
+import { ContractCard } from '@Components/Contracts/Ledger/List/CardView/ContractCard';
 import { Box, TablePagination } from '@mui/material';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
-
-import { ContractCard } from '@/Components/Contracts/Ledger/List/CardView/ContractCard';
 
 type ContractCardDisplayProps = {
   onPick: (id: string | null) => void;

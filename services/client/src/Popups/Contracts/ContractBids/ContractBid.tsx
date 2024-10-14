@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
@@ -7,18 +8,16 @@ import { Box, Divider, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
-import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
-import { postContractBid } from '@Redux/Slices/Contracts/actions/post/postContractBid';
+import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
+import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid.action';
+import { postContractBid } from '@Redux/Slices/Contracts/actions/post/postContractBid.action';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser';
+import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser.action';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 import { BidTimeRemaining } from './BidTimeRemaining';
 import { NegotiateBid } from './NegotiateBid';

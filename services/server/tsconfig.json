@@ -25,8 +25,12 @@
     /* Pathing */
     "baseUrl": "./src/",
     "paths": {
+      "@AuthProviders/*": ["./authProviders/*"],
       "@Constant/*": ["./constant/*"],
+      "@Configs/*": ["./configs/*"],
+      "@Infrastructure/*": ["./infrastructure/*"],
       "@V1/*": ["./v1/*"],
+      "@Utils/*": ["./utils/*"],
       "@/*": ["./*"]
     }
   },

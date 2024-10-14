@@ -1,4 +1,4 @@
-import { VLAuthPrincipal } from '@/authProviders/VL.principal';
+import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
 import { UnauthorizedError } from '@V1/errors/UnauthorizedError';
 import { NotVerifiedError } from '@V1/errors/NotVerifiedError';
 import { User } from '@V1/models/user/user.model';

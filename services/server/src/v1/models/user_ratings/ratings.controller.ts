@@ -1,8 +1,8 @@
-import { VLAuthPrincipal } from '@/authProviders/VL.principal';
+import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
 import { RatingDTO } from './mapping/UserRatingDTO';
-import { IdUtil } from '@/utils/IdUtil';
-import { Logger } from '@/utils/Logger';
-import { ZodToOpenapi } from '@/utils/ZodToOpenapi';
+import { IdUtil } from '@Utils/IdUtil';
+import { Logger } from '@Utils/Logger';
+import { ZodToOpenapi } from '@Utils/ZodToOpenapi';
 import { TYPES } from '@Constant/types';
 import { BadParameterError } from '@V1/errors/BadParameter';
 import { BadRequestError } from '@V1/errors/BadRequest';
@@ -24,8 +24,8 @@ import {
   ICreateContractRatingsBody,
   IUserRating,
 } from 'vl-shared/src/schemas/UserRatingsSchema';
-import { ContractService } from '../contract/contract.service';
-import { UserRepository } from '../user/user.repository';
+import { ContractService } from '@V1/models/contract/contract.service';
+import { UserRepository } from '@V1/models/user/user.repository';
 
 @ApiPath({
   path: '/v1/ratings',

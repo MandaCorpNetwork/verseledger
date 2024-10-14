@@ -1,3 +1,5 @@
+import { useSoundEffect } from '@Audio/AudioManager';
+import { AppbarListItem } from '@Common/Components/Lists/AppbarListItem';
 import { Clear } from '@mui/icons-material';
 import {
   Box,
@@ -13,17 +15,13 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotifications';
-import { selectNotificationsArray } from '@Redux/Slices/Notifications/notificationSelectors';
+import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotifications.action';
+import { selectNotificationsArray } from '@Redux/Slices/Notifications/notifications.selectors';
 import useNotification from '@Utils/Hooks/notificationHandler';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
-
-import { useSoundEffect } from '@/AudioManager';
-
-import { AppbarListItem } from '../Lists/AppbarListItem';
 
 export const NotificationsBox: React.FC = () => {
   const notifications = useAppSelector(selectNotificationsArray);

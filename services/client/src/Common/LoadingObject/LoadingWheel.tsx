@@ -1,7 +1,6 @@
 import VLLogo from '@Assets/media/VerseLogos/verselogo-0.png?url';
 import { Box, CircularProgress, SxProps } from '@mui/material';
-
-import type { verseOSTheme } from '../../Themes/VerseOS';
+import type { verseOSTheme } from '@Themes/VerseOS';
 
 type LoadingWheelProps = {
   testid?: string;

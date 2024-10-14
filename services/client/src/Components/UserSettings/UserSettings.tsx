@@ -1,5 +1,6 @@
 import '@Assets/Css/ripple.css';
 
+import { useSoundEffect } from '@Audio/AudioManager';
 import { DepressedListButton } from '@Common/Components/Lists/DepressedListButton';
 import { Close } from '@mui/icons-material';
 import {
@@ -16,8 +17,6 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-
-import { useSoundEffect } from '@/AudioManager';
 
 import { ApplicationSettings } from './Application';
 import { DeveloperSettings } from './DeveloperSettings';

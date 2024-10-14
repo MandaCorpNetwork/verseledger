@@ -6,9 +6,9 @@ import {
   deleteDestination,
   replaceDestinations,
   updateDestinations,
-} from './actions/destinationActions';
-import { abandonMission, createMission, updateMission } from './actions/missionActions';
-import { updateObjective } from './actions/objectiveActions';
+} from './actions/destination.action';
+import { abandonMission, createMission, updateMission } from './actions/mission.action';
+import { updateObjective } from './actions/objective.action';
 
 const routesReducer = createSlice({
   name: 'routes',

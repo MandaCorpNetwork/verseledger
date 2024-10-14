@@ -24,12 +24,17 @@
     "baseUrl": "./src/",
     "paths": {
       "@Assets/*": ["./Assets/*"],
-      "@Backend/*": ["../../verseledger-backend/src/*"],
+      "@Audio/*": ["./Audio/*"],
       "@Common/*": ["./Common/*"],
+      "@Components/*": ["./Components/*"],
+      "@Definitions/*": ["./Common/Definitions/*"],
       "@Popups/*": ["./Popups/*"],
       "@Redux/*": ["./Redux/*"],
       "@Routes/*": ["./Routes/*"],
+      "@Services/*": ["./Services/*"],
+      "@Themes/*": ["./Themes/*"],
       "@Utils/*": ["./Utils/*"],
+      "@Widgets/*": ["./Widgets/*"],
       "@store": ["./Redux/store"],
       "@/*": ["./*"]
     }

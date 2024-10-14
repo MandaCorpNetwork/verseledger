@@ -9,7 +9,7 @@
  * @prop {string}label - This is the title of the image that will be displayed in the User Settings.
  * @author ThreeCrown
  */
-import BackdropLogo from '@/Assets/media/VerseLogos/LogoBackdrop.png?url';
+import BackdropLogo from '@Assets/media/VerseLogos/LogoBackdrop.png?url';
 
 type UserBackground = {
   value: string;

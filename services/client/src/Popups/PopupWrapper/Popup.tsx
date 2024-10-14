@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { Close } from '@mui/icons-material';
 import {
   Button,
@@ -10,8 +11,6 @@ import {
 import { useAppDispatch } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { PropsWithChildren, useCallback } from 'react';
-
-import { useSoundEffect } from '@/AudioManager';
 
 type VLPopupProps = PropsWithChildren<{
   minWidth?: string;

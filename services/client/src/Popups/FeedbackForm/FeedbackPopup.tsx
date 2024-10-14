@@ -4,7 +4,7 @@ import { GitHub } from '@mui/icons-material';
 import { Box, IconButton } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
+import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { IFeedbackForm } from 'vl-shared/src/schemas/FeedbackFormSchema';

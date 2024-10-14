@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
@@ -6,7 +7,7 @@ import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { Box, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
-import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
+import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid.action';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { enqueueSnackbar } from 'notistack';
 import React, { useCallback } from 'react';
@@ -14,8 +15,6 @@ import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 export const POPUP_COUNTER_OFFER_BID = 'counterOfferBid';
 

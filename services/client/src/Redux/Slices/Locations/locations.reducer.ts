@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
-import { fetchLocations } from './actions/fetchLocations';
-import { fetchSearchedLocations } from './actions/fetchSearchedLocations';
+import { fetchLocations } from './actions/fetchLocations.action';
+import { fetchSearchedLocations } from './actions/fetchSearchedLocations.action';
 const locationsReducer = createSlice({
   name: 'locations',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

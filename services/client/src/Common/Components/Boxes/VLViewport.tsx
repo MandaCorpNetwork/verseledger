@@ -1,6 +1,5 @@
+import BackdropLogo from '@Assets/media/VerseLogos/LogoBackdrop.png?url';
 import { Box, styled } from '@mui/material';
-
-import BackdropLogo from '@/Assets/media/VerseLogos/LogoBackdrop.png?url';
 
 export const VLViewport = styled(Box)({
   width: '100vw',

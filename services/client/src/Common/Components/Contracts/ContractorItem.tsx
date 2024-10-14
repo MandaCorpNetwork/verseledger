@@ -1,3 +1,5 @@
+import { useSoundEffect } from '@Audio/AudioManager';
+import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { UserChip } from '@Common/Components/Chips/UserChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
@@ -5,7 +7,7 @@ import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_COUNTER_OFFER_BID } from '@Popups/Contracts/ContractBids/CounterOffer';
 import { useAppDispatch } from '@Redux/hooks';
-import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
+import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid.action';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
@@ -13,10 +15,6 @@ import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
-
-import { useSoundEffect } from '@/AudioManager';
-
-import { RatingDisplay } from '../App/RatingDisplay';
 
 type ContractorProps = {
   bid: IContractBid | null;

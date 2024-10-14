@@ -13,10 +13,10 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
-import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations';
-import { selectLocationsArray } from '@Redux/Slices/Locations/locationSelectors';
-import { replaceDestinations } from '@Redux/Slices/Routes/actions/destinationActions';
+import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
+import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.action';
+import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
+import { replaceDestinations } from '@Redux/Slices/Routes/actions/destination.action';
 import { numericalFilter } from '@Utils/numericFilter';
 import React from 'react';
 import { IDestination, IMission } from 'vl-shared/src/schemas/RoutesSchema';

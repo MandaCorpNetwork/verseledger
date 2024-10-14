@@ -1,5 +1,6 @@
 import construction from '@Assets/media/Construction.webm';
 import PallyLogo from '@Assets/media/MenuPage/PallyLogo.png?url';
+import { Discord, KoFi, Patreon } from '@Definitions/CustomIcons';
 import { Close } from '@mui/icons-material';
 import {
   Box,
@@ -10,8 +11,6 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-
-import { Discord, KoFi, Patreon } from '../../Definitions/CustomIcons';
 
 type UnderConstructionProps = {
   isOpen: boolean;

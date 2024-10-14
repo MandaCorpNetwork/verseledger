@@ -20,13 +20,13 @@ import {
 } from 'swagger-express-ts';
 import { NextFunction } from 'express';
 import { BadParameterError } from '@V1/errors/BadParameter';
-import { IdUtil } from '@/utils/IdUtil';
+import { IdUtil } from '@Utils/IdUtil';
 import { NotFoundError } from '@V1/errors/NotFoundError';
 import { PaginatedDataDTO } from '@V1/DTO';
 import { ContractBidDTO } from './mapping/ContractBidDTO';
 import { UnauthorizedError } from '@V1/errors/UnauthorizedError';
 import { NotModified } from '@V1/errors/NotModified';
-import { VLAuthPrincipal } from '@/authProviders/VL.principal';
+import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
 import { ContractBidStatusSchema } from 'vl-shared/src/schemas/ContractBidStatusSchema';
 import { z } from 'zod';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';

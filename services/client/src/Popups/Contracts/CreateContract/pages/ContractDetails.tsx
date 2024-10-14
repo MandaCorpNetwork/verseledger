@@ -1,5 +1,6 @@
 import '@Assets/Css/contractDetails.css';
 
+import { useSoundEffect } from '@Audio/AudioManager';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import ArchetypeListChip from '@Common/Components/Chips/ArchetypeListChip';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
@@ -24,8 +25,6 @@ import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 //Set Options to Contract Archetypes Object
 const options = contractArchetypes('secondary.main', 'large');

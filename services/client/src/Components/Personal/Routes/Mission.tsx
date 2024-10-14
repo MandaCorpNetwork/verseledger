@@ -4,7 +4,7 @@ import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { Box, Button, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
-import { abandonMission } from '@Redux/Slices/Routes/actions/missionActions';
+import { abandonMission } from '@Redux/Slices/Routes/actions/mission.action';
 import React from 'react';
 import { IMission } from 'vl-shared/src/schemas/RoutesSchema';
 

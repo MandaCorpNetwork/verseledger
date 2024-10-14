@@ -4,12 +4,12 @@ import { IDTO } from 'vl-shared/src/schemas/DTOSchema';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
 
-import { fetchCheckVerificationCode } from './Actions/checkVerificationCode';
-import { fetchCurrentUser } from './Actions/fetchCurrentUser';
-import { fetchUserSettings } from './Actions/fetchUserSettings';
-import { setUserLocation } from './Actions/setUserLocation';
-import { updateTokens } from './Actions/updateTokens';
-import { updateUserSettings } from './Actions/updateUserSettings';
+import { fetchCheckVerificationCode } from './Actions/checkVerificationCode.action';
+import { fetchCurrentUser } from './Actions/fetchCurrentUser.action';
+import { fetchUserSettings } from './Actions/fetchUserSettings.action';
+import { setUserLocation } from './Actions/setUserLocation.action';
+import { updateTokens } from './Actions/updateTokens.action';
+import { updateUserSettings } from './Actions/updateUserSettings.action';
 
 const authReducer = createSlice({
   name: 'auth',

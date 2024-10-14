@@ -1,4 +1,4 @@
-import { IdUtil } from '@/utils/IdUtil';
+import { IdUtil } from '@Utils/IdUtil';
 import {
   BelongsTo,
   Column,
@@ -8,7 +8,7 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
-import { User } from '../user/user.model';
+import { User } from '@V1/models/user/user.model';
 import {
   CreationOptional,
   InferAttributes,

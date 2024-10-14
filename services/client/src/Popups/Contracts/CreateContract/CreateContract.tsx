@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import {
   AccessTime,
   Group,
@@ -11,16 +12,14 @@ import { styled } from '@mui/material/styles';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch } from '@Redux/hooks';
-import { postContractInvite } from '@Redux/Slices/Contracts/actions/post/postContractInvite';
-import { postNewContract } from '@Redux/Slices/Contracts/actions/post/postNewContract';
+import { postContractInvite } from '@Redux/Slices/Contracts/actions/post/postContractInvite.action';
+import { postNewContract } from '@Redux/Slices/Contracts/actions/post/postNewContract.action';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useIsMobile } from '@Utils/isMobile';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React, { useCallback, useState } from 'react';
 import { IContract, ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 import { ContractDetails } from './pages/ContractDetails';
 import { Contractors } from './pages/Contractors';

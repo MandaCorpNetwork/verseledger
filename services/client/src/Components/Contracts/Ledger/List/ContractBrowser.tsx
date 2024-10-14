@@ -1,10 +1,13 @@
+import { useSoundEffect } from '@Audio/AudioManager';
+import { CardorTableViewToggle } from '@Components/Contracts/Ledger/List/Card-TableViewToggle';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, debounce } from '@mui/material';
-import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContracts.action';
 import {
   selectContractPagination,
   selectContractsArray,
-} from '@Redux/Slices/Contracts/selectors/contractSelectors';
+} from '@Redux/Slices/Contracts/contracts.selectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { useIsMobile } from '@Utils/isMobile';
 import { Logger } from '@Utils/Logger';
@@ -13,10 +16,6 @@ import React from 'react';
 import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 import { IContractSearch } from 'vl-shared/src/schemas/SearchSchema';
-
-import { useSoundEffect } from '@/AudioManager';
-import { CardorTableViewToggle } from '@/Components/Contracts/Ledger/List/Card-TableViewToggle';
-import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
 
 import { ContractCardDisplay } from './CardView/ContractCardDisplay';
 import { ContractTableView } from './TableView/ContractTableView';

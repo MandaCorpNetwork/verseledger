@@ -1,8 +1,7 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { ArrowBackIosNew } from '@mui/icons-material';
 import { Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
-import { useSoundEffect } from '@/AudioManager';
 
 type MobileOrTabletReturnProps = {
   opacity: number;

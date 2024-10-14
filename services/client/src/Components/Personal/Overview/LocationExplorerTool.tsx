@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { LocationSearch } from '@Common/Components/App/LocationSearch';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
@@ -15,15 +16,13 @@ import {
 } from '@mui/material';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation';
-import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
+import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation.action';
+import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 // import { Gauge, gaugeClasses } from '@mui/x-charts';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 type LocationExplorerToolProps = {
   selectedLocation: ILocation | null;

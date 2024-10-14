@@ -1,13 +1,14 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { UserRatingField } from '@Common/Components/Custom/UserRatingField';
 import { Divider, FormControl, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
+import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { postNewContractRating } from '@Redux/Slices/Users/Actions/postContractRating';
-import { selectUserById } from '@Redux/Slices/Users/userSelectors';
+import { postNewContractRating } from '@Redux/Slices/Users/Actions/postContractRating.action';
+import { selectUserById } from '@Redux/Slices/Users/users.selectors';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
@@ -17,8 +18,6 @@ import {
   ICreateUserRatingBody,
 } from 'vl-shared/src/schemas/UserRatingsSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 export const POPUP_SUBMIT_RATING = 'submitRating';
 

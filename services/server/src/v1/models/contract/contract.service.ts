@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { Contract } from '@V1/models/contract/contract.model';
 import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
-import { TYPES } from '@/constant/types';
+import { TYPES } from '@Constant/types';
 import { Location } from '@V1/models/location/location.model';
 import { ContractLocation } from '@V1/models/contract/contract_locations.model';
 import { Op } from 'sequelize';
@@ -14,12 +14,12 @@ import {
   queryBelow,
   queryBetween,
   queryIn,
-} from '@/utils/Sequelize/queryIn';
-import { Logger } from '@/utils/Logger';
+} from '@Utils/Sequelize/queryIn';
+import { Logger } from '@Utils/Logger';
 import { ContractToContractDTOMapper } from './mapping/contract.mapper';
 import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { StompService } from '@V1/services/stomp.service';
-import { NotificationService } from '../notifications/notification.service';
+import { NotificationService } from '@V1/models/notifications/notification.service';
 
 const recievingBidStatus = new Set(['WITHDRAWN', 'DISMISSED', 'ACCEPTED']);
 const statusIgnore = new Set(['COMPLETED', 'CANCELED']);

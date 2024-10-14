@@ -2,11 +2,10 @@
 import './ContractLedgerLoopButton.css';
 
 import { Button, SxProps, Typography } from '@mui/material';
+import type { verseOSTheme } from '@Themes/VerseOS';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useMemo, useState } from 'react';
-
-import type { verseOSTheme } from '@/Themes/VerseOS';
 
 type ContractLedgerLoopButtonProps = {
   title: string;

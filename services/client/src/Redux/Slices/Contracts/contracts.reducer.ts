@@ -3,10 +3,10 @@ import { Logger } from '@Utils/Logger';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { IPaginatedDataSlice } from 'vl-shared/src/schemas/IPaginatedData';
 
-import { updateBid } from '../Bids/Actions/updateBid';
-import { fetchContracts } from './actions/fetch/fetchContracts';
-import { postContractInvite } from './actions/post/postContractInvite';
-import { updateContract } from './actions/post/updateContract';
+import { updateBid } from '../Bids/Actions/updateBid.action';
+import { fetchContracts } from './actions/get/fetchContracts.action';
+import { updateContract } from './actions/patch/updateContract.action';
+import { postContractInvite } from './actions/post/postContractInvite.action';
 
 const contractsReducer = createSlice({
   name: 'contracts',

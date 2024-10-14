@@ -1,4 +1,4 @@
-import { Logger } from '@/utils/Logger';
+import { Logger } from '@Utils/Logger';
 import { Sequelize } from 'sequelize-typescript';
 import chalk from 'chalk';
 

@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { soundEffectPacks } from '@Common/Definitions/SoundEffectOptions';
@@ -12,13 +13,11 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
-import { updateUserSettings } from '@Redux/Slices/Auth/Actions/updateUserSettings';
+import { updateUserSettings } from '@Redux/Slices/Auth/Actions/updateUserSettings.action';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { IUpdateUserSettingsCMD } from 'vl-shared/src/schemas/UserSettings';
-
-import { useSoundEffect } from '@/AudioManager';
 
 export const SoundSettings: React.FC = () => {
   const { playSound, switchSoundPack, currentSoundPack } = useSoundEffect();

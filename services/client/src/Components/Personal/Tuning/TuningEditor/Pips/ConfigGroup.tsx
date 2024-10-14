@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { MinimumTuningTick } from '@Common/Components/Boxes/MinimumTuningTick';
 import { TuningGroup } from '@Common/Components/Boxes/TuningGroup';
 import { TuningTick } from '@Common/Components/Boxes/TuningTick';
@@ -12,8 +13,6 @@ import {
 import { QuestionMark } from '@mui/icons-material';
 import { Box } from '@mui/material';
 import React from 'react';
-
-import { useSoundEffect } from '@/AudioManager';
 
 import { TuningConfig, TuningOption } from '../TuningEditor';
 

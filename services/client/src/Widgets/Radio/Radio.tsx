@@ -1,5 +1,6 @@
 import '@Assets/Css/RadioStationApp.css';
 
+import { useRadioController } from '@Audio/AudioProvider';
 import {
   SkipNext,
   SkipPrevious,
@@ -14,8 +15,6 @@ import { closeWidget } from '@Redux/Slices/Widgets/widgets.actions';
 import useScrollSlider from '@Utils/Hooks/scrollSlider';
 import { enqueueSnackbar } from 'notistack';
 import React, { useCallback } from 'react';
-
-import { useRadioController } from '@/AudioProvider';
 
 import { VLWidget } from '../WidgetWrapper/WidgetWrapper';
 

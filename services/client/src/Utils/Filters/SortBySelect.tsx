@@ -1,4 +1,5 @@
 // import { KeyboardDoubleArrowDown, KeyboardDoubleArrowUp } from '@mui/icons-material';
+import { useSoundEffect } from '@Audio/AudioManager';
 import {
   FormControl,
   // IconButton,
@@ -9,11 +10,9 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-import { useSoundEffect } from '@/AudioManager';
+// import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 
-// import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
-
-// import { QueryNames } from '../QueryNames';
+// import { QueryNames } from '@Utils/QueryNames';
 
 type SortOption = {
   label: string;

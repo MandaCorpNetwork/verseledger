@@ -1,10 +1,9 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { Box, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { useCallback } from 'react';
-
-import { useSoundEffect } from '@/AudioManager';
 
 export const POPUP_YOU_SURE = 'youSure';
 

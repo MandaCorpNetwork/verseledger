@@ -1,12 +1,13 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBids/ContractBid';
 import { POPUP_EDIT_CONTRACT } from '@Popups/Contracts/EditContract/EditContract';
 import { POPUP_SUBMIT_RATING } from '@Popups/Ratings/SubmitRating';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
-import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
-import { updateContract } from '@Redux/Slices/Contracts/actions/post/updateContract';
+import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
+import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid.action';
+import { updateContract } from '@Redux/Slices/Contracts/actions/patch/updateContract.action';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
@@ -14,8 +15,6 @@ import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 type ContractControllerProps = {
   mobileView?: boolean;

@@ -10,10 +10,10 @@ import {
 } from 'sequelize-typescript';
 import { Contract } from '@V1/models/contract/contract.model';
 import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
-import { IdUtil } from '@/utils/IdUtil';
+import { IdUtil } from '@Utils/IdUtil';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { UserRating } from '@V1/models/user_ratings/user_ratings.model';
-import { UserSettings } from '../user_settings/user_settings.model';
+import { UserSettings } from '@V1/models/user_settings/user_settings.model';
 import {
   CreationOptional,
   HasManyAddAssociationMixin,
@@ -30,8 +30,8 @@ import {
   InferCreationAttributes,
   NonAttribute,
 } from 'sequelize';
-import { Notification } from '../notifications/notification.model';
-import { UserAuth } from '../auth/user_auth.model';
+import { Notification } from '@V1/models/notifications/notification.model';
+import { UserAuth } from '@V1/models/auth/user_auth.model';
 @Scopes(() => ({
   bids: {
     include: [{ model: ContractBid, as: 'PostedBids' }],

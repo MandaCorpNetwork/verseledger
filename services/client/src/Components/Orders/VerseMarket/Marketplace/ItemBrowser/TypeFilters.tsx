@@ -1,11 +1,10 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { ItemTypes } from '@Common/Definitions/Orders/ItemTypes';
 import { Grid, IconButton, Tooltip } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
-
-import { useSoundEffect } from '@/AudioManager';
 
 /**
  * ### ItemTypeFilters

@@ -3,10 +3,9 @@ import '@scalar/api-reference-react/style.css';
 import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
 import { Box } from '@mui/material';
 import { ApiReferenceReact } from '@scalar/api-reference-react';
+import NetworkService from '@Services/NetworkService';
 import { URLUtil } from '@Utils/URLUtil';
 import React, { useEffect, useState } from 'react';
-
-import NetworkService from '@/Services/NetworkService';
 
 export const APIDocs: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

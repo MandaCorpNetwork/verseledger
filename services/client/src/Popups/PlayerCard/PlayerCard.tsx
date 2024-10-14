@@ -1,4 +1,5 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
+import { useSoundEffect } from '@Audio/AudioManager';
 import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
 import { AccountBox, Message } from '@mui/icons-material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
@@ -14,13 +15,11 @@ import {
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_VERIFY_USER } from '@Popups/VerifyPopup/VerifyUser';
 import { useAppSelector } from '@Redux/hooks';
+import { useAppDispatch } from '@Redux/hooks';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { selectUserById } from '@Redux/Slices/Users/userSelectors';
+import { selectUserById } from '@Redux/Slices/Users/users.selectors';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { useSoundEffect } from '@/AudioManager';
-import { useAppDispatch } from '@/Redux/hooks';
 
 export const POPUP_PLAYER_CARD = 'playerCard';
 

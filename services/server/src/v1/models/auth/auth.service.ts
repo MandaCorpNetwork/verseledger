@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import jwt from 'jsonwebtoken';
 import { TYPES } from '@Constant/types';
 import { EnvService } from '@V1/services/env.service';
-import { Logger } from '@/utils/Logger';
+import { Logger } from '@Utils/Logger';
 import { AuthRepository } from './auth.repository';
 import { ApiPermission } from 'vl-shared/src/enum/ApiPermission';
 @injectable()

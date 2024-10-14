@@ -3,9 +3,9 @@ import { Button, Table, TableBody, TableCell, TableRow, Typography } from '@mui/
 import { POPUP_CREATE_TOKEN } from '@Popups/Tokens/CreateToken';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { deleteUserToken } from '@Redux/Slices/Tokens/Actions/deleteUserToken';
-import { fetchUserTokens } from '@Redux/Slices/Tokens/Actions/fetchUserTokens';
-import { selectTokensArray } from '@Redux/Slices/Tokens/tokenSelectors';
+import { deleteUserToken } from '@Redux/Slices/Tokens/Actions/deleteUserToken.action';
+import { fetchUserTokens } from '@Redux/Slices/Tokens/Actions/fetchUserTokens.action';
+import { selectTokensArray } from '@Redux/Slices/Tokens/tokens.selectors';
 import ms from 'ms';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';

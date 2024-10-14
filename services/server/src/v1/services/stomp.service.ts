@@ -3,7 +3,7 @@ import { injectable } from 'inversify';
 import { Client } from '@stomp/stompjs';
 
 import { WebSocket } from 'ws';
-import { Logger } from '@/utils/Logger';
+import { Logger } from '@Utils/Logger';
 import { EnvService } from './env.service';
 Object.assign(global, { WebSocket });
 const env = new EnvService();

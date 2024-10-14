@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { DropdownFilter } from '@Common/Components/App/DropdownFilter';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { ElevatedDropdownBox } from '@Common/Components/Collapse/ElevatedDropdownBox';
@@ -6,11 +7,9 @@ import { FilterAlt } from '@mui/icons-material';
 import { Badge, Box, Button, Typography } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
+import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
 import React, { useRef, useState } from 'react';
-
-import { useSoundEffect } from '@/AudioManager';
-import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 /**
  * ### ContractTableTools

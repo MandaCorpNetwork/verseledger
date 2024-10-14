@@ -1,6 +1,7 @@
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import { destinationsFromObjectives } from '@Components/Personal/Routes/RouteUtilities';
 import { Add, AddCircleOutline, Close } from '@mui/icons-material';
 import {
   Box,
@@ -13,20 +14,18 @@ import {
 import { POPUP_ADD_LOCATION } from '@Popups/AddLocation/AddLocation';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
+import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import {
   addDestinations,
   updateDestinations,
-} from '@Redux/Slices/Routes/actions/destinationActions';
-import { createMission } from '@Redux/Slices/Routes/actions/missionActions';
+} from '@Redux/Slices/Routes/actions/destination.action';
+import { createMission } from '@Redux/Slices/Routes/actions/mission.action';
 import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
 import { numericalFilter } from '@Utils/numericFilter';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
-
-import { destinationsFromObjectives } from '@/Components/Personal/Routes/RouteUtilities';
 
 export const POPUP_CREATE_MISSION = 'create_mission';
 

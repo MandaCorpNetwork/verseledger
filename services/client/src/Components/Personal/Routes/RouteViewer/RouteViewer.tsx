@@ -3,7 +3,7 @@ import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { DoubleArrow } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
-import { deleteDestination } from '@Redux/Slices/Routes/actions/destinationActions';
+import { deleteDestination } from '@Redux/Slices/Routes/actions/destination.action';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 

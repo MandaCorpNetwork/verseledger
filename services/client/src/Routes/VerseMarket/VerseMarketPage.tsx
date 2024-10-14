@@ -1,11 +1,10 @@
 import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
+import { CollapseMenu } from '@Components/Orders/VerseMarket/CollapseMenu';
 import { Box } from '@mui/material';
 import { isDev } from '@Utils/isDev';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-
-import { CollapseMenu } from '@/Components/Orders/VerseMarket/CollapseMenu';
 
 /**
  * ### VerseMarketPage

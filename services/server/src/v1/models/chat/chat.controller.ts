@@ -6,10 +6,10 @@ import {
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
-import { UserService } from '../user/user.service';
+import { UserService } from '@V1/models/user/user.service';
 import { CreateChatSchema } from 'vl-shared/src/schemas/ChatSchema';
 import { ChatService } from './chat.service';
-import { Logger } from '@/utils/Logger';
+import { Logger } from '@Utils/Logger';
 
 @controller('/v1/chat')
 export class ChatController extends BaseHttpController {

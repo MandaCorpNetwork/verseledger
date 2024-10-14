@@ -1,8 +1,7 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { Box, Tab, Tabs } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import React from 'react';
-
-import { useSoundEffect } from '@/AudioManager';
 
 import { FlatRateTab, PoolTab, TimedRateTab } from './PayInfoDisplays';
 

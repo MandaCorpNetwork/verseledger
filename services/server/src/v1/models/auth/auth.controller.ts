@@ -22,13 +22,13 @@ import {
   ApiOperationPost,
   ApiPath,
 } from 'swagger-express-ts';
-import { Logger } from '@/utils/Logger';
-import { VLAuthPrincipal } from '@/authProviders/VL.principal';
+import { Logger } from '@Utils/Logger';
+import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
 import { AuthRepository } from './auth.repository';
 import { ApiTokenCreateSchema } from 'vl-shared/src/schemas/ApiTokenSchema';
-import { NotificationService } from '../notifications/notification.service';
-import { IdUtil } from '@/utils/IdUtil';
-import { UserRepository } from '../user/user.repository';
+import { NotificationService } from '@V1/models/notifications/notification.service';
+import { IdUtil } from '@Utils/IdUtil';
+import { UserRepository } from '@V1/models/user/user.repository';
 
 const env = new EnvService();
 @ApiPath({

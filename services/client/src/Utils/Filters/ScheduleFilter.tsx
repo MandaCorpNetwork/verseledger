@@ -2,12 +2,10 @@ import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { TimePicker } from '@Common/Components/TextFields/TimePicker';
 import { Box, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import { ClearIcon } from '@mui/x-date-pickers';
+import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-
-import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
-
-import { QueryNames } from '../QueryNames';
 
 /**
  * Component that provides a user interface for filtering by date and time.

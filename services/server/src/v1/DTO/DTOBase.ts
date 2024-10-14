@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Mapper } from '@/infrastructure/Mapper';
+import { Mapper } from '@Infrastructure/Mapper';
 import { Model } from 'sequelize-typescript';
 
 export abstract class DTOBase<T> {

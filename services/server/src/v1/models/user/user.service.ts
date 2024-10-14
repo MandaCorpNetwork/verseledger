@@ -3,12 +3,12 @@ import { User } from '@V1/models/user/user.model';
 import { Op } from 'sequelize';
 import { RSIService } from '@V1/services/RSI.service';
 import { UserValidation } from '@V1/models/user/user_validation.model';
-import { Logger } from '@/utils/Logger';
+import { Logger } from '@Utils/Logger';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
 import { IContractBidStatus } from 'vl-shared/src/schemas/ContractBidStatusSchema';
-import { optionalSet, queryIn } from '@/utils/Sequelize/queryIn';
-import { UserAuth } from '../auth/user_auth.model';
+import { optionalSet, queryIn } from '@Utils/Sequelize/queryIn';
+import { UserAuth } from '@V1/models/auth/user_auth.model';
 
 @injectable()
 export class UserService {

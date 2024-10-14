@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import {
   Autocomplete,
   Box,
@@ -7,13 +8,11 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
-import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations';
-import { selectLocationsArray } from '@Redux/Slices/Locations/locationSelectors';
+import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
+import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.action';
+import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 //Filter Options property from MUI AutoComplete
 //Typed Filter Sorting

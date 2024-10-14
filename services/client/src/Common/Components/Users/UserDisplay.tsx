@@ -1,14 +1,12 @@
+import { useSoundEffect } from '@Audio/AudioManager';
+import { MiniPlayerCard } from '@Common/Components/App/MiniPlayerCard';
+import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
 import { Avatar, Box, ButtonBase, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { memo } from 'react';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
-
-import { useSoundEffect } from '@/AudioManager';
-
-import { MiniPlayerCard } from '../App/MiniPlayerCard';
-import { RatingDisplay } from '../App/RatingDisplay';
 
 type UserDisplayProps = {
   user: IUser;

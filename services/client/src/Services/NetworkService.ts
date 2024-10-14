@@ -1,6 +1,5 @@
+import { URLUtil } from '@Utils/URLUtil';
 import axios from 'axios';
-
-import { URLUtil } from '@/Utils/URLUtil';
 
 class NetworkService {
   public async HEAD<R>(url: string, headers?: Record<string, string>) {

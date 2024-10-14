@@ -1,15 +1,14 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { UserSearch } from '@Common/Components/App/UserSearch';
 import { UserChip } from '@Common/Components/Chips/UserChip';
 import { Box } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
-import { postContractInvite } from '@Redux/Slices/Contracts/actions/post/postContractInvite';
+import { postContractInvite } from '@Redux/Slices/Contracts/actions/post/postContractInvite.action';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 export const POPUP_USER_INVITE = 'userInvite';
 

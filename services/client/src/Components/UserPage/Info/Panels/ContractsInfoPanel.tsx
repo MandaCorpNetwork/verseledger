@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { ArrowRight } from '@mui/icons-material';
 import {
@@ -8,16 +9,14 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
-import { fetchUserBids } from '@Redux/Slices/Contracts/actions/fetch/fetchUserBids';
-import { selectContractsArray } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContracts.action';
+import { fetchUserBids } from '@Redux/Slices/Contracts/actions/get/fetchUserBids.action';
+import { selectContractsArray } from '@Redux/Slices/Contracts/contracts.selectors';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 import { ContractItem } from '../ContractItem';
 

@@ -8,7 +8,7 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
-import { IdUtil } from '@/utils/IdUtil';
+import { IdUtil } from '@Utils/IdUtil';
 import {
   BelongsToGetAssociationMixin,
   CreationOptional,
@@ -17,7 +17,7 @@ import {
   InferCreationAttributes,
   NonAttribute,
 } from 'sequelize';
-import { User } from '../user/user.model';
+import { User } from '@V1/models/user/user.model';
 
 @Table({ tableName: 'user_auth', timestamps: true })
 export class UserAuth extends Model<

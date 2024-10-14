@@ -1,12 +1,11 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { MiniPlayerCard } from '@Common/Components/App/MiniPlayerCard';
 import { Avatar, Chip } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { selectUserById } from '@Redux/Slices/Users/userSelectors';
+import { selectUserById } from '@Redux/Slices/Users/users.selectors';
 import { IUser, IUserWithSettings } from 'vl-shared/src/schemas/UserSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 type UserChipProps = {
   /** @prop {IUser} - User Object to pass to the Chip */

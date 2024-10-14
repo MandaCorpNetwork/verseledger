@@ -12,7 +12,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
-import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
+import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { useIsMobile } from '@Utils/isMobile';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';

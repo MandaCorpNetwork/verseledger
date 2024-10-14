@@ -1,11 +1,9 @@
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import StarIcon from '@mui/icons-material/Star';
 import { Box, Slider, Typography } from '@mui/material';
+import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
-
-import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
-
-import { QueryNames } from '../QueryNames';
 
 const RatingSliderMarks = [
   { value: 1, label: <StarIcon sx={{ fontSize: '1.2em' }} /> },

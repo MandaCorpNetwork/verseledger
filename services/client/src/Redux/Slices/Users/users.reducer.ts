@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Logger } from '@Utils/Logger';
 
-import { fetchCheckVerificationCode } from '../Auth/Actions/checkVerificationCode';
-import { fetchCurrentUser } from '../Auth/Actions/fetchCurrentUser';
-import { fetchContracts } from '../Contracts/actions/fetch/fetchContracts';
-import { fetchSearchUserId } from './Actions/fetchUserById';
+import { fetchCheckVerificationCode } from '../Auth/Actions/checkVerificationCode.action';
+import { fetchCurrentUser } from '../Auth/Actions/fetchCurrentUser.action';
+import { fetchContracts } from '../Contracts/actions/get/fetchContracts.action';
+import { fetchSearchUserId } from './Actions/fetchUserById.action';
 const usersReducer = createSlice({
   name: 'users',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

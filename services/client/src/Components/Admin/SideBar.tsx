@@ -1,5 +1,6 @@
 import '@Assets/Css/ripple.css';
 
+import { useSoundEffect } from '@Audio/AudioManager';
 import { SideControlPanel } from '@Common/Components/Collapse/SideControlPanel';
 import {
   AdminPanelSettingsTwoTone,
@@ -16,8 +17,6 @@ import { useIsMobile } from '@Utils/isMobile';
 import { useIsTablet } from '@Utils/isTablet';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
-import { useSoundEffect } from '@/AudioManager';
 
 const adminTabs = [
   {

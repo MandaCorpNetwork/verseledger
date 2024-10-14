@@ -10,7 +10,7 @@ import {
 
 import { User } from '@V1/models/user/user.model';
 import { Organization } from '@V1/models/organization/organization.model';
-import { IdUtil } from '@/utils/IdUtil';
+import { IdUtil } from '@Utils/IdUtil';
 import {
   CreationOptional,
   InferAttributes,

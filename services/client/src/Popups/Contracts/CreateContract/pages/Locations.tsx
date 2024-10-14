@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { LocationSearch } from '@Common/Components/App/LocationSearch';
 import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
@@ -7,8 +8,6 @@ import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 import { SmallEmergencyOverlay } from '../EmergencyOverlay';
 export const Locations: React.FC<{

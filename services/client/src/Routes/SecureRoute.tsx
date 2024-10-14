@@ -3,7 +3,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { POPUP_LOGIN } from '@Popups/Login/LoginPopup';
 import { POPUP_VERIFY_USER } from '@Popups/VerifyPopup/VerifyUser';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
+import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { PropsWithChildren } from 'react';
 

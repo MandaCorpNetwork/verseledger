@@ -1,5 +1,5 @@
-import { Mapper } from '@/infrastructure/Mapper';
-import { Notification } from '../notification.model';
+import { Mapper } from '@Infrastructure/Mapper';
+import { Notification } from '@V1/models/notifications/notification.model';
 import { NotificationDTO } from './NotificationDTO';
 
 export class NotificationsToNotificationDTOArrayMapper extends Mapper<

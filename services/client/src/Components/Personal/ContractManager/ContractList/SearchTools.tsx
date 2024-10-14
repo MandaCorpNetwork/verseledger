@@ -2,10 +2,9 @@ import { ArrowBackIosNew, FilterAlt } from '@mui/icons-material';
 import { Badge, Box, Collapse, IconButton, Tooltip, useTheme } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
+import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
-
-import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { FilterList } from './FilterList';
 
