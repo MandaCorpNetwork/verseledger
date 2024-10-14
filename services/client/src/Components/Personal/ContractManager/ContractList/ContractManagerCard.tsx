@@ -7,11 +7,11 @@ import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructure
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 type ContractManagerCardProps = {
-  /** @prop {IContract} - The Contract Being Rendered */
+  /** The Contract Being Rendered */
   contract: IContract;
-  /** @prop {string | null} - The selected Contract Id, so component knows if it is selected */
+  /** The selected Contract Id, so component knows if it is selected */
   selectedId: string | null;
-  /** @prop {(string | null) => void} - Function to run when clicked and passing in the Contract Id of the component */
+  /** Function to run when clicked and passing in the Contract Id of the component */
   setSelectedId: (id: string | null) => void;
 };
 
@@ -19,11 +19,9 @@ type ContractManagerCardProps = {
  * ### Contract Manager Card
  * @description
  * Displays a Button for selecting a contract to expand details. Shows a small amount of details of the Contract
- * @version 0.1.3 - Sept 2024
  * #### Functional Components:
  * - {@link UserChip}
  * - {@link PayInput}
- * @author ThreeCrown - May 2024
  */
 export const ContractManagerCard: React.FC<ContractManagerCardProps> = ({
   contract,

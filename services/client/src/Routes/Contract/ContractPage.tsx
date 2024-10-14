@@ -36,8 +36,6 @@ import {
  * The ContractPage displays a singular Contract and all of its details.
  * Allows the user to interact with the contract applicable to their access level.
  * Retrieves the contract from a Contract ID passed through the URL query.
- * @version 0.1.3
- * @returns {React.FC}
  * #### Functional Components
  * @component {@link TitleBox}
  * @component {@link TabletDetails}
@@ -51,7 +49,6 @@ import {
  * #### Styled Components
  * @component {@link VLViewport}
  * @component {@link GlassBox}
- * @author ThreeCrown
  */
 export const ContractPage: React.FC<unknown> = () => {
   // LOCAL STATES
@@ -60,22 +57,16 @@ export const ContractPage: React.FC<unknown> = () => {
   /**
    * State defines the current archetype of the contract.
    * @type [string | null, React.Dispatch<React.SetStateAction<string | null>>]
-   * @returns {string | null}
-   * @default null
    */
   const [archetype, setArchetype] = React.useState<string | null>(null);
   /**
    * State defines the current time tab of the contract.
    * @type [string, React.Dispatch<React.SetStateAction<string>>]
-   * @returns {string}
-   * @default 'bid'
    */
   const [timeTab, setTimeTab] = React.useState<string>('bid');
   /**
    * State defines the current active data tab of the contract.
    * @type [string, React.Dispatch<React.SetStateAction<string>>]
-   * @returns {string}
-   * @default 'contractors'
    */
   const [activeDataTab, setActiveDataTab] = React.useState<string>('contractors');
   const [opacity, setOpacity] = React.useState(0.8);
@@ -153,17 +144,15 @@ export const ContractPage: React.FC<unknown> = () => {
   }, [contract, archetypeOptions]);
 
   /**
-   * @function currentUser - Gets the current user from the {@link authReducer} slice
+   * Gets the current user from the {@link authReducer} slice
    * Calls {@link fetchCurrentUser()}
-   * @returns {IUser | null} user - The current user from the `auth` slice
    */
   const currentUser = useAppSelector(selectCurrentUser);
 
   /**
-   * @function checkIsOwner - Checks if the current user is the owner of the contract
+   * Checks if the current user is the owner of the contract
    * @param  {IContract | null} contract - The Contract from the Contracts Slice
    * @param  {IUser | null} user - The current user from the `auth` slice
-   * @returns {boolean} isOwner - Whether the current user is the owner of the contract
    */
   const checkIsOwner = React.useCallback(
     (contract: IContract | null, user: IUser | null) => {
@@ -176,8 +165,7 @@ export const ContractPage: React.FC<unknown> = () => {
   const isOwner = checkIsOwner(contract, currentUser as unknown as IUser);
 
   /**
-   * @function getUserBid - Gets the user's bid from the contract if it exists
-   * @returns {IBid | null} bid - The user's bid from the contract if it exists
+   * Gets the user's bid from the contract if it exists
    */
   const getUserBid = React.useCallback(() => {
     Logger.info('CurrentUser', currentUser);
@@ -193,8 +181,7 @@ export const ContractPage: React.FC<unknown> = () => {
   const userBid = getUserBid();
 
   /**
-   * @function getStartLocationId - Gets the start location ID from the contract
-   * @returns {string | null} locationId - The start location ID from the contract
+   * Gets the start location ID from the contract
    */
   const getStartLocationId = React.useCallback(() => {
     if (!contract) return null;
@@ -210,8 +197,7 @@ export const ContractPage: React.FC<unknown> = () => {
   const startLocationId = getStartLocationId();
 
   /**
-   * @function getEndLocationId - Gets the end location ID from the contract
-   * @returns {string | null} locationId - The end location ID from the contract
+   * Gets the end location ID from the contract
    */
   const getEndLocationId = React.useCallback(() => {
     if (!contract) return null;
@@ -227,8 +213,7 @@ export const ContractPage: React.FC<unknown> = () => {
   const endLocationId = getEndLocationId();
 
   /**
-   * @function getOtherLocationIds - Gets the other location IDs from the contract
-   * @returns {string[]} locationIds - The other location IDs from the contract
+   * Gets the other location IDs from the contract
    */
   const getOtherLocationIds = React.useCallback(() => {
     if (!contract) return null;
@@ -244,10 +229,9 @@ export const ContractPage: React.FC<unknown> = () => {
   const otherLocationIds = getOtherLocationIds();
 
   /**
-   * @function handleTimeTabChange - Handles the time tab change
-   * @param {React.SyntheticEvent} _event - The event object
-   * @param {string} value - The value of the time tab
-   * @returns {void} - Selected time tab
+   * Handles the time tab change
+   * @param _event - The event object
+   * @param value - The value of the time tab
    */
   const handleTimeTabChange = React.useCallback(
     (_event: React.SyntheticEvent, value: string) => {
@@ -258,10 +242,9 @@ export const ContractPage: React.FC<unknown> = () => {
   );
 
   /**
-   * @function contractTimePanel - Switch that handles rendering the selected Time Panel
-   * @param {string} panel - The panel to render
-   * @returns {React.ReactNode} - The selected Time Panel
-   * @default {null}
+   * Switch that handles rendering the selected Time Panel
+   * @param panel - The panel to render
+   *
    * - Case 'bid':
    * @component {@link BiddingTimePanel}
    * - Case 'start':
@@ -282,10 +265,9 @@ export const ContractPage: React.FC<unknown> = () => {
   );
 
   /**
-   * @function handleActiveTabChange - Handles the active data tab change
-   * @param {React.SyntheticEvent} _event - The event object
-   * @param {string} value - The value of the active data tab
-   * @returns {void} - Selected active data tab
+   * Handles the active data tab change
+   * @param _event - The event object
+   * @param value - The value of the active data tab
    */
   const handleActiveTabChange = React.useCallback(
     (_event: React.SyntheticEvent, value: string) => {
@@ -296,10 +278,9 @@ export const ContractPage: React.FC<unknown> = () => {
   );
 
   /**
-   * @function activeDataPanel - Switch that handles rendering the selected Active Data Panel
-   * @param {string} panel - The panel to render
-   * @returns {React.ReactNode} - The selected Active Data Panel
-   * @default {null}
+   * Switch that handles rendering the selected Active Data Panel
+   * @param panel - The panel to render
+   *
    * - Case 'contractors':
    * @component {@link ContractorsList}
    * - Case 'ships':
@@ -321,10 +302,9 @@ export const ContractPage: React.FC<unknown> = () => {
   );
 
   /**
-   * @function throttle - Throttles a passed event
-   * @param {function} func - The function to throttle
-   * @param {number} limit - The limit of the throttle
-   * @returns {function} - The throttled function
+   * Throttles a passed event
+   * @param func - The function to throttle
+   * @param limit - The limit of the throttle
    * @see {@link https://stackoverflow.com/questions/27078285/simple-throttle-in-js}
    */
   const throttle = (func: (...args: unknown[]) => void, limit: number) => {
@@ -339,8 +319,7 @@ export const ContractPage: React.FC<unknown> = () => {
   };
 
   /**
-   * @function handleScroll - Handles the scroll event
-   * @returns {void} - Scroll event
+   * Handles the scroll event
    */
   const handleScroll = React.useCallback(() => {
     setOpacity(1);
@@ -348,8 +327,7 @@ export const ContractPage: React.FC<unknown> = () => {
   }, []);
 
   /**
-   * @function throttledScroll - Throttles the scroll event
-   * @returns {void} - Scroll event
+   * Throttles the scroll event
    */
   const throttledScroll = React.useMemo(
     () => throttle(handleScroll, 200),

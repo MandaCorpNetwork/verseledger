@@ -24,9 +24,6 @@ dayjs.extend(relativeTime);
  * The ContractItem component is a collection of contract iformation that is formated for use of different display methods (i.e. list, grid, etc.)
  * Allows the user to view both active and inactive contracts that the user either created or were employed by.
  * Includes scrollable drop down menus that display active and inactive contracts.
- * @version 0.1.0
- * @returns {React.FC}
- * @author Eugene R. Petrie - Sept 2024
  */
 export const ContractItem: React.FC<ContractProps> = ({
   contract,

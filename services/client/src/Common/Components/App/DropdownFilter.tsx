@@ -27,15 +27,13 @@ type DropdownFilterProps = {
 };
 
 /**
- * @global Global Component
  * @name DropdownFilter - A Collapse rendering a Filter Option
- * @param {IFilters} filter - The filter to be rendered.
- * @param {string} label - The label displayed above the collapse.
- * @param {boolean} isExpanded - Determines if the filter is currently expanded.
- * @param {function} onExpand - The function to be called when the filter is expanded.
+ * @param filter - The filter to be rendered.
+ * @param label - The label displayed above the collapse.
+ * @param isExpanded - Determines if the filter is currently expanded.
+ * @param onExpand - The function to be called when the filter is expanded.
  * @example
  * <DropdownFilter filter="Subtype" label="Subtypes" isExpanded={true} onExpand={() => {}} />
- * @author ThreeCrown
  */
 export const DropdownFilter: React.FC<DropdownFilterProps> = ({
   filter,
@@ -52,7 +50,6 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
   // LOGIC
   /**
    * Determines if the filter is disabled.
-   * @returns {boolean} True if the filter is disabled, otherwise false.
    */
   const setDisabled = React.useCallback(() => {
     if (filter === 'Locations') {
@@ -65,8 +62,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
 
   /**
    * Handles Rendering a Filter Component
-   * @arg {IFilters} filterName - The filter to be rendered.
-   * @returns {JSX.Element | null} - The filter component.
+   * @param filterName - The filter to be rendered.
    */
   const getFilterComponent = React.useCallback((filterName: string) => {
     switch (filterName) {
@@ -87,8 +83,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
 
   /**
    * Checks if a filter is set for a Rendered Filter
-   * @arg {IFilters} filterName - The filter to be checked.
-   * @returns {number}
+   * @param filterName - The filter to be checked.
    */
   const checkFilterSet = React.useCallback(
     (filterName: string) => {
@@ -129,7 +124,6 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
 
   /**
    * Finds the Values of a Filter for Filter Arrays
-   * @returns {string[]}
    */
   const getFilterValues = React.useCallback(
     (filterName: string) => {
@@ -149,7 +143,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
 
   /**
    * Handles Deleting a single Item from an Array Filter
-   * @param {string} valueToDelete - The value to be deleted from array.
+   * @param valueToDelete - The value to be deleted from array.
    * @fires
    * - {@link setFilters} - Updates the URL query with the new filter values.
    * - playSound('toggleOff')
@@ -168,8 +162,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
 
   /**
    * Retrieves the list of QueryNames associated with a specific Filter.
-   * @param {IFilters} filter - The Filter Option
-   * @returns {QueryNames[]} An array of query names associated with the filter.
+   * @param filter - The Filter Option
    */
   const getFilterToClear = React.useCallback((filter: string): QueryNames[] => {
     switch (filter) {
@@ -197,7 +190,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
 
   /**
    * Handles clearing all the Queries associated with the specific Filter.
-   * @param {IFilters} filter - The Filter Option
+   * @param filter - The Filter Option
    * @fires
    * - {@link setFilters} - Updates the URL query with the new filter values.
    * - playSound('toggleOff')
@@ -212,9 +205,8 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
 
   /**
    * Determins the Text Color of the Label based on 2 Conditions
-   * @param {boolean} isDisabled - Indicates if the filter is disabled
-   * @param {boolean} isExpanded - Indicates if the filter is expanded or not
-   * @returns {string} The color value to be used.
+   * @param isDisabled - Indicates if the filter is disabled
+   * @param isExpanded - Indicates if the filter is expanded or not
    */
   const getLabelColor = React.useCallback((isDisabled: boolean, isExpanded: boolean) => {
     if (isDisabled) return 'text.disabled';

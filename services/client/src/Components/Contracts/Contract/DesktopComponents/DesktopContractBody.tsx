@@ -14,29 +14,29 @@ import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 type DesktopBodyProps = {
-  /** @prop {IContract} contract - The contract to display information for */
+  /** The contract to display information for */
   contract: IContract;
-  /** @prop {string} timeTab - The current time tab */
+  /** The current time tab */
   timeTab: string;
-  /** @prop {function} handleTimeTab - The function to handle the time tab change */
+  /** The function to handle the time tab change */
   handleTimeTab: (event: React.SyntheticEvent, newValue: string) => void;
-  /** @prop {function} timePanel - The function to render the time panel */
+  /** The function to render the time panel */
   timePanel: (panel: string) => React.ReactNode;
-  /** @prop {string} activeDataTab - The current active data tab */
+  /** The current active data tab */
   activeDataTab: string;
-  /** @prop {function} handleActiveTab - The function to handle the active data tab change */
+  /** The function to handle the active data tab change */
   handleActiveTab: (event: React.SyntheticEvent, newValue: string) => void;
-  /** @prop {function} activeDataPanel - The function to render the active data panel */
+  /** The function to render the active data panel */
   activeDataPanel: (panel: string) => React.ReactNode;
-  /** @prop {string} startLocation - The start location of the contract */
+  /** The start location of the contract */
   startLocation: string;
-  /** @prop {string} endLocation - The end location of the contract */
+  /** The end location of the contract */
   endLocation: string;
-  /** @prop {string[]} otherLocations - The other locations of the contract */
+  /** The other locations of the contract */
   otherLocations: string[];
-  /** @prop {boolean} isOwned - Whether the user is the owner of the contract */
+  /** Whether the user is the owner of the contract */
   isOwned: boolean;
-  /** @prop {IContractBid} userBid - The user's bid on the contract if it exists */
+  /** The user's bid on the contract if it exists */
   userBid?: IContractBid | null;
 };
 
@@ -44,10 +44,8 @@ type DesktopBodyProps = {
  * ### DesktopContractBody
  * @description
  * Displays the Contract Body on a Desktop Screen with all of the Contract Data and controls.
- * @version 0.1.4
  * @memberof {@link ContractPage}
- * @param {DesktopBodyProps} props - The props for the component
- * @returns {React.FC}
+ * @param props - The props for the component
  * #### Functional Components
  * @component {@link DesktopController}
  * @component {@link LocationChip}
@@ -62,7 +60,6 @@ type DesktopBodyProps = {
  * @component {@link GlassDisplay}
  * @component {@link PopupFormSelection}
  * @component {@link DigiField}
- * @author ThreeCrown - @ThreeCrown
  */
 export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
   contract,

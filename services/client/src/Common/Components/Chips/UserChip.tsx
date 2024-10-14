@@ -9,17 +9,17 @@ import { IUser, IUserWithSettings } from 'vl-shared/src/schemas/UserSchema';
 import { useSoundEffect } from '@/AudioManager';
 
 type UserChipProps = {
-  /** @prop {IUser} - User Object to pass to the Chip */
+  /** User Object to pass to the Chip */
   user?: IUser;
-  /** @prop {string} - User Id to pass if no User Object to pass */
+  /** User Id to pass if no User Object to pass */
   user_id?: string;
-  /** @prop {'small' | 'medium'} - Size of the Chip Component */
+  /** Size of the Chip Component */
   size: 'small' | 'medium';
-  /** @prop {void} - (Optional) - Function to pass on delete of chip. Will make the chip delete button render */
+  /** (Optional) - Function to pass on delete of chip. Will make the chip delete button render */
   onDelete?: () => void;
-  /** @prop {object} - SX Props of the Chip */
+  /** SX Props of the Chip */
   sx?: object;
-  /** @prop {'primary' | 'secondary' | 'info' | 'warning' | 'success' | 'error'} - Sets the color of the Chip */
+  /** Sets the color of the Chip */
   color?: 'primary' | 'secondary' | 'info' | 'warning' | 'success' | 'error';
 };
 
@@ -27,9 +27,6 @@ type UserChipProps = {
  * ### User Chip
  * @description
  * A Chip to display a User throughout the Site.
- * @version 0.1.3 - Aug 2024
- * @global
- * @author ThreeCrown - Jul 2024
  */
 export const UserChip: React.FC<UserChipProps> = (props) => {
   const { user, size, onDelete, user_id, color = 'secondary', sx } = props;

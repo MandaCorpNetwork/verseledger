@@ -11,12 +11,9 @@ import { useSoundEffect } from '@/AudioManager';
  * ### ItemTypeFilters
  * @description
  * This is the Type Filters Component for the VerseMarket. It is used to filter the items within the ItemBrowser.
- * @version 0.1.0
- * @returns {React.FC}
  * #### Functional Components
  * #### Styled Components
  * @component {@link DigiBox}
- * @author ThreeCrown - Aug 2024
  */
 export const ItemTypeFilters: React.FC<unknown> = () => {
   // LOCAL STATES
@@ -30,7 +27,7 @@ export const ItemTypeFilters: React.FC<unknown> = () => {
   const ItemTypeFilters = ItemTypes('inherit', 'large');
 
   /**
-   * @function handleFilterSelect - This function is used to handle the selection of a filter.
+   * This function is used to handle the selection of a filter.
    */
   const handleFilterSelect = React.useCallback(
     (type: string) => {

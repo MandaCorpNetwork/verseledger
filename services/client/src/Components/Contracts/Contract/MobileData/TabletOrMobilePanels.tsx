@@ -5,37 +5,34 @@ import { Box } from '@mui/material';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 
 type TabletOrMobilePanelProps = {
-  /** @prop {string} timeTab - The current time tab */
+  /** The current time tab */
   timeTab: string;
-  /** @prop {function} handleTimeTab - The function to handle the time tab change */
+  /** The function to handle the time tab change */
   handleTimeTab: (event: React.SyntheticEvent, newValue: string) => void;
-  /** @prop {function} timePanel - The function to render the time panel */
+  /** The function to render the time panel */
   timePanel: (panel: string) => React.ReactNode;
-  /** @prop {string} activeDataTab - The current active data tab */
+  /** The current active data tab */
   activeDataTab: string;
-  /** @prop {function} handleActiveTab - The function to handle the active data tab change */
+  /** The function to handle the active data tab change */
   handleActiveTab: (event: React.SyntheticEvent, newValue: string) => void;
-  /** @prop {function} activeDataPanel - The function to render the active data panel */
+  /** The function to render the active data panel */
   activeDataPanel: (panel: string) => React.ReactNode;
-  /** @prop {boolean} isOwner - Whether the user is the owner of the contract */
+  /** Whether the user is the owner of the contract */
   isOwner: boolean;
-  /** @prop {IContractBid} userBid - The user's bid on the contract if it exists */
+  /** The user's bid on the contract if it exists */
   userBid?: IContractBid | null;
 };
 /**
  * ### TabletOrMobilePanels
  * @description
  * Displays the Time and Active Data Panels for a Contract on a Tablet or Mobile Screen.
- * @version 0.1.3
  * @memberof {@link ContractPage}
- * @param {TabletOrMobilePanelProps} props - The props for the component
- * @returns {React.FC}
+ * @param props - The props for the component
  * @component {@link SmallTabsHolo}
  * @component {@link SmallTabHolo}
  * #### Styled Components
  * @component {@link ControlPanelBox}
  * @component {@link DigiBox}
- * @author ThreeCrown
  */
 export const TabletOrMobilePanels: React.FC<TabletOrMobilePanelProps> = ({
   timeTab,

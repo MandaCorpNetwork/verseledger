@@ -50,15 +50,13 @@ type EmergencySwitchProps = {
 
 /**
  * @name EmergencyToggle - A Custom Toggle for Filtering Emergency States
- * @global Global Component
- * @prop {boolean} isEmergency - The current Boolean Value of the Toggle
- * @prop {function} onToggle - The function to be called when the toggle is clicked.
- * @prop {boolean} disabled - Whether the toggle is disabled.
- * @prop {string} data-testid - The DataTestId of the Toggle
- * @prop {string} size - The Size of the Toggle. Default `medium`.
+ * The current Boolean Value of the Toggle
+ * The function to be called when the toggle is clicked.
+ * Whether the toggle is disabled.
+ * data-testid - The DataTestId of the Toggle
+ * The Size of the Toggle. Default `medium`.
  * @example
  * <<EmergencyToggle isEmergency={true} onToggle={() => {}} />
- * @author ThreeCrown
  */
 export const EmergencySwitch: React.FC<EmergencySwitchProps> = ({
   isEmergency,

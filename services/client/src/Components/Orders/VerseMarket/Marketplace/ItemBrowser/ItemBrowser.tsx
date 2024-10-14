@@ -9,11 +9,8 @@ import { ItemTypeFilters } from './TypeFilters';
  * ### OrderBrowser
  * @description
  * This is the Browser Component for the VerseMarket. It is used to search for various items within the marketplace.
- * @version 0.1.0
- * @returns {React.FC}
  * #### Functional Components
  * #### Styled Components
- * @author ThreeCrown - Aug 2024
  */
 export const ItemBrowser: React.FC<unknown> = () => {
   return (

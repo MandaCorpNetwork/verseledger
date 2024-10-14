@@ -14,7 +14,7 @@ import { useSoundEffect } from '@/AudioManager';
 import { Contractor } from './ContractorItem';
 
 type ContractorListProps = {
-  /** @prop {IContract} contract - The contract to display information for */
+  /** The contract to display information for */
   contract: IContract;
 };
 
@@ -23,12 +23,9 @@ type ContractorListProps = {
  * @description
  * Displays the list of Contractors with a Bid connected to the Contract.
  * Depending on the user's access level, the user will see different levels of information. If user is the owner will be able to manage the bids & send Invites.
- * @version 0.1.9
- * @param {ContractorListProps} props - The props for the component
- * @returns {React.FC}
+ * @param props - The props for the component
  * #### Functional Components
  * #### Styled Components
- * @author ThreeCrown - Jan 2024
  */
 export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
   // HOOKS
@@ -50,8 +47,8 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
   const contractors = contract.Bids;
 
   /**
-   * @function handleOpenInvite - Opens the Invite popup
-   * @returns {void} - Opens the Invite popup
+   * Opens the Invite popup
+
    * @see {@link POPUP_USER_INVITE}
    */
   const handleOpenInvite = () => {
@@ -85,8 +82,8 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
   ];
 
   /**
-   * @function getContractorCountColor - Returns the color of the contractor count based on the number of contractors compared to the contractor limit
-   * @returns {string} - The color of the contractor count
+   * Returns the color of the contractor count based on the number of contractors compared to the contractor limit
+
    * - If the number of contractors is less than the contractor limit, return `text.secondary`
    * - If the number of contractors is equal to the contractor limit, return `success.main`
    * - If the number of contractors is greater than the contractor limit, return `warning.main`

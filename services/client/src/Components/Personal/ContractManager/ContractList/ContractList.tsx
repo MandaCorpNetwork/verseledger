@@ -8,21 +8,21 @@ import { ContractListDropdown } from './ContractListDropdown';
 import { ContractManagerCard } from './ContractManagerCard';
 
 type ContractListProps = {
-  /** @prop {IContract[]} - The list of Contract Objects that will render */
+  /** The list of Contract Objects that will render */
   contracts: IContract[];
-  /** @prop {string | null} - Passes the Contract Id that is selected */
+  /** Passes the Contract Id that is selected */
   selectedId: string | null;
-  /** @prop {(id: string | null) => void} - function that sets the selected contract by passing the Id */
+  /** function that sets the selected contract by passing the Id */
   setSelectedId: (id: string | null) => void;
-  /** @prop {number} - The current page selected */
+  /** The current page selected */
   page: number;
-  /** @prop {(event, number) => void} - Changes the currently set page by passing a new number upon a ChangeEvent */
+  /** Changes the currently set page by passing a new number upon a ChangeEvent */
   setPage: (event: React.ChangeEvent<unknown>, newPage: number) => void;
-  /** @prop {number} - the total number of pages available to be set to */
+  /** the total number of pages available to be set to */
   pageCount: number;
-  /** @prop {string | null} - Which dropdown is expanded */
+  /** Which dropdown is expanded */
   expandedList: string | null;
-  /** @prop {(string) => void} - Sets the expanded list to a new string value */
+  /** Sets the expanded list to a new string value */
   setExpandedList: (value: string) => void;
 };
 
@@ -30,12 +30,10 @@ type ContractListProps = {
  * ### Contract List
  * @description
  * Displays a List of Contracts found by the Contract Manager App
- * @version 0.1.6 - Sept 2024
  * @memberof {@link ContractManagerApp}
  * #### Functional Components:
  * - {@link ContractListDropdown}
  * - {@link ContractManagerCard}
- * @author ThreeCrown - May 2024
  */
 export const ContractList: React.FC<ContractListProps> = ({
   contracts,
@@ -54,9 +52,7 @@ export const ContractList: React.FC<ContractListProps> = ({
 
   /**
    * Handles the logic for rendering Contract Cards
-   * @param {string}archetype - Passes in an archetype Option for sorting the contracts by Archetypes with dropdowns.
-   * @returns {number} - Returns the number of contracts being rendered based on the filter to use with the dropdown
-   * @returns {Element[]} - Returns a collection of {@link ContractManagerCard}
+   * @paramarchetype - Passes in an archetype Option for sorting the contracts by Archetypes with dropdowns.
    */
   const renderContractCards = React.useCallback(
     (archetype: string) => {

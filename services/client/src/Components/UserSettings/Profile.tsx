@@ -29,11 +29,8 @@ import { IUpdateUserSettingsCMD } from 'vl-shared/src/schemas/UserSettings';
  * @description
  * This is the component displayed when Profile is selected in the UserSettings.
  * Allows users to change displayable content on their User Page and User Card
- * @version 0.1.2
- * @returns {React.FC}
  * #### Function Components
  * #### Styled Components
- * @author ThreeCrown
  */
 export const ProfileSettings: React.FC = () => {
   // HOOKS

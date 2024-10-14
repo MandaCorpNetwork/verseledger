@@ -7,24 +7,21 @@ import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructure
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 type MobilePayBriefProps = {
-  /** @prop {IContract} contract - The contract to display information for */
+  /** The contract to display information for */
   contract: IContract;
 };
 /**
  * ### MobilePayBrief
  * @description
  * Displays Pay information for a Contract on a Mobile Screen.
- * @version 0.1.2
  * @memberof {@link ContractPage}
- * @param {IContract} contract - The contract to display information for
- * @returns {React.FC}
+ * @param contract - The contract to display information for
  * #### Functional Components
  * @component {@link PayDisplay}
  * @component {@link PayStructure}
  * #### Styled Components
  * @component {@link DigiBox}
  * @component {@link DigiDisplay}
- * @author ThreeCrown
  */
 export const MobilePayBrief: React.FC<MobilePayBriefProps> = ({ contract }) => {
   return (

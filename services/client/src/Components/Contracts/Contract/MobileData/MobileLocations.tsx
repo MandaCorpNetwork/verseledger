@@ -7,23 +7,21 @@ import { Box, Typography } from '@mui/material';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 type MobileLocationProps = {
-  /** @prop {IContract} contract - The contract to display information for */
+  /** The contract to display information for */
   contract: IContract;
-  /** @prop {string} startLocation - The start location of the contract */
+  /** The start location of the contract */
   startLocation: string;
-  /** @prop {string} endLocation - The end location of the contract */
+  /** The end location of the contract */
   endLocation: string;
-  /** @prop {string[]} otherLocations - The other locations of the contract */
+  /** The other locations of the contract */
   otherLocations: string[];
 };
 /**
  * ### MobileLocations
  * @description
  * Displays Location information for a Contract on a Mobile Screen.
- * @version 0.1.1
  * @memberof {@link ContractPage}
- * @param {MobileLocationProps} props - The props for the component
- * @returns {React.FC}
+ * @param props - The props for the component
  * #### Functional Components
  * @component {@link LocationChip}
  * @component {@link DigiField}
@@ -31,7 +29,6 @@ type MobileLocationProps = {
  * #### Styled Components
  * @component {@link DigiBox}
  * @component {@link DigiDisplay}
- * @author ThreeCrown
  */
 export const MobileLocations: React.FC<MobileLocationProps> = ({
   contract,

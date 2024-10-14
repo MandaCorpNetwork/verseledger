@@ -13,28 +13,25 @@ import { FilterList } from './FilterList';
  * ### SearchTools
  * @description
  * This is the Bar displayed Above the {@link ContractList}.
- * @version 0.1.2
  * Renders the {@link FilterList}, {@link SortBySelect} & {@link SearchBar}
  * @memberof {@link ContractManagerApp}
- * @returns {JSX.Element}
  * #### Functional Components
  * @component {@link FilterList}
- * @author ThreeCrown
  */
 export const SearchTools: React.FC = () => {
   // LOCAL STATES
   /**
    * State determines if the SearchTools are rendered
    * @type [boolean, React.Dispatch<React.SetStateAction<boolean>>]
-   * @default {false}
-   * @returns {boolean}
+   *
+
    */
   const [searchToolsOpen, setSearchToolsOpen] = React.useState<boolean>(false);
   /**
    * State determines if the {@link FilterList} is expanded
    * @type [boolean, React.Dispatch<React.SetStateAction<boolean>>]
-   * @default {false}
-   * @returns {boolean}
+   *
+
    */
   const [filterListOpen, setFilterListOpen] = React.useState<boolean>(false);
   /**
@@ -61,7 +58,7 @@ export const SearchTools: React.FC = () => {
 
   /**
    * Calculates the number of filters currently applied
-   * @returns {number}
+
    */
   const getFilterCount = React.useCallback(() => {
     const subtypes = searchParams.getAll(QueryNames.Subtype);
@@ -94,7 +91,7 @@ export const SearchTools: React.FC = () => {
 
   /**
    * Checks if any values are set in search tools to render a badge dot on the searchtools expansion button
-   * @returns {boolean}
+
    */
   const checkIsQueried = React.useCallback(() => {
     if (filterCount > 0) return true;

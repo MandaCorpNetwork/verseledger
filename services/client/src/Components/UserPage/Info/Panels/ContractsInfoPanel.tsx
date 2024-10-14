@@ -32,11 +32,8 @@ type ContractInfoPanelProps = {
  * The ContractInfoPanel displays the information of each contract that is either created by, or employs, the user.
  * Allows the user to view a brief overview of the contract information, such as the owner, the type, the suptype, the status, and the date of completion/exipration.
  * Includes a display change button to swap between contracts owned and contracts employed.
- * @version 0.1.0
- * @returns {React.FC}
  * #### Function Components
  * @component {@link ContractItem}
- * @author Eugene R. Petrie - Sept 2024
  */
 export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) => {
   //LOCAL STATES
@@ -99,7 +96,7 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
     },
     [dispatch],
   );
-  /** @function useEffect - Fetching contract ownership and then mapping them to either 'active' or 'history' state.
+  /** Fetching contract ownership and then mapping them to either 'active' or 'history' state.
    */
   React.useEffect(() => {
     if (!user) return;

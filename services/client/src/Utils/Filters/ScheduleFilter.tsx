@@ -27,7 +27,7 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
    * Handles changes to the time filter values.
    * Updates the URL query parameters with the new date values.
    *
-   * @param {QueryNames} filterName - The query parameter name to update.
+   * @param filterName - The query parameter name to update.
    * @param {Date | null} date - The selected date or null if cleared.
    */
   const handleTimeFilterChange = React.useCallback(
@@ -43,8 +43,7 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
   /**
    * Memoized function to get the current filter value from the URL query parameters.
    *
-   * @param {QueryNames} queryName - The query parameter name to retrieve.
-   * @returns {Date | null} - The current filter date or null if not set.
+   * @param queryName - The query parameter name to retrieve.
    */
   const currentFilterValue = React.useMemo(() => {
     return (queryName: QueryNames): Date | null => {
