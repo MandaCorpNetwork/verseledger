@@ -43,9 +43,7 @@ import { useParams } from 'react-router-dom';
  * Allows the user view detailled information about the selected user based on their access level.
  * Includes a button that opens up the player messaging widget.
  * Retrieves a User from a userId passed through the url query.
- * @version 0.1.2
  * TODO: Connect 'Last Online' to the Stomp Client
- * @returns {React.FC}
  * #### Function Components
  * @component {@link ContractInfoPanel}
  * @component {@link FleetInfoPanel}
@@ -55,7 +53,6 @@ import { useParams } from 'react-router-dom';
  * @component {@link OrderStatsPanel}
  * #### Styled Components
  * @component {@link UserViewport}
- * @author Eugene R. Petrie - AUG 2024
  */
 export const UserPage: React.FC = () => {
   //LOCAL STATES
@@ -69,7 +66,7 @@ export const UserPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
   // LOGIC
-  /** @function useEffect - Fetching user object by user id from backend. */
+  /** Fetching user object by user id from backend. */
   React.useEffect(() => {
     if (selectedUserId) {
       setLoading(true);
@@ -83,9 +80,8 @@ export const UserPage: React.FC = () => {
     }
   }, [selectedUserId, dispatch, setLoading]);
   /**
-   * @function selectedUser - Fetches the user object from the state based on the selected user id.
-   * @param {string}userId
-   * @returns {IUser}
+   * Fetches the user object from the state based on the selected user id.
+   * @paramuserId
    */
   const selectedUser = useAppSelector((state) => {
     if (selectedUserId) {
@@ -96,10 +92,9 @@ export const UserPage: React.FC = () => {
   // TODO - Add ability to view player's current position and ship.
   // const currentUser = useAppSelector(selectCurrentUser);
   /**
-   * @function handleStatsTabChange - Handles the tab changes for the user stats window.
-   * @param {string}value
-   * @param {React.SyntheticEvent}_event
-   * @returns {void}
+   * Handles the tab changes for the user stats window.
+   * @paramvalue
+   * @param_event
    */
   const handleStatsTabChange = React.useCallback(
     (_event: React.SyntheticEvent, value: string) => {
@@ -123,10 +118,9 @@ export const UserPage: React.FC = () => {
     }
   }, [statsTab]);
   /**
-   * @function handleInfoTabChange - Handles the tab changes for the user info window.
-   * @param {string}value
-   * @param {React.SyntheticEvent}_event
-   * @returns {void}
+   * Handles the tab changes for the user info window.
+   * @paramvalue
+   * @param_event
    */
   const handleInfoTabChange = React.useCallback(
     (_event: React.SyntheticEvent, value: string) => {
@@ -156,16 +150,14 @@ export const UserPage: React.FC = () => {
 
   /**
    * Gets the User ProfileBackground for the found user or passes default if none
-   * @author ThreeCrown
    */
   const selectedUserImage = useAppSelector((state) =>
     selectedUser ? selectUserPageImageById(state, selectedUser.id) : null,
   );
   /**
    * @function
-   * @returns {string}UserImageURL
-   * @author ThreeCrown
-   */
+
+      */
   const selectedUserBackground = React.useCallback(() => {
     const backgroundOption = userBackgroundOptions.find(
       (option) => option.value === selectedUserImage,

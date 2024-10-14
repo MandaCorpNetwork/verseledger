@@ -53,8 +53,6 @@ import { IContract } from 'vl-shared/src/schemas/ContractSchema';
  * It also contains navigation buttons to open the Contract Manager or create a new contract.
  * - In Desktop, it displays a selected contract in a side panel.
  * - In Mobile, when a contract is selected, the user is navigated to a corresponding {@link ContractPage}.
- * @version 0.1.3
- * @returns {JSX.Element}
  * #### Functional Components
  * @component {@link ContractBrowser}
  * @component {@link ContractDisplayContainer}
@@ -65,26 +63,22 @@ import { IContract } from 'vl-shared/src/schemas/ContractSchema';
  * @component {@link VLViewport}
  * @component {@link GlassBox}
  * @component {@link SideControlPanel}
- * @author ThreeCrown
  */
 export const ContractLedgerPage: React.FC<unknown> = () => {
   // LOCAL STATES
   /**
    * State determines the selected contract ID
-   * @default {null}
    */
   const [selectedId, setSelectedId] = useState<IContract['id'] | null>(null);
   /**
    * State determins if the Side Panel is expanded
-   * @default {false}
+   *
    * TODO: Move the Side Panel into it's own component
    */
   const [isExpanded, setExpanded] = useState(false);
   /**
    * State determines if the MobileSearchTools are expanded
    * @type [boolean, React.Dispatch<React.SetStateAction<boolean>>]
-   * @default {false}
-   * @returns {boolean}
    */
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   /**
@@ -99,16 +93,14 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
   const tablet = useIsTablet();
   // LOGIC
   /**
-   * @function handleMobileSearchOpen() - Handles the clickEvent that sets the {@link mobileSearchOpen} state
-   * @returns {void} Toggles the {@link mobileSearchOpen} state between `true` and `false`
+   * Handles the clickEvent that sets the {@link mobileSearchOpen} state
    */
   const handleMobileSearchOpen = React.useCallback(() => {
     setMobileSearchOpen((prev) => !prev);
   }, [setMobileSearchOpen]);
   /**
-   * @function handleContractPick() - Handles the clickEvent that sets the {@link selectedId} state
-   * @param {string} id - The ID of the contract being selected
-   * @returns {void} - Sets the {@link selectedId} state to the provided `id`
+   * Handles the clickEvent that sets the {@link selectedId} state
+   * @param id - The ID of the contract being selected
    * #### If Mobile:
    * @fires navigate() - `/contract?contractID=${id}`
    * TODO: Utilize the useURLQuery to store the selected contract ID
@@ -124,17 +116,17 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
     [mobile, navigate, playSound, tablet],
   );
   /**
-   * @function handleContractClose() - Handles the clickEvent that sets the {@link selectedId} state to `null` */
+   * Handles the clickEvent that sets the {@link selectedId} state to `null` */
   const handleContractClose = () => {
     setSelectedId(null);
     playSound('close');
   };
-  /** @function openCreateContract() - Handles the clickEvent that opens the {@link CreateContractPopup} */
+  /** Handles the clickEvent that opens the {@link CreateContractPopup} */
   const openCreateContract = useCallback(() => {
     playSound('open');
     dispatch(openPopup(POPUP_CREATE_CONTRACT));
   }, [dispatch, playSound]);
-  /** @function handleDrawerOpen - Handles the clickEvent that toggles the {@link isExpanded} state */
+  /** Handles the clickEvent that toggles the {@link isExpanded} state */
   const handleDrawerOpen = () => {
     if (isExpanded) {
       playSound('toggleOff');
@@ -147,9 +139,9 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
    * @name ArchetypeButton
    * Defines the Contract Archetype Video Buttons and their corresponding Data
    * *Displayed only on Desktop when Side Panel is expanded*
-   * @prop {string} title - The title of the archetype
-   * @prop {string} videoSource - The source of the video
-   * @prop {string} value - The value of the archetype
+   * The title of the archetype
+   * The source of the video
+   * The value of the archetype
    */
   const archetypeButton = [
     { title: 'Logistics', videoSource: LogisticsLoop, value: 'Logistics' },
@@ -166,9 +158,9 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
    * @name ArchetypeIcon
    * Defines the Contract Archetype Icons and their corresponding Data
    * *Displayed when Side Panel is collapsed or on Mobile & Tablet*
-   * @prop {string} title - The title of the archetype
-   * @prop {JSX.Element} icon - The icon of the archetype
-   * @prop {string} value - The value of the archetype
+   * The title of the archetype
+   * The icon of the archetype
+   * The value of the archetype
    */
   const archetypeIcon = [
     { title: 'Logistics', icon: <Logistics fontSize="large" />, value: 'Logistics' },
@@ -186,15 +178,14 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
     { title: 'Proxy', icon: <Proxy fontSize="large" />, value: 'Proxy' },
   ];
   /**
-   * @function currentFilterValues() - Defines the current filter values from the URL query parameters for the Subtypes to properly check which Archetypes are selected
-   * @returns {string[]} - An array of strings representing the current filter values
+   * Defines the current filter values from the URL query parameters for the Subtypes to properly check which Archetypes are selected
    */
   const currentFilterValues = useMemo(() => {
     const archetypeFilters = searchParams.getAll(QueryNames.Archetype);
     return Array.isArray(archetypeFilters) ? archetypeFilters : [archetypeFilters];
   }, [searchParams]);
   /**
-   * @function handleArchetypeChange() - Handles the clickEvent that sets the {@link filters} state for a list of Subtypes connected to a specific Archetype
+   * Handles the clickEvent that sets the {@link filters} state for a list of Subtypes connected to a specific Archetype
    * @param value - The value of the archetype
    */
   const handleArchetypeChange = (value: string) => {
@@ -267,15 +258,13 @@ export const ContractLedgerPage: React.FC<unknown> = () => {
               <Box>
                 {mobile ||
                   (tablet && (
-                    <>
-                      <IconButton
-                        data-testid="ContractLedger-SidePanel-CollapsedButtons__MobileSearchToggle_Button"
-                        size="small"
-                        onClick={handleMobileSearchOpen}
-                      >
-                        <Search fontSize="large" />
-                      </IconButton>
-                    </>
+                    <IconButton
+                      data-testid="ContractLedger-SidePanel-CollapsedButtons__MobileSearchToggle_Button"
+                      size="small"
+                      onClick={handleMobileSearchOpen}
+                    >
+                      <Search fontSize="large" />
+                    </IconButton>
                   ))}
                 <Tooltip
                   title="Create Contract"

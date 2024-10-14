@@ -33,14 +33,12 @@ import { SearchTools } from './ContractList/SearchTools';
  * ### Contract Manager App
  * @description
  * The Contract Manager App for managing Contracts owned or connected to.
- * @version 0.1.5 - Sept 2024
  * @memberof {@link PersonalLedgerPage}
  * Components Used:
  * - {@link SearchTools}
  * - {@link ContractList}
  * - {@link ContractorInfo}
  * - {@link SelectedContractManager}
- * @author ThreeCrown - May 2024
  */
 export const ContractManagerApp: React.FC<unknown> = () => {
   // LOCAL STATES
@@ -50,23 +48,18 @@ export const ContractManagerApp: React.FC<unknown> = () => {
 
   /**
    * State Determins the Selected Contract Id
-   * @default {null}
-   * @returns {string}
+   *
    * @todo - Replace with using URLQuery for contractId
    */
   const [selectedId, setSelectedId] = React.useState<string | null>(null);
 
   /**
    * State Determines which page of contracts to fetch from the backend
-   * @default (1)
-   * @returns {number}
    */
   const [page, setPage] = React.useState(1);
 
   /**
    * State Determins which DropDown list is currently expanded
-   * @default inProgress
-   * @returns {string}
    */
   const [expandedList, setExpandedList] = React.useState<string | null>(null);
 
@@ -96,8 +89,8 @@ export const ContractManagerApp: React.FC<unknown> = () => {
 
   /**
    * Handles the clickEvent from the pagination buttons to change the Page Fetched from the Contract Search Endpoint.
-   * @param {React.ChangeEvent} Event
-   * @param {number} newPage
+   * @param Event
+   * @param newPage
    * - {@link setPage}
    */
   const handleChangePage = React.useCallback(
@@ -110,8 +103,6 @@ export const ContractManagerApp: React.FC<unknown> = () => {
 
   /**
    * Memo for the currently set `Contract Browser List`
-   * @default `employed`
-   * @returns {string} Filter value of `QueryNames.ContractManagerTab`
    */
   const currentTab = React.useMemo(() => {
     const tab = searchParams.get(QueryNames.ContractManagerTab);
@@ -124,8 +115,8 @@ export const ContractManagerApp: React.FC<unknown> = () => {
 
   /**
    * Handles the ChangeEvent from the ContractList Tab to change the rendered Contract List
-   * @param {React.SynteticEvent} _Event
-   * @param {string} newValue - The Tab Value to change to.
+   * @param _Event
+   * @param newValue - The Tab Value to change to.
    * @fires
    * - setSelectedId(null) - Ensures that when you change a tab, the Selected Contract is cleared.
    * - playSound('clickMain')
@@ -148,7 +139,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
 
   /**
    * Handles Expanding a DropDown Section of the Contract List to view the contracts by Subtype.
-   * @param {string}value - The Archetype string to pass to determine which collapse to expand.
+   * @paramvalue - The Archetype string to pass to determine which collapse to expand.
    * @see ContractListDropdown
    */
   const handleExpandList = React.useCallback(
@@ -161,7 +152,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
 
   /**
    * Handles the clickEvent on a {@link ContractManagerCard} in the {@link ContractList} to render the Contract in {@link SelectedContractManager}, or navigate to the {@link ContractPage} if a Breakpoint is reached.
-   * @param {string} Id - The Id of a Contract.
+   * @param Id - The Id of a Contract.
    * If Mobile:
    * @fires navigate() - `/contract?contractID=${id}`
    */
@@ -283,9 +274,8 @@ export const ContractManagerApp: React.FC<unknown> = () => {
 
   /**
    * The useEffect that runs {@link handleFetchContracts} & {@link handleFetchBids} depending on the current `ContractManagerTab`.
-   * @param {string} currentTab - The Currently selected Tab
-   * @param {number} page - The current page set by {@link handlePageChange}
-   * @returns {IContract[]}
+   * @param currentTab - The Currently selected Tab
+   * @param page - The current page set by {@link handlePageChange}
    */
   React.useEffect(() => {
     switch (currentTab) {

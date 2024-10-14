@@ -10,11 +10,11 @@ import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 import { DesktopPayInfo } from './DesktopPayInfo';
 
 type InfoNonMobileProps = {
-  /** @prop {IContract} contract - The contract to display information for */
+  /** The contract to display information for */
   contract: IContractWithOwner;
-  /** @prop {string} archetype - The archetype of the contract */
+  /** The archetype of the contract */
   archetype: string;
-  /** @prop {boolean} tablet - Whether the screen is tablet or not */
+  /** Whether the screen is tablet or not */
   tablet: boolean;
 };
 
@@ -22,12 +22,10 @@ type InfoNonMobileProps = {
  * ### InfoNonMobile
  * @description
  * Displays Overview information for a Contract on a Non-Mobile Screen.
- * @version 0.1.1
  * @memberof {@link TitleBox}
- * @param {IContract} contract - The contract to display information for
- * @param {string} archetype - The archetype of the contract
- * @param {boolean} tablet - Whether the screen is tablet or not
- * @returns {React.FC}
+ * @param contract - The contract to display information for
+ * @param archetype - The archetype of the contract
+ * @param tablet - Whether the screen is tablet or not
  * #### Functional Components
  * @component {@link SubTypeChip}
  * @component {@link ContractStatusChip}
@@ -37,7 +35,6 @@ type InfoNonMobileProps = {
  * #### Styled Components
  * @component {@link DigiDisplay}
  * @component {@link DigiField}
- * @author ThreeCrown
  */
 export const InfoNonMobile: React.FC<InfoNonMobileProps> = ({
   contract,

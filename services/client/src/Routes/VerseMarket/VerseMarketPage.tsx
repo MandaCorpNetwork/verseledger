@@ -10,14 +10,12 @@ import { Outlet } from 'react-router-dom';
  * ### VerseMarketPage
  * @summary
  * This is the main page for the VerseMarket. This is where users go to trade goods between each other and view current market values.
- * @returns {JSX.Element}
  * #### Functional Components
  * @component {@link CollapseMenu}
  * @component {@link ItemBrowser}
  * @component {@link ItemDisplay}
  * #### Styled Components
  * @component {@link VLViewport}
- * @author ThreeCrown - Aug 2024
  */
 export const VerseMarketPage: React.FC = () => {
   const dev = isDev();

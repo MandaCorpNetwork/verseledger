@@ -10,23 +10,21 @@ import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructure
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 type TabletDetailsProps = {
-  /** @prop {IContract} contract - The contract to display information for */
+  /** The contract to display information for */
   contract: IContract;
-  /** @prop {string} startLocation - The start location of the contract */
+  /** The start location of the contract */
   startLocation: string;
-  /** @prop {string} endLocation - The end location of the contract */
+  /** The end location of the contract */
   endLocation: string;
-  /** @prop {string[]} otherLocations - The other locations of the contract */
+  /** The other locations of the contract */
   otherLocations: string[];
 };
 /**
  * ### TabletDetails
  * @description
  * Displays Pay, Briefing, and Location information for a Contract on a Tablet Screen.
- * @version 0.1.3
  * @memberof {@link ContractPage}
- * @param {TabletDetailsProps} props - The props for the component
- * @returns {React.FC}
+ * @param props - The props for the component
  * #### Functional Components
  * @component {@link PayDisplay}
  * @component {@link PayStructure}

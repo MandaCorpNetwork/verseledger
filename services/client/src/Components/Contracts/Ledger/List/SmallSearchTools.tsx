@@ -14,24 +14,22 @@ type SmallSearchToolsProps = {
  * @component
  * A condensed Version of {@link ContractTableTools} for smaller viewports
  * @memberof {@link ContractLedgerPage}
- * @param {boolean} isOpen - Boolean Value passed to determine if the SearchTools are open
- * @returns {JSX.Element}
- * @author ThreeCrown
+ * @param isOpen - Boolean Value passed to determine if the SearchTools are open
  */
 export const SmallSearchTools: React.FC<SmallSearchToolsProps> = ({ isOpen }) => {
   // LOCAL STATES
   /**
    * State determins if a {@link DropdownFilter} is rendered
    * @type [string | null, React.Dispatch<React.SetStateAction<string | null>>]
-   * @default {null}
-   * @returns {string}
+   *
+
    */
   const [expanded, setExpanded] = React.useState<string | null>(null);
   // LOGIC
   /**
    * Handles the clickEvent that displays a {@link DropdownFilter}
-   * @param {string} panel - The name of the {@link DropdownFilter} to be displayed
-   * @returns {void}
+   * @param panel - The name of the {@link DropdownFilter} to be displayed
+
    * @fires setExpanded - Sets the {@link DropdownFilter} to be displayed
    */
   const handleExpand = React.useCallback((panel: string) => {

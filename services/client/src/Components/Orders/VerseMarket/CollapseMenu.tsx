@@ -41,10 +41,8 @@ const marketPages = [
  * ### CollapseMenu
  * @description
  * This is the menu that appears on the left side of the VerseMarket page. It contains buttons for navigating to different sections of the page.
- * @returns {React.FC}
  * #### Functional Components
  * #### Styled Components
- * @author ThreeCrown - Aug 2024
  */
 export const CollapseMenu: React.FC<unknown> = () => {
   // LOCAL STATES
@@ -59,17 +57,17 @@ export const CollapseMenu: React.FC<unknown> = () => {
 
   // LOGIC
   /**
-   * @function handleDrawerOpen -  Callback function to handle menu drawer open/close
+   *  Callback function to handle menu drawer open/close
    */
   const handleDrawerOpen = React.useCallback(() => {
     setIsExpanded((prev) => !prev);
   }, [setIsExpanded]);
 
   /**
-   * @function handleTabChange - Callback function to handle tab change
-   * @param {React.SyntheticEvent} event - The event object
-   * @param {string} newValue - The new value of the tab
-   * @returns {void}
+   * Callback function to handle tab change
+   * @param event - The event object
+   * @param newValue - The new value of the tab
+
    * overwrites the URL query with the new tab value
    */
   const handleTabChange = React.useCallback(

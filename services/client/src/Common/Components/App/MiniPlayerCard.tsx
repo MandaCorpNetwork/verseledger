@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { IUserWithSettings } from 'vl-shared/src/schemas/UserSchema';
 
 type MiniPlayerCardProps = PropsWithChildren<{
-  /** @prop {IUserWithSettings} - User Object passed to the component */
+  /** User Object passed to the component */
   user?: IUserWithSettings;
 }>;
 
@@ -17,9 +17,6 @@ type MiniPlayerCardProps = PropsWithChildren<{
  * ### Mini Player Card
  * @description
  * A small popper component to display Player Summary when hovering over a Child Component.
- * @version 0.1.0 - Sept 2024
- * @global
- * @author ThreeCrown - Sept 2024
  */
 export const MiniPlayerCard: React.FC<MiniPlayerCardProps> = (props) => {
   const { children, user } = props;

@@ -11,12 +11,9 @@ import { allItemsHeader } from './TableColumns';
  * ### MarketBrowserTable
  * @description
  * This is the Table display of the Verse Market. Currently it changes it's header bar based on the selected filter.
- * @version 0.1.0
- * @returns {React.FC}
  * #### Functional Components
  * #### Styled Components
  * @component {@link DigiBox}
- * @author ThreeCrown - Aug 2024
  */
 export const MarketBrowserTable: React.FC = () => {
   // LOCAL STATE
@@ -28,8 +25,7 @@ export const MarketBrowserTable: React.FC = () => {
   const currentFilter = searchParams.get(QueryNames.ItemType) || 'all';
 
   /**
-   * @function currentHeader - Fetches the current Header Object from the ItemTypes array to pass to the table depending on the selected filter.
-   * @returns {Column[]} header object
+   * Fetches the current Header Object from the ItemTypes array to pass to the table depending on the selected filter.
    */
   const currentHeader = React.useMemo(() => {
     const itemTypes = ItemTypes('inherit', 'small');
