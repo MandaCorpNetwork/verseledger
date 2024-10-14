@@ -24,7 +24,6 @@
     "baseUrl": "./src/",
     "paths": {
       "@Assets/*": ["./Assets/*"],
-      "@Backend/*": ["../../verseledger-backend/src/*"],
       "@Common/*": ["./Common/*"],
       "@Popups/*": ["./Popups/*"],
       "@Redux/*": ["./Redux/*"],
