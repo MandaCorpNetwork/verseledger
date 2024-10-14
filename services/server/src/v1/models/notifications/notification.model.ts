@@ -9,7 +9,7 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
-import { IdUtil } from '@/utils/IdUtil';
+import { IdUtil } from '@Utils/IdUtil';
 import {
   CreationOptional,
   ForeignKey as ForeignKeyProp,

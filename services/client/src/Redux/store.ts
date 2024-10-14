@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { isDev } from '@Utils/isDev';
 
-import { isDev } from '../Utils/isDev';
 import { coreReducer } from './reducers';
 import { updateLocationsMiddleware } from './Slices/Locations/updateLocations.middleware';
 // import { destinationCreation } from './Slices/Routes/actions/destinationCreation.middleware';

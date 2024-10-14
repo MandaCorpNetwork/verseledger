@@ -14,8 +14,8 @@ import {
   queryBelow,
   queryBetween,
   queryIn,
-} from '@/utils/Sequelize/queryIn';
-import { Logger } from '@/utils/Logger';
+} from '@Utils/Sequelize/queryIn';
+import { Logger } from '@Utils/Logger';
 import { ContractToContractDTOMapper } from './mapping/contract.mapper';
 import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { StompService } from '@V1/services/stomp.service';

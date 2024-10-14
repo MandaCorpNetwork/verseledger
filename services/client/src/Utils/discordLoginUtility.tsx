@@ -1,10 +1,9 @@
+import { useAppDispatch } from '@Redux/hooks';
 import { fetchCurrentUser } from '@Redux/Slices/Auth/Actions/fetchCurrentUser.action';
 import { loginWithDiscord } from '@Redux/Slices/Auth/Actions/loginWithDiscord.action';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-
-import { useAppDispatch } from '@/Redux/hooks';
 
 export const DiscordLoginUtility = () => {
   const [searchParams] = useSearchParams();

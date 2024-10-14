@@ -1,4 +1,6 @@
 import VerseLogo from '@Assets/media/VerseLogos/verselogo-0.png?url';
+import { useSoundEffect } from '@Audio/AudioManager';
+import { UserSettings } from '@Components/UserSettings/UserSettings';
 import { Feedback, Place } from '@mui/icons-material';
 import MailNoneIcon from '@mui/icons-material/MailOutline';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -32,6 +34,7 @@ import {
 import { fetchUnreadCount } from '@Redux/Slices/Notifications/actions/getUnreadCount.action';
 import { selectNotificationsUnreadCount } from '@Redux/Slices/Notifications/notifications.selectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { AuthUtil } from '@Utils/AuthUtil';
 import {
   bindMenu,
   bindTrigger,
@@ -41,10 +44,6 @@ import {
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-
-import { useSoundEffect } from '@/AudioManager';
-import { UserSettings } from '@/Components/UserSettings/UserSettings';
-import { AuthUtil } from '@/Utils/AuthUtil';
 
 import { LocationSearch } from './LocationSearch';
 import { NotificationsBox } from './NotificationsBox';

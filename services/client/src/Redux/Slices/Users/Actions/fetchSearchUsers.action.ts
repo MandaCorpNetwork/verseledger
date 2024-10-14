@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
-
-import NetworkService from '@/Services/NetworkService';
 
 export const FETCH_SEARCH_USERS = 'GET /v1/users/search';
 

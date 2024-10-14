@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { Box, Button, Typography } from '@mui/material';
@@ -8,8 +9,6 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 import { Contractor } from './ContractorItem';
 

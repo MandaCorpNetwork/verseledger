@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch } from '@Redux/hooks';
 import { markAllRead } from '@Redux/Slices/Notifications/actions/markAllRead.action';
@@ -6,8 +7,6 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 function useNotification() {
   const { playSound } = useSoundEffect();

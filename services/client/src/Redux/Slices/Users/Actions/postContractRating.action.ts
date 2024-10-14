@@ -1,12 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { Logger } from '@Utils/Logger';
 import {
   ICreateContractRatingsBody,
   IUserRating,
 } from 'vl-shared/src/schemas/UserRatingsSchema';
-
-import NetworkService from '@/Services/NetworkService';
 
 export const POST_NEW_RATINGS = 'POST v1/ratings/contract';
 

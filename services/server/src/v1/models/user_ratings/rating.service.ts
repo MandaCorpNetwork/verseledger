@@ -1,4 +1,4 @@
-import { Logger } from '@/utils/Logger';
+import { Logger } from '@Utils/Logger';
 import { TYPES } from '@Constant/types';
 import { inject, injectable } from 'inversify';
 import { type NotificationService } from '@V1/models/notifications/notification.service';

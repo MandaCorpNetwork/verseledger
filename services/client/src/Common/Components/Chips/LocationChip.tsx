@@ -1,11 +1,10 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { Place } from '@mui/icons-material';
 import { Chip, Tooltip } from '@mui/material';
 import { POPUP_LOCATION_INFO } from '@Popups/Info/Locations';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectLocationById } from '@Redux/Slices/Locations/locations.selectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-
-import { useSoundEffect } from '@/AudioManager';
 
 type LocationChipProps = {
   locationId: string;

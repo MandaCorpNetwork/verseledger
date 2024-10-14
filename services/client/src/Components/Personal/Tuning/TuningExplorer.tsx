@@ -1,9 +1,8 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { Tab, Tabs } from '@mui/material';
 import React from 'react';
-
-import { useSoundEffect } from '@/AudioManager';
 
 export const TuningExplorer: React.FC = () => {
   const [tab, setTab] = React.useState<'saved' | 'discover'>('saved');

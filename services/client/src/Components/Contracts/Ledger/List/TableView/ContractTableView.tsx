@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { PayDisplay } from '@Common/Components/App/PayDisplay';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
@@ -18,8 +19,6 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
 import { IContract, IContractTimestamped } from 'vl-shared/src/schemas/ContractSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 type ContractRowProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

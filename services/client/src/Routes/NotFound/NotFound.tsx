@@ -1,9 +1,8 @@
 import backgroundvideo from '@Assets/media/NotFoundVideo.webm';
+import { useSoundEffect } from '@Audio/AudioManager';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
-import { useSoundEffect } from '@/AudioManager';
 
 export const NotFoundPage: React.FC<unknown> = () => {
   const navigate = useNavigate();

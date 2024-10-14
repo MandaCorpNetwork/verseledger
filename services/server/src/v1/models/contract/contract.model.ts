@@ -16,7 +16,7 @@ import {
 import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { User } from '@V1/models/user/user.model';
 import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
-import { IdUtil } from '@/utils/IdUtil';
+import { IdUtil } from '@Utils/IdUtil';
 import {
   CreationOptional,
   ForeignKey as ForeignKeyType,
@@ -33,7 +33,7 @@ import {
   NonAttribute,
 } from 'sequelize';
 import { Organization } from '@V1/models/organization/organization.model';
-import { OwnerType } from '@/utils/OwnerType';
+import { OwnerType } from '@Utils/OwnerType';
 import { Location } from '@V1/models/location/location.model';
 import { ContractLocation } from './contract_locations.model';
 import { IContractStatus } from 'vl-shared/src/schemas/ContractStatusSchema';

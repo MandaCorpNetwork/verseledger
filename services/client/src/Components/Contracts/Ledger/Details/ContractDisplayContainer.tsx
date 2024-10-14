@@ -1,11 +1,10 @@
+import { ContractDisplay } from '@Components/Contracts/Ledger/Details/ContractDisplay';
 import { Box, Typography } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
 import { selectContract } from '@Redux/Slices/Contracts/contracts.selectors';
 import { Logger } from '@Utils/Logger';
 import React, { useEffect } from 'react';
 import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
-
-import { ContractDisplay } from '@/Components/Contracts/Ledger/Details/ContractDisplay';
-import { useAppSelector } from '@/Redux/hooks';
 
 type ContractDisplayContainer = {
   selectedId: string | null;

@@ -13,7 +13,7 @@ import { UserService } from '@V1/models/user/user.service';
 import { NotificationService } from '@V1/models/notifications/notification.service';
 import { VLAuthPrincipal } from '@/authProviders/VL.principal';
 import { NextFunction } from 'express';
-import { IdUtil } from '@/utils/IdUtil';
+import { IdUtil } from '@Utils/IdUtil';
 import { NotificationToNotificationDTOMapper } from './mapping/NotificationToNotificationDTOMapper';
 import { NotFoundError } from '@V1/errors/NotFoundError';
 import { ApiPath } from 'swagger-express-ts';

@@ -1,8 +1,7 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { EmergencyShare, ShareLocation } from '@mui/icons-material';
 import { styled, Switch, Tooltip } from '@mui/material';
 import React from 'react';
-
-import { useSoundEffect } from '@/AudioManager';
 
 /**
  * @component

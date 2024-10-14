@@ -11,14 +11,13 @@ import {
   Typography,
 } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
+import { useAppDispatch } from '@Redux/hooks';
 import { fetchCheckVerificationCode } from '@Redux/Slices/Auth/Actions/checkVerificationCode.action';
 import { fetchCreateVerificationCode } from '@Redux/Slices/Auth/Actions/createVerificationCode.action';
 import { fetchDeleteVerificationCode } from '@Redux/Slices/Auth/Actions/deleteVerificationCode.action';
 import { fetchVerificationCode } from '@Redux/Slices/Auth/Actions/fetchVerificationCode.action';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { useCallback, useEffect, useState } from 'react';
-
-import { useAppDispatch } from '../../Redux/hooks';
 
 export const POPUP_VERIFY_USER = 'verifyCard';
 

@@ -1,4 +1,4 @@
-import { Logger } from '@/utils/Logger';
+import { Logger } from '@Utils/Logger';
 import { injectable } from 'inversify';
 import { UserSettingsRepository } from './user_settings.repository';
 import { IUpdateUserSettingsCMD } from 'vl-shared/src/schemas/UserSettings';

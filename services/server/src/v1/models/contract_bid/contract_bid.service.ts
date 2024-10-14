@@ -5,7 +5,7 @@ import { TYPES } from '@/constant/types';
 import { NotFoundError } from '@V1/errors/NotFoundError';
 import { BadRequestError } from '@V1/errors/BadRequest';
 import { User } from '@V1/models/user/user.model';
-import { Logger } from '@/utils/Logger';
+import { Logger } from '@Utils/Logger';
 import { StompService } from '@V1/services/stomp.service';
 import { NotificationService } from '@V1/models/notifications/notification.service';
 

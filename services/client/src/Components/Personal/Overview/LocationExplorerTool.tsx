@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { LocationSearch } from '@Common/Components/App/LocationSearch';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
@@ -22,8 +23,6 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 type LocationExplorerToolProps = {
   selectedLocation: ILocation | null;

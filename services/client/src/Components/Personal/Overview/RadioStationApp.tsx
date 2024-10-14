@@ -1,5 +1,7 @@
 import '@Assets/Css/RadioStationApp.css';
 
+import { useSoundEffect } from '@Audio/AudioManager';
+import { useRadioController } from '@Audio/AudioProvider';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import {
   Language,
@@ -14,9 +16,6 @@ import { Box, Button, IconButton, Slider, Typography, useTheme } from '@mui/mate
 import useScrollSlider from '@Utils/Hooks/scrollSlider';
 import { useIsMobile } from '@Utils/isMobile';
 import React, { useRef } from 'react';
-
-import { useSoundEffect } from '@/AudioManager';
-import { useRadioController } from '@/AudioProvider';
 
 type RadioStationAppProps = {
   isDisabled: boolean;

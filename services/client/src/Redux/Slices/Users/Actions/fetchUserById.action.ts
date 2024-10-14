@@ -1,9 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { IDTOComplete } from 'vl-shared/src/schemas/DTOSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
-
-import NetworkService from '@/Services/NetworkService';
 
 export const FETCH_SEARCH_USER_ID = 'GET /v1/users/id';
 

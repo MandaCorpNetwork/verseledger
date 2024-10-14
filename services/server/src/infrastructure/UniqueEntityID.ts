@@ -1,4 +1,4 @@
-import { IdPrefix, IdUtil } from '@/utils/IdUtil';
+import { IdPrefix, IdUtil } from '@Utils/IdUtil';
 import { Identifier } from './Identifier';
 
 export class UniqueEntityId extends Identifier {

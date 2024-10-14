@@ -1,6 +1,5 @@
+import { RootState } from '@Redux/store';
 import { createSelector } from '@reduxjs/toolkit';
-
-import { RootState } from '@/Redux/store';
 
 export const selectTokenObject = (state: RootState) => {
   return state.tokens;

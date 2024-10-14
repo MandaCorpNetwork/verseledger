@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
@@ -14,8 +15,6 @@ import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 export const POPUP_COUNTER_OFFER_BID = 'counterOfferBid';
 

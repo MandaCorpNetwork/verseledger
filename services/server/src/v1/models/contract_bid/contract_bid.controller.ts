@@ -20,7 +20,7 @@ import {
 } from 'swagger-express-ts';
 import { NextFunction } from 'express';
 import { BadParameterError } from '@V1/errors/BadParameter';
-import { IdUtil } from '@/utils/IdUtil';
+import { IdUtil } from '@Utils/IdUtil';
 import { NotFoundError } from '@V1/errors/NotFoundError';
 import { PaginatedDataDTO } from '@V1/DTO';
 import { ContractBidDTO } from './mapping/ContractBidDTO';

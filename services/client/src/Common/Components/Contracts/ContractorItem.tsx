@@ -1,3 +1,5 @@
+import { useSoundEffect } from '@Audio/AudioManager';
+import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { UserChip } from '@Common/Components/Chips/UserChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
@@ -13,10 +15,6 @@ import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
-
-import { useSoundEffect } from '@/AudioManager';
-
-import { RatingDisplay } from '../App/RatingDisplay';
 
 type ContractorProps = {
   bid: IContractBid | null;

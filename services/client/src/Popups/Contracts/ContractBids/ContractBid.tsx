@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
@@ -17,8 +18,6 @@ import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 import { BidTimeRemaining } from './BidTimeRemaining';
 import { NegotiateBid } from './NegotiateBid';

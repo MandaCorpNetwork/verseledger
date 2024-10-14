@@ -1,10 +1,9 @@
+import { useAppDispatch } from '@Redux/hooks';
 import { fetchCurrentUser } from '@Redux/Slices/Auth/Actions/fetchCurrentUser.action';
 import { loginWithGoogle } from '@Redux/Slices/Auth/Actions/loginWithGoogle.action';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-
-import { useAppDispatch } from '@/Redux/hooks';
 
 export const GoogleLoginUtility = () => {
   const [searchParams] = useSearchParams();

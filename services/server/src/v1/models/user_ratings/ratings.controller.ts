@@ -1,8 +1,8 @@
 import { VLAuthPrincipal } from '@/authProviders/VL.principal';
 import { RatingDTO } from './mapping/UserRatingDTO';
-import { IdUtil } from '@/utils/IdUtil';
-import { Logger } from '@/utils/Logger';
-import { ZodToOpenapi } from '@/utils/ZodToOpenapi';
+import { IdUtil } from '@Utils/IdUtil';
+import { Logger } from '@Utils/Logger';
+import { ZodToOpenapi } from '@Utils/ZodToOpenapi';
 import { TYPES } from '@Constant/types';
 import { BadParameterError } from '@V1/errors/BadParameter';
 import { BadRequestError } from '@V1/errors/BadRequest';

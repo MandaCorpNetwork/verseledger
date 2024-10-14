@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { ArrowRight } from '@mui/icons-material';
 import { Collapse, Typography } from '@mui/material';
@@ -8,8 +9,6 @@ import useNotification from '@Utils/Hooks/notificationHandler';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 import { OverviewNotification } from './Notification';
 

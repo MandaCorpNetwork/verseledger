@@ -1,16 +1,16 @@
+import { Marketplace } from '@Components/Orders/VerseMarket/Marketplace/Marketplace';
+import { OpenOrders } from '@Components/Orders/VerseMarket/OpenOrders/OpenOrders';
+import { OrderHistory } from '@Components/Orders/VerseMarket/OrderHistory/OrderHistory';
+import { ContractManagerApp } from '@Components/Personal/ContractManager/ContractManagerApp';
+import { ExploreApp } from '@Components/Personal/Explore/ExploreApp';
+import { InventoryApp } from '@Components/Personal/Inventory/InventoryApp';
+import { OverviewApp } from '@Components/Personal/Overview/OverviewApp';
+import { RouteApp } from '@Components/Personal/Routes/RouteApp';
+import { ShipTuning } from '@Components/Personal/Tuning/Tuning';
 import { DiscordLoginUtility } from '@Utils/discordLoginUtility';
 import { GoogleLoginUtility } from '@Utils/GoogleLoginUtility';
 import { Outlet, RouteObject } from 'react-router-dom';
 
-import { Marketplace } from '@/Components/Orders/VerseMarket/Marketplace/Marketplace';
-import { OpenOrders } from '@/Components/Orders/VerseMarket/OpenOrders/OpenOrders';
-import { OrderHistory } from '@/Components/Orders/VerseMarket/OrderHistory/OrderHistory';
-import { ContractManagerApp } from '@/Components/Personal/ContractManager/ContractManagerApp';
-import { ExploreApp } from '@/Components/Personal/Explore/ExploreApp';
-import { InventoryApp } from '@/Components/Personal/Inventory/InventoryApp';
-import { OverviewApp } from '@/Components/Personal/Overview/OverviewApp';
-import { RouteApp } from '@/Components/Personal/Routes/RouteApp';
-import { ShipTuning } from '@/Components/Personal/Tuning/Tuning';
 import { PopupManager } from '@/PopupManager';
 import { WidgetManager } from '@/WidgetManager';
 

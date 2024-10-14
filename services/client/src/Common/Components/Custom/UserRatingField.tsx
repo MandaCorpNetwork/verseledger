@@ -1,3 +1,4 @@
+import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { UserChip } from '@Common/Components/Chips/UserChip';
 import { AddComment } from '@mui/icons-material';
@@ -5,8 +6,6 @@ import { Box, Button, Grow, TextField } from '@mui/material';
 import React from 'react';
 import { ICreateUserRatingBody } from 'vl-shared/src/schemas/UserRatingsSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
-
-import { RatingDisplay } from '../App/RatingDisplay';
 
 type UserRatingFieldProps = {
   user: IUser;

@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
-import NetworkService from '@/Services/NetworkService';
+import NetworkService from '@Services/NetworkService';
 
 export const FETCH_CONTRACT_BIDS = 'GET /v1/contracts/:contractId/bids';
 

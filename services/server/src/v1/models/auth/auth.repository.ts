@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import { ApiToken } from './api_token.model';
-import { IdUtil } from '@/utils/IdUtil';
+import { IdUtil } from '@Utils/IdUtil';
 import jwt from 'jsonwebtoken';
 import ms from 'ms';
 import { EnvService } from '@V1/services/env.service';

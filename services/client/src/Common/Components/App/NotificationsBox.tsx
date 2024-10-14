@@ -1,3 +1,5 @@
+import { useSoundEffect } from '@Audio/AudioManager';
+import { AppbarListItem } from '@Common/Components/Lists/AppbarListItem';
 import { Clear } from '@mui/icons-material';
 import {
   Box,
@@ -20,10 +22,6 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
-
-import { useSoundEffect } from '@/AudioManager';
-
-import { AppbarListItem } from '../Lists/AppbarListItem';
 
 export const NotificationsBox: React.FC = () => {
   const notifications = useAppSelector(selectNotificationsArray);

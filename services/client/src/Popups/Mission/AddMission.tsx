@@ -1,6 +1,7 @@
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import { destinationsFromObjectives } from '@Components/Personal/Routes/RouteUtilities';
 import { Add, AddCircleOutline, Close } from '@mui/icons-material';
 import {
   Box,
@@ -25,8 +26,6 @@ import { numericalFilter } from '@Utils/numericFilter';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
-
-import { destinationsFromObjectives } from '@/Components/Personal/Routes/RouteUtilities';
 
 export const POPUP_CREATE_MISSION = 'create_mission';
 

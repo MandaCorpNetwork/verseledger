@@ -8,8 +8,8 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import App from './App';
-import { SoundEffectProvider } from './AudioManager';
-import { AudioProvider } from './AudioProvider';
+import { SoundEffectProvider } from './Audio/AudioManager';
+import { AudioProvider } from './Audio/AudioProvider';
 import { setupStore } from './Redux/store';
 import { StompProvider } from './StompProvider';
 

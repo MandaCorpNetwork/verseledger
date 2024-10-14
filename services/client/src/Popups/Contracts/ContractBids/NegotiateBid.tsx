@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
@@ -13,8 +14,6 @@ import { enqueueSnackbar } from 'notistack';
 import React, { useCallback } from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 type NegotiateBidProps = {
   contract: IContract;

@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import {
   Autocomplete,
   Box,
@@ -12,8 +13,6 @@ import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.a
 import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 //Filter Options property from MUI AutoComplete
 //Typed Filter Sorting

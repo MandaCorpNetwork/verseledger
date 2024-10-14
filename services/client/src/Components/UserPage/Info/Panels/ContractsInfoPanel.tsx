@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { ArrowRight } from '@mui/icons-material';
 import {
@@ -16,8 +17,6 @@ import React from 'react';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 import { ContractItem } from '../ContractItem';
 

@@ -1,5 +1,9 @@
 /* eslint-disable react/no-unknown-property */
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import {
+  binaryLocationTree,
+  MappedLocation,
+} from '@Components/Personal/Routes/RouteUtilities';
 import { Box } from '@mui/material';
 import { OrbitControls, Sphere, Text } from '@react-three/drei';
 import { Canvas, useThree } from '@react-three/fiber';
@@ -7,8 +11,6 @@ import { useAppSelector } from '@Redux/hooks';
 import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
 import { useEffect, useState } from 'react';
 import { CubeTextureLoader } from 'three';
-
-import { binaryLocationTree, MappedLocation } from '../Routes/RouteUtilities';
 
 const SkyBox: React.FC = () => {
   const { scene } = useThree();

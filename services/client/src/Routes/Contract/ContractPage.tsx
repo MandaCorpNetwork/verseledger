@@ -1,9 +1,22 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { ContractController } from '@Common/Components/Contracts/ContractController';
 import { ContractorList } from '@Common/Components/Contracts/ContractorList';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { LoadingScreen } from '@Common/LoadingObject/LoadingScreen';
+import { DesktopContractBody } from '@Components/Contracts/Contract/DesktopComponents/DesktopContractBody';
+import { DesktopReturn } from '@Components/Contracts/Contract/DesktopComponents/DesktopReturn';
+import { MobileLocations } from '@Components/Contracts/Contract/MobileData/MobileLocations';
+import { MobileOrTabletReturn } from '@Components/Contracts/Contract/MobileData/MobileOrTabletReturn';
+import { MobilePayBrief } from '@Components/Contracts/Contract/MobileData/MobilePayBrief';
+import { TabletDetails } from '@Components/Contracts/Contract/MobileData/TabletData/TabletDetails';
+import { TabletOrMobilePanels } from '@Components/Contracts/Contract/MobileData/TabletOrMobilePanels';
+import { TitleBox } from '@Components/Contracts/Contract/TitleBox/TitleBox';
+import {
+  BiddingTimePanel,
+  ContractDurationPanel,
+} from '@Components/Contracts/Ledger/Details/TimePanel';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContracts.action';
@@ -15,20 +28,6 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IContract, IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
-
-import { useSoundEffect } from '@/AudioManager';
-import { DesktopContractBody } from '@/Components/Contracts/Contract/DesktopComponents/DesktopContractBody';
-import { DesktopReturn } from '@/Components/Contracts/Contract/DesktopComponents/DesktopReturn';
-import { MobileLocations } from '@/Components/Contracts/Contract/MobileData/MobileLocations';
-import { MobileOrTabletReturn } from '@/Components/Contracts/Contract/MobileData/MobileOrTabletReturn';
-import { MobilePayBrief } from '@/Components/Contracts/Contract/MobileData/MobilePayBrief';
-import { TabletDetails } from '@/Components/Contracts/Contract/MobileData/TabletData/TabletDetails';
-import { TabletOrMobilePanels } from '@/Components/Contracts/Contract/MobileData/TabletOrMobilePanels';
-import { TitleBox } from '@/Components/Contracts/Contract/TitleBox/TitleBox';
-import {
-  BiddingTimePanel,
-  ContractDurationPanel,
-} from '@/Components/Contracts/Ledger/Details/TimePanel';
 
 /**
  * ### ContractPage

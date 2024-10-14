@@ -1,12 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { IDTO } from 'vl-shared/src/schemas/DTOSchema';
 import {
   IUpdateUserSettingsCMD,
   IUserSettings,
 } from 'vl-shared/src/schemas/UserSettings';
-
-import NetworkService from '@/Services/NetworkService';
 
 export const updateUserSettings = createAsyncThunk(
   'auth/updateUserSettings',

@@ -1,12 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { composeQuery } from '@Utils/composeQuery';
 import { Logger } from '@Utils/Logger';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
 import { IContractSearch } from 'vl-shared/src/schemas/SearchSchema';
-
-import NetworkService from '@/Services/NetworkService';
 
 export const fetchContracts = createAsyncThunk(
   '/v1/contracts/search',

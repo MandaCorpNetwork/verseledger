@@ -1,4 +1,5 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
+import { useSoundEffect } from '@Audio/AudioManager';
 import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
 import { userBackgroundOptions } from '@Common/Definitions/Users/UserBackgrounds';
 import { AccountBox, Message } from '@mui/icons-material';
@@ -6,8 +7,6 @@ import { Avatar, Box, IconButton, Popper, Typography } from '@mui/material';
 import React, { PropsWithChildren } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IUserWithSettings } from 'vl-shared/src/schemas/UserSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 type MiniPlayerCardProps = PropsWithChildren<{
   /** @prop {IUserWithSettings} - User Object passed to the component */

@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import {
   AccessTime,
   Group,
@@ -19,8 +20,6 @@ import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React, { useCallback, useState } from 'react';
 import { IContract, ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 import { ContractDetails } from './pages/ContractDetails';
 import { Contractors } from './pages/Contractors';

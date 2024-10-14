@@ -11,13 +11,6 @@ import {
   VehicleWeapons,
 } from '@Common/Definitions/CustomIcons';
 import {
-  AllInclusive,
-  Checkroom,
-  MiscellaneousServices,
-  Storage,
-} from '@mui/icons-material';
-
-import {
   allItemsHeader,
   armorListHeader,
   clothingListHeader,
@@ -30,7 +23,13 @@ import {
   utilityListHeader,
   vehiclesComponentsListHeader,
   vehiclesListHeader,
-} from '@/Components/Orders/VerseMarket/Marketplace/ItemBrowser/TableColumns';
+} from '@Components/Orders/VerseMarket/Marketplace/ItemBrowser/TableColumns';
+import {
+  AllInclusive,
+  Checkroom,
+  MiscellaneousServices,
+  Storage,
+} from '@mui/icons-material';
 
 export const ItemTypes = (
   color: string,

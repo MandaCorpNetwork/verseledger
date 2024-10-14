@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import {
   AddCircle,
   History,
@@ -17,8 +18,6 @@ import {
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
-import { useSoundEffect } from '@/AudioManager';
 
 const marketPages = [
   {

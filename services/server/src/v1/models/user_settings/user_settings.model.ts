@@ -1,4 +1,4 @@
-import { IdUtil } from '@/utils/IdUtil';
+import { IdUtil } from '@Utils/IdUtil';
 import {
   BelongsTo,
   Column,

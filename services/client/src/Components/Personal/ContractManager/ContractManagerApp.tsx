@@ -1,4 +1,5 @@
 // Imports
+import { useSoundEffect } from '@Audio/AudioManager';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { TabContext, TabList } from '@mui/lab';
@@ -12,6 +13,7 @@ import {
   selectContractsArray,
 } from '@Redux/Slices/Contracts/contracts.selectors';
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser.action';
+import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { useIsMobile } from '@Utils/isMobile';
 import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
@@ -21,9 +23,6 @@ import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
-
-import { useSoundEffect } from '@/AudioManager';
-import { useURLQuery } from '@/Utils/Hooks/useURLQuery';
 
 import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
 import { ContractorInfo } from './ContractDisplay/tools/ContractorInfo';

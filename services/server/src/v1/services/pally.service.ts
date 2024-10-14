@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import { TYPES } from '@Constant/types';
 import { EnvService } from './env.service';
 import WebSocket from 'ws';
-import { Logger } from '@/utils/Logger';
+import { Logger } from '@Utils/Logger';
 import chalk from 'chalk';
 
 type PallyPayload = {

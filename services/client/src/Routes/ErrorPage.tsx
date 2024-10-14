@@ -1,11 +1,10 @@
 import Error from '@Assets/media/error.gif';
+import { useSoundEffect } from '@Audio/AudioManager';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useRouteError } from 'react-router-dom';
-
-import { useSoundEffect } from '@/AudioManager';
 
 const ErrorPage: React.FC = () => {
   const error = useRouteError() as { error: Error } & Error;

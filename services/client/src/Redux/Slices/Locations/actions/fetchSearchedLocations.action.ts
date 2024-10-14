@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { composeQuery } from '@Utils/composeQuery';
 import { Logger } from '@Utils/Logger';
@@ -6,8 +7,6 @@ import { IDTOComplete } from 'vl-shared/src/schemas/DTOSchema';
 import { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { ILocationSearch } from 'vl-shared/src/schemas/SearchSchema';
-
-import NetworkService from '@/Services/NetworkService';
 
 export const fetchSearchedLocations = createAsyncThunk(
   '/v1/locations/search',

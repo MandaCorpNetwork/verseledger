@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
@@ -6,8 +7,6 @@ import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 import { InfoNonMobile } from './InfoNonMobile';
 import { MobileInfo } from './MobileInfo';

@@ -1,5 +1,5 @@
-import { Logger } from '@/utils/Logger';
-import { optionalSet, queryIn } from '@/utils/Sequelize/queryIn';
+import { Logger } from '@Utils/Logger';
+import { optionalSet, queryIn } from '@Utils/Sequelize/queryIn';
 import { injectable } from 'inversify';
 import { Location } from './location.model';
 

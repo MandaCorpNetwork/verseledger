@@ -7,7 +7,7 @@ import {
   Default,
 } from 'sequelize-typescript';
 
-import { IdUtil } from '@/utils/IdUtil';
+import { IdUtil } from '@Utils/IdUtil';
 import { CreationOptional, ForeignKey as ForeignKeyType } from 'sequelize';
 import { IChat } from 'vl-shared/src/schemas/ChatSchema';
 @Table({ tableName: 'chat', timestamps: true })

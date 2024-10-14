@@ -1,11 +1,10 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { PayField } from '@Common/Components/TextFields/PayField';
 import { Box, FormControlLabel, MenuItem, Select, Switch } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 export const FlatRatePayroll: React.FC<{
   formData: Partial<ICreateContractBody>;

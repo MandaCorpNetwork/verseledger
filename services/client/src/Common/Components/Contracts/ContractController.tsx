@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBids/ContractBid';
 import { POPUP_EDIT_CONTRACT } from '@Popups/Contracts/EditContract/EditContract';
@@ -14,8 +15,6 @@ import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
-
-import { useSoundEffect } from '@/AudioManager';
 
 type ContractControllerProps = {
   mobileView?: boolean;

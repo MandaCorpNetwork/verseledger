@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
@@ -13,6 +14,10 @@ import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHo
 import TabListHolo from '@Common/Components/Tabs/TabListHolo';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
+import {
+  BiddingTimePanel,
+  ContractDurationPanel,
+} from '@Components/Contracts/Ledger/Details/TimePanel';
 import { Link, OpenInFull } from '@mui/icons-material';
 import { Box, IconButton, Tab, Tooltip, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
@@ -24,12 +29,6 @@ import { useNavigate } from 'react-router-dom';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 import { ILocationWithContractLocation } from 'vl-shared/src/schemas/LocationSchema';
-
-import { useSoundEffect } from '@/AudioManager';
-import {
-  BiddingTimePanel,
-  ContractDurationPanel,
-} from '@/Components/Contracts/Ledger/Details/TimePanel';
 
 import { LocationsDisplay } from './tools/LocationsDisplay';
 

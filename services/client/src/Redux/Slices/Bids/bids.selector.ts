@@ -1,4 +1,4 @@
-import type { RootState } from '../../store';
+import type { RootState } from '@Redux/store';
 
 export const selectBidPagination = (state: RootState) => ({
   total: state.bids.pagination.total,

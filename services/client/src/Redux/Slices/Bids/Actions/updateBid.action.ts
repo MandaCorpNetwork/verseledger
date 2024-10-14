@@ -1,9 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { Logger } from '@Utils/Logger';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
-
-import NetworkService from '@/Services/NetworkService';
 
 export const updateBid = createAsyncThunk(
   '/v1/contracts/${contractId}/bids/${bidId}',

@@ -1,22 +1,20 @@
 /// <reference types="vite/client" />
+import AdminLoop from '@Assets/media/MenuPage/AdminLoop.webm?url';
 import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
+import FreelancerLoop from '@Assets/media/MenuPage/FreelancerLoop.webm?url';
+import JobsLoop from '@Assets/media/MenuPage/JobsLoop.webm?url';
+import MadeByCommunity from '@Assets/media/MenuPage/MadeByTheCommunity.png';
+import MarketLoop from '@Assets/media/MenuPage/MarketLoop.webm?url';
+import OrgLoop from '@Assets/media/MenuPage/OrgLoop.webm?url';
+import Pally from '@Assets/media/MenuPage/Pally.png?url';
+import VerseNews from '@Assets/media/MenuPage/VerseNews.webm?url';
+import { useSoundEffect } from '@Audio/AudioManager';
 import { Discord, KoFi, Patreon } from '@Common/Definitions/CustomIcons';
+import { HomeNavButton } from '@Components/Home/HomeNavButton';
+import { HomeNavButtonMobile } from '@Components/Home/HomeNavButtonMobile';
 import { Box, ButtonBase, IconButton } from '@mui/material';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
-
-import AdminLoop from '@/Assets/media/MenuPage/AdminLoop.webm?url';
-import FreelancerLoop from '@/Assets/media/MenuPage/FreelancerLoop.webm?url';
-import JobsLoop from '@/Assets/media/MenuPage/JobsLoop.webm?url';
-import MadeByCommunity from '@/Assets/media/MenuPage/MadeByTheCommunity.png';
-import MarketLoop from '@/Assets/media/MenuPage/MarketLoop.webm?url';
-import OrgLoop from '@/Assets/media/MenuPage/OrgLoop.webm?url';
-import Pally from '@/Assets/media/MenuPage/Pally.png?url';
-import VerseNews from '@/Assets/media/MenuPage/VerseNews.webm?url';
-import { useSoundEffect } from '@/AudioManager';
-import { HomeNavButtonMobile } from '@/Components/Home/HomeNavButtonMobile';
-
-import { HomeNavButton } from '../../../Components/Home/HomeNavButton';
 
 export const Home: React.FC<unknown> = () => {
   const mobile = useIsMobile();

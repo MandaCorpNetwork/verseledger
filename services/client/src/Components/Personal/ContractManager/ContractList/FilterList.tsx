@@ -1,8 +1,7 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { DropdownFilter } from '@Common/Components/App/DropdownFilter';
 import { ElevatedDropdownBox } from '@Common/Components/Collapse/ElevatedDropdownBox';
 import React from 'react';
-
-import { useSoundEffect } from '@/AudioManager';
 
 type FilterListProps = {
   /**

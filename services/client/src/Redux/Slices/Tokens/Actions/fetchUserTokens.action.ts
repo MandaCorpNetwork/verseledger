@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
-import NetworkService from '@/Services/NetworkService';
-import { AuthUtil } from '@/Utils/AuthUtil';
+import NetworkService from '@Services/NetworkService';
+import { AuthUtil } from '@Utils/AuthUtil';
 
 export const FETCH_GET_USER_TOKENS = 'GET /v1/auth/tokens';
 

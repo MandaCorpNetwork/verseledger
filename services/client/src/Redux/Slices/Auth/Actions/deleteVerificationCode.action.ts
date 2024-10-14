@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
-import NetworkService from '@/Services/NetworkService';
-import { AuthUtil } from '@/Utils/AuthUtil';
+import NetworkService from '@Services/NetworkService';
+import { AuthUtil } from '@Utils/AuthUtil';
 
 export const FETCH_DELETE_VERIFICATION_CODE = 'DELETE /v1/users/validate';
 

@@ -1,11 +1,10 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
+import { AppToolBar } from '@Components/Personal/AppToolBar';
 import { Box } from '@mui/material';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-
-import { useSoundEffect } from '@/AudioManager';
-import { AppToolBar } from '@/Components/Personal/AppToolBar';
 
 const prefix = '/dashboard';
 
