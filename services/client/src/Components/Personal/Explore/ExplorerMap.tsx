@@ -5,11 +5,12 @@ import {
   MappedLocation,
 } from '@Components/Personal/Routes/RouteUtilities';
 import { Box } from '@mui/material';
-import { OrbitControls, Sphere, Text } from '@react-three/drei';
+import { Line, OrbitControls, Sphere, Text } from '@react-three/drei';
 import { Canvas, useThree } from '@react-three/fiber';
 import { useAppSelector } from '@Redux/hooks';
 import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
-import { useEffect, useState } from 'react';
+import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
+import { useEffect, useMemo, useState } from 'react';
 import { CubeTextureLoader } from 'three';
 
 const SkyBox: React.FC = () => {
@@ -22,11 +23,46 @@ const SkyBox: React.FC = () => {
   return null;
 };
 
-export const ExploreMap: React.FC = () => {
+type ExploreMapProps = {
+  route?: ReturnType<typeof selectDestinations>;
+};
+
+export const ExploreMap: React.FC<ExploreMapProps> = (props) => {
+  const ifNoRoute = useMemo(() => [], []);
+  const route = props.route ?? ifNoRoute;
   const locations = useAppSelector(selectLocationsArray);
-  const [locationMap, setLocationMap] = useState([] as [string, MappedLocation][]);
+  const [locationMap, setLocationMap] = useState(new Map<string, MappedLocation>());
+  const routePoints = useMemo(() => {
+    if (locationMap.size == 0) return [];
+    const r: { point: [[number, number, number], [number, number, number]] }[] = [];
+    let lastPoint = null;
+    for (const point of route) {
+      if (!lastPoint) {
+        lastPoint = point;
+        continue;
+      }
+      const lastPointLocation = locationMap.get(lastPoint.location.id)!;
+      const pointLocation = locationMap.get(point.location.id)!;
+      r.push({
+        point: [
+          [
+            lastPointLocation.position.x / 150000,
+            lastPointLocation.position.z / 150000,
+            lastPointLocation.position.y / 150000,
+          ],
+          [
+            pointLocation.position.x / 150000,
+            pointLocation.position.z / 150000,
+            pointLocation.position.y / 150000,
+          ],
+        ],
+      });
+      lastPoint = point;
+    }
+    return r;
+  }, [locationMap, route]);
   useEffect(() => {
-    setLocationMap(Array.from(binaryLocationTree(locations)));
+    setLocationMap(binaryLocationTree(locations));
   }, [locations]);
   return (
     <GlassDisplay
@@ -59,7 +95,7 @@ export const ExploreMap: React.FC = () => {
         <Canvas>
           <SkyBox />
           <OrbitControls zoomSpeed={5} />
-          {locationMap
+          {Array.from(locationMap)
             .filter(
               (l) =>
                 l[1].location.short_name != 'Earth' && l[1].location.parent != 'Earth',
@@ -85,6 +121,9 @@ export const ExploreMap: React.FC = () => {
                 </>
               );
             })}
+          {routePoints.map((l, index) => {
+            return <Line key={index} points={l.point} color={'#FF0000'} />;
+          })}
         </Canvas>
       </Box>
     </GlassDisplay>
