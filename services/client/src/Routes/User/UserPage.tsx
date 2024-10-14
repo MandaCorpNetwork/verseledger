@@ -21,11 +21,11 @@ import {
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 // import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
-import { fetchSearchUserId } from '@Redux/Slices/Users/Actions/fetchUserById';
+import { fetchSearchUserId } from '@Redux/Slices/Users/Actions/fetchUserById.action';
 import {
   selectUserById,
   selectUserPageImageById,
-} from '@Redux/Slices/Users/userSelectors';
+} from '@Redux/Slices/Users/users.selectors';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 

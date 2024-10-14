@@ -7,7 +7,7 @@ import { BadRequestError } from '@V1/errors/BadRequest';
 import { User } from '@V1/models/user/user.model';
 import { Logger } from '@/utils/Logger';
 import { StompService } from '@V1/services/stomp.service';
-import { NotificationService } from '../notifications/notification.service';
+import { NotificationService } from '@V1/models/notifications/notification.service';
 
 const ownerNotif = new Set(['PENDING', 'DECLINED', 'WITHDRAWN']);
 

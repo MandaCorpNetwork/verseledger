@@ -1,6 +1,6 @@
 import { soundEffectPacks } from '@Common/Definitions/SoundEffectOptions';
 import { useAppSelector } from '@Redux/hooks';
-import { selectUserSoundPack } from '@Redux/Slices/Auth/authSelectors';
+import { selectUserSoundPack } from '@Redux/Slices/Auth/auth.selectors';
 import { useSound } from '@Utils/useAudio';
 import { createContext, PropsWithChildren, useContext } from 'react';
 

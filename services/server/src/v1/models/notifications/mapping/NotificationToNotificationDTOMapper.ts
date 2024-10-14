@@ -1,5 +1,5 @@
 import { Mapper } from '@/infrastructure/Mapper';
-import { Notification } from '../notification.model';
+import { Notification } from '@V1/models/notifications/notification.model';
 import { NotificationDTO } from './NotificationDTO';
 import { INotification } from 'vl-shared/src/schemas/NotificationSchema';
 

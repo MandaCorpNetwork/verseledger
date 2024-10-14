@@ -1,5 +1,5 @@
 import { Mapper } from '@/infrastructure/Mapper';
-import { UserSettings } from '../user_settings.model';
+import { UserSettings } from '@V1/models/user_settings/user_settings.model';
 import { UserSettingsDTO } from './UserSettingsDTO';
 import { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
 

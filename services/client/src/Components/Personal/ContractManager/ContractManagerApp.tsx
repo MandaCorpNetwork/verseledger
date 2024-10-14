@@ -4,14 +4,14 @@ import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { TabContext, TabList } from '@mui/lab';
 import { Box, Tab, useMediaQuery, useTheme } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
-import { selectBidPagination } from '@Redux/Slices/Bids/bidsSelector';
-import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
+import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
+import { selectBidPagination } from '@Redux/Slices/Bids/bids.selector';
+import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContracts.action';
 import {
   selectContractPagination,
   selectContractsArray,
-} from '@Redux/Slices/Contracts/selectors/contractSelectors';
-import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser';
+} from '@Redux/Slices/Contracts/contracts.selectors';
+import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser.action';
 import { useIsMobile } from '@Utils/isMobile';
 import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';

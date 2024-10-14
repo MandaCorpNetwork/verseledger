@@ -19,7 +19,7 @@ import { Logger } from '@/utils/Logger';
 import { ContractToContractDTOMapper } from './mapping/contract.mapper';
 import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { StompService } from '@V1/services/stomp.service';
-import { NotificationService } from '../notifications/notification.service';
+import { NotificationService } from '@V1/models/notifications/notification.service';
 
 const recievingBidStatus = new Set(['WITHDRAWN', 'DISMISSED', 'ACCEPTED']);
 const statusIgnore = new Set(['COMPLETED', 'CANCELED']);

@@ -1,7 +1,7 @@
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch } from '@Redux/hooks';
-import { markAllRead } from '@Redux/Slices/Notifications/actions/markAllRead';
-import { markRead } from '@Redux/Slices/Notifications/actions/patchMarkRead';
+import { markAllRead } from '@Redux/Slices/Notifications/actions/markAllRead.action';
+import { markRead } from '@Redux/Slices/Notifications/actions/patchMarkRead.action';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';

@@ -10,7 +10,7 @@ import { Avatar, Box, Card, CardActionArea, Tooltip, Typography } from '@mui/mat
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { selectUserById } from '@Redux/Slices/Users/userSelectors';
+import { selectUserById } from '@Redux/Slices/Users/users.selectors';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 

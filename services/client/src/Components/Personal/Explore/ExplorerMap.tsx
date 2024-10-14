@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import { OrbitControls, Sphere, Text } from '@react-three/drei';
 import { Canvas, useThree } from '@react-three/fiber';
 import { useAppSelector } from '@Redux/hooks';
-import { selectLocationsArray } from '@Redux/Slices/Locations/locationSelectors';
+import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
 import { useEffect, useState } from 'react';
 import { CubeTextureLoader } from 'three';
 

@@ -13,8 +13,8 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotifications';
-import { selectNotificationsArray } from '@Redux/Slices/Notifications/notificationSelectors';
+import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotifications.action';
+import { selectNotificationsArray } from '@Redux/Slices/Notifications/notifications.selectors';
 import useNotification from '@Utils/Hooks/notificationHandler';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';

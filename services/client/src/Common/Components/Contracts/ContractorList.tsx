@@ -3,7 +3,7 @@ import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_USER_INVITE } from '@Popups/UserInvite/UserInvite';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
+import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';

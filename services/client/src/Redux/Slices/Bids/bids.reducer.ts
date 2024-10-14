@@ -3,8 +3,8 @@ import { Logger } from '@Utils/Logger';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IPaginatedDataSlice } from 'vl-shared/src/schemas/IPaginatedData';
 
-import { fetchContractBidsOfUser } from '../Users/Actions/fetchContractBidsByUser';
-import { updateBid } from './Actions/updateBid';
+import { fetchContractBidsOfUser } from '../Users/Actions/fetchContractBidsByUser.action';
+import { updateBid } from './Actions/updateBid.action';
 
 const bidsReducer = createSlice({
   name: 'bids',

@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { updateTokens } from '@Redux/Slices/Auth/Actions/updateTokens';
-import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
+import { updateTokens } from '@Redux/Slices/Auth/Actions/updateTokens.action';
+import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { actions } from '@Redux/Slices/Contracts/contracts.reducer';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { Logger } from '@Utils/Logger';

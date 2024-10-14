@@ -11,10 +11,10 @@ import {
   Typography,
 } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
-import { fetchCheckVerificationCode } from '@Redux/Slices/Auth/Actions/checkVerificationCode';
-import { fetchCreateVerificationCode } from '@Redux/Slices/Auth/Actions/createVerificationCode';
-import { fetchDeleteVerificationCode } from '@Redux/Slices/Auth/Actions/deleteVerificationCode';
-import { fetchVerificationCode } from '@Redux/Slices/Auth/Actions/fetchVerificationCode';
+import { fetchCheckVerificationCode } from '@Redux/Slices/Auth/Actions/checkVerificationCode.action';
+import { fetchCreateVerificationCode } from '@Redux/Slices/Auth/Actions/createVerificationCode.action';
+import { fetchDeleteVerificationCode } from '@Redux/Slices/Auth/Actions/deleteVerificationCode.action';
+import { fetchVerificationCode } from '@Redux/Slices/Auth/Actions/fetchVerificationCode.action';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { useCallback, useEffect, useState } from 'react';
 

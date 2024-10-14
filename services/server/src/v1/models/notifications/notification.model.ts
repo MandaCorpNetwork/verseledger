@@ -17,7 +17,7 @@ import {
   InferCreationAttributes,
   NonAttribute,
 } from 'sequelize';
-import { User } from '../user/user.model';
+import { User } from '@V1/models/user/user.model';
 
 @Table({ tableName: 'notifications', timestamps: true })
 export class Notification extends Model<

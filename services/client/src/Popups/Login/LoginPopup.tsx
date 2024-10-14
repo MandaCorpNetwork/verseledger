@@ -2,7 +2,7 @@ import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
 import { Button } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
-import { getLoginMethods } from '@Redux/Slices/Auth/Actions/getLoginMethods';
+import { getLoginMethods } from '@Redux/Slices/Auth/Actions/getLoginMethods.action';
 import React, { useEffect, useState } from 'react';
 
 export const POPUP_LOGIN = 'POPUP_LOGIN';

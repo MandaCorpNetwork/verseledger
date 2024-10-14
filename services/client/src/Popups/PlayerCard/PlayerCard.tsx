@@ -15,7 +15,7 @@ import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_VERIFY_USER } from '@Popups/VerifyPopup/VerifyUser';
 import { useAppSelector } from '@Redux/hooks';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { selectUserById } from '@Redux/Slices/Users/userSelectors';
+import { selectUserById } from '@Redux/Slices/Users/users.selectors';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 

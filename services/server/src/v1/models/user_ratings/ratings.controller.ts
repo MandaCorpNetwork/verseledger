@@ -24,8 +24,8 @@ import {
   ICreateContractRatingsBody,
   IUserRating,
 } from 'vl-shared/src/schemas/UserRatingsSchema';
-import { ContractService } from '../contract/contract.service';
-import { UserRepository } from '../user/user.repository';
+import { ContractService } from '@V1/models/contract/contract.service';
+import { UserRepository } from '@V1/models/user/user.repository';
 
 @ApiPath({
   path: '/v1/ratings',

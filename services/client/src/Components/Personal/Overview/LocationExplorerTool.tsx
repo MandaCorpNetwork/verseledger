@@ -15,8 +15,8 @@ import {
 } from '@mui/material';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation';
-import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
+import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation.action';
+import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 // import { Gauge, gaugeClasses } from '@mui/x-charts';
 import React from 'react';

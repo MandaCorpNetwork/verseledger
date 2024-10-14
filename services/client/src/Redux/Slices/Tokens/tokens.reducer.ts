@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { createUserTokens } from './Actions/createUserToken';
-import { deleteUserToken } from './Actions/deleteUserToken';
-import { fetchUserTokens } from './Actions/fetchUserTokens';
+import { createUserTokens } from './Actions/createUserToken.action';
+import { deleteUserToken } from './Actions/deleteUserToken.action';
+import { fetchUserTokens } from './Actions/fetchUserTokens.action';
 
 const tokensReducer = createSlice({
   name: 'tokens',

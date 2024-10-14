@@ -8,7 +8,7 @@ import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
 import { IContractBidStatus } from 'vl-shared/src/schemas/ContractBidStatusSchema';
 import { optionalSet, queryIn } from '@/utils/Sequelize/queryIn';
-import { UserAuth } from '../auth/user_auth.model';
+import { UserAuth } from '@V1/models/auth/user_auth.model';
 
 @injectable()
 export class UserService {

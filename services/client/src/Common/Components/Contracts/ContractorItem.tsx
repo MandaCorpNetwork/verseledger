@@ -5,7 +5,7 @@ import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_COUNTER_OFFER_BID } from '@Popups/Contracts/ContractBids/CounterOffer';
 import { useAppDispatch } from '@Redux/hooks';
-import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid';
+import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid.action';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';

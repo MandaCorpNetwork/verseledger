@@ -16,7 +16,7 @@ import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchet
 import { Link, OpenInFull } from '@mui/icons-material';
 import { Box, IconButton, Tab, Tooltip, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
-import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import { selectContract } from '@Redux/Slices/Contracts/contracts.selectors';
 import { URLUtil } from '@Utils/URLUtil';
 import { enqueueSnackbar } from 'notistack';
 import React, { useState } from 'react';

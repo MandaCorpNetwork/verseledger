@@ -1,7 +1,7 @@
 import { Logger } from '@/utils/Logger';
 import { TYPES } from '@Constant/types';
 import { inject, injectable } from 'inversify';
-import { type NotificationService } from '../notifications/notification.service';
+import { type NotificationService } from '@V1/models/notifications/notification.service';
 import { UserRating } from '@V1/models/user_ratings/user_ratings.model';
 import { Contract } from '@V1/models/contract/contract.model';
 import { Op } from 'sequelize';

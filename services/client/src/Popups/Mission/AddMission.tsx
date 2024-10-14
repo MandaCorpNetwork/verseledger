@@ -13,13 +13,13 @@ import {
 import { POPUP_ADD_LOCATION } from '@Popups/AddLocation/AddLocation';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
+import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import {
   addDestinations,
   updateDestinations,
-} from '@Redux/Slices/Routes/actions/destinationActions';
-import { createMission } from '@Redux/Slices/Routes/actions/missionActions';
+} from '@Redux/Slices/Routes/actions/destination.action';
+import { createMission } from '@Redux/Slices/Routes/actions/mission.action';
 import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
 import { numericalFilter } from '@Utils/numericFilter';
 import React from 'react';

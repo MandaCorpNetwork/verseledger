@@ -2,7 +2,7 @@ import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { Box, Checkbox } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { updateObjective } from '@Redux/Slices/Routes/actions/objectiveActions';
+import { updateObjective } from '@Redux/Slices/Routes/actions/objective.action';
 import { selectMissionByObjectiveId } from '@Redux/Slices/Routes/routes.selectors';
 import React from 'react';
 import { IDestination, IObjective } from 'vl-shared/src/schemas/RoutesSchema';

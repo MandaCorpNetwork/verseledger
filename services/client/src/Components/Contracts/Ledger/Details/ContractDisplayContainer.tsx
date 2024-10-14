@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { selectContract } from '@Redux/Slices/Contracts/selectors/contractSelectors';
+import { selectContract } from '@Redux/Slices/Contracts/contracts.selectors';
 import { Logger } from '@Utils/Logger';
 import React, { useEffect } from 'react';
 import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';

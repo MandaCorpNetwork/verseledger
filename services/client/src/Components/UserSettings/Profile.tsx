@@ -17,8 +17,8 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { updateUserSettings } from '@Redux/Slices/Auth/Actions/updateUserSettings';
-import { selectUserSettings } from '@Redux/Slices/Auth/authSelectors';
+import { updateUserSettings } from '@Redux/Slices/Auth/Actions/updateUserSettings.action';
+import { selectUserSettings } from '@Redux/Slices/Auth/auth.selectors';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';

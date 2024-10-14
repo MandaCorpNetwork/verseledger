@@ -20,10 +20,17 @@ import { POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
 import { POPUP_LOCATION_INFO } from '@Popups/Info/Locations';
 import { POPUP_LOGIN } from '@Popups/Login/LoginPopup';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
-import { fetchUserSettings } from '@Redux/Slices/Auth/Actions/fetchUserSettings';
-import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation';
-import { fetchUnreadCount } from '@Redux/Slices/Notifications/actions/getUnreadCount';
-import { selectNotificationsUnreadCount } from '@Redux/Slices/Notifications/notificationSelectors';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { fetchCurrentUser } from '@Redux/Slices/Auth/Actions/fetchCurrentUser.action';
+import { fetchUserSettings } from '@Redux/Slices/Auth/Actions/fetchUserSettings.action';
+import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation.action';
+import {
+  selectCurrentUser,
+  selectIsLoggedIn,
+  selectUserLocation,
+} from '@Redux/Slices/Auth/auth.selectors';
+import { fetchUnreadCount } from '@Redux/Slices/Notifications/actions/getUnreadCount.action';
+import { selectNotificationsUnreadCount } from '@Redux/Slices/Notifications/notifications.selectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import {
   bindMenu,
@@ -36,16 +43,9 @@ import { useNavigate } from 'react-router-dom';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { useSoundEffect } from '@/AudioManager';
-import { useAppDispatch, useAppSelector } from '@/Redux/hooks';
-import { fetchCurrentUser } from '@/Redux/Slices/Auth/Actions/fetchCurrentUser';
-import {
-  selectCurrentUser,
-  selectIsLoggedIn,
-  selectUserLocation,
-} from '@/Redux/Slices/Auth/authSelectors';
+import { UserSettings } from '@/Components/UserSettings/UserSettings';
 import { AuthUtil } from '@/Utils/AuthUtil';
 
-import { UserSettings } from '../../../Components/UserSettings/UserSettings';
 import { LocationSearch } from './LocationSearch';
 import { NotificationsBox } from './NotificationsBox';
 

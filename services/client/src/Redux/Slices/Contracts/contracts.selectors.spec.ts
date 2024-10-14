@@ -1,7 +1,7 @@
 import { RootState } from '@Redux/store';
 import { describe, expect, it } from 'vitest';
 
-import { selectContract } from './contractSelectors';
+import { selectContract } from './contracts.selectors';
 
 describe('contractSelectors.ts', () => {
   it('can pick a contract by id', () => {

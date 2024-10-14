@@ -1,10 +1,10 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, debounce } from '@mui/material';
-import { fetchContracts } from '@Redux/Slices/Contracts/actions/fetch/fetchContracts';
+import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContracts.action';
 import {
   selectContractPagination,
   selectContractsArray,
-} from '@Redux/Slices/Contracts/selectors/contractSelectors';
+} from '@Redux/Slices/Contracts/contracts.selectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { useIsMobile } from '@Utils/isMobile';
 import { Logger } from '@Utils/Logger';

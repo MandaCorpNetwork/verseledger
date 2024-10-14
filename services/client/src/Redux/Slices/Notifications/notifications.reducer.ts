@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { IDTOComplete, ITimestamped } from 'vl-shared/src/schemas/DTOSchema';
 import { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
 
-import { fetchNotifications } from './actions/getNotifications';
-import { fetchUnreadCount } from './actions/getUnreadCount';
-import { markAllRead } from './actions/markAllRead';
-import { markRead } from './actions/patchMarkRead';
+import { fetchNotifications } from './actions/getNotifications.action';
+import { fetchUnreadCount } from './actions/getUnreadCount.action';
+import { markAllRead } from './actions/markAllRead.action';
+import { markRead } from './actions/patchMarkRead.action';
 
 const notificationsReducer = createSlice({
   name: 'notifications',
