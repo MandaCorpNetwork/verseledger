@@ -25,10 +25,13 @@
     "paths": {
       "@Assets/*": ["./Assets/*"],
       "@Common/*": ["./Common/*"],
+      "@Components/*": ["./Components/*"],
       "@Popups/*": ["./Popups/*"],
       "@Redux/*": ["./Redux/*"],
       "@Routes/*": ["./Routes/*"],
+      "@Services/*": ["./Services/*"],
       "@Utils/*": ["./Utils/*"],
+      "@Widgets/*": ["./Widgets/*"],
       "@store": ["./Redux/store"],
       "@/*": ["./*"]
     }
