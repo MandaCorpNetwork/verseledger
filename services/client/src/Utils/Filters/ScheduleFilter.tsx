@@ -28,7 +28,7 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
    * Updates the URL query parameters with the new date values.
    *
    * @param filterName - The query parameter name to update.
-   * @param {Date | null} date - The selected date or null if cleared.
+   * @param date - The selected date or null if cleared.
    */
   const handleTimeFilterChange = React.useCallback(
     (filterName: QueryNames, date: Date | null) => {
