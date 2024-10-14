@@ -16,7 +16,6 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { Box } from '@mui/system';
 import { POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
 import { POPUP_LOCATION_INFO } from '@Popups/Info/Locations';
 import { POPUP_LOGIN } from '@Popups/Login/LoginPopup';
@@ -185,14 +184,13 @@ export const VLAppBar: React.FC<unknown> = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <div>
       <AppBar position="static" sx={{ bgcolor: 'primary.dark' }}>
-        <Toolbar>
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <IconButton component="div" sx={{}} onClick={handleLogoClick}>
             <img src={VerseLogo} alt="Verse Logo" />
           </IconButton>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: 'flex' }}>
+          <div>
             {isLoggedIn ? (
               <>
                 <Tooltip title="Set Location" arrow>
@@ -248,7 +246,7 @@ export const VLAppBar: React.FC<unknown> = () => {
                 Login
               </Button>
             )}
-          </Box>
+          </div>
         </Toolbar>
       </AppBar>
       {renderMenu}
@@ -279,7 +277,7 @@ export const VLAppBar: React.FC<unknown> = () => {
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
           sx={{ p: '1em' }}
         >
-          <Box sx={{ display: 'flex' }}>
+          <div>
             <IconButton onClick={handleLocationPopup}>
               <Place />
             </IconButton>
@@ -288,10 +286,10 @@ export const VLAppBar: React.FC<unknown> = () => {
               margin=".5em"
               onLocationSelect={handleLocationSelect}
             />
-          </Box>
+          </div>
         </Popover>
       )}
       <UserSettings open={userSettingsOpen} onClose={handleUserSettingsClose} />
-    </Box>
+    </div>
   );
 };

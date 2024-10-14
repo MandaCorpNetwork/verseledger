@@ -3,6 +3,8 @@ import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { Box, Button, Typography } from '@mui/material';
+import { useAppDispatch } from '@Redux/hooks';
+import { abandonMission } from '@Redux/Slices/Routes/actions/missionActions';
 import React from 'react';
 import { IMission } from 'vl-shared/src/schemas/RoutesSchema';
 
@@ -11,6 +13,13 @@ type MissionProps = {
 };
 
 export const Mission: React.FC<MissionProps> = ({ mission }) => {
+  const dispatch = useAppDispatch();
+  const handleAbandonMission = React.useCallback(
+    (mission: IMission) => {
+      dispatch(abandonMission(mission));
+    },
+    [dispatch],
+  );
   return (
     <DigiBox
       data-testid="RouteTool-MissionViewer__Mission_Container"
@@ -42,10 +51,28 @@ export const Mission: React.FC<MissionProps> = ({ mission }) => {
           >
             <DigiField label="Package ID"># {obj.packageId}</DigiField>
             <DigiField label="Pickup Location">
-              <LocationChip locationId={obj.pickup.id} />
+              <LocationChip
+                locationId={obj.pickup.id}
+                color={
+                  obj.status === 'OBTAINED' || obj.status === 'COMPLETED'
+                    ? 'success'
+                    : obj.status === 'INTERUPTED'
+                      ? 'error'
+                      : 'secondary'
+                }
+              />
             </DigiField>
             <DigiField label="Drop-off Location">
-              <LocationChip locationId={obj.dropOff.id} />
+              <LocationChip
+                locationId={obj.dropOff.id}
+                color={
+                  obj.status === 'COMPLETED'
+                    ? 'success'
+                    : obj.status === 'INTERUPTED'
+                      ? 'error'
+                      : 'secondary'
+                }
+              />
             </DigiField>
             <DigiField label="Contents">{obj.contents}</DigiField>
             <DigiField label="SCU">{obj.scu?.toLocaleString()}</DigiField>
@@ -68,6 +95,7 @@ export const Mission: React.FC<MissionProps> = ({ mission }) => {
           variant="contained"
           size="small"
           color="info"
+          disabled
         >
           Edit Mission
         </Button>
@@ -76,6 +104,7 @@ export const Mission: React.FC<MissionProps> = ({ mission }) => {
           variant="contained"
           size="small"
           color="error"
+          onClick={() => handleAbandonMission(mission)}
         >
           Abandon Mission
         </Button>

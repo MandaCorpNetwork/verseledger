@@ -1,5 +1,5 @@
-import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
+import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_CREATE_MISSION } from '@Popups/Mission/AddMission';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -8,17 +8,14 @@ import {
   selectDestinations,
   selectMissions,
 } from '@Redux/Slices/Routes/routes.selectors';
-import { isDev } from '@Utils/isDev';
 import React from 'react';
 import { IMission } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { CurrentDestination } from './CurrentDestination';
-import { DestinationQue } from './DestinationQue';
+import { DestinationQue } from './DestinationQue/DestinationQue';
 import { Mission } from './Mission';
-import { NextDestination } from './NextDestination';
+import { RouteViewer } from './RouteViewer/RouteViewer';
 
 export const RouteApp: React.FC<unknown> = () => {
-  const dev = isDev();
   const dispatch = useAppDispatch();
 
   const missions = useAppSelector(selectMissions);
@@ -28,6 +25,8 @@ export const RouteApp: React.FC<unknown> = () => {
   const handleAddMission = React.useCallback(() => {
     dispatch(openPopup(POPUP_CREATE_MISSION));
   }, [dispatch]);
+
+  //Fetch All Locations
   return (
     <Box
       data-testid="RouteTool__AppContainer"
@@ -40,52 +39,11 @@ export const RouteApp: React.FC<unknown> = () => {
         position: 'relative',
       }}
     >
-      <GlassBox
-        data-testid="RouteTool__RouteViewer_Container"
-        sx={{ p: '1em', gap: '1em' }}
-      >
-        {!dev && <InDevOverlay />}
-        <Box
-          data-testid="RouteTool-RouteViewer__Title_Wrapper"
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '1em',
-          }}
-        >
-          <Typography data-testid="RouteTool-RouteViewer__Title" variant="h5">
-            Route Viewer
-          </Typography>
-          <Button
-            data-testid="RouteTool-RouteViewer__OpenWidget__Button"
-            variant="popupButton"
-          >
-            Open Widget
-          </Button>
-          <Button
-            data-testid="RouteTool-RouteViewer__AddStop__Button"
-            variant="popupButton"
-          >
-            Add Stop
-          </Button>
-        </Box>
-        <CurrentDestination />
-        <NextDestination />
-      </GlassBox>
-      <GlassBox
-        data-testid="RouteTool__DestinationList__Wrapper"
-        sx={{ p: '1em', gap: '1em' }}
-      >
-        <Typography data-testid="RouteTool__DestinationList_Title" variant="h5">
-          Destinations
-        </Typography>
-        <DestinationQue destinations={destinations} />
-      </GlassBox>
+      <RouteViewer destinations={destinations} />
+      <DestinationQue destinations={destinations} missions={missions} />
       <GlassBox
         data-testid="RouteTool__MissionViewer_Container"
-        sx={{ p: '1em', gap: '1em' }}
+        sx={{ p: '1em', gap: '1em', overflow: 'hidden', height: '100%' }}
       >
         <Box
           data-testid="RouteTool-MissionViewer__TitleWrapper"
@@ -108,9 +66,25 @@ export const RouteApp: React.FC<unknown> = () => {
             Add Mission
           </Button>
         </Box>
-        {missions.map((mission: IMission) => (
-          <Mission key={mission.missionId} mission={mission} />
-        ))}
+        <GlassDisplay sx={{ height: '90%', overflow: 'auto', gap: '1em', p: '.5em' }}>
+          {missions.map((mission: IMission) => (
+            <Mission key={mission.missionId} mission={mission} />
+          ))}
+          {missions.length === 0 && (
+            <Typography
+              variant="h6"
+              sx={{
+                textAlign: 'center',
+                width: '100%',
+                color: 'grey',
+                textShadow: '0 0 3px rgb(0,0,0), 0 0 10px rgba(0,0,0,.7)',
+                mt: '5em',
+              }}
+            >
+              Add A Mission To Begin
+            </Typography>
+          )}
+        </GlassDisplay>
       </GlassBox>
     </Box>
   );

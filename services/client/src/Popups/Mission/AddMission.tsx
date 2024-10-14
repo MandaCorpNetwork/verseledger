@@ -12,13 +12,21 @@ import {
 } from '@mui/material';
 import { POPUP_ADD_LOCATION } from '@Popups/AddLocation/AddLocation';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
-import { useAppDispatch } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { selectUserLocation } from '@Redux/Slices/Auth/authSelectors';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { addMission } from '@Redux/Slices/Routes/routes.reducer';
-import { enqueueSnackbar } from 'notistack';
+import {
+  addDestinations,
+  updateDestinations,
+} from '@Redux/Slices/Routes/actions/destinationActions';
+import { createMission } from '@Redux/Slices/Routes/actions/missionActions';
+import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
+import { numericalFilter } from '@Utils/numericFilter';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
+
+import { destinationsFromObjectives } from '@/Components/Personal/Routes/RouteUtilities';
 
 export const POPUP_CREATE_MISSION = 'create_mission';
 
@@ -36,6 +44,8 @@ export const AddMissionPopup: React.FC = () => {
   ]);
   const [missionId, setMissionId] = React.useState<number | null>(null);
   const dispatch = useAppDispatch();
+  const destinations = useAppSelector(selectDestinations);
+  const userLocation = useAppSelector(selectUserLocation);
 
   const handleOpenAddLocation = React.useCallback(
     (callback: (location: ILocation | null) => void) => {
@@ -44,22 +54,13 @@ export const AddMissionPopup: React.FC = () => {
     [dispatch],
   );
 
-  const numericFilter = React.useCallback((value: string) => {
-    const filteredValue = value.replace(/[^0-9]/g, ''); // Allow only digits
-    if (value !== filteredValue) {
-      enqueueSnackbar('Please only use Numbers', { variant: 'error' });
-    }
-    return filteredValue; // Return filtered value
-  }, []);
-
   const handleObjectiveChange = React.useCallback(
     (index: number, field: keyof Objective, value: string | number | ILocation) => {
       if ((field === 'scu' || field === 'packageId') && typeof value === 'string') {
-        const filteredValue = numericFilter(value);
-        const numericValue = filteredValue ? Number(filteredValue) : null;
+        const filteredValue = numericalFilter(value);
         setObjectives((prevObjectives) =>
           prevObjectives.map((obj, i) =>
-            i === index ? { ...obj, [field]: numericValue } : obj,
+            i === index ? { ...obj, [field]: filteredValue } : obj,
           ),
         );
         return;
@@ -68,7 +69,7 @@ export const AddMissionPopup: React.FC = () => {
         prevObjectives.map((obj, i) => (i === index ? { ...obj, [field]: value } : obj)),
       );
     },
-    [setObjectives, numericFilter],
+    [setObjectives],
   );
 
   const handleAddObjective = React.useCallback(() => {
@@ -95,16 +96,25 @@ export const AddMissionPopup: React.FC = () => {
     [handleObjectiveChange, dispatch],
   );
 
+  const objectivesToDestinations = React.useCallback(() => {
+    return destinationsFromObjectives(
+      objectives as IObjective[],
+      destinations,
+      userLocation,
+    );
+  }, [objectives, destinations, userLocation]);
   const handleSubmit = React.useCallback(() => {
     if (missionId != null && objectives.length > 0) {
       const mission: IMission = {
         missionId,
         objectives: objectives as IObjective[],
       };
-      dispatch(addMission(mission));
+      dispatch(createMission(mission));
+      dispatch(addDestinations(objectivesToDestinations().newDestinations));
+      dispatch(updateDestinations(objectivesToDestinations().updatedDestinations));
       dispatch(closePopup(POPUP_CREATE_MISSION));
     }
-  }, [dispatch, objectives, missionId]);
+  }, [dispatch, objectives, missionId, objectivesToDestinations]);
 
   const validateForm = React.useCallback(() => {
     return (
@@ -137,9 +147,7 @@ export const AddMissionPopup: React.FC = () => {
           color="secondary"
           required
           value={missionId !== null ? missionId.toString() : ''}
-          onChange={(e) =>
-            setMissionId(Number(numericFilter(e.currentTarget.value)) || null)
-          }
+          onChange={(e) => setMissionId(numericalFilter(e.currentTarget.value))}
           sx={{
             maxWidth: '150px',
             mb: '.5em',

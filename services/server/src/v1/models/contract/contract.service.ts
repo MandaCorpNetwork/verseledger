@@ -125,6 +125,8 @@ export class ContractService {
       isEmergency,
     } = params ?? {};
 
+    const emergency = isEmergency ? true : undefined;
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const query = {} as any;
     optionalSet(query, 'status', queryIn(status));
@@ -135,8 +137,7 @@ export class ContractService {
     optionalSet(query, 'ratingLimit', queryBelow(contractorRatingLimit));
     optionalSet(query, 'payStructure', queryIn(payStructure));
     optionalSet(query, 'defaultPay', queryBetween(minPay, maxPay));
-    //TODO: Fix this query because if the search is not sent with an emergency query specified it returns contracts not registered as Emergency
-    optionalSet(query, 'isEmergency', queryIn(isEmergency === 'true'));
+    optionalSet(query, 'isEmergency', queryIn(emergency));
 
     if (bidDate) {
       Object.assign(query, buildDateQuery('bidDate', bidDate));
