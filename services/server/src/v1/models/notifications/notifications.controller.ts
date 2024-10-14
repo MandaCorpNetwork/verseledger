@@ -11,7 +11,7 @@ import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
 import { UserService } from '@V1/models/user/user.service';
 import { NotificationService } from '@V1/models/notifications/notification.service';
-import { VLAuthPrincipal } from '@/authProviders/VL.principal';
+import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
 import { NextFunction } from 'express';
 import { IdUtil } from '@Utils/IdUtil';
 import { NotificationToNotificationDTOMapper } from './mapping/NotificationToNotificationDTOMapper';

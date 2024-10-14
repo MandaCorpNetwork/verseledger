@@ -1,4 +1,4 @@
-import { Mapper } from '@/infrastructure/Mapper';
+import { Mapper } from '@Infrastructure/Mapper';
 import { IUpdateUserSettingsCMD } from 'vl-shared/src/schemas/UserSettings';
 
 export class UserSettingCMDToUserSettingsDataMapper extends Mapper<

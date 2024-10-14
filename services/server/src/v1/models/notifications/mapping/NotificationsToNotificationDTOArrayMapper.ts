@@ -1,4 +1,4 @@
-import { Mapper } from '@/infrastructure/Mapper';
+import { Mapper } from '@Infrastructure/Mapper';
 import { Notification } from '@V1/models/notifications/notification.model';
 import { NotificationDTO } from './NotificationDTO';
 

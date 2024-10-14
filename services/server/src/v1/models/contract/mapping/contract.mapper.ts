@@ -1,4 +1,4 @@
-import { Mapper } from '@/infrastructure/Mapper';
+import { Mapper } from '@Infrastructure/Mapper';
 import { Contract } from '@V1/models/contract/contract.model';
 import { ContractDTO } from './ContractDTO';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';

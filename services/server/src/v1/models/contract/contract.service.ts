@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { Contract } from '@V1/models/contract/contract.model';
 import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
-import { TYPES } from '@/constant/types';
+import { TYPES } from '@Constant/types';
 import { Location } from '@V1/models/location/location.model';
 import { ContractLocation } from '@V1/models/contract/contract_locations.model';
 import { Op } from 'sequelize';

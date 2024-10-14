@@ -13,7 +13,7 @@ import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
 import { UserService } from '@V1/models/user/user.service';
 import { AuthService } from '@V1/models/auth/auth.service';
-import { VLAuthPrincipal } from '@/authProviders/VL.principal';
+import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
 import { ContractService } from '@V1/models/contract/contract.service';
 import { NextFunction } from 'express';
 import { NetworkError } from '@V1/errors/NetworkError';

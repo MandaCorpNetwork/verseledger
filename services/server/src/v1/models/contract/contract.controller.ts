@@ -14,7 +14,7 @@ import { inject } from 'inversify';
 import { ContractService } from '@V1/models/contract/contract.service';
 import { NextFunction } from 'express';
 import { BodyError } from '@V1/errors/BodyError';
-import { VLAuthPrincipal } from '@/authProviders/VL.principal';
+import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
 import { IdUtil } from '@Utils/IdUtil';
 import { BadParameterError } from '@V1/errors/BadParameter';
 import { NotFoundError } from '@V1/errors/NotFoundError';

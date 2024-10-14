@@ -23,7 +23,7 @@ import {
   ApiPath,
 } from 'swagger-express-ts';
 import { Logger } from '@Utils/Logger';
-import { VLAuthPrincipal } from '@/authProviders/VL.principal';
+import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
 import { AuthRepository } from './auth.repository';
 import { ApiTokenCreateSchema } from 'vl-shared/src/schemas/ApiTokenSchema';
 import { NotificationService } from '@V1/models/notifications/notification.service';

@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { Contract } from '@V1/models/contract/contract.model';
 import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
-import { TYPES } from '@/constant/types';
+import { TYPES } from '@Constant/types';
 import { NotFoundError } from '@V1/errors/NotFoundError';
 import { BadRequestError } from '@V1/errors/BadRequest';
 import { User } from '@V1/models/user/user.model';

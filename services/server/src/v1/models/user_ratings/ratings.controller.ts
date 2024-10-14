@@ -1,4 +1,4 @@
-import { VLAuthPrincipal } from '@/authProviders/VL.principal';
+import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
 import { RatingDTO } from './mapping/UserRatingDTO';
 import { IdUtil } from '@Utils/IdUtil';
 import { Logger } from '@Utils/Logger';

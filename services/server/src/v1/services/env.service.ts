@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import 'dotenv/config';
 import colors from 'colors/safe';
-import { envConfig, EnvironmentConfig } from '@/configs/Environment';
+import { envConfig, EnvironmentConfig } from '@Configs/Environment';
 import { Logger } from '@Utils/Logger';
 let has_warned = false;
 @injectable()

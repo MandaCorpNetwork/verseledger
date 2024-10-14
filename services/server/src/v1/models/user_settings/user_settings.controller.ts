@@ -8,7 +8,7 @@ import {
   requestBody,
 } from 'inversify-express-utils';
 import { UserSettingsService } from './user_settings.service';
-import { VLAuthPrincipal } from '@/authProviders/VL.principal';
+import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
 import { UserSettingsArrayToUserSettingsDTOMapper } from './mapping/UserSettingsArrayToUserSettingsDTO.mapper';
 import {
   IUpdateUserSettingsCMD,
