@@ -15,8 +15,9 @@ export const SupportBar: React.FC = () => {
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => playSound('navigate')}
+        className="Icon-Button"
       >
-        <KoFi fontSize="large" />
+        <KoFi fontSize="large" className="Support-Icon" />
       </IconButton>
       <IconButton
         component="a"
@@ -24,8 +25,9 @@ export const SupportBar: React.FC = () => {
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => playSound('navigate')}
+        className="Icon-Button"
       >
-        <Patreon fontSize="large" />
+        <Patreon fontSize="large" className="Support-Icon" />
       </IconButton>
       <ButtonBase
         component="a"
@@ -34,27 +36,9 @@ export const SupportBar: React.FC = () => {
         rel="noopener noreferrer"
         sx={{
           backgroundImage: `url(${Pally})`,
-          backgroundSize: 'contain',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          width: '100px',
-          height: '50px',
-          my: 'auto',
           borderRadius: '10px',
-          backgroundColor: 'primary.main',
-          boxShadow: '0 4px 8px rgba(0,0,0,.3)',
-          transition: 'all .2s ease-in-out',
-          '&:hover': {
-            backgroundColor: 'primary.dark',
-            boxShadow: '0 6px 12px rgba(0,0,0,.4)',
-            transform: 'scale(1.05)',
-          },
-          '&:active': {
-            backgroundColor: 'primary.dark',
-            boxShadow: '0 2px 4px rgba(0,0,0,.3)',
-            transform: 'translateY(4px)',
-          },
         }}
+        className="Pally-Button"
         onClick={() => playSound('navigate')}
       />
       <IconButton
@@ -63,8 +47,9 @@ export const SupportBar: React.FC = () => {
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => playSound('navigate')}
+        className="Icon-Button"
       >
-        <Discord fontSize="large" />
+        <Discord fontSize="large" className="Support-Icon" />
       </IconButton>
       <IconButton
         component="a"
@@ -72,12 +57,14 @@ export const SupportBar: React.FC = () => {
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => playSound('navigate')}
+        className="Icon-Button"
       >
         <img
           src={MadeByCommunity}
           alt="Made by the Community"
           width="40px"
           height="40px"
+          className="Support-Icon"
         />
       </IconButton>
     </Box>
