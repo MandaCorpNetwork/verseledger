@@ -4,6 +4,8 @@ import { DoubleArrow } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { deleteDestination } from '@Redux/Slices/Routes/actions/destination.action';
+import { openWidget } from '@Redux/Slices/Widgets/widgets.actions';
+import { WIDGET_ROUTES } from '@Widgets/Routes/Routes';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
@@ -43,6 +45,10 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({ destinations }) => {
     },
     [dispatch],
   );
+
+  const handleOpenRouteWidget = React.useCallback(() => {
+    dispatch(openWidget(WIDGET_ROUTES));
+  }, [dispatch]);
   return (
     <GlassBox
       data-testid="RouteTool__RouteViewer_Container"
@@ -64,6 +70,7 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({ destinations }) => {
         <Button
           data-testid="RouteTool-RouteViewer__OpenWidget__Button"
           variant="popupButton"
+          onClick={handleOpenRouteWidget}
         >
           Open Widget
         </Button>

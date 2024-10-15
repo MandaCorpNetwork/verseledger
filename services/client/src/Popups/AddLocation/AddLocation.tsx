@@ -1,4 +1,5 @@
 import { LocationSearch } from '@Common/Components/App/LocationSearch';
+import { Box } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
@@ -12,7 +13,9 @@ export type AddLocationProps = {
 export const AddLocationPopup: React.FC<AddLocationProps> = ({ onLocationSelection }) => {
   return (
     <VLPopup data-testid="AddLocation" name={POPUP_ADD_LOCATION} title="Add Location">
-      <LocationSearch onLocationSelect={onLocationSelection} />
+      <Box sx={{ py: '1em' }}>
+        <LocationSearch onLocationSelect={onLocationSelection} />
+      </Box>
     </VLPopup>
   );
 };
