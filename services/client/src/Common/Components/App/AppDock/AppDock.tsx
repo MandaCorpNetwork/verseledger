@@ -7,6 +7,7 @@ import {
   HomeTwoTone,
   InventoryTwoTone,
   MenuBookTwoTone,
+  NewspaperTwoTone,
   RouteTwoTone,
   ShoppingBasketTwoTone,
   StackedBarChartTwoTone,
@@ -56,6 +57,8 @@ export const AppDock: React.FC = () => {
         case '/dashboard/orders':
         case '/dashboard/verse-market':
           return ordersGroup;
+        case '/':
+          return splashGroup;
         default:
           return dashboardGroup;
       }
@@ -204,7 +207,7 @@ const ordersGroup: IconDefinition[] = [
   },
   {
     id: 'verse-market',
-    label: 'Ledger',
+    label: 'Market',
     path: '/dashboard/verse-market',
     icon: <StoreTwoTone />,
   },
@@ -261,9 +264,30 @@ const personalAllGroup: IconDefinition[] = [
   },
   {
     id: 'verse-market',
-    label: 'Ledger',
+    label: 'Market',
     path: '/dashboard/verse-market',
     icon: <StoreTwoTone />,
+  },
+];
+
+const splashGroup: IconDefinition[] = [
+  {
+    id: 'contract-ledger',
+    label: 'Ledger',
+    path: '/dashboard/ledger',
+    icon: <MenuBookTwoTone />,
+  },
+  {
+    id: 'verse-market',
+    label: 'Market',
+    path: '/dashboard/verse-market',
+    icon: <StoreTwoTone />,
+  },
+  {
+    id: 'verse-news',
+    label: 'News',
+    path: '/verse-news',
+    icon: <NewspaperTwoTone />,
   },
 ];
 
