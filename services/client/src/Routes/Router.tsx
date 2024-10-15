@@ -129,6 +129,14 @@ export const routingInfo: RouteObject[] = [
             path: 'tuning',
             element: <ShipTuning />,
           },
+          {
+            path: 'ship',
+            element: <ShipTuning />,
+          },
+          {
+            path: 'orders',
+            element: <InventoryApp />,
+          },
         ],
       },
       {

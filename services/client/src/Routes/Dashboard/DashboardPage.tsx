@@ -1,68 +1,10 @@
-import { useSoundEffect } from '@Audio/AudioManager';
+import { AppDock } from '@Common/Components/App/AppDock/AppDock';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
-import { AppToolBar } from '@Components/Personal/AppToolBar';
 import { Box } from '@mui/material';
-import { Logger } from '@Utils/Logger';
 import React from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-
-const prefix = '/dashboard';
+import { Outlet } from 'react-router-dom';
 
 export const DashboardPage: React.FC<unknown> = () => {
-  const { playSound } = useSoundEffect();
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const currentLocation = React.useMemo(() => {
-    switch (location.pathname) {
-      case `${prefix}/contracts`:
-        return 'Contracts';
-      case `${prefix}/explore`:
-        return 'Explore';
-      case `${prefix}/routes`:
-        return 'Routes';
-      case `${prefix}/inventory`:
-        return 'Inventory';
-      case `${prefix}/tuning`:
-        return 'Tuning';
-      case `${prefix}/overview`:
-      default:
-        return 'Overview';
-    }
-  }, [location.pathname]);
-  Logger.info('Selected App', currentLocation);
-
-  const handleAppChange = React.useCallback(
-    (iconKey: string) => {
-      if (currentLocation === iconKey) {
-        playSound('denied');
-        return;
-      }
-      playSound('navigate');
-      switch (iconKey) {
-        case 'Contracts':
-          navigate(`${prefix}/contracts`);
-          break;
-        case 'Explore':
-          navigate(`${prefix}/explore`);
-          break;
-        case 'Routes':
-          navigate(`${prefix}/routes`);
-          break;
-        case 'Inventory':
-          navigate(`${prefix}/inventory`);
-          break;
-        case 'Tuning':
-          navigate(`${prefix}/tuning`);
-          break;
-        case 'Overview':
-        default:
-          navigate(`${prefix}/overview`);
-          break;
-      }
-    },
-    [currentLocation, navigate, playSound],
-  );
   return (
     <VLViewport
       data-testid="PersonalLedgerPage"
@@ -102,7 +44,7 @@ export const DashboardPage: React.FC<unknown> = () => {
         <Outlet />
       </Box>
       <Box sx={{ mt: 'auto', mb: '1%' }}>
-        <AppToolBar selectedApp={currentLocation} setSelectedApp={handleAppChange} />
+        <AppDock />
       </Box>
     </VLViewport>
   );

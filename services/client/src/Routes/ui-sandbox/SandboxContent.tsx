@@ -1,4 +1,4 @@
-import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
+import { AppDock } from '@Common/Components/App/AppDock/AppDock';
 import { Box } from '@mui/material';
 
 export const SandboxContent: React.FC<unknown> = () => {
@@ -13,8 +13,8 @@ export const SandboxContent: React.FC<unknown> = () => {
         mt: '1em',
       }}
     >
-      <Box sx={{ display: 'flex', gap: '1em' }}>
-        <RatingDisplay size="small" value={3} variant="defined" />
+      <Box sx={{ display: 'flex', gap: '1em', flexDirection: 'column' }}>
+        <AppDock />
       </Box>
     </Box>
   );
