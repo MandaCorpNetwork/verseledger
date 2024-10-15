@@ -8,14 +8,7 @@ import React from 'react';
 export const SupportBar: React.FC = () => {
   const { playSound } = useSoundEffect();
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        backgroundColor: 'primary.dark',
-        borderRadius: '20px',
-        px: '.5em',
-      }}
-    >
+    <Box className="Support-Bar">
       <IconButton
         component="a"
         href="https://ko-fi.com/verseledger"

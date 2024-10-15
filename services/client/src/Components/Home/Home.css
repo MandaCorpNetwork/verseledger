@@ -32,3 +32,17 @@
     0 2px 4px rgba(0, 0, 0, 0.3),
     0 1px 2px rgba(0, 0, 0, 0.5);
 }
+
+.Support-Bar {
+  display: flex;
+  padding-left: 0.5em;
+  flex-direction: row;
+  gap: 0.5em;
+  padding-right: 0.5em;
+  border-radius: 20px;
+  background-image: linear-gradient(145deg, rgba(14,35,141), rgba(0,1,19));
+  box-shadow:
+    rgba(0, 1, 19, 0.5) 0px 0px 25px 3px,
+    rgba(22, 31, 39, 0.5) 0px 60px 123px -25px,
+    rgba(19, 26, 32, 0.1) 0px 35px 75px -35px;
+}
