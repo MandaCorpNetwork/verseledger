@@ -63,7 +63,10 @@ export const AppIcon: React.FC<AppIconProps> = ({
     navigate(path);
   }, [navigate, path]);
 
-  const isActive = location.pathname === path;
+  const isActive =
+    label === 'Home'
+      ? location.pathname === path || location.pathname === '/dashboard'
+      : location.pathname === path;
 
   const onClass = isActive ? 'on' : 'off';
 
@@ -72,14 +75,17 @@ export const AppIcon: React.FC<AppIconProps> = ({
       className="App-Button"
       sx={{
         borderRadius: '15px',
-        border: '2px outset rgba(0,183,252,0.5)',
+        border: '2px outset',
+        borderColor: disabled ? 'rgba(8,22,80,0.3)' : 'rgba(0,183,252,0.5)',
         minWidth: '120px',
         '&:hover': {
-          border: '2px outset rgba(0,183,252,0.8)',
+          border: '2px outset',
+          borderColor: disabled ? 'rgba(8,22,80,0.5)' : 'rgba(0,183,252,0.8)',
         },
       }}
       onClick={handleClick}
       onMouseMove={handleMouseMove}
+      disabled={disabled}
     >
       <Box className="App-Icon-Container">
         {React.cloneElement(icon, {
