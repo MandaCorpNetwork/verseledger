@@ -1,13 +1,16 @@
-import { BusinessTwoTone, HomeTwoTone } from '@mui/icons-material';
+import { SensorOccupiedTwoTone } from '@mui/icons-material';
 import { Box } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
+import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
+import { bindTrigger, PopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 
-type SwapIconProps = {
-  dockType: 'personal' | 'org';
-  setDockType: () => void;
+type UserStateIconProps = {
+  popupState: PopupState;
 };
 
-export const SwapIcon: React.FC<SwapIconProps> = ({ dockType, setDockType }) => {
+export const UserStateIcon: React.FC<UserStateIconProps> = ({ popupState }) => {
+  const { onClick, onTouchStart, ...ariaProps } = bindTrigger(popupState);
   const [rotateY, setRotateY] = React.useState<number>(0);
   const animationFrameId = React.useRef<number | null>(null);
   const targetRotateY = React.useRef<number>(rotateY);
@@ -46,24 +49,24 @@ export const SwapIcon: React.FC<SwapIconProps> = ({ dockType, setDockType }) => 
     },
     [smoothRotate],
   );
-  const getIcon = React.useCallback(() => {
-    if (dockType === 'org') return <HomeTwoTone />;
-    if (dockType === 'personal') return <BusinessTwoTone />;
-    return <HomeTwoTone />;
-  }, [dockType]);
-  const icon = getIcon();
+
+  const userLocation = useAppSelector(selectUserLocation);
+
+  const isLocationSet = Boolean(userLocation.id);
   return (
     <Box
       className="Swap-Icon-Container"
       onMouseMove={handleMouseMove}
-      onClick={setDockType}
+      onClick={onClick}
+      onTouchStart={onTouchStart}
+      {...ariaProps}
     >
-      {React.cloneElement(icon, {
-        className: `Swap-Icon`,
-        fontSize: 'large',
-        sx: { '--rotate-y': `${rotateY}deg` },
-      })}
-      {React.cloneElement(icon, { className: 'Swap-Icon-Reflection', fontSize: 'large' })}
+      <SensorOccupiedTwoTone
+        className={`Swap-Icon ${isLocationSet ? '' : 'State-Alert'}`}
+        fontSize="large"
+        sx={{ '--rotate-y': `${rotateY}deg` }}
+      />
+      <SensorOccupiedTwoTone className="Swap-Icon-Reflection" fontSize="large" />
     </Box>
   );
 };

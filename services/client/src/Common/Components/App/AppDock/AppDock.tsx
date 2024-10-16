@@ -2,7 +2,6 @@ import './AppDock.css';
 
 import { Exploration, Fleet, Vehicles } from '@Common/Definitions/CustomIcons';
 import {
-  BusinessTwoTone,
   ConstructionTwoTone,
   ErrorOutline,
   HomeTwoTone,
@@ -16,11 +15,12 @@ import {
   StoreTwoTone,
   WorkTwoTone,
 } from '@mui/icons-material';
-import { Alert, Box, Divider, Grow, Slide, Typography } from '@mui/material';
+import { Alert, Box, Divider, Grow, Popover, Slide, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchCurrentUser } from '@Redux/Slices/Auth/Actions/fetchCurrentUser.action';
 import { selectIsLoggedIn } from '@Redux/Slices/Auth/auth.selectors';
 import { AuthUtil } from '@Utils/AuthUtil';
+import { bindPopover, usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -28,12 +28,11 @@ import { AppIcon } from './AppIcon';
 import { LoginIcon } from './LoginIcon';
 import { MoreIcon } from './MoreIcon';
 import { SplashIcon } from './SplashIcon';
-import { SwapIcon } from './SwapIcon';
 import { UserDial } from './UserDial';
+import { UserStateIcon } from './UserStateIcon';
+import { UserStateManager } from './UserStateManager';
 
 export const AppDock: React.FC = () => {
-  const [showAll, setShowAll] = React.useState<boolean>(false);
-  const [dockType, setDockType] = React.useState<'org' | 'personal'>('personal');
   const [iconGroup, setIconGroup] = React.useState<IconDefinition[]>([]);
   const [key, setKey] = React.useState(0);
   const location = useLocation();
@@ -50,39 +49,31 @@ export const AppDock: React.FC = () => {
   }, [isLoggedIn, dispatch]);
 
   const getIconGroup = React.useCallback(() => {
-    if (showAll) {
-      if (dockType === 'personal') {
-        return personalAllGroup;
-      } else {
-        return personalAllGroup;
-      }
-    } else {
-      switch (location.pathname) {
-        case '/dashboard':
-        case '/dashboard/overview':
-          return dashboardGroup;
-        case '/dashboard/explore':
-        case '/dashboard/routes':
-        case '/dashboard/inventory':
-          return exploreGroup;
-        case '/dashboard/ship':
-        case '/dashboard/fleet':
-        case '/dashboard/builder':
-        case '/dashboard/tuning':
-          return shipGroup;
-        case '/dashboard/contracts':
-        case '/dashboard/ledger':
-          return contractsGroup;
-        case '/dashboard/orders':
-        case '/dashboard/verse-market':
-          return ordersGroup;
-        case '/':
-          return splashGroup;
-        default:
-          return dashboardGroup;
-      }
+    switch (location.pathname) {
+      case '/dashboard':
+      case '/dashboard/overview':
+        return dashboardGroup;
+      case '/dashboard/explore':
+      case '/dashboard/routes':
+      case '/dashboard/inventory':
+        return exploreGroup;
+      case '/dashboard/ship':
+      case '/dashboard/fleet':
+      case '/dashboard/builder':
+      case '/dashboard/tuning':
+        return shipGroup;
+      case '/dashboard/contracts':
+      case '/dashboard/ledger':
+        return contractsGroup;
+      case '/dashboard/orders':
+      case '/dashboard/verse-market':
+        return ordersGroup;
+      case '/':
+        return splashGroup;
+      default:
+        return dashboardGroup;
     }
-  }, [location.pathname, showAll, dockType]);
+  }, [location.pathname]);
 
   React.useEffect(() => {
     const newGroup = getIconGroup();
@@ -93,19 +84,34 @@ export const AppDock: React.FC = () => {
     }
   }, [getIconGroup, iconGroup]);
 
-  const handleChangeDockType = React.useCallback(() => {
-    if (dockType === 'personal') {
-      setDockType('org');
-    } else {
-      setDockType('personal');
-    }
-  }, [setDockType, dockType]);
+  const handleShowAll = React.useCallback(() => {}, []);
 
-  const handleShowAll = React.useCallback(() => {
-    setShowAll((prev) => !prev);
-  }, [setShowAll]);
+  const userStatePopupState = usePopupState({
+    variant: 'popover',
+    popupId: 'userStatePopup',
+  });
+
+  const renderUserStatePopover = (
+    <Popover
+      {...bindPopover(userStatePopupState)}
+      anchorOrigin={{ vertical: 'center', horizontal: 'left' }}
+      transformOrigin={{ vertical: 'center', horizontal: 'right' }}
+      sx={{ p: '1em' }}
+      slotProps={{
+        paper: {
+          sx: {
+            backgroundColor: 'transparent',
+            boxShadow: 'none',
+          },
+        },
+      }}
+    >
+      <UserStateManager />
+    </Popover>
+  );
   return (
     <Box className="Dock">
+      {renderUserStatePopover}
       <Slide direction="up" in={!isLoggedIn}>
         <Alert
           severity="error"
@@ -137,14 +143,9 @@ export const AppDock: React.FC = () => {
       </Slide>
       <Box>
         <SplashIcon />
-        <SwapIcon dockType={dockType} setDockType={handleChangeDockType} />
+        <UserStateIcon popupState={userStatePopupState} />
       </Box>
-      {dockType === 'personal' ? (
-        <AppIcon label="Home" path="/dashboard/overview" icon={<HomeTwoTone />} />
-      ) : (
-        <AppIcon label="Orgs" path="/orgs" icon={<BusinessTwoTone />} />
-      )}
-
+      <AppIcon label="Home" path="/dashboard/overview" icon={<HomeTwoTone />} />
       <Divider
         orientation="vertical"
         flexItem
