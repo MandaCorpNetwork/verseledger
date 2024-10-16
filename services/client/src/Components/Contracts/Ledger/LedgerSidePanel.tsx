@@ -9,10 +9,8 @@ import { Box, Button, Grow, IconButton, Slide, Tooltip } from '@mui/material';
 import { POPUP_CREATE_CONTRACT } from '@Popups/Contracts/CreateContract/CreateContract';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { useIsMobile } from '@Utils/isMobile';
 import { useIsTablet } from '@Utils/isTablet';
-import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 
 import { ContractLedgerLoopButton } from './ContractLedgerLoopButton';
@@ -25,7 +23,7 @@ export const LedgerSidePanel: React.FC<LedgerSidePanelProps> = ({ openMobileSear
   const [isExpanded, setExpanded] = React.useState<boolean>(false);
 
   const { playSound } = useSoundEffect();
-  const { searchParams, setFilters } = useURLQuery();
+  // const { searchParams, setFilters } = useURLQuery();
   const dispatch = useAppDispatch();
   const mobile = useIsMobile();
   const tablet = useIsTablet();

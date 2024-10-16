@@ -122,7 +122,7 @@ export const InfoNonMobile: React.FC<InfoNonMobileProps> = ({
             {archetype && (
               <ArchetypeChip
                 data-testid="ContractPage-Info-ContractInfo-Type__Archetype_Chip"
-                archetype={archetype}
+                archetype={archetype as ContractArchetype}
                 size="medium"
                 iconSize="medium"
               />

@@ -65,7 +65,7 @@ export const MobileInfo: React.FC<MobileInfoProps> = ({ contract, archetype }) =
           data-testid="ContractPage-Info-ContractInfo-Type__Archetype_Field"
           label="Contract Archetype"
         >
-          {archetype && <ArchetypeChip archetype={archetype} />}
+          {archetype && <ArchetypeChip archetype={archetype as ContractArchetype} />}
         </DigiField>
       </Box>
       <Box
