@@ -1,5 +1,6 @@
 import './AppDock.css';
 
+import { useSoundEffect } from '@Audio/AudioManager';
 import { Exploration, Fleet, Vehicles } from '@Common/Definitions/CustomIcons';
 import {
   ConstructionTwoTone,
@@ -19,6 +20,7 @@ import { Alert, Box, Divider, Grow, Popover, Slide, Typography } from '@mui/mate
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchCurrentUser } from '@Redux/Slices/Auth/Actions/fetchCurrentUser.action';
 import { selectIsLoggedIn } from '@Redux/Slices/Auth/auth.selectors';
+import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { bindPopover, usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
@@ -29,6 +31,7 @@ import { LoginIcon } from './Icons/LoginIcon';
 import { MoreIcon } from './Icons/MoreIcon';
 import { SplashIcon } from './Icons/SplashIcon';
 import { UserStateIcon } from './Icons/UserStateIcon';
+import { POPUP_APP_LIST } from './Tools/AllApps';
 import { UserDial } from './Tools/UserDial';
 import { UserStateManager } from './Tools/UserStateManager';
 
@@ -37,6 +40,7 @@ export const AppDock: React.FC = () => {
   const [key, setKey] = React.useState(0);
   const location = useLocation();
   const dispatch = useAppDispatch();
+  const { playSound } = useSoundEffect();
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
@@ -84,8 +88,6 @@ export const AppDock: React.FC = () => {
     }
   }, [getIconGroup, iconGroup]);
 
-  const handleShowAll = React.useCallback(() => {}, []);
-
   const userStatePopupState = usePopupState({
     variant: 'popover',
     popupId: 'userStatePopup',
@@ -109,6 +111,11 @@ export const AppDock: React.FC = () => {
       <UserStateManager />
     </Popover>
   );
+
+  const handleOpenAll = React.useCallback(() => {
+    playSound('open');
+    dispatch(openPopup(POPUP_APP_LIST));
+  }, [playSound, dispatch]);
   return (
     <Box className="Dock">
       {renderUserStatePopover}
@@ -165,7 +172,7 @@ export const AppDock: React.FC = () => {
         </Box>
       </Grow>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <MoreIcon toggleView={handleShowAll} />
+        <MoreIcon toggleView={handleOpenAll} />
         {isLoggedIn ? <UserDial /> : <LoginIcon />}
       </Box>
     </Box>
