@@ -19,7 +19,7 @@ import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 //TODO: Need to Rework the Loading Logic for the Notification Tool
 const NotificationToolComponent = React.lazy(() => import('./NotificationTool'));
 
-export const OverviewApp: React.FC<unknown> = () => {
+export const DashboardApp: React.FC<unknown> = () => {
   const { isPlaying, play, pause } = useRadioController();
   const { playSound } = useSoundEffect();
   const dispatch = useAppDispatch();

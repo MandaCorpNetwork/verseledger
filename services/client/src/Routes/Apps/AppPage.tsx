@@ -1,31 +1,29 @@
-import { AppDock } from '@Common/Components/AppDock/AppDock';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { Box } from '@mui/material';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
-export const DashboardPage: React.FC<unknown> = () => {
+//TODO: Create Collapser for AppDock
+export const AppPage: React.FC<unknown> = () => {
   return (
     <VLViewport
-      data-testid="PersonalLedgerPage"
+      data-testid="AppViewerPage"
       sx={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        p: '1em',
-        '&:after': {
-          backgroundImage: `url(https://files.otakustudy.com/wp-content/uploads/2020/07/18150855/SC-Aeroview-Hangar-01.jpg)`,
-        },
       }}
     >
       <Box
-        data-testid="ToolDisplay"
+        data-testid="AppViewerPage__AppDisplay_Container"
         sx={{
+          display: 'flex',
+          flexDirection: 'column',
           width: '100%',
-          height: '90%',
-          margin: { xs: '0', md: '1%' },
-          padding: { xs: '0', md: '.5em' },
+          flexGrow: 1,
+          m: { xs: '0', md: '1%' },
+          p: { xs: '0', md: '0.5em', lg: '1em' },
           overflowY: { xs: 'auto', md: 'hidden' },
           '&::-webkit-scrollbar': {
             width: '5px',
@@ -43,9 +41,7 @@ export const DashboardPage: React.FC<unknown> = () => {
       >
         <Outlet />
       </Box>
-      <Box sx={{ mt: 'auto', mb: '1%' }}>
-        <AppDock />
-      </Box>
+      <Box data-testid="AppViewerPage__AppDock_Container" sx={{ mt: 'auto' }}></Box>
     </VLViewport>
   );
 };
