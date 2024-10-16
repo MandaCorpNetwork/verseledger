@@ -26,11 +26,6 @@ import { ProfileSettings } from './Profile';
 import { SecuritySettings } from './Security';
 import { SoundSettings } from './Sounds';
 
-type UserSettingsProps = {
-  open: boolean;
-  onClose: () => void;
-};
-
 const settingsList = [
   'Profile',
   'Security',
@@ -43,7 +38,7 @@ const settingsList = [
 
 type settingsListItem = (typeof settingsList)[number];
 
-export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => {
+export const UserSettings: React.FC = () => {
   const { playSound } = useSoundEffect();
   const [selectedSetting, setSelectedSetting] =
     React.useState<settingsListItem>('Profile');
@@ -109,12 +104,7 @@ export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => 
     </Box>
   );
   return (
-    <Dialog
-      fullScreen
-      open={open}
-      sx={{ backdropFilter: 'blur(10px)' }}
-      PaperProps={{ sx: { bgcolor: 'rgba(8,29,68,0.6)' } }}
-    >
+    <Box>
       <DialogTitle sx={{ display: 'flex' }}>
         <Typography variant="h4">User Settings</Typography>
         <IconButton sx={{ ml: 'auto' }} size="large" onClick={onClose}>
@@ -205,6 +195,6 @@ export const UserSettings: React.FC<UserSettingsProps> = ({ open, onClose }) => 
           </Grow>
         </Box>
       </DialogContent>
-    </Dialog>
+    </Box>
   );
 };
