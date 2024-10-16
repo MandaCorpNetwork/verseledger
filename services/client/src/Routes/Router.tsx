@@ -1,12 +1,10 @@
-import { Marketplace } from '@Components/Orders/VerseMarket/Marketplace/Marketplace';
-import { OpenOrders } from '@Components/Orders/VerseMarket/OpenOrders/OpenOrders';
-import { OrderHistory } from '@Components/Orders/VerseMarket/OrderHistory/OrderHistory';
 import { ContractManagerApp } from '@Components/Personal/ContractManager/ContractManagerApp';
 import { ExploreApp } from '@Components/Personal/Explore/ExploreApp';
 import { InventoryApp } from '@Components/Personal/Inventory/InventoryApp';
 import { DashboardApp } from '@Components/Personal/Overview/OverviewApp';
 import { RouteApp } from '@Components/Personal/Routes/RouteApp';
 import { ShipTuning } from '@Components/Personal/Tuning/Tuning';
+import { UserSettings } from '@Components/UserSettings/UserSettings';
 import { DiscordLoginUtility } from '@Utils/discordLoginUtility';
 import { GoogleLoginUtility } from '@Utils/GoogleLoginUtility';
 import { Outlet, RouteObject } from 'react-router-dom';
@@ -17,6 +15,7 @@ import { WidgetManager } from '@/WidgetManager';
 import { ContractLedgerApp } from '../Components/Contracts/Ledger/ContractLedgerApp';
 import { AdminPage } from './Admin/AdminPage';
 import { APIDocs } from './api-docs/APIDocs';
+import { AppPage } from './Apps/AppPage';
 import { ContractPage } from './Contract/ContractPage';
 import ErrorPage from './ErrorPage';
 import { Home } from './Index/Home/Home';
@@ -27,8 +26,6 @@ import { Sandbox } from './ui-sandbox/SandboxPage';
 import { UserPage } from './User/UserPage';
 import { VerseMarketPage } from './VerseMarket/VerseMarketPage';
 import { VerseNewsPage } from './VerseNews/VerseNews';
-import { AppPage } from './Apps/AppPage';
-import { UserSettings } from '@Components/UserSettings/UserSettings';
 
 export const routingInfo: RouteObject[] = [
   {
