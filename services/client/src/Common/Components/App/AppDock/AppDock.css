@@ -282,3 +282,34 @@ body:hover .Dock {
     0 2px 10px rgba(12, 12, 12, 0.3);
   color: rgba(25, 25, 25);
 }
+
+.User-Dial {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  box-shadow: none;
+}
+
+.User-Avatar {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    filter 0.3s ease;
+  perspective: 50% 100%;
+}
+
+.User-Dial:hover .User-Avatar {
+  transform: scale(1.15) rotateY(25deg) rotateX(8deg) translateZ(30px) translateX(-7px);
+  perspective-origin: 10% 90%;
+  filter: drop-shadow(0px 5px 15px rgba(0, 183, 252, 0.6));
+}
+
+.User-Dial-Option {
+  transition: transform 0.3s ease, color 0.3s ease, filter 0.3s ease;
+}
+
+.User-Dial-Option:hover {
+  transform: scale(1.1) rotateX(-20deg) rotateY(5deg) translateZ(-10px);
+  color: rgba(14,252,252);
+  filter: drop-shadow(0px 4px 15px rgba(0, 183, 252, 0.5));
+}

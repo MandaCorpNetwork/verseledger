@@ -57,14 +57,6 @@ export const VLAppBar: React.FC<unknown> = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isLoggedIn) return;
-    const accessToken = AuthUtil.getAccessToken();
-    if (AuthUtil.isValidToken(accessToken)) {
-      dispatch(fetchCurrentUser());
-    }
-  }, [isLoggedIn, dispatch]);
-
-  useEffect(() => {
     if (isLoggedIn) {
       dispatch(fetchUserSettings());
     }

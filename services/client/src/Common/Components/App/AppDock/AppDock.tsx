@@ -15,6 +15,10 @@ import {
   WorkTwoTone,
 } from '@mui/icons-material';
 import { Box, Divider, Grow } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { fetchCurrentUser } from '@Redux/Slices/Auth/Actions/fetchCurrentUser.action';
+import { selectIsLoggedIn } from '@Redux/Slices/Auth/auth.selectors';
+import { AuthUtil } from '@Utils/AuthUtil';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -22,6 +26,7 @@ import { AppIcon } from './AppIcon';
 import { MoreIcon } from './MoreIcon';
 import { SplashIcon } from './SplashIcon';
 import { SwapIcon } from './SwapIcon';
+import { UserDial } from './UserDial';
 
 export const AppDock: React.FC = () => {
   const [showAll, setShowAll] = React.useState<boolean>(false);
@@ -29,6 +34,17 @@ export const AppDock: React.FC = () => {
   const [iconGroup, setIconGroup] = React.useState<IconDefinition[]>([]);
   const [key, setKey] = React.useState(0);
   const location = useLocation();
+  const dispatch = useAppDispatch();
+
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+
+  React.useEffect(() => {
+    if (isLoggedIn) return;
+    const accessToken = AuthUtil.getAccessToken();
+    if (AuthUtil.isValidToken(accessToken)) {
+      dispatch(fetchCurrentUser());
+    }
+  }, [isLoggedIn, dispatch]);
 
   const getIconGroup = React.useCallback(() => {
     if (showAll) {
@@ -117,6 +133,7 @@ export const AppDock: React.FC = () => {
       </Grow>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <MoreIcon toggleView={handleShowAll} />
+        <UserDial />
       </Box>
     </Box>
   );
