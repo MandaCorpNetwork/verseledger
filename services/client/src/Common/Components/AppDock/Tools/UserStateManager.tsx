@@ -1,4 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
+import { LocationSearch } from '@Common/Components/App/LocationSearch';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
@@ -9,9 +11,6 @@ import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation.acti
 import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-
-import { InDevOverlay } from '../../InDevOverlay';
-import { LocationSearch } from '../../LocationSearch';
 
 export const UserStateManager: React.FC = () => {
   const dispatch = useAppDispatch();
