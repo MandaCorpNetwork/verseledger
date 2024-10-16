@@ -5,6 +5,7 @@ import {
   InventoryTwoTone,
   MenuBookTwoTone,
   NewspaperTwoTone,
+  PersonTwoTone,
   RouteTwoTone,
   SettingsTwoTone,
   ShoppingBasketTwoTone,
@@ -32,6 +33,13 @@ export type AppGroup = {
 
 export const masterAppList: AppListing[] = [
   { id: 'dashboard', label: 'Home', path: '/dashboard/overview', icon: <HomeTwoTone /> },
+  {
+    id: 'profile',
+    label: 'Profile',
+    path: `/user/${undefined}`,
+    icon: <PersonTwoTone />,
+    disabled: true,
+  },
   {
     id: 'settings',
     label: 'Settings',
@@ -155,3 +163,5 @@ export const orgApps: AppGroup = {
   category: 'org',
   list: ['orgs'],
 };
+
+//Todo: Create a Factory Component for creating AppLists and set up the Master App List with the userid for the correct User Id

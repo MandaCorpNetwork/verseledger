@@ -7,7 +7,7 @@ import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { selectIsPopupOpen } from '@Redux/Slices/Popups/popups.selectors';
 import React from 'react';
 
-import { AppIcon } from '../Icons/AppIcon';
+import { AllAppButton } from '../Icons/AllAppButton';
 
 export const POPUP_APP_LIST = 'appList';
 
@@ -18,6 +18,10 @@ const AllAppsComponent: React.FC = () => {
     dispatch(closePopup(POPUP_APP_LIST));
   }, [dispatch]);
   const isOpen = useAppSelector((state) => selectIsPopupOpen(state, POPUP_APP_LIST));
+
+  const appCount = masterAppList.length;
+
+  const columns = Math.min(4, Math.ceil(Math.sqrt(appCount)));
   return (
     <Modal
       data-testid="AppList__Modal"
@@ -41,6 +45,7 @@ const AllAppsComponent: React.FC = () => {
               flexDirection: 'row',
               alignItems: 'center',
               mb: { xs: '1em', md: '2em', lg: '3em' },
+              position: 'relative',
             }}
           >
             <Typography
@@ -66,6 +71,11 @@ const AllAppsComponent: React.FC = () => {
                   handleClose();
                   playSound('close');
                 }}
+                sx={{
+                  position: 'absolute',
+                  right: 0,
+                  mr: { xs: '1em', md: '5%', lg: '20%' },
+                }}
               >
                 <Close
                   data-testid="AppList__Close_Icon"
@@ -82,14 +92,32 @@ const AllAppsComponent: React.FC = () => {
               </IconButton>
             </Tooltip>
           </Box>
-          <Grid2 container spacing={2} data-testid="AppList__ListContainer">
+          <Grid2
+            container
+            columnGap={{ xs: 2, md: 4, lg: 6 }}
+            rowGap={{ xs: 2, md: 4, lg: 6 }}
+            data-testid="AppList__ListContainer"
+            columns={columns}
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: `repeat(${columns}, 1fr)`,
+              justifyItems: 'center',
+              maxWidth: 'fit-content',
+              margin: '0 auto',
+            }}
+          >
             {masterAppList.map((app) => (
               <Grid2
                 key={app.id}
-                container
+                size={1}
                 data-testid={`AppList-List__${app.id}_Wrapper`}
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
               >
-                <AppIcon
+                <AllAppButton
                   label={app.label}
                   path={app.path}
                   icon={app.icon as JSX.Element}

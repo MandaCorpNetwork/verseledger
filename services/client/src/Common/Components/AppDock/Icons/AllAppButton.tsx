@@ -1,8 +1,13 @@
 import '../AppDock.css';
 
+import { useSoundEffect } from '@Audio/AudioManager';
 import { Box, Button, Typography } from '@mui/material';
+import { useAppDispatch } from '@Redux/hooks';
+import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+import { POPUP_APP_LIST } from '../Tools/AllApps';
 
 type AppIconProps = {
   label: string;
@@ -11,7 +16,7 @@ type AppIconProps = {
   disabled?: boolean;
 };
 
-export const AppIcon: React.FC<AppIconProps> = ({
+export const AllAppButton: React.FC<AppIconProps> = ({
   label,
   icon,
   path,
@@ -58,10 +63,14 @@ export const AppIcon: React.FC<AppIconProps> = ({
 
   const location = useLocation();
   const navigate = useNavigate();
+  const { playSound } = useSoundEffect();
+  const dispatch = useAppDispatch();
 
   const handleClick = React.useCallback(() => {
+    playSound('navigate');
     navigate(path);
-  }, [navigate, path]);
+    dispatch(closePopup(POPUP_APP_LIST));
+  }, [navigate, path, playSound, dispatch]);
 
   const isActive =
     label === 'Home'
@@ -86,6 +95,7 @@ export const AppIcon: React.FC<AppIconProps> = ({
       onClick={handleClick}
       onMouseMove={handleMouseMove}
       disabled={disabled}
+      onMouseEnter={() => playSound('hover')}
     >
       <Box className="App-Icon-Container">
         {React.cloneElement(icon, {

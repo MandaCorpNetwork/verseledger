@@ -26,7 +26,7 @@ import { bindPopover, usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { AppIcon } from './Icons/AppIcon';
+import { AppButton } from './Icons/AppButton';
 import { LoginIcon } from './Icons/LoginIcon';
 import { MoreIcon } from './Icons/MoreIcon';
 import { SplashIcon } from './Icons/SplashIcon';
@@ -35,7 +35,7 @@ import { POPUP_APP_LIST } from './Tools/AllApps';
 import { UserDial } from './Tools/UserDial';
 import { UserStateManager } from './Tools/UserStateManager';
 
-export const AppDock: React.FC = () => {
+export const AppDockComponent: React.FC = () => {
   const [iconGroup, setIconGroup] = React.useState<IconDefinition[]>([]);
   const [key, setKey] = React.useState(0);
   const location = useLocation();
@@ -152,7 +152,7 @@ export const AppDock: React.FC = () => {
         <SplashIcon />
         <UserStateIcon popupState={userStatePopupState} />
       </Box>
-      <AppIcon label="Home" path="/dashboard/overview" icon={<HomeTwoTone />} />
+      <AppButton label="Home" path="/dashboard/overview" icon={<HomeTwoTone />} />
       <Divider
         orientation="vertical"
         flexItem
@@ -161,7 +161,7 @@ export const AppDock: React.FC = () => {
       <Grow in timeout={1000} key={key} style={{ transformOrigin: '0 0' }}>
         <Box sx={{ display: 'flex', flexDirection: 'row', gap: '0.5em' }}>
           {iconGroup.map((icon) => (
-            <AppIcon
+            <AppButton
               key={icon.id}
               label={icon.label}
               path={icon.path}
@@ -178,6 +178,8 @@ export const AppDock: React.FC = () => {
     </Box>
   );
 };
+
+export const AppDock = React.memo(AppDockComponent);
 
 type IconDefinition = {
   id: string;
