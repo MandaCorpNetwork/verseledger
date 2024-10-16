@@ -4,3 +4,7 @@ export const selectPopup = (state: RootState, name: string) => {
   if (popup == null) return { open: false, props: {} };
   return popup;
 };
+
+export const selectIsPopupOpen = (state: RootState, name: string): boolean => {
+  return state.popups[name]?.open ?? false;
+};

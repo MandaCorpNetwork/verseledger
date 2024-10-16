@@ -106,7 +106,7 @@ export const routingInfo: RouteObject[] = [
             element: <ContractManagerApp />,
           },
           {
-            path: '/contracts',
+            path: 'contracts',
             element: <ContractManagerApp />,
           },
           {
@@ -114,7 +114,7 @@ export const routingInfo: RouteObject[] = [
             element: <ContractLedgerApp />,
           },
           {
-            path: '/contracts/ledger',
+            path: 'contracts/ledger',
             element: <ContractLedgerApp />,
           },
           {
@@ -122,7 +122,7 @@ export const routingInfo: RouteObject[] = [
             element: <VerseMarketPage />,
           },
           {
-            path: '/orders',
+            path: 'orders',
             element: <VerseMarketPage />,
           },
           {
@@ -130,13 +130,13 @@ export const routingInfo: RouteObject[] = [
             element: <VerseMarketPage />,
           },
           {
-            path: '/verse-market',
+            path: 'verse-market',
             element: <VerseMarketPage />,
           },
         ],
       },
       {
-        path: 'contract/:selectedContractId',
+        path: '/contract/:selectedContractId',
         element: (
           <SecureRoute>
             <ContractPage />

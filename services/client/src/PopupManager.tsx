@@ -1,3 +1,4 @@
+import { AllApps, POPUP_APP_LIST } from '@Common/Components/AppDock/Tools/AllApps';
 import {
   AddLocationPopup,
   AddLocationProps,
@@ -118,6 +119,7 @@ export const PopupManager: React.FC = () => {
   const addLocationPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_ADD_LOCATION),
   );
+  const allAppsPopup = useAppSelector((state) => selectPopup(state, POPUP_APP_LIST));
   return (
     <>
       {verifyUserPopup.open && <VerifyUserPopup />}
@@ -161,6 +163,7 @@ export const PopupManager: React.FC = () => {
       {addLocationPopup.open && (
         <AddLocationPopup {...(addLocationPopup.props as AddLocationProps)} />
       )}
+      {allAppsPopup.open && <AllApps />}
     </>
   );
 };
