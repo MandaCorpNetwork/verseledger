@@ -1,3 +1,4 @@
+import { AppDock } from '@Common/Components/AppDock/AppDock';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { Box } from '@mui/material';
 import React from 'react';
@@ -41,7 +42,9 @@ export const AppPage: React.FC<unknown> = () => {
       >
         <Outlet />
       </Box>
-      <Box data-testid="AppViewerPage__AppDock_Container" sx={{ mt: 'auto' }}></Box>
+      <Box data-testid="AppViewerPage__AppDock_Container" sx={{ mt: 'auto' }}>
+        <AppDock />
+      </Box>
     </VLViewport>
   );
 };

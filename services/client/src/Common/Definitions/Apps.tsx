@@ -30,7 +30,7 @@ export type AppGroup = {
   list: string[];
 };
 
-export const MasterAppList: AppListing[] = [
+export const masterAppList: AppListing[] = [
   { id: 'dashboard', label: 'Home', path: '/dashboard/overview', icon: <HomeTwoTone /> },
   {
     id: 'settings',
