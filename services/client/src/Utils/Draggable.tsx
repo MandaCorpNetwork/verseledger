@@ -1,11 +1,19 @@
-import { PropsWithChildren, useEffect, useRef } from 'react';
+import {
+  MouseEventHandler,
+  PropsWithChildren,
+  RefObject,
+  useEffect,
+  useRef,
+} from 'react';
 import { Float2 } from 'vl-shared/src/math';
 
 const requestAnimationFrame = window.requestAnimationFrame;
 
 export const Draggable: React.FC<PropsWithChildren> = (props) => {
   const dragging = useRef(false);
-  const block = useRef<HTMLElement>(null as unknown as HTMLElement);
+  const block: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(
+    null as unknown as HTMLDivElement,
+  );
   const frameID = useRef(0);
   const last = useRef(new Float2());
   const drag = useRef(new Float2());
@@ -21,11 +29,11 @@ export const Draggable: React.FC<PropsWithChildren> = (props) => {
 
     frameID.current = requestAnimationFrame(() => {
       const transform = `translate3d(${drag.current.x}px, ${drag.current.y}px, 0)`;
-      block.current.style.transform = transform;
+      if (block.current != null) block.current.style.transform = transform;
     });
   };
 
-  const handleMouseDown = (e: MouseEvent) => {
+  const handleMouseDown: MouseEventHandler<HTMLDivElement> = (e) => {
     last.current = new Float2(e.pageX, e.pageY);
     dragging.current = true;
   };
