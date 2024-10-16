@@ -35,45 +35,15 @@ import { IUser } from 'vl-shared/src/schemas/UserSchema';
  * The ContractPage displays a singular Contract and all of its details.
  * Allows the user to interact with the contract applicable to their access level.
  * Retrieves the contract from a Contract ID passed through the URL query.
- * #### Functional Components
- * @component {@link TitleBox}
- * @component {@link TabletDetails}
- * @component {@link MobileLocations}
- * @component {@link TabletOrMobilePanels}
- * @component {@link MobileOrTabletController}
- * @component {@link DesktopContractBody}
- * @component {@link MobileOrTabletReturn}
- * @component {@link DesktopReturn}
- * @component {@link LoadingScreen}
- * #### Styled Components
- * @component {@link VLViewport}
- * @component {@link GlassBox}
  */
 export const ContractPage: React.FC<unknown> = () => {
   // LOCAL STATES
-  /** Gets the URL Query Parameter State for Readonly */
   const { selectedContractId } = useParams();
-  /**
-   * State defines the current archetype of the contract.
-   * @type [string | null, React.Dispatch<React.SetStateAction<string | null>>]
-   */
   const [archetype, setArchetype] = React.useState<string | null>(null);
-  /**
-   * State defines the current time tab of the contract.
-   * @type [string, React.Dispatch<React.SetStateAction<string>>]
-   */
   const [timeTab, setTimeTab] = React.useState<string>('bid');
-  /**
-   * State defines the current active data tab of the contract.
-   * @type [string, React.Dispatch<React.SetStateAction<string>>]
-   */
   const [activeDataTab, setActiveDataTab] = React.useState<string>('contractors');
   const [opacity, setOpacity] = React.useState(0.8);
-  /**
-   * State defines if the data is currently loading or not.
-   */
   const [loading, setLoading] = React.useState<boolean>(true);
-  /** State defines if there was an error in loading */
   const [error, setError] = React.useState<boolean>(false);
 
   // HOOKS
@@ -122,9 +92,6 @@ export const ContractPage: React.FC<unknown> = () => {
     }
   }, [contract, error, isLoading, loading, navigate]);
 
-  /** @generator {object} archetypeOption - The archetype options for the contract */
-  const archetypeOptions = contractArchetypes('secondary.main', 'inherit');
-
   /**
    * useEffect to set the archetype of the contract
    * @event {IContract | null} contract - The Contract from the Redux Store
@@ -132,7 +99,7 @@ export const ContractPage: React.FC<unknown> = () => {
    */
   React.useEffect(() => {
     if (!contract) return;
-    const selectedArchetype = archetypeOptions.find((option) =>
+    const selectedArchetype = contractArchetypes.find((option) =>
       option.subTypes.some((subType) => subType.value === contract.subtype),
     );
     if (selectedArchetype) {
@@ -140,7 +107,7 @@ export const ContractPage: React.FC<unknown> = () => {
     } else {
       setArchetype(null);
     }
-  }, [contract, archetypeOptions]);
+  }, [contract]);
 
   /**
    * Gets the current user from the {@link authReducer} slice

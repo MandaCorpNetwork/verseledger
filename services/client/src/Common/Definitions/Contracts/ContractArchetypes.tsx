@@ -1,3 +1,12 @@
+import FleetLoop from '@Assets/media/ContractLedger/FleetLoop.webm?url';
+import LogisticsLoop from '@Assets/media/ContractLedger/LogiLoop.webm?url';
+import MedicalLoop from '@Assets/media/ContractLedger/MediLoop.webm?url';
+import IndustryLoop from '@Assets/media/ContractLedger/MiningLoop.webm?url';
+import ProxyLoop from '@Assets/media/ContractLedger/ProxyLoop.webm?url';
+import RRRLoop from '@Assets/media/ContractLedger/RRRLoop.webm?url';
+import SalvageLoop from '@Assets/media/ContractLedger/SalvLoop.webm?url';
+import SecurityLoop from '@Assets/media/ContractLedger/SecLoop.webm?url';
+
 import {
   Exploration,
   Fleet,
@@ -10,13 +19,10 @@ import {
   Security,
 } from '../CustomIcons';
 
-export const contractArchetypes = (
-  color: string,
-  size: 'small' | 'medium' | 'large' | 'inherit',
-) => [
+export const contractArchetypes: ContractArchetypeTree[] = [
   {
     archetype: 'Logistics',
-    archetypeIcon: <Logistics fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <Logistics />,
     subTypes: [
       {
         label: 'Transport',
@@ -34,7 +40,7 @@ export const contractArchetypes = (
   },
   {
     archetype: 'Medical',
-    archetypeIcon: <Medical fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <Medical />,
     subTypes: [
       {
         label: 'Trauma',
@@ -48,7 +54,7 @@ export const contractArchetypes = (
   },
   {
     archetype: 'Security',
-    archetypeIcon: <Security fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <Security />,
     subTypes: [
       {
         label: 'Escort',
@@ -74,7 +80,7 @@ export const contractArchetypes = (
   },
   {
     archetype: 'Salvage',
-    archetypeIcon: <Salvage fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <Salvage />,
     subTypes: [
       {
         label: 'Collection',
@@ -88,7 +94,7 @@ export const contractArchetypes = (
   },
   {
     archetype: 'Industry',
-    archetypeIcon: <Industry fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <Industry />,
     subTypes: [
       {
         label: 'Mining',
@@ -110,7 +116,7 @@ export const contractArchetypes = (
   },
   {
     archetype: 'RRR',
-    archetypeIcon: <RRR fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <RRR />,
     subTypes: [
       {
         label: 'Refuel',
@@ -128,7 +134,7 @@ export const contractArchetypes = (
   },
   {
     archetype: 'Fleet',
-    archetypeIcon: <Fleet fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <Fleet />,
     subTypes: [
       {
         label: 'Crewman',
@@ -142,7 +148,7 @@ export const contractArchetypes = (
   },
   {
     archetype: 'Exploration',
-    archetypeIcon: <Exploration fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <Exploration />,
     subTypes: [
       {
         label: 'Locate',
@@ -156,7 +162,7 @@ export const contractArchetypes = (
   },
   {
     archetype: 'Proxy',
-    archetypeIcon: <Proxy fontSize={size} sx={{ color: color }} />,
+    archetypeIcon: <Proxy />,
     subTypes: [
       {
         label: 'Middleman',
@@ -168,4 +174,16 @@ export const contractArchetypes = (
       },
     ],
   },
+];
+
+export const archetypeLoopButtons = [
+  { title: 'Logistics', videoSource: LogisticsLoop, value: 'Logistics' },
+  { title: 'Medical', videoSource: MedicalLoop, value: 'Medical' },
+  { title: 'Security', videoSource: SecurityLoop, value: 'Security' },
+  { title: 'Salvage', videoSource: SalvageLoop, value: 'Salvage' },
+  { title: 'Industry', videoSource: IndustryLoop, value: 'Industry' },
+  { title: 'Rearm Refuel Repair', videoSource: RRRLoop, value: 'RRR' },
+  { title: 'Fleet', videoSource: FleetLoop, value: 'Fleet' },
+  { title: 'Exploration', videoSource: RRRLoop, value: 'Exploration' },
+  { title: 'Proxy', videoSource: ProxyLoop, value: 'Proxy' },
 ];

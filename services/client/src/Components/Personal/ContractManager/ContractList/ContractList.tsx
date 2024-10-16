@@ -30,10 +30,6 @@ type ContractListProps = {
  * ### Contract List
  * @description
  * Displays a List of Contracts found by the Contract Manager App
- * @memberof {@link ContractManagerApp}
- * #### Functional Components:
- * - {@link ContractListDropdown}
- * - {@link ContractManagerCard}
  */
 export const ContractList: React.FC<ContractListProps> = ({
   contracts,
@@ -47,16 +43,13 @@ export const ContractList: React.FC<ContractListProps> = ({
 }) => {
   // LOGIC
 
-  /** Retrieve the Contract Archetype Options object */
-  const archetypes = contractArchetypes('inherit', 'inherit');
-
   /**
    * Handles the logic for rendering Contract Cards
-   * @paramarchetype - Passes in an archetype Option for sorting the contracts by Archetypes with dropdowns.
+   * - Passes in an archetype Option for sorting the contracts by Archetypes with dropdowns.
    */
   const renderContractCards = React.useCallback(
     (archetype: string) => {
-      const selectedArchetype = archetypes.find((a) => a.archetype === archetype);
+      const selectedArchetype = contractArchetypes.find((a) => a.archetype === archetype);
       if (!selectedArchetype) {
         Logger.warn(`Archetype ${archetype} is not an option.`);
         return {
@@ -98,7 +91,7 @@ export const ContractList: React.FC<ContractListProps> = ({
           ),
       };
     },
-    [contracts, archetypes, selectedId, setSelectedId],
+    [contracts, selectedId, setSelectedId],
   );
 
   return (

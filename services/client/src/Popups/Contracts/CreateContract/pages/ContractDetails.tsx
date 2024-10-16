@@ -26,11 +26,8 @@ import React from 'react';
 import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 
-//Set Options to Contract Archetypes Object
-const options = contractArchetypes('secondary.main', 'large');
-
 const optionsMap: Record<string, { label: string; group: string }> = {};
-const flatOptions = options.flatMap((option) =>
+const flatOptions = contractArchetypes.flatMap((option) =>
   option.subTypes.map((subType) => {
     optionsMap[subType.value] = { group: option.archetype, label: subType.label };
     return subType.value;
@@ -47,12 +44,10 @@ export const ContractDetails: React.FC<{
   const [archetype, setArchetype] = React.useState<string | null>(null);
   const [filteredSubtypes, setFilteredSubtypes] = React.useState<string[]>(flatOptions);
   const [selectedSubtype, setSelectedSubtype] = React.useState<string | null>(
-    formData.subtype || null,
+    formData.subtype ?? null,
   );
 
   const scrollRef = useHorizontalAdvancedScroll();
-
-  const archetypeOptions = contractArchetypes('secondary.main', 'medium');
 
   const handleArchetypeSelect = React.useCallback(
     (selectedArchetype: string) => {
@@ -267,7 +262,7 @@ export const ContractDetails: React.FC<{
                 ref={scrollRef}
                 className="SelectScrollWrapper"
               >
-                {archetypeOptions.map((option) => (
+                {contractArchetypes.map((option) => (
                   <ArchetypeListChip
                     key={option.archetype}
                     icon={option.archetypeIcon}

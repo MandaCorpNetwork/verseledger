@@ -8,3 +8,14 @@ type ContractArchetype =
   | 'Fleet'
   | 'Exploration'
   | 'Proxy';
+
+type ContractSubtypeObj = {
+  label: string;
+  value: ContractSubType;
+};
+
+type ContractArchetypeTree = {
+  archetype: ContractArchetype;
+  archetypeIcon: JSX.Element;
+  subTypes: ContractSubtypeObj[];
+};
