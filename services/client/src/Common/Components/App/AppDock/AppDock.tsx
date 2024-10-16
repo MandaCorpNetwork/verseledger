@@ -4,17 +4,19 @@ import { Exploration, Fleet, Vehicles } from '@Common/Definitions/CustomIcons';
 import {
   BusinessTwoTone,
   ConstructionTwoTone,
+  ErrorOutline,
   HomeTwoTone,
   InventoryTwoTone,
   MenuBookTwoTone,
   NewspaperTwoTone,
+  Person,
   RouteTwoTone,
   ShoppingBasketTwoTone,
   StackedBarChartTwoTone,
   StoreTwoTone,
   WorkTwoTone,
 } from '@mui/icons-material';
-import { Box, Divider, Grow } from '@mui/material';
+import { Alert, Box, Divider, Grow, Slide, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchCurrentUser } from '@Redux/Slices/Auth/Actions/fetchCurrentUser.action';
 import { selectIsLoggedIn } from '@Redux/Slices/Auth/auth.selectors';
@@ -23,6 +25,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { AppIcon } from './AppIcon';
+import { LoginIcon } from './LoginIcon';
 import { MoreIcon } from './MoreIcon';
 import { SplashIcon } from './SplashIcon';
 import { SwapIcon } from './SwapIcon';
@@ -103,6 +106,35 @@ export const AppDock: React.FC = () => {
   }, [setShowAll]);
   return (
     <Box className="Dock">
+      <Slide direction="up" in={!isLoggedIn}>
+        <Alert
+          severity="error"
+          variant="filled"
+          sx={{
+            position: 'absolute',
+            top: -55,
+            left: 0,
+            right: 0,
+            zIndex: 10,
+            borderRadius: '10px',
+          }}
+          iconMapping={{
+            error: <ErrorOutline fontSize="medium" className="Alert-Icon" />,
+          }}
+        >
+          <Typography
+            className="Alert-Text"
+            sx={{
+              display: 'flex',
+              gap: '0.5em',
+              fontWeight: 'bold',
+              overflow: 'visible',
+            }}
+          >
+            Please Sign In <Person fontSize="medium" className="Alert-Icon" />
+          </Typography>
+        </Alert>
+      </Slide>
       <Box>
         <SplashIcon />
         <SwapIcon dockType={dockType} setDockType={handleChangeDockType} />
@@ -133,7 +165,7 @@ export const AppDock: React.FC = () => {
       </Grow>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <MoreIcon toggleView={handleShowAll} />
-        <UserDial />
+        {isLoggedIn ? <UserDial /> : <LoginIcon />}
       </Box>
     </Box>
   );
