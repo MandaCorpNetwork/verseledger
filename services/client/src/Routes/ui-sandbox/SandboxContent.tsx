@@ -1,4 +1,3 @@
-import { AppDock } from '@Common/Components/App/AppDock/AppDock';
 import { Box } from '@mui/material';
 
 export const SandboxContent: React.FC<unknown> = () => {
@@ -13,9 +12,7 @@ export const SandboxContent: React.FC<unknown> = () => {
         mt: '1em',
       }}
     >
-      <Box sx={{ display: 'flex', gap: '1em', flexDirection: 'column' }}>
-        <AppDock />
-      </Box>
+      <Box sx={{ display: 'flex', gap: '1em', flexDirection: 'column' }}></Box>
     </Box>
   );
 };

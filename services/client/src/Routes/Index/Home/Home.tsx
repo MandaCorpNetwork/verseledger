@@ -2,7 +2,7 @@
 import '@Components/Home/Home.css';
 
 import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
-import { AppDock } from '@Common/Components/App/AppDock/AppDock';
+import { AppDock } from '@Common/Components/AppDock/AppDock';
 import { SupportBar } from '@Components/Home/SupportBar';
 import { Box } from '@mui/material';
 import React from 'react';

@@ -1,4 +1,4 @@
-import { AppDock } from '@Common/Components/App/AppDock/AppDock';
+import { AppDock } from '@Common/Components/AppDock/AppDock';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { Box } from '@mui/material';
 import React from 'react';
