@@ -14,7 +14,6 @@ import { Outlet, RouteObject } from 'react-router-dom';
 import { PopupManager } from '@/PopupManager';
 import { WidgetManager } from '@/WidgetManager';
 
-import { VLAppBar } from '../Common/Components/App/AppBar';
 import { ContractLedgerApp } from '../Components/Contracts/Ledger/ContractLedgerApp';
 import { AdminPage } from './Admin/AdminPage';
 import { APIDocs } from './api-docs/APIDocs';
@@ -36,7 +35,6 @@ export const routingInfo: RouteObject[] = [
     //element: <LegacyLandingPage/>,
     element: (
       <>
-        <VLAppBar />
         <Outlet />
         <PopupManager />
         <WidgetManager />
