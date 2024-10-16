@@ -10,8 +10,8 @@ import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
-import { InDevOverlay } from '../InDevOverlay';
-import { LocationSearch } from '../LocationSearch';
+import { InDevOverlay } from '../../InDevOverlay';
+import { LocationSearch } from '../../LocationSearch';
 
 export const UserStateManager: React.FC = () => {
   const dispatch = useAppDispatch();

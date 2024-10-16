@@ -1,4 +1,4 @@
-import './AppDock.css';
+import '../AppDock.css';
 
 import { VLLogo } from '@Common/Definitions/CustomIcons';
 import { Box } from '@mui/material';
