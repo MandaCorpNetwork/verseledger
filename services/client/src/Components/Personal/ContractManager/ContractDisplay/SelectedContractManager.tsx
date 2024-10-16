@@ -144,10 +144,8 @@ export const SelectedContractManager: React.FC<SelectedContractManagerProps> = (
     return validLocations as ILocationWithContractLocation[];
   }, [memoizedContract.Locations]);
 
-  const archetypes = contractArchetypes('secondary.main', 'large');
-
   const selectedArchetype =
-    archetypes.find((option) =>
+    contractArchetypes.find((option) =>
       option.subTypes.some((subtype) => subtype.value === memoizedContract.subtype),
     ) || null;
 

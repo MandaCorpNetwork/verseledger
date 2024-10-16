@@ -2,23 +2,15 @@ import { ContractDisplay } from '@Components/Contracts/Ledger/Details/ContractDi
 import { Box, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectContract } from '@Redux/Slices/Contracts/contracts.selectors';
-import { Logger } from '@Utils/Logger';
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 
-type ContractDisplayContainer = {
-  selectedId: string | null;
-};
-
-export const ContractDisplayContainer: React.FC<ContractDisplayContainer> = ({
-  selectedId,
-}) => {
+export const ContractDisplayContainer: React.FC = () => {
+  const { selectedContractId } = useParams();
   const pickedContract = useAppSelector((root) =>
-    selectContract(root, selectedId as string),
+    selectContract(root, selectedContractId as string),
   );
-  useEffect(() => {
-    Logger.info(`ContractBriefingDisplay: ${selectedId}`);
-  }, [selectedId]);
   return (
     <Box
       sx={{

@@ -15,10 +15,10 @@ import { PopupManager } from '@/PopupManager';
 import { WidgetManager } from '@/WidgetManager';
 
 import { VLAppBar } from '../Common/Components/App/AppBar';
+import { ContractLedgerApp } from '../Components/Contracts/Ledger/ContractLedgerApp';
 import { AdminPage } from './Admin/AdminPage';
 import { APIDocs } from './api-docs/APIDocs';
 import { ContractPage } from './Contract/ContractPage';
-import { ContractLedgerPage } from './ContractLedger/ContractLedgerPage';
 import { DashboardPage } from './Dashboard/DashboardPage';
 import ErrorPage from './ErrorPage';
 import { Home } from './Index/Home/Home';
@@ -72,7 +72,7 @@ export const routingInfo: RouteObject[] = [
         path: '/ledger/contracts',
         element: (
           <SecureRoute>
-            <ContractLedgerPage />
+            <ContractLedgerApp />
           </SecureRoute>
         ),
       },
@@ -108,6 +108,14 @@ export const routingInfo: RouteObject[] = [
           {
             path: 'contracts',
             element: <ContractManagerApp />,
+          },
+          {
+            path: '/dashboard/ledger/:selectedContractId',
+            element: <ContractLedgerApp />,
+          },
+          {
+            path: 'ledger',
+            element: <ContractLedgerApp />,
           },
           {
             path: '/dashboard/explore/:selectedLocationId',

@@ -5,6 +5,7 @@ import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
 import { ContractorList } from '@Common/Components/Contracts/ContractorList';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
@@ -12,18 +13,9 @@ import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
 import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHolo';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
-import { ExpandMore, Launch, Link } from '@mui/icons-material';
-import {
-  Box,
-  Button,
-  Chip,
-  Collapse,
-  IconButton,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { ErrorTwoTone, ExpandMore, Launch, Link } from '@mui/icons-material';
+import { Box, Button, Collapse, IconButton, Tooltip, Typography } from '@mui/material';
 import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBids/ContractBid';
-import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
@@ -57,10 +49,8 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const [timeTab, setTimeTab] = React.useState('bid');
   const [archetype, setArchetype] = React.useState<string | null>(null);
 
-  const options = contractArchetypes('secondary.main', 'medium');
-
   React.useEffect(() => {
-    const selectedArchetype = options.find((option) =>
+    const selectedArchetype = contractArchetypes.find((option) =>
       option.subTypes.some((subType) => subType.value === contract.subtype),
     );
     if (selectedArchetype) {
@@ -68,19 +58,14 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
     } else {
       setArchetype(null);
     }
-  }, [contract.subtype, options]);
-
-  const handleArchetypeOpen = () => {
-    playSound('open');
-    dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetype }));
-  };
+  }, [contract.subtype]);
 
   const handleActiveTabChange = React.useCallback(
     (_event: React.SyntheticEvent, value: string) => {
       playSound('clickMain');
       setActiveDataTab(value);
     },
-    [playSound],
+    [playSound, setActiveDataTab],
   );
 
   const handleTimeTabChange = React.useCallback(
@@ -88,35 +73,41 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       playSound('clickMain');
       setTimeTab(value);
     },
-    [playSound],
+    [playSound, setTimeTab],
   );
 
   const toggleBriefingExpand = React.useCallback(() => {
-    if (briefingExpanded) {
-      playSound('toggleOff');
-    } else {
-      playSound('toggleOn');
-    }
-    setBriefingExpanded(!briefingExpanded);
-  }, [briefingExpanded, playSound]);
+    setBriefingExpanded((prev) => {
+      if (prev) {
+        playSound('close');
+      } else {
+        playSound('open');
+      }
+      return !prev;
+    });
+  }, [setBriefingExpanded, playSound]);
 
   const togglePayExpand = React.useCallback(() => {
-    if (payExpanded) {
-      playSound('toggleOff');
-    } else {
-      playSound('toggleOn');
-    }
-    setPayExpanded(!payExpanded);
-  }, [payExpanded, playSound]);
+    setPayExpanded((prev) => {
+      if (prev) {
+        playSound('close');
+      } else {
+        playSound('open');
+      }
+      return !prev;
+    });
+  }, [setPayExpanded, playSound]);
 
   const toggleLocationsExpand = React.useCallback(() => {
-    if (locationsExpanded) {
-      playSound('toggleOff');
-    } else {
-      playSound('toggleOn');
-    }
-    setLocationsExpanded(!locationsExpanded);
-  }, [locationsExpanded, playSound]);
+    setLocationsExpanded((prev) => {
+      if (prev) {
+        playSound('close');
+      } else {
+        playSound('open');
+      }
+      return !prev;
+    });
+  }, [setLocationsExpanded, playSound]);
 
   const contractTimePanel = React.useCallback(
     (panel: string) => {
@@ -134,7 +125,6 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
 
   const activeDataPanel = React.useCallback(
     (panel: string) => {
-      Logger.info(`Rendering ContractId: ${contract.id}`);
       switch (panel) {
         case 'contractors':
           return <ContractorList contract={contract} />;
@@ -146,37 +136,36 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
     [contract],
   );
 
-  const handleSubmitBidPopup = () => {
+  const handleSubmitBidPopup = React.useCallback(() => {
     playSound('open');
     dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
-  };
+  }, [playSound, dispatch, contract]);
 
-  const getStartLocationId = () => {
+  const getStartLocationId = React.useCallback(() => {
     if (contract.Locations) {
       const startLocationPull = contract?.Locations?.find(
         (location) => location.ContractLocation?.tag === 'start',
       )?.id;
-      return startLocationPull || null;
+      return startLocationPull ?? null;
     }
     return null;
-  };
+  }, [contract.Locations]);
 
   const startLocationId = getStartLocationId();
 
-  const getEndLocationId = () => {
+  const getEndLocationId = React.useCallback(() => {
     if (contract.Locations) {
       const endLocationPull = contract?.Locations?.find(
         (location) => location.ContractLocation?.tag === 'end',
       )?.id;
-      Logger.info(`EndLocation: ${endLocationPull}`);
-      return endLocationPull || null;
+      return endLocationPull ?? null;
     }
     return null;
-  };
+  }, [contract.Locations]);
 
   const endLocationId = getEndLocationId();
 
-  const getOtherLocationIds = () => {
+  const getOtherLocationIds = React.useCallback(() => {
     if (contract.Locations) {
       const otherLocationsPull = contract?.Locations?.filter(
         (location) => location.ContractLocation?.tag === 'other',
@@ -184,33 +173,43 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       return otherLocationsPull.map((location) => location.id);
     }
     return [];
-  };
+  }, [contract.Locations]);
 
   const otherLocationIds = getOtherLocationIds();
 
-  const handleContractPageNav = (contractId: string) => {
-    playSound('navigate');
-    navigate(`/ledger/contracts/${contractId}`);
-  };
+  const handleContractPageNav = React.useCallback(
+    (contractId: string) => {
+      playSound('navigate');
+      navigate(`/ledger/contracts/${contractId}`);
+    },
+    [playSound, navigate],
+  );
 
-  const handleCopyURL = (url: string) => {
-    const prefix = URLUtil.frontendHost;
-    if (navigator.clipboard) {
-      navigator.clipboard
-        .writeText(`${prefix}${url}`)
-        .then(() => {
-          playSound('clickMain');
-          enqueueSnackbar('Copied Contract to Clipboard', { variant: 'success' });
-        })
-        .catch((err) => {
-          playSound('error');
-          enqueueSnackbar(`Failed to Copy Contract: ${err}`, { variant: 'error' });
-        });
-    } else {
-      playSound('denied');
-      enqueueSnackbar('Clipboard API not supported', { variant: 'warning' });
-    }
-  };
+  const handleCopyURL = React.useCallback(
+    (url: string) => {
+      const prefix = URLUtil.frontendHost;
+      if (navigator.clipboard) {
+        navigator.clipboard
+          .writeText(`${prefix}${url}`)
+          .then(() => {
+            playSound('clickMain');
+            enqueueSnackbar('Copied Contract to Clipboard', { variant: 'success' });
+          })
+          .catch((err) => {
+            playSound('error');
+            enqueueSnackbar(`Failed to Copy Contract: ${err}`, { variant: 'error' });
+          });
+      } else {
+        playSound('denied');
+        enqueueSnackbar('Clipboard API not supported', { variant: 'warning' });
+      }
+    },
+    [playSound],
+  );
+
+  const archetypeObject = contractArchetypes.find(
+    (option) => option.archetype === archetype,
+  );
 
   return (
     <Box
@@ -266,11 +265,13 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               }}
             />
             <Tooltip title={archetype}>
-              {options.find((option) => option.archetype === archetype)
-                ?.archetypeIcon ?? (
-                <Typography color="error" fontWeight="bold">
-                  ???
-                </Typography>
+              {archetypeObject ? (
+                React.cloneElement(archetypeObject.archetypeIcon, {
+                  fontSize: 'large',
+                  color: 'secondary',
+                })
+              ) : (
+                <ErrorTwoTone fontSize="large" color="error" />
               )}
             </Tooltip>
           </DigiDisplay>
@@ -332,16 +333,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 justifyContent: 'center',
               }}
             >
-              <Chip
-                variant="outlined"
-                size="small"
-                color="secondary"
-                label={contract.subtype}
-                icon={
-                  options.find((option) => option.archetype === archetype)?.archetypeIcon
-                }
-                onClick={handleArchetypeOpen}
-              />
+              <SubtypeChip subtype={contract.subtype} size="small" />
             </Box>
           </DigiDisplay>
           <UserDisplay user={contract.Owner} />

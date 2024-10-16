@@ -31,11 +31,9 @@ export const ContractItem: React.FC<ContractProps> = ({
   isActive,
 }) => {
   //LOGIC
-  /** Fetches the archetype option of the selected contract. */
-  const archetypes = contractArchetypes('secondary.main', 'large');
   /** Finds the achetype the of the selected contract. */
   const selectedArchetype =
-    archetypes.find((option) =>
+    contractArchetypes.find((option) =>
       option.subTypes.some((subType) => subType.value === contract.subtype),
     ) || null;
   /** Sets up the end date text string displayed on the contract information. */

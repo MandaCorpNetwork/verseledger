@@ -13,6 +13,7 @@ import { useIsMobile } from '@Utils/isMobile';
 import { Logger } from '@Utils/Logger';
 import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
 import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 import { IContractSearch } from 'vl-shared/src/schemas/SearchSchema';
@@ -20,22 +21,14 @@ import { IContractSearch } from 'vl-shared/src/schemas/SearchSchema';
 import { ContractCardDisplay } from './CardView/ContractCardDisplay';
 import { ContractTableView } from './TableView/ContractTableView';
 
-type ContractsViewerProps = {
-  selectedId: string | null;
-  selectedIdSetter: (id: string | null) => void;
-  contractOnClose: () => void;
-};
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
-  selectedIdSetter,
-  contractOnClose,
-  selectedId,
-}) => {
+export const ContractsBrowser: React.FC = () => {
+  const { selectedContractId } = useParams();
   const { playSound } = useSoundEffect();
   const mobile = useIsMobile();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [view, setView] = React.useState('ContractCardView');
   const { searchParams } = useURLQuery();
   const [page, setPage] = React.useState(0);
@@ -44,26 +37,39 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
   const pagination = useAppSelector(selectContractPagination);
   const contractCount = pagination;
 
-  const handleChangePage = (_event: unknown, newPage: number) => {
-    playSound('clickMain');
-    setPage(newPage);
-  };
+  const handleChangePage = React.useCallback(
+    (_event: unknown, newPage: number) => {
+      playSound('clickMain');
+      setPage(newPage);
+    },
+    [playSound, setPage],
+  );
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    playSound('clickMain');
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+  const handleChangeRowsPerPage = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      playSound('clickMain');
+      setRowsPerPage(+event.target.value);
+      setPage(0);
+    },
+    [playSound, setRowsPerPage, setPage],
+  );
 
-  const handleSelect = (id: string | null) => {
-    playSound('open');
-    selectedIdSetter(id);
-    Logger.info(`Selected Contract in Browser: ${id}`);
-  };
+  const handleSelect = React.useCallback(
+    (id: string | null) => {
+      if (mobile) {
+        playSound('navigate');
+        navigate(`/contract/${id}`);
+      } else {
+        playSound('open');
+        navigate(`/dashboard/ledger/${id}`);
+      }
+    },
+    [mobile, playSound, navigate],
+  );
 
-  const handleClose = () => {
-    contractOnClose();
-  };
+  const handleClose = React.useCallback(() => {
+    navigate('/dashboard/ledger');
+  }, [navigate]);
 
   const search = React.useCallback(
     (params: IContractSearch) => {
@@ -194,7 +200,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
             data-testid="ContractLedger-ContractBrowser-ContractListTools__CloseContractWrapper"
             sx={{ mr: 'auto' }}
           >
-            {selectedId && (
+            {selectedContractId && (
               <Button
                 onClick={handleClose}
                 variant="text"
@@ -242,7 +248,7 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
           <ContractCardDisplay
             onPick={handleSelect}
             contracts={contracts}
-            isSelected={selectedId}
+            isSelected={selectedContractId ?? null}
             page={page}
             rowsPerPage={rowsPerPage}
             onChangePage={handleChangePage}
@@ -251,9 +257,9 @@ export const ContractsBrowser: React.FC<ContractsViewerProps> = ({
           />
         ) : (
           <ContractTableView
-            onPick={selectedIdSetter}
+            onPick={handleSelect}
             contract={contracts}
-            isSelected={selectedId}
+            isSelected={selectedContractId ?? null}
             page={page}
             rowsPerPage={rowsPerPage}
             onChangePage={handleChangePage}

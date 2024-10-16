@@ -35,7 +35,7 @@ export const ContractListDropdown: React.FC<ContractListDropdownProps> = ({
   const selectedColor = isExpanded ? 'secondary.main' : 'text.secondary';
 
   /** Fetch the currently selected Archetype Object to render the Icon */
-  const archetypeObj = contractArchetypes(selectedColor, 'large').find(
+  const archetypeObj = contractArchetypes.find(
     (option) => option.archetype === archetype,
   );
 

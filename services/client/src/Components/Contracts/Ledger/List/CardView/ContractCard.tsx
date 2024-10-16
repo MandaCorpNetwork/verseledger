@@ -5,7 +5,7 @@ import { MiniPlayerCard } from '@Common/Components/App/MiniPlayerCard';
 import { PayDisplay } from '@Common/Components/App/PayDisplay';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
-import { EmergencyShare } from '@mui/icons-material';
+import { EmergencyShare, ErrorTwoTone } from '@mui/icons-material';
 import { Avatar, Box, Card, CardActionArea, Tooltip, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -28,10 +28,8 @@ export const ContractCard: React.FC<ContractCardProps> = ({
 }) => {
   const [archetype, setArchetype] = React.useState<string | null>(null);
 
-  const archetypes = contractArchetypes('secondary.main', 'large');
-
   React.useEffect(() => {
-    const selectedArchetype = archetypes.find((option) =>
+    const selectedArchetype = contractArchetypes.find((option) =>
       option.subTypes.some((subType) => subType.value === contract.subtype),
     );
     if (selectedArchetype) {
@@ -39,7 +37,7 @@ export const ContractCard: React.FC<ContractCardProps> = ({
     } else {
       setArchetype(null);
     }
-  }, [archetypes, contract.subtype]);
+  }, [contract.subtype]);
 
   const handleClick = () => {
     if (onClick) {
@@ -60,6 +58,9 @@ export const ContractCard: React.FC<ContractCardProps> = ({
     (location) => location.ContractLocation?.tag === 'start',
   )?.id;
 
+  const archetypeObject = contractArchetypes.find(
+    (option) => option.archetype === archetype,
+  );
   return (
     <Card
       onClick={handleClick}
@@ -177,8 +178,14 @@ export const ContractCard: React.FC<ContractCardProps> = ({
           }}
         >
           <Tooltip title={archetype}>
-            {archetypes.find((option) => option.archetype === archetype)
-              ?.archetypeIcon ?? <Typography>???</Typography>}
+            {archetypeObject ? (
+              React.cloneElement(archetypeObject.archetypeIcon, {
+                fontSize: 'large',
+                color: 'secondary',
+              })
+            ) : (
+              <ErrorTwoTone fontSize="large" color="error" />
+            )}
           </Tooltip>
         </Box>
         <Box
