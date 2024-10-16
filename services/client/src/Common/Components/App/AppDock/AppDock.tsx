@@ -24,13 +24,13 @@ import { bindPopover, usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { AppIcon } from './AppIcon';
-import { LoginIcon } from './LoginIcon';
-import { MoreIcon } from './MoreIcon';
-import { SplashIcon } from './SplashIcon';
-import { UserDial } from './UserDial';
-import { UserStateIcon } from './UserStateIcon';
-import { UserStateManager } from './UserStateManager';
+import { AppIcon } from './Icons/AppIcon';
+import { LoginIcon } from './Icons/LoginIcon';
+import { MoreIcon } from './Icons/MoreIcon';
+import { SplashIcon } from './Icons/SplashIcon';
+import { UserStateIcon } from './Icons/UserStateIcon';
+import { UserDial } from './Tools/UserDial';
+import { UserStateManager } from './Tools/UserStateManager';
 
 export const AppDock: React.FC = () => {
   const [iconGroup, setIconGroup] = React.useState<IconDefinition[]>([]);

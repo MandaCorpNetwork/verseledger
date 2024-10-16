@@ -1,4 +1,4 @@
-import './AppDock.css';
+import '../AppDock.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
 import {
@@ -20,7 +20,7 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { NotificationsBox } from '../NotificationsBox';
+import { NotificationsBox } from '../../NotificationsBox';
 
 export const UserDial: React.FC = () => {
   const [notificationsOpen, setNotificationsOpen] = React.useState<boolean>(false);

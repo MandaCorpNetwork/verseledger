@@ -374,7 +374,7 @@ body:hover .Dock {
   0%,
   100% {
     opacity: 1;
-    color: #c96b28; 
+    color: #c96b28;
     filter: drop-shadow(0 0 10px #fc6f0a);
   }
   50% {

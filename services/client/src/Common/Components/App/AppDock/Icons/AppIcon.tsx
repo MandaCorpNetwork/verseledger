@@ -1,4 +1,4 @@
-import './AppDock.css';
+import '../AppDock.css';
 
 import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
