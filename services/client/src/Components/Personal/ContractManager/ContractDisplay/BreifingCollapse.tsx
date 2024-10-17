@@ -26,7 +26,8 @@ export const BriefingCollapse: React.FC<BriefingCollapseProps> = ({ briefing }) 
     <DigiBox
       data-testid="SelectedContract__BriefingWrapper"
       sx={{
-        width: '80%',
+        width: '100%',
+        maxWidth: '325px',
         p: '.5em',
         mb: '1em',
       }}
@@ -37,7 +38,7 @@ export const BriefingCollapse: React.FC<BriefingCollapseProps> = ({ briefing }) 
         </Typography>
         <IconButton
           data-testid="AppDockCollapse__Collapse_Button"
-          sx={{ position: 'absolute', left: -10, top: 0 }}
+          sx={{ position: 'absolute', left: 0, top: 0, p: 0 }}
           onClick={handleExpand}
         >
           <DoubleArrow
@@ -60,7 +61,7 @@ export const BriefingCollapse: React.FC<BriefingCollapseProps> = ({ briefing }) 
         <DigiDisplay
           data-testid="SelectedContract-Briefing__ContentWrapper"
           sx={{
-            mx: '10%',
+            mx: '5%',
             mt: '.5em',
             maxHeight: '150px',
             p: '.5em',

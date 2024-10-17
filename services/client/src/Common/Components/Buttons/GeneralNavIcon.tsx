@@ -74,7 +74,7 @@ export const GeneralNav: React.FC<CopyStringProps> = ({
       size="small"
       color={buttonColor}
       sx={{ ...slotProps?.root?.sx }}
-      onClick={(e) => handleNav(url, variant, e)}
+      onClick={(e) => handleNav(e, url, variant)}
     >
       {icon}
     </IconButton>

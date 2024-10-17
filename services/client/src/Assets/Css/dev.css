@@ -1,0 +1,75 @@
+/* Keyframes for resizing */
+@keyframes resizeAnimation {
+  0% {
+    width: 100%;
+    height: 100%;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* XS screen size (320px - 475px) */
+.ViewPort-Resize.xs {
+  animation: xsResize 20s infinite alternate;
+}
+
+@keyframes xsResize {
+  0% {
+    width: 320px;
+    height: 320px;
+  }
+  100% {
+    width: 475px;
+    height: 475px;
+  }
+}
+
+/* SM screen size (485px - 765px) */
+.ViewPort-Resize.sm {
+  animation: smResize 20s infinite alternate;
+}
+
+@keyframes smResize {
+  0% {
+    width: 485px;
+    height: 485px;
+  }
+  100% {
+    width: 765px;
+    height: 765px;
+  }
+}
+
+/* MD screen size (780px - 1849px) */
+.ViewPort-Resize.md {
+  animation: mdResize 20s infinite alternate;
+}
+
+@keyframes mdResize {
+  0% {
+    width: 780px;
+    height: 100vh; 
+  }
+  100% {
+    width: 1849px;
+    height: 100vh;
+  }
+}
+
+/* LG screen size (1855px - 3035px) */
+.ViewPort-Resize.lg {
+  animation: lgResize 20s infinite alternate;
+}
+
+@keyframes lgResize {
+  0% {
+    width: 1855px;
+    height: 100vh;
+  }
+  100% {
+    width: 3035px;
+    height: 100vh;
+  }
+}

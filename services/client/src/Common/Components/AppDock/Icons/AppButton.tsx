@@ -68,8 +68,8 @@ export const AppButton: React.FC<AppIconProps> = ({
 
   const isActive =
     label === 'Home'
-      ? location.pathname === path || location.pathname === '/dashboard'
-      : location.pathname === path;
+      ? location.pathname === path || location.pathname === '/apps'
+      : location.pathname.startsWith(path);
 
   const onClass = isActive ? 'on' : 'off';
 

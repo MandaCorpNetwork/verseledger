@@ -4,8 +4,9 @@ import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { CopyString } from '@Common/Components/Buttons/CopyString';
 import { GeneralNav } from '@Common/Components/Buttons/GeneralNavIcon';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
-import { ErrorOutline } from '@mui/icons-material';
-import { Tooltip, Typography } from '@mui/material';
+import { ErrorOutline, HighlightOffTwoTone } from '@mui/icons-material';
+import { IconButton, Tooltip, Typography } from '@mui/material';
+import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
 import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 
@@ -18,6 +19,7 @@ type DetailsDisplayProps = {
 export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
   const contractInactive =
     contract.status === 'COMPLETED' || contract.status === 'CANCELED';
+  const handleNav = useNav();
 
   const getOwnerRating = React.useCallback(() => {
     const userRatings = contract.Ratings?.filter(
@@ -34,6 +36,15 @@ export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
       option.subTypes.some((subtype) => subtype.value === contract.subtype),
     ) || null;
 
+  const closeContract = React.useCallback(
+    (e: React.MouseEvent) => {
+      const { search } = window.location;
+      const url = `/apps/contracts/${search}`;
+      handleNav(e, url, 'internal', false);
+    },
+    [handleNav],
+  );
+
   return (
     <DigiBox
       content="section"
@@ -45,6 +56,34 @@ export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
         height: 'auto',
       }}
     >
+      <Tooltip title="Close Contract">
+        <IconButton
+          data-testid="SelectedContract-DetailsDisplay__CloseContract_Button"
+          onClick={closeContract}
+          sx={{
+            position: 'absolute',
+            top: -5,
+            left: -5,
+            zIndex: 10,
+          }}
+        >
+          <HighlightOffTwoTone
+            data-testid="SelectedContract-DetailsDisplay__CloseContract_Icon"
+            color="warning"
+            fontSize="medium"
+            sx={{
+              opacity: '0.6',
+              filter:
+                'drop-shadow(0 0 0 rgba(255,193,0,0.4)) drop-shadow(0 0 5px rgba(255,193,0,0.6)) drop-shadow(0 0 10px rgba(255,193,0,0.5))',
+              transition: 'opacity 0.3s ease-in-out',
+              '&:hover': {
+                opacity: '1',
+              },
+            }}
+          />
+        </IconButton>
+      </Tooltip>
+
       <div
         data-testid="SelectedContract-DetailsDisplay__Title_Container"
         style={{
