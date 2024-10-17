@@ -2,7 +2,7 @@ import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { ReadOnlyField } from '@Common/Components/TextFields/ReadOnlyField';
-import { ContentCopy } from '@mui/icons-material';
+import { ContentCopy, GpsFixed } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -12,8 +12,8 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { Gauge, SparkLineChart } from '@mui/x-charts';
-import { VLPopup } from '@Popups/PopupWrapper/Popup';
+import { SparkLineChart } from '@mui/x-charts';
+import { TitleWithObject, VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation.action';
@@ -59,11 +59,38 @@ export const LocationInfoPopup: React.FC<LocationInfoProps> = ({ locationId }) =
       }),
     );
   }, [dispatch, handleSetLocation, location]);
+
+  const currentLocationIcon = React.useMemo(
+    () => (
+      <Tooltip title="Current Location" arrow>
+        <GpsFixed />
+      </Tooltip>
+    ),
+    [],
+  );
+
+  const onLocation = currentLocation.id === locationId;
+
+  const getPopupTitle = React.useCallback(() => {
+    if (location) {
+      if (onLocation) {
+        return {
+          text: location.waypoint_name,
+          object: currentLocationIcon,
+        } as TitleWithObject;
+      }
+      return location.waypoint_name;
+    } else {
+      return 'Unknown Location';
+    }
+  }, [location, onLocation, currentLocationIcon]);
+
+  const popupTitle = getPopupTitle();
   return (
     <VLPopup
       data-testid="Location__Popup"
       name={POPUP_LOCATION_INFO}
-      title={location ? location.short_name : 'Unknown Location'}
+      title={popupTitle}
       sx={{
         minWidth: '500px',
       }}
@@ -93,7 +120,7 @@ export const LocationInfoPopup: React.FC<LocationInfoProps> = ({ locationId }) =
             Set Location
           </Button>
           <Button variant="outlined" color="error" size="small" disabled>
-            Report Crime
+            Route To
           </Button>
           <Button
             variant="outlined"
@@ -219,20 +246,6 @@ export const LocationInfoPopup: React.FC<LocationInfoProps> = ({ locationId }) =
               <SparkLineChart
                 height={100}
                 data={[2500, 800, 1500, 900, 700, 600, 3200]}
-              />
-            </Box>
-            <Box
-              data-testid="LocationPopup-Information-UserBasedInfo__SafteyMeter_Wrapper"
-              sx={{ display: 'flex', flexDirection: 'column' }}
-            >
-              <Typography>Saftey Rating</Typography>
-              <Gauge
-                value={75}
-                startAngle={-110}
-                endAngle={110}
-                text={`Danger`}
-                width={120}
-                height={100}
               />
             </Box>
           </Box>
