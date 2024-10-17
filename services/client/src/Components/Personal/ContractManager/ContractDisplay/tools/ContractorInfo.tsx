@@ -1,12 +1,20 @@
+import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
+import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { Box, Divider, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 
-export const ContractorInfo: React.FC<unknown> = () => {
+type ContractorInfoProps = {
+  willChange: boolean;
+};
+
+export const ContractorInfo: React.FC<ContractorInfoProps> = ({ willChange }) => {
   const currentUser = useAppSelector(selectCurrentUser);
+
+  const overallRating = currentUser?.display_rating ?? -1;
   return (
-    <Box
-      sx={{
+    <div
+      style={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -16,16 +24,43 @@ export const ContractorInfo: React.FC<unknown> = () => {
         padding: '1em',
       }}
     >
-      <Typography variant="h6" sx={{ color: 'text.secondary' }}>
-        Select Contract
-      </Typography>
-      <Divider sx={{ width: '20%', my: '2em' }} />
-      <Typography variant="h4" sx={{ color: 'text.secondary' }}>
-        {currentUser?.displayName}
-      </Typography>
-      <Typography variant="body1" sx={{ color: 'text.secondary', fontWeight: 'bold' }}>
-        Ratings Breakdown:
-      </Typography>
-    </Box>
+      {!willChange && (
+        <>
+          <Typography variant="h4" sx={{ color: 'text.secondary' }}>
+            Select A Contract
+          </Typography>
+          <Divider sx={{ width: '20%', my: '2em' }} />
+        </>
+      )}
+
+      <GlassDisplay sx={{ p: '1em' }}>
+        <Typography variant="h4" sx={{ color: 'text.secondary' }}>
+          {currentUser?.displayName}
+        </Typography>
+        <Divider sx={{ borderBottomColor: 'primary.light', opacity: '0.5' }} />
+        <div
+          style={{ gap: '1em', display: 'flex', flexDirection: 'column', width: '100%' }}
+        >
+          <Typography
+            variant="body1"
+            sx={{ color: 'text.secondary', fontWeight: 'bold', mt: '.5em' }}
+          >
+            Ratings Breakdown:
+          </Typography>
+          <div
+            style={{
+              display: 'flex',
+              width: '100%',
+              justifyContent: 'space-around',
+            }}
+          >
+            <Typography variant="body2" sx={{ color: 'secondary.light' }}>
+              Overall Rating:
+            </Typography>
+            <RatingDisplay value={overallRating} variant="defined" size="small" />
+          </div>
+        </div>
+      </GlassDisplay>
+    </div>
   );
 };
