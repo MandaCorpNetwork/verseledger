@@ -8,13 +8,23 @@ export const useNav = () => {
   const { playSound } = useSoundEffect();
 
   const handleNav = useCallback(
-    (url: string, variant: 'external' | 'internal', e: React.MouseEvent) => {
+    (
+      e: React.MouseEvent,
+      url: string,
+      variant: 'external' | 'internal',
+      pageChange: boolean = true,
+    ) => {
       if (variant === 'internal') {
         playSound('navigate');
-        if (e.ctrlKey || e.metaKey) {
+        if ((e.ctrlKey || e.metaKey) && pageChange) {
           const prefix = URLUtil.frontendHost;
           window.open(`${prefix}${url}`, '_blank');
         } else {
+          if (pageChange) {
+            playSound('navigate');
+          } else {
+            playSound('close');
+          }
           navigate(url);
         }
       } else {

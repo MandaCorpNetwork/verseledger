@@ -36,7 +36,14 @@ export const ContractManagementPanel: React.FC<PanelProps> = ({ contract }) => {
   return (
     <div
       data-testid="SelectedContract-ContractManagementPanel__Container"
-      style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: '.5em' }}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        gap: '.5em',
+        flexGrow: 1,
+        maxWidth: '650px',
+      }}
     >
       <TabListHolo
         data-testid="SelectedContract-ContractManagement__TabList"

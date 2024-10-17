@@ -7,10 +7,18 @@ type RatingDisplayProps = {
   sx?: object;
   size?: 'small' | 'medium' | 'large';
   value: number;
+  ['data-testid']?: string;
 };
 
 export const RatingDisplay: React.FC<RatingDisplayProps> = (props) => {
-  const { variant = 'submission', onSelect, sx, size = 'medium', value } = props;
+  const {
+    variant = 'submission',
+    onSelect,
+    sx,
+    size = 'medium',
+    value,
+    'data-testid': testid,
+  } = props;
   const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
 
   const ratingBackground = React.useCallback(
@@ -154,13 +162,13 @@ export const RatingDisplay: React.FC<RatingDisplayProps> = (props) => {
   };
 
   return (
-    <Box>
+    <div data-testid={`${testid + '__'}RatingDisplay_Root`} style={{ display: 'flex' }}>
       {variant === 'defined'
         ? renderDefinedVariant()
         : variant === 'submission'
           ? renderSubmissionVariant()
           : null}
-    </Box>
+    </div>
   );
 };
 

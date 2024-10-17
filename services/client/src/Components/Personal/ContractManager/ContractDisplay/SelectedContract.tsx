@@ -48,9 +48,10 @@ export const SelectedContract: React.FC = () => {
           display: 'flex',
           flexDirection: 'row',
           width: '100%',
-          padding: '.5em',
+          padding: '1em',
           justifyContent: 'space-between',
           flexGrow: 1,
+          gap: '10%',
         }}
       >
         <ContractManagementPanel contract={memoizedContract} />
@@ -61,28 +62,18 @@ export const SelectedContract: React.FC = () => {
             flexDirection: 'column',
             height: '100%',
             alignItems: 'center',
+            flexGrow: 1,
           }}
         >
           {memoizedContract.Locations && (
             <LocationsDisplay locations={contractLocations} />
           )}
           <BriefingCollapse briefing={memoizedContract.briefing} />
-          <ControlPanelBox
-            data-testid="SelectedContract__ControllerContainer"
-            sx={{
-              mt: 'auto',
-              width: '100%',
-              flexDirection: 'column',
-              mb: '1em',
-            }}
-          >
-            <Typography
-              sx={{ fontWeight: 'bold', color: 'text.secondary', cursor: 'default' }}
-            >
-              Contract Controller
-            </Typography>
-            <ContractController contract={memoizedContract} dashboard />
-          </ControlPanelBox>
+          <ContractController
+            contract={memoizedContract}
+            dashboard
+            sx={{ mt: 'auto', width: '100%' }}
+          />
         </div>
       </div>
     </Box>
