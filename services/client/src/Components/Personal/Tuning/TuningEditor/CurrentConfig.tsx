@@ -25,14 +25,15 @@ export const CurrentConfig: React.FC<CurrentConfigProps> = ({
         mb: '1em',
         overflowX: 'auto',
         width: '100%',
+        minHeight: '220px',
       }}
     >
-      <Box
-        sx={{
+      <div
+        style={{
           display: 'flex',
           gap: '1em',
           background: 'linear-gradient(135deg, rgba(0,0,0,.5), rgba(0,1,19,.6))',
-          p: '1em',
+          padding: '1em',
           borderRadius: '5px',
           boxShadow: '0 4px 8px rgb(0,0,0)',
         }}
@@ -40,7 +41,7 @@ export const CurrentConfig: React.FC<CurrentConfigProps> = ({
         {currentConfig.powerConfig.map((supply) => (
           <PowerConfigGroup key={supply.id} config={supply} setConfig={setConfig} />
         ))}
-      </Box>
+      </div>
       <Box
         sx={{
           display: 'flex',

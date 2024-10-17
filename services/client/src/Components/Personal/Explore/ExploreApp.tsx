@@ -1,7 +1,6 @@
-import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import { LocationSearch } from '@Common/Components/App/LocationSearch';
-import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { Box, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
@@ -45,7 +44,7 @@ export const ExploreApp: React.FC<unknown> = () => {
         gap: '1em',
       }}
     >
-      <GlassBox
+      <GlassDisplay
         data-testid="ExploreApp__Information_Container"
         sx={{
           height: '100%',
@@ -78,8 +77,8 @@ export const ExploreApp: React.FC<unknown> = () => {
             </Typography>
           </GlassDisplay>
         )}
-      </GlassBox>
-      <GlassBox
+      </GlassDisplay>
+      <GlassDisplay
         data-testid="ExploreApp__Explorer_Container"
         sx={{
           height: '100%',
@@ -89,10 +88,9 @@ export const ExploreApp: React.FC<unknown> = () => {
           alignItems: 'center',
         }}
       >
-        {!dev && <InDevOverlay supportButton={true} />}
         <ExploreMap />
         <ExploreController />
-      </GlassBox>
+      </GlassDisplay>
     </Box>
   );
 };

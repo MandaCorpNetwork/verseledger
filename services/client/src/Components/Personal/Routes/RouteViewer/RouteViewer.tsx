@@ -82,7 +82,7 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({ destinations }) => {
         </Button>
       </Box>
       {destinations && destinations.length > 0 && (
-        <GlassDisplay
+        <GlassBox
           data-testid="RouteTool-RouteViewer__DestinationViewer_Container"
           sx={{
             flexGrow: 1,
@@ -137,7 +137,7 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({ destinations }) => {
           >
             Next Stop
           </Button>
-        </GlassDisplay>
+        </GlassBox>
       )}
       {(destinations.length === 0 || destinations == null) && (
         <Typography

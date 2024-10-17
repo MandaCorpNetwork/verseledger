@@ -68,7 +68,7 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
     (locationId: string | null | undefined) => {
       if (locationId == null) return playSound('denied');
       playSound('navigate');
-      navigate(`/dashboard/explore/${locationId}`);
+      navigate(`/apps/explore/${locationId}`);
     },
     [playSound, navigate],
   );

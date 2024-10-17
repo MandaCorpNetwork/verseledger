@@ -79,12 +79,12 @@ export const ItemDisplay: React.FC<unknown> = () => {
             </DigiDisplay>
           </DigiBox>
         </Box>
-        <GlassDisplay
+        <GlassBox
           data-testid="VerseMarket-Marketplace-ItemDisplay__Item_Charts_Wrapper"
           sx={{ flexGrow: 1, p: '.5em' }}
         >
           Item Charts
-        </GlassDisplay>
+        </GlassBox>
       </Box>
       <Box
         data-testid="VerseMarket-Marketplace-ItemDisplay__BottomBox"

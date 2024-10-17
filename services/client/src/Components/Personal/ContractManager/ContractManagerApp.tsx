@@ -1,9 +1,7 @@
 // Imports
 import { useSoundEffect } from '@Audio/AudioManager';
-import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { TabContext, TabList } from '@mui/lab';
-import { Box, Tab, useMediaQuery, useTheme } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { selectBidPagination } from '@Redux/Slices/Bids/bids.selector';
@@ -24,10 +22,9 @@ import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructur
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 
+import { ContractManagerBrowser } from './Browser/ContractManagerBrowser';
 import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
 import { ContractorInfo } from './ContractDisplay/tools/ContractorInfo';
-import { ContractList } from './ContractList/ContractList';
-import { SearchTools } from './ContractList/SearchTools';
 
 /**
  * ### Contract Manager App
@@ -69,7 +66,6 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   const dispatch = useAppDispatch();
   const mobile = useIsMobile();
   const theme = useTheme();
-  const navigate = useNavigate();
   // const location = useLocation();
   const { playSound } = useSoundEffect();
 
@@ -80,26 +76,6 @@ export const ContractManagerApp: React.FC<unknown> = () => {
    * If 1400px or less, only the Contractor Info will render
    */
   const hideContracts = useMediaQuery('(max-width: 1400px)');
-
-  /** Finds the total Contract Count from the DTO for the Pagination */
-  const contractCount = useAppSelector(selectContractPagination);
-
-  /** Finds the total Bid Count from the DTO for the Pagination */
-  const bidCount = useAppSelector(selectBidPagination);
-
-  /**
-   * Handles the clickEvent from the pagination buttons to change the Page Fetched from the Contract Search Endpoint.
-   * @param Event
-   * @param newPage
-   * - {@link setPage}
-   */
-  const handleChangePage = React.useCallback(
-    (_event: React.ChangeEvent<unknown>, newPage: number) => {
-      playSound('clickMain');
-      setPage(newPage);
-    },
-    [playSound, setPage],
-  );
 
   /**
    * Memo for the currently set `Contract Browser List`
@@ -113,61 +89,11 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     return tab;
   }, [searchParams, setFilters]);
 
-  /**
-   * Handles the ChangeEvent from the ContractList Tab to change the rendered Contract List
-   * @param _Event
-   * @param newValue - The Tab Value to change to.
-   * @fires
-   * - setSelectedId(null) - Ensures that when you change a tab, the Selected Contract is cleared.
-   * - playSound('clickMain')
-   * - overwriteURLQuery(newValue) - Ensures that all Filters a cleared other than the ContractManagerTab and set the new value to this filter.
-   */
-  const handleBrowserChange = React.useCallback(
-    (_event: React.SyntheticEvent, newValue: string) => {
-      setSelectedId(null);
-      playSound('clickMain');
-      overwriteURLQuery({ [QueryNames.ContractManagerTab]: newValue });
-    },
-    [overwriteURLQuery, playSound, setSelectedId],
-  );
-
   /** Fetchs the Current User from `Auth` slice */
   const currentUser = useAppSelector(selectCurrentUser);
 
   /** Determines the id of the Current User if found */
   const userId = currentUser?.id;
-
-  /**
-   * Handles Expanding a DropDown Section of the Contract List to view the contracts by Subtype.
-   * @paramvalue - The Archetype string to pass to determine which collapse to expand.
-   * @see ContractListDropdown
-   */
-  const handleExpandList = React.useCallback(
-    (value: string) => {
-      if (!value) return;
-      setExpandedList(value);
-    },
-    [setExpandedList],
-  );
-
-  /**
-   * Handles the clickEvent on a {@link ContractManagerCard} in the {@link ContractList} to render the Contract in {@link SelectedContractManager}, or navigate to the {@link ContractPage} if a Breakpoint is reached.
-   * @param Id - The Id of a Contract.
-   * If Mobile:
-   * @fires navigate() - `/contract?contractID=${id}`
-   */
-  const handleContractSelect = React.useCallback(
-    (id: string | null) => {
-      if (mobile) {
-        playSound('navigate');
-        navigate(`/contract?contractID=${id}`);
-        return;
-      }
-      setSelectedId(id);
-      playSound('open');
-    },
-    [mobile, playSound, navigate],
-  );
 
   /**
    * Handles Deselecting a Contract from the {@link SelectedContractManager}
@@ -412,93 +338,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         padding: '1em',
       }}
     >
-      <Box
-        data-testid="ContractManager__ContractBrowserContainer"
-        sx={{
-          display: 'flex',
-          height: '100%',
-          width: { xs: '100%', md: '30%' },
-          flexDirection: 'column',
-        }}
-      >
-        <TabContext value={currentTab}>
-          <GlassBox data-testid="ContractManager__ContractListWrapper">
-            <ControlPanelBox
-              data-testid="ContractManager__TabContainer"
-              sx={{
-                display: 'block',
-                my: '1em',
-                px: { xs: '.5em', md: '.8em' },
-                py: '.2em',
-                mx: { xs: '0', md: '1em' },
-                alignSelf: 'center',
-                width: `100%`,
-              }}
-            >
-              <TabList
-                data-testid="ContractManager__TabList"
-                orientation="horizontal"
-                onChange={handleBrowserChange}
-                indicatorColor="secondary"
-                textColor="secondary"
-                scrollButtons={displayScrollButtons}
-                allowScrollButtonsMobile
-                variant={theme.breakpoints.down('lg') ? 'scrollable' : 'fullWidth'}
-              >
-                <Tab
-                  data-testid="ContractManager__AcceptedTab"
-                  label="Employed"
-                  value="employed"
-                />
-                <Tab data-testid="ContractManger__OwnedTab" label="Owned" value="owned" />
-                <Tab
-                  data-testid="ContractManager__PendingTab"
-                  label="Pending"
-                  value="pending"
-                />
-                <Tab
-                  data-testid="ContractManager__OffersTab"
-                  label="Invites"
-                  value="offers"
-                />
-                <Tab
-                  data-testid="ContractManager__CompletedTab"
-                  label="Completed"
-                  value="completed"
-                />
-                <Tab
-                  data-testid="ContractManager__HistoryTab"
-                  label="History"
-                  value="closed"
-                />
-              </TabList>
-            </ControlPanelBox>
-            <Box
-              data-testid="ContractManager-ContractList__SearchTools_Wrapper"
-              sx={{ height: '75px' }}
-            >
-              <SearchTools />
-            </Box>
-            <ContractList
-              expandedList={expandedList}
-              setExpandedList={handleExpandList}
-              contracts={contracts}
-              setSelectedId={handleContractSelect}
-              selectedId={selectedId}
-              page={page}
-              setPage={handleChangePage}
-              pageCount={
-                currentTab === 'employed' ||
-                currentTab === 'pending' ||
-                currentTab === 'offers' ||
-                currentTab === 'completed'
-                  ? bidCount.pages
-                  : contractCount.pages
-              }
-            />
-          </GlassBox>
-        </TabContext>
-      </Box>
+      <ContractManagerBrowser />
       {!mobile && (
         <GlassBox
           data-testid="ContractManagerContainer"

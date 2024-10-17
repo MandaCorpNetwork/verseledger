@@ -152,7 +152,6 @@ export const TuningSetup: React.FC<TuningSetupProps> = ({ tuningSetup, setConfig
         p: '1em',
         background: 'linear-gradient(135deg, rgba(14,35,141,.5), rgba(0,1,19,.5))',
         gap: '.5em',
-        maxHeight: '35%',
         overflow: 'auto',
         width: '100%',
         mt: 'auto',

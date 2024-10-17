@@ -1,4 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { Tab, Tabs } from '@mui/material';
@@ -16,6 +17,7 @@ export const TuningExplorer: React.FC = () => {
   );
   return (
     <GlassBox sx={{ p: '1em' }}>
+      <InDevOverlay />
       <ControlPanelBox>
         <Tabs
           value={tab}
