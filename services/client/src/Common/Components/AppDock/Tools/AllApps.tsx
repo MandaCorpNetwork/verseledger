@@ -11,7 +11,7 @@ import { AllAppButton } from '../Icons/AllAppButton';
 
 export const POPUP_APP_LIST = 'appList';
 
-const AllAppsComponent: React.FC = () => {
+export const AllApps: React.FC = () => {
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
   const handleClose = React.useCallback(() => {
@@ -29,11 +29,10 @@ const AllAppsComponent: React.FC = () => {
       data-popupState={0}
       sx={{
         backdropFilter: 'blur(12px)',
-        backgroundImage:
-          'linear-gradient(135deg, rgba(14,35,141,0.4) 40%, rgba(8,22,80,0.6))',
+        background: 'linear-gradient(135deg, rgba(14,35,141,0.4) 40%, rgba(8,22,80,0.6))',
       }}
     >
-      <Fade in={isOpen} timeout={800}>
+      <Fade in={isOpen} timeout={1000}>
         <Box
           data-testid="AppList__Wrapper"
           sx={{ p: { xs: '1em', md: '5%', lg: '10%' } }}
@@ -131,8 +130,6 @@ const AllAppsComponent: React.FC = () => {
     </Modal>
   );
 };
-
-export const AllApps = React.memo(AllAppsComponent);
 
 //Modal BoxShadow
 // boxShadow:
