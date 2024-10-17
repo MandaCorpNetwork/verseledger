@@ -6,6 +6,7 @@ export const VLViewport = styled(Box)({
   height: '100vh',
   overflow: 'hidden',
   backgroundColor: 'rgba(0,0,0,.5)',
+  position: 'relative',
   '&:before': {
     content: '""',
     position: 'absolute',

@@ -32,7 +32,7 @@ export type AppGroup = {
 };
 
 export const masterAppList: AppListing[] = [
-  { id: 'dashboard', label: 'Home', path: '/dashboard/overview', icon: <HomeTwoTone /> },
+  { id: 'dashboard', label: 'Home', path: '/apps/dashboard', icon: <HomeTwoTone /> },
   {
     id: 'profile',
     label: 'Profile',
@@ -47,58 +47,58 @@ export const masterAppList: AppListing[] = [
     icon: <SettingsTwoTone />,
     disabled: true,
   },
-  { id: 'explore', label: 'Explore', path: '/dashboard/explore', icon: <Exploration /> },
-  { id: 'routes', label: 'Routes', path: '/dashboard/routes', icon: <RouteTwoTone /> },
+  { id: 'explore', label: 'Explore', path: '/apps/explore', icon: <Exploration /> },
+  { id: 'routes', label: 'Routes', path: '/apps/routes', icon: <RouteTwoTone /> },
   {
     id: 'inventory',
     label: 'Inventory',
-    path: '/dashboard/inventory',
+    path: '/apps/inventory',
     icon: <InventoryTwoTone />,
     disabled: true,
   },
-  { id: 'ship', label: 'Ship', path: '/dashboard/ship', icon: <Vehicles /> },
+  { id: 'ship', label: 'Ship', path: '/apps/ship', icon: <Vehicles /> },
   {
     id: 'fleet',
     label: 'Fleet',
-    path: '/dashboard/fleet',
+    path: '/apps/fleet',
     icon: <Fleet />,
     disabled: true,
   },
   {
     id: 'builder',
     label: 'Builder',
-    path: '/dashboard/builder',
+    path: '/apps/builder',
     icon: <ConstructionTwoTone />,
     disabled: true,
   },
   {
     id: 'tuning',
     label: 'Tuning',
-    path: '/dashboard/tuning',
+    path: '/apps/tuning',
     icon: <StackedBarChartTwoTone />,
   },
   {
     id: 'contracts',
     label: 'Contracts',
-    path: '/dashboard/contracts',
+    path: '/apps/contracts',
     icon: <WorkTwoTone />,
   },
   {
     id: 'contract-ledger',
     label: 'Ledger',
-    path: '/dashboard/ledger',
+    path: '/apps/ledger',
     icon: <MenuBookTwoTone />,
   },
   {
     id: 'orders',
     label: 'Orders',
-    path: '/dashboard/orders',
+    path: '/apps/orders',
     icon: <ShoppingBasketTwoTone />,
   },
   {
     id: 'verse-market',
     label: 'Market',
-    path: '/dashboard/verse-market',
+    path: '/apps/verse-market',
     icon: <StoreTwoTone />,
   },
   {

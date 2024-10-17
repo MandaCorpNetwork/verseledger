@@ -1,21 +1,18 @@
 import './AppDock.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
-import { Exploration, Fleet, Vehicles } from '@Common/Definitions/CustomIcons';
 import {
-  ConstructionTwoTone,
-  ErrorOutline,
-  HomeTwoTone,
-  InventoryTwoTone,
-  MenuBookTwoTone,
-  NewspaperTwoTone,
-  Person,
-  RouteTwoTone,
-  ShoppingBasketTwoTone,
-  StackedBarChartTwoTone,
-  StoreTwoTone,
-  WorkTwoTone,
-} from '@mui/icons-material';
+  AppGroup,
+  AppListing,
+  contractApps,
+  dashApps,
+  exploreApps,
+  masterAppList,
+  orderApps,
+  shipApps,
+  splashApps,
+} from '@Common/Definitions/AppListings';
+import { ErrorOutline, HomeTwoTone, Person } from '@mui/icons-material';
 import { Alert, Box, Divider, Grow, Popover, Slide, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchCurrentUser } from '@Redux/Slices/Auth/Actions/fetchCurrentUser.action';
@@ -36,7 +33,7 @@ import { UserDial } from './Tools/UserDial';
 import { UserStateManager } from './Tools/UserStateManager';
 
 export const AppDockComponent: React.FC = () => {
-  const [iconGroup, setIconGroup] = React.useState<IconDefinition[]>([]);
+  const [iconGroup, setIconGroup] = React.useState<AppListing[]>([]);
   const [key, setKey] = React.useState(0);
   const location = useLocation();
   const dispatch = useAppDispatch();
@@ -44,49 +41,37 @@ export const AppDockComponent: React.FC = () => {
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
-  React.useEffect(() => {
-    if (isLoggedIn) return;
-    const accessToken = AuthUtil.getAccessToken();
-    if (AuthUtil.isValidToken(accessToken)) {
-      dispatch(fetchCurrentUser());
-    }
-  }, [isLoggedIn, dispatch]);
+  const getAppListings = React.useCallback((group: AppGroup): AppListing[] => {
+    return masterAppList.filter((app) => group.list.includes(app.id));
+  }, []);
 
   const getIconGroup = React.useCallback(() => {
-    switch (location.pathname) {
-      case '/dashboard':
-      case '/dashboard/overview':
-        return dashboardGroup;
-      case '/dashboard/explore':
-      case '/dashboard/routes':
-      case '/dashboard/inventory':
-        return exploreGroup;
-      case '/dashboard/ship':
-      case '/dashboard/fleet':
-      case '/dashboard/builder':
-      case '/dashboard/tuning':
-        return shipGroup;
-      case '/dashboard/contracts':
-      case '/dashboard/ledger':
-        return contractsGroup;
-      case '/dashboard/orders':
-      case '/dashboard/verse-market':
-        return ordersGroup;
-      case '/':
-        return splashGroup;
+    const path = location.pathname;
+    switch (true) {
+      case path === '/apps':
+      case path.startsWith('/apps/dashboard'):
+        return getAppListings(dashApps);
+      case path.startsWith('/apps/explore'):
+      case path.startsWith('/apps/routes'):
+      case path.startsWith('/apps/inventory'):
+        return getAppListings(exploreApps);
+      case path.startsWith('/apps/ship'):
+      case path.startsWith('/apps/fleet'):
+      case path.startsWith('/apps/builder'):
+      case path.startsWith('/apps/tuning'):
+        return getAppListings(shipApps);
+      case path.startsWith('/apps/contracts'):
+      case path.startsWith('/apps/ledger'):
+        return getAppListings(contractApps);
+      case path.startsWith('/apps/orders'):
+      case path.startsWith('/apps/verse-market'):
+        return getAppListings(orderApps);
+      case path === '/':
+        return getAppListings(splashApps);
       default:
-        return dashboardGroup;
+        return getAppListings(splashApps);
     }
-  }, [location.pathname]);
-
-  React.useEffect(() => {
-    const newGroup = getIconGroup();
-
-    if (newGroup !== iconGroup) {
-      setIconGroup(newGroup);
-      setKey((prevKey) => prevKey + 1);
-    }
-  }, [getIconGroup, iconGroup]);
+  }, [location.pathname, getAppListings]);
 
   const userStatePopupState = usePopupState({
     variant: 'popover',
@@ -116,6 +101,21 @@ export const AppDockComponent: React.FC = () => {
     playSound('open');
     dispatch(openPopup(POPUP_APP_LIST));
   }, [playSound, dispatch]);
+
+  React.useEffect(() => {
+    const accessToken = AuthUtil.getAccessToken();
+
+    if (!isLoggedIn && AuthUtil.isValidToken(accessToken)) {
+      dispatch(fetchCurrentUser()).then(() => {
+        const newGroup = getIconGroup(); // Get the icon group after the user is fetched
+        setIconGroup(newGroup);
+        setKey((prevKey) => prevKey + 1); // Update key to trigger rendering
+      });
+    } else {
+      const newGroup = getIconGroup();
+      setIconGroup(newGroup);
+    }
+  }, [isLoggedIn, dispatch, getIconGroup]);
   return (
     <Box className="Dock">
       {renderUserStatePopover}
@@ -152,7 +152,7 @@ export const AppDockComponent: React.FC = () => {
         <SplashIcon />
         <UserStateIcon popupState={userStatePopupState} />
       </Box>
-      <AppButton label="Home" path="/dashboard/overview" icon={<HomeTwoTone />} />
+      <AppButton label="Home" path="/apps/dashboard" icon={<HomeTwoTone />} />
       <Divider
         orientation="vertical"
         flexItem
@@ -165,7 +165,7 @@ export const AppDockComponent: React.FC = () => {
               key={icon.id}
               label={icon.label}
               path={icon.path}
-              icon={icon.icon}
+              icon={icon.icon as JSX.Element}
               disabled={icon.disabled ?? false}
             />
           ))}
@@ -180,174 +180,3 @@ export const AppDockComponent: React.FC = () => {
 };
 
 export const AppDock = React.memo(AppDockComponent);
-
-type IconDefinition = {
-  id: string;
-  label: string;
-  path: string;
-  icon: JSX.Element;
-  disabled?: boolean;
-};
-
-const dashboardGroup: IconDefinition[] = [
-  { id: 'explore', label: 'Explore', path: '/dashboard/explore', icon: <Exploration /> },
-  { id: 'ship', label: 'Ship', path: '/dashboard/ship', icon: <Vehicles /> },
-  {
-    id: 'contracts',
-    label: 'Contracts',
-    path: '/dashboard/contracts',
-    icon: <WorkTwoTone />,
-  },
-  {
-    id: 'orders',
-    label: 'Orders',
-    path: '/dashboard/orders',
-    icon: <ShoppingBasketTwoTone />,
-  },
-];
-
-const exploreGroup: IconDefinition[] = [
-  { id: 'explore', label: 'Explore', path: '/dashboard/explore', icon: <Exploration /> },
-  { id: 'routes', label: 'Routes', path: '/dashboard/routes', icon: <RouteTwoTone /> },
-  {
-    id: 'inventory',
-    label: 'Inventory',
-    path: '/dashboard/inventory',
-    icon: <InventoryTwoTone />,
-    disabled: true,
-  },
-];
-
-const shipGroup: IconDefinition[] = [
-  { id: 'ship', label: 'Ship', path: '/dashboard/ship', icon: <Vehicles /> },
-  {
-    id: 'fleet',
-    label: 'Fleet',
-    path: '/dashboard/fleet',
-    icon: <Fleet />,
-    disabled: true,
-  },
-  {
-    id: 'builder',
-    label: 'Builder',
-    path: '/dashboard/builder',
-    icon: <ConstructionTwoTone />,
-    disabled: true,
-  },
-  {
-    id: 'tuning',
-    label: 'Tuning',
-    path: '/dashboard/tuning',
-    icon: <StackedBarChartTwoTone />,
-  },
-];
-
-const contractsGroup: IconDefinition[] = [
-  {
-    id: 'contracts',
-    label: 'Contracts',
-    path: '/dashboard/contracts',
-    icon: <WorkTwoTone />,
-  },
-  {
-    id: 'contract-ledger',
-    label: 'Ledger',
-    path: '/dashboard/ledger',
-    icon: <MenuBookTwoTone />,
-  },
-];
-
-const ordersGroup: IconDefinition[] = [
-  {
-    id: 'orders',
-    label: 'Orders',
-    path: '/dashboard/orders',
-    icon: <ShoppingBasketTwoTone />,
-  },
-  {
-    id: 'verse-market',
-    label: 'Market',
-    path: '/dashboard/verse-market',
-    icon: <StoreTwoTone />,
-  },
-];
-
-const personalAllGroup: IconDefinition[] = [
-  { id: 'explore', label: 'Explore', path: '/dashboard/explore', icon: <Exploration /> },
-  { id: 'routes', label: 'Routes', path: '/dashboard/routes', icon: <RouteTwoTone /> },
-  {
-    id: 'inventory',
-    label: 'Inventory',
-    path: '/dashboard/inventory',
-    icon: <InventoryTwoTone />,
-    disabled: true,
-  },
-  { id: 'ship', label: 'Ship', path: '/dashboard/ship', icon: <Vehicles /> },
-  {
-    id: 'fleet',
-    label: 'Fleet',
-    path: '/dashboard/fleet',
-    icon: <Fleet />,
-    disabled: true,
-  },
-  {
-    id: 'builder',
-    label: 'Builder',
-    path: '/dashboard/builder',
-    icon: <ConstructionTwoTone />,
-    disabled: true,
-  },
-  {
-    id: 'tuning',
-    label: 'Tuning',
-    path: '/dashboard/tuning',
-    icon: <StackedBarChartTwoTone />,
-  },
-  {
-    id: 'contracts',
-    label: 'Contracts',
-    path: '/dashboard/contracts',
-    icon: <WorkTwoTone />,
-  },
-  {
-    id: 'contract-ledger',
-    label: 'Ledger',
-    path: '/dashboard/ledger',
-    icon: <MenuBookTwoTone />,
-  },
-  {
-    id: 'orders',
-    label: 'Orders',
-    path: '/dashboard/orders',
-    icon: <ShoppingBasketTwoTone />,
-  },
-  {
-    id: 'verse-market',
-    label: 'Market',
-    path: '/dashboard/verse-market',
-    icon: <StoreTwoTone />,
-  },
-];
-
-const splashGroup: IconDefinition[] = [
-  {
-    id: 'contract-ledger',
-    label: 'Ledger',
-    path: '/dashboard/ledger',
-    icon: <MenuBookTwoTone />,
-  },
-  {
-    id: 'verse-market',
-    label: 'Market',
-    path: '/dashboard/verse-market',
-    icon: <StoreTwoTone />,
-  },
-  {
-    id: 'verse-news',
-    label: 'News',
-    path: '/verse-news',
-    icon: <NewspaperTwoTone />,
-  },
-];
-
-// const orgLedgerGroup = [];

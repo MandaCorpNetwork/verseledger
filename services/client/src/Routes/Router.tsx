@@ -110,11 +110,11 @@ export const routingInfo: RouteObject[] = [
             element: <ContractManagerApp />,
           },
           {
-            path: '/apps/contracts/ledger/:selectedContractId',
+            path: '/apps/ledger/:selectedContractId',
             element: <ContractLedgerApp />,
           },
           {
-            path: 'contracts/ledger',
+            path: 'ledger',
             element: <ContractLedgerApp />,
           },
           {
