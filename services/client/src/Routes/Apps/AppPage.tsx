@@ -1,11 +1,9 @@
-import { AppDock } from '@Common/Components/AppDock/AppDock';
 import { AppDockContainer } from '@Common/Components/AppDock/AppDockContainer';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { Box } from '@mui/material';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
-//TODO: Create Collapser for AppDock
 export const AppPage: React.FC<unknown> = () => {
   return (
     <VLViewport
@@ -19,6 +17,7 @@ export const AppPage: React.FC<unknown> = () => {
     >
       <Box
         data-testid="AppViewerPage__AppDisplay_Container"
+        component="section"
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -41,7 +40,17 @@ export const AppPage: React.FC<unknown> = () => {
           },
         }}
       >
-        <Outlet />
+        <Box
+          data-testid="AppViewerPage__AppDisplay_Wrapper"
+          sx={{
+            height: { xs: 'auto', md: '100%' },
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+          }}
+        >
+          <Outlet />
+        </Box>
       </Box>
       <AppDockContainer />
     </VLViewport>

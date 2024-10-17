@@ -9,36 +9,18 @@ import React from 'react';
 import { FilterList } from './FilterList';
 
 /**
- * ### SearchTools
- * @description
- * This is the Bar displayed Above the {@link ContractList}.
+ * ## SearchTools
  * Renders the {@link FilterList}, {@link SortBySelect} & {@link SearchBar}
- * @memberof {@link ContractManagerApp}
- * #### Functional Components
- * @component {@link FilterList}
  */
 export const SearchTools: React.FC = () => {
   // LOCAL STATES
-  /**
-   * State determines if the SearchTools are rendered
-   * @type [boolean, React.Dispatch<React.SetStateAction<boolean>>]
-   *
-
-   */
+  /** State determines if the SearchTools are rendered */
   const [searchToolsOpen, setSearchToolsOpen] = React.useState<boolean>(false);
-  /**
-   * State determines if the {@link FilterList} is expanded
-   * @type [boolean, React.Dispatch<React.SetStateAction<boolean>>]
-   *
-
-   */
+  /** State determines if the {@link FilterList} is expanded */
   const [filterListOpen, setFilterListOpen] = React.useState<boolean>(false);
-  /**
-   * ReadOnly state of Filters from useURLQuery Hook
-   */
-  const { searchParams } = useURLQuery();
   // HOOKS
   const theme = useTheme();
+  const { searchParams } = useURLQuery();
 
   // LOGIC
   /**

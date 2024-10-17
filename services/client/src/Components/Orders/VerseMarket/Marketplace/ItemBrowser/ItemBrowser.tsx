@@ -41,7 +41,7 @@ export const ItemBrowser: React.FC<unknown> = () => {
         />
       </Box>
       <ItemTypeFilters />
-      <GlassDisplay
+      <GlassBox
         data-testid="VerseMarket-Marketplace-Browser__List_Wrapper"
         sx={{
           display: 'flex',
@@ -51,7 +51,7 @@ export const ItemBrowser: React.FC<unknown> = () => {
         }}
       >
         <MarketBrowserTable />
-      </GlassDisplay>
+      </GlassBox>
     </GlassBox>
   );
 };

@@ -2,17 +2,15 @@ import { UserChip } from '@Common/Components/Chips/UserChip';
 import { PayInput } from '@Common/Components/Custom/PayInput';
 import { Industry } from '@Common/Definitions/CustomIcons';
 import { Box, ButtonBase, Tooltip, Typography, useTheme } from '@mui/material';
+import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 type ContractManagerCardProps = {
   /** The Contract Being Rendered */
   contract: IContract;
-  /** The selected Contract Id, so component knows if it is selected */
-  selectedId: string | null;
-  /** Function to run when clicked and passing in the Contract Id of the component */
-  setSelectedId: (id: string | null) => void;
 };
 
 /**
@@ -23,23 +21,25 @@ type ContractManagerCardProps = {
  * - {@link UserChip}
  * - {@link PayInput}
  */
-export const ContractManagerCard: React.FC<ContractManagerCardProps> = ({
-  contract,
-  selectedId,
-  setSelectedId,
-}) => {
+export const ContractManagerCard: React.FC<ContractManagerCardProps> = ({ contract }) => {
   // HOOKS
   const theme = useTheme();
+  const { selectedContractId } = useParams();
+  const navigate = useNavigate();
+  const isMobile = useIsMobile();
 
   // LOGIC
 
-  /** Handles the click on a button. Passes contractId to the setSelectedId function */
-  const handleClick = React.useCallback(() => {
-    setSelectedId(contract.id);
-  }, [setSelectedId, contract.id]);
+  const handleSelectContract = React.useCallback(() => {
+    const { search } = window.location;
+    if (isMobile) {
+      navigate(`/contract/${contract.id}`);
+    }
+    navigate(`/apps/contracts/${contract.id}${search}`);
+  }, [isMobile, navigate, contract.id]);
 
   /** Boolean to decide if this contract is selected */
-  const isSelected = selectedId === contract.id;
+  const isSelected = selectedContractId === contract.id;
 
   return (
     <ButtonBase
@@ -75,7 +75,7 @@ export const ContractManagerCard: React.FC<ContractManagerCardProps> = ({
           backgroundColor: 'secondary.dark',
         },
       }}
-      onClick={handleClick}
+      onClick={handleSelectContract}
     >
       <Box
         sx={{

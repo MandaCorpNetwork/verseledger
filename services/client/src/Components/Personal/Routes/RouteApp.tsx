@@ -66,7 +66,7 @@ export const RouteApp: React.FC<unknown> = () => {
             Add Mission
           </Button>
         </Box>
-        <GlassDisplay sx={{ height: '90%', overflow: 'auto', gap: '1em', p: '.5em' }}>
+        <GlassBox sx={{ height: '90%', overflow: 'auto', gap: '1em', p: '.5em' }}>
           {missions.map((mission: IMission) => (
             <Mission key={mission.missionId} mission={mission} />
           ))}
@@ -84,7 +84,7 @@ export const RouteApp: React.FC<unknown> = () => {
               Add A Mission To Begin
             </Typography>
           )}
-        </GlassDisplay>
+        </GlassBox>
       </GlassBox>
     </Box>
   );

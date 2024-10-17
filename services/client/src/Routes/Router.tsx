@@ -1,7 +1,8 @@
+import { TempLoginCheck } from '@Common/Components/App/TempLoginCheck';
 import { ContractManagerApp } from '@Components/Personal/ContractManager/ContractManagerApp';
+import { DashboardApp } from '@Components/Personal/Dashboard/DashboardApp';
 import { ExploreApp } from '@Components/Personal/Explore/ExploreApp';
 import { InventoryApp } from '@Components/Personal/Inventory/InventoryApp';
-import { DashboardApp } from '@Components/Personal/Overview/OverviewApp';
 import { RouteApp } from '@Components/Personal/Routes/RouteApp';
 import { ShipTuning } from '@Components/Personal/Tuning/Tuning';
 import { UserSettings } from '@Components/UserSettings/UserSettings';
@@ -33,6 +34,7 @@ export const routingInfo: RouteObject[] = [
     //element: <LegacyLandingPage/>,
     element: (
       <>
+        <TempLoginCheck />
         <Outlet />
         <PopupManager />
         <WidgetManager />

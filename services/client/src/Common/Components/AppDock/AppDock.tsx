@@ -32,7 +32,7 @@ import { POPUP_APP_LIST } from './Tools/AllApps';
 import { UserDial } from './Tools/UserDial';
 import { UserStateManager } from './Tools/UserStateManager';
 
-export const AppDockComponent: React.FC = () => {
+export const AppDock: React.FC = () => {
   const [iconGroup, setIconGroup] = React.useState<AppListing[]>([]);
   const [key, setKey] = React.useState(0);
   const location = useLocation();
@@ -103,19 +103,10 @@ export const AppDockComponent: React.FC = () => {
   }, [playSound, dispatch]);
 
   React.useEffect(() => {
-    const accessToken = AuthUtil.getAccessToken();
-
-    if (!isLoggedIn && AuthUtil.isValidToken(accessToken)) {
-      dispatch(fetchCurrentUser()).then(() => {
-        const newGroup = getIconGroup(); // Get the icon group after the user is fetched
-        setIconGroup(newGroup);
-        setKey((prevKey) => prevKey + 1); // Update key to trigger rendering
-      });
-    } else {
-      const newGroup = getIconGroup();
-      setIconGroup(newGroup);
-    }
-  }, [isLoggedIn, dispatch, getIconGroup]);
+    const newGroup = getIconGroup();
+    setIconGroup(newGroup);
+    setKey((prevKey) => prevKey + 1);
+  }, [setKey, getIconGroup]);
   return (
     <Box className="Dock">
       {renderUserStatePopover}
@@ -178,5 +169,3 @@ export const AppDockComponent: React.FC = () => {
     </Box>
   );
 };
-
-export const AppDock = React.memo(AppDockComponent);

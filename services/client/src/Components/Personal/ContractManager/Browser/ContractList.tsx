@@ -1,48 +1,45 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
-import { Box, Pagination, Typography } from '@mui/material';
-import { Logger } from '@Utils/Logger';
+import { ErrorOutline } from '@mui/icons-material';
+import { Box, Pagination } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
+import { selectBidPagination } from '@Redux/Slices/Bids/bids.selector';
+import {
+  selectContractPagination,
+  selectContractsArray,
+} from '@Redux/Slices/Contracts/contracts.selectors';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
 import { ContractListDropdown } from './ContractListDropdown';
 import { ContractManagerCard } from './ContractManagerCard';
 
 type ContractListProps = {
-  /** The list of Contract Objects that will render */
-  contracts: IContract[];
-  /** Passes the Contract Id that is selected */
-  selectedId: string | null;
-  /** function that sets the selected contract by passing the Id */
-  setSelectedId: (id: string | null) => void;
-  /** The current page selected */
-  page: number;
-  /** Changes the currently set page by passing a new number upon a ChangeEvent */
-  setPage: (event: React.ChangeEvent<unknown>, newPage: number) => void;
-  /** the total number of pages available to be set to */
-  pageCount: number;
-  /** Which dropdown is expanded */
-  expandedList: string | null;
-  /** Sets the expanded list to a new string value */
-  setExpandedList: (value: string) => void;
+  currentTab: string;
 };
 
-/**
- * ### Contract List
- * @description
- * Displays a List of Contracts found by the Contract Manager App
- */
-export const ContractList: React.FC<ContractListProps> = ({
-  contracts,
-  selectedId,
-  setSelectedId,
-  page,
-  setPage,
-  pageCount,
-  expandedList,
-  setExpandedList,
-}) => {
-  // LOGIC
+export const ContractList: React.FC<ContractListProps> = ({ currentTab }) => {
+  const [expandedArchetype, setExpandedArchetype] = React.useState<string | null>(null);
+  const [page, setPage] = React.useState(1);
+  const { playSound } = useSoundEffect();
 
+  const handleExpandArchetype = React.useCallback(
+    (value: string) => {
+      if (!value) return;
+      playSound('open');
+      setExpandedArchetype(value);
+    },
+    [setExpandedArchetype, playSound],
+  );
+
+  const handleChangePage = React.useCallback(
+    (_event: React.ChangeEvent<unknown>, newPage: number) => {
+      playSound('clickMain');
+      setPage(newPage);
+    },
+    [playSound, setPage],
+  );
+
+  const contracts = useAppSelector((state) => selectContractsArray(state));
   /**
    * Handles the logic for rendering Contract Cards
    * - Passes in an archetype Option for sorting the contracts by Archetypes with dropdowns.
@@ -50,53 +47,53 @@ export const ContractList: React.FC<ContractListProps> = ({
   const renderContractCards = React.useCallback(
     (archetype: string) => {
       const selectedArchetype = contractArchetypes.find((a) => a.archetype === archetype);
+
       if (!selectedArchetype) {
-        Logger.warn(`Archetype ${archetype} is not an option.`);
         return {
           count: 0,
-          content: <Typography align="center">No Contracts To Display</Typography>,
+          content: <ErrorOutline fontSize="large" color="error" />,
         };
       }
+
       const subtypeFilter = selectedArchetype.subTypes.map((sub) => sub.value);
       const filteredContracts = contracts.filter((contract) =>
         subtypeFilter.includes(contract.subtype),
       );
-      const content = filteredContracts
-        .sort(
-          (a, b) => subtypeFilter.indexOf(a.subtype) - subtypeFilter.indexOf(b.subtype),
-        )
-        .map((contract) => (
-          <ContractManagerCard
-            contract={contract}
-            key={contract.id}
-            setSelectedId={setSelectedId}
-            selectedId={selectedId}
-          />
-        ));
+      const sortedContracts = filteredContracts.sort(
+        (a, b) => subtypeFilter.indexOf(a.subtype) - subtypeFilter.indexOf(b.subtype),
+      );
+
+      const content = sortedContracts.map((contract) => (
+        <ContractManagerCard key={contract.id} contract={contract} />
+      ));
+
       return {
         count: filteredContracts.length,
         content:
           filteredContracts.length === 0 ? (
-            <Typography
-              sx={{
-                ml: '2em',
-                color: 'grey',
-                textShadow: '0 2px 5px rgba(0,0,0), 0 0 8px rgba(255,141,15,.5)',
-              }}
-            >
-              No Contracts To Display
-            </Typography>
+            <ErrorOutline fontSize="large" color="error" />
           ) : (
             content
           ),
       };
     },
-    [contracts, selectedId, setSelectedId],
+    [contracts],
   );
 
+  const bidCount = useAppSelector(selectBidPagination);
+
+  const contractCount = useAppSelector(selectContractPagination);
+
+  const pageCount =
+    currentTab === 'employed' ||
+    currentTab === 'pending' ||
+    currentTab === 'offers' ||
+    currentTab === 'completed'
+      ? bidCount.pages
+      : contractCount.pages;
   return (
     <Box
-      data-testid="ContractManager__ContractListWrapper"
+      data-testid="ContractManager__ContractList_Container"
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -121,6 +118,7 @@ export const ContractList: React.FC<ContractListProps> = ({
       }}
     >
       <Box
+        data-testid="ContractManager__ContractList_Wrapper"
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -145,8 +143,8 @@ export const ContractList: React.FC<ContractListProps> = ({
             <ContractListDropdown
               key={archetype}
               archetype={archetype}
-              isExpanded={expandedList === archetype}
-              onExpand={() => setExpandedList(archetype)}
+              isExpanded={expandedArchetype === archetype}
+              onExpand={() => handleExpandArchetype(archetype)}
               count={count}
             >
               {content}
@@ -155,6 +153,7 @@ export const ContractList: React.FC<ContractListProps> = ({
         })}
       </Box>
       <Box
+        data-testid="ContractManager-ContractList__Pagination_Wrapper"
         sx={{
           position: 'sticky',
           bottom: '0',
@@ -171,7 +170,7 @@ export const ContractList: React.FC<ContractListProps> = ({
       >
         <Pagination
           page={page}
-          onChange={setPage}
+          onChange={handleChangePage}
           count={pageCount}
           variant="outlined"
           color="secondary"
