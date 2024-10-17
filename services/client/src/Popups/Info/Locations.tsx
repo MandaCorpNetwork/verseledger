@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
@@ -19,7 +20,7 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation.action';
 import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { selectLocationById } from '@Redux/Slices/Locations/locations.selectors';
-import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
@@ -36,6 +37,7 @@ export const LocationInfoPopup: React.FC<LocationInfoProps> = ({ locationId }) =
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { playSound } = useSoundEffect();
 
   const handleSetLocation = React.useCallback(
     (selectedLocation: ILocation | null) => {
@@ -86,6 +88,13 @@ export const LocationInfoPopup: React.FC<LocationInfoProps> = ({ locationId }) =
   }, [location, onLocation, currentLocationIcon]);
 
   const popupTitle = getPopupTitle();
+
+  const handleOpenExplorer = React.useCallback(() => {
+    playSound('navigate');
+    navigate(`/apps/explore/${location?.id}`);
+    dispatch(closePopup(POPUP_LOCATION_INFO));
+  }, [playSound, navigate, dispatch, location?.id]);
+
   return (
     <VLPopup
       data-testid="Location__Popup"
@@ -126,7 +135,7 @@ export const LocationInfoPopup: React.FC<LocationInfoProps> = ({ locationId }) =
             variant="outlined"
             color="secondary"
             size="small"
-            onClick={() => navigate(`/dashboard/explore/${location?.id}`)}
+            onClick={handleOpenExplorer}
           >
             Open Explorer
           </Button>
