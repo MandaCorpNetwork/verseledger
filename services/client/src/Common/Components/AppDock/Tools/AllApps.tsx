@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { masterAppList } from '@Common/Definitions/Apps';
+import { masterAppList } from '@Common/Definitions/AppListings';
 import { Close } from '@mui/icons-material';
 import { Box, Fade, Grid2, IconButton, Modal, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';

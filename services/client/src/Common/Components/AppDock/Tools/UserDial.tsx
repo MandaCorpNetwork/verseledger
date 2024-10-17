@@ -69,6 +69,7 @@ export const UserDial: React.FC = () => {
         direction="right"
         icon={<Avatar className="User-Avatar" src={user?.pfp} />}
         className="User-Dial"
+        transitionDuration={1000}
         sx={{
           '& .MuiFab-root': {
             backgroundColor: 'transparent',
