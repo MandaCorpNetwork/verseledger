@@ -25,7 +25,7 @@ export const AppDockContainer: React.FC = () => {
     >
       <IconButton
         data-testid="AppDockCollapse__Collapse_Button"
-        sx={{ position: 'absolute', right: 0, bottom: 0 }}
+        sx={{ position: 'absolute', left: '5%', bottom: 0 }}
         onClick={handleExpand}
       >
         <DoubleArrow

@@ -1,29 +1,25 @@
 // Imports
 import { useSoundEffect } from '@Audio/AudioManager';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
-import { selectBidPagination } from '@Redux/Slices/Bids/bids.selector';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContracts.action';
-import {
-  selectContractPagination,
-  selectContractsArray,
-} from '@Redux/Slices/Contracts/contracts.selectors';
+import { selectContractsArray } from '@Redux/Slices/Contracts/contracts.selectors';
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser.action';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { useIsMobile } from '@Utils/isMobile';
 import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
 import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 
 import { ContractManagerBrowser } from './Browser/ContractManagerBrowser';
-import { SelectedContractManager } from './ContractDisplay/SelectedContractManager';
+import { SelectedContract } from './ContractDisplay/SelectedContract';
 import { ContractorInfo } from './ContractDisplay/tools/ContractorInfo';
 
 /**
@@ -38,10 +34,10 @@ import { ContractorInfo } from './ContractDisplay/tools/ContractorInfo';
  * - {@link SelectedContractManager}
  */
 export const ContractManagerApp: React.FC<unknown> = () => {
-  // LOCAL STATES
+  const { selectedContractId } = useParams();
 
   /** State uses {@link useURLQuery} hook to view & set filters */
-  const { searchParams, setFilters, overwriteURLQuery } = useURLQuery();
+  const { searchParams, setFilters } = useURLQuery();
 
   /**
    * State Determins the Selected Contract Id
@@ -55,17 +51,11 @@ export const ContractManagerApp: React.FC<unknown> = () => {
    */
   const [page, setPage] = React.useState(1);
 
-  /**
-   * State Determins which DropDown list is currently expanded
-   */
-  const [expandedList, setExpandedList] = React.useState<string | null>(null);
-
   //TODO: Need to implement useParams for the selected contract instead of useState
   // const { selectedContractId } = useParams();
   // HOOKS
   const dispatch = useAppDispatch();
   const mobile = useIsMobile();
-  const theme = useTheme();
   // const location = useLocation();
   const { playSound } = useSoundEffect();
 
@@ -94,15 +84,6 @@ export const ContractManagerApp: React.FC<unknown> = () => {
 
   /** Determines the id of the Current User if found */
   const userId = currentUser?.id;
-
-  /**
-   * Handles Deselecting a Contract from the {@link SelectedContractManager}
-   * @fires setSelectedId()
-   * @returns null
-   */
-  const handleContractDeselect = () => {
-    setSelectedId(null);
-  };
 
   /**
    * @async
@@ -321,10 +302,6 @@ export const ContractManagerApp: React.FC<unknown> = () => {
       setSelectedId(null);
     }
   }, [contracts, selectedId, setSelectedId]);
-
-  /** Decides whether or not to display ScrollButtons for the Tabs Component */
-  const displayScrollButtons = !!theme.breakpoints.down('lg');
-
   return (
     <Box
       data-testid="ContractsManager__AppContainer"
@@ -348,13 +325,10 @@ export const ContractManagerApp: React.FC<unknown> = () => {
             overflow: 'hidden',
           }}
         >
-          {!hideContracts && selectedId ? (
-            <SelectedContractManager
-              contractId={selectedId}
-              deselectContract={handleContractDeselect}
-            />
+          {!hideContracts && selectedContractId ? (
+            <SelectedContract />
           ) : (
-            <ContractorInfo />
+            <ContractorInfo willChange={hideContracts} />
           )}
         </GlassBox>
       )}

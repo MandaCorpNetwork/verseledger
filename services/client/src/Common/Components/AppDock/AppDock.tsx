@@ -15,10 +15,8 @@ import {
 import { ErrorOutline, HomeTwoTone, Person } from '@mui/icons-material';
 import { Alert, Box, Divider, Grow, Popover, Slide, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { fetchCurrentUser } from '@Redux/Slices/Auth/Actions/fetchCurrentUser.action';
 import { selectIsLoggedIn } from '@Redux/Slices/Auth/auth.selectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import { AuthUtil } from '@Utils/AuthUtil';
 import { bindPopover, usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
@@ -113,7 +111,7 @@ export const AppDock: React.FC = () => {
       <Slide direction="up" in={!isLoggedIn}>
         <Alert
           severity="error"
-          variant="filled"
+          variant="outlined"
           sx={{
             position: 'absolute',
             top: -55,
@@ -121,6 +119,8 @@ export const AppDock: React.FC = () => {
             right: 0,
             zIndex: 10,
             borderRadius: '10px',
+            background: 'linear-gradient(135deg, rgba(255,0,0,0.2), rgba(120,0,0,0.3))',
+            backdropFilter: 'blur(20px)',
           }}
           iconMapping={{
             error: <ErrorOutline fontSize="medium" className="Alert-Icon" />,
@@ -133,6 +133,7 @@ export const AppDock: React.FC = () => {
               gap: '0.5em',
               fontWeight: 'bold',
               overflow: 'visible',
+              color: 'error.contrastText',
             }}
           >
             Please Sign In <Person fontSize="medium" className="Alert-Icon" />
