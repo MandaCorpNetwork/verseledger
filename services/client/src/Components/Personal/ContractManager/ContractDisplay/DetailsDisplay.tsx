@@ -19,7 +19,7 @@ type DetailsDisplayProps = {
 export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
   const contractInactive =
     contract.status === 'COMPLETED' || contract.status === 'CANCELED';
-  const handleNav = useNav();
+  const nav = useNav();
 
   const getOwnerRating = React.useCallback(() => {
     const userRatings = contract.Ratings?.filter(
@@ -40,9 +40,9 @@ export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
     (e: React.MouseEvent) => {
       const { search } = window.location;
       const url = `/apps/contracts/${search}`;
-      handleNav(e, url, 'internal', false);
+      nav(url, 'internal', false).onClick(e);
     },
-    [handleNav],
+    [nav],
   );
 
   return (

@@ -1,39 +1,59 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { URLUtil } from '@Utils/URLUtil';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+export const useNavAux = () => {};
 
 export const useNav = () => {
   const navigate = useNavigate();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
-  const handleNav = useCallback(
+  const handleClick = useCallback(
     (
       e: React.MouseEvent,
       url: string,
-      variant: 'external' | 'internal',
+      variant: 'external' | 'internal' = 'internal',
       pageChange: boolean = true,
     ) => {
+      if (e.button === 1) e.preventDefault();
       if (variant === 'internal') {
-        playSound('navigate');
-        if ((e.ctrlKey || e.metaKey) && pageChange) {
+        sound.playSound('navigate');
+        if ((e.ctrlKey || e.metaKey || e.button === 1) && pageChange) {
           const prefix = URLUtil.frontendHost;
           window.open(`${prefix}${url}`, '_blank');
         } else {
           if (pageChange) {
-            playSound('navigate');
+            sound.playSound('navigate');
           } else {
-            playSound('close');
+            sound.playSound('close');
           }
           navigate(url);
         }
       } else {
-        playSound('navigate');
+        sound.playSound('navigate');
         window.open(url, '_blank');
       }
     },
-    [playSound, navigate],
+    [sound, navigate],
   );
 
-  return handleNav;
+  const click = useCallback(
+    (
+      url: string,
+      variant: 'external' | 'internal' = 'internal',
+      pageChange: boolean = true,
+    ) => {
+      return {
+        onClick: (e: React.MouseEvent) => {
+          handleClick(e, url, variant, pageChange);
+        },
+        onAuxClick: (e: React.MouseEvent) => {
+          handleClick(e, url, variant, pageChange);
+        },
+      };
+    },
+    [handleClick],
+  );
+
+  return useMemo(() => click, [click]);
 };

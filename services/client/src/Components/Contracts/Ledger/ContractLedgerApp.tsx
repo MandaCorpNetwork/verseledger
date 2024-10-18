@@ -1,5 +1,5 @@
+import { LedgerBrowser } from '@Components/Contracts/Ledger/Browser/LedgerBrowser';
 import { ContractDisplayContainer } from '@Components/Contracts/Ledger/Details/ContractDisplayContainer';
-import { LedgerBrowser } from '@Components/Contracts/Ledger/LedgerBrowser';
 import { LedgerSidePanel } from '@Components/Contracts/Ledger/SidePanel/LedgerSidePanel';
 import { Box } from '@mui/material';
 import React from 'react';
@@ -12,7 +12,7 @@ import React from 'react';
  * - In Desktop, it displays a selected contract in a side panel.
  * - In Mobile, when a contract is selected, the user is navigated to a corresponding {@link ContractPage}.
  */
-export const ContractLedgerApp: React.FC<unknown> = () => {
+export const ContractLedgerApp: React.FC = () => {
   const [mobileSearchOpen, setMobileSearchOpen] = React.useState<boolean>(false);
   return (
     <Box

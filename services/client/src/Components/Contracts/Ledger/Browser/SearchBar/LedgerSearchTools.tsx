@@ -4,7 +4,7 @@ import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { ElevatedDropdownBox } from '@Common/Components/Collapse/ElevatedDropdownBox';
 import { EmergencySwitch } from '@Common/Components/Switch/EmergencySwitch';
 import { FilterAlt } from '@mui/icons-material';
-import { Badge, Box, Button, Typography } from '@mui/material';
+import { Badge, Button, Typography } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
@@ -15,35 +15,15 @@ import React, { useRef, useState } from 'react';
  * ### ContractTableTools
  * @description
  * This component is a container for the tools used to filter and sort the contract list in the {@link ContractBrowser}
- * #### Functional Components
- * @component {@link EmergencySwitch}
- * @component {@link DropdownFilter}
- * @component {@link SearchBar}
- * @component {@link SortBySelect}
- * #### Styled Components
- * @component {@link DigiBox}
- * @component {@link ElevatedDropdownBox}
  */
-export const ContractTableTools: React.FC<unknown> = () => {
+export const LedgerSearchTools: React.FC<unknown> = () => {
   // LOCAL STATES
-  /** State using the useURLQuery hook to store & read the URL query parameters */
   const { searchParams, setFilters } = useURLQuery();
-  /**
-   * State determines if the FilterList Collapse is expanded
-   * @type [boolean, React.Dispatch<React.SetStateAction<boolean>>]
-   *
-
-   */
-  const [open, setOpen] = useState(false);
-  /**
-   * State determins which Dropdown Filer is currently open.
-   * @const
-   * @type [string | null, React.Dispatch<React.SetStateAction<string | null>]
-   *
-
-   */
+  const [open, setOpen] = useState<boolean>(false);
+  /** State determins which Dropdown Filer is currently open.*/
   const [expanded, setExpanded] = useState<string | null>(null);
   // HOOKS
+  /** Using for Anchoring */
   const toolsRef = useRef<HTMLDivElement>(null);
   const { playSound } = useSoundEffect();
   // LOGIC
@@ -54,7 +34,7 @@ export const ContractTableTools: React.FC<unknown> = () => {
   };
   /**
    * Handles the clickEvent that expands a `DropdownFilter` component.
-   * @params {string} panel - The name of the filter to expand.
+   * @params panel - The name of the filter to expand.
    */
   const handleExpand = React.useCallback((panel: string) => {
     setExpanded((prevExpanded) => (prevExpanded === panel ? null : panel));
@@ -150,9 +130,10 @@ export const ContractTableTools: React.FC<unknown> = () => {
         justifyContent: 'space-around',
         position: 'relative',
         py: '.5em',
+        alignItems: 'center',
       }}
     >
-      <Box data-testid="ContractLedger-ColumnTwo__FiltersContainer">
+      <div data-testid="ContractLedger-ColumnTwo__FiltersContainer">
         <EmergencySwitch
           data-testid="ContractLedger_EmergencyToggle"
           isEmergency={emergencyMode}
@@ -189,7 +170,7 @@ export const ContractTableTools: React.FC<unknown> = () => {
             Filters
           </Button>
         </Badge>
-      </Box>
+      </div>
       <ElevatedDropdownBox
         data-testid="ContractLedger-TableTools__FilterDrawer"
         key="Contract-Table-Filter-Drawer"
@@ -234,26 +215,26 @@ export const ContractTableTools: React.FC<unknown> = () => {
         variant="h5"
         sx={{ color: 'text.secondary', textShadow: '1px 1px 2px rgba(0,73,130,0.8)' }}
       >
-        Contract Browser
+        Contract Ledger
       </Typography>
-      <Box
+      <div
         data-testid="ContractLedger-TableTools__SortandSearchWrapper"
-        sx={{ display: 'flex', flexDirection: 'row' }}
+        style={{ display: 'flex', flexDirection: 'row' }}
       >
-        <Box
+        <div
           data-testid="ContractLedger-TableTools-SortandSearch__SortByWrapper"
-          sx={{ marginRight: '1em' }}
+          style={{ marginRight: '1em' }}
         >
           <SortBySelect size="small" sortOptions={sortOptions} containerSize="small" />
-        </Box>
-        <Box data-testid="ContractLedger-TableTools-SortandSearch__SearchWrapper">
+        </div>
+        <div data-testid="ContractLedger-TableTools-SortandSearch__SearchWrapper">
           <SearchBar
             size="small"
             label="Search Contracts"
             placeholder="Title, Contractors, Ships..."
           />
-        </Box>
-      </Box>
+        </div>
+      </div>
     </DigiBox>
   );
 };

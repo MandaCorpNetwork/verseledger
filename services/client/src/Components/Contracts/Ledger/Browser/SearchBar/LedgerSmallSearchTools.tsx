@@ -1,6 +1,6 @@
 import { DropdownFilter } from '@Common/Components/App/DropdownFilter';
 import { ElevatedDropdownBox } from '@Common/Components/Collapse/ElevatedDropdownBox';
-import { Box, Divider, Typography } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
 import React from 'react';
@@ -11,27 +11,11 @@ type SmallSearchToolsProps = {
 };
 
 /**
- * @component
  * A condensed Version of {@link ContractTableTools} for smaller viewports
- * @memberof {@link ContractLedgerPage}
- * @param isOpen - Boolean Value passed to determine if the SearchTools are open
  */
 export const SmallSearchTools: React.FC<SmallSearchToolsProps> = ({ isOpen }) => {
   // LOCAL STATES
-  /**
-   * State determins if a {@link DropdownFilter} is rendered
-   * @type [string | null, React.Dispatch<React.SetStateAction<string | null>>]
-   *
-
-   */
   const [expanded, setExpanded] = React.useState<string | null>(null);
-  // LOGIC
-  /**
-   * Handles the clickEvent that displays a {@link DropdownFilter}
-   * @param panel - The name of the {@link DropdownFilter} to be displayed
-
-   * @fires setExpanded - Sets the {@link DropdownFilter} to be displayed
-   */
   const handleExpand = React.useCallback((panel: string) => {
     setExpanded((prevExpanded) => (prevExpanded === panel ? null : panel));
   }, []);
@@ -72,13 +56,13 @@ export const SmallSearchTools: React.FC<SmallSearchToolsProps> = ({ isOpen }) =>
         p: '1em',
       }}
     >
-      <Box
+      <div
         data-testid="ContractLedger-SmallSearchTools__SortandSearchWrapper"
-        sx={{
+        style={{
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-around',
-          mb: '1em',
+          marginBottom: '1em',
         }}
       >
         <SortBySelect size="small" sortOptions={sortOptions} containerSize="small" />
@@ -87,7 +71,7 @@ export const SmallSearchTools: React.FC<SmallSearchToolsProps> = ({ isOpen }) =>
           label="Search Contracts"
           placeholder="Title, Contractors, Ships..."
         />
-      </Box>
+      </div>
       <Divider
         data-testid="ContractLedger-SmallSearchTools__Divider"
         sx={{ width: '60%', mx: 'auto' }}

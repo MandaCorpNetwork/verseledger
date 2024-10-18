@@ -20,7 +20,6 @@ export const ContractDisplayContainer: React.FC = () => {
         borderRadius: '10px',
         padding: '1em',
         height: '100%',
-        width: '100%',
         marginBottom: '1em',
         display: 'flex',
         overflow: 'hidden',

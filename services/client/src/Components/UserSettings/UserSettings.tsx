@@ -50,7 +50,7 @@ export const UserSettings: React.FC = () => {
       case 'Profile':
         return <ProfileSettings />;
       case 'Developer':
-        return <DeveloperSettings onClose={onClose} />;
+        return <DeveloperSettings onClose={() => {}} />;
       case 'Security':
         return <SecuritySettings />;
       case 'Sounds':
@@ -62,7 +62,7 @@ export const UserSettings: React.FC = () => {
       case 'Notifications':
         return <NotificationSettings />;
     }
-  }, [onClose, selectedSetting]);
+  }, [selectedSetting]);
 
   const handleSettingSelection = React.useCallback(
     (setting: settingsListItem) => {
@@ -107,7 +107,7 @@ export const UserSettings: React.FC = () => {
     <Box>
       <DialogTitle sx={{ display: 'flex' }}>
         <Typography variant="h4">User Settings</Typography>
-        <IconButton sx={{ ml: 'auto' }} size="large" onClick={onClose}>
+        <IconButton sx={{ ml: 'auto' }} size="large" onClick={() => {}}>
           <Close fontSize="large" />
         </IconButton>
       </DialogTitle>
