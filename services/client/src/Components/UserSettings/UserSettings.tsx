@@ -1,11 +1,13 @@
 import '@Assets/Css/ripple.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
+import { AppDock } from '@Common/Components/AppDock/AppDock';
+import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { DepressedListButton } from '@Common/Components/Lists/DepressedListButton';
+import { SupportBar } from '@Components/Home/SupportBar';
 import { Close } from '@mui/icons-material';
 import {
   Box,
-  Dialog,
   DialogContent,
   DialogTitle,
   Drawer,
@@ -25,6 +27,7 @@ import { NotificationSettings } from './Notifications';
 import { ProfileSettings } from './Profile';
 import { SecuritySettings } from './Security';
 import { SoundSettings } from './Sounds';
+//TODO: Fix Animations
 
 const settingsList = [
   'Profile',
@@ -104,7 +107,7 @@ export const UserSettings: React.FC = () => {
     </Box>
   );
   return (
-    <Box>
+    <VLViewport sx={{ display: 'flex', flexDirection: 'column' }}>
       <DialogTitle sx={{ display: 'flex' }}>
         <Typography variant="h4">User Settings</Typography>
         <IconButton sx={{ ml: 'auto' }} size="large" onClick={() => {}}>
@@ -195,6 +198,20 @@ export const UserSettings: React.FC = () => {
           </Grow>
         </Box>
       </DialogContent>
-    </Box>
+      <Box
+        sx={{
+          mt: 'auto',
+          mx: 'auto',
+          mb: '20px',
+          gap: '.5em',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <AppDock />
+        <SupportBar />
+      </Box>
+    </VLViewport>
   );
 };

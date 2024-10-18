@@ -4,8 +4,9 @@ import { Box, styled } from '@mui/material';
 const selectedWatermark = userBackgroundOptions[0].waterMark;
 
 export const UserViewport = styled(Box)({
-  width: '100%',
-  height: '100%',
+  height: '100vh',
+  width: '100vw',
+  overflow: 'hidden',
   top: 0,
   left: 0,
   backgroundSize: 'cover',
