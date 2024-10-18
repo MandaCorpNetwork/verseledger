@@ -57,7 +57,7 @@ export const GeneralNav: React.FC<CopyStringProps> = ({
   slots,
   'data-testid': testid,
 }) => {
-  const handleNav = useNav();
+  const nav = useNav();
   const icon = slots?.icon ? (
     slots.icon
   ) : (
@@ -74,7 +74,7 @@ export const GeneralNav: React.FC<CopyStringProps> = ({
       size="small"
       color={buttonColor}
       sx={{ ...slotProps?.root?.sx }}
-      onClick={(e) => handleNav(e, url, variant)}
+      {...nav(url, variant)}
     >
       {icon}
     </IconButton>

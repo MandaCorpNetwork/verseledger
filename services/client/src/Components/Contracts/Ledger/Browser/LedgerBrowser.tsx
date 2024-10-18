@@ -3,9 +3,9 @@ import { useIsMobile } from '@Utils/isMobile';
 import { useIsTablet } from '@Utils/isTablet';
 import React from 'react';
 
-import { ContractsBrowser } from './List/ContractBrowser';
-import { ContractTableTools } from './List/ContractTableTools';
-import { SmallSearchTools } from './List/SmallSearchTools';
+import { LedgerListContainer } from './List/LedgerListContainer';
+import { LedgerSearchTools } from './SearchBar/LedgerSearchTools';
+import { SmallSearchTools } from './SearchBar/LedgerSmallSearchTools';
 
 type LedgerBrowserProps = {
   mobileSearchOpen: boolean;
@@ -18,17 +18,18 @@ export const LedgerBrowser: React.FC<LedgerBrowserProps> = ({ mobileSearchOpen }
     <GlassBox
       data-testid="ContractLedger__ColumnTwo"
       sx={{
-        minWidth: '50%',
+        minWidth: '400px',
         height: '100%',
         flex: '1',
         p: '1em',
         gap: '1em',
         position: 'relative',
+        flexGrow: 2,
       }}
     >
-      <SmallSearchTools isOpen={mobileSearchOpen} />
-      {!mobile && !tablet && <ContractTableTools />}
-      <ContractsBrowser />
+      {(mobile || tablet) && <SmallSearchTools isOpen={mobileSearchOpen} />}
+      {!mobile && !tablet && <LedgerSearchTools />}
+      <LedgerListContainer />
     </GlassBox>
   );
 };

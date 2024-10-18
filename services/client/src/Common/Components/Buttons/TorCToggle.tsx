@@ -4,19 +4,22 @@ import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 import React from 'react';
 
 type CardorTableViewToggleProps = {
-  onViewChange: (view: string) => void;
+  onChange: (view: 'card' | 'table') => void;
+  view: 'card' | 'table';
 };
 
 export const CardorTableViewToggle: React.FC<CardorTableViewToggleProps> = ({
-  onViewChange,
+  onChange,
+  view,
 }) => {
   const { playSound } = useSoundEffect();
-  const [view, setView] = React.useState('ContractCardView');
-  const handleViewChange = (_event: React.MouseEvent<HTMLElement>, view: string) => {
-    playSound('toggleOn');
+  const handleViewChange = (
+    _event: React.MouseEvent<HTMLElement>,
+    view: 'card' | 'table',
+  ) => {
+    playSound('loading');
     if (view !== null) {
-      setView(view);
-      onViewChange(view);
+      onChange(view);
     }
   };
   return (
@@ -49,12 +52,12 @@ export const CardorTableViewToggle: React.FC<CardorTableViewToggleProps> = ({
         },
       }}
     >
-      <ToggleButton value="ContractCardView">
+      <ToggleButton value="card">
         <RecentActors
           sx={{ '&:hover': { transform: 'scale(1.2)' }, transition: 'transform 0.3s' }}
         />
       </ToggleButton>
-      <ToggleButton value="ContractTableView">
+      <ToggleButton value="table">
         <TableChart
           sx={{ '&:hover': { transform: 'scale(1.2)' }, transition: 'transform 0.3s' }}
         />

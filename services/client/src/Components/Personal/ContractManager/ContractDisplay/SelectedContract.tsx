@@ -1,6 +1,5 @@
-import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { ContractController } from '@Common/Components/Contracts/ContractController';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectContract } from '@Redux/Slices/Contracts/contracts.selectors';
 import React from 'react';
