@@ -1,11 +1,11 @@
 import { TempLoginCheck } from '@Common/Components/App/TempLoginCheck';
-import { ContractManagerApp } from '@Components/Personal/ContractManager/ContractManagerApp';
-import { DashboardApp } from '@Components/Personal/Dashboard/DashboardApp';
-import { ExploreApp } from '@Components/Personal/Explore/ExploreApp';
-import { InventoryApp } from '@Components/Personal/Inventory/InventoryApp';
-import { RouteApp } from '@Components/Personal/Routes/RouteApp';
-import { ShipTuning } from '@Components/Personal/Tuning/Tuning';
-import { UserSettings } from '@Components/UserSettings/UserSettings';
+import { ContractManagerApp } from '@Components/Contracts/ContractManager/ContractManagerApp';
+import { ExploreApp } from '@Components/Locations/Explore/ExploreApp';
+import { InventoryApp } from '@Components/Locations/Inventory/InventoryApp';
+import { RouteApp } from '@Components/Locations/Routes/RouteApp';
+import { ShipTuning } from '@Components/Ships/Tuning/Tuning';
+import { DashboardApp } from '@Components/User/Dashboard/DashboardApp';
+import { VerseMarketPage } from '@Components/VerseMarket/VerseMarketPage';
 import { DiscordLoginUtility } from '@Utils/discordLoginUtility';
 import { GoogleLoginUtility } from '@Utils/GoogleLoginUtility';
 import { Outlet, RouteObject } from 'react-router-dom';
@@ -23,9 +23,9 @@ import { Home } from './Index/Home/Home';
 import { NotFoundPage } from './NotFound/NotFound';
 import { OrgLedgerPage } from './OrgLedger/OrgLedgerPage';
 import { SecureRoute } from './SecureRoute';
+import { UserSettings } from './Settings/UserSettings';
 import { Sandbox } from './ui-sandbox/SandboxPage';
 import { UserPage } from './User/UserPage';
-import { VerseMarketPage } from './VerseMarket/VerseMarketPage';
 import { VerseNewsPage } from './VerseNews/VerseNews';
 
 export const routingInfo: RouteObject[] = [

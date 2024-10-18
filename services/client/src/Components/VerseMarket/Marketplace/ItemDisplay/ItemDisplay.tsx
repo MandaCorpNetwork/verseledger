@@ -2,7 +2,6 @@ import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { FileOpen } from '@mui/icons-material';
 import { Box, Divider, IconButton, Typography } from '@mui/material';
 

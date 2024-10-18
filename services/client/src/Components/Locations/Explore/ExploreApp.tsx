@@ -1,11 +1,9 @@
 import { LocationSearch } from '@Common/Components/App/LocationSearch';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { Box, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { selectLocationById } from '@Redux/Slices/Locations/locations.selectors';
-import { isDev } from '@Utils/isDev';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
@@ -16,7 +14,6 @@ import { InfoDisplay } from './InfoDisplay';
 
 export const ExploreApp: React.FC<unknown> = () => {
   const { selectedLocationId } = useParams();
-  const dev = isDev();
   const navigate = useNavigate();
   const currentLocation = useAppSelector(selectUserLocation);
   const selectedLocation = useAppSelector((state) => {

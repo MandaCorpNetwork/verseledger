@@ -1,10 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import {
-  binaryLocationTree,
-  MappedLocation,
-} from '@Components/Personal/Routes/RouteUtilities';
 import { Box } from '@mui/material';
 import { Line, OrbitControls, Sphere, Text } from '@react-three/drei';
 import { Canvas, useThree } from '@react-three/fiber';
@@ -13,6 +9,8 @@ import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selector
 import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
 import { useEffect, useMemo, useState } from 'react';
 import { CubeTextureLoader } from 'three';
+
+import { binaryLocationTree, MappedLocation } from '../Routes/RouteUtilities';
 
 const SkyBox: React.FC = () => {
   const { scene } = useThree();
