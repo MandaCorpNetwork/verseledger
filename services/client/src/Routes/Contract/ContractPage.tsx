@@ -5,14 +5,14 @@ import { ContractController } from '@Common/Components/Contracts/ContractControl
 import { ContractorList } from '@Common/Components/Contracts/ContractorList';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { LoadingScreen } from '@Common/LoadingObject/LoadingScreen';
-import { DesktopContractBody } from '@Components/Contracts/Contract/DesktopComponents/DesktopContractBody';
-import { DesktopReturn } from '@Components/Contracts/Contract/DesktopComponents/DesktopReturn';
-import { MobileLocations } from '@Components/Contracts/Contract/MobileData/MobileLocations';
-import { MobileOrTabletReturn } from '@Components/Contracts/Contract/MobileData/MobileOrTabletReturn';
-import { MobilePayBrief } from '@Components/Contracts/Contract/MobileData/MobilePayBrief';
-import { TabletDetails } from '@Components/Contracts/Contract/MobileData/TabletData/TabletDetails';
-import { TabletOrMobilePanels } from '@Components/Contracts/Contract/MobileData/TabletOrMobilePanels';
-import { TitleBox } from '@Components/Contracts/Contract/TitleBox/TitleBox';
+import { DesktopContractBody } from '@Components/Contracts/ContractPage/DesktopComponents/DesktopContractBody';
+import { DesktopReturn } from '@Components/Contracts/ContractPage/DesktopComponents/DesktopReturn';
+import { MobileLocations } from '@Components/Contracts/ContractPage/MobileData/MobileLocations';
+import { MobileOrTabletReturn } from '@Components/Contracts/ContractPage/MobileData/MobileOrTabletReturn';
+import { MobilePayBrief } from '@Components/Contracts/ContractPage/MobileData/MobilePayBrief';
+import { TabletDetails } from '@Components/Contracts/ContractPage/MobileData/TabletData/TabletDetails';
+import { TabletOrMobilePanels } from '@Components/Contracts/ContractPage/MobileData/TabletOrMobilePanels';
+import { TitleBox } from '@Components/Contracts/ContractPage/TitleBox/TitleBox';
 import {
   BiddingTimePanel,
   ContractDurationPanel,

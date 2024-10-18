@@ -50,7 +50,7 @@
 @keyframes mdResize {
   0% {
     width: 780px;
-    height: 100vh; 
+    height: 100vh;
   }
   100% {
     width: 1849px;

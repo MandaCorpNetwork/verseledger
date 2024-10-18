@@ -1,8 +1,8 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
 import { useSoundEffect } from '@Audio/AudioManager';
+import { AppDock } from '@Common/AppDock/AppDock';
 import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
-import { AppDock } from '@Common/Components/AppDock/AppDock';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
@@ -10,12 +10,12 @@ import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { UserViewport } from '@Common/Components/Boxes/UserViewport';
 import { Security } from '@Common/Definitions/CustomIcons';
 import { userBackgroundOptions } from '@Common/Definitions/Users/UserBackgrounds';
-import { ContractInfoPanel } from '@Components/UserPage/Info/Panels/ContractsInfoPanel';
-import { FleetInfoPanel } from '@Components/UserPage/Info/Panels/FleetInfoPanel';
-import { OrderInfoPanel } from '@Components/UserPage/Info/Panels/OrdersInfoPanel';
-import { OrgsInfoPanel } from '@Components/UserPage/Info/Panels/OrgsInfoPanel';
-import { ContractStatsPanel } from '@Components/UserPage/Stats/Panels/ContractStatsPanel';
-import { OrderStatsPanel } from '@Components/UserPage/Stats/Panels/OrderStatsPanel';
+import { ContractInfoPanel } from '@Components/User/UserPage/Info/Panels/ContractsInfoPanel';
+import { FleetInfoPanel } from '@Components/User/UserPage/Info/Panels/FleetInfoPanel';
+import { OrderInfoPanel } from '@Components/User/UserPage/Info/Panels/OrdersInfoPanel';
+import { OrgsInfoPanel } from '@Components/User/UserPage/Info/Panels/OrgsInfoPanel';
+import { ContractStatsPanel } from '@Components/User/UserPage/Stats/Panels/ContractStatsPanel';
+import { OrderStatsPanel } from '@Components/User/UserPage/Stats/Panels/OrderStatsPanel';
 import { Mail, Place } from '@mui/icons-material';
 import {
   Avatar,

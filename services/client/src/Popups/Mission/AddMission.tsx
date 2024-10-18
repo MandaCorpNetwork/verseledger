@@ -1,7 +1,7 @@
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import { destinationsFromObjectives } from '@Components/Personal/Routes/RouteUtilities';
+import { destinationsFromObjectives } from '@Components/Locations/Routes/RouteUtilities';
 import { Add, AddCircleOutline, Close } from '@mui/icons-material';
 import {
   Box,

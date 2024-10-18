@@ -3,9 +3,6 @@ import { useRadioController } from '@Audio/AudioProvider';
 import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
-import { LocationExplorerTool } from '@Components/Personal/Dashboard/LocationExplorerTool';
-//import { ActiveToolsOverview } from '@Components/Personal/Overview/ActiveTools';
-import { RadioStationApp } from '@Components/Personal/Dashboard/RadioStationApp';
 import { PowerSettingsNew, Sync } from '@mui/icons-material';
 import { Badge, Box, Button, IconButton, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -16,6 +13,9 @@ import { closeWidget, openWidget } from '@Redux/Slices/Widgets/widgets.actions';
 import { WIDGET_RADIO } from '@Widgets/Radio/Radio';
 import React, { Suspense } from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+
+import { LocationExplorerTool } from './LocationExplorerTool';
+import { RadioStationApp } from './RadioStationApp';
 
 //TODO: Need to Rework the Loading Logic for the Notification Tool
 const NotificationToolComponent = React.lazy(() => import('./NotificationTool'));

@@ -1,5 +1,4 @@
 import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_CREATE_MISSION } from '@Popups/Mission/AddMission';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';

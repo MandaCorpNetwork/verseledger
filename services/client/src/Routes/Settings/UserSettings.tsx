@@ -1,10 +1,17 @@
 import '@Assets/Css/ripple.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
-import { AppDock } from '@Common/Components/AppDock/AppDock';
+import { AppDock } from '@Common/AppDock/AppDock';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { DepressedListButton } from '@Common/Components/Lists/DepressedListButton';
 import { SupportBar } from '@Components/Home/SupportBar';
+import { ApplicationSettings } from '@Components/User/UserSettings/Application';
+import { DeveloperSettings } from '@Components/User/UserSettings/DeveloperSettings';
+import { GraphicsSettings } from '@Components/User/UserSettings/Graphics';
+import { NotificationSettings } from '@Components/User/UserSettings/Notifications';
+import { ProfileSettings } from '@Components/User/UserSettings/Profile';
+import { SecuritySettings } from '@Components/User/UserSettings/Security';
+import { SoundSettings } from '@Components/User/UserSettings/Sounds';
 import { Close } from '@mui/icons-material';
 import {
   Box,
@@ -20,13 +27,6 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-import { ApplicationSettings } from './Application';
-import { DeveloperSettings } from './DeveloperSettings';
-import { GraphicsSettings } from './Graphics';
-import { NotificationSettings } from './Notifications';
-import { ProfileSettings } from './Profile';
-import { SecuritySettings } from './Security';
-import { SoundSettings } from './Sounds';
 //TODO: Fix Animations
 
 const settingsList = [
