@@ -2,6 +2,7 @@ import Spectrum from '@Assets/media/Spectrum.png?url';
 import { useSoundEffect } from '@Audio/AudioManager';
 import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
+import { AppDock } from '@Common/Components/AppDock/AppDock';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
@@ -170,8 +171,6 @@ export const UserPage: React.FC = () => {
       sx={{
         backgroundImage: `url(${selectedUserBackground()})`,
         p: '1em',
-        height: 'calc(100vh - 64px)',
-        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -183,10 +182,10 @@ export const UserPage: React.FC = () => {
         sx={{
           p: '2em',
           width: '100%',
-          height: '95%',
           mx: { xs: '0', md: '2em', lg: '5%' },
           backdropFilter: 'blur(5px)',
           justifyContent: 'space-between',
+          flexGrow: 1,
         }}
       >
         <Box
@@ -593,6 +592,7 @@ export const UserPage: React.FC = () => {
           </DigiDisplay>
         </Box>
       </GlassDisplay>
+      <AppDock />
     </UserViewport>
   );
 };

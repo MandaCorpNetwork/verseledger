@@ -45,7 +45,6 @@ export const masterAppList: AppListing[] = [
     label: 'Settings',
     path: '/settings',
     icon: <SettingsTwoTone />,
-    disabled: true,
   },
   { id: 'explore', label: 'Explore', path: '/apps/explore', icon: <Exploration /> },
   { id: 'routes', label: 'Routes', path: '/apps/routes', icon: <RouteTwoTone /> },
@@ -94,24 +93,28 @@ export const masterAppList: AppListing[] = [
     label: 'Orders',
     path: '/apps/orders',
     icon: <ShoppingBasketTwoTone />,
+    disabled: true,
   },
   {
     id: 'verse-market',
     label: 'Market',
     path: '/apps/verse-market',
     icon: <StoreTwoTone />,
+    disabled: true,
   },
   {
     id: 'orgs',
     label: 'Orgs',
     path: '/orgs',
     icon: <BusinessTwoTone />,
+    disabled: true,
   },
   {
     id: 'verse-news',
     label: 'News',
     path: '/verse-news',
     icon: <NewspaperTwoTone />,
+    disabled: true,
   },
 ];
 
@@ -162,6 +165,13 @@ export const orgApps: AppGroup = {
   label: 'Organizations',
   category: 'org',
   list: ['orgs'],
+};
+
+export const personalApps: AppGroup = {
+  id: 'personal',
+  label: 'Personal',
+  category: 'settings',
+  list: ['profile', 'settings', 'orgs', 'news'],
 };
 
 //Todo: Create a Factory Component for creating AppLists and set up the Master App List with the userid for the correct User Id

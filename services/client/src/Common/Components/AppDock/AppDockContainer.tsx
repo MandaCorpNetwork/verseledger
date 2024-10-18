@@ -5,7 +5,11 @@ import React from 'react';
 
 import { AppDock } from './AppDock';
 
-export const AppDockContainer: React.FC = () => {
+type AppDockContainerProps = {
+  sx?: object;
+};
+
+export const AppDockContainer: React.FC<AppDockContainerProps> = ({ sx }) => {
   const [isExpanded, setIsExpanded] = React.useState<boolean>(true);
   const { playSound } = useSoundEffect();
   const handleExpand = React.useCallback(() => {
@@ -21,7 +25,7 @@ export const AppDockContainer: React.FC = () => {
   return (
     <Box
       data-testid="AppDockCollapse__Wrapper"
-      sx={{ position: 'sticky', bottom: 0, px: '5%' }}
+      sx={{ position: 'sticky', bottom: 0, px: '5%', ...sx }}
     >
       <IconButton
         data-testid="AppDockCollapse__Collapse_Button"

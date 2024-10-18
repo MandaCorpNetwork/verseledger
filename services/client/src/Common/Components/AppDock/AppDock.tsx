@@ -9,6 +9,7 @@ import {
   exploreApps,
   masterAppList,
   orderApps,
+  personalApps,
   shipApps,
   splashApps,
 } from '@Common/Definitions/AppListings';
@@ -64,8 +65,10 @@ export const AppDock: React.FC = () => {
       case path.startsWith('/apps/orders'):
       case path.startsWith('/apps/verse-market'):
         return getAppListings(orderApps);
+      case path.startsWith('/user'):
+      case path.startsWith('/settings'):
+        return getAppListings(personalApps);
       case path === '/':
-        return getAppListings(splashApps);
       default:
         return getAppListings(splashApps);
     }
