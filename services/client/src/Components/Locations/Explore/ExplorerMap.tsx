@@ -1,5 +1,4 @@
 /* eslint-disable react/no-unknown-property */
-import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { Box } from '@mui/material';
 import { Line, OrbitControls, Sphere, Text } from '@react-three/drei';
@@ -73,7 +72,6 @@ export const ExploreMap: React.FC<ExploreMapProps> = (props) => {
         p: '1em',
       }}
     >
-      <InDevOverlay />
       <Box
         data-testid="ExploreApp-Explorer-Map__Wrapper"
         sx={{
