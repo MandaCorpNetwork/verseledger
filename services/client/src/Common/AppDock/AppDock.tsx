@@ -37,6 +37,7 @@ export const AppDock: React.FC = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
+  const containerRef = React.useRef<HTMLElement>(null);
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
@@ -61,6 +62,7 @@ export const AppDock: React.FC = () => {
         return getAppListings(shipApps);
       case path.startsWith('/apps/contracts'):
       case path.startsWith('/apps/ledger'):
+      case path.startsWith('/contract'):
         return getAppListings(contractApps);
       case path.startsWith('/apps/orders'):
       case path.startsWith('/apps/verse-market'):
@@ -109,9 +111,15 @@ export const AppDock: React.FC = () => {
     setKey((prevKey) => prevKey + 1);
   }, [setKey, getIconGroup]);
   return (
-    <Box className="Dock">
+    <Box className="Dock" ref={containerRef}>
       {renderUserStatePopover}
-      <Slide direction="up" in={!isLoggedIn}>
+      <Slide
+        direction="up"
+        in={!isLoggedIn}
+        mountOnEnter
+        unmountOnExit
+        container={containerRef.current}
+      >
         <Alert
           severity="error"
           variant="outlined"

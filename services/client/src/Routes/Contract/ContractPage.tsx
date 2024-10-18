@@ -1,4 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { AppDock } from '@Common/AppDock/AppDock';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { ContractController } from '@Common/Components/Contracts/ContractController';
@@ -79,18 +80,6 @@ export const ContractPage: React.FC<unknown> = () => {
 
   /** @var {boolean} isLoading - The loading state of the contract */
   const isLoading = useAppSelector((state) => state.contracts.isLoading);
-
-  /**
-   * useEffect to navigate to the Contract Ledger if the contract is not found
-   * @event {boolean} isLoading - The loading state of the contract
-   * @event {IContract | null} contract - The Contract from the Redux Store
-   * @event {string} navigate - The Navigate Function from React Router
-   */
-  React.useEffect(() => {
-    if (!loading && !contract && !error) {
-      navigate('/contract/ledger');
-    }
-  }, [contract, error, isLoading, loading, navigate]);
 
   /**
    * useEffect to set the archetype of the contract
@@ -313,7 +302,10 @@ export const ContractPage: React.FC<unknown> = () => {
     <VLViewport
       data-testid="ContractPage__Container"
       sx={{
-        p: { xs: '1em', sm: '2em', md: '3em', lg: '4em', xl: '5em' },
+        px: { xs: '1em', sm: '2em', md: '3em', lg: '4em', xl: '5em' },
+        pt: { xs: '1em', sm: '2em', md: '3em', lg: '4em', xl: '5em' },
+        display: 'flex',
+        flexDirection: 'column',
         '&:after': {
           backgroundImage:
             'url(https://media.robertsspaceindustries.com/p3kocb3sqz4b9/channel_item_full.png)',
@@ -399,6 +391,16 @@ export const ContractPage: React.FC<unknown> = () => {
           {!mobile && !tablet && <DesktopReturn />}
         </GlassBox>
       )}
+      <div
+        style={{
+          margin: '.5em 0',
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'center',
+        }}
+      >
+        <AppDock />
+      </div>
     </VLViewport>
   );
 };
