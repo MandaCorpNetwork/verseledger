@@ -21,5 +21,16 @@ export const TempLoginCheck: React.FC = () => {
       dispatch(fetchUserSettings());
     }
   }, [dispatch, isLoggedIn]);
-  return <Box sx={{ display: 'none', zIndex: -500, position: 'absolute', top: 0 }} />;
+  return (
+    <Box
+      sx={{
+        display: 'none',
+        zIndex: -500,
+        position: 'absolute',
+        top: 0,
+        height: '1px',
+        width: '1px',
+      }}
+    />
+  );
 };

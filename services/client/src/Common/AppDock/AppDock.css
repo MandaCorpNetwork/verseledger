@@ -1,6 +1,7 @@
 .Dock {
   display: flex;
   flex-direction: row;
+  position: static;
   padding: 0.5em 1em;
   gap: 0.5em;
   margin: 0 30px;
