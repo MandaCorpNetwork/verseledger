@@ -18,7 +18,7 @@ const stripesBottom = keyframes`
   }
 `;
 
-const stripesLeft = keyframes`
+const stripesRight = keyframes`
   from {
   background-position: 0 0;
   }
@@ -27,7 +27,7 @@ const stripesLeft = keyframes`
   }
 `;
 
-const stripesRight = keyframes`
+const stripesLeft = keyframes`
   from {
   background-position: 0 100%;
   }
