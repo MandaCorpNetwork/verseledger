@@ -22,6 +22,7 @@ import {
   CreateContractRatingsBodySchema,
   CreateUserRatingBodySchema,
   ICreateContractRatingsBody,
+  ICreateUserRatingBody,
   IUserRating,
 } from 'vl-shared/src/schemas/UserRatingsSchema';
 import { ContractService } from '@V1/models/contract/contract.service';
@@ -72,7 +73,7 @@ export class RatingsController extends BaseHttpController {
       const contractId = model.contract_id;
       if (!IdUtil.isValidId(contractId)) {
         Logger.error('Invalid Contract Id');
-        throw nextFunc(
+        return nextFunc(
           new BadParameterError(
             'contractId',
             `/v1/contracts/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/ratings/contract`,
@@ -85,7 +86,7 @@ export class RatingsController extends BaseHttpController {
       ]);
       if (contract == null) {
         Logger.error(`Contract(${model.contract_id}) not found`);
-        throw nextFunc(
+        return nextFunc(
           new NotFoundError(`Contract(${model.contract_id}) not found`),
         );
       }
@@ -93,7 +94,7 @@ export class RatingsController extends BaseHttpController {
         Logger.error(
           `Contract(${model.contract_id}) is not completed or canceled`,
         );
-        throw nextFunc(
+        return nextFunc(
           new BadRequestError(
             'Ratings can only be submitted on closed contracts',
             'invalid_status',
@@ -107,42 +108,54 @@ export class RatingsController extends BaseHttpController {
         }
         return this.ok('Ratings submission delayed');
       }
-      const validatedRatings = model.ratings.map((rating) => {
-        if (!IdUtil.isValidId(rating.reciever_id)) {
-          Logger.error(`Invalid Reciever ID: ${rating.reciever_id}`);
-          throw nextFunc(
-            new BadParameterError(
-              `reciever_id`,
-              `/contract(${contract.id})/rating(${IdUtil.expressRegex(IdUtil.IdPrefix.User)})`,
-            ),
-          );
-        }
-        if (submitter.details.id === rating.reciever_id) {
-          Logger.error(`Cannot rate self`);
-          throw nextFunc(
-            new BadRequestError(
-              'You can not rate yourself',
-              'resource_ownership',
-            ),
-          );
-        }
-        if (contract.id !== rating.contract_id) {
-          Logger.error(`Contract Id doesn't Match Provided`);
-          throw nextFunc(
-            new BadRequestError(
-              'Contract ID does not match',
-              'invalid_resource',
-            ),
-          );
-        }
-        Logger.info('Looking for recent ratings...');
-        const ratingModel = CreateUserRatingBodySchema.strict().parse(rating);
-        return ratingModel;
-      });
+      const [error, validatedRatings] = model.ratings.map(
+        (
+          rating,
+        ): [
+          BadParameterError | BadRequestError | undefined,
+          ICreateUserRatingBody | undefined,
+        ] => {
+          if (!IdUtil.isValidId(rating.reciever_id)) {
+            Logger.error(`Invalid Reciever ID: ${rating.reciever_id}`);
+            return [
+              new BadParameterError(
+                `reciever_id`,
+                `/contract(${contract.id})/rating(${IdUtil.expressRegex(IdUtil.IdPrefix.User)})`,
+              ),
+              undefined,
+            ] as const;
+          }
+          if (submitter.details.id === rating.reciever_id) {
+            Logger.error(`Cannot rate self`);
+            return [
+              new BadRequestError(
+                'You can not rate yourself',
+                'resource_ownership',
+              ),
+              undefined,
+            ] as const;
+          }
+          if (contract.id !== rating.contract_id) {
+            Logger.error(`Contract Id doesn't Match Provided`);
+            return [
+              new BadRequestError(
+                'Contract ID does not match',
+                'invalid_resource',
+              ),
+              undefined,
+            ] as const;
+          }
+          Logger.info('Looking for recent ratings...');
+          const ratingModel = CreateUserRatingBodySchema.strict().parse(rating);
+          return [undefined, ratingModel] as const;
+        },
+      );
+      if (error) return nextFunc(validatedRatings);
       const newRatings = await this.ratingService.createContractRating(
         contract,
         submitter.details,
-        validatedRatings,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        validatedRatings as any,
       );
       for (const r of newRatings)
         UserRepository.updateUserRating(r.reciever_id);

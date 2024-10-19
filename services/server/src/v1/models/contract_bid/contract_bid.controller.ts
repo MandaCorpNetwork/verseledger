@@ -81,7 +81,7 @@ export class BidsController extends BaseHttpController {
     @queryParam('search') _searchRaw?: unknown,
   ) {
     if (!IdUtil.isValidId(contractId)) {
-      throw nextFunc(
+      return nextFunc(
         new BadParameterError(
           'contractId',
           `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids`,
@@ -91,7 +91,7 @@ export class BidsController extends BaseHttpController {
 
     const contract = await this.contractService.getContract(contractId);
     if (contract?.Bids == null) {
-      throw nextFunc(new NotFoundError(contractId));
+      return nextFunc(new NotFoundError(contractId));
     }
     return this.ok(
       new PaginatedDataDTO(
@@ -137,7 +137,7 @@ export class BidsController extends BaseHttpController {
     @next() nextFunc: NextFunction,
   ) {
     if (!IdUtil.isValidId(contractId)) {
-      throw nextFunc(
+      return nextFunc(
         new BadParameterError(
           'contractId',
           `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids/:bidId(${IdUtil.expressRegex(IdUtil.IdPrefix.Bid)})`,
@@ -145,7 +145,7 @@ export class BidsController extends BaseHttpController {
       );
     }
     if (!IdUtil.isValidId(bidId)) {
-      throw nextFunc(
+      return nextFunc(
         new BadParameterError(
           'bidId',
           `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids/:bidId(${IdUtil.expressRegex(IdUtil.IdPrefix.Bid)})`,
@@ -155,7 +155,7 @@ export class BidsController extends BaseHttpController {
 
     const bid = await this.bidsService.getBid(contractId, bidId);
     if (bid == null) {
-      throw nextFunc(new NotFoundError(bidId));
+      return nextFunc(new NotFoundError(bidId));
     }
     return this.ok(new ContractBidDTO(bid));
   }
@@ -206,7 +206,7 @@ export class BidsController extends BaseHttpController {
     const newBid = updateBidSchema.strict().parse(bidRaw);
 
     if (!IdUtil.isValidId(contractId)) {
-      throw nextFunc(
+      return nextFunc(
         new BadParameterError(
           'contractId',
           `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids/:bidId(${IdUtil.expressRegex(IdUtil.IdPrefix.Bid)})`,
@@ -214,7 +214,7 @@ export class BidsController extends BaseHttpController {
       );
     }
     if (!IdUtil.isValidId(bidId)) {
-      throw nextFunc(
+      return nextFunc(
         new BadParameterError(
           'bidId',
           `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids/:bidId(${IdUtil.expressRegex(IdUtil.IdPrefix.Bid)})`,
@@ -224,17 +224,17 @@ export class BidsController extends BaseHttpController {
 
     const bid = await this.bidsService.getBid(contractId, bidId, ['contract']);
     if (bid == null) {
-      throw nextFunc(new NotFoundError(bidId));
+      return nextFunc(new NotFoundError(bidId));
     }
 
     const userId = (this.httpContext.user as VLAuthPrincipal).id;
     const contract = bid.Contract;
-    if (contract == null) throw nextFunc(new NotFoundError(bidId));
+    if (contract == null) return nextFunc(new NotFoundError(bidId));
 
     const newStatus = newBid.status != null && newBid.status != bid.status;
     const newAmount = newBid.amount != null && newBid.amount != bid.amount;
     if (!newStatus && !newAmount) {
-      throw new NotModified(`/(${contractId}/bids/${bidId}`);
+      return nextFunc(new NotModified(`/(${contractId}/bids/${bidId}`));
     }
 
     //TODO: Org Support
@@ -244,60 +244,62 @@ export class BidsController extends BaseHttpController {
       switch (newBid.status) {
         case 'ACCEPTED': {
           if (isContractOwner && bid.status != 'PENDING')
-            throw new UnauthorizedError();
-          if (bid.status != 'INVITED') throw new UnauthorizedError();
+            return nextFunc(new UnauthorizedError());
+          if (bid.status != 'INVITED') return nextFunc(new UnauthorizedError());
           break;
         }
         case 'PENDING': {
-          if (isContractOwner) throw new UnauthorizedError();
+          if (isContractOwner) return nextFunc(new UnauthorizedError());
           if (bid.status !== 'EXPIRED' && bid.status !== 'DECLINED')
-            throw new UnauthorizedError();
+            return nextFunc(new UnauthorizedError());
           break;
         }
         case 'DECLINED': {
-          if (isContractOwner) throw new UnauthorizedError();
-          if (bid.status != 'INVITED') throw new UnauthorizedError();
+          if (isContractOwner) return nextFunc(new UnauthorizedError());
+          if (bid.status != 'INVITED') return nextFunc(new UnauthorizedError());
           break;
         }
         case 'WITHDRAWN': {
-          if (isContractOwner) throw new UnauthorizedError();
-          if (bid.status !== 'ACCEPTED') throw new UnauthorizedError();
+          if (isContractOwner) return nextFunc(new UnauthorizedError());
+          if (bid.status !== 'ACCEPTED')
+            return nextFunc(new UnauthorizedError());
           break;
         }
         case 'REJECTED': {
-          if (!isContractOwner) throw new UnauthorizedError();
-          if (bid.status != 'PENDING') throw new UnauthorizedError();
+          if (!isContractOwner) return nextFunc(new UnauthorizedError());
+          if (bid.status != 'PENDING') return nextFunc(new UnauthorizedError());
           break;
         }
         case 'INVITED': {
-          if (!isContractOwner) throw new UnauthorizedError();
+          if (!isContractOwner) return nextFunc(new UnauthorizedError());
           if (
             bid.status !== 'PENDING' &&
             bid.status !== 'EXPIRED' &&
             bid.status !== 'REJECTED'
           )
-            throw new UnauthorizedError();
+            return nextFunc(new UnauthorizedError());
           break;
         }
         case 'DISMISSED': {
-          if (!isContractOwner) throw new UnauthorizedError();
-          if (bid.status !== 'ACCEPTED') throw new UnauthorizedError();
+          if (!isContractOwner) return nextFunc(new UnauthorizedError());
+          if (bid.status !== 'ACCEPTED')
+            return nextFunc(new UnauthorizedError());
           break;
         }
         case 'EXPIRED': {
           if (bid.status !== 'PENDING' && bid.status !== 'INVITED')
-            throw new UnauthorizedError();
+            return nextFunc(new UnauthorizedError());
           break;
         }
         default:
-          throw new BadParameterError('status', 'status');
+          return nextFunc(new BadParameterError('status', 'status'));
       }
     }
     if (newAmount) {
       if (!isContractOwner && !contract.isBargaining)
-        throw new UnauthorizedError();
+        return nextFunc(new UnauthorizedError());
       const status = newBid.status ?? bid.status;
-      if (status === 'ACCEPTED') throw new UnauthorizedError();
+      if (status === 'ACCEPTED') return nextFunc(new UnauthorizedError());
     }
     if (newStatus && newBid.status) bid.set('status', newBid.status);
 
@@ -348,7 +350,7 @@ export class BidsController extends BaseHttpController {
     @next() nextFunc: NextFunction,
   ) {
     if (!IdUtil.isValidId(contractId)) {
-      throw nextFunc(
+      return nextFunc(
         new BadParameterError(
           'contractId',
           `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids`,
@@ -358,7 +360,7 @@ export class BidsController extends BaseHttpController {
 
     const contract = await this.contractService.getContract(contractId);
     if (contract == null) {
-      throw nextFunc(new NotFoundError(contractId));
+      return nextFunc(new NotFoundError(contractId));
     }
     const ownerId = (this.httpContext.user as VLAuthPrincipal).id;
     const bid = await this.bidsService.createBid(contractId, ownerId);
@@ -405,7 +407,7 @@ export class BidsController extends BaseHttpController {
     @next() nextFunc: NextFunction,
   ) {
     if (!IdUtil.isValidId(contractId)) {
-      throw nextFunc(
+      return nextFunc(
         new BadParameterError(
           'contractId',
           `/v1/contracts/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})/bids/invite`,
@@ -420,7 +422,7 @@ export class BidsController extends BaseHttpController {
 
     const contract = await this.contractService.getContract(contractId);
     if (contract == null) {
-      throw nextFunc(new NotFoundError(contractId));
+      return nextFunc(new NotFoundError(contractId));
     }
     const ownerId = (this.httpContext.user as VLAuthPrincipal).id;
 

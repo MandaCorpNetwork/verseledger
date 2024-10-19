@@ -139,7 +139,7 @@ export class UsersController extends BaseHttpController {
     const principal = this.httpContext.user as VLAuthPrincipal;
     const valid = await this.userService.getValidationToken(principal.id);
     if (valid == null)
-      throw nextFunc(new NetworkError(404, 'No Validation Token'));
+      return nextFunc(new NetworkError(404, 'No Validation Token'));
     return valid;
   }
 
@@ -157,7 +157,7 @@ export class UsersController extends BaseHttpController {
       return valid;
     } catch (error) {
       Logger.error(error);
-      throw nextFunc(error);
+      return nextFunc(error);
     }
   }
 
@@ -170,7 +170,7 @@ export class UsersController extends BaseHttpController {
       return { deleted: valid != null };
     } catch (error) {
       Logger.error(error);
-      throw nextFunc(error);
+      return nextFunc(error);
     }
   }
 
@@ -210,9 +210,12 @@ export class UsersController extends BaseHttpController {
     security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
   })
   @httpGet('/search', TYPES.VerifiedUserMiddleware)
-  public async search(@queryParam('q') search: string) {
+  public async search(
+    @queryParam('q') search: string,
+    @next() nextFunc: NextFunction,
+  ) {
     if (search == null || search.trim() == '')
-      throw new BadRequestError('"q" can not be Empty');
+      return nextFunc(new BadRequestError('"q" can not be Empty'));
     return (await this.userService.search(search)).map((u) =>
       UserToUserDTOMapper.map(u),
     );
@@ -224,6 +227,7 @@ export class UsersController extends BaseHttpController {
   )
   public async getUserBids(
     @requestParam('id') userId: string,
+    @next() nextFunc: NextFunction,
     @queryParam('search') searchRaw?: unknown,
   ) {
     let userRaw: string | null;
@@ -241,7 +245,7 @@ export class UsersController extends BaseHttpController {
       search = UserBidsSearchSchema.strict().optional().parse(searchRaw)!;
     } catch (error) {
       Logger.error(error);
-      throw new GenericError(400, (error as ZodError).issues);
+      return nextFunc(new GenericError(400, (error as ZodError).issues));
     }
 
     const bidInfo = await this.userService.getUserBids(user, search);
