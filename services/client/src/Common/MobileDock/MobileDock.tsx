@@ -1,5 +1,3 @@
-import './MobileDock.css';
-
 import { useSoundEffect } from '@Audio/AudioManager';
 import { POPUP_APP_LIST } from '@Common/AppDock/Tools/AllApps';
 import {
