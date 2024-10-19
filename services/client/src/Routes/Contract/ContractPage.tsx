@@ -26,7 +26,7 @@ import { useIsMobile } from '@Utils/isMobile';
 import { useIsTablet } from '@Utils/isTablet';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+// import { useNavigate, useParams } from 'react-router-dom';
 import { IContract, IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
@@ -44,15 +44,15 @@ export const ContractPage: React.FC<unknown> = () => {
   const [timeTab, setTimeTab] = React.useState<string>('bid');
   const [activeDataTab, setActiveDataTab] = React.useState<string>('contractors');
   const [opacity, setOpacity] = React.useState(0.8);
-  const [loading, setLoading] = React.useState<boolean>(true);
-  const [error, setError] = React.useState<boolean>(false);
+  const [_loading, setLoading] = React.useState<boolean>(true);
+  const [_error, setError] = React.useState<boolean>(false);
 
   // HOOKS
   const dispatch = useAppDispatch();
   const mobile = useIsMobile();
   const tablet = useIsTablet();
   const { playSound } = useSoundEffect();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // LOGIC
   /**

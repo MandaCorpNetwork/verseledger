@@ -6,7 +6,7 @@ import { SpeedDial, SpeedDialAction } from '@mui/material';
 import React from 'react';
 
 const semiCircleDegree = 90;
-const offsetCircleDegree = -90;
+// const offsetCircleDegree = -90;
 
 const actions = [
   { icon: <FileCopy />, name: 'Copy' },
@@ -24,11 +24,11 @@ type MobileDockProps = {
   vCenter?: boolean;
   hCenter?: boolean;
   // positionOffset?: object;
-  fade?: boolean;
+  // fade?: boolean;
 };
 
 export const MobileDock: React.FC<MobileDockProps> = ({
-  fade,
+  // fade,
   top,
   bottom = true,
   left = true,
