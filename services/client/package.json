@@ -18,7 +18,7 @@
     "@react-three/fiber": "8.17.10",
     "@react-three/postprocessing": "^2.16.3",
     "@reduxjs/toolkit": "2.3.0",
-    "@scalar/api-reference-react": "0.3.114",
+    "@scalar/api-reference-react": "0.3.117",
     "axios": "1.7.7",
     "chalk": "^4",
     "color-convert": "2.0.1",
