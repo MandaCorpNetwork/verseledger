@@ -153,7 +153,7 @@ export const AppDock: React.FC = () => {
       </Slide>
       <Box>
         <SplashIcon />
-        <UserStateIcon popupState={userStatePopupState} />
+        {isLoggedIn && <UserStateIcon popupState={userStatePopupState} />}
       </Box>
       <AppButton label="Home" path="/apps/dashboard" icon={<HomeTwoTone />} />
       <Divider

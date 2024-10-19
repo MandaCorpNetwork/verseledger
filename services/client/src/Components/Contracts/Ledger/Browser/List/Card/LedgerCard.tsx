@@ -99,7 +99,7 @@ export const LedgerCard: React.FC<LedgerCardProps> = ({ contract, isSelected }) 
       }
     : {
         boxShadow:
-          '0px 1px 3px 0px rgba(8,22,80,0.12), 0px 1px 1px 0px rgba(8,22,80,0.14), 0px 2px 1px -1px rgba(0,30,100,0.2), 0px 4px 6px -1px rgba(8,22,80,0.6), 0px 8px 10px 0px rgba(8,22,80,0.4), 0px 10px 20px 0px rgba(8,22,80,0.3)',
+          '0px 1px 3px 0px rgba(33,150,243,0.12), 0px 1px 1px 0px rgba(33,150,243,0.14), 0px 2px 1px -1px rgba(33,150,243,0.2), 0px 4px 6px -1px rgba(33,150,243,0.6), 0px 8px 10px 0px rgba(33,150,243,0.4), 0px 10px 20px 0px rgba(33,150,243,0.3)',
         '&:hover': {
           boxShadow:
             '0px 1px 3px 0px rgba(24,252,252,0.12), 0px 1px 1px 0px rgba(24,252,252,0.14), 0px 2px 1px -1px rgba(24,252,252,0.2), 0px 4px 6px -1px rgba(24,252,252,0.6), 0px 8px 10px 0px rgba(24,252,252,0.4), 0px 10px 20px 0px rgba(24,252,252,0.3)',
