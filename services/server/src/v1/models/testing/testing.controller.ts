@@ -60,7 +60,7 @@ export class TestingnController extends BaseHttpController {
     @next() nextFunction: NextFunction,
   ) {
     if (userId == null)
-      throw nextFunction(
+      return nextFunction(
         new BadRequestError('Missing Query', 'bad_query', 'id'),
       );
     return this.authService.signUser(userId);

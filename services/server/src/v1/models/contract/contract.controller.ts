@@ -93,11 +93,11 @@ export class ContractController extends BaseHttpController {
           ContractToContractDTOMapper.map(newContract),
         );
       } catch (error) {
-        throw nextFunc(error);
+        return nextFunc(error);
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      throw nextFunc(new BodyError(error.issues));
+      return nextFunc(new BodyError(error.issues));
     }
   }
 
@@ -133,7 +133,7 @@ export class ContractController extends BaseHttpController {
     @next() nextFunc: NextFunction,
   ) {
     if (!IdUtil.isValidId(contractId)) {
-      throw nextFunc(
+      return nextFunc(
         new BadParameterError(
           'contractId',
           `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})`,
@@ -143,7 +143,7 @@ export class ContractController extends BaseHttpController {
 
     const contract = await this.contractService.getContract(contractId);
     if (contract == null) {
-      throw nextFunc(new NotFoundError(contractId));
+      return nextFunc(new NotFoundError(contractId));
     }
     return this.ok(ContractToContractDTOMapper.map(contract));
   }
@@ -186,7 +186,7 @@ export class ContractController extends BaseHttpController {
     const newContract = UpdateContractSchema.strict().parse(contractRaw);
 
     if (!IdUtil.isValidId(contractId)) {
-      throw nextFunc(
+      return nextFunc(
         new BadParameterError(
           'contractId',
           `/:contractId(${IdUtil.expressRegex(IdUtil.IdPrefix.Contract)})`,
@@ -198,11 +198,11 @@ export class ContractController extends BaseHttpController {
       'owner',
     ]);
     if (contract == null) {
-      throw nextFunc(new NotFoundError(contractId));
+      return nextFunc(new NotFoundError(contractId));
     }
 
     const userId = (this.httpContext.user as VLAuthPrincipal).id;
-    if (userId != contract.owner_id) throw nextFunc(new UnauthorizedError());
+    if (userId != contract.owner_id) return nextFunc(new UnauthorizedError());
 
     for (const k in newContract) {
       const key = k as keyof typeof newContract;
@@ -301,7 +301,7 @@ export class ContractController extends BaseHttpController {
       search = ContractSearchSchema.strict().optional().parse(searchRaw)!;
     } catch (error) {
       Logger.error(error);
-      throw new GenericError(400, (error as ZodError).issues);
+      return nextFunc(new GenericError(400, (error as ZodError).issues));
     }
     const contractInfo = await this.contractService.search(search!);
     const contracts = contractInfo.rows;
@@ -353,7 +353,7 @@ export class ContractController extends BaseHttpController {
     @queryParam('status') status: IContractBid['status'],
   ) {
     if (!IdUtil.isValidId(userId)) {
-      throw nextFunc(new BadParameterError('userId', '/bids/contracts'));
+      return nextFunc(new BadParameterError('userId', '/bids/contracts'));
     }
     try {
       const contracts = await this.contractService.getContractsByUserId(
@@ -362,7 +362,7 @@ export class ContractController extends BaseHttpController {
       );
       return contracts;
     } catch (error) {
-      throw new GenericError(400, (error as ZodError).issues);
+      return nextFunc(new GenericError(400, (error as ZodError).issues));
     }
   }
 }

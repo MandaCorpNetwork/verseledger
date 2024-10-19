@@ -177,16 +177,16 @@ export class AuthController extends BaseHttpController {
   ) {
     if (authHeader == null) {
       Logger.warn('No Headers');
-      throw nextFunc(new UnauthorizedError());
+      return nextFunc(new UnauthorizedError());
     }
     const headerParts = authHeader.split(' ');
     if (headerParts.length != 2 || headerParts[0] !== 'Bearer') {
-      throw nextFunc(new UnauthorizedError());
+      return nextFunc(new UnauthorizedError());
     }
     const token = headerParts[1];
     return this.authService.getUserToken(token).then(async (u) => {
       if (u == null) {
-        throw nextFunc(new UnauthorizedError());
+        return nextFunc(new UnauthorizedError());
       }
       await this.authService.invalidateToken(token);
       return this.authService.signUser(u.id);

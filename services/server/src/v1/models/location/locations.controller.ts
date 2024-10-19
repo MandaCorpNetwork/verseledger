@@ -103,7 +103,7 @@ export class LocationController extends BaseHttpController {
       search = LocationSearchSchema.strict().optional().parse(searchRaw)!;
     } catch (error) {
       Logger.error(error);
-      throw new BadRequestError('Incorrect Request Body', '400');
+      return nextFunc(new BadRequestError('Incorrect Request Body', '400'));
     }
     const locationSearch = await this.locationService.search(search!);
     const locations = locationSearch.rows;
