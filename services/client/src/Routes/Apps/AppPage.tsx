@@ -1,10 +1,13 @@
 import { AppDockContainer } from '@Common/AppDock/AppDockContainer';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
+import { MobileDock } from '@Common/MobileDock/MobileDock';
 import { Box } from '@mui/material';
+import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
 export const AppPage: React.FC<unknown> = () => {
+  const isMobile = useIsMobile();
   return (
     <VLViewport
       data-testid="AppViewerPage"
@@ -43,7 +46,7 @@ export const AppPage: React.FC<unknown> = () => {
         <Box
           data-testid="AppViewerPage__AppDisplay_Wrapper"
           sx={{
-            height: { xs: 'auto', md: '100%' },
+            height: '100%',
             display: 'flex',
             flexDirection: 'column',
             width: '100%',
@@ -52,7 +55,8 @@ export const AppPage: React.FC<unknown> = () => {
           <Outlet />
         </Box>
       </Box>
-      <AppDockContainer />
+      {isMobile && <MobileDock top right />}
+      {!isMobile && <AppDockContainer />}
     </VLViewport>
   );
 };

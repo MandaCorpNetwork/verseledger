@@ -4,6 +4,7 @@ import { useSoundEffect } from '@Audio/AudioManager';
 import { AppDock } from '@Common/AppDock/AppDock';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { DepressedListButton } from '@Common/Components/Lists/DepressedListButton';
+import { MobileDock } from '@Common/MobileDock/MobileDock';
 import { SupportBar } from '@Components/Home/SupportBar';
 import { ApplicationSettings } from '@Components/User/UserSettings/Application';
 import { DeveloperSettings } from '@Components/User/UserSettings/DeveloperSettings';
@@ -25,6 +26,7 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
+import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 
 //TODO: Fix Animations
@@ -47,6 +49,7 @@ export const UserSettings: React.FC = () => {
     React.useState<settingsListItem>('Profile');
   const [_, setCurrentSetting] = React.useState<string>('Profile');
   const [transitioning, setTransitioning] = React.useState<boolean>(false);
+  const isMobile = useIsMobile();
 
   const settingsPageRender = React.useCallback(() => {
     switch (selectedSetting) {
@@ -108,13 +111,13 @@ export const UserSettings: React.FC = () => {
   );
   return (
     <VLViewport sx={{ display: 'flex', flexDirection: 'column' }}>
-      <DialogTitle sx={{ display: 'flex' }}>
+      <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
         <Typography variant="h4">User Settings</Typography>
         <IconButton sx={{ ml: 'auto' }} size="large" onClick={() => {}}>
           <Close fontSize="large" />
         </IconButton>
-      </DialogTitle>
-      <DialogContent sx={{ display: 'flex', pl: '0', flexDirection: 'row' }}>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
         <Drawer
           variant="persistent"
           open={true}
@@ -197,7 +200,7 @@ export const UserSettings: React.FC = () => {
             <Box sx={{ width: '100%', height: '100%' }}>{settingsPageRender()}</Box>
           </Grow>
         </Box>
-      </DialogContent>
+      </div>
       <Box
         sx={{
           mt: 'auto',
@@ -209,8 +212,9 @@ export const UserSettings: React.FC = () => {
           alignItems: 'center',
         }}
       >
-        <AppDock />
-        <SupportBar />
+        {!isMobile && <AppDock />}
+        {isMobile && <MobileDock bottom hCenter />}
+        {!isMobile && <SupportBar />}
       </Box>
     </VLViewport>
   );

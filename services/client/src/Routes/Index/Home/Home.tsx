@@ -39,9 +39,9 @@ export const Home: React.FC<unknown> = () => {
         }}
       >
         {!isMobile && <AppDock />}
-        {isMobile && <MobileDock />}
         <SupportBar />
       </Box>
+      {isMobile && <MobileDock top left />}
     </Box>
   );
 };

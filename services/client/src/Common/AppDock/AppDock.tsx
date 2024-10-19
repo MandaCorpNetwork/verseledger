@@ -36,7 +36,7 @@ export const AppDock: React.FC = () => {
   const [key, setKey] = React.useState(0);
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const containerRef = React.useRef<HTMLElement>(null);
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
@@ -101,9 +101,9 @@ export const AppDock: React.FC = () => {
   );
 
   const handleOpenAll = React.useCallback(() => {
-    playSound('open');
+    sound.playSound('open');
     dispatch(openPopup(POPUP_APP_LIST));
-  }, [playSound, dispatch]);
+  }, [sound, dispatch]);
 
   React.useEffect(() => {
     const newGroup = getIconGroup();

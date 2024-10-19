@@ -6,10 +6,9 @@ import { ContractController } from '@Common/Components/Contracts/ContractControl
 import { ContractorList } from '@Common/Components/Contracts/ContractorList';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { LoadingScreen } from '@Common/LoadingObject/LoadingScreen';
+import { MobileDock } from '@Common/MobileDock/MobileDock';
 import { DesktopContractBody } from '@Components/Contracts/ContractPage/DesktopComponents/DesktopContractBody';
-import { DesktopReturn } from '@Components/Contracts/ContractPage/DesktopComponents/DesktopReturn';
 import { MobileLocations } from '@Components/Contracts/ContractPage/MobileData/MobileLocations';
-import { MobileOrTabletReturn } from '@Components/Contracts/ContractPage/MobileData/MobileOrTabletReturn';
 import { MobilePayBrief } from '@Components/Contracts/ContractPage/MobileData/MobilePayBrief';
 import { TabletDetails } from '@Components/Contracts/ContractPage/MobileData/TabletData/TabletDetails';
 import { TabletOrMobilePanels } from '@Components/Contracts/ContractPage/MobileData/TabletOrMobilePanels';
@@ -44,7 +43,6 @@ export const ContractPage: React.FC<unknown> = () => {
   const [archetype, setArchetype] = React.useState<string | null>(null);
   const [timeTab, setTimeTab] = React.useState<string>('bid');
   const [activeDataTab, setActiveDataTab] = React.useState<string>('contractors');
-  const [opacity, setOpacity] = React.useState(0.8);
   const [_loading, setLoading] = React.useState<boolean>(true);
   const [_error, setError] = React.useState<boolean>(false);
 
@@ -257,48 +255,6 @@ export const ContractPage: React.FC<unknown> = () => {
     [contract],
   );
 
-  /**
-   * Throttles a passed event
-   * @param func - The function to throttle
-   * @param limit - The limit of the throttle
-   * @see {@link https://stackoverflow.com/questions/27078285/simple-throttle-in-js}
-   */
-  const throttle = (func: (...args: unknown[]) => void, limit: number) => {
-    let inThrottle: boolean;
-    return (...args: unknown[]) => {
-      if (!inThrottle) {
-        func(...args);
-        inThrottle = true;
-        setTimeout(() => (inThrottle = false), limit);
-      }
-    };
-  };
-
-  /**
-   * Handles the scroll event
-   */
-  const handleScroll = React.useCallback(() => {
-    setOpacity(1);
-    setTimeout(() => setOpacity(0.5), 2000);
-  }, []);
-
-  /**
-   * Throttles the scroll event
-   */
-  const throttledScroll = React.useMemo(
-    () => throttle(handleScroll, 200),
-    [handleScroll],
-  );
-
-  /**
-   * useEffect to add the scroll event to the window to change the opacity state
-   * @event {function} throttledScroll - Throttles the scroll event
-   */
-  React.useEffect(() => {
-    window.addEventListener('scroll', throttledScroll);
-    return () => window.removeEventListener('scroll', throttledScroll);
-  }, [throttledScroll]);
-
   return (
     <VLViewport
       data-testid="ContractPage__Container"
@@ -388,8 +344,6 @@ export const ContractPage: React.FC<unknown> = () => {
               userBid={userBid}
             />
           )}
-          {(mobile || tablet) && contract && <MobileOrTabletReturn opacity={opacity} />}
-          {!mobile && !tablet && <DesktopReturn />}
         </GlassBox>
       )}
       <div
@@ -400,7 +354,8 @@ export const ContractPage: React.FC<unknown> = () => {
           justifyContent: 'center',
         }}
       >
-        <AppDock />
+        {!mobile && <AppDock />}
+        {mobile && <MobileDock top hCenter />}
       </div>
     </VLViewport>
   );

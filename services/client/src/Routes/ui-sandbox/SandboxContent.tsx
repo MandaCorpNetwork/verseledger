@@ -14,8 +14,15 @@ export const SandboxContent: React.FC<unknown> = () => {
       }}
     >
       <Box sx={{ display: 'flex', gap: '1em', flexDirection: 'column' }}>
-        <Box sx={{ position: 'relative', height: '300px', width: '300px' }}>
-          <MobileDock vCenter />
+        <Box
+          sx={{
+            position: 'relative',
+            height: '300px',
+            width: '300px',
+            bgcolor: 'rgba(0,0,0,0.5)',
+          }}
+        >
+          <MobileDock top left />
         </Box>
       </Box>
     </Box>

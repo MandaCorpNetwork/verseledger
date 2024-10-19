@@ -10,6 +10,7 @@ import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { UserViewport } from '@Common/Components/Boxes/UserViewport';
 import { Security } from '@Common/Definitions/CustomIcons';
 import { userBackgroundOptions } from '@Common/Definitions/Users/UserBackgrounds';
+import { MobileDock } from '@Common/MobileDock/MobileDock';
 import { ContractInfoPanel } from '@Components/User/UserPage/Info/Panels/ContractsInfoPanel';
 import { FleetInfoPanel } from '@Components/User/UserPage/Info/Panels/FleetInfoPanel';
 import { OrderInfoPanel } from '@Components/User/UserPage/Info/Panels/OrdersInfoPanel';
@@ -34,6 +35,7 @@ import {
   selectUserById,
   selectUserPageImageById,
 } from '@Redux/Slices/Users/users.selectors';
+import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -59,6 +61,7 @@ export const UserPage: React.FC = () => {
   //LOCAL STATES
   /** Gets the URL Query parameter for read only. */
   const { selectedUserId } = useParams();
+  const isMobile = useIsMobile();
   const [statsTab, setStatsTab] = React.useState<string>('contracts');
   const [infoTab, setInfoTab] = React.useState<string>('contracts');
   const [_loading, setLoading] = React.useState<boolean>(true);
@@ -592,7 +595,8 @@ export const UserPage: React.FC = () => {
           </DigiDisplay>
         </Box>
       </GlassDisplay>
-      <AppDock />
+      {!isMobile && <AppDock />}
+      {isMobile && <MobileDock top hCenter />}
     </UserViewport>
   );
 };
