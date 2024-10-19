@@ -53,7 +53,7 @@ export const WorkZoneBar: React.FC<WorkZoneBarProps> = (props) => {
     dim = true,
   } = props;
 
-  const speedMapping = { slow: '12s', normal: '8s', fast: '4s' };
+  const speedMapping = { slow: '24s', normal: '12s', fast: '6s' };
 
   const sizeMapping = { small: 8, medium: 16, large: 24 };
 

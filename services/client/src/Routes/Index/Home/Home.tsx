@@ -3,11 +3,14 @@ import '@Components/Home/Home.css';
 
 import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
 import { AppDock } from '@Common/AppDock/AppDock';
+import { MobileDock } from '@Common/MobileDock/MobileDock';
 import { SupportBar } from '@Components/Home/SupportBar';
 import { Box } from '@mui/material';
+import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 
 export const Home: React.FC<unknown> = () => {
+  const isMobile = useIsMobile();
   return (
     <Box
       sx={{
@@ -35,7 +38,8 @@ export const Home: React.FC<unknown> = () => {
           pb: '5px',
         }}
       >
-        <AppDock />
+        {!isMobile && <AppDock />}
+        {isMobile && <MobileDock />}
         <SupportBar />
       </Box>
     </Box>
