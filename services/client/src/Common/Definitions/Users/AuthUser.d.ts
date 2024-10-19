@@ -4,6 +4,9 @@ type AuthUser = {
   verified: boolean;
   handle: string;
   pfp: string;
+  total_ratings: number;
+  weighted_rating: number;
+  display_rating: number;
   createdAt: string;
   updatedAt: string;
 };

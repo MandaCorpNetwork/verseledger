@@ -1,18 +1,18 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { AppDock } from '@Common/AppDock/AppDock';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { ContractController } from '@Common/Components/Contracts/ContractController';
 import { ContractorList } from '@Common/Components/Contracts/ContractorList';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { LoadingScreen } from '@Common/LoadingObject/LoadingScreen';
-import { DesktopContractBody } from '@Components/Contracts/Contract/DesktopComponents/DesktopContractBody';
-import { DesktopReturn } from '@Components/Contracts/Contract/DesktopComponents/DesktopReturn';
-import { MobileLocations } from '@Components/Contracts/Contract/MobileData/MobileLocations';
-import { MobileOrTabletReturn } from '@Components/Contracts/Contract/MobileData/MobileOrTabletReturn';
-import { MobilePayBrief } from '@Components/Contracts/Contract/MobileData/MobilePayBrief';
-import { TabletDetails } from '@Components/Contracts/Contract/MobileData/TabletData/TabletDetails';
-import { TabletOrMobilePanels } from '@Components/Contracts/Contract/MobileData/TabletOrMobilePanels';
-import { TitleBox } from '@Components/Contracts/Contract/TitleBox/TitleBox';
+import { MobileDock } from '@Common/MobileDock/MobileDock';
+import { DesktopContractBody } from '@Components/Contracts/ContractPage/DesktopComponents/DesktopContractBody';
+import { MobileLocations } from '@Components/Contracts/ContractPage/MobileData/MobileLocations';
+import { MobilePayBrief } from '@Components/Contracts/ContractPage/MobileData/MobilePayBrief';
+import { TabletDetails } from '@Components/Contracts/ContractPage/MobileData/TabletData/TabletDetails';
+import { TabletOrMobilePanels } from '@Components/Contracts/ContractPage/MobileData/TabletOrMobilePanels';
+import { TitleBox } from '@Components/Contracts/ContractPage/TitleBox/TitleBox';
 import {
   BiddingTimePanel,
   ContractDurationPanel,
@@ -25,7 +25,8 @@ import { useIsMobile } from '@Utils/isMobile';
 import { useIsTablet } from '@Utils/isTablet';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+// import { useNavigate, useParams } from 'react-router-dom';
 import { IContract, IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
@@ -42,16 +43,15 @@ export const ContractPage: React.FC<unknown> = () => {
   const [archetype, setArchetype] = React.useState<string | null>(null);
   const [timeTab, setTimeTab] = React.useState<string>('bid');
   const [activeDataTab, setActiveDataTab] = React.useState<string>('contractors');
-  const [opacity, setOpacity] = React.useState(0.8);
-  const [loading, setLoading] = React.useState<boolean>(true);
-  const [error, setError] = React.useState<boolean>(false);
+  const [_loading, setLoading] = React.useState<boolean>(true);
+  const [_error, setError] = React.useState<boolean>(false);
 
   // HOOKS
   const dispatch = useAppDispatch();
   const mobile = useIsMobile();
   const tablet = useIsTablet();
   const { playSound } = useSoundEffect();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // LOGIC
   /**
@@ -79,18 +79,6 @@ export const ContractPage: React.FC<unknown> = () => {
 
   /** @var {boolean} isLoading - The loading state of the contract */
   const isLoading = useAppSelector((state) => state.contracts.isLoading);
-
-  /**
-   * useEffect to navigate to the Contract Ledger if the contract is not found
-   * @event {boolean} isLoading - The loading state of the contract
-   * @event {IContract | null} contract - The Contract from the Redux Store
-   * @event {string} navigate - The Navigate Function from React Router
-   */
-  React.useEffect(() => {
-    if (!loading && !contract && !error) {
-      navigate('/contract/ledger');
-    }
-  }, [contract, error, isLoading, loading, navigate]);
 
   /**
    * useEffect to set the archetype of the contract
@@ -267,53 +255,14 @@ export const ContractPage: React.FC<unknown> = () => {
     [contract],
   );
 
-  /**
-   * Throttles a passed event
-   * @param func - The function to throttle
-   * @param limit - The limit of the throttle
-   * @see {@link https://stackoverflow.com/questions/27078285/simple-throttle-in-js}
-   */
-  const throttle = (func: (...args: unknown[]) => void, limit: number) => {
-    let inThrottle: boolean;
-    return (...args: unknown[]) => {
-      if (!inThrottle) {
-        func(...args);
-        inThrottle = true;
-        setTimeout(() => (inThrottle = false), limit);
-      }
-    };
-  };
-
-  /**
-   * Handles the scroll event
-   */
-  const handleScroll = React.useCallback(() => {
-    setOpacity(1);
-    setTimeout(() => setOpacity(0.5), 2000);
-  }, []);
-
-  /**
-   * Throttles the scroll event
-   */
-  const throttledScroll = React.useMemo(
-    () => throttle(handleScroll, 200),
-    [handleScroll],
-  );
-
-  /**
-   * useEffect to add the scroll event to the window to change the opacity state
-   * @event {function} throttledScroll - Throttles the scroll event
-   */
-  React.useEffect(() => {
-    window.addEventListener('scroll', throttledScroll);
-    return () => window.removeEventListener('scroll', throttledScroll);
-  }, [throttledScroll]);
-
   return (
     <VLViewport
       data-testid="ContractPage__Container"
       sx={{
-        p: { xs: '1em', sm: '2em', md: '3em', lg: '4em', xl: '5em' },
+        px: { xs: '1em', sm: '2em', md: '3em', lg: '4em', xl: '5em' },
+        pt: { xs: '1em', sm: '2em', md: '3em', lg: '4em', xl: '5em' },
+        display: 'flex',
+        flexDirection: 'column',
         '&:after': {
           backgroundImage:
             'url(https://media.robertsspaceindustries.com/p3kocb3sqz4b9/channel_item_full.png)',
@@ -395,10 +344,19 @@ export const ContractPage: React.FC<unknown> = () => {
               userBid={userBid}
             />
           )}
-          {(mobile || tablet) && contract && <MobileOrTabletReturn opacity={opacity} />}
-          {!mobile && !tablet && <DesktopReturn />}
         </GlassBox>
       )}
+      <div
+        style={{
+          margin: '.5em 0',
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'center',
+        }}
+      >
+        {!mobile && <AppDock />}
+        {mobile && <MobileDock top hCenter />}
+      </div>
     </VLViewport>
   );
 };

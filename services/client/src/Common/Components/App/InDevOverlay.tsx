@@ -31,7 +31,8 @@ export const InDevOverlay: React.FC<DevOverlayProps> = ({ supportButton }) => {
         justifyItems: 'center',
         bgcolor: 'rgba(0,0,0,.55)',
         backdropFilter: 'blur(5px)',
-        transition: 'all 0.5s ease-in-out',
+        transition:
+          'color 0.5s ease-in-out, background-color 0.5s ease-in-out, backdropFilter 0.5s ease-in-out, textShadow 0.5s ease-in-out',
         color: 'rgb(255,255,255)',
         textShadow: '0 2px 6px rgba(0,0,0)',
         '&:hover': {

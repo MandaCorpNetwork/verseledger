@@ -8,6 +8,7 @@ const TabListHolo = styled(Tabs)(({ theme }) => ({
   boxShadow: '0 0 5px 2px rgba(14,49,252,.4)',
   backgroundImage: 'linear-gradient(135deg, rgba(14,49,243,0.3), rgba(8,22,80,0.5))',
   position: 'relative',
+  display: 'flex',
   '&:before': {
     content: '""',
     position: 'absolute',

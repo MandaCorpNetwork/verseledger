@@ -6,6 +6,7 @@ verseledger-app.sql
 report.html
 report.json
 dist
+.scratch
 .flyway
 **/cypress/screenshots/
 services/client/src/CrownsScratch.scratch

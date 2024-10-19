@@ -1,4 +1,4 @@
-import { AppDock } from '@Common/Components/App/AppDock/AppDock';
+import { MobileDock } from '@Common/MobileDock/MobileDock';
 import { Box } from '@mui/material';
 
 export const SandboxContent: React.FC<unknown> = () => {
@@ -14,7 +14,16 @@ export const SandboxContent: React.FC<unknown> = () => {
       }}
     >
       <Box sx={{ display: 'flex', gap: '1em', flexDirection: 'column' }}>
-        <AppDock />
+        <Box
+          sx={{
+            position: 'relative',
+            height: '300px',
+            width: '300px',
+            bgcolor: 'rgba(0,0,0,0.5)',
+          }}
+        >
+          <MobileDock top left />
+        </Box>
       </Box>
     </Box>
   );

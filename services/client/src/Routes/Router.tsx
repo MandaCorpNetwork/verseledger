@@ -1,12 +1,11 @@
-import { Marketplace } from '@Components/Orders/VerseMarket/Marketplace/Marketplace';
-import { OpenOrders } from '@Components/Orders/VerseMarket/OpenOrders/OpenOrders';
-import { OrderHistory } from '@Components/Orders/VerseMarket/OrderHistory/OrderHistory';
-import { ContractManagerApp } from '@Components/Personal/ContractManager/ContractManagerApp';
-import { ExploreApp } from '@Components/Personal/Explore/ExploreApp';
-import { InventoryApp } from '@Components/Personal/Inventory/InventoryApp';
-import { OverviewApp } from '@Components/Personal/Overview/OverviewApp';
-import { RouteApp } from '@Components/Personal/Routes/RouteApp';
-import { ShipTuning } from '@Components/Personal/Tuning/Tuning';
+import { TempLoginCheck } from '@Common/Components/App/TempLoginCheck';
+import { ContractManagerApp } from '@Components/Contracts/ContractManager/ContractManagerApp';
+import { ExploreApp } from '@Components/Locations/Explore/ExploreApp';
+import { InventoryApp } from '@Components/Locations/Inventory/InventoryApp';
+import { RouteApp } from '@Components/Locations/Routes/RouteApp';
+import { ShipTuning } from '@Components/Ships/Tuning/Tuning';
+import { DashboardApp } from '@Components/User/Dashboard/DashboardApp';
+import { VerseMarketPage } from '@Components/VerseMarket/VerseMarketPage';
 import { DiscordLoginUtility } from '@Utils/discordLoginUtility';
 import { GoogleLoginUtility } from '@Utils/GoogleLoginUtility';
 import { Outlet, RouteObject } from 'react-router-dom';
@@ -14,20 +13,19 @@ import { Outlet, RouteObject } from 'react-router-dom';
 import { PopupManager } from '@/PopupManager';
 import { WidgetManager } from '@/WidgetManager';
 
-import { VLAppBar } from '../Common/Components/App/AppBar';
 import { ContractLedgerApp } from '../Components/Contracts/Ledger/ContractLedgerApp';
 import { AdminPage } from './Admin/AdminPage';
 import { APIDocs } from './api-docs/APIDocs';
+import { AppPage } from './Apps/AppPage';
 import { ContractPage } from './Contract/ContractPage';
-import { DashboardPage } from './Dashboard/DashboardPage';
 import ErrorPage from './ErrorPage';
 import { Home } from './Index/Home/Home';
 import { NotFoundPage } from './NotFound/NotFound';
 import { OrgLedgerPage } from './OrgLedger/OrgLedgerPage';
 import { SecureRoute } from './SecureRoute';
+import { UserSettings } from './Settings/UserSettings';
 import { Sandbox } from './ui-sandbox/SandboxPage';
 import { UserPage } from './User/UserPage';
-import { VerseMarketPage } from './VerseMarket/VerseMarketPage';
 import { VerseNewsPage } from './VerseNews/VerseNews';
 
 export const routingInfo: RouteObject[] = [
@@ -36,7 +34,7 @@ export const routingInfo: RouteObject[] = [
     //element: <LegacyLandingPage/>,
     element: (
       <>
-        <VLAppBar />
+        <TempLoginCheck />
         <Outlet />
         <PopupManager />
         <WidgetManager />
@@ -57,69 +55,33 @@ export const routingInfo: RouteObject[] = [
         element: <DiscordLoginUtility />,
       },
       {
+        path: '/settings',
+        element: (
+          <SecureRoute>
+            <UserSettings />
+          </SecureRoute>
+        ),
+      },
+      {
         path: '/api-docs',
         element: <APIDocs />,
       },
       {
-        path: '/ledger/contracts/:selectedContractId',
+        path: '/apps',
         element: (
           <SecureRoute>
-            <ContractPage />
-          </SecureRoute>
-        ),
-      },
-      {
-        path: '/ledger/contracts',
-        element: (
-          <SecureRoute>
-            <ContractLedgerApp />
-          </SecureRoute>
-        ),
-      },
-      {
-        path: '/user/:selectedUserId',
-        element: (
-          <SecureRoute allowUnverified>
-            <UserPage />
-          </SecureRoute>
-        ),
-      },
-      {
-        path: '/dashboard',
-        element: (
-          <SecureRoute>
-            <DashboardPage />
+            <AppPage />
           </SecureRoute>
         ),
         children: [
           {
             index: true,
-            element: <OverviewApp />,
+            element: <DashboardApp />,
           },
           {
             index: true,
-            path: 'overview',
-            element: <OverviewApp />,
-          },
-          {
-            path: '/dashboard/contracts/:selectedContractId',
-            element: <ContractManagerApp />,
-          },
-          {
-            path: 'contracts',
-            element: <ContractManagerApp />,
-          },
-          {
-            path: '/dashboard/ledger/:selectedContractId',
-            element: <ContractLedgerApp />,
-          },
-          {
-            path: 'ledger',
-            element: <ContractLedgerApp />,
-          },
-          {
-            path: '/dashboard/explore/:selectedLocationId',
-            element: <ExploreApp />,
+            path: 'dashboard',
+            element: <DashboardApp />,
           },
           {
             path: 'explore',
@@ -134,57 +96,62 @@ export const routingInfo: RouteObject[] = [
             element: <InventoryApp />,
           },
           {
-            path: 'tuning',
-            element: <ShipTuning />,
-          },
-          {
             path: 'ship',
             element: <ShipTuning />,
           },
           {
+            path: 'tuning',
+            element: <ShipTuning />,
+          },
+          {
+            path: '/apps/contracts/:selectedContractId',
+            element: <ContractManagerApp />,
+          },
+          {
+            path: 'contracts',
+            element: <ContractManagerApp />,
+          },
+          {
+            path: '/apps/ledger/:selectedContractId',
+            element: <ContractLedgerApp />,
+          },
+          {
+            path: 'ledger',
+            element: <ContractLedgerApp />,
+          },
+          {
+            path: '/apps/orders/:selectedOrderId',
+            element: <VerseMarketPage />,
+          },
+          {
             path: 'orders',
-            element: <InventoryApp />,
+            element: <VerseMarketPage />,
+          },
+          {
+            path: '/apps/verse-market/:selectedOrderId',
+            element: <VerseMarketPage />,
+          },
+          {
+            path: 'verse-market',
+            element: <VerseMarketPage />,
           },
         ],
       },
       {
-        path: '/verse-market',
+        path: '/contract/:selectedContractId',
         element: (
           <SecureRoute>
-            <VerseMarketPage />
+            <ContractPage />
           </SecureRoute>
         ),
-        children: [
-          {
-            index: true,
-            element: <Marketplace />,
-          },
-          {
-            path: '/verse-market/marketplace/:selectedItemId',
-            element: <Marketplace />,
-          },
-          {
-            index: true,
-            path: 'marketplace',
-            element: <Marketplace />,
-          },
-          {
-            path: '/verse-market/open-order/:selectedOrderId',
-            element: <OpenOrders />,
-          },
-          {
-            path: 'open-orders',
-            element: <OpenOrders />,
-          },
-          {
-            path: '/verse-market/order-history/:selectedOrderId',
-            element: <OrderHistory />,
-          },
-          {
-            path: 'order-history',
-            element: <OrderHistory />,
-          },
-        ],
+      },
+      {
+        path: '/user/:selectedUserId',
+        element: (
+          <SecureRoute allowUnverified>
+            <UserPage />
+          </SecureRoute>
+        ),
       },
       {
         path: '/orgs',

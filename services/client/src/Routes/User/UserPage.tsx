@@ -1,5 +1,6 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
 import { useSoundEffect } from '@Audio/AudioManager';
+import { AppDock } from '@Common/AppDock/AppDock';
 import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
@@ -9,12 +10,13 @@ import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { UserViewport } from '@Common/Components/Boxes/UserViewport';
 import { Security } from '@Common/Definitions/CustomIcons';
 import { userBackgroundOptions } from '@Common/Definitions/Users/UserBackgrounds';
-import { ContractInfoPanel } from '@Components/UserPage/Info/Panels/ContractsInfoPanel';
-import { FleetInfoPanel } from '@Components/UserPage/Info/Panels/FleetInfoPanel';
-import { OrderInfoPanel } from '@Components/UserPage/Info/Panels/OrdersInfoPanel';
-import { OrgsInfoPanel } from '@Components/UserPage/Info/Panels/OrgsInfoPanel';
-import { ContractStatsPanel } from '@Components/UserPage/Stats/Panels/ContractStatsPanel';
-import { OrderStatsPanel } from '@Components/UserPage/Stats/Panels/OrderStatsPanel';
+import { MobileDock } from '@Common/MobileDock/MobileDock';
+import { ContractInfoPanel } from '@Components/User/UserPage/Info/Panels/ContractsInfoPanel';
+import { FleetInfoPanel } from '@Components/User/UserPage/Info/Panels/FleetInfoPanel';
+import { OrderInfoPanel } from '@Components/User/UserPage/Info/Panels/OrdersInfoPanel';
+import { OrgsInfoPanel } from '@Components/User/UserPage/Info/Panels/OrgsInfoPanel';
+import { ContractStatsPanel } from '@Components/User/UserPage/Stats/Panels/ContractStatsPanel';
+import { OrderStatsPanel } from '@Components/User/UserPage/Stats/Panels/OrderStatsPanel';
 import { Mail, Place } from '@mui/icons-material';
 import {
   Avatar,
@@ -33,6 +35,7 @@ import {
   selectUserById,
   selectUserPageImageById,
 } from '@Redux/Slices/Users/users.selectors';
+import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -58,6 +61,7 @@ export const UserPage: React.FC = () => {
   //LOCAL STATES
   /** Gets the URL Query parameter for read only. */
   const { selectedUserId } = useParams();
+  const isMobile = useIsMobile();
   const [statsTab, setStatsTab] = React.useState<string>('contracts');
   const [infoTab, setInfoTab] = React.useState<string>('contracts');
   const [_loading, setLoading] = React.useState<boolean>(true);
@@ -170,8 +174,6 @@ export const UserPage: React.FC = () => {
       sx={{
         backgroundImage: `url(${selectedUserBackground()})`,
         p: '1em',
-        height: 'calc(100vh - 64px)',
-        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -183,10 +185,10 @@ export const UserPage: React.FC = () => {
         sx={{
           p: '2em',
           width: '100%',
-          height: '95%',
           mx: { xs: '0', md: '2em', lg: '5%' },
           backdropFilter: 'blur(5px)',
           justifyContent: 'space-between',
+          flexGrow: 1,
         }}
       >
         <Box
@@ -593,6 +595,8 @@ export const UserPage: React.FC = () => {
           </DigiDisplay>
         </Box>
       </GlassDisplay>
+      {!isMobile && <AppDock />}
+      {isMobile && <MobileDock top hCenter />}
     </UserViewport>
   );
 };

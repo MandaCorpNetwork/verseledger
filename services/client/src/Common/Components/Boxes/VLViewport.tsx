@@ -3,9 +3,10 @@ import { Box, styled } from '@mui/material';
 
 export const VLViewport = styled(Box)({
   width: '100vw',
-  height: 'calc(100vh - 64px)',
+  height: '100vh',
   overflow: 'hidden',
   backgroundColor: 'rgba(0,0,0,.5)',
+  position: 'relative',
   '&:before': {
     content: '""',
     position: 'absolute',

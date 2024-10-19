@@ -12,12 +12,17 @@ import { useAppDispatch } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React, { PropsWithChildren, useCallback } from 'react';
 
+export type TitleWithObject = {
+  text: string;
+  object: React.ReactNode;
+};
+
 type VLPopupProps = PropsWithChildren<{
   minWidth?: string;
   maxWidth?: string;
   maxHeight?: string;
   minHeight?: string;
-  title: string;
+  title: string | TitleWithObject;
   submitText?: string | React.ReactNode;
   submitDisabled?: boolean;
   onSubmit?: () => void;
@@ -93,7 +98,14 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
         data-testid={`VLPopup__${testid}__Title`}
         sx={{ width: '100%', display: 'flex', alignItems: 'center' }}
       >
-        {title}
+        {typeof title === 'string' ? (
+          title
+        ) : (
+          <>
+            {title.text}
+            {title.object}
+          </>
+        )}
         {!onSubmit && (
           <IconButton onClick={onCloseDefault} sx={{ ml: 'auto' }}>
             <Close />

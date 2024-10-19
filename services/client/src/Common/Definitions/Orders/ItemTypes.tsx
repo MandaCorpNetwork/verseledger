@@ -23,7 +23,7 @@ import {
   utilityListHeader,
   vehiclesComponentsListHeader,
   vehiclesListHeader,
-} from '@Components/Orders/VerseMarket/Marketplace/ItemBrowser/TableColumns';
+} from '@Components/VerseMarket/Marketplace/ItemBrowser/TableColumns';
 import {
   AllInclusive,
   Checkroom,

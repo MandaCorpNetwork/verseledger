@@ -16,15 +16,26 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 
+import { ControlPanelBox } from '../Boxes/ControlPanelBox';
+
 type ContractControllerProps = {
   mobileView?: boolean;
   contract: IContract;
   deselectContract?: () => void;
   dashboard?: boolean;
+  hideLabel?: boolean;
+  sx?: object;
 };
 
 export const ContractController: React.FC<ContractControllerProps> = (props) => {
-  const { mobileView = false, contract, deselectContract, dashboard = 'false' } = props;
+  const {
+    mobileView = false,
+    contract,
+    deselectContract,
+    dashboard = 'false',
+    hideLabel = false,
+    sx,
+  } = props;
   const { overwriteURLQuery } = useURLQuery();
   const dispatch = useAppDispatch();
   const { playSound } = useSoundEffect();
@@ -458,197 +469,206 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
     dispatch(openPopup(POPUP_EDIT_CONTRACT, { contract: contract }));
   }, [contract, dispatch, playSound]);
   return (
-    <Box
-      data-testid="ContractController_Wrapper"
-      sx={{
-        display: 'flex',
-        flexDirection: mobileView ? 'column' : 'row',
-        width: '100%',
-        alignItems: mobileView ? 'stretch' : 'center',
-        gap: '.5em',
-      }}
-    >
-      {isOwned && contract.status === 'BIDDING' && (
-        <Button
-          data-testid="ContractController__EndBidding_Button"
-          variant={variant}
-          color="secondary"
-          size="medium"
-          fullWidth
-          onClick={handleEndBidding}
-          disabled={acceptedContractors.length === 0}
-        >
-          End Bidding
-        </Button>
-      )}
-      {isOwned && (contract.status === 'BIDDING' || contract.status === 'PENDING') && (
-        <Button
-          data-testid="ContractController__StartContract_Button"
-          variant={variant}
-          color="secondary"
-          size="medium"
-          fullWidth
-          onClick={handleStartContract}
-          disabled={acceptedContractors.length === 0}
-        >
-          Start
-        </Button>
-      )}
-      {isOwned && contract.status === 'INPROGRESS' && (
-        <Button
-          data-testid="ContractController__CompleteContract_Button"
-          variant={variant}
-          color="success"
-          size="medium"
-          fullWidth
-          onClick={handleContractComplete}
-          disabled={acceptedContractors.length === 0}
-        >
-          Complete
-        </Button>
-      )}
-      {isOwned && !contractEnded && (
-        <Button
-          data-testid="ContractController__EditContract_Button"
-          variant={variant}
-          color="info"
-          size="medium"
-          fullWidth
-          onClick={handleEditContract}
-        >
-          Edit
-        </Button>
-      )}
-      {isOwned && !contractEnded && (
-        <Button
-          data-testid="ContractController__CancelContract_Button"
-          variant={variant}
-          color={contract.status !== 'INPROGRESS' ? 'warning' : 'error'}
-          size="medium"
-          fullWidth
-          onClick={handleCancelContract}
-        >
-          Cancel
-        </Button>
-      )}
-      {!isOwned && userBid?.status === 'INVITED' && !contractEnded && (
-        <Button
-          data-testid="ContractController__AcceptInvite_Button"
-          variant={variant}
-          color="success"
-          size="medium"
-          fullWidth
-          onClick={handleAcceptInvite}
-        >
-          Accept Invite
-        </Button>
-      )}
-      {!isOwned && userBid?.status === 'INVITED' && !contractEnded && (
-        <Button
-          data-testid="ContractController__DeclineInvite_Button"
-          variant={variant}
-          color="error"
-          size="medium"
-          fullWidth
-          onClick={handleDeclineInvite}
-        >
-          Decline Invite
-        </Button>
-      )}
-      {!isOwned && userBid?.status === 'PENDING' && !contractEnded && (
-        <Button
-          data-testid="ContractController__CancelBid_Button"
-          variant={variant}
-          color="success"
-          size="medium"
-          fullWidth
-          onClick={handleCancelBid}
-        >
-          Cancel Bid
-        </Button>
-      )}
-      {!isOwned && userBid?.status === 'ACCEPTED' && !contractEnded && (
-        <Button
-          data-testid="ContractController__WithdrawBid_Button"
-          variant={variant}
-          color="success"
-          size="medium"
-          fullWidth
-          onClick={handleWithdrawBid}
-        >
-          Withdraw
-        </Button>
-      )}
-      {!isOwned && userBid?.status === 'REJECTED' && !contractEnded && (
+    <ControlPanelBox sx={{ ...sx, flexDirection: 'column', pb: '.2em', px: '1em' }}>
+      {hideLabel === false && (
         <Typography
-          data-testid="ContractController__RejectedBid_Text"
-          sx={{ fontWeight: 'bold', color: 'info.main' }}
+          sx={{ fontWeight: 'bold', color: 'text.secondary', cursor: 'default' }}
         >
-          Bid was Rejected
+          Contract Controller
         </Typography>
       )}
-      {!isOwned && userBid?.status === 'DECLINED' && !contractEnded && (
-        <>
+      <Box
+        data-testid="ContractController_Wrapper"
+        sx={{
+          display: 'flex',
+          flexDirection: mobileView ? 'column' : 'row',
+          width: '100%',
+          alignItems: mobileView ? 'stretch' : 'center',
+          gap: '.5em',
+        }}
+      >
+        {isOwned && contract.status === 'BIDDING' && (
           <Button
-            data-testid="ContractController__SubmitBid_Button"
+            data-testid="ContractController__EndBidding_Button"
+            variant={variant}
+            color="secondary"
+            size="medium"
+            fullWidth
+            onClick={handleEndBidding}
+            disabled={acceptedContractors.length === 0}
+          >
+            End Bidding
+          </Button>
+        )}
+        {isOwned && (contract.status === 'BIDDING' || contract.status === 'PENDING') && (
+          <Button
+            data-testid="ContractController__StartContract_Button"
+            variant={variant}
+            color="secondary"
+            size="medium"
+            fullWidth
+            onClick={handleStartContract}
+            disabled={acceptedContractors.length === 0}
+          >
+            Start
+          </Button>
+        )}
+        {isOwned && contract.status === 'INPROGRESS' && (
+          <Button
+            data-testid="ContractController__CompleteContract_Button"
             variant={variant}
             color="success"
             size="medium"
             fullWidth
-            onClick={handleResubmitBid}
+            onClick={handleContractComplete}
+            disabled={acceptedContractors.length === 0}
           >
-            Submit Bid
+            Complete
           </Button>
-          <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
-            You Declined an Invite.
-          </Typography>
-        </>
-      )}
-      {!isOwned && hasAccepted && !contractEnded && (
-        <>
+        )}
+        {isOwned && !contractEnded && (
           <Button
-            data-testid="ContractController__ResubmitBid_Button"
+            data-testid="ContractController__EditContract_Button"
+            variant={variant}
+            color="info"
+            size="medium"
+            fullWidth
+            onClick={handleEditContract}
+          >
+            Edit
+          </Button>
+        )}
+        {isOwned && !contractEnded && (
+          <Button
+            data-testid="ContractController__CancelContract_Button"
+            variant={variant}
+            color={contract.status !== 'INPROGRESS' ? 'warning' : 'error'}
+            size="medium"
+            fullWidth
+            onClick={handleCancelContract}
+          >
+            Cancel
+          </Button>
+        )}
+        {!isOwned && userBid?.status === 'INVITED' && !contractEnded && (
+          <Button
+            data-testid="ContractController__AcceptInvite_Button"
+            variant={variant}
+            color="success"
+            size="medium"
+            fullWidth
+            onClick={handleAcceptInvite}
+          >
+            Accept Invite
+          </Button>
+        )}
+        {!isOwned && userBid?.status === 'INVITED' && !contractEnded && (
+          <Button
+            data-testid="ContractController__DeclineInvite_Button"
+            variant={variant}
+            color="error"
+            size="medium"
+            fullWidth
+            onClick={handleDeclineInvite}
+          >
+            Decline Invite
+          </Button>
+        )}
+        {!isOwned && userBid?.status === 'PENDING' && !contractEnded && (
+          <Button
+            data-testid="ContractController__CancelBid_Button"
+            variant={variant}
+            color="success"
+            size="medium"
+            fullWidth
+            onClick={handleCancelBid}
+          >
+            Cancel Bid
+          </Button>
+        )}
+        {!isOwned && userBid?.status === 'ACCEPTED' && !contractEnded && (
+          <Button
+            data-testid="ContractController__WithdrawBid_Button"
+            variant={variant}
+            color="success"
+            size="medium"
+            fullWidth
+            onClick={handleWithdrawBid}
+          >
+            Withdraw
+          </Button>
+        )}
+        {!isOwned && userBid?.status === 'REJECTED' && !contractEnded && (
+          <Typography
+            data-testid="ContractController__RejectedBid_Text"
+            sx={{ fontWeight: 'bold', color: 'info.main' }}
+          >
+            Bid was Rejected
+          </Typography>
+        )}
+        {!isOwned && userBid?.status === 'DECLINED' && !contractEnded && (
+          <>
+            <Button
+              data-testid="ContractController__SubmitBid_Button"
+              variant={variant}
+              color="success"
+              size="medium"
+              fullWidth
+              onClick={handleResubmitBid}
+            >
+              Submit Bid
+            </Button>
+            <Typography sx={{ fontWeight: 'bold', color: 'info.main' }}>
+              You Declined an Invite.
+            </Typography>
+          </>
+        )}
+        {!isOwned && hasAccepted && !contractEnded && (
+          <>
+            <Button
+              data-testid="ContractController__ResubmitBid_Button"
+              variant={variant}
+              color="secondary"
+              size="medium"
+              fullWidth
+              onClick={handleResubmitBid}
+            >
+              Resubmit Bid
+            </Button>
+            <Typography
+              data-testid="ContractController__Resubmit_Text"
+              sx={{ fontWeight: 'bold', color: 'info.main' }}
+            >
+              {resubmitBidText}
+            </Typography>
+          </>
+        )}
+        {!isOwned && !userBid && !contractEnded && (
+          <Button
+            data-testid="ContractController__SubmitBid_Button"
             variant={variant}
             color="secondary"
             size="medium"
             fullWidth
             onClick={handleResubmitBid}
           >
-            Resubmit Bid
+            Submit Bid
           </Button>
-          <Typography
-            data-testid="ContractController__Resubmit_Text"
-            sx={{ fontWeight: 'bold', color: 'info.main' }}
+        )}
+        {(isOwned || hasAccepted) && contractEnded && (
+          <Button
+            data-testid="ContractController__SubmitRatings_Button"
+            variant={variant}
+            color="info"
+            size="medium"
+            fullWidth
+            onClick={openReview}
+            disabled={(reviewCompleted || currentContractors?.length) == 0}
           >
-            {resubmitBidText}
-          </Typography>
-        </>
-      )}
-      {!isOwned && !userBid && !contractEnded && (
-        <Button
-          data-testid="ContractController__SubmitBid_Button"
-          variant={variant}
-          color="secondary"
-          size="medium"
-          fullWidth
-          onClick={handleResubmitBid}
-        >
-          Submit Bid
-        </Button>
-      )}
-      {(isOwned || hasAccepted) && contractEnded && (
-        <Button
-          data-testid="ContractController__SubmitRatings_Button"
-          variant={variant}
-          color="info"
-          size="medium"
-          fullWidth
-          onClick={openReview}
-          disabled={(reviewCompleted || currentContractors?.length) == 0}
-        >
-          Submit Ratings
-        </Button>
-      )}
-    </Box>
+            Submit Ratings
+          </Button>
+        )}
+      </Box>
+    </ControlPanelBox>
   );
 };
