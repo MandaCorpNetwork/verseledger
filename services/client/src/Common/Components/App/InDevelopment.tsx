@@ -123,6 +123,7 @@ export const WorkZoneBar: React.FC<WorkZoneBarProps> = (props) => {
         animation: `${sideAnimationMapping[side]} ${speedMapping[speed]} linear infinite`,
         backgroundColor: severityBackground[severity],
         opacity: dim ? '0.6' : '1',
+        borderRadius: '10px',
       }}
     />
   );

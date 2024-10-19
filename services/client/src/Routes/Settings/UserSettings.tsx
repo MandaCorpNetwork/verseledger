@@ -16,8 +16,6 @@ import { SoundSettings } from '@Components/User/UserSettings/Sounds';
 import { Close } from '@mui/icons-material';
 import {
   Box,
-  DialogContent,
-  DialogTitle,
   Drawer,
   Grow,
   IconButton,
