@@ -9,16 +9,16 @@ import { useNavigate } from 'react-router-dom';
 import { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
 
 function useNotification() {
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleMarkRead = React.useCallback(
     (notifyId: string) => {
-      playSound('close');
+      sound.playSound('close');
       dispatch(markRead(notifyId));
     },
-    [playSound, dispatch],
+    [sound, dispatch],
   );
 
   const handleViewNotification = React.useCallback(
@@ -29,7 +29,7 @@ function useNotification() {
       } else if (notif.action?.type === 'popup') {
         switch (notif.action.popup) {
           case '$VERIFY':
-            playSound('open');
+            sound.playSound('open');
             dispatch(openPopup(POPUP_PLAYER_CARD, { userid: notif.user_id }));
             break;
           default:
@@ -37,13 +37,13 @@ function useNotification() {
         }
       }
     },
-    [handleMarkRead, playSound, dispatch, navigate],
+    [handleMarkRead, sound, dispatch, navigate],
   );
 
   const handleMarkAllRead = React.useCallback(() => {
-    playSound('close');
+    sound.playSound('close');
     dispatch(markAllRead());
-  }, [playSound, dispatch]);
+  }, [sound, dispatch]);
 
   const getNotificationTitle = React.useCallback((notif: INotificationDisplay) => {
     if (notif.action?.type === 'popup') {

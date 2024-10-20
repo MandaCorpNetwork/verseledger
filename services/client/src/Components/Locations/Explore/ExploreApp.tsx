@@ -5,6 +5,7 @@ import { Box, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { selectLocationById } from '@Redux/Slices/Locations/locations.selectors';
+import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
@@ -16,6 +17,7 @@ import { InfoDisplay } from './InfoDisplay';
 export const ExploreApp: React.FC<unknown> = () => {
   const { selectedLocationId } = useParams();
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const currentLocation = useAppSelector(selectUserLocation);
   const selectedLocation = useAppSelector((state) => {
     if (selectedLocationId) {
@@ -25,7 +27,7 @@ export const ExploreApp: React.FC<unknown> = () => {
   const handleLocationSelect = React.useCallback(
     (location: ILocation | null) => {
       if (location != null) {
-        navigate(`/dashboard/explore/${location.id}`);
+        navigate(`/apps/explore/${location.id}`);
       }
     },
     [navigate],
@@ -35,11 +37,11 @@ export const ExploreApp: React.FC<unknown> = () => {
       data-testid="ExploreApp__Container"
       sx={{
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: { xs: 'column', md: 'row' },
         height: '100%',
         width: '100%',
         position: 'relative',
-        gap: '1em',
+        gap: '2em',
       }}
     >
       <WorkZoneBar side="bottom" severity="pending" speed="slow" />
@@ -50,9 +52,9 @@ export const ExploreApp: React.FC<unknown> = () => {
         data-testid="ExploreApp__Information_Container"
         sx={{
           height: '100%',
-          width: '35%',
           gap: '1em',
           p: '1em',
+          minWidth: { xs: '100%', md: '600px' },
         }}
       >
         <LocationSearch onLocationSelect={handleLocationSelect} />
@@ -83,14 +85,13 @@ export const ExploreApp: React.FC<unknown> = () => {
       <GlassDisplay
         data-testid="ExploreApp__Explorer_Container"
         sx={{
-          height: '100%',
           flexGrow: '1',
           p: '1em',
           justifyContent: 'space-between',
           alignItems: 'center',
         }}
       >
-        <ExploreMap />
+        {!isMobile && <ExploreMap />}
         <ExploreController />
       </GlassDisplay>
     </Box>

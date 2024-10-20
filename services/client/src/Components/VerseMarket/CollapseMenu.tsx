@@ -50,7 +50,7 @@ export const CollapseMenu: React.FC<unknown> = () => {
   const [isExpanded, setIsExpanded] = React.useState(false);
 
   // HOOKS
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const mobile = useIsMobile();
   const navigate = useNavigate();
   const location = useLocation();
@@ -74,13 +74,13 @@ export const CollapseMenu: React.FC<unknown> = () => {
     (_event: React.SyntheticEvent, newValue: string) => {
       const currentPath = location.pathname;
       if (currentPath === newValue) {
-        playSound('denied');
+        sound.playSound('denied');
         return;
       }
-      playSound('clickMain');
+      sound.playSound('clickMain');
       navigate(newValue);
     },
-    [playSound, navigate, location],
+    [sound, navigate, location],
   );
 
   const currentTab = location.pathname ?? '/verse-market/marketplace';

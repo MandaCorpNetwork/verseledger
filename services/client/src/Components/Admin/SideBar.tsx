@@ -75,17 +75,17 @@ export const AdminSideBar: React.FC = () => {
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
   const mobile = useIsMobile();
   const tablet = useIsTablet();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const navigate = useNavigate();
 
   const handleDrawerOpen = React.useCallback(() => {
     if (isExpanded) {
-      playSound('toggleOff');
+      sound.playSound('toggleOff');
     } else {
-      playSound('toggleOn');
+      sound.playSound('toggleOn');
     }
     setIsExpanded(!isExpanded);
-  }, [setIsExpanded, isExpanded, playSound]);
+  }, [setIsExpanded, isExpanded, sound]);
 
   return (
     <SideControlPanel
@@ -173,7 +173,7 @@ export const AdminSideBar: React.FC = () => {
                 data-testid={`AdminPage-SidePanel-NavButtons__${tab.id}Button`}
                 startIcon={tab.icon}
                 onClick={() => {
-                  playSound('open');
+                  sound.playSound('open');
                   navigate(`${tab.to}`);
                 }}
                 variant="contained"

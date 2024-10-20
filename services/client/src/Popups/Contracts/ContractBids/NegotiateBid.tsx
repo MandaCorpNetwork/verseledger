@@ -26,7 +26,7 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
   formData,
   setFormData,
 }) => {
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const acceptedContractorsCount =
     contract.Bids?.filter((bid) => bid.status === 'ACCEPTED').length ?? 0;
 
@@ -71,7 +71,7 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
       const invalidCharacters = value.match(/[^\d.,]/g);
       if (invalidCharacters) {
         enqueueSnackbar('Please only use numbers', { variant: 'error' });
-        playSound('warning');
+        sound.playSound('warning');
       }
 
       const inputValue = Number(value.replace(/[^0-9.]/g, ''));
@@ -81,7 +81,7 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
           enqueueSnackbar('Percentage to high, others need pay too...', {
             variant: 'error',
           });
-          playSound('warning');
+          sound.playSound('warning');
         }
       }
 
@@ -90,11 +90,11 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
       Logger.info(`Form Data: ${formData}`);
       // setDisplayValue(inputValue.toLocaleString());
     },
-    [formData, maxLimit, playSound, pool, setFormData],
+    [formData, maxLimit, sound, pool, setFormData],
   );
 
   const handlePayClear = () => {
-    playSound('toggleOff');
+    sound.playSound('toggleOff');
     setFormData(contract.defaultPay);
   };
 

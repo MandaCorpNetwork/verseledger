@@ -23,6 +23,7 @@ import {
 } from '@mui/icons-material';
 import { Avatar, keyframes, SpeedDial, SpeedDialAction } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { getLoginMethods } from '@Redux/Slices/Auth/Actions/getLoginMethods.action';
 import { selectCurrentUser, selectIsLoggedIn } from '@Redux/Slices/Auth/auth.selectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useNav } from '@Utils/Hooks/useNav';
@@ -308,10 +309,33 @@ export const MobileDock: React.FC<MobileDockProps> = ({
     localStorage.setItem('returnPath', window.location.pathname);
   }, []);
 
+  const [loginMethods, setLoginMethods] = React.useState<
+    { type: string; redirect: string }[]
+  >([]);
+
+  const findLoginMethods = React.useCallback(() => {
+    dispatch(getLoginMethods()).then((res) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      setLoginMethods((res.payload as any).data);
+    });
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    if (!isLoggedIn) {
+      findLoginMethods();
+    }
+  }, [isLoggedIn, findLoginMethods]);
+
   const loginButtons = [
     { id: 'discord', icon: <Discord />, label: 'Discord', href: '' },
     { id: 'google', icon: <Google />, label: 'Google', href: '' },
-  ];
+  ].map((button) => {
+    const matchingMethod = loginMethods.find((method) => method.type === button.label);
+    return {
+      ...button,
+      href: matchingMethod ? matchingMethod.redirect : '',
+    };
+  });
 
   return (
     <SpeedDial
@@ -440,7 +464,9 @@ export const MobileDock: React.FC<MobileDockProps> = ({
           return (
             <SpeedDialAction
               key={action.id}
-              icon={action.icon}
+              icon={React.cloneElement(action.icon as JSX.Element, {
+                fontSize: 'large',
+              })}
               onClick={onClick}
               sx={[
                 {

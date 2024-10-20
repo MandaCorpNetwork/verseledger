@@ -14,12 +14,12 @@ export const BrowserTabs: React.FC<BrowserTabsProps> = ({ currentTab }) => {
   const theme = useTheme();
   const { selectedContractId } = useParams();
   const navigate = useNavigate();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const { overwriteURLQuery } = useURLQuery();
   /** Handles Tab Changes */
   const handleTabChange = React.useCallback(
     (_event: React.SyntheticEvent, newValue: string) => {
-      playSound('loading');
+      sound.playSound('loading');
 
       // Navigate directly to tab if there is a selectedContract to clear it out
       if (selectedContractId) {
@@ -28,7 +28,7 @@ export const BrowserTabs: React.FC<BrowserTabsProps> = ({ currentTab }) => {
         overwriteURLQuery({ [QueryNames.ContractManagerTab]: newValue });
       }
     },
-    [playSound, navigate, overwriteURLQuery, selectedContractId],
+    [sound, navigate, overwriteURLQuery, selectedContractId],
   );
 
   /** Decides whether or not to display ScrollButtons for the Tabs Component */

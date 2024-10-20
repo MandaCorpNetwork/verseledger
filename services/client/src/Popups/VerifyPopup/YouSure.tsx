@@ -31,17 +31,17 @@ export const YouSurePopup: React.FC<YouSurePopupProps> = (props) => {
     bodyText,
     'data-testid': testid = 'verify',
   } = props;
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const dispatch = useAppDispatch();
   const onCancelDefault = useCallback(() => {
-    playSound('warning');
+    sound.playSound('warning');
     dispatch(closePopup(POPUP_YOU_SURE));
-  }, [dispatch, playSound]);
+  }, [dispatch, sound]);
   const onAcceptInject = useCallback(() => {
-    playSound('close');
+    sound.playSound('close');
     dispatch(closePopup(POPUP_YOU_SURE));
     onAccept?.();
-  }, [dispatch, onAccept, playSound]);
+  }, [dispatch, onAccept, sound]);
   return (
     <VLPopup
       name={POPUP_YOU_SURE}

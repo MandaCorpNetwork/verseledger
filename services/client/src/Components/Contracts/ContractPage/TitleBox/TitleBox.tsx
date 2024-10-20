@@ -45,7 +45,7 @@ export const TitleBox: React.FC<TitleBoxProps> = ({
   archetype,
 }) => {
   // HOOKS
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   // LOGIC
   /**
    * Handles the copy URL button click
@@ -56,15 +56,15 @@ export const TitleBox: React.FC<TitleBoxProps> = ({
       navigator.clipboard
         .writeText(url)
         .then(() => {
-          playSound('clickMain');
+          sound.playSound('clickMain');
           enqueueSnackbar('Copied Contract to Clipboard', { variant: 'success' });
         })
         .catch((err) => {
-          playSound('error');
+          sound.playSound('error');
           enqueueSnackbar(`Failed to Copy Contract: ${err}`, { variant: 'error' });
         });
     } else {
-      playSound('denied');
+      sound.playSound('denied');
       enqueueSnackbar('Clipboard API not supported', { variant: 'warning' });
     }
   };

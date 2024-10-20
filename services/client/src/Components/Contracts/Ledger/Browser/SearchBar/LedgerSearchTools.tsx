@@ -25,11 +25,11 @@ export const LedgerSearchTools: React.FC<unknown> = () => {
   // HOOKS
   /** Using for Anchoring */
   const toolsRef = useRef<HTMLDivElement>(null);
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   // LOGIC
   /** Handles the clickEvent that toggles the FilterList */
   const handleClick = () => {
-    playSound('clickMain');
+    sound.playSound('clickMain');
     setOpen((prevOpen) => !prevOpen);
   };
   /**

@@ -28,25 +28,25 @@ export const UserDial: React.FC = () => {
   const user = useAppSelector(selectCurrentUser);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const handleFeedbackOpen = React.useCallback(() => {
-    playSound('open');
+    sound.playSound('open');
     dispatch(openPopup(POPUP_FEEDBACK));
-  }, [playSound, dispatch]);
+  }, [sound, dispatch]);
 
   const notificationsOnClick = React.useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
-      playSound('open');
+      sound.playSound('open');
       setNotificationsOpen(true);
       setNotificationsAnchorEl(event.currentTarget);
     },
-    [playSound],
+    [sound],
   );
   const notificationsOnClose = React.useCallback(() => {
-    playSound('close');
+    sound.playSound('close');
     setNotificationsOpen(false);
     setNotificationsAnchorEl(null);
-  }, [playSound]);
+  }, [sound]);
 
   React.useEffect(() => {
     if (user == null) return;

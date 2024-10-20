@@ -17,7 +17,7 @@ type PaginationAnchorProps = {
 export const PaginationAnchor: React.FC<PaginationAnchorProps> = ({ isMobile }) => {
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(25);
   const [page, setPage] = React.useState<number>(0);
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const dispatch = useAppDispatch();
   const { searchParams } = useURLQuery();
 
@@ -26,20 +26,20 @@ export const PaginationAnchor: React.FC<PaginationAnchorProps> = ({ isMobile }) 
 
   const handleChangePage = React.useCallback(
     (_e: SyntheticEvent, newPage: number) => {
-      playSound('loading');
+      sound.playSound('loading');
       setPage(newPage);
     },
-    [playSound, setPage],
+    [sound, setPage],
   );
 
   // TODO: Math to make the page stay the same whether decreasing or increasing
   const handleChangeRowsPerPage = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setRowsPerPage(+event.target.value);
       setPage(0);
     },
-    [playSound, setRowsPerPage, setPage],
+    [sound, setRowsPerPage, setPage],
   );
 
   const search = React.useCallback(

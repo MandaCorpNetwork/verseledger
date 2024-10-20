@@ -10,13 +10,13 @@ import { BugStatsBar } from './BugStatsBar';
 
 export const BugsPage: React.FC = () => {
   const [bugsTab, setBugsTab] = React.useState<string>('unread');
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const handleTabChange = React.useCallback(
     (_event: React.SyntheticEvent, newValue: string) => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setBugsTab(newValue);
     },
-    [playSound, setBugsTab],
+    [sound, setBugsTab],
   );
   return (
     <Box

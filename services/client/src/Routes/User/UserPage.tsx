@@ -68,7 +68,7 @@ export const UserPage: React.FC = () => {
   const [_isError, setIsError] = React.useState<boolean>(false);
   // HOOKS
   const dispatch = useAppDispatch();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   // LOGIC
   /** Fetching user object by user id from backend. */
   React.useEffect(() => {
@@ -102,10 +102,10 @@ export const UserPage: React.FC = () => {
    */
   const handleStatsTabChange = React.useCallback(
     (_event: React.SyntheticEvent, value: string) => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setStatsTab(value);
     },
-    [setStatsTab, playSound],
+    [setStatsTab, sound],
   );
   /**
    * Call back function created for the user stats panel.
@@ -128,10 +128,10 @@ export const UserPage: React.FC = () => {
    */
   const handleInfoTabChange = React.useCallback(
     (_event: React.SyntheticEvent, value: string) => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setInfoTab(value);
     },
-    [setInfoTab, playSound],
+    [setInfoTab, sound],
   );
   /**
    * Call back function created for the user info panel.
@@ -286,7 +286,7 @@ export const UserPage: React.FC = () => {
                     href={`https://robertsspaceindustries.com/citizens/${selectedUser?.handle}`}
                     target="_blank"
                     rel="noopenner noreferrer"
-                    onClick={() => playSound('navigate')}
+                    onClick={() => sound.playSound('navigate')}
                   >
                     <img width="24" height="24" src={Spectrum} alt="Spectrum" />
                   </IconButton>

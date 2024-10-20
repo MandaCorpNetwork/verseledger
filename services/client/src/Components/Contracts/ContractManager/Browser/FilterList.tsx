@@ -29,21 +29,21 @@ export const FilterList: React.FC<FilterListProps> = ({ isOpen }) => {
    */
   const [expanded, setExpanded] = React.useState<string | null>(null);
   // HOOKS
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   // LOGIC
   /**
    * Handles the clickEvent that expands a `DropdownFilter` component.
    * @params {string} panel - The name of the filter to expand.
    * @fires
-   * - `playSound('clickMain')`
+   * - `sound.playSound('clickMain')`
    * - `setExpanded` - Sets the expanded filter.
    */
   const handleExpand = React.useCallback(
     (panel: string) => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setExpanded((prev) => (prev === panel ? null : panel));
     },
-    [playSound, setExpanded],
+    [sound, setExpanded],
   );
 
   return (

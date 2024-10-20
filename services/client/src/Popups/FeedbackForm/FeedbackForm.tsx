@@ -33,16 +33,16 @@ export const FeedbackForm: React.FC<{
   setFormData: React.Dispatch<React.SetStateAction<Partial<IFeedbackForm>>>;
 }> = (props) => {
   const dev = isDev();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const { formData, setFormData } = props;
 
   const handleTypeChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const newType = event.target.value as FeedbackType;
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setFormData({ type: newType });
     },
-    [playSound, setFormData],
+    [sound, setFormData],
   );
 
   const renderForm = React.useCallback(() => {
@@ -153,7 +153,7 @@ export const FeedbackForm: React.FC<{
               onChange={(e) => {
                 setFormData({ ...formData, userTitle: e.currentTarget.value });
                 if (e.currentTarget.value.length === 32) {
-                  playSound('warning');
+                  sound.playSound('warning');
                 }
               }}
               value={formData.userTitle ?? ''}
@@ -178,7 +178,7 @@ export const FeedbackForm: React.FC<{
               onChange={(e) => {
                 setFormData({ ...formData, brief: e.currentTarget.value });
                 if (e.currentTarget.value.length === 300) {
-                  playSound('warning');
+                  sound.playSound('warning');
                 }
               }}
               value={formData.brief ?? ''}

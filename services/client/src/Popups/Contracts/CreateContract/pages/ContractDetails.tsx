@@ -37,7 +37,7 @@ export const ContractDetails: React.FC<{
   formData: Partial<ICreateContractBody> | ICreateContractBody;
   setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const dispatch = useAppDispatch();
   const mobile = useIsMobile();
   const { formData, setFormData } = props;
@@ -51,7 +51,7 @@ export const ContractDetails: React.FC<{
 
   const handleArchetypeSelect = React.useCallback(
     (selectedArchetype: string) => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       if (archetype === selectedArchetype) {
         setArchetype(null);
         setFilteredSubtypes(flatOptions);
@@ -64,11 +64,11 @@ export const ContractDetails: React.FC<{
         setFilteredSubtypes(filteredSubtypes);
       }
     },
-    [archetype, playSound],
+    [archetype, sound],
   );
 
   const handleArchetypeOpen = () => {
-    playSound('open');
+    sound.playSound('open');
     dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetype }));
   };
 
@@ -94,10 +94,10 @@ export const ContractDetails: React.FC<{
   const toggleEmergencyMode = React.useCallback(() => {
     Logger.info(formData.isEmergency);
     if (formData.isEmergency) {
-      playSound('close');
+      sound.playSound('close');
       setFormData({ ...formData, isEmergency: false });
     } else {
-      playSound('warning');
+      sound.playSound('warning');
       setFormData({
         ...formData,
         isEmergency: true,
@@ -106,7 +106,7 @@ export const ContractDetails: React.FC<{
         endDate: undefined,
       });
     }
-  }, [formData, playSound, setFormData]);
+  }, [formData, sound, setFormData]);
 
   const checkEmergencyAvailable = () => {
     if (
@@ -156,7 +156,7 @@ export const ContractDetails: React.FC<{
             onChange={(e) => {
               setFormData({ ...formData, title: e.currentTarget.value });
               if (e.currentTarget.value.length === 32) {
-                playSound('warning');
+                sound.playSound('warning');
               }
             }}
             value={formData.title ?? ''}
@@ -175,7 +175,7 @@ export const ContractDetails: React.FC<{
             onChange={(e) => {
               setFormData({ ...formData, briefing: e.currentTarget.value });
               if (e.currentTarget.value.length === 2048) {
-                playSound('warning');
+                sound.playSound('warning');
               }
             }}
             value={formData.briefing}
@@ -291,7 +291,7 @@ export const ContractDetails: React.FC<{
             )}
             onChange={(_, value) => {
               updateSubtype(value);
-              playSound('clickMain');
+              sound.playSound('clickMain');
             }}
             fullWidth
             sx={{ mt: 2, mb: '1em', maxWidth: '300px' }}

@@ -11,6 +11,7 @@ export const ShipTuning: React.FC = () => {
       sx={{
         gap: '1em',
         display: 'flex',
+        flexDirection: { xs: 'column', md: 'row' },
         height: '100%',
         width: '100%',
         justifyContent: 'space-around',

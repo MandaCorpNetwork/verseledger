@@ -17,7 +17,7 @@ export const NotificationTool: React.FC = () => {
   const { handleMarkRead, handleViewNotification, getNotificationTitle } =
     useNotification();
   const dispatch = useAppDispatch();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const { t } = useTranslation();
   React.useEffect(() => {
     dispatch(fetchNotifications());
@@ -36,11 +36,11 @@ export const NotificationTool: React.FC = () => {
   const handleExpand = React.useCallback(
     (value: string) => {
       if (isExpanded === value) {
-        return playSound('denied');
+        return sound.playSound('denied');
       }
       setIsExpanded(value);
     },
-    [setIsExpanded, isExpanded, playSound],
+    [setIsExpanded, isExpanded, sound],
   );
 
   return (

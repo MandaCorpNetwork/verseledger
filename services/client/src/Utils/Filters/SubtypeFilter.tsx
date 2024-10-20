@@ -40,7 +40,7 @@ type SubTypeFilterProps = {
 };
 
 export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const { searchParams, setFilters } = useURLQuery();
 
   const currentFilterValues = useMemo(() => {
@@ -50,7 +50,7 @@ export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleChange = (_event: React.SyntheticEvent, newValue: { value: string }[]) => {
-    playSound('clickMain');
+    sound.playSound('clickMain');
     setFilters(
       QueryNames.Subtype,
       newValue.map((v) => v.value),
@@ -77,7 +77,7 @@ export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
         <MenuItem
           {...props}
           sx={{ display: 'flex' }}
-          onMouseEnter={() => playSound('hover')}
+          onMouseEnter={() => sound.playSound('hover')}
         >
           {option.label}
           {selected && (

@@ -24,6 +24,7 @@ export const ContractDisplayContainer: React.FC = () => {
         display: 'flex',
         overflow: 'hidden',
         flexWrap: 'wrap',
+        minimumWidth: '500px',
       }}
     >
       {pickedContract ? (

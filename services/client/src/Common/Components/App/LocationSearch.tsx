@@ -48,7 +48,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
   const [inputValue, setInputValue] = React.useState<ILocation | null>(null);
   //InputValue State Setter using ILocation Schema
 
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
   const dispatch = useAppDispatch();
 
@@ -112,7 +112,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
           <MenuItem
             {...props}
             sx={{ display: 'flex' }}
-            onMouseEnter={() => playSound('hover')}
+            onMouseEnter={() => sound.playSound('hover')}
           >
             <Typography>{option.short_name}</Typography>
             {option.category != 'Uncategorized' && (

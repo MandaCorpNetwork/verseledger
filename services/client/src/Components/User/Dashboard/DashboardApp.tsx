@@ -22,17 +22,17 @@ const NotificationToolComponent = React.lazy(() => import('./NotificationTool'))
 
 export const DashboardApp: React.FC<unknown> = () => {
   const { isPlaying, play, pause } = useRadioController();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const dispatch = useAppDispatch();
 
   const toggleRadio = () => {
     if (isPlaying) {
       pause();
-      playSound('close');
+      sound.playSound('close');
       dispatch(closeWidget(WIDGET_RADIO));
     } else {
       play();
-      playSound('open');
+      sound.playSound('open');
       dispatch(openWidget(WIDGET_RADIO));
     }
   };
@@ -48,14 +48,14 @@ export const DashboardApp: React.FC<unknown> = () => {
   }, [currentLocation]);
 
   const handleResetLocation = () => {
-    playSound('loading');
+    sound.playSound('loading');
     setSelectedLocation(currentLocation);
   };
 
   const unreadCount = useAppSelector(selectNotificationsUnreadCount);
 
   const handleMarkAllRead = () => {
-    playSound('close');
+    sound.playSound('close');
     dispatch(markAllRead());
   };
 
@@ -76,17 +76,17 @@ export const DashboardApp: React.FC<unknown> = () => {
           display: 'flex',
           flexDirection: 'column',
           width: { xs: '100%', md: '35%' },
-          height: { xs: 'fit-content', md: '100%' },
+          height: 'fit-content',
         }}
       >
         <GlassBox
           data-testid="Overview__NotificationWrapper"
           sx={{
+            display: 'flex',
             padding: { xs: '.5em', md: '1em' },
             mx: { xs: '0', md: '1em' },
             my: { xs: '.5em', md: '1em' },
             width: '100%',
-            height: '35%',
           }}
         >
           <Box

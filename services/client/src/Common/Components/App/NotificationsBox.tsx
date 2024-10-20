@@ -40,7 +40,7 @@ export const NotificationsBox: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -84,7 +84,7 @@ export const NotificationsBox: React.FC = () => {
               size="small"
               color="secondary"
               onClick={() => {
-                playSound('navigate');
+                sound.playSound('navigate');
                 navigate('/dashboard/overview');
               }}
               disabled={location.pathname === '/dashboard/overview'}

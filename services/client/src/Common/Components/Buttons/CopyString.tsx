@@ -57,12 +57,12 @@ export const CopyString: React.FC<CopyStringProps> = ({
   slotProps,
   'data-testid': testid,
 }) => {
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
   const handleCopyString = React.useCallback(() => {
     //Check if Clipboard API is available
     if (!navigator.clipboard) {
-      playSound('denied');
+      sound.playSound('denied');
       enqueueSnackbar('Clipboard API not supported', { variant: 'warning' });
     }
     const message = successText ?? 'Added to Clipboard';
@@ -72,26 +72,26 @@ export const CopyString: React.FC<CopyStringProps> = ({
       navigator.clipboard
         .writeText(`${prefix}${string}`)
         .then(() => {
-          playSound('success');
+          sound.playSound('success');
           enqueueSnackbar(message, { variant: 'success' });
         })
         .catch((err) => {
-          playSound('error');
+          sound.playSound('error');
           enqueueSnackbar(`Copy Failed: ${err}`, { variant: 'error' });
         });
     } else {
       navigator.clipboard
         .writeText(string)
         .then(() => {
-          playSound('success');
+          sound.playSound('success');
           enqueueSnackbar(message, { variant: 'success' });
         })
         .catch((err) => {
-          playSound('error');
+          sound.playSound('error');
           enqueueSnackbar(`Copy Failed: ${err}`, { variant: 'error' });
         });
     }
-  }, [playSound, successText, string, variant]);
+  }, [sound, successText, string, variant]);
   return (
     <IconButton
       data-testid={`${testid + '__'}CopyString_IconButton`}

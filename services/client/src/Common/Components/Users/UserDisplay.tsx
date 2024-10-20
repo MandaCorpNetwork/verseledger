@@ -14,11 +14,11 @@ type UserDisplayProps = {
 };
 
 const UserDisplayComponent: React.FC<UserDisplayProps> = ({ sx, user }) => {
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const dispatch = useAppDispatch();
 
   const handlePlayerCardOpen = () => {
-    playSound('open');
+    sound.playSound('open');
     dispatch(openPopup(POPUP_PLAYER_CARD, { userid: user.id }));
   };
 

@@ -14,14 +14,14 @@ type ContractManagerTab = 'contractors' | 'ships' | 'payroll';
 export const ContractManagementPanel: React.FC<PanelProps> = ({ contract }) => {
   const [contractManagerTab, setContractManagerTab] =
     React.useState<ContractManagerTab>('contractors');
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
   const handleTabChange = React.useCallback(
     (_event: React.SyntheticEvent, newValue: ContractManagerTab) => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setContractManagerTab(newValue);
     },
-    [playSound, setContractManagerTab],
+    [sound, setContractManagerTab],
   );
   const renderContractManagerTab = React.useCallback(() => {
     switch (contractManagerTab) {

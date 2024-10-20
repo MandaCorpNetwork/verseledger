@@ -2,6 +2,7 @@ import { LedgerBrowser } from '@Components/Contracts/Ledger/Browser/LedgerBrowse
 import { ContractDisplayContainer } from '@Components/Contracts/Ledger/Details/ContractDisplayContainer';
 import { LedgerSidePanel } from '@Components/Contracts/Ledger/SidePanel/LedgerSidePanel';
 import { Box } from '@mui/material';
+import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 
 /**
@@ -14,6 +15,7 @@ import React from 'react';
  */
 export const ContractLedgerApp: React.FC = () => {
   const [mobileSearchOpen, setMobileSearchOpen] = React.useState<boolean>(false);
+  const isMobile = useIsMobile();
   return (
     <Box
       data-testid="ContractLedger__LedgerWrapper"
@@ -27,7 +29,7 @@ export const ContractLedgerApp: React.FC = () => {
     >
       <LedgerSidePanel openMobileSearch={setMobileSearchOpen} />
       <LedgerBrowser mobileSearchOpen={mobileSearchOpen} />
-      <ContractDisplayContainer />
+      {!isMobile && <ContractDisplayContainer />}
     </Box>
   );
 };

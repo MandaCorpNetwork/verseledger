@@ -37,7 +37,7 @@ export const LocationInfoPopup: React.FC<LocationInfoProps> = ({ locationId }) =
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
   const handleSetLocation = React.useCallback(
     (selectedLocation: ILocation | null) => {
@@ -90,10 +90,10 @@ export const LocationInfoPopup: React.FC<LocationInfoProps> = ({ locationId }) =
   const popupTitle = getPopupTitle();
 
   const handleOpenExplorer = React.useCallback(() => {
-    playSound('navigate');
+    sound.playSound('navigate');
     navigate(`/apps/explore/${location?.id}`);
     dispatch(closePopup(POPUP_LOCATION_INFO));
-  }, [playSound, navigate, dispatch, location?.id]);
+  }, [sound, navigate, dispatch, location?.id]);
 
   return (
     <VLPopup

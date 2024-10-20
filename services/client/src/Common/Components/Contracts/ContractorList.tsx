@@ -28,7 +28,7 @@ type ContractorListProps = {
  */
 export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
   // HOOKS
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const dispatch = useAppDispatch();
   // LOGIC
   /** @var {IUser} currentUser - The current user */
@@ -51,7 +51,7 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
    * @see {@link POPUP_USER_INVITE}
    */
   const handleOpenInvite = () => {
-    playSound('open');
+    sound.playSound('open');
     dispatch(openPopup(POPUP_USER_INVITE, { contractId: contract.id }));
   };
 

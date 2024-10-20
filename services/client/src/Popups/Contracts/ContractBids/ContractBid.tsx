@@ -34,7 +34,7 @@ export type ContractBidProps = {
 export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
   // State for the Negotiation Form
   // TODO: NEED SCHEMA FOR FORMDATA
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const [negotiateFormData, setNeotiateFormData] = React.useState<number>(
     contract.defaultPay,
   );
@@ -65,10 +65,10 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
           if (updateBid.fulfilled.match(res)) {
             dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
             enqueueSnackbar('Bid Resubmitted', { variant: 'success' });
-            playSound('send');
+            sound.playSound('send');
           } else {
             enqueueSnackbar('Error Submitting Bid', { variant: 'error' });
-            playSound('error');
+            sound.playSound('error');
           }
         });
         return;
@@ -80,21 +80,21 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
           }
           enqueueSnackbar('Bid Submitted', { variant: 'success' });
           dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
-          playSound('send');
+          sound.playSound('send');
         } else {
           enqueueSnackbar('Error Submitting Bid', { variant: 'error' });
-          playSound('error');
+          sound.playSound('error');
         }
       });
     },
-    [contract.Bids, dispatch, currentUser?.id, playSound, location.pathname, navigate],
+    [contract.Bids, dispatch, currentUser?.id, sound, location.pathname, navigate],
   );
 
   const handleNegotiateBid = React.useCallback(
     (contractId: string, newPay: number) => {
       if (contract.payStructure === 'POOL') {
         if (newPay >= maxLimit) {
-          playSound('warning');
+          sound.playSound('warning');
           enqueueSnackbar('Percentage to high, others need pay too...', {
             variant: 'error',
           });
@@ -120,25 +120,25 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
               ).then((upRes) => {
                 if (updateBid.fulfilled.match(upRes)) {
                   enqueueSnackbar('Bid Offer Submitted', { variant: 'success' });
-                  playSound('send');
+                  sound.playSound('send');
                   dispatch(closePopup(POPUP_SUBMIT_CONTRACT_BID));
                 } else {
                   enqueueSnackbar('Error Updating Bid', { variant: 'error' });
-                  playSound('error');
+                  sound.playSound('error');
                 }
               });
             } else {
               enqueueSnackbar('Error Fetching New Bid', { variant: 'error' });
-              playSound('error');
+              sound.playSound('error');
             }
           });
         } else {
           enqueueSnackbar('Error Submitting Bid', { variant: 'error' });
-          playSound('error');
+          sound.playSound('error');
         }
       });
     },
-    [contract.payStructure, dispatch, maxLimit, playSound],
+    [contract.payStructure, dispatch, maxLimit, sound],
   );
 
   const handleSubmitBid = React.useCallback(() => {

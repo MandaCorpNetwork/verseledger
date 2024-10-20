@@ -41,28 +41,28 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
   const [contractOwnership, setContractOwnership] = React.useState<string>('owned');
   //HOOK
   const dispatch = useAppDispatch();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   //LOGIC
 
   /* Callback for displaying active contracts vs. contract history. */
   const handleContractActivityChange = React.useCallback(
     (value: string) => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setContractActivity((prev) => (prev === value ? null : value));
     },
-    [setContractActivity, playSound],
+    [setContractActivity, sound],
   );
 
   /* Callback for displaying contracts owned by player and employed by player. */
   const handleContractOwershipChange = React.useCallback(
     (_event: React.MouseEvent<HTMLElement>, value: string) => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       if (!value) return; // prevention for pass null values
       if (contractOwnership !== value) {
         setContractOwnership(value);
       }
     },
-    [setContractOwnership, playSound, contractOwnership],
+    [setContractOwnership, sound, contractOwnership],
   );
   /** Gets the bid status of a contract for search params. */
   const handleFetchBids = React.useCallback(

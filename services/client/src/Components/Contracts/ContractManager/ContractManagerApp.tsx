@@ -51,7 +51,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   const dispatch = useAppDispatch();
   const mobile = useIsMobile();
   // const location = useLocation();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
   // LOGIC
 
@@ -97,21 +97,21 @@ export const ContractManagerApp: React.FC<unknown> = () => {
             return contractIds;
           } else {
             enqueueSnackbar('No Bids found', { variant: 'warning' });
-            playSound('warning');
+            sound.playSound('warning');
             return [];
           }
         } else {
           enqueueSnackbar('Error fetching bids', { variant: 'error' });
-          playSound('error');
+          sound.playSound('error');
           return [];
         }
       } catch (_e) {
         enqueueSnackbar('Unknown Error Occurred', { variant: 'error' });
-        playSound('error');
+        sound.playSound('error');
         return [];
       }
     },
-    [dispatch, playSound],
+    [dispatch, sound],
   );
 
   /**

@@ -1,3 +1,4 @@
+import { WorkZoneBar } from '@Common/Components/App/InDevelopment';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_CREATE_MISSION } from '@Popups/Mission/AddMission';
@@ -31,13 +32,18 @@ export const RouteApp: React.FC<unknown> = () => {
       data-testid="RouteTool__AppContainer"
       sx={{
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: { xs: 'column', md: 'row' },
         justifyContent: 'space-around',
-        height: '100%',
         width: '100%',
+        gap: '1em',
+        flexGrow: 1,
         position: 'relative',
       }}
     >
+      <WorkZoneBar side="right" severity="construction" speed="slow" />
+      <WorkZoneBar side="left" severity="construction" speed="slow" />
+      <WorkZoneBar side="top" severity="construction" speed="slow" />
+      <WorkZoneBar side="bottom" severity="construction" speed="slow" />
       <RouteViewer destinations={destinations} />
       <DestinationQue destinations={destinations} missions={missions} />
       <GlassBox

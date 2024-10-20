@@ -21,7 +21,7 @@ export const ConfigGroup: React.FC<{
   config: TuningOption;
 }> = ({ setConfig, config }) => {
   const [hoveredTick, setHoveredTick] = React.useState<number | null>(null);
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const isActive = config.active;
 
   const handleMouseEnter = React.useCallback(
@@ -37,7 +37,7 @@ export const ConfigGroup: React.FC<{
 
   const handleConfigValue = React.useCallback(
     (index: number) => {
-      if (isActive) return playSound('denied');
+      if (isActive) return sound.playSound('denied');
       setConfig((prev) => ({
         ...prev,
         tuningOptions: prev.tuningOptions.map((option) => {
@@ -51,7 +51,7 @@ export const ConfigGroup: React.FC<{
         }),
       }));
     },
-    [setConfig, config, playSound, isActive],
+    [setConfig, config, sound, isActive],
   );
   const handleGroupToggle = React.useCallback(() => {
     setConfig((prev) => ({

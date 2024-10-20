@@ -14,36 +14,36 @@ export const BugForm: React.FC<{
   setFormData: React.Dispatch<React.SetStateAction<Partial<IFeedbackForm>>>;
 }> = (props) => {
   const { formData, setFormData } = props;
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const isBugForm = formData.type === 'BUG';
 
   const handleFeatureSelect = React.useCallback(
     (e: SelectChangeEvent<string>) => {
       const newFeature = e.target.value as IFeedbackFeatures;
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setFormData({ ...formData, feature: newFeature });
     },
-    [setFormData, formData, playSound],
+    [setFormData, formData, sound],
   );
 
   const handleToolSelect = React.useCallback(
     (e: SelectChangeEvent<string>) => {
       const newTool = e.target.value as IFeedbackTools;
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setFormData({ ...formData, tool: newTool });
     },
-    [setFormData, formData, playSound],
+    [setFormData, formData, sound],
   );
 
   const handleBrowserSelect = React.useCallback(
     (e: SelectChangeEvent<string>) => {
       if (isBugForm) {
         const newBrowser = e.target.value as IBrowser;
-        playSound('clickMain');
+        sound.playSound('clickMain');
         setFormData({ ...formData, browser: newBrowser });
       }
     },
-    [isBugForm, playSound, setFormData, formData],
+    [isBugForm, sound, setFormData, formData],
   );
 
   const handleChange = React.useCallback(

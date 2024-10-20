@@ -28,14 +28,14 @@ export const LocationChip: React.FC<LocationChipProps> = (props) => {
     color = 'secondary',
     iconSize = 'medium',
   } = props;
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const dispatch = useAppDispatch();
 
   const location = useAppSelector((state) => selectLocationById(state, locationId));
 
   const handleLocationInfoPopup = () => {
     if (locationId !== '') {
-      playSound('open');
+      sound.playSound('open');
       dispatch(openPopup(POPUP_LOCATION_INFO, { locationId }));
     }
   };

@@ -30,7 +30,7 @@ export const SortBySelect: React.FC<SortBySelectProps> = ({
   sortOptions,
   containerSize,
 }) => {
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   // const [filters, setFilters, overwriteURLQuery] = useURLQuery();
   // const [sortDirection, setSortDirection] = React.useState('desc');
 
@@ -72,7 +72,7 @@ export const SortBySelect: React.FC<SortBySelectProps> = ({
         color="secondary"
         variant="outlined"
         label="Sort By"
-        onClick={() => playSound('denied')}
+        onClick={() => sound.playSound('denied')}
         disabled
         // onChange={handleSortChange}
         sx={{

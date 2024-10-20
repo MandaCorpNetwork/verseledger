@@ -10,12 +10,12 @@ type DevOverlayProps = {
 };
 
 export const InDevOverlay: React.FC<DevOverlayProps> = ({ supportButton }) => {
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const dispatch = useAppDispatch();
   const handleClick = React.useCallback(() => {
-    playSound('open');
+    sound.playSound('open');
     dispatch(openPopup(POPUP_SUPPORT_DEVELOPMENT));
-  }, [playSound, dispatch]);
+  }, [sound, dispatch]);
   return (
     <Box
       sx={{

@@ -91,7 +91,7 @@ const ColorlibConnector = styled(StepConnector)(() => ({
   },
 }));
 export const CreateContractPopup: React.FC = () => {
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState<Partial<ICreateContractBody>>({
@@ -115,7 +115,7 @@ export const CreateContractPopup: React.FC = () => {
         enqueueSnackbar('Contract Creator missing Subtype', {
           variant: 'error',
         });
-        playSound('error');
+        sound.playSound('error');
         return;
       }
       dispatch(closePopup(POPUP_CREATE_CONTRACT));
@@ -132,22 +132,22 @@ export const CreateContractPopup: React.FC = () => {
           enqueueSnackbar('Contract Created', {
             variant: 'success',
           });
-          playSound('success');
+          sound.playSound('success');
         } else {
           enqueueSnackbar('Contract Creation Failed', {
             variant: 'error',
           });
-          playSound('error');
+          sound.playSound('error');
         }
       });
     }
-    playSound('clickMain');
+    sound.playSound('clickMain');
     setPage(Math.min(page + 1, steps.length));
-  }, [page, playSound, formData, dispatch, invites]);
+  }, [page, sound, formData, dispatch, invites]);
 
   const onCancel = useCallback(() => {
     if (page == 0) {
-      playSound('warning');
+      sound.playSound('warning');
       return dispatch(
         openPopup(POPUP_YOU_SURE, {
           title: 'Cancel Contract Creation',
@@ -159,9 +159,9 @@ export const CreateContractPopup: React.FC = () => {
         }),
       );
     }
-    playSound('clickMain');
+    sound.playSound('clickMain');
     setPage(Math.max(page - 1, 0));
-  }, [dispatch, page, playSound]);
+  }, [dispatch, page, sound]);
 
   const isSubmitEnabled = React.useMemo(() => {
     Logger.info(formData);

@@ -35,7 +35,7 @@ type ContractDisplayProps = {
 };
 
 export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) => {
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const dispatch = useAppDispatch();
   const scrollRef = useHorizontalAdvancedScroll();
   const navigate = useNavigate();
@@ -62,52 +62,52 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
 
   const handleActiveTabChange = React.useCallback(
     (_event: React.SyntheticEvent, value: string) => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setActiveDataTab(value);
     },
-    [playSound, setActiveDataTab],
+    [sound, setActiveDataTab],
   );
 
   const handleTimeTabChange = React.useCallback(
     (_event: React.SyntheticEvent, value: string) => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setTimeTab(value);
     },
-    [playSound, setTimeTab],
+    [sound, setTimeTab],
   );
 
   const toggleBriefingExpand = React.useCallback(() => {
     setBriefingExpanded((prev) => {
       if (prev) {
-        playSound('close');
+        sound.playSound('close');
       } else {
-        playSound('open');
+        sound.playSound('open');
       }
       return !prev;
     });
-  }, [setBriefingExpanded, playSound]);
+  }, [setBriefingExpanded, sound]);
 
   const togglePayExpand = React.useCallback(() => {
     setPayExpanded((prev) => {
       if (prev) {
-        playSound('close');
+        sound.playSound('close');
       } else {
-        playSound('open');
+        sound.playSound('open');
       }
       return !prev;
     });
-  }, [setPayExpanded, playSound]);
+  }, [setPayExpanded, sound]);
 
   const toggleLocationsExpand = React.useCallback(() => {
     setLocationsExpanded((prev) => {
       if (prev) {
-        playSound('close');
+        sound.playSound('close');
       } else {
-        playSound('open');
+        sound.playSound('open');
       }
       return !prev;
     });
-  }, [setLocationsExpanded, playSound]);
+  }, [setLocationsExpanded, sound]);
 
   const contractTimePanel = React.useCallback(
     (panel: string) => {
@@ -137,9 +137,9 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   );
 
   const handleSubmitBidPopup = React.useCallback(() => {
-    playSound('open');
+    sound.playSound('open');
     dispatch(openPopup(POPUP_SUBMIT_CONTRACT_BID, { contract }));
-  }, [playSound, dispatch, contract]);
+  }, [sound, dispatch, contract]);
 
   const getStartLocationId = React.useCallback(() => {
     if (contract.Locations) {
@@ -179,10 +179,10 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
 
   const handleContractPageNav = React.useCallback(
     (contractId: string) => {
-      playSound('navigate');
+      sound.playSound('navigate');
       navigate(`/ledger/contracts/${contractId}`);
     },
-    [playSound, navigate],
+    [sound, navigate],
   );
 
   const handleCopyURL = React.useCallback(
@@ -192,19 +192,19 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         navigator.clipboard
           .writeText(`${prefix}${url}`)
           .then(() => {
-            playSound('clickMain');
+            sound.playSound('clickMain');
             enqueueSnackbar('Copied Contract to Clipboard', { variant: 'success' });
           })
           .catch((err) => {
-            playSound('error');
+            sound.playSound('error');
             enqueueSnackbar(`Failed to Copy Contract: ${err}`, { variant: 'error' });
           });
       } else {
-        playSound('denied');
+        sound.playSound('denied');
         enqueueSnackbar('Clipboard API not supported', { variant: 'warning' });
       }
     },
-    [playSound],
+    [sound],
   );
 
   const archetypeObject = contractArchetypes.find(

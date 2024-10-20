@@ -121,7 +121,7 @@ export const ContractTableView: React.FC<ContractRowProps> = ({
   onChangeRowsPerPage,
   totalContracts,
 }) => {
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   return (
     <Box
       data-testid="ContractLedger-ContractBrowser__TableViewContainer"
@@ -174,7 +174,7 @@ export const ContractTableView: React.FC<ContractRowProps> = ({
                 hover
                 onClick={() => {
                   onPick(contract.id);
-                  playSound('clickMain');
+                  sound.playSound('clickMain');
                 }}
                 selected={isSelected === contract.id}
                 sx={{
