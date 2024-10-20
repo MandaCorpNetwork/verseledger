@@ -34,7 +34,7 @@ export const FeatureQueForm: React.FC<{
   setFormData: React.Dispatch<React.SetStateAction<Partial<IFeedbackForm>>>;
 }> = (props) => {
   const { formData, setFormData } = props;
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const isFeatureUpdateForm = formData.type === 'UPDATE';
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [popoverType, setPopoverType] = React.useState<string>('');
@@ -42,51 +42,51 @@ export const FeatureQueForm: React.FC<{
   const handleFeatureSelect = React.useCallback(
     (e: SelectChangeEvent<string>) => {
       const newFeature = e.target.value as IFeedbackFeatures;
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setFormData({ ...formData, feature: newFeature });
     },
-    [setFormData, formData, playSound],
+    [setFormData, formData, sound],
   );
   const handleToolSelect = React.useCallback(
     (e: SelectChangeEvent<string>) => {
       const newTool = e.target.value as IFeedbackTools;
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setFormData({ ...formData, tool: newTool });
     },
-    [setFormData, formData, playSound],
+    [setFormData, formData, sound],
   );
 
   const handleConcernSelect = React.useCallback(
     (e: SelectChangeEvent<string>) => {
       if (isFeatureUpdateForm) {
         const newConcern = e.target.value as IFeedbackConcern;
-        playSound('clickMain');
+        sound.playSound('clickMain');
         setFormData({ ...formData, concern: newConcern });
       }
     },
-    [isFeatureUpdateForm, playSound, setFormData, formData],
+    [isFeatureUpdateForm, sound, setFormData, formData],
   );
 
   const handleTableSelect = React.useCallback(
     (e: SelectChangeEvent<string>) => {
       if (isFeatureUpdateForm) {
         const newTable = e.target.value as IFeedbackTables;
-        playSound('clickMain');
+        sound.playSound('clickMain');
         setFormData({ ...formData, table: newTable });
       }
     },
-    [isFeatureUpdateForm, playSound, setFormData, formData],
+    [isFeatureUpdateForm, sound, setFormData, formData],
   );
 
   const handleServiceSelect = React.useCallback(
     (e: SelectChangeEvent<string>) => {
       if (isFeatureUpdateForm) {
         const newService = e.target.value as IFeedbackServices;
-        playSound('clickMain');
+        sound.playSound('clickMain');
         setFormData({ ...formData, service: newService });
       }
     },
-    [isFeatureUpdateForm, playSound, setFormData, formData],
+    [isFeatureUpdateForm, sound, setFormData, formData],
   );
 
   const handleChange = React.useCallback(

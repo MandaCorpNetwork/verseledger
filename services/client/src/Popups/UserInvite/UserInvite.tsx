@@ -19,11 +19,11 @@ export type UserInvitePopupProps = {
 export const UserInvitePopup: React.FC<UserInvitePopupProps> = ({ contractId }) => {
   const [selectedUsers, setSelectedUsers] = React.useState<IUser[]>([]); //eslint-disable-line @typescript-eslint/no-unused-vars
   const dispatch = useAppDispatch();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
   const handleAddUser = (selectedUser: IUser | null) => {
     if (selectedUser) {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setSelectedUsers((prev) => [...prev, selectedUser]);
     }
     Logger.info(selectedUsers);
@@ -39,7 +39,7 @@ export const UserInvitePopup: React.FC<UserInvitePopupProps> = ({ contractId }) 
     selectedUsers.forEach((user) => {
       dispatch(postContractInvite({ contractId, userId: user.id }));
     });
-    playSound('send');
+    sound.playSound('send');
     dispatch(closePopup(POPUP_USER_INVITE));
   };
 

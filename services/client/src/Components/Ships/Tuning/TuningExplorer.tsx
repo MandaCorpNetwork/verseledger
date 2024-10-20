@@ -7,13 +7,13 @@ import React from 'react';
 
 export const TuningExplorer: React.FC = () => {
   const [tab, setTab] = React.useState<'saved' | 'discover'>('saved');
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const handleTabChange = React.useCallback(
     (_event: React.SyntheticEvent, value: 'saved' | 'discover') => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setTab(value);
     },
-    [setTab, playSound],
+    [setTab, sound],
   );
   return (
     <GlassBox sx={{ p: '1em' }}>

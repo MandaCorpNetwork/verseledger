@@ -6,7 +6,7 @@ import { Box, ButtonBase, IconButton } from '@mui/material';
 import React from 'react';
 
 export const SupportBar: React.FC = () => {
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   return (
     <Box className="Support-Bar">
       <IconButton
@@ -14,7 +14,7 @@ export const SupportBar: React.FC = () => {
         href="https://ko-fi.com/verseledger"
         target="_blank"
         rel="noopener noreferrer"
-        onClick={() => playSound('navigate')}
+        onClick={() => sound.playSound('navigate')}
         className="Icon-Button"
       >
         <KoFi fontSize="large" className="Support-Icon" />
@@ -24,7 +24,7 @@ export const SupportBar: React.FC = () => {
         href="https://www.patreon.com/otterlodgestudios"
         target="_blank"
         rel="noopener noreferrer"
-        onClick={() => playSound('navigate')}
+        onClick={() => sound.playSound('navigate')}
         className="Icon-Button"
       >
         <Patreon fontSize="large" className="Support-Icon" />
@@ -39,14 +39,14 @@ export const SupportBar: React.FC = () => {
           borderRadius: '10px',
         }}
         className="Pally-Button"
-        onClick={() => playSound('navigate')}
+        onClick={() => sound.playSound('navigate')}
       />
       <IconButton
         component="a"
         href="https://www.discord.gg/pVEK5rZ9WW"
         target="_blank"
         rel="noopener noreferrer"
-        onClick={() => playSound('navigate')}
+        onClick={() => sound.playSound('navigate')}
         className="Icon-Button"
       >
         <Discord fontSize="large" className="Support-Icon" />
@@ -56,7 +56,7 @@ export const SupportBar: React.FC = () => {
         href="https://robertsspaceindustries.com/"
         target="_blank"
         rel="noopener noreferrer"
-        onClick={() => playSound('navigate')}
+        onClick={() => sound.playSound('navigate')}
         className="Icon-Button"
       >
         <img

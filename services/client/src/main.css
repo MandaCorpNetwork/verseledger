@@ -1,3 +1,9 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 #videobg {
   position: absolute;
   overflow: hidden;
@@ -7,10 +13,10 @@
   width: 100%;
   height: -webkit-fill-available;
   z-index: -100;
-}
 
-img {
-  outline: none;
-  box-shadow: none;
-  border: none;
+  @media (max-width: 768px) {
+    height: 100vh;
+    object-fit: cover;
+    object-position: center;
+  }
 }

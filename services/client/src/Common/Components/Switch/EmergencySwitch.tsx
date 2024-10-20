@@ -65,13 +65,13 @@ export const EmergencySwitch: React.FC<EmergencySwitchProps> = ({
   size = 'medium',
 }) => {
   // HOOKS
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   // LOGIC
   /** Handles the clickEvent that toggles the Emergency Switch */
   const handleToggle = React.useCallback(() => {
-    playSound('generalNotify');
+    sound.playSound('generalNotify');
     onToggle();
-  }, [playSound, onToggle]);
+  }, [sound, onToggle]);
   return (
     <Tooltip
       title="Emergency Mode"

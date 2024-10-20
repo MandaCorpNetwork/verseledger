@@ -30,7 +30,7 @@ export const Contractor: React.FC<ContractorProps> = ({
   contract,
 }) => {
   const dispatch = useAppDispatch();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   // const closed = contract.status === 'COMPLETED' || contract.status === 'CANCELED';
   const handleAccept = React.useCallback(() => {
     const updatedBid = { status: 'ACCEPTED' as const };
@@ -40,13 +40,13 @@ export const Contractor: React.FC<ContractorProps> = ({
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
         enqueueSnackbar('Accepted Bid', { variant: 'success' });
-        playSound('success');
+        sound.playSound('success');
       } else {
         enqueueSnackbar('Error Accepting Bid', { variant: 'error' });
-        playSound('error');
+        sound.playSound('error');
       }
     });
-  }, [dispatch, playSound, bid]);
+  }, [dispatch, sound, bid]);
 
   const handleReject = React.useCallback(() => {
     const updatedBid = { status: 'REJECTED' as const };
@@ -56,13 +56,13 @@ export const Contractor: React.FC<ContractorProps> = ({
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
         enqueueSnackbar('Rejected Bid', { variant: 'warning' });
-        playSound('warning');
+        sound.playSound('warning');
       } else {
         enqueueSnackbar('Error Rejecting Invite', { variant: 'error' });
-        playSound('error');
+        sound.playSound('error');
       }
     });
-  }, [bid, playSound, dispatch]);
+  }, [bid, sound, dispatch]);
 
   const handleDismiss = React.useCallback(() => {
     const updatedBid = { status: 'DISMISSED' as const };
@@ -72,13 +72,13 @@ export const Contractor: React.FC<ContractorProps> = ({
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
         enqueueSnackbar('Contractor Dismissed', { variant: 'warning' });
-        playSound('warning');
+        sound.playSound('warning');
       } else {
         enqueueSnackbar('Error Dismissing Contractor', { variant: 'error' });
-        playSound('error');
+        sound.playSound('error');
       }
     });
-  }, [bid, dispatch, playSound]);
+  }, [bid, dispatch, sound]);
 
   const handleInvite = React.useCallback(() => {
     const updatedBid = { status: 'INVITED' as const };
@@ -88,13 +88,13 @@ export const Contractor: React.FC<ContractorProps> = ({
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
         enqueueSnackbar('Contractor Invited', { variant: 'default' });
-        playSound('success');
+        sound.playSound('success');
       } else {
         enqueueSnackbar('Error Sending Invite', { variant: 'error' });
-        playSound('error');
+        sound.playSound('error');
       }
     });
-  }, [bid, dispatch, playSound]);
+  }, [bid, dispatch, sound]);
 
   const handleCancelInvite = React.useCallback(() => {
     const updatedBid = { status: 'EXPIRED' as const };
@@ -105,13 +105,13 @@ export const Contractor: React.FC<ContractorProps> = ({
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
         enqueueSnackbar('Canceled Invite', { variant: 'warning' });
-        playSound('warning');
+        sound.playSound('warning');
       } else {
         enqueueSnackbar('Error Canceling Invite', { variant: 'error' });
-        playSound('error');
+        sound.playSound('error');
       }
     });
-  }, [bid, playSound, dispatch]);
+  }, [bid, sound, dispatch]);
 
   const handleOpenOffer = React.useCallback(() => {
     dispatch(openPopup(POPUP_COUNTER_OFFER_BID, { bid, contract }));

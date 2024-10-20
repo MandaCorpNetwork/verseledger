@@ -14,16 +14,16 @@ import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 export const UserStateManager: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const userLocation = useAppSelector(selectUserLocation);
   const handleLocationSelect = React.useCallback(
     (location: ILocation | null) => {
       if (location) {
-        playSound('loading');
+        sound.playSound('loading');
         dispatch(setUserLocation(location));
       }
     },
-    [playSound, dispatch],
+    [sound, dispatch],
   );
   return (
     <GlassDisplay

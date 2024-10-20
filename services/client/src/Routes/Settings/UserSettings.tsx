@@ -42,7 +42,7 @@ const settingsList = [
 type settingsListItem = (typeof settingsList)[number];
 
 export const UserSettings: React.FC = () => {
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const [selectedSetting, setSelectedSetting] =
     React.useState<settingsListItem>('Profile');
   const [_, setCurrentSetting] = React.useState<string>('Profile');
@@ -71,14 +71,14 @@ export const UserSettings: React.FC = () => {
   const handleSettingSelection = React.useCallback(
     (setting: settingsListItem) => {
       if (selectedSetting !== setting) {
-        playSound('clickMain');
+        sound.playSound('clickMain');
         setTransitioning(true);
         setSelectedSetting(setting);
       } else {
-        playSound('denied');
+        sound.playSound('denied');
       }
     },
-    [playSound, selectedSetting],
+    [sound, selectedSetting],
   );
 
   React.useEffect(() => {
@@ -94,7 +94,11 @@ export const UserSettings: React.FC = () => {
     <Box>
       <List>
         {settingsList.map((text) => (
-          <ListItem key={text} disablePadding onMouseEnter={() => playSound('hover')}>
+          <ListItem
+            key={text}
+            disablePadding
+            onMouseEnter={() => sound.playSound('hover')}
+          >
             <DepressedListButton
               onClick={() => handleSettingSelection(text)}
               selected={selectedSetting === text}

@@ -27,7 +27,7 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
   // eslint-disable-next-line
   const theme = useTheme() as any;
 
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
   //Hover Animation
   const [, setIsHovered] = useState(false);
@@ -37,7 +37,7 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
   const handleMouseEnter = () => {
     setIsHovered(true);
     setColor(theme.palette.text.secondary);
-    playSound('hover');
+    sound.playSound('hover');
     const video = document.getElementById(videoSource) as HTMLVideoElement;
     const isPlaying =
       video.currentTime > 0 &&
@@ -71,14 +71,14 @@ export const HomeNavButton: React.FC<HomeNavButtonProps> = ({
   const handleClick = () => {
     if (wip) {
       if (inDev) {
-        playSound('navigate');
+        sound.playSound('navigate');
         navigate(to);
       } else {
-        playSound('denied');
+        sound.playSound('denied');
         setDialogOpen(true);
       }
     } else {
-      playSound('navigate');
+      sound.playSound('navigate');
       navigate(to);
     }
     setTimeout(() => {

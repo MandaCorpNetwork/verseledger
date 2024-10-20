@@ -24,22 +24,27 @@ export const LoginPopup: React.FC = () => {
   }, []);
   return (
     <VLPopup name={POPUP_LOGIN} title="Login" data-testid="Login" sx={{ p: '1em' }}>
-      {loginMethods != null ? (
-        loginMethods.map((method) => {
-          return (
-            <Button
-              key={method.type}
-              variant="popupButton"
-              onClick={onClick}
-              href={method.redirect}
-            >
-              Login with {method.type}
-            </Button>
-          );
-        })
-      ) : (
-        <LoadingWheel />
-      )}
+      <div
+        style={{ padding: '1em', display: 'flex', flexDirection: 'column', gap: '1em' }}
+      >
+        {' '}
+        {loginMethods != null ? (
+          loginMethods.map((method) => {
+            return (
+              <Button
+                key={method.type}
+                variant="popupButton"
+                onClick={onClick}
+                href={method.redirect}
+              >
+                Login with {method.type}
+              </Button>
+            );
+          })
+        ) : (
+          <LoadingWheel />
+        )}
+      </div>
     </VLPopup>
   );
 };

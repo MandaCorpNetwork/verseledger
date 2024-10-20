@@ -13,7 +13,7 @@ export const FlatRatePayroll: React.FC<{
   const { formData, onChange } = props;
   const [counterAmount, setCounterAmount] = React.useState<number | null>(null);
 
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
   const handlePayChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,13 +21,13 @@ export const FlatRatePayroll: React.FC<{
       const invalidCharacters = value.match(/[^\d.,]/g);
       if (invalidCharacters) {
         enqueueSnackbar('Please only use numbers', { variant: 'error' });
-        playSound('warning');
+        sound.playSound('warning');
       }
       const inputValue = Number(value.replace(/[^\d.]/g, ''));
       setCounterAmount(inputValue);
       onChange(inputValue.toString());
     },
-    [onChange, setCounterAmount, playSound],
+    [onChange, setCounterAmount, sound],
   );
 
   return (
@@ -52,7 +52,7 @@ export const PoolPayroll: React.FC<{
 
   const [counterAmount, setCounterAmount] = React.useState<number | null>(null);
 
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
   const handlePayChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,13 +60,13 @@ export const PoolPayroll: React.FC<{
       const invalidCharacters = value.match(/[^\d.,]/g);
       if (invalidCharacters) {
         enqueueSnackbar('Please only use numbers', { variant: 'error' });
-        playSound('warning');
+        sound.playSound('warning');
       }
       const inputValue = Number(value.replace(/[^\d.]/g, ''));
       setCounterAmount(inputValue);
       onChange(inputValue.toString());
     },
-    [onChange, setCounterAmount, playSound],
+    [onChange, setCounterAmount, sound],
   );
 
   return (
@@ -125,7 +125,7 @@ export const TimedPayroll: React.FC<{
 
   const [counterAmount, setCounterAmount] = React.useState<number | null>(null);
 
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
   const handlePayChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -133,13 +133,13 @@ export const TimedPayroll: React.FC<{
       const invalidCharacters = value.match(/[^\d.,]/g);
       if (invalidCharacters) {
         enqueueSnackbar('Please only use numbers', { variant: 'error' });
-        playSound('warning');
+        sound.playSound('warning');
       }
       const inputValue = Number(value.replace(/[^\d.]/g, ''));
       setCounterAmount(inputValue);
       onChange(inputValue.toString());
     },
-    [onChange, setCounterAmount, playSound],
+    [onChange, setCounterAmount, sound],
   );
 
   return (

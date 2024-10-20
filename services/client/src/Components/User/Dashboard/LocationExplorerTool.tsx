@@ -35,7 +35,7 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const currentLocation = useAppSelector(selectUserLocation);
   const handleLocationSelect = (location: ILocation | null) => {
     setSelectedLocation(location);
@@ -66,11 +66,11 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
 
   const handleOpenInfo = React.useCallback(
     (locationId: string | null | undefined) => {
-      if (locationId == null) return playSound('denied');
-      playSound('navigate');
+      if (locationId == null) return sound.playSound('denied');
+      sound.playSound('navigate');
       navigate(`/apps/explore/${locationId}`);
     },
-    [playSound, navigate],
+    [sound, navigate],
   );
   return (
     <Box

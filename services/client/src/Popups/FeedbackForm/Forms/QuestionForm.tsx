@@ -23,25 +23,25 @@ export const QuestionForm: React.FC<{
   setFormData: React.Dispatch<React.SetStateAction<Partial<IFeedbackForm>>>;
 }> = (props) => {
   const { formData, setFormData } = props;
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const isQuestionForm = formData.type === 'QUESTION';
 
   const handleFeatureSelect = React.useCallback(
     (e: SelectChangeEvent<string>) => {
       const newFeature = e.target.value as IFeedbackFeatures;
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setFormData({ ...formData, feature: newFeature });
     },
-    [setFormData, formData, playSound],
+    [setFormData, formData, sound],
   );
 
   const handleToolSelect = React.useCallback(
     (e: SelectChangeEvent<string>) => {
       const newTool = e.target.value as IFeedbackTools;
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setFormData({ ...formData, tool: newTool });
     },
-    [setFormData, formData, playSound],
+    [setFormData, formData, sound],
   );
 
   const handleChange = React.useCallback(

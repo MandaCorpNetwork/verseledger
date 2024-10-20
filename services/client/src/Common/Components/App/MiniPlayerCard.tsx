@@ -30,7 +30,7 @@ export const MiniPlayerCard: React.FC<MiniPlayerCardProps> = (props) => {
   // HOOKS
   /** A ref to timeout the Popper being open if you stop hovering over the child element. Prevents the Popper from Closing too fast if so you can move the mouse inside the popper */
   const popperTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const navigate = useNavigate();
 
   // LOGIC
@@ -189,7 +189,7 @@ export const MiniPlayerCard: React.FC<MiniPlayerCardProps> = (props) => {
                   href={`https://robertsspaceindustries.com/citizens/${user?.handle}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => playSound('navigate')}
+                  onClick={() => sound.playSound('navigate')}
                 >
                   <img src={Spectrum} alt="Spectrum" width="24px" height="24px" />
                 </IconButton>

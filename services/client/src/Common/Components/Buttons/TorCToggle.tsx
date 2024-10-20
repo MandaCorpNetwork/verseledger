@@ -12,12 +12,12 @@ export const CardorTableViewToggle: React.FC<CardorTableViewToggleProps> = ({
   onChange,
   view,
 }) => {
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const handleViewChange = (
     _event: React.MouseEvent<HTMLElement>,
     view: 'card' | 'table',
   ) => {
-    playSound('loading');
+    sound.playSound('loading');
     if (view !== null) {
       onChange(view);
     }

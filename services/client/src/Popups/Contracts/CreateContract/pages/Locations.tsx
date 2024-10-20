@@ -14,7 +14,7 @@ export const Locations: React.FC<{
   formData: Partial<ICreateContractBody>;
   setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
 }> = (props) => {
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const mobile = useIsMobile();
   const { formData, setFormData } = props;
 
@@ -22,7 +22,7 @@ export const Locations: React.FC<{
     (selectedLocation: ILocation | null) => {
       setFormData((formData) => {
         if (selectedLocation == null) {
-          playSound('warning');
+          sound.playSound('warning');
           return {
             ...formData,
             Locations: formData.Locations?.filter((loc) => loc.tag !== 'start'),
@@ -32,21 +32,21 @@ export const Locations: React.FC<{
           ...(formData.Locations?.filter((loc) => loc.tag !== 'start') ?? []),
           { location: selectedLocation.id as string, tag: 'start' },
         ];
-        playSound('clickMain');
+        sound.playSound('clickMain');
         return {
           ...formData,
           Locations: updatedLocations,
         };
       });
     },
-    [playSound, setFormData],
+    [sound, setFormData],
   );
 
   const handleAddEndLocation = React.useCallback(
     (selectedLocation: ILocation | null) => {
       setFormData((formData) => {
         if (selectedLocation == null) {
-          playSound('warning');
+          sound.playSound('warning');
           return {
             ...formData,
             Locations: formData.Locations?.filter((loc) => loc.tag !== 'end'),
@@ -56,20 +56,20 @@ export const Locations: React.FC<{
           ...(formData.Locations?.filter((loc) => loc.tag !== 'end') ?? []),
           { location: selectedLocation.id as string, tag: 'end' },
         ];
-        playSound('clickMain');
+        sound.playSound('clickMain');
         return {
           ...formData,
           Locations: updatedLocations,
         };
       });
     },
-    [playSound, setFormData],
+    [sound, setFormData],
   );
 
   const handleAddOtherLocation = React.useCallback(
     (selectedLocation: ILocation | null) => {
       if (selectedLocation == null) return;
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setFormData((formData) => ({
         ...formData,
         Locations: [
@@ -78,7 +78,7 @@ export const Locations: React.FC<{
         ],
       }));
     },
-    [playSound, setFormData],
+    [sound, setFormData],
   );
 
   const handleRemoveLocation = React.useCallback(

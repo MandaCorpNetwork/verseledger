@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { ItemTypes } from '@Common/Definitions/Orders/ItemTypes';
-import { Grid, IconButton, Tooltip } from '@mui/material';
+import { Grid2, IconButton, Tooltip } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
@@ -19,7 +19,7 @@ export const ItemTypeFilters: React.FC<unknown> = () => {
   const { searchParams, setFilters } = useURLQuery();
 
   // HOOKS
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
   // LOGIC
   /** @var {ItemTypeFilters} - An array of ItemType Objects */
@@ -30,10 +30,10 @@ export const ItemTypeFilters: React.FC<unknown> = () => {
    */
   const handleFilterSelect = React.useCallback(
     (type: string) => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setFilters(QueryNames.ItemType, type);
     },
-    [playSound, setFilters],
+    [sound, setFilters],
   );
 
   /** @var {currentFilter} - The current filter */
@@ -48,14 +48,14 @@ export const ItemTypeFilters: React.FC<unknown> = () => {
         my: '1em',
       }}
     >
-      <Grid
+      <Grid2
         data-testid="VerseMarket-Marketplace-Browser-TypeFilter__Grid"
         container
         spacing={2}
         justifyContent="center"
       >
         {ItemTypeFilters.map((item) => (
-          <Grid key={item.value} item>
+          <Grid2 key={item.value}>
             <Tooltip
               title={item.type}
               placement="bottom"
@@ -70,9 +70,9 @@ export const ItemTypeFilters: React.FC<unknown> = () => {
                 {item.icon}
               </IconButton>
             </Tooltip>
-          </Grid>
+          </Grid2>
         ))}
-      </Grid>
+      </Grid2>
     </DigiBox>
   );
 };

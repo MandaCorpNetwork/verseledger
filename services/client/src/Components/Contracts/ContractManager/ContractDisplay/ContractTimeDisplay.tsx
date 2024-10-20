@@ -19,14 +19,14 @@ export const ContractTimeDisplay: React.FC<ContractTimeDisplayProps> = ({
   contract,
 }) => {
   const [timeTab, setTimeTab] = React.useState<'bid' | 'duration'>('bid');
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
   const handleTabChange = React.useCallback(
     (_e: React.SyntheticEvent, value: 'bid' | 'duration') => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setTimeTab(value);
     },
-    [setTimeTab, playSound],
+    [setTimeTab, sound],
   );
 
   const renderTimePanel = React.useCallback(() => {

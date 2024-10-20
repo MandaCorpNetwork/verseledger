@@ -43,20 +43,20 @@ export const LedgerSidePanel: React.FC<LedgerSidePanelProps> = ({ openMobileSear
 
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const dispatch = useAppDispatch();
   const { searchParams, setFilters } = useURLQuery();
 
   const handleDrawerOpen = React.useCallback(() => {
     setExpanded((prev) => {
       if (prev) {
-        playSound('close');
+        sound.playSound('close');
       } else {
-        playSound('open');
+        sound.playSound('open');
       }
       return !prev;
     });
-  }, [setExpanded, playSound]);
+  }, [setExpanded, sound]);
 
   const handleMobileSearchOpen = React.useCallback(() => {
     openMobileSearch((prev) => !prev);
@@ -65,7 +65,7 @@ export const LedgerSidePanel: React.FC<LedgerSidePanelProps> = ({ openMobileSear
   const handleArchetypeChange = React.useCallback(
     (value: ContractArchetype) => {
       const currentFilterValues = searchParams.getAll(QueryNames.Archetype);
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setFilters(
         QueryNames.Archetype,
         currentFilterValues.includes(value)
@@ -73,7 +73,7 @@ export const LedgerSidePanel: React.FC<LedgerSidePanelProps> = ({ openMobileSear
           : [...currentFilterValues, value],
       );
     },
-    [playSound, setFilters, searchParams],
+    [sound, setFilters, searchParams],
   );
 
   const currentArchetypeFilters = React.useMemo(() => {
@@ -81,9 +81,9 @@ export const LedgerSidePanel: React.FC<LedgerSidePanelProps> = ({ openMobileSear
   }, [searchParams]);
 
   const openCreateContract = React.useCallback(() => {
-    playSound('open');
+    sound.playSound('open');
     dispatch(openPopup(POPUP_CREATE_CONTRACT));
-  }, [dispatch, playSound]);
+  }, [dispatch, sound]);
 
   // Determine the Top Padding to accomodate for the Expand Icon Button
   const expandComp = isMobile || isTablet ? '.5em' : '50px';

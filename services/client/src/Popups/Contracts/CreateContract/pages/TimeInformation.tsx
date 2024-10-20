@@ -25,7 +25,7 @@ export const TimeInformation: React.FC<{
 
   const [afterBiddingChecked, setAfterBiddingChecked] = React.useState(false);
 
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const mobile = useIsMobile();
 
   const handleAfterBiddingCheck = React.useCallback(() => {
@@ -34,12 +34,12 @@ export const TimeInformation: React.FC<{
       if (newChecked) {
         const bidDate = dayjs(formData.bidDate);
         const startDate = bidDate.add(10, 'second').toDate();
-        playSound('clickMain');
+        sound.playSound('clickMain');
         setFormData({ ...formData, startDate: startDate ?? null });
       }
       return newChecked;
     });
-  }, [formData, playSound, setFormData]);
+  }, [formData, sound, setFormData]);
 
   const handleTimeChange = React.useCallback(
     (newDate: Date | null, field: string) => {
@@ -48,7 +48,7 @@ export const TimeInformation: React.FC<{
           variant: 'error',
           message: 'Please select a date first',
         });
-        playSound('error');
+        sound.playSound('error');
         return;
       }
       if (field === 'bidDate') {
@@ -57,7 +57,7 @@ export const TimeInformation: React.FC<{
             variant: 'error',
             message: 'Bid Date must be before Start Date',
           });
-          playSound('denied');
+          sound.playSound('denied');
           return;
         }
         if (formData.endDate && newDate > formData.endDate) {
@@ -65,7 +65,7 @@ export const TimeInformation: React.FC<{
             variant: 'error',
             message: 'Bid Date must be before End Date',
           });
-          playSound('denied');
+          sound.playSound('denied');
           return;
         }
         setFormData({ ...formData, bidDate: newDate ?? null });
@@ -76,7 +76,7 @@ export const TimeInformation: React.FC<{
             variant: 'error',
             message: 'Start Date must be after Bid Date',
           });
-          playSound('denied');
+          sound.playSound('denied');
           return;
         }
         if (formData.endDate && newDate > formData.endDate) {
@@ -84,7 +84,7 @@ export const TimeInformation: React.FC<{
             variant: 'error',
             message: 'Start Date must be before End Date',
           });
-          playSound('denied');
+          sound.playSound('denied');
           return;
         }
         setFormData({ ...formData, startDate: newDate ?? null });
@@ -95,7 +95,7 @@ export const TimeInformation: React.FC<{
             variant: 'error',
             message: 'End Date must be after Start Date',
           });
-          playSound('denied');
+          sound.playSound('denied');
           return;
         }
         if (formData.bidDate && newDate < formData.bidDate) {
@@ -103,13 +103,13 @@ export const TimeInformation: React.FC<{
             variant: 'error',
             message: 'End Date must be after Bid Date',
           });
-          playSound('denied');
+          sound.playSound('denied');
           return;
         }
         setFormData({ ...formData, endDate: newDate ?? null });
       }
     },
-    [setFormData, formData, playSound],
+    [setFormData, formData, sound],
   );
 
   return (

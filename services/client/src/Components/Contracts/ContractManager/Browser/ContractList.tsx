@@ -20,23 +20,23 @@ type ContractListProps = {
 export const ContractList: React.FC<ContractListProps> = ({ currentTab }) => {
   const [expandedArchetype, setExpandedArchetype] = React.useState<string | null>(null);
   const [page, setPage] = React.useState(1);
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
   const handleExpandArchetype = React.useCallback(
     (value: string) => {
       if (!value) return;
-      playSound('open');
+      sound.playSound('open');
       setExpandedArchetype(value);
     },
-    [setExpandedArchetype, playSound],
+    [setExpandedArchetype, sound],
   );
 
   const handleChangePage = React.useCallback(
     (_event: React.ChangeEvent<unknown>, newPage: number) => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setPage(newPage);
     },
-    [playSound, setPage],
+    [sound, setPage],
   );
 
   const contracts = useAppSelector((state) => selectContractsArray(state));

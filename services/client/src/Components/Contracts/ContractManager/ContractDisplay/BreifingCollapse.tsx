@@ -11,17 +11,17 @@ type BriefingCollapseProps = {
 
 export const BriefingCollapse: React.FC<BriefingCollapseProps> = ({ briefing }) => {
   const [isExpanded, setIsExpanded] = React.useState<boolean>(true);
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const handleExpand = React.useCallback(() => {
     setIsExpanded((prev) => {
       if (prev) {
-        playSound('close');
+        sound.playSound('close');
       } else {
-        playSound('open');
+        sound.playSound('open');
       }
       return !prev;
     });
-  }, [playSound, setIsExpanded]);
+  }, [sound, setIsExpanded]);
   return (
     <DigiBox
       data-testid="SelectedContract__BriefingWrapper"

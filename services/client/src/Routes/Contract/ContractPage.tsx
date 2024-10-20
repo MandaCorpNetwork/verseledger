@@ -50,7 +50,7 @@ export const ContractPage: React.FC<unknown> = () => {
   const dispatch = useAppDispatch();
   const mobile = useIsMobile();
   const tablet = useIsTablet();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   // const navigate = useNavigate();
 
   // LOGIC
@@ -189,10 +189,10 @@ export const ContractPage: React.FC<unknown> = () => {
    */
   const handleTimeTabChange = React.useCallback(
     (_event: React.SyntheticEvent, value: string) => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setTimeTab(value);
     },
-    [playSound],
+    [sound],
   );
 
   /**
@@ -225,10 +225,10 @@ export const ContractPage: React.FC<unknown> = () => {
    */
   const handleActiveTabChange = React.useCallback(
     (_event: React.SyntheticEvent, value: string) => {
-      playSound('clickMain');
+      sound.playSound('clickMain');
       setActiveDataTab(value);
     },
-    [playSound],
+    [sound],
   );
 
   /**

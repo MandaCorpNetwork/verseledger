@@ -33,7 +33,7 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
   const [formData, setFormData] = React.useState<ICreateUserRatingBody[] | null>(null);
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
   //const recentRatings = TODO: get the recent ratings to disabler the user from rating the same user twice
 
@@ -99,13 +99,13 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
         (res) => {
           if (postNewContractRating.fulfilled.match(res)) {
             enqueueSnackbar('Ratings Submitted', { variant: 'success' });
-            playSound('send');
+            sound.playSound('send');
             dispatch(closePopup(POPUP_SUBMIT_RATING));
           } else {
             enqueueSnackbar(`Error Submitting Ratings ${res.error}`, {
               variant: 'error',
             });
-            playSound('error');
+            sound.playSound('error');
           }
         },
       );
@@ -132,7 +132,7 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
         }),
       );
     }
-    playSound('warning');
+    sound.playSound('warning');
   };
   return (
     <VLPopup

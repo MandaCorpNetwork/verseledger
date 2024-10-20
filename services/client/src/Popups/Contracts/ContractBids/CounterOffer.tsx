@@ -24,7 +24,7 @@ export type CounterOfferBidProps = {
 };
 
 export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract }) => {
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const [counterAmount, setCounterAmount] = React.useState<number | null>(null);
   const dispatch = useAppDispatch();
 
@@ -35,16 +35,16 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
       const invalidCharacters = value.match(/[^\d.,]/g);
       if (invalidCharacters) {
         enqueueSnackbar('Please only use numbers', { variant: 'error' });
-        playSound('warning');
+        sound.playSound('warning');
       }
       const inputValue = Number(value.replace(/[^\d.]/g, ''));
       setCounterAmount(inputValue);
     },
-    [playSound],
+    [sound],
   );
 
   const handlePayClear = () => {
-    playSound('toggleOff');
+    sound.playSound('toggleOff');
     setCounterAmount(currentOffer);
   };
 
@@ -56,15 +56,15 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
       ).then((res) => {
         if (updateBid.fulfilled.match(res)) {
           enqueueSnackbar('Bid Accepted', { variant: 'success' });
-          playSound('success');
+          sound.playSound('success');
           dispatch(closePopup(POPUP_COUNTER_OFFER_BID));
         } else {
           enqueueSnackbar('Error Accepting Bid', { variant: 'error' });
-          playSound('error');
+          sound.playSound('error');
         }
       });
     },
-    [dispatch, playSound],
+    [dispatch, sound],
   );
 
   const handleCounterOffer = useCallback(
@@ -75,15 +75,15 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
       ).then((res) => {
         if (updateBid.fulfilled.match(res)) {
           enqueueSnackbar('Bid Counter Offer Sent', { variant: 'success' });
-          playSound('send');
+          sound.playSound('send');
           dispatch(closePopup(POPUP_COUNTER_OFFER_BID));
         } else {
           enqueueSnackbar('Error Sending Counter Offer', { variant: 'error' });
-          playSound('error');
+          sound.playSound('error');
         }
       });
     },
-    [dispatch, playSound],
+    [dispatch, sound],
   );
 
   const handleSubmit = React.useCallback(() => {
@@ -103,11 +103,11 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
     ).then((res) => {
       if (updateBid.fulfilled.match(res)) {
         enqueueSnackbar('Bid Rejected', { variant: 'warning' });
-        playSound('warning');
+        sound.playSound('warning');
         dispatch(closePopup(POPUP_COUNTER_OFFER_BID));
       } else {
         enqueueSnackbar('Error Rejecting Bid', { variant: 'error' });
-        playSound('error');
+        sound.playSound('error');
       }
     });
   };
@@ -131,7 +131,7 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
         <DigiBox data-testid="CounterOffer__Wrapper" sx={{ p: '.5em', gap: '1em' }}>
           <UserDisplay
             data-testid="CounterOffer__User"
-            user={ownerView ? (bid?.User as IUser) : (contract.Owner as IUser)}
+            user={ownerView ? (bid?.User as IUser) : contract.Owner}
           />
           <DigiDisplay sx={{ p: '.5em' }}>
             <Typography>{ownerView ? 'Bid Proposal' : 'Counter Offer'}</Typography>

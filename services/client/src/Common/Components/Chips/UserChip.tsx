@@ -30,7 +30,7 @@ type UserChipProps = {
 export const UserChip: React.FC<UserChipProps> = (props) => {
   const { user, size, onDelete, user_id, color = 'secondary', sx } = props;
   // HOOKS
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const dispatch = useAppDispatch();
 
   // LOGIC
@@ -45,14 +45,14 @@ export const UserChip: React.FC<UserChipProps> = (props) => {
 
   /** Handles the click of the Chip that opens the Player Card */
   const handlePlayerCardOpen = () => {
-    playSound('open');
+    sound.playSound('open');
     dispatch(openPopup(POPUP_PLAYER_CARD, { userid: player?.id }));
   };
 
   /** Runs the passed onDelete function */
   const handleDeleteUser = () => {
     if (onDelete) {
-      playSound('toggleOff');
+      sound.playSound('toggleOff');
       onDelete();
     }
   };

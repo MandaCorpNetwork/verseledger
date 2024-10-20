@@ -63,14 +63,14 @@ export const AllAppButton: React.FC<AppIconProps> = ({
 
   const location = useLocation();
   const navigate = useNavigate();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const dispatch = useAppDispatch();
 
   const handleClick = React.useCallback(() => {
-    playSound('navigate');
+    sound.playSound('navigate');
     navigate(path);
     dispatch(closePopup(POPUP_APP_LIST));
-  }, [navigate, path, playSound, dispatch]);
+  }, [navigate, path, sound, dispatch]);
 
   const isActive =
     label === 'Home'
@@ -95,7 +95,7 @@ export const AllAppButton: React.FC<AppIconProps> = ({
       onClick={handleClick}
       onMouseMove={handleMouseMove}
       disabled={disabled}
-      onMouseEnter={() => playSound('hover')}
+      onMouseEnter={() => sound.playSound('hover')}
     >
       <Box className="App-Icon-Container">
         {React.cloneElement(icon, {

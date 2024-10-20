@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const NotFoundPage: React.FC<unknown> = () => {
   const navigate = useNavigate();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   return (
     <Box
       data-testid="NotFoundPage__Container"
@@ -69,7 +69,7 @@ export const NotFoundPage: React.FC<unknown> = () => {
           fullWidth
           color="info"
           onClick={() => {
-            playSound('navigate');
+            sound.playSound('navigate');
             navigate(-1);
           }}
           sx={{

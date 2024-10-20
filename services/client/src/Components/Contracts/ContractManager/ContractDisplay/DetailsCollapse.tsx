@@ -19,17 +19,17 @@ type DetailsDisplayProps = {
 
 export const ContractDetailsCollapse: React.FC<DetailsDisplayProps> = ({ contract }) => {
   const [isExpanded, setIsExpanded] = React.useState<boolean>(true);
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const handleExpand = React.useCallback(() => {
     setIsExpanded((prev) => {
       if (prev) {
-        playSound('close');
+        sound.playSound('close');
       } else {
-        playSound('open');
+        sound.playSound('open');
       }
       return !prev;
     });
-  }, [playSound, setIsExpanded]);
+  }, [sound, setIsExpanded]);
   return (
     <div
       data-testid="SelectedContract-DetailsDisplay__Details_Collapse"

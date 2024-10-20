@@ -33,7 +33,7 @@ export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) 
   } = useRadioController();
   const sliderRef = useRef<HTMLDivElement>(null);
   useScrollSlider(sliderRef, (newValue) => setVolume(newValue), volume);
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const theme = useTheme();
   const mobile = useIsMobile();
 
@@ -92,7 +92,7 @@ export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) 
             target="_blank"
             rel="noopener noreferrer"
             disabled={isDisabled}
-            onClick={() => playSound('navigate')}
+            onClick={() => sound.playSound('navigate')}
           >
             <Language />
           </IconButton>
@@ -107,7 +107,7 @@ export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) 
             rel="noopener noreferrer"
             disabled={isDisabled}
             startIcon={<Language />}
-            onClick={() => playSound('navigate')}
+            onClick={() => sound.playSound('navigate')}
           >
             Source
           </Button>

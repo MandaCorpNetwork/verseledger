@@ -17,10 +17,10 @@ const ErrorPage: React.FC = () => {
     });
     window.location.reload();
   }
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   React.useEffect(() => {
-    playSound('error');
-  }, [playSound]);
+    sound.playSound('error');
+  }, [sound]);
   return (
     <Box style={{ minHeight: '100vh', padding: '2em' }}>
       <Typography variant="h1" align="center">

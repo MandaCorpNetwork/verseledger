@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { masterAppList } from '@Common/Definitions/AppListings';
 import { Close } from '@mui/icons-material';
-import { Box, Fade, Grid2, IconButton, Modal, Tooltip, Typography } from '@mui/material';
+import { Box, Grid2, Grow, IconButton, Modal, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { selectIsPopupOpen } from '@Redux/Slices/Popups/popups.selectors';
@@ -13,7 +13,7 @@ export const POPUP_APP_LIST = 'appList';
 
 export const AllApps: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
   const handleClose = React.useCallback(() => {
     dispatch(closePopup(POPUP_APP_LIST));
   }, [dispatch]);
@@ -32,7 +32,7 @@ export const AllApps: React.FC = () => {
         background: 'linear-gradient(135deg, rgba(14,35,141,0.4) 40%, rgba(8,22,80,0.6))',
       }}
     >
-      <Fade in={isOpen} timeout={1000}>
+      <Grow in={isOpen} timeout={1000}>
         <Box
           data-testid="AppList__Wrapper"
           sx={{ p: { xs: '1em', md: '5%', lg: '10%' } }}
@@ -68,7 +68,7 @@ export const AllApps: React.FC = () => {
                 size="medium"
                 onClick={() => {
                   handleClose();
-                  playSound('close');
+                  sound.playSound('close');
                 }}
                 sx={{
                   position: 'absolute',
@@ -126,7 +126,7 @@ export const AllApps: React.FC = () => {
             ))}
           </Grid2>
         </Box>
-      </Fade>
+      </Grow>
     </Modal>
   );
 };

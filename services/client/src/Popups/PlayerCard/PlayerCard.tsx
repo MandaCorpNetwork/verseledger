@@ -32,7 +32,7 @@ export type PlayerCardPopupProps = {
 export const PlayerCardPopup: React.FC<PlayerCardPopupProps> = ({ userid }) => {
   const user = useAppSelector((state) => selectUserById(state, userid));
   const [tabValue, setTabValue] = React.useState('orgs');
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -102,7 +102,7 @@ export const PlayerCardPopup: React.FC<PlayerCardPopupProps> = ({ userid }) => {
             href={`https://robertsspaceindustries.com/citizens/${user?.handle}`}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => playSound('navigate')}
+            onClick={() => sound.playSound('navigate')}
           >
             <img src={Spectrum} alt="Spectrum" />
           </IconButton>

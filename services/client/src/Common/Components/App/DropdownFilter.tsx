@@ -44,7 +44,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
   const { searchParams, setFilters } = useURLQuery();
 
   // HOOKS
-  const { playSound } = useSoundEffect();
+  const sound = useSoundEffect();
 
   // LOGIC
   /**
@@ -145,7 +145,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
    * @param valueToDelete - The value to be deleted from array.
    * @fires
    * - {@link setFilters} - Updates the URL query with the new filter values.
-   * - playSound('toggleOff')
+   * - sound.playSound('toggleOff')
    */
   const handleDeleteFilterItem = useCallback(
     (valueToDelete: string) => {
@@ -153,10 +153,10 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
       const updatedFilters = searchParams
         .getAll(valueToDelete)
         .filter((value) => value !== valueToDelete);
-      playSound('toggleOff');
+      sound.playSound('toggleOff');
       setFilters(filterToUpdate, updatedFilters);
     },
-    [searchParams, setFilters, filter, playSound],
+    [searchParams, setFilters, filter, sound],
   );
 
   /**
@@ -192,15 +192,15 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
    * @param filter - The Filter Option
    * @fires
    * - {@link setFilters} - Updates the URL query with the new filter values.
-   * - playSound('toggleOff')
+   * - sound.playSound('toggleOff')
    */
   const handleClearAll = React.useCallback(() => {
     const filtersToClear = getFilterToClear(filter);
     filtersToClear.forEach((filterToUpdate) => {
       setFilters(filterToUpdate, []);
     });
-    playSound('toggleOff');
-  }, [getFilterToClear, filter, playSound, setFilters]);
+    sound.playSound('toggleOff');
+  }, [getFilterToClear, filter, sound, setFilters]);
 
   /**
    * Determins the Text Color of the Label based on 2 Conditions
@@ -343,7 +343,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
                         onDelete={() => {
                           if (value) {
                             handleDeleteFilterItem(value);
-                            playSound('toggleOff');
+                            sound.playSound('toggleOff');
                           }
                         }}
                       />
