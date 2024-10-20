@@ -76,7 +76,7 @@ export const DashboardApp: React.FC<unknown> = () => {
           display: 'flex',
           flexDirection: 'column',
           width: { xs: '100%', md: '35%' },
-          height: { xs: 'fit-content', md: '100%' },
+          height: 'fit-content',
         }}
       >
         <GlassBox
