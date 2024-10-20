@@ -1,4 +1,3 @@
-import { WorkZoneBar } from '@Common/Components/App/InDevelopment';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { DoubleArrow } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
@@ -54,8 +53,6 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({ destinations }) => {
       data-testid="RouteTool__RouteViewer_Container"
       sx={{ p: '1em', gap: '1em', height: '100%', overflow: 'hidden' }}
     >
-      <WorkZoneBar side="right" severity="construction" speed="slow" />
-      <WorkZoneBar side="left" severity="construction" speed="slow" />
       <Box
         data-testid="RouteTool-RouteViewer__Title_Wrapper"
         sx={{

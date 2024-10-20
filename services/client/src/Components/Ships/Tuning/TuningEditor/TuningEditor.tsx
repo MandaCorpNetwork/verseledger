@@ -107,7 +107,7 @@ export const TuningEditor: React.FC = () => {
   return (
     <GlassBox
       data-testid="ShipTuning__TuningEditor_Container"
-      sx={{ p: '.5em', maxWidth: '45%' }}
+      sx={{ p: '.5em', maxWidth: { xs: '100%', md: '45%' } }}
     >
       <Typography
         data-testid="ShipTuning__TuningEditor_Title"

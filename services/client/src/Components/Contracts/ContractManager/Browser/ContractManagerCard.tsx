@@ -34,8 +34,9 @@ export const ContractManagerCard: React.FC<ContractManagerCardProps> = ({ contra
     const { search } = window.location;
     if (isMobile) {
       navigate(`/contract/${contract.id}`);
+    } else {
+      navigate(`/apps/contracts/${contract.id}${search}`);
     }
-    navigate(`/apps/contracts/${contract.id}${search}`);
   }, [isMobile, navigate, contract.id]);
 
   /** Boolean to decide if this contract is selected */

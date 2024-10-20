@@ -13,12 +13,10 @@ import { NotificationSettings } from '@Components/User/UserSettings/Notification
 import { ProfileSettings } from '@Components/User/UserSettings/Profile';
 import { SecuritySettings } from '@Components/User/UserSettings/Security';
 import { SoundSettings } from '@Components/User/UserSettings/Sounds';
-import { Close } from '@mui/icons-material';
 import {
   Box,
   Drawer,
   Grow,
-  IconButton,
   List,
   ListItem,
   ListItemText,
@@ -115,18 +113,14 @@ export const UserSettings: React.FC = () => {
     <VLViewport sx={{ display: 'flex', flexDirection: 'column' }}>
       <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
         <Typography variant="h4">User Settings</Typography>
-        <IconButton sx={{ ml: 'auto' }} size="large" onClick={() => {}}>
-          <Close fontSize="large" />
-        </IconButton>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', flexGrow: 1 }}>
         <Drawer
           variant="persistent"
           open={true}
           sx={{
             position: 'relative',
             width: '150px',
-            height: '100%',
             boxShadow:
               '2px 4px 4px rgba(0,1,19,0.4),3px 3px 4px rgba(0,1,19,.3), 4px 4px 12px rgba(0,1,19,.2), 5px 5px 16px rgba(0,1,19,.1)',
             borderRadius: '10px',

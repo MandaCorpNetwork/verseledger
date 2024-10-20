@@ -108,7 +108,7 @@ export const AllApps: React.FC = () => {
             {masterAppList.map((app) => (
               <Grid2
                 key={app.id}
-                size={1}
+                size={{ xs: 4, md: 1 }}
                 data-testid={`AppList-List__${app.id}_Wrapper`}
                 sx={{
                   display: 'flex',
