@@ -84,6 +84,10 @@ export const routingInfo: RouteObject[] = [
             element: <DashboardApp />,
           },
           {
+            path: '/apps/explore/:selectedLocationId',
+            element: <ExploreApp />,
+          },
+          {
             path: 'explore',
             element: <ExploreApp />,
           },

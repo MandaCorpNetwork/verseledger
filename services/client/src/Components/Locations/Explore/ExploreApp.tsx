@@ -27,7 +27,7 @@ export const ExploreApp: React.FC<unknown> = () => {
   const handleLocationSelect = React.useCallback(
     (location: ILocation | null) => {
       if (location != null) {
-        navigate(`/dashboard/explore/${location.id}`);
+        navigate(`/apps/explore/${location.id}`);
       }
     },
     [navigate],
@@ -41,7 +41,7 @@ export const ExploreApp: React.FC<unknown> = () => {
         height: '100%',
         width: '100%',
         position: 'relative',
-        gap: '1em',
+        gap: '2em',
       }}
     >
       <WorkZoneBar side="bottom" severity="pending" speed="slow" />
@@ -54,6 +54,7 @@ export const ExploreApp: React.FC<unknown> = () => {
           height: '100%',
           gap: '1em',
           p: '1em',
+          minWidth: { xs: '100%', md: '600px' },
         }}
       >
         <LocationSearch onLocationSelect={handleLocationSelect} />
