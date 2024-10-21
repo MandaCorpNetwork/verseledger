@@ -78,7 +78,7 @@ export class User
   @Column({ type: DataType.STRING(32) })
   declare displayName: CreationOptional<string>;
 
-  @Default('Unverified User')
+  @Default(-1)
   @Default(0)
   @Column({ type: DataType.INTEGER() })
   declare total_ratings: CreationOptional<number>;
