@@ -11,6 +11,7 @@ import App from './App';
 import { SoundEffectProvider } from './Audio/AudioManager';
 import { AudioProvider } from './Audio/AudioProvider';
 import { setupStore } from './Redux/store';
+import { statusPage } from './statusPage';
 import { StompProvider } from './StompProvider';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -26,3 +27,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </LocalizationProvider>
   </Provider>,
 );
+
+statusPage();
