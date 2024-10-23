@@ -39,10 +39,10 @@ class NetworkService {
     });
   }
   public static isLocalUrl(url: string) {
-    return url[0] === '/';
+    return url.startsWith('/');
   }
   public static resolveApiUri(url: string) {
-    return `${URLUtil.backendHost}${url[0] === '/' ? '' : '/'}${url}`;
+    return `${URLUtil.backendHost}${url.startsWith('/') ? '' : '/'}${url}`;
   }
 }
 

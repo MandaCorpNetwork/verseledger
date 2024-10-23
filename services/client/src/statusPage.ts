@@ -1,6 +1,8 @@
-(function () {
+const origin = 'https://453tt7dpwtfm.statuspage.io';
+
+export const statusPage = () => {
   const frame = document.createElement('iframe');
-  frame.src = 'https://453tt7dpwtfm.statuspage.io/embed/frame';
+  frame.src = origin + '/embed/frame';
   frame.style.position = 'fixed';
   frame.style.border = 'none';
   frame.style.boxShadow = '0 20px 32px -8px rgba(9,20,66,0.25)';
@@ -10,8 +12,8 @@
   frame.title = 'Verseledger Status';
   frame.ariaHidden = 'true';
 
-  let mobile;
-  if ((mobile = screen.width < 450)) {
+  const mobile = screen.width < 450;
+  if (mobile) {
     frame.src += '?mobile=true';
     frame.style.height = '20vh';
     frame.style.width = '100vw';
@@ -48,10 +50,8 @@
   window.addEventListener(
     'message',
     function (event) {
-      if (
-        event.data.action &&
-        Object.prototype.hasOwnProperty.call(actions, event.data.action)
-      ) {
+      if (event.origin !== origin) return;
+      if (event.data.action && Object.hasOwn(actions, event.data.action)) {
         // @ts-expect-error Key props
         actions[event.data.action](event.data);
       }
@@ -61,4 +61,4 @@
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (window as any).statusEmbedTest = actions.showFrame;
-})();
+};
