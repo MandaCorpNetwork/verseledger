@@ -41,5 +41,55 @@
       "BID_EXPIRED": "Bid has Expired for {{contractTitle}}",
       "BID_DISMISSED": "You have been Dismissed from {{contractTitle}}"
     }
+  },
+  "@APP": {
+    "HOME": {
+      "LABEL": "Home"
+    },
+    "PROFILE": {
+      "LABEL": "Profile"
+    },
+    "SETTINGS": {
+      "LABEL": "Settings"
+    },
+    "EXPLORE": {
+      "LABEL": "Explore"
+    },
+    "ROUTES": {
+      "LABEL": "Routes"
+    },
+    "INVENTORY": {
+      "LABEL": "Inventory"
+    },
+    "SHIP": {
+      "LABEL": "Ship"
+    },
+    "FLEET": {
+      "LABEL": "Fleet"
+    },
+    "BUILDER": {
+      "LABEL": "Builder"
+    },
+    "TUNING": {
+      "LABEL": "Tuning"
+    },
+    "CONTRACTS": {
+      "LABEL": "Contracts"
+    },
+    "LEDGER": {
+      "LABEL": "Ledger"
+    },
+    "ORDERS": {
+      "LABEL": "Orders"
+    },
+    "MARKET": {
+      "LABEL": "Market"
+    },
+    "ORGS": {
+      "LABEL": "Orgs"
+    },
+    "NEWS": {
+      "LABEL": "News"
+    }
   }
 }

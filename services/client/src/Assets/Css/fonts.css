@@ -22,7 +22,14 @@
 @font-face {
   font-family: 'Banu';
   src: url('../Fonts/Banu.otf') format('opentype');
-  font-weight: normal;
+  font-weight: 50;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Xian';
+  src: url('../Fonts/Xian.otf') format('opentype');
+  font-weight: 50;
   font-style: normal;
 }
 

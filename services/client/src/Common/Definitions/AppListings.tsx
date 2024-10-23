@@ -32,86 +32,101 @@ export type AppGroup = {
 };
 
 export const masterAppList: AppListing[] = [
-  { id: 'dashboard', label: 'Home', path: '/apps/dashboard', icon: <HomeTwoTone /> },
+  {
+    id: 'dashboard',
+    label: '@APP.HOME.LABEL',
+    path: '/apps/dashboard',
+    icon: <HomeTwoTone />,
+  },
   {
     id: 'profile',
-    label: 'Profile',
+    label: '@APP.PROFILE.LABEL',
     path: `/user/${undefined}`,
     icon: <PersonTwoTone />,
     disabled: true,
   },
   {
     id: 'settings',
-    label: 'Settings',
+    label: '@APP.SETTINGS.LABEL',
     path: '/settings',
     icon: <SettingsTwoTone />,
   },
-  { id: 'explore', label: 'Explore', path: '/apps/explore', icon: <Exploration /> },
-  { id: 'routes', label: 'Routes', path: '/apps/routes', icon: <RouteTwoTone /> },
+  {
+    id: 'explore',
+    label: '@APP.EXPLORE.LABEL',
+    path: '/apps/explore',
+    icon: <Exploration />,
+  },
+  {
+    id: 'routes',
+    label: '@APP.ROUTES.LABEL',
+    path: '/apps/routes',
+    icon: <RouteTwoTone />,
+  },
   {
     id: 'inventory',
-    label: 'Inventory',
+    label: '@APP.INVENTORY.LABEL',
     path: '/apps/inventory',
     icon: <InventoryTwoTone />,
     disabled: true,
   },
-  { id: 'ship', label: 'Ship', path: '/apps/ship', icon: <Vehicles /> },
+  { id: 'ship', label: '@APP.SHIP.LABEL', path: '/apps/ship', icon: <Vehicles /> },
   {
     id: 'fleet',
-    label: 'Fleet',
+    label: '@APP.FLEET.LABEL',
     path: '/apps/fleet',
     icon: <Fleet />,
     disabled: true,
   },
   {
     id: 'builder',
-    label: 'Builder',
+    label: '@APP.BUILDER.LABEL',
     path: '/apps/builder',
     icon: <ConstructionTwoTone />,
     disabled: true,
   },
   {
     id: 'tuning',
-    label: 'Tuning',
+    label: '@APP.TUNING.LABEL',
     path: '/apps/tuning',
     icon: <StackedBarChartTwoTone />,
   },
   {
     id: 'contracts',
-    label: 'Contracts',
+    label: '@APP.CONTRACTS.LABEL',
     path: '/apps/contracts',
     icon: <WorkTwoTone />,
   },
   {
     id: 'contract-ledger',
-    label: 'Ledger',
+    label: '@APP.LEDGER.LABEL',
     path: '/apps/ledger',
     icon: <MenuBookTwoTone />,
   },
   {
     id: 'orders',
-    label: 'Orders',
+    label: '@APP.ORDERS.LABEL',
     path: '/apps/orders',
     icon: <ShoppingBasketTwoTone />,
     disabled: true,
   },
   {
     id: 'verse-market',
-    label: 'Market',
+    label: '@APP.MARKET.LABEL',
     path: '/apps/verse-market',
     icon: <StoreTwoTone />,
     disabled: true,
   },
   {
     id: 'orgs',
-    label: 'Orgs',
+    label: '@APP.ORGS.LABEL',
     path: '/orgs',
     icon: <BusinessTwoTone />,
     disabled: true,
   },
   {
     id: 'verse-news',
-    label: 'News',
+    label: '@APP.NEWS.LABEL',
     path: '/verse-news',
     icon: <NewspaperTwoTone />,
     disabled: true,
@@ -134,35 +149,35 @@ export const dashApps: AppGroup = {
 
 export const exploreApps: AppGroup = {
   id: 'explore',
-  label: 'Exploration',
+  label: '@APP.EXPLORE.LABEL',
   category: 'locations',
   list: ['explore', 'routes', 'inventory'],
 };
 
 export const shipApps: AppGroup = {
   id: 'ship',
-  label: 'Ships',
+  label: '@APP.SHIP.LABEL',
   category: 'ships',
   list: ['ship', 'fleet', 'builder', 'tuning'],
 };
 
 export const contractApps: AppGroup = {
   id: 'contract',
-  label: 'Contracts',
+  label: '@APP.CONTRACTS.LABEL',
   category: 'contract',
   list: ['contracts', 'contract-ledger'],
 };
 
 export const orderApps: AppGroup = {
   id: 'order',
-  label: 'Orders',
+  label: '@APP.ORDERS.LABEL',
   category: 'order',
   list: ['orders', 'verse-market'],
 };
 
 export const orgApps: AppGroup = {
   id: 'org',
-  label: 'Organizations',
+  label: '@APP.ORGS.LABEL',
   category: 'org',
   list: ['orgs'],
 };

@@ -3,6 +3,7 @@ import '../AppDock.css';
 import { useSoundEffect } from '@Audio/AudioManager';
 import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 type AppIconProps = {
@@ -21,6 +22,7 @@ export const AppButton: React.FC<AppIconProps> = ({
   const [rotateY, setRotateY] = React.useState<number>(0);
   const animationFrameId = React.useRef<number | null>(null);
   const targetRotateY = React.useRef<number>(rotateY);
+  const { t } = useTranslation();
 
   const smoothRotate = React.useCallback(() => {
     setRotateY((prevRotateY) => {
@@ -110,7 +112,7 @@ export const AppButton: React.FC<AppIconProps> = ({
           fontWeight: 'bold',
         }}
       >
-        {label}
+        {t(label) ?? label}
         <Box className={`App-Indicator ${onClass}`} />
       </Typography>
     </Button>

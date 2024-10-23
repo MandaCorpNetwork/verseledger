@@ -155,7 +155,7 @@ export const AppDock: React.FC = () => {
         <SplashIcon />
         {isLoggedIn && <UserStateIcon popupState={userStatePopupState} />}
       </Box>
-      <AppButton label="Home" path="/apps/dashboard" icon={<HomeTwoTone />} />
+      <AppButton label="@APP.HOME.LABEL" path="/apps/dashboard" icon={<HomeTwoTone />} />
       <Divider
         orientation="vertical"
         flexItem

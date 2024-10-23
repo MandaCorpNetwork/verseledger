@@ -5,6 +5,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { POPUP_APP_LIST } from '../Tools/AllApps';
@@ -25,6 +26,7 @@ export const AllAppButton: React.FC<AppIconProps> = ({
   const [rotateY, setRotateY] = React.useState<number>(0);
   const animationFrameId = React.useRef<number | null>(null);
   const targetRotateY = React.useRef<number>(rotateY);
+  const { t } = useTranslation();
 
   const smoothRotate = React.useCallback(() => {
     setRotateY((prevRotateY) => {
@@ -116,7 +118,7 @@ export const AllAppButton: React.FC<AppIconProps> = ({
           fontWeight: 'bold',
         }}
       >
-        {label}
+        {t(label) ?? label}
         <Box className={`App-Indicator ${onClass}`} />
       </Typography>
     </Button>
