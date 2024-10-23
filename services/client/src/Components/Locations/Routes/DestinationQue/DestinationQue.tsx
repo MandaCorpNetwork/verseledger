@@ -84,7 +84,7 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
   return (
     <GlassBox
       data-testid="RouteTool__DestinationList__Wrapper"
-      sx={{ p: '1em', gap: '1em', height: '100%', minWidth: '400px' }}
+      sx={{ p: '1em', gap: '1em', height: '100%', minWidth: '400px', flexGrow: '1' }}
     >
       <Box
         data-testid="RouteTool-DestinationList__TitleBar_Wrapper"
