@@ -35,8 +35,9 @@ export const RouteApp: React.FC<unknown> = () => {
         flexDirection: { xs: 'column', md: 'row' },
         justifyContent: 'space-around',
         width: '100%',
-        gap: '1em',
+        gap: { xs: '1em', lg: '2em' },
         flexGrow: 1,
+        p: '.5em',
         position: 'relative',
       }}
     >
