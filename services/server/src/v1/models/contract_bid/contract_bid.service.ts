@@ -179,7 +179,7 @@ export class ContractBidsService {
           link: `/ledger/contracts/${contract.id}`,
           arguments: {
             contractTitle: contract.title,
-            name: bid.User.displayName,
+            name: bid?.User?.displayName,
           },
         },
       );

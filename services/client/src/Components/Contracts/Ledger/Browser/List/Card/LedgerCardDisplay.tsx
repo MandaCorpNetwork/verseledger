@@ -1,4 +1,4 @@
-import '@Assets/CSS/scrollbar.css';
+import '@Assets/Css/scrollbar.css';
 
 import { Grid2 } from '@mui/material';
 // import { useIsMobile } from '@Utils/isMobile';
