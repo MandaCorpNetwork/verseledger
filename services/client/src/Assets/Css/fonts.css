@@ -20,17 +20,25 @@
 }
 
 @font-face {
-  font-family: 'Banu';
+  font-family: 'ochoa';
   src: url('../Fonts/Banu.otf') format('opentype');
   font-weight: 50;
   font-style: normal;
+  -moz-font-feature-settings: 'ccmp', 'liga';
+  -webkit-font-feature-settings: 'ccmp', 'liga';
+  font-feature-settings: 'ccmp', 'liga';
+  text-rendering: optimizeLegibility;
 }
 
 @font-face {
-  font-family: 'Xian';
-  src: url('../Fonts/Xian.otf') format('opentype');
+  font-family: 'xiinthlea';
+  src: url('../Fonts/xiinthlea.otf') format('opentype');
   font-weight: 50;
   font-style: normal;
+  -moz-font-feature-settings: 'ccmp', 'liga';
+  -webkit-font-feature-settings: 'ccmp', 'liga';
+  font-feature-settings: 'ccmp', 'liga';
+  text-rendering: optimizeLegibility;
 }
 
 .saira-semi-condensed-thin {
@@ -106,4 +114,70 @@
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
+}
+
+.ochoa-normal {
+  font-family: 'Banu', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  -moz-font-feature-settings: 'ccmp', 'liga';
+  -webkit-font-feature-settings: 'ccmp', 'liga';
+  font-feature-settings: 'ccmp', 'liga';
+  text-rendering: optimizeLegibility;
+}
+
+.ochoa-bold {
+  font-family: 'Banu', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  -moz-font-feature-settings: 'ccmp', 'liga';
+  -webkit-font-feature-settings: 'ccmp', 'liga';
+  font-feature-settings: 'ccmp', 'liga';
+  text-rendering: optimizeLegibility;
+}
+
+.ochoa-extrabold {
+  font-family: 'xiinthlea', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  -moz-font-feature-settings: 'ccmp', 'liga';
+  -webkit-font-feature-settings: 'ccmp', 'liga';
+  font-feature-settings: 'ccmp', 'liga';
+  text-rendering: optimizeLegibility;
+}
+
+.xiinthlea-normal {
+  font-family: 'xiinthlea', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  -moz-font-feature-settings: 'ccmp', 'liga';
+  -webkit-font-feature-settings: 'ccmp', 'liga';
+  font-feature-settings: 'ccmp', 'liga';
+  text-rendering: optimizeLegibility;
+}
+
+.xiinthlea-bold {
+  font-family: 'xiinthlea', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  -moz-font-feature-settings: 'ccmp', 'liga';
+  -webkit-font-feature-settings: 'ccmp', 'liga';
+  font-feature-settings: 'ccmp', 'liga';
+  text-rendering: optimizeLegibility;
+}
+
+.xiinthlea-extrabold {
+  font-family: 'xiinthlea', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  -moz-font-feature-settings: 'ccmp', 'liga';
+  -webkit-font-feature-settings: 'ccmp', 'liga';
+  font-feature-settings: 'ccmp', 'liga';
+  text-rendering: optimizeLegibility;
 }
