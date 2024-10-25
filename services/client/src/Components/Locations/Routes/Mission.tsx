@@ -30,13 +30,13 @@ export const Mission: React.FC<MissionProps> = ({ mission }) => {
         variant="h6"
         sx={{ display: 'inline-flex', alignItems: 'center' }}
       >
-        Mission: #
+        Mission:
         <Typography
           data-testid="RouteTool-MissionViewer-Mission__MissionId"
           variant="overline"
           sx={{ pl: '.5em' }}
         >
-          {mission.missionId}
+          {mission.label}
         </Typography>
       </Typography>
       <Box
@@ -45,16 +45,31 @@ export const Mission: React.FC<MissionProps> = ({ mission }) => {
       >
         {mission.objectives.map((obj) => (
           <DigiDisplay
-            key={obj.packageId}
+            key={obj.id}
             data-testid="RouteTool-MissionViewer-Mission__Objective_Item"
-            sx={{ flexDirection: 'row', gap: '.5em', py: '.5em', px: '1em' }}
+            sx={[
+              {
+                flexDirection: 'row',
+                gap: '.5em',
+                py: '.5em',
+                px: '1em',
+                position: 'relative',
+              },
+              obj.status === 'COMPLETED' && {
+                opacity: 0.5,
+                transition: 'opacity 0.3s ease',
+                '&:hover': {
+                  opacity: 1,
+                },
+              },
+            ]}
           >
-            <DigiField label="Package ID"># {obj.packageId}</DigiField>
+            <DigiField label="Package Label"># {obj.label}</DigiField>
             <DigiField label="Pickup Location">
               <LocationChip
-                locationId={obj.pickup.id}
+                locationId={obj.pickup.location.id}
                 color={
-                  obj.status === 'OBTAINED' || obj.status === 'COMPLETED'
+                  obj.status === 'ENROUTE' || obj.status === 'COMPLETED'
                     ? 'success'
                     : obj.status === 'INTERUPTED'
                       ? 'error'
@@ -64,7 +79,7 @@ export const Mission: React.FC<MissionProps> = ({ mission }) => {
             </DigiField>
             <DigiField label="Drop-off Location">
               <LocationChip
-                locationId={obj.dropOff.id}
+                locationId={obj.dropoff.location.id}
                 color={
                   obj.status === 'COMPLETED'
                     ? 'success'
@@ -74,8 +89,6 @@ export const Mission: React.FC<MissionProps> = ({ mission }) => {
                 }
               />
             </DigiField>
-            <DigiField label="Contents">{obj.contents}</DigiField>
-            <DigiField label="SCU">{obj.scu?.toLocaleString()}</DigiField>
           </DigiDisplay>
         ))}
       </Box>
@@ -105,6 +118,7 @@ export const Mission: React.FC<MissionProps> = ({ mission }) => {
           size="small"
           color="error"
           onClick={() => handleAbandonMission(mission)}
+          disabled
         >
           Abandon Mission
         </Button>

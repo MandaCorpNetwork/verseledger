@@ -70,6 +70,7 @@ export const DestinationSchema = z.object({
   visited: z.boolean(),
   reason: z.string(),
   objectives: z.array(ObjectiveSchema),
+  location: LocationSchema,
 });
 
 export type IDestination = z.infer<typeof DestinationSchema>;
