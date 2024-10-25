@@ -23,9 +23,9 @@
     "start": "yarn migrate && concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client serve\" \"manypkg run server serve\""
   },
   "dependencies": {
-    "@babel/core": "7.25.9",
-    "@babel/preset-env": "7.25.9",
-    "@babel/preset-typescript": "7.25.9",
+    "@babel/core": "7.26.0",
+    "@babel/preset-env": "7.26.0",
+    "@babel/preset-typescript": "7.26.0",
     "@changesets/cli": "2.27.9",
     "@manypkg/cli": "0.22.0",
     "@preconstruct/cli": "2.8.9",
