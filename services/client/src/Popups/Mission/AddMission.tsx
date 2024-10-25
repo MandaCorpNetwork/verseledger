@@ -270,6 +270,14 @@ export const AddMissionPopup: React.FC = () => {
     dispatch(updateDestinations(destinations));
   }, [getUpdatedDestinations, getNewDestinations, dispatch]);
 
+  const handleStops = React.useCallback(() => {
+    const stops = objectives.flatMap((objective) => [
+      { ...objective.pickup },
+      { ...objective.dropoff },
+    ]);
+    dispatch(addObjectives({ objectives: stops }));
+  }, [objectives, dispatch]);
+
   const handleSubmit = React.useCallback(() => {
     if (isValid) {
       const mission: IMission = {
@@ -278,12 +286,20 @@ export const AddMissionPopup: React.FC = () => {
         objectives: objectives,
       };
       dispatch(createMission(mission));
-      dispatch(addObjectives({ objectives }));
       dispatch(closePopup(POPUP_CREATE_MISSION));
+      handleStops();
       handleDestinations();
       sound.playSound('loading');
     }
-  }, [dispatch, isValid, missionLabel, objectives, sound, handleDestinations]);
+  }, [
+    dispatch,
+    isValid,
+    missionLabel,
+    objectives,
+    sound,
+    handleDestinations,
+    handleStops,
+  ]);
 
   return (
     <VLPopup
@@ -433,6 +449,7 @@ export const AddMissionPopup: React.FC = () => {
                     label="SCU"
                     size="small"
                     color="secondary"
+                    autoComplete="off"
                     required
                     value={objective.scu != 0 ? objective.scu.toLocaleString() : ''}
                     onFocus={scuQuickPopupState.open}
