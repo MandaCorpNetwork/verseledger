@@ -129,6 +129,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
         renderOption={(props, option) => (
           <MenuItem
             {...props}
+            key={props.key}
             sx={{ display: 'flex' }}
             onMouseEnter={() => sound.playSound('hover')}
           >

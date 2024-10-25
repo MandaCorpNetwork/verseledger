@@ -13,14 +13,18 @@ import {
   Typography,
 } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
-import { useAppDispatch } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
+import { updateDestinations } from '@Redux/Slices/Routes/actions/destination.action';
 import { createMission } from '@Redux/Slices/Routes/actions/mission.action';
+import { addObjectives } from '@Redux/Slices/Routes/actions/objective.action';
+import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
 import { createLocalID } from '@Utils/createId';
 import { bindPopover, usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import {
+  IDestination,
   ILogisticTransport,
   IMission,
   IObjective,
@@ -44,6 +48,8 @@ export const AddMissionPopup: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const sound = useSoundEffect();
+
+  const destinations = useAppSelector(selectDestinations);
 
   // Handle Editing Values of Objective
   const handleObjectiveData = React.useCallback(
@@ -155,32 +161,12 @@ export const AddMissionPopup: React.FC = () => {
     </Popover>
   );
 
-  // const objectivesToDestinations = React.useCallback(() => {
-  //   return destinationsFromObjectives(
-  //     objectives as IObjective[],
-  //     destinations,
-  //     userLocation,
-  //   );
-  // }, [objectives, destinations, userLocation]);
-  // const handleSubmit = React.useCallback(() => {
-  //   if (missionId != null && objectives.length > 0) {
-  //     const mission: IMission = {
-  //       missionId,
-  //       objectives: objectives as IObjective[],
-  //     };
-  //     dispatch(createMission(mission));
-  //     dispatch(addDestinations(objectivesToDestinations().newDestinations));
-  //     dispatch(updateDestinations(objectivesToDestinations().updatedDestinations));
-  //     dispatch(closePopup(POPUP_CREATE_MISSION));
-  //   }
-  // }, [dispatch, objectives, missionId, objectivesToDestinations]);
-
   const validateForm = React.useCallback(() => {
     return (
       missionLabel != null &&
       objectives.length > 0 &&
       objectives.every((obj) => {
-        return obj.label != null && obj.pickup.id != '' && obj.dropoff.id != '';
+        return obj.label != '' && obj.pickup.id != null && obj.dropoff.id != null;
       })
     );
   }, [missionLabel, objectives]);
@@ -192,6 +178,98 @@ export const AddMissionPopup: React.FC = () => {
     sound.playSound('close');
   }, [dispatch, sound]);
 
+  const getUpdatedDestinations = React.useCallback(() => {
+    return destinations.map((destination) => {
+      const matchingPickupObjective = objectives.find(
+        (objective) => objective.pickup.location.id === destination.location.id,
+      );
+
+      if (matchingPickupObjective) {
+        return {
+          ...destination,
+          objectives: [...(destination.objectives || []), matchingPickupObjective.pickup],
+        };
+      }
+
+      const matchingDropoffObjective = objectives.find(
+        (objective) => objective.dropoff.location.id === destination.location.id,
+      );
+
+      if (matchingDropoffObjective) {
+        return {
+          ...destination,
+          objectives: [
+            ...(destination.objectives || []),
+            matchingDropoffObjective.dropoff,
+          ],
+        };
+      }
+      return destination;
+    });
+  }, [destinations, objectives]);
+
+  const getNewDestinations = React.useCallback(() => {
+    const newDestinations: IDestination[] = objectives.reduce<IDestination[]>(
+      (acc, objective) => {
+        const pickupLocationId = objective.pickup.location.id;
+        const dropoffLocationId = objective.dropoff.location.id;
+
+        // Check if the pickup location already exists in the accumulator
+        if (!acc.some((destination) => destination.location.id === pickupLocationId)) {
+          acc.push({
+            id: createLocalID('D'),
+            location: objective.pickup.location,
+            objectives: [objective.pickup],
+            stopNumber: 0,
+            visited: false,
+            reason: 'Mission',
+          });
+        } else {
+          // If it exists, find it and add the objective
+          const existingPickupDestination = acc.find(
+            (destination) => destination.location.id === pickupLocationId,
+          );
+          if (existingPickupDestination) {
+            existingPickupDestination.objectives.push(objective.pickup);
+          }
+        }
+
+        // Check if the dropoff location already exists in the accumulator
+        if (!acc.some((destination) => destination.location.id === dropoffLocationId)) {
+          acc.push({
+            id: createLocalID('D'),
+            location: objective.dropoff.location,
+            objectives: [objective.dropoff],
+            stopNumber: 0,
+            visited: false,
+            reason: 'Mission',
+          });
+        } else {
+          // If it exists, find it and add the objective
+          const existingDropoffDestination = acc.find(
+            (destination) => destination.location.id === dropoffLocationId,
+          );
+          if (existingDropoffDestination) {
+            existingDropoffDestination.objectives.push(objective.dropoff);
+          }
+        }
+
+        return acc;
+      },
+      [],
+    );
+
+    return newDestinations;
+  }, [objectives]);
+
+  const handleDestinations = React.useCallback(() => {
+    const updatedDestinations = getUpdatedDestinations();
+    const newDestinations = getNewDestinations();
+
+    const destinations = [...updatedDestinations, ...newDestinations];
+    dispatch(updateDestinations(destinations));
+  }, [getUpdatedDestinations, getNewDestinations, dispatch]);
+
   const handleSubmit = React.useCallback(() => {
     if (isValid) {
       const mission: IMission = {
@@ -200,8 +278,12 @@ export const AddMissionPopup: React.FC = () => {
         objectives: objectives,
       };
       dispatch(createMission(mission));
+      dispatch(addObjectives({ objectives }));
+      dispatch(closePopup(POPUP_CREATE_MISSION));
+      handleDestinations();
+      sound.playSound('loading');
     }
-  }, [dispatch, isValid, missionLabel, objectives]);
+  }, [dispatch, isValid, missionLabel, objectives, sound, handleDestinations]);
 
   return (
     <VLPopup
@@ -216,8 +298,17 @@ export const AddMissionPopup: React.FC = () => {
         minWidth: '800px',
       }}
     >
-      <div data-testid="CreateMission-Form__About_Wrapper">
-        <Typography>Create a mission for Routes.</Typography>
+      <div
+        data-testid="CreateMission-Form__About_Wrapper"
+        style={{ width: '100%', display: 'flex' }}
+      >
+        <Typography
+          align="center"
+          variant="tip"
+          sx={{ px: '1em', fontSize: '.9em', mx: 'auto' }}
+        >
+          Create a mission for Routing.
+        </Typography>
       </div>
       <div>
         <FormControl data-testid="CreateMission__FormControl" sx={{ p: '.5em' }}>
@@ -296,9 +387,9 @@ export const AddMissionPopup: React.FC = () => {
                     color="secondary"
                     required
                     value={objective.label ?? ''}
-                    // onChange={(e) =>
-                    //   handleObjectiveChange(index, 'packageId', e.currentTarget.value)
-                    // }
+                    onChange={(e) =>
+                      handleObjectiveData(index, 'label', e.currentTarget.value)
+                    }
                     slotProps={{
                       input: {
                         inputProps: {
@@ -311,13 +402,17 @@ export const AddMissionPopup: React.FC = () => {
                     }}
                   />
                   <LocationSearch
-                    onLocationSelect={() => {}}
+                    onLocationSelect={(loc) =>
+                      handleObjectiveLocations(index, 'pickup', loc)
+                    }
                     label="Pickup Location"
                     required
                     sx={{ minWidth: '175px' }}
                   />
                   <LocationSearch
-                    onLocationSelect={() => {}}
+                    onLocationSelect={(loc) =>
+                      handleObjectiveLocations(index, 'dropoff', loc)
+                    }
                     label="DropOff Location"
                     required
                     sx={{ minWidth: '175px' }}
@@ -329,9 +424,9 @@ export const AddMissionPopup: React.FC = () => {
                     color="secondary"
                     required
                     value={objective.manifest}
-                    // onChange={(e) =>
-                    //   handleObjectiveChange(index, 'contents', e.currentTarget.value)
-                    //}
+                    onChange={(e) =>
+                      handleObjectiveData(index, 'manifest', e.currentTarget.value)
+                    }
                   />
                   <TextField
                     data-testid="CreateMission-Form-Objective__SCU_Field"
@@ -342,9 +437,9 @@ export const AddMissionPopup: React.FC = () => {
                     value={objective.scu != 0 ? objective.scu.toLocaleString() : ''}
                     onFocus={scuQuickPopupState.open}
                     onBlur={scuQuickPopupState.close}
-                    // onChange={(e) =>
-                    //   handleObjectiveChange(index, 'scu', e.currentTarget.value)
-                    // }
+                    onChange={(e) =>
+                      handleObjectiveData(index, 'scu', e.currentTarget.value)
+                    }
                   />
                   {renderSCUQuickSelect(index, objective.scu)}
                 </div>
