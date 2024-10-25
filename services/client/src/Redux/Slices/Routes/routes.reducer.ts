@@ -28,13 +28,13 @@ const routesReducer = createSlice({
     builder
       .addCase(createMission, (state, action) => {
         const mission = action.payload;
-        state.missions[mission.missionId] = mission;
+        state.missions[mission.id] = mission;
       })
       .addCase(updateMission, (state, action) => {
         const updatedMission = action.payload;
-        if (state.missions[updatedMission.missionId]) {
-          state.missions[updatedMission.missionId] = {
-            ...state.missions[updatedMission.missionId],
+        if (state.missions[updatedMission.id]) {
+          state.missions[updatedMission.id] = {
+            ...state.missions[updatedMission.id],
             ...updatedMission,
           };
         }

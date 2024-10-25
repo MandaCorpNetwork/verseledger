@@ -11,6 +11,7 @@ import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.action';
 import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
 import React from 'react';
+import { b } from 'vitest/dist/chunks/suite.BMWOKiTe.js';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { VirtualListboxComponent } from '../Lists/VirtualList';
@@ -40,12 +41,24 @@ type LocationSearchProps = {
   width?: string;
   helperText?: string;
   margin?: string;
+  required?: boolean;
   menuSize?: keyof typeof menuSizeValues;
   sx?: object;
+  label?: string;
 };
 
+//TODO: Move Locations to Local Storage for Faster Loading
 export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
-  const { onLocationSelect, width, helperText, margin, menuSize = 'm', sx } = props;
+  const {
+    onLocationSelect,
+    width,
+    helperText,
+    margin,
+    required,
+    menuSize = 'm',
+    sx,
+    label = 'Search Locations',
+  } = props;
   const [inputValue, setInputValue] = React.useState<ILocation | null>(null);
   //InputValue State Setter using ILocation Schema
 
@@ -54,7 +67,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
   const dispatch = useAppDispatch();
 
   //Set the State with the Locations Selector
-  const locations = useAppSelector(selectLocationsArray);
+  const locations: ILocation[] = useAppSelector(selectLocationsArray);
 
   //Set the User Location Default
   const currentUserLocation = useAppSelector(selectUserLocation);
