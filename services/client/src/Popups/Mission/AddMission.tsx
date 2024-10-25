@@ -1,136 +1,214 @@
+import { useSoundEffect } from '@Audio/AudioManager';
+import { LocationSearch } from '@Common/Components/App/LocationSearch';
+import { SCUQuickSelect } from '@Common/Components/App/SCUQuickSelect';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
-import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import { destinationsFromObjectives } from '@Components/Locations/Routes/RouteUtilities';
-import { Add, AddCircleOutline, Close } from '@mui/icons-material';
+import { AddCircleOutline, Close } from '@mui/icons-material';
 import {
-  Box,
   FormControl,
   IconButton,
+  Popover,
   TextField,
   Tooltip,
   Typography,
 } from '@mui/material';
-import { POPUP_ADD_LOCATION } from '@Popups/AddLocation/AddLocation';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
-import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
-import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
-import {
-  addDestinations,
-  updateDestinations,
-} from '@Redux/Slices/Routes/actions/destination.action';
+import { useAppDispatch } from '@Redux/hooks';
+import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { createMission } from '@Redux/Slices/Routes/actions/mission.action';
-import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
-import { numericalFilter } from '@Utils/numericFilter';
+import { createLocalID } from '@Utils/createId';
+import { bindPopover, usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-import { IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
+import {
+  ILogisticTransport,
+  IMission,
+  IObjective,
+} from 'vl-shared/src/schemas/RoutesSchema';
 
 export const POPUP_CREATE_MISSION = 'create_mission';
 
-type Objective = {
-  packageId: number | null;
-  pickup: ILocation | null;
-  dropOff: ILocation | null;
-  contents: string;
-  scu: number | null;
-};
-
 export const AddMissionPopup: React.FC = () => {
-  const [objectives, setObjectives] = React.useState<Objective[]>([
-    { packageId: null, pickup: null, dropOff: null, contents: '', scu: null },
-  ]);
-  const [missionId, setMissionId] = React.useState<number | null>(null);
-  const dispatch = useAppDispatch();
-  const destinations = useAppSelector(selectDestinations);
-  const userLocation = useAppSelector(selectUserLocation);
-
-  const handleOpenAddLocation = React.useCallback(
-    (callback: (location: ILocation | null) => void) => {
-      dispatch(openPopup(POPUP_ADD_LOCATION, { onLocationSelection: callback }));
+  const [missionLabel, setMissionLabel] = React.useState<string | null>(null);
+  const [objectives, setObjectives] = React.useState<ILogisticTransport[]>([
+    {
+      id: createLocalID('E'),
+      label: '',
+      pickup: {} as IObjective,
+      dropoff: {} as IObjective,
+      manifest: 'Unknown',
+      scu: 0,
+      status: 'PENDING',
     },
-    [dispatch],
+  ]);
+
+  const dispatch = useAppDispatch();
+  const sound = useSoundEffect();
+
+  // Handle Editing Values of Objective
+  const handleObjectiveData = React.useCallback(
+    (index: number, field: keyof ILogisticTransport, value: string | number) => {
+      if (
+        field === 'id' ||
+        field === 'pickup' ||
+        field === 'dropoff' ||
+        field === 'status'
+      ) {
+        return;
+      }
+      setObjectives((prev) =>
+        prev.map((obj, idx) => (idx === index ? { ...obj, [field]: value } : obj)),
+      );
+    },
+    [setObjectives],
   );
 
-  const handleObjectiveChange = React.useCallback(
-    (index: number, field: keyof Objective, value: string | number | ILocation) => {
-      if ((field === 'scu' || field === 'packageId') && typeof value === 'string') {
-        const filteredValue = numericalFilter(value);
-        setObjectives((prevObjectives) =>
-          prevObjectives.map((obj, i) =>
-            i === index ? { ...obj, [field]: filteredValue } : obj,
+  const handleObjectiveLocations = React.useCallback(
+    (index: number, field: keyof ILogisticTransport, value: ILocation | null) => {
+      if (field !== 'pickup' && field !== 'dropoff') return;
+      if (!value) {
+        setObjectives((prev) =>
+          prev.map((obj, idx) =>
+            idx === index ? { ...obj, [field]: {} as IObjective } : obj,
           ),
         );
         return;
       }
-      setObjectives((prevObjectives) =>
-        prevObjectives.map((obj, i) => (i === index ? { ...obj, [field]: value } : obj)),
+      const newObjective: IObjective = {
+        id: createLocalID('E'),
+        type: field,
+        location: value,
+        status: 'PENDING',
+      };
+      setObjectives((prev) =>
+        prev.map((obj, idx) => (idx === index ? { ...obj, [field]: newObjective } : obj)),
       );
     },
     [setObjectives],
   );
 
   const handleAddObjective = React.useCallback(() => {
-    setObjectives((prevObjectives) => [
-      ...prevObjectives,
-      { packageId: null, pickup: null, dropOff: null, contents: '', scu: null },
-    ]);
-  }, [setObjectives]);
+    const newObjective: ILogisticTransport = {
+      id: createLocalID('E'),
+      label: '',
+      pickup: {} as IObjective,
+      dropoff: {} as IObjective,
+      manifest: 'Unknown',
+      scu: 0,
+      status: 'PENDING',
+    };
+    sound.playSound('clickMain');
+    setObjectives((prev) => [...prev, newObjective]);
+  }, [setObjectives, sound]);
 
   const handleRemoveObjective = React.useCallback(
     (index: number) => {
-      setObjectives((prevObjectives) => prevObjectives.filter((_, i) => i !== index));
+      setObjectives((prev) => {
+        if (prev.length <= 1) {
+          sound.playSound('denied');
+          return prev;
+        }
+        sound.playSound('warning');
+        return prev.filter((_, idx) => idx !== index);
+      });
     },
-    [setObjectives],
+    [setObjectives, sound],
   );
 
-  const handleLocationSelect = React.useCallback(
-    (location: ILocation | null, index: number, locationType: 'pickup' | 'dropOff') => {
-      if (location) {
-        handleObjectiveChange(index, locationType, location);
-      }
-      dispatch(closePopup(POPUP_ADD_LOCATION));
+  // SCU Value Quick Select
+  const scuQuickPopupState = usePopupState({
+    variant: 'popover',
+    popupId: 'scuQuickPopup',
+  });
+
+  const handleSCUQuick = React.useCallback(
+    (index: number) => (value: number) => {
+      sound.playSound('clickMain');
+      setObjectives((prev) =>
+        prev.map((obj, idx) => (idx === index ? { ...obj, scu: value } : obj)),
+      );
+      scuQuickPopupState.close();
     },
-    [handleObjectiveChange, dispatch],
+    [scuQuickPopupState, sound],
   );
 
-  const objectivesToDestinations = React.useCallback(() => {
-    return destinationsFromObjectives(
-      objectives as IObjective[],
-      destinations,
-      userLocation,
-    );
-  }, [objectives, destinations, userLocation]);
-  const handleSubmit = React.useCallback(() => {
-    if (missionId != null && objectives.length > 0) {
-      const mission: IMission = {
-        missionId,
-        objectives: objectives as IObjective[],
-      };
-      dispatch(createMission(mission));
-      dispatch(addDestinations(objectivesToDestinations().newDestinations));
-      dispatch(updateDestinations(objectivesToDestinations().updatedDestinations));
-      dispatch(closePopup(POPUP_CREATE_MISSION));
-    }
-  }, [dispatch, objectives, missionId, objectivesToDestinations]);
+  //TODO: Fix Render Continuity Issues
+  const renderSCUQuickSelect = (index: number, scu: number) => (
+    <Popover
+      {...bindPopover(scuQuickPopupState)}
+      sx={{ p: '1em' }}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+      slotProps={{
+        paper: {
+          sx: {
+            backgroundColor: 'transparent',
+            p: '0.5em',
+            backdropFilterfilter: 'blur(20px)',
+            backgroundImage:
+              'linear-gradient(165deg, rgba(8,22,80,0.5), rgba(0,1,19,0.2))',
+          },
+        },
+      }}
+    >
+      <SCUQuickSelect onClick={handleSCUQuick(index)} value={scu} />
+    </Popover>
+  );
+
+  // const objectivesToDestinations = React.useCallback(() => {
+  //   return destinationsFromObjectives(
+  //     objectives as IObjective[],
+  //     destinations,
+  //     userLocation,
+  //   );
+  // }, [objectives, destinations, userLocation]);
+  // const handleSubmit = React.useCallback(() => {
+  //   if (missionId != null && objectives.length > 0) {
+  //     const mission: IMission = {
+  //       missionId,
+  //       objectives: objectives as IObjective[],
+  //     };
+  //     dispatch(createMission(mission));
+  //     dispatch(addDestinations(objectivesToDestinations().newDestinations));
+  //     dispatch(updateDestinations(objectivesToDestinations().updatedDestinations));
+  //     dispatch(closePopup(POPUP_CREATE_MISSION));
+  //   }
+  // }, [dispatch, objectives, missionId, objectivesToDestinations]);
 
   const validateForm = React.useCallback(() => {
     return (
-      missionId != null &&
+      missionLabel != null &&
+      objectives.length > 0 &&
       objectives.every((obj) => {
-        return obj.packageId != null && obj.pickup != null && obj.dropOff != null;
+        return obj.label != null && obj.pickup.id != '' && obj.dropoff.id != '';
       })
     );
-  }, [missionId, objectives]);
+  }, [missionLabel, objectives]);
 
   const isValid = validateForm();
+
+  const handleClose = React.useCallback(() => {
+    dispatch(closePopup(POPUP_CREATE_MISSION));
+    sound.playSound('close');
+  }, [dispatch, sound]);
+
+  const handleSubmit = React.useCallback(() => {
+    if (isValid) {
+      const mission: IMission = {
+        id: createLocalID('E'),
+        label: missionLabel!,
+        objectives: objectives,
+      };
+      dispatch(createMission(mission));
+    }
+  }, [dispatch, isValid, missionLabel, objectives]);
+
   return (
     <VLPopup
       data-testid="CreateMission_Form"
       name={POPUP_CREATE_MISSION}
       title="Create Mission"
-      onCancel={() => dispatch(closePopup(POPUP_CREATE_MISSION))}
+      onCancel={handleClose}
       onSubmit={handleSubmit}
       submitDisabled={!isValid}
       submitText="Create"
@@ -138,203 +216,157 @@ export const AddMissionPopup: React.FC = () => {
         minWidth: '800px',
       }}
     >
-      <FormControl data-testid="CreateMission__FormControl" sx={{ p: '.5em' }}>
-        <TextField
-          data-testid="CreateMission-Form__MissionId_Field"
-          label="Mission Id"
-          size="medium"
-          color="secondary"
-          required
-          value={missionId !== null ? missionId.toString() : ''}
-          onChange={(e) => setMissionId(numericalFilter(e.currentTarget.value))}
-          sx={{
-            maxWidth: '150px',
-            mb: '.5em',
-          }}
-          slotProps={{
-            input: {
-              inputProps: {
-                maxLength: 8,
+      <div data-testid="CreateMission-Form__About_Wrapper">
+        <Typography>Create a mission for Routes.</Typography>
+      </div>
+      <div>
+        <FormControl data-testid="CreateMission__FormControl" sx={{ p: '.5em' }}>
+          <TextField
+            data-testid="CreateMission-Form__MissionId_Field"
+            label="Mission Label"
+            size="medium"
+            color="secondary"
+            required
+            value={missionLabel ?? ''}
+            onChange={(e) => setMissionLabel(e.currentTarget.value)}
+            sx={{
+              maxWidth: '150px',
+              mb: '.5em',
+            }}
+            slotProps={{
+              input: {
+                inputProps: {
+                  maxLength: 32,
+                },
               },
-              startAdornment: missionId == null ? null : <Typography>#</Typography>,
-            },
-          }}
-        />
-        <PopupFormSelection
-          data-testid="CreateMission-Form__ObjectiveList_Wrapper"
-          sx={{
-            flexDirection: 'column',
-            p: '.5em',
-            gap: '.5em',
-            maxHeight: '300px',
-            overflow: 'auto',
-            justifyContent: 'flex-start',
-          }}
-        >
-          {objectives.map((obj, index) => (
-            <DigiDisplay
-              data-testid="CreateMission-Form__Objective_Wrapper"
-              key={index}
-              sx={{
-                flexDirection: 'row',
-                p: '.5em',
-                gap: '.5em',
-                width: '100%',
-                flexShrink: 0,
-                position: 'relative',
-              }}
-            >
-              <Tooltip
-                data-testid="CreateMission-Form-Objective__Remove_Tooltip"
-                title="Remove Objective"
-                arrow
+            }}
+          />
+          <PopupFormSelection
+            data-testid="CreateMission-Form__ObjectiveList_Wrapper"
+            sx={{
+              flexDirection: 'column',
+              p: '.5em',
+              gap: '.5em',
+              maxHeight: '300px',
+              overflow: 'auto',
+              justifyContent: 'flex-start',
+            }}
+          >
+            {objectives.map((objective, index) => (
+              <DigiDisplay
+                data-testid="CreateMission-Form__Objective_Wrapper"
+                key={objective.id}
+                sx={{
+                  p: '.5em',
+                  position: 'relative',
+                }}
               >
-                <IconButton
-                  data-testid="CreateMission-Form-Objective__RemoveButton"
-                  onClick={() => handleRemoveObjective(index)}
-                  color="error"
-                  sx={{
-                    position: 'absolute',
-                    top: '-.5em',
-                    left: '-.5em',
-                    zIndex: 2,
+                <Tooltip
+                  data-testid="CreateMission-Form-Objective__Remove_Tooltip"
+                  title="Remove Objective"
+                  arrow
+                >
+                  <IconButton
+                    data-testid="CreateMission-Form-Objective__RemoveButton"
+                    onClick={() => handleRemoveObjective(index)}
+                    color="error"
+                    sx={{
+                      position: 'absolute',
+                      top: '-.5em',
+                      left: '-.5em',
+                      zIndex: 2,
+                    }}
+                  >
+                    <Close color="error" />
+                  </IconButton>
+                </Tooltip>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    gap: '.5em',
+                    width: '100%',
+                    flexShrink: 0,
                   }}
                 >
-                  <Close color="error" />
-                </IconButton>
-              </Tooltip>
-              <TextField
-                data-testid="CreateMission-Form-Objective__PackageId_Field"
-                label="PackageId"
-                size="small"
-                color="secondary"
-                required
-                value={obj.packageId !== null ? obj.packageId.toString() : ''}
-                onChange={(e) =>
-                  handleObjectiveChange(index, 'packageId', e.currentTarget.value)
-                }
-                slotProps={{
-                  input: {
-                    inputProps: {
-                      maxLength: 8,
-                    },
-                    startAdornment:
-                      obj.packageId == null ? null : <Typography>#</Typography>,
-                  },
-                }}
-              />
-              <TextField
-                data-testid="CreateMission-Form-Objective__Pickup_Field"
-                label="Pickup"
-                size="small"
-                color="secondary"
-                required
-                slotProps={{
-                  input: {
-                    endAdornment: (
-                      <Tooltip title="Add Location">
-                        <IconButton
-                          onClick={() =>
-                            handleOpenAddLocation((location) =>
-                              handleLocationSelect(location, index, 'pickup'),
-                            )
-                          }
-                        >
-                          <Add />
-                        </IconButton>
-                      </Tooltip>
-                    ),
-                    startAdornment: obj.pickup ? (
-                      <LocationChip locationId={obj.pickup.id} />
-                    ) : null,
-                    readOnly: true,
-                    sx: {
-                      cursor: 'default',
-                    },
-                  },
-                  htmlInput: {
-                    sx: {
-                      cursor: 'default',
-                    },
-                  },
-                }}
-              />
-              <TextField
-                data-testid="CreateMission-Form-Objective__DropOff_Field"
-                label="Drop-Off"
-                size="small"
-                color="secondary"
-                required
-                slotProps={{
-                  input: {
-                    endAdornment: (
-                      <Tooltip title="Add Location">
-                        <IconButton
-                          onClick={() =>
-                            handleOpenAddLocation((location) =>
-                              handleLocationSelect(location, index, 'dropOff'),
-                            )
-                          }
-                        >
-                          <Add />
-                        </IconButton>
-                      </Tooltip>
-                    ),
-                    startAdornment: obj.dropOff ? (
-                      <LocationChip locationId={obj.dropOff.id} />
-                    ) : null,
-                    readOnly: true,
-                    sx: {
-                      cursor: 'default',
-                    },
-                  },
-                  htmlInput: {
-                    sx: {
-                      cursor: 'default',
-                    },
-                  },
-                }}
-              />
-              <TextField
-                data-testid="CreateMission-Form-Objective__Contents_Field"
-                label="Contents"
-                size="small"
-                color="secondary"
-                required
-                value={obj.contents}
-                onChange={(e) =>
-                  handleObjectiveChange(index, 'contents', e.currentTarget.value)
-                }
-              />
-              <TextField
-                data-testid="CreateMission-Form-Objective__SCU_Field"
-                label="SCU"
-                size="small"
-                color="secondary"
-                required
-                value={obj.scu !== null ? obj.scu.toLocaleString() : ''}
-                onChange={(e) =>
-                  handleObjectiveChange(index, 'scu', e.currentTarget.value)
-                }
-              />
-            </DigiDisplay>
-          ))}
-        </PopupFormSelection>
-        <Box data-testid="CreateMission-Form__AddObjective_Wrapper">
-          <Tooltip
-            data-testid="CreateMission-Form__AddObjective_Tooltip"
-            title="Add Objective"
-            arrow
-          >
-            <IconButton
-              data-testid="CreateMission-Form__AddObjective_Button"
-              onClick={handleAddObjective}
+                  <TextField
+                    data-testid="CreateMission-Form-Objective__PackageLabel_Field"
+                    label="Label"
+                    size="small"
+                    color="secondary"
+                    required
+                    value={objective.label ?? ''}
+                    // onChange={(e) =>
+                    //   handleObjectiveChange(index, 'packageId', e.currentTarget.value)
+                    // }
+                    slotProps={{
+                      input: {
+                        inputProps: {
+                          maxLength: 8,
+                        },
+                      },
+                    }}
+                    sx={{
+                      maxWidth: '130px',
+                    }}
+                  />
+                  <LocationSearch
+                    onLocationSelect={() => {}}
+                    label="Pickup Location"
+                    required
+                    sx={{ minWidth: '175px' }}
+                  />
+                  <LocationSearch
+                    onLocationSelect={() => {}}
+                    label="DropOff Location"
+                    required
+                    sx={{ minWidth: '175px' }}
+                  />
+                  <TextField
+                    data-testid="CreateMission-Form-Objective__Contents_Field"
+                    label="Contents"
+                    size="small"
+                    color="secondary"
+                    required
+                    value={objective.manifest}
+                    // onChange={(e) =>
+                    //   handleObjectiveChange(index, 'contents', e.currentTarget.value)
+                    //}
+                  />
+                  <TextField
+                    data-testid="CreateMission-Form-Objective__SCU_Field"
+                    label="SCU"
+                    size="small"
+                    color="secondary"
+                    required
+                    value={objective.scu != 0 ? objective.scu.toLocaleString() : ''}
+                    onFocus={scuQuickPopupState.open}
+                    onBlur={scuQuickPopupState.close}
+                    // onChange={(e) =>
+                    //   handleObjectiveChange(index, 'scu', e.currentTarget.value)
+                    // }
+                  />
+                  {renderSCUQuickSelect(index, objective.scu)}
+                </div>
+              </DigiDisplay>
+            ))}
+          </PopupFormSelection>
+          <div data-testid="CreateMission-Form__AddObjective_Wrapper">
+            <Tooltip
+              data-testid="CreateMission-Form__AddObjective_Tooltip"
+              title="Add Objective"
+              arrow
             >
-              <AddCircleOutline fontSize="large" />
-            </IconButton>
-          </Tooltip>
-        </Box>
-      </FormControl>
+              <IconButton
+                data-testid="CreateMission-Form__AddObjective_Button"
+                onClick={handleAddObjective}
+              >
+                <AddCircleOutline fontSize="large" />
+              </IconButton>
+            </Tooltip>
+          </div>
+        </FormControl>
+      </div>
     </VLPopup>
   );
 };

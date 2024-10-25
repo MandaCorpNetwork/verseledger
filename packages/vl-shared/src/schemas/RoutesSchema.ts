@@ -24,7 +24,7 @@ export const ObjectiveSchema = z.object({
   status: ObjectiveStatusSchema,
 });
 
-export type IObjectiveSchema = z.infer<typeof ObjectiveSchema>;
+export type IObjective = z.infer<typeof ObjectiveSchema>;
 
 export const LogisticTransportSchema = z.object({
   id: z.string(),
