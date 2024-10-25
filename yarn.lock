@@ -2874,10 +2874,10 @@
     delaunator "^5.0.1"
     robust-predicates "^3.0.2"
 
-"@mui/x-charts@7.21.0":
-  version "7.21.0"
-  resolved "https://registry.yarnpkg.com/@mui/x-charts/-/x-charts-7.21.0.tgz#97ddd4b93f29574bd7808bae14fae2a7eea6001b"
-  integrity sha512-Qv7U1Koo7hxinn1ncbn+Yfcwd8h3bSJDVCpjyKKgO0247kGIAK4ecrBlFHwVLol4bNTY36Ir1prEaA0G1MmUrg==
+"@mui/x-charts@7.22.0":
+  version "7.22.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-charts/-/x-charts-7.22.0.tgz#b4b7237e6e7d42607c1084c9ed106dc3c30eca22"
+  integrity sha512-B70ix8keyww9CpfdwbsHygQGsgEySCXuHhGrDRiVyFgK+Be4edBWNswbL3ngIp37CHBbWegaYkPp/Q9GDas0AA==
   dependencies:
     "@babel/runtime" "^7.25.7"
     "@mui/utils" "^5.16.6 || ^6.0.0"
@@ -2888,10 +2888,10 @@
     clsx "^2.1.1"
     prop-types "^15.8.1"
 
-"@mui/x-data-grid@7.21.0":
-  version "7.21.0"
-  resolved "https://registry.yarnpkg.com/@mui/x-data-grid/-/x-data-grid-7.21.0.tgz#e1b7308e66a04ccf0d3a5a3a729c52b549b0eecd"
-  integrity sha512-0JAiwb2yRuVAd4idzfA64Bs1yn6KfC8VPBH7Njba0ySQB0+Ix+hvkzWQySD96hl7tK5heXbvbJ48pYLvhqS4Vw==
+"@mui/x-data-grid@7.22.0":
+  version "7.22.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-data-grid/-/x-data-grid-7.22.0.tgz#ad20ce4daf21b36a5c505847fff3b8ae89e7b160"
+  integrity sha512-gXl7+hG0YRNU3YODlPvz6Q/9+EeUsPAWn/u2YMQmYTgwAxeY5QE3lY224VRnwM5v9SfTFheo1kzAKmXPdjb9tQ==
   dependencies:
     "@babel/runtime" "^7.25.7"
     "@mui/utils" "^5.16.6 || ^6.0.0"
@@ -2900,10 +2900,10 @@
     prop-types "^15.8.1"
     reselect "^5.1.1"
 
-"@mui/x-date-pickers@7.21.0":
-  version "7.21.0"
-  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers/-/x-date-pickers-7.21.0.tgz#78de7e81bdf863d443d7963777dfc3052ae3c320"
-  integrity sha512-WLpuTu3PvhYwd7IAJSuDWr1Zd8c5C8Cc7rpAYCaV5+tGBoEP0C2UKqClMR4F1wTiU2a7x3dzgQzkcgK72yyqDw==
+"@mui/x-date-pickers@7.22.0":
+  version "7.22.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers/-/x-date-pickers-7.22.0.tgz#f0d7eae779f31be98a146727db8304ee77293bf5"
+  integrity sha512-hopYo3ORP7ddYKnyBsqAtO2txEe2Zf6cehdikS5b1cqMTGOSL+18b11jfGVod9oipjb9L2JcT/WWkjoifs9Iww==
   dependencies:
     "@babel/runtime" "^7.25.7"
     "@mui/utils" "^5.16.6 || ^6.0.0"
