@@ -21,7 +21,7 @@ const routesReducer = createSlice({
   initialState: {
     destinations: {} as Record<string, IDestination>,
     missions: {} as Record<string, IMission>,
-    objectives: {} as Record<string, IUserTransport | ILogisticTransport>,
+    objectives: {} as Record<string, IObjective>,
   },
   reducers: {
     noop() {
@@ -40,7 +40,7 @@ const routesReducer = createSlice({
       })
       .addCase(addObjectives, (state, action) => {
         const objectiveArray = action.payload.objectives;
-        objectiveArray.forEach((objective: IUserTransport | ILogisticTransport) => {
+        objectiveArray.forEach((objective: IObjective) => {
           state.objectives[objective.id] = objective;
         });
       })

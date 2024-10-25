@@ -1,9 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import {
-  ILogisticTransport,
-  IObjective,
-  IUserTransport,
-} from 'vl-shared/src/schemas/RoutesSchema';
+import { IObjective } from 'vl-shared/src/schemas/RoutesSchema';
 
 export const updateObjective = createAction<{
   objective: IObjective;
@@ -12,5 +8,5 @@ export const updateObjective = createAction<{
 }>('routes/updateObjective');
 
 export const addObjectives = createAction<{
-  objectives: IUserTransport[] | ILogisticTransport[];
+  objectives: IObjective[];
 }>('routes/addObjectives');
