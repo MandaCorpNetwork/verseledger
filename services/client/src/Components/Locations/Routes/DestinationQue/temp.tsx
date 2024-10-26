@@ -1,76 +1,56 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { Functions } from '@mui/icons-material';
-import {
-  Box,
-  FormControl,
-  IconButton,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Tooltip,
-  Typography,
-} from '@mui/material';
-import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
+import { Box, TextField, Typography } from '@mui/material';
+import { useAppDispatch } from '@Redux/hooks';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.action';
-import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
-import { replaceDestinations } from '@Redux/Slices/Routes/actions/destination.action';
 import { numericalFilter } from '@Utils/numericFilter';
 import React from 'react';
 import { IDestination, IMission } from 'vl-shared/src/schemas/RoutesSchema';
-
-import { binaryLocationTree, getEfficentDistancePath } from '../RouteUtilities';
-import { StaticDestinationTable } from './StaticDestinationTable';
 
 type DestinationQueProps = {
   destinations: IDestination[];
   missions: IMission[];
 };
 
-export const DestinationQue: React.FC<DestinationQueProps> = ({
-  destinations,
-  missions,
-}) => {
-  const [routeOrder, setRouteOrder] = React.useState<string>('custom');
+export const DestinationQue: React.FC<DestinationQueProps> = () => {
+  const [routeOrder] = React.useState<string>('custom');
   const [maxLoad, setMaxLoad] = React.useState<number | null>(null);
   const [currentLoad, setCurrentLoad] = React.useState<number | null>(null);
   const dispatch = useAppDispatch();
-  const handleRouteOrder = React.useCallback(
-    (value: string) => {
-      setRouteOrder(value);
-    },
-    [setRouteOrder],
-  );
+  // const handleRouteOrder = React.useCallback(
+  //   (value: string) => {
+  //     setRouteOrder(value);
+  //   },
+  //   [setRouteOrder],
+  // );
   React.useEffect(() => {
     dispatch(fetchLocations());
   }, [dispatch]);
 
-  const locations = useAppSelector(selectLocationsArray);
+  // const locations = useAppSelector(selectLocationsArray);
 
-  const userLocation = useAppSelector(selectUserLocation);
+  // const userLocation = useAppSelector(selectUserLocation);
 
-  const locationTree = React.useMemo(() => {
-    return binaryLocationTree(locations);
-  }, [locations]);
+  // const locationTree = React.useMemo(() => {
+  //   return binaryLocationTree(locations);
+  // }, [locations]);
 
-  const evaluateDistanceRoute = React.useCallback(() => {
-    const route = getEfficentDistancePath(
-      missions,
-      userLocation ?? null,
-      locationTree,
-      maxLoad ?? 0,
-      currentLoad ?? 0,
-    );
-    dispatch(replaceDestinations(route));
-  }, [missions, userLocation, locationTree, dispatch, maxLoad, currentLoad]);
+  // const evaluateDistanceRoute = React.useCallback(() => {
+  //   const route = getEfficentDistancePath(
+  //     missions,
+  //     userLocation ?? null,
+  //     locationTree,
+  //     maxLoad ?? 0,
+  //     currentLoad ?? 0,
+  //   );
+  //   dispatch(replaceDestinations(route));
+  // }, [missions, userLocation, locationTree, dispatch, maxLoad, currentLoad]);
 
-  const handleRouteEvaluation = React.useCallback(() => {
-    if (routeOrder === 'distance') {
-      evaluateDistanceRoute();
-    }
-  }, [routeOrder, evaluateDistanceRoute]);
+  // const handleRouteEvaluation = React.useCallback(() => {
+  //   if (routeOrder === 'distance') {
+  //     evaluateDistanceRoute();
+  //   }
+  // }, [routeOrder, evaluateDistanceRoute]);
 
   const handleLoadChange = React.useCallback((value: string, option: string) => {
     const filteredValue = numericalFilter(value);
@@ -98,9 +78,7 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
         <Typography data-testid="RouteTool__DestinationList_Title" variant="h5">
           Destinations
         </Typography>
-        <Box>
-          
-        </Box>
+        <Box></Box>
       </Box>
       {routeOrder !== 'custom' && (
         <DigiBox sx={{ py: '.5em', gap: '.5em', px: '2em' }}>
