@@ -4,12 +4,14 @@ import {
   ArrowCircleUpTwoTone,
   ArrowDropDownCircleTwoTone,
 } from '@mui/icons-material';
-import { Box, Button, Popover, Typography } from '@mui/material';
+import { Button, Popover, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectMissions } from '@Redux/Slices/Routes/routes.selectors';
 import { bindPopover, bindTrigger, usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 import { ILogisticTransport, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
+
+import { MoveObjective } from './MoveObjective';
 
 type DestinationTaskProps = {
   objective: IObjective;
@@ -106,6 +108,7 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
   const renderMoveDestinationPopup = () => (
     <Popover
       {...bindPopover(moveDestinationPopup)}
+      data-testid={`${testid}__MoveDestination_Popper_${objective.id}`}
       sx={{ p: '1em' }}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
@@ -121,7 +124,11 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
         },
       }}
     >
-      <Box sx={{ height: '10px', width: '10px', bgcolor: 'red' }} />
+      <MoveObjective
+        data-testid={`${testid}-MoveDestination__${objective.id}_Core`}
+        objective={objective}
+        mission={parentMission}
+      />
     </Popover>
   );
   return (
