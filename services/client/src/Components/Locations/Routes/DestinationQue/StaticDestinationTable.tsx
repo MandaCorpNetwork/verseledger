@@ -73,15 +73,7 @@ export const StaticDestinationTable: React.FC<StaticDestinationTableProps> = ({
         }}
       >
         <Table stickyHeader>
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell key={column.id} align={column.align} component="th">
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
+          
           <TableBody>
             {sortedDestinations.map((place, index) => (
               <TableRow key={place.id} hover>

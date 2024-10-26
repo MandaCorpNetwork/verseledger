@@ -76,7 +76,9 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
               value={routeOrder}
               size="small"
               color="secondary"
-              onChange={(e) => handleRouteOrder(e.target.value)}
+              onChange={(e) =>
+                handleRouteOrder(e.target.value as 'custom' | 'distance' | 'fuel')
+              }
             >
               <MenuItem value={'custom'}>Custom</MenuItem>
               <MenuItem value={'distance'}>Distance</MenuItem>
@@ -111,7 +113,9 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
         </Typography>
       )}
       {destinations.length > 0 && (
-        <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}></div>
+        <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+          {}
+        </div>
       )}
     </GlassBox>
   );
