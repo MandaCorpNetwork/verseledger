@@ -49,7 +49,7 @@
     "express": "4.21.1",
     "googleapis": "^144.0.0",
     "inversify": "6.0.3",
-    "inversify-express-utils": "6.4.6",
+    "inversify-express-utils": "6.4.7",
     "jsonwebtoken": "9.0.2",
     "lodash": "4.17.21",
     "morgan": "1.10.0",
