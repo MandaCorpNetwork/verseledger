@@ -73,7 +73,6 @@ export const StaticDestinationTable: React.FC<StaticDestinationTableProps> = ({
         }}
       >
         <Table stickyHeader>
-          
           <TableBody>
             {sortedDestinations.map((place, index) => (
               <TableRow key={place.id} hover>
