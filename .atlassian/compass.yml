@@ -5,9 +5,10 @@ configVersion: 1
 typeId: APPLICATION
 ownerId: 'ari:cloud:identity::team/1e573909-9bd1-4c94-b6d1-f106689cd580'
 fields:
-  tier: 4
+  tier: 1
+  lifecycle: Pre-release
 links:
-  - name: null
+  - name: 'Repository'
     type: REPOSITORY
     url: 'https://github.com/MandaCorpNetwork/verseledger'
 relationships: {}
