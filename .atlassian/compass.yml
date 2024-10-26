@@ -1,0 +1,18 @@
+name: Verseledger
+id: 'ari:cloud:compass:b7500e73-6e6a-46a0-9be0-a9f37a76e3e3:component/f9f18645-7b73-45ce-8e0b-bde5758faec4/4509c1bc-4155-452c-9572-490454cf52ea'
+description: Verseledger Application
+configVersion: 1
+typeId: APPLICATION
+ownerId: 'ari:cloud:identity::team/1e573909-9bd1-4c94-b6d1-f106689cd580'
+fields:
+  tier: 4
+links:
+  - name: null
+    type: REPOSITORY
+    url: 'https://github.com/MandaCorpNetwork/verseledger'
+relationships: {}
+labels: null
+customFields: null
+
+# Learn more about formatting compass.yml:
+# https://go.atlassian.com/compass-yml-format
