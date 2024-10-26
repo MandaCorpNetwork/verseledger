@@ -1,15 +1,5 @@
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import {
-  Box,
-  Grid2,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from '@mui/material';
+import { Grid2, Typography } from '@mui/material';
 import React from 'react';
 import { Float3, MathX } from 'vl-shared/src/math';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
