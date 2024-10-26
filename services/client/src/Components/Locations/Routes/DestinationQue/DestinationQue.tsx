@@ -24,13 +24,13 @@ type DestinationQueProps = {
   missions: IMission[];
 };
 
+type RouteOrder = 'custom' | 'distance' | 'fuel';
+
 export const DestinationQue: React.FC<DestinationQueProps> = ({
   destinations,
   missions,
 }) => {
-  const [routeOrder, setRouteOrder] = React.useState<'custom' | 'distance' | 'fuel'>(
-    'custom',
-  );
+  const [routeOrder, setRouteOrder] = React.useState<RouteOrder>('custom');
 
   const dispatch = useAppDispatch();
 

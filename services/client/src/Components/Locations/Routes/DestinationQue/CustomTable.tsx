@@ -5,7 +5,7 @@ import { Float3, MathX } from 'vl-shared/src/math';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { DestinationTableRow } from './TableRow';
+import { DestinationTableRow } from './TableContent/TableRow';
 
 interface Column {
   id: string;
