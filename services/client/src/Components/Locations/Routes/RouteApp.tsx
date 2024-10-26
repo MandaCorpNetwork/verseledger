@@ -8,7 +8,7 @@ import {
 import React from 'react';
 
 import { DestinationQue } from './DestinationQue/DestinationQue';
-import { MissionViewer } from './MissionViewer';
+import { MissionViewer } from './MissionViewer/MissionViewer';
 
 export const RouteApp: React.FC<unknown> = () => {
   const missions = useAppSelector(selectMissions);
