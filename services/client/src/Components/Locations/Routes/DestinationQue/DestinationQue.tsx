@@ -17,6 +17,7 @@ import React from 'react';
 import { IDestination, IMission } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { binaryLocationTree } from '../RouteUtilities';
+import { CustomDestinationTable } from './CustomTable';
 
 type DestinationQueProps = {
   destinations: IDestination[];
@@ -114,7 +115,9 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
       )}
       {destinations.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-          {}
+          {routeOrder === 'custom' && (
+            <CustomDestinationTable destinations={destinations} />
+          )}
         </div>
       )}
     </GlassBox>
