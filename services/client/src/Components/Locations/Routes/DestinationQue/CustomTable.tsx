@@ -1,11 +1,14 @@
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import {
+  Box,
+  Grid2,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from '@mui/material';
 import React from 'react';
 import { Float3, MathX } from 'vl-shared/src/math';
@@ -52,53 +55,43 @@ export const CustomDestinationTable: React.FC<CustomTableProps> = ({ destination
   return (
     <GlassDisplay
       data-testid="RouteTool-RouteViewer-DestinationQue__CustomTable_Container"
-      sx={{ flexGrow: '1', justifyContent: 'flex-start', overflow: 'hidden', p: '1em' }}
+      sx={{ flexGrow: 1, justifyContent: 'flex-start', overflow: 'hidden', p: '1em' }}
     >
-      <TableContainer
-        data-testid="RouteTool-RouteViewer-DestinationQue-CustomTable__Table_Container"
-        sx={{
-          maxHeight: '100%',
-          overflow: 'auto',
-          '&::-webkit-scrollbar': {
-            width: '5px',
-            height: '5px',
-          },
-          '&::-webkit-scrollbar-track': {
-            background: 'rgb(0,73,130)',
-            borderRadius: '10px',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            borderRadius: '20px',
-            background: 'rgb(24,252,252)',
-          },
-        }}
-      >
-        <Table
-          data-testid="RouteTool-RouteViewer-DestinationQue-CustomTable__Table"
-          stickyHeader
+      <Grid2 container direction="column" sx={{ gap: 1, flexGrow: 1 }}>
+        <Grid2
+          direction="row"
+          sx={{
+            width: '100%',
+            justifyContent: 'space-between',
+            display: 'flex',
+            px: '1em',
+            py: '0.5em',
+          }}
         >
-          <TableHead data-testid="RouteTool-RouteViewer-DestinationQue-CustomTable-Table__Header_Wrapper">
-            <TableRow data-testid="RouteTool-RouteViewer-DestinationQue-CustomTable-Table__Header_Row">
-              {columns.map((column) => (
-                <TableCell
-                  data-testid="RouteTool-RouteViewer-DestinationQue-CustomTable-Table__Header_Cell"
-                  key={column.id}
-                  align={column.align}
-                  component="th"
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody data-testid="RouteTool-RouteViewer-DestinationQue-CustomTable-Table__Body_Wrapper">
-            {sortedDestinations.map((place, index) => {
-              return (
+          {columns.map((column) => (
+            <Grid2 key={column.id}>
+              <Typography>{column.label}</Typography>
+            </Grid2>
+          ))}
+        </Grid2>
+        <Grid2
+          container
+          sx={{
+            flexGrow: 1,
+            alignContent: 'flex-start',
+            gap: '0.5em',
+          }}
+        >
+          {sortedDestinations.map((place, index) => {
+            return (
+              <Grid2 key={place.id} sx={{ width: '100%' }}>
                 <DestinationTableRow
                   data-testid={`RouteTool-RouteViewer-DestinationQue-CustomTable-Table-Body__TableRow_${place.id}`}
                   key={place.id}
                   draggable
                   destination={place}
+                  list={sortedDestinations}
+                  index={index}
                   distance={
                     index === 0
                       ? '—'
@@ -108,11 +101,11 @@ export const CustomDestinationTable: React.FC<CustomTableProps> = ({ destination
                         )
                   }
                 />
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+              </Grid2>
+            );
+          })}
+        </Grid2>
+      </Grid2>
     </GlassDisplay>
   );
 };
