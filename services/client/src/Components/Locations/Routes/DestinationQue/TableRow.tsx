@@ -12,6 +12,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { updateDestinations } from '@Redux/Slices/Routes/actions/destination.action';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
+
 import { DestinationTask } from './DestinationTask';
 
 type TableRowProps = {
