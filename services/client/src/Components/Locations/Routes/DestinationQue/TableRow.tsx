@@ -12,6 +12,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { updateDestinations } from '@Redux/Slices/Routes/actions/destination.action';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
+import { DestinationTask } from './DestinationTask';
 
 type TableRowProps = {
   destination: IDestination;
@@ -123,7 +124,10 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
                     handleReorder(listPosition, 'up');
                   }}
                 >
-                  <ArrowDropUp data-testid={`${testid}-Reorder__MoveUp_Icon`} />
+                  <ArrowDropUp
+                    data-testid={`${testid}-Reorder__MoveUp_Icon`}
+                    sx={{ color: 'text.secondary' }}
+                  />
                 </IconButton>
                 <IconButton
                   data-testid={`${testid}-Reorder__MoveDown_Button`}
@@ -134,7 +138,10 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
                     handleReorder(listPosition, 'down');
                   }}
                 >
-                  <ArrowDropDown data-testid={`${testid}-Reorder__MoveDown_Icon`} />
+                  <ArrowDropDown
+                    data-testid={`${testid}-Reorder__MoveDown_Icon`}
+                    sx={{ color: 'text.secondary' }}
+                  />
                 </IconButton>
               </div>
             )}
@@ -173,7 +180,17 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
           <Typography data-testid={`${testid}__Distance`}>{distance}</Typography>
         </div>
       </AccordionSummary>
-      <AccordionDetails></AccordionDetails>
+      <AccordionDetails>
+        {destination.objectives.map((obj) => {
+          return (
+            <DestinationTask
+              key={obj.id}
+              data-testid={`${testid}-ObjectiveList__Objective_${obj.id}`}
+              objective={obj}
+            />
+          );
+        })}
+      </AccordionDetails>
     </Accordion>
   );
 };
