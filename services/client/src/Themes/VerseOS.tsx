@@ -60,10 +60,13 @@ export const verseOSTheme = createTheme({
     text: {
       primary: 'rgb(211, 250, 254)',
       secondary: 'rgb(33, 150, 243)',
-      disabled: 'rgb(70,70,70)',
+      disabled: 'rgb(100,100,100)',
     },
     info: {
       main: 'rgb(255, 141, 15)',
+      dark: 'rgb(181,180,5)',
+      light: 'rgb(255,181,100)',
+      contrastText: 'rgb(35,35,35)',
     },
     success: {
       main: 'rgb(8, 201, 11)',
