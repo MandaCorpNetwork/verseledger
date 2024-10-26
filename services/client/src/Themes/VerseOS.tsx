@@ -60,7 +60,7 @@ export const verseOSTheme = createTheme({
     text: {
       primary: 'rgb(211, 250, 254)',
       secondary: 'rgb(33, 150, 243)',
-      disabled: 'rgb(0, 73, 130)',
+      disabled: 'rgb(70,70,70)',
     },
     info: {
       main: 'rgb(255, 141, 15)',
