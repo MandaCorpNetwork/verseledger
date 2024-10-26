@@ -1,3 +1,4 @@
+import { CopyString } from '@Common/Components/Buttons/CopyString';
 import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {
@@ -140,7 +141,20 @@ export const VerifyUserPopup: React.FC = () => {
           <Typography variant="subtitle2" color="text.disabled">
             You can delete it after you are verified.
           </Typography>
-          <TextField value={verificationInfo.id} />
+          <TextField
+            value={verificationInfo.id}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <CopyString
+                    string={verificationInfo.id}
+                    variant="custom"
+                    successText="Verification Code Copied to Clipboard"
+                  />
+                ),
+              },
+            }}
+          />
           <Typography variant="subtitle2">
             This code will only be valid for 5 minutes.
           </Typography>
