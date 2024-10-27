@@ -9,7 +9,10 @@ import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
 import { useEffect, useMemo, useState } from 'react';
 import { CubeTextureLoader } from 'three';
 
-import { binaryLocationTree, MappedLocation } from '../Routes/RouteUtilities';
+// import {
+//   binaryLocationTree,
+//   MappedLocation,
+// } from '../Routes/DestinationQue/TableContent/RouteUtilities';
 
 const SkyBox: React.FC = () => {
   const { scene } = useThree();
@@ -26,42 +29,42 @@ type ExploreMapProps = {
 };
 
 export const ExploreMap: React.FC<ExploreMapProps> = (props) => {
-  const ifNoRoute = useMemo(() => [], []);
-  const route = props.route ?? ifNoRoute;
-  const locations = useAppSelector(selectLocationsArray);
-  const [locationMap, setLocationMap] = useState(new Map<string, MappedLocation>());
-  const routePoints = useMemo(() => {
-    if (locationMap.size == 0) return [];
-    const r: { point: [[number, number, number], [number, number, number]] }[] = [];
-    let lastPoint = null;
-    for (const point of route) {
-      if (!lastPoint) {
-        lastPoint = point;
-        continue;
-      }
-      const lastPointLocation = locationMap.get(lastPoint.location.id)!;
-      const pointLocation = locationMap.get(point.location.id)!;
-      r.push({
-        point: [
-          [
-            lastPointLocation.position.x / 150000,
-            lastPointLocation.position.z / 150000,
-            lastPointLocation.position.y / 150000,
-          ],
-          [
-            pointLocation.position.x / 150000,
-            pointLocation.position.z / 150000,
-            pointLocation.position.y / 150000,
-          ],
-        ],
-      });
-      lastPoint = point;
-    }
-    return r;
-  }, [locationMap, route]);
-  useEffect(() => {
-    setLocationMap(binaryLocationTree(locations));
-  }, [locations]);
+  // const ifNoRoute = useMemo(() => [], []);
+  // const route = props.route ?? ifNoRoute;
+  // const locations = useAppSelector(selectLocationsArray);
+  // const [locationMap, setLocationMap] = useState(new Map<string, MappedLocation>());
+  // const routePoints = useMemo(() => {
+  //   if (locationMap.size == 0) return [];
+  //   const r: { point: [[number, number, number], [number, number, number]] }[] = [];
+  //   let lastPoint = null;
+  //   for (const point of route) {
+  //     if (!lastPoint) {
+  //       lastPoint = point;
+  //       continue;
+  //     }
+  //     const lastPointLocation = locationMap.get(lastPoint.location.id)!;
+  //     const pointLocation = locationMap.get(point.location.id)!;
+  //     r.push({
+  //       point: [
+  //         [
+  //           lastPointLocation.position.x / 150000,
+  //           lastPointLocation.position.z / 150000,
+  //           lastPointLocation.position.y / 150000,
+  //         ],
+  //         [
+  //           pointLocation.position.x / 150000,
+  //           pointLocation.position.z / 150000,
+  //           pointLocation.position.y / 150000,
+  //         ],
+  //       ],
+  //     });
+  //     lastPoint = point;
+  //   }
+  //   return r;
+  // }, [locationMap, route]);
+  // useEffect(() => {
+  //   setLocationMap(binaryLocationTree(locations));
+  // }, [locations]);
   return (
     <GlassDisplay
       data-testid="ExploreApp-Explorer__Map_Container"
@@ -72,7 +75,7 @@ export const ExploreMap: React.FC<ExploreMapProps> = (props) => {
         p: '1em',
       }}
     >
-      <Box
+      {/* <Box
         data-testid="ExploreApp-Explorer-Map__Wrapper"
         sx={{
           display: 'flex',
@@ -123,7 +126,7 @@ export const ExploreMap: React.FC<ExploreMapProps> = (props) => {
             return <Line key={index} points={l.point} color={'#FF0000'} />;
           })}
         </Canvas>
-      </Box>
+      </Box> */}
     </GlassDisplay>
   );
 };

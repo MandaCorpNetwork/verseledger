@@ -9,15 +9,13 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
+import { useAppDispatch } from '@Redux/hooks';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.action';
-import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
 import React from 'react';
 import { IDestination, IMission } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { binaryLocationTree } from '../RouteUtilities';
 import { CustomDestinationTable } from './CustomTable';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 type DestinationQueProps = {
   destinations: IDestination[];
@@ -44,13 +42,13 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
     dispatch(fetchLocations());
   }, [dispatch]);
 
-  const locations = useAppSelector(selectLocationsArray);
+  // const locations = useAppSelector(selectLocationsArray);
 
-  const userLocation = useAppSelector(selectUserLocation);
+  // const userLocation = useAppSelector(selectUserLocation);
 
-  const locationTree = React.useMemo(() => {
-    return binaryLocationTree(locations);
-  }, [locations]);
+  // const locationTree = React.useMemo(() => {
+  //   return binaryLocationTree(locations);
+  // }, [locations]);
   return (
     <GlassBox
       data-testid="RouteTool__DestinationList__Wrapper"

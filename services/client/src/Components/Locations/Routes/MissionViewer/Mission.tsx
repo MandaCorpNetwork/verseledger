@@ -6,7 +6,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { abandonMission } from '@Redux/Slices/Routes/actions/mission.action';
 import React from 'react';
-import { IMission } from 'vl-shared/src/schemas/RoutesSchema';
+import { IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
 
 type MissionProps = {
   mission: IMission;
@@ -20,6 +20,43 @@ export const Mission: React.FC<MissionProps> = ({ mission }) => {
     },
     [dispatch],
   );
+
+  const pickupStyle = React.useCallback((objective: IObjective) => {
+    switch (objective.status) {
+      case 'INTERUPTED':
+        return { color: 'error.light', borderColor: 'error.main' };
+      case 'COMPLETED':
+        return { color: 'success.light', borderColor: 'success.main' };
+      case 'ENROUTE':
+        return { color: 'text.secondary', borderColor: 'text.secondary' };
+      case 'PENDING':
+      default:
+        return { color: 'secondary.main', borderColor: 'secondary.main' };
+    }
+  }, []);
+
+  const dropoffStyle = React.useCallback((objective: IObjective) => {
+    switch (objective.status) {
+      case 'INTERUPTED':
+        return { color: 'error.light', borderColor: 'error.main' };
+      case 'COMPLETED':
+        return { color: 'success.light', borderColor: 'success.main' };
+      case 'PENDING':
+      default:
+        return { color: 'secondary.main', borderColor: 'secondary.main' };
+    }
+  }, []);
+
+  //   { color: 'secondary.main' },
+  //   obj.dropoff.status === 'COMPLETED' && { color: 'success.light' },
+  //   obj.dropoff.status === 'INTERUPTED' && { color: 'error.light' },
+  // ];
+
+  // obj.pickup.status === 'ENROUTE' || obj.pickup.status === 'COMPLETED'
+  //   ? 'success'
+  //   : obj.pickup.status === 'INTERUPTED'
+  //     ? 'error'
+  //     : 'secondary';
   return (
     <DigiBox
       data-testid="RouteTool-MissionViewer__Mission_Container"
@@ -68,25 +105,13 @@ export const Mission: React.FC<MissionProps> = ({ mission }) => {
             <DigiField label="Pickup Location">
               <LocationChip
                 locationId={obj.pickup.location.id}
-                color={
-                  obj.status === 'ENROUTE' || obj.status === 'COMPLETED'
-                    ? 'success'
-                    : obj.status === 'INTERUPTED'
-                      ? 'error'
-                      : 'secondary'
-                }
+                sx={pickupStyle(obj.pickup)}
               />
             </DigiField>
             <DigiField label="Drop-off Location">
               <LocationChip
                 locationId={obj.dropoff.location.id}
-                color={
-                  obj.status === 'COMPLETED'
-                    ? 'success'
-                    : obj.status === 'INTERUPTED'
-                      ? 'error'
-                      : 'secondary'
-                }
+                sx={dropoffStyle(obj.dropoff)}
               />
             </DigiField>
           </DigiDisplay>

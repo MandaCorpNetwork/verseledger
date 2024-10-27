@@ -1,6 +1,11 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import { ArrowDropDown, ArrowDropUp, ExpandMoreTwoTone } from '@mui/icons-material';
+import {
+  ArrowDropDown,
+  ArrowDropUp,
+  ExpandMoreTwoTone,
+  RunningWithErrorsTwoTone,
+} from '@mui/icons-material';
 import {
   Accordion,
   AccordionDetails,
@@ -8,12 +13,25 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
-import { useAppDispatch } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { updateDestinations } from '@Redux/Slices/Routes/actions/destination.action';
+import { updateMissions } from '@Redux/Slices/Routes/actions/mission.action';
+import { updateObjectives } from '@Redux/Slices/Routes/actions/objective.action';
+import { selectMissions } from '@Redux/Slices/Routes/routes.selectors';
 import React from 'react';
-import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
+import {
+  IDestination,
+  IObjective,
+  IObjectiveStatus,
+} from 'vl-shared/src/schemas/RoutesSchema';
 
 import { DestinationTask } from './DestinationTask';
+import {
+  extractObjectives,
+  getParentMission,
+  getSiblingDestination,
+  getSiblingObjective,
+} from './RouteUtilities';
 
 type TableRowProps = {
   destination: IDestination;
@@ -32,12 +50,69 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const sound = useSoundEffect();
+  const missions = useAppSelector(selectMissions);
 
   const getIndex = React.useCallback(
     (destinations: IDestination[]) => {
       return destinations.findIndex((dest) => dest.id === destination.id);
     },
     [destination],
+  );
+
+  const objectiveValidationHelper = React.useCallback(
+    (objectives: IObjective[], stopNumber: number, destinations: IDestination[]) => {
+      return objectives.map((obj) => {
+        const mission = getParentMission(missions, obj);
+        if (!mission) return obj;
+
+        const siblingObj = getSiblingObjective(mission, obj);
+        if (!siblingObj) return obj;
+
+        const siblingDest = getSiblingDestination(siblingObj, destinations);
+        if (!siblingDest) return obj;
+
+        if (obj.type === 'pickup' && stopNumber > siblingDest.stopNumber) {
+          console.log('Pickup Interupt Found');
+          return { ...obj, status: 'INTERUPTED' as IObjectiveStatus };
+        }
+
+        if (obj.type === 'pickup' && stopNumber < siblingDest.stopNumber) {
+          console.log('Pickup Interupt Found');
+          return { ...obj, status: 'PENDING' as IObjectiveStatus };
+        }
+
+        if (obj.type === 'dropoff' && stopNumber < siblingDest.stopNumber) {
+          console.log('Dropoff Interupt Found.');
+          return { ...obj, status: 'INTERUPTED' as IObjectiveStatus };
+        }
+
+        if (obj.type === 'dropoff' && stopNumber > siblingDest.stopNumber) {
+          console.log('Dropoff Interupt Found.');
+          return { ...obj, status: 'PENDING' as IObjectiveStatus };
+        }
+
+        return obj;
+      });
+    },
+    [missions],
+  );
+
+  const validateDestObjectives = React.useCallback(
+    (destinations: IDestination[]) => {
+      const updatedDestinations: IDestination[] = [];
+
+      destinations.forEach((dest) => {
+        const tempDest = { ...dest };
+        tempDest.objectives = objectiveValidationHelper(
+          tempDest.objectives,
+          tempDest.stopNumber,
+          destinations,
+        );
+        updatedDestinations.push(tempDest);
+      });
+      return updatedDestinations;
+    },
+    [objectiveValidationHelper],
   );
 
   const getReorderedDestinations = React.useCallback(
@@ -92,10 +167,59 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
         direction,
         destinations,
       );
-      dispatch(updateDestinations(updatedDestinations));
+
+      const validatedDestinations = validateDestObjectives(updatedDestinations);
+
+      const updatedObjectives = extractObjectives(validatedDestinations);
+
+      const updatedMissions = missions.map((mission) => {
+        return {
+          ...mission,
+          objectives: mission.objectives.map((objective) => {
+            const updatedPickup = updatedObjectives.find(
+              (obj) => obj.id === objective.pickup.id,
+            );
+            const updatedDropoff = updatedObjectives.find(
+              (obj) => obj.id === objective.dropoff.id,
+            );
+            return {
+              ...objective,
+              pickup: updatedPickup
+                ? {
+                    ...updatedPickup,
+                  }
+                : objective.pickup,
+              dropoff: updatedDropoff
+                ? {
+                    ...updatedDropoff,
+                  }
+                : objective.dropoff,
+            };
+          }),
+        };
+      });
+      dispatch(updateDestinations(validatedDestinations));
+      dispatch(updateMissions(updatedMissions));
+      dispatch(updateObjectives(updatedObjectives));
     },
-    [sound, destinations, dispatch, getReorderedDestinations, getIndex],
+    [
+      sound,
+      destinations,
+      dispatch,
+      getReorderedDestinations,
+      getIndex,
+      validateDestObjectives,
+      missions,
+    ],
   );
+
+  const pickupInterrupted = destination.objectives.some(
+    (obj) => obj.type === 'pickup' && obj.status === 'INTERUPTED',
+  );
+  const dropoffInterrupted = destination.objectives.some(
+    (obj) => obj.type === 'dropoff' && obj.status === 'INTERUPTED',
+  );
+  console.log(pickupInterrupted, dropoffInterrupted);
 
   return (
     <Accordion data-testid={`${testid}__Container`}>
@@ -105,8 +229,20 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
         sx={{
           display: 'flex',
           width: '100%',
+          position: 'relative',
         }}
       >
+        {(pickupInterrupted || dropoffInterrupted) && (
+          <RunningWithErrorsTwoTone
+            sx={{
+              color: 'error.main',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              pointerEvents: 'none',
+            }}
+          />
+        )}
         <div
           data-testid={`${testid}__Summary_Wrapper`}
           style={{
@@ -148,7 +284,10 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
                 >
                   <ArrowDropUp
                     data-testid={`${testid}-Reorder__MoveUp_Icon`}
-                    sx={{ color: 'text.secondary' }}
+                    sx={[
+                      { color: 'text.secondary' },
+                      dropoffInterrupted && { color: 'error.light' },
+                    ]}
                   />
                 </IconButton>
                 <IconButton
@@ -162,7 +301,10 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
                 >
                   <ArrowDropDown
                     data-testid={`${testid}-Reorder__MoveDown_Icon`}
-                    sx={{ color: 'text.secondary' }}
+                    sx={[
+                      { color: 'text.secondary' },
+                      pickupInterrupted && { color: 'error.light' },
+                    ]}
                   />
                 </IconButton>
               </div>
