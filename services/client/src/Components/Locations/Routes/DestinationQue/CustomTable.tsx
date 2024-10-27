@@ -81,7 +81,6 @@ export const CustomDestinationTable: React.FC<CustomTableProps> = ({ destination
                   draggable
                   destination={place}
                   list={sortedDestinations}
-                  index={index}
                   distance={
                     index === 0
                       ? '—'

@@ -20,62 +20,83 @@ type TableRowProps = {
   list: IDestination[];
   distance: string;
   draggable?: boolean;
-  index: number;
   ['data-testid']?: string;
 };
-//VER-6
 
 export const DestinationTableRow: React.FC<TableRowProps> = ({
   destination,
   distance,
   list: destinations,
-  index: listPosition,
   draggable,
   'data-testid': testid = 'TableRow',
 }) => {
   const dispatch = useAppDispatch();
   const sound = useSoundEffect();
 
+  const getIndex = React.useCallback(
+    (destinations: IDestination[]) => {
+      return destinations.findIndex((dest) => dest.id === destination.id);
+    },
+    [destination],
+  );
+
+  const getReorderedDestinations = React.useCallback(
+    (
+      targetIdx: number,
+      targetStop: number,
+      currentIdx: number,
+      direction: 'up' | 'down',
+      destinations: IDestination[],
+    ) => {
+      if (direction === 'up') {
+        return destinations.map((dest, index) => {
+          if (index < targetIdx) return dest;
+          else if (index === currentIdx) return { ...dest, stopNumber: targetStop };
+          else if (index === targetIdx) return { ...dest, stopNumber: targetStop + 1 };
+          else return { ...dest, stopNumber: Math.abs(targetIdx - index) + targetStop };
+        });
+      } else {
+        return destinations.map((dest, index) => {
+          if (index < currentIdx) return dest;
+          else if (index === targetIdx) return { ...dest, stopNumber: targetStop - 1 };
+          else if (index === currentIdx) return { ...dest, stopNumber: targetStop };
+          else return { ...dest, stopNumber: Math.abs(targetIdx - index) + targetStop };
+        });
+      }
+    },
+    [],
+  );
+
   const handleReorder = React.useCallback(
-    (index: number, direction: 'up' | 'down') => {
-      // Prevent Moving Top Item Up
+    (direction: 'up' | 'down') => {
+      const currentIdx = getIndex(destinations);
+      // Prevent Moving Top Item Up or Bottom Item Down
       if (
-        (index === 0 && direction === 'up') ||
-        (index === destinations.length - 1 && direction === 'down')
+        (currentIdx === 0 && direction === 'up') ||
+        (currentIdx === destinations.length - 1 && direction === 'down')
       ) {
         sound.playSound('denied');
         return;
       }
 
-      // Define the new Index Value
-      const newIndex = direction === 'up' ? index - 1 : index + 1;
+      // Define Variables
+      const targetIdx = direction == 'up' ? currentIdx - 1 : currentIdx + 1;
+      const targetIdxStopNum = destinations[targetIdx].stopNumber;
+      const targetStop = targetIdxStopNum > 0 ? targetIdxStopNum : 1;
 
       // Get updatedDestinations Array
-      const updatedDestinations: IDestination[] = destinations.reduce<IDestination[]>(
-        (acc, dest, idx) => {
-          if (idx === index) {
-            // If the Index eq set newIndex & Update Stop Number
-            acc[idx] = { ...dest, stopNumber: newIndex + 1 };
-          } else if (idx === newIndex) {
-            // If the Index eq newIndex moves the Stop
-            acc[idx] = { ...dest, stopNumber: index + 1 };
-          } else {
-            if (dest.stopNumber > index + 1 && dest.stopNumber <= newIndex + 1) {
-              acc[idx] = { ...dest, stopNumber: dest.stopNumber - 1 };
-            } else if (dest.stopNumber < index + 1 && dest.stopNumber >= newIndex + 1) {
-              acc[idx] = { ...dest, stopNumber: dest.stopNumber + 1 };
-            } else {
-              acc[idx] = { ...dest };
-            }
-          }
-          return acc;
-        },
-        [],
+      const updatedDestinations = getReorderedDestinations(
+        targetIdx,
+        targetStop,
+        currentIdx,
+        direction,
+        destinations,
       );
       dispatch(updateDestinations(updatedDestinations));
     },
-    [sound, destinations, dispatch],
+    [sound, destinations, dispatch, getReorderedDestinations, getIndex],
   );
+
   return (
     <Accordion data-testid={`${testid}__Container`}>
       <AccordionSummary
@@ -122,7 +143,7 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
                   sx={{ p: 0 }}
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleReorder(listPosition, 'up');
+                    handleReorder('up');
                   }}
                 >
                   <ArrowDropUp
@@ -136,7 +157,7 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
                   sx={{ p: 0 }}
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleReorder(listPosition, 'down');
+                    handleReorder('down');
                   }}
                 >
                   <ArrowDropDown
