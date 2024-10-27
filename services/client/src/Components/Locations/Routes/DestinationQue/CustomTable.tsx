@@ -45,7 +45,12 @@ export const CustomDestinationTable: React.FC<CustomTableProps> = ({ destination
   return (
     <GlassDisplay
       data-testid="RouteTool-RouteViewer-DestinationQue__CustomTable_Container"
-      sx={{ flexGrow: 1, justifyContent: 'flex-start', overflow: 'hidden', p: '1em' }}
+      sx={{
+        flexGrow: 1,
+        justifyContent: 'flex-start',
+        overflow: 'auto',
+        p: '1em',
+      }}
     >
       <Grid2 container direction="column" sx={{ gap: 1, flexGrow: 1 }}>
         <Grid2
@@ -70,6 +75,7 @@ export const CustomDestinationTable: React.FC<CustomTableProps> = ({ destination
             flexGrow: 1,
             alignContent: 'flex-start',
             gap: '0.5em',
+            overflow: 'auto',
           }}
         >
           {sortedDestinations.map((place, index) => {

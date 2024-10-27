@@ -112,7 +112,14 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
         </Typography>
       )}
       {destinations.length > 0 && (
-        <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexGrow: 1,
+            overflow: 'hidden',
+          }}
+        >
           {routeOrder === 'custom' && (
             <CustomDestinationTable destinations={destinations} />
           )}

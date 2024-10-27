@@ -1,4 +1,3 @@
-import { WorkZoneBar } from '@Common/Components/App/InDevelopment';
 import { Box } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import {
@@ -24,14 +23,11 @@ export const RouteApp: React.FC<unknown> = () => {
         flexDirection: { xs: 'column', md: 'row' },
         justifyContent: 'space-around',
         width: '100%',
+        height: '100%',
         gap: { xs: '1em', lg: '2em' },
-        flexGrow: 1,
         p: '.5em',
-        position: 'relative',
       }}
     >
-      <WorkZoneBar side="top" severity="construction" speed="slow" />
-      <WorkZoneBar side="bottom" severity="construction" speed="slow" />
       {/* <RouteViewer destinations={destinations} /> */}
       <DestinationQue destinations={destinations} missions={missions} />
       <MissionViewer missions={missions} />
