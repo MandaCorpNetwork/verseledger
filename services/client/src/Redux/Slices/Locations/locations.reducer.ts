@@ -5,7 +5,6 @@ import { fetchLocations } from './actions/fetchLocations.action';
 import { fetchSearchedLocations } from './actions/fetchSearchedLocations.action';
 const locationsReducer = createSlice({
   name: 'locations',
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   initialState: {} as Record<ILocation['id'], ILocation>,
   reducers: {
     noop() {
@@ -24,20 +23,20 @@ const locationsReducer = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchLocations.fulfilled, (_state, action) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        for (const location of action.payload as ILocation[]) {
+        const locations = action.payload;
+        for (const location of locations) {
           _state[location.id] = location;
         }
       })
       .addCase(fetchSearchedLocations.fulfilled, (_state, action) => {
         const locations = action.payload?.data;
         if (locations) {
-          locations.forEach((location) => {
+          for (const location of locations) {
             _state[location.id] = {
               ..._state[location.id],
               ...location,
             };
-          });
+          }
         }
       });
   },
