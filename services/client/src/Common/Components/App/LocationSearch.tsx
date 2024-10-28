@@ -1,7 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import {
   Autocomplete,
-  Box,
   createFilterOptions,
   MenuItem,
   TextField,
@@ -13,6 +12,8 @@ import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.a
 import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+
+import { VirtualListboxComponent } from '../Lists/VirtualList';
 
 //Filter Options property from MUI AutoComplete
 //Typed Filter Sorting
@@ -74,77 +75,76 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
   }, [currentUserLocation, locations]);
 
   return (
-    <>
-      <Autocomplete
-        data-testid="LocationSearch"
-        onChange={(_, newValue) => {
-          setInputValue(newValue);
-          onLocationSelect(newValue);
-        }}
-        value={inputValue}
-        options={locations
-          .sort((a, b) => -b.short_name.localeCompare(a.short_name))
-          .sort(
-            (a, b) =>
-              -(b.parent ?? '_Stellar Body').localeCompare(a.parent ?? '_Stellar Body'),
+    <Autocomplete
+      data-testid="LocationSearch"
+      onChange={(_, newValue) => {
+        setInputValue(newValue);
+        onLocationSelect(newValue);
+      }}
+      value={inputValue}
+      options={locations
+        .sort((a, b) => -b.short_name.localeCompare(a.short_name))
+        .sort(
+          (a, b) =>
+            -(b.parent ?? '_Stellar Body').localeCompare(a.parent ?? '_Stellar Body'),
+        )}
+      // groupBy={(l) => l.parent ?? '_Stellar Body'}
+      noOptionsText={'Unknown Location'}
+      filterOptions={filterOptions}
+      autoHighlight
+      getOptionLabel={(option) => option.short_name}
+      isOptionEqualToValue={(option, value) => option.id === value.id}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Search Locations"
+          variant="outlined"
+          size="small"
+          color="secondary"
+          helperText={helperText}
+          FormHelperTextProps={{
+            margin: 'dense',
+            disabled: true,
+          }}
+        />
+      )}
+      renderOption={(props, option) => (
+        <MenuItem
+          {...props}
+          sx={{ display: 'flex', height: 35 }}
+          onMouseEnter={() => sound.playSound('hover')}
+        >
+          <Typography>{option.short_name}</Typography>
+          {option.category != 'Uncategorized' && (
+            <Typography
+              sx={{ ml: '.5em', color: 'text.secondary' }}
+            >{`- ${option.category}`}</Typography>
           )}
-        groupBy={(l) => l.parent ?? '_Stellar Body'}
-        noOptionsText={'Unknown Location'}
-        filterOptions={filterOptions}
-        autoHighlight
-        getOptionLabel={(option) => option.short_name}
-        isOptionEqualToValue={(option, value) => option.id === value.id}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Search Locations"
-            variant="outlined"
-            size="small"
-            color="secondary"
-            helperText={helperText}
-            FormHelperTextProps={{
-              margin: 'dense',
-              disabled: true,
-            }}
-          />
-        )}
-        renderOption={(props, option) => (
-          <MenuItem
-            {...props}
-            sx={{ display: 'flex' }}
-            onMouseEnter={() => sound.playSound('hover')}
-          >
-            <Typography>{option.short_name}</Typography>
-            {option.category != 'Uncategorized' && (
-              <Typography
-                sx={{ ml: '.5em', color: 'text.secondary' }}
-              >{`- ${option.category}`}</Typography>
-            )}
-          </MenuItem>
-        )}
-        renderGroup={(params) => {
-          const group = params.group[0] == '_' ? params.group.slice(1) : params.group;
-          return (
-            <li key={params.key}>
-              <Box>
-                <Typography>{group}</Typography>
-              </Box>
-              {params.children}
-            </li>
-          );
-        }}
-        sx={{
-          width: width,
-          mb: helperText ? '.8em' : '',
-          m: margin ? margin : '',
-          ...sx,
-        }}
-        ListboxProps={{
-          sx: {
-            maxHeight: menuSizeValues[menuSize],
-          },
-        }}
-      />
-    </>
+        </MenuItem>
+      )}
+      // renderGroup={(params) => {
+      //   const group = params.group[0] == '_' ? params.group.slice(1) : params.group;
+      //   return (
+      //     <li key={params.key}>
+      //       <Box height={35}>
+      //         <Typography>{group}</Typography>
+      //       </Box>
+      //       {params.children}
+      //     </li>
+      //   );
+      // }}
+      sx={{
+        width: width,
+        mb: helperText ? '.8em' : '',
+        m: margin ?? '',
+        ...sx,
+      }}
+      ListboxComponent={VirtualListboxComponent}
+      ListboxProps={{
+        sx: {
+          maxHeight: menuSizeValues[menuSize],
+        },
+      }}
+    />
   );
 };
