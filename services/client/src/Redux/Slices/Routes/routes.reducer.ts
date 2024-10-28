@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IDestination, IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { updateDestinations } from './actions/destination.action';
+import { deleteDestination, updateDestinations } from './actions/destination.action';
 import { createMission, updateMissions } from './actions/mission.action';
 import { addObjectives, updateObjectives } from './actions/objective.action';
 
@@ -65,6 +65,10 @@ const routesReducer = createSlice({
         destinationArray.forEach((destination: IDestination) => {
           state.destinations[destination.id] = destination;
         });
+      })
+      .addCase(deleteDestination, (state, action) => {
+        const destinationId = action.payload;
+        delete state.destinations[destinationId];
       });
   },
 });

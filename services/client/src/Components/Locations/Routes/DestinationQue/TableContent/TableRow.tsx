@@ -344,7 +344,7 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
           <Typography data-testid={`${testid}__Distance`}>{distance}</Typography>
         </div>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails sx={{ gap: '0.2em', display: 'flex', flexDirection: 'column' }}>
         {destination.objectives.map((obj) => {
           return (
             <DestinationTask

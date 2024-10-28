@@ -3,11 +3,16 @@ import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { MoveDownTwoTone, MoveUpTwoTone } from '@mui/icons-material';
 import { Button, IconButton, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { updateDestinations } from '@Redux/Slices/Routes/actions/destination.action';
+import {
+  deleteDestination,
+  updateDestinations,
+} from '@Redux/Slices/Routes/actions/destination.action';
 import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
 import { createLocalID } from '@Utils/createId';
 import React from 'react';
 import { IDestination, IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
+
+import { getSiblingDestination, getSiblingObjective } from './RouteUtilities';
 
 type MoveObjectiveProps = {
   objective: IObjective;
@@ -21,13 +26,17 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
   'data-testid': testid = 'MoveObjectivePopper',
 }) => {
   const destinations = useAppSelector(selectDestinations);
+
   const dispatch = useAppDispatch();
   const sound = useSoundEffect();
-  const destination = React.useMemo(
-    () =>
-      destinations.find((dest) => dest.objectives.some((obj) => obj.id === objective.id)),
-    [destinations, objective],
-  );
+
+  const getDestination = React.useCallback(() => {
+    return destinations.find((dest) =>
+      dest.objectives.some((obj) => obj.id === objective.id),
+    ) as IDestination;
+  }, [destinations, objective]);
+
+  const destination = getDestination();
 
   const getAvailableDestinations = React.useCallback(() => {
     if (!destination) return null;
@@ -39,44 +48,30 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
 
   const availableDestinations = getAvailableDestinations();
 
-  const getSiblingObjective = React.useCallback(() => {
+  const siblingObj = React.useMemo(() => {
     if (!mission) return null;
-    const missionObjective = mission.objectives.find(
-      (obj) => obj.pickup.id === objective.id || obj.dropoff.id === objective.id,
-    );
-    if (!missionObjective) return null;
-    if (objective.type === 'pickup') {
-      return missionObjective.dropoff;
-    }
-    if (objective.type === 'dropoff') {
-      return missionObjective.pickup;
-    }
-  }, [mission, objective.id, objective.type]);
+    return getSiblingObjective(mission, objective);
+  }, [mission, objective]);
 
-  const getSiblingDestination = React.useCallback(() => {
-    const siblingObj = getSiblingObjective();
+  const siblingDest = React.useMemo(() => {
     if (!siblingObj) return null;
-    return destinations.find((dest) =>
-      dest.objectives.some((obj) => obj.id === siblingObj.id),
-    );
-  }, [getSiblingObjective, destinations]);
+    return getSiblingDestination(siblingObj, destinations);
+  }, [siblingObj, destinations]);
 
   const getConflictDestinations = React.useCallback(() => {
     if (objective.type === 'pickup' || objective.type === 'dropoff') {
-      const siblingDest = getSiblingDestination();
       if (!siblingDest) return null;
-
       if (objective.type === 'pickup') {
         return destinations.filter((dest) => dest.stopNumber >= siblingDest.stopNumber);
       } else {
         return destinations.filter((dest) => dest.stopNumber <= siblingDest.stopNumber);
       }
     }
-  }, [objective.type, destinations, getSiblingDestination]);
+  }, [destinations, siblingDest, objective]);
 
   const conflictDestinations = getConflictDestinations();
 
-  const newAvailable = destination!.objectives.length !== 1;
+  const newAvailable = destination.objectives.length !== 1;
 
   const createNewDest = React.useCallback(() => {
     if (!newAvailable) return sound.playSound('error');
@@ -90,24 +85,32 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
       stopNumber: 0,
       visited: false,
       reason,
-      objectives: [objective],
+      objectives: [{ ...objective, status: 'PENDING' }],
     };
     const updatedDests: IDestination[] = [];
+    updatedDests.push({
+      ...destination,
+      objectives: destination.objectives.filter((obj) => obj.id !== objective.id),
+    });
     if (objective.type === 'dropoff') {
-      const siblingDest = getSiblingDestination();
       if (!siblingDest) return sound.playSound('error');
 
       newDest.stopNumber = siblingDest.stopNumber + 1;
       destinations.forEach((dest) => {
         if (dest.stopNumber >= newDest.stopNumber) {
-          dest.stopNumber = dest.stopNumber + 1;
-          updatedDests.push(dest);
+          updatedDests.push({
+            ...dest,
+            stopNumber: dest.stopNumber + 1,
+          });
         }
       });
     }
     dispatch(updateDestinations([newDest, ...updatedDests]));
     sound.playSound('loading');
-  }, [sound, newAvailable, objective, getSiblingDestination, destinations, dispatch]);
+    if (destination.objectives.length === 1) {
+      dispatch(deleteDestination(destination.id));
+    }
+  }, [destinations, dispatch, newAvailable, objective, siblingDest, sound, destination]);
 
   const moveObjective = React.useCallback(
     (newDest: IDestination) => {
