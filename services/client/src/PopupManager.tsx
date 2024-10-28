@@ -36,7 +36,6 @@ import {
 } from '@Popups/Info/Locations';
 import { PayStructuresPopup, POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { LoginPopup, POPUP_LOGIN } from '@Popups/Login/LoginPopup';
-import { AddMissionPopup, POPUP_CREATE_MISSION } from '@Popups/Mission/AddMission';
 import {
   PlayerCardPopup,
   PlayerCardPopupProps,
@@ -47,6 +46,7 @@ import {
   SubmitRatingPopup,
   SubmitRatingPopupProps,
 } from '@Popups/Ratings/SubmitRating';
+import { AddMissionPopup, POPUP_CREATE_MISSION } from '@Popups/Routes/AddMission';
 import { POPUP_SUPPORT_DEVELOPMENT, SupportDevPopup } from '@Popups/Support/SupportDev';
 import { CreateTokenPopup, POPUP_CREATE_TOKEN } from '@Popups/Tokens/CreateToken';
 import {

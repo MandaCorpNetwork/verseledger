@@ -1,6 +1,7 @@
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { Functions } from '@mui/icons-material';
 import {
+  Button,
   FormControl,
   IconButton,
   InputLabel,
@@ -54,6 +55,7 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
           Destinations
         </Typography>
         <div>
+          <Button variant="contained">Add Stop</Button>
           <FormControl>
             <InputLabel color="secondary">Route Order</InputLabel>
             <Select

@@ -535,28 +535,3 @@ export function formatDistance(locA: MappedLocation, locB: MappedLocation): stri
     return `${(absDistance / 1_000_000_000).toFixed(2).toLocaleString()} Tm`;
   }
 }
-
-//  if (absDistance >= 1_000_000) {
-//    return `${(absDistance / 1_000_000).toFixed(2)} Gkm`;
-//  } else if (absDistance >= 1_000) {
-//    return `${(absDistance / 1_000).toFixed(2)} Mkm`;
-//  } else {
-//    return `${absDistance.toFixed(2)} km`;
-//  }
-
-// function checkpointValidation(
-//   current: ILocation,
-//   next: ILocation,
-//   nextMapped: MappedLocation,
-// ): IDestination | undefined {
-//   if (current.parent !== next.parent && next.parent != null) {
-//     const newDestination: IDestination = {
-//       id: createDestID(),
-//       reason: 'Checkpoint',
-//       stopNumber: 0,
-//       location: nextMapped.parent.location,
-//     };
-//     return newDestination;
-//   }
-//   return undefined;
-// }

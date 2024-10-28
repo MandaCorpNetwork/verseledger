@@ -12,6 +12,7 @@ import {
   personalApps,
   shipApps,
   splashApps,
+  VerseLedgerVersion,
 } from '@Common/Definitions/AppListings';
 import { ErrorOutline, HomeTwoTone, Person } from '@mui/icons-material';
 import {
@@ -138,29 +139,30 @@ export const AppDock: React.FC = () => {
   const currentApp = getCurrentApp();
 
   const appLabel = currentApp ? currentApp.versionLabel : 'VerseLedger';
-  const devVersion = currentApp ? currentApp.devVersion : '0.4.5';
-  const liveVersion = currentApp ? currentApp.liveVersion : 'N/A';
-  const isLive = siteMode === 'PRODUCTION';
+  const version = currentApp ? currentApp.version : VerseLedgerVersion;
 
   const getVersionLabel = React.useCallback(
     () => (
       <Portal>
         <Typography
           variant="body2"
-          sx={{
-            position: 'fixed',
-            bottom: 10,
-            left: 16,
-            display: 'inline-flex',
-            gap: '5px',
-            opacity: '0.7',
-          }}
+          sx={[
+            {
+              position: 'fixed',
+              bottom: 10,
+              left: 16,
+              display: 'inline-flex',
+              gap: '5px',
+              opacity: '0.7',
+            },
+            version === VerseLedgerVersion && { opacity: '1', fontWeight: 'bold' },
+          ]}
         >
-          {appLabel} {isLive ? liveVersion : devVersion}
+          {appLabel} {version}
         </Typography>
       </Portal>
     ),
-    [appLabel, isLive, liveVersion, devVersion],
+    [appLabel, version],
   );
 
   const versionLabel = getVersionLabel();

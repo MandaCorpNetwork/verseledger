@@ -23,8 +23,7 @@ export type AppListing = {
   icon: React.ReactNode;
   disabled?: boolean;
   versionLabel: string;
-  devVersion: string;
-  liveVersion: string;
+  version: string;
   /**
    * Severity Range:
    * 0. No Current Issues
@@ -49,6 +48,8 @@ export type AppGroup = {
   list: string[];
 };
 
+export const VerseLedgerVersion = '0.4.5';
+
 export const masterAppList: AppListing[] = [
   {
     id: 'dashboard',
@@ -56,8 +57,7 @@ export const masterAppList: AppListing[] = [
     path: '/apps/dashboard',
     icon: <HomeTwoTone />,
     versionLabel: 'Dashboard',
-    devVersion: '2.0',
-    liveVersion: 'N/A',
+    version: '2.0',
     severityCode: 5,
   },
   {
@@ -67,8 +67,7 @@ export const masterAppList: AppListing[] = [
     icon: <PersonTwoTone />,
     versionLabel: 'Profile',
     disabled: true,
-    devVersion: '0.2',
-    liveVersion: 'N/A',
+    version: '0.2',
     severityCode: 8,
   },
   {
@@ -77,8 +76,7 @@ export const masterAppList: AppListing[] = [
     path: '/settings',
     icon: <SettingsTwoTone />,
     versionLabel: 'Settings',
-    devVersion: '1.2',
-    liveVersion: 'N/A',
+    version: '1.2',
     severityCode: 5,
   },
   {
@@ -87,8 +85,7 @@ export const masterAppList: AppListing[] = [
     path: '/apps/explore',
     icon: <Exploration />,
     versionLabel: 'Explorer Tool',
-    devVersion: '0.2',
-    liveVersion: 'N/A',
+    version: '0.2',
     severityCode: 9,
   },
   {
@@ -97,8 +94,7 @@ export const masterAppList: AppListing[] = [
     path: '/apps/routes',
     icon: <RouteTwoTone />,
     versionLabel: 'Route Tool',
-    devVersion: '2.0',
-    liveVersion: 'N/A',
+    version: '2.0.1',
     severityCode: 8,
   },
   {
@@ -108,8 +104,7 @@ export const masterAppList: AppListing[] = [
     icon: <InventoryTwoTone />,
     disabled: true,
     versionLabel: 'Inventory',
-    devVersion: '0.x',
-    liveVersion: 'N/A',
+    version: '0.x',
     severityCode: 10,
   },
   {
@@ -118,8 +113,7 @@ export const masterAppList: AppListing[] = [
     path: '/apps/ship',
     icon: <Vehicles />,
     versionLabel: 'Ship Manager',
-    devVersion: '0.x',
-    liveVersion: 'N/A',
+    version: '0.x',
     severityCode: 10,
   },
   {
@@ -129,8 +123,7 @@ export const masterAppList: AppListing[] = [
     icon: <Fleet />,
     disabled: true,
     versionLabel: 'Fleet Manager',
-    devVersion: '0.x',
-    liveVersion: 'N/A',
+    version: '0.x',
     severityCode: 10,
   },
   {
@@ -140,8 +133,7 @@ export const masterAppList: AppListing[] = [
     icon: <ConstructionTwoTone />,
     disabled: true,
     versionLabel: 'Ship Builder',
-    devVersion: '0.x',
-    liveVersion: 'N/A',
+    version: '0.x',
     severityCode: 10,
   },
   {
@@ -150,8 +142,7 @@ export const masterAppList: AppListing[] = [
     path: '/apps/tuning',
     icon: <StackedBarChartTwoTone />,
     versionLabel: 'Tuning Tool',
-    devVersion: '0.2',
-    liveVersion: 'N/A',
+    version: '0.2',
     severityCode: 9,
   },
   {
@@ -160,8 +151,7 @@ export const masterAppList: AppListing[] = [
     path: '/apps/contracts',
     icon: <WorkTwoTone />,
     versionLabel: 'Contract Manager',
-    devVersion: '2.1',
-    liveVersion: 'N/A',
+    version: '2.1',
     severityCode: 1,
   },
   {
@@ -170,8 +160,7 @@ export const masterAppList: AppListing[] = [
     path: '/apps/ledger',
     icon: <MenuBookTwoTone />,
     versionLabel: 'Contract Ledger',
-    devVersion: '0.x',
-    liveVersion: 'N/A',
+    version: '2.5',
     severityCode: 2,
   },
   {
@@ -181,8 +170,7 @@ export const masterAppList: AppListing[] = [
     icon: <ShoppingBasketTwoTone />,
     disabled: true,
     versionLabel: 'Order Manager',
-    devVersion: '0.x',
-    liveVersion: 'N/A',
+    version: '0.x',
     severityCode: 10,
   },
   {
@@ -191,8 +179,7 @@ export const masterAppList: AppListing[] = [
     path: '/apps/verse-market',
     icon: <StoreTwoTone />,
     versionLabel: 'Verse Market',
-    devVersion: '0.x',
-    liveVersion: 'N/A',
+    version: '0.x',
     severityCode: 9,
   },
   {
@@ -202,8 +189,7 @@ export const masterAppList: AppListing[] = [
     icon: <BusinessTwoTone />,
     disabled: true,
     versionLabel: 'Org Dashboard',
-    devVersion: '0.x',
-    liveVersion: 'N/A',
+    version: '0.x',
     severityCode: 10,
   },
   {
@@ -212,8 +198,7 @@ export const masterAppList: AppListing[] = [
     path: '/verse-news',
     icon: <NewspaperTwoTone />,
     versionLabel: 'Verse News',
-    devVersion: '0.x',
-    liveVersion: 'N/A',
+    version: '0.x',
     severityCode: 10,
   },
 ];

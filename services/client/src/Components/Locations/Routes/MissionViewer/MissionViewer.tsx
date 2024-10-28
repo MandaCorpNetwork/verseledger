@@ -1,7 +1,7 @@
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { Button, Typography } from '@mui/material';
-import { POPUP_CREATE_MISSION } from '@Popups/Mission/AddMission';
+import { POPUP_CREATE_MISSION } from '@Popups/Routes/AddMission';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
