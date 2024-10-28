@@ -1,20 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  IDestination,
-  ILogisticTransport,
-  IMission,
-  IObjective,
-  IUserTransport,
-} from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination, IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
 
-import {
-  addDestinations,
-  deleteDestination,
-  replaceDestinations,
-  updateDestinations,
-} from './actions/destination.action';
-import { abandonMission, createMission, updateMission } from './actions/mission.action';
-import { addObjectives, updateObjective } from './actions/objective.action';
+import { deleteDestination, updateDestinations } from './actions/destination.action';
+import { createMission, updateMissions } from './actions/mission.action';
+import { addObjectives, updateObjectives } from './actions/objective.action';
 
 const routesReducer = createSlice({
   name: 'routes',
@@ -38,10 +27,37 @@ const routesReducer = createSlice({
         const mission = action.payload;
         state.missions[mission.id] = mission;
       })
+      .addCase(updateMissions, (state, action) => {
+        const updatedMissions = action.payload;
+        updatedMissions.forEach((mission) => {
+          if (state.missions[mission.id]) {
+            state.missions[mission.id] = {
+              ...state.missions[mission.id],
+              ...mission,
+            };
+          } else {
+            state.missions[mission.id] = mission;
+          }
+        });
+      })
       .addCase(addObjectives, (state, action) => {
         const objectiveArray = action.payload.objectives;
         objectiveArray.forEach((objective: IObjective) => {
           state.objectives[objective.id] = objective;
+        });
+      })
+      .addCase(updateObjectives, (state, action) => {
+        const updatedObjectives = action.payload;
+
+        updatedObjectives.forEach((objective) => {
+          if (state.objectives[objective.id]) {
+            state.objectives[objective.id] = {
+              ...state.objectives[objective.id],
+              ...objective,
+            };
+          } else {
+            state.objectives[objective.id] = objective;
+          }
         });
       })
       .addCase(updateDestinations, (state, action) => {
@@ -49,6 +65,10 @@ const routesReducer = createSlice({
         destinationArray.forEach((destination: IDestination) => {
           state.destinations[destination.id] = destination;
         });
+      })
+      .addCase(deleteDestination, (state, action) => {
+        const destinationId = action.payload;
+        delete state.destinations[destinationId];
       });
   },
 });
