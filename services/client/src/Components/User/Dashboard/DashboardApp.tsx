@@ -1,6 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { useRadioController } from '@Audio/AudioProvider';
-import { WorkZoneBar } from '@Common/Components/App/InDevelopment';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
 import { PowerSettingsNew, Sync } from '@mui/icons-material';
@@ -220,10 +219,6 @@ export const DashboardApp: React.FC<unknown> = () => {
             position: 'relative',
           }}
         >
-          <WorkZoneBar side="top" severity="pending" speed="slow" />
-          <WorkZoneBar side="bottom" severity="pending" speed="slow" />
-          <WorkZoneBar side="right" severity="pending" speed="slow" />
-          <WorkZoneBar side="left" severity="pending" speed="slow" />
           <Box data-id="ShipStatusToolTitle" sx={{ height: '10%' }}>
             <Typography variant="h6">Ship Status</Typography>
           </Box>

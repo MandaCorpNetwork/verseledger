@@ -14,14 +14,25 @@ import {
   splashApps,
 } from '@Common/Definitions/AppListings';
 import { ErrorOutline, HomeTwoTone, Person } from '@mui/icons-material';
-import { Alert, Box, Divider, Grow, Popover, Slide, Typography } from '@mui/material';
+import {
+  Alert,
+  Box,
+  Divider,
+  Grow,
+  Popover,
+  Portal,
+  Slide,
+  Typography,
+} from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectIsLoggedIn } from '@Redux/Slices/Auth/auth.selectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { siteMode } from '@Utils/siteMode';
 import { bindPopover, usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
+import { DevelopDecorator } from './DevelopmentDecorator';
 import { AppButton } from './Icons/AppButton';
 import { LoginIcon } from './Icons/LoginIcon';
 import { MoreIcon } from './Icons/MoreIcon';
@@ -110,9 +121,57 @@ export const AppDock: React.FC = () => {
     setIconGroup(newGroup);
     setKey((prevKey) => prevKey + 1);
   }, [setKey, getIconGroup]);
+
+  const getCurrentApp = React.useCallback(() => {
+    if (location.pathname === '/apps') {
+      return masterAppList[0];
+    }
+    if (location.pathname.startsWith('/contract')) {
+      return masterAppList.find((app) => app.id === 'contracts');
+    }
+    if (location.pathname.startsWith('/user')) {
+      return masterAppList.find((app) => app.id === 'profile');
+    }
+    return masterAppList.find((app) => app.path === location.pathname);
+  }, [location.pathname]);
+
+  const currentApp = getCurrentApp();
+
+  const appLabel = currentApp ? currentApp.versionLabel : 'VerseLedger';
+  const devVersion = currentApp ? currentApp.devVersion : '0.4.5';
+  const liveVersion = currentApp ? currentApp.liveVersion : 'N/A';
+  const isLive = siteMode === 'PRODUCTION';
+
+  const getVersionLabel = React.useCallback(
+    () => (
+      <Portal>
+        <Typography
+          variant="body2"
+          sx={{
+            position: 'fixed',
+            bottom: 10,
+            left: 16,
+            display: 'inline-flex',
+            gap: '5px',
+            opacity: '0.7',
+          }}
+        >
+          {appLabel} {isLive ? liveVersion : devVersion}
+        </Typography>
+      </Portal>
+    ),
+    [appLabel, isLive, liveVersion, devVersion],
+  );
+
+  const versionLabel = getVersionLabel();
+
+  const severityCode = currentApp ? currentApp.severityCode : 0;
+
   return (
     <Box className="Dock" ref={containerRef}>
       {renderUserStatePopover}
+      {versionLabel}
+      <DevelopDecorator severityCode={severityCode} />
       <Slide
         direction="up"
         in={!isLoggedIn}
