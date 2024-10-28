@@ -160,7 +160,7 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
         {availableDestinations &&
           availableDestinations.map((dest) => {
             const moveIcon =
-              dest.stopNumber >= destination!.stopNumber ? (
+              dest.stopNumber >= destination.stopNumber ? (
                 <MoveUpTwoTone color="inherit" />
               ) : (
                 <MoveDownTwoTone color="inherit" />
