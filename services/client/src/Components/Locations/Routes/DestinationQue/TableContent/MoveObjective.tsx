@@ -115,6 +115,7 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
   const moveObjective = React.useCallback(
     (newDest: IDestination) => {
       if (!destination) return sound.playSound('error');
+
       const updatedCurrent = {
         ...destination,
         objectives: destination.objectives.filter((obj) => obj.id !== objective.id),

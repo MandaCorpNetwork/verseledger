@@ -1,11 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  IDestination,
-  ILogisticTransport,
-  IMission,
-  IObjective,
-  IUserTransport,
-} from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination, IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { deleteDestination, updateDestinations } from './actions/destination.action';
 import { createMission, updateMissions } from './actions/mission.action';

@@ -11,7 +11,6 @@ import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.action';
 import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
 import React from 'react';
-import { b } from 'vitest/dist/chunks/suite.BMWOKiTe.js';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { VirtualListboxComponent } from '../Lists/VirtualList';
