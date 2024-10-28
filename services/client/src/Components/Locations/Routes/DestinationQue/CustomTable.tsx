@@ -1,5 +1,5 @@
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import { Grid2, Typography } from '@mui/material';
+import { Grid2 } from '@mui/material';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
@@ -8,20 +8,8 @@ import {
   getMappedLocation,
   MappedLocation,
 } from './TableContent/RouteUtilities';
+import { TableHeader } from './TableContent/TableHeader';
 import { DestinationTableRow } from './TableContent/TableRow';
-
-interface Column {
-  id: string;
-  label: string;
-  align?: 'left' | 'center';
-}
-
-const columns: readonly Column[] = [
-  { id: 'destination', label: 'Destination', align: 'left' },
-  { id: 'reason', label: 'Stop Reason', align: 'center' },
-  { id: 'tasks', label: 'Total Tasks', align: 'center' },
-  { id: 'distance', label: 'Travel Distance', align: 'center' },
-];
 
 type CustomTableProps = {
   destinations: IDestination[];
@@ -58,22 +46,7 @@ export const CustomDestinationTable: React.FC<CustomTableProps> = ({
       }}
     >
       <Grid2 container direction="column" sx={{ gap: 1, flexGrow: 1 }}>
-        <Grid2
-          direction="row"
-          sx={{
-            width: '100%',
-            justifyContent: 'space-between',
-            display: 'flex',
-            px: '1em',
-            py: '0.5em',
-          }}
-        >
-          {columns.map((column) => (
-            <Grid2 key={column.id}>
-              <Typography>{column.label}</Typography>
-            </Grid2>
-          ))}
-        </Grid2>
+        <TableHeader />
         <Grid2
           container
           sx={{
