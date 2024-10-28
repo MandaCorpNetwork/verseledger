@@ -115,15 +115,25 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
   const moveObjective = React.useCallback(
     (newDest: IDestination) => {
       if (!destination) return sound.playSound('error');
+
       const updatedCurrent = {
         ...destination,
         objectives: destination.objectives.filter((obj) => obj.id !== objective.id),
       };
+
+      const updatedObj: IObjective = {
+        ...objective,
+        status: 'PENDING',
+      };
+
       const updatedNew = {
         ...newDest,
-        objectives: [...newDest.objectives, objective],
+        objectives: [...newDest.objectives, updatedObj],
       };
       dispatch(updateDestinations([updatedNew, updatedCurrent]));
+      if (updatedCurrent.objectives.length === 0) {
+        dispatch(deleteDestination(updatedCurrent.id));
+      }
     },
     [sound, objective, destination, dispatch],
   );
