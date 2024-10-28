@@ -10,8 +10,10 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Grid2,
   IconButton,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { updateDestinations } from '@Redux/Slices/Routes/actions/destination.action';
@@ -59,6 +61,8 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
     [destination],
   );
 
+  const hideReason = useMediaQuery('(max-width: 1200px)');
+  const hideTasks = useMediaQuery('(max-width: 1090px)');
   const objectiveValidationHelper = React.useCallback(
     (objectives: IObjective[], stopNumber: number, destinations: IDestination[]) => {
       return objectives.map((obj) => {
@@ -281,25 +285,16 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
             }}
           />
         )}
-        <div
+        <Grid2
           data-testid={`${testid}__Summary_Wrapper`}
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '100%',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: '0 .2em',
-          }}
+          container
+          columns={12}
+          sx={{ width: '100%' }}
         >
-          <div
+          <Grid2
+            size={4}
             data-testid={`${testid}__Destination_Wrapper`}
-            style={{
-              display: 'flex',
-              gap: '0.5em',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
+            sx={{ display: 'flex', flexDirection: 'row' }}
           >
             {draggable && (
               <div
@@ -368,21 +363,34 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
                 }}
               />
             </Typography>
-          </div>
-
-          <Typography data-testid={`${testid}__StopReason`} color="info">
-            {destination.reason}
-          </Typography>
-          <Typography
-            data-testid={`${testid}__TaskCount`}
-            sx={{ color: 'text.secondary' }}
+          </Grid2>
+          {!hideReason && (
+            <Grid2 size="grow" sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Typography data-testid={`${testid}__StopReason`} color="info">
+                {destination.reason}
+              </Typography>
+            </Grid2>
+          )}
+          {!hideTasks && (
+            <Grid2 size="grow" sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Typography
+                data-testid={`${testid}__TaskCount`}
+                sx={{ color: 'text.secondary' }}
+              >
+                {`${destination.objectives.length} Task(s)`}
+              </Typography>
+            </Grid2>
+          )}
+          <Grid2
+            size={2}
+            offset="auto"
+            sx={{ display: 'flex', justifyContent: 'flex-end' }}
           >
-            {`${destination.objectives.length} Task(s)`}
-          </Typography>
-          <Typography data-testid={`${testid}__Distance`} sx={distanceStyle}>
-            {distance}
-          </Typography>
-        </div>
+            <Typography data-testid={`${testid}__Distance`} sx={distanceStyle}>
+              {distance}
+            </Typography>
+          </Grid2>
+        </Grid2>
       </AccordionSummary>
       <AccordionDetails sx={{ gap: '0.2em', display: 'flex', flexDirection: 'column' }}>
         {destination.objectives.map((obj) => {

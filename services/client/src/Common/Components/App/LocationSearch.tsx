@@ -1,7 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import {
   Autocomplete,
-  Box,
   createFilterOptions,
   MenuItem,
   TextField,
@@ -12,7 +11,6 @@ import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.action';
 import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
 import React from 'react';
-import { b } from 'vitest/dist/chunks/suite.BMWOKiTe.js';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 //Filter Options property from MUI AutoComplete
@@ -145,9 +143,9 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
           const group = params.group[0] == '_' ? params.group.slice(1) : params.group;
           return (
             <li key={params.key}>
-              <Box>
+              <div>
                 <Typography>{group}</Typography>
-              </Box>
+              </div>
               {params.children}
             </li>
           );
