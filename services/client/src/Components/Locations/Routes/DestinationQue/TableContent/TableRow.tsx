@@ -229,18 +229,18 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
         };
       case distance.endsWith('Gm'):
         return {
-          color: 'rgb(255,181,100)',
-          textShadow: '1px 1px 3px rgba(255,181,100,0.8), 2px 2px 4px rgba(0,0,0)',
+          color: 'secondary.main',
+          textShadow: '1px 1px 3px rgba(0,0,0,0.8), 2px 2px 4px rgba(0,0,0)',
         };
       case distance.endsWith('Mm'):
         return {
-          color: 'rgb(24, 252, 252)',
-          textShadow: '1px 1px 3px rgba(24,252,252,0.8), 2px 2px 4px rgba(0,0,0)',
+          color: 'rgb(60, 200, 252)',
+          textShadow: '1px 1px 3px rgba(0,0,0,0.8), 2px 2px 4px rgba(0,0,0)',
         };
       case distance.endsWith('km'):
         return {
-          color: 'rgb(90, 180, 243)',
-          textShadow: '1px 1px 3px rgba(90,180,243,0.8), 2px 2px 4px rgba(0,0,0)',
+          color: 'rgb(90, 150, 243)',
+          textShadow: '1px 1px 3px rgba(0,0,0,0.8), 2px 2px 4px rgba(0,0,0)',
         };
       case distance === 'Fluctuates':
         return {
@@ -251,8 +251,8 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
       case distance.startsWith('Err'):
       default:
         return {
-          color: 'error.main',
-          textShadow: '1px 1px 3px rgba(255,100,100,0.8), 2px 2px 4px rgba(0,0,0)',
+          color: 'grey',
+          textShadow: '1px 1px 3px rgba(0,0,0,0.8), 2px 2px 4px rgba(0,0,0)',
         };
     }
   }, [distance]);

@@ -522,7 +522,7 @@ export function getMappedLocation(
 
 export function formatDistance(locA: MappedLocation, locB: MappedLocation): string {
   if (locA.parent && locA.parent.location.id === locB.location.id) return `Fluctuates`;
-  if (locB.parent && locB.parent.location.id === locA.location.id) return `Redundant`;
+  if (locB.parent && locB.parent.location.id === locA.location.id) return `Exit Atmo`;
   const floatDistance = MathX.distance(locA.position, locB.position);
   const absDistance = Math.abs(floatDistance);
   if (absDistance < 1_000) {
