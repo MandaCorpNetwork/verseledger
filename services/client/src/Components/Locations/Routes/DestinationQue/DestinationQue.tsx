@@ -9,17 +9,17 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { useAppDispatch } from '@Redux/hooks';
-import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.action';
 import React from 'react';
 import { IDestination, IMission } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { CustomDestinationTable } from './CustomTable';
+import { MappedLocation } from './TableContent/RouteUtilities';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 type DestinationQueProps = {
   destinations: IDestination[];
   missions: IMission[];
+  locationTree: Map<string, MappedLocation>;
 };
 
 type RouteOrder = 'custom' | 'distance' | 'fuel';
@@ -27,10 +27,9 @@ type RouteOrder = 'custom' | 'distance' | 'fuel';
 export const DestinationQue: React.FC<DestinationQueProps> = ({
   destinations,
   missions,
+  locationTree,
 }) => {
   const [routeOrder, setRouteOrder] = React.useState<RouteOrder>('custom');
-
-  const dispatch = useAppDispatch();
 
   const handleRouteOrder = React.useCallback(
     (value: 'custom' | 'distance' | 'fuel') => {
@@ -38,17 +37,6 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
     },
     [setRouteOrder],
   );
-  React.useEffect(() => {
-    dispatch(fetchLocations());
-  }, [dispatch]);
-
-  // const locations = useAppSelector(selectLocationsArray);
-
-  // const userLocation = useAppSelector(selectUserLocation);
-
-  // const locationTree = React.useMemo(() => {
-  //   return binaryLocationTree(locations);
-  // }, [locations]);
   return (
     <GlassBox
       data-testid="RouteTool__DestinationList__Wrapper"
@@ -121,7 +109,10 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
           }}
         >
           {routeOrder === 'custom' && (
-            <CustomDestinationTable destinations={destinations} />
+            <CustomDestinationTable
+              destinations={destinations}
+              locationTree={locationTree}
+            />
           )}
         </div>
       )}

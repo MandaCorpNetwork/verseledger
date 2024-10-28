@@ -2,45 +2,16 @@
 // import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 // import { IDestination, IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
 
+import { Float3, MathX } from 'vl-shared/src/math';
+import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { IDestination, IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
 
-// export interface MappedLocation {
-//   location: ILocation;
-//   children: Map<string, MappedLocation>;
-//   parent: MappedLocation;
-//   get position(): Float3;
-// }
-
-// export function binaryLocationTree(locations: ILocation[]) {
-//   const entities = new Map<string, MappedLocation>();
-//   // Initialization of Nodes
-//   for (const location of locations) {
-//     const mPoint: MappedLocation = {
-//       location,
-//       children: new Map(),
-//       parent: null as unknown as MappedLocation,
-//       get position() {
-//         const myLocation = new Float3(location.x, location.y, location.z);
-//         const parentPosition = this.parent ? this.parent.position : new Float3();
-//         return myLocation.add(parentPosition);
-//       },
-//     };
-//     entities.set(mPoint.location.id, mPoint);
-//   }
-//   // Map Hookup
-//   entities.forEach((value: MappedLocation, key: string) => {
-//     const location = value.location;
-//     const entityArray = Array.from(entities);
-//     const parent: [string, MappedLocation] | undefined = entityArray.find(([, value]) => {
-//       return value.location.short_name === location.parent;
-//     });
-//     if (parent != null) {
-//       value.parent = parent[1];
-//       parent[1].children.set(key, value);
-//     }
-//   });
-//   return entities;
-// }
+export interface MappedLocation {
+  location: ILocation;
+  children: Map<string, MappedLocation>;
+  parent: MappedLocation;
+  get position(): Float3;
+}
 
 // function objectiveToDestination(
 //   location: ILocation,
@@ -447,6 +418,37 @@ import { IDestination, IMission, IObjective } from 'vl-shared/src/schemas/Routes
 //   return orderedPath;
 // }
 
+export function binaryLocationTree(locations: ILocation[]) {
+  const entities = new Map<string, MappedLocation>();
+  // Initialization of Nodes
+  for (const location of locations) {
+    const mPoint: MappedLocation = {
+      location,
+      children: new Map(),
+      parent: null as unknown as MappedLocation,
+      get position() {
+        const myLocation = new Float3(location.x, location.y, location.z);
+        const parentPosition = this.parent ? this.parent.position : new Float3();
+        return myLocation.add(parentPosition);
+      },
+    };
+    entities.set(mPoint.location.id, mPoint);
+  }
+  // Map Hookup
+  entities.forEach((value: MappedLocation, key: string) => {
+    const location = value.location;
+    const entityArray = Array.from(entities);
+    const parent: [string, MappedLocation] | undefined = entityArray.find(([, value]) => {
+      return value.location.short_name === location.parent;
+    });
+    if (parent != null) {
+      value.parent = parent[1];
+      parent[1].children.set(key, value);
+    }
+  });
+  return entities;
+}
+
 export function getParentMission(
   missions: IMission[],
   objective: IObjective,
@@ -510,3 +512,51 @@ export function extractObjectives(
   }
   return [];
 }
+
+export function getMappedLocation(
+  locationTree: Map<string, MappedLocation>,
+  locationId: string,
+): MappedLocation | null {
+  return locationTree.get(locationId) ?? null;
+}
+
+export function formatDistance(locA: MappedLocation, locB: MappedLocation): string {
+  if (locA.parent && locA.parent.location.id === locB.location.id) return `Fluctuates`;
+  if (locB.parent && locB.parent.location.id === locA.location.id) return `Redundant`;
+  const floatDistance = MathX.distance(locA.position, locB.position);
+  const absDistance = Math.abs(floatDistance);
+  if (absDistance < 1_000) {
+    return `${absDistance.toFixed(2).toLocaleString()} km`;
+  } else if (absDistance < 1_000_000) {
+    return `${(absDistance / 1_000).toFixed(2)} Mm`;
+  } else if (absDistance < 1_000_000_000) {
+    return `${(absDistance / 1_000_000).toFixed(2)} Gm`;
+  } else {
+    return `${(absDistance / 1_000_000_000).toFixed(2).toLocaleString()} Tm`;
+  }
+}
+
+//  if (absDistance >= 1_000_000) {
+//    return `${(absDistance / 1_000_000).toFixed(2)} Gkm`;
+//  } else if (absDistance >= 1_000) {
+//    return `${(absDistance / 1_000).toFixed(2)} Mkm`;
+//  } else {
+//    return `${absDistance.toFixed(2)} km`;
+//  }
+
+// function checkpointValidation(
+//   current: ILocation,
+//   next: ILocation,
+//   nextMapped: MappedLocation,
+// ): IDestination | undefined {
+//   if (current.parent !== next.parent && next.parent != null) {
+//     const newDestination: IDestination = {
+//       id: createDestID(),
+//       reason: 'Checkpoint',
+//       stopNumber: 0,
+//       location: nextMapped.parent.location,
+//     };
+//     return newDestination;
+//   }
+//   return undefined;
+// }

@@ -1,10 +1,13 @@
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { Grid2, Typography } from '@mui/material';
 import React from 'react';
-import { Float3, MathX } from 'vl-shared/src/math';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
+import {
+  formatDistance,
+  getMappedLocation,
+  MappedLocation,
+} from './TableContent/RouteUtilities';
 import { DestinationTableRow } from './TableContent/TableRow';
 
 interface Column {
@@ -22,26 +25,28 @@ const columns: readonly Column[] = [
 
 type CustomTableProps = {
   destinations: IDestination[];
+  locationTree: Map<string, MappedLocation>;
 };
 
-export const CustomDestinationTable: React.FC<CustomTableProps> = ({ destinations }) => {
+export const CustomDestinationTable: React.FC<CustomTableProps> = ({
+  destinations,
+  locationTree,
+}) => {
   const sortedDestinations = React.useMemo(() => {
     return [...destinations].sort((a, b) => a.stopNumber - b.stopNumber);
   }, [destinations]);
 
-  const formatDistance = React.useCallback((locA: ILocation, locB: ILocation) => {
-    const posA = new Float3(locA.x, locA.y, locA.z);
-    const posB = new Float3(locB.x, locB.y, locB.z);
-    const floatDistance = MathX.distance(posA, posB);
-    const absDistance = Math.abs(floatDistance);
-    if (absDistance >= 1_000_000) {
-      return `${(absDistance / 1_000_000).toFixed(2)} Gkm`;
-    } else if (absDistance >= 1_000) {
-      return `${(absDistance / 1_000).toFixed(2)} Mkm`;
-    } else {
-      return `${absDistance.toFixed(2)} km`;
-    }
-  }, []);
+  const getDistance = React.useCallback(
+    (idxA: number, idxB: number) => {
+      if (idxB < 0) return `——`;
+      const locA = getMappedLocation(locationTree, sortedDestinations[idxA].location.id);
+      const locB = getMappedLocation(locationTree, sortedDestinations[idxB].location.id);
+      if (locA == null) return `Err«`;
+      if (locB == null) return `Err»`;
+      return formatDistance(locA, locB);
+    },
+    [sortedDestinations, locationTree],
+  );
   return (
     <GlassDisplay
       data-testid="RouteTool-RouteViewer-DestinationQue__CustomTable_Container"
@@ -79,6 +84,7 @@ export const CustomDestinationTable: React.FC<CustomTableProps> = ({ destination
           }}
         >
           {sortedDestinations.map((place, index) => {
+            const distance = getDistance(index, index - 1);
             return (
               <Grid2 key={place.id} sx={{ width: '100%' }}>
                 <DestinationTableRow
@@ -87,14 +93,7 @@ export const CustomDestinationTable: React.FC<CustomTableProps> = ({ destination
                   draggable
                   destination={place}
                   list={sortedDestinations}
-                  distance={
-                    index === 0
-                      ? '—'
-                      : formatDistance(
-                          place.location,
-                          sortedDestinations[index - 1].location,
-                        )
-                  }
+                  distance={distance}
                 />
               </Grid2>
             );

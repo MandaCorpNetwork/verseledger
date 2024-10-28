@@ -226,7 +226,7 @@ export const LocationInfoPopup: React.FC<LocationInfoProps> = ({ locationId }) =
                 Moon
               </DigiField>
               <DigiField label="Planet" sx={{ minWidth: '100px' }}>
-                Planet
+                {location?.parent}
               </DigiField>
               <DigiField label="Star" sx={{ minWidth: '100px' }}>
                 Star

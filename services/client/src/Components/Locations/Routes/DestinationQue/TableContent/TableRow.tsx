@@ -219,7 +219,45 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
   const dropoffInterrupted = destination.objectives.some(
     (obj) => obj.type === 'dropoff' && obj.status === 'INTERUPTED',
   );
-  console.log(pickupInterrupted, dropoffInterrupted);
+
+  const getDistanceStyle = React.useCallback(() => {
+    switch (true) {
+      case distance.endsWith('Tm'):
+        return {
+          color: 'rgb(255,100,100)',
+          textShadow: '1px 1px 3px rgba(255,100,100,0.8), 2px 2px 4px rgba(0,0,0)',
+        };
+      case distance.endsWith('Gm'):
+        return {
+          color: 'rgb(255,181,100)',
+          textShadow: '1px 1px 3px rgba(255,181,100,0.8), 2px 2px 4px rgba(0,0,0)',
+        };
+      case distance.endsWith('Mm'):
+        return {
+          color: 'rgb(24, 252, 252)',
+          textShadow: '1px 1px 3px rgba(24,252,252,0.8), 2px 2px 4px rgba(0,0,0)',
+        };
+      case distance.endsWith('km'):
+        return {
+          color: 'rgb(90, 180, 243)',
+          textShadow: '1px 1px 3px rgba(90,180,243,0.8), 2px 2px 4px rgba(0,0,0)',
+        };
+      case distance === 'Fluctuates':
+        return {
+          color: 'warning.main',
+          textShadow: '1px 1px 3px rgba(247,207,87,0.8), 2px 2px 4px rgba(0,0,0)',
+        };
+      case distance === 'Redundant':
+      case distance.startsWith('Err'):
+      default:
+        return {
+          color: 'error.main',
+          textShadow: '1px 1px 3px rgba(255,100,100,0.8), 2px 2px 4px rgba(0,0,0)',
+        };
+    }
+  }, [distance]);
+
+  const distanceStyle = getDistanceStyle();
 
   return (
     <Accordion data-testid={`${testid}__Container`}>
@@ -341,7 +379,9 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
           >
             {`${destination.objectives.length} Task(s)`}
           </Typography>
-          <Typography data-testid={`${testid}__Distance`}>{distance}</Typography>
+          <Typography data-testid={`${testid}__Distance`} sx={distanceStyle}>
+            {distance}
+          </Typography>
         </div>
       </AccordionSummary>
       <AccordionDetails sx={{ gap: '0.2em', display: 'flex', flexDirection: 'column' }}>
