@@ -15,3 +15,6 @@ services/client/src/dev-dist
 packages/vl-shared/package-lock.json
 packages/vl-shared/package.json
 packages/vl-shared/package.json
+crownScratch.md
+crownTasks.md
+services/client/src/assets/Workspace/*

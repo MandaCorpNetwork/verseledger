@@ -9,30 +9,26 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
-import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.action';
-import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
 import React from 'react';
-import { IDestination, IMission } from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { binaryLocationTree } from '../RouteUtilities';
 import { CustomDestinationTable } from './CustomTable';
+import { MappedLocation } from './TableContent/RouteUtilities';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 type DestinationQueProps = {
   destinations: IDestination[];
-  missions: IMission[];
+  // missions: IMission[];
+  locationTree: Map<string, MappedLocation>;
 };
 
 type RouteOrder = 'custom' | 'distance' | 'fuel';
 
 export const DestinationQue: React.FC<DestinationQueProps> = ({
   destinations,
-  missions,
+  locationTree,
 }) => {
   const [routeOrder, setRouteOrder] = React.useState<RouteOrder>('custom');
-
-  const dispatch = useAppDispatch();
 
   const handleRouteOrder = React.useCallback(
     (value: 'custom' | 'distance' | 'fuel') => {
@@ -40,17 +36,6 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
     },
     [setRouteOrder],
   );
-  React.useEffect(() => {
-    dispatch(fetchLocations());
-  }, [dispatch]);
-
-  const locations = useAppSelector(selectLocationsArray);
-
-  const userLocation = useAppSelector(selectUserLocation);
-
-  const locationTree = React.useMemo(() => {
-    return binaryLocationTree(locations);
-  }, [locations]);
   return (
     <GlassBox
       data-testid="RouteTool__DestinationList__Wrapper"
@@ -114,9 +99,19 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
         </Typography>
       )}
       {destinations.length > 0 && (
-        <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexGrow: 1,
+            overflow: 'hidden',
+          }}
+        >
           {routeOrder === 'custom' && (
-            <CustomDestinationTable destinations={destinations} />
+            <CustomDestinationTable
+              destinations={destinations}
+              locationTree={locationTree}
+            />
           )}
         </div>
       )}

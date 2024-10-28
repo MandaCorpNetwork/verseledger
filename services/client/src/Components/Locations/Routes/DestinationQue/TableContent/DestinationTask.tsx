@@ -91,12 +91,15 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
     return (
       <Typography
         data-testid={`${testid}__Type`}
-        sx={{ color: color, display: 'flex', gap: '0.3em' }}
+        sx={[
+          { color: color, display: 'flex', gap: '0.3em' },
+          objective.status === 'INTERUPTED' && { color: 'error.light' },
+        ]}
       >
         {icon} {label}
       </Typography>
     );
-  }, [getTypeIcon, getTypeColor, getTypeLabel, testid]);
+  }, [getTypeIcon, getTypeColor, getTypeLabel, testid, objective.status]);
 
   const typeDisplay = getTypeDisplay();
 
@@ -134,11 +137,31 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
   return (
     <PopupFormSelection
       data-testid={`${testid}__root`}
-      sx={{ position: 'relative', py: '0.2em', justifyContent: 'space-around' }}
+      sx={[
+        {
+          position: 'relative',
+          py: '0.35em',
+          justifyContent: 'space-around',
+          my: '0.2em',
+          cursor: 'default',
+        },
+        objective.status === 'INTERUPTED' && {
+          boxShadow: '0 0 10px rgba(255, 0, 0, 0.8)',
+          borderColor: 'rgba(255, 0, 0, 0.8)',
+          '&:hover': {
+            borderColor: 'rgba(255, 0, 0, 0.8)',
+            boxShadow: '0 0 10px 5px rgba(255, 0, 0, 0.8)',
+          },
+        },
+      ]}
     >
       <Typography
         data-testid={`${testid}__Label`}
-        sx={{ color: 'text.primary', textShadow: '0 4px 4px rgba(0,0,0)' }}
+        sx={{
+          color: 'text.primary',
+          textShadow: '0 4px 4px rgba(0,0,0)',
+          cursor: 'inherit',
+        }}
       >
         {isMissionObjective ? `Package ${parentObjective!.label}` : objective.label}
       </Typography>
@@ -149,6 +172,7 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
           sx={{
             color: 'text.primary',
             textShadow: '0 4px 4px rgba(0,0,0)',
+            cursor: 'inherit',
           }}
         >{`${(parentObjective! as ILogisticTransport).scu ?? ''} SCU`}</Typography>
       )}
@@ -158,6 +182,7 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
           sx={{
             color: 'info.light',
             textShadow: '0 4px 4px rgba(0,0,0)',
+            cursor: 'inherit',
           }}
         >{`Mission: ${parentMission!.label}`}</Typography>
       )}

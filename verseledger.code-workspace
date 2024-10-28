@@ -16,6 +16,9 @@
       "name": "VLShared",
       "path": "packages/vl-shared",
     },
+    {
+      "path": "Wiki",
+    },
   ],
   "extensions": {
     "recommendations": [
@@ -36,7 +39,7 @@
       "esbenp.prettier-vscode",
       "SonarSource.sonarlint-vscode",
       "vscode-icons-team.vscode-icons",
-      "p1c2u.docker-compose"
-    ]
+      "p1c2u.docker-compose",
+    ],
   },
 }
