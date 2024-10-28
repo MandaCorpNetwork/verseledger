@@ -10,12 +10,12 @@ import {
 import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
 import { createLocalID } from '@Utils/createId';
 import React from 'react';
-import { IDestination, IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination, IMission, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { getSiblingDestination, getSiblingObjective } from './RouteUtilities';
 
 type MoveObjectiveProps = {
-  objective: IObjective;
+  objective: ITask;
   mission?: IMission;
   ['data-testid']?: string;
 };
@@ -121,7 +121,7 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
         objectives: destination.objectives.filter((obj) => obj.id !== objective.id),
       };
 
-      const updatedObj: IObjective = {
+      const updatedObj: ITask = {
         ...objective,
         status: 'PENDING',
       };

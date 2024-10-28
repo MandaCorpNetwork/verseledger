@@ -3,37 +3,32 @@ import { LocationSchema } from './LocationSchema';
 import { ContractSchema } from './ContractSchema';
 import { UserSchema } from './UserSchema';
 
-export const ObjectiveStatusSchema = z.enum([
-  'PENDING',
-  'ENROUTE',
-  'COMPLETED',
-  'INTERUPTED',
-]);
+export const TaskStatusSchema = z.enum(['PENDING', 'ENROUTE', 'COMPLETED', 'INTERUPTED']);
 
-export type IObjectiveStatus = z.infer<typeof ObjectiveStatusSchema>;
+export type ITaskStatus = z.infer<typeof TaskStatusSchema>;
 
-export const ObjectiveTypeSchema = z.enum(['pickup', 'delievery', 'stop']);
+export const TaskTypeSchema = z.enum(['pickup', 'delievery', 'stop']);
 
-export type IObjectiveType = z.infer<typeof ObjectiveTypeSchema>;
+export type ITaskType = z.infer<typeof TaskTypeSchema>;
 
-export const ObjectiveSchema = z.object({
+export const TaskSchema = z.object({
   id: z.string(),
   type: z.string(),
   label: z.string().optional(),
   location: LocationSchema,
-  status: ObjectiveStatusSchema,
+  status: TaskStatusSchema,
 });
 
-export type IObjective = z.infer<typeof ObjectiveSchema>;
+export type ITask = z.infer<typeof TaskSchema>;
 
 export const LogisticTransportSchema = z.object({
   id: z.string(),
   label: z.string(),
-  pickup: ObjectiveSchema,
-  dropoff: ObjectiveSchema,
+  pickup: TaskSchema,
+  dropoff: TaskSchema,
   manifest: z.string(),
   scu: z.number(),
-  status: ObjectiveStatusSchema,
+  status: TaskStatusSchema,
   contract: ContractSchema.optional(),
 });
 
@@ -42,10 +37,10 @@ export type ILogisticTransport = z.infer<typeof LogisticTransportSchema>;
 export const UserTransportSchema = z.object({
   id: z.string(),
   label: z.string(),
-  pickup: ObjectiveSchema,
-  dropoff: ObjectiveSchema,
+  pickup: TaskSchema,
+  dropoff: TaskSchema,
   users: z.array(UserSchema),
-  status: ObjectiveStatusSchema,
+  status: TaskStatusSchema,
   contract: ContractSchema.optional(),
 });
 
@@ -69,7 +64,7 @@ export const DestinationSchema = z.object({
   stopNumber: z.number(),
   visited: z.boolean(),
   reason: z.string(),
-  objectives: z.array(ObjectiveSchema),
+  objectives: z.array(TaskSchema),
   location: LocationSchema,
 });
 

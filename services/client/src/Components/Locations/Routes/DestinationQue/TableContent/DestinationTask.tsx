@@ -9,12 +9,12 @@ import { useAppSelector } from '@Redux/hooks';
 import { selectMissions } from '@Redux/Slices/Routes/routes.selectors';
 import { bindPopover, bindTrigger, usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
-import { ILogisticTransport, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
+import { ILogisticTransport, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { MoveObjective } from './MoveObjective';
 
 type DestinationTaskProps = {
-  objective: IObjective;
+  objective: ITask;
   ['data-testid']?: string;
 };
 

@@ -21,11 +21,7 @@ import { updateMissions } from '@Redux/Slices/Routes/actions/mission.action';
 import { updateObjectives } from '@Redux/Slices/Routes/actions/objective.action';
 import { selectMissions } from '@Redux/Slices/Routes/routes.selectors';
 import React from 'react';
-import {
-  IDestination,
-  IObjective,
-  IObjectiveStatus,
-} from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination, ITask, ITaskStatus } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { DestinationTask } from './DestinationTask';
 import {
@@ -64,7 +60,7 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
   const hideReason = useMediaQuery('(max-width: 1200px)');
   const hideTasks = useMediaQuery('(max-width: 1090px)');
   const objectiveValidationHelper = React.useCallback(
-    (objectives: IObjective[], stopNumber: number, destinations: IDestination[]) => {
+    (objectives: ITask[], stopNumber: number, destinations: IDestination[]) => {
       return objectives.map((obj) => {
         const mission = getParentMission(missions, obj);
         if (!mission) return obj;
@@ -77,22 +73,22 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
 
         if (obj.type === 'pickup' && stopNumber > siblingDest.stopNumber) {
           console.log('Pickup Interupt Found');
-          return { ...obj, status: 'INTERUPTED' as IObjectiveStatus };
+          return { ...obj, status: 'INTERUPTED' as ITaskStatus };
         }
 
         if (obj.type === 'pickup' && stopNumber < siblingDest.stopNumber) {
           console.log('Pickup Interupt Found');
-          return { ...obj, status: 'PENDING' as IObjectiveStatus };
+          return { ...obj, status: 'PENDING' as ITaskStatus };
         }
 
         if (obj.type === 'dropoff' && stopNumber < siblingDest.stopNumber) {
           console.log('Dropoff Interupt Found.');
-          return { ...obj, status: 'INTERUPTED' as IObjectiveStatus };
+          return { ...obj, status: 'INTERUPTED' as ITaskStatus };
         }
 
         if (obj.type === 'dropoff' && stopNumber > siblingDest.stopNumber) {
           console.log('Dropoff Interupt Found.');
-          return { ...obj, status: 'PENDING' as IObjectiveStatus };
+          return { ...obj, status: 'PENDING' as ITaskStatus };
         }
 
         return obj;

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IDestination, IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination, IMission, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { deleteDestination, updateDestinations } from './actions/destination.action';
 import { createMission, updateMissions } from './actions/mission.action';
@@ -10,7 +10,7 @@ const routesReducer = createSlice({
   initialState: {
     destinations: {} as Record<string, IDestination>,
     missions: {} as Record<string, IMission>,
-    objectives: {} as Record<string, IObjective>,
+    objectives: {} as Record<string, ITask>,
   },
   reducers: {
     noop() {
@@ -42,7 +42,7 @@ const routesReducer = createSlice({
       })
       .addCase(addObjectives, (state, action) => {
         const objectiveArray = action.payload.objectives;
-        objectiveArray.forEach((objective: IObjective) => {
+        objectiveArray.forEach((objective: ITask) => {
           state.objectives[objective.id] = objective;
         });
       })

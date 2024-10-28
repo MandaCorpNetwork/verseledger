@@ -6,7 +6,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { abandonMission } from '@Redux/Slices/Routes/actions/mission.action';
 import React from 'react';
-import { IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
+import { IMission, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 type MissionProps = {
   mission: IMission;
@@ -21,7 +21,7 @@ export const Mission: React.FC<MissionProps> = ({ mission }) => {
     [dispatch],
   );
 
-  const pickupStyle = React.useCallback((objective: IObjective) => {
+  const pickupStyle = React.useCallback((objective: ITask) => {
     switch (objective.status) {
       case 'INTERUPTED':
         return { color: 'error.light', borderColor: 'error.main' };
@@ -35,7 +35,7 @@ export const Mission: React.FC<MissionProps> = ({ mission }) => {
     }
   }, []);
 
-  const dropoffStyle = React.useCallback((objective: IObjective) => {
+  const dropoffStyle = React.useCallback((objective: ITask) => {
     switch (objective.status) {
       case 'INTERUPTED':
         return { color: 'error.light', borderColor: 'error.main' };

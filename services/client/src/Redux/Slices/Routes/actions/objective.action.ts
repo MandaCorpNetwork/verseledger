@@ -1,8 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IObjective } from 'vl-shared/src/schemas/RoutesSchema';
+import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
-export const updateObjectives = createAction<IObjective[]>('routes/updateObjectives');
+export const updateObjectives = createAction<ITask[]>('routes/updateObjectives');
 
 export const addObjectives = createAction<{
-  objectives: IObjective[];
+  objectives: ITask[];
 }>('routes/addObjectives');

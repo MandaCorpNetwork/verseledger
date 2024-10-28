@@ -27,7 +27,7 @@ import {
   IDestination,
   ILogisticTransport,
   IMission,
-  IObjective,
+  ITask,
 } from 'vl-shared/src/schemas/RoutesSchema';
 
 export const POPUP_CREATE_MISSION = 'create_mission';
@@ -38,8 +38,8 @@ export const AddMissionPopup: React.FC = () => {
     {
       id: createLocalID('E'),
       label: '',
-      pickup: {} as IObjective,
-      dropoff: {} as IObjective,
+      pickup: {} as ITask,
+      dropoff: {} as ITask,
       manifest: 'Unknown',
       scu: 0,
       status: 'PENDING',
@@ -75,12 +75,12 @@ export const AddMissionPopup: React.FC = () => {
       if (!value) {
         setObjectives((prev) =>
           prev.map((obj, idx) =>
-            idx === index ? { ...obj, [field]: {} as IObjective } : obj,
+            idx === index ? { ...obj, [field]: {} as ITask } : obj,
           ),
         );
         return;
       }
-      const newObjective: IObjective = {
+      const newObjective: ITask = {
         id: createLocalID('E'),
         type: field,
         location: value,
@@ -97,8 +97,8 @@ export const AddMissionPopup: React.FC = () => {
     const newObjective: ILogisticTransport = {
       id: createLocalID('E'),
       label: '',
-      pickup: {} as IObjective,
-      dropoff: {} as IObjective,
+      pickup: {} as ITask,
+      dropoff: {} as ITask,
       manifest: 'Unknown',
       scu: 0,
       status: 'PENDING',

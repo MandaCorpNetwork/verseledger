@@ -4,7 +4,7 @@
 
 import { Float3, MathX } from 'vl-shared/src/math';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-import { IDestination, IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination, IMission, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 export interface MappedLocation {
   location: ILocation;
@@ -451,7 +451,7 @@ export function binaryLocationTree(locations: ILocation[]) {
 
 export function getParentMission(
   missions: IMission[],
-  objective: IObjective,
+  objective: ITask,
 ): IMission | null {
   return (
     missions.find((mission) =>
@@ -462,10 +462,7 @@ export function getParentMission(
   );
 }
 
-export function getSiblingObjective(
-  mission: IMission,
-  objective: IObjective,
-): IObjective | null {
+export function getSiblingObjective(mission: IMission, objective: ITask): ITask | null {
   const missionObjective = mission.objectives.find(
     (obj) => obj.pickup.id === objective.id || obj.dropoff.id === objective.id,
   );
@@ -476,7 +473,7 @@ export function getSiblingObjective(
 }
 
 export function getSiblingDestination(
-  siblingObj: IObjective,
+  siblingObj: ITask,
   destinations: IDestination[],
 ): IDestination | null {
   return (
@@ -491,7 +488,7 @@ export function extractObjectives(
   destination?: IDestination,
   missions?: IMission[],
   mission?: IMission,
-): IObjective[] {
+): ITask[] {
   if (destinations) {
     return destinations.flatMap((dest) => dest.objectives);
   }
