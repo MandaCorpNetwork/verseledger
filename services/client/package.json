@@ -21,7 +21,7 @@
     "@scalar/api-reference-react": "0.3.126",
     "@tanstack/react-form": "0.34.1",
     "@tanstack/react-ranger": "0.0.4",
-    "@tanstack/react-router": "1.77.5",
+    "@tanstack/react-router": "1.77.6",
     "@tanstack/react-table": "8.20.5",
     "@tanstack/react-virtual": "3.10.8",
     "axios": "1.7.7",
