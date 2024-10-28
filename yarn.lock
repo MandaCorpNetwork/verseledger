@@ -3405,10 +3405,10 @@
   dependencies:
     "@tanstack/ranger" "0.0.3"
 
-"@tanstack/react-router@1.77.5":
-  version "1.77.5"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.77.5.tgz#7eee62d7d0380fcb044f34f3c81503b1517994b0"
-  integrity sha512-+WApHGq9AFshfiVpZmMgWYrO0IphtmN2JxEy5bkQ9IjI/JTS6F6QDiz8rZf37dx491D13aQeiRUGM345y6gDZQ==
+"@tanstack/react-router@1.77.6":
+  version "1.77.6"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.77.6.tgz#811fefcb4252b24973ab822beebd6d9756d5da9f"
+  integrity sha512-0YLpnSjoLdR2qrPAU3C2TkSN7lWIODjXKbod97wPL4gKm5ubBzRtF7K4CCUAT3a+vqIWmSuCYaFWqMlDs4HNnA==
   dependencies:
     "@tanstack/history" "1.61.1"
     "@tanstack/react-store" "^0.5.6"
