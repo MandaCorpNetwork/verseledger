@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import { IDestination, IMission } from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { CustomDestinationTable } from './CustomTable';
 import { MappedLocation } from './TableContent/RouteUtilities';
@@ -18,7 +18,7 @@ import { MappedLocation } from './TableContent/RouteUtilities';
 
 type DestinationQueProps = {
   destinations: IDestination[];
-  missions: IMission[];
+  // missions: IMission[];
   locationTree: Map<string, MappedLocation>;
 };
 
@@ -26,7 +26,6 @@ type RouteOrder = 'custom' | 'distance' | 'fuel';
 
 export const DestinationQue: React.FC<DestinationQueProps> = ({
   destinations,
-  missions,
   locationTree,
 }) => {
   const [routeOrder, setRouteOrder] = React.useState<RouteOrder>('custom');

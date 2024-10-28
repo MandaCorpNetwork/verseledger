@@ -1,34 +1,34 @@
 /* eslint-disable react/no-unknown-property */
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import { Box } from '@mui/material';
-import { Line, OrbitControls, Sphere, Text } from '@react-three/drei';
-import { Canvas, useThree } from '@react-three/fiber';
-import { useAppSelector } from '@Redux/hooks';
-import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
+// import { Box } from '@mui/material';
+// import { Line, OrbitControls, Sphere, Text } from '@react-three/drei';
+// import { Canvas, useThree } from '@react-three/fiber';
+// import { useAppSelector } from '@Redux/hooks';
+// import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
 import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
-import { useEffect, useMemo, useState } from 'react';
-import { CubeTextureLoader } from 'three';
+// import { useEffect, useMemo, useState } from 'react';
+// import { CubeTextureLoader } from 'three';
 
 // import {
 //   binaryLocationTree,
 //   MappedLocation,
 // } from '../Routes/DestinationQue/TableContent/RouteUtilities';
 
-const SkyBox: React.FC = () => {
-  const { scene } = useThree();
-  const loader = new CubeTextureLoader();
-  const texture = loader
-    .setPath('/Assets/media/Skybox/')
-    .load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
-  scene.background = texture;
-  return null;
-};
+// const SkyBox: React.FC = () => {
+//   const { scene } = useThree();
+//   const loader = new CubeTextureLoader();
+//   const texture = loader
+//     .setPath('/Assets/media/Skybox/')
+//     .load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
+//   scene.background = texture;
+//   return null;
+// };
 
 type ExploreMapProps = {
   route?: ReturnType<typeof selectDestinations>;
 };
 
-export const ExploreMap: React.FC<ExploreMapProps> = (props) => {
+export const ExploreMap: React.FC<ExploreMapProps> = (_props) => {
   // const ifNoRoute = useMemo(() => [], []);
   // const route = props.route ?? ifNoRoute;
   // const locations = useAppSelector(selectLocationsArray);

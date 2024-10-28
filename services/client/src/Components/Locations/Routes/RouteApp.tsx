@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
+// import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.action';
 import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
 import {
@@ -28,7 +28,7 @@ export const RouteApp: React.FC<unknown> = () => {
 
   const locations = useAppSelector(selectLocationsArray);
 
-  const userLocation = useAppSelector(selectUserLocation);
+  // const userLocation = useAppSelector(selectUserLocation);
 
   const locationTree = React.useMemo(() => {
     return binaryLocationTree(locations);
@@ -49,7 +49,7 @@ export const RouteApp: React.FC<unknown> = () => {
       {/* <RouteViewer destinations={destinations} /> */}
       <DestinationQue
         destinations={destinations}
-        missions={missions}
+        // missions={missions}
         locationTree={locationTree}
       />
       <MissionViewer missions={missions} />

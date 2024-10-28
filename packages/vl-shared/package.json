@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@typescript-eslint/parser": "8.11.0",
-    "vl-shared": "file:",
+    "vl-shared": "1.0.0",
     "zod": "3.23.8"
   },
   "preconstruct": {
