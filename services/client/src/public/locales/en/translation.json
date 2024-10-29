@@ -102,6 +102,9 @@
     },
     "FINDER": {
       "LABEL": "Finder"
+    },
+    "WIKI": {
+      "LABEL": "Wiki"
     }
   }
 }

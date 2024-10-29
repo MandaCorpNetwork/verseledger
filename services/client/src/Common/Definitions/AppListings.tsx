@@ -14,6 +14,7 @@ import {
   NewspaperTwoTone,
   PersonTwoTone,
   RouteTwoTone,
+  SchoolTwoTone,
   SettingsTwoTone,
   ShoppingBasketTwoTone,
   StackedBarChartTwoTone,
@@ -59,6 +60,24 @@ export type AppGroup = {
 export const VerseLedgerVersion = '0.4.5';
 
 export const masterAppList: AppListing[] = [
+  {
+    id: 'verse-news',
+    label: '@APP.NEWS.LABEL',
+    path: '/verse-news',
+    icon: <NewspaperTwoTone />,
+    versionLabel: 'Verse News',
+    version: '0.x',
+    severityCode: 10,
+  },
+  {
+    id: 'wiki',
+    label: '@APP.WIKI.LABEL',
+    path: '/wiki',
+    icon: <SchoolTwoTone />,
+    versionLabel: 'Wiki',
+    version: '0.x',
+    severityCode: 10,
+  },
   {
     id: 'dashboard',
     label: '@APP.HOME.LABEL',
@@ -199,15 +218,6 @@ export const masterAppList: AppListing[] = [
     versionLabel: 'Verse Market',
     version: '0.x',
     severityCode: 9,
-  },
-  {
-    id: 'verse-news',
-    label: '@APP.NEWS.LABEL',
-    path: '/verse-news',
-    icon: <NewspaperTwoTone />,
-    versionLabel: 'Verse News',
-    version: '0.x',
-    severityCode: 10,
   },
   {
     id: 'org-dash',
