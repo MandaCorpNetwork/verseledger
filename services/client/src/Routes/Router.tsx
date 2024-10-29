@@ -68,7 +68,11 @@ export const routingInfo: RouteObject[] = [
       },
       {
         path: '/apps',
-        element: <AppPage />,
+        element: (
+          <SecureRoute>
+            <AppPage />
+          </SecureRoute>
+        ),
         children: [
           {
             index: true,
