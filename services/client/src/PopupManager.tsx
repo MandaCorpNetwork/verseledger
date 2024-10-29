@@ -46,7 +46,10 @@ import {
   SubmitRatingPopup,
   SubmitRatingPopupProps,
 } from '@Popups/Ratings/SubmitRating';
-import { AddMissionPopup, POPUP_CREATE_MISSION } from '@Popups/Routes/AddMission';
+import {
+  AddMissionPopup,
+  POPUP_CREATE_MISSION,
+} from '@Popups/Routes/AddMission/AddMission';
 import { AddTaskPopup, POPUP_ADD_TASK } from '@Popups/Routes/AddTask/AddTask';
 import { POPUP_SUPPORT_DEVELOPMENT, SupportDevPopup } from '@Popups/Support/SupportDev';
 import { CreateTokenPopup, POPUP_CREATE_TOKEN } from '@Popups/Tokens/CreateToken';

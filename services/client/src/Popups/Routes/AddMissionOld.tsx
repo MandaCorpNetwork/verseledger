@@ -32,7 +32,7 @@ import {
 
 export const POPUP_CREATE_MISSION = 'create_mission';
 
-export const AddMissionPopup: React.FC = () => {
+export const AddMissionPopupOld: React.FC = () => {
   const [missionLabel, setMissionLabel] = React.useState<string | null>(null);
   const [objectives, setObjectives] = React.useState<ILogisticTransport[]>([
     {

@@ -131,7 +131,7 @@ export const masterAppList: AppListing[] = [
     path: '/apps/routes',
     icon: <RouteTwoTone />,
     versionLabel: 'Route Tool',
-    version: '2.0.1',
+    version: '2.0.2',
     severityCode: 8,
   },
   {
@@ -342,7 +342,7 @@ export const dashApps: AppGroup = {
   id: 'dash',
   label: 'Dashboard',
   category: 'Default',
-  list: ['explore', 'ship', 'contracts', 'orders', 'relations'],
+  list: ['explore', 'ship', 'contracts', 'orders'],
 };
 
 export const exploreApps: AppGroup = {
