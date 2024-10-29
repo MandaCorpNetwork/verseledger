@@ -40,24 +40,12 @@ type LocationSearchProps = {
   width?: string;
   helperText?: string;
   margin?: string;
-  required?: boolean;
   menuSize?: keyof typeof menuSizeValues;
   sx?: object;
-  label?: string;
 };
 
-//TODO: Move Locations to Local Storage for Faster Loading
 export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
-  const {
-    onLocationSelect,
-    width,
-    helperText,
-    margin,
-    required,
-    menuSize = 'm',
-    sx,
-    label = 'Search Locations',
-  } = props;
+  const { onLocationSelect, width, helperText, margin, menuSize = 'm', sx } = props;
   const [inputValue, setInputValue] = React.useState<ILocation | null>(null);
   //InputValue State Setter using ILocation Schema
 
@@ -66,7 +54,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
   const dispatch = useAppDispatch();
 
   //Set the State with the Locations Selector
-  const locations: ILocation[] = useAppSelector(selectLocationsArray);
+  const locations = useAppSelector(selectLocationsArray);
 
   //Set the User Location Default
   const currentUserLocation = useAppSelector(selectUserLocation);
@@ -114,9 +102,11 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
           size="small"
           color="secondary"
           helperText={helperText}
-          FormHelperTextProps={{
-            margin: 'dense',
-            disabled: true,
+          slotProps={{
+            formHelperText: {
+              margin: 'dense',
+              disabled: true,
+            },
           }}
         />
       )}
