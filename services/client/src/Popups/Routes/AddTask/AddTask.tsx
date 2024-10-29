@@ -147,8 +147,8 @@ export const AddTaskPopup: React.FC = () => {
               }}
               children={(field) => (
                 <LocationSearch
-                  required
-                  label="Stop Location"
+                  // required
+                  // label="Stop Location"
                   onLocationSelect={(e) => field.handleChange(e ?? ({} as ILocation))}
                   sx={{ minWidth: '200px', mb: '1em' }}
                 />

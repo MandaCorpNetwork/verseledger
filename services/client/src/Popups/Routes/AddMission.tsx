@@ -422,16 +422,16 @@ export const AddMissionPopup: React.FC = () => {
                     onLocationSelect={(loc) =>
                       handleObjectiveLocations(index, 'pickup', loc)
                     }
-                    label="Pickup Location"
-                    required
+                    // label="Pickup Location"
+                    // required
                     sx={{ minWidth: '175px' }}
                   />
                   <LocationSearch
                     onLocationSelect={(loc) =>
                       handleObjectiveLocations(index, 'dropoff', loc)
                     }
-                    label="DropOff Location"
-                    required
+                    // label="DropOff Location"
+                    // required
                     sx={{ minWidth: '175px' }}
                   />
                   <TextField
