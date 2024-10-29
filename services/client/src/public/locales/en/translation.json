@@ -86,10 +86,22 @@
       "LABEL": "Market"
     },
     "ORGS": {
-      "LABEL": "Orgs"
+      "LABEL": "Org"
     },
     "NEWS": {
       "LABEL": "News"
+    },
+    "RELATIONS": {
+      "LABEL": "Relations"
+    },
+    "MANAGEMENT": {
+      "LABEL": "Manage"
+    },
+    "PAYROLL": {
+      "LABEL": "Payroll"
+    },
+    "FINDER": {
+      "LABEL": "Finder"
     }
   }
 }

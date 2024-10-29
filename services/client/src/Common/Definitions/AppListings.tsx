@@ -1,8 +1,15 @@
 import {
+  AccountBalanceTwoTone,
   BusinessTwoTone,
   ConstructionTwoTone,
+  ExploreTwoTone,
+  GroupsTwoTone,
+  GroupTwoTone,
+  GroupWorkTwoTone,
   HomeTwoTone,
+  HubTwoTone,
   InventoryTwoTone,
+  LocalMallTwoTone,
   MenuBookTwoTone,
   NewspaperTwoTone,
   PersonTwoTone,
@@ -10,6 +17,7 @@ import {
   SettingsTwoTone,
   ShoppingBasketTwoTone,
   StackedBarChartTwoTone,
+  StorefrontTwoTone,
   StoreTwoTone,
   WorkTwoTone,
 } from '@mui/icons-material';
@@ -53,7 +61,7 @@ export const VerseLedgerVersion = '0.4.5';
 export const masterAppList: AppListing[] = [
   {
     id: 'dashboard',
-    label: 'Home',
+    label: '@APP.HOME.LABEL',
     path: '/apps/dashboard',
     icon: <HomeTwoTone />,
     versionLabel: 'Dashboard',
@@ -71,6 +79,16 @@ export const masterAppList: AppListing[] = [
     severityCode: 8,
   },
   {
+    id: 'relations',
+    label: '@APP.RELATIONS.LABEL',
+    path: '/apps/relations',
+    icon: <GroupTwoTone />,
+    disabled: true,
+    versionLabel: 'Relations',
+    version: '0.x',
+    severityCode: 10,
+  },
+  {
     id: 'settings',
     label: '@APP.SETTINGS.LABEL',
     path: '/settings',
@@ -81,7 +99,7 @@ export const masterAppList: AppListing[] = [
   },
   {
     id: 'explore',
-    label: 'Explore',
+    label: '@APP.EXPLORE.LABEL',
     path: '/apps/explore',
     icon: <Exploration />,
     versionLabel: 'Explorer Tool',
@@ -90,7 +108,7 @@ export const masterAppList: AppListing[] = [
   },
   {
     id: 'routes',
-    label: 'Routes',
+    label: '@APP.ROUTES.LABEL',
     path: '/apps/routes',
     icon: <RouteTwoTone />,
     versionLabel: 'Route Tool',
@@ -109,7 +127,7 @@ export const masterAppList: AppListing[] = [
   },
   {
     id: 'ship',
-    label: 'Ship',
+    label: '@APP.SHIP.LABEL',
     path: '/apps/ship',
     icon: <Vehicles />,
     versionLabel: 'Ship Manager',
@@ -183,9 +201,18 @@ export const masterAppList: AppListing[] = [
     severityCode: 9,
   },
   {
-    id: 'orgs',
-    label: '@APP.ORGS.LABEL',
-    path: '/orgs',
+    id: 'verse-news',
+    label: '@APP.NEWS.LABEL',
+    path: '/verse-news',
+    icon: <NewspaperTwoTone />,
+    versionLabel: 'Verse News',
+    version: '0.x',
+    severityCode: 10,
+  },
+  {
+    id: 'org-dash',
+    label: '@APP.HOME.LABEL',
+    path: '/orgs/dash',
     icon: <BusinessTwoTone />,
     disabled: true,
     versionLabel: 'Org Dashboard',
@@ -193,11 +220,102 @@ export const masterAppList: AppListing[] = [
     severityCode: 10,
   },
   {
-    id: 'verse-news',
-    label: '@APP.NEWS.LABEL',
-    path: '/verse-news',
-    icon: <NewspaperTwoTone />,
-    versionLabel: 'Verse News',
+    id: 'org-relations',
+    label: '@APP.RELATIONS.LABEL',
+    path: '/orgs/relations',
+    icon: <GroupsTwoTone />,
+    disabled: true,
+    versionLabel: 'Org Relations',
+    version: '0.x',
+    severityCode: 10,
+  },
+  {
+    id: 'org-manage',
+    label: '@APP.MANAGEMENT.LABEL',
+    path: '/orgs/manage',
+    icon: <GroupWorkTwoTone />,
+    disabled: true,
+    versionLabel: 'Org Management',
+    version: '0.x',
+    severityCode: 10,
+  },
+  {
+    id: 'org-contracts',
+    label: '@APP.CONTRACTS.LABEL',
+    path: '/orgs/contracts',
+    icon: <WorkTwoTone />,
+    disabled: true,
+    versionLabel: 'Org Contracts',
+    version: '0.x',
+    severityCode: 10,
+  },
+  {
+    id: 'org-pay',
+    label: '@APP.PAYROLL.LABEL',
+    path: '/orgs/payroll',
+    icon: <AccountBalanceTwoTone />,
+    disabled: true,
+    versionLabel: 'Org Payroll',
+    version: '0.x',
+    severityCode: 10,
+  },
+  {
+    id: 'org-explore',
+    label: '@APP.EXPLORE.LABEL',
+    path: '/orgs/explore',
+    icon: <ExploreTwoTone />,
+    disabled: true,
+    versionLabel: 'Org Explorer',
+    version: '0.x',
+    severityCode: 10,
+  },
+  {
+    id: 'org-fleet',
+    label: '@APP.FLEET.LABEL',
+    path: '/orgs/fleet',
+    icon: <Fleet />,
+    disabled: true,
+    versionLabel: 'Org Fleet',
+    version: '0.x',
+    severityCode: 10,
+  },
+  {
+    id: 'org-find',
+    label: '@APP.FINDER.LABEL',
+    path: '/orgs/list',
+    icon: <HubTwoTone />,
+    disabled: true,
+    versionLabel: 'Org Finder',
+    version: '0.x',
+    severityCode: 10,
+  },
+  {
+    id: 'org-orders',
+    label: '@APP.ORDERS.LABEL',
+    path: '/orgs/orders',
+    icon: <LocalMallTwoTone />,
+    disabled: true,
+    versionLabel: 'Org Orders',
+    version: '0.x',
+    severityCode: 10,
+  },
+  {
+    id: 'org-market',
+    label: '@APP.MARKET.LABEL',
+    path: '/orgs/market',
+    icon: <StorefrontTwoTone />,
+    disabled: true,
+    versionLabel: 'Org Market',
+    version: '0.x',
+    severityCode: 10,
+  },
+  {
+    id: 'org-inventory',
+    label: '@APP.INVENTORY.LABEL',
+    path: '/orgs/inventory',
+    icon: <AccountBalanceTwoTone />,
+    disabled: true,
+    versionLabel: 'Org Inventory',
     version: '0.x',
     severityCode: 10,
   },
@@ -207,56 +325,56 @@ export const splashApps: AppGroup = {
   id: 'splash',
   label: 'Splash',
   category: 'Default',
-  list: ['orgs', 'contract-ledger', 'verse-market', 'verse-news'],
+  list: ['org-dash', 'contract-ledger', 'verse-market', 'verse-news'],
 };
 
 export const dashApps: AppGroup = {
   id: 'dash',
   label: 'Dashboard',
   category: 'Default',
-  list: ['explore', 'ship', 'contracts', 'orders'],
+  list: ['explore', 'ship', 'contracts', 'orders', 'relations'],
 };
 
 export const exploreApps: AppGroup = {
   id: 'explore',
   label: '@APP.EXPLORE.LABEL',
   category: 'locations',
-  list: ['explore', 'routes', 'inventory'],
+  list: ['explore', 'routes', 'inventory', 'org-explore'],
 };
 
 export const shipApps: AppGroup = {
   id: 'ship',
   label: '@APP.SHIP.LABEL',
   category: 'ships',
-  list: ['ship', 'fleet', 'builder', 'tuning'],
+  list: ['ship', 'fleet', 'builder', 'tuning', 'org-fleet'],
 };
 
 export const contractApps: AppGroup = {
   id: 'contract',
   label: '@APP.CONTRACTS.LABEL',
   category: 'contract',
-  list: ['contracts', 'contract-ledger'],
+  list: ['contracts', 'contract-ledger', 'org-contracts'],
 };
 
 export const orderApps: AppGroup = {
   id: 'order',
   label: '@APP.ORDERS.LABEL',
   category: 'order',
-  list: ['orders', 'verse-market'],
+  list: ['orders', 'verse-market', 'org-orders', 'org-market'],
 };
 
-export const orgApps: AppGroup = {
-  id: 'org',
+export const orgDashApps: AppGroup = {
+  id: 'org-dash',
   label: '@APP.ORGS.LABEL',
   category: 'org',
-  list: ['orgs'],
+  list: ['org-relations', 'org-contracts', 'org-fleet', 'org-market'],
 };
 
 export const personalApps: AppGroup = {
   id: 'personal',
   label: 'Personal',
   category: 'settings',
-  list: ['profile', 'settings', 'orgs', 'news'],
+  list: ['profile', 'relations', 'settings', 'org-dash'],
 };
 
 //Todo: Create a Factory Component for creating AppLists and set up the Master App List with the userid for the correct User Id
