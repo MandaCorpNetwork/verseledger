@@ -25,6 +25,7 @@ export const UserDial: React.FC = () => {
   const [notificationsOpen, setNotificationsOpen] = React.useState<boolean>(false);
   const [notificationsAnchorEl, setNotificationsAnchorEl] =
     React.useState<null | HTMLElement>(null);
+  const [menuOpen, setMenuOpen] = React.useState<boolean>(false);
   const user = useAppSelector(selectCurrentUser);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -62,6 +63,11 @@ export const UserDial: React.FC = () => {
   ) : (
     <NotificationsOutlined />
   );
+
+  const toggleOpen = React.useCallback(() => {
+    setMenuOpen((prev) => !prev);
+  }, [setMenuOpen]);
+
   return (
     <Box sx={{ position: 'relative' }}>
       <SpeedDial
@@ -70,6 +76,9 @@ export const UserDial: React.FC = () => {
         icon={<Avatar className="User-Avatar" src={user?.pfp} />}
         className="User-Dial"
         transitionDuration={1000}
+        open={menuOpen}
+        onClick={toggleOpen}
+        onMouseLeave={toggleOpen}
         sx={{
           '& .MuiFab-root': {
             backgroundColor: 'transparent',
