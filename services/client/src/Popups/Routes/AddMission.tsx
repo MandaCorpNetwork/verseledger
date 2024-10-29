@@ -17,7 +17,7 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { updateDestinations } from '@Redux/Slices/Routes/actions/destination.action';
 import { createMission } from '@Redux/Slices/Routes/actions/mission.action';
-import { addObjectives } from '@Redux/Slices/Routes/actions/objective.action';
+import { updateTasks } from '@Redux/Slices/Routes/actions/task.action';
 import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
 import { createLocalID } from '@Utils/createId';
 import { bindPopover, usePopupState } from 'material-ui-popup-state/hooks';
@@ -271,11 +271,12 @@ export const AddMissionPopup: React.FC = () => {
   }, [getUpdatedDestinations, getNewDestinations, dispatch]);
 
   const handleStops = React.useCallback(() => {
-    const stops = objectives.flatMap((objective) => [
+    const stops: ITask[] = objectives.flatMap((objective) => [
       { ...objective.pickup },
       { ...objective.dropoff },
     ]);
-    dispatch(addObjectives({ objectives: stops }));
+    if (stops.length < 1) return;
+    dispatch(updateTasks(stops));
   }, [objectives, dispatch]);
 
   const handleSubmit = React.useCallback(() => {

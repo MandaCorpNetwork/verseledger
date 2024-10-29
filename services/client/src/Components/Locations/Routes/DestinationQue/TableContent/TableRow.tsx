@@ -18,7 +18,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { updateDestinations } from '@Redux/Slices/Routes/actions/destination.action';
 import { updateMissions } from '@Redux/Slices/Routes/actions/mission.action';
-import { updateObjectives } from '@Redux/Slices/Routes/actions/objective.action';
+import { updateTasks } from '@Redux/Slices/Routes/actions/task.action';
 import { selectMissions } from '@Redux/Slices/Routes/routes.selectors';
 import React from 'react';
 import { IDestination, ITask, ITaskStatus } from 'vl-shared/src/schemas/RoutesSchema';
@@ -200,7 +200,7 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
       });
       dispatch(updateDestinations(validatedDestinations));
       dispatch(updateMissions(updatedMissions));
-      dispatch(updateObjectives(updatedObjectives));
+      dispatch(updateTasks(updatedObjectives));
     },
     [
       sound,

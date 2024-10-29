@@ -3,21 +3,21 @@ import { IDestination, IMission, ITask } from 'vl-shared/src/schemas/RoutesSchem
 
 import { deleteDestination, updateDestinations } from './actions/destination.action';
 import { createMission, updateMissions } from './actions/mission.action';
-import { addObjectives, updateObjectives } from './actions/objective.action';
+import { addTasks, updateTasks } from './actions/task.action';
 
 const routesReducer = createSlice({
   name: 'routes',
   initialState: {
     destinations: {} as Record<string, IDestination>,
     missions: {} as Record<string, IMission>,
-    objectives: {} as Record<string, ITask>,
+    tasks: {} as Record<string, ITask>,
   },
   reducers: {
     noop() {
       return {
         destinations: {},
         missions: {},
-        objectives: {},
+        tasks: {},
       };
     },
   },
@@ -40,23 +40,23 @@ const routesReducer = createSlice({
           }
         });
       })
-      .addCase(addObjectives, (state, action) => {
-        const objectiveArray = action.payload.objectives;
-        objectiveArray.forEach((objective: ITask) => {
-          state.objectives[objective.id] = objective;
+      .addCase(addTasks, (state, action) => {
+        const taskArray = action.payload;
+        taskArray.forEach((task: ITask) => {
+          state.tasks[task.id] = task;
         });
       })
-      .addCase(updateObjectives, (state, action) => {
-        const updatedObjectives = action.payload;
+      .addCase(updateTasks, (state, action) => {
+        const updatedTasks = action.payload;
 
-        updatedObjectives.forEach((objective) => {
-          if (state.objectives[objective.id]) {
-            state.objectives[objective.id] = {
-              ...state.objectives[objective.id],
-              ...objective,
+        updatedTasks.forEach((task) => {
+          if (state.tasks[task.id]) {
+            state.tasks[task.id] = {
+              ...state.tasks[task.id],
+              ...task,
             };
           } else {
-            state.objectives[objective.id] = objective;
+            state.tasks[task.id] = task;
           }
         });
       })

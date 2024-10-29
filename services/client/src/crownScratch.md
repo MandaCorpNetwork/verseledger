@@ -131,18 +131,17 @@ Current Expense: 2100
 Water: > 30
 Renters Insurance: 100
 Rent: 1,600 (2Bed)
-Cost + Current = 3800           
+Cost + Current = 3800
 
 Debt & Other Expenses
 
 Material Prop:
-  Metal
-  Rubber
-  Digital
+Metal
+Rubber
+Digital
 
-  0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
-            'linear-gradient(135deg, rgba(33,150,243,0.8), rgba(14,35,141,0.8))',
-
+0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+'linear-gradient(135deg, rgba(33,150,243,0.8), rgba(14,35,141,0.8))',
 
 inset 0 -2px 3px rgba(0,0,0,0.12)
 to
@@ -157,3 +156,12 @@ to
 inset 0 -4px 6px rgba(0,0,0,0.5)
 
 Labels
+
+TODO:
+Update VLPopup for new Form Format
+
+Update You Sure Popup for New form format
+
+Update The Submit/Open Button Style
+
+Update Add Mission Form to Tanstack
