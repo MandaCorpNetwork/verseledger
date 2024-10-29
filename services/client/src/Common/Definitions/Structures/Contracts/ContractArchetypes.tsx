@@ -17,7 +17,7 @@ import {
   RRR,
   Salvage,
   Security,
-} from '../CustomIcons';
+} from '../../CustomIcons';
 
 export const contractArchetypes: ContractArchetypeTree[] = [
   {

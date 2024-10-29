@@ -3,6 +3,7 @@ import '@mui/material/Divider';
 import '@mui/material/Button';
 import '@mui/material/Typography';
 import '@mui/material/Box';
+import '@mui/material/ListItemButton';
 
 import { createTheme } from '@mui/material/styles';
 
@@ -10,6 +11,12 @@ declare module '@mui/material/Divider' {
   interface DividerPropsVariantOverrides {
     ToolTitle: true;
     ComponentTitle: true;
+  }
+}
+
+declare module '@mui/material/ListItemButton' {
+  interface ListItemButtonPropsVariantOverrides {
+    formItemSelect: true;
   }
 }
 
@@ -48,8 +55,8 @@ export const verseOSTheme = createTheme({
       //default: 'white', //Theme Test Switch
     },
     primary: {
-      main: 'rgb(14, 35, 141)',
-      dark: 'rgb(8, 22, 80)',
+      main: 'rgb(14,35,141)',
+      dark: 'rgb(8,22,80)',
       light: 'rgb(33,150,243)',
     },
     secondary: {
@@ -86,8 +93,8 @@ export const verseOSTheme = createTheme({
       contrastText: 'rgb(255,160,160)',
     },
     action: {
-      disabled: 'rgb(0, 73, 130)',
-      disabledBackground: 'rgb(0, 30, 100)',
+      disabled: 'rgb(0,73,130)',
+      disabledBackground: 'rgb(0,30,100)',
     },
     divider: 'rgb(24, 252, 252)',
   },

@@ -1,5 +1,6 @@
-import { MobileDock } from '@Common/MobileDock/MobileDock';
 import { Box } from '@mui/material';
+
+import { ListSelectButton } from './Components/Styled/Buttons/IndicatorButton';
 
 export const SandboxContent: React.FC<unknown> = () => {
   return (
@@ -14,16 +15,7 @@ export const SandboxContent: React.FC<unknown> = () => {
       }}
     >
       <Box sx={{ display: 'flex', gap: '1em', flexDirection: 'column' }}>
-        <Box
-          sx={{
-            position: 'relative',
-            height: '300px',
-            width: '300px',
-            bgcolor: 'rgba(0,0,0,0.5)',
-          }}
-        >
-          <MobileDock top left />
-        </Box>
+        <ListSelectButton>Pick Me</ListSelectButton>
       </Box>
     </Box>
   );

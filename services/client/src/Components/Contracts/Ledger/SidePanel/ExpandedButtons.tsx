@@ -1,4 +1,4 @@
-import { archetypeLoopButtons } from '@Common/Definitions/Contracts/ContractArchetypes';
+import { archetypeLoopButtons } from '@Common/Definitions/Structures/Contracts/ContractArchetypes';
 import { Button, Grow } from '@mui/material';
 
 import { ContractLedgerLoopButton } from './ContractLedgerLoopButton';

@@ -12,7 +12,7 @@ import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
 import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
 import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHolo';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
-import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
+import { contractArchetypes } from '@Common/Definitions/Structures/Contracts/ContractArchetypes';
 import { ErrorTwoTone, ExpandMore, Launch, Link } from '@mui/icons-material';
 import { Box, Button, Collapse, IconButton, Tooltip, Typography } from '@mui/material';
 import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBids/ContractBid';

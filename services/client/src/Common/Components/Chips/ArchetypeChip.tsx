@@ -1,4 +1,4 @@
-import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
+import { contractArchetypes } from '@Common/Definitions/Structures/Contracts/ContractArchetypes';
 import { ErrorTwoTone } from '@mui/icons-material';
 import { Chip } from '@mui/material';
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';

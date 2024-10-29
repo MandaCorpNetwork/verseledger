@@ -1,4 +1,4 @@
-import { userBackgroundOptions } from '@Common/Definitions/Users/UserBackgrounds';
+import { userBackgroundOptions } from '@Common/Definitions/Structures/Users/UserBackgrounds';
 import { Box, styled } from '@mui/material';
 
 const selectedWatermark = userBackgroundOptions[0].waterMark;

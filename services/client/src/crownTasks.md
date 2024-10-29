@@ -189,6 +189,35 @@ _Add Mission Popup_
 
 ## Notes
 
+  ### Typescript
+  #### Types
+  SetState Actions<br>
+    `React.Dispatch<React.SetStateAction<Type>>`
+  #### Tanstack
+  ##### Forms
+  Validation Adapters
+  ```ts 
+  import { zodValidator } from '@tanstack/zod-form-adapter'
+    import { z } from 'zod'
+  // ...
+  <form.Field
+    name="firstName"
+    validatorAdapter={zodValidator()}
+    validators={{
+      onChange: z.string().min(3, 'First name must be at least 3 characters'),
+      onChangeAsyncDebounceMs: 500,
+      onChangeAsync: z.string().refine(
+        async (value) => {
+          await new Promise((resolve) => setTimeout(resolve, 1000))
+          return !value.includes('error')
+        },
+        {
+          message: "No 'error' allowed in first name",
+        },
+      ),
+    }}
+  />
+  ```
 </details>
 <br>
 
