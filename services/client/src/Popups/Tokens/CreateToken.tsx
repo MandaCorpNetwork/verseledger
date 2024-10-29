@@ -113,6 +113,15 @@ export const CreateTokenPopup: React.FC = () => {
         </FormGroup>
         <FormGroup sx={{ width: '100%' }}>
           <PermissionGroup
+            title="Orgs"
+            description="Manage and Create Orgs"
+            read={ApiPermission.ORGS_READ}
+            write={ApiPermission.ORGS}
+            rolesState={roleState}
+          />
+        </FormGroup>
+        <FormGroup sx={{ width: '100%' }}>
+          <PermissionGroup
             privilaged
             writePrivilaged
             title="Chat"

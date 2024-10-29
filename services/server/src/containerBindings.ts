@@ -18,6 +18,7 @@ import { UserSettingsService } from '@V1/models/user_settings/user_settings.serv
 import { ChatService } from '@V1/models/chat/chat.service';
 import { ContractBidsService } from '@V1/models/contract_bid/contract_bid.service';
 import { LocationService } from '@V1/models/location/locations.services';
+import { OrganizationService } from '@V1/models/organization/organization.services';
 export const bindContainer = (container: Container) => {
   container
     .bind<EnvService>(TYPES.EnvService)
@@ -83,5 +84,9 @@ export const bindContainer = (container: Container) => {
   container
     .bind<LocationService>(TYPES.LocationService)
     .to(LocationService)
+    .inSingletonScope();
+  container
+    .bind<OrganizationService>(TYPES.OrganizationService)
+    .to(OrganizationService)
     .inSingletonScope();
 };

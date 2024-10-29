@@ -1,3 +1,4 @@
+// import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
@@ -19,6 +20,7 @@ export default defineConfig({
   root: './src',
   build: { outDir: '../build' },
   plugins: [
+    // TanStackRouterVite({ autoCodeSplitting: true, quoteStyle: 'single', routesDirectory:'./src/Routes'}),
     react({ tsDecorators: true }),
     ...VitePWA(PWA_OPTIONS),
     tsconfigPaths(),

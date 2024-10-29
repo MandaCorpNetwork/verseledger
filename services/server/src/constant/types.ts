@@ -16,4 +16,5 @@ export const TYPES = {
   ChatService: Symbol.for('ChatService'),
   ContractBidsService: Symbol.for('ContractBidsService'),
   LocationService: Symbol.for('LocationService'),
+  OrganizationService: Symbol.for('OrganizationService'),
 };

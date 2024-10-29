@@ -77,6 +77,8 @@
     ]
   },
   "devDependencies": {
+    "@tanstack/router-devtools": "1.77.6",
+    "@tanstack/router-plugin": "1.76.4",
     "@testing-library/dom": "10.4.0",
     "@testing-library/react": "16.0.1",
     "@trivago/prettier-plugin-sort-imports": "4.3.0",
