@@ -18,6 +18,7 @@ import {
   InferAttributes,
   InferCreationAttributes,
 } from 'sequelize';
+import { OrganizationInvite } from './organization_invite.model';
 
 @Scopes(() => ({
   members: {
@@ -41,12 +42,6 @@ export class Organization extends Model<
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
   declare owner_id: Awaited<User['id']>;
 
-  @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare owner_org_id: Awaited<User['id']>;
-
-  @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare owner_user_id: Awaited<User['id']>;
-
   @Column({ type: DataType.STRING(32) })
   declare title: string;
 
@@ -58,4 +53,7 @@ export class Organization extends Model<
 
   @HasMany(() => OrganizationMember, 'org_id')
   declare Members: CreationOptional<Awaited<OrganizationMember>[]>;
+
+  @HasMany(() => OrganizationInvite, 'organization_id')
+  declare Invites: CreationOptional<Awaited<OrganizationInvite>>;
 }

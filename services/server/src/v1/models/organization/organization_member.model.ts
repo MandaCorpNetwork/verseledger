@@ -17,7 +17,7 @@ import {
   InferCreationAttributes,
 } from 'sequelize';
 
-@Table({ tableName: 'organization_members', timestamps: true })
+@Table({ tableName: 'organization_member', timestamps: true })
 export class OrganizationMember extends Model<
   InferAttributes<OrganizationMember>,
   InferCreationAttributes<OrganizationMember>
@@ -39,6 +39,9 @@ export class OrganizationMember extends Model<
 
   @Column({ type: DataType.STRING(32) })
   declare role: string;
+
+  @Column({ type: DataType.DATE() })
+  declare joined: Date;
 
   @BelongsTo(() => User, { foreignKey: 'user_id', targetKey: 'id' })
   declare User: CreationOptional<Awaited<User>>;
