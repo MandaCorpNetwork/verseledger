@@ -1,6 +1,7 @@
 {
   "name": "verseledger",
   "version": "0.1.0",
+  "licence": "CC-BY-NC-ND-4.0",
   "private": true,
   "workspaces": [
     "services/*",
