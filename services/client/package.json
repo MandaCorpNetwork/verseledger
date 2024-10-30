@@ -21,7 +21,7 @@
     "@scalar/api-reference-react": "0.3.128",
     "@tanstack/react-form": "0.34.1",
     "@tanstack/react-ranger": "0.0.4",
-    "@tanstack/react-router": "1.77.6",
+    "@tanstack/react-router": "1.77.8",
     "@tanstack/react-table": "8.20.5",
     "@tanstack/react-virtual": "3.10.8",
     "axios": "1.7.7",
@@ -77,8 +77,8 @@
     ]
   },
   "devDependencies": {
-    "@tanstack/router-devtools": "1.77.6",
-    "@tanstack/router-plugin": "1.76.4",
+    "@tanstack/router-devtools": "1.77.8",
+    "@tanstack/router-plugin": "1.77.7",
     "@testing-library/dom": "10.4.0",
     "@testing-library/react": "16.0.1",
     "@trivago/prettier-plugin-sort-imports": "4.3.0",
