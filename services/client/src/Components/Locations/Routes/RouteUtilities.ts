@@ -538,13 +538,30 @@ export function formatDistance(locA: MappedLocation, locB: MappedLocation): stri
   }
 }
 
-export function test(destinations: IDestination[], mission: IMission) {
+export function missionToDestinations(destinations: IDestination[], mission: IMission) {
   const newDestinations = mission.objectives.forEach((obj) => {
     const foundPick = destinations.find(
       (dest) => dest.location.id === obj.pickup.location.id,
     );
-    const foundDrop = findDrop(destinations, obj, foundPick);
+    const foundDrop = findDrop(destinations, obj as ILogisticTransport, foundPick);
+
+    const tempDests = [
+      foundPick
+        ? { ...foundPick, tasks: [...foundPick.tasks, obj.pickup] }
+        : ({} as IDestination),
+      foundDrop
+        ? { ...foundDrop, tasks: [...foundDrop.tasks, obj.dropoff] }
+        : ({} as IDestination),
+    ];
+
+    return tempDests;
   });
+
+  const filteredDestinations = destinations.filter(
+    (dest) => !newDestinations.some((newDest) => newDest.id === dest.id),
+  );
+
+  const updatedList = [...filteredDestinations, ...newDestinations];
 }
 
 function findDrop(
@@ -553,5 +570,15 @@ function findDrop(
   foundPick: IDestination,
 ) {
   if (!foundPick) return null;
-  const dropoffDest
+  const dropoffDest = destinations.find((dest) => {
+    if (foundPick.stopNumber <= 0) {
+      return dest.location.id === objective.dropoff.location.id;
+    } else {
+      return (
+        dest.location.id === objective.dropoff.location.id &&
+        dest.stopNumber > foundPick.stopNumber
+      );
+    }
+  });
+  return dropoffDest ?? null;
 }

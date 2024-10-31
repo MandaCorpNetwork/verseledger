@@ -5,16 +5,29 @@ import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { SCUField } from '@Common/Components/TextFields/SCUField';
 import { missionOpts } from '@Common/Definitions/Forms/RouteForms';
-import { extractTasks } from '@Components/Locations/Routes/RouteUtilities';
+import {
+  extractTasks,
+  missionToDestinations,
+} from '@Components/Locations/Routes/RouteUtilities';
 import { AddCircle, Close } from '@mui/icons-material';
 import { IconButton, TextField, Tooltip, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { updateDestinations } from '@Redux/Slices/Routes/actions/destination.action';
+import {
+  createMission,
+  updateMissions,
+} from '@Redux/Slices/Routes/actions/mission.action';
+import { addTasks } from '@Redux/Slices/Routes/actions/task.action';
 import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
 import { useForm } from '@tanstack/react-form';
 import { createLocalID } from '@Utils/createId';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-import { IDestination, ILogisticTransport, IMission } from 'vl-shared/src/schemas/RoutesSchema';
+import {
+  IDestination,
+  ILogisticTransport,
+  IMission,
+} from 'vl-shared/src/schemas/RoutesSchema';
 
 export const POPUP_CREATE_MISSION = 'create_mission';
 
@@ -26,10 +39,10 @@ export const AddMissionPopup: React.FC = () => {
     ...missionOpts,
     onSubmit: ({ value }) => {
       const tasks = extractTasks(value);
-      const updatedDestinations: IDestination[] = { ...destinations };
-      value.objectives.forEach((obj) => {
-        
-      })
+      const updatedDestinations = missionToDestinations(destinations, value);
+      dispatch(addTasks(tasks));
+      dispatch(updateDestinations(updatedDestinations));
+      dispatch(createMission(value));
     },
   });
 
