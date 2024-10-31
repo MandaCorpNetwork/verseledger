@@ -61,7 +61,7 @@ export const verseOSTheme = createTheme({
     },
     secondary: {
       main: 'rgb(24, 252, 252)',
-      dark: 'rgb(6, 86, 145)',
+      dark: 'rgb(6,86,145)',
       light: 'rgb(121,192,244)',
     },
     text: {

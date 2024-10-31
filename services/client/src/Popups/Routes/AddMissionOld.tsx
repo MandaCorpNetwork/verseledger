@@ -446,12 +446,6 @@ export const AddMissionPopupOld: React.FC = () => {
                     }
                   />
                   <TextField
-                    data-testid="CreateMission-Form-Objective__SCU_Field"
-                    label="SCU"
-                    size="small"
-                    color="secondary"
-                    autoComplete="off"
-                    required
                     value={objective.scu != 0 ? objective.scu.toLocaleString() : ''}
                     onFocus={scuQuickPopupState.open}
                     onBlur={scuQuickPopupState.close}

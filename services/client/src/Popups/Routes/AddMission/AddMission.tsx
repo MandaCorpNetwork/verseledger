@@ -3,16 +3,17 @@ import { useSoundEffect } from '@Audio/AudioManager';
 import { LocationSearch } from '@Common/Components/App/LocationSearch';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
+import { SCUField } from '@Common/Components/TextFields/SCUField';
 import { missionOpts } from '@Common/Definitions/Forms/RouteForms';
-import { Close } from '@mui/icons-material';
-import { Button, IconButton, TextField, Tooltip, Typography } from '@mui/material';
+import { AddCircle, Close } from '@mui/icons-material';
+import { IconButton, TextField, Tooltip, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
 import { useForm } from '@tanstack/react-form';
-
-import { MissionObjectiveField } from './MissionObjectiveField';
+import { createLocalID } from '@Utils/createId';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import { ILogisticTransport } from 'vl-shared/src/schemas/RoutesSchema';
 
 export const POPUP_CREATE_MISSION = 'create_mission';
 
@@ -23,6 +24,28 @@ export const AddMissionPopup: React.FC = () => {
   const form = useForm({
     ...missionOpts,
   });
+
+  const newObjective: ILogisticTransport = {
+    id: createLocalID('M'),
+    label: '',
+    pickup: {
+      id: '',
+      type: 'pickup',
+      label: '',
+      location: {} as ILocation,
+      status: 'PENDING',
+    },
+    dropoff: {
+      id: '',
+      type: 'dropoff',
+      label: '',
+      location: {} as ILocation,
+      status: 'PENDING',
+    },
+    manifest: 'Unknown',
+    scu: 0,
+    status: 'PENDING',
+  };
   return (
     <VLPopup
       data-testid="CreateMission_Form"
@@ -33,13 +56,15 @@ export const AddMissionPopup: React.FC = () => {
         minWidth: '800px',
       }}
     >
-      <Typography
-        align="center"
-        variant="tip"
-        sx={{ px: '1em', fontSize: '.9em', mx: 'auto' }}
-      >
-        Create a mission for Routing.
-      </Typography>
+      <div style={{ display: 'flex' }}>
+        <Typography
+          align="center"
+          variant="tip"
+          sx={{ px: '1em', fontSize: '.9em', mx: 'auto' }}
+        >
+          Create a mission for Routing.
+        </Typography>
+      </div>
       <form
         data-testid="CreateMission-Form__About_Wrapper"
         style={{ width: '100%', display: 'flex', flexDirection: 'column' }}
@@ -71,7 +96,7 @@ export const AddMissionPopup: React.FC = () => {
               onBlur={field.handleBlur}
               sx={{
                 maxWidth: '150px',
-                mb: '.5em',
+                mb: '2em',
               }}
             />
           )}
@@ -102,6 +127,7 @@ export const AddMissionPopup: React.FC = () => {
                       sx={{
                         p: '.5em',
                         position: 'relative',
+                        my: '0.2em',
                       }}
                     >
                       <Tooltip
@@ -132,7 +158,6 @@ export const AddMissionPopup: React.FC = () => {
                           flexShrink: 0,
                         }}
                       >
-                        <Button onClick={() => console.log(field)}>Print</Button>
                         <form.Field
                           name={`objectives[${i}].label`}
                           validators={{
@@ -213,10 +238,34 @@ export const AddMissionPopup: React.FC = () => {
                             />
                           )}
                         />
+                        <form.Field
+                          name={`objectives[${i}].scu`}
+                          children={(subField) => (
+                            <SCUField
+                              value={subField.state.value as number}
+                              onChange={(e) => subField.handleChange(e)}
+                              onBlur={subField.handleBlur}
+                            />
+                          )}
+                        />
                       </div>
                     </DigiDisplay>
                   );
                 })}
+                <IconButton
+                  sx={{
+                    position: 'absolute',
+                    bottom: 4,
+                    left: '50%',
+                    onMouseEnter: '',
+                    '&:hover': {
+                      transform: 'scale(1.2)',
+                    },
+                  }}
+                  onClick={() => field.pushValue(newObjective)}
+                >
+                  <AddCircle fontSize="large" />
+                </IconButton>
               </div>
             )}
           </form.Field>
