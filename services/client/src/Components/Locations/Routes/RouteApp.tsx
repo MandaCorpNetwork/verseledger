@@ -10,7 +10,7 @@ import {
 import React from 'react';
 
 import { DestinationQue } from './DestinationQue/DestinationQue';
-import { binaryLocationTree } from './DestinationQue/TableContent/RouteUtilities';
+import { binaryLocationTree } from './RouteUtilities';
 import { MissionViewer } from './MissionViewer/MissionViewer';
 
 export const RouteApp: React.FC<unknown> = () => {

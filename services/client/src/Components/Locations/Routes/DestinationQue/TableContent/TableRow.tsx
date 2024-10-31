@@ -25,11 +25,11 @@ import { IDestination, ITask, ITaskStatus } from 'vl-shared/src/schemas/RoutesSc
 
 import { DestinationTask } from './DestinationTask';
 import {
-  extractObjectives,
+  extractTasks,
   getParentMission,
   getSiblingDestination,
   getSiblingObjective,
-} from './RouteUtilities';
+} from '../../RouteUtilities';
 
 type TableRowProps = {
   destination: IDestination;
@@ -103,8 +103,8 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
 
       destinations.forEach((dest) => {
         const tempDest = { ...dest };
-        tempDest.objectives = objectiveValidationHelper(
-          tempDest.objectives,
+        tempDest.tasks = objectiveValidationHelper(
+          tempDest.tasks,
           tempDest.stopNumber,
           destinations,
         );
@@ -170,7 +170,7 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
 
       const validatedDestinations = validateDestObjectives(updatedDestinations);
 
-      const updatedObjectives = extractObjectives(validatedDestinations);
+      const updatedObjectives = extractTasks(validatedDestinations);
 
       const updatedMissions = missions.map((mission) => {
         return {
@@ -213,10 +213,10 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
     ],
   );
 
-  const pickupInterrupted = destination.objectives.some(
+  const pickupInterrupted = destination.tasks.some(
     (obj) => obj.type === 'pickup' && obj.status === 'INTERUPTED',
   );
-  const dropoffInterrupted = destination.objectives.some(
+  const dropoffInterrupted = destination.tasks.some(
     (obj) => obj.type === 'dropoff' && obj.status === 'INTERUPTED',
   );
 
@@ -373,7 +373,7 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
                 data-testid={`${testid}__TaskCount`}
                 sx={{ color: 'text.secondary' }}
               >
-                {`${destination.objectives.length} Task(s)`}
+                {`${destination.tasks.length} Task(s)`}
               </Typography>
             </Grid2>
           )}
@@ -389,7 +389,7 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
         </Grid2>
       </AccordionSummary>
       <AccordionDetails sx={{ gap: '0.2em', display: 'flex', flexDirection: 'column' }}>
-        {destination.objectives.map((obj) => {
+        {destination.tasks.map((obj) => {
           return (
             <DestinationTask
               key={obj.id}

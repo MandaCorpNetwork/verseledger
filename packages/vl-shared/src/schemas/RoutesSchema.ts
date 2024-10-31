@@ -54,17 +54,19 @@ export const BaseMissionSchema = z.object({
 export type IBaseMission = z.infer<typeof BaseMissionSchema>;
 
 export const MissionSchema = BaseMissionSchema.extend({
+  __type: z.literal('mission'),
   objectives: z.array(z.union([LogisticTransportSchema, UserTransportSchema])),
 });
 
 export type IMission = z.infer<typeof MissionSchema>;
 
 export const DestinationSchema = z.object({
+  __type: z.literal('destination'),
   id: z.string(),
   stopNumber: z.number(),
   visited: z.boolean(),
   reason: z.string(),
-  objectives: z.array(TaskSchema),
+  tasks: z.array(TaskSchema),
   location: LocationSchema,
 });
 

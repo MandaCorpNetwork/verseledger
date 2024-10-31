@@ -5,7 +5,7 @@ import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { CustomDestinationTable } from './CustomTable';
 import { DestQueHeader } from './DestQueHeader';
-import { MappedLocation } from './TableContent/RouteUtilities';
+import { MappedLocation } from '../RouteUtilities';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 type DestinationQueProps = {

@@ -2,9 +2,15 @@
 // import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 // import { IDestination, IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
 
+import { createLocalID } from '@Utils/createId';
 import { Float3, MathX } from 'vl-shared/src/math';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-import { IDestination, IMission, ITask } from 'vl-shared/src/schemas/RoutesSchema';
+import {
+  IDestination,
+  ILogisticTransport,
+  IMission,
+  ITask,
+} from 'vl-shared/src/schemas/RoutesSchema';
 
 export interface MappedLocation {
   location: ILocation;
@@ -477,33 +483,32 @@ export function getSiblingDestination(
   destinations: IDestination[],
 ): IDestination | null {
   return (
-    destinations.find((dest) =>
-      dest.objectives.some((obj) => obj.id === siblingObj.id),
-    ) ?? null
+    destinations.find((dest) => dest.tasks.some((obj) => obj.id === siblingObj.id)) ??
+    null
   );
 }
 
-export function extractObjectives(
-  destinations?: IDestination[],
-  destination?: IDestination,
-  missions?: IMission[],
-  mission?: IMission,
+export function extractTasks(
+  value: IDestination | IDestination[] | IMission | IMission[],
 ): ITask[] {
-  if (destinations) {
-    return destinations.flatMap((dest) => dest.objectives);
-  }
-  if (destination) {
-    return destination.objectives;
-  }
-  if (missions) {
-    return missions.flatMap((mission) => {
-      return mission.objectives.flatMap((objective) => {
-        return [objective.pickup, objective.dropoff];
+  if (Array.isArray(value)) {
+    if (value.length === 0) return [];
+
+    if (value[0].__type === 'destination') {
+      const destinations = value as IDestination[];
+      return destinations.flatMap((dest) => dest.tasks);
+    } else if (value[0].__type === 'mission') {
+      const missions = value as IMission[];
+      return missions.flatMap((mission) => {
+        return mission.objectives.flatMap((objective) => {
+          return [objective.pickup, objective.dropoff];
+        });
       });
-    });
-  }
-  if (mission) {
-    return mission.objectives.flatMap((objective) => {
+    }
+  } else if (value.__type === 'destination') {
+    return value.tasks;
+  } else if (value.__type === 'mission') {
+    return value.objectives.flatMap((objective) => {
       return [objective.pickup, objective.dropoff];
     });
   }
@@ -531,4 +536,22 @@ export function formatDistance(locA: MappedLocation, locB: MappedLocation): stri
   } else {
     return `${(absDistance / 1_000_000_000).toFixed(2).toLocaleString()} Tm`;
   }
+}
+
+export function test(destinations: IDestination[], mission: IMission) {
+  const newDestinations = mission.objectives.forEach((obj) => {
+    const foundPick = destinations.find(
+      (dest) => dest.location.id === obj.pickup.location.id,
+    );
+    const foundDrop = findDrop(destinations, obj, foundPick);
+  });
+}
+
+function findDrop(
+  destinations: IDestination[],
+  objective: ILogisticTransport,
+  foundPick: IDestination,
+) {
+  if (!foundPick) return null;
+  const dropoffDest
 }

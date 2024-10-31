@@ -53,7 +53,7 @@ export const AddTaskPopup: React.FC = () => {
           stopNumber: 0,
           visited: false,
           reason: payload.type,
-          objectives: [payload],
+          tasks: [payload],
           location: payload.location,
         };
         dispatch(updateDestinations([newDest]));

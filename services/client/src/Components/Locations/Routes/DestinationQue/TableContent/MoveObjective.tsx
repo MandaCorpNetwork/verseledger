@@ -12,7 +12,7 @@ import { createLocalID } from '@Utils/createId';
 import React from 'react';
 import { IDestination, IMission, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { getSiblingDestination, getSiblingObjective } from './RouteUtilities';
+import { getSiblingDestination, getSiblingObjective } from '../../RouteUtilities';
 
 type MoveObjectiveProps = {
   objective: ITask;
@@ -32,7 +32,7 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
 
   const getDestination = React.useCallback(() => {
     return destinations.find((dest) =>
-      dest.objectives.some((obj) => obj.id === objective.id),
+      dest.tasks.some((obj) => obj.id === objective.id),
     ) as IDestination;
   }, [destinations, objective]);
 
@@ -71,7 +71,7 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
 
   const conflictDestinations = getConflictDestinations();
 
-  const newAvailable = destination.objectives.length !== 1;
+  const newAvailable = destination.tasks.length !== 1;
 
   const createNewDest = React.useCallback(() => {
     if (!newAvailable) return sound.playSound('error');
@@ -85,12 +85,12 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
       stopNumber: 0,
       visited: false,
       reason,
-      objectives: [{ ...objective, status: 'PENDING' }],
+      tasks: [{ ...objective, status: 'PENDING' }],
     };
     const updatedDests: IDestination[] = [];
     updatedDests.push({
       ...destination,
-      objectives: destination.objectives.filter((obj) => obj.id !== objective.id),
+      tasks: destination.tasks.filter((obj) => obj.id !== objective.id),
     });
     if (objective.type === 'dropoff') {
       if (!siblingDest) return sound.playSound('error');
@@ -107,7 +107,7 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
     }
     dispatch(updateDestinations([newDest, ...updatedDests]));
     sound.playSound('loading');
-    if (destination.objectives.length === 1) {
+    if (destination.tasks.length === 1) {
       dispatch(deleteDestination(destination.id));
     }
   }, [destinations, dispatch, newAvailable, objective, siblingDest, sound, destination]);
@@ -118,7 +118,7 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
 
       const updatedCurrent = {
         ...destination,
-        objectives: destination.objectives.filter((obj) => obj.id !== objective.id),
+        objectives: destination.tasks.filter((obj) => obj.id !== objective.id),
       };
 
       const updatedObj: ITask = {
@@ -128,7 +128,7 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
 
       const updatedNew = {
         ...newDest,
-        objectives: [...newDest.objectives, updatedObj],
+        objectives: [...newDest.tasks, updatedObj],
       };
       dispatch(updateDestinations([updatedNew, updatedCurrent]));
       if (updatedCurrent.objectives.length === 0) {

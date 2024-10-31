@@ -5,6 +5,7 @@ import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
 import { SCUField } from '@Common/Components/TextFields/SCUField';
 import { missionOpts } from '@Common/Definitions/Forms/RouteForms';
+import { extractTasks } from '@Components/Locations/Routes/RouteUtilities';
 import { AddCircle, Close } from '@mui/icons-material';
 import { IconButton, TextField, Tooltip, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
@@ -13,7 +14,7 @@ import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
 import { useForm } from '@tanstack/react-form';
 import { createLocalID } from '@Utils/createId';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-import { ILogisticTransport } from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination, ILogisticTransport, IMission } from 'vl-shared/src/schemas/RoutesSchema';
 
 export const POPUP_CREATE_MISSION = 'create_mission';
 
@@ -23,6 +24,13 @@ export const AddMissionPopup: React.FC = () => {
   const destinations = useAppSelector(selectDestinations);
   const form = useForm({
     ...missionOpts,
+    onSubmit: ({ value }) => {
+      const tasks = extractTasks(value);
+      const updatedDestinations: IDestination[] = { ...destinations };
+      value.objectives.forEach((obj) => {
+        
+      })
+    },
   });
 
   const newObjective: ILogisticTransport = {
@@ -119,7 +127,7 @@ export const AddMissionPopup: React.FC = () => {
           >
             {(field) => (
               <div>
-                {field.state.value.map((objective, i) => {
+                {field.state.value.map((_, i) => {
                   return (
                     <DigiDisplay
                       data-testid="CreateMission-Form__Objective_Wrapper"
@@ -137,6 +145,7 @@ export const AddMissionPopup: React.FC = () => {
                       >
                         <IconButton
                           data-testid="CreateMission-Form-Objective__RemoveButton"
+                          disabled={field.state.value.length <= 1}
                           color="error"
                           onClick={() => field.removeValue(i)}
                           sx={{
