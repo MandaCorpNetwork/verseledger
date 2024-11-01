@@ -29,6 +29,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectIsLoggedIn } from '@Redux/Slices/Auth/auth.selectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { siteMode } from '@Utils/siteMode';
 import { bindPopover, usePopupState } from 'material-ui-popup-state/hooks';
 import React, { Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -160,7 +161,7 @@ export const AppDock: React.FC = () => {
             version === VerseLedgerVersion && { opacity: '1', fontWeight: 'bold' },
           ]}
         >
-          {appLabel} {version}
+          {appLabel} {version} {siteMode}
         </Typography>
       </Portal>
     ),

@@ -6,7 +6,7 @@ export const siteMode = (() => {
     case 'localhost':
       return 'LOCAL';
     case 'verseledger.net':
-      return 'PRODUCTION';
+      return 'LIVE';
     case 'stg.verseledger.net':
       return 'STAGING';
     default:

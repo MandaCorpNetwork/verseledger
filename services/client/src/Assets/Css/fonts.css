@@ -42,14 +42,14 @@
 }
 
 @font-face {
-    font-family: 'cigOptical';
+  font-family: 'cigOptical';
   src: url('../Fonts/CIGOpticalRegular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-    font-family: 'Aldrich';
+  font-family: 'Aldrich';
   src: url('../Fonts/Aldrichregular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;

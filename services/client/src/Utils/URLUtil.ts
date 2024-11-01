@@ -1,12 +1,12 @@
 import { siteMode } from './siteMode';
 
 export class URLUtil {
-  static siteMode = siteMode;
+  static readonly siteMode = siteMode;
   public static get messageBroker() {
     switch (URLUtil.siteMode) {
       case 'LOCAL':
         return 'ws://localhost:61616/ws';
-      case 'PRODUCTION':
+      case 'LIVE':
         return 'wss://ws.verseledger.net/ws';
       case 'STAGING':
         return 'wss://ws.stg.verseledger.net/ws';
@@ -18,7 +18,7 @@ export class URLUtil {
     switch (URLUtil.siteMode) {
       case 'LOCAL':
         return 'http://localhost:3000';
-      case 'PRODUCTION':
+      case 'LIVE':
         return 'https://verseledger.net';
       case 'STAGING':
         return 'https://stg.verseledger.net';
@@ -30,7 +30,7 @@ export class URLUtil {
     switch (URLUtil.siteMode) {
       case 'LOCAL':
         return 'http://localhost:3030';
-      case 'PRODUCTION':
+      case 'LIVE':
         return 'https://api.verseledger.net';
       case 'STAGING':
         return 'https://api.stg.verseledger.net';
