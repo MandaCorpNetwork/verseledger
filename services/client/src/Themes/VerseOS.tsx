@@ -258,7 +258,7 @@ export const verseOSTheme = createTheme({
         input: {
           '&[type="number"]::-webkit-outer-spin-button, &[type="number"]::-webkit-inner-spin-button':
             {
-              WebkitAppearnce: 'none',
+              '-webkit-appearnce': 'none',
               margin: 0,
             },
         },

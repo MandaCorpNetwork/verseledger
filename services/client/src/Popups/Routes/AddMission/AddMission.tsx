@@ -69,6 +69,7 @@ export const AddMissionPopup: React.FC = () => {
       name={POPUP_CREATE_MISSION}
       title="Create Mission"
       submitText="Create"
+      onSubmit={form.handleSubmit}
       sx={{
         minWidth: '800px',
       }}

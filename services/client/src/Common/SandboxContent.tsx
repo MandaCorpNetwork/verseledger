@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 
 import { ListSelectButton } from './Components/Styled/Buttons/IndicatorButton';
+import { Scu, Scu3d } from './Definitions/CustomIcons';
 
 export const SandboxContent: React.FC<unknown> = () => {
   return (
@@ -16,6 +17,8 @@ export const SandboxContent: React.FC<unknown> = () => {
     >
       <Box sx={{ display: 'flex', gap: '1em', flexDirection: 'column' }}>
         <ListSelectButton>Pick Me</ListSelectButton>
+        <Scu fontSize="large" />
+        <Scu3d fontSize="large" />
       </Box>
     </Box>
   );

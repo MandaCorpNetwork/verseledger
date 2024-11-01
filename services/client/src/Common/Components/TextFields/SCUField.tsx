@@ -1,5 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { Popper, TextField } from '@mui/material';
+import { Scu3d } from '@Common/Definitions/CustomIcons';
+import { IconButton, Popper, TextField } from '@mui/material';
 import { numericalFilter } from '@Utils/numericFilter';
 import React from 'react';
 
@@ -18,7 +19,13 @@ export const SCUField: React.FC<SCUFieldProps> = (props) => {
 
   const handlePopOpen = React.useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
-      setAnchorEl(e.currentTarget);
+      setAnchorEl((prev) => {
+        if (prev == null) {
+          return e.currentTarget;
+        } else {
+          return null;
+        }
+      });
     },
     [setAnchorEl],
   );
@@ -56,10 +63,18 @@ export const SCUField: React.FC<SCUFieldProps> = (props) => {
         autoComplete="off"
         required
         onBlur={handleBlur}
-        onMouseEnter={(e) => handlePopOpen(e)}
         // onMouseLeave={handleClosePop}
         onChange={(e) => handleChange(e.target.value)}
         value={value != 0 ? value.toLocaleString() : ''}
+        slotProps={{
+          input: {
+            endAdornment: (
+              <IconButton onClick={handlePopOpen}>
+                <Scu3d />
+              </IconButton>
+            ),
+          },
+        }}
       />
       <Popper
         open={Boolean(anchorEl)}
