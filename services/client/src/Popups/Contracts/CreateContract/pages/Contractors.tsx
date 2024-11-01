@@ -228,9 +228,9 @@ export const Contractors: React.FC<{
                   width: '125px',
                   mb: '1em',
                   '& .MuiFilledInput-root': {
-                    backgroundColor: 'primary.dark',
+                    bgcolor: 'primary.dark',
                     '&.Mui-disabled': {
-                      backgroundColor: 'rgba(0, 30, 100, 0.2)',
+                      bgcolor: 'rgba(0, 30, 100, 0.2)',
                     },
                   },
                 }}

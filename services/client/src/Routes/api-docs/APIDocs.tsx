@@ -19,7 +19,7 @@ export const APIDocs: React.FC = () => {
     );
   }, []);
   return (
-    <Box sx={{ backgroundColor: '#FFF' }}>
+    <Box sx={{ bgcolor: '#FFF' }}>
       {docs ? (
         <ApiReferenceReact
           configuration={{

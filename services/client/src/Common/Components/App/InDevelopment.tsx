@@ -137,7 +137,7 @@ export const WorkZoneBar: React.FC<WorkZoneBarProps> = (props) => {
         backgroundImage: severityMapping[severity],
         backgroundSize: '200% 200%',
         animation: `${sideAnimationMapping[side]} ${speedMapping[speed]} linear infinite`,
-        backgroundColor: severityBackground[severity],
+        bgcolor: severityBackground[severity],
         opacity: dim ? '0.6' : '1',
         borderRadius: '10px',
       }}

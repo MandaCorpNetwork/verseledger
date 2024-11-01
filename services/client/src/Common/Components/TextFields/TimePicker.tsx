@@ -86,11 +86,11 @@ export const TimePicker: React.FC<TimePickerProps> = ({
           sx: {
             color: 'secondary.main',
             '&.Mui-selected': {
-              backgroundColor: 'text.secondary',
+              bgcolor: 'text.secondary',
               color: 'secondary.main',
             },
             '&.Mui-selected:focus': {
-              backgroundColor: 'text.secondary',
+              bgcolor: 'text.secondary',
             },
             '&.MuiPickersDay-dayOutsideMonth': {
               color: 'text.secondary',

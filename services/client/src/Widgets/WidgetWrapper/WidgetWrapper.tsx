@@ -142,7 +142,7 @@ const VLWidgetComponent: React.FC<VLWidgetProps> = (props) => {
       <Collapse
         in={isExpanded}
         sx={{
-          backgroundColor: 'rgba(8,22,80)',
+          bgcolor: 'rgba(8,22,80)',
           mx: '.2em',
           borderBottomLeftRadius: '5px',
           borderBottomRightRadius: '5px',

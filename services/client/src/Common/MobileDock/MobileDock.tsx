@@ -350,13 +350,13 @@ export const MobileDock: React.FC<MobileDockProps> = ({
           mx: '10px',
           mb: '10px',
           '& .MuiFab-root': {
-            backgroundColor: 'primary.light',
+            bgcolor: 'primary.light',
           },
         },
         { ...position },
         !isLoggedIn && {
           '& .MuiFab-root': {
-            backgroundColor: 'transparent',
+            bgcolor: 'transparent',
             backgroundImage:
               'radial-gradient(circle at center, rgba(255,0,0) 15%, rgba(140,0,0,0.5) 70%)',
             backgroundPosition: 'center',
@@ -389,7 +389,7 @@ export const MobileDock: React.FC<MobileDockProps> = ({
               sx={[
                 {
                   position: 'absolute',
-                  backgroundColor: 'transparent',
+                  bgcolor: 'transparent',
                   backgroundImage:
                     'radial-gradient(circle at center, rgba(14,35,141) 15%, rgba(14,35,141,0.5) 70%)',
                   boxShadow:
@@ -439,7 +439,7 @@ export const MobileDock: React.FC<MobileDockProps> = ({
               sx={[
                 {
                   position: 'absolute',
-                  backgroundColor: 'transparent',
+                  bgcolor: 'transparent',
                   backgroundImage:
                     'radial-gradient(circle at center, rgba(8,22,80) 10%, rgba(14,35,141,0.5) 70%)',
                 },
@@ -471,7 +471,7 @@ export const MobileDock: React.FC<MobileDockProps> = ({
               sx={[
                 {
                   position: 'absolute',
-                  backgroundColor: 'transparent',
+                  bgcolor: 'transparent',
                   backgroundImage:
                     'radial-gradient(circle at center, rgba(8,22,80) 10%, rgba(14,35,141,0.5) 70%)',
                 },

@@ -62,7 +62,7 @@ export const PowerConfigGroup: React.FC<PowerConfigProps> = ({
               key={index}
               data-testid={`ShipTuning-TuningEditor__ConfigGroup_Wrapper`}
               sx={{
-                backgroundColor: !isActive
+                bgcolor: !isActive
                   ? 'primary.dark'
                   : reversedIndex + 1 <= config.assignedPips
                     ? 'secondary.main'
@@ -75,7 +75,7 @@ export const PowerConfigGroup: React.FC<PowerConfigProps> = ({
       <TuningGroup
         onClick={handleGroupToggle}
         sx={{
-          backgroundColor: isActive ? 'secondary.main' : 'secondary.dark',
+          bgcolor: isActive ? 'secondary.main' : 'secondary.dark',
           alignItems: 'center',
           justifyContent: 'center',
           display: 'flex',

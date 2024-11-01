@@ -128,7 +128,7 @@ export const UserSettings: React.FC = () => {
               position: 'relative',
               width: '150px',
               boxSizing: 'border-box',
-              backgroundColor: 'rgba(14,35,141,0.8)',
+              bgcolor: 'rgba(14,35,141,0.8)',
               backgroundImage:
                 'linear-gradient(145deg, rgba(33,150,243,0.1), rgba(0,1,19,0.2))',
               boxShadow:

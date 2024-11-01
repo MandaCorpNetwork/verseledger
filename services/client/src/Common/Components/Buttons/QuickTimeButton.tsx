@@ -5,7 +5,7 @@ type QuickTimeButtonProps = {
   onClick: () => void;
 };
 
-// QuickTimeButton Component needs to switch to color: 'secondary.main' & backgroundColor: 'primary.dark' when selected & disabled when SelectTime is used
+// QuickTimeButton Component needs to switch to color: 'secondary.main' & bgcolor: 'primary.dark' when selected & disabled when SelectTime is used
 export const QuickTimeButton: React.FC<QuickTimeButtonProps> = ({ time, onClick }) => {
   return (
     <Button
@@ -18,7 +18,7 @@ export const QuickTimeButton: React.FC<QuickTimeButtonProps> = ({ time, onClick 
         borderRight: '2px solid',
         borderColor: 'secondary.main',
         fontWeight: 'bold',
-        backgroundColor: 'primary.dark',
+        bgcolor: 'primary.dark',
         color: 'secondary.main',
       }}
     >

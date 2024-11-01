@@ -5,7 +5,7 @@ export const ListSelectButton = styled(ListItemButton)(({ theme }) => ({
     color: 'rgb(14,35,141)',
   },
   background: 'linear-gradient(135deg, rgba(100,100,100,0.6), rgba(70,70,70,0.6))',
-  backgroundColor: theme.palette.primary.dark,
+  bgcolor: theme.palette.primary.dark,
   color: theme.palette.text.disabled,
   zIndex: 1,
   textShadow: '2px 2px 8px rgb(0,0,0)',
@@ -42,7 +42,7 @@ export const ListSelectButton = styled(ListItemButton)(({ theme }) => ({
     width: '8px',
     height: '75%',
     backgroundSize: 'cover',
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    bgcolor: 'rgba(0,0,0,0.3)',
     display: 'flex',
     my: 'auto',
     borderRadius: '5px',
@@ -64,7 +64,7 @@ export const ListSelectButton = styled(ListItemButton)(({ theme }) => ({
       boxShadow: '0px 0px 2px rgba(0,0,0,0.3)',
     },
     '&:after': {
-      backgroundColor: 'rgba(0,0,0,0.5)',
+      bgcolor: 'rgba(0,0,0,0.5)',
     },
   },
   '&:active': {
@@ -82,7 +82,7 @@ export const ListSelectButton = styled(ListItemButton)(({ theme }) => ({
       boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.4), 0px 0px 10px rgba(8, 201, 11, 0.9)',
     },
     '&:after': {
-      backgroundColor: 'rgba(8,252,11,1)',
+      bgcolor: 'rgba(8,252,11,1)',
     },
   },
   '&.Mui-selected': {
@@ -104,7 +104,7 @@ export const ListSelectButton = styled(ListItemButton)(({ theme }) => ({
       boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.4), 0px 0px 10px rgba(8, 201, 11, 0.6)',
     },
     '&:after': {
-      backgroundColor: 'rgba(8,220,11,1)',
+      bgcolor: 'rgba(8,220,11,1)',
     },
     '&:hover': {
       background: 'linear-gradient(135deg, rgba(33,150,243,0.4), rgba(14,35,141,0.4))',
@@ -120,7 +120,7 @@ export const ListSelectButton = styled(ListItemButton)(({ theme }) => ({
         boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.4), 0px 0px 10px rgba(8, 201, 11, 0.9)',
       },
       '&:after': {
-        backgroundColor: 'rgba(8,240,11,1)',
+        bgcolor: 'rgba(8,240,11,1)',
       },
     },
     '&:active': {
@@ -138,7 +138,7 @@ export const ListSelectButton = styled(ListItemButton)(({ theme }) => ({
         boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.4), 0px 0px 10px rgba(8, 230, 11, 0.9)',
       },
       '&:after': {
-        backgroundColor: 'rgba(8,255,11,1)',
+        bgcolor: 'rgba(8,255,11,1)',
       },
     },
   },

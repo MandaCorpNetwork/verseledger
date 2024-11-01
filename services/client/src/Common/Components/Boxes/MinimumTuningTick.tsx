@@ -26,7 +26,7 @@ export const MinimumTuningTick: React.FC<MinimumTuningTickProps> = ({
         flexDirection: 'column',
         height: `${20 * minimumTicks}px`,
         justifyContent: 'space-around',
-        backgroundColor: !isActive
+        bgcolor: !isActive
           ? 'primary.dark'
           : hoveredTick
             ? 'secondary.main'
@@ -34,7 +34,7 @@ export const MinimumTuningTick: React.FC<MinimumTuningTickProps> = ({
         borderColor:
           !isActive || hoveredTick || isSet ? 'secondary.dark' : 'secondary.main',
         '&:hover': {
-          backgroundColor: isActive ? 'secondary.main' : 'primary.dark',
+          bgcolor: isActive ? 'secondary.main' : 'primary.dark',
           borderColor: isActive ? 'secondary.dark' : 'action.disabledBackground',
         },
       }}

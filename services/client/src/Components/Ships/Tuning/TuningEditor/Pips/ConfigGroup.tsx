@@ -121,7 +121,7 @@ export const ConfigGroup: React.FC<{
               onMouseEnter={() => handleMouseEnter(reversedIndex)}
               onMouseLeave={handleMouseLeave}
               sx={{
-                backgroundColor: !isActive
+                bgcolor: !isActive
                   ? 'primary.dark'
                   : reversedIndex + 1 <= config.assignedPips
                     ? 'secondary.main'
@@ -129,7 +129,7 @@ export const ConfigGroup: React.FC<{
                       ? 'secondary.main'
                       : 'secondary.dark',
                 '&:hover': {
-                  backgroundColor: isActive ? 'secondary.main' : 'primary.dark',
+                  bgcolor: isActive ? 'secondary.main' : 'primary.dark',
                   borderColor: isActive ? 'secondary.light' : 'action.disabledBackground',
                 },
               }}
@@ -149,7 +149,7 @@ export const ConfigGroup: React.FC<{
       <TuningGroup
         onClick={handleGroupToggle}
         sx={{
-          backgroundColor: isActive ? 'secondary.main' : 'secondary.dark',
+          bgcolor: isActive ? 'secondary.main' : 'secondary.dark',
           alignItems: 'center',
           justifyContent: 'center',
           display: 'flex',

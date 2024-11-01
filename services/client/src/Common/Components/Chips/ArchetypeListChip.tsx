@@ -41,7 +41,7 @@ const ArchetypeListChip = styled(({ isSelected, ...props }: StyledChipProps) => 
     transform: 'translateY(2px)',
   },
   '& .MuiTouchRipple-child': {
-    backgroundColor: isSelected ? 'rgba(25,150,200)' : 'rgba(6,86,145,0.8)',
+    bgcolor: isSelected ? 'rgba(25,150,200)' : 'rgba(6,86,145,0.8)',
   },
 }));
 

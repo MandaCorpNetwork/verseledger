@@ -90,7 +90,7 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
       slotProps={{
         paper: {
           sx: {
-            backgroundColor: 'transparent',
+            bgcolor: 'transparent',
             p: '0.5em',
             backdropFilterfilter: 'blur(20px)',
             backgroundImage:
