@@ -1004,6 +1004,85 @@ const GoogleSVG = (
   </svg>
 );
 
+const ScuIconSVG = (
+  <svg
+    version="1.1"
+    baseProfile="tiny"
+    id="Layer_1"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 90 90"
+    overflow="visible"
+  >
+    <path
+      id="colorstyle:Bright"
+      d="M83.3,66.2L48.3,82.8V47.2l34.9-16.6V66.2z M30.2,41.8v10.3L19,46.8V36.5L6.7,30.6v35.6l34.9,16.6
+	V47.2L30.2,41.8z M55.8,12.9L43.9,7.2L8.7,23.9l12,5.7L55.8,12.9z M66.3,17.9L31.4,34.8l13.9,6.6l35.2-16.7L66.3,17.9z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+const Scu3dSVG = (
+  <svg
+    version="1.1"
+    baseProfile="tiny"
+    id="Layer_1"
+    xmlns="http://www.w3.org/2000/svg"
+    x="0px"
+    y="0px"
+    viewBox="0 0 25 23.8"
+    overflow="visible"
+  >
+    <g>
+      <path
+        d="M12.8,5.5l4-2.3c0.3-0.2,0.3-0.7,0-0.9l-4-2.3c-0.2-0.1-0.4-0.1-0.6,0l-4,2.3c-0.3,0.2-0.3,0.7,0,0.9l4,2.3
+		C12.4,5.6,12.6,5.6,12.8,5.5z"
+        fill="currentColor"
+      />
+      <path
+        d="M11.5,6.8l-4-2.3C7.2,4.3,6.7,4.6,6.7,5v4.6c0,0.2,0.1,0.4,0.3,0.5l4,2.3c0.3,0.2,0.8,0,0.8-0.4V7.3
+		C11.7,7.1,11.6,6.9,11.5,6.8z"
+        fill="currentColor"
+      />
+      <path
+        d="M13.3,7.3v4.6c0,0.4,0.4,0.6,0.8,0.4l4-2.3c0.2-0.1,0.3-0.3,0.3-0.5V5c0-0.4-0.4-0.6-0.8-0.4l-4,2.3
+		C13.4,6.9,13.3,7.1,13.3,7.3z"
+        fill="currentColor"
+      />
+      <path
+        d="M6,16.9l4-2.3c0.3-0.2,0.3-0.7,0-0.9l-4-2.3c-0.2-0.1-0.4-0.1-0.6,0l-4,2.3c-0.3,0.2-0.3,0.7,0,0.9l4,2.3
+		C5.7,17,5.9,17,6,16.9z"
+        fill="currentColor"
+      />
+      <path
+        d="M4.7,18.2l-4-2.3c-0.3-0.2-0.8,0-0.8,0.4v4.6c0,0.2,0.1,0.4,0.3,0.5l4,2.3c0.3,0.2,0.8,0,0.8-0.4v-4.6
+		C5,18.5,4.9,18.3,4.7,18.2z"
+        fill="currentColor"
+      />
+      <path
+        d="M6.5,18.7v4.6c0,0.4,0.4,0.6,0.8,0.4l4-2.3c0.2-0.1,0.3-0.3,0.3-0.5v-4.6c0-0.4-0.4-0.6-0.8-0.4l-4,2.3
+		C6.6,18.3,6.5,18.5,6.5,18.7z"
+        fill="currentColor"
+      />
+      <path
+        d="M19.5,16.9l4-2.3c0.3-0.2,0.3-0.7,0-0.9l-4-2.3c-0.2-0.1-0.4-0.1-0.6,0l-4,2.3c-0.3,0.2-0.3,0.7,0,0.9l4,2.3
+		C19.1,17,19.3,17,19.5,16.9z"
+        fill="currentColor"
+      />
+      <path
+        d="M18.2,18.2l-4-2.3c-0.3-0.2-0.8,0-0.8,0.4v4.6c0,0.2,0.1,0.4,0.3,0.5l4,2.3c0.3,0.2,0.8,0,0.8-0.4v-4.6
+		C18.5,18.5,18.4,18.3,18.2,18.2z"
+        fill="currentColor"
+      />
+      <path
+        d="M20,18.7v4.6c0,0.4,0.4,0.6,0.8,0.4l4-2.3c0.2-0.1,0.3-0.3,0.3-0.5v-4.6c0-0.4-0.4-0.6-0.8-0.4l-4,2.3
+		C20.1,18.3,20,18.5,20,18.7z"
+        fill="currentColor"
+      />
+    </g>
+  </svg>
+);
+
 export const VLLogo = createSvgIcon(VLIconSVG, 'VLLogo');
 export const Google = createSvgIcon(GoogleSVG, 'Google');
 export const Fleet = createSvgIcon(FleetIconSVG, 'Fleet');
@@ -1039,3 +1118,5 @@ export const Shield = createSvgIcon(ShieldIconSVG, 'Shield');
 export const Thruster = createSvgIcon(ThrusterIconSVG, 'Thruster');
 export const Scanner = createSvgIcon(ScannerIconSVG, 'Scanner');
 export const Weapons = createSvgIcon(WeaponsIconSVG, 'Weapons');
+export const Scu = createSvgIcon(ScuIconSVG, 'scu');
+export const Scu3d = createSvgIcon(Scu3dSVG, 'Scu3d');

@@ -1,5 +1,6 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { Box, Button, Typography } from '@mui/material';
+// import { useAppDispatch } from '@Redux/hooks';
 import React from 'react';
 import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
@@ -52,6 +53,8 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
   //   : obj.pickup.status === 'INTERUPTED'
   //     ? 'error'
   //     : 'secondary';
+
+  // const missionIds =
   return (
     <DigiBox
       data-testid="RouteTool-MissionViewer__Mission_Container"
@@ -132,16 +135,16 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
         >
           Edit Mission
         </Button>
-        {/* <Button
+        <Button
           data-testid="RouteTool-MissionViewer-Mission__AbandonMission_Button"
           variant="contained"
           size="small"
           color="error"
-          onClick={() => handleAbandonMission(mission)}
+          // onClick={() => handleAbandonMission(mission)}
           disabled
         >
           Abandon Mission
-        </Button> */}
+        </Button>
       </Box>
     </DigiBox>
   );
