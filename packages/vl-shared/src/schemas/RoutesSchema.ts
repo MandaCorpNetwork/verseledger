@@ -1,71 +1,46 @@
 import { z } from 'zod';
 import { LocationSchema } from './LocationSchema';
-import { ContractSchema } from './ContractSchema';
 import { UserSchema } from './UserSchema';
 
 export const TaskStatusSchema = z.enum(['PENDING', 'ENROUTE', 'COMPLETED', 'INTERUPTED']);
 
 export type ITaskStatus = z.infer<typeof TaskStatusSchema>;
 
-export const TaskTypeSchema = z.enum(['pickup', 'delievery', 'stop']);
+export const TaskTypeSchema = z.enum([
+  'pickup',
+  'dropoff',
+  'refuel',
+  'repair',
+  'rearm',
+  'crew',
+  'food',
+  'medical',
+  'checkpoint',
+  'other',
+]);
 
 export type ITaskType = z.infer<typeof TaskTypeSchema>;
 
 export const TaskSchema = z.object({
   id: z.string(),
-  type: z.string(),
+  relationId: z.string().optional(),
   label: z.string().optional(),
+  type: TaskTypeSchema,
+  missionLabel: z.string().optional(),
+  missionId: z.string().optional(),
   location: LocationSchema,
   status: TaskStatusSchema,
+  item: z.string().optional(),
+  user: UserSchema.optional(),
+  scu: z.number().optional(),
 });
 
 export type ITask = z.infer<typeof TaskSchema>;
 
-export const LogisticTransportSchema = z.object({
-  id: z.string(),
-  label: z.string(),
-  pickup: TaskSchema,
-  dropoff: TaskSchema,
-  manifest: z.string(),
-  scu: z.number(),
-  status: TaskStatusSchema,
-  contract: ContractSchema.optional(),
-});
-
-export type ILogisticTransport = z.infer<typeof LogisticTransportSchema>;
-
-export const UserTransportSchema = z.object({
-  id: z.string(),
-  label: z.string(),
-  pickup: TaskSchema,
-  dropoff: TaskSchema,
-  users: z.array(UserSchema),
-  status: TaskStatusSchema,
-  contract: ContractSchema.optional(),
-});
-
-export type IUserTransport = z.infer<typeof UserTransportSchema>;
-
-export const BaseMissionSchema = z.object({
-  id: z.string(),
-  label: z.string(),
-});
-
-export type IBaseMission = z.infer<typeof BaseMissionSchema>;
-
-export const MissionSchema = BaseMissionSchema.extend({
-  __type: z.literal('mission'),
-  objectives: z.array(z.union([LogisticTransportSchema, UserTransportSchema])),
-});
-
-export type IMission = z.infer<typeof MissionSchema>;
-
 export const DestinationSchema = z.object({
-  __type: z.literal('destination'),
   id: z.string(),
   stopNumber: z.number(),
   visited: z.boolean(),
-  reason: z.string(),
   tasks: z.array(TaskSchema),
   location: LocationSchema,
 });

@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { Popover, Popper, TextField, Typography } from '@mui/material';
+import { Popper, TextField } from '@mui/material';
 import { numericalFilter } from '@Utils/numericFilter';
 import React from 'react';
 

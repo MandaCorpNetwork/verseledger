@@ -539,29 +539,60 @@ export function formatDistance(locA: MappedLocation, locB: MappedLocation): stri
 }
 
 export function missionToDestinations(destinations: IDestination[], mission: IMission) {
-  const newDestinations = mission.objectives.forEach((obj) => {
+  const newDestinations = mission.objectives.flatMap((obj) => {
     const foundPick = destinations.find(
       (dest) => dest.location.id === obj.pickup.location.id,
     );
-    const foundDrop = findDrop(destinations, obj as ILogisticTransport, foundPick);
+    const foundDrop = findDrop(
+      destinations,
+      obj as ILogisticTransport,
+      foundPick as IDestination,
+    );
 
     const tempDests = [
       foundPick
         ? { ...foundPick, tasks: [...foundPick.tasks, obj.pickup] }
-        : ({} as IDestination),
+        : ({
+            id: createLocalID('M'),
+            stopNumber: 0,
+            visited: false,
+            reason: 'Mission',
+            tasks: [obj.pickup],
+            location: obj.pickup.location,
+          } as IDestination),
       foundDrop
         ? { ...foundDrop, tasks: [...foundDrop.tasks, obj.dropoff] }
-        : ({} as IDestination),
+        : ({
+            id: createLocalID('M'),
+            stopNumber: 0,
+            visited: false,
+            reason: 'Mission',
+            tasks: [obj.dropoff],
+            location: obj.dropoff.location,
+          } as IDestination),
     ];
 
     return tempDests;
   });
 
+  export function newMissionToDestinations(destinations: IDestination[], tasks: ITask) {
+    const newDestinations = tasks.flatMap((task) => {
+      const foundPick = destinations.find(
+        (dest) => dest.location.id === task.location.id,
+      );
+
+      
+    });
+  }
+
+  const flatNewDests = newDestinations.flatMap((dest) => dest);
+
   const filteredDestinations = destinations.filter(
     (dest) => !newDestinations.some((newDest) => newDest.id === dest.id),
   );
 
-  const updatedList = [...filteredDestinations, ...newDestinations];
+  const updatedList = [...filteredDestinations, ...flatNewDests];
+  return updatedList;
 }
 
 function findDrop(

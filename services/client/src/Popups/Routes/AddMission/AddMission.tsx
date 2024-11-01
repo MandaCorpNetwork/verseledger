@@ -1,72 +1,68 @@
 /* eslint-disable react/no-children-prop */
 import { useSoundEffect } from '@Audio/AudioManager';
 import { LocationSearch } from '@Common/Components/App/LocationSearch';
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
+import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { SCUField } from '@Common/Components/TextFields/SCUField';
-import { missionOpts } from '@Common/Definitions/Forms/RouteForms';
-import {
-  extractTasks,
-  missionToDestinations,
-} from '@Components/Locations/Routes/RouteUtilities';
-import { AddCircle, Close } from '@mui/icons-material';
-import { IconButton, TextField, Tooltip, Typography } from '@mui/material';
+import { RemoveCircle } from '@mui/icons-material';
+import { Button, IconButton, TextField, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { updateDestinations } from '@Redux/Slices/Routes/actions/destination.action';
-import {
-  createMission,
-  updateMissions,
-} from '@Redux/Slices/Routes/actions/mission.action';
 import { addTasks } from '@Redux/Slices/Routes/actions/task.action';
 import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
 import { useForm } from '@tanstack/react-form';
 import { createLocalID } from '@Utils/createId';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-import {
-  IDestination,
-  ILogisticTransport,
-  IMission,
-} from 'vl-shared/src/schemas/RoutesSchema';
+import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
+import { createDestinations, createTaskArray } from './AddMissionUtils';
 export const POPUP_CREATE_MISSION = 'create_mission';
 
 export const AddMissionPopup: React.FC = () => {
   const dispatch = useAppDispatch();
   const sound = useSoundEffect();
   const destinations = useAppSelector(selectDestinations);
+
   const form = useForm({
-    ...missionOpts,
+    defaultValues: {
+      missionId: createLocalID('M'),
+      missionLabel: '',
+      tasks: [
+        {
+          id: createLocalID('T'),
+          relationalId: createLocalID('T'),
+          label: '',
+          pickup: {} as ILocation,
+          dropoffs: [{ dropoff: {} as ILocation, scu: 0 }],
+          item: 'Unknown',
+          scu: 0,
+        },
+      ],
+    },
     onSubmit: ({ value }) => {
-      const tasks = extractTasks(value);
-      const updatedDestinations = missionToDestinations(destinations, value);
-      dispatch(addTasks(tasks));
+      sound.playSound('loading');
+      const tasks = createTaskArray(value);
+      const updatedDestinations = createDestinations(destinations, tasks as ITask[]);
+
       dispatch(updateDestinations(updatedDestinations));
-      dispatch(createMission(value));
+      dispatch(addTasks(tasks as ITask[]));
     },
   });
 
-  const newObjective: ILogisticTransport = {
-    id: createLocalID('M'),
+  const newPickup = {
+    id: createLocalID('T'),
+    relationalId: createLocalID('T'),
     label: '',
-    pickup: {
-      id: '',
-      type: 'pickup',
-      label: '',
-      location: {} as ILocation,
-      status: 'PENDING',
-    },
-    dropoff: {
-      id: '',
-      type: 'dropoff',
-      label: '',
-      location: {} as ILocation,
-      status: 'PENDING',
-    },
-    manifest: 'Unknown',
+    pickup: {} as ILocation,
+    dropoffs: [{ dropoff: {} as ILocation, scu: 0 }],
+    item: '',
     scu: 0,
-    status: 'PENDING',
   };
+
+  const newDropoff = { dropoff: {} as ILocation, scu: 0 };
+
   return (
     <VLPopup
       data-testid="CreateMission_Form"
@@ -81,7 +77,7 @@ export const AddMissionPopup: React.FC = () => {
         <Typography
           align="center"
           variant="tip"
-          sx={{ px: '1em', fontSize: '.9em', mx: 'auto' }}
+          sx={{ px: '1em', fontSize: '1em', mx: 'auto' }}
         >
           Create a mission for Routing.
         </Typography>
@@ -95,8 +91,9 @@ export const AddMissionPopup: React.FC = () => {
           form.handleSubmit();
         }}
       >
+        {/** MISSION HEADER */}
         <form.Field
-          name="label"
+          name="missionLabel"
           data-testid="CreateMission-Form__MissionLabel_Field"
           validators={{
             onChange: ({ value }) =>
@@ -122,19 +119,18 @@ export const AddMissionPopup: React.FC = () => {
             />
           )}
         />
-        <PopupFormSelection
-          data-testid="CreateMission-Form__ObjectiveList_Wrapper"
+        <GlassDisplay
           sx={{
+            display: 'flex',
             flexDirection: 'column',
-            p: '.5em',
-            gap: '.5em',
-            maxHeight: '300px',
+            maxHeight: '600px',
             overflow: 'auto',
-            justifyContent: 'flex-start',
+            p: '1em',
           }}
         >
+          {/** TASKS ARRAY */}
           <form.Field
-            name="objectives"
+            name="tasks"
             data-testid="CreateMission-Form__Objective_Wrapper"
             mode="array"
           >
@@ -142,46 +138,11 @@ export const AddMissionPopup: React.FC = () => {
               <div>
                 {field.state.value.map((_, i) => {
                   return (
-                    <DigiDisplay
-                      data-testid="CreateMission-Form__Objective_Wrapper"
-                      key={i}
-                      sx={{
-                        p: '.5em',
-                        position: 'relative',
-                        my: '0.2em',
-                      }}
-                    >
-                      <Tooltip
-                        data-testid="CreateMission-Form-Objective__Remove_Tooltip"
-                        title="Remove Objective"
-                        arrow
-                      >
-                        <IconButton
-                          data-testid="CreateMission-Form-Objective__RemoveButton"
-                          disabled={field.state.value.length <= 1}
-                          color="error"
-                          onClick={() => field.removeValue(i)}
-                          sx={{
-                            position: 'absolute',
-                            top: '-.5em',
-                            left: '-.5em',
-                            zIndex: 2,
-                          }}
-                        >
-                          <Close color="error" />
-                        </IconButton>
-                      </Tooltip>
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          gap: '.5em',
-                          width: '100%',
-                          flexShrink: 0,
-                        }}
-                      >
+                    <DigiBox key={i} sx={{ p: '1em', gap: '0.5em' }}>
+                      <div>
+                        {/** TASK MAP */}
                         <form.Field
-                          name={`objectives[${i}].label`}
+                          name={`tasks[${i}].label`}
                           validators={{
                             onChange: ({ value }) =>
                               (value?.length ?? 0) > 0 ? undefined : 'Enter a Label',
@@ -204,94 +165,181 @@ export const AddMissionPopup: React.FC = () => {
                             />
                           )}
                         />
-                        <form.Field
-                          name={`objectives[${i}].pickup.location`}
-                          validators={{
-                            onChange: ({ value }) =>
-                              value.id != null ? undefined : 'Select Location',
-                          }}
-                          children={(subField) => (
-                            <LocationSearch
-                              onLocationSelect={(e) => {
-                                subField.handleChange(e ?? ({} as ILocation));
-                                console.log(subField, e);
-                              }}
-                              // label="Pickup Location"
-                              // required
-                              sx={{ minWidth: '175px' }}
-                            />
-                          )}
-                        />
-                        <form.Field
-                          name={`objectives[${i}].dropoff.location`}
-                          validators={{
-                            onChange: ({ value }) =>
-                              value.id != null ? undefined : 'Select Location',
-                          }}
-                          children={(subField) => (
-                            <LocationSearch
-                              onLocationSelect={(e) => {
-                                subField.handleChange(e ?? ({} as ILocation));
-                                console.log(subField, e);
-                              }}
-                              // label="Pickup Location"
-                              // required
-                              sx={{ minWidth: '175px' }}
-                            />
-                          )}
-                        />
-                        <form.Field
-                          name={`objectives[${i}].manifest`}
-                          validators={{
-                            onChange: ({ value }) =>
-                              (value?.length ?? 0) > 0 ? undefined : 'Enter a Label',
-                            onBlur: ({ value }) =>
-                              (value?.length ?? 0) > 0 ? undefined : 'Enter a Label',
-                          }}
-                          children={(subField) => (
-                            <TextField
-                              data-testid="CreateMission-Form-Objective__Contents_Field"
-                              label="Contents"
-                              size="small"
-                              color="secondary"
-                              required
-                              value={subField.state.value}
-                              onChange={(e) => subField.handleChange(e.target.value)}
-                            />
-                          )}
-                        />
-                        <form.Field
-                          name={`objectives[${i}].scu`}
-                          children={(subField) => (
-                            <SCUField
-                              value={subField.state.value as number}
-                              onChange={(e) => subField.handleChange(e)}
-                              onBlur={subField.handleBlur}
-                            />
-                          )}
-                        />
                       </div>
-                    </DigiDisplay>
+                      <div style={{ padding: '0 1em' }}>
+                        <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                          Pickup Info
+                        </Typography>
+                        <DigiDisplay
+                          sx={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            px: '0.2em',
+                            py: '0.5em',
+                          }}
+                        >
+                          <form.Field
+                            name={`tasks[${i}].pickup`}
+                            validators={{
+                              onChange: ({ value }) =>
+                                value.id != null ? undefined : 'Select Location',
+                            }}
+                            children={(subField) => (
+                              <LocationSearch
+                                onLocationSelect={(e) => {
+                                  subField.handleChange(e ?? ({} as ILocation));
+                                  console.log(subField, e);
+                                }}
+                                // label="Pickup Location"
+                                // required
+                                sx={{ minWidth: '175px' }}
+                              />
+                            )}
+                          />
+                          <form.Field
+                            name={`tasks[${i}].item`}
+                            validators={{
+                              onChange: ({ value }) =>
+                                (value?.length ?? 0) > 0 ? undefined : 'Enter a Label',
+                              onBlur: ({ value }) =>
+                                (value?.length ?? 0) > 0 ? undefined : 'Enter a Label',
+                            }}
+                            children={(subField) => (
+                              <TextField
+                                data-testid="CreateMission-Form-Objective__Contents_Field"
+                                label="Contents"
+                                size="small"
+                                color="secondary"
+                                required
+                                value={subField.state.value}
+                                onChange={(e) => subField.handleChange(e.target.value)}
+                              />
+                            )}
+                          />
+                          <form.Field
+                            name={`tasks[${i}].scu`}
+                            children={(subField) => (
+                              <SCUField
+                                value={subField.state.value}
+                                onChange={(e) => subField.handleChange(e)}
+                                onBlur={subField.handleBlur}
+                              />
+                            )}
+                          />
+                        </DigiDisplay>
+                        <div>
+                          {/** DROPOFFS MAP */}
+                          <form.Field
+                            name={`tasks[${i}].dropoffs`}
+                            data-testid="CreateMission-Form__Objective_Wrapper"
+                            mode="array"
+                          >
+                            {(subField) => (
+                              <div>
+                                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                                  Dropoff Info
+                                </Typography>
+                                {subField.state.value.map((_, j) => {
+                                  return (
+                                    <DigiDisplay
+                                      key={j}
+                                      sx={{
+                                        flexDirection: 'row',
+                                        width: 'fit-content',
+                                        ml: '5%',
+                                        gap: '1em',
+                                        px: '0.5em',
+                                        py: '0.5em',
+                                      }}
+                                    >
+                                      <IconButton
+                                        sx={{
+                                          p: 0,
+                                          transition: 'transform 0.2s ease',
+                                          '&:hover': { transform: 'scale(1.1)' },
+                                        }}
+                                        onClick={() => subField.removeValue(j)}
+                                      >
+                                        <RemoveCircle color="warning" />
+                                      </IconButton>
+                                      <form.Field
+                                        name={`tasks[${i}].dropoffs[${j}].dropoff`}
+                                        validators={{
+                                          onChange: ({ value }) =>
+                                            value.id != null
+                                              ? undefined
+                                              : 'Select Location',
+                                        }}
+                                        children={(subField) => (
+                                          <LocationSearch
+                                            onLocationSelect={(e) => {
+                                              subField.handleChange(
+                                                e ?? ({} as ILocation),
+                                              );
+                                              console.log(subField, e);
+                                            }}
+                                            // label="Pickup Location"
+                                            // required
+                                            sx={{ minWidth: '175px' }}
+                                          />
+                                        )}
+                                      />
+                                      <form.Field
+                                        name={`tasks[${i}].dropoffs[${j}].scu`}
+                                        children={(subField) => (
+                                          <SCUField
+                                            value={subField.state.value}
+                                            onChange={(e) => subField.handleChange(e)}
+                                            onBlur={subField.handleBlur}
+                                          />
+                                        )}
+                                      />
+                                    </DigiDisplay>
+                                  );
+                                })}
+                                <div
+                                  style={{
+                                    display: 'flex',
+                                    width: '100%',
+                                    justifyContent: 'space-around',
+                                    marginTop: '1em',
+                                  }}
+                                >
+                                  <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => subField.pushValue(newDropoff)}
+                                  >
+                                    Add Dropoff
+                                  </Button>
+                                  <Button
+                                    variant="contained"
+                                    color="warning"
+                                    onClick={() => field.removeValue(i)}
+                                  >
+                                    Remove Objective
+                                  </Button>
+                                </div>
+                              </div>
+                            )}
+                          </form.Field>
+                        </div>
+                      </div>
+                    </DigiBox>
                   );
                 })}
-                <IconButton
-                  sx={{
-                    position: 'absolute',
-                    bottom: 4,
-                    left: '50%',
-                    onMouseEnter: '',
-                    '&:hover': {
-                      transform: 'scale(1.2)',
-                    },
-                  }}
-                  onClick={() => field.pushValue(newObjective)}
+                <Button
+                  variant="contained"
+                  fullWidth
+                  onClick={() => field.pushValue(newPickup)}
+                  sx={{ mt: '1em' }}
                 >
-                  <AddCircle fontSize="large" />
-                </IconButton>
+                  Add Pickup
+                </Button>
               </div>
             )}
           </form.Field>
-        </PopupFormSelection>
+        </GlassDisplay>
       </form>
     </VLPopup>
   );
