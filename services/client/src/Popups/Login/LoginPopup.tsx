@@ -1,5 +1,5 @@
 import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
 import { getLoginMethods } from '@Redux/Slices/Auth/Actions/getLoginMethods.action';
@@ -44,6 +44,13 @@ export const LoginPopup: React.FC = () => {
         ) : (
           <LoadingWheel />
         )}
+        <Typography variant="tip" px="1em">
+          We do not store any of your personal information.
+        </Typography>
+        <Typography variant="tip" px="1em">
+          Each login method will create a separate account, and an RSI account may only be
+          linked to <strong>ONE</strong> VerseLedger account at a time.
+        </Typography>
       </div>
     </VLPopup>
   );
