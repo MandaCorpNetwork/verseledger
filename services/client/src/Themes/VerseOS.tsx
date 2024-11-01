@@ -205,7 +205,7 @@ export const verseOSTheme = createTheme({
         root: {
           height: '8px',
           borderRadius: '5px',
-          bgcolor: 'rgba(6,86,145,.5)',
+          backgroundColor: 'rgba(6,86,145,.5)',
           border: '2px solid rgba(14,49,252,.5)',
           boxShadow:
             '0 4px 8px rgba(0,0,0,0.4), 0 8px 16px rgba(0,0,0,0.3), 0 6px 12px rgba(0,0,0,0.2), 0 0 4px rgba(24,252,252,0.5)',
@@ -213,7 +213,7 @@ export const verseOSTheme = createTheme({
         },
         bar: {
           borderRadius: '5px',
-          bgcolor: 'rgb(24,252,252)',
+          backgroundColor: 'rgb(24,252,252)',
           boxShadow: '0 0 10px 2px rgba(24,252,252)',
           top: 0,
           left: 0,
@@ -233,7 +233,7 @@ export const verseOSTheme = createTheme({
       styleOverrides: {
         head: {
           '& th': {
-            bgcolor: 'rgba(0,1,19)',
+            backgroundColor: 'rgba(0,1,19)',
             color: 'rgb(24,252,252)',
             textAlign: 'center',
             borderBottom: '2px solid rgb(121, 192, 244)',
@@ -241,14 +241,14 @@ export const verseOSTheme = createTheme({
         },
         root: {
           '&.MuiTableRow-hover:hover': {
-            bgcolor: 'rgb(8, 22, 80)',
+            backgroundColor: 'rgb(8, 22, 80)',
             boxShadow: '0 0 10px 2px rgb(33, 150, 243)',
           },
           '&.Mui-selected, &.Mui-selected:hover': {
-            bgcolor: 'red',
+            backgroundColor: 'red',
           },
           '&.MuiTableRow-selected': {
-            bgcolor: 'red',
+            backgroundColor: 'red',
           },
         },
       },
@@ -302,7 +302,7 @@ export const verseOSTheme = createTheme({
             },
             '&.Mui-disabled': {
               borderColor: 'rgb(6,86,145)',
-              bgcolor: 'rgb(0,30,100)',
+              backgroundColor: 'rgb(0,30,100)',
             },
           },
         },
@@ -373,7 +373,7 @@ export const verseOSTheme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         colorPrimary: {
-          bgcolor: '#003964',
+          backgroundColor: '#003964',
         },
       },
     },
@@ -381,7 +381,7 @@ export const verseOSTheme = createTheme({
       styleOverrides: {
         root: {
           borderColor: '#065691',
-          bgcolor: '#0E318D',
+          backgroundColor: '#0E318D',
         },
       },
     },
@@ -413,7 +413,7 @@ export const verseOSTheme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          bgcolor: 'rgb(14, 49, 141, .8)',
+          backgroundColor: 'rgb(14, 49, 141, .8)',
           backdropFilter: 'blur(10px)',
           boxShadow:
             '0px 4px 6px -1px rgba(0, 0, 0, 0.6), 0px 8px 10px 0px rgba(0, 0, 0, 0.4), 0px 10px 20px 0px rgba(0, 0, 0, 0.3)',
@@ -423,7 +423,7 @@ export const verseOSTheme = createTheme({
     MuiAutocomplete: {
       styleOverrides: {
         groupLabel: {
-          bgcolor: 'rgb(14, 49, 141, .8)',
+          backgroundColor: 'rgb(14, 49, 141, .8)',
         },
         listbox: {
           '&::-webkit-scrollbar': {
@@ -443,11 +443,11 @@ export const verseOSTheme = createTheme({
         option: {
           color: 'rgb(211, 250, 254, .5)',
           '&[aria-selected="true"]': {
-            bgcolor: 'rgb(14, 49, 141, .8)',
+            backgroundColor: 'rgb(14, 49, 141, .8)',
             color: 'rgb(211, 250, 254)',
           },
           '&:hover': {
-            bgcolor: 'rgb(8, 29, 68, .5)',
+            backgroundColor: 'rgb(8, 29, 68, .5)',
           },
         },
         clearIndicator: {
@@ -463,7 +463,7 @@ export const verseOSTheme = createTheme({
           },
         },
         tag: {
-          bgcolor: 'rgb(14, 49, 141, .8)',
+          backgroundColor: 'rgb(14, 49, 141, .8)',
           color: 'rgb(211, 250, 254, .8)',
           '& .MuiChip-deleteIcon': {
             color: 'rgb(211, 250, 254, .8)',
@@ -497,7 +497,7 @@ export const verseOSTheme = createTheme({
           color: 'rgb(121, 192, 244)',
         },
         track: {
-          bgcolor: 'rgb(6, 86, 145)',
+          backgroundColor: 'rgb(6, 86, 145)',
         },
       },
     },
