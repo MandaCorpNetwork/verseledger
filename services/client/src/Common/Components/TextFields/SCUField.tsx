@@ -19,7 +19,13 @@ export const SCUField: React.FC<SCUFieldProps> = (props) => {
 
   const handlePopOpen = React.useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
-      setAnchorEl(e.currentTarget);
+      setAnchorEl((prev) => {
+        if (prev == null) {
+          return e.currentTarget;
+        } else {
+          return null;
+        }
+      });
     },
     [setAnchorEl],
   );
