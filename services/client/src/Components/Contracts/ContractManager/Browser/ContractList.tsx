@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
+import { contractArchetypes } from '@Common/Definitions/Structures/Contracts/ContractArchetypes';
 import { ErrorOutline } from '@mui/icons-material';
 import { Box, Pagination } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';

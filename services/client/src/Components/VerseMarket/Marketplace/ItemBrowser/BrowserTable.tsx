@@ -1,5 +1,5 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import { ItemTypes } from '@Common/Definitions/Orders/ItemTypes';
+import { ItemTypes } from '@Common/Definitions/Structures/Orders/ItemTypes';
 import { Table, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';

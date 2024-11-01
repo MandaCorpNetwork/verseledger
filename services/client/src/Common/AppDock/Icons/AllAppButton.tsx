@@ -99,6 +99,28 @@ export const AllAppButton: React.FC<AppIconProps> = ({
       disabled={disabled}
       onMouseEnter={() => sound.playSound('hover')}
     >
+      {path.startsWith('/orgs') && (
+        <Typography
+          variant="h6"
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: 2,
+            writingMode: 'vertical-lr',
+            textOrientation: 'upright',
+            letterSpacing: '0.1px',
+            fontWeight: 'bold',
+            transform: 'translateY(-70%)',
+            color: 'action.disabledBackground',
+            opacity: '0.7',
+            fontSize: '1em',
+            textShadow:
+              '-1px -1px 2px rgba(60, 255, 255, 0.2), 1px 1px 2px rgba(0, 0, 0, 0.5)',
+          }}
+        >
+          ORG
+        </Typography>
+      )}
       <Box className="App-Icon-Container">
         {React.cloneElement(icon, {
           className: `App-Icon ${onClass} rotate`,

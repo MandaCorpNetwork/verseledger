@@ -1,41 +1,48 @@
 import { z } from 'zod';
 import { LocationSchema } from './LocationSchema';
-import { ContractSchema } from './ContractSchema';
+import { UserSchema } from './UserSchema';
 
-export const ObjectiveStatusSchema = z.enum([
-  'PENDING',
-  'OBTAINED',
-  'COMPLETED',
-  'INTERUPTED',
+export const TaskStatusSchema = z.enum(['PENDING', 'ENROUTE', 'COMPLETED', 'INTERUPTED']);
+
+export type ITaskStatus = z.infer<typeof TaskStatusSchema>;
+
+export const TaskTypeSchema = z.enum([
+  'pickup',
+  'dropoff',
+  'refuel',
+  'repair',
+  'rearm',
+  'crew',
+  'food',
+  'medical',
+  'checkpoint',
+  'other',
 ]);
 
-export type IObjectiveStatus = z.infer<typeof ObjectiveStatusSchema>;
+export type ITaskType = z.infer<typeof TaskTypeSchema>;
 
-export const ObjectiveSchema = z.object({
-  packageId: z.number(),
-  pickup: LocationSchema,
-  dropOff: LocationSchema,
-  contents: z.string(),
-  scu: z.number().nullable(),
-  status: ObjectiveStatusSchema,
+export const TaskSchema = z.object({
+  id: z.string(),
+  relationId: z.string().optional(),
+  label: z.string().optional(),
+  type: TaskTypeSchema,
+  missionLabel: z.string().optional(),
+  missionId: z.string().optional(),
+  location: LocationSchema,
+  status: TaskStatusSchema,
+  item: z.string().optional(),
+  user: UserSchema.optional(),
+  scu: z.number().optional(),
 });
 
-export type IObjective = z.infer<typeof ObjectiveSchema>;
-
-export const MissionSchema = z.object({
-  missionId: z.number(),
-  objectives: z.array(ObjectiveSchema),
-});
-
-export type IMission = z.infer<typeof MissionSchema>;
+export type ITask = z.infer<typeof TaskSchema>;
 
 export const DestinationSchema = z.object({
   id: z.string(),
   stopNumber: z.number(),
+  visited: z.boolean(),
+  tasks: z.array(TaskSchema),
   location: LocationSchema,
-  reason: z.string(),
-  objectives: z.array(ObjectiveSchema).optional(),
-  contract: ContractSchema.optional(),
 });
 
 export type IDestination = z.infer<typeof DestinationSchema>;

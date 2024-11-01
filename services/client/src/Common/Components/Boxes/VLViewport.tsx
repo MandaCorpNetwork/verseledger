@@ -11,7 +11,7 @@ export const VLViewport = styled(Box)({
     content: '""',
     position: 'absolute',
     backgroundImage: `url(${BackdropLogo})`,
-    backgroundSize: 'auto',
+    backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     top: 0,

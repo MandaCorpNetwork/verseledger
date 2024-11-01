@@ -1,4 +1,3 @@
-import { WorkZoneBar } from '@Common/Components/App/InDevelopment';
 import { LocationSearch } from '@Common/Components/App/LocationSearch';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { Box, Typography } from '@mui/material';
@@ -44,10 +43,6 @@ export const ExploreApp: React.FC<unknown> = () => {
         gap: '2em',
       }}
     >
-      <WorkZoneBar side="bottom" severity="pending" speed="slow" />
-      <WorkZoneBar side="top" severity="pending" speed="slow" />
-      <WorkZoneBar side="left" severity="pending" speed="slow" />
-      <WorkZoneBar side="right" severity="pending" speed="slow" />
       <GlassDisplay
         data-testid="ExploreApp__Information_Container"
         sx={{

@@ -2,7 +2,7 @@ import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
 import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
 import { UserChip } from '@Common/Components/Chips/UserChip';
-import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
+import { contractArchetypes } from '@Common/Definitions/Structures/Contracts/ContractArchetypes';
 import { Box, Grid2, Tooltip, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';

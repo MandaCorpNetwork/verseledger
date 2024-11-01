@@ -36,7 +36,6 @@ import {
 } from '@Popups/Info/Locations';
 import { PayStructuresPopup, POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { LoginPopup, POPUP_LOGIN } from '@Popups/Login/LoginPopup';
-import { AddMissionPopup, POPUP_CREATE_MISSION } from '@Popups/Mission/AddMission';
 import {
   PlayerCardPopup,
   PlayerCardPopupProps,
@@ -47,6 +46,11 @@ import {
   SubmitRatingPopup,
   SubmitRatingPopupProps,
 } from '@Popups/Ratings/SubmitRating';
+import {
+  AddMissionPopup,
+  POPUP_CREATE_MISSION,
+} from '@Popups/Routes/AddMission/AddMission';
+import { AddTaskPopup, POPUP_ADD_TASK } from '@Popups/Routes/AddTask/AddTask';
 import { POPUP_SUPPORT_DEVELOPMENT, SupportDevPopup } from '@Popups/Support/SupportDev';
 import { CreateTokenPopup, POPUP_CREATE_TOKEN } from '@Popups/Tokens/CreateToken';
 import {
@@ -120,6 +124,7 @@ export const PopupManager: React.FC = () => {
     selectPopup(state, POPUP_ADD_LOCATION),
   );
   const allAppsPopup = useAppSelector((state) => selectPopup(state, POPUP_APP_LIST));
+  const addTaskPopup = useAppSelector((state) => selectPopup(state, POPUP_ADD_TASK));
   return (
     <>
       {verifyUserPopup.open && <VerifyUserPopup />}
@@ -164,6 +169,7 @@ export const PopupManager: React.FC = () => {
         <AddLocationPopup {...(addLocationPopup.props as AddLocationProps)} />
       )}
       {allAppsPopup.open && <AllApps />}
+      {addTaskPopup.open && <AddTaskPopup />}
     </>
   );
 };

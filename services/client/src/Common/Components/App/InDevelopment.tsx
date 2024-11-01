@@ -40,7 +40,7 @@ type WorkZoneBarProps = {
   side?: 'top' | 'bottom' | 'left' | 'right';
   size?: 'small' | 'medium' | 'large';
   speed?: 'slow' | 'normal' | 'fast';
-  severity?: 'testing' | 'construction' | 'pending';
+  severity?: 'testing' | 'construction' | 'broken' | 'pending';
   dim?: boolean;
 };
 
@@ -55,7 +55,7 @@ export const WorkZoneBar: React.FC<WorkZoneBarProps> = (props) => {
 
   const speedMapping = { slow: '24s', normal: '12s', fast: '6s' };
 
-  const sizeMapping = { small: 8, medium: 16, large: 24 };
+  const sizeMapping = { small: 4, medium: 12, large: 24 };
 
   const severityMapping = {
     testing: `repeating-linear-gradient(
@@ -72,29 +72,45 @@ export const WorkZoneBar: React.FC<WorkZoneBarProps> = (props) => {
       orange 0.6rem,
       #fcba03 1.2rem
     )`,
-    pending: `repeating-linear-gradient(
+    broken: `repeating-linear-gradient(
       -45deg, 
       transparent, 
       transparent 0.6rem,
       red 0.6rem,
       red 1.2rem
     )`,
+    pending: `repeating-linear-gradient(
+      -45deg, 
+      transparent, 
+      transparent 0.6rem,
+      #A0AEC0 0.6rem,
+      #CBD5E0 1.2rem
+    )`,
   };
 
   const severityBackground = {
     testing: 'rgba(33,150,243)',
     construction: 'rgba(200,100,15)',
-    pending: 'rgba(140,0,0)',
+    broken: 'rgba(140,0,0)',
+    pending: 'rgba(180, 200, 220, 0.6)',
   };
 
   const positionMapping = {
-    top: { top: 0, left: 0, right: 0, height: `${sizeMapping[size]}px`, width: '100%' },
+    top: {
+      top: 0,
+      left: 0,
+      right: 0,
+      height: `${sizeMapping[size]}px`,
+      width: 'calc(100% - 10px)',
+      mx: 'auto',
+    },
     bottom: {
       bottom: 0,
       left: 0,
       right: 0,
       height: `${sizeMapping[size]}px`,
-      width: '100%',
+      width: 'calc(100% - 10px)',
+      mx: 'auto',
     },
     left: { top: 0, bottom: 0, left: 0, width: `${sizeMapping[size]}px`, height: '100%' },
     right: {

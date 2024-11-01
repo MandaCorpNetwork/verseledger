@@ -1,32 +1,35 @@
-import { WorkZoneBar } from '@Common/Components/App/InDevelopment';
-import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { Box, Button, Typography } from '@mui/material';
-import { POPUP_CREATE_MISSION } from '@Popups/Mission/AddMission';
+import { Box } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import {
-  selectDestinations,
-  selectMissions,
-} from '@Redux/Slices/Routes/routes.selectors';
+// import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
+import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.action';
+import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
+import { selectDestinations, selectTasks } from '@Redux/Slices/Routes/routes.selectors';
 import React from 'react';
-import { IMission } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { DestinationQue } from './DestinationQue/DestinationQue';
-import { Mission } from './Mission';
-import { RouteViewer } from './RouteViewer/RouteViewer';
+import { MissionViewer } from './MissionViewer/MissionViewer';
+import { binaryLocationTree } from './RouteUtilities';
 
 export const RouteApp: React.FC<unknown> = () => {
-  const dispatch = useAppDispatch();
-
-  const missions = useAppSelector(selectMissions);
+  const tasks = useAppSelector(selectTasks);
 
   const destinations = useAppSelector(selectDestinations);
 
-  const handleAddMission = React.useCallback(() => {
-    dispatch(openPopup(POPUP_CREATE_MISSION));
+  //Fetch All Locations
+  //TODO: This will become highly taxing and be better moved to Local Storage for referencing
+  const dispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    dispatch(fetchLocations());
   }, [dispatch]);
 
-  //Fetch All Locations
+  const locations = useAppSelector(selectLocationsArray);
+
+  // const userLocation = useAppSelector(selectUserLocation);
+
+  const locationTree = React.useMemo(() => {
+    return binaryLocationTree(locations);
+  }, [locations]);
   return (
     <Box
       data-testid="RouteTool__AppContainer"
@@ -35,62 +38,18 @@ export const RouteApp: React.FC<unknown> = () => {
         flexDirection: { xs: 'column', md: 'row' },
         justifyContent: 'space-around',
         width: '100%',
-        gap: '1em',
-        flexGrow: 1,
-        position: 'relative',
+        height: '100%',
+        gap: { xs: '1em', lg: '2em' },
+        p: '.5em',
       }}
     >
-      <WorkZoneBar side="right" severity="construction" speed="slow" />
-      <WorkZoneBar side="left" severity="construction" speed="slow" />
-      <WorkZoneBar side="top" severity="construction" speed="slow" />
-      <WorkZoneBar side="bottom" severity="construction" speed="slow" />
-      <RouteViewer destinations={destinations} />
-      <DestinationQue destinations={destinations} missions={missions} />
-      <GlassBox
-        data-testid="RouteTool__MissionViewer_Container"
-        sx={{ p: '1em', gap: '1em', overflow: 'hidden', height: '100%' }}
-      >
-        <Box
-          data-testid="RouteTool-MissionViewer__TitleWrapper"
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '1em',
-          }}
-        >
-          <Typography data-testid="RouteTool-MissionViewer__Title" variant="h5">
-            Mission Viewer
-          </Typography>
-          <Button
-            data-testid="RouteTool-MissionViewer__AddMission_Button"
-            variant="popupButton"
-            onClick={handleAddMission}
-          >
-            Add Mission
-          </Button>
-        </Box>
-        <GlassBox sx={{ height: '90%', overflow: 'auto', gap: '1em', p: '.5em' }}>
-          {missions.map((mission: IMission) => (
-            <Mission key={mission.missionId} mission={mission} />
-          ))}
-          {missions.length === 0 && (
-            <Typography
-              variant="h6"
-              sx={{
-                textAlign: 'center',
-                width: '100%',
-                color: 'grey',
-                textShadow: '0 0 3px rgb(0,0,0), 0 0 10px rgba(0,0,0,.7)',
-                mt: '5em',
-              }}
-            >
-              Add A Mission To Begin
-            </Typography>
-          )}
-        </GlassBox>
-      </GlassBox>
+      {/* <RouteViewer destinations={destinations} /> */}
+      <DestinationQue
+        destinations={destinations}
+        // tasks={tasks}
+        locationTree={locationTree}
+      />
+      <MissionViewer tasks={tasks} />
     </Box>
   );
 };

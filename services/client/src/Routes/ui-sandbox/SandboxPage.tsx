@@ -3,7 +3,7 @@ import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { Box, Typography } from '@mui/material';
 
-import { SandboxContent } from './SandboxContent';
+import { SandboxContent } from '../../Common/SandboxContent';
 
 //This is a Sandbox Area for Testing Certain Components that may not have a home.
 //Utilize SandboxContent.tsx to work on items

@@ -3,6 +3,7 @@ import '@mui/material/Divider';
 import '@mui/material/Button';
 import '@mui/material/Typography';
 import '@mui/material/Box';
+import '@mui/material/ListItemButton';
 
 import { createTheme } from '@mui/material/styles';
 
@@ -10,6 +11,12 @@ declare module '@mui/material/Divider' {
   interface DividerPropsVariantOverrides {
     ToolTitle: true;
     ComponentTitle: true;
+  }
+}
+
+declare module '@mui/material/ListItemButton' {
+  interface ListItemButtonPropsVariantOverrides {
+    formItemSelect: true;
   }
 }
 
@@ -48,26 +55,30 @@ export const verseOSTheme = createTheme({
       //default: 'white', //Theme Test Switch
     },
     primary: {
-      main: 'rgb(14, 35, 141)',
-      dark: 'rgb(8, 22, 80)',
+      main: 'rgb(14,35,141)',
+      dark: 'rgb(8,22,80)',
       light: 'rgb(33,150,243)',
     },
     secondary: {
       main: 'rgb(24, 252, 252)',
-      dark: 'rgb(6, 86, 145)',
+      dark: 'rgb(6,86,145)',
       light: 'rgb(121,192,244)',
     },
     text: {
       primary: 'rgb(211, 250, 254)',
       secondary: 'rgb(33, 150, 243)',
-      disabled: 'rgb(0, 73, 130)',
+      disabled: 'rgb(100,100,100)',
     },
     info: {
       main: 'rgb(255, 141, 15)',
+      dark: 'rgb(181,180,5)',
+      light: 'rgb(255,181,100)',
+      contrastText: 'rgb(35,35,35)',
     },
     success: {
       main: 'rgb(8, 201, 11)',
       dark: 'rgb(14,140,11)',
+      light: 'rgb(83,217,84)',
     },
     warning: {
       main: 'rgb(255,193,0)',
@@ -82,8 +93,8 @@ export const verseOSTheme = createTheme({
       contrastText: 'rgb(255,160,160)',
     },
     action: {
-      disabled: 'rgb(0, 73, 130)',
-      disabledBackground: 'rgb(0, 30, 100)',
+      disabled: 'rgb(0,73,130)',
+      disabledBackground: 'rgb(0,30,100)',
     },
     divider: 'rgb(24, 252, 252)',
   },

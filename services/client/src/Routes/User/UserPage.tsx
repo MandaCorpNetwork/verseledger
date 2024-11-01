@@ -9,7 +9,7 @@ import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { UserViewport } from '@Common/Components/Boxes/UserViewport';
 import { Security } from '@Common/Definitions/CustomIcons';
-import { userBackgroundOptions } from '@Common/Definitions/Users/UserBackgrounds';
+import { userBackgroundOptions } from '@Common/Definitions/Structures/Users/UserBackgrounds';
 import { MobileDock } from '@Common/MobileDock/MobileDock';
 import { ContractInfoPanel } from '@Components/User/UserPage/Info/Panels/ContractsInfoPanel';
 import { FleetInfoPanel } from '@Components/User/UserPage/Info/Panels/FleetInfoPanel';

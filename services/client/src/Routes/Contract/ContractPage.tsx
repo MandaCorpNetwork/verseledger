@@ -4,7 +4,7 @@ import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { ContractController } from '@Common/Components/Contracts/ContractController';
 import { ContractorList } from '@Common/Components/Contracts/ContractorList';
-import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
+import { contractArchetypes } from '@Common/Definitions/Structures/Contracts/ContractArchetypes';
 import { LoadingScreen } from '@Common/LoadingObject/LoadingScreen';
 import { MobileDock } from '@Common/MobileDock/MobileDock';
 import { DesktopContractBody } from '@Components/Contracts/ContractPage/DesktopComponents/DesktopContractBody';

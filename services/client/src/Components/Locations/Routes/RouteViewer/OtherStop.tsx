@@ -49,9 +49,7 @@ export const OtherStop: React.FC<OtherStopProps> = ({ destination, nextDestinati
           px: '1em',
         }}
       >
-        <Typography variant="body2" color="info">
-          {destination.reason}
-        </Typography>
+        <Typography variant="body2" color="info"></Typography>
         <Box sx={{ display: 'flex', flexDirection: 'row', gap: '.5em', mx: 'auto' }}>
           <Typography data-testid="RouteTool-RouteViewer-CurrentDestination_Title">
             Next Destination:

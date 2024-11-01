@@ -102,9 +102,11 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
           size="small"
           color="secondary"
           helperText={helperText}
-          FormHelperTextProps={{
-            margin: 'dense',
-            disabled: true,
+          slotProps={{
+            formHelperText: {
+              margin: 'dense',
+              disabled: true,
+            },
           }}
         />
       )}
