@@ -103,7 +103,7 @@ export class AuthController extends BaseHttpController {
       env.DISCORD_CLIENT_ID && env.DISCORD_CLIENT_SECRET
         ? {
             type: 'discord',
-            redirect: `https://discord.com/oauth2/authorize?client_id=1160393986440179823&response_type=code&redirect_uri=${encodeURIComponent(env.FRONTEND_HOST)}%2Foauth%2Fdiscord%2Fcallback&scope=identify+openid`,
+            redirect: `https://discord.com/oauth2/authorize?client_id=1160393986440179823&response_type=code&redirect_uri=${encodeURIComponent(env.FRONTEND_HOST)}%2Foauth%2Fdiscord%2Fcallback&scope=openid`,
           }
         : undefined,
       env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET
