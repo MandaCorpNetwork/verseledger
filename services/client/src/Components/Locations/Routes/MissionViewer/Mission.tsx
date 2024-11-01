@@ -1,6 +1,8 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { Box, Button, Typography } from '@mui/material';
-// import { useAppDispatch } from '@Redux/hooks';
+import { useAppDispatch } from '@Redux/hooks';
 import React from 'react';
 import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
@@ -9,7 +11,7 @@ type MissionProps = {
 };
 
 export const Mission: React.FC<MissionProps> = ({ tasks }) => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   // const handleAbandonMission = React.useCallback(
   //   (mission: IMission) => {
   //     dispatch(abandonMission(mission));
@@ -17,31 +19,31 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
   //   [dispatch],
   // );
 
-  // const pickupStyle = React.useCallback((objective: ITask) => {
-  //   switch (objective.status) {
-  //     case 'INTERUPTED':
-  //       return { color: 'error.light', borderColor: 'error.main' };
-  //     case 'COMPLETED':
-  //       return { color: 'success.light', borderColor: 'success.main' };
-  //     case 'ENROUTE':
-  //       return { color: 'text.secondary', borderColor: 'text.secondary' };
-  //     case 'PENDING':
-  //     default:
-  //       return { color: 'secondary.main', borderColor: 'secondary.main' };
-  //   }
-  // }, []);
+  const pickupStyle = React.useCallback((objective: ITask) => {
+    switch (objective.status) {
+      case 'INTERUPTED':
+        return { color: 'error.light', borderColor: 'error.main' };
+      case 'COMPLETED':
+        return { color: 'success.light', borderColor: 'success.main' };
+      case 'ENROUTE':
+        return { color: 'text.secondary', borderColor: 'text.secondary' };
+      case 'PENDING':
+      default:
+        return { color: 'secondary.main', borderColor: 'secondary.main' };
+    }
+  }, []);
 
-  // const dropoffStyle = React.useCallback((objective: ITask) => {
-  //   switch (objective.status) {
-  //     case 'INTERUPTED':
-  //       return { color: 'error.light', borderColor: 'error.main' };
-  //     case 'COMPLETED':
-  //       return { color: 'success.light', borderColor: 'success.main' };
-  //     case 'PENDING':
-  //     default:
-  //       return { color: 'secondary.main', borderColor: 'secondary.main' };
-  //   }
-  // }, []);
+  const dropoffStyle = React.useCallback((objective: ITask) => {
+    switch (objective.status) {
+      case 'INTERUPTED':
+        return { color: 'error.light', borderColor: 'error.main' };
+      case 'COMPLETED':
+        return { color: 'success.light', borderColor: 'success.main' };
+      case 'PENDING':
+      default:
+        return { color: 'secondary.main', borderColor: 'secondary.main' };
+    }
+  }, []);
 
   //   { color: 'secondary.main' },
   //   obj.dropoff.status === 'COMPLETED' && { color: 'success.light' },
@@ -54,7 +56,7 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
   //     ? 'error'
   //     : 'secondary';
 
-  // const missionIds =
+  const relationalIds = tasks.map((task) => task.relationId).filter(Boolean);
   return (
     <DigiBox
       data-testid="RouteTool-MissionViewer__Mission_Container"
@@ -78,26 +80,39 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
         data-testid="RouteTool-MissionViewer-Mission__ObjectiveList_Wrapper"
         sx={{ display: 'flex', flexDirection: 'column', gap: '.5em' }}
       >
+        {relationalIds.map((id) => {
+          const pickup = tasks.find(
+            (task) => task.relationId === id && task.type === 'pickup',
+          );
+          return (
+            <DigiDisplay
+              key={id}
+              data-testid="RouteTool-MissionViewer-Mission__Objective_Item"
+              sx={[
+                {
+                  flexDirection: 'row',
+                  gap: '.5em',
+                  py: '.5em',
+                  px: '1em',
+                  position: 'relative',
+                },
+                // obj.status === 'COMPLETED' && {
+                //   opacity: 0.5,
+                //   transition: 'opacity 0.3s ease',
+                //   '&:hover': {
+                //     opacity: 1,
+                //   },
+                // },
+              ]}
+            >
+              <DigiField label="Task Label"></DigiField>
+            </DigiDisplay>
+          );
+        })}
         {/* {mission.objectives.map((obj) => (
           <DigiDisplay
             key={obj.id}
-            data-testid="RouteTool-MissionViewer-Mission__Objective_Item"
-            sx={[
-              {
-                flexDirection: 'row',
-                gap: '.5em',
-                py: '.5em',
-                px: '1em',
-                position: 'relative',
-              },
-              obj.status === 'COMPLETED' && {
-                opacity: 0.5,
-                transition: 'opacity 0.3s ease',
-                '&:hover': {
-                  opacity: 1,
-                },
-              },
-            ]}
+            
           >
             <DigiField label="Package Label"># {obj.label}</DigiField>
             <DigiField label="Pickup Location">
