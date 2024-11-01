@@ -413,7 +413,7 @@ export const verseOSTheme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          backgroundColor: 'rgb(14, 49, 141, .8)',
+          bgcolor: 'rgb(14, 49, 141, .8)',
           backdropFilter: 'blur(10px)',
           boxShadow:
             '0px 4px 6px -1px rgba(0, 0, 0, 0.6), 0px 8px 10px 0px rgba(0, 0, 0, 0.4), 0px 10px 20px 0px rgba(0, 0, 0, 0.3)',
