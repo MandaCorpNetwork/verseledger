@@ -16,9 +16,6 @@
       "name": "VLShared",
       "path": "packages/vl-shared",
     },
-    {
-      "path": "Wiki",
-    },
   ],
   "extensions": {
     "recommendations": [
