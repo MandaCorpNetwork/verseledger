@@ -30,7 +30,7 @@ export function createTaskArray(value: {
       location: obj.pickup,
       status: 'pending',
       item: obj.item,
-      scu: obj.id,
+      scu: obj.scu,
     };
     const newDropOffs = obj.dropoffs.flatMap((drop) => ({
       id: createLocalID('T'),

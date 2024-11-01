@@ -80,8 +80,8 @@ const DigiFieldComponent: React.FC<DigiFieldProps> = (props) => {
     >
       <Typography
         data-testid={`DigiField-${testid}-label`}
+        variant="body2"
         sx={{
-          fontSize: '.7em',
           color: 'inherit',
           transition: 'all 0.1s ease-in-out',
           cursor: 'default',

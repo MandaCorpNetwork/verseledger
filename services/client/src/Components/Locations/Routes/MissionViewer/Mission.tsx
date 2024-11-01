@@ -1,6 +1,7 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
+import { Scu3d } from '@Common/Definitions/CustomIcons';
 import { Box, Button, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import React from 'react';
@@ -90,7 +91,7 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
               data-testid="RouteTool-MissionViewer-Mission__Objective_Item"
               sx={[
                 {
-                  flexDirection: 'row',
+                  flexDirection: 'column',
                   gap: '.5em',
                   py: '.5em',
                   px: '1em',
@@ -105,7 +106,14 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
                 // },
               ]}
             >
-              <DigiField label="Task Label"></DigiField>
+              <div style={{ display: 'flex', flexDirection: 'row', gap: '1em' }}>
+                <DigiField label="Task Label">{pickup?.label}</DigiField>
+                <DigiField
+                  label="Total SCU"
+                  endAdornment={<Scu3d />}
+                >{`${pickup?.scu}`}</DigiField>
+                <DigiField label="Item">{pickup?.item}</DigiField>
+              </div>
             </DigiDisplay>
           );
         })}
