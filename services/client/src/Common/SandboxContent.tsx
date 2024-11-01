@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 
 import { ListSelectButton } from './Components/Styled/Buttons/IndicatorButton';
-import { Scu, Scu3d } from './Definitions/CustomIcons';
+import { Route, Scu, Scu3d } from './Definitions/CustomIcons';
 
 export const SandboxContent: React.FC<unknown> = () => {
   return (

@@ -1,5 +1,6 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { Scu3d } from '@Common/Definitions/CustomIcons';
 import { Box, Button, Typography } from '@mui/material';
@@ -85,6 +86,9 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
           const pickup = tasks.find(
             (task) => task.relationId === id && task.type === 'pickup',
           );
+          const dropoffs = tasks.filter(
+            (task) => task.relationId === id && task.type !== 'dropoff',
+          );
           return (
             <DigiDisplay
               key={id}
@@ -113,6 +117,31 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
                   endAdornment={<Scu3d />}
                 >{`${pickup?.scu}`}</DigiField>
                 <DigiField label="Item">{pickup?.item}</DigiField>
+              </div>
+              <Typography>Pickup Location</Typography>
+              <LocationChip locationId={pickup?.location.id ?? ''} />
+              <Typography>Dropoff Locations</Typography>
+              <div style={{ gap: '1em' }}>
+                {dropoffs.map((drop) => (
+                  <div
+                    key={drop.id}
+                    style={{
+                      display: 'flex',
+                      gap: '1em',
+                      border: '2px solid',
+                      padding: '0.4em 1em',
+                      borderRadius: '10px',
+                    }}
+                  >
+                    <DigiField label="Dropoff Location">
+                      <LocationChip locationId={drop.location.id} />
+                    </DigiField>
+                    <DigiField
+                      label="SCU"
+                      endAdornment={<Scu3d />}
+                    >{`${drop?.scu}`}</DigiField>
+                  </div>
+                ))}
               </div>
             </DigiDisplay>
           );
