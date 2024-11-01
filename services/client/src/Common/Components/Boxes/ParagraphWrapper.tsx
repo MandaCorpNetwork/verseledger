@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import { styled } from '@mui/system';
 
 const ParagraphWrapper = styled(Box)({
-  backgroundColor: 'rgba(14,49,141,.25)',
+  bgcolor: 'rgba(14,49,141,.25)',
   borderRadius: '10px',
   overflow: 'auto',
   '&::-webkit-scrollbar': {

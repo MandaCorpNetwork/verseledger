@@ -58,7 +58,7 @@ const UserDisplayComponent: React.FC<UserDisplayProps> = ({ sx, user }) => {
             position: 'relative',
             transition: 'all 100ms ease-in-out',
             '& .MuiTouchRipple-child': {
-              backgroundcolor: 'secondary.dark',
+              bgcolor: 'secondary.dark',
             },
             '::after': {
               content: '""',

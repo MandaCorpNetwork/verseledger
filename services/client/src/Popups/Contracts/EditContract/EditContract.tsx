@@ -35,7 +35,7 @@ const steps = [
 const ColorlibStepIconRoot = styled('div')<{
   ownerState: { completed?: boolean; active?: boolean };
 }>(({ ownerState }) => ({
-  backgroundColor: '#065691',
+  bgcolor: '#065691',
   backgroundImage:
     'linear-gradient( 136deg, rgb(6,86,145) 0%, rgb(8,29,68) 50%, rgb(0,1,19) 100%)',
   zIndex: 1,
@@ -77,7 +77,7 @@ const ColorlibConnector = styled(StepConnector)(() => ({
   [`& .${stepConnectorClasses.line}`]: {
     height: 3,
     border: 0,
-    backgroundColor: '#065691',
+    bgcolor: '#065691',
     backgroundImage:
       'linear-gradient( 136deg, rgb(6,86,145) 0%, rgb(8,29,68) 50%, rgb(0,1,19) 100%)',
     borderRadius: 1,

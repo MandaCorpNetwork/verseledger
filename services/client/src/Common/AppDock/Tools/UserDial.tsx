@@ -81,7 +81,7 @@ export const UserDial: React.FC = () => {
         onMouseLeave={toggleOpen}
         sx={{
           '& .MuiFab-root': {
-            backgroundColor: 'transparent',
+            bgcolor: 'transparent',
             boxShadow: 'none',
             '& .MuiTouchRipple-root': {
               color: 'rgba(14,252,252,0.7)',

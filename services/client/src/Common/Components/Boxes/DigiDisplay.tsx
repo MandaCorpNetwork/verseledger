@@ -5,7 +5,7 @@ export const DigiDisplay = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  backgroundColor: 'rgba(14,49,141,.3)',
+  bgcolor: 'rgba(14,49,141,.3)',
   borderRadius: '5px',
   borderTop: '1px solid',
   borderBottom: '1px solid',

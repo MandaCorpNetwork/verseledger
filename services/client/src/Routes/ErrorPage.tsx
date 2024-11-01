@@ -54,7 +54,7 @@ const ErrorPage: React.FC = () => {
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              backgroundColor: 'rgba(0,20,100,.6)',
+              bgcolor: 'rgba(0,20,100,.6)',
               padding: '.5em',
               borderRight: '2px solid',
               borderLeft: '2px solid',

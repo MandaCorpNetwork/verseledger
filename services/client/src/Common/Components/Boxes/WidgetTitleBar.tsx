@@ -3,7 +3,7 @@ import { Box, styled } from '@mui/material';
 const WidgetTitleBar = styled(Box)({
   display: 'flex',
   flexDirection: 'row',
-  backgroundColor: 'rgba(14,35,141)',
+  bgcolor: 'rgba(14,35,141)',
   justifyContent: 'space-between',
   alignItems: 'center',
   boxShadow: '0 4px 8px rgba(0,0,0,.7), 0 0 10px 2px rgba(0,0,0,0.3)',

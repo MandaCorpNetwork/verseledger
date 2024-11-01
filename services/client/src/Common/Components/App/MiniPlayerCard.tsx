@@ -177,7 +177,7 @@ export const MiniPlayerCard: React.FC<MiniPlayerCardProps> = (props) => {
             >
               <Box
                 sx={{
-                  backgroundColor: 'rgba(0,0,0,.5)',
+                  bgcolor: 'rgba(0,0,0,.5)',
                   borderRadius: '5px',
                   p: '.5em',
                   boxShadow: '0 4px 8px rgba(0,0,0,.5)',

@@ -14,6 +14,7 @@ import {
   splashApps,
   VerseLedgerVersion,
 } from '@Common/Definitions/AppListings';
+import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
 import { ErrorOutline, HomeTwoTone, Person } from '@mui/icons-material';
 import {
   Alert,
@@ -29,7 +30,7 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectIsLoggedIn } from '@Redux/Slices/Auth/auth.selectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { bindPopover, usePopupState } from 'material-ui-popup-state/hooks';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { DevelopDecorator } from './DevelopmentDecorator';
@@ -44,7 +45,9 @@ import { UserStateManager } from './Tools/UserStateManager';
 
 export const AppDock: React.FC = () => {
   const [iconGroup, setIconGroup] = React.useState<AppListing[]>([]);
+
   const [key, setKey] = React.useState(0);
+
   const location = useLocation();
   const dispatch = useAppDispatch();
   const sound = useSoundEffect();
@@ -101,7 +104,7 @@ export const AppDock: React.FC = () => {
       slotProps={{
         paper: {
           sx: {
-            backgroundColor: 'transparent',
+            bgcolor: 'transparent',
             boxShadow: 'none',
           },
         },
@@ -215,7 +218,13 @@ export const AppDock: React.FC = () => {
         <SplashIcon />
         {isLoggedIn && <UserStateIcon popupState={userStatePopupState} />}
       </Box>
-      <AppButton label="@APP.HOME.LABEL" path="/apps/dashboard" icon={<HomeTwoTone />} />
+      <Suspense fallback={<LoadingWheel />}>
+        <AppButton
+          label="@APP.HOME.LABEL"
+          path="/apps/dashboard"
+          icon={<HomeTwoTone />}
+        />
+      </Suspense>
       <Divider
         orientation="vertical"
         flexItem

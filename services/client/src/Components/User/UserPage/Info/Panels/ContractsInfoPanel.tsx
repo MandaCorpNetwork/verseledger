@@ -178,14 +178,14 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
             },
             '& .MuiToggleButton-root': {
               color: 'secondary.dark',
-              backgroundColor: 'action.disabledBackground',
+              bgcolor: 'action.disabledBackground',
               '&:hover': {
                 color: 'text.secondary',
               },
             },
             '& .MuiToggleButton-root.Mui-selected': {
               color: 'secondary.main',
-              backgroundColor: 'primary.main',
+              bgcolor: 'primary.main',
               '&:hover': {
                 color: 'secondary.light',
               },

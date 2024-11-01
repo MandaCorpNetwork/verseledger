@@ -41,6 +41,20 @@
   text-rendering: optimizeLegibility;
 }
 
+@font-face {
+    font-family: 'cigOptical';
+  src: url('../Fonts/CIGOpticalRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: 'Aldrich';
+  src: url('../Fonts/Aldrichregular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .saira-semi-condensed-thin {
   font-family: 'Saira Semi Condensed', sans-serif;
   font-weight: 100;

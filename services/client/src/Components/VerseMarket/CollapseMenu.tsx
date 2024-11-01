@@ -92,7 +92,7 @@ export const CollapseMenu: React.FC<unknown> = () => {
       orientation="horizontal"
       sx={{
         height: '100%',
-        backgroundColor: 'primary.dark',
+        bgcolor: 'primary.dark',
         borderTopRightRadius: '10px',
         borderBottomRightRadius: '10px',
         mr: '1em',

@@ -138,7 +138,7 @@ export const PaginationAnchor: React.FC<PaginationAnchorProps> = ({ isMobile }) 
           borderTopRightRadius: '10px',
           borderTopLeftRadius: '10px',
           boxShadow: '0 0 8px 5px rgba(14,49,252,.4)',
-          backgroundColor: 'rgba(0,1,19,.5)',
+          bgcolor: 'rgba(0,1,19,.5)',
           width: '100%',
           '& .MuiTablePagination-displayedRows': {
             fontSize: { xs: '.7em', sm: '1em' },

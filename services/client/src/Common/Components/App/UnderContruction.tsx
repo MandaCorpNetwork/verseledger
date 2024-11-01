@@ -58,7 +58,7 @@ export const UnderConstruction: React.FC<UnderConstructionProps> = ({
       >
         <Box
           sx={{
-            backgroundColor: 'primary.dark',
+            bgcolor: 'primary.dark',
             borderRadius: '20px',
             px: '.5em',
           }}

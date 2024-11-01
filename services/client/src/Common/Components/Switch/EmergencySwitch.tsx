@@ -13,11 +13,11 @@ const ThemedSwitch = styled(Switch)(({ theme }) => ({
     '&.Mui-checked': {
       color: theme.palette.error.main,
       '& + .MuiSwitch-track': {
-        backgroundColor: theme.palette.error.main,
+        bgcolor: theme.palette.error.main,
       },
     },
     '& + .MuiSwitch-track': {
-      backgroundColor: theme.palette.warning.dark,
+      bgcolor: theme.palette.warning.dark,
     },
   },
   '& .MuiSwitch-thumb': {

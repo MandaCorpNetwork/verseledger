@@ -242,7 +242,7 @@ export const ContractTableView: React.FC<ContractRowProps> = ({
           borderBottomLeftRadius: '10px',
           borderBottomRightRadius: '10px',
           boxShadow: '0 0 15px 2px #0e318d',
-          backgroundColor: 'rgba(0,1,19,.5)',
+          bgcolor: 'rgba(0,1,19,.5)',
         }}
         slotProps={{
           select: {

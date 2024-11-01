@@ -87,7 +87,7 @@ export const ContractListDropdown: React.FC<ContractListDropdownProps> = ({
           sx={{
             ml: 'auto',
             '& .MuiBadge-badge': {
-              backgroundColor: 'grey',
+              bgcolor: 'grey',
               color: isExpanded ? 'secondary.main' : 'text.primary',
             },
           }}
