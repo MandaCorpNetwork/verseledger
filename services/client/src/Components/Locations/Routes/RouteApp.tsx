@@ -2,18 +2,18 @@ import { Box } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 // import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.action';
-import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
-import { selectDestinations, selectTasks } from '@Redux/Slices/Routes/routes.selectors';
+// import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
+import { selectTasks } from '@Redux/Slices/Routes/routes.selectors';
 import React from 'react';
 
-import { DestinationQue } from './DestinationQue/DestinationQue';
+// import { DestinationQue } from './DestinationQue/DestinationQue';
 import { MissionViewer } from './MissionViewer/MissionViewer';
-import { binaryLocationTree } from './RouteUtilities';
+// import { binaryLocationTree } from './RouteUtilities';
 
 export const RouteApp: React.FC<unknown> = () => {
   const tasks = useAppSelector(selectTasks);
 
-  const destinations = useAppSelector(selectDestinations);
+  // const destinations = useAppSelector(selectDestinations);
 
   //Fetch All Locations
   //TODO: This will become highly taxing and be better moved to Local Storage for referencing
@@ -23,13 +23,13 @@ export const RouteApp: React.FC<unknown> = () => {
     dispatch(fetchLocations());
   }, [dispatch]);
 
-  const locations = useAppSelector(selectLocationsArray);
+  // const locations = useAppSelector(selectLocationsArray);
 
   // const userLocation = useAppSelector(selectUserLocation);
 
-  const locationTree = React.useMemo(() => {
-    return binaryLocationTree(locations);
-  }, [locations]);
+  // const locationTree = React.useMemo(() => {
+  //   return binaryLocationTree(locations);
+  // }, [locations]);
   return (
     <Box
       data-testid="RouteTool__AppContainer"

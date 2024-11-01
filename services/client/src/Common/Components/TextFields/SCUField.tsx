@@ -57,14 +57,13 @@ export const SCUField: React.FC<SCUFieldProps> = (props) => {
         autoComplete="off"
         required
         onBlur={handleBlur}
-        onMouseEnter={(e) => handlePopOpen(e)}
         // onMouseLeave={handleClosePop}
         onChange={(e) => handleChange(e.target.value)}
         value={value != 0 ? value.toLocaleString() : ''}
         slotProps={{
           input: {
             endAdornment: (
-              <IconButton>
+              <IconButton onClick={handlePopOpen}>
                 <Scu3d />
               </IconButton>
             ),
