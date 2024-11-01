@@ -2,15 +2,8 @@
 // import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 // import { IDestination, IMission, IObjective } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { createLocalID } from '@Utils/createId';
 import { Float3, MathX } from 'vl-shared/src/math';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-import {
-  IDestination,
-  ILogisticTransport,
-  IMission,
-  ITask,
-} from 'vl-shared/src/schemas/RoutesSchema';
 
 export interface MappedLocation {
   location: ILocation;
@@ -455,66 +448,6 @@ export function binaryLocationTree(locations: ILocation[]) {
   return entities;
 }
 
-export function getParentMission(
-  missions: IMission[],
-  objective: ITask,
-): IMission | null {
-  return (
-    missions.find((mission) =>
-      mission.objectives.some(
-        (obj) => obj.pickup.id === objective.id || obj.dropoff.id === objective.id,
-      ),
-    ) ?? null
-  );
-}
-
-export function getSiblingObjective(mission: IMission, objective: ITask): ITask | null {
-  const missionObjective = mission.objectives.find(
-    (obj) => obj.pickup.id === objective.id || obj.dropoff.id === objective.id,
-  );
-  if (missionObjective == null) return null;
-  if (objective.type === 'pickup') return missionObjective.dropoff;
-  if (objective.type === 'dropoff') return missionObjective.pickup;
-  return null;
-}
-
-export function getSiblingDestination(
-  siblingObj: ITask,
-  destinations: IDestination[],
-): IDestination | null {
-  return (
-    destinations.find((dest) => dest.tasks.some((obj) => obj.id === siblingObj.id)) ??
-    null
-  );
-}
-
-export function extractTasks(
-  value: IDestination | IDestination[] | IMission | IMission[],
-): ITask[] {
-  if (Array.isArray(value)) {
-    if (value.length === 0) return [];
-
-    if (value[0].__type === 'destination') {
-      const destinations = value as IDestination[];
-      return destinations.flatMap((dest) => dest.tasks);
-    } else if (value[0].__type === 'mission') {
-      const missions = value as IMission[];
-      return missions.flatMap((mission) => {
-        return mission.objectives.flatMap((objective) => {
-          return [objective.pickup, objective.dropoff];
-        });
-      });
-    }
-  } else if (value.__type === 'destination') {
-    return value.tasks;
-  } else if (value.__type === 'mission') {
-    return value.objectives.flatMap((objective) => {
-      return [objective.pickup, objective.dropoff];
-    });
-  }
-  return [];
-}
-
 export function getMappedLocation(
   locationTree: Map<string, MappedLocation>,
   locationId: string,
@@ -536,80 +469,4 @@ export function formatDistance(locA: MappedLocation, locB: MappedLocation): stri
   } else {
     return `${(absDistance / 1_000_000_000).toFixed(2).toLocaleString()} Tm`;
   }
-}
-
-export function missionToDestinations(destinations: IDestination[], mission: IMission) {
-  const newDestinations = mission.objectives.flatMap((obj) => {
-    const foundPick = destinations.find(
-      (dest) => dest.location.id === obj.pickup.location.id,
-    );
-    const foundDrop = findDrop(
-      destinations,
-      obj as ILogisticTransport,
-      foundPick as IDestination,
-    );
-
-    const tempDests = [
-      foundPick
-        ? { ...foundPick, tasks: [...foundPick.tasks, obj.pickup] }
-        : ({
-            id: createLocalID('M'),
-            stopNumber: 0,
-            visited: false,
-            reason: 'Mission',
-            tasks: [obj.pickup],
-            location: obj.pickup.location,
-          } as IDestination),
-      foundDrop
-        ? { ...foundDrop, tasks: [...foundDrop.tasks, obj.dropoff] }
-        : ({
-            id: createLocalID('M'),
-            stopNumber: 0,
-            visited: false,
-            reason: 'Mission',
-            tasks: [obj.dropoff],
-            location: obj.dropoff.location,
-          } as IDestination),
-    ];
-
-    return tempDests;
-  });
-
-  export function newMissionToDestinations(destinations: IDestination[], tasks: ITask) {
-    const newDestinations = tasks.flatMap((task) => {
-      const foundPick = destinations.find(
-        (dest) => dest.location.id === task.location.id,
-      );
-
-      
-    });
-  }
-
-  const flatNewDests = newDestinations.flatMap((dest) => dest);
-
-  const filteredDestinations = destinations.filter(
-    (dest) => !newDestinations.some((newDest) => newDest.id === dest.id),
-  );
-
-  const updatedList = [...filteredDestinations, ...flatNewDests];
-  return updatedList;
-}
-
-function findDrop(
-  destinations: IDestination[],
-  objective: ILogisticTransport,
-  foundPick: IDestination,
-) {
-  if (!foundPick) return null;
-  const dropoffDest = destinations.find((dest) => {
-    if (foundPick.stopNumber <= 0) {
-      return dest.location.id === objective.dropoff.location.id;
-    } else {
-      return (
-        dest.location.id === objective.dropoff.location.id &&
-        dest.stopNumber > foundPick.stopNumber
-      );
-    }
-  });
-  return dropoffDest ?? null;
 }

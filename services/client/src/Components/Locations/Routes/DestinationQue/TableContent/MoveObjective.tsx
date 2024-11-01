@@ -8,21 +8,16 @@ import {
   updateDestinations,
 } from '@Redux/Slices/Routes/actions/destination.action';
 import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
-import { createLocalID } from '@Utils/createId';
 import React from 'react';
-import { IDestination, IMission, ITask } from 'vl-shared/src/schemas/RoutesSchema';
-
-import { getSiblingDestination, getSiblingObjective } from '../../RouteUtilities';
+import { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 type MoveObjectiveProps = {
   objective: ITask;
-  mission?: IMission;
   ['data-testid']?: string;
 };
 
 export const MoveObjective: React.FC<MoveObjectiveProps> = ({
   objective,
-  mission,
   'data-testid': testid = 'MoveObjectivePopper',
 }) => {
   const destinations = useAppSelector(selectDestinations);
@@ -48,69 +43,59 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
 
   const availableDestinations = getAvailableDestinations();
 
-  const siblingObj = React.useMemo(() => {
-    if (!mission) return null;
-    return getSiblingObjective(mission, objective);
-  }, [mission, objective]);
+  // const getConflictDestinations = React.useCallback(() => {
+  //   if (objective.type === 'pickup' || objective.type === 'dropoff') {
+  //     if (!siblingDest) return null;
+  //     if (objective.type === 'pickup') {
+  //       return destinations.filter((dest) => dest.stopNumber >= siblingDest.stopNumber);
+  //     } else {
+  //       return destinations.filter((dest) => dest.stopNumber <= siblingDest.stopNumber);
+  //     }
+  //   }
+  // }, [destinations, objective]);
 
-  const siblingDest = React.useMemo(() => {
-    if (!siblingObj) return null;
-    return getSiblingDestination(siblingObj, destinations);
-  }, [siblingObj, destinations]);
+  // const conflictDestinations = getConflictDestinations();
 
-  const getConflictDestinations = React.useCallback(() => {
-    if (objective.type === 'pickup' || objective.type === 'dropoff') {
-      if (!siblingDest) return null;
-      if (objective.type === 'pickup') {
-        return destinations.filter((dest) => dest.stopNumber >= siblingDest.stopNumber);
-      } else {
-        return destinations.filter((dest) => dest.stopNumber <= siblingDest.stopNumber);
-      }
-    }
-  }, [destinations, siblingDest, objective]);
+  // const newAvailable = destination.tasks.length !== 1;
 
-  const conflictDestinations = getConflictDestinations();
+  // const createNewDest = React.useCallback(() => {
+  //   if (!newAvailable) return sound.playSound('error');
+  //   const reason =
+  //     objective.type === 'pickup' || objective.type === 'dropoff'
+  //       ? 'Mission'
+  //       : (objective.label ?? 'Stop');
+  //   const newDest: IDestination = {
+  //     id: createLocalID('D'),
+  //     location: objective.location,
+  //     stopNumber: 0,
+  //     visited: false,
+  //     reason,
+  //     tasks: [{ ...objective, status: 'PENDING' }],
+  //   };
+  //   const updatedDests: IDestination[] = [];
+  //   updatedDests.push({
+  //     ...destination,
+  //     tasks: destination.tasks.filter((obj) => obj.id !== objective.id),
+  //   });
+  //   if (objective.type === 'dropoff') {
+  //     if (!siblingDest) return sound.playSound('error');
 
-  const newAvailable = destination.tasks.length !== 1;
-
-  const createNewDest = React.useCallback(() => {
-    if (!newAvailable) return sound.playSound('error');
-    const reason =
-      objective.type === 'pickup' || objective.type === 'dropoff'
-        ? 'Mission'
-        : (objective.label ?? 'Stop');
-    const newDest: IDestination = {
-      id: createLocalID('D'),
-      location: objective.location,
-      stopNumber: 0,
-      visited: false,
-      reason,
-      tasks: [{ ...objective, status: 'PENDING' }],
-    };
-    const updatedDests: IDestination[] = [];
-    updatedDests.push({
-      ...destination,
-      tasks: destination.tasks.filter((obj) => obj.id !== objective.id),
-    });
-    if (objective.type === 'dropoff') {
-      if (!siblingDest) return sound.playSound('error');
-
-      newDest.stopNumber = siblingDest.stopNumber + 1;
-      destinations.forEach((dest) => {
-        if (dest.stopNumber >= newDest.stopNumber) {
-          updatedDests.push({
-            ...dest,
-            stopNumber: dest.stopNumber + 1,
-          });
-        }
-      });
-    }
-    dispatch(updateDestinations([newDest, ...updatedDests]));
-    sound.playSound('loading');
-    if (destination.tasks.length === 1) {
-      dispatch(deleteDestination(destination.id));
-    }
-  }, [destinations, dispatch, newAvailable, objective, siblingDest, sound, destination]);
+  //     newDest.stopNumber = siblingDest.stopNumber + 1;
+  //     destinations.forEach((dest) => {
+  //       if (dest.stopNumber >= newDest.stopNumber) {
+  //         updatedDests.push({
+  //           ...dest,
+  //           stopNumber: dest.stopNumber + 1,
+  //         });
+  //       }
+  //     });
+  //   }
+  //   dispatch(updateDestinations([newDest, ...updatedDests]));
+  //   sound.playSound('loading');
+  //   if (destination.tasks.length === 1) {
+  //     dispatch(deleteDestination(destination.id));
+  //   }
+  // }, [destinations, dispatch, newAvailable, objective, siblingDest, sound, destination]);
 
   const moveObjective = React.useCallback(
     (newDest: IDestination) => {
@@ -165,13 +150,13 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
               ) : (
                 <MoveDownTwoTone color="inherit" />
               );
-            const disabled = conflictDestinations?.includes(dest);
+            // const disabled = conflictDestinations?.includes(dest);
             return (
               <Typography
                 key={dest.id}
                 data-testid={`${testid}-MoveList__MovableDest-${dest.id}_Text`}
                 sx={{
-                  color: disabled ? 'text.disabled' : 'warning.light',
+                  // color: disabled ? 'text.disabled' : 'warning.light',
                   textShadow: '0px 2px 4px rgba(0,0,0)',
                   display: 'flex',
                   flexDirection: 'row',
@@ -183,7 +168,7 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
                 <IconButton
                   data-testid={`${testid}-MoveList-MovableDest-${dest.id}__MoveButton`}
                   color="warning"
-                  disabled={disabled}
+                  // disabled={disabled}
                   sx={{ color: 'warning.main' }}
                   onClick={() => moveObjective(dest)}
                 >
@@ -198,8 +183,8 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
         variant="outlined"
         size="small"
         color="info"
-        disabled={!newAvailable}
-        onClick={createNewDest}
+        // disabled={!newAvailable}
+        // onClick={createNewDest}
         sx={{
           backgroundImage:
             'linear-gradient(135deg, rgba(255,181,100,0.5), rgba(181,130,5,0.5) 35%)',

@@ -5,19 +5,32 @@ import { POPUP_CREATE_MISSION } from '@Popups/Routes/AddMission/AddMission';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
-import { IMission } from 'vl-shared/src/schemas/RoutesSchema';
+import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { Mission } from './Mission';
 
 type MissionViewerProps = {
-  missions: IMission[];
+  tasks: ITask[];
 };
 
-export const MissionViewer: React.FC<MissionViewerProps> = ({ missions }) => {
+export const MissionViewer: React.FC<MissionViewerProps> = ({ tasks }) => {
   const dispatch = useAppDispatch();
+
   const handleAddMission = React.useCallback(() => {
     dispatch(openPopup(POPUP_CREATE_MISSION));
   }, [dispatch]);
+
+  const missionGroups = tasks.reduce(
+    (acc, task) => {
+      const missionId = task.missionId ?? 'standalone';
+      if (!acc[missionId]) {
+        acc[missionId] = [];
+      }
+      acc[missionId].push(task);
+      return acc;
+    },
+    {} as Record<string, ITask[]>,
+  );
   return (
     <GlassBox
       data-testid="RouteTool__MissionViewer_Container"
@@ -53,10 +66,10 @@ export const MissionViewer: React.FC<MissionViewerProps> = ({ missions }) => {
           minWidth: '400px',
         }}
       >
-        {missions.map((mission: IMission) => (
-          <Mission key={mission.id} mission={mission} />
+        {Object.entries(missionGroups).map(([missionId, relatedTasks]) => (
+          <Mission key={missionId} tasks={relatedTasks} />
         ))}
-        {missions.length === 0 && (
+        {tasks.length === 0 && (
           <Typography
             variant="h6"
             sx={{

@@ -3,9 +3,9 @@ import { Typography } from '@mui/material';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
+import { MappedLocation } from '../RouteUtilities';
 import { CustomDestinationTable } from './CustomTable';
 import { DestQueHeader } from './DestQueHeader';
-import { MappedLocation } from '../RouteUtilities';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 type DestinationQueProps = {

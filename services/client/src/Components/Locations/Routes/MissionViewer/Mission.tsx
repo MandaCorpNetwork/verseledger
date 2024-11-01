@@ -1,51 +1,46 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { Box, Button, Typography } from '@mui/material';
-import { useAppDispatch } from '@Redux/hooks';
-import { abandonMission } from '@Redux/Slices/Routes/actions/mission.action';
 import React from 'react';
-import { IMission, ITask } from 'vl-shared/src/schemas/RoutesSchema';
+import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 type MissionProps = {
-  mission: IMission;
+  tasks: ITask[];
 };
 
-export const Mission: React.FC<MissionProps> = ({ mission }) => {
-  const dispatch = useAppDispatch();
-  const handleAbandonMission = React.useCallback(
-    (mission: IMission) => {
-      dispatch(abandonMission(mission));
-    },
-    [dispatch],
-  );
+export const Mission: React.FC<MissionProps> = ({ tasks }) => {
+  // const dispatch = useAppDispatch();
+  // const handleAbandonMission = React.useCallback(
+  //   (mission: IMission) => {
+  //     dispatch(abandonMission(mission));
+  //   },
+  //   [dispatch],
+  // );
 
-  const pickupStyle = React.useCallback((objective: ITask) => {
-    switch (objective.status) {
-      case 'INTERUPTED':
-        return { color: 'error.light', borderColor: 'error.main' };
-      case 'COMPLETED':
-        return { color: 'success.light', borderColor: 'success.main' };
-      case 'ENROUTE':
-        return { color: 'text.secondary', borderColor: 'text.secondary' };
-      case 'PENDING':
-      default:
-        return { color: 'secondary.main', borderColor: 'secondary.main' };
-    }
-  }, []);
+  // const pickupStyle = React.useCallback((objective: ITask) => {
+  //   switch (objective.status) {
+  //     case 'INTERUPTED':
+  //       return { color: 'error.light', borderColor: 'error.main' };
+  //     case 'COMPLETED':
+  //       return { color: 'success.light', borderColor: 'success.main' };
+  //     case 'ENROUTE':
+  //       return { color: 'text.secondary', borderColor: 'text.secondary' };
+  //     case 'PENDING':
+  //     default:
+  //       return { color: 'secondary.main', borderColor: 'secondary.main' };
+  //   }
+  // }, []);
 
-  const dropoffStyle = React.useCallback((objective: ITask) => {
-    switch (objective.status) {
-      case 'INTERUPTED':
-        return { color: 'error.light', borderColor: 'error.main' };
-      case 'COMPLETED':
-        return { color: 'success.light', borderColor: 'success.main' };
-      case 'PENDING':
-      default:
-        return { color: 'secondary.main', borderColor: 'secondary.main' };
-    }
-  }, []);
+  // const dropoffStyle = React.useCallback((objective: ITask) => {
+  //   switch (objective.status) {
+  //     case 'INTERUPTED':
+  //       return { color: 'error.light', borderColor: 'error.main' };
+  //     case 'COMPLETED':
+  //       return { color: 'success.light', borderColor: 'success.main' };
+  //     case 'PENDING':
+  //     default:
+  //       return { color: 'secondary.main', borderColor: 'secondary.main' };
+  //   }
+  // }, []);
 
   //   { color: 'secondary.main' },
   //   obj.dropoff.status === 'COMPLETED' && { color: 'success.light' },
@@ -73,14 +68,14 @@ export const Mission: React.FC<MissionProps> = ({ mission }) => {
           variant="overline"
           sx={{ pl: '.5em' }}
         >
-          {mission.label}
+          {tasks[0].missionLabel}
         </Typography>
       </Typography>
       <Box
         data-testid="RouteTool-MissionViewer-Mission__ObjectiveList_Wrapper"
         sx={{ display: 'flex', flexDirection: 'column', gap: '.5em' }}
       >
-        {mission.objectives.map((obj) => (
+        {/* {mission.objectives.map((obj) => (
           <DigiDisplay
             key={obj.id}
             data-testid="RouteTool-MissionViewer-Mission__Objective_Item"
@@ -115,7 +110,7 @@ export const Mission: React.FC<MissionProps> = ({ mission }) => {
               />
             </DigiField>
           </DigiDisplay>
-        ))}
+        ))} */}
       </Box>
       <Box
         data-testid="RouteTool-MissionViewer-Mission__Controller_Wrapper"
@@ -137,7 +132,7 @@ export const Mission: React.FC<MissionProps> = ({ mission }) => {
         >
           Edit Mission
         </Button>
-        <Button
+        {/* <Button
           data-testid="RouteTool-MissionViewer-Mission__AbandonMission_Button"
           variant="contained"
           size="small"
@@ -146,7 +141,7 @@ export const Mission: React.FC<MissionProps> = ({ mission }) => {
           disabled
         >
           Abandon Mission
-        </Button>
+        </Button> */}
       </Box>
     </DigiBox>
   );

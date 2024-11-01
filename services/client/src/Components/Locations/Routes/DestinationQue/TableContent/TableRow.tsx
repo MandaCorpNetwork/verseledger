@@ -15,21 +15,12 @@ import {
   Typography,
   useMediaQuery,
 } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { useAppDispatch } from '@Redux/hooks';
 import { updateDestinations } from '@Redux/Slices/Routes/actions/destination.action';
-import { updateMissions } from '@Redux/Slices/Routes/actions/mission.action';
-import { updateTasks } from '@Redux/Slices/Routes/actions/task.action';
-import { selectMissions } from '@Redux/Slices/Routes/routes.selectors';
 import React from 'react';
-import { IDestination, ITask, ITaskStatus } from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { DestinationTask } from './DestinationTask';
-import {
-  extractTasks,
-  getParentMission,
-  getSiblingDestination,
-  getSiblingObjective,
-} from '../../RouteUtilities';
 
 type TableRowProps = {
   destination: IDestination;
@@ -48,7 +39,6 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const sound = useSoundEffect();
-  const missions = useAppSelector(selectMissions);
 
   const getIndex = React.useCallback(
     (destinations: IDestination[]) => {
@@ -59,61 +49,58 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
 
   const hideReason = useMediaQuery('(max-width: 1200px)');
   const hideTasks = useMediaQuery('(max-width: 1090px)');
-  const objectiveValidationHelper = React.useCallback(
-    (objectives: ITask[], stopNumber: number, destinations: IDestination[]) => {
-      return objectives.map((obj) => {
-        const mission = getParentMission(missions, obj);
-        if (!mission) return obj;
+  // const objectiveValidationHelper = React.useCallback(
+  //   (objectives: ITask[], stopNumber: number, destinations: IDestination[]) => {
+  //     return objectives.map((obj) => {
+  //       const mission = getParentMission(missions, obj);
+  //       if (!mission) return obj;
 
-        const siblingObj = getSiblingObjective(mission, obj);
-        if (!siblingObj) return obj;
+  //       const siblingObj = getSiblingObjective(mission, obj);
+  //       if (!siblingObj) return obj;
 
-        const siblingDest = getSiblingDestination(siblingObj, destinations);
-        if (!siblingDest) return obj;
+  //       const siblingDest = getSiblingDestination(siblingObj, destinations);
+  //       if (!siblingDest) return obj;
 
-        if (obj.type === 'pickup' && stopNumber > siblingDest.stopNumber) {
-          console.log('Pickup Interupt Found');
-          return { ...obj, status: 'INTERUPTED' as ITaskStatus };
-        }
+  //       if (obj.type === 'pickup' && stopNumber > siblingDest.stopNumber) {
+  //         console.log('Pickup Interupt Found');
+  //         return { ...obj, status: 'INTERUPTED' as ITaskStatus };
+  //       }
 
-        if (obj.type === 'pickup' && stopNumber < siblingDest.stopNumber) {
-          console.log('Pickup Interupt Found');
-          return { ...obj, status: 'PENDING' as ITaskStatus };
-        }
+  //       if (obj.type === 'pickup' && stopNumber < siblingDest.stopNumber) {
+  //         console.log('Pickup Interupt Found');
+  //         return { ...obj, status: 'PENDING' as ITaskStatus };
+  //       }
 
-        if (obj.type === 'dropoff' && stopNumber < siblingDest.stopNumber) {
-          console.log('Dropoff Interupt Found.');
-          return { ...obj, status: 'INTERUPTED' as ITaskStatus };
-        }
+  //       if (obj.type === 'dropoff' && stopNumber < siblingDest.stopNumber) {
+  //         console.log('Dropoff Interupt Found.');
+  //         return { ...obj, status: 'INTERUPTED' as ITaskStatus };
+  //       }
 
-        if (obj.type === 'dropoff' && stopNumber > siblingDest.stopNumber) {
-          console.log('Dropoff Interupt Found.');
-          return { ...obj, status: 'PENDING' as ITaskStatus };
-        }
+  //       if (obj.type === 'dropoff' && stopNumber > siblingDest.stopNumber) {
+  //         console.log('Dropoff Interupt Found.');
+  //         return { ...obj, status: 'PENDING' as ITaskStatus };
+  //       }
 
-        return obj;
-      });
-    },
-    [missions],
-  );
+  //       return obj;
+  //     });
+  //   },
+  //   [missions],
+  // );
 
-  const validateDestObjectives = React.useCallback(
-    (destinations: IDestination[]) => {
-      const updatedDestinations: IDestination[] = [];
+  const validateDestObjectives = React.useCallback((destinations: IDestination[]) => {
+    const updatedDestinations: IDestination[] = [];
 
-      destinations.forEach((dest) => {
-        const tempDest = { ...dest };
-        tempDest.tasks = objectiveValidationHelper(
-          tempDest.tasks,
-          tempDest.stopNumber,
-          destinations,
-        );
-        updatedDestinations.push(tempDest);
-      });
-      return updatedDestinations;
-    },
-    [objectiveValidationHelper],
-  );
+    destinations.forEach((dest) => {
+      const tempDest = { ...dest };
+      // tempDest.tasks = objectiveValidationHelper(
+      //   tempDest.tasks,
+      //   tempDest.stopNumber,
+      //   destinations,
+      // );
+      updatedDestinations.push(tempDest);
+    });
+    return updatedDestinations;
+  }, []);
 
   const getReorderedDestinations = React.useCallback(
     (
@@ -170,37 +157,37 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
 
       const validatedDestinations = validateDestObjectives(updatedDestinations);
 
-      const updatedObjectives = extractTasks(validatedDestinations);
+      // const updatedObjectives = extractTasks(validatedDestinations);
 
-      const updatedMissions = missions.map((mission) => {
-        return {
-          ...mission,
-          objectives: mission.objectives.map((objective) => {
-            const updatedPickup = updatedObjectives.find(
-              (obj) => obj.id === objective.pickup.id,
-            );
-            const updatedDropoff = updatedObjectives.find(
-              (obj) => obj.id === objective.dropoff.id,
-            );
-            return {
-              ...objective,
-              pickup: updatedPickup
-                ? {
-                    ...updatedPickup,
-                  }
-                : objective.pickup,
-              dropoff: updatedDropoff
-                ? {
-                    ...updatedDropoff,
-                  }
-                : objective.dropoff,
-            };
-          }),
-        };
-      });
+      // const updatedMissions = missions.map((mission) => {
+      //   return {
+      //     ...mission,
+      //     objectives: mission.objectives.map((objective) => {
+      //       const updatedPickup = updatedObjectives.find(
+      //         (obj) => obj.id === objective.pickup.id,
+      //       );
+      //       const updatedDropoff = updatedObjectives.find(
+      //         (obj) => obj.id === objective.dropoff.id,
+      //       );
+      //       return {
+      //         ...objective,
+      //         pickup: updatedPickup
+      //           ? {
+      //               ...updatedPickup,
+      //             }
+      //           : objective.pickup,
+      //         dropoff: updatedDropoff
+      //           ? {
+      //               ...updatedDropoff,
+      //             }
+      //           : objective.dropoff,
+      //       };
+      //     }),
+      //   };
+      // });
       dispatch(updateDestinations(validatedDestinations));
-      dispatch(updateMissions(updatedMissions));
-      dispatch(updateTasks(updatedObjectives));
+      // dispatch(updateMissions(updatedMissions));
+      // dispatch(updateTasks(updatedObjectives));
     },
     [
       sound,
@@ -209,7 +196,6 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
       getReorderedDestinations,
       getIndex,
       validateDestObjectives,
-      missions,
     ],
   );
 
@@ -362,9 +348,7 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
           </Grid2>
           {!hideReason && (
             <Grid2 size="grow" sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Typography data-testid={`${testid}__StopReason`} color="info">
-                {destination.reason}
-              </Typography>
+              <Typography data-testid={`${testid}__StopReason`} color="info"></Typography>
             </Grid2>
           )}
           {!hideTasks && (

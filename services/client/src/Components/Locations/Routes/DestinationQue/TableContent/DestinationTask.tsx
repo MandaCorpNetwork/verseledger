@@ -5,11 +5,9 @@ import {
   ArrowDropDownCircleTwoTone,
 } from '@mui/icons-material';
 import { Button, Popover, Typography } from '@mui/material';
-import { useAppSelector } from '@Redux/hooks';
-import { selectMissions } from '@Redux/Slices/Routes/routes.selectors';
 import { bindPopover, bindTrigger, usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
-import { ILogisticTransport, ITask } from 'vl-shared/src/schemas/RoutesSchema';
+import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { MoveObjective } from './MoveObjective';
 
@@ -22,30 +20,7 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
   objective,
   'data-testid': testid = 'DestinationTask',
 }) => {
-  const missions = useAppSelector(selectMissions);
-
   const isMissionObjective = objective.type === 'pickup' || objective.type === 'dropoff';
-
-  const getParentMission = React.useCallback(() => {
-    if (!isMissionObjective) return;
-
-    return missions.find((mission) =>
-      mission.objectives.some(
-        (obj) => obj.pickup.id === objective.id || obj.dropoff.id === objective.id,
-      ),
-    );
-  }, [isMissionObjective, missions, objective.id]);
-
-  const parentMission = getParentMission();
-
-  const getParentObjective = React.useCallback(() => {
-    if (!parentMission) return;
-    return parentMission.objectives.find(
-      (obj) => obj.pickup.id === objective.id || obj.dropoff.id === objective.id,
-    );
-  }, [parentMission, objective.id]);
-
-  const parentObjective = getParentObjective();
 
   const getTypeIcon = React.useCallback(() => {
     switch (objective.type) {
@@ -53,7 +28,6 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
         return <ArrowCircleUpTwoTone color="inherit" />;
       case 'dropoff':
         return <ArrowDropDownCircleTwoTone color="inherit" />;
-      case 'stop':
       default:
         return <AirlineStopsTwoTone color="inherit" />;
     }
@@ -65,7 +39,6 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
         return 'success.main';
       case 'dropoff':
         return 'warning.main';
-      case 'stop':
       default:
         return 'info.main';
     }
@@ -77,7 +50,6 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
         return 'Pickup';
       case 'dropoff':
         return 'Dropoff';
-      case 'stop':
       default:
         return 'Stop';
     }
@@ -130,7 +102,6 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
       <MoveObjective
         data-testid={`${testid}-MoveDestination__${objective.id}_Core`}
         objective={objective}
-        mission={parentMission}
       />
     </Popover>
   );
@@ -163,10 +134,10 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
           cursor: 'inherit',
         }}
       >
-        {isMissionObjective ? `Package ${parentObjective!.label}` : objective.label}
+        {/* {isMissionObjective ? `Package ${parentObjective!.label}` : objective.label} */}
       </Typography>
       {typeDisplay}
-      {isMissionObjective && (
+      {/* {isMissionObjective && (
         <Typography
           data-testid={`${testid}__SCU`}
           sx={{
@@ -175,8 +146,8 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
             cursor: 'inherit',
           }}
         >{`${(parentObjective! as ILogisticTransport).scu ?? ''} SCU`}</Typography>
-      )}
-      {isMissionObjective && (
+      )} */}
+      {/* {isMissionObjective && (
         <Typography
           data-testid={`${testid}__MissionLabel`}
           sx={{
@@ -185,7 +156,7 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
             cursor: 'inherit',
           }}
         >{`Mission: ${parentMission!.label}`}</Typography>
-      )}
+      )} */}
       <Button
         data-testid={`${testid}__MoveObjective_Button`}
         {...bindTrigger(moveDestinationPopup)}

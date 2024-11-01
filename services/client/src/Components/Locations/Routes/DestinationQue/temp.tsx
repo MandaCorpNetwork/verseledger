@@ -5,11 +5,10 @@ import { useAppDispatch } from '@Redux/hooks';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.action';
 import { numericalFilter } from '@Utils/numericFilter';
 import React from 'react';
-import { IDestination, IMission } from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
 type DestinationQueProps = {
   destinations: IDestination[];
-  missions: IMission[];
 };
 
 export const DestinationQue: React.FC<DestinationQueProps> = () => {
