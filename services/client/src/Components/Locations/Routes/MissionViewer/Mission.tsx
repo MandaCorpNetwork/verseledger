@@ -1,5 +1,6 @@
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import { Box, Button, Typography } from '@mui/material';
+import { useAppDispatch } from '@Redux/hooks';
 import React from 'react';
 import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
@@ -8,7 +9,7 @@ type MissionProps = {
 };
 
 export const Mission: React.FC<MissionProps> = ({ tasks }) => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   // const handleAbandonMission = React.useCallback(
   //   (mission: IMission) => {
   //     dispatch(abandonMission(mission));
@@ -16,31 +17,31 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
   //   [dispatch],
   // );
 
-  // const pickupStyle = React.useCallback((objective: ITask) => {
-  //   switch (objective.status) {
-  //     case 'INTERUPTED':
-  //       return { color: 'error.light', borderColor: 'error.main' };
-  //     case 'COMPLETED':
-  //       return { color: 'success.light', borderColor: 'success.main' };
-  //     case 'ENROUTE':
-  //       return { color: 'text.secondary', borderColor: 'text.secondary' };
-  //     case 'PENDING':
-  //     default:
-  //       return { color: 'secondary.main', borderColor: 'secondary.main' };
-  //   }
-  // }, []);
+  const pickupStyle = React.useCallback((objective: ITask) => {
+    switch (objective.status) {
+      case 'INTERUPTED':
+        return { color: 'error.light', borderColor: 'error.main' };
+      case 'COMPLETED':
+        return { color: 'success.light', borderColor: 'success.main' };
+      case 'ENROUTE':
+        return { color: 'text.secondary', borderColor: 'text.secondary' };
+      case 'PENDING':
+      default:
+        return { color: 'secondary.main', borderColor: 'secondary.main' };
+    }
+  }, []);
 
-  // const dropoffStyle = React.useCallback((objective: ITask) => {
-  //   switch (objective.status) {
-  //     case 'INTERUPTED':
-  //       return { color: 'error.light', borderColor: 'error.main' };
-  //     case 'COMPLETED':
-  //       return { color: 'success.light', borderColor: 'success.main' };
-  //     case 'PENDING':
-  //     default:
-  //       return { color: 'secondary.main', borderColor: 'secondary.main' };
-  //   }
-  // }, []);
+  const dropoffStyle = React.useCallback((objective: ITask) => {
+    switch (objective.status) {
+      case 'INTERUPTED':
+        return { color: 'error.light', borderColor: 'error.main' };
+      case 'COMPLETED':
+        return { color: 'success.light', borderColor: 'success.main' };
+      case 'PENDING':
+      default:
+        return { color: 'secondary.main', borderColor: 'secondary.main' };
+    }
+  }, []);
 
   //   { color: 'secondary.main' },
   //   obj.dropoff.status === 'COMPLETED' && { color: 'success.light' },
@@ -52,6 +53,8 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
   //   : obj.pickup.status === 'INTERUPTED'
   //     ? 'error'
   //     : 'secondary';
+
+  // const missionIds =
   return (
     <DigiBox
       data-testid="RouteTool-MissionViewer__Mission_Container"
@@ -132,16 +135,16 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
         >
           Edit Mission
         </Button>
-        {/* <Button
+        <Button
           data-testid="RouteTool-MissionViewer-Mission__AbandonMission_Button"
           variant="contained"
           size="small"
           color="error"
-          onClick={() => handleAbandonMission(mission)}
+          // onClick={() => handleAbandonMission(mission)}
           disabled
         >
           Abandon Mission
-        </Button> */}
+        </Button>
       </Box>
     </DigiBox>
   );

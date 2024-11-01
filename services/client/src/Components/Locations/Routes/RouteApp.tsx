@@ -44,11 +44,11 @@ export const RouteApp: React.FC<unknown> = () => {
       }}
     >
       {/* <RouteViewer destinations={destinations} /> */}
-      <DestinationQue
+      {/* <DestinationQue
         destinations={destinations}
         // tasks={tasks}
         locationTree={locationTree}
-      />
+      /> */}
       <MissionViewer tasks={tasks} />
     </Box>
   );

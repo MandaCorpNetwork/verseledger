@@ -1,5 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { Popper, TextField } from '@mui/material';
+import { Scu3d } from '@Common/Definitions/CustomIcons';
+import { IconButton, Popper, TextField } from '@mui/material';
 import { numericalFilter } from '@Utils/numericFilter';
 import React from 'react';
 
@@ -60,6 +61,15 @@ export const SCUField: React.FC<SCUFieldProps> = (props) => {
         // onMouseLeave={handleClosePop}
         onChange={(e) => handleChange(e.target.value)}
         value={value != 0 ? value.toLocaleString() : ''}
+        slotProps={{
+          input: {
+            endAdornment: (
+              <IconButton>
+                <Scu3d />
+              </IconButton>
+            ),
+          },
+        }}
       />
       <Popper
         open={Boolean(anchorEl)}
