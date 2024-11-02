@@ -176,7 +176,7 @@ export class ContractBidsService {
         `@NOTIFICATION.MESSAGES.${message}`,
         {
           type: 'link',
-          link: `/ledger/contracts/${contract.id}`,
+          link: `/apps/contracts/${contract.id}`,
           arguments: {
             contractTitle: contract.title,
             name: bid?.User?.displayName,
@@ -192,7 +192,7 @@ export class ContractBidsService {
         `@NOTIFICATION.MESSAGES.${message}`,
         {
           type: 'link',
-          link: `/ledger/contracts/${contract.id}`,
+          link: `/apps/contracts/${contract.id}`,
           arguments: {
             contractTitle: contract.title,
             name: (ownerNotif.has(bid.status) ? bid.User : contract.Owner)

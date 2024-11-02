@@ -146,7 +146,7 @@ export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
         <CopyString
           data-testid="SelectedContract-DetailsDisplay-Header__ContractPageURL"
           variant="VLurl"
-          string={`/ledger/contracts/${contract.id}`}
+          string={`/apps/contracts/${contract.id}`}
           successText="Contract Added to Clipboard"
         />
         <GeneralNav

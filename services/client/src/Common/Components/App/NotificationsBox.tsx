@@ -85,9 +85,9 @@ export const NotificationsBox: React.FC = () => {
               color="secondary"
               onClick={() => {
                 sound.playSound('navigate');
-                navigate('/dashboard/overview');
+                navigate('/apps/dashboard');
               }}
-              disabled={location.pathname === '/dashboard/overview'}
+              disabled={location.pathname === '/apps/dashboard'}
             >
               <Typography variant="overline">{t('@NOTIFICATION.OVERVIEW')}</Typography>
             </Button>

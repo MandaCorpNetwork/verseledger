@@ -74,7 +74,7 @@ export const NotificationTool: React.FC = () => {
             <OverviewNotification
               key={notif.id}
               title={getNotificationTitle(notif)}
-              text={t(notif.message)}
+              text={t(notif.message, notif.action?.arguments) as string}
               view={() => handleViewNotification(notif)}
               onClose={() => handleMarkRead(notif.id)}
             />
@@ -110,7 +110,7 @@ export const NotificationTool: React.FC = () => {
             <OverviewNotification
               key={notif.id}
               title={getNotificationTitle(notif)}
-              text={t(notif.message)}
+              text={t(notif.message, notif.action?.arguments) as string}
               view={() => handleViewNotification(notif)}
               onClose={() => handleMarkRead(notif.id)}
             />

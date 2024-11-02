@@ -196,5 +196,5 @@ const sizeRatingStyles = {
   },
 };
 
-const poorText = ['Poor Experience', 'Dogshit', '... The fuck?'];
-const goodText = ['Average', 'Good Experience', `They're Jesus...`];
+const poorText = ['Poor', 'Bad', 'Horrible'];
+const goodText = ['Good', 'Great', `Incredible`];

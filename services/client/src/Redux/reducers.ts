@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import authReducer from './Slices/Auth/auth.reducer';
 import bidsReducer from './Slices/Bids/bids.reducer';
 import contractsReducer from './Slices/Contracts/contracts.reducer';
+import flagsReducer from './Slices/Flags/flags.reducer';
 import locationsReducer from './Slices/Locations/locations.reducer';
 import notificationsReducer from './Slices/Notifications/notifications.reducer';
 import popupsReducer from './Slices/Popups/popups.reducer';
@@ -22,4 +23,5 @@ export const coreReducer = combineReducers({
   notifications: notificationsReducer.reducer,
   tokens: tokensReducer.reducer,
   routes: routesReducer.reducer,
+  flags: flagsReducer.reducer,
 });

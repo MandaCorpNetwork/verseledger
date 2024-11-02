@@ -207,7 +207,7 @@ export class ContractService {
         `@NOTIFICATION.MESSAGES.CONTRACT_UPDATED`,
         {
           type: 'link',
-          link: `/ledger/contracts/${contract.id}`,
+          link: `/apps/contracts/${contract.id}`,
           arguments: {
             contractTitle: contract.title,
           },

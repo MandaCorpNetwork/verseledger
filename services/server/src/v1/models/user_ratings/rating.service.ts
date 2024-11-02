@@ -61,7 +61,7 @@ export class RatingService {
         `@NOTIFICATION.MESSAGES.NEW_CONTRACT_RATING`,
         {
           type: 'link',
-          link: `/ledger/contracts/${contract.id}`,
+          link: `/apps/contracts/${contract.id}`,
           arguments: { contractTitle: contract.title },
         },
       );
@@ -79,7 +79,7 @@ export class RatingService {
           `@NOTIFICATION.MESSAGES.CONTRACT_COMPLETED`,
           {
             type: 'link',
-            link: `/ledger/contracts/${contract.id}`,
+            link: `/apps/contracts/${contract.id}`,
             arguments: {
               contractTitle: contract.title,
               contractStatus: contract.status,
@@ -98,7 +98,7 @@ export class RatingService {
       `@NOTIFICATION.MESSAGES.CONTRACT_RATING_PENDING`,
       {
         type: 'link',
-        link: `/ledger/contracts/${contract.id}`,
+        link: `/apps/contracts/${contract.id}`,
         arguments: { contractTitle: contract.title },
       },
     );
