@@ -4,7 +4,7 @@ import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { Scu3d } from '@Common/Definitions/CustomIcons';
 import { Box, Button, Typography } from '@mui/material';
-import { useAppDispatch } from '@Redux/hooks';
+// import { useAppDispatch } from '@Redux/hooks';
 import React from 'react';
 import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
@@ -13,7 +13,7 @@ type MissionProps = {
 };
 
 export const Mission: React.FC<MissionProps> = ({ tasks }) => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   // const handleAbandonMission = React.useCallback(
   //   (mission: IMission) => {
   //     dispatch(abandonMission(mission));
@@ -21,31 +21,31 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
   //   [dispatch],
   // );
 
-  const pickupStyle = React.useCallback((objective: ITask) => {
-    switch (objective.status) {
-      case 'INTERUPTED':
-        return { color: 'error.light', borderColor: 'error.main' };
-      case 'COMPLETED':
-        return { color: 'success.light', borderColor: 'success.main' };
-      case 'ENROUTE':
-        return { color: 'text.secondary', borderColor: 'text.secondary' };
-      case 'PENDING':
-      default:
-        return { color: 'secondary.main', borderColor: 'secondary.main' };
-    }
-  }, []);
+  // const pickupStyle = React.useCallback((objective: ITask) => {
+  //   switch (objective.status) {
+  //     case 'INTERUPTED':
+  //       return { color: 'error.light', borderColor: 'error.main' };
+  //     case 'COMPLETED':
+  //       return { color: 'success.light', borderColor: 'success.main' };
+  //     case 'ENROUTE':
+  //       return { color: 'text.secondary', borderColor: 'text.secondary' };
+  //     case 'PENDING':
+  //     default:
+  //       return { color: 'secondary.main', borderColor: 'secondary.main' };
+  //   }
+  // }, []);
 
-  const dropoffStyle = React.useCallback((objective: ITask) => {
-    switch (objective.status) {
-      case 'INTERUPTED':
-        return { color: 'error.light', borderColor: 'error.main' };
-      case 'COMPLETED':
-        return { color: 'success.light', borderColor: 'success.main' };
-      case 'PENDING':
-      default:
-        return { color: 'secondary.main', borderColor: 'secondary.main' };
-    }
-  }, []);
+  // const dropoffStyle = React.useCallback((objective: ITask) => {
+  //   switch (objective.status) {
+  //     case 'INTERUPTED':
+  //       return { color: 'error.light', borderColor: 'error.main' };
+  //     case 'COMPLETED':
+  //       return { color: 'success.light', borderColor: 'success.main' };
+  //     case 'PENDING':
+  //     default:
+  //       return { color: 'secondary.main', borderColor: 'secondary.main' };
+  //   }
+  // }, []);
 
   //   { color: 'secondary.main' },
   //   obj.dropoff.status === 'COMPLETED' && { color: 'success.light' },
@@ -100,6 +100,7 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
                   py: '.5em',
                   px: '1em',
                   position: 'relative',
+                  width: '100%',
                 },
                 // obj.status === 'COMPLETED' && {
                 //   opacity: 0.5,
@@ -146,26 +147,6 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
             </DigiDisplay>
           );
         })}
-        {/* {mission.objectives.map((obj) => (
-          <DigiDisplay
-            key={obj.id}
-            
-          >
-            <DigiField label="Package Label"># {obj.label}</DigiField>
-            <DigiField label="Pickup Location">
-              <LocationChip
-                locationId={obj.pickup.location.id}
-                sx={pickupStyle(obj.pickup)}
-              />
-            </DigiField>
-            <DigiField label="Drop-off Location">
-              <LocationChip
-                locationId={obj.dropoff.location.id}
-                sx={dropoffStyle(obj.dropoff)}
-              />
-            </DigiField>
-          </DigiDisplay>
-        ))} */}
       </Box>
       <Box
         data-testid="RouteTool-MissionViewer-Mission__Controller_Wrapper"
