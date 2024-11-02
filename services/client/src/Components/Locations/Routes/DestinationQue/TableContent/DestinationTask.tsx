@@ -134,10 +134,10 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
           cursor: 'inherit',
         }}
       >
-        {/* {isMissionObjective ? `Package ${parentObjective!.label}` : objective.label} */}
+        {isMissionObjective ? `Package ${objective.label}` : objective.label}
       </Typography>
       {typeDisplay}
-      {/* {isMissionObjective && (
+      {isMissionObjective && (
         <Typography
           data-testid={`${testid}__SCU`}
           sx={{
@@ -145,9 +145,9 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
             textShadow: '0 4px 4px rgba(0,0,0)',
             cursor: 'inherit',
           }}
-        >{`${(parentObjective! as ILogisticTransport).scu ?? ''} SCU`}</Typography>
-      )} */}
-      {/* {isMissionObjective && (
+        >{`${objective.scu ?? ''} SCU`}</Typography>
+      )}
+      {isMissionObjective && (
         <Typography
           data-testid={`${testid}__MissionLabel`}
           sx={{
@@ -155,8 +155,8 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
             textShadow: '0 4px 4px rgba(0,0,0)',
             cursor: 'inherit',
           }}
-        >{`Mission: ${parentMission!.label}`}</Typography>
-      )} */}
+        >{`Mission: ${objective.missionLabel}`}</Typography>
+      )}
       <Button
         data-testid={`${testid}__MoveObjective_Button`}
         {...bindTrigger(moveDestinationPopup)}
