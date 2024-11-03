@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-fallthrough */
 export const murmurhash = (key: string, seed: number = 0) => {
   let h1b, k1;
@@ -30,8 +31,10 @@ export const murmurhash = (key: string, seed: number = 0) => {
   k1 = 0;
 
   switch (remainder) {
+    // @ts-ignore Falls Through
     case 3:
       k1 ^= (key.charCodeAt(i + 2) & 0xff) << 16;
+    // @ts-ignore Falls Through
     case 2:
       k1 ^= (key.charCodeAt(i + 1) & 0xff) << 8;
     case 1:
