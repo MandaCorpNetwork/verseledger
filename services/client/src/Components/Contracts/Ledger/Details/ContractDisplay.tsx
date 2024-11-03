@@ -180,7 +180,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const handleContractPageNav = React.useCallback(
     (contractId: string) => {
       sound.playSound('navigate');
-      navigate(`/ledger/contracts/${contractId}`);
+      navigate(`/apps/contracts/${contractId}`);
     },
     [sound, navigate],
   );

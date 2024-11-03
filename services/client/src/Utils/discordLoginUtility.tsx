@@ -1,6 +1,7 @@
 import { useAppDispatch } from '@Redux/hooks';
 import { fetchCurrentUser } from '@Redux/Slices/Auth/Actions/fetchCurrentUser.action';
 import { loginWithDiscord } from '@Redux/Slices/Auth/Actions/loginWithDiscord.action';
+import { fetchUserFlags } from '@Redux/Slices/Flags/Actions/fetchFlags.action';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -19,7 +20,8 @@ export const DiscordLoginUtility = () => {
         ).data;
         AuthUtil.setAccessToken(accessToken.token);
         AuthUtil.setRefreshToken(refreshToken.token);
-        return dispatch(fetchCurrentUser());
+        dispatch(fetchCurrentUser());
+        dispatch(fetchUserFlags());
       })
       .finally(() => {
         const newPath = localStorage.getItem('returnPath');

@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchCurrentUser } from '@Redux/Slices/Auth/Actions/fetchCurrentUser.action';
 import { fetchUserSettings } from '@Redux/Slices/Auth/Actions/fetchUserSettings.action';
 import { selectIsLoggedIn } from '@Redux/Slices/Auth/auth.selectors';
+import { fetchUserFlags } from '@Redux/Slices/Flags/Actions/fetchFlags.action';
 import { AuthUtil } from '@Utils/AuthUtil';
 import React from 'react';
 
@@ -14,6 +15,7 @@ export const TempLoginCheck: React.FC = () => {
     const accessToken = AuthUtil.getAccessToken();
     if (AuthUtil.isValidToken(accessToken)) {
       dispatch(fetchCurrentUser());
+      dispatch(fetchUserFlags());
     }
   });
   React.useEffect(() => {
