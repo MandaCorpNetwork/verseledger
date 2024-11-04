@@ -15,9 +15,8 @@ import {
   Typography,
   useMediaQuery,
 } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { useAppDispatch } from '@Redux/hooks';
 import { updateDestinations } from '@Redux/Slices/Routes/actions/destination.action';
-import { selectTasks } from '@Redux/Slices/Routes/routes.selectors';
 import React from 'react';
 import { IDestination, ITask, ITaskStatus } from 'vl-shared/src/schemas/RoutesSchema';
 
@@ -41,7 +40,7 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const sound = useSoundEffect();
-  const taskArray = useAppSelector(selectTasks);
+  // const taskArray = useAppSelector(selectTasks);
 
   const getIndex = React.useCallback(
     (destinations: IDestination[]) => {
@@ -190,7 +189,6 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
       //   };
       // });
       dispatch(updateDestinations(validatedDestinations));
-      // dispatch(updateMissions(updatedMissions));
       // dispatch(updateTasks(updatedObjectives));
     },
     [
@@ -378,7 +376,6 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
       </AccordionSummary>
       <AccordionDetails sx={{ gap: '0.2em', display: 'flex', flexDirection: 'column' }}>
         {destination.tasks.map((task) => {
-          console.log(task);
           return (
             <DestinationTask
               key={task.id}
