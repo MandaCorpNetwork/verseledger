@@ -4,6 +4,7 @@
 
 import { Float3, MathX } from 'vl-shared/src/math';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 export interface MappedLocation {
   location: ILocation;
@@ -469,4 +470,10 @@ export function formatDistance(locA: MappedLocation, locB: MappedLocation): stri
   } else {
     return `${(absDistance / 1_000_000_000).toFixed(2).toLocaleString()} Tm`;
   }
+}
+
+export function getSiblingDestinations(task: ITask, destinations: IDestination[]) {
+  return destinations.filter((dest) =>
+    dest.tasks.some((t) => t.relationId === task.relationId),
+  );
 }

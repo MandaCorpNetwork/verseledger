@@ -56,6 +56,7 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
               locationTree={locationTree}
             />
           )}
+          {routeOrder === 'distance' && null}
         </div>
       )}
     </GlassBox>

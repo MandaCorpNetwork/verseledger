@@ -8,17 +8,20 @@ import {
   updateDestinations,
 } from '@Redux/Slices/Routes/actions/destination.action';
 import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
+import { createLocalID } from '@Utils/createId';
 import React from 'react';
-import { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination, ITask, ITaskStatus } from 'vl-shared/src/schemas/RoutesSchema';
 
-type MoveObjectiveProps = {
-  objective: ITask;
+import { getSiblingDestinations } from '../../RouteUtilities';
+
+type MoveTaskProps = {
+  task: ITask;
   ['data-testid']?: string;
 };
 
-export const MoveObjective: React.FC<MoveObjectiveProps> = ({
-  objective,
-  'data-testid': testid = 'MoveObjectivePopper',
+export const MoveTask: React.FC<MoveTaskProps> = ({
+  task,
+  'data-testid': testid = 'MoveTaskPopper',
 }) => {
   const destinations = useAppSelector(selectDestinations);
 
@@ -27,11 +30,12 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
 
   const getDestination = React.useCallback(() => {
     return destinations.find((dest) =>
-      dest.tasks.some((obj) => obj.id === objective.id),
+      dest.tasks.some((t) => t.id === task.id),
     ) as IDestination;
-  }, [destinations, objective]);
+  }, [destinations, task]);
 
   const destination = getDestination();
+  const siblingDestinations = getSiblingDestinations(task, destinations);
 
   const getAvailableDestinations = React.useCallback(() => {
     if (!destination) return null;
@@ -42,86 +46,71 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
   }, [destinations, destination]);
 
   const availableDestinations = getAvailableDestinations();
+  const getConflictDestinations = React.useCallback(() => {
+    if (!availableDestinations) return null;
+    switch (task.type) {
+      case 'pickup':
+        return availableDestinations.filter((dest) =>
+          siblingDestinations.some((sibling) => sibling.stopNumber > dest.stopNumber),
+        );
+      case 'dropoff':
+        return availableDestinations.filter((dest) =>
+          siblingDestinations.some((sibling) => sibling.stopNumber < dest.stopNumber),
+        );
+      default:
+        return null;
+    }
+  }, [task, availableDestinations, siblingDestinations]);
 
-  // const getConflictDestinations = React.useCallback(() => {
-  //   if (objective.type === 'pickup' || objective.type === 'dropoff') {
-  //     if (!siblingDest) return null;
-  //     if (objective.type === 'pickup') {
-  //       return destinations.filter((dest) => dest.stopNumber >= siblingDest.stopNumber);
-  //     } else {
-  //       return destinations.filter((dest) => dest.stopNumber <= siblingDest.stopNumber);
-  //     }
-  //   }
-  // }, [destinations, objective]);
+  const conflictDestinations = getConflictDestinations();
 
-  // const conflictDestinations = getConflictDestinations();
+  const newAvailable = destination.tasks.length !== 1;
 
-  // const newAvailable = destination.tasks.length !== 1;
+  const createNewDest = React.useCallback(() => {
+    if (!newAvailable) return sound.playSound('error');
+    // const reason = task.type === 'pickup' || task.type === 'dropoff' ? 'Mission' : 'Stop';
 
-  // const createNewDest = React.useCallback(() => {
-  //   if (!newAvailable) return sound.playSound('error');
-  //   const reason =
-  //     objective.type === 'pickup' || objective.type === 'dropoff'
-  //       ? 'Mission'
-  //       : (objective.label ?? 'Stop');
-  //   const newDest: IDestination = {
-  //     id: createLocalID('D'),
-  //     location: objective.location,
-  //     stopNumber: 0,
-  //     visited: false,
-  //     reason,
-  //     tasks: [{ ...objective, status: 'PENDING' }],
-  //   };
-  //   const updatedDests: IDestination[] = [];
-  //   updatedDests.push({
-  //     ...destination,
-  //     tasks: destination.tasks.filter((obj) => obj.id !== objective.id),
-  //   });
-  //   if (objective.type === 'dropoff') {
-  //     if (!siblingDest) return sound.playSound('error');
+    const newDest: IDestination = {
+      id: createLocalID('D'),
+      location: task.location,
+      stopNumber: 0,
+      visited: false,
+      tasks: [{ ...task, status: 'PENDING' }],
+    };
+    const currentDest = {
+      ...destination,
+      tasks: destination.tasks.filter((t) => t.id !== task.id),
+    };
+    //TODO: Create Handling for Moving Dropoffs behind Pickup
 
-  //     newDest.stopNumber = siblingDest.stopNumber + 1;
-  //     destinations.forEach((dest) => {
-  //       if (dest.stopNumber >= newDest.stopNumber) {
-  //         updatedDests.push({
-  //           ...dest,
-  //           stopNumber: dest.stopNumber + 1,
-  //         });
-  //       }
-  //     });
-  //   }
-  //   dispatch(updateDestinations([newDest, ...updatedDests]));
-  //   sound.playSound('loading');
-  //   if (destination.tasks.length === 1) {
-  //     dispatch(deleteDestination(destination.id));
-  //   }
-  // }, [destinations, dispatch, newAvailable, objective, siblingDest, sound, destination]);
+    dispatch(updateDestinations([newDest, currentDest]));
+    sound.playSound('loading');
+    if (currentDest.tasks.length === 0) {
+      dispatch(deleteDestination(currentDest.id));
+    }
+  }, [destination, dispatch, newAvailable, sound, task]);
 
-  const moveObjective = React.useCallback(
+  const moveTask = React.useCallback(
     (newDest: IDestination) => {
       if (!destination) return sound.playSound('error');
 
-      const updatedCurrent = {
+      const currentDest = {
         ...destination,
-        objectives: destination.tasks.filter((obj) => obj.id !== objective.id),
+        tasks: destination.tasks.filter((t) => t.id !== task.id),
       };
-
-      const updatedObj: ITask = {
-        ...objective,
-        status: 'PENDING',
-      };
-
-      const updatedNew = {
+      const targetDest = {
         ...newDest,
-        objectives: [...newDest.tasks, updatedObj],
+        tasks: [...newDest.tasks, { ...task, status: 'PENDING' as ITaskStatus }],
       };
-      dispatch(updateDestinations([updatedNew, updatedCurrent]));
-      if (updatedCurrent.objectives.length === 0) {
-        dispatch(deleteDestination(updatedCurrent.id));
+      dispatch(updateDestinations([currentDest, targetDest]));
+      if (currentDest.tasks.length === 0) {
+        dispatch(deleteDestination(currentDest.id));
       }
+      sound.playSound('loading');
     },
-    [sound, objective, destination, dispatch],
+    [destination, sound, task, dispatch],
   );
+
   return (
     <div
       data-testid={`${testid}__Wrapper`}
@@ -150,13 +139,13 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
               ) : (
                 <MoveDownTwoTone color="inherit" />
               );
-            // const disabled = conflictDestinations?.includes(dest);
+            const disabled = conflictDestinations?.includes(dest);
             return (
               <Typography
                 key={dest.id}
                 data-testid={`${testid}-MoveList__MovableDest-${dest.id}_Text`}
                 sx={{
-                  // color: disabled ? 'text.disabled' : 'warning.light',
+                  color: disabled ? 'text.disabled' : 'warning.light',
                   textShadow: '0px 2px 4px rgba(0,0,0)',
                   display: 'flex',
                   flexDirection: 'row',
@@ -168,9 +157,9 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
                 <IconButton
                   data-testid={`${testid}-MoveList-MovableDest-${dest.id}__MoveButton`}
                   color="warning"
-                  // disabled={disabled}
+                  disabled={disabled}
                   sx={{ color: 'warning.main' }}
-                  onClick={() => moveObjective(dest)}
+                  onClick={() => moveTask(dest)}
                 >
                   {moveIcon}
                 </IconButton>
@@ -183,8 +172,8 @@ export const MoveObjective: React.FC<MoveObjectiveProps> = ({
         variant="outlined"
         size="small"
         color="info"
-        // disabled={!newAvailable}
-        // onClick={createNewDest}
+        disabled={!newAvailable}
+        onClick={createNewDest}
         sx={{
           backgroundImage:
             'linear-gradient(135deg, rgba(255,181,100,0.5), rgba(181,130,5,0.5) 35%)',

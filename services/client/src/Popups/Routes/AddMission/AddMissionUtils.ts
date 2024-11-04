@@ -7,7 +7,7 @@ export function createTaskArray(value: {
   missionLabel: string;
   tasks: {
     id: string;
-    relationalId: string;
+    relationId: string;
     label: string;
     pickup: ILocation;
     item: string;
@@ -19,10 +19,10 @@ export function createTaskArray(value: {
   const missionLabel = value.missionLabel;
   const missionId = value.missionId;
   const createdTasks = value.tasks.flatMap((obj) => {
-    const relationalId = obj.relationalId;
+    const relationId = obj.relationId;
     const newPickup = {
       id: obj.id,
-      relationId: relationalId,
+      relationId: relationId,
       label: obj.label,
       type: 'pickup',
       missionLabel,
@@ -34,7 +34,7 @@ export function createTaskArray(value: {
     };
     const newDropOffs = obj.dropoffs.flatMap((drop) => ({
       id: createLocalID('T'),
-      relationalId,
+      relationId,
       label: obj.label,
       type: 'dropoff',
       missionLabel,

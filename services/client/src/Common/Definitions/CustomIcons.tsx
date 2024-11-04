@@ -1082,6 +1082,60 @@ const Scu3dSVG = (
     </g>
   </svg>
 );
+const ContractTwoToneSVG = (
+  <svg
+    version="1.1"
+    id="Layer_1"
+    x="0px"
+    y="0px"
+    viewBox="0 0 20.9 24.2"
+    width="20.9"
+    height="24.200001"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="m 8.0741166,9.3291877 -2.5,-2.6 c -0.1,-0.1 -0.1,-0.4 0,-0.6 l 2.7,-2.7 c 0.1,-0.1 0.4,-0.1 0.6,0 l 2.4000004,2.6 c 0.1,0.1 0.1,0.4 0,0.6 l -2.5000004,2.7 c -0.3,0.1 -0.5,0.1 -0.7,0 z"
+      fill="currentColor"
+      fillOpacity="0.8"
+      stroke="currentColor"
+      strokeOpacity="0"
+    />
+    <path
+      d="m 7.3741166,11.529188 -3.9,-4.0000003 c -0.7,-0.6 -0.7,-1.5 -0.1,-2 l 4.2,-4.2 c 0.6,-0.6 1.5,-0.6 2.1,0 l 3.9000004,4 c 0.6,0.6 0.6,1.5 0,2.1 L 9.3741166,11.629188 c -0.6,0.5 -1.5,0.5 -2,-0.1 z"
+      fill="currentColor"
+      stroke="currentColor"
+      fillOpacity="0.3"
+    />
+    <path
+      d="m 14.974117,16.529188 -2.9,-2.9 c -0.2,-0.2 -0.2,-0.5 0,-0.7 l 3,-3.0000003 c 0.2,-0.2 0.5,-0.2 0.7,0 l 2.9,2.9000003 c 0.2,0.2 0.2,0.5 0,0.7 l -3,3 c -0.2,0.2 -0.6,0.2 -0.7,0 z"
+      fill="currentColor"
+      stroke="currentColor"
+      fillOpacity="0.3"
+    />
+    <path
+      d="m 8.0741166,22.829188 -2.3,-2.4 c -0.1,-0.1 -0.1,-0.4 0,-0.5 l 2.5,-2.5 c 0.1,-0.1 0.4,-0.1 0.5,0 l 2.3000004,2.3 c 0.1,0.1 0.1,0.4 0,0.5 l -2.5000004,2.5 c -0.1,0.2 -0.3,0.2 -0.5,0.1 z"
+      fill="currentColor"
+      stroke="currentColor"
+      fillOpacity="0.3"
+    />
+    <line
+      x1="10.774117"
+      y1="17.829187"
+      x2="12.674116"
+      y2="16.029188"
+      fill="currentColor"
+      stroke="currentColor"
+    />
+    <line
+      x1="13.574117"
+      y1="11.529188"
+      x2="11.474116"
+      y2="9.4291878"
+      fill="currentColor"
+      stroke="currentColor"
+    />
+  </svg>
+);
 
 export const VLLogo = createSvgIcon(VLIconSVG, 'VLLogo');
 export const Google = createSvgIcon(GoogleSVG, 'Google');
@@ -1120,3 +1174,4 @@ export const Scanner = createSvgIcon(ScannerIconSVG, 'Scanner');
 export const Weapons = createSvgIcon(WeaponsIconSVG, 'Weapons');
 export const Scu = createSvgIcon(ScuIconSVG, 'scu');
 export const Scu3d = createSvgIcon(Scu3dSVG, 'Scu3d');
+export const Contracts = createSvgIcon(ContractTwoToneSVG, 'Contracts');

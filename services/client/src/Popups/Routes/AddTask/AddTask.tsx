@@ -1,13 +1,20 @@
 /* eslint-disable react/no-children-prop */
+import { useSoundEffect } from '@Audio/AudioManager';
 import { LocationSearch } from '@Common/Components/App/LocationSearch';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { VLOptButtonGroup } from '@Common/Components/Functional/ListButtonSelection';
-import { taskOpts } from '@Common/Definitions/Forms/RouteForms';
 import { TextField, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
+import { useAppDispatch } from '@Redux/hooks';
+import { closePopup } from '@Redux/Slices/Popups/popups.actions';
+import { updateDestinations } from '@Redux/Slices/Routes/actions/destination.action';
+import { addTasks } from '@Redux/Slices/Routes/actions/task.action';
 import { useForm } from '@tanstack/react-form';
+import { createLocalID } from '@Utils/createId';
+import { enqueueSnackbar } from 'notistack';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 export const POPUP_ADD_TASK = 'add_stop';
 
@@ -23,36 +30,36 @@ const typeOptions: string[] = [
 ];
 
 export const AddTaskPopup: React.FC = () => {
-  // const dispatch = useAppDispatch();
-  // const sound = useSoundEffect();
-  // const destinations = useAppSelector(selectDestinations);
+  const dispatch = useAppDispatch();
+  const sound = useSoundEffect();
   const form = useForm({
-    ...taskOpts,
-    // onSubmit: ({ value }) => {
-    //   const newId = createLocalID('T');
-    //   const payload = {
-    //     ...value,
-    //     id: newId,
-    //   };
-    //   if (payload) {
-    //     // const matchingDestinations = destinations.map(
-    //     //   (dest) => dest.location.id === value.location.id,
-    //     // );
-    //     sound.playSound('loading');
-    //     dispatch(addTasks([payload]));
-    //     const newDest: IDestination = {
-    //       id: createLocalID('D'),
-    //       stopNumber: 0,
-    //       visited: false,
-    //       reason: payload.type,
-    //       tasks: [payload],
-    //       location: payload.location,
-    //     };
-    //     dispatch(updateDestinations([newDest]));
-    //     dispatch(closePopup(POPUP_ADD_TASK));
-    //     enqueueSnackbar('Missing Logic', { variant: 'warning' });
-    //   }
-    // },
+    defaultValues: {
+      id: createLocalID('T'),
+      type: '',
+      label: '',
+      location: {} as ILocation,
+      status: 'PENDING',
+      user: undefined,
+    },
+    onSubmit: ({ value }) => {
+      const payload = {
+        ...value,
+      } as ITask;
+
+      sound.playSound('loading');
+      dispatch(addTasks([payload]));
+      const newDestination = {
+        id: createLocalID('D'),
+        stopNumber: 0,
+        visited: false,
+        reason: payload.type,
+        tasks: [payload],
+        location: payload.location,
+      };
+      dispatch(updateDestinations([newDestination]));
+      dispatch(closePopup(POPUP_ADD_TASK));
+      enqueueSnackbar('Added Task', { variant: 'success' });
+    },
   });
 
   return (

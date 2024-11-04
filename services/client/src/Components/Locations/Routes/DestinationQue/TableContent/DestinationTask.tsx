@@ -9,21 +9,21 @@ import { bindPopover, bindTrigger, usePopupState } from 'material-ui-popup-state
 import React from 'react';
 import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { MoveObjective } from './MoveObjective';
+import { MoveTask } from './MoveTask';
 
 type DestinationTaskProps = {
-  objective: ITask;
+  task: ITask;
   ['data-testid']?: string;
 };
 
 export const DestinationTask: React.FC<DestinationTaskProps> = ({
-  objective,
+  task,
   'data-testid': testid = 'DestinationTask',
 }) => {
-  const isMissionObjective = objective.type === 'pickup' || objective.type === 'dropoff';
+  const isMissionObjective = task.type === 'pickup' || task.type === 'dropoff';
 
   const getTypeIcon = React.useCallback(() => {
-    switch (objective.type) {
+    switch (task.type) {
       case 'pickup':
         return <ArrowCircleUpTwoTone color="inherit" />;
       case 'dropoff':
@@ -31,10 +31,10 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
       default:
         return <AirlineStopsTwoTone color="inherit" />;
     }
-  }, [objective.type]);
+  }, [task.type]);
 
   const getTypeColor = React.useCallback(() => {
-    switch (objective.type) {
+    switch (task.type) {
       case 'pickup':
         return 'success.main';
       case 'dropoff':
@@ -42,10 +42,10 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
       default:
         return 'info.main';
     }
-  }, [objective.type]);
+  }, [task.type]);
 
   const getTypeLabel = React.useCallback(() => {
-    switch (objective.type) {
+    switch (task.type) {
       case 'pickup':
         return 'Pickup';
       case 'dropoff':
@@ -53,7 +53,7 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
       default:
         return 'Stop';
     }
-  }, [objective.type]);
+  }, [task.type]);
 
   const getTypeDisplay = React.useCallback(() => {
     const icon = getTypeIcon();
@@ -65,13 +65,13 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
         data-testid={`${testid}__Type`}
         sx={[
           { color: color, display: 'flex', gap: '0.3em' },
-          objective.status === 'INTERUPTED' && { color: 'error.light' },
+          task.status === 'INTERUPTED' && { color: 'error.light' },
         ]}
       >
         {icon} {label}
       </Typography>
     );
-  }, [getTypeIcon, getTypeColor, getTypeLabel, testid, objective.status]);
+  }, [getTypeIcon, getTypeColor, getTypeLabel, testid, task.status]);
 
   const typeDisplay = getTypeDisplay();
 
@@ -83,7 +83,7 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
   const renderMoveDestinationPopup = () => (
     <Popover
       {...bindPopover(moveDestinationPopup)}
-      data-testid={`${testid}__MoveDestination_Popper_${objective.id}`}
+      data-testid={`${testid}__MoveDestination_Popper_${task.id}`}
       sx={{ p: '1em' }}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
@@ -99,10 +99,7 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
         },
       }}
     >
-      <MoveObjective
-        data-testid={`${testid}-MoveDestination__${objective.id}_Core`}
-        objective={objective}
-      />
+      <MoveTask data-testid={`${testid}-MoveDestination__${task.id}_Core`} task={task} />
     </Popover>
   );
   return (
@@ -116,7 +113,7 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
           my: '0.2em',
           cursor: 'default',
         },
-        objective.status === 'INTERUPTED' && {
+        task.status === 'INTERUPTED' && {
           boxShadow: '0 0 10px rgba(255, 0, 0, 0.8)',
           borderColor: 'rgba(255, 0, 0, 0.8)',
           '&:hover': {
@@ -134,7 +131,7 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
           cursor: 'inherit',
         }}
       >
-        {isMissionObjective ? `Package ${objective.label}` : objective.label}
+        {isMissionObjective ? `Package ${task.label}` : task.label}
       </Typography>
       {typeDisplay}
       {isMissionObjective && (
@@ -145,7 +142,7 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
             textShadow: '0 4px 4px rgba(0,0,0)',
             cursor: 'inherit',
           }}
-        >{`${objective.scu ?? ''} SCU`}</Typography>
+        >{`${task.scu ?? ''} SCU`}</Typography>
       )}
       {isMissionObjective && (
         <Typography
@@ -155,7 +152,7 @@ export const DestinationTask: React.FC<DestinationTaskProps> = ({
             textShadow: '0 4px 4px rgba(0,0,0)',
             cursor: 'inherit',
           }}
-        >{`Mission: ${objective.missionLabel}`}</Typography>
+        >{`Mission: ${task.missionLabel}`}</Typography>
       )}
       <Button
         data-testid={`${testid}__MoveObjective_Button`}

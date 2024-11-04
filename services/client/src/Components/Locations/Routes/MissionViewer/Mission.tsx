@@ -1,9 +1,15 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { Scu3d } from '@Common/Definitions/CustomIcons';
 import { Box, Button, Typography } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { replaceDestinations } from '@Redux/Slices/Routes/actions/destination.action';
+import { replaceTasks } from '@Redux/Slices/Routes/actions/task.action';
+import { selectDestinations, selectTasks } from '@Redux/Slices/Routes/routes.selectors';
+import { enqueueSnackbar } from 'notistack';
 // import { useAppDispatch } from '@Redux/hooks';
 import React from 'react';
 import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
@@ -13,7 +19,26 @@ type MissionProps = {
 };
 
 export const Mission: React.FC<MissionProps> = ({ tasks }) => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  const destinations = useAppSelector(selectDestinations);
+  const taskArray = useAppSelector(selectTasks);
+  const sound = useSoundEffect();
+
+  const handleAbandonMission = React.useCallback(() => {
+    const updatedTasks = taskArray.filter((task) => !tasks.some((t) => t.id === task.id));
+
+    const updatedDestinations = destinations
+      .map((dest) => ({
+        ...dest,
+        tasks: dest.tasks.filter((task) => !tasks.some((t) => t.id === task.id)),
+      }))
+      .filter((dest) => dest.tasks.length > 0);
+
+    dispatch(replaceDestinations(updatedDestinations));
+    dispatch(replaceTasks(updatedTasks));
+    enqueueSnackbar('Removed Mission', { variant: 'warning' });
+    sound.playSound('loading');
+  }, [taskArray, destinations, tasks, dispatch, sound]);
   // const handleAbandonMission = React.useCallback(
   //   (mission: IMission) => {
   //     dispatch(abandonMission(mission));
@@ -58,7 +83,9 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
   //     ? 'error'
   //     : 'secondary';
 
-  const relationalIds = tasks.map((task) => task.relationId).filter(Boolean);
+  const relationalIds = Array.from(
+    new Set(tasks.map((task) => task.relationId).filter(Boolean)),
+  );
   return (
     <DigiBox
       data-testid="RouteTool-MissionViewer__Mission_Container"
@@ -87,7 +114,7 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
             (task) => task.relationId === id && task.type === 'pickup',
           );
           const dropoffs = tasks.filter(
-            (task) => task.relationId === id && task.type !== 'dropoff',
+            (task) => task.relationId === id && task.type === 'dropoff',
           );
           return (
             <DigiDisplay
@@ -132,6 +159,7 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
                       border: '2px solid',
                       padding: '0.4em 1em',
                       borderRadius: '10px',
+                      margin: '0.5em',
                     }}
                   >
                     <DigiField label="Dropoff Location">
@@ -172,9 +200,8 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
           data-testid="RouteTool-MissionViewer-Mission__AbandonMission_Button"
           variant="contained"
           size="small"
-          color="error"
-          // onClick={() => handleAbandonMission(mission)}
-          disabled
+          color="warning"
+          onClick={handleAbandonMission}
         >
           Abandon Mission
         </Button>

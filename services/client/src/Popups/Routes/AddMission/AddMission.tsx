@@ -9,11 +9,13 @@ import { RemoveCircle } from '@mui/icons-material';
 import { Button, IconButton, TextField, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { updateDestinations } from '@Redux/Slices/Routes/actions/destination.action';
 import { addTasks } from '@Redux/Slices/Routes/actions/task.action';
 import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
 import { useForm } from '@tanstack/react-form';
 import { createLocalID } from '@Utils/createId';
+import { enqueueSnackbar } from 'notistack';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
@@ -32,7 +34,7 @@ export const AddMissionPopup: React.FC = () => {
       tasks: [
         {
           id: createLocalID('T'),
-          relationalId: createLocalID('T'),
+          relationId: createLocalID('T'),
           label: '',
           pickup: {} as ILocation,
           dropoffs: [{ dropoff: {} as ILocation, scu: 0 }],
@@ -48,16 +50,18 @@ export const AddMissionPopup: React.FC = () => {
 
       dispatch(updateDestinations(updatedDestinations));
       dispatch(addTasks(tasks as ITask[]));
+      dispatch(closePopup(POPUP_CREATE_MISSION));
+      enqueueSnackbar('Mission Created', { variant: 'success' });
     },
   });
 
   const newPickup = {
     id: createLocalID('T'),
-    relationalId: createLocalID('T'),
+    relationId: createLocalID('T'),
     label: '',
     pickup: {} as ILocation,
     dropoffs: [{ dropoff: {} as ILocation, scu: 0 }],
-    item: '',
+    item: 'Unknown',
     scu: 0,
   };
 
@@ -139,7 +143,7 @@ export const AddMissionPopup: React.FC = () => {
               <div>
                 {field.state.value.map((_, i) => {
                   return (
-                    <DigiBox key={i} sx={{ p: '1em', gap: '0.5em' }}>
+                    <DigiBox key={i} sx={{ p: '1em', gap: '0.5em', my: '0.5em' }}>
                       <div>
                         {/** TASK MAP */}
                         <form.Field
@@ -251,6 +255,7 @@ export const AddMissionPopup: React.FC = () => {
                                         gap: '1em',
                                         px: '0.5em',
                                         py: '0.5em',
+                                        my: '0.5em',
                                       }}
                                     >
                                       <IconButton
