@@ -1,20 +1,13 @@
-// import GlassBox from '@Common/Components/Boxes/GlassBox';
-// import { DoubleArrow } from '@mui/icons-material';
-// import { Box, Button, Typography } from '@mui/material';
-// import { useAppDispatch } from '@Redux/hooks';
-// import { deleteDestination } from '@Redux/Slices/Routes/actions/destination.action';
-// import { openWidget } from '@Redux/Slices/Widgets/widgets.actions';
-// import { WIDGET_ROUTES } from '@Widgets/Routes/Routes';
-// import React from 'react';
-// import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
+import React from 'react';
+import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
-// import { CurrentDestination } from './CurrentDestination';
-// import { NextDestination } from './NextDestination';
-// import { OtherStop } from './OtherStop';
+type RouteViewerProps = {
+  destinations: IDestination[];
+};
 
-// type RouteViewerProps = {
-//   destinations: IDestination[];
-// };
+export const RouteViewer: React.FC<RouteViewerProps> = ({ destinations }) => {
+  return <></>;
+};
 
 // export const RouteViewer: React.FC<RouteViewerProps> = ({ destinations }) => {
 //   const dispatch = useAppDispatch();

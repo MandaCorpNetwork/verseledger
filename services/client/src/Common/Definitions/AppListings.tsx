@@ -149,7 +149,7 @@ export const useMasterAppList = () => {
         disabled: routing,
         icon: <RouteTwoTone />,
         versionLabel: 'Route Tool',
-        version: '2.0.2',
+        version: '2.0.4',
         severityCode: 8,
       },
       {

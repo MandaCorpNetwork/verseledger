@@ -4,3 +4,10 @@ export const selectDestinations = (state: RootState) =>
   Object.values(state.routes.destinations);
 
 export const selectTasks = (state: RootState) => Object.values(state.routes.tasks);
+
+export const routingActive = (state: RootState) => state.routes.activeRoute.active;
+
+export const currentRouteStop = (state: RootState) => state.routes.activeRoute.stop;
+
+export const currentRouteLoad = (state: RootState) =>
+  state.routes.activeRoute.currentLoad;

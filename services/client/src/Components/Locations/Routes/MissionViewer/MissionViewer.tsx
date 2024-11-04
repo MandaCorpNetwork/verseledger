@@ -37,7 +37,13 @@ export const MissionViewer: React.FC<MissionViewerProps> = ({ tasks }) => {
   return (
     <GlassBox
       data-testid="RouteTool__MissionViewer_Container"
-      sx={{ p: '1em', gap: '1em', overflow: 'hidden', height: '100%', minWidth: '500px' }}
+      sx={{
+        p: '1em',
+        gap: '1em',
+        overflow: 'hidden',
+        height: '100%',
+        minWidth: '500px',
+      }}
     >
       <div
         data-testid="RouteTool-MissionViewer__TitleWrapper"

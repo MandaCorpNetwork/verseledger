@@ -7,20 +7,25 @@ import {
   Typography,
 } from '@mui/material';
 import { POPUP_ADD_TASK } from '@Popups/Routes/AddTask/AddTask';
-import { useAppDispatch } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import { startRoute } from '@Redux/Slices/Routes/actions/activeRoute.action';
+import { routingActive } from '@Redux/Slices/Routes/routes.selectors';
 import React from 'react';
+import { IDestination, ITaskStatus } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { RouteOrder } from '../DestinationQue';
 
 type DestQueHeaderProps = {
   routeOrder: RouteOrder;
   setRouteOrder: React.Dispatch<React.SetStateAction<RouteOrder>>;
+  destinations: IDestination[];
 };
 
 export const DestQueHeader: React.FC<DestQueHeaderProps> = ({
   routeOrder,
   setRouteOrder,
+  destinations,
 }) => {
   const dispatch = useAppDispatch();
   const handleRouteOrder = React.useCallback(
@@ -32,6 +37,23 @@ export const DestQueHeader: React.FC<DestQueHeaderProps> = ({
   const openAddTask = React.useCallback(() => {
     dispatch(openPopup(POPUP_ADD_TASK));
   }, [dispatch]);
+
+  const routeActive = useAppSelector(routingActive);
+
+  const handleStartRoute = React.useCallback(() => {
+    const first = destinations[0];
+    const startTask = first.tasks.find((task) => task.type === 'checkpoint');
+    const scuLoad = startTask?.scu ?? 0;
+    const destination = {
+      ...first,
+      tasks: first.tasks.map((task) =>
+        task.id === startTask?.id
+          ? { ...task, status: 'COMPLETED' as ITaskStatus }
+          : task,
+      ),
+    };
+    dispatch(startRoute({ destination, scuLoad }));
+  }, [destinations, dispatch]);
 
   return (
     <div
@@ -47,9 +69,21 @@ export const DestQueHeader: React.FC<DestQueHeaderProps> = ({
         Destinations
       </Typography>
       <div style={{ display: 'flex', gap: '1em', alignItems: 'center' }}>
-        <Button variant="contained" size="small" disabled>
-          Start Route
-        </Button>
+        {!routeActive && (
+          <Button
+            variant="contained"
+            size="small"
+            onClick={handleStartRoute}
+            disabled={destinations.length < 1}
+          >
+            Start Route
+          </Button>
+        )}
+        {routeActive && (
+          <Button variant="contained" size="small" disabled>
+            Stop Route
+          </Button>
+        )}
         <Button variant="contained" size="small" disabled>
           Import / Export
         </Button>

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
+import { nextStop, startRoute } from './actions/activeRoute.action';
 import {
   deleteDestination,
   replaceDestinations,
@@ -13,18 +14,30 @@ const routesReducer = createSlice({
   initialState: {
     destinations: {} as Record<string, IDestination>,
     tasks: {} as Record<string, ITask>,
+    activeRoute: { stop: {} as IDestination, active: false, currentLoad: 0 },
   },
   reducers: {
     noop() {
       return {
         destinations: {},
-        missions: {},
         tasks: {},
+        activeRoute: { stop: {} as IDestination, active: false, currentLoad: 0 },
       };
     },
   },
   extraReducers(builder) {
     builder
+      .addCase(startRoute, (state, action) => {
+        const currentDestination = action.payload.destination;
+        const scuLoad = action.payload.scuLoad;
+        state.activeRoute.active = true;
+        state.activeRoute.currentLoad = state.activeRoute.currentLoad + scuLoad;
+        state.activeRoute.stop = currentDestination;
+      })
+      .addCase(nextStop, (state, action) => {
+        const nextDestination = action.payload;
+        state.activeRoute.stop = nextDestination;
+      })
       .addCase(addTasks, (state, action) => {
         const taskArray = action.payload;
         taskArray.forEach((task: ITask) => {
