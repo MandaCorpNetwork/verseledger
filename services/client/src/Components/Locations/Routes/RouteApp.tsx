@@ -29,7 +29,7 @@ export const RouteApp: React.FC<unknown> = () => {
 
   const locations = useAppSelector(selectLocationsArray);
 
-  const userLocation = useAppSelector(selectUserLocation);
+  // const userLocation = useAppSelector(selectUserLocation);
 
   const locationTree = React.useMemo(() => {
     return binaryLocationTree(locations);

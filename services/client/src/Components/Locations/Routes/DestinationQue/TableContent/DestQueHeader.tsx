@@ -14,7 +14,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 
-import { RouteOrder } from './DestinationQue';
+import { RouteOrder } from '../DestinationQue';
 
 type DestQueHeaderProps = {
   routeOrder: RouteOrder;
@@ -50,6 +50,15 @@ export const DestQueHeader: React.FC<DestQueHeaderProps> = ({
         Destinations
       </Typography>
       <div style={{ display: 'flex', gap: '1em', alignItems: 'center' }}>
+        <Button variant="contained" size="small" disabled>
+          Start Route
+        </Button>
+        <Button variant="contained" size="small" disabled>
+          Import / Export
+        </Button>
+        <Button variant="contained" size="small" disabled>
+          Save
+        </Button>
         <Button variant="contained" size="small" onClick={openAddTask}>
           Add Stop
         </Button>
@@ -72,15 +81,6 @@ export const DestQueHeader: React.FC<DestQueHeaderProps> = ({
             </MenuItem>
           </Select>
         </FormControl>
-        <Tooltip title="Calculate Route">
-          <IconButton
-            size="small"
-            disabled={routeOrder === 'custom'}
-            // onClick={handleRouteEvaluation}
-          >
-            <Functions />
-          </IconButton>
-        </Tooltip>
       </div>
     </div>
   );
