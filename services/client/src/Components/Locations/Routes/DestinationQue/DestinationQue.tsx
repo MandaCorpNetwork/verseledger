@@ -1,16 +1,18 @@
 import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { Typography } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
+import { capFirstLetter } from '@Utils/StringUtil';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { MappedLocation } from '../RouteUtilities';
 import { CustomDestinationTable } from './CustomTable';
-import { DestQueHeader } from './DestQueHeader';
+import { DistanceTable } from './DistanceTable';
+import { DestinationEffForm } from './TableContent/DestinationEffForm';
+import { DestQueHeader } from './TableContent/DestQueHeader';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 type DestinationQueProps = {
   destinations: IDestination[];
-  // missions: IMission[];
   locationTree: Map<string, MappedLocation>;
 };
 
@@ -41,6 +43,50 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
           No Destinations
         </Typography>
       )}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            textAlign: 'center',
+            width: '100%',
+          }}
+        >
+          <Typography>
+            Current Route Order:
+            <Divider
+              textAlign="center"
+              variant="middle"
+              sx={{ opacity: '0.4', width: '200px', mx: 'auto' }}
+            />
+            <Typography variant="subtitle2" color="info">
+              {capFirstLetter(routeOrder)}
+            </Typography>
+          </Typography>
+          {routeOrder === 'custom' && (
+            <Typography variant="caption" sx={{ display: 'inline-flex', mx: 'auto' }}>
+              You can use{' '}
+              <Typography
+                variant="caption"
+                sx={{ fontWeight: 'bold', color: 'info.main' }}
+              >
+                &nbsp;Route Order&nbsp;
+              </Typography>
+              to automate your Route Efficiency Calculation
+            </Typography>
+          )}
+        </div>
+        {routeOrder !== 'custom' && <DestinationEffForm locationTree={locationTree} />}
+      </div>
+
       {destinations.length > 0 && (
         <div
           style={{
@@ -55,6 +101,9 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
               destinations={destinations}
               locationTree={locationTree}
             />
+          )}
+          {routeOrder === 'distance' && (
+            <DistanceTable destinations={destinations} locationTree={locationTree} />
           )}
         </div>
       )}

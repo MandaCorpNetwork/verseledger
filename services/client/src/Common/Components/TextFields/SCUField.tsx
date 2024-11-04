@@ -79,7 +79,8 @@ export const SCUField: React.FC<SCUFieldProps> = (props) => {
       <Popper
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
-        onMouseLeave={handleClosePop}
+        // TODO: Add a timeout for the Mouse Leave
+        // onMouseLeave={handleClosePop}
         placement={'bottom-end'}
         sx={{
           zIndex: 'tooltip',

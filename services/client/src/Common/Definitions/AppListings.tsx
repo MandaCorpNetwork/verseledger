@@ -23,7 +23,7 @@ import {
   WorkTwoTone,
 } from '@mui/icons-material';
 
-import { Exploration, Fleet, Vehicles } from './CustomIcons';
+import { Contracts, Exploration, Fleet, Vehicles } from './CustomIcons';
 
 export type AppListing = {
   id: string;
@@ -186,7 +186,7 @@ export const masterAppList: AppListing[] = [
     id: 'contracts',
     label: '@APP.CONTRACTS.LABEL',
     path: '/apps/contracts',
-    icon: <WorkTwoTone />,
+    icon: <Contracts />,
     versionLabel: 'Contract Manager',
     version: '2.1',
     severityCode: 1,

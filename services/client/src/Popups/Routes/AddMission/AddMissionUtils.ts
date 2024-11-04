@@ -7,7 +7,7 @@ export function createTaskArray(value: {
   missionLabel: string;
   tasks: {
     id: string;
-    relationalId: string;
+    relationId: string;
     label: string;
     pickup: ILocation;
     item: string;
@@ -19,10 +19,10 @@ export function createTaskArray(value: {
   const missionLabel = value.missionLabel;
   const missionId = value.missionId;
   const createdTasks = value.tasks.flatMap((obj) => {
-    const relationalId = obj.relationalId;
+    const relationId = obj.relationId;
     const newPickup = {
       id: obj.id,
-      relationId: relationalId,
+      relationId: relationId,
       label: obj.label,
       type: 'pickup',
       missionLabel,
@@ -30,11 +30,11 @@ export function createTaskArray(value: {
       location: obj.pickup,
       status: 'pending',
       item: obj.item,
-      scu: obj.id,
+      scu: obj.scu,
     };
     const newDropOffs = obj.dropoffs.flatMap((drop) => ({
       id: createLocalID('T'),
-      relationalId,
+      relationId,
       label: obj.label,
       type: 'dropoff',
       missionLabel,
@@ -50,32 +50,41 @@ export function createTaskArray(value: {
 }
 
 export function createDestinations(destinations: IDestination[], tasks: ITask[]) {
-  const pickups = tasks.filter((task) => task.type !== 'pickup');
-  const dropOffs = tasks.filter((task) => task.type !== 'dropoff');
+  const pickups = tasks.filter((task) => task.type === 'pickup');
+  const dropOffs = tasks.filter((task) => task.type === 'dropoff');
   const newDestinations = [] as IDestination[];
 
   pickups.forEach((task) => {
+    //Check if the Destination already Exists
     const matchedPickup = destinations.find(
       (dest) => dest.location.id === task.location.id,
     );
+    //Finds the Related DropOffs
     const relatedDrops = dropOffs.filter((drop) => drop.relationId === task.relationId);
 
     if (matchedPickup) {
       //MatchedPickup Create
+
+      //Update the Matched Pickup with the New Task
       const updatedPickup = { ...matchedPickup, tasks: [...matchedPickup.tasks, task] };
+      //Push to the Updated Destinations Array
       newDestinations.push(updatedPickup);
 
+      //Flip through the related Destinations
       relatedDrops.forEach((drop) => {
+        //Check if there is a Matching Dropoff coming After The Matched Pickup Stop
         const matchedDrop = destinations.find(
           (dest) =>
             drop.location.id === dest.location.id &&
             dest.stopNumber > matchedPickup.stopNumber,
         );
 
+        //If there is a matched Drop, update that Drop
         if (matchedDrop) {
           const updatedDrop = { ...matchedDrop, tasks: [...matchedDrop.tasks, drop] };
           newDestinations.push(updatedDrop);
         } else {
+          //Otherwise Create A new Destination
           const newDrop = {
             id: createLocalID('D'),
             stopNumber: destinations.length + 1,
@@ -86,6 +95,7 @@ export function createDestinations(destinations: IDestination[], tasks: ITask[])
           newDestinations.push(newDrop);
         }
       });
+      // If there is not an Existing Destination matching the Pickup Location Create a New one
     } else {
       const newPickup = {
         id: createLocalID('D'),
@@ -96,6 +106,7 @@ export function createDestinations(destinations: IDestination[], tasks: ITask[])
       };
       newDestinations.push(newPickup);
       relatedDrops.forEach((drop) => {
+        // Create New Drop offs
         const newDrop = {
           id: createLocalID('D'),
           stopNumber: 0,

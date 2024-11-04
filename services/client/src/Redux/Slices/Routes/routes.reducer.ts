@@ -1,8 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { deleteDestination, updateDestinations } from './actions/destination.action';
-import { addTasks, updateTasks } from './actions/task.action';
+import {
+  deleteDestination,
+  replaceDestinations,
+  updateDestinations,
+} from './actions/destination.action';
+import { addTasks, replaceTasks, updateTasks } from './actions/task.action';
 
 const routesReducer = createSlice({
   name: 'routes',
@@ -41,6 +45,13 @@ const routesReducer = createSlice({
           }
         });
       })
+      .addCase(replaceTasks, (state, action) => {
+        const newTasks = action.payload;
+        state.tasks = {};
+        newTasks.forEach((task) => {
+          state.tasks[task.id] = task;
+        });
+      })
       .addCase(updateDestinations, (state, action) => {
         const destinationArray = action.payload;
         destinationArray.forEach((destination: IDestination) => {
@@ -50,6 +61,13 @@ const routesReducer = createSlice({
       .addCase(deleteDestination, (state, action) => {
         const destinationId = action.payload;
         delete state.destinations[destinationId];
+      })
+      .addCase(replaceDestinations, (state, action) => {
+        const newDestinations = action.payload;
+        state.destinations = {};
+        newDestinations.forEach((destination) => {
+          state.destinations[destination.id] = destination;
+        });
       });
   },
 });

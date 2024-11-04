@@ -23,6 +23,9 @@ export const MissionViewer: React.FC<MissionViewerProps> = ({ tasks }) => {
   const missionGroups = tasks.reduce(
     (acc, task) => {
       const missionId = task.missionId ?? 'standalone';
+      if (missionId === 'standalone') {
+        return acc;
+      }
       if (!acc[missionId]) {
         acc[missionId] = [];
       }

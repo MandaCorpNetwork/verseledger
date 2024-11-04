@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 
 import { ListSelectButton } from './Components/Styled/Buttons/IndicatorButton';
-import { Scu, Scu3d } from './Definitions/CustomIcons';
+import { Contracts, Scu, Scu3d } from './Definitions/CustomIcons';
 
 export const SandboxContent: React.FC<unknown> = () => {
   return (
@@ -19,6 +19,7 @@ export const SandboxContent: React.FC<unknown> = () => {
         <ListSelectButton>Pick Me</ListSelectButton>
         <Scu fontSize="large" />
         <Scu3d fontSize="large" />
+        <Contracts fontSize="large" />
       </Box>
     </Box>
   );

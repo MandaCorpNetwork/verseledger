@@ -140,6 +140,8 @@ export const verseOSTheme = createTheme({
     },
     caption: {
       fontFamily: 'cigOptical',
+      wordSpacing: '1px',
+      letterSpacing: '.2px',
     },
   },
   components: {

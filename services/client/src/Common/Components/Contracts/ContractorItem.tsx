@@ -99,7 +99,6 @@ export const Contractor: React.FC<ContractorProps> = ({
   const handleCancelInvite = React.useCallback(() => {
     const updatedBid = { status: 'EXPIRED' as const };
     if (bid == null) return;
-    console.log(bid);
     dispatch(
       updateBid({ contractId: bid.contract_id, bidId: bid.id, bidData: updatedBid }),
     ).then((res) => {

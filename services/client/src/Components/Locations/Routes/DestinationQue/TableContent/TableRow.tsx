@@ -18,8 +18,9 @@ import {
 import { useAppDispatch } from '@Redux/hooks';
 import { updateDestinations } from '@Redux/Slices/Routes/actions/destination.action';
 import React from 'react';
-import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination, ITask, ITaskStatus } from 'vl-shared/src/schemas/RoutesSchema';
 
+import { getSiblingDestinations } from '../../RouteUtilities';
 import { DestinationTask } from './DestinationTask';
 
 type TableRowProps = {
@@ -39,6 +40,7 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const sound = useSoundEffect();
+  // const taskArray = useAppSelector(selectTasks);
 
   const getIndex = React.useCallback(
     (destinations: IDestination[]) => {
@@ -49,58 +51,59 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
 
   const hideReason = useMediaQuery('(max-width: 1200px)');
   const hideTasks = useMediaQuery('(max-width: 1090px)');
-  // const objectiveValidationHelper = React.useCallback(
-  //   (objectives: ITask[], stopNumber: number, destinations: IDestination[]) => {
-  //     return objectives.map((obj) => {
-  //       const mission = getParentMission(missions, obj);
-  //       if (!mission) return obj;
+  const taskValidationHelper = React.useCallback(
+    (tasks: ITask[], stopNumber: number, destinations: IDestination[]) => {
+      return tasks.map((task) => {
+        const siblingDestinations = getSiblingDestinations(task, destinations);
+        if (task.type === 'pickup') {
+          const isInterupted = siblingDestinations.some(
+            (sibling) => stopNumber > sibling.stopNumber,
+          );
+          if (isInterupted) {
+            return { ...task, status: 'INTERUPTED' as ITaskStatus };
+          } else {
+            const status = task.status === 'INTERUPTED' ? 'PENDING' : task.status;
+            return { ...task, status: status };
+          }
+        }
+        if (task.type === 'dropoff') {
+          const isInterupted = siblingDestinations.some(
+            (sibling) =>
+              stopNumber < sibling.stopNumber &&
+              sibling.tasks.some(
+                (t) => t.relationId === task.relationId && t.type === 'pickup',
+              ),
+          );
+          if (isInterupted) {
+            return { ...task, status: 'INTERUPTED' as ITaskStatus };
+          } else {
+            const status = task.status === 'INTERUPTED' ? 'PENDING' : task.status;
+            return { ...task, status: status };
+          }
+        }
+        return task;
+      });
+    },
+    [],
+  );
 
-  //       const siblingObj = getSiblingObjective(mission, obj);
-  //       if (!siblingObj) return obj;
+  const validateDestObjectives = React.useCallback(
+    (destinations: IDestination[]) => {
+      const updatedDestinations: IDestination[] = [];
 
-  //       const siblingDest = getSiblingDestination(siblingObj, destinations);
-  //       if (!siblingDest) return obj;
-
-  //       if (obj.type === 'pickup' && stopNumber > siblingDest.stopNumber) {
-  //         console.log('Pickup Interupt Found');
-  //         return { ...obj, status: 'INTERUPTED' as ITaskStatus };
-  //       }
-
-  //       if (obj.type === 'pickup' && stopNumber < siblingDest.stopNumber) {
-  //         console.log('Pickup Interupt Found');
-  //         return { ...obj, status: 'PENDING' as ITaskStatus };
-  //       }
-
-  //       if (obj.type === 'dropoff' && stopNumber < siblingDest.stopNumber) {
-  //         console.log('Dropoff Interupt Found.');
-  //         return { ...obj, status: 'INTERUPTED' as ITaskStatus };
-  //       }
-
-  //       if (obj.type === 'dropoff' && stopNumber > siblingDest.stopNumber) {
-  //         console.log('Dropoff Interupt Found.');
-  //         return { ...obj, status: 'PENDING' as ITaskStatus };
-  //       }
-
-  //       return obj;
-  //     });
-  //   },
-  //   [missions],
-  // );
-
-  const validateDestObjectives = React.useCallback((destinations: IDestination[]) => {
-    const updatedDestinations: IDestination[] = [];
-
-    destinations.forEach((dest) => {
-      const tempDest = { ...dest };
-      // tempDest.tasks = objectiveValidationHelper(
-      //   tempDest.tasks,
-      //   tempDest.stopNumber,
-      //   destinations,
-      // );
-      updatedDestinations.push(tempDest);
-    });
-    return updatedDestinations;
-  }, []);
+      destinations.forEach((dest) => {
+        const tempDest = { ...dest };
+        tempDest.tasks = taskValidationHelper(
+          tempDest.tasks,
+          tempDest.stopNumber,
+          destinations,
+        );
+        updatedDestinations.push(tempDest);
+      });
+      return updatedDestinations;
+    },
+    [taskValidationHelper],
+  );
 
   const getReorderedDestinations = React.useCallback(
     (
@@ -186,7 +189,6 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
       //   };
       // });
       dispatch(updateDestinations(validatedDestinations));
-      // dispatch(updateMissions(updatedMissions));
       // dispatch(updateTasks(updatedObjectives));
     },
     [
@@ -373,12 +375,12 @@ export const DestinationTableRow: React.FC<TableRowProps> = ({
         </Grid2>
       </AccordionSummary>
       <AccordionDetails sx={{ gap: '0.2em', display: 'flex', flexDirection: 'column' }}>
-        {destination.tasks.map((obj) => {
+        {destination.tasks.map((task) => {
           return (
             <DestinationTask
-              key={obj.id}
-              data-testid={`${testid}-ObjectiveList__Objective_${obj.id}`}
-              objective={obj}
+              key={task.id}
+              data-testid={`${testid}-ObjectiveList__Objective_${task.id}`}
+              task={task}
             />
           );
         })}
