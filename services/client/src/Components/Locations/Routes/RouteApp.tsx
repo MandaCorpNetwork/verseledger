@@ -20,7 +20,6 @@ export const RouteApp: React.FC<unknown> = () => {
   const destinations = useAppSelector(selectDestinations);
 
   //Fetch All Locations
-  //TODO: This will become highly taxing and be better moved to Local Storage for referencing
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {

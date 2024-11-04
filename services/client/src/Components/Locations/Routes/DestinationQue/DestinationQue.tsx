@@ -1,19 +1,18 @@
 import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { Scu, Scu3d } from '@Common/Definitions/CustomIcons';
-import { Functions } from '@mui/icons-material';
-import { Button, Divider, TextField, Typography } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 import { capFirstLetter } from '@Utils/StringUtil';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { MappedLocation } from '../RouteUtilities';
 import { CustomDestinationTable } from './CustomTable';
+import { DistanceTable } from './DistanceTable';
+import { DestinationEffForm } from './TableContent/DestinationEffForm';
 import { DestQueHeader } from './TableContent/DestQueHeader';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 type DestinationQueProps = {
   destinations: IDestination[];
-  // missions: IMission[];
   locationTree: Map<string, MappedLocation>;
 };
 
@@ -85,36 +84,7 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
             </Typography>
           )}
         </div>
-        {routeOrder !== 'custom' && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
-            <TextField
-              size="small"
-              label="Current Load"
-              slotProps={{
-                input: {
-                  endAdornment: <Scu />,
-                },
-              }}
-            />
-            <TextField
-              size="small"
-              label="Max Load"
-              slotProps={{
-                input: {
-                  endAdornment: <Scu3d />,
-                },
-              }}
-            />
-            <Button
-              variant="contained"
-              endIcon={<Functions />}
-              size="small"
-              sx={{ px: '2em' }}
-            >
-              Calculate
-            </Button>
-          </div>
-        )}
+        {routeOrder !== 'custom' && <DestinationEffForm locationTree={locationTree} />}
       </div>
 
       {destinations.length > 0 && (
@@ -132,7 +102,9 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
               locationTree={locationTree}
             />
           )}
-          {routeOrder === 'distance' && null}
+          {routeOrder === 'distance' && (
+            <DistanceTable destinations={destinations} locationTree={locationTree} />
+          )}
         </div>
       )}
     </GlassBox>
