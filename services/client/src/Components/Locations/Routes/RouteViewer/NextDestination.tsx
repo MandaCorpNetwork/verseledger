@@ -21,8 +21,6 @@ export const NextDestination: React.FC<NextDestinationProps> = ({
 }) => {
   const tasks = destination.tasks.map((task) => task);
 
-  const currentLoad = useAppSelector(currentRouteLoad);
-
   const retrievingSCU = tasks.reduce(
     (sum, task) => (task.type === 'pickup' ? sum + (task.scu ?? 0) : sum),
     0,
@@ -33,20 +31,6 @@ export const NextDestination: React.FC<NextDestinationProps> = ({
     0,
   );
 
-  const getDepatureLoad = React.useCallback(() => {
-    let load = currentLoad;
-    for (const task of tasks) {
-      if (task.status !== 'PENDING' || task.scu == null) continue;
-      if (task.type === 'pickup') {
-        load += task.scu;
-      } else if (task.type === 'dropoff') {
-        load -= task.scu;
-      }
-    }
-    return load;
-  }, [tasks, currentLoad]);
-
-  const departureLoad = getDepatureLoad();
   return (
     <DigiBox sx={{ p: '0.5em', gap: '1em' }}>
       <DigiDisplay
@@ -85,15 +69,6 @@ export const NextDestination: React.FC<NextDestinationProps> = ({
             color="secondary"
             disabled={!unloadingSCU}
             value={`${unloadingSCU.toLocaleString()} SCU`}
-          />
-        </div>
-        <div style={{ alignSelf: 'center' }}>
-          <TextField
-            size="small"
-            label="Departing Load"
-            color="secondary"
-            disabled={!departureLoad}
-            value={`${departureLoad.toLocaleString()} SCU`}
           />
         </div>
       </div>
