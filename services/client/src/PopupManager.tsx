@@ -25,6 +25,11 @@ import {
 } from '@Popups/Contracts/EditContract/EditContract';
 import { FeedbackPopup, POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
 import {
+  ImportFilePopup,
+  ImportFileProps,
+  POPUP_IMPORT_FILE,
+} from '@Popups/Import/ImportFile';
+import {
   ArchetypeInfoPopup,
   ArchetypeInfoProps,
   POPUP_ARCHETYPE_INFO,
@@ -125,6 +130,9 @@ export const PopupManager: React.FC = () => {
   );
   const allAppsPopup = useAppSelector((state) => selectPopup(state, POPUP_APP_LIST));
   const addTaskPopup = useAppSelector((state) => selectPopup(state, POPUP_ADD_TASK));
+  const importFilePopup = useAppSelector((state) =>
+    selectPopup(state, POPUP_IMPORT_FILE),
+  );
   return (
     <>
       {verifyUserPopup.open && <VerifyUserPopup />}
@@ -170,6 +178,9 @@ export const PopupManager: React.FC = () => {
       )}
       {allAppsPopup.open && <AllApps />}
       {addTaskPopup.open && <AddTaskPopup />}
+      {importFilePopup.open && (
+        <ImportFilePopup {...(importFilePopup.props as ImportFileProps)} />
+      )}
     </>
   );
 };

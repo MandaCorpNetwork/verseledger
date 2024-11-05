@@ -178,6 +178,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
       title="Submit Bid"
       submitText="Submit Bid"
       onSubmit={handleSubmitBid}
+      submitDisabled={acceptedContractorsCount === contract.contractorLimit}
       bottomBarComponent={<BidTimeRemaining bidDate={contract.bidDate} />}
       data-testid="ContractBid"
       sx={{

@@ -6,6 +6,7 @@ import {
   Select,
   Typography,
 } from '@mui/material';
+import { POPUP_IMPORT_FILE } from '@Popups/Import/ImportFile';
 import { POPUP_ADD_TASK } from '@Popups/Routes/AddTask/AddTask';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
@@ -55,6 +56,24 @@ export const DestQueHeader: React.FC<DestQueHeaderProps> = ({
     dispatch(startRoute({ destination, scuLoad }));
   }, [destinations, dispatch]);
 
+  const exportDestinations = React.useCallback(() => {
+    const json = JSON.stringify(destinations, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'VerseLedgerRoute.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, [destinations]);
+
+  const handleOpenImport = React.useCallback(() => {
+    dispatch(openPopup(POPUP_IMPORT_FILE, { title: 'Route' }));
+  }, [dispatch]);
+
   return (
     <div
       data-testid="RouteTool-DestinationList__TitleBar_Wrapper"
@@ -84,8 +103,11 @@ export const DestQueHeader: React.FC<DestQueHeaderProps> = ({
             Stop Route
           </Button>
         )}
-        <Button variant="contained" size="small" disabled>
-          Import / Export
+        <Button variant="contained" size="small" onClick={handleOpenImport} disabled>
+          Import
+        </Button>
+        <Button variant="contained" size="small" onClick={exportDestinations}>
+          Export
         </Button>
         <Button variant="contained" size="small" disabled>
           Save

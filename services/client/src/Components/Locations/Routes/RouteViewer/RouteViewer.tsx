@@ -4,6 +4,8 @@ import { Button, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { nextStop } from '@Redux/Slices/Routes/actions/activeRoute.action';
 import { currentRouteStop } from '@Redux/Slices/Routes/routes.selectors';
+import { openWidget } from '@Redux/Slices/Widgets/widgets.actions';
+import { WIDGET_ROUTES } from '@Widgets/Routes/Route';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
@@ -35,6 +37,8 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({
 
   const getDistance = React.useCallback(
     (idA: string, idB: string) => {
+      if (idA == null) return `Err«`;
+      if (idB == null) return `Err»`;
       const locA = getMappedLocation(locationTree, idA);
       const locB = getMappedLocation(locationTree, idB);
       if (locA == null) return `Err«`;
@@ -51,7 +55,7 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({
 
   const followingDistance = getDistance(
     nextDestination.location.id,
-    followingStop.location.id,
+    followingStop?.location.id,
   );
 
   const nextDisabled = currentDestination.tasks.some(
@@ -62,6 +66,10 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({
     const updatedDestination = { ...currentDestination, visited: true };
     dispatch(nextStop({ updatedDestination, nextDestination }));
   }, [currentDestination, dispatch, nextDestination]);
+
+  const handleOpenWidget = React.useCallback(() => {
+    dispatch(openWidget(WIDGET_ROUTES));
+  }, [dispatch]);
   return (
     <GlassBox
       data-testid="RouteTool__RouteViewer_Container"
@@ -80,8 +88,8 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({
         <Typography data-testid="RouteTool-RouteViewer__Title" variant="h4">
           Route Viewer
         </Typography>
-        <div>
-          <Button variant="contained" disabled>
+        <div style={{ gap: '1em', display: 'flex' }}>
+          <Button variant="contained" onClick={handleOpenWidget}>
             Open Widget
           </Button>
           <Button
