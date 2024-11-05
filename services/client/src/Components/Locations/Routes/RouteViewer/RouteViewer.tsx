@@ -37,6 +37,8 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({
 
   const getDistance = React.useCallback(
     (idA: string, idB: string) => {
+      if (idA == null) return `Err«`;
+      if (idB == null) return `Err»`;
       const locA = getMappedLocation(locationTree, idA);
       const locB = getMappedLocation(locationTree, idB);
       if (locA == null) return `Err«`;
@@ -53,7 +55,7 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({
 
   const followingDistance = getDistance(
     nextDestination.location.id,
-    followingStop.location.id,
+    followingStop?.location.id,
   );
 
   const nextDisabled = currentDestination.tasks.some(

@@ -3,8 +3,6 @@ import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { TextField, Typography } from '@mui/material';
-import { useAppSelector } from '@Redux/hooks';
-import { currentRouteLoad } from '@Redux/Slices/Routes/routes.selectors';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
