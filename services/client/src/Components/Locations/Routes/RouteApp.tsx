@@ -22,7 +22,6 @@ export const RouteApp: React.FC<unknown> = () => {
   const destinations = useAppSelector(selectDestinations);
   const sound = useSoundEffect();
 
-  //Fetch All Locations
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
@@ -31,15 +30,13 @@ export const RouteApp: React.FC<unknown> = () => {
 
   const locations = useAppSelector(selectLocationsArray);
 
-  // const userLocation = useAppSelector(selectUserLocation);
-
   const locationTree = React.useMemo(() => {
     return binaryLocationTree(locations);
   }, [locations]);
 
   const activeRouting = useAppSelector(routingActive);
 
-  const [detailsOpen, setDetailsOpen] = React.useState<boolean>(true);
+  const [detailsOpen, setDetailsOpen] = React.useState<boolean>(false);
 
   const handleToggleDetails = React.useCallback(() => {
     setDetailsOpen((prev) => {

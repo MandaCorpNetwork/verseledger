@@ -1,46 +1,62 @@
+import GlassBox from '@Common/Components/Boxes/GlassBox';
+import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import { Button, Typography } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
+import { currentRouteStop } from '@Redux/Slices/Routes/routes.selectors';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
+
+import { CurrentDestination } from './CurrentDestination';
 
 type RouteViewerProps = {
   destinations: IDestination[];
 };
 
 export const RouteViewer: React.FC<RouteViewerProps> = ({ destinations }) => {
-  return <></>;
+  const currentDestination = useAppSelector(currentRouteStop);
+  const currentDestinationIndex = destinations.findIndex(
+    (dest) => dest.id == currentDestination.id,
+  );
+  const nextDestination = destinations[currentDestinationIndex + 1];
+  const nextIsCheckpoint = nextDestination.tasks.some(
+    (task) => task.type === 'checkpoint',
+  );
+  const followingStop = destinations[currentDestinationIndex + 2];
+  return (
+    <GlassBox
+      data-testid="RouteTool__RouteViewer_Container"
+      sx={{ p: '1em', gap: '1em', height: '100%', overflow: 'hidden' }}
+    >
+      <div
+        data-testid="RouteTool-RouteViewer__Title_Wrapper"
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '1em',
+        }}
+      >
+        <Typography data-testid="RouteTool-RouteViewer__Title" variant="h4">
+          Route Viewer
+        </Typography>
+        <div>
+          <Button variant="contained">Open Widget</Button>
+          <Button variant="contained">Next Stop</Button>
+          <Button variant="contained">Add Stop</Button>
+        </div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'row', flexGrow: 1 }}>
+        <GlassDisplay sx={{ p: '1em', height: '100%' }}>
+          <CurrentDestination destination={currentDestination} />
+        </GlassDisplay>
+        <GlassDisplay></GlassDisplay>
+      </div>
+    </GlassBox>
+  );
 };
 
 // export const RouteViewer: React.FC<RouteViewerProps> = ({ destinations }) => {
-//   const dispatch = useAppDispatch();
-//   const nextStopEnabled = React.useCallback(() => {
-//     if (!destinations || destinations.length === 0) {
-//       return true;
-//     }
-//     if (destinations.length > 0) {
-//       const destination = destinations[0];
-//       if (destination.objectives) {
-//         return destination.objectives.some(
-//           (obj) =>
-//             (obj.pickup.id === destination.location.id && obj.status === 'OBTAINED') ||
-//             (obj.dropOff.id === destination.location.id && obj.status === 'COMPLETED'),
-//         );
-//       } else {
-//         return true;
-//       }
-//     }
-//   }, [destinations]);
-
-//   const allowNextStop = nextStopEnabled();
-
-//   const handleDeleteDestination = React.useCallback(
-//     (destinationId: string) => {
-//       dispatch(deleteDestination(destinationId));
-//     },
-//     [dispatch],
-//   );
-
-//   const handleOpenRouteWidget = React.useCallback(() => {
-//     dispatch(openWidget(WIDGET_ROUTES));
-//   }, [dispatch]);
 //   return (
 //     <GlassBox
 //       data-testid="RouteTool__RouteViewer_Container"

@@ -28,7 +28,7 @@ export function createTaskArray(value: {
       missionLabel,
       missionId,
       location: obj.pickup,
-      status: 'pending',
+      status: 'PENDING',
       item: obj.item,
       scu: obj.scu,
     };
@@ -40,7 +40,7 @@ export function createTaskArray(value: {
       missionLabel,
       missionId,
       location: drop.dropoff,
-      status: 'pending',
+      status: 'PENDING',
       item: obj.item,
       scu: drop.scu,
     }));
