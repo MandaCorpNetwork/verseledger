@@ -26,9 +26,19 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
   return (
     <GlassBox
       data-testid="RouteTool__DestinationList__Wrapper"
-      sx={{ p: '1em', gap: '1em', height: '100%', minWidth: '400px', flexGrow: '1' }}
+      sx={{
+        p: '1em',
+        gap: '1em',
+        height: '100%',
+        minWidth: '400px',
+        flexGrow: '1',
+      }}
     >
-      <DestQueHeader routeOrder={routeOrder} setRouteOrder={setRouteOrder} />
+      <DestQueHeader
+        routeOrder={routeOrder}
+        setRouteOrder={setRouteOrder}
+        destinations={destinations}
+      />
       {destinations.length === 0 && (
         <Typography
           variant="h4"

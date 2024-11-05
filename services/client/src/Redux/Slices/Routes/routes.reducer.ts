@@ -2,6 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 import { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 import {
+  nextStop,
+  startRoute,
+  updateActiveTask,
+  updateLoad,
+} from './actions/activeRoute.action';
+import {
   deleteDestination,
   replaceDestinations,
   updateDestinations,
@@ -13,18 +19,43 @@ const routesReducer = createSlice({
   initialState: {
     destinations: {} as Record<string, IDestination>,
     tasks: {} as Record<string, ITask>,
+    activeRoute: { stop: {} as IDestination, active: false, currentLoad: 0 },
   },
   reducers: {
     noop() {
       return {
         destinations: {},
-        missions: {},
         tasks: {},
+        activeRoute: { stop: {} as IDestination, active: false, currentLoad: 0 },
       };
     },
   },
   extraReducers(builder) {
     builder
+      .addCase(startRoute, (state, action) => {
+        const currentDestination = action.payload.destination;
+        const scuLoad = action.payload.scuLoad;
+        state.activeRoute.active = true;
+        state.activeRoute.currentLoad = state.activeRoute.currentLoad + scuLoad;
+        state.activeRoute.stop = currentDestination;
+      })
+      .addCase(nextStop, (state, action) => {
+        const nextDestination = action.payload.nextDestination;
+        state.activeRoute.stop = nextDestination;
+        const updatedDestination = action.payload.updatedDestination;
+        state.destinations[updatedDestination.id] = updatedDestination;
+      })
+      .addCase(updateLoad, (state, action) => {
+        const newLoad = action.payload;
+        state.activeRoute.currentLoad = newLoad;
+      })
+      .addCase(updateActiveTask, (state, action) => {
+        const updatedTask = action.payload.task;
+        const updatedDestination = action.payload.destination;
+        state.tasks[updatedTask.id] = updatedTask;
+        state.destinations[updatedDestination.id] = updatedDestination;
+        state.activeRoute.stop = updatedDestination;
+      })
       .addCase(addTasks, (state, action) => {
         const taskArray = action.payload;
         taskArray.forEach((task: ITask) => {

@@ -1,25 +1,27 @@
-import { Box } from '@mui/material';
+import { useSoundEffect } from '@Audio/AudioManager';
+import { DoubleArrow } from '@mui/icons-material';
+import { Box, Collapse, IconButton } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-// import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
-// import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.action';
 import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
-// import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
-import { selectDestinations, selectTasks } from '@Redux/Slices/Routes/routes.selectors';
+import {
+  routingActive,
+  selectDestinations,
+  selectTasks,
+} from '@Redux/Slices/Routes/routes.selectors';
 import React from 'react';
 
 import { DestinationQue } from './DestinationQue/DestinationQue';
-// import { DestinationQue } from './DestinationQue/DestinationQue';
 import { MissionViewer } from './MissionViewer/MissionViewer';
 import { binaryLocationTree } from './RouteUtilities';
-// import { binaryLocationTree } from './RouteUtilities';
+import { RouteViewer } from './RouteViewer/RouteViewer';
 
 export const RouteApp: React.FC<unknown> = () => {
   const tasks = useAppSelector(selectTasks);
 
   const destinations = useAppSelector(selectDestinations);
+  const sound = useSoundEffect();
 
-  //Fetch All Locations
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
@@ -28,11 +30,24 @@ export const RouteApp: React.FC<unknown> = () => {
 
   const locations = useAppSelector(selectLocationsArray);
 
-  // const userLocation = useAppSelector(selectUserLocation);
-
   const locationTree = React.useMemo(() => {
     return binaryLocationTree(locations);
   }, [locations]);
+
+  const activeRouting = useAppSelector(routingActive);
+
+  const [detailsOpen, setDetailsOpen] = React.useState<boolean>(false);
+
+  const handleToggleDetails = React.useCallback(() => {
+    setDetailsOpen((prev) => {
+      if (prev) {
+        sound.playSound('close');
+      } else {
+        sound.playSound('open');
+      }
+      return !prev;
+    });
+  }, [setDetailsOpen, sound]);
   return (
     <Box
       data-testid="RouteTool__AppContainer"
@@ -46,13 +61,50 @@ export const RouteApp: React.FC<unknown> = () => {
         p: '.5em',
       }}
     >
-      {/* <RouteViewer destinations={destinations} /> */}
-      <DestinationQue
-        destinations={destinations}
-        // tasks={tasks}
-        locationTree={locationTree}
-      />
-      <MissionViewer tasks={tasks} />
+      {activeRouting && (
+        <RouteViewer destinations={destinations} locationTree={locationTree} />
+      )}
+      {activeRouting && (
+        <Collapse
+          collapsedSize="60px"
+          in={detailsOpen}
+          orientation="horizontal"
+          sx={{
+            position: 'absolute',
+            right: 0,
+            display: 'flex',
+            flexDirection: 'row',
+            zIndex: 50,
+            flexGrow: 1,
+          }}
+        >
+          <div style={{ display: 'flex', gap: '2em', backdropFilter: 'blur(20px)' }}>
+            <IconButton onClick={handleToggleDetails}>
+              <DoubleArrow
+                fontSize="large"
+                sx={{
+                  transform: `rotate(${detailsOpen ? '0deg' : '180deg'})`,
+                  transition: 'opacity 0.3s ease-in-out, transform 0.2s ease-in-out',
+                }}
+              />
+            </IconButton>
+            <DestinationQue
+              destinations={destinations}
+              // tasks={tasks}
+              locationTree={locationTree}
+            />
+            <MissionViewer tasks={tasks} />
+          </div>
+        </Collapse>
+      )}
+      {!activeRouting && (
+        <DestinationQue
+          destinations={destinations}
+          // tasks={tasks}
+          locationTree={locationTree}
+        />
+      )}
+      {!activeRouting && <MissionViewer tasks={tasks} />}
     </Box>
   );
 };

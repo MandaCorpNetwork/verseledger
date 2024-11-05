@@ -1,96 +1,107 @@
-// import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-// import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-// import { LocationChip } from '@Common/Components/Chips/LocationChip';
-// import { ReadOnlyField } from '@Common/Components/TextFields/ReadOnlyField';
-// import { Box, Typography } from '@mui/material';
-// import React from 'react';
-// import { Float3, MathX } from 'vl-shared/src/math';
-// import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
+import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
+import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import { TextField, Typography } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
+import { currentRouteLoad } from '@Redux/Slices/Routes/routes.selectors';
+import React from 'react';
+import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
-// import { Objective } from './Objective';
+import { Task } from './Task';
 
-// type NextDestinationProps = {
-//   destination: IDestination;
-//   nextDestination: IDestination | undefined;
-// };
-// export const NextDestination: React.FC<NextDestinationProps> = ({
-//   destination,
-//   nextDestination,
-// }) => {
-//   const formatDistance = React.useCallback((distanceInKm: number) => {
-//     if (distanceInKm >= 1_000_000) {
-//       return `${(distanceInKm / 1_000_000).toFixed(2)} Gkm`;
-//     } else if (distanceInKm >= 1_000) {
-//       return `${(distanceInKm / 1_000).toFixed(2)} Mkm`;
-//     } else {
-//       return `${distanceInKm.toFixed(2)} km`;
-//     }
-//   }, []);
-//   const posA = new Float3(
-//     destination.location.x,
-//     destination.location.y,
-//     destination.location.z,
-//   );
-//   const posB = new Float3(
-//     nextDestination?.location.x,
-//     nextDestination?.location.y,
-//     nextDestination?.location.z,
-//   );
-//   const floatDistance = MathX.distance(posA, posB);
-//   const absDistance = Math.abs(floatDistance);
-//   const formattedDistance = formatDistance(absDistance);
-//   return (
-//     <DigiBox
-//       data-testid="RouteTool-RouteViewer__NextDestination_Container"
-//       sx={{ p: '.5em', gap: '.5em' }}
-//     >
-//       <DigiDisplay
-//         data-testid="RouteTool-RouteViewer-NextDestination__Title_Wrapper"
-//         sx={{
-//           flexDirection: 'row',
-//           py: '.2em',
-//           justifyContent: 'flex-start',
-//           px: '1em',
-//         }}
-//       >
-//         <Typography variant="body2" color="info">
-//           {destination.reason}
-//         </Typography>
-//         <Box sx={{ display: 'flex', flexDirection: 'row', gap: '.5em', mx: 'auto' }}>
-//           <Typography data-testid="RouteTool-RouteViewer-CurrentDestination_Title">
-//             Next Destination:
-//           </Typography>
-//           <LocationChip locationId={destination.location.id} sx={{ minWidth: '120px' }} />
-//         </Box>
-//       </DigiDisplay>
-//       <DigiDisplay
-//         data-testid="RouteTool-RouteViewer-NextDestination__Information_Container"
-//         sx={{ flexDirection: 'row' }}
-//       >
-//         <ReadOnlyField label="Local Time" />
-//         <ReadOnlyField label="Distance" value={formattedDistance} />
-//         <ReadOnlyField label="Est. Travel Time" />
-//       </DigiDisplay>
-//       <Box
-//         data-testid="RouteTool-RouteViewer-NextDestination__ObjectiveList_Wrapper"
-//         sx={{
-//           p: '.5em',
-//           maxHeight: '120px',
-//           flexDirection: 'column',
-//           overflow: 'auto',
-//           display: 'flex',
-//           gap: '.5em',
-//         }}
-//       >
-//         {destination.objectives?.map((objective) => (
-//           <Objective
-//             key={objective.id}
-//             objective={objective}
-//             destination={destination}
-//             active={false}
-//           />
-//         ))}
-//       </Box>
-//     </DigiBox>
-//   );
-// };
+type NextDestinationProps = {
+  destination: IDestination;
+  distance: string;
+};
+
+export const NextDestination: React.FC<NextDestinationProps> = ({
+  destination,
+  distance,
+}) => {
+  const tasks = destination.tasks.map((task) => task);
+
+  const currentLoad = useAppSelector(currentRouteLoad);
+
+  const retrievingSCU = tasks.reduce(
+    (sum, task) => (task.type === 'pickup' ? sum + (task.scu ?? 0) : sum),
+    0,
+  );
+
+  const unloadingSCU = tasks.reduce(
+    (sum, task) => (task.type === 'dropoff' ? sum + (task.scu ?? 0) : sum),
+    0,
+  );
+
+  const getDepatureLoad = React.useCallback(() => {
+    let load = currentLoad;
+    for (const task of tasks) {
+      if (task.status !== 'PENDING' || task.scu == null) continue;
+      if (task.type === 'pickup') {
+        load += task.scu;
+      } else if (task.type === 'dropoff') {
+        load -= task.scu;
+      }
+    }
+    return load;
+  }, [tasks, currentLoad]);
+
+  const departureLoad = getDepatureLoad();
+  return (
+    <DigiBox sx={{ p: '0.5em', gap: '1em' }}>
+      <DigiDisplay
+        sx={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '1em',
+          py: '0.2em',
+        }}
+      >
+        <Typography
+          variant="body2"
+          sx={{ position: 'absolute', left: 10, color: 'info.main', fontWeight: 'bold' }}
+        >
+          {destination.stopNumber}.
+        </Typography>
+        <Typography variant="h6">Next Destination</Typography>
+        <LocationChip locationId={destination.location.id} size="medium" />
+      </DigiDisplay>
+      <div style={{ gap: '1em', display: 'flex', padding: '0 0.5em' }}>
+        <TextField size="small" label="Local Time" color="secondary" disabled />
+        <TextField size="small" label="Distance" color="secondary" value={distance} />
+      </div>
+      <div style={{ gap: '0.5em', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ gap: '1em', display: 'flex', padding: '0 0.5em' }}>
+          <TextField
+            size="small"
+            label="SCU Retrieving"
+            color="secondary"
+            disabled={!retrievingSCU}
+          />
+          <TextField
+            size="small"
+            label="SCU Unloading"
+            color="secondary"
+            disabled={!unloadingSCU}
+            value={`${unloadingSCU.toLocaleString()} SCU`}
+          />
+        </div>
+        <div style={{ alignSelf: 'center' }}>
+          <TextField
+            size="small"
+            label="Departing Load"
+            color="secondary"
+            disabled={!departureLoad}
+            value={`${departureLoad.toLocaleString()} SCU`}
+          />
+        </div>
+      </div>
+      <PopupFormDisplay sx={{ p: '0.5em 0.2em', overflow: 'auto' }}>
+        {tasks.map((task) => {
+          return <Task key={task.id} task={task} destination={destination} />;
+        })}
+      </PopupFormDisplay>
+    </DigiBox>
+  );
+};
