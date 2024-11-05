@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { masterAppList } from '@Common/Definitions/AppListings';
+import { useMasterAppList } from '@Common/Definitions/AppListings';
 import { Close } from '@mui/icons-material';
 import { Box, Grid2, Grow, IconButton, Modal, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -18,7 +18,7 @@ export const AllApps: React.FC = () => {
     dispatch(closePopup(POPUP_APP_LIST));
   }, [dispatch]);
   const isOpen = useAppSelector((state) => selectIsPopupOpen(state, POPUP_APP_LIST));
-
+  const masterAppList = useMasterAppList();
   const appCount = masterAppList.length;
 
   const columns = Math.min(4, Math.ceil(Math.sqrt(appCount)));

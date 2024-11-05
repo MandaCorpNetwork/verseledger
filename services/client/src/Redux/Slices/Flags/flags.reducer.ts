@@ -7,7 +7,7 @@ const flagsReducer = createSlice({
   name: 'flags',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   initialState: {} as {
-    [key: IFeatureFlag['name']]: IFeatureFlag;
+    [key: IFeatureFlag['id']]: IFeatureFlag;
   },
   reducers: {
     noop() {
@@ -18,7 +18,7 @@ const flagsReducer = createSlice({
     builder.addCase(fetchUserFlags.fulfilled, (_state, action) => {
       const flags = action.payload;
       for (const flag of flags) {
-        _state[flag.name] = flag;
+        _state[flag.id] = flag;
       }
     });
   },

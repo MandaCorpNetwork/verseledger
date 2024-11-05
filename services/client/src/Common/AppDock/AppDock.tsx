@@ -7,11 +7,11 @@ import {
   contractApps,
   dashApps,
   exploreApps,
-  masterAppList,
   orderApps,
   personalApps,
   shipApps,
   splashApps,
+  useMasterAppList,
   VerseLedgerVersion,
 } from '@Common/Definitions/AppListings';
 import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
@@ -55,10 +55,13 @@ export const AppDock: React.FC = () => {
   const containerRef = React.useRef<HTMLElement>(null);
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
-
-  const getAppListings = React.useCallback((group: AppGroup): AppListing[] => {
-    return masterAppList.filter((app) => group.list.includes(app.id));
-  }, []);
+  const masterAppList = useMasterAppList();
+  const getAppListings = React.useCallback(
+    (group: AppGroup): AppListing[] => {
+      return masterAppList.filter((app) => group.list.includes(app.id));
+    },
+    [masterAppList],
+  );
 
   const getIconGroup = React.useCallback(() => {
     const path = location.pathname;
@@ -137,7 +140,7 @@ export const AppDock: React.FC = () => {
       return masterAppList.find((app) => app.id === 'profile');
     }
     return masterAppList.find((app) => app.path === location.pathname);
-  }, [location.pathname]);
+  }, [location.pathname, masterAppList]);
 
   const currentApp = getCurrentApp();
 

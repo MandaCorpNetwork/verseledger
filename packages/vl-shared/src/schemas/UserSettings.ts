@@ -17,6 +17,12 @@ export const UpdateUserSettingsCMD = z
     quality: z.string().max(32).nullable(),
   })
   .partial();
+
+export const UpdateUserSettingsFlagsCMD = z.record(
+  z.string().startsWith('feature_'),
+  z.string().nullable(),
+);
+export type IUpdateUserSettingsFlagsCMD = z.infer<typeof UpdateUserSettingsFlagsCMD>;
 export type IUpdateUserSettingsCMD = z.infer<typeof UpdateUserSettingsCMD>;
 
 export type IUserSettings = z.infer<typeof UserSettingsSchema>;
