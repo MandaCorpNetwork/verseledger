@@ -6,10 +6,10 @@ import {
   contractApps,
   dashApps,
   exploreApps,
-  masterAppList,
   orderApps,
   shipApps,
   splashApps,
+  useMasterAppList,
 } from '@Common/Definitions/AppListings';
 import { Discord } from '@Common/Definitions/CustomIcons';
 import {
@@ -210,10 +210,13 @@ export const MobileDock: React.FC<MobileDockProps> = ({
 
   // Fetching the Page Determined Icons
   const location = useLocation();
-
-  const getAppListings = React.useCallback((group: AppGroup): AppListing[] => {
-    return masterAppList.filter((app) => group.list.includes(app.id));
-  }, []);
+  const masterAppList = useMasterAppList();
+  const getAppListings = React.useCallback(
+    (group: AppGroup): AppListing[] => {
+      return masterAppList.filter((app) => group.list.includes(app.id));
+    },
+    [masterAppList],
+  );
 
   const getIconGroup = React.useCallback(() => {
     const path = location.pathname;
