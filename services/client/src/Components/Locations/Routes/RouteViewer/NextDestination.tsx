@@ -3,6 +3,9 @@ import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
 import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { TextField, Typography } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
+import { currentRouteLoad } from '@Redux/Slices/Routes/routes.selectors';
+import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { Task } from './Task';
@@ -17,6 +20,33 @@ export const NextDestination: React.FC<NextDestinationProps> = ({
   distance,
 }) => {
   const tasks = destination.tasks.map((task) => task);
+
+  const currentLoad = useAppSelector(currentRouteLoad);
+
+  const retrievingSCU = tasks.reduce(
+    (sum, task) => (task.type === 'pickup' ? sum + (task.scu ?? 0) : sum),
+    0,
+  );
+
+  const unloadingSCU = tasks.reduce(
+    (sum, task) => (task.type === 'dropoff' ? sum + (task.scu ?? 0) : sum),
+    0,
+  );
+
+  const getDepatureLoad = React.useCallback(() => {
+    let load = currentLoad;
+    for (const task of tasks) {
+      if (task.status !== 'PENDING' || task.scu == null) continue;
+      if (task.type === 'pickup') {
+        load += task.scu;
+      } else if (task.type === 'dropoff') {
+        load -= task.scu;
+      }
+    }
+    return load;
+  }, [tasks, currentLoad]);
+
+  const departureLoad = getDepatureLoad();
   return (
     <DigiBox sx={{ p: '0.5em', gap: '1em' }}>
       <DigiDisplay
@@ -43,10 +73,29 @@ export const NextDestination: React.FC<NextDestinationProps> = ({
       </div>
       <div style={{ gap: '0.5em', display: 'flex', flexDirection: 'column' }}>
         <div style={{ gap: '1em', display: 'flex', padding: '0 0.5em' }}>
-          <TextField size="small" label="SCU Retrieving" color="secondary" disabled />
-          <TextField size="small" label="SCU Unloading" color="secondary" disabled />
+          <TextField
+            size="small"
+            label="SCU Retrieving"
+            color="secondary"
+            disabled={!retrievingSCU}
+          />
+          <TextField
+            size="small"
+            label="SCU Unloading"
+            color="secondary"
+            disabled={!unloadingSCU}
+            value={`${unloadingSCU.toLocaleString()} SCU`}
+          />
         </div>
-        <TextField size="small" label="Departing Load" color="secondary" disabled />
+        <div style={{ alignSelf: 'center' }}>
+          <TextField
+            size="small"
+            label="Departing Load"
+            color="secondary"
+            disabled={!departureLoad}
+            value={`${departureLoad.toLocaleString()} SCU`}
+          />
+        </div>
       </div>
       <PopupFormDisplay sx={{ p: '0.5em 0.2em', overflow: 'auto' }}>
         {tasks.map((task) => {

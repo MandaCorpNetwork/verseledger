@@ -40,8 +40,10 @@ const routesReducer = createSlice({
         state.activeRoute.stop = currentDestination;
       })
       .addCase(nextStop, (state, action) => {
-        const nextDestination = action.payload;
+        const nextDestination = action.payload.nextDestination;
         state.activeRoute.stop = nextDestination;
+        const updatedDestination = action.payload.updatedDestination;
+        state.destinations[updatedDestination.id] = updatedDestination;
       })
       .addCase(updateLoad, (state, action) => {
         const newLoad = action.payload;

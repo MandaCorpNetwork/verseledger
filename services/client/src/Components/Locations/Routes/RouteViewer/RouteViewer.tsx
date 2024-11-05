@@ -1,7 +1,8 @@
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { Button, Typography } from '@mui/material';
-import { useAppSelector } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { nextStop } from '@Redux/Slices/Routes/actions/activeRoute.action';
 import { currentRouteStop } from '@Redux/Slices/Routes/routes.selectors';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
@@ -10,6 +11,7 @@ import { formatDistance, getMappedLocation, MappedLocation } from '../RouteUtili
 import { CheckpointDestination } from './CheckpointDestination';
 import { CurrentDestination } from './CurrentDestination';
 import { NextDestination } from './NextDestination';
+import { RouteViewerTable } from './RouteViewerTable';
 
 type RouteViewerProps = {
   destinations: IDestination[];
@@ -21,6 +23,7 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({
   locationTree,
 }) => {
   const currentDestination = useAppSelector(currentRouteStop);
+  const dispatch = useAppDispatch();
   const currentDestinationIndex = destinations.findIndex(
     (dest) => dest.id == currentDestination.id,
   );
@@ -50,6 +53,15 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({
     nextDestination.location.id,
     followingStop.location.id,
   );
+
+  const nextDisabled = currentDestination.tasks.some(
+    (task) => task.status !== 'COMPLETED',
+  );
+
+  const handleNextDestination = React.useCallback(() => {
+    const updatedDestination = { ...currentDestination, visited: true };
+    dispatch(nextStop({ updatedDestination, nextDestination }));
+  }, [currentDestination, dispatch, nextDestination]);
   return (
     <GlassBox
       data-testid="RouteTool__RouteViewer_Container"
@@ -69,9 +81,19 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({
           Route Viewer
         </Typography>
         <div>
-          <Button variant="contained">Open Widget</Button>
-          <Button variant="contained">Next Stop</Button>
-          <Button variant="contained">Add Stop</Button>
+          <Button variant="contained" disabled>
+            Open Widget
+          </Button>
+          <Button
+            variant="contained"
+            disabled={nextDisabled}
+            onClick={handleNextDestination}
+          >
+            Next Stop
+          </Button>
+          <Button variant="contained" disabled>
+            Add Stop
+          </Button>
         </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'row', flexGrow: 1, gap: '1em' }}>
@@ -92,7 +114,9 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({
             <NextDestination destination={nextDestination} distance={nextDistance} />
           )}
         </GlassDisplay>
-        <GlassDisplay>Table Go here</GlassDisplay>
+        <GlassDisplay sx={{ p: '1em' }}>
+          <RouteViewerTable destinations={destinations} locationTree={locationTree} />
+        </GlassDisplay>
       </div>
     </GlassBox>
   );

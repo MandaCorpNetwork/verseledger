@@ -5,7 +5,10 @@ export const startRoute = createAction<{ destination: IDestination; scuLoad: num
   'routes/startRoute',
 );
 
-export const nextStop = createAction<IDestination>('routes/nextStop');
+export const nextStop = createAction<{
+  updatedDestination: IDestination;
+  nextDestination: IDestination;
+}>('routes/nextStop');
 
 export const updateLoad = createAction<number>('routes/updateLoad');
 
