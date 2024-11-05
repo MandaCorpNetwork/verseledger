@@ -13,10 +13,9 @@ import { Box, IconButton, Slider, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { closeWidget } from '@Redux/Slices/Widgets/widgets.actions';
 import useScrollSlider from '@Utils/Hooks/scrollSlider';
+import { VLWidget } from '@Widgets/WidgetWrapper/WidgetWrapperNew';
 import { enqueueSnackbar } from 'notistack';
 import React, { useCallback } from 'react';
-
-import { VLWidget } from '../WidgetWrapper/WidgetWrapper';
 
 export const WIDGET_RADIO = 'radio';
 

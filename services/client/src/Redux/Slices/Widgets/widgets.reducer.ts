@@ -1,4 +1,4 @@
-import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Action, createSlice } from '@reduxjs/toolkit';
 
 import { closeWidget, openWidget } from './widgets.actions';
 
@@ -6,36 +6,23 @@ type WidgetState = {
   [name: string]: {
     open: boolean;
     props?: Record<string, unknown>;
-    position: { x: number; y: number };
   };
 };
 
 const widgetsReducer = createSlice({
   name: 'widgets',
   initialState: {} as WidgetState,
-  reducers: {
-    setPosition: (
-      state,
-      action: PayloadAction<{ name: string; position: { x: number; y: number } }>,
-    ) => {
-      const { name, position } = action.payload;
-      if (state[name]) {
-        state[name].position = position;
-      }
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(openWidget, (state, action) => {
         state[action.payload.name] = {
           ...action.payload.state,
-          position: { x: 0, y: window.innerHeight - 100 },
         };
       })
       .addCase(closeWidget, (state, action) => {
         state[action.payload.name] = {
           ...action.payload.state,
-          position: { x: 0, y: window.innerHeight - 100 },
         };
       })
       .addMatcher(
@@ -46,7 +33,6 @@ const widgetsReducer = createSlice({
             state[wName] = {
               open: false,
               props: {},
-              position: { x: 0, y: window.innerHeight - 100 },
             };
           }
         },
