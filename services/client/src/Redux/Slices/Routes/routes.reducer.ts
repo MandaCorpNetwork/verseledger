@@ -1,7 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { nextStop, startRoute, updateActiveTask, updateLoad } from './actions/activeRoute.action';
+import {
+  nextStop,
+  startRoute,
+  updateActiveTask,
+  updateLoad,
+} from './actions/activeRoute.action';
 import {
   deleteDestination,
   replaceDestinations,

@@ -147,12 +147,14 @@ export const Task: React.FC<RouteViewerTaskProps> = ({
       sx={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Checkbox
-          checked={task.status === 'COMPLETED'}
-          disabled={task.status === 'INTERUPTED'}
-          onChange={handleComplete}
-          color="success"
-        />
+        {current && (
+          <Checkbox
+            checked={task.status === 'COMPLETED'}
+            disabled={task.status === 'INTERUPTED'}
+            onChange={handleComplete}
+            color="success"
+          />
+        )}
         <Typography>{task.label}</Typography>
       </div>
       {typeDisplay}

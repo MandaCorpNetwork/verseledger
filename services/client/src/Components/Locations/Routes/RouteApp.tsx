@@ -61,7 +61,9 @@ export const RouteApp: React.FC<unknown> = () => {
         p: '.5em',
       }}
     >
-      {activeRouting && <RouteViewer destinations={destinations} />}
+      {activeRouting && (
+        <RouteViewer destinations={destinations} locationTree={locationTree} />
+      )}
       {activeRouting && (
         <Collapse
           collapsedSize="60px"

@@ -6,13 +6,19 @@ import { currentRouteStop } from '@Redux/Slices/Routes/routes.selectors';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
+import { formatDistance, getMappedLocation, MappedLocation } from '../RouteUtilities';
+import { CheckpointDestination } from './CheckpointDestination';
 import { CurrentDestination } from './CurrentDestination';
 
 type RouteViewerProps = {
   destinations: IDestination[];
+  locationTree: Map<string, MappedLocation>;
 };
 
-export const RouteViewer: React.FC<RouteViewerProps> = ({ destinations }) => {
+export const RouteViewer: React.FC<RouteViewerProps> = ({
+  destinations,
+  locationTree,
+}) => {
   const currentDestination = useAppSelector(currentRouteStop);
   const currentDestinationIndex = destinations.findIndex(
     (dest) => dest.id == currentDestination.id,
@@ -22,6 +28,27 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({ destinations }) => {
     (task) => task.type === 'checkpoint',
   );
   const followingStop = destinations[currentDestinationIndex + 2];
+
+  const getDistance = React.useCallback(
+    (idA: string, idB: string) => {
+      const locA = getMappedLocation(locationTree, idA);
+      const locB = getMappedLocation(locationTree, idB);
+      if (locA == null) return `Err«`;
+      if (locB == null) return `Err»`;
+      return formatDistance(locA, locB);
+    },
+    [locationTree],
+  );
+
+  const nextDistance = getDistance(
+    currentDestination.location.id,
+    nextDestination.location.id,
+  );
+
+  const followingDistance = getDistance(
+    nextDestination.location.id,
+    followingStop.location.id,
+  );
   return (
     <GlassBox
       data-testid="RouteTool__RouteViewer_Container"
@@ -47,8 +74,14 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({ destinations }) => {
         </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'row', flexGrow: 1 }}>
-        <GlassDisplay sx={{ p: '1em', height: '100%' }}>
+        <GlassDisplay sx={{ p: '1em', height: '100%', gap: '1em' }}>
           <CurrentDestination destination={currentDestination} />
+          {nextIsCheckpoint && nextDestination.tasks.length <= 1 && (
+            <CheckpointDestination
+              destination={nextDestination}
+              distance={nextDistance}
+            />
+          )}
         </GlassDisplay>
         <GlassDisplay></GlassDisplay>
       </div>

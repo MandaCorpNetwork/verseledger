@@ -69,6 +69,12 @@ export const CurrentDestination: React.FC<CurrentDestinationProps> = ({
           py: '0.2em',
         }}
       >
+        <Typography
+          variant="body2"
+          sx={{ position: 'absolute', left: 10, color: 'info.main', fontWeight: 'bold' }}
+        >
+          {destination.stopNumber}.
+        </Typography>
         <Typography variant="h6">Current Destination</Typography>
         <LocationChip locationId={destination.location.id} size="medium" />
       </DigiDisplay>
