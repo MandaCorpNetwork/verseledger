@@ -1,15 +1,10 @@
 {
-  "short_name": "Verse Ledger",
-  "name": "Verse Ledger",
-  "screenshots": [
-    {
-      "src": "logo640x320.png",
-      "sizes": "640x320",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Application"
-    }
+  "background_color": "#000113",
+  "categories": [
+    "star citizen"
   ],
+  "description": "A Star Citizen Companion Application",
+  "display": "standalone",
   "icons": [
     {
       "src": "favicon.ico",
@@ -47,8 +42,18 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000113",
-  "background_color": "#000113"
+  "name": "Verse Ledger",
+  "orientation": "landscape",
+  "short_name": "Verse Ledger",
+  "screenshots": [
+    {
+      "src": "logo640x320.png",
+      "sizes": "640x320",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Application"
+    }
+  ],
+  "start_url": "/",
+  "theme_color": "#000113"
 }
