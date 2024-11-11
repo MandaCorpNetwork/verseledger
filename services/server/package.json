@@ -48,7 +48,7 @@
     "csv-parse": "5.5.6",
     "dotenv": "16.4.5",
     "express": "4.21.1",
-    "googleapis": "^144.0.0",
+    "googleapis": "144.0.0",
     "inversify": "6.1.1",
     "inversify-express-utils": "6.4.7",
     "jsonwebtoken": "9.0.2",
@@ -64,7 +64,7 @@
     "swagger-jsdoc": "6.2.8",
     "swagger-ui-express": "5.0.1",
     "vl-shared": "1.0.0",
-    "web-push": "^3.6.7",
+    "web-push": "3.6.7",
     "ws": "8.18.0",
     "zod": "3.23.8"
   },
