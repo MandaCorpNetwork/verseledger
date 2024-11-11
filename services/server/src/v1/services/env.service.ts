@@ -7,28 +7,32 @@ let has_warned = false;
 @injectable()
 export class EnvService implements EnvironmentConfig {
   // ENVARS HERE
-  public DISCORD_CLIENT_ID!: string;
-  public DISCORD_CLIENT_SECRET!: string;
+  declare DISCORD_CLIENT_ID: string;
+  declare DISCORD_CLIENT_SECRET: string;
 
-  public GOOGLE_CLIENT_ID!: string;
-  public GOOGLE_CLIENT_SECRET!: string;
+  declare GOOGLE_CLIENT_ID: string;
+  declare GOOGLE_CLIENT_SECRET: string;
 
-  public FRONTEND_HOST!: string;
-  public BACKEND_HOST!: string;
-  public BROKER_HOST!: string;
+  declare FRONTEND_HOST: string;
+  declare BACKEND_HOST: string;
+  declare BROKER_HOST: string;
 
-  public PALLY_WS!: string;
-  public PALLY_CHANNEL!: string;
+  declare PALLY_WS: string;
+  declare PALLY_CHANNEL: string;
 
-  public MYSQL_DATABASE!: string;
-  public MYSQL_USER!: string;
-  public MYSQL_PASSWORD!: string;
-  public MYSQL_HOST!: string;
-  public MYSQL_PORT!: number;
+  declare VAPID_PUBLIC_KEY: string;
+  declare VAPID_PRIVATE_KEY: string;
+  declare VAPID_SUBJECT: string;
 
-  public EXPRESS_PORT!: number;
+  declare MYSQL_DATABASE: string;
+  declare MYSQL_USER: string;
+  declare MYSQL_PASSWORD: string;
+  declare MYSQL_HOST: string;
+  declare MYSQL_PORT: number;
 
-  public AUTH_SECRET!: string;
+  declare EXPRESS_PORT: number;
+
+  declare AUTH_SECRET: string;
   // SERVICE CODE
   constructor() {
     const env = process.env;

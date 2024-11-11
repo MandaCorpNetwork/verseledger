@@ -1,8 +1,6 @@
 {
   "background_color": "#000113",
-  "categories": [
-    "star citizen"
-  ],
+  "categories": ["star citizen"],
   "description": "A Star Citizen Companion Application",
   "display": "standalone",
   "icons": [
