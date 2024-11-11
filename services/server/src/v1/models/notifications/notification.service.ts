@@ -70,11 +70,16 @@ export class NotificationService {
       action: action ? JSON.stringify(action) : undefined,
       read: false,
     });
-    this.socket.publish(
+    this.publish(
       `/topic/notifications-${user_id}`,
       NotificationToNotificationDTOMapper.map(notification),
     );
     return notification != null;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public async publish(topic: string, payload: any) {
+    return this.socket.publish(topic, payload);
   }
 
   public async dismiss(notification_id: string, user_id?: string) {
