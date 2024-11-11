@@ -19,6 +19,7 @@ import { ChatService } from '@V1/models/chat/chat.service';
 import { ContractBidsService } from '@V1/models/contract_bid/contract_bid.service';
 import { LocationService } from '@V1/models/location/locations.services';
 import { OrganizationService } from '@V1/models/organization/organization.services';
+import { VAPIDService } from '@V1/services/vapid.service';
 export const bindContainer = (container: Container) => {
   container
     .bind<EnvService>(TYPES.EnvService)
@@ -88,5 +89,9 @@ export const bindContainer = (container: Container) => {
   container
     .bind<OrganizationService>(TYPES.OrganizationService)
     .to(OrganizationService)
+    .inSingletonScope();
+  container
+    .bind<VAPIDService>(TYPES.VAPIDService)
+    .to(VAPIDService)
     .inSingletonScope();
 };

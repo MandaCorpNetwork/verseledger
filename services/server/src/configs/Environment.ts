@@ -95,6 +95,24 @@ export const envConfig = {
     optional: true,
     default: null,
   },
+  VAPID_PUBLIC_KEY: {
+    type: 'string',
+    description: 'npx web-push generate-vapid-keys',
+    optional: true,
+    default: null,
+  },
+  VAPID_PRIVATE_KEY: {
+    type: 'string',
+    description: 'npx web-push generate-vapid-keys',
+    optional: true,
+    default: null,
+  },
+  VAPID_SUBJECT: {
+    type: 'string',
+    description: 'mailto:test@test.test',
+    optional: true,
+    default: null,
+  },
 } as const;
 
 export type EnvironmentConfig = {
