@@ -4060,17 +4060,10 @@
   dependencies:
     "@types/unist" "*"
 
-"@types/mime@4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@types/mime/-/mime-4.0.0.tgz#b5f8a75697ac775ecf1daaea9bfb91cde065b397"
-  integrity sha512-5eEkJZ/BLvTE3vXGKkWlyTSUVZuzj23Wj8PoyOq2lt5I3CYbiLBOPb3XmCW6QcuOibIUE6emHXHt9E/F/rCa6w==
-  dependencies:
-    mime "*"
-
-"@types/mime@^1":
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.5.tgz#1ef302e01cf7d2b5a0fa526790c9123bf1d06690"
-  integrity sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==
+"@types/mime@3.0.4", "@types/mime@4.0.0", "@types/mime@^1":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@types/mime/-/mime-3.0.4.tgz#2198ac274de6017b44d941e00261d5bc6a0e0a45"
+  integrity sha512-iJt33IQnVRkqeqC7PzBHPTC6fDlRNRW8vjrgqtScAhrmMwe8c4Eo7+fUGTa+XdWrpEgpyKWMYmi2dIwMAYRzPw==
 
 "@types/morgan@1.9.9":
   version "1.9.9"
@@ -9653,11 +9646,6 @@ mime-types@^2.1.12, mime-types@~2.1.19, mime-types@~2.1.24, mime-types@~2.1.34:
   dependencies:
     mime-db "1.52.0"
 
-mime@*:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/mime/-/mime-4.0.4.tgz#9f851b0fc3c289d063b20a7a8055b3014b25664b"
-  integrity sha512-v8yqInVjhXyqP6+Kw4fV3ZzeMRqEW6FotRsKXjRS5VMTNIuXsdRoAvklpoRgSqXm6o9VNH4/C0mgedko9DdLsQ==
-
 mime@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
@@ -10200,9 +10188,9 @@ pako@~1.0.5:
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
 pally.gg@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/pally.gg/-/pally.gg-0.1.0.tgz#41468cf8cb4f472867ead04ea9a39ee8f25e5bab"
-  integrity sha512-OMrYQuh65SmX12ft3EkbrdENqN4qbfi9ebHj7M2ioFvpDUNHhycoU+RnLCkWqnuBQtAncPXfg8BNX0/Dr47eXw==
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/pally.gg/-/pally.gg-0.1.1.tgz#37155364b800c9b8c1be7d62bff2dd1c3eb618f6"
+  integrity sha512-gDSOkWmLNq2FDbvMO7Ideo+5TQNVeTL+ekmV2PDzx4/xkULPkvM3Eu/dStHOW+WkFagg6XqLrqdBbBMS+1PXQA==
 
 parent-module@^1.0.0:
   version "1.0.1"
