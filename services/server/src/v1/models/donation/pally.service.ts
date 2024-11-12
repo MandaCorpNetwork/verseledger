@@ -3,14 +3,14 @@ import { TYPES } from '@Constant/types';
 import { EnvService } from '../../services/env.service';
 import { Logger } from '@Utils/Logger';
 import chalk from 'chalk';
-import Pally, { CampaignTip } from 'pally.gg';
+import { Client as PallyClient, CampaignTip } from 'pally.gg';
 import { NotificationService } from '@V1/models/notifications/notification.service';
 import { Donation } from './donation.model';
 import { DonationToDonationDTOMapper } from './mapping/DonationToDonationDTO';
 
 @injectable()
 export class PallyService {
-  protected client?: (typeof Pally)['Client']['prototype'];
+  protected client?: PallyClient;
   protected interval?: NodeJS.Timeout;
 
   constructor(
@@ -24,7 +24,7 @@ export class PallyService {
       );
       return;
     }
-    this.client = new Pally.Client({
+    this.client = new PallyClient({
       auth: this.envars.PALLY_WS,
       channel: 'activity-feed',
       room: this.envars.PALLY_CHANNEL,
