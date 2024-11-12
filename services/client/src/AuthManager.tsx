@@ -1,13 +1,16 @@
+import CloseIcon from '@mui/icons-material/Close';
+import { IconButton } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { updateTokens } from '@Redux/Slices/Auth/Actions/updateTokens.action';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { actions } from '@Redux/Slices/Contracts/contracts.reducer';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { Logger } from '@Utils/Logger';
-import { enqueueSnackbar } from 'notistack';
+import { closeSnackbar, enqueueSnackbar } from 'notistack';
 import { useCallback, useEffect } from 'react';
 import { useSubscription } from 'react-stomp-hooks';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IDonation } from 'vl-shared/src/schemas/DonationSchema';
 
 export const AuthManager: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -27,6 +30,22 @@ export const AuthManager: React.FC = () => {
     enqueueSnackbar({
       variant: 'info',
       message: `message: ${contract}`,
+    });
+  });
+
+  useSubscription('/topic/donation', (message) => {
+    const donation = JSON.parse(message.body) as IDonation;
+    enqueueSnackbar({
+      variant: 'success',
+      message: `Thank you ${donation.display_name} for donating ${(donation.cents / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })} to the team!`,
+      autoHideDuration: 10_000,
+      action: (key) => {
+        return (
+          <IconButton onClick={() => closeSnackbar(key)}>
+            <CloseIcon />
+          </IconButton>
+        );
+      },
     });
   });
 
