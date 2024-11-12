@@ -10187,7 +10187,7 @@ pako@~1.0.5:
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
-pally.gg@^0.1.0:
+pally.gg@0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/pally.gg/-/pally.gg-0.1.1.tgz#37155364b800c9b8c1be7d62bff2dd1c3eb618f6"
   integrity sha512-gDSOkWmLNq2FDbvMO7Ideo+5TQNVeTL+ekmV2PDzx4/xkULPkvM3Eu/dStHOW+WkFagg6XqLrqdBbBMS+1PXQA==

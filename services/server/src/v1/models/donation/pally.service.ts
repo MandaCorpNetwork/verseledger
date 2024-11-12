@@ -3,21 +3,10 @@ import { TYPES } from '@Constant/types';
 import { EnvService } from '../../services/env.service';
 import { Logger } from '@Utils/Logger';
 import chalk from 'chalk';
-import Pally from 'pally.gg';
+import Pally, { CampaignTip } from 'pally.gg';
 import { NotificationService } from '@V1/models/notifications/notification.service';
 import { Donation } from './donation.model';
 import { DonationToDonationDTOMapper } from './mapping/DonationToDonationDTO';
-
-type CampaignTip = {
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  grossAmountInCents: number;
-  netAmountInCents: number;
-  processingFeeInCents: number;
-  displayName: string;
-  message: string;
-};
 
 @injectable()
 export class PallyService {
