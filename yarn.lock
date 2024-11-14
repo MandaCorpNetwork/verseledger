@@ -10187,10 +10187,10 @@ pako@~1.0.5:
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
-pally.gg@0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/pally.gg/-/pally.gg-0.1.2.tgz#b577a3e1e978ff42c910d707d52a8477bfbfed74"
-  integrity sha512-KuDE15ZeXuYsyvAmwX/8lncBxxR7E/68a/hLEANA6JBR5XC6mFapAe+HkUp+DRn6zWX0vmViT/zXnBwIGC6zVw==
+pally.gg@0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/pally.gg/-/pally.gg-0.2.1.tgz#749da7f6ac7f816ca782ec3548df0d6238da54d0"
+  integrity sha512-BuVBuIjnxB6hJj7oc0NRpzqfAuVxyAdanh26aJ7UOmVEuVdd0P8WTgtKkvTAKsiQQck3RsOte/vfhiH8/sXEAg==
 
 parent-module@^1.0.0:
   version "1.0.1"
