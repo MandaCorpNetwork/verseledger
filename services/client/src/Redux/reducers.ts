@@ -6,6 +6,7 @@ import contractsReducer from './Slices/Contracts/contracts.reducer';
 import flagsReducer from './Slices/Flags/flags.reducer';
 import locationsReducer from './Slices/Locations/locations.reducer';
 import notificationsReducer from './Slices/Notifications/notifications.reducer';
+import orgsReducer from './Slices/Orgs/orgs.reducer';
 import popupsReducer from './Slices/Popups/popups.reducer';
 import routesReducer from './Slices/Routes/routes.reducer';
 import tokensReducer from './Slices/Tokens/tokens.reducer';
@@ -24,4 +25,5 @@ export const coreReducer = combineReducers({
   tokens: tokensReducer.reducer,
   routes: routesReducer.reducer,
   flags: flagsReducer.reducer,
+  organizations: orgsReducer.reducer,
 });

@@ -4,8 +4,14 @@ import { FormLoadingButton } from '@Common/Components/Buttons/FormLoadingButton'
 import { Alert, TextField, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
+import { postCreateOrg } from '@Redux/Slices/Orgs/actions/post/postCreateOrg.action';
+import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { useForm } from '@tanstack/react-form';
+import { enqueueSnackbar } from 'notistack';
 import React from 'react';
+import { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
+
+//TODO: ERROR UI FEEDBACK
 
 export const POPUP_CREATE_ORG = 'createOrg';
 
@@ -19,7 +25,16 @@ export const CreateOrgPopup: React.FC = () => {
       rsi_handle: '',
     },
     onSubmit: async ({ value }) => {
-      console.log(value);
+      sound.playSound('loading');
+      dispatch(postCreateOrg(value)).then((res) => {
+        if ((res.payload as IOrganization).id.length > 1) {
+          dispatch(closePopup(POPUP_CREATE_ORG));
+          sound.playSound('success');
+          enqueueSnackbar('Organization Created', { variant: 'success' });
+        } else {
+          sound.playSound('error');
+        }
+      });
     },
   });
 
@@ -31,7 +46,7 @@ export const CreateOrgPopup: React.FC = () => {
           label="Create Org"
           loading={isSubmitting}
           disabled={!canSubmit}
-          onClick={() => {}}
+          onClick={form.handleSubmit}
         />
       )}
     />
