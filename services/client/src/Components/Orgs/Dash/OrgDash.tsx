@@ -1,4 +1,6 @@
+import { OnlineMembers } from './OnlineMembers';
 import { OrgActivityBox } from './OrgActivityBox';
+import { OrgJobsOverview } from './OrgJobsOverview';
 import { OrgTitleBar } from './OrgTitleBar';
 
 export const OrgDash: React.FC = () => {
@@ -41,9 +43,12 @@ export const OrgDash: React.FC = () => {
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'space-between',
+            justifyContent: 'space-between',
           }}
-        ></div>
+        >
+          <OrgJobsOverview />
+          <OnlineMembers />
+        </div>
       </div>
     </div>
   );
