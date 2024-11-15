@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import TabListHolo from '@Common/Components/Tabs/TabListHolo';
-import { Tab, Tabs } from '@mui/material';
+import { Tab } from '@mui/material';
 import React from 'react';
 
 export const OrgJobsOverview: React.FC = () => {
