@@ -1,6 +1,7 @@
 import { AppDockContainer } from '@Common/AppDock/AppDockContainer';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { MobileDock } from '@Common/MobileDock/MobileDock';
+import { OrgSwitcher } from '@Components/Orgs/Switcher/OrgSwitcher';
 import { Box } from '@mui/material';
 import { useIsMobile } from '@Utils/isMobile';
 import { Outlet } from 'react-router-dom';
@@ -54,6 +55,7 @@ export const OrgLedgerPage: React.FC = () => {
         >
           <Outlet />
         </Box>
+        <OrgSwitcher />
       </Box>
       {isMobile && <MobileDock top right />}
       {!isMobile && <AppDockContainer />}
