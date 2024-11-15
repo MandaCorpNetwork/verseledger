@@ -3,6 +3,9 @@ import { ContractManagerApp } from '@Components/Contracts/ContractManager/Contra
 import { ExploreApp } from '@Components/Locations/Explore/ExploreApp';
 import { InventoryApp } from '@Components/Locations/Inventory/InventoryApp';
 import { RouteApp } from '@Components/Locations/Routes/RouteApp';
+import { OrgDash } from '@Components/Orgs/Dash/OrgDash';
+import { OrgFinder } from '@Components/Orgs/Finder/OrgFinder';
+import { OrgManager } from '@Components/Orgs/Management/OrgManager';
 import { ShipTuning } from '@Components/Ships/Tuning/Tuning';
 import { DashboardApp } from '@Components/User/Dashboard/DashboardApp';
 import { VerseMarketPage } from '@Components/VerseMarket/VerseMarketPage';
@@ -160,6 +163,25 @@ export const routingInfo: RouteObject[] = [
       {
         path: '/orgs',
         element: <OrgLedgerPage />,
+        children: [
+          {
+            index: true,
+            element: <OrgDash />,
+          },
+          {
+            index: true,
+            path: 'dash',
+            element: <OrgDash />,
+          },
+          {
+            path: 'finder',
+            element: <OrgFinder />,
+          },
+          {
+            path: 'manager',
+            element: <OrgManager />,
+          },
+        ],
       },
       {
         path: '/verse-news',

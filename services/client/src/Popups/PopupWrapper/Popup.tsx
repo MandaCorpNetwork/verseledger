@@ -1,6 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { Close } from '@mui/icons-material';
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -10,7 +11,7 @@ import {
 } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
-import React, { PropsWithChildren, useCallback } from 'react';
+import React, { PropsWithChildren, ReactElement, useCallback } from 'react';
 
 export type TitleWithObject = {
   text: string;
@@ -23,6 +24,11 @@ type VLPopupProps = PropsWithChildren<{
   maxHeight?: string;
   minHeight?: string;
   title: string | TitleWithObject;
+  submitButton?: ReactElement;
+  auxSubmitButton?: ReactElement;
+  cancelButton?: ReactElement;
+  auxCancelButton?: ReactElement;
+  alertBox?: ReactElement;
   submitText?: string | React.ReactNode;
   submitDisabled?: boolean;
   onSubmit?: () => void;
@@ -57,6 +63,11 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
     maxWidth,
     minHeight,
     maxHeight,
+    submitButton,
+    auxSubmitButton,
+    cancelButton,
+    auxCancelButton,
+    alertBox,
     sx,
   } = props;
   const dispatch = useAppDispatch();
@@ -118,6 +129,30 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
       >
         {children}
       </DialogContent>
+      <DialogActions
+        sx={{
+          display: 'flex',
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        {alertBox}
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            flexGrow: 1,
+            gap: '0.5em',
+          }}
+        >
+          {auxCancelButton}
+          {cancelButton}
+          {auxSubmitButton}
+          {submitButton}
+        </Box>
+      </DialogActions>
       <DialogActions>
         {bottomBarComponent && <>{bottomBarComponent}</>}
         {onCancel && (
