@@ -129,9 +129,24 @@ const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
       >
         {children}
       </DialogContent>
-      <DialogActions>
+      <DialogActions
+        sx={{
+          display: 'flex',
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         {alertBox}
-        <Box sx={{ ml: 'auto', display: 'flex', gap: '1em' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            flexGrow: 1,
+            gap: '0.5em',
+          }}
+        >
           {auxCancelButton}
           {cancelButton}
           {auxSubmitButton}
