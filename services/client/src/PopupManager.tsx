@@ -4,6 +4,7 @@ import {
   AddLocationProps,
   POPUP_ADD_LOCATION,
 } from '@Popups/AddLocation/AddLocation';
+import { AddOrgPopup, POPUP_ADD_ORG } from '@Popups/Orgs/AddOrg/AddOrg';
 import {
   ContractBidProps,
   POPUP_SUBMIT_CONTRACT_BID,
@@ -133,6 +134,7 @@ export const PopupManager: React.FC = () => {
   const importFilePopup = useAppSelector((state) =>
     selectPopup(state, POPUP_IMPORT_FILE),
   );
+  const addOrgPopup = useAppSelector((state) => selectPopup(state, POPUP_ADD_ORG));
   return (
     <>
       {verifyUserPopup.open && <VerifyUserPopup />}
@@ -181,6 +183,7 @@ export const PopupManager: React.FC = () => {
       {importFilePopup.open && (
         <ImportFilePopup {...(importFilePopup.props as ImportFileProps)} />
       )}
+      {addOrgPopup.open && <AddOrgPopup />}
     </>
   );
 };

@@ -1,14 +1,18 @@
 import { Box } from '@mui/material';
 
+import { AddOrgButton } from './AddOrgButton';
+import { EmptySpace } from './EmptySpace';
+
 export const OrgSwitcher: React.FC = () => {
   return (
     <Box
       sx={{
+        display: 'flex',
         width: '60px',
-        minHeight: '40%',
         borderRadius: '10px',
         position: 'fixed',
-        transform: 'translateY(50%)',
+        top: '50%',
+        transform: 'translateY(-50%)',
         left: 10,
         border: '2px solid',
         borderColor: 'rgba(33,150,243,0.5)',
@@ -21,10 +25,19 @@ export const OrgSwitcher: React.FC = () => {
           width: '100%',
           display: 'flex',
           flexDirection: 'column',
+          padding: '0.5em 0',
           alignItems: 'center',
           justifyContent: 'space-around',
+          gap: '1em',
         }}
-      ></div>
+      >
+        <AddOrgButton />
+        <EmptySpace />
+        <EmptySpace />
+        <EmptySpace />
+        <EmptySpace />
+        <EmptySpace />
+      </div>
     </Box>
   );
 };
