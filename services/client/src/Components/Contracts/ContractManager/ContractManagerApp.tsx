@@ -1,6 +1,7 @@
 // Imports
 import { useSoundEffect } from '@Audio/AudioManager';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
+import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
 import { Box, useMediaQuery } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
@@ -11,7 +12,7 @@ import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { useIsMobile } from '@Utils/isMobile';
 import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useParams } from 'react-router-dom';
 import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
 import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
@@ -19,8 +20,11 @@ import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
 
 import { ContractManagerBrowser } from './Browser/ContractManagerBrowser';
-import { SelectedContract } from './ContractDisplay/SelectedContract';
 import { ContractorInfo } from './ContractDisplay/tools/ContractorInfo';
+const SelectedContract = React.lazy(async () => {
+  const module = await import('./ContractDisplay/SelectedContract');
+  return { default: module.SelectedContract };
+});
 
 /**
  * ### Contract Manager App
@@ -45,7 +49,6 @@ export const ContractManagerApp: React.FC<unknown> = () => {
    */
   const [page] = React.useState(1);
 
-  //TODO: Need to implement useParams for the selected contract instead of useState
   // const { selectedContractId } = useParams();
   // HOOKS
   const dispatch = useAppDispatch();
@@ -320,7 +323,9 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           }}
         >
           {!hideContracts && selectedContractId ? (
-            <SelectedContract />
+            <Suspense fallback={<LoadingWheel />}>
+              <SelectedContract />
+            </Suspense>
           ) : (
             <ContractorInfo willChange={hideContracts} />
           )}
