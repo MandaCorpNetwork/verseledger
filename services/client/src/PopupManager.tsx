@@ -41,6 +41,8 @@ import {
 } from '@Popups/Info/Locations';
 import { PayStructuresPopup, POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { LoginPopup, POPUP_LOGIN } from '@Popups/Login/LoginPopup';
+import { AddOrgPopup, POPUP_ADD_ORG } from '@Popups/Orgs/AddOrg/AddOrg';
+import { CreateOrgPopup, POPUP_CREATE_ORG } from '@Popups/Orgs/CreateOrg/CreateOrg';
 import {
   PlayerCardPopup,
   PlayerCardPopupProps,
@@ -133,6 +135,8 @@ export const PopupManager: React.FC = () => {
   const importFilePopup = useAppSelector((state) =>
     selectPopup(state, POPUP_IMPORT_FILE),
   );
+  const addOrgPopup = useAppSelector((state) => selectPopup(state, POPUP_ADD_ORG));
+  const createOrgPopup = useAppSelector((state) => selectPopup(state, POPUP_CREATE_ORG));
   return (
     <>
       {verifyUserPopup.open && <VerifyUserPopup />}
@@ -181,6 +185,8 @@ export const PopupManager: React.FC = () => {
       {importFilePopup.open && (
         <ImportFilePopup {...(importFilePopup.props as ImportFileProps)} />
       )}
+      {addOrgPopup.open && <AddOrgPopup />}
+      {createOrgPopup.open && <CreateOrgPopup />}
     </>
   );
 };

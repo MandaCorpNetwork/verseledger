@@ -247,7 +247,7 @@ export const useMasterAppList = () => {
         icon: <BusinessTwoTone />,
         disabled: orgs,
         versionLabel: 'Org Dashboard',
-        version: '0.x',
+        version: '0.0.1',
         severityCode: 10,
       },
       {

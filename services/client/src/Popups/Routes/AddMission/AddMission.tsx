@@ -116,7 +116,6 @@ export const AddMissionPopup: React.FC = () => {
               color="secondary"
               required
               value={field.state.value}
-              onFocus={() => console.log(field.state.value)}
               onChange={(e) => field.handleChange(e.target.value)}
               onBlur={field.handleBlur}
               sx={{
