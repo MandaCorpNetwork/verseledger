@@ -41,6 +41,7 @@ import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
 import { IContract } from 'vl-shared/src/schemas/ContractSchema';
 import { UserRating } from '@V1/models/user_ratings/user_ratings.model';
 import { UserSettings } from '@V1/models/user_settings/user_settings.model';
+import { OrganizationMember } from '../organization/organization_member.model';
 @Scopes(() => ({
   bids: {
     include: [
@@ -57,6 +58,11 @@ import { UserSettings } from '@V1/models/user_settings/user_settings.model';
                 as: 'Settings',
                 where: { key: 'userPageImage' },
                 required: false,
+              },
+              {
+                model: OrganizationMember,
+                as: 'OrgMemberships',
+                include: [{ model: Organization, as: 'Org' }],
               },
             ],
           },
@@ -75,6 +81,11 @@ import { UserSettings } from '@V1/models/user_settings/user_settings.model';
             as: 'Settings',
             where: { key: 'userPageImage' },
             required: false,
+          },
+          {
+            model: OrganizationMember,
+            as: 'OrgMemberships',
+            include: [{ model: Organization, as: 'Org' }],
           },
         ],
       },
