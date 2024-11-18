@@ -43,6 +43,10 @@ export class OrganizationMember extends Model<
   @Column({ type: DataType.DATE() })
   declare joined: Date;
 
+  @Default(false)
+  @Column({ type: DataType.BOOLEAN() })
+  declare primary: boolean;
+
   @BelongsTo(() => User, { foreignKey: 'user_id', targetKey: 'id' })
   declare User: CreationOptional<Awaited<User>>;
 

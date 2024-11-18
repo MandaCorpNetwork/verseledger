@@ -67,6 +67,8 @@ import { Organization } from '../organization/organization.model';
       {
         model: OrganizationMember,
         as: 'OrgMemberships',
+        where: { primary: true },
+        required: false,
         include: [{ model: Organization, as: 'Org' }],
       },
     ],
