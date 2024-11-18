@@ -3623,10 +3623,10 @@
   resolved "https://registry.yarnpkg.com/@tanstack/ranger/-/ranger-0.0.3.tgz#3fb287dea26d6ed88eb405f1d77982f5cfd3ec8f"
   integrity sha512-RYpW7MnEMxKLuskfadeyBfxpU8cUTGrtp5TnCV9PKEgMfrR6vwlk9/1/eU2EvJfYZbDAr1inphL4TGWCcRLAXQ==
 
-"@tanstack/react-form@0.35.0":
-  version "0.35.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-form/-/react-form-0.35.0.tgz#3fb610c6065d5dfe877867e7e7f19d601153e25b"
-  integrity sha512-9TkARKyzctQjg5yivxJiSb1Q3NoqGRKC7XZG0+UevWOjbIn+PR18eX8Nglx1CSxlj+BnzO+bWgVDO2evCugdtQ==
+"@tanstack/react-form@0.36.0":
+  version "0.36.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-form/-/react-form-0.36.0.tgz#331030031cd61d1dc3534c09e94b4b8ebc32a593"
+  integrity sha512-A8g4/bJxC7ZZOIOmBE4KV/z56l4aM0Kij1oVKlDZ/z4W8yD+kfxI6j9QgtORGN7+2rosM9d0oV88+cTu6PJNQg==
   dependencies:
     "@remix-run/node" "^2.14.0"
     "@tanstack/form-core" "0.35.0"
