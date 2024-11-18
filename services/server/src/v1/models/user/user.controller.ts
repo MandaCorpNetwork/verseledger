@@ -97,7 +97,10 @@ export class UsersController extends BaseHttpController {
   @httpGet('/@me', TYPES.AuthMiddleware)
   public async getSelf() {
     const principal = this.httpContext.user as VLAuthPrincipal;
-    const user = await this.userService.getUser(principal.id, ['settings']);
+    const user = await this.userService.getUser(principal.id, [
+      'settings',
+      'orgs',
+    ]);
     if (user == null) return this.notFound();
     return UserToUserDTOMapper.map(user);
   }

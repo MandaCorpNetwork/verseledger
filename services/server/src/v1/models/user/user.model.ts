@@ -32,6 +32,8 @@ import {
 } from 'sequelize';
 import { Notification } from '@V1/models/notifications/notification.model';
 import { UserAuth } from '@V1/models/auth/user_auth.model';
+import { OrganizationMember } from '../organization/organization_member.model';
+import { Organization } from '../organization/organization.model';
 @Scopes(() => ({
   bids: {
     include: [{ model: ContractBid, as: 'PostedBids' }],
@@ -45,8 +47,15 @@ import { UserAuth } from '@V1/models/auth/user_auth.model';
   settings: {
     include: [{ model: UserSettings, as: 'Settings' }],
   },
-  orgs: {},
-  primaryOrg: {},
+  orgs: {
+    include: [
+      {
+        model: OrganizationMember,
+        as: 'OrgMemberships',
+        include: [{ model: Organization, as: 'Org' }],
+      },
+    ],
+  },
   profile: {
     include: [
       {
@@ -54,6 +63,11 @@ import { UserAuth } from '@V1/models/auth/user_auth.model';
         as: 'Settings',
         where: { key: 'userPageImage' },
         required: false,
+      },
+      {
+        model: OrganizationMember,
+        as: 'OrgMemberships',
+        include: [{ model: Organization, as: 'Org' }],
       },
     ],
   },
@@ -117,6 +131,9 @@ export class User
 
   @HasMany(() => UserSettings, 'user_id')
   declare Settings: NonAttribute<Awaited<UserSettings[]>>;
+
+  @HasMany(() => OrganizationMember, 'user_id')
+  declare OrgMemberships: NonAttribute<Awaited<UserSettings[]>>;
 
   @HasMany(() => UserAuth, `user_id`)
   declare Auth?: NonAttribute<Awaited<UserAuth[]>>;
