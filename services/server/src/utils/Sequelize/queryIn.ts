@@ -28,6 +28,15 @@ export const queryIn = <T>(values: T | T[]): WhereOptions | undefined => {
   return undefined;
 };
 
+export const queryLike = (
+  value: string | undefined | null,
+): WhereOptions | undefined => {
+  if (value != null) {
+    return { [Op.like as symbol]: `%${value}%` };
+  }
+  return undefined;
+};
+
 export const queryAbove = (
   value: number | undefined,
 ): WhereOptions | undefined => {

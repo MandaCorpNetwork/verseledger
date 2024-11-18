@@ -5,6 +5,7 @@ import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { ContractBidDTO } from '@V1/models/contract_bid/mapping/ContractBidDTO';
 import { UserSettingsArrayToUserSettingsDTOMapper } from '@V1/models/user_settings/mapping/UserSettingsArrayToUserSettingsDTO.mapper';
 import { NotificationDTO } from '@V1/models/notifications/mapping/NotificationDTO';
+import { OrganizationMemberDTO } from '@V1/models/organization/mapping/OrganizationMemberDTO';
 
 @ApiModel({
   description: 'Contract Bid Object',
@@ -21,6 +22,7 @@ export class UserDTO extends DTOBase<IUser> implements IUser {
         keepArray: true,
       },
       Notifications: NotificationDTO,
+      OrgMemberships: OrganizationMemberDTO,
     });
   }
 

@@ -14,3 +14,12 @@ export const createOrganizationCMD = OrganizationSchema.omit({
   id: true,
 });
 export type ICreateOrganizationCMD = z.infer<typeof createOrganizationCMD>;
+
+export const OrganizationMemberSchema = z.object({
+  id: z.string().max(26),
+  user_id: z.string().max(26),
+  org_id: z.string().max(26),
+  role: z.string().max(32),
+  joined: z.coerce.date(),
+});
+export type IOrganizationMember = z.infer<typeof OrganizationMemberSchema>;
