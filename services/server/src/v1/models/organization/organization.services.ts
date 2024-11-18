@@ -4,11 +4,36 @@ import { ICreateOrganizationCMD } from 'vl-shared/src/schemas/orgs/OrganizationS
 import { Organization } from './organization.model';
 import { Op } from 'sequelize';
 import { BadRequestError } from '@V1/errors/BadRequest';
+import { IOrgSearchCMD } from 'vl-shared/src/schemas/orgs/OrgSearchCMD';
+import { optionalSet, queryLike } from '@Utils/Sequelize/queryIn';
 
 @injectable()
 export class OrganizationService {
   constructor() {
     Logger.init();
+  }
+
+  public async search(search?: IOrgSearchCMD) {
+    const { limit = 10, page = 0, title, rsi_handle } = search ?? {};
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const query = {} as any;
+
+    optionalSet(query, 'title', queryLike(title));
+    optionalSet(query, 'rsi_handle', queryLike(rsi_handle));
+
+    const pLimit = Math.min(limit ?? 0, 25);
+    const orgs = await Organization.findAndCountAll({
+      where: query,
+      limit: pLimit,
+      offset: (page ?? 0) * pLimit,
+    });
+    const count = await Organization.count({ where: query });
+    return [null, { ...orgs, count }] as const;
+  }
+
+  public async get(id: string) {
+    return Organization.findByPk(id);
   }
 
   public async countOwnership(owner_id: string) {

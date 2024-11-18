@@ -45,6 +45,8 @@ import { UserAuth } from '@V1/models/auth/user_auth.model';
   settings: {
     include: [{ model: UserSettings, as: 'Settings' }],
   },
+  orgs: {},
+  primaryOrg: {},
   profile: {
     include: [
       {

@@ -2,11 +2,13 @@ import { TYPES } from '@Constant/types';
 import {
   BaseHttpController,
   controller,
+  httpGet,
   httpPost,
   next,
   requestBody,
+  requestParam,
 } from 'inversify-express-utils';
-import { ApiOperationPost, ApiPath } from 'swagger-express-ts';
+import { ApiOperationGet, ApiOperationPost, ApiPath } from 'swagger-express-ts';
 import { OrganizationService } from './organization.services';
 import { inject } from 'inversify';
 import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
@@ -18,6 +20,14 @@ import {
 import { BadRequestError } from '@V1/errors/BadRequest';
 import { OrganizationToOrganizationDTO } from './mapping/OrganizationToOrganizationDTO.mapper';
 import { ZodToOpenapi } from '@Utils/ZodToOpenapi';
+import {
+  IOrgSearchCMD,
+  OrgSearchCMD,
+} from 'vl-shared/src/schemas/orgs/OrgSearchCMD';
+import { IdUtil } from '@Utils/IdUtil';
+import { NotFoundError } from '@V1/errors/NotFoundError';
+import { PaginatedDataDTO } from '@V1/DTO';
+import { OrganizationDTO } from './mapping/OrganizationDTO';
 
 const MAX_ORGS = 3;
 
@@ -35,6 +45,86 @@ export class OrganizationController extends BaseHttpController {
   ) {
     super();
   }
+
+  @ApiOperationPost({
+    description: 'Find organizations',
+    summary: 'Find organizations',
+    path: '/search',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Orgs Found',
+        model: 'Organization[]',
+      },
+    },
+    consumes: [],
+    parameters: {
+      body: {
+        required: true,
+        properties: ZodToOpenapi(OrgSearchCMD),
+      },
+    },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
+  })
+  @httpPost('/search', TYPES.VerifiedUserMiddleware)
+  private async search(
+    @requestBody() body: IOrgSearchCMD,
+    @next() nextFunc: NextFunction,
+  ) {
+    const search = OrgSearchCMD.strict().parse(body);
+    const [error, orgs] = await this.orgService.search(search);
+    if (error != null) {
+      return nextFunc(error);
+    }
+    return this.ok(
+      new PaginatedDataDTO(
+        orgs.rows,
+        {
+          total: orgs.count,
+          limit: Math.min(25, search.limit ?? 10),
+          page: search?.page ?? 0,
+        },
+        OrganizationDTO,
+      ),
+    );
+  }
+
+  @ApiOperationGet({
+    description: 'Get an Organization',
+    summary: 'Get an Organization',
+    path: '/{organizationId}',
+    responses: {
+      200: {
+        type: 'Success',
+        description: 'Org Found',
+        model: 'Organization',
+      },
+    },
+    consumes: [],
+    parameters: {
+      path: {
+        organizationId: {
+          required: true,
+          description: 'An organization ID',
+          type: 'string',
+        },
+      },
+    },
+    security: { VLBearerAuth: [], VLQueryAuth: [], VLTokenAuth: [] },
+  })
+  @httpGet(
+    `/:organizationId(${IdUtil.expressRegex(IdUtil.IdPrefix.Organization)})`,
+    TYPES.VerifiedUserMiddleware,
+  )
+  private async get(
+    @next() nextFunc: NextFunction,
+    @requestParam('organizationId') organizationId: string,
+  ) {
+    const org = await this.orgService.get(organizationId);
+    if (org == null) return nextFunc(new NotFoundError(organizationId));
+    return OrganizationToOrganizationDTO.map(org);
+  }
+
   @ApiOperationPost({
     description: 'Create a new Organization',
     summary: 'Create Organization',
