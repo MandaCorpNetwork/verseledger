@@ -13,7 +13,7 @@ import { Op } from 'sequelize';
 
 @injectable()
 export class AuthProvider implements interfaces.AuthProvider {
-  @inject(TYPES.AuthService) declare private readonly _authService: AuthService;
+  @inject(TYPES.AuthService) private declare readonly _authService: AuthService;
 
   async getUser(
     req: Request<

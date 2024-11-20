@@ -10,7 +10,7 @@ export class AuthService {
   constructor() {
     Logger.init();
   }
-  @inject(TYPES.EnvService) declare private readonly _envars: EnvService;
+  @inject(TYPES.EnvService) private declare readonly _envars: EnvService;
 
   /**
    * Validate and Decode a token
