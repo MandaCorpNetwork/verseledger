@@ -1,3 +1,5 @@
+import '../AppDock.css';
+
 import { useSoundEffect } from '@Audio/AudioManager';
 import { useMasterAppList } from '@Common/Definitions/AppListings';
 import { Close } from '@mui/icons-material';
@@ -7,7 +9,7 @@ import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { selectIsPopupOpen } from '@Redux/Slices/Popups/popups.selectors';
 import React from 'react';
 
-import { AllAppButton } from '../Icons/AllAppButton';
+import { AppButton } from '../Icons/AppButton';
 
 export const POPUP_APP_LIST = 'appList';
 
@@ -35,7 +37,7 @@ export const AllApps: React.FC = () => {
       <Grow in={isOpen} timeout={1000}>
         <Box
           data-testid="AppList__Wrapper"
-          sx={{ p: { xs: '1em', md: '5%', lg: '10%' } }}
+          sx={{ p: { xs: '1em', md: '2em', lg: '5%' } }}
         >
           <Box
             data-testid="AppList__Title_Wrapper"
@@ -116,7 +118,7 @@ export const AllApps: React.FC = () => {
                   justifyContent: 'center',
                 }}
               >
-                <AllAppButton
+                <AppButton
                   label={app.label}
                   path={app.path}
                   icon={app.icon as JSX.Element}

@@ -3,9 +3,13 @@ import '../AppDock.css';
 import { useSoundEffect } from '@Audio/AudioManager';
 import { Box, Button, Typography } from '@mui/material';
 import { useNav } from '@Utils/Hooks/useNav';
+import { useAppDispatch } from '@Redux/hooks';
+import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
+
+import { POPUP_APP_LIST } from '../Tools/AllApps';
 
 type AppIconProps = {
   label: string;
@@ -38,7 +42,7 @@ export const AppButton: React.FC<AppIconProps> = ({
       return prevRotateY + step;
     });
     animationFrameId.current = requestAnimationFrame(smoothRotate);
-  }, []);
+  }, [targetRotateY]);
 
   const handleMouseMove = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -57,7 +61,7 @@ export const AppButton: React.FC<AppIconProps> = ({
         animationFrameId.current = requestAnimationFrame(smoothRotate);
       }
     },
-    [smoothRotate],
+    [smoothRotate, targetRotateY],
   );
 
   const location = useLocation();
