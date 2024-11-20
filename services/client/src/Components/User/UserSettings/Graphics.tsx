@@ -1,16 +1,55 @@
 /* eslint-disable react/no-children-prop */
+import { useSoundEffect } from '@Audio/AudioManager';
 import { DigiBox } from '@Common/Components/Boxes/DigiBox';
 import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
+import { FormLoadingButton } from '@Common/Components/Buttons/FormLoadingButton';
 import { WarningAmberTwoTone } from '@mui/icons-material';
 import { FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
+import { useAppDispatch } from '@Redux/hooks';
+import { updateUserSettings } from '@Redux/Slices/Auth/Actions/updateUserSettings.action';
 import { useForm } from '@tanstack/react-form';
+import { Logger } from '@Utils/Logger';
+import { enqueueSnackbar } from 'notistack';
+import {
+  IUpdateUserSettingsCMD,
+  IUserSettings,
+} from 'vl-shared/src/schemas/UserSettings';
 
-export const GraphicsSettings: React.FC = () => {
+type GraphicsSettingsProps = {
+  currentSettings: IUserSettings;
+};
+
+const options = ['high', 'medium', 'low', 'none'];
+
+export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
+  const { currentSettings } = props;
+  const dispatch = useAppDispatch();
+  const sound = useSoundEffect();
   const form = useForm({
     defaultValues: {
-      animations: '',
-      fidelity: '',
+      animations: currentSettings.animations ?? 'medium',
+      quality: currentSettings.quality ?? 'medium',
+    },
+    onSubmit: ({ value }) => {
+      const updatePayload: IUpdateUserSettingsCMD = {
+        animations: value.animations,
+        quality: value.quality,
+      };
+      sound.playSound('loading');
+
+      dispatch(updateUserSettings(updatePayload))
+        .then(() => {
+          enqueueSnackbar('Graphics Settings updated Successfully', {
+            variant: 'success',
+          });
+          sound.playSound('success');
+        })
+        .catch((error) => {
+          enqueueSnackbar('Failed to update Graphics Settings', { variant: 'error' });
+          sound.playSound('error');
+          Logger.error('Failed to update Graphics Settings', error);
+        });
     },
   });
   return (
@@ -66,6 +105,12 @@ export const GraphicsSettings: React.FC = () => {
             <form.Field
               name="animations"
               data-testid="UserSettings-SectionDisplay-GraphicsSettings-Form__AnimationsSettings_Input"
+              validators={{
+                onChange: ({ value }) =>
+                  options.includes(value) ? undefined : 'Invalid Option',
+                onBlur: ({ value }) =>
+                  options.includes(value) ? undefined : 'Invalid Option',
+              }}
               children={(field) => (
                 <RadioGroup
                   value={field.state.value}
@@ -137,8 +182,14 @@ export const GraphicsSettings: React.FC = () => {
             sx={{ my: '0.5em', alignItems: 'flex-start', px: '0.5em' }}
           >
             <form.Field
-              name="fidelity"
+              name="quality"
               data-testid="UserSettings-SectionDisplay-GraphicsSettings-Form__AnimationsSettings_Input"
+              validators={{
+                onChange: ({ value }) =>
+                  options.includes(value) ? undefined : 'Invalid Option',
+                onBlur: ({ value }) =>
+                  options.includes(value) ? undefined : 'Invalid Option',
+              }}
               children={(field) => (
                 <RadioGroup
                   value={field.state.value}
@@ -179,6 +230,41 @@ export const GraphicsSettings: React.FC = () => {
             />
           </DigiDisplay>
         </DigiBox>
+        <div
+          style={{
+            position: 'fixed',
+            bottom: 0,
+            right: 0,
+            marginBottom: '16px',
+            marginRight: '16px',
+          }}
+        >
+          {/* <form.Subscribe
+            selector={(state) => [state.errors, state.isFormValid]}
+            childrenm={([_errors, isFormValid]) => (
+              <Alert
+                variant="outlined"
+                severity={isFormValid ? 'success' : 'error'}
+              ></Alert>
+            )}
+          /> */}
+          <form.Subscribe
+            selector={(state) => [state.canSubmit, state.isSubmitting, state.values]}
+            children={([canSubmit, isSubmitting, values]) => {
+              const defaultValues = form.options?.defaultValues;
+              const isUnchanged =
+                JSON.stringify(values) === JSON.stringify(defaultValues);
+              return (
+                <FormLoadingButton
+                  label="Save Settings"
+                  loading={!!isSubmitting}
+                  disabled={!canSubmit || isUnchanged}
+                  onClick={form.handleSubmit}
+                />
+              );
+            }}
+          />
+        </div>
       </form>
     </GlassBox>
   );

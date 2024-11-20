@@ -23,5 +23,5 @@ export const selectUserSettings = createSelector([selectAuthObject], (authObject
 
 export const selectUserSoundPack = createSelector(
   [selectUserSettings],
-  (settings) => settings.soundPack || 'systemDefault',
+  (settings) => settings.soundPack ?? 'systemDefault',
 );

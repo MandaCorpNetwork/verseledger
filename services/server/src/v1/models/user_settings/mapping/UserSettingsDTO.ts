@@ -37,13 +37,13 @@ export class UserSettingsDTO
   })
   public animations!: string;
   @ApiModelProperty({
-    description: 'ID of Contract',
+    description: 'Application Animation Sophistocation',
     required: true,
     example: 'C-pu2lqjxks971z5ov62t9eg9p',
   })
   public quality!: string;
   @ApiModelProperty({
-    description: 'ID of Contract',
+    description: 'Quality of Components',
     required: true,
     example: 'C-pu2lqjxks971z5ov62t9eg9p',
   })

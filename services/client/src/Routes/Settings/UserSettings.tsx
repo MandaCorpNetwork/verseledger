@@ -22,8 +22,11 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
+import { selectUserSettings } from '@Redux/Slices/Auth/auth.selectors';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
+import { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
 
 //TODO: Fix Animations
 
@@ -47,6 +50,8 @@ export const UserSettings: React.FC = () => {
   const [transitioning, setTransitioning] = React.useState<boolean>(false);
   const isMobile = useIsMobile();
 
+  const currentSettings = useAppSelector(selectUserSettings);
+
   const settingsPageRender = React.useCallback(() => {
     switch (selectedSetting) {
       case 'Profile':
@@ -58,13 +63,13 @@ export const UserSettings: React.FC = () => {
       case 'Sounds':
         return <SoundSettings />;
       case 'Graphics':
-        return <GraphicsSettings />;
+        return <GraphicsSettings currentSettings={currentSettings as IUserSettings} />;
       case 'Beta':
         return <BetaSettings />;
       case 'Notifications':
         return <NotificationSettings />;
     }
-  }, [selectedSetting]);
+  }, [selectedSetting, currentSettings]);
 
   const handleSettingSelection = React.useCallback(
     (setting: settingsListItem) => {
@@ -110,11 +115,13 @@ export const UserSettings: React.FC = () => {
     </Box>
   );
   return (
-    <VLViewport sx={{ display: 'flex', flexDirection: 'column' }}>
+    <VLViewport sx={{ display: 'flex', flexDirection: 'column', py: '1em' }}>
       <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
         <Typography variant="h4">User Settings</Typography>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'row', flexGrow: 1 }}>
+      <div
+        style={{ display: 'flex', flexDirection: 'row', flexGrow: 1, margin: '1em 0' }}
+      >
         <Drawer
           variant="persistent"
           open={true}
@@ -184,7 +191,7 @@ export const UserSettings: React.FC = () => {
           data-testid="UserSettings-Settings__DisplayWrapper"
           sx={{
             flexGrow: 1,
-            pl: '2em',
+            px: '2em',
           }}
         >
           <Grow
