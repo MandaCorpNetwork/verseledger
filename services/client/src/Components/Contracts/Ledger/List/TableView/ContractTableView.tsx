@@ -18,7 +18,10 @@ import {
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
-import { IContract, IContractTimestamped } from 'vl-shared/src/schemas/ContractSchema';
+import {
+  IContract,
+  IContractTimestamped,
+} from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 type ContractRowProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

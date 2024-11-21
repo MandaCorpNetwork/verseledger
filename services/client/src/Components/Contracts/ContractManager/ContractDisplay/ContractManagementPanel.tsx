@@ -3,7 +3,7 @@ import { ContractorList } from '@Common/Components/Contracts/ContractorList';
 import TabListHolo from '@Common/Components/Tabs/TabListHolo';
 import { Tab } from '@mui/material';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 type PanelProps = {
   contract: IContract;

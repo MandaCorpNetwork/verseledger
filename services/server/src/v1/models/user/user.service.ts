@@ -6,7 +6,7 @@ import { UserValidation } from '@V1/models/user/user_validation.model';
 import { Logger } from '@Utils/Logger';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
-import { IContractBidStatus } from 'vl-shared/src/schemas/ContractBidStatusSchema';
+import { IContractBidStatus } from 'vl-shared/src/schemas/contracts/ContractBidStatusSchema';
 import { optionalSet, queryIn } from '@Utils/Sequelize/queryIn';
 import { UserAuth } from '@V1/models/auth/user_auth.model';
 

@@ -8,7 +8,7 @@ import { ErrorOutline, HighlightOffTwoTone } from '@mui/icons-material';
 import { IconButton, Tooltip, Typography } from '@mui/material';
 import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
-import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
+import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { ContractDetailsCollapse } from './DetailsCollapse';
 

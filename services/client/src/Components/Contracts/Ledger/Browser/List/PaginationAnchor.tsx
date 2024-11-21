@@ -6,9 +6,9 @@ import { selectContractPagination } from '@Redux/Slices/Contracts/contracts.sele
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
 import React, { SyntheticEvent } from 'react';
-import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
-import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
-import { IContractSearch } from 'vl-shared/src/schemas/SearchSchema';
+import { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import { IContractSearch } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
+import { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTypeSchema';
 
 type PaginationAnchorProps = {
   isMobile: boolean;

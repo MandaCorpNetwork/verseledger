@@ -11,9 +11,9 @@ import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid.action';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { enqueueSnackbar } from 'notistack';
 import React, { useCallback } from 'react';
-import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
-import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
-import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
+import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
+import { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 export const POPUP_COUNTER_OFFER_BID = 'counterOfferBid';

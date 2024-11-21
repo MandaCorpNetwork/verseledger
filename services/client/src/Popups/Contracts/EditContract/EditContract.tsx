@@ -21,7 +21,10 @@ import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React, { useCallback, useState } from 'react';
-import { IContract, ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
+import {
+  IContract,
+  ICreateContractBody,
+} from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 export const POPUP_EDIT_CONTRACT = 'contracts_edit';
 

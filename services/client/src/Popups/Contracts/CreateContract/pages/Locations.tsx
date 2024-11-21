@@ -6,7 +6,7 @@ import { LocationChip } from '@Common/Components/Chips/LocationChip';
 import { Box, FormControl, FormLabel, TextField, Typography } from '@mui/material';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
-import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
+import { ICreateContractBody } from 'vl-shared/src/schemas/contracts/ContractSchema';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { SmallEmergencyOverlay } from '../EmergencyOverlay';

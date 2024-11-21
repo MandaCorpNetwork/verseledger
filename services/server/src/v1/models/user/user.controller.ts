@@ -21,7 +21,7 @@ import { IdPrefix, IdUtil } from '@Utils/IdUtil';
 import { BadRequestError } from '@V1/errors/BadRequest';
 import { ApiOperationGet, ApiPath } from 'swagger-express-ts';
 import { Logger } from '@Utils/Logger';
-import { UserBidsSearchSchema } from 'vl-shared/src/schemas/SearchSchema';
+import { UserBidsSearchSchema } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
 import { GenericError } from '@V1/errors/GenericError';
 import { z, ZodError } from 'zod';
 import { UserToUserDTOMapper } from './mapping/UserToUserDTO.mapper';

@@ -14,10 +14,13 @@ import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
 import React, { Suspense } from 'react';
 import { useParams } from 'react-router-dom';
-import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
-import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
-import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
-import { IContractSearch, IUserBidSearch } from 'vl-shared/src/schemas/SearchSchema';
+import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
+import { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import {
+  IContractSearch,
+  IUserBidSearch,
+} from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
+import { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTypeSchema';
 
 import { ContractManagerBrowser } from './Browser/ContractManagerBrowser';
 import { ContractorInfo } from './ContractDisplay/tools/ContractorInfo';

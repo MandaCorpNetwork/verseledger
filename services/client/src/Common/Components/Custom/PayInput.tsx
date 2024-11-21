@@ -6,7 +6,7 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
+import { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
 
 type PayInputProps = {
   label: string;
