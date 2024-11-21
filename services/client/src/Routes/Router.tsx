@@ -174,6 +174,10 @@ export const routingInfo: RouteObject[] = [
             element: <OrgDash />,
           },
           {
+            path: '/orgs/finder/:selectedOrgId',
+            element: <OrgFinder />,
+          },
+          {
             path: 'finder',
             element: <OrgFinder />,
           },
