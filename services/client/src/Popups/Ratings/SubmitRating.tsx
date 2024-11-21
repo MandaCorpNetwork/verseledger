@@ -12,7 +12,7 @@ import { selectUserById } from '@Redux/Slices/Users/users.selectors';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 import {
   ICreateContractRatingsBody,
   ICreateUserRatingBody,

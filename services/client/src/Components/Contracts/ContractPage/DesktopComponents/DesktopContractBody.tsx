@@ -10,8 +10,8 @@ import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHo
 import { Box, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import { Logger } from '@Utils/Logger';
-import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
+import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 type DesktopBodyProps = {
   /** The contract to display information for */

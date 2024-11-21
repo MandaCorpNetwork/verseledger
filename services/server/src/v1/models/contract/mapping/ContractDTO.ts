@@ -1,10 +1,10 @@
 import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
 
-import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
+import { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
 
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
-import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
+import { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTypeSchema';
 
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { DTOBase } from '@V1/DTO/DTOBase';

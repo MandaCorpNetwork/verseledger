@@ -1,7 +1,7 @@
 import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
 import { DTOBase } from '@V1/DTO/DTOBase';
-import { IContractBidStatus } from 'vl-shared/src/schemas/ContractBidStatusSchema';
-import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
+import { IContractBidStatus } from 'vl-shared/src/schemas/contracts/ContractBidStatusSchema';
+import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 import { ContractDTO } from '@V1/models/contract/mapping/ContractDTO';
 import { UserDTO } from '@V1/models/user/mapping/UserDTO';
 

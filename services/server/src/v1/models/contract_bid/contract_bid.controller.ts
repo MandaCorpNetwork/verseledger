@@ -27,9 +27,9 @@ import { ContractBidDTO } from './mapping/ContractBidDTO';
 import { UnauthorizedError } from '@V1/errors/UnauthorizedError';
 import { NotModified } from '@V1/errors/NotModified';
 import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
-import { ContractBidStatusSchema } from 'vl-shared/src/schemas/ContractBidStatusSchema';
+import { ContractBidStatusSchema } from 'vl-shared/src/schemas/contracts/ContractBidStatusSchema';
 import { z } from 'zod';
-import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
+import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 import { ContractBidsService } from './contract_bid.service';
 
 @ApiPath({

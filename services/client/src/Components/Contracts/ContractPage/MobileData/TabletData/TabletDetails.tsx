@@ -6,8 +6,8 @@ import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
 import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
 import { Box, Typography } from '@mui/material';
-import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 type TabletDetailsProps = {
   /** The contract to display information for */

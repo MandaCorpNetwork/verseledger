@@ -1,14 +1,12 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { Box, debounce, TablePagination } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContracts.action';
-import { selectContractPagination } from '@Redux/Slices/Contracts/contracts.selectors';
+import { fetchOrgs } from '@Redux/Slices/Orgs/actions/post/fetchOrgs.action';
+import { selectOrgPagination } from '@Redux/Slices/Orgs/orgs.selectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
+import { QueryNames } from '@Utils/QueryNames';
 import React, { SyntheticEvent } from 'react';
-import { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
-import { IContractSearch } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
-import { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTypeSchema';
+import { IOrgSearchCMD } from 'vl-shared/src/schemas/orgs/OrgSearchCMD';
 
 type PaginationAnchorProps = {
   isMobile: boolean;
@@ -21,8 +19,8 @@ export const PaginationAnchor: React.FC<PaginationAnchorProps> = ({ isMobile }) 
   const dispatch = useAppDispatch();
   const { searchParams } = useURLQuery();
 
-  const pagination = useAppSelector(selectContractPagination);
-  const contractCount = pagination;
+  const pagination = useAppSelector(selectOrgPagination);
+  const orgCount = pagination;
 
   const handleChangePage = React.useCallback(
     (_e: SyntheticEvent, newPage: number) => {
@@ -32,7 +30,6 @@ export const PaginationAnchor: React.FC<PaginationAnchorProps> = ({ isMobile }) 
     [sound, setPage],
   );
 
-  // TODO: Math to make the page stay the same whether decreasing or increasing
   const handleChangeRowsPerPage = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       sound.playSound('clickMain');
@@ -43,82 +40,19 @@ export const PaginationAnchor: React.FC<PaginationAnchorProps> = ({ isMobile }) 
   );
 
   const search = React.useCallback(
-    (params: IContractSearch) => {
-      dispatch(fetchContracts(params));
+    (params: IOrgSearchCMD) => {
+      dispatch(fetchOrgs(params));
     },
     [dispatch],
   );
 
   React.useEffect(() => {
-    // Subtype Filter Initialization
-    const selectedSubtypes = searchParams.getAll(
-      QueryNames.Subtype,
-    ) as IContractSubType[];
-    const selectedArchetype = searchParams.getAll(QueryNames.Archetype) as string[];
-    const archetypeToSub: IContractSubType[] = selectedArchetype.flatMap(
-      (a) => ArchetypeToSubtypes[a] ?? [],
-    );
-    const combinedSubtypes: IContractSubType[] = Array.from(
-      new Set([...selectedSubtypes, ...archetypeToSub]),
-    );
-    const bidBefore = new Date(searchParams.get(QueryNames.BidBefore) as string);
-    const bidAfter = new Date(searchParams.get(QueryNames.BidAfter) as string);
-    const startBefore = new Date(searchParams.get(QueryNames.StartBefore) as string);
-    const startAfter = new Date(searchParams.get(QueryNames.StartAfter) as string);
-    const endBefore = new Date(searchParams.get(QueryNames.EndBefore) as string);
-    const endAfter = new Date(searchParams.get(QueryNames.EndAfter) as string);
-    const duration = parseInt(searchParams.get(QueryNames.Duration) as string, 10);
-    const payStructure = searchParams.get(
-      QueryNames.PayStructure,
-    ) as IContractPayStructure;
-    const contractorRating = searchParams.get(QueryNames.ContractorRating) as string;
-    const minPay = Number(searchParams.get(QueryNames.UECRangeMin) as string);
-    const maxPay = Number(searchParams.get(QueryNames.UECRangeMax) as string);
-    const emergency = searchParams.get(QueryNames.Emergency) as string;
-
-    const params: IContractSearch = {
+    const searchTerm = searchParams.get(QueryNames.SearchQuery) as string;
+    const params: IOrgSearchCMD = {
       page: page,
       limit: rowsPerPage,
-      status: ['BIDDING', 'INPROGRESS'],
-      ...(combinedSubtypes.length > 0 && {
-        subtype: combinedSubtypes,
-      }),
-      ...((bidBefore || bidAfter) && {
-        bidDate: {
-          before: bidBefore,
-          after: bidAfter,
-        },
-      }),
-      ...((startBefore || startAfter) && {
-        startDate: {
-          before: startBefore,
-          after: startAfter,
-        },
-      }),
-      ...((endBefore || endAfter) && {
-        endDate: {
-          before: endBefore,
-          after: endAfter,
-        },
-      }),
-      ...(duration && {
-        duration: Number(duration),
-      }),
-      ...(payStructure && {
-        payStructure: payStructure,
-      }),
-      ...(contractorRating && {
-        contractorRating: contractorRating,
-      }),
-      ...(minPay && {
-        minPay: minPay,
-      }),
-      ...(maxPay && {
-        maxPay: maxPay,
-      }),
-      ...(emergency && {
-        isEmergency: 'true',
-      }),
+      title: searchTerm ?? '',
+      rsi_handle: searchTerm ?? '',
     };
     debounce(() => search(params), 300)();
   }, [searchParams, page, rowsPerPage, search]);
@@ -128,7 +62,7 @@ export const PaginationAnchor: React.FC<PaginationAnchorProps> = ({ isMobile }) 
       <TablePagination
         rowsPerPageOptions={[25, 50, 100]}
         component={Box}
-        count={contractCount.total}
+        count={orgCount.total}
         page={page}
         rowsPerPage={rowsPerPage}
         onPageChange={() => handleChangePage}

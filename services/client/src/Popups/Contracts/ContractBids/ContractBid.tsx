@@ -17,7 +17,7 @@ import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
+import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { BidTimeRemaining } from './BidTimeRemaining';
 import { NegotiateBid } from './NegotiateBid';

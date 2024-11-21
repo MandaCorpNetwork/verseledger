@@ -23,8 +23,8 @@ import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import { useIsMobile } from '@Utils/isMobile';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
-import { ICreateContractBody } from 'vl-shared/src/schemas/ContractSchema';
-import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
+import { ICreateContractBody } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTypeSchema';
 
 const optionsMap: Record<string, { label: string; group: string }> = {};
 const flatOptions = contractArchetypes.flatMap((option) =>

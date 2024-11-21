@@ -1,2 +1,2 @@
-export * as Contract from './ContractSchema';
+export * as Contract from './contracts/ContractSchema';
 export * from './DTOSchema';

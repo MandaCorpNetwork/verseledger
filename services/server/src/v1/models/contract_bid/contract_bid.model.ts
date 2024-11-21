@@ -16,7 +16,7 @@ import {
   InferAttributes,
   InferCreationAttributes,
 } from 'sequelize';
-import { IContractBidStatus } from 'vl-shared/src/schemas/ContractBidStatusSchema';
+import { IContractBidStatus } from 'vl-shared/src/schemas/contracts/ContractBidStatusSchema';
 
 @Scopes(() => ({
   user: {

@@ -7,7 +7,7 @@ import { Box, Grid2, Tooltip, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 type ContractProps = {
   /** Contract properties for data. */

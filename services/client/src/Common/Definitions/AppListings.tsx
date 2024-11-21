@@ -313,11 +313,11 @@ export const useMasterAppList = () => {
       {
         id: 'org-find',
         label: '@APP.FINDER.LABEL',
-        path: '/orgs/list',
+        path: '/orgs/finder',
         icon: <HubTwoTone />,
         disabled: orgs,
         versionLabel: 'Org Finder',
-        version: '0.x',
+        version: '0.0.1',
         severityCode: 10,
       },
       {

@@ -24,8 +24,8 @@ import { URLUtil } from '@Utils/URLUtil';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
-import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
+import { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { BiddingTimePanel, ContractDurationPanel } from './TimePanel';
 

@@ -5,7 +5,7 @@ import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
 import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
 import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { Box, Typography } from '@mui/material';
-import { IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
+import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { DesktopPayInfo } from './DesktopPayInfo';
 

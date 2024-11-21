@@ -9,7 +9,7 @@ import { Logger } from '@Utils/Logger';
 import { closeSnackbar, enqueueSnackbar } from 'notistack';
 import { useCallback, useEffect } from 'react';
 import { useSubscription } from 'react-stomp-hooks';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 import { IDonation } from 'vl-shared/src/schemas/DonationSchema';
 
 export const AuthManager: React.FC = () => {

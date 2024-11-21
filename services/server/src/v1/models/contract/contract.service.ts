@@ -5,8 +5,8 @@ import { TYPES } from '@Constant/types';
 import { Location } from '@V1/models/location/location.model';
 import { ContractLocation } from '@V1/models/contract/contract_locations.model';
 import { Op } from 'sequelize';
-import { IContractStatus } from 'vl-shared/src/schemas/ContractStatusSchema';
-import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
+import { IContractStatus } from 'vl-shared/src/schemas/contracts/ContractStatusSchema';
+import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 import {
   buildDateQuery,
   buildDurationQuery,
@@ -17,7 +17,7 @@ import {
 } from '@Utils/Sequelize/queryIn';
 import { Logger } from '@Utils/Logger';
 import { ContractToContractDTOMapper } from './mapping/contract.mapper';
-import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
+import { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
 import { StompService } from '@V1/services/stomp.service';
 import { NotificationService } from '@V1/models/notifications/notification.service';
 

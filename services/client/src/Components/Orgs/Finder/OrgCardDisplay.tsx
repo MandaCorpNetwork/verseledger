@@ -1,20 +1,17 @@
 import '@Assets/Css/scrollbar.css';
 
 import { Grid2 } from '@mui/material';
-// import { useIsMobile } from '@Utils/isMobile';
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
+// import { useParams } from 'react-router-dom';
+import { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
-import { LedgerCard } from './LedgerCard';
+import { OrgCard } from './OrgCard';
 
-type LedgerCardDisplayProps = {
-  contracts: IContract[];
+type OrgCardDisplayProps = {
+  orgs: IOrganization[];
 };
 
-export const LedgerCardDisplay: React.FC<LedgerCardDisplayProps> = ({ contracts }) => {
-  // const mobile = useIsMobile();
-  const { selectedContractId } = useParams();
+export const OrgCardDisplay: React.FC<OrgCardDisplayProps> = ({ orgs }) => {
+  // const { selectedOrgId } = useParams();
   return (
     <div
       style={{ flexGrow: 1, display: 'flex', width: '100%', overflowY: 'auto' }}
@@ -34,21 +31,16 @@ export const LedgerCardDisplay: React.FC<LedgerCardDisplayProps> = ({ contracts 
           justifyItems: 'stretch',
         }}
       >
-        {contracts.map((contract) => (
+        {orgs.map((org) => (
           <Grid2
-            key={contract.id}
-            data-testid={`AppList-List__${contract.id}_Wrapper`}
+            key={org.id}
             sx={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
-            <LedgerCard
-              key={contract.id}
-              contract={contract}
-              isSelected={selectedContractId === contract.id}
-            />
+            <OrgCard organization={org} />
           </Grid2>
         ))}
       </Grid2>

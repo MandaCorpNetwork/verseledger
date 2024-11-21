@@ -7,7 +7,7 @@ import {
   ContractDurationPanel,
 } from '@Components/Contracts/Ledger/Details/TimePanel';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 type ContractTimeDisplayProps = {
   ['data-testid']?: string;

@@ -27,7 +27,10 @@ import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 // import { useNavigate, useParams } from 'react-router-dom';
-import { IContract, IContractWithOwner } from 'vl-shared/src/schemas/ContractSchema';
+import {
+  IContract,
+  IContractWithOwner,
+} from 'vl-shared/src/schemas/contracts/ContractSchema';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 /**
