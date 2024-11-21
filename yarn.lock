@@ -3605,10 +3605,10 @@
   dependencies:
     "@tanstack/virtual-core" "3.10.9"
 
-"@tanstack/router-devtools@1.82.1":
-  version "1.82.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools/-/router-devtools-1.82.1.tgz#7ef2b8321e9d76de3f18888fcebfa37d448777d5"
-  integrity sha512-sIPuoqrnnFmAGMuCMuw9kMMbIdzZW6ecipTD87xk44VusLtm7Rb4IAIAc2Kr8e4rrKlbOmieQ1Qihte9/KVrrA==
+"@tanstack/router-devtools@1.82.2":
+  version "1.82.2"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools/-/router-devtools-1.82.2.tgz#605b737ef56d847e7fb9efd0bd011edd62b83601"
+  integrity sha512-9R0cHGNF8oQMehBYzZZ+xyKWoBCgL4OZV7g0Bt3QJv+LusRQ57iYvA2uf0Cc5qfsba46l/ps0Z/UPLQWp55wfA==
   dependencies:
     clsx "^2.1.1"
     goober "^2.1.16"
