@@ -13,7 +13,7 @@ import {
   BelongsToMany,
 } from 'sequelize-typescript';
 
-import { IContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
+import { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
 import { User } from '@V1/models/user/user.model';
 import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
 import { IdUtil } from '@Utils/IdUtil';
@@ -36,9 +36,9 @@ import { Organization } from '@V1/models/organization/organization.model';
 import { OwnerType } from '@Utils/OwnerType';
 import { Location } from '@V1/models/location/location.model';
 import { ContractLocation } from './contract_locations.model';
-import { IContractStatus } from 'vl-shared/src/schemas/ContractStatusSchema';
-import { IContractSubType } from 'vl-shared/src/schemas/ContractSubTypeSchema';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContractStatus } from 'vl-shared/src/schemas/contracts/ContractStatusSchema';
+import { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTypeSchema';
+import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 import { UserRating } from '@V1/models/user_ratings/user_ratings.model';
 import { UserSettings } from '@V1/models/user_settings/user_settings.model';
 import { OrganizationMember } from '../organization/organization_member.model';

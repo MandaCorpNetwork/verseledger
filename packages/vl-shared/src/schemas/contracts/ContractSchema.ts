@@ -1,11 +1,11 @@
 import { z } from 'zod';
-import { ITimestamped, TimestampedSchema } from './TimestampedSchema';
+import { ITimestamped, TimestampedSchema } from '../TimestampedSchema';
 import { ContractSubTypeSchema } from './ContractSubTypeSchema';
 import { ContractPayStructureSchema } from './ContractPayStructureSchema';
-import { LocationSchema } from './LocationSchema';
-import { UserSchema } from './UserSchema';
+import { LocationSchema } from '../LocationSchema';
+import { UserSchema } from '../UserSchema';
 import { ContractBidSchema } from './ContractBidSchema';
-import { UserRatingSchema } from './UserRatingsSchema';
+import { UserRatingSchema } from '../UserRatingsSchema';
 
 export const ContractSchema = z.object({
   id: z.string().max(26).describe('CUID2'),

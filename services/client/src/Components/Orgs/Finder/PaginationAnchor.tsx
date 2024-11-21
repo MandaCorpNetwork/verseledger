@@ -51,7 +51,7 @@ export const PaginationAnchor: React.FC<PaginationAnchorProps> = ({ isMobile }) 
     const params: IOrgSearchCMD = {
       page: page,
       limit: rowsPerPage,
-      title: searchTerm,
+      title: searchTerm ?? '',
     };
     debounce(() => search(params), 300)();
   }, [searchParams, page, rowsPerPage, search]);

@@ -22,7 +22,7 @@ import {
   CreateContractBodySchema,
   IContract,
   UpdateContractSchema,
-} from 'vl-shared/src/schemas/ContractSchema';
+} from 'vl-shared/src/schemas/contracts/ContractSchema';
 import { ZodError } from 'zod';
 import {
   ApiOperationGet,
@@ -32,12 +32,12 @@ import {
 } from 'swagger-express-ts';
 import { ZodToOpenapi } from '@Utils/ZodToOpenapi';
 import { Logger } from '@Utils/Logger';
-import { ContractSearchSchema } from 'vl-shared/src/schemas/SearchSchema';
+import { ContractSearchSchema } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
 import { GenericError } from '@V1/errors/GenericError';
 import { PaginatedDataDTO } from '@V1/DTO/PaginatedDataDTO';
 import { ContractDTO } from '@V1/models/contract/mapping/ContractDTO';
 import { UnauthorizedError } from '@V1/errors/UnauthorizedError';
-import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
+import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 import { ContractToContractDTOMapper } from './mapping/contract.mapper';
 
 @ApiPath({

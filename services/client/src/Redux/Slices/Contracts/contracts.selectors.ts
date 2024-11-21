@@ -1,6 +1,6 @@
 import type { RootState } from '@Redux/store';
 import { createSelector } from '@reduxjs/toolkit';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 export const selectContracts = (state: RootState) => {
   return state.contracts.contracts;

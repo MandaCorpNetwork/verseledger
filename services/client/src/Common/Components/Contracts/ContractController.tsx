@@ -14,7 +14,7 @@ import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { ControlPanelBox } from '../Boxes/ControlPanelBox';
 
