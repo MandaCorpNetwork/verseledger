@@ -11,7 +11,7 @@ export const fetchOrgs = createAsyncThunk(
   async (params: IOrgSearchCMD) => {
     try {
       const response = await NetworkService.POST(
-        `/v1/orgs/search`,
+        `/v1/organizations/search`,
         params,
         AuthUtil.getAccessHeader(),
       );

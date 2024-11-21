@@ -21,8 +21,8 @@ import { useIsMobile } from '@Utils/isMobile';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { ContractPayStructure } from 'vl-shared/src/schemas/ContractPayStructureSchema';
-import { IContract } from 'vl-shared/src/schemas/ContractSchema';
+import { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 type LedgerCardProps = {
   contract: IContract;
