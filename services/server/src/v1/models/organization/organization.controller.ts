@@ -28,6 +28,7 @@ import { IdUtil } from '@Utils/IdUtil';
 import { NotFoundError } from '@V1/errors/NotFoundError';
 import { PaginatedDataDTO } from '@V1/DTO';
 import { OrganizationDTO } from './mapping/OrganizationDTO';
+import { Logger } from '@Utils/Logger';
 
 const MAX_ORGS = 3;
 

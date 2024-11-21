@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
-import { IContractBid } from 'vl-shared/src/schemas/ContractBidSchema';
+import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 import { IDTOComplete } from 'vl-shared/src/schemas/DTOSchema';
 
 export const POST_CONTRACT_INVITE = 'POST /v1/contracts/:contractId/bids/invite';

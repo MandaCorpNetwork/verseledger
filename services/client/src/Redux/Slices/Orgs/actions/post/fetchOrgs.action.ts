@@ -10,8 +10,9 @@ export const fetchOrgs = createAsyncThunk(
   '/v1/orgs/search',
   async (params: IOrgSearchCMD) => {
     try {
-      const response = await NetworkService.GET(
+      const response = await NetworkService.POST(
         `/v1/orgs/search`,
+        params,
         AuthUtil.getAccessHeader(),
       );
       return response.data as IPaginatedData<IOrganization>;

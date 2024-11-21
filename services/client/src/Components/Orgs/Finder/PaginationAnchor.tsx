@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { Box, debounce, TablePagination } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { fetchOrgs } from '@Redux/Slices/Orgs/actions/get/fetchOrgs.action';
+import { fetchOrgs } from '@Redux/Slices/Orgs/actions/post/fetchOrgs.action';
 import { selectOrgPagination } from '@Redux/Slices/Orgs/orgs.selectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
@@ -52,6 +52,7 @@ export const PaginationAnchor: React.FC<PaginationAnchorProps> = ({ isMobile }) 
       page: page,
       limit: rowsPerPage,
       title: searchTerm ?? '',
+      rsi_handle: searchTerm ?? '',
     };
     debounce(() => search(params), 300)();
   }, [searchParams, page, rowsPerPage, search]);

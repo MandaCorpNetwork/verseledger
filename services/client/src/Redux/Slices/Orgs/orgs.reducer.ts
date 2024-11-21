@@ -3,7 +3,7 @@ import { Logger } from '@Utils/Logger';
 import { IPaginatedDataSlice } from 'vl-shared/src/schemas/IPaginatedData';
 import { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
-import { fetchOrgs } from './actions/get/fetchOrgs.action';
+import { fetchOrgs } from './actions/post/fetchOrgs.action';
 
 const orgsReducer = createSlice({
   name: 'organizations',
