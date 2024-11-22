@@ -1,5 +1,7 @@
 import MandaLogo from '@Assets/media/MandaLogo.png';
 import { Box, Card, CardContent, Divider, Typography } from '@mui/material';
+import { useNav } from '@Utils/Hooks/useNav';
+import React from 'react';
 import { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
 type OrgCardProps = {
@@ -7,8 +9,27 @@ type OrgCardProps = {
 };
 
 export const OrgCard: React.FC<OrgCardProps> = ({ organization }) => {
+  const navigate = useNav();
+  const handleOrgSelect = React.useCallback(
+    (e: React.MouseEvent) => {
+      const url = `/orgs/finder/${organization.id}`;
+      navigate(url, 'internal', false).onClick(e);
+    },
+    [navigate, organization.id],
+  );
+
   return (
-    <Card>
+    <Card
+      onClick={(e) => handleOrgSelect(e)}
+      onAuxClick={(e) => handleOrgSelect(e)}
+      sx={{
+        p: '0.5em',
+        cursor: 'pointer',
+        '&:hover': {
+          transform: 'scale(1.05)',
+        },
+      }}
+    >
       <CardContent
         sx={{
           display: 'flex',

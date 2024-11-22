@@ -53,7 +53,17 @@ export const OrgLedgerPage: React.FC = () => {
             width: '100%',
           }}
         >
-          <Outlet />
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              height: '100%',
+            }}
+          >
+            <Outlet />
+          </div>
         </Box>
         <OrgSwitcher />
       </Box>

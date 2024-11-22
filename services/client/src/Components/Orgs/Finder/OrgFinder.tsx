@@ -15,45 +15,35 @@ export const OrgFinder: React.FC = () => {
   const [view, setView] = React.useState<'card' | 'table'>('card');
   const orgList = useAppSelector((state) => selectOrgsArray(state));
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        height: '100%',
-      }}
-    >
-      <GlassBox sx={{ gap: '1em', width: '90%' }}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: '1em',
-          }}
-        >
-          <Typography>Search Orgs</Typography>
-          <TextField size="small" />
-          <div style={{ marginLeft: 'auto' }}>
-            <CardorTableViewToggle onChange={setView} view={view} />
-          </div>
+    <GlassBox sx={{ gap: '1em', width: '90%' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: '1em',
+        }}
+      >
+        <Typography>Search Orgs</Typography>
+        <TextField size="small" />
+        <div style={{ marginLeft: 'auto' }}>
+          <CardorTableViewToggle onChange={setView} view={view} disabled />
         </div>
-        <GlassDisplay
-          sx={{
-            flexGrow: 1,
-            position: 'relative',
-            overflow: 'hidden',
-            display: 'flex',
-            width: '100%',
-            flexDirection: 'column',
-            m: '5px',
-          }}
-        >
-          {view === 'card' && <OrgCardDisplay orgs={orgList} />}
-          <PaginationAnchor isMobile={isMobile} />
-        </GlassDisplay>
-      </GlassBox>
-    </div>
+      </div>
+      <GlassDisplay
+        sx={{
+          flexGrow: 1,
+          position: 'relative',
+          overflow: 'hidden',
+          display: 'flex',
+          width: '100%',
+          flexDirection: 'column',
+          m: '5px',
+        }}
+      >
+        {view === 'card' && <OrgCardDisplay orgs={orgList} />}
+        <PaginationAnchor isMobile={isMobile} />
+      </GlassDisplay>
+    </GlassBox>
   );
 };
