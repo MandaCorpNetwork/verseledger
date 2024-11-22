@@ -153,10 +153,10 @@ export class OrganizationController extends BaseHttpController {
 
     const tOrg = createOrganizationCMD.strict().parse(body);
 
-    const currentLeadingOrgs = await this.orgService.countOwnership(user_id);
-    if (currentLeadingOrgs >= MAX_ORGS) {
+    const currentOrgs = await this.orgService.countMembership(user_id);
+    if (currentOrgs >= MAX_ORGS) {
       return nextFunc(
-        new BadRequestError(`You can only create ${MAX_ORGS} orgs!`),
+        new BadRequestError(`You can only be a member of ${MAX_ORGS} orgs!`),
       );
     }
 
