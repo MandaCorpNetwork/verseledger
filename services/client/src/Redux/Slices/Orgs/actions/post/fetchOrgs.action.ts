@@ -6,16 +6,20 @@ import { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
 import { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 import { IOrgSearchCMD } from 'vl-shared/src/schemas/orgs/OrgSearchCMD';
 
+import { orgActions } from '../../orgs.reducer';
+
 export const fetchOrgs = createAsyncThunk(
   '/v1/orgs/search',
-  async (params: IOrgSearchCMD) => {
+  async (params: IOrgSearchCMD, { dispatch }) => {
     try {
       const response = await NetworkService.POST(
         `/v1/organizations/search`,
         params,
         AuthUtil.getAccessHeader(),
       );
-      return response.data as IPaginatedData<IOrganization>;
+      const data = response.data as IPaginatedData<IOrganization>;
+      dispatch(orgActions.addOrgs(data.data));
+      return data;
     } catch (error) {
       Logger.error(error);
     }
