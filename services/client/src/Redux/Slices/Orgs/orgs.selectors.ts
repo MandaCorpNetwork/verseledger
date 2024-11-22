@@ -14,3 +14,9 @@ export const selectOrgPagination = (state: RootState) => ({
   total: state.organizations.pagination.total,
   pages: state.organizations.pagination.pages,
 });
+
+export const selectOrg = createSelector(
+  (state: RootState) => state.organizations.orgs,
+  (_: RootState, id: string) => id,
+  (orgs, id) => orgs[id],
+);

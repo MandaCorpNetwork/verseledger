@@ -6,6 +6,7 @@ import { RouteApp } from '@Components/Locations/Routes/RouteApp';
 import { OrgDash } from '@Components/Orgs/Dash/OrgDash';
 import { OrgFinder } from '@Components/Orgs/Finder/OrgFinder';
 import { OrgManager } from '@Components/Orgs/Management/OrgManager';
+import { OrgPage } from '@Components/Orgs/Page/OrgPage';
 import { ShipTuning } from '@Components/Ships/Tuning/Tuning';
 import { DashboardApp } from '@Components/User/Dashboard/DashboardApp';
 import { VerseMarketPage } from '@Components/VerseMarket/VerseMarketPage';
@@ -175,7 +176,7 @@ export const routingInfo: RouteObject[] = [
           },
           {
             path: '/orgs/finder/:selectedOrgId',
-            element: <OrgFinder />,
+            element: <OrgPage />,
           },
           {
             path: 'finder',
