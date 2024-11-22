@@ -15,7 +15,9 @@ const authReducer = createSlice({
   name: 'auth',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   initialState: {
-    currentUser: {} as AuthUser & { Settings?: IDTO<IUserSettings> },
+    currentUser: {} as AuthUser & {
+      Settings?: IDTO<IUserSettings>;
+    },
     isLoggedIn: false,
     lastUpdated: 0,
     userLocation: {} as ILocation,

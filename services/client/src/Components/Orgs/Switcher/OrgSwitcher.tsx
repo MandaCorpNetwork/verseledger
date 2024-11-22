@@ -1,9 +1,14 @@
 import { Box } from '@mui/material';
 
+// import { useAppSelector } from '@Redux/hooks';
+// import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { AddOrgButton } from './AddOrgButton';
 import { EmptySpace } from './EmptySpace';
 
 export const OrgSwitcher: React.FC = () => {
+  // const user = useAppSelector(selectCurrentUser);
+
+  // const userMemberships = user ? user.
   return (
     <Box
       sx={{
