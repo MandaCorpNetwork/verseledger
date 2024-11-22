@@ -1,8 +1,19 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import { ViewListTwoTone } from '@mui/icons-material';
+import { List } from '@mui/icons-material';
 import { ToggleButton, Typography } from '@mui/material';
+import React from 'react';
 
 export const MemberListBox: React.FC = () => {
+  const [listView, setListView] = React.useState<boolean>(false);
+  const sound = useSoundEffect();
+
+  const handleListToggle = React.useCallback(() => {
+    setListView((prev) => {
+      sound.playSound('clickMain');
+      return !prev;
+    });
+  }, [setListView, sound]);
   return (
     <GlassDisplay
       data-testid="OrgPage__MemberList_Wrapper"
@@ -30,9 +41,10 @@ export const MemberListBox: React.FC = () => {
           size="small"
           color="secondary"
           sx={{ p: '0.2em' }}
-          disabled
+          onClick={handleListToggle}
+          selected={listView}
         >
-          <ViewListTwoTone fontSize="medium" />
+          <List fontSize="medium" />
         </ToggleButton>
       </div>
       <div

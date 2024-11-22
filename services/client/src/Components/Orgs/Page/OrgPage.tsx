@@ -9,7 +9,7 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { OrgDetails } from './Details';
-import { OrgEventsBox } from './EventsBox';
+import { OrgEventsBox } from './Events/EventsBox';
 import { MemberListBox } from './MemberListBox';
 import { OrgNamePlate } from './NamePlate';
 
