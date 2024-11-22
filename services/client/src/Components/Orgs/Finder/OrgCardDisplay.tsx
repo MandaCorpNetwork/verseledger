@@ -26,7 +26,7 @@ export const OrgCardDisplay: React.FC<OrgCardDisplayProps> = ({ orgs }) => {
           alignContent: 'flex-start',
           px: '1em',
           pt: '1em',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
           width: '100%',
           justifyItems: 'stretch',
         }}
