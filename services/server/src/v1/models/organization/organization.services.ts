@@ -6,6 +6,8 @@ import { Op } from 'sequelize';
 import { BadRequestError } from '@V1/errors/BadRequest';
 import { IOrgSearchCMD } from 'vl-shared/src/schemas/orgs/OrgSearchCMD';
 import { optionalSet, queryLike } from '@Utils/Sequelize/queryIn';
+import { OrganizationMember } from './organization_member.model';
+import { OrganizationRole } from './organization_role.model';
 
 @injectable()
 export class OrganizationService {
@@ -33,12 +35,18 @@ export class OrganizationService {
   }
 
   public async get(id: string) {
-    return Organization.findByPk(id);
+    return Organization.scope(['members', 'roles']).findByPk(id);
   }
 
   public async countOwnership(owner_id: string) {
     return Organization.count({
       where: { owner_id },
+    });
+  }
+
+  public async countMembership(user_id: string) {
+    return OrganizationMember.count({
+      where: { user_id },
     });
   }
 
@@ -63,6 +71,36 @@ export class OrganizationService {
     ) {
       return [new BadRequestError(`Name or RSI Handle already taken`), null];
     }
-    return [null, await Organization.create({ ...newOrg, owner_id })];
+    const newOrgEntity = await Organization.create({ ...newOrg, owner_id });
+
+    const [OwnerRole] = await Promise.all([
+      OrganizationRole.create({
+        role_name: 'OWNER',
+        org_id: newOrgEntity.id,
+      }),
+      OrganizationRole.create({
+        role_name: 'ADMIN',
+        org_id: newOrgEntity.id,
+      }),
+      OrganizationRole.create({
+        role_name: 'MEMBER',
+        org_id: newOrgEntity.id,
+      }),
+      OrganizationRole.create({
+        role_name: 'JUNIOR',
+        org_id: newOrgEntity.id,
+      }),
+    ]);
+
+    await OrganizationMember.create({
+      user_id: owner_id,
+      org_id: newOrgEntity.id,
+      role_id: OwnerRole.id,
+    });
+
+    const fullOrg = await Organization.scope(['members', 'roles']).findByPk(
+      newOrgEntity.id,
+    );
+    return [null, fullOrg!];
   }
 }

@@ -19,10 +19,14 @@ import {
   InferCreationAttributes,
 } from 'sequelize';
 import { OrganizationInvite } from './organization_invite.model';
+import { OrganizationRole } from './organization_role.model';
 
 @Scopes(() => ({
   members: {
     include: [{ model: OrganizationMember, as: 'Members', include: ['User'] }],
+  },
+  roles: {
+    include: [{ model: OrganizationRole, as: 'Roles' }],
   },
 }))
 @Table({ tableName: 'organizations', timestamps: true })
@@ -53,6 +57,9 @@ export class Organization extends Model<
 
   @HasMany(() => OrganizationMember, 'org_id')
   declare Members: CreationOptional<Awaited<OrganizationMember>[]>;
+
+  @HasMany(() => OrganizationRole, 'org_id')
+  declare Roles: CreationOptional<Awaited<OrganizationRole>[]>;
 
   @HasMany(() => OrganizationInvite, 'organization_id')
   declare Invites: CreationOptional<Awaited<OrganizationInvite>>;

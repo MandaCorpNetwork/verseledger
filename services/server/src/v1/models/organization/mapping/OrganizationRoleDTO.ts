@@ -1,22 +1,20 @@
 import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
 import { DTOBase } from '@V1/DTO/DTOBase';
-import { UserDTO } from '@V1/models/user/mapping/UserDTO';
-import { IOrganizationMember } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
+import { IOrganizationRole } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 import { OrganizationDTO } from './OrganizationDTO';
 
 @ApiModel({
   description: 'Organization Object',
   name: 'OrganizationMember',
 })
-export class OrganizationMemberDTO
-  extends DTOBase<IOrganizationMember>
-  implements IOrganizationMember
+export class OrganizationRoleDTO
+  extends DTOBase<IOrganizationRole>
+  implements IOrganizationRole
 {
-  constructor($b: IOrganizationMember) {
+  constructor($b: IOrganizationRole) {
     super();
     this.mapProperties($b, {
       Org: OrganizationDTO,
-      User: UserDTO,
     });
   }
 
@@ -33,10 +31,8 @@ export class OrganizationMemberDTO
   }
 
   public strip() {
-    return new OrganizationMemberDTO({
+    return new OrganizationRoleDTO({
       ...this,
-      User: undefined,
-      Role: undefined,
       Org: undefined,
     });
   }
@@ -53,13 +49,6 @@ export class OrganizationMemberDTO
     required: true,
     example: 'U-pu2lqjxks971z5ov62t9eg9p',
   })
-  user_id!: string;
-
-  @ApiModelProperty({
-    description: 'TODO',
-    required: true,
-    example: 'U-pu2lqjxks971z5ov62t9eg9p',
-  })
   org_id!: string;
 
   @ApiModelProperty({
@@ -67,7 +56,7 @@ export class OrganizationMemberDTO
     required: true,
     example: 'Militant Aggregate and Nexus Development Advisory',
   })
-  role_id!: string;
+  role_name!: string;
 
   @ApiModelProperty({
     description: 'Org Handle',
