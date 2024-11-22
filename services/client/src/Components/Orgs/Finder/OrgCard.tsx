@@ -22,7 +22,13 @@ export const OrgCard: React.FC<OrgCardProps> = ({ organization }) => {
     <Card
       onClick={(e) => handleOrgSelect(e)}
       onAuxClick={(e) => handleOrgSelect(e)}
-      sx={{ p: '0.5em' }}
+      sx={{
+        p: '0.5em',
+        cursor: 'pointer',
+        '&:hover': {
+          transform: 'scale(1.05)',
+        },
+      }}
     >
       <CardContent
         sx={{

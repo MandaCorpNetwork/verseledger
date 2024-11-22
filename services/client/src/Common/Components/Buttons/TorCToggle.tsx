@@ -6,11 +6,13 @@ import React from 'react';
 type CardorTableViewToggleProps = {
   onChange: (view: 'card' | 'table') => void;
   view: 'card' | 'table';
+  disabled?: boolean;
 };
 
 export const CardorTableViewToggle: React.FC<CardorTableViewToggleProps> = ({
   onChange,
   view,
+  disabled,
 }) => {
   const sound = useSoundEffect();
   const handleViewChange = (
@@ -52,12 +54,12 @@ export const CardorTableViewToggle: React.FC<CardorTableViewToggleProps> = ({
         },
       }}
     >
-      <ToggleButton value="card">
+      <ToggleButton value="card" disabled={disabled}>
         <RecentActors
           sx={{ '&:hover': { transform: 'scale(1.2)' }, transition: 'transform 0.3s' }}
         />
       </ToggleButton>
-      <ToggleButton value="table">
+      <ToggleButton value="table" disabled={disabled}>
         <TableChart
           sx={{ '&:hover': { transform: 'scale(1.2)' }, transition: 'transform 0.3s' }}
         />

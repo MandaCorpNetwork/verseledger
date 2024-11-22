@@ -27,7 +27,7 @@ export const OrgFinder: React.FC = () => {
         <Typography>Search Orgs</Typography>
         <TextField size="small" />
         <div style={{ marginLeft: 'auto' }}>
-          <CardorTableViewToggle onChange={setView} view={view} />
+          <CardorTableViewToggle onChange={setView} view={view} disabled />
         </div>
       </div>
       <GlassDisplay
