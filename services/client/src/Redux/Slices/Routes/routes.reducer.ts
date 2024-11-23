@@ -65,27 +65,19 @@ const routesReducer = createSlice({
       })
       .addCase(replaceTasks, (state, action) => {
         const newTasks = action.payload;
-        state.tasks = {};
-        newTasks.forEach((task) => {
-          state.tasks[task.id] = task;
-        });
+        tasksAdapter.setAll(state.tasks, newTasks);
       })
       .addCase(updateDestinations, (state, action) => {
         const destinationArray = action.payload;
-        destinationArray.forEach((destination: IDestination) => {
-          state.destinations[destination.id] = destination;
-        });
+        destinationsAdapter.upsertMany(state.destinations, destinationArray);
       })
       .addCase(deleteDestination, (state, action) => {
         const destinationId = action.payload;
-        delete state.destinations[destinationId];
+        destinationsAdapter.removeOne(state.destinations, destinationId);
       })
       .addCase(replaceDestinations, (state, action) => {
         const newDestinations = action.payload;
-        state.destinations = {};
-        newDestinations.forEach((destination) => {
-          state.destinations[destination.id] = destination;
-        });
+        destinationsAdapter.setAll(state.destinations, newDestinations);
       });
   },
 });
