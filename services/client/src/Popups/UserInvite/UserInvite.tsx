@@ -4,7 +4,7 @@ import { UserChip } from '@Common/Components/Chips/UserChip';
 import { Box } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
-import { postContractInvite } from '@Redux/Slices/Bids/Actions/postContractInvite.action';
+import { postContractInvite } from '@Redux/Slices/Bids/Actions/post/postContractInvite.action';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { Logger } from '@Utils/Logger';
 import React from 'react';

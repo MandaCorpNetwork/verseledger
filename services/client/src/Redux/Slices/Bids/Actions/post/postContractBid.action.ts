@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
 
-import { bidsActions } from '../bids.reducer';
+import { bidsActions } from '../../bids.reducer';
 
 export const POST_CONTRACT_BID = 'POST /v1/contracts/:contractId/bids';
 

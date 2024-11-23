@@ -12,7 +12,7 @@ import { styled } from '@mui/material/styles';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch } from '@Redux/hooks';
-import { postContractInvite } from '@Redux/Slices/Bids/Actions/postContractInvite.action';
+import { postContractInvite } from '@Redux/Slices/Bids/Actions/post/postContractInvite.action';
 import { postNewContract } from '@Redux/Slices/Contracts/actions/post/postNewContract.action';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useIsMobile } from '@Utils/isMobile';

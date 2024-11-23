@@ -5,7 +5,7 @@ import { AuthUtil } from '@Utils/AuthUtil';
 import { Logger } from '@Utils/Logger';
 import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 
-import { bidsActions } from '../bids.reducer';
+import { bidsActions } from '../../bids.reducer';
 
 export const updateBid = createAsyncThunk(
   '/v1/contracts/${contractId}/bids/${bidId}',

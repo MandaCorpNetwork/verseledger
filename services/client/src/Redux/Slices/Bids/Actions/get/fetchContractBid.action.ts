@@ -2,7 +2,7 @@ import { bidsActions } from '@Redux/Slices/Bids/bids.reducer';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import NetworkService from '@Services/NetworkService';
 
-import { contractActions } from '../../Contracts/contracts.reducer';
+import { contractActions } from '../../../Contracts/contracts.reducer';
 
 export const FETCH_CONTRACT_BIDS = 'GET /v1/contracts/:contractId/bids';
 

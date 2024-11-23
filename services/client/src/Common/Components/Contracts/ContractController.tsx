@@ -6,7 +6,7 @@ import { POPUP_SUBMIT_RATING } from '@Popups/Ratings/SubmitRating';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
-import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid.action';
+import { updateBid } from '@Redux/Slices/Bids/Actions/patch/updateBid.action';
 import { updateContract } from '@Redux/Slices/Contracts/actions/patch/updateContract.action';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';

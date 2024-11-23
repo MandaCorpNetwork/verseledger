@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContracts.action';
-import { fetchUserBids } from '@Redux/Slices/Bids/Actions/fetchUserBids.action';
+import { fetchUserBids } from '@Redux/Slices/Bids/Actions/get/fetchUserBids.action';
 import { selectContractsArray } from '@Redux/Slices/Contracts/contracts.selectors';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';

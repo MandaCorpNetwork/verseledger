@@ -7,7 +7,7 @@ import { UserDisplay } from '@Common/Components/Users/UserDisplay';
 import { Box, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
-import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid.action';
+import { updateBid } from '@Redux/Slices/Bids/Actions/patch/updateBid.action';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { enqueueSnackbar } from 'notistack';
 import React, { useCallback } from 'react';

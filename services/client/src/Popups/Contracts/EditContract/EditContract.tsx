@@ -16,7 +16,7 @@ import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch } from '@Redux/hooks';
 import { updateContract } from '@Redux/Slices/Contracts/actions/patch/updateContract.action';
-import { postContractInvite } from '@Redux/Slices/Bids/Actions/postContractInvite.action';
+import { postContractInvite } from '@Redux/Slices/Bids/Actions/post/postContractInvite.action';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';

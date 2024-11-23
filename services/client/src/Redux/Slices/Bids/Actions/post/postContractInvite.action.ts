@@ -5,7 +5,7 @@ import { AuthUtil } from '@Utils/AuthUtil';
 import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 import { IDTOComplete } from 'vl-shared/src/schemas/DTOSchema';
 
-import { contractActions } from '../../Contracts/contracts.reducer';
+import { contractActions } from '../../../Contracts/contracts.reducer';
 
 export const POST_CONTRACT_INVITE = 'POST /v1/contracts/:contractId/bids/invite';
 
