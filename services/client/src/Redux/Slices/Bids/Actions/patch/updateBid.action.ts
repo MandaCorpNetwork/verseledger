@@ -5,7 +5,7 @@ import { AuthUtil } from '@Utils/AuthUtil';
 import { Logger } from '@Utils/Logger';
 import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 
-import { bidActions } from '../bids.reducer';
+import { bidsActions } from '../../bids.reducer';
 
 export const updateBid = createAsyncThunk(
   '/v1/contracts/${contractId}/bids/${bidId}',
@@ -27,7 +27,7 @@ export const updateBid = createAsyncThunk(
         bidData,
         AuthUtil.getAccessHeader(),
       );
-      dispatch(bidActions.updateBid(response.data));
+      dispatch(bidsActions.updateBid(response.data));
       dispatch(contractActions.upsertBid(response.data));
       return response.data;
     } catch (error) {
