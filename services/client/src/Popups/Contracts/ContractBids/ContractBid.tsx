@@ -10,7 +10,7 @@ import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { updateBid } from '@Redux/Slices/Bids/Actions/updateBid.action';
-import { postContractBid } from '@Redux/Slices/Contracts/actions/post/postContractBid.action';
+import { postContractBid } from '@Redux/Slices/Bids/Actions/postContractBid.action';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser.action';
 import { Logger } from '@Utils/Logger';

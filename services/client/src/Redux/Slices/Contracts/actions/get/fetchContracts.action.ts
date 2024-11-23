@@ -5,17 +5,22 @@ import { composeQuery } from '@Utils/composeQuery';
 import { Logger } from '@Utils/Logger';
 import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 import { IContractSearch } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
+import { IDTOComplete } from 'vl-shared/src/schemas/DTOSchema';
 import { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
+
+import { contractActions } from '../../contracts.reducer';
 
 export const fetchContracts = createAsyncThunk(
   '/v1/contracts/search',
-  async (params: IContractSearch) => {
+  async (params: IContractSearch, { dispatch }) => {
     try {
-      const response = await NetworkService.GET(
+      const response = await NetworkService.GET<IDTOComplete<IPaginatedData<IContract>>>(
         `/v1/contracts?${composeQuery({ search: params })}`,
         AuthUtil.getAccessHeader(),
       );
-      return response.data as IPaginatedData<IContract>;
+      const contracts = response.data.data;
+      dispatch(contractActions.addContracts(contracts));
+      return response.data;
     } catch (error) {
       Logger.error(error);
     }

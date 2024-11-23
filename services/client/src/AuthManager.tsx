@@ -3,7 +3,7 @@ import { IconButton } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { updateTokens } from '@Redux/Slices/Auth/Actions/updateTokens.action';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
-import { actions } from '@Redux/Slices/Contracts/contracts.reducer';
+import { contractActions } from '@Redux/Slices/Contracts/contracts.reducer';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { Logger } from '@Utils/Logger';
 import { closeSnackbar, enqueueSnackbar } from 'notistack';
@@ -17,7 +17,7 @@ export const AuthManager: React.FC = () => {
 
   useSubscription('/topic/newContract', (message) => {
     const contract = JSON.parse(message.body) as IContract;
-    dispatch(actions.insert(contract));
+    dispatch(contractActions.insert(contract));
     enqueueSnackbar({
       variant: 'info',
       message: `New ${contract.subtype} Contract "${contract.title}"`,

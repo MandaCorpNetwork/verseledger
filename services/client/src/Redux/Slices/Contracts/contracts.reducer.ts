@@ -1,50 +1,67 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Logger } from '@Utils/Logger';
-import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 import { IPaginatedDataSlice } from 'vl-shared/src/schemas/IPaginatedData';
 
-import { updateBid } from '../Bids/Actions/updateBid.action';
 import { fetchContracts } from './actions/get/fetchContracts.action';
-import { updateContract } from './actions/patch/updateContract.action';
-import { postContractInvite } from './actions/post/postContractInvite.action';
+import { contractsAdapter } from './contracts.adapters';
+
+const initialState = {
+  isLoading: false,
+  contracts: contractsAdapter.getInitialState(),
+  pagination: {} as IPaginatedDataSlice,
+};
 
 const contractsReducer = createSlice({
   name: 'contracts',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  initialState: {
-    isLoading: false,
-    contracts: {} as Record<string, IContract>,
-    pagination: {} as IPaginatedDataSlice,
-  },
+  initialState,
   reducers: {
     noop() {
-      return {
-        isLoading: false,
-        contracts: {},
-        pagination: { total: 0, limit: 0, page: 0, pages: 0 },
-      };
+      return initialState;
     },
-    insert(state, contract) {
-      state.contracts[contract.payload.id] = contract.payload;
+    addContract(state, action) {
+      contractsAdapter.addOne(state.contracts, action.payload);
+    },
+    contractsLoading(state) {
+      state.isLoading = true;
+      state.contracts = contractsAdapter.getInitialState();
+    },
+    addContracts(state, action) {
+      state.isLoading = false;
+      contractsAdapter.addMany(state.contracts, action.payload);
+    },
+    updateContract(state, action) {
+      contractsAdapter.updateOne(state.contracts, action.payload);
+    },
+    upsertBid(state, action) {
+      const updatedBid = action.payload;
+      const contract = state.contracts.entities[updatedBid.contract_id];
+      if (!contract) return Logger.error('Unable to Find Contract for Bid');
+      contractsAdapter.upsertOne(state.contracts, {
+        ...contract,
+        Bids: (contract.Bids || []).map((bid) =>
+          bid.id === updatedBid.id ? { ...bid, ...updatedBid } : bid,
+        ),
+      });
+    },
+    upsertManyBids(state, action) {
+      const updatedBids = action.payload;
+      const contract = state.contracts.entities[updatedBids[0].contract_id];
+      if (!contract) return Logger.error('Unable to Find Contract for Bid');
+      contractsAdapter.upsertOne(state.contracts, {
+        ...contract,
+        Bids: (contract.Bids || []).map((bid) => {
+          const updatedBid = updatedBids.find((b: IContractBid) => b.id === bid.id);
+          return updatedBid ? { ...bid, ...updatedBid } : bid;
+        }),
+      });
     },
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchContracts.pending, (_state) => {
-        _state.isLoading = true;
-        _state.contracts = {};
-      })
       .addCase(fetchContracts.fulfilled, (_state, action) => {
-        _state.isLoading = false;
         const pagination = action.payload?.pagination;
-        const contracts = action.payload?.data;
-        if (contracts) {
-          contracts.forEach((contract) => {
-            _state.contracts[contract.id] = contract;
-          });
-        } else {
-          Logger.warn('Payload data is undefined or empty');
-        }
         if (pagination) {
           _state.pagination = pagination;
         } else {
@@ -53,53 +70,9 @@ const contractsReducer = createSlice({
       })
       .addCase(fetchContracts.rejected, (_state) => {
         _state.isLoading = false;
-      })
-      .addCase(updateContract.fulfilled, (_state, action) => {
-        const updatedContract = action.payload;
-        if (updatedContract) {
-          _state.contracts[updatedContract.id] = {
-            ..._state.contracts[updatedContract.id],
-            ...updatedContract,
-          };
-        } else {
-          Logger.warn('Payload Data is undefined or empty');
-        }
-      })
-      .addCase(updateBid.fulfilled, (_state, action) => {
-        const updatedBid = action.payload;
-        if (updatedBid) {
-          const contract = _state.contracts[updatedBid.contract_id];
-          if (contract.Bids) {
-            const bidIndex = contract.Bids.findIndex((bid) => bid.id === updatedBid.id);
-            contract.Bids[bidIndex] = {
-              ...contract.Bids[bidIndex],
-              ...updatedBid,
-            };
-          } else {
-            Logger.warn('Payload Data is undefined or empty');
-          }
-        } else {
-          Logger.warn('Payload Data is undefined or empty');
-        }
-      })
-      .addCase(postContractInvite.fulfilled, (_state, action) => {
-        const newBid = action.payload;
-        if (newBid) {
-          const contract = _state.contracts[newBid.contract_id];
-          if (contract) {
-            if (!contract.Bids) {
-              contract.Bids = [];
-            }
-            contract.Bids.push(newBid);
-          } else {
-            Logger.warn('Contract not found');
-          }
-        } else {
-          Logger.warn('Payload Data is undefined or empty');
-        }
       });
   },
 });
 
 export default contractsReducer;
-export const actions = contractsReducer.actions;
+export const contractActions = contractsReducer.actions;
