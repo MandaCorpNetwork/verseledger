@@ -3,7 +3,7 @@ import { Middleware } from 'redux';
 import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { fetchContracts } from '../Contracts/actions/get/fetchContracts.action';
-import { actions as locationsActions } from './locations.reducer';
+import { locationsActions as locationsActions } from './locations.reducer';
 
 export const updateLocationsMiddleware: Middleware<unknown, Record<string, unknown>> =
   ({ dispatch }: { dispatch: AppDispatch }) =>
