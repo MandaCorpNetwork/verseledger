@@ -21,8 +21,6 @@ export const selectActiveContractors = createSelector([selectContractBids], (bid
   return activeContractors;
 });
 
-//TODO: Find Bid Selectors
-
 export const selectBidPagination = (state: RootState) => ({
   total: state.bids.pagination.total,
   pages: state.bids.pagination.pages,
