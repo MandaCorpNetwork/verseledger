@@ -23,6 +23,12 @@ const bidsReducer = createSlice({
     updateBid(state, action) {
       bidsAdapter.updateOne(state.bids, action.payload);
     },
+    addBid(state, action) {
+      bidsAdapter.addOne(state.bids, action.payload);
+    },
+    upsertBids(state, action) {
+      bidsAdapter.upsertMany(state.bids, action.payload);
+    },
   },
   extraReducers(builder) {
     builder.addCase(fetchContractBidsOfUser.fulfilled, (_state, action) => {
