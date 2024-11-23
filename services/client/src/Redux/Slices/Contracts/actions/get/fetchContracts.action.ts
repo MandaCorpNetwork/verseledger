@@ -19,6 +19,9 @@ export const fetchContracts = createAsyncThunk(
         AuthUtil.getAccessHeader(),
       );
       const contracts = response.data.data;
+
+      const userSet
+      // const owners = contracts.map((contract) => contract.)
       dispatch(contractActions.addContracts(contracts));
       return response.data;
     } catch (error) {
