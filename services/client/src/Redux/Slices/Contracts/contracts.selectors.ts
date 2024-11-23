@@ -1,30 +1,14 @@
 import type { RootState } from '@Redux/store';
-import { createSelector } from '@reduxjs/toolkit';
-import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
+
 import { contractsAdapter } from './contracts.adapters';
 
 const contractSelectors = contractsAdapter.getSelectors(
   (state: RootState) => state.contracts.contracts,
 );
 
-export const selectContract = createSelector(
-  [selectContracts, (_: RootState, id: string) => id],
-  (contract, id: string) => {
-    return contract[id] ?? null;
-  },
-);
+export const selectContracts = contractSelectors.selectAll;
 
-export const selectBids = createSelector([selectContract], (contract) => {
-  return contract.Bids;
-});
-
-export const selectActiveContractors = createSelector([selectBids], (bids) => {
-  if (bids == null) return [];
-  const activeContractors = bids
-    .filter((b) => b.status === 'ACCEPTED' && b.User != null)
-    .map((b) => b.User!);
-  return activeContractors;
-});
+export const selectContract = contractSelectors.selectById;
 
 export const selectContractPagination = (state: RootState) => ({
   total: state.contracts.pagination.total,

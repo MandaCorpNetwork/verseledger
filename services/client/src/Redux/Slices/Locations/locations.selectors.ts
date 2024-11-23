@@ -1,6 +1,7 @@
 import type { RootState } from '@Redux/store';
 import { createSelector } from '@reduxjs/toolkit';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+
 import { locationsAdapter } from './locations.adapters';
 
 export const locationsSelectors = locationsAdapter.getSelectors(
@@ -26,6 +27,6 @@ export const selectParentLocations = createSelector([selectLocations], (location
   return locations.filter((location) => location.category === 'Parent');
 });
 
-export const selectOMs = createSelector([selectLocationsArray], (locations) => {
+export const selectOMs = createSelector([selectLocations], (locations) => {
   return locations.filter((location) => location.short_name === `^OM/d/i`);
 });
