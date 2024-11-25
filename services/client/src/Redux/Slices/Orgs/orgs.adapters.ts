@@ -2,6 +2,7 @@ import { createEntityAdapter } from '@reduxjs/toolkit';
 import {
   IOrganization,
   IOrganizationMember,
+  IOrganizationMemberWithOrg,
   IOrganizationRole,
 } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
@@ -15,4 +16,8 @@ export const orgMembersAdapter = createEntityAdapter({
 
 export const orgRolesAdapter = createEntityAdapter({
   selectId: (role: IOrganizationRole) => role.id,
+});
+
+export const userOrgMemberAdapter = createEntityAdapter({
+  selectId: (orgMember: IOrganizationMemberWithOrg) => orgMember.id,
 });

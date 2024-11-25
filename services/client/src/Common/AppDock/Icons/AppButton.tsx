@@ -2,9 +2,10 @@ import '../AppDock.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
 import { Box, Button, Typography } from '@mui/material';
+import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 type AppIconProps = {
   label: string;
@@ -60,13 +61,24 @@ export const AppButton: React.FC<AppIconProps> = ({
   );
 
   const location = useLocation();
-  const navigate = useNavigate();
+  const navigate = useNav();
   const sound = useSoundEffect();
+  const { selectedOrgId } = useParams();
 
-  const handleClick = React.useCallback(() => {
-    sound.playSound('navigate');
-    navigate(path);
-  }, [navigate, path, sound]);
+  const orgButton = path.startsWith('/orgs');
+
+  const handleClick = React.useCallback(
+    (e: React.MouseEvent) => {
+      sound.playSound('navigate');
+      if (orgButton && path !== '/orgs/finder') {
+        const url = selectedOrgId ? `${path}/${selectedOrgId}` : path;
+        navigate(url, 'internal', true).onClick(e);
+      } else {
+        navigate(path, 'internal', true).onClick(e);
+      }
+    },
+    [navigate, orgButton, path, selectedOrgId, sound],
+  );
 
   const isActive =
     label === 'Home'
@@ -93,7 +105,7 @@ export const AppButton: React.FC<AppIconProps> = ({
       disabled={disabled}
       onMouseEnter={() => sound.playSound('hover')}
     >
-      {path.startsWith('/orgs') && (
+      {orgButton && (
         <Typography
           variant="h6"
           sx={{

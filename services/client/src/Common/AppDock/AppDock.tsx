@@ -131,7 +131,7 @@ export const AppDock: React.FC = () => {
 
   const getCurrentApp = React.useCallback(() => {
     if (location.pathname === '/apps') {
-      return masterAppList[0];
+      return;
     }
     if (location.pathname.startsWith('/contract')) {
       return masterAppList.find((app) => app.id === 'contracts');
@@ -139,7 +139,7 @@ export const AppDock: React.FC = () => {
     if (location.pathname.startsWith('/user')) {
       return masterAppList.find((app) => app.id === 'profile');
     }
-    return masterAppList.find((app) => app.path === location.pathname);
+    return masterAppList.find((app) => location.pathname.startsWith(app.path));
   }, [location.pathname, masterAppList]);
 
   const currentApp = getCurrentApp();

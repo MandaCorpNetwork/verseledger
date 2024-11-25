@@ -7,7 +7,7 @@ describe('contractSelectors.ts', () => {
   it('can pick a contract by id', () => {
     const contracts: RootState['contracts'] = {
       contracts: {
-        ids: ['X-1', ''],
+        ids: ['X-1', 'X-2'],
         entities: {
           'X-1': {
             id: 'X-1',

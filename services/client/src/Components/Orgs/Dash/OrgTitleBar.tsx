@@ -2,8 +2,13 @@ import MandaLogo from '@Assets/media/MandaLogo.png';
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { Box, Typography } from '@mui/material';
 import React from 'react';
+import { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
-export const OrgTitleBar: React.FC = () => {
+type OrgTitleProps = {
+  org: IOrganization;
+};
+
+export const OrgTitleBar: React.FC<OrgTitleProps> = ({ org }) => {
   return (
     <GlassDisplay
       sx={{ p: '0.5em 1em', flexDirection: 'row', minWidth: '320px', gap: '2em' }}
@@ -33,10 +38,10 @@ export const OrgTitleBar: React.FC = () => {
             variant="subtitle1"
             sx={{ fontWeight: 'bold', textShadow: '0 2px 2px rgba(0,0,0)' }}
           >
-            MandaCorp Network
+            {org.title}
           </Typography>
           <Typography variant="subtitle2" color="info">
-            MCN
+            {org.rsi_handle}
           </Typography>
         </div>
       </div>
