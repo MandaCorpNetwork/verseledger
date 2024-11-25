@@ -1,7 +1,37 @@
-import { Box } from '@mui/material';
+import { Box, Breadcrumbs, Link } from '@mui/material';
 import React from 'react';
+import { useParams } from 'react-router-dom';
+
+import About from './Pages/About/About.mdx';
+import AccountSetup from './Pages/AccountSetup/AccountSetup.mdx';
+import NewSettings from './Pages/AccountSetup/NewSettings.mdx';
+import SignUp from './Pages/AccountSetup/SignUp.mdx';
+import Verification from './Pages/AccountSetup/Verification.mdx';
 
 export const WikiDisplay: React.FC = () => {
+  const { page, subpage } = useParams();
+  const fileRender = React.useMemo(() => {
+    if (!subpage && page) {
+      switch (page) {
+        case 'about':
+          return <About />;
+        case 'accSetup':
+        default:
+          return <AccountSetup />;
+      }
+    } else {
+      switch (subpage) {
+        case 'signUp':
+          return <SignUp />;
+        case 'verification':
+          return <Verification />;
+        case 'newSettings':
+          return <NewSettings />;
+        default:
+          return;
+      }
+    }
+  }, [page, subpage]);
   return (
     <Box
       data-testid="WikiPage__Display"
@@ -9,6 +39,7 @@ export const WikiDisplay: React.FC = () => {
         height: '90%',
         width: '80%',
         display: 'flex',
+        flexDirection: 'column',
         m: 'auto',
         borderTop: '2px solid',
         borderBottom: '2px solid',
@@ -20,7 +51,7 @@ export const WikiDisplay: React.FC = () => {
         boxShadow: '0 5px 15px rgba(14,49,141,.8)',
         backdropFilter: 'blur(10px)',
         background: 'rgba(0,30,100,0.2)',
-        padding: '.5em',
+        padding: '1em',
         '&::-webkit-scrollbar': {
           width: '5px',
           height: '5px',
@@ -34,6 +65,12 @@ export const WikiDisplay: React.FC = () => {
           background: 'rgb(24,252,252)',
         },
       }}
-    ></Box>
+    >
+      <Breadcrumbs>
+        <Link>{page}</Link>
+        <Link>{subpage}</Link>
+      </Breadcrumbs>
+      {fileRender}
+    </Box>
   );
 };

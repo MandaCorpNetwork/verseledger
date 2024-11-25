@@ -30,6 +30,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  ListSubheader,
   Typography,
 } from '@mui/material';
 import { useNav } from '@Utils/Hooks/useNav';
@@ -37,13 +38,13 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 export const WikiDrawer: React.FC = () => {
-  const navigate = useNav();
+  const nav = useNav();
   const masterAppList = useMasterAppList();
   const handleReturnHome = React.useCallback(
     (e: React.MouseEvent) => {
-      navigate('/', 'internal', true).onClick(e);
+      nav('/', 'internal', true).onClick(e);
     },
-    [navigate],
+    [nav],
   );
 
   const version = masterAppList.find((app) => app.id === 'wiki')?.version;
@@ -58,12 +59,19 @@ export const WikiDrawer: React.FC = () => {
         if (page === newPage) return sound.playSound('denied');
       }
       const url = `/support/${newPage}`;
-      navigate(url, 'internal', false).onClick(e);
+      nav(url, 'internal', false).onClick(e);
     },
-    [navigate, page, sound, subpage],
+    [nav, page, sound, subpage],
   );
 
-  // const handleSubpageSelect = React.useCallback((e: React.MouseEvent) => )
+  const handleSubpageSelect = React.useCallback(
+    (e: React.MouseEvent, page: string, newSubpage: string) => {
+      if (subpage === newSubpage) return sound.playSound('denied');
+      const url = `${page}/${newSubpage}`;
+      nav(url, 'internal', false).onClick(e);
+    },
+    [nav, sound, subpage],
+  );
   return (
     <Drawer
       data-testid="WikiPage__Drawer"
@@ -146,9 +154,18 @@ export const WikiDrawer: React.FC = () => {
           </ListItemButton>
           <Divider variant="middle" />
         </div>
-        <List sx={{ width: '100%' }}>
+        <List
+          sx={{ width: '100%' }}
+          subheader={
+            <ListSubheader sx={{ bgcolor: 'transparent' }}>
+              Information Pages
+            </ListSubheader>
+          }
+        >
           <ListItemButton
-            disabled
+            data-testid="WikiPage-InfoList__About_Button"
+            selected={page === 'about'}
+            onClick={(e) => handlePageSelect(e, 'about')}
             sx={{
               color: 'text.primary',
               '&:hover': {
@@ -247,7 +264,11 @@ export const WikiDrawer: React.FC = () => {
           </ListItemButton>
           <Divider variant="middle" sx={{ mt: '1em' }} />
         </List>
-        <List>
+        <List
+          subheader={
+            <ListSubheader sx={{ bgcolor: 'transparent' }}>Wiki Pages</ListSubheader>
+          }
+        >
           <ListItemButton
             data-testid="WikiPage-WikiList__AccountSetup_Button"
             selected={page === 'accSetup'}
@@ -272,6 +293,9 @@ export const WikiDrawer: React.FC = () => {
               disablePadding
             >
               <ListItemButton
+                data-testid="WikiPage-WikiList-AccountSetup-SubPage__Signup_Button"
+                onClick={(e) => handleSubpageSelect(e, 'accSetup', 'signUp')}
+                selected={subpage === 'signUp'}
                 sx={{
                   pl: 4,
                   color: 'text.primary',
@@ -286,6 +310,9 @@ export const WikiDrawer: React.FC = () => {
                 <ListItemText primary="Sign Up" />
               </ListItemButton>
               <ListItemButton
+                data-testid="WikiPage-WikiList-AccountSetup-SubPage__Verification_Button"
+                onClick={(e) => handleSubpageSelect(e, 'accSetup', 'verification')}
+                selected={subpage === 'verification'}
                 sx={{
                   pl: 4,
                   color: 'text.primary',
@@ -300,6 +327,9 @@ export const WikiDrawer: React.FC = () => {
                 <ListItemText primary="Verification" />
               </ListItemButton>
               <ListItemButton
+                data-testid="WikiPage-WikiList-AccountSetup-SubPage__NewSettings_Button"
+                onClick={(e) => handleSubpageSelect(e, 'accSetup', 'newSettings')}
+                selected={subpage === 'newSettings'}
                 sx={{
                   pl: 4,
                   color: 'text.primary',
