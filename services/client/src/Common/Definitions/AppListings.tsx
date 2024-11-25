@@ -87,11 +87,11 @@ export const useMasterAppList = () => {
       {
         id: 'wiki',
         label: '@APP.WIKI.LABEL',
-        path: '/wiki',
+        path: '/support',
         disabled: wiki,
         icon: <SchoolTwoTone />,
         versionLabel: 'Wiki',
-        version: '0.x',
+        version: '0.0.1',
         severityCode: 10,
       },
       {
