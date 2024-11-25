@@ -63,7 +63,7 @@ export const WikiDrawer: React.FC = () => {
     [navigate, page, sound, subpage],
   );
 
-  const handleSubpageSelect = React.useCallback((e: React.MouseEvent) => )
+  // const handleSubpageSelect = React.useCallback((e: React.MouseEvent) => )
   return (
     <Drawer
       data-testid="WikiPage__Drawer"
