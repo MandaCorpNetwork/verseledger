@@ -42,6 +42,7 @@ import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 import { UserRating } from '@V1/models/user_ratings/user_ratings.model';
 import { UserSettings } from '@V1/models/user_settings/user_settings.model';
 import { OrganizationMember } from '../organization/organization_member.model';
+import { OrganizationRole } from '../organization/organization_role.model';
 @Scopes(() => ({
   bids: {
     include: [
@@ -62,7 +63,7 @@ import { OrganizationMember } from '../organization/organization_member.model';
               {
                 model: OrganizationMember,
                 as: 'OrgMemberships',
-                include: [{ model: Organization, as: 'Org' }],
+                include: ['Org', 'Role'],
               },
             ],
           },
@@ -85,7 +86,7 @@ import { OrganizationMember } from '../organization/organization_member.model';
           {
             model: OrganizationMember,
             as: 'OrgMemberships',
-            include: [{ model: Organization, as: 'Org' }],
+            include: ['Org', 'Role'],
           },
         ],
       },
