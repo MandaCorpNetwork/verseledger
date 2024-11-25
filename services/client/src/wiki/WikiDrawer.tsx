@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { useMasterAppList } from '@Common/Definitions/AppListings';
 import { Contracts } from '@Common/Definitions/CustomIcons';
 import {
@@ -5,9 +6,14 @@ import {
   AppsTwoTone,
   BusinessTwoTone,
   CelebrationTwoTone,
+  ExpandLess,
+  ExpandMore,
+  FingerprintTwoTone,
+  FollowTheSignsTwoTone,
   HelpCenterTwoTone,
   HomeTwoTone,
   InfoTwoTone,
+  ManageAccountsTwoTone,
   NewReleasesTwoTone,
   PlayCircleFilledTwoTone,
   ReportProblemTwoTone,
@@ -17,6 +23,7 @@ import {
 } from '@mui/icons-material';
 import {
   Box,
+  Collapse,
   Divider,
   Drawer,
   List,
@@ -27,6 +34,7 @@ import {
 } from '@mui/material';
 import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 export const WikiDrawer: React.FC = () => {
   const navigate = useNav();
@@ -40,6 +48,22 @@ export const WikiDrawer: React.FC = () => {
 
   const version = masterAppList.find((app) => app.id === 'wiki')?.version;
   const versionLabel = `Support ${version}`;
+
+  const { page, subpage } = useParams();
+  const sound = useSoundEffect();
+
+  const handlePageSelect = React.useCallback(
+    (e: React.MouseEvent, newPage: string) => {
+      if (!subpage) {
+        if (page === newPage) return sound.playSound('denied');
+      }
+      const url = `/support/${newPage}`;
+      navigate(url, 'internal', false).onClick(e);
+    },
+    [navigate, page, sound, subpage],
+  );
+
+  // const handleSubpageSelect = React.useCallback((e: React.MouseEvent) => )
   return (
     <Drawer
       data-testid="WikiPage__Drawer"
@@ -124,6 +148,7 @@ export const WikiDrawer: React.FC = () => {
         </div>
         <List sx={{ width: '100%' }}>
           <ListItemButton
+            disabled
             sx={{
               color: 'text.primary',
               '&:hover': {
@@ -137,6 +162,7 @@ export const WikiDrawer: React.FC = () => {
             <ListItemText primary="About" />
           </ListItemButton>
           <ListItemButton
+            disabled
             sx={{
               color: 'text.primary',
               '&:hover': {
@@ -150,6 +176,7 @@ export const WikiDrawer: React.FC = () => {
             <ListItemText primary="Special Thanks" />
           </ListItemButton>
           <ListItemButton
+            disabled
             sx={{
               color: 'text.primary',
               '&:hover': {
@@ -163,6 +190,7 @@ export const WikiDrawer: React.FC = () => {
             <ListItemText primary="Get Started" />
           </ListItemButton>
           <ListItemButton
+            disabled
             sx={{
               color: 'text.primary',
               '&:hover': {
@@ -176,6 +204,7 @@ export const WikiDrawer: React.FC = () => {
             <ListItemText primary="FAQ" />
           </ListItemButton>
           <ListItemButton
+            disabled
             sx={{
               color: 'text.primary',
               '&:hover': {
@@ -189,6 +218,7 @@ export const WikiDrawer: React.FC = () => {
             <ListItemText primary="Support Us" />
           </ListItemButton>
           <ListItemButton
+            disabled
             sx={{
               color: 'text.primary',
               '&:hover': {
@@ -202,6 +232,7 @@ export const WikiDrawer: React.FC = () => {
             <ListItemText primary="Send Report" />
           </ListItemButton>
           <ListItemButton
+            disabled
             sx={{
               color: 'text.primary',
               '&:hover': {
@@ -218,6 +249,9 @@ export const WikiDrawer: React.FC = () => {
         </List>
         <List>
           <ListItemButton
+            data-testid="WikiPage-WikiList__AccountSetup_Button"
+            selected={page === 'accSetup'}
+            onClick={(e) => handlePageSelect(e, 'accSetup')}
             sx={{
               color: 'text.primary',
               '&:hover': {
@@ -229,8 +263,60 @@ export const WikiDrawer: React.FC = () => {
               <AccountCircleTwoTone color="secondary" />
             </ListItemIcon>
             <ListItemText primary="Account Setup" />
+            {page === 'accSetup' ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
+          <Collapse in={page === 'accSetup'} timeout="auto" unmountOnExit>
+            <List
+              data-testid="WikiPage-WikiList-AccountSetup__SubPage_List"
+              component="div"
+              disablePadding
+            >
+              <ListItemButton
+                sx={{
+                  pl: 4,
+                  color: 'text.primary',
+                  '&:hover': {
+                    color: 'warning.main',
+                  },
+                }}
+              >
+                <ListItemIcon>
+                  <FollowTheSignsTwoTone color="secondary" />
+                </ListItemIcon>
+                <ListItemText primary="Sign Up" />
+              </ListItemButton>
+              <ListItemButton
+                sx={{
+                  pl: 4,
+                  color: 'text.primary',
+                  '&:hover': {
+                    color: 'warning.main',
+                  },
+                }}
+              >
+                <ListItemIcon>
+                  <FingerprintTwoTone color="secondary" />
+                </ListItemIcon>
+                <ListItemText primary="Verification" />
+              </ListItemButton>
+              <ListItemButton
+                sx={{
+                  pl: 4,
+                  color: 'text.primary',
+                  '&:hover': {
+                    color: 'warning.main',
+                  },
+                }}
+              >
+                <ListItemIcon>
+                  <ManageAccountsTwoTone color="secondary" />
+                </ListItemIcon>
+                <ListItemText primary="New Settings" />
+              </ListItemButton>
+            </List>
+          </Collapse>
           <ListItemButton
+            disabled
             sx={{
               color: 'text.primary',
               '&:hover': {
@@ -243,7 +329,9 @@ export const WikiDrawer: React.FC = () => {
             </ListItemIcon>
             <ListItemText primary="Settings" />
           </ListItemButton>
+          <Collapse></Collapse>
           <ListItemButton
+            disabled
             sx={{
               color: 'text.primary',
               '&:hover': {
@@ -257,6 +345,7 @@ export const WikiDrawer: React.FC = () => {
             <ListItemText primary="App Dock" />
           </ListItemButton>
           <ListItemButton
+            disabled
             sx={{
               color: 'text.primary',
               '&:hover': {
@@ -270,6 +359,7 @@ export const WikiDrawer: React.FC = () => {
             <ListItemText primary="Contracts" />
           </ListItemButton>
           <ListItemButton
+            disabled
             sx={{
               color: 'text.primary',
               '&:hover': {
@@ -283,6 +373,7 @@ export const WikiDrawer: React.FC = () => {
             <ListItemText primary="Routes" />
           </ListItemButton>
           <ListItemButton
+            disabled
             sx={{
               color: 'text.primary',
               '&:hover': {

@@ -196,6 +196,16 @@ export const routingInfo: RouteObject[] = [
       {
         path: '/support',
         element: <WikiPage />,
+        children: [
+          {
+            path: '/support/:page',
+            element: <WikiPage />,
+          },
+          {
+            path: '/support/:page/:subpage',
+            element: <WikiPage />,
+          },
+        ],
       },
       {
         path: '/admin/:adminTab',
