@@ -1,15 +1,32 @@
 import { Box } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserMemberships } from '@Redux/Slices/Orgs/orgs.selectors';
+import React from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { AddOrgButton } from './AddOrgButton';
 import { EmptySpace } from './EmptySpace';
 import { OrgSelectButton } from './OrgSelection';
 
 export const OrgSwitcher: React.FC = () => {
+  const { selectedOrgId } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
   const userMemberships = useAppSelector(selectUserMemberships);
 
   const primaryOrg = userMemberships.find((membership) => membership.primary);
+
+  React.useEffect(() => {
+    if (!selectedOrgId) {
+      if (primaryOrg) {
+        const url = `${location.pathname}/${primaryOrg.org_id}`;
+        navigate(url);
+      } else if (userMemberships.length > 0) {
+        const url = `${location.pathname}/${userMemberships[0].org_id}`;
+        navigate(url);
+      }
+    }
+  }, [location, navigate, primaryOrg, userMemberships, selectedOrgId]);
   return (
     <Box
       sx={{
