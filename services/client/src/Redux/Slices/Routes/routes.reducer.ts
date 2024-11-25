@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
+import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
 import {
   nextStop,

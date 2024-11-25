@@ -17,7 +17,7 @@ import {
 } from '@mui/icons-material';
 import { Button, Checkbox, IconButton, LinearProgress, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
+import { selectLocations } from '@Redux/Slices/Locations/locations.selectors';
 import {
   nextStop,
   updateActiveTask,
@@ -39,7 +39,7 @@ export const RoutesWidget: React.FC = () => {
   const dispatch = useAppDispatch();
   const destinations = useAppSelector(selectDestinations);
 
-  const locations = useAppSelector(selectLocationsArray);
+  const locations = useAppSelector(selectLocations);
 
   const locationTree = React.useMemo(() => {
     return binaryLocationTree(locations);

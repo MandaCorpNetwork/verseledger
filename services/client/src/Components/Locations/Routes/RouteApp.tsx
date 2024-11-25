@@ -3,7 +3,7 @@ import { DoubleArrow } from '@mui/icons-material';
 import { Box, Collapse, IconButton } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.action';
-import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
+import { selectLocations } from '@Redux/Slices/Locations/locations.selectors';
 import {
   routingActive,
   selectDestinations,
@@ -28,7 +28,7 @@ export const RouteApp: React.FC<unknown> = () => {
     dispatch(fetchLocations());
   }, [dispatch]);
 
-  const locations = useAppSelector(selectLocationsArray);
+  const locations = useAppSelector(selectLocations);
 
   const locationTree = React.useMemo(() => {
     return binaryLocationTree(locations);

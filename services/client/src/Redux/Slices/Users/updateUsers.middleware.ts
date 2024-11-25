@@ -19,7 +19,7 @@ export const updateUsersMiddleware: Middleware<unknown, Record<string, unknown>>
           }
         }
       }
-      dispatch(userActions.updateUsers(activeContractors));
+      dispatch(userActions.upsertUsers(activeContractors));
     }
     return next(action);
   };

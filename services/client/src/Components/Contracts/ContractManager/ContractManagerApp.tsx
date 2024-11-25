@@ -6,7 +6,7 @@ import { Box, useMediaQuery } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContracts.action';
-import { selectContractsArray } from '@Redux/Slices/Contracts/contracts.selectors';
+import { selectContracts } from '@Redux/Slices/Contracts/contracts.selectors';
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser.action';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { useIsMobile } from '@Utils/isMobile';
@@ -294,7 +294,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
   ]);
 
   /** Selects the Contracts currently stored in the `Contracts` Slice */
-  const contracts = useAppSelector((state) => selectContractsArray(state));
+  const contracts = useAppSelector(selectContracts);
 
   /** A useEffect to ensure that the Selected Contract is Available in the `Contracts` Slice, otherwise cleares the SelectedId */
   React.useEffect(() => {

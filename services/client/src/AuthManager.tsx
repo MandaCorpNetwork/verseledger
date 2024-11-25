@@ -17,7 +17,7 @@ export const AuthManager: React.FC = () => {
 
   useSubscription('/topic/newContract', (message) => {
     const contract = JSON.parse(message.body) as IContract;
-    dispatch(contractActions.insert(contract));
+    dispatch(contractActions.addContract(contract));
     enqueueSnackbar({
       variant: 'info',
       message: `New ${contract.subtype} Contract "${contract.title}"`,

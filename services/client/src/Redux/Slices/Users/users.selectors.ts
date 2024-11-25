@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import type { RootState } from '@store';
-import { IUser, IUserWithSettings } from 'vl-shared/src/schemas/UserSchema';
+import { IUserWithSettings } from 'vl-shared/src/schemas/UserSchema';
 
 import { usersAdapter } from './users.adapters';
 
