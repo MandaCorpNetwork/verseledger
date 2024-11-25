@@ -1,10 +1,16 @@
 import { RootState } from '@Redux/store';
 
-import { orgsAdapter } from './orgs.adapters';
+import { orgsAdapter, userOrgMemberAdapter } from './orgs.adapters';
 
 const orgsSelectors = orgsAdapter.getSelectors(
   (state: RootState) => state.organizations.orgs,
 );
+
+const userOrgSelectors = userOrgMemberAdapter.getSelectors(
+  (state: RootState) => state.organizations.userMemberships,
+);
+
+export const selectUserMemberships = userOrgSelectors.selectAll;
 
 export const selectOrgs = orgsSelectors.selectAll;
 

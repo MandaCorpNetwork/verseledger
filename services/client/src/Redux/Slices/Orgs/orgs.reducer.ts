@@ -3,9 +3,10 @@ import { Logger } from '@Utils/Logger';
 import { IPaginatedDataSlice } from 'vl-shared/src/schemas/IPaginatedData';
 
 import { fetchOrgs } from './actions/post/fetchOrgs.action';
-import { orgMembersAdapter, orgsAdapter } from './orgs.adapters';
+import { orgMembersAdapter, orgsAdapter, userOrgMemberAdapter } from './orgs.adapters';
 
 const initialState = {
+  userMemberships: userOrgMemberAdapter.getInitialState(),
   orgs: orgsAdapter.getInitialState(),
   orgMembers: orgMembersAdapter.getInitialState(),
   pagination: {} as IPaginatedDataSlice,
@@ -17,6 +18,9 @@ const orgsReducer = createSlice({
   reducers: {
     noop() {
       return initialState;
+    },
+    addUserMemberships(state, action) {
+      userOrgMemberAdapter.addMany(state.userMemberships, action.payload);
     },
     addOrgs(state, action) {
       orgsAdapter.addMany(state.orgs, action.payload);

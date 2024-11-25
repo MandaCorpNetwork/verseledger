@@ -1,14 +1,15 @@
 import { Box } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
+import { selectUserMemberships } from '@Redux/Slices/Orgs/orgs.selectors';
 
-// import { useAppSelector } from '@Redux/hooks';
-// import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { AddOrgButton } from './AddOrgButton';
 import { EmptySpace } from './EmptySpace';
+import { OrgSelectButton } from './OrgSelection';
 
 export const OrgSwitcher: React.FC = () => {
-  // const user = useAppSelector(selectCurrentUser);
+  const userMemberships = useAppSelector(selectUserMemberships);
 
-  // const userMemberships = user ? user.
+  const primaryOrg = userMemberships.find((membership) => membership.primary);
   return (
     <Box
       sx={{
@@ -36,12 +37,19 @@ export const OrgSwitcher: React.FC = () => {
           gap: '1em',
         }}
       >
-        <AddOrgButton />
-        <EmptySpace />
-        <EmptySpace />
-        <EmptySpace />
-        <EmptySpace />
-        <EmptySpace />
+        {primaryOrg && <OrgSelectButton membership={primaryOrg} />}
+        {userMemberships &&
+          userMemberships.map((membership) => {
+            if (!membership.primary) {
+              return <OrgSelectButton key={membership.id} membership={membership} />;
+            }
+            return null;
+          })}
+        {userMemberships.length < 6 && <AddOrgButton />}
+        {Array.from({ length: 5 - userMemberships.length }).map((_, index) => {
+          const key = `empty-${index}`;
+          return <EmptySpace key={key} />;
+        })}
       </div>
     </Box>
   );

@@ -21,8 +21,15 @@ export const OrganizationMemberSchema = z.object({
   org_id: z.string().max(26),
   role_id: z.string().max(26),
   joined: z.coerce.date(),
+  primary: z.boolean(),
 });
 export type IOrganizationMember = z.infer<typeof OrganizationMemberSchema>;
+
+export const OrganizationMemberWithOrgSchema = OrganizationMemberSchema.extend({
+  Org: OrganizationSchema.optional(),
+});
+
+export type IOrganizationMemberWithOrg = z.infer<typeof OrganizationMemberWithOrgSchema>;
 
 export const OrganizationRoleSchema = z.object({
   id: z.string().max(26),
