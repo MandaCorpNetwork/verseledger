@@ -3,7 +3,7 @@ import { CardorTableViewToggle } from '@Common/Components/Buttons/TorCToggle';
 import { Close } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
-import { selectContractsArray } from '@Redux/Slices/Contracts/contracts.selectors';
+import { selectContracts } from '@Redux/Slices/Contracts/contracts.selectors';
 import { useNav } from '@Utils/Hooks/useNav';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
@@ -27,7 +27,7 @@ export const LedgerListContainer: React.FC = () => {
     [nav],
   );
 
-  const contracts = useAppSelector((state) => selectContractsArray(state));
+  const contracts = useAppSelector(selectContracts);
   return (
     <GlassDisplay
       data-testid="ContractLedger-ColumnTwo__ContractBrowserContainer"

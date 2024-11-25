@@ -6,7 +6,7 @@ import { useAppSelector } from '@Redux/hooks';
 import { selectBidPagination } from '@Redux/Slices/Bids/bids.selector';
 import {
   selectContractPagination,
-  selectContractsArray,
+  selectContracts,
 } from '@Redux/Slices/Contracts/contracts.selectors';
 import React from 'react';
 
@@ -39,7 +39,7 @@ export const ContractList: React.FC<ContractListProps> = ({ currentTab }) => {
     [sound, setPage],
   );
 
-  const contracts = useAppSelector((state) => selectContractsArray(state));
+  const contracts = useAppSelector(selectContracts);
   /**
    * Handles the logic for rendering Contract Cards
    * - Passes in an archetype Option for sorting the contracts by Archetypes with dropdowns.

@@ -1,25 +1,19 @@
 import { createSelector } from '@reduxjs/toolkit';
 import type { RootState } from '@store';
-import { IUser, IUserWithSettings } from 'vl-shared/src/schemas/UserSchema';
+import { IUserWithSettings } from 'vl-shared/src/schemas/UserSchema';
 
-export const selectUsers = (state: RootState) => {
-  return state.users;
-};
-export const selectUsersArray = createSelector([selectUsers], (users) => {
-  return Object.values(users);
-});
+import { usersAdapter } from './users.adapters';
 
-export const selectUserById = createSelector(
-  [selectUsers, (_, id: string) => id],
-  (users, id: string) => {
-    return users[id] as IUser | null;
-  },
-);
+const usersSelectors = usersAdapter.getSelectors((state: RootState) => state.users);
+
+export const selectUsers = usersSelectors.selectAll;
+
+export const selectUserById = usersSelectors.selectById;
 
 export const selectUserPageImageById = createSelector(
   [selectUsers, (_, id: string) => id],
   (users, id: string) => {
-    const user = users[id] as IUserWithSettings | null;
-    return user?.Settings?.userPageImage;
+    const user = users.find((user) => user.id === id) as IUserWithSettings | undefined;
+    return user?.Settings?.userPageImage ?? null;
   },
 );

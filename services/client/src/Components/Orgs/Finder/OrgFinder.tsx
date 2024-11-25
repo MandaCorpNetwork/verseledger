@@ -3,7 +3,7 @@ import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 import { CardorTableViewToggle } from '@Common/Components/Buttons/TorCToggle';
 import { TextField, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
-import { selectOrgsArray } from '@Redux/Slices/Orgs/orgs.selectors';
+import { selectOrgs } from '@Redux/Slices/Orgs/orgs.selectors';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 
@@ -13,7 +13,7 @@ import { PaginationAnchor } from './PaginationAnchor';
 export const OrgFinder: React.FC = () => {
   const isMobile = useIsMobile();
   const [view, setView] = React.useState<'card' | 'table'>('card');
-  const orgList = useAppSelector((state) => selectOrgsArray(state));
+  const orgList = useAppSelector(selectOrgs);
   return (
     <GlassBox sx={{ gap: '1em', width: '90%' }}>
       <div

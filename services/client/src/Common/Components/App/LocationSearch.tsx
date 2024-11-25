@@ -9,7 +9,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { fetchLocations } from '@Redux/Slices/Locations/actions/fetchLocations.action';
-import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
+import { selectLocations } from '@Redux/Slices/Locations/locations.selectors';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
@@ -54,7 +54,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = (props) => {
   const dispatch = useAppDispatch();
 
   //Set the State with the Locations Selector
-  const locations = useAppSelector(selectLocationsArray);
+  const locations = useAppSelector(selectLocations);
 
   //Set the User Location Default
   const currentUserLocation = useAppSelector(selectUserLocation);

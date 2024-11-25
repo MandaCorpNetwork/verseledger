@@ -1,9 +1,16 @@
 import { RootState } from '@Redux/store';
 
-export const selectDestinations = (state: RootState) =>
-  Object.values(state.routes.destinations);
+import { destinationsAdapter, tasksAdapter } from './routes.adapters';
 
-export const selectTasks = (state: RootState) => Object.values(state.routes.tasks);
+const destinationsSelectors = destinationsAdapter.getSelectors(
+  (state: RootState) => state.routes.destinations,
+);
+
+const taskSelectors = tasksAdapter.getSelectors((state: RootState) => state.routes.tasks);
+
+export const selectDestinations = destinationsSelectors.selectAll;
+
+export const selectTasks = taskSelectors.selectAll;
 
 export const routingActive = (state: RootState) => state.routes.activeRoute.active;
 

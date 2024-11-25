@@ -1,4 +1,4 @@
-import { actions as userActions } from '@Redux/Slices/Users/users.reducer';
+import { usersActions as userActions } from '@Redux/Slices/Users/users.reducer';
 import { AppDispatch } from '@Redux/store';
 import { Middleware } from 'redux';
 import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
@@ -19,7 +19,7 @@ export const updateUsersMiddleware: Middleware<unknown, Record<string, unknown>>
           }
         }
       }
-      dispatch(userActions.updateUsers(activeContractors));
+      dispatch(userActions.upsertUsers(activeContractors));
     }
     return next(action);
   };

@@ -1,59 +1,46 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { Logger } from '@Utils/Logger';
-import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 import { IPaginatedDataSlice } from 'vl-shared/src/schemas/IPaginatedData';
 
 import { fetchContractBidsOfUser } from '../Users/Actions/fetchContractBidsByUser.action';
-import { updateBid } from './Actions/updateBid.action';
+import { bidsAdapter } from './bids.adapters';
+
+const initialState = {
+  bids: bidsAdapter.getInitialState(),
+  pagination: {} as IPaginatedDataSlice,
+};
 
 const bidsReducer = createSlice({
   name: 'bids',
-  initialState: {
-    bids: {} as Record<string, IContractBid>,
-    pagination: {} as IPaginatedDataSlice,
-  },
+  initialState,
   reducers: {
     noop() {
-      return {
-        bids: {},
-        pagination: { total: 0, limit: 0, page: 0, pages: 0 },
-      };
+      return initialState;
     },
-    insert(state, action: PayloadAction<IContractBid[]>) {
-      action.payload.forEach((bid) => {
-        state.bids[bid.id] = bid;
-      });
+    addBids(state, action) {
+      bidsAdapter.addMany(state.bids, action.payload);
+    },
+    updateBid(state, action) {
+      bidsAdapter.updateOne(state.bids, action.payload);
+    },
+    addBid(state, action) {
+      bidsAdapter.addOne(state.bids, action.payload);
+    },
+    upsertBids(state, action) {
+      bidsAdapter.upsertMany(state.bids, action.payload);
     },
   },
   extraReducers(builder) {
-    builder
-      .addCase(fetchContractBidsOfUser.fulfilled, (_state, action) => {
-        Logger.info('Fetching Bids Fulfilled', action.payload);
-        const bids = action.payload?.data;
-        const pagination = action.payload?.pagination;
-        if (bids) {
-          bids.forEach((bid) => {
-            _state.bids[bid.id] = bid;
-          });
-        } else {
-          Logger.warn('Payload data is undefined or empty');
-        }
-        if (pagination) {
-          _state.pagination = pagination;
-        } else {
-          Logger.warn('Payload pages is undefined or empty');
-        }
-      })
-      .addCase(updateBid.fulfilled, (_state, action) => {
-        const updatedBid = action.payload;
-        if (updatedBid) {
-          _state.bids[updatedBid.id] = { ..._state.bids[updatedBid.id], ...updatedBid };
-        } else {
-          Logger.warn('Payload data is undefined or empty');
-        }
-      });
+    builder.addCase(fetchContractBidsOfUser.fulfilled, (_state, action) => {
+      const pagination = action.payload?.pagination;
+      if (pagination) {
+        _state.pagination = pagination;
+      } else {
+        Logger.warn('Payload pages is undefined or empty');
+      }
+    });
   },
 });
 
 export default bidsReducer;
-export const actions = bidsReducer.actions;
+export const bidsActions = bidsReducer.actions;

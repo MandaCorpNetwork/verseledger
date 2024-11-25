@@ -1,35 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Logger } from '@Utils/Logger';
 import { IPaginatedDataSlice } from 'vl-shared/src/schemas/IPaginatedData';
-import { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
 import { fetchOrgs } from './actions/post/fetchOrgs.action';
+import { orgMembersAdapter, orgsAdapter } from './orgs.adapters';
+
+const initialState = {
+  orgs: orgsAdapter.getInitialState(),
+  orgMembers: orgMembersAdapter.getInitialState(),
+  pagination: {} as IPaginatedDataSlice,
+};
 
 const orgsReducer = createSlice({
   name: 'organizations',
-  initialState: {
-    orgs: {} as Record<string, IOrganization>,
-    pagination: {} as IPaginatedDataSlice,
-  },
+  initialState,
   reducers: {
     noop() {
-      return {
-        orgs: {},
-        pagination: { total: 0, limit: 0, page: 0, pages: 0 },
-      };
+      return initialState;
+    },
+    addOrgs(state, action) {
+      orgsAdapter.addMany(state.orgs, action.payload);
+    },
+    addMembers(state, action) {
+      orgMembersAdapter.addMany(state.orgMembers, action.payload);
     },
   },
   extraReducers(builder) {
     builder.addCase(fetchOrgs.fulfilled, (_state, action) => {
       const pagination = action.payload?.pagination;
-      const orgs = action.payload?.data;
-      if (orgs) {
-        orgs.forEach((org) => {
-          _state.orgs[org.id] = org;
-        });
-      } else {
-        Logger.warn('Payload data is undefined or empty');
-      }
       if (pagination) {
         _state.pagination = pagination;
       } else {
@@ -40,4 +38,4 @@ const orgsReducer = createSlice({
 });
 
 export default orgsReducer;
-export const actions = orgsReducer.actions;
+export const orgActions = orgsReducer.actions;
