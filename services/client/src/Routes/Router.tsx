@@ -31,6 +31,7 @@ import { UserSettings } from './Settings/UserSettings';
 import { Sandbox } from './ui-sandbox/SandboxPage';
 import { UserPage } from './User/UserPage';
 import { VerseNewsPage } from './VerseNews/VerseNews';
+import { WikiPage } from './Wiki/WikiPage';
 
 export const routingInfo: RouteObject[] = [
   {
@@ -191,6 +192,10 @@ export const routingInfo: RouteObject[] = [
       {
         path: '/verse-news',
         element: <VerseNewsPage />,
+      },
+      {
+        path: '/support',
+        element: <WikiPage />,
       },
       {
         path: '/admin/:adminTab',
