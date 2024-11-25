@@ -6,6 +6,7 @@ import {
   DataType,
   BelongsTo,
   Default,
+  Scopes,
 } from 'sequelize-typescript';
 
 import { User } from '@V1/models/user/user.model';
@@ -18,6 +19,11 @@ import {
 } from 'sequelize';
 import { OrganizationRole } from './organization_role.model';
 
+@Scopes(() => ({
+  role: {
+    include: [{ model: OrganizationRole, as: 'Role' }],
+  },
+}))
 @Table({ tableName: 'organization_member', timestamps: true })
 export class OrganizationMember extends Model<
   InferAttributes<OrganizationMember>,

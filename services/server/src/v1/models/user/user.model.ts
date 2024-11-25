@@ -33,7 +33,6 @@ import {
 import { Notification } from '@V1/models/notifications/notification.model';
 import { UserAuth } from '@V1/models/auth/user_auth.model';
 import { OrganizationMember } from '../organization/organization_member.model';
-import { Organization } from '../organization/organization.model';
 @Scopes(() => ({
   bids: {
     include: [{ model: ContractBid, as: 'PostedBids' }],
@@ -52,7 +51,7 @@ import { Organization } from '../organization/organization.model';
       {
         model: OrganizationMember,
         as: 'OrgMemberships',
-        include: [{ model: Organization, as: 'Org' }],
+        include: ['Org', 'Role'],
       },
     ],
   },
@@ -69,7 +68,7 @@ import { Organization } from '../organization/organization.model';
         as: 'OrgMemberships',
         where: { primary: true },
         required: false,
-        include: [{ model: Organization, as: 'Org' }],
+        include: ['Org', 'Role'],
       },
     ],
   },
