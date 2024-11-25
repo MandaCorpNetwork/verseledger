@@ -12,6 +12,14 @@ const userOrgSelectors = userOrgMemberAdapter.getSelectors(
 
 export const selectUserMemberships = userOrgSelectors.selectAll;
 
+export const selectUserMembership = userOrgSelectors.selectById;
+
+export const selectUserMembershipByOrgId = (state: RootState, orgId: string) => {
+  return userOrgSelectors
+    .selectAll(state)
+    .find((membership) => membership.org_id === orgId);
+};
+
 export const selectOrgs = orgsSelectors.selectAll;
 
 export const selectOrg = orgsSelectors.selectById;
