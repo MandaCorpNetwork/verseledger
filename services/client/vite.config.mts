@@ -1,4 +1,5 @@
 // import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
+import mdx from '@mdx-js/rollup';
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
@@ -21,6 +22,7 @@ export default defineConfig({
   build: { outDir: '../build' },
   plugins: [
     // TanStackRouterVite({ autoCodeSplitting: true, quoteStyle: 'single', routesDirectory:'./src/Routes'}),
+    mdx(),
     react({ tsDecorators: true }),
     ...VitePWA(PWA_OPTIONS),
     tsconfigPaths(),
