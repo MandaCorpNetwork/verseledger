@@ -75,4 +75,11 @@ export class OrganizationMemberDTO
     example: 'MANDACORP',
   })
   joined!: Date;
+
+  @ApiModelProperty({
+    description: 'Primary Org',
+    required: true,
+    example: true,
+  })
+  primary!: boolean;
 }
