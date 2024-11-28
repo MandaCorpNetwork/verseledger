@@ -118,6 +118,10 @@ export class User
   @Column({ type: DataType.BOOLEAN() })
   declare verified: CreationOptional<boolean>;
 
+  @Default(() => new Date(Date.now()))
+  @Column({ type: DataType.DATE() })
+  declare last_login: CreationOptional<Date>;
+
   @HasMany(() => Contract, 'owner_user_id')
   declare PostedContracts: NonAttribute<Awaited<Contract>[]>;
 
