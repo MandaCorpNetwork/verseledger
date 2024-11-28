@@ -1,9 +1,10 @@
 import { Logger } from '@Utils/Logger';
 import { inject, injectable } from 'inversify';
-// import webpush from 'web-push'
 import { EnvService } from '@V1/services/env.service';
 import { TYPES } from '@Constant/types';
 import chalk from 'chalk';
+import { PushSubscription } from 'web-push';
+import { Subscription } from './subscription.model';
 @injectable()
 export class SubscriptionService {
   public initialized: boolean = false;
@@ -27,5 +28,14 @@ export class SubscriptionService {
     }
     this.initialized = true;
     Logger.init();
+  }
+
+  public async subscribe(user_id: string, subscription: PushSubscription) {
+    const sub = {
+      user_id,
+      ...Subscription.format(subscription),
+    };
+    const newSub = await Subscription.create(sub);
+    return newSub;
   }
 }

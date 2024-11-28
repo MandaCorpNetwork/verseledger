@@ -11,7 +11,6 @@ import { SubscriptionService } from './subscriptions.service';
 import { PushSubscription } from 'web-push';
 import { BadRequestError } from '@V1/errors/BadRequest';
 import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
-import { Subscription } from './subscription.model';
 
 @ApiPath({
   path: '/v1/notifications',
@@ -36,11 +35,8 @@ export class SubscriptionsController extends BaseHttpController {
     }
 
     const user_id = (this.httpContext.user as VLAuthPrincipal).id;
-    const sub = {
-      user_id,
-      ...Subscription.format(body),
-    };
-    const newSub = await Subscription.create(sub);
-    return newSub.id;
+
+    //! This will Change
+    return await this.subscriptionService.subscribe(user_id, body);
   }
 }
