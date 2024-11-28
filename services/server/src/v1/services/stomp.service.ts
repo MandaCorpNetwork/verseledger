@@ -6,7 +6,7 @@ import { WebSocket } from 'ws';
 import { Logger } from '@Utils/Logger';
 import { EnvService } from './env.service';
 import { TYPES } from '@Constant/types';
-import { VAPIDService } from './vapid.service';
+import { SubscriptionService } from '@V1/models/subscriptions/subscriptions.service';
 Object.assign(global, { WebSocket });
 const env = new EnvService();
 //TODO: Set Up Users
@@ -21,7 +21,8 @@ client.activate();
 @injectable()
 export class StompService {
   constructor(
-    @inject(TYPES.VAPIDService) private readonly vapid: VAPIDService,
+    @inject(TYPES.SubscriptionService)
+    private readonly vapid: SubscriptionService,
   ) {
     Logger.init();
   }

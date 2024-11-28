@@ -11,3 +11,4 @@ import './models/chat/chat.controller';
 import './models/contract_bid/contract_bid.controller';
 import './models/organization/organization.controller';
 import './models/features/features.controller';
+import './models/subscriptions/subscriptions.controller';
