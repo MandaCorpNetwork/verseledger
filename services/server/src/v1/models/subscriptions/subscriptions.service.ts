@@ -31,11 +31,17 @@ export class SubscriptionService {
   }
 
   public async subscribe(user_id: string, subscription: PushSubscription) {
+    if (!this.initialized) return false;
     const sub = {
       user_id,
       ...Subscription.format(subscription),
     };
     const newSub = await Subscription.create(sub);
     return newSub;
+  }
+
+  public getPublicKey() {
+    if (!this.initialized) return false;
+    return this._envars.VAPID_PUBLIC_KEY;
   }
 }

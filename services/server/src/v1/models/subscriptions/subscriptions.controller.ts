@@ -1,6 +1,7 @@
 import {
   BaseHttpController,
   controller,
+  httpGet,
   httpPost,
   requestBody,
 } from 'inversify-express-utils';
@@ -24,6 +25,11 @@ export class SubscriptionsController extends BaseHttpController {
     private readonly subscriptionService: SubscriptionService,
   ) {
     super();
+  }
+  @httpGet('/public', TYPES.AuthMiddleware)
+  private async getPublicKey() {
+    if (!this.subscriptionService.initialized) return this.statusCode(503);
+    return this.subscriptionService.getPublicKey();
   }
   @httpPost('/subscibe', TYPES.AuthMiddleware)
   private async subscribe(@requestBody() body: PushSubscription) {
