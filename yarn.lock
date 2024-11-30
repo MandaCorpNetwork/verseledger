@@ -8514,10 +8514,10 @@ internal-slot@^1.0.7:
   resolved "https://registry.yarnpkg.com/internmap/-/internmap-2.0.3.tgz#6685f23755e43c524e251d29cbc97248e3061009"
   integrity sha512-5Hh7Y1wQbvY5ooGgPbDaL5iYLAPzMTUrjMulskHLH6wnv/A+1q5rgEaiuqEjB+oxGXIVZs1FF+R/KPN3ZSQYYg==
 
-inversify-express-utils@6.4.7:
-  version "6.4.7"
-  resolved "https://registry.yarnpkg.com/inversify-express-utils/-/inversify-express-utils-6.4.7.tgz#6c3526e112ce2395f9abf784b8718d3453c4aa0f"
-  integrity sha512-s1EQNu31HM7Obh9dZu0awwGNYjYRfc3uh1u4Fe4XjcCSyJjBWL1EZfew5NPTn6dYQa78lwUjVGpdZ2uzqqky7A==
+inversify-express-utils@6.4.8:
+  version "6.4.8"
+  resolved "https://registry.yarnpkg.com/inversify-express-utils/-/inversify-express-utils-6.4.8.tgz#a6a7131b1f195d03948159b1cbc495d40166d050"
+  integrity sha512-8jSY7oeXMV2VAVDe6NgQ4B3++RDjPypxGwq5ORbVlE3gtxSWIA1tOHT9qMJX7lyUrXcb4Q3uJ6uJ6+xOKpvUDg==
   dependencies:
     http-status-codes "2.3.0"
 
