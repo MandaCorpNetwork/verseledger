@@ -1,11 +1,13 @@
 import { Logger } from '@Utils/Logger';
 import { inject, injectable } from 'inversify';
-// import webpush from 'web-push'
-import { EnvService } from './env.service';
+import { EnvService } from '@V1/services/env.service';
 import { TYPES } from '@Constant/types';
 import chalk from 'chalk';
+import { PushSubscription } from 'web-push';
+import { Subscription } from './subscription.model';
 @injectable()
-export class VAPIDService {
+export class SubscriptionService {
+  public initialized: boolean = false;
   constructor(@inject(TYPES.EnvService) private readonly _envars: EnvService) {
     let failed = false;
     if (this._envars.VAPID_PRIVATE_KEY == null) {
@@ -24,6 +26,22 @@ export class VAPIDService {
       Logger.warn(chalk.red('Service not Initialized.'));
       return;
     }
+    this.initialized = true;
     Logger.init();
+  }
+
+  public async subscribe(user_id: string, subscription: PushSubscription) {
+    if (!this.initialized) return false;
+    const sub = {
+      user_id,
+      ...Subscription.format(subscription),
+    };
+    const newSub = await Subscription.create(sub);
+    return newSub;
+  }
+
+  public getPublicKey() {
+    if (!this.initialized) return false;
+    return this._envars.VAPID_PUBLIC_KEY;
   }
 }

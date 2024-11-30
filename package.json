@@ -21,7 +21,8 @@
     "cypress:develop": "yarn manypkg run client cypress open --browser chrome",
     "cypress": "yarn manypkg run client cypress run --browser chrome",
     "build": "yarn manypkg run client build",
-    "start": "yarn migrate && concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client serve\" \"manypkg run server serve\""
+    "start": "yarn migrate && concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client serve\" \"manypkg run server serve\"",
+    "docker:local": "docker compose --profile local up"
   },
   "dependencies": {
     "@babel/core": "7.26.0",

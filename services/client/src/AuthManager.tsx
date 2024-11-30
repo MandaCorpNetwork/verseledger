@@ -60,7 +60,7 @@ export const AuthManager: React.FC = () => {
       return;
     }
     const accessTokenContents = AuthUtil.getAccessTokenContents()!;
-    if (accessTokenContents.exp * 1000 - Date.now() <= 1000 * 60 * 20) {
+    if (accessTokenContents.exp * 1000 - Date.now() <= 1000 * 60 * 10) {
       dispatch(updateTokens());
     }
   }, [dispatch]);

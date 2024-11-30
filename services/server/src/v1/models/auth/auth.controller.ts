@@ -188,7 +188,9 @@ export class AuthController extends BaseHttpController {
       if (u == null) {
         return nextFunc(new UnauthorizedError());
       }
+      const user = await this.userService.getUser(u.id);
       await this.authService.invalidateToken(token);
+      await user?.set('last_login', new Date(Date.now()))?.save();
       return this.authService.signUser(u.id);
     });
   }
@@ -230,6 +232,8 @@ export class AuthController extends BaseHttpController {
         '@NOTIFICATION.MESSAGES.VERIFY_RSI',
         { type: 'popup', popup: '$VERIFY' },
       );
+    } else {
+      await dbUser.user.set('last_login', new Date(Date.now()))?.save();
     }
     UserRepository.updateUserRating(dbUser.user.id);
     return this.authService.signUser(dbUser.user.id);
@@ -275,6 +279,8 @@ export class AuthController extends BaseHttpController {
         '@NOTIFICATION.MESSAGES.VERIFY_RSI',
         { type: 'popup', popup: '$VERIFY' },
       );
+    } else {
+      await dbUser.user.set('last_login', new Date(Date.now()))?.save();
     }
     UserRepository.updateUserRating(dbUser.user.id);
     return this.authService.signUser(dbUser.user.id);
