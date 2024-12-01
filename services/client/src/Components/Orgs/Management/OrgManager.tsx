@@ -2,8 +2,12 @@ import { useSoundEffect } from '@Audio/AudioManager';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import TabListHolo from '@Common/Components/Tabs/TabListHolo';
 import { Tab } from '@mui/material';
-import { useAppSelector } from '@Redux/hooks';
-import { selectUserMembershipByOrgId } from '@Redux/Slices/Orgs/orgs.selectors';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { fetchOrg } from '@Redux/Slices/Orgs/actions/get/fetchOrg.action';
+import {
+  selectOrg,
+  selectUserMembershipByOrgId,
+} from '@Redux/Slices/Orgs/orgs.selectors';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -12,12 +16,33 @@ type ManageTabs = 'rankAndRole' | 'info' | 'awards' | 'events' | 'payroll';
 export const OrgManager: React.FC = () => {
   const { selectedOrgId } = useParams();
   const sound = useSoundEffect();
+  const dispatch = useAppDispatch();
+  const [loading, setLoading] = React.useState<boolean>(true);
   const membership = useAppSelector((state) =>
     selectedOrgId ? selectUserMembershipByOrgId(state, selectedOrgId) : null,
   );
-  const org = membership ? membership.Org : null;
 
-  // const userRole = membership ? membership.Role : null;
+  const getOrg = React.useCallback(
+    (orgId: string) => {
+      setLoading(true);
+      if (orgId) {
+        sound.playSound('loading');
+        dispatch(fetchOrg(orgId));
+        setLoading(false);
+      }
+    },
+    [dispatch, sound],
+  );
+
+  React.useEffect(() => {
+    if (selectedOrgId) {
+      getOrg(selectedOrgId);
+    }
+  }, [getOrg, selectedOrgId]);
+
+  const org = useAppSelector((state) =>
+    selectedOrgId ? selectOrg(state, selectedOrgId) : null,
+  );
 
   const [manageTab, setManageTab] = React.useState<ManageTabs>('rankAndRole');
 

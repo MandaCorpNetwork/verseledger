@@ -18,7 +18,7 @@ export const fetchOrgs = createAsyncThunk(
         AuthUtil.getAccessHeader(),
       );
       const data = response.data as IPaginatedData<IOrganization>;
-      dispatch(orgActions.addOrgs(data.data));
+      dispatch(orgActions.setOrgs(data.data));
       return data;
     } catch (error) {
       Logger.error(error);

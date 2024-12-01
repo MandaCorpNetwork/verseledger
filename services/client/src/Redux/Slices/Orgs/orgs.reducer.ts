@@ -28,6 +28,15 @@ const orgsReducer = createSlice({
     addMembers(state, action) {
       orgMembersAdapter.addMany(state.orgMembers, action.payload);
     },
+    addOrg(state, action) {
+      orgsAdapter.addOne(state.orgs, action.payload);
+    },
+    setOrgs(state, action) {
+      orgsAdapter.setMany(state.orgs, action.payload);
+    },
+    upsertOrg(state, action) {
+      orgsAdapter.upsertOne(state.orgs, action.payload);
+    },
   },
   extraReducers(builder) {
     builder.addCase(fetchOrgs.fulfilled, (_state, action) => {
