@@ -11,6 +11,8 @@ import {
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
+import { RankAndRoles } from './RankAndRoles';
+
 type ManageTabs = 'rankAndRole' | 'info' | 'awards' | 'events' | 'payroll';
 
 export const OrgManager: React.FC = () => {
@@ -61,6 +63,7 @@ export const OrgManager: React.FC = () => {
   const renderPanel = React.useCallback(() => {
     switch (manageTab) {
       case 'rankAndRole':
+        return <RankAndRoles />;
       case 'info':
       case 'awards':
       case 'events':
@@ -88,6 +91,7 @@ export const OrgManager: React.FC = () => {
             display: 'flex',
             flexDirection: 'column',
             gap: '1em',
+            flexGrow: 1,
           }}
         >
           <div
@@ -110,7 +114,10 @@ export const OrgManager: React.FC = () => {
               <Tab label="Payroll Preferences" value="payroll" disabled />
             </TabListHolo>
           </div>
-          <div data-testid="OrgManager__PanelDisplay_Wrapper" style={{ flexGrow: 1 }}>
+          <div
+            data-testid="OrgManager__PanelDisplay_Wrapper"
+            style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}
+          >
             <GlassBox>{renderPanel()}</GlassBox>
           </div>
         </div>
