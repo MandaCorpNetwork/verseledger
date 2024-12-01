@@ -6,12 +6,13 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchOrg } from '@Redux/Slices/Orgs/actions/get/fetchOrg.action';
 import {
   selectOrg,
+  selectOrgRolesByOrgId,
   selectUserMembershipByOrgId,
 } from '@Redux/Slices/Orgs/orgs.selectors';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { MemberManagement } from './MemberManagement';
+import { MemberManagement } from './MemberManage/MemberManagement';
 import { RankAndRoles } from './RankAndRoles';
 
 type ManageTabs = 'members' | 'rankAndRole' | 'info' | 'awards' | 'events' | 'payroll';
@@ -47,13 +48,9 @@ export const OrgManager: React.FC = () => {
     selectedOrgId ? selectOrg(state, selectedOrgId) : null,
   );
 
-  // const roles = useAppSelector((state) =>
-  //   org ? selectOrgRolesByOrgId(state, org.id) : null,
-  // );
-
-  // const members = useAppSelector((state) =>
-  //   org ? selectOrgMembersByOrgId(state, org.id) : null,
-  // );
+  const roles = useAppSelector((state) =>
+    org ? selectOrgRolesByOrgId(state, org.id) : null,
+  );
 
   const [manageTab, setManageTab] = React.useState<ManageTabs>('members');
 
@@ -72,7 +69,7 @@ export const OrgManager: React.FC = () => {
   const renderPanel = React.useCallback(() => {
     switch (manageTab) {
       case 'members':
-        return <MemberManagement />;
+        return <MemberManagement org={org} roles={roles} />;
       case 'rankAndRole':
         return <RankAndRoles />;
       case 'info':
@@ -82,7 +79,7 @@ export const OrgManager: React.FC = () => {
       default:
         return null;
     }
-  }, [manageTab]);
+  }, [manageTab, org, roles]);
 
   return (
     <div
