@@ -17,11 +17,7 @@ export class FeatureFlagDTO
 
   public readonly __type = 'FeatureFlag';
   public get __partial() {
-    return (
-      this.percentageOfUsers == null ||
-      this.settingName == null ||
-      this.settingValue == null
-    );
+    return false;
   }
 
   public toJSON() {

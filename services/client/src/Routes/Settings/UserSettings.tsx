@@ -6,7 +6,7 @@ import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { DepressedListButton } from '@Common/Components/Lists/DepressedListButton';
 import { MobileDock } from '@Common/MobileDock/MobileDock';
 import { SupportBar } from '@Components/Home/SupportBar';
-import { ApplicationSettings } from '@Components/User/UserSettings/Application';
+import { BetaSettings } from '@Components/User/UserSettings/Beta';
 import { DeveloperSettings } from '@Components/User/UserSettings/DeveloperSettings';
 import { GraphicsSettings } from '@Components/User/UserSettings/Graphics';
 import { NotificationSettings } from '@Components/User/UserSettings/Notifications';
@@ -30,11 +30,11 @@ import React from 'react';
 const settingsList = [
   'Profile',
   'Security',
-  'Developer',
+  'Notifications',
+  'Beta',
   'Sounds',
   'Graphics',
-  'Application',
-  'Notifications',
+  'Developer',
 ] as const;
 
 type settingsListItem = (typeof settingsList)[number];
@@ -59,8 +59,8 @@ export const UserSettings: React.FC = () => {
         return <SoundSettings />;
       case 'Graphics':
         return <GraphicsSettings />;
-      case 'Application':
-        return <ApplicationSettings />;
+      case 'Beta':
+        return <BetaSettings />;
       case 'Notifications':
         return <NotificationSettings />;
     }
