@@ -188,7 +188,11 @@ export const routingInfo: RouteObject[] = [
             element: <OrgFinder />,
           },
           {
-            path: 'manager',
+            path: '/orgs/manage/:selectedOrgId',
+            element: <OrgManager />,
+          },
+          {
+            path: 'manage',
             element: <OrgManager />,
           },
         ],

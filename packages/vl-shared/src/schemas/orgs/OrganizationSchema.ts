@@ -1,3 +1,4 @@
+import { UserSchema } from '../UserSchema';
 import { z } from 'zod';
 
 export const OrganizationSchema = z.object({
@@ -25,11 +26,13 @@ export const OrganizationMemberSchema = z.object({
 });
 export type IOrganizationMember = z.infer<typeof OrganizationMemberSchema>;
 
-export const OrganizationMemberWithOrgSchema = OrganizationMemberSchema.extend({
-  Org: OrganizationSchema.optional(),
+export const OrganizationMemberWithUserSchema = OrganizationMemberSchema.extend({
+  User: UserSchema.optional(),
 });
 
-export type IOrganizationMemberWithOrg = z.infer<typeof OrganizationMemberWithOrgSchema>;
+export type IOrganizationMemberWithUser = z.infer<
+  typeof OrganizationMemberWithUserSchema
+>;
 
 export const OrganizationRoleSchema = z.object({
   id: z.string().max(26),
@@ -37,3 +40,17 @@ export const OrganizationRoleSchema = z.object({
   role_name: z.string().max(32),
 });
 export type IOrganizationRole = z.infer<typeof OrganizationRoleSchema>;
+
+export const OrganizationMemberWithOrgSchema = OrganizationMemberSchema.extend({
+  Org: OrganizationSchema.optional(),
+  Role: OrganizationRoleSchema.optional(),
+});
+
+export type IOrganizationMemberWithOrg = z.infer<typeof OrganizationMemberWithOrgSchema>;
+
+export const OrganizationWithMembersSchema = OrganizationSchema.extend({
+  Members: z.array(OrganizationMemberWithUserSchema).optional(),
+  Roles: z.array(OrganizationRoleSchema).optional(),
+});
+
+export type IOrganizationWithMembers = z.infer<typeof OrganizationWithMembersSchema>;

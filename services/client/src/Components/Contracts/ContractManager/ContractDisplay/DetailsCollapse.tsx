@@ -55,7 +55,7 @@ export const ContractDetailsCollapse: React.FC<DetailsDisplayProps> = ({ contrac
           }}
         />
       </IconButton>
-      <Collapse in={isExpanded} sx={{ width: '100%' }}>
+      <Collapse in={isExpanded} sx={{ width: '100%' }} unmountOnExit>
         <div
           data-testid="SelectedContract-DetailsDisplay__BottomWrapper"
           style={{
