@@ -1,4 +1,4 @@
-import { UserSchema } from 'schemas/UserSchema';
+import { UserSchema } from '../UserSchema';
 import { z } from 'zod';
 
 export const OrganizationSchema = z.object({

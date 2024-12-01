@@ -11,15 +11,16 @@ import {
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
+import { MemberManagement } from './MemberManagement';
 import { RankAndRoles } from './RankAndRoles';
 
-type ManageTabs = 'rankAndRole' | 'info' | 'awards' | 'events' | 'payroll';
+type ManageTabs = 'members' | 'rankAndRole' | 'info' | 'awards' | 'events' | 'payroll';
 
 export const OrgManager: React.FC = () => {
   const { selectedOrgId } = useParams();
   const sound = useSoundEffect();
   const dispatch = useAppDispatch();
-  const [loading, setLoading] = React.useState<boolean>(true);
+  const [_loading, setLoading] = React.useState<boolean>(true);
   const membership = useAppSelector((state) =>
     selectedOrgId ? selectUserMembershipByOrgId(state, selectedOrgId) : null,
   );
@@ -46,7 +47,15 @@ export const OrgManager: React.FC = () => {
     selectedOrgId ? selectOrg(state, selectedOrgId) : null,
   );
 
-  const [manageTab, setManageTab] = React.useState<ManageTabs>('rankAndRole');
+  // const roles = useAppSelector((state) =>
+  //   org ? selectOrgRolesByOrgId(state, org.id) : null,
+  // );
+
+  // const members = useAppSelector((state) =>
+  //   org ? selectOrgMembersByOrgId(state, org.id) : null,
+  // );
+
+  const [manageTab, setManageTab] = React.useState<ManageTabs>('members');
 
   const handleTabChange = React.useCallback(
     (_e: React.SyntheticEvent, value: ManageTabs) => {
@@ -62,6 +71,8 @@ export const OrgManager: React.FC = () => {
 
   const renderPanel = React.useCallback(() => {
     switch (manageTab) {
+      case 'members':
+        return <MemberManagement />;
       case 'rankAndRole':
         return <RankAndRoles />;
       case 'info':
@@ -87,7 +98,7 @@ export const OrgManager: React.FC = () => {
         <div
           data-testid="OrgManager__Wrapper"
           style={{
-            marginLeft: '10%',
+            margin: '0 5%',
             display: 'flex',
             flexDirection: 'column',
             gap: '1em',
@@ -99,27 +110,55 @@ export const OrgManager: React.FC = () => {
             style={{ display: 'flex', justifyContent: 'center' }}
           >
             <TabListHolo
+              data-testid="OrgManager__TabList"
               value={manageTab}
               onChange={handleTabChange}
               textColor="secondary"
               indicatorColor="secondary"
+              variant="fullWidth"
               sx={{
                 px: '0.5em',
               }}
             >
-              <Tab label="Ranks & Roles" value="rankAndRole" />
-              <Tab label="Information" value="info" />
-              <Tab label="Awards" value="awards" />
-              <Tab label="Events" value="events" />
-              <Tab label="Payroll Preferences" value="payroll" disabled />
+              <Tab
+                data-testid="OrgManager-TabList__MemberManagement_Tab"
+                label="Members"
+                value="members"
+              />
+              <Tab
+                data-testid="OrgManager-TabList__Ranks&Roles_Tab"
+                label="Ranks & Roles"
+                value="rankAndRole"
+              />
+              <Tab
+                data-testid="OrgManager-TabList__Info_Tab"
+                label="Information"
+                value="info"
+              />
+              <Tab
+                data-testid="OrgManager-TabList__Awards_Tab"
+                label="Awards"
+                value="awards"
+              />
+              <Tab
+                data-testid="OrgManager-TabList__Events_Tab"
+                label="Events"
+                value="events"
+              />
+              <Tab
+                data-testid="OrgManager-TabList__Payroll_Tab"
+                label="Payroll Preferences"
+                value="payroll"
+                disabled
+              />
             </TabListHolo>
           </div>
-          <div
-            data-testid="OrgManager__PanelDisplay_Wrapper"
-            style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}
+          <GlassBox
+            data-testid="OrgManager__PanelDisplay_Container"
+            sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, padding: '1em' }}
           >
-            <GlassBox>{renderPanel()}</GlassBox>
-          </div>
+            {renderPanel()}
+          </GlassBox>
         </div>
       )}
     </div>
