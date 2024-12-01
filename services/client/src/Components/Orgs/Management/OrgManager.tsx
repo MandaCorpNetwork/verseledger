@@ -17,6 +17,8 @@ export const OrgManager: React.FC = () => {
   );
   const org = membership ? membership.Org : null;
 
+  // const userRole = membership ? membership.Role : null;
+
   const [manageTab, setManageTab] = React.useState<ManageTabs>('rankAndRole');
 
   const handleTabChange = React.useCallback(

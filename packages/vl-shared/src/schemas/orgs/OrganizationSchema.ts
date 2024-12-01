@@ -25,15 +25,16 @@ export const OrganizationMemberSchema = z.object({
 });
 export type IOrganizationMember = z.infer<typeof OrganizationMemberSchema>;
 
-export const OrganizationMemberWithOrgSchema = OrganizationMemberSchema.extend({
-  Org: OrganizationSchema.optional(),
-});
-
-export type IOrganizationMemberWithOrg = z.infer<typeof OrganizationMemberWithOrgSchema>;
-
 export const OrganizationRoleSchema = z.object({
   id: z.string().max(26),
   org_id: z.string().max(26),
   role_name: z.string().max(32),
 });
 export type IOrganizationRole = z.infer<typeof OrganizationRoleSchema>;
+
+export const OrganizationMemberWithOrgSchema = OrganizationMemberSchema.extend({
+  Org: OrganizationSchema.optional(),
+  Role: OrganizationRoleSchema.optional(),
+});
+
+export type IOrganizationMemberWithOrg = z.infer<typeof OrganizationMemberWithOrgSchema>;
