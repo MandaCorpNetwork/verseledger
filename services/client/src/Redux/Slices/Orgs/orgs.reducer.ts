@@ -5,7 +5,7 @@ import { IPaginatedDataSlice } from 'vl-shared/src/schemas/IPaginatedData';
 import { fetchOrgs } from './actions/post/fetchOrgs.action';
 import {
   orgMembersAdapter,
-  orgRolesAdapter,
+  orgRolesAdapter as orgRanksAdapter,
   orgsAdapter,
   userOrgMemberAdapter,
 } from './orgs.adapters';
@@ -13,7 +13,7 @@ import {
 const initialState = {
   userMemberships: userOrgMemberAdapter.getInitialState(),
   orgs: orgsAdapter.getInitialState(),
-  orgRoles: orgRolesAdapter.getInitialState(),
+  orgRanks: orgRanksAdapter.getInitialState(),
   orgMembers: orgMembersAdapter.getInitialState(),
   pagination: {} as IPaginatedDataSlice,
 };
@@ -46,11 +46,11 @@ const orgsReducer = createSlice({
     upsertOrg(state, action) {
       orgsAdapter.upsertOne(state.orgs, action.payload);
     },
-    upsertRole(state, action) {
-      orgRolesAdapter.upsertOne(state.orgRoles, action.payload);
+    upsertRank(state, action) {
+      orgRanksAdapter.upsertOne(state.orgRanks, action.payload);
     },
-    upsertRoles(state, action) {
-      orgRolesAdapter.upsertMany(state.orgRoles, action.payload);
+    upsertRanks(state, action) {
+      orgRanksAdapter.upsertMany(state.orgRanks, action.payload);
     },
   },
   extraReducers(builder) {
