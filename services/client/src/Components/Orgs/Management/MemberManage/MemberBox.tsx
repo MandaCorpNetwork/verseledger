@@ -31,26 +31,26 @@ import {
 
 type MemberBoxProps = {
   member: IOrganizationMemberWithUser;
-  roles: IOrganizationRank[];
+  ranks: IOrganizationRank[];
 };
 
-export const MemberBox: React.FC<MemberBoxProps> = ({ member, roles }) => {
+export const MemberBox: React.FC<MemberBoxProps> = ({ member, ranks }) => {
   const user = useAppSelector((state) =>
     member.User ? member.User : selectUserById(state, member.user_id),
   );
-  const getCurrentRoles = React.useCallback(() => {
-    const currentRoles = roles.filter((role) => role.id === member.rank_id);
-    return currentRoles;
-  }, [member.rank_id, roles]);
+  const getCurrentRank = React.useCallback(() => {
+    const currentRank = ranks.find((rank) => rank.id === member.rank_id);
+    return currentRank;
+  }, [member.rank_id, ranks]);
 
-  const currentRoles = getCurrentRoles();
+  const currentRank = getCurrentRank();
 
   const joinDate = dayjs(member.joined).format('DD MMM, YYYY');
 
   const form = useForm({
     defaultValues: {
-      rank: 'Unavailable',
-      roles: currentRoles,
+      rank: currentRank?.id,
+      roles: 'Unavailable',
       awards: 'Unavailable',
     },
   });
@@ -74,7 +74,7 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member, roles }) => {
         >
           <UserChip user={user} size="medium" />
           <Typography
-            variant="body2"
+            variant="body1"
             sx={{
               display: 'inline-flex',
               gap: '.5em',
@@ -82,7 +82,15 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member, roles }) => {
               textShadow: '2px 4px 3px rgba(0,0,0)',
             }}
           >
-            This is where Ranks Would Go... IF I HAD ANY
+            Rank:
+            <Typography
+              sx={{
+                color: 'secondary.main',
+                textShadow: '2px 3px 3px rgba(255,255,255,0.5)',
+              }}
+            >
+              {currentRank?.rank_name ?? 'ERROR'}
+            </Typography>
           </Typography>
           <Typography
             sx={{
@@ -90,6 +98,7 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member, roles }) => {
               gap: '.5em',
               fontWeight: 'bold',
               textShadow: '2px 4px 3px rgba(0,0,0)',
+              color: 'text.disabled',
             }}
           >
             Roles:
@@ -99,10 +108,10 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member, roles }) => {
                 textShadow: '2px 3px 3px rgba(255,255,255,0.5)',
               }}
             >
-              {currentRoles[0].rank_name}
+              ROLE_NAME
             </Typography>
             <Typography sx={{ color: 'info.light' }}>
-              {currentRoles.length > 1 ? `+ ${currentRoles.length - 1}` : null}
+              + 1{/* {currentRoles.length > 1 ? `+ ${currentRoles.length - 1}` : null} */}
             </Typography>
           </Typography>
           <Typography
@@ -145,7 +154,6 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member, roles }) => {
               variant="body1"
               sx={{
                 fontWeight: 'bold',
-                color: 'text.disabled',
                 textShadow: '2px 4px 3px rgba(0,0,0,0.5)',
                 cursor: 'default',
               }}
@@ -156,17 +164,23 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member, roles }) => {
               name="rank"
               children={(field) => (
                 <FormControl>
-                  <InputLabel color="secondary" disabled>
-                    User Rank
-                  </InputLabel>
+                  <InputLabel color="secondary">User Rank</InputLabel>
                   <Select
                     size="small"
                     label="User Rank"
                     color="secondary"
                     value={field.state.value}
-                    disabled
+                    onChange={(e) => field.handleChange(e.target.value)}
                   >
-                    <MenuItem value="Unavailable">Unavailable</MenuItem>
+                    {ranks.map((rank) => (
+                      <MenuItem
+                        key={rank.id}
+                        selected={field.state.value === rank.id}
+                        value={rank.id}
+                      >
+                        {rank.rank_name}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               )}
@@ -177,7 +191,7 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member, roles }) => {
               variant="body1"
               sx={{
                 fontWeight: 'bold',
-                color: 'text.main',
+                color: 'text.disabled',
                 textShadow: '2px 4px 3px rgba(0,0,0,0.5)',
                 cursor: 'default',
               }}
@@ -188,18 +202,31 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member, roles }) => {
               name="roles"
               children={(field) => (
                 <List>
-                  {roles.map((role) => (
-                    <ListItem key={role.id}>
+                  <ListItem>
+                    <ListItemIcon>
+                      <Checkbox
+                        checked={field.state.value === 'Unavailable'}
+                        color="success"
+                        disabled
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={field.state.value}
+                      sx={{ color: 'text.disabled' }}
+                    />
+                  </ListItem>
+                  {/* {ranks.map((rank) => (
+                    <ListItem key={rank.id}>
                       <ListItemIcon>
                         <Checkbox
-                          checked={field.state.value.includes(role)}
+                          checked={field.state.value.includes(rank)}
                           onChange={() => {}}
                           color="success"
                         />
                       </ListItemIcon>
-                      <ListItemText primary={role.rank_name} />
+                      <ListItemText primary={rank.rank_name} />
                     </ListItem>
-                  ))}
+                  ))} */}
                 </List>
               )}
             />
