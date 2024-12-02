@@ -27,7 +27,7 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member, roles }) => {
     <Accordion>
       <AccordionSummary>
         <UserChip user={user} size="medium" />
-        <Typography>{currentRoles[0].role_name}</Typography>
+        <Typography>{currentRoles[0].rank_name}</Typography>
         <Typography>Join Date: {member.joined.toLocaleString()}</Typography>
       </AccordionSummary>
     </Accordion>
