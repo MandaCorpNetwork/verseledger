@@ -20,7 +20,7 @@ const orgMembersSelectors = orgMembersAdapter.getSelectors(
 );
 
 const orgRolesSelectors = orgRolesAdapter.getSelectors(
-  (state: RootState) => state.organizations.orgRoles,
+  (state: RootState) => state.organizations.orgRanks,
 );
 
 export const selectUserMemberships = userOrgSelectors.selectAll;

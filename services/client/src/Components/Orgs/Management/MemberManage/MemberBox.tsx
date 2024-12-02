@@ -99,7 +99,7 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member, roles }) => {
                 textShadow: '2px 3px 3px rgba(255,255,255,0.5)',
               }}
             >
-              {currentRoles[0].role_name}
+              {currentRoles[0].rank_name}
             </Typography>
             <Typography sx={{ color: 'info.light' }}>
               {currentRoles.length > 1 ? `+ ${currentRoles.length - 1}` : null}
@@ -197,7 +197,7 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member, roles }) => {
                           color="success"
                         />
                       </ListItemIcon>
-                      <ListItemText primary={role.role_name} />
+                      <ListItemText primary={role.rank_name} />
                     </ListItem>
                   ))}
                 </List>
