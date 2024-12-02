@@ -24,17 +24,17 @@ BEGIN
   SELECT COUNT (id) INTO rating_three FROM `user_ratings` WHERE `reciever_id` = `user_id` AND `rating_value` = 3;
 
   SET total_positive = rating_one + (rating_two * 2) + (rating_three * 3);
-  SET total_negative = rating_minus_one + (rating_minus_two*2) + (rating_minus_three*3) ;
+  SET total_negative = rating_minus_one + (rating_minus_two * 2) + (rating_minus_three * 3) ;
   SET total_ratings = total_positive + total_negative;
 
   SET display_rating = total_positive / total_ratings;
 
-  SET weighted_rating = ((total_positive + 1.9208) / (total_positive + total_negative) -
-                   1.96 * SQRT((total_positive * total_negative) / (total_positive + total_negative) + 0.9604) /
-                          (total_positive + total_negative)) / (1 + 3.8416 / (total_positive + total_negative));
+  SET weighted_rating = ((total_positive + 1.9208) / (display_rating) -
+                   1.96 * SQRT((total_positive * total_negative) / (display_rating) + 0.9604) /
+                    (display_rating)) / (1 + 3.8416 / (display_rating));
 
   SELECT weighted_rating;
   SELECT display_rating;
-  SELECT (rating_minus_one+rating_minus_two+rating_minus_three+rating_one+rating_two+rating_three) AS total_rating;
+  SELECT (rating_minus_one + rating_minus_two + rating_minus_three + rating_one + rating_two + rating_three) AS total_rating;
 END//
 DELIMITER ;
