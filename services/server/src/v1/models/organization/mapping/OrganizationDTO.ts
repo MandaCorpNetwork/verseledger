@@ -17,11 +17,10 @@ export class OrganizationDTO
   constructor($b: IOrganization) {
     super();
     this.mapProperties($b, {
-      //TODO: Add Invites
       Locations: LocationDTO,
       Owner: UserDTO,
       Members: OrganizationMemberDTO,
-      Roles: OrganizationRankDTO,
+      Ranks: OrganizationRankDTO,
     });
   }
 

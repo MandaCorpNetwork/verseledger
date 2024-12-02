@@ -25,8 +25,8 @@ import { OrganizationRank } from './organization_rank.model';
   members: {
     include: [{ model: OrganizationMember, as: 'Members', include: ['User'] }],
   },
-  roles: {
-    include: [{ model: OrganizationRank, as: 'Roles' }],
+  ranks: {
+    include: [{ model: OrganizationRank, as: 'Ranks' }],
   },
 }))
 @Table({ tableName: 'organizations', timestamps: true })
@@ -59,7 +59,7 @@ export class Organization extends Model<
   declare Members: CreationOptional<Awaited<OrganizationMember>[]>;
 
   @HasMany(() => OrganizationRank, 'org_id')
-  declare Roles: CreationOptional<Awaited<OrganizationRank>[]>;
+  declare Ranks: CreationOptional<Awaited<OrganizationRank>[]>;
 
   @HasMany(() => OrganizationInvite, 'organization_id')
   declare Invites: CreationOptional<Awaited<OrganizationInvite>>;

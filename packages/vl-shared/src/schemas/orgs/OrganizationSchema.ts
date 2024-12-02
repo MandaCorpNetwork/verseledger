@@ -43,14 +43,14 @@ export type IOrganizationRank = z.infer<typeof OrganizationRankSchema>;
 
 export const OrganizationMemberWithOrgSchema = OrganizationMemberSchema.extend({
   Org: OrganizationSchema.optional(),
-  Role: OrganizationRankSchema.optional(),
+  Rank: OrganizationRankSchema.optional(),
 });
 
 export type IOrganizationMemberWithOrg = z.infer<typeof OrganizationMemberWithOrgSchema>;
 
 export const OrganizationWithMembersSchema = OrganizationSchema.extend({
   Members: z.array(OrganizationMemberWithUserSchema).optional(),
-  Roles: z.array(OrganizationRankSchema).optional(),
+  Ranks: z.array(OrganizationRankSchema).optional(),
 });
 
 export type IOrganizationWithMembers = z.infer<typeof OrganizationWithMembersSchema>;

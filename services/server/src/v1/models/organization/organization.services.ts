@@ -35,7 +35,7 @@ export class OrganizationService {
   }
 
   public async get(id: string) {
-    return Organization.scope(['members', 'roles']).findByPk(id);
+    return Organization.scope(['members', 'ranks']).findByPk(id);
   }
 
   public async countOwnership(owner_id: string) {
@@ -98,7 +98,7 @@ export class OrganizationService {
       rank_id: OwnerRank.id,
     });
 
-    const fullOrg = await Organization.scope(['members', 'roles']).findByPk(
+    const fullOrg = await Organization.scope(['members', 'ranks']).findByPk(
       newOrgEntity.id,
     );
     return [null, fullOrg!];

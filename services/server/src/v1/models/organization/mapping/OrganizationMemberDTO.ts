@@ -63,7 +63,7 @@ export class OrganizationMemberDTO
   org_id!: string;
 
   @ApiModelProperty({
-    description: 'Org Role',
+    description: 'Org Rank',
     required: true,
     example: 'Militant Aggregate and Nexus Development Advisory',
   })

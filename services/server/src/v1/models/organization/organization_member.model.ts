@@ -20,8 +20,8 @@ import {
 import { OrganizationRank } from './organization_rank.model';
 
 @Scopes(() => ({
-  role: {
-    include: [{ model: OrganizationRank, as: 'Role' }],
+  rank: {
+    include: [{ model: OrganizationRank, as: 'Rank' }],
   },
 }))
 @Table({ tableName: 'organization_member', timestamps: true })
@@ -58,7 +58,7 @@ export class OrganizationMember extends Model<
   declare User: CreationOptional<Awaited<User>>;
 
   @BelongsTo(() => OrganizationRank, { foreignKey: 'rank_id', targetKey: 'id' })
-  declare Role: CreationOptional<Awaited<User>>;
+  declare Rank: CreationOptional<Awaited<User>>;
 
   @BelongsTo(() => Organization, { foreignKey: 'org_id', targetKey: 'id' })
   declare Org: CreationOptional<Awaited<Organization>>;
