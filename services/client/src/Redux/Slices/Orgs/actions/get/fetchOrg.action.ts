@@ -20,8 +20,8 @@ export const fetchOrg = createAsyncThunk(
         const members = (data as IOrganizationWithMembers).Members;
         dispatch(orgActions.upsertMembers(members));
       }
-      if ('Roles' in data) {
-        const roles = (data as IOrganizationWithMembers).Roles;
+      if ('Ranks' in data) {
+        const roles = (data as IOrganizationWithMembers).Ranks;
         dispatch(orgActions.upsertRoles(roles));
       }
     }

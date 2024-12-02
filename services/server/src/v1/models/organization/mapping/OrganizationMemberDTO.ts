@@ -36,7 +36,7 @@ export class OrganizationMemberDTO
     return new OrganizationMemberDTO({
       ...this,
       User: undefined,
-      Role: undefined,
+      Rank: undefined,
       Org: undefined,
     });
   }
@@ -63,11 +63,11 @@ export class OrganizationMemberDTO
   org_id!: string;
 
   @ApiModelProperty({
-    description: 'Org Role',
+    description: 'Org Rank',
     required: true,
     example: 'Militant Aggregate and Nexus Development Advisory',
   })
-  role_id!: string;
+  rank_id!: string;
 
   @ApiModelProperty({
     description: 'Org Handle',

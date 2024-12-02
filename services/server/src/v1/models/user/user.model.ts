@@ -51,7 +51,7 @@ import { OrganizationMember } from '../organization/organization_member.model';
       {
         model: OrganizationMember,
         as: 'OrgMemberships',
-        include: ['Org', 'Role'],
+        include: ['Org', 'Rank'],
       },
     ],
   },
@@ -68,7 +68,7 @@ import { OrganizationMember } from '../organization/organization_member.model';
         as: 'OrgMemberships',
         where: { primary: true },
         required: false,
-        include: ['Org', 'Role'],
+        include: ['Org', 'Rank'],
       },
     ],
   },

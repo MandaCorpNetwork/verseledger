@@ -24,7 +24,7 @@ import { Organization } from './organization.model';
 @Scopes(() => ({
   members: {
     include: [
-      { model: OrganizationMember, as: 'Members', include: ['User', 'Role'] },
+      { model: OrganizationMember, as: 'Members', include: ['User', 'Rank'] },
     ],
   },
 }))

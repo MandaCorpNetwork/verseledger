@@ -20,7 +20,7 @@ export const OrganizationMemberSchema = z.object({
   id: z.string().max(26),
   user_id: z.string().max(26),
   org_id: z.string().max(26),
-  role_id: z.string().max(26),
+  rank_id: z.string().max(26),
   joined: z.coerce.date(),
   primary: z.boolean(),
 });
@@ -34,23 +34,23 @@ export type IOrganizationMemberWithUser = z.infer<
   typeof OrganizationMemberWithUserSchema
 >;
 
-export const OrganizationRoleSchema = z.object({
+export const OrganizationRankSchema = z.object({
   id: z.string().max(26),
   org_id: z.string().max(26),
-  role_name: z.string().max(32),
+  rank_name: z.string().max(32),
 });
-export type IOrganizationRole = z.infer<typeof OrganizationRoleSchema>;
+export type IOrganizationRank = z.infer<typeof OrganizationRankSchema>;
 
 export const OrganizationMemberWithOrgSchema = OrganizationMemberSchema.extend({
   Org: OrganizationSchema.optional(),
-  Role: OrganizationRoleSchema.optional(),
+  Rank: OrganizationRankSchema.optional(),
 });
 
 export type IOrganizationMemberWithOrg = z.infer<typeof OrganizationMemberWithOrgSchema>;
 
 export const OrganizationWithMembersSchema = OrganizationSchema.extend({
   Members: z.array(OrganizationMemberWithUserSchema).optional(),
-  Roles: z.array(OrganizationRoleSchema).optional(),
+  Ranks: z.array(OrganizationRankSchema).optional(),
 });
 
 export type IOrganizationWithMembers = z.infer<typeof OrganizationWithMembersSchema>;

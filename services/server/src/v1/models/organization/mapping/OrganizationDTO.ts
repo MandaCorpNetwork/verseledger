@@ -4,7 +4,7 @@ import { LocationDTO } from '@V1/models/location/mapping/LocationDTO';
 import { UserDTO } from '@V1/models/user/mapping/UserDTO';
 import { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 import { OrganizationMemberDTO } from './OrganizationMemberDTO';
-import { OrganizationRoleDTO } from './OrganizationRoleDTO';
+import { OrganizationRankDTO } from './OrganizationRankDTO';
 
 @ApiModel({
   description: 'Organization Object',
@@ -17,11 +17,10 @@ export class OrganizationDTO
   constructor($b: IOrganization) {
     super();
     this.mapProperties($b, {
-      //TODO: Add Invites
       Locations: LocationDTO,
       Owner: UserDTO,
       Members: OrganizationMemberDTO,
-      Roles: OrganizationRoleDTO,
+      Ranks: OrganizationRankDTO,
     });
   }
 

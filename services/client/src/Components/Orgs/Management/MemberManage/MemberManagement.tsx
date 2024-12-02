@@ -5,7 +5,7 @@ import React from 'react';
 import {
   IOrganization,
   IOrganizationMemberWithUser,
-  IOrganizationRole,
+  IOrganizationRank,
 } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
 import { MemberInvites } from './MemberInvites';
@@ -15,7 +15,7 @@ import { RecentMemberManageList } from './RecentMembersList';
 
 type MemberManagementProps = {
   org: IOrganization | null;
-  roles: IOrganizationRole[] | null;
+  roles: IOrganizationRank[] | null;
 };
 
 export const MemberManagement: React.FC<MemberManagementProps> = ({ org, roles }) => {
@@ -67,7 +67,7 @@ export const MemberManagement: React.FC<MemberManagementProps> = ({ org, roles }
       <RecentMemberManageList />
       <MemberManagementList
         members={members ?? ([] as IOrganizationMemberWithUser[])}
-        roles={roles ?? ([] as IOrganizationRole[])}
+        roles={roles ?? ([] as IOrganizationRank[])}
       />
     </div>
   );

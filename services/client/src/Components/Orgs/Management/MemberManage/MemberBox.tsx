@@ -5,12 +5,12 @@ import { selectUserById } from '@Redux/Slices/Users/users.selectors';
 import React from 'react';
 import {
   IOrganizationMemberWithUser,
-  IOrganizationRole,
+  IOrganizationRank,
 } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
 type MemberBoxProps = {
   member: IOrganizationMemberWithUser;
-  roles: IOrganizationRole[];
+  roles: IOrganizationRank[];
 };
 
 export const MemberBox: React.FC<MemberBoxProps> = ({ member, roles }) => {
@@ -18,16 +18,16 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member, roles }) => {
     member.User ? member.User : selectUserById(state, member.user_id),
   );
   const getCurrentRoles = React.useCallback(() => {
-    const currentRoles = roles.filter((role) => role.id === member.role_id);
+    const currentRoles = roles.filter((role) => role.id === member.rank_id);
     return currentRoles;
-  }, [member.role_id, roles]);
+  }, [member.rank_id, roles]);
 
   const currentRoles = getCurrentRoles();
   return (
     <Accordion>
       <AccordionSummary>
         <UserChip user={user} size="medium" />
-        <Typography>{currentRoles[0].role_name}</Typography>
+        <Typography>{currentRoles[0].rank_name}</Typography>
         <Typography>Join Date: {member.joined.toLocaleString()}</Typography>
       </AccordionSummary>
     </Accordion>
