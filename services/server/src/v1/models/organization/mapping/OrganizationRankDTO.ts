@@ -1,17 +1,17 @@
 import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
 import { DTOBase } from '@V1/DTO/DTOBase';
-import { IOrganizationRole } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
+import { IOrganizationRank } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 import { OrganizationDTO } from './OrganizationDTO';
 
 @ApiModel({
   description: 'Organization Object',
   name: 'OrganizationMember',
 })
-export class OrganizationRoleDTO
-  extends DTOBase<IOrganizationRole>
-  implements IOrganizationRole
+export class OrganizationRankDTO
+  extends DTOBase<IOrganizationRank>
+  implements IOrganizationRank
 {
-  constructor($b: IOrganizationRole) {
+  constructor($b: IOrganizationRank) {
     super();
     this.mapProperties($b, {
       Org: OrganizationDTO,
@@ -31,7 +31,7 @@ export class OrganizationRoleDTO
   }
 
   public strip() {
-    return new OrganizationRoleDTO({
+    return new OrganizationRankDTO({
       ...this,
       Org: undefined,
     });
@@ -56,7 +56,7 @@ export class OrganizationRoleDTO
     required: true,
     example: 'Militant Aggregate and Nexus Development Advisory',
   })
-  role_name!: string;
+  rank_name!: string;
 
   @ApiModelProperty({
     description: 'Org Handle',

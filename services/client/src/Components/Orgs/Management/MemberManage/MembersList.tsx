@@ -3,14 +3,14 @@ import { Typography } from '@mui/material';
 import React from 'react';
 import {
   IOrganizationMemberWithUser,
-  IOrganizationRole,
+  IOrganizationRank,
 } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
 import { MemberBox } from './MemberBox';
 
 type MemberManagementListProps = {
   members: IOrganizationMemberWithUser[];
-  roles: IOrganizationRole[];
+  roles: IOrganizationRank[];
 };
 
 export const MemberManagementList: React.FC<MemberManagementListProps> = ({

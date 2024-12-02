@@ -17,11 +17,11 @@ import {
   InferAttributes,
   InferCreationAttributes,
 } from 'sequelize';
-import { OrganizationRole } from './organization_role.model';
+import { OrganizationRank } from './organization_rank.model';
 
 @Scopes(() => ({
   role: {
-    include: [{ model: OrganizationRole, as: 'Role' }],
+    include: [{ model: OrganizationRank, as: 'Role' }],
   },
 }))
 @Table({ tableName: 'organization_member', timestamps: true })
@@ -45,7 +45,7 @@ export class OrganizationMember extends Model<
   declare org_id: Awaited<Organization['id']>;
 
   @Column({ type: DataType.STRING(IdUtil.IdLength) })
-  declare role_id: Awaited<OrganizationRole['id']>;
+  declare rank_id: Awaited<OrganizationRank['id']>;
 
   @Column({ type: DataType.DATE() })
   declare joined: CreationOptional<Date>;
@@ -57,7 +57,7 @@ export class OrganizationMember extends Model<
   @BelongsTo(() => User, { foreignKey: 'user_id', targetKey: 'id' })
   declare User: CreationOptional<Awaited<User>>;
 
-  @BelongsTo(() => OrganizationRole, { foreignKey: 'role_id', targetKey: 'id' })
+  @BelongsTo(() => OrganizationRank, { foreignKey: 'rank_id', targetKey: 'id' })
   declare Role: CreationOptional<Awaited<User>>;
 
   @BelongsTo(() => Organization, { foreignKey: 'org_id', targetKey: 'id' })

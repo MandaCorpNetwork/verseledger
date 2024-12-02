@@ -3,7 +3,7 @@ import {
   IOrganization,
   IOrganizationMember,
   IOrganizationMemberWithOrg,
-  IOrganizationRole,
+  IOrganizationRank,
 } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
 export const orgsAdapter = createEntityAdapter({
@@ -15,7 +15,7 @@ export const orgMembersAdapter = createEntityAdapter({
 });
 
 export const orgRolesAdapter = createEntityAdapter({
-  selectId: (role: IOrganizationRole) => role.id,
+  selectId: (role: IOrganizationRank) => role.id,
 });
 
 export const userOrgMemberAdapter = createEntityAdapter({

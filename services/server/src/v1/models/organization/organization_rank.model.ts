@@ -16,14 +16,14 @@ import {
   InferCreationAttributes,
 } from 'sequelize';
 
-@Table({ tableName: 'organization_role', timestamps: true })
-export class OrganizationRole extends Model<
-  InferAttributes<OrganizationRole>,
-  InferCreationAttributes<OrganizationRole>
+@Table({ tableName: 'organization_rank', timestamps: true })
+export class OrganizationRank extends Model<
+  InferAttributes<OrganizationRank>,
+  InferCreationAttributes<OrganizationRank>
 > {
   @Column({ type: DataType.VIRTUAL })
-  get __type(): CreationOptional<'OrganizationRole'> {
-    return 'OrganizationRole';
+  get __type(): CreationOptional<'OrganizationRank'> {
+    return 'OrganizationRank';
   }
   @PrimaryKey
   @Default(IdUtil.generateSystemID)
@@ -34,7 +34,7 @@ export class OrganizationRole extends Model<
   declare org_id: Awaited<Organization['id']>;
 
   @Column({ type: DataType.STRING(32) })
-  declare role_name: string;
+  declare rank_name: string;
 
   @BelongsTo(() => Organization, { foreignKey: 'org_id', targetKey: 'id' })
   declare Org: CreationOptional<Awaited<Organization>>;
