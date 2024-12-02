@@ -4,7 +4,7 @@
   "main": "dist/server.cjs.js",
   "devDependencies": {
     "@swc-node/register": "1.10.9",
-    "@swc/cli": "0.5.1",
+    "@swc/cli": "0.5.2",
     "@swc/core": "1.9.3",
     "@swc/types": "0.1.17",
     "@types/cors": "2.8.17",
