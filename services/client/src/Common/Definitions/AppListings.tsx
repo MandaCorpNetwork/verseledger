@@ -267,7 +267,7 @@ export const useMasterAppList = () => {
         icon: <GroupWorkTwoTone />,
         disabled: orgs,
         versionLabel: 'Org Management',
-        version: '0.x',
+        version: '0.0.2',
         severityCode: 10,
       },
       {

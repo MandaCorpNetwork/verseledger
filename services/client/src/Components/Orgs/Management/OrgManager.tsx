@@ -131,16 +131,19 @@ export const OrgManager: React.FC = () => {
                 data-testid="OrgManager-TabList__Info_Tab"
                 label="Information"
                 value="info"
+                disabled
               />
               <Tab
                 data-testid="OrgManager-TabList__Awards_Tab"
                 label="Awards"
                 value="awards"
+                disabled
               />
               <Tab
                 data-testid="OrgManager-TabList__Events_Tab"
                 label="Events"
                 value="events"
+                disabled
               />
               <Tab
                 data-testid="OrgManager-TabList__Payroll_Tab"
