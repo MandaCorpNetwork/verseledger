@@ -19,8 +19,8 @@ const orgMembersSelectors = orgMembersAdapter.getSelectors(
   (state: RootState) => state.organizations.orgMembers,
 );
 
-const orgRolesSelectors = orgRolesAdapter.getSelectors(
-  (state: RootState) => state.organizations.orgRoles,
+const orgRanksSelectors = orgRolesAdapter.getSelectors(
+  (state: RootState) => state.organizations.orgRanks,
 );
 
 export const selectUserMemberships = userOrgSelectors.selectAll;
@@ -46,6 +46,6 @@ export const selectOrgMembersByOrgId = (state: RootState, orgId: string) => {
   return orgMembersSelectors.selectAll(state).filter((member) => member.org_id === orgId);
 };
 
-export const selectOrgRolesByOrgId = (state: RootState, orgId: string) => {
-  return orgRolesSelectors.selectAll(state).filter((role) => role.org_id === orgId);
+export const selectOrgRanksByOrgId = (state: RootState, orgId: string) => {
+  return orgRanksSelectors.selectAll(state).filter((rank) => rank.org_id === orgId);
 };

@@ -15,10 +15,10 @@ import { RecentMemberManageList } from './RecentMembersList';
 
 type MemberManagementProps = {
   org: IOrganization | null;
-  roles: IOrganizationRank[] | null;
+  ranks: IOrganizationRank[] | null;
 };
 
-export const MemberManagement: React.FC<MemberManagementProps> = ({ org, roles }) => {
+export const MemberManagement: React.FC<MemberManagementProps> = ({ org, ranks }) => {
   const members = useAppSelector((state) =>
     org ? selectOrgMembersByOrgId(state, org.id) : null,
   );
@@ -67,7 +67,7 @@ export const MemberManagement: React.FC<MemberManagementProps> = ({ org, roles }
       <RecentMemberManageList />
       <MemberManagementList
         members={members ?? ([] as IOrganizationMemberWithUser[])}
-        roles={roles ?? ([] as IOrganizationRank[])}
+        ranks={ranks ?? ([] as IOrganizationRank[])}
       />
     </div>
   );

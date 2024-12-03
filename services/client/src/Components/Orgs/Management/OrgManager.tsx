@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchOrg } from '@Redux/Slices/Orgs/actions/get/fetchOrg.action';
 import {
   selectOrg,
-  selectOrgRolesByOrgId,
+  selectOrgRanksByOrgId,
   selectUserMembershipByOrgId,
 } from '@Redux/Slices/Orgs/orgs.selectors';
 import React from 'react';
@@ -48,8 +48,8 @@ export const OrgManager: React.FC = () => {
     selectedOrgId ? selectOrg(state, selectedOrgId) : null,
   );
 
-  const roles = useAppSelector((state) =>
-    org ? selectOrgRolesByOrgId(state, org.id) : null,
+  const ranks = useAppSelector((state) =>
+    org ? selectOrgRanksByOrgId(state, org.id) : null,
   );
 
   const [manageTab, setManageTab] = React.useState<ManageTabs>('members');
@@ -69,9 +69,9 @@ export const OrgManager: React.FC = () => {
   const renderPanel = React.useCallback(() => {
     switch (manageTab) {
       case 'members':
-        return <MemberManagement org={org} roles={roles} />;
+        return <MemberManagement org={org} ranks={ranks} />;
       case 'rankAndRole':
-        return <RankAndRoles />;
+        return <RankAndRoles ranks={ranks} />;
       case 'info':
       case 'awards':
       case 'events':
@@ -79,7 +79,7 @@ export const OrgManager: React.FC = () => {
       default:
         return null;
     }
-  }, [manageTab, org, roles]);
+  }, [manageTab, org, ranks]);
 
   return (
     <div
@@ -131,16 +131,19 @@ export const OrgManager: React.FC = () => {
                 data-testid="OrgManager-TabList__Info_Tab"
                 label="Information"
                 value="info"
+                disabled
               />
               <Tab
                 data-testid="OrgManager-TabList__Awards_Tab"
                 label="Awards"
                 value="awards"
+                disabled
               />
               <Tab
                 data-testid="OrgManager-TabList__Events_Tab"
                 label="Events"
                 value="events"
+                disabled
               />
               <Tab
                 data-testid="OrgManager-TabList__Payroll_Tab"

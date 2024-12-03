@@ -10,12 +10,12 @@ import { MemberBox } from './MemberBox';
 
 type MemberManagementListProps = {
   members: IOrganizationMemberWithUser[];
-  roles: IOrganizationRank[];
+  ranks: IOrganizationRank[];
 };
 
 export const MemberManagementList: React.FC<MemberManagementListProps> = ({
   members,
-  roles,
+  ranks,
 }) => {
   return (
     <GlassDisplay
@@ -28,7 +28,7 @@ export const MemberManagementList: React.FC<MemberManagementListProps> = ({
       <div>Search & Filter</div>
       <div>
         {members.map((member) => (
-          <MemberBox key={member.id} member={member} roles={roles} />
+          <MemberBox key={member.id} member={member} ranks={ranks} />
         ))}
       </div>
     </GlassDisplay>

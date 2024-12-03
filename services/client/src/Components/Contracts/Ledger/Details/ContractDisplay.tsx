@@ -663,6 +663,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                           gap: '.5em',
                           mb: '.5em',
                           width: '100%',
+                          maxWidth: '100px',
                           px: '.2em',
                           overflow: 'auto',
                           '&::-webkit-scrollbar': {
