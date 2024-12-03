@@ -35,3 +35,7 @@ WHERE `id` = "F-ship";
 UPDATE `feature_flags`
 SET `description` = "Quick tool for Creating or Editing Ship Tuning Profiles and managing the SCTuningFiles for personal usage."
 WHERE `id` = "F-tuning";
+
+UPDATE `feature_flags`
+SET `name` = "VerseLedger Support"
+WHERE `id` = "F-wiki";
