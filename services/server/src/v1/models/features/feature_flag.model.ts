@@ -32,7 +32,7 @@ export class FeatureFlag
   declare name: string;
 
   @Default('')
-  @Column({ type: DataType.STRING(128) })
+  @Column({ type: DataType.TEXT()})
   declare description: string;
 
   @Column({ type: DataType.BOOLEAN() })
