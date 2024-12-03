@@ -71,7 +71,7 @@ export const OrgManager: React.FC = () => {
       case 'members':
         return <MemberManagement org={org} ranks={ranks} />;
       case 'rankAndRole':
-        return <RankAndRoles />;
+        return <RankAndRoles ranks={ranks} />;
       case 'info':
       case 'awards':
       case 'events':
