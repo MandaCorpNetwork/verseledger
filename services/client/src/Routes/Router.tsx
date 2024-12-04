@@ -24,6 +24,7 @@ import { AppPage } from './Apps/AppPage';
 import { ContractPage } from './Contract/ContractPage';
 import ErrorPage from './ErrorPage';
 import { Home } from './Index/Home/Home';
+import { LicensePage } from './License/LicensePage';
 import { NotFoundPage } from './NotFound/NotFound';
 import { OrgLedgerPage } from './OrgLedger/OrgLedgerPage';
 import { SecureRoute } from './SecureRoute';
@@ -66,6 +67,10 @@ export const routingInfo: RouteObject[] = [
             <UserSettings />
           </SecureRoute>
         ),
+      },
+      {
+        path: '/license',
+        element: <LicensePage />,
       },
       {
         path: '/api-docs',
