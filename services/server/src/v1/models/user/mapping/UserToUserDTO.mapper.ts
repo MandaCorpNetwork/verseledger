@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Mapper } from '@Infrastructure/Mapper';
 import { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { User } from '@V1/models/user/user.model';

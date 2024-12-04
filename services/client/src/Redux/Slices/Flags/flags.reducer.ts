@@ -5,7 +5,7 @@ import { fetchUserFlags } from './Actions/fetchFlags.action';
 
 const flagsReducer = createSlice({
   name: 'flags',
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   initialState: {} as {
     [key: IFeatureFlag['id']]: IFeatureFlag;
   },

@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { usersAdapter } from './users.adapters';
 const usersReducer = createSlice({
   name: 'users',
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   initialState: usersAdapter.getInitialState(),
   reducers: {
     noop() {

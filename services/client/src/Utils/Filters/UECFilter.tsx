@@ -20,7 +20,6 @@ const structureOptions = [
 ];
 
 export const UECFilter: React.FC<unknown> = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { searchParams, setFilters } = useURLQuery();
   const [localMin, setLocalMin] = React.useState<string>('');
   const [localMax, setLocalMax] = React.useState<string>('');

@@ -37,7 +37,7 @@ export const BetaSettings: React.FC = () => {
         }
         return true;
       }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [featuresRaw, user?.id, settings],
   );
   const dispatch = useAppDispatch();

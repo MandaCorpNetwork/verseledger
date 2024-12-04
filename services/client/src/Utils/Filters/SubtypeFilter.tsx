@@ -48,7 +48,6 @@ export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
     return Array.isArray(subtypeFilters) ? subtypeFilters : [subtypeFilters];
   }, [searchParams]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleChange = (_event: React.SyntheticEvent, newValue: { value: string }[]) => {
     sound.playSound('clickMain');
     setFilters(

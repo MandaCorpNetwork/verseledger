@@ -1,6 +1,5 @@
 import { styled, Typography } from '@mui/material';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const DigiTitle = styled(Typography)({
   bgcolor: 'rgba(14,49,141,.25)',
   borderRadius: '10px',

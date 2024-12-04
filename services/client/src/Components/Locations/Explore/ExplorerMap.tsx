@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
 // import { Box } from '@mui/material';
 // import { Line, OrbitControls, Sphere, Text } from '@react-three/drei';

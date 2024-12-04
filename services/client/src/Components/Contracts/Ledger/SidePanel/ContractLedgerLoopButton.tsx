@@ -17,7 +17,6 @@ export const ContractLedgerLoopButton: React.FC<ContractLedgerLoopButtonProps> =
   onClick,
   selected,
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {

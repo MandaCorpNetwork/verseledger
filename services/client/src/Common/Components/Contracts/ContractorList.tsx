@@ -40,7 +40,10 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
   /** @var {IContractBid} userBid - The bid of the current user if exists */
   const userBid = contract.Bids?.find((bid) => bid.user_id === currentUser?.id);
 
-  const privledgedAccess = userBid?.status === 'ACCEPTED' || 'INVITED' || 'WITHDRAWN';
+  const privledgedAccess =
+    userBid?.status === 'ACCEPTED' ||
+    userBid?.status === 'INVITED' ||
+    userBid?.status === 'WITHDRAWN';
 
   /** @var {IContractBid[]} contractors - The complete list of bids on the contract */
   const contractors = contract.Bids;

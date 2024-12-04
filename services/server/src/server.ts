@@ -114,7 +114,6 @@ export const createServer = () => {
     next(new NotFoundError(req.path));
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   app.use((err: unknown, req: Request, res: Response, _: NextFunction) => {
     if (err instanceof NetworkError) {
       res.status(err.statusCode).json(err);

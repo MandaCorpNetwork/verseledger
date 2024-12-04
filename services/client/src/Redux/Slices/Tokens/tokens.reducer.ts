@@ -6,7 +6,7 @@ import { fetchUserTokens } from './Actions/fetchUserTokens.action';
 
 const tokensReducer = createSlice({
   name: 'tokens',
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   initialState: {} as {
     [key: string]: { id: string; token_id: string; name: string; expiresAt: string };
   },

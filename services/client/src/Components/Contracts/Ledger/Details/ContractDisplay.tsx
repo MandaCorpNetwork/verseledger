@@ -30,7 +30,6 @@ import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSche
 import { BiddingTimePanel, ContractDurationPanel } from './TimePanel';
 
 type ContractDisplayProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   contract: IContractWithOwner;
 };
 

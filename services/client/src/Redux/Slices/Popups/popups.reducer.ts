@@ -7,7 +7,7 @@ type PopupState = {
 
 const popupsReducer = createSlice({
   name: 'popups',
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   initialState: {} as PopupState,
   reducers: {},
   extraReducers: (builder) => {
