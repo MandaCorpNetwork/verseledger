@@ -26,7 +26,7 @@
     "@tanstack/react-router": "1.85.5",
     "@tanstack/react-table": "8.20.5",
     "@tanstack/react-virtual": "3.10.9",
-    "axios": "1.7.8",
+    "axios": "1.7.9",
     "chalk": "^4",
     "color-convert": "2.0.1",
     "cropperjs": "1.6.2",
