@@ -89,7 +89,7 @@
     "@types/color-convert": "2.0.4",
     "@types/howler": "2.2.12",
     "@types/mdx": "^2.0.13",
-    "@types/react": "18.3.12",
+    "@types/react": "18.3.13",
     "@types/react-dnd": "3.0.2",
     "@types/react-dnd-html5-backend": "3.0.2",
     "@types/react-dom": "18.3.1",
