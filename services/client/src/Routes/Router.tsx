@@ -61,6 +61,14 @@ export const routingInfo: RouteObject[] = [
         element: <DiscordLoginUtility />,
       },
       {
+        path: '/settings/:tab',
+        element: (
+          <SecureRoute>
+            <UserSettings />
+          </SecureRoute>
+        ),
+      },
+      {
         path: '/settings',
         element: (
           <SecureRoute>

@@ -7,10 +7,11 @@ type FormLoadingButtonProps = {
   loading: boolean;
   onClick: () => void;
   disabled?: boolean;
+  sx?: object;
 };
 
 export const FormLoadingButton: React.FC<FormLoadingButtonProps> = (props) => {
-  const { label, size = 'medium', loading, onClick, disabled } = props;
+  const { label, size = 'medium', loading, onClick, disabled, sx } = props;
   return (
     <LoadingButton
       size={size}
@@ -21,6 +22,7 @@ export const FormLoadingButton: React.FC<FormLoadingButtonProps> = (props) => {
       loadingIndicator={<LoadingWheel logoSize={20} wheelSize={35} />}
       color="secondary"
       disabled={disabled}
+      sx={{ ...sx }}
     >
       {label}
     </LoadingButton>

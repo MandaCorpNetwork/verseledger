@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { AppDock } from '@Common/AppDock/AppDock';
+import { AppDockRenderer } from '@Common/AppDockV3/AppDockV3';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { ContractController } from '@Common/Components/Contracts/ContractController';
@@ -357,7 +357,7 @@ export const ContractPage: React.FC<unknown> = () => {
           justifyContent: 'center',
         }}
       >
-        {!mobile && <AppDock />}
+        {!mobile && <AppDockRenderer />}
         {mobile && <MobileDock top hCenter />}
       </div>
     </VLViewport>

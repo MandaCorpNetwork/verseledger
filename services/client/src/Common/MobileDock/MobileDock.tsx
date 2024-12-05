@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { POPUP_APP_LIST } from '@Common/AppDock/Tools/AllApps';
+import { POPUP_APP_LIST } from '@Common/AppDockV3/Tools/AllAppsModal';
 import {
   AppGroup,
   AppListing,
@@ -21,7 +21,7 @@ import {
   PersonTwoTone,
   SettingsTwoTone,
 } from '@mui/icons-material';
-import { Avatar, keyframes, SpeedDial, SpeedDialAction } from '@mui/material';
+import { Avatar, keyframes, SpeedDial, SpeedDialAction, SvgIcon } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { getLoginMethods } from '@Redux/Slices/Auth/Actions/getLoginMethods.action';
 import { selectCurrentUser, selectIsLoggedIn } from '@Redux/Slices/Auth/auth.selectors';
@@ -431,14 +431,17 @@ export const MobileDock: React.FC<MobileDockProps> = ({
               }}
               tooltipTitle={action.label}
               onClick={(e) => navigate(action.path, 'internal', true).onClick(e)}
-              icon={React.cloneElement(action.icon as JSX.Element, {
-                fontSize: 'large',
-                sx: [
-                  { color: 'primary.light' },
-                  location.pathname === action.path && { color: 'success.dark' },
-                  action.disabled === true && { color: 'secondary.dark' },
-                ],
-              })}
+              icon={
+                <SvgIcon
+                  component={action.icon}
+                  fontSize="large"
+                  sx={[
+                    { color: 'primary.light' },
+                    location.pathname === action.path && { color: 'success.dark' },
+                    action.disabled === true && { color: 'secondary.dark' },
+                  ]}
+                />
+              }
               sx={[
                 {
                   position: 'absolute',

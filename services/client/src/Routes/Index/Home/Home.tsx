@@ -2,7 +2,7 @@
 import '@Components/Home/Home.css';
 
 import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
-import { AppDock } from '@Common/AppDock/AppDock';
+import { AppDockRenderer } from '@Common/AppDockV3/AppDockV3';
 import { MobileDock } from '@Common/MobileDock/MobileDock';
 import { SupportBar } from '@Components/Home/SupportBar';
 import { Box } from '@mui/material';
@@ -75,7 +75,7 @@ export const Home: React.FC<unknown> = () => {
           pb: '5px',
         }}
       >
-        {!isMobile && <AppDock />}
+        {!isMobile && <AppDockRenderer />}
         <SupportBar />
       </Box>
       {isMobile && <MobileDock top left />}
