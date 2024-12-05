@@ -114,6 +114,16 @@ body:hover .Dock {
   }
 }
 
+.AdvAppIcon {
+  transform: rotateX(0deg) perspective(15em);
+  transition:
+    transform 0.5s ease-in-out,
+    perspective-origin 0.3s ease-in-out;
+  perspective-origin: 50% 100%;
+  transform-origin: center bottom;
+  transform-style: preserve-3d;
+}
+
 .Swap-Icon.off {
   color: rgb(8, 22, 80);
   opacity: 1;
@@ -137,152 +147,6 @@ body:hover .Dock {
 
 .Swap-Icon:hover .Swap-Icon-Reflection {
   transform: translateY(-2px);
-}
-
-.App-Icon {
-  transform: rotateX(0deg) perspective(15em);
-  transition:
-    transform 0.5s ease-in-out,
-    perspective-origin 0.3s ease-in-out;
-  perspective-origin: 50% 100%;
-  transform-origin: center bottom;
-}
-
-.App-Icon.on {
-  color: rgba(24, 252, 252);
-}
-
-.App-Icon.off {
-  color: rgba(33, 150, 243);
-}
-
-.App-Button:hover .App-Icon.on {
-  color: rgba(121, 192, 252);
-}
-
-.App-Button:hover .App-Icon.off {
-  color: rgba(24, 252, 252);
-}
-
-.App-Button:hover .App-Icon.on,
-.App-Button:hover .App-Icon.off {
-  transform: rotateY(var(--rotate-y)) rotateX(-18deg) rotateZ(0deg) scale(1.2)
-    translateZ(20px) translateX(-5px);
-  perspective-origin: 10% 90%;
-}
-
-.App-Reflection {
-  position: absolute;
-  opacity: 0.5;
-  left: 0;
-  pointer-events: none;
-  filter: blur(2px);
-  transition: transform 0.3s ease-in-out;
-}
-
-.App-Reflection.on {
-  color: rgba(6, 86, 145);
-}
-
-.App-Reflection.off {
-  color: rgba(0, 0, 0);
-}
-
-.App-Button:hover .App-Reflection {
-  transform: translateY(-2px);
-}
-
-.App-Button:hover .App-Reflection.on {
-  transform: translateY(-2px);
-  color: rgba(24, 252, 252);
-}
-
-.App-Button:hover .App-Reflection.off {
-  transform: translateY(-2px);
-  color: rgba(121, 192, 252);
-}
-
-.App-Title {
-  text-shadow:
-    0 2px 4px rgb(0, 0, 0),
-    0 2px 10px rgba(0, 0, 0, 0.7);
-  transition: text-shadow 0.2s ease;
-}
-
-.App-Title.on {
-  text-shadow:
-    0 2px 4px rgba(33, 150, 243, 0.7),
-    0 2px 10px rgba(33, 150, 243, 0.7);
-}
-
-.App-Title.off {
-  text-shadow:
-    0 2px 4px rgb(0, 0, 0),
-    0 2px 10px rgba(0, 0, 0, 0.7);
-}
-
-.App-Indicator {
-  position: absolute;
-  bottom: 0;
-  width: 30px;
-  height: 5px;
-  z-index: 5;
-  margin-bottom: 1px;
-  transform: translateX(-50%);
-  left: 50%;
-  border-radius: 20px;
-  transition:
-    background-color 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.App-Indicator.on {
-  background-color: rgba(8, 201, 11);
-  box-shadow:
-    0 0 15px rgba(8, 201, 11, 0.8),
-    0 0 25px rgba(8, 201, 11, 0.5),
-    0 0 35px rgba(8, 201, 11, 0.3);
-}
-
-.App-Indicator.off {
-  background-color: rgba(110, 110, 110, 0.5);
-}
-
-.App-Button:active .App-Indicator {
-  background-color: rgba(24, 252, 252);
-}
-
-.App-Button:active .App-Indicator.on {
-  background-color: rgba(24, 252, 252);
-}
-
-.App-Button:active .App-Indicator.off {
-  background-color: rgba(24, 252, 252);
-}
-
-.App-Icon,
-.App-Reflection,
-.App-Title {
-  transition: color 0.3s ease;
-}
-
-.App-Button:disabled .App-Icon {
-  color: rgb(8, 22, 80);
-}
-
-.App-Button:disabled .App-Reflection {
-  color: rgb(0, 73, 130);
-}
-
-.App-Button:disabled .App-Indicator {
-  background-color: rgba(40, 20, 20, 0.3);
-}
-
-.App-Button:disabled .App-Title {
-  text-shadow:
-    0 2px 4px rgba(12, 12, 12, 0.2),
-    0 2px 10px rgba(12, 12, 12, 0.3);
-  color: rgba(25, 25, 25);
 }
 
 .User-Dial {
@@ -386,8 +250,4 @@ body:hover .Dock {
     color: #74ff33;
     filter: drop-shadow(0 0 25px #27ff4b);
   }
-}
-
-.State-Alert {
-  animation: blink 5s 60;
 }

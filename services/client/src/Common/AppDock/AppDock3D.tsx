@@ -3,8 +3,6 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import React from 'react';
 import * as THREE from 'three';
 
-import { AppDock } from './AppDock';
-
 const FloatingParticles: React.FC = () => {
   const pointsRef = React.useRef<THREE.Points>(null);
 
@@ -72,9 +70,7 @@ export const AppDock3D: React.FC = () => {
           zIndex: 1,
           transform: 'translate(-50%, -50%)',
         }}
-      >
-        <AppDock />
-      </div>
+      ></div>
     </div>
   );
 };

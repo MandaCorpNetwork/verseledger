@@ -12,6 +12,8 @@ import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import React from 'react';
 import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
+//TODO: DISABLE ANIMATION ON NOT-HIGH Animation
+
 export const UserStateManager: React.FC = () => {
   const dispatch = useAppDispatch();
   const sound = useSoundEffect();

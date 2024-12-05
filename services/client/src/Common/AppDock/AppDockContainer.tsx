@@ -1,9 +1,8 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { AppDockRenderer } from '@Common/AppDockV3/AppDockV3';
 import { DoubleArrow } from '@mui/icons-material';
 import { Box, Collapse, IconButton } from '@mui/material';
 import React from 'react';
-
-import { AppDock } from './AppDock';
 
 type AppDockContainerProps = {
   sx?: object;
@@ -48,7 +47,7 @@ export const AppDockContainer: React.FC<AppDockContainerProps> = ({ sx }) => {
         />
       </IconButton>
       <Collapse in={isExpanded} sx={{ pb: '5px' }}>
-        <AppDock />
+        <AppDockRenderer />
       </Collapse>
     </Box>
   );

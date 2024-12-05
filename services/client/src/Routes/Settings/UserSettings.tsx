@@ -1,7 +1,7 @@
 import '@Assets/Css/ripple.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
-import { AppDock } from '@Common/AppDock/AppDock';
+import { AppDockRenderer } from '@Common/AppDockV3/AppDockV3';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { DepressedListButton } from '@Common/Components/Lists/DepressedListButton';
 import { MobileDock } from '@Common/MobileDock/MobileDock';
@@ -24,8 +24,10 @@ import {
 } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserSettings } from '@Redux/Slices/Auth/auth.selectors';
+import { useNav } from '@Utils/Hooks/useNav';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
 
 //TODO: Fix Animations
@@ -40,12 +42,14 @@ const settingsList = [
   'Developer',
 ] as const;
 
-type settingsListItem = (typeof settingsList)[number];
+type SettingsListItem = (typeof settingsList)[number];
 
 export const UserSettings: React.FC = () => {
+  const { tab } = useParams();
+  const nav = useNav();
   const sound = useSoundEffect();
-  const [selectedSetting, setSelectedSetting] =
-    React.useState<settingsListItem>('Profile');
+  const [selectedSetting, _setSelectedSetting] =
+    React.useState<SettingsListItem>('Profile');
   const [_, setCurrentSetting] = React.useState<string>('Profile');
   const [transitioning, setTransitioning] = React.useState<boolean>(false);
   const isMobile = useIsMobile();
@@ -53,7 +57,7 @@ export const UserSettings: React.FC = () => {
   const currentSettings = useAppSelector(selectUserSettings);
 
   const settingsPageRender = React.useCallback(() => {
-    switch (selectedSetting) {
+    switch (tab) {
       case 'Profile':
         return <ProfileSettings />;
       case 'Developer':
@@ -69,19 +73,19 @@ export const UserSettings: React.FC = () => {
       case 'Notifications':
         return <NotificationSettings />;
     }
-  }, [selectedSetting, currentSettings]);
+  }, [tab, currentSettings]);
 
   const handleSettingSelection = React.useCallback(
-    (setting: settingsListItem) => {
-      if (selectedSetting !== setting) {
+    (e: React.MouseEvent, setting: SettingsListItem) => {
+      if (setting !== tab) {
         sound.playSound('clickMain');
         setTransitioning(true);
-        setSelectedSetting(setting);
+        nav(`/settings/${setting}`, 'internal', false).onClick(e);
       } else {
         sound.playSound('denied');
       }
     },
-    [sound, selectedSetting],
+    [tab, sound, nav],
   );
 
   React.useEffect(() => {
@@ -103,8 +107,8 @@ export const UserSettings: React.FC = () => {
             onMouseEnter={() => sound.playSound('hover')}
           >
             <DepressedListButton
-              onClick={() => handleSettingSelection(text)}
-              selected={selectedSetting === text}
+              onClick={(e) => handleSettingSelection(e, text)}
+              selected={tab === text}
               TouchRippleProps={{ className: 'dark-ripple' }}
             >
               <ListItemText primary={text} />
@@ -215,7 +219,7 @@ export const UserSettings: React.FC = () => {
           alignItems: 'center',
         }}
       >
-        {!isMobile && <AppDock />}
+        {!isMobile && <AppDockRenderer />}
         {isMobile && <MobileDock bottom hCenter />}
         {!isMobile && <SupportBar />}
       </Box>

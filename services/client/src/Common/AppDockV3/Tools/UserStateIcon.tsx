@@ -1,26 +1,33 @@
-import { AppsTwoTone } from '@mui/icons-material';
+import '@Assets/Css/AppDockV3.css';
+
+import { SensorOccupiedTwoTone } from '@mui/icons-material';
 import { Box } from '@mui/material';
+import { useAppSelector } from '@Redux/hooks';
+import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
+import { bindTrigger, PopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 
-type MoreIconProps = {
-  toggleView: () => void;
+type UserStateIconProps = {
+  popupState: PopupState;
   quality: string;
   animations: string;
 };
 
-export const MoreIcon: React.FC<MoreIconProps> = ({
-  toggleView,
+export const UserStateIcon: React.FC<UserStateIconProps> = ({
+  popupState,
   quality,
   animations,
 }) => {
+  const { onClick, onTouchStart, ...ariaProps } = bindTrigger(popupState);
   const [rotateY, setRotateY] = React.useState<number>(0);
+
   const animationFrameId = React.useRef<number | null>(null);
   const targetRotateY = React.useRef<number>(rotateY);
 
   const smoothRotate = React.useCallback(() => {
     setRotateY((prevRotateY) => {
       const delta = targetRotateY.current - prevRotateY;
-      const step = delta * 0.1; //Smoothing Factor
+      const step = delta * 0.1;
 
       if (Math.abs(delta) < 0.1) {
         cancelAnimationFrame(animationFrameId.current!);
@@ -30,7 +37,7 @@ export const MoreIcon: React.FC<MoreIconProps> = ({
       return prevRotateY + step;
     });
     animationFrameId.current = requestAnimationFrame(smoothRotate);
-  }, []);
+  }, [targetRotateY]);
 
   const handleMouseMove = React.useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
@@ -49,7 +56,7 @@ export const MoreIcon: React.FC<MoreIconProps> = ({
         animationFrameId.current = requestAnimationFrame(smoothRotate);
       }
     },
-    [smoothRotate],
+    [smoothRotate, targetRotateY],
   );
 
   const resetRotation = React.useCallback(() => {
@@ -65,7 +72,19 @@ export const MoreIcon: React.FC<MoreIconProps> = ({
     }
   }, [animations, handleMouseMove, resetRotation]);
 
-  const moreIconStyles = React.useMemo(() => {
+  React.useEffect(() => {
+    return () => {
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+    };
+  }, []);
+
+  const userLocation = useAppSelector(selectUserLocation);
+
+  const isLocationSet = Boolean(userLocation.id);
+
+  const userStateStyles = React.useMemo(() => {
     const classNames: string[] = ['DockFunctionIcon'];
     if (quality === 'medium' || quality === 'high') {
       classNames.push('AdvAppIcon');
@@ -88,32 +107,55 @@ export const MoreIcon: React.FC<MoreIconProps> = ({
     return classNames.join(' ');
   }, [animations, quality]);
 
-  const moreIcon = (
-    <AppsTwoTone
-      data-testid="AppDock__More_Icon"
-      className={moreIconStyles}
+  const functionIcon = (
+    <SensorOccupiedTwoTone
+      data-testid="AppDock__UserState_Icon"
+      className={userStateStyles}
       fontSize="large"
       sx={[animations === 'high' && { '--rotate-y': `${rotateY}deg` }]}
     />
   );
 
-  const moreIconReflection = (
-    <AppsTwoTone
-      data-testid="AppDock__More_IconReflection"
-      className="DockFunctionReflection"
+  const userStateReflectionStyles = React.useMemo(() => {
+    const classNames: string[] = ['DockFunctionReflection'];
+    switch (animations) {
+      case 'high':
+        classNames.push('DockFunctionIconHighAnimation');
+        break;
+      case 'low':
+        classNames.push('DockFunctionIconLowAnimation');
+        break;
+      case 'none':
+        classNames.push('DockFunctionIconNoAnimation');
+        break;
+      case 'medium':
+      default:
+        classNames.push('DockFunctionIconMedAnimation');
+        break;
+    }
+    return classNames.join(' ');
+  }, [animations]);
+
+  const appIconReflection = (
+    <SensorOccupiedTwoTone
+      data-testid="AppDock__UserState_IconReflection"
+      className={userStateReflectionStyles}
       fontSize="large"
     />
   );
   return (
     <Box
-      data-testid="AppDock__AppList_Button"
-      className="AppIconContainer"
+      data-testid="AppDock__UserState_Button"
+      id="AppDock__UserState_Button"
+      className={`AppIconContainer ${!isLocationSet && 'StateAlert'}`}
       onMouseMove={advButtonAnimation?.handleMouseMove}
       onMouseLeave={advButtonAnimation?.resetRotation}
-      onClick={toggleView}
+      onClick={onClick}
+      onTouchStart={onTouchStart}
+      {...ariaProps}
     >
-      {moreIcon}
-      {(quality === 'medium' || quality === 'high') && moreIconReflection}
+      {functionIcon}
+      {(quality === 'medium' || quality === 'high') && appIconReflection}
     </Box>
   );
 };

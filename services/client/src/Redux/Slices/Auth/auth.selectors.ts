@@ -25,3 +25,11 @@ export const selectUserSoundPack = createSelector(
   [selectUserSettings],
   (settings) => settings.soundPack ?? 'systemDefault',
 );
+
+export const selectAnimations = createSelector([selectUserSettings], (settings) => {
+  return settings.animations ?? 'medium';
+});
+
+export const selectQuality = createSelector([selectUserSettings], (settings) => {
+  return settings.quality ?? 'medium';
+});
