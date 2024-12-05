@@ -2,7 +2,6 @@ import { Logger } from '@Utils/Logger';
 import { Sequelize } from 'sequelize-typescript';
 import chalk from 'chalk';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupModels = (env: {
   MYSQL_DATABASE: string;
   MYSQL_USER: string;

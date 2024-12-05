@@ -14,7 +14,7 @@ const initialState = {
 
 const contractsReducer = createSlice({
   name: 'contracts',
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   initialState,
   reducers: {
     noop() {

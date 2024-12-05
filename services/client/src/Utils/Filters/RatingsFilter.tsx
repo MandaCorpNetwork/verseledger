@@ -44,7 +44,6 @@ const DisabledRatingSliderMarks = [
 ];
 
 export const RatingsFilter: React.FC<unknown> = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { searchParams, setFilters } = useURLQuery();
 
   const currentFilterValue = React.useMemo(() => {

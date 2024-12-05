@@ -24,7 +24,6 @@ import {
 } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 type ContractRowProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   contract: IContract[];
   onPick: (id: string | null) => void;
   isSelected: string | null;

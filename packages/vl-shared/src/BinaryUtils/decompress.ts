@@ -6,7 +6,7 @@ export const decompress = async (input: Buffer): Promise<Uint8Array> => {
   const output: Uint8Array[] = [];
   const reader = ds.readable.getReader();
   let totalSize = 0;
-  // eslint-disable-next-line no-constant-condition
+
   while (true) {
     const { value, done } = await reader.read();
     if (done) break;

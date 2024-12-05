@@ -9,7 +9,7 @@ import { markRead } from './actions/patchMarkRead.action';
 
 const notificationsReducer = createSlice({
   name: 'notifications',
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   initialState: {
     unreadNotifications: 0,
     notificationsMap: {} as Record<

@@ -9,7 +9,6 @@ import { CustomDestinationTable } from './CustomTable';
 import { DistanceTable } from './DistanceTable';
 import { DestinationEffForm } from './TableContent/DestinationEffForm';
 import { DestQueHeader } from './TableContent/DestQueHeader';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 type DestinationQueProps = {
   destinations: IDestination[];

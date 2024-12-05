@@ -6,7 +6,7 @@ export const compress = async (input: Buffer) => {
   const output: Uint8Array[] = [];
   const reader = cs.readable.getReader();
   let totalSize = 0;
-  // eslint-disable-next-line no-constant-condition
+
   while (true) {
     const { value, done } = await reader.read();
     if (done) break;

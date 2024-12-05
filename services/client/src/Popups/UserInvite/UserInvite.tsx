@@ -17,7 +17,7 @@ export type UserInvitePopupProps = {
 };
 
 export const UserInvitePopup: React.FC<UserInvitePopupProps> = ({ contractId }) => {
-  const [selectedUsers, setSelectedUsers] = React.useState<IUser[]>([]); //eslint-disable-line @typescript-eslint/no-unused-vars
+  const [selectedUsers, setSelectedUsers] = React.useState<IUser[]>([]);
   const dispatch = useAppDispatch();
   const sound = useSoundEffect();
 
