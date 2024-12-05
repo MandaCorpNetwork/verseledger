@@ -2,6 +2,7 @@
 import '@Components/Home/Home.css';
 
 import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
+import { AppDockRenderer } from '@Common/AppDockV3/AppDockV3';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { MobileDock } from '@Common/MobileDock/MobileDock';
 import { SupportBar } from '@Components/Home/SupportBar';
@@ -10,7 +11,6 @@ import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 
 import License from './License.mdx';
-import { AppDockRenderer } from '@Common/AppDockV3/AppDockV3';
 
 export const LicensePage: React.FC<unknown> = () => {
   const isMobile = useIsMobile();

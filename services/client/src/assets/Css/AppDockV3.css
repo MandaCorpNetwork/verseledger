@@ -441,7 +441,7 @@
 }
 
 .DockFunctionIcon.off {
-  color: rgb(14,35,141);
+  color: rgb(14, 35, 141);
   opacity: 1;
   &:hover {
     color: rgb(8, 22, 80);
@@ -452,6 +452,6 @@
 }
 
 .DockFunctionReflection.off {
-  color: rgba(8,22,80);
+  color: rgba(8, 22, 80);
   opacity: 1;
 }
