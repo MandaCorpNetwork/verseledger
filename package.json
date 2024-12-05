@@ -40,6 +40,6 @@
   },
   "resolutions": {
     "@types/mime": "3.0.4",
-    "express": "4.21.1"
+    "express": "4.21.2"
   }
 }
