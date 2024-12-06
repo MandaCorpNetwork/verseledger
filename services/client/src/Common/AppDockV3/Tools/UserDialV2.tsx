@@ -15,7 +15,7 @@ import {
   Settings,
 } from '@mui/icons-material';
 import { Avatar, Popover, SpeedDial, SpeedDialAction, SvgIcon } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '@Redux/hooks';
+import { useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { selectNotificationsUnreadCount } from '@Redux/Slices/Notifications/notifications.selectors';
 import { useNav } from '@Utils/Hooks/useNav';
@@ -35,7 +35,6 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
 
   const sound = useSoundEffect();
   const nav = useNav();
-  const dispatch = useAppDispatch();
 
   const user = useAppSelector(selectCurrentUser);
   const unreadNotifCount = useAppSelector(selectNotificationsUnreadCount);
@@ -58,7 +57,7 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
         setMenuOpen(true);
         sound.playSound('open');
       }
-    }, 600);
+    }, 800);
   }, [sound, menuOpen, setMenuOpen]);
 
   const userDialStyles = React.useMemo(() => {

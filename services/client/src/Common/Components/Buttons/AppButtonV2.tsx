@@ -1,10 +1,13 @@
 import '@Assets/Css/AppDockV3.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
+import { POPUP_APP_LIST } from '@Common/AppDockV3/Tools/AllAppsModal';
 import type { SvgIconComponent } from '@mui/icons-material';
 import { Button, SvgIcon, Typography, TypographyProps } from '@mui/material';
-import { useAppSelector } from '@Redux/hooks';
+import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectAnimations, selectQuality } from '@Redux/Slices/Auth/auth.selectors';
+import { closePopup } from '@Redux/Slices/Popups/popups.actions';
+import { selectIsPopupOpen } from '@Redux/Slices/Popups/popups.selectors';
 import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -35,9 +38,11 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
   const nav = useNav();
   const sound = useSoundEffect();
   const { selectedOrgId } = useParams();
+  const dispatch = useAppDispatch();
 
   const animationSetting = useAppSelector(selectAnimations);
   const qualitySetting = useAppSelector(selectQuality);
+  const isListOpen = useAppSelector((state) => selectIsPopupOpen(state, POPUP_APP_LIST));
 
   const orgButton = path.startsWith('/orgs');
 
@@ -62,8 +67,9 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
       } else {
         nav(path, 'internal', true).onClick(e);
       }
+      if (isListOpen) dispatch(closePopup(POPUP_APP_LIST));
     },
-    [isOn, nav, orgButton, path, selectedOrgId, sound],
+    [isOn, nav, orgButton, path, selectedOrgId, sound, isListOpen, dispatch],
   );
 
   const handleAuxClick = React.useCallback(
@@ -74,8 +80,9 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
       } else {
         nav(path, 'internal', true).onAuxClick(e);
       }
+      if (isListOpen) dispatch(closePopup(POPUP_APP_LIST));
     },
-    [nav, orgButton, path, selectedOrgId],
+    [nav, orgButton, path, selectedOrgId, isListOpen, dispatch],
   );
 
   const appButtonStyles = React.useMemo(() => {
