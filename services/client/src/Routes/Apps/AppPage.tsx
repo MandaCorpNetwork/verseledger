@@ -1,4 +1,3 @@
-import { AppDockContainer } from '@Common/AppDock/AppDockContainer';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { MobileDock } from '@Common/MobileDock/MobileDock';
 import { Box } from '@mui/material';
@@ -55,8 +54,6 @@ export const AppPage: React.FC<unknown> = () => {
           <Outlet />
         </Box>
       </Box>
-      {isMobile && <MobileDock top right />}
-      {!isMobile && <AppDockContainer />}
     </VLViewport>
   );
 };

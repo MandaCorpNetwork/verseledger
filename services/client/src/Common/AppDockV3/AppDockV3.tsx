@@ -6,7 +6,6 @@ import { MoreIcon } from '@Common/AppDockV3/Buttons/MoreIcon';
 import { SplashIcon } from '@Common/AppDockV3/Buttons/SplashIcon';
 import { UserStateIcon } from '@Common/AppDockV3/Tools/UserStateIcon';
 import { UserStateManager } from '@Common/AppDockV3/Tools/UserStateManager';
-import { AppButtonV2 } from '@Common/Components/Buttons/AppButtonV2';
 import { useMasterAppList, VerseLedgerVersion } from '@Common/Definitions/AppListings';
 import { ErrorOutline, HomeTwoTone, Person } from '@mui/icons-material';
 import {
@@ -28,14 +27,23 @@ import {
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { siteMode } from '@Utils/siteMode';
 import { bindPopover, usePopupState } from 'material-ui-popup-state/hooks';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { AdvancedDockPanel } from './DockPanels/AdvancedPanel';
 import { POPUP_APP_LIST } from './Tools/AllAppsModal';
 import { UserDialV2 } from './Tools/UserDialV2';
 
-export const AppDockRenderer: React.FC = () => {
+const AppButtonV2 = React.lazy(async () => {
+  const module = await import('@Common/Components/Buttons/AppButtonV2');
+  return { default: module.AppButtonV2 };
+});
+
+const AdvancedDockPanel = React.lazy(async () => {
+  const module = await import('./DockPanels/AdvancedPanel');
+  return { default: module.AdvancedDockPanel };
+});
+
+export const AppDock: React.FC = () => {
   const location = useLocation();
   const containerRef = React.useRef<HTMLElement>(null);
   const masterAppList = useMasterAppList();
@@ -105,9 +113,16 @@ export const AppDockRenderer: React.FC = () => {
       <Portal>
         <Typography
           data-testid="AppDock-VersionLabel__Text"
-          className="VersionLabelText"
           variant="body2"
-          sx={[version === VerseLedgerVersion && { opacity: '1', fontWeight: 'bold' }]}
+          sx={[
+            {
+              position: 'fixed',
+              bottom: 10,
+              left: 16,
+              opacity: '0.7',
+            },
+            version === VerseLedgerVersion && { opacity: '1', fontWeight: 'bold' },
+          ]}
           aria-label={`Current version of ${appLabel} is ${version}`}
         >
           {appLabel} {version} {siteMode}
@@ -203,7 +218,11 @@ export const AppDockRenderer: React.FC = () => {
       case 'high':
       case 'medium':
       default:
-        return <AdvancedDockPanel />;
+        return (
+          <Suspense>
+            <AdvancedDockPanel />
+          </Suspense>
+        );
     }
   }, [qualitySetting]);
 
@@ -245,7 +264,9 @@ export const AppDockRenderer: React.FC = () => {
           />
         )}
       </div>
-      <AppButtonV2 icon={HomeTwoTone} label="@APP.HOME.LABEL" path="/apps/dashboard" />
+      <Suspense>
+        <AppButtonV2 icon={HomeTwoTone} label="@APP.HOME.LABEL" path="/apps/dashboard" />
+      </Suspense>
       <Divider
         orientation="vertical"
         flexItem

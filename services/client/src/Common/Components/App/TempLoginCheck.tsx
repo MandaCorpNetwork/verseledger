@@ -7,7 +7,7 @@ import { fetchUserFlags } from '@Redux/Slices/Flags/Actions/fetchFlags.action';
 import { AuthUtil } from '@Utils/AuthUtil';
 import React from 'react';
 
-export const TempLoginCheck: React.FC = () => {
+export const LoginCheck: React.FC = () => {
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   React.useEffect(() => {

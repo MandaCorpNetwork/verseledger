@@ -1,6 +1,6 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
 import { useSoundEffect } from '@Audio/AudioManager';
-import { AppDockRenderer } from '@Common/AppDockV3/AppDockV3';
+import { AppDock } from '@Common/AppDockV3/AppDockV3';
 import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
 import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
 import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
@@ -595,8 +595,8 @@ export const UserPage: React.FC = () => {
           </DigiDisplay>
         </Box>
       </GlassDisplay>
-      {!isMobile && <AppDockRenderer />}
-      {isMobile && <MobileDock top hCenter />}
+      {/* {!isMobile && <AppDockRenderer />}
+      {isMobile && <MobileDock top hCenter />} */}
     </UserViewport>
   );
 };

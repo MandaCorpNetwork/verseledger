@@ -8,7 +8,7 @@ import React from 'react';
 export const SupportBar: React.FC = () => {
   const sound = useSoundEffect();
   return (
-    <Box className="Support-Bar">
+    <div className="Support-Bar">
       <IconButton
         component="a"
         href="https://ko-fi.com/verseledger"
@@ -67,6 +67,6 @@ export const SupportBar: React.FC = () => {
           className="Support-Icon"
         />
       </IconButton>
-    </Box>
+    </div>
   );
 };

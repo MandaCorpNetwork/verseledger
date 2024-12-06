@@ -1,7 +1,7 @@
 import '@Assets/Css/ripple.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
-import { AppDockRenderer } from '@Common/AppDockV3/AppDockV3';
+import { AppDock } from '@Common/AppDockV3/AppDockV3';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { DepressedListButton } from '@Common/Components/Lists/DepressedListButton';
 import { MobileDock } from '@Common/MobileDock/MobileDock';
@@ -219,9 +219,9 @@ export const UserSettings: React.FC = () => {
           alignItems: 'center',
         }}
       >
-        {!isMobile && <AppDockRenderer />}
+        {/* {!isMobile && <AppDockRenderer />}
         {isMobile && <MobileDock bottom hCenter />}
-        {!isMobile && <SupportBar />}
+        {!isMobile && <SupportBar />} */}
       </Box>
     </VLViewport>
   );

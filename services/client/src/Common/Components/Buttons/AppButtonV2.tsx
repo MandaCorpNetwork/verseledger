@@ -308,3 +308,5 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
     </Button>
   );
 };
+
+export default AppButtonV2;

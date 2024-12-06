@@ -1,4 +1,5 @@
-import { TempLoginCheck } from '@Common/Components/App/TempLoginCheck';
+import { AppDockRenderer } from '@Common/AppDockV3/AppDockContainerV2';
+import { LoginCheck } from '@Common/Components/App/TempLoginCheck';
 import { ContractManagerApp } from '@Components/Contracts/ContractManager/ContractManagerApp';
 import { ExploreApp } from '@Components/Locations/Explore/ExploreApp';
 import { InventoryApp } from '@Components/Locations/Inventory/InventoryApp';
@@ -40,7 +41,8 @@ export const routingInfo: RouteObject[] = [
     //element: <LegacyLandingPage/>,
     element: (
       <>
-        <TempLoginCheck />
+        <LoginCheck />
+        <AppDockRenderer />
         <Outlet />
         <PopupManager />
         <WidgetManager />
