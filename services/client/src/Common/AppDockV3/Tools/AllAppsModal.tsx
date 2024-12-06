@@ -27,7 +27,7 @@ export const AllApps: React.FC = () => {
     <Dialog
       data-testid="AppList__Modal"
       open={true}
-      data-popupState={0}
+      data-popupstate={0}
       keepMounted
       maxWidth={false}
       scroll="paper"

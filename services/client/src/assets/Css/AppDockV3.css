@@ -238,6 +238,7 @@
 
 .AppIconContainer {
   position: relative;
+  cursor: pointer;
 }
 
 .AdvAppIcon {
@@ -454,4 +455,109 @@
 .DockFunctionReflection.off {
   color: rgba(8, 22, 80);
   opacity: 1;
+}
+
+.AdvUserDial {
+  position: absolute;
+  top: -5px;
+  left: -7px;
+  box-shadow: none;
+}
+
+.UserDialAvatar {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    filter 0.3s ease;
+  perspective: 50% 100%;
+}
+
+.AdvUserDial:hover .UserDialAvatar.UserDialAvatarHighAnimations {
+  transform: scale(1.15) rotateY(25deg) rotateX(8deg) translateZ(30px) translateX(-7px);
+  perspective-origin: 10% 90%;
+  filter: drop-shadow(0px 5px 15px rgba(0, 183, 252, 0.6));
+}
+
+.AdvUserDial:hover .UserDialAvatar.UserDialAvatarMedAnimations {
+  transform: scale(1.15);
+  perspective-origin: 10% 90%;
+  filter: drop-shadow(0px 5px 15px rgba(0, 183, 252, 0.6));
+}
+
+.AdvUserDial:hover .UserDialAvatar.UserDialAvatarLowAnimations {
+  filter: drop-shadow(0px 5px 15px rgba(0, 183, 252, 0.6));
+}
+
+.AdvUserDialActionIcon {
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease,
+    filter 0.3s ease;
+}
+
+.AdvUserDialActionIcon:hover.UserDialActionHighAnimation {
+  transform: scale(1.1) rotateX(-20deg) rotateY(5deg) translateZ(-10px);
+  color: rgba(14, 252, 252);
+  filter: drop-shadow(0px 4px 15px rgba(0, 183, 252, 0.5));
+}
+
+.AdvUserDialActionIcon:hover.UserDialActionMedAnimation {
+  transform: scale(1.1);
+  color: rgba(14, 252, 252);
+  filter: drop-shadow(0px 4px 15px rgba(0, 183, 252, 0.5));
+}
+
+.AdvUserDialActionIcon:hover.UserDialActionLowAnimation {
+  color: rgba(14, 252, 252);
+  filter: drop-shadow(0px 4px 15px rgba(0, 183, 252, 0.5));
+}
+
+.UnreadNotifications {
+  color: rgb(255, 0, 0);
+}
+
+@keyframes loginPulse {
+  0% {
+    transform: rotateY(-2deg) rotateX(-5deg) rotateZ(5deg) scale(1) translateZ(25px)
+      translateX(-5px) translateY(2px);
+    filter: drop-shadow(0 0 0 rgba(0, 255, 21, 0.4))
+      drop-shadow(0 0 5px rgba(0, 255, 0, 0.6))
+      drop-shadow(0 0 10px rgba(0, 255, 42, 0.5));
+  }
+  50% {
+    transform: rotateY(-2deg) rotateX(-5deg) rotateZ(5deg) scale(1.15) translateZ(30px)
+      translateX(-5px) translateY(2px);
+    filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.6))
+      drop-shadow(0 0 15px rgba(0, 255, 34, 0.8))
+      drop-shadow(0 0 20px rgba(0, 255, 21, 0.7));
+  }
+  100% {
+    transform: rotateY(-2deg) rotateX(-5deg) rotateZ(5deg) scale(1) translateZ(25px)
+      translateX(-5px) translateY(2px);
+    filter: drop-shadow(0 0 0 rgba(0, 255, 34, 0.4))
+      drop-shadow(0 0 5px rgba(21, 255, 0, 0.6))
+      drop-shadow(0 0 10px rgba(21, 255, 0, 0.5));
+  }
+}
+
+.AppIconContainer.Login .DockFunctionIcon {
+  color: rgba(0, 255, 0);
+  animation: loginPulse 6s cubic-bezier(0.25, 0.1, 0.25, 1) 30;
+  will-change: transform, filter;
+}
+
+.AppIconContainer.Login .DockFunctionIcon.AdvAppIcon {
+  transform: rotateY(2deg) rotateX(-3deg) rotateZ(5deg) scale(1) translateZ(25px)
+    translateX(-2px) translateY(2px);
+  perspective-origin: 10% 90%;
+}
+
+.AppIconContainer.Login .DockFunctionReflection {
+  position: absolute;
+  opacity: 0.5;
+  left: 0;
+  pointer-events: none;
+  filter: blur(2px);
+  color: rgba(0, 255, 0);
+  transform: translateY(-2px) translateX(1px);
 }

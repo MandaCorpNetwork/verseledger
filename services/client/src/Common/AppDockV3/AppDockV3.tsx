@@ -1,12 +1,11 @@
 import '@Assets/Css/AppDockV3.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
-import { LoginIcon } from '@Common/AppDock/Icons/LoginIcon';
-import { MoreIcon } from '@Common/AppDock/Icons/MoreIcon';
-import { SplashIcon } from '@Common/AppDock/Icons/SplashIcon';
-import { UserDial } from '@Common/AppDock/Tools/UserDial';
-import { UserStateManager } from '@Common/AppDock/Tools/UserStateManager';
+import { LoginIcon } from '@Common/AppDockV3/Buttons/LoginIcon';
+import { MoreIcon } from '@Common/AppDockV3/Buttons/MoreIcon';
+import { SplashIcon } from '@Common/AppDockV3/Buttons/SplashIcon';
 import { UserStateIcon } from '@Common/AppDockV3/Tools/UserStateIcon';
+import { UserStateManager } from '@Common/AppDockV3/Tools/UserStateManager';
 import { AppButtonV2 } from '@Common/Components/Buttons/AppButtonV2';
 import { useMasterAppList, VerseLedgerVersion } from '@Common/Definitions/AppListings';
 import { ErrorOutline, HomeTwoTone, Person } from '@mui/icons-material';
@@ -34,6 +33,7 @@ import { useLocation } from 'react-router-dom';
 
 import { AdvancedDockPanel } from './DockPanels/AdvancedPanel';
 import { POPUP_APP_LIST } from './Tools/AllAppsModal';
+import { UserDialV2 } from './Tools/UserDialV2';
 
 export const AppDockRenderer: React.FC = () => {
   const location = useLocation();
@@ -261,7 +261,11 @@ export const AppDockRenderer: React.FC = () => {
           quality={qualitySetting}
           animations={animationSetting}
         />
-        {isLoggedIn ? <UserDial /> : <LoginIcon />}
+        {isLoggedIn ? (
+          <UserDialV2 quality={qualitySetting} animations={animationSetting} />
+        ) : (
+          <LoginIcon />
+        )}
       </div>
     </Box>
   );

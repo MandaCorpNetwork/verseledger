@@ -18,12 +18,17 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotifications.action';
 import { selectNotificationsArray } from '@Redux/Slices/Notifications/notifications.selectors';
 import useNotification from '@Utils/Hooks/notificationHandler';
+import { PopupState } from 'material-ui-popup-state/hooks';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
 
-export const NotificationsBox: React.FC = () => {
+type NotificationBoxProps = {
+  popupState: PopupState;
+};
+
+export const NotificationsBox: React.FC<NotificationBoxProps> = ({ popupState }) => {
   const notifications = useAppSelector(selectNotificationsArray);
 
   const unreadNotifications = notifications.filter(
@@ -47,6 +52,10 @@ export const NotificationsBox: React.FC = () => {
     dispatch(fetchNotifications(true));
   }, [dispatch]);
 
+  const handleClose = React.useCallback(() => {
+    sound.playSound('close');
+    popupState.close();
+  }, [sound, popupState]);
   return (
     <Card
       sx={{
@@ -102,22 +111,25 @@ export const NotificationsBox: React.FC = () => {
                 {t('@NOTIFICATION.MARK_ALL_READ')}
               </Typography>
             </Button>
+            <Button variant="text" size="small" color="warning" onClick={handleClose}>
+              <Typography variant="overline">Close</Typography>
+            </Button>
           </Box>
         }
       />
 
-      {notifications.length === 0 ? (
+      {unreadNotifications.length < 1 ? (
         <Typography
           align="center"
           variant="body1"
+          color="textDisabled"
           sx={{
             fontWeight: 'bold',
-            color: 'grey',
             textShadow: '0 0 2px rgba(0,0,0), 0 0 5px rgba(0,0,0,.8)',
             mb: '.2em',
           }}
         >
-          No new notifications
+          No New notifications
         </Typography>
       ) : (
         <CardContent
