@@ -3412,10 +3412,10 @@
   resolved "https://registry.yarnpkg.com/@rtsao/scc/-/scc-1.1.0.tgz#927dd2fae9bc3361403ac2c7a00c32ddce9ad7e8"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@scalar/api-client@2.2.7":
-  version "2.2.7"
-  resolved "https://registry.yarnpkg.com/@scalar/api-client/-/api-client-2.2.7.tgz#78d6a405b331e425da618467bf37e7b27dcef69e"
-  integrity sha512-UHq39jWHuvewo6Aq84+5SuxMSG2/VcZjZwXj7Qw0zvfhzN+MvJtCmdYUuD8kdHAXtpJKWT+UOOZBrSECXjYOiQ==
+"@scalar/api-client@2.2.8":
+  version "2.2.8"
+  resolved "https://registry.yarnpkg.com/@scalar/api-client/-/api-client-2.2.8.tgz#3c1c852dd7e8c1d87b9ebff0a10da04dcf298179"
+  integrity sha512-ePqxOiVqFIV8G/7zsmyJWuVlSgs753aLJM5w8WG+DL9+AdoZFQuc22cF/X1RwRMiN7VzOSEaPYOiMs2U/nsCJg==
   dependencies:
     "@headlessui/tailwindcss" "^0.2.0"
     "@headlessui/vue" "^1.7.20"
@@ -3427,6 +3427,7 @@
     "@scalar/object-utils" "1.1.12"
     "@scalar/openapi-parser" "0.8.10"
     "@scalar/openapi-types" "0.1.5"
+    "@scalar/postman-to-openapi" "0.1.8"
     "@scalar/themes" "0.9.54"
     "@scalar/types" "0.0.23"
     "@scalar/use-codemirror" "0.11.46"
@@ -3449,21 +3450,21 @@
     yaml "^2.4.5"
     zod "^3.23.8"
 
-"@scalar/api-reference-react@0.3.151":
-  version "0.3.151"
-  resolved "https://registry.yarnpkg.com/@scalar/api-reference-react/-/api-reference-react-0.3.151.tgz#cc72c0e7e92cf555e9d921eafc0b93a7e0ea1cf5"
-  integrity sha512-z920vgfNjxUxoPsokEZ0CV623FNMo7eXIAvM3Gkc+50kOe0IQn9R3o76TCSqxYHp3BlZLCGxIqN0VVUghQfKEw==
+"@scalar/api-reference-react@0.3.152":
+  version "0.3.152"
+  resolved "https://registry.yarnpkg.com/@scalar/api-reference-react/-/api-reference-react-0.3.152.tgz#fa45bd213942b9ded67c2ab7ac6587851f76828c"
+  integrity sha512-TYh1DFoLdw4Q7tnzQYTLP7YGHVbAEYUWQ4hpvWUwrqeEq6r3NC5wZ70XCCAJGmoD3oeFRoZf4hJ1H/5h0U6sRg==
   dependencies:
-    "@scalar/api-reference" "1.25.75"
+    "@scalar/api-reference" "1.25.76"
 
-"@scalar/api-reference@1.25.75":
-  version "1.25.75"
-  resolved "https://registry.yarnpkg.com/@scalar/api-reference/-/api-reference-1.25.75.tgz#8b8305885cf80bc0dcba3d46c6feb4ed90163fff"
-  integrity sha512-asZZ0UVcPjTT/sHZzF3dpkU0QqW/RFxCF/bAN4efMpVLot/7dH/2hJ80LW26VEm8zK2zfk9B22vuzGzywLGEHw==
+"@scalar/api-reference@1.25.76":
+  version "1.25.76"
+  resolved "https://registry.yarnpkg.com/@scalar/api-reference/-/api-reference-1.25.76.tgz#9c98dbd9bc82d7d02ed0c0d6adb93588b3712211"
+  integrity sha512-8hk3rhrFpgwD8gj8GL7rqjhgf6rO345C3ic9r6yeZIP8J/mEuEE9y94xYI6s892pzCe0bESM23etZB0ljjTYRw==
   dependencies:
     "@floating-ui/vue" "^1.0.2"
     "@headlessui/vue" "^1.7.20"
-    "@scalar/api-client" "2.2.7"
+    "@scalar/api-client" "2.2.8"
     "@scalar/code-highlight" "0.0.18"
     "@scalar/components" "0.13.2"
     "@scalar/oas-utils" "0.2.85"
@@ -3588,6 +3589,14 @@
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/@scalar/openapi-types/-/openapi-types-0.1.5.tgz#77e01b88c691a08ed8cbc5a1e4f22c84f4d6c2f8"
   integrity sha512-6geH9ehvQ/sG/xUyy3e0lyOw3BaY5s6nn22wHjEJhcobdmWyFER0O6m7AU0ZN4QTjle/gYvFJOjj552l/rsNSw==
+
+"@scalar/postman-to-openapi@0.1.8":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@scalar/postman-to-openapi/-/postman-to-openapi-0.1.8.tgz#0db1fbdc6e151435afe093c9dfce18dec8b600bf"
+  integrity sha512-uiZQ3SE3pEf+jl+j9SspYZHs02b4YSwYHNSKEWG3hOsLh45Nh+H2VOux9f5/ThRA/II31/0cpTJIwWX5ytcc6Q==
+  dependencies:
+    "@scalar/oas-utils" "0.2.85"
+    "@scalar/openapi-types" "0.1.5"
 
 "@scalar/snippetz@0.2.7":
   version "0.2.7"
