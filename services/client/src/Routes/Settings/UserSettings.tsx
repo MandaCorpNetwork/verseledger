@@ -1,11 +1,8 @@
 import '@Assets/Css/ripple.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
-import { AppDock } from '@Common/AppDockV3/AppDockV3';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { DepressedListButton } from '@Common/Components/Lists/DepressedListButton';
-import { MobileDock } from '@Common/MobileDock/MobileDock';
-import { SupportBar } from '@Components/Home/SupportBar';
 import { BetaSettings } from '@Components/User/UserSettings/Beta';
 import { DeveloperSettings } from '@Components/User/UserSettings/DeveloperSettings';
 import { GraphicsSettings } from '@Components/User/UserSettings/Graphics';
@@ -25,7 +22,6 @@ import {
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserSettings } from '@Redux/Slices/Auth/auth.selectors';
 import { useNav } from '@Utils/Hooks/useNav';
-import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
@@ -52,7 +48,6 @@ export const UserSettings: React.FC = () => {
     React.useState<SettingsListItem>('Profile');
   const [_, setCurrentSetting] = React.useState<string>('Profile');
   const [transitioning, setTransitioning] = React.useState<boolean>(false);
-  const isMobile = useIsMobile();
 
   const currentSettings = useAppSelector(selectUserSettings);
 
@@ -218,11 +213,7 @@ export const UserSettings: React.FC = () => {
           flexDirection: 'column',
           alignItems: 'center',
         }}
-      >
-        {/* {!isMobile && <AppDockRenderer />}
-        {isMobile && <MobileDock bottom hCenter />}
-        {!isMobile && <SupportBar />} */}
-      </Box>
+      />
     </VLViewport>
   );
 };

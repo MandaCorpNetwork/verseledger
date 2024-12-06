@@ -1,12 +1,10 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-// import { AppDockRenderer } from '@Common/AppDockV3/AppDockV3';
 import GlassBox from '@Common/Components/Boxes/GlassBox';
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
 import { ContractController } from '@Common/Components/Contracts/ContractController';
 import { ContractorList } from '@Common/Components/Contracts/ContractorList';
 import { contractArchetypes } from '@Common/Definitions/Structures/Contracts/ContractArchetypes';
 import { LoadingScreen } from '@Common/LoadingObject/LoadingScreen';
-// import { MobileDock } from '@Common/MobileDock/MobileDock';
 import { DesktopContractBody } from '@Components/Contracts/ContractPage/DesktopComponents/DesktopContractBody';
 import { MobileLocations } from '@Components/Contracts/ContractPage/MobileData/MobileLocations';
 import { MobilePayBrief } from '@Components/Contracts/ContractPage/MobileData/MobilePayBrief';
@@ -26,7 +24,6 @@ import { useIsTablet } from '@Utils/isTablet';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-// import { useNavigate, useParams } from 'react-router-dom';
 import {
   IContract,
   IContractWithOwner,
@@ -349,17 +346,14 @@ export const ContractPage: React.FC<unknown> = () => {
           )}
         </GlassBox>
       )}
-      {/* <div
+      <div
         style={{
           margin: '.5em 0',
           display: 'flex',
           width: '100%',
           justifyContent: 'center',
         }}
-      >
-        {!mobile && <AppDockRenderer />}
-        {mobile && <MobileDock top hCenter />}
-      </div> */}
+      />
     </VLViewport>
   );
 };

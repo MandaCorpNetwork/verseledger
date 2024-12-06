@@ -2,7 +2,7 @@ import MadeByCommunity from '@Assets/media/MenuPage/MadeByTheCommunity.png';
 import Pally from '@Assets/media/MenuPage/Pally.png?url';
 import { useSoundEffect } from '@Audio/AudioManager';
 import { Discord, KoFi, Patreon } from '@Common/Definitions/CustomIcons';
-import { Box, ButtonBase, IconButton } from '@mui/material';
+import { ButtonBase, IconButton } from '@mui/material';
 import React from 'react';
 
 export const SupportBar: React.FC = () => {

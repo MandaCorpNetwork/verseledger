@@ -1,12 +1,9 @@
 import { VLViewport } from '@Common/Components/Boxes/VLViewport';
-import { MobileDock } from '@Common/MobileDock/MobileDock';
 import { Box } from '@mui/material';
-import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
 export const AppPage: React.FC<unknown> = () => {
-  const isMobile = useIsMobile();
   return (
     <VLViewport
       data-testid="AppViewerPage"
