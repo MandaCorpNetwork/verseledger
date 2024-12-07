@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import {
   FormControl,
@@ -48,6 +48,7 @@ export const RankAndRoles: React.FC<RanksAndRolesProps> = ({ ranks }) => {
       }}
     >
       <FeatureDisplay sx={{ flexGrow: 1, p: '0.5em' }}>
+      <FeatureDisplay sx={{ flexGrow: 1, p: '0.5em' }}>
         <Typography variant="h4" align="center">
           Ranks
         </Typography>
@@ -80,9 +81,12 @@ export const RankAndRoles: React.FC<RanksAndRolesProps> = ({ ranks }) => {
         </div>
       </FeatureDisplay>
       <FeatureDisplay sx={{ flexGrow: 1, p: '0.5em' }}>
+      </FeatureDisplay>
+      <FeatureDisplay sx={{ flexGrow: 1, p: '0.5em' }}>
         <Typography variant="h4" align="center">
           Roles
         </Typography>
+      </FeatureDisplay>
       </FeatureDisplay>
     </div>
   );
