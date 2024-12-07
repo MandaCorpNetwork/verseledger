@@ -1,8 +1,8 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { MiniPlayerCard } from '@Common/Components/App/MiniPlayerCard';
-import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
-import { contractArchetypes } from '@Common/Definitions/Structures/Contracts/ContractArchetypes';
+import { MiniPlayerCard } from '@CommonLegacy/Components/App/MiniPlayerCard';
+import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
+import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';
+import { contractArchetypes } from '@CommonLegacy/Definitions/Structures/Contracts/ContractArchetypes';
 import { EmergencyShare, ErrorTwoTone } from '@mui/icons-material';
 import {
   Avatar,

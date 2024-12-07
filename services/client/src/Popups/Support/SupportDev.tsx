@@ -1,6 +1,6 @@
 import construction from '@Assets/media/Construction.webm';
 import PallyLogo from '@Assets/media/MenuPage/PallyLogo.png?url';
-import { Discord, KoFi, Patreon } from '@Common/Definitions/CustomIcons';
+import { Discord, KoFi, Patreon } from '@CommonLegacy/Definitions/CustomIcons';
 import { Box, IconButton, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 

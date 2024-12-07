@@ -1,4 +1,4 @@
-import { ContractController } from '@Common/Components/Contracts/ContractController';
+import { ContractController } from '@CommonLegacy/Components/Contracts/ContractController';
 import { Box } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectContract } from '@Redux/Slices/Contracts/contracts.selectors';

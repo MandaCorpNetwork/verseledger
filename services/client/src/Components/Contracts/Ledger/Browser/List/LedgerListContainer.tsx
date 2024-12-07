@@ -1,5 +1,5 @@
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import { CardorTableViewToggle } from '@Common/Components/Buttons/TorCToggle';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { CardorTableViewToggle } from '@CommonLegacy/Components/Buttons/TorCToggle';
 import { Close } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';

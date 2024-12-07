@@ -1,5 +1,5 @@
-import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
 import { Typography } from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers';
 import React from 'react';

@@ -1,8 +1,8 @@
-// import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-// import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-// import { LocationChip } from '@Common/Components/Chips/LocationChip';
-// import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
-// import { ReadOnlyField } from '@Common/Components/TextFields/ReadOnlyField';
+// import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+// import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+// import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
+// import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
+// import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField';
 // import { DoubleArrow } from '@mui/icons-material';
 // import { Box, Button, Checkbox, Typography } from '@mui/material';
 // import { useAppDispatch, useAppSelector } from '@Redux/hooks';

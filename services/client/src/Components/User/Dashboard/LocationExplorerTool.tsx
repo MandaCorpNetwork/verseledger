@@ -1,8 +1,8 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { LocationSearch } from '@Common/Components/App/LocationSearch';
-import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import { ReadOnlyField } from '@Common/Components/TextFields/ReadOnlyField';
+import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
+import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField';
 import { ContentCopy } from '@mui/icons-material';
 import {
   Box,

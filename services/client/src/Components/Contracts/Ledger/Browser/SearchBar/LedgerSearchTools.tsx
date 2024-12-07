@@ -1,8 +1,8 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DropdownFilter } from '@Common/Components/App/DropdownFilter';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import { ElevatedDropdownBox } from '@Common/Components/Collapse/ElevatedDropdownBox';
-import { EmergencySwitch } from '@Common/Components/Switch/EmergencySwitch';
+import { DropdownFilter } from '@CommonLegacy/Components/App/DropdownFilter';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ElevatedDropdownBox } from '@CommonLegacy/Components/Collapse/ElevatedDropdownBox';
+import { EmergencySwitch } from '@CommonLegacy/Components/Switch/EmergencySwitch';
 import { FilterAlt } from '@mui/icons-material';
 import { Badge, Button, Typography } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';

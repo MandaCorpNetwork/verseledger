@@ -1,4 +1,4 @@
-import { LocationSearch } from '@Common/Components/App/LocationSearch';
+import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
 import { Box } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import React from 'react';

@@ -1,4 +1,4 @@
-import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
+import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import {
   AirlineStopsTwoTone,
   ArrowCircleUpTwoTone,

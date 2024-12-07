@@ -1,4 +1,4 @@
-import GlassBox from '@Common/Components/Boxes/GlassBox';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
 import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
 

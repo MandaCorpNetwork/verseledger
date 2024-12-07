@@ -1,8 +1,8 @@
 import '@Assets/Css/ripple.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
-import { VLViewport } from '@Common/Components/Boxes/VLViewport';
-import { DepressedListButton } from '@Common/Components/Lists/DepressedListButton';
+import { VLViewport } from '@CommonLegacy/Components/Boxes/VLViewport';
+import { DepressedListButton } from '@CommonLegacy/Components/Lists/DepressedListButton';
 import { BetaSettings } from '@Components/User/UserSettings/Beta';
 import { DeveloperSettings } from '@Components/User/UserSettings/DeveloperSettings';
 import { GraphicsSettings } from '@Components/User/UserSettings/Graphics';

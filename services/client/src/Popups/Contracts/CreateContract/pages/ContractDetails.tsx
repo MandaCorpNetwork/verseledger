@@ -1,9 +1,9 @@
 import '@Assets/Css/contractDetails.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
-import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
-import ArchetypeListChip from '@Common/Components/Chips/ArchetypeListChip';
-import { contractArchetypes } from '@Common/Definitions/Structures/Contracts/ContractArchetypes';
+import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
+import ArchetypeListChip from '@CommonLegacy/Components/Chips/ArchetypeListChip';
+import { contractArchetypes } from '@CommonLegacy/Definitions/Structures/Contracts/ContractArchetypes';
 import { HelpOutline } from '@mui/icons-material';
 import {
   Autocomplete,

@@ -1,9 +1,9 @@
 /* eslint-disable react/no-children-prop */
 import { useSoundEffect } from '@Audio/AudioManager';
-import { LocationSearch } from '@Common/Components/App/LocationSearch';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import { VLOptButtonGroup } from '@Common/Components/Functional/ListButtonSelection';
+import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
+import { VLOptButtonGroup } from '@CommonLegacy/Components/Functional/ListButtonSelection';
 import { TextField, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';

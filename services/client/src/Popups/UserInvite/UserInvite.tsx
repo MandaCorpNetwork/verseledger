@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { UserSearch } from '@Common/Components/App/UserSearch';
-import { UserChip } from '@Common/Components/Chips/UserChip';
+import { UserSearch } from '@CommonLegacy/Components/App/UserSearch';
+import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
 import { Box } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';

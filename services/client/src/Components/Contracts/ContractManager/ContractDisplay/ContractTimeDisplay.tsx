@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHolo';
+import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { SmallTabHolo, SmallTabsHolo } from '@CommonLegacy/Components/Tabs/SmallTabsHolo';
 import {
   BiddingTimePanel,
   ContractDurationPanel,

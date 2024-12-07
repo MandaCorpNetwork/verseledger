@@ -1,4 +1,4 @@
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
 import { Grid2 } from '@mui/material';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';

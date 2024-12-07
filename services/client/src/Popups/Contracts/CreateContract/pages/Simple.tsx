@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { PayField } from '@Common/Components/TextFields/PayField';
+import { PayField } from '@CommonLegacy/Components/TextFields/PayField';
 import { Box, FormControlLabel, MenuItem, Select, Switch } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';

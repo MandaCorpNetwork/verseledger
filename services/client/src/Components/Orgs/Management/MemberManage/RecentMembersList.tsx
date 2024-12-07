@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import { ListSelectButton } from '@Common/Components/Styled/Buttons/IndicatorButton';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { ListSelectButton } from '@CommonLegacy/Components/Styled/Buttons/IndicatorButton';
 import { DoubleArrow } from '@mui/icons-material';
 import { IconButton, List, Typography } from '@mui/material';
 import React from 'react';

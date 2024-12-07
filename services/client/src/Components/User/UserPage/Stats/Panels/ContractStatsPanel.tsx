@@ -1,4 +1,4 @@
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 
 export const ContractStatsPanel: React.FC = () => {
   //TODO Add the stats display formatting

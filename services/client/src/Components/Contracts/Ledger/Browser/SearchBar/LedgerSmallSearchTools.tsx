@@ -1,5 +1,5 @@
-import { DropdownFilter } from '@Common/Components/App/DropdownFilter';
-import { ElevatedDropdownBox } from '@Common/Components/Collapse/ElevatedDropdownBox';
+import { DropdownFilter } from '@CommonLegacy/Components/App/DropdownFilter';
+import { ElevatedDropdownBox } from '@CommonLegacy/Components/Collapse/ElevatedDropdownBox';
 import { Divider, Typography } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';

@@ -1,4 +1,4 @@
-import GlassBox from '@Common/Components/Boxes/GlassBox';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';

@@ -1,4 +1,4 @@
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
 // import { Box } from '@mui/material';
 // import { Line, OrbitControls, Sphere, Text } from '@react-three/drei';
 // import { Canvas, useThree } from '@react-three/fiber';

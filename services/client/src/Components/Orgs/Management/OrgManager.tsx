@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import GlassBox from '@Common/Components/Boxes/GlassBox';
-import TabListHolo from '@Common/Components/Tabs/TabListHolo';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import TabListHolo from '@CommonLegacy/Components/Tabs/TabListHolo';
 import { Tab } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchOrg } from '@Redux/Slices/Orgs/actions/get/fetchOrg.action';

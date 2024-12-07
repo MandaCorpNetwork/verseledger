@@ -1,6 +1,6 @@
-import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import { CardorTableViewToggle } from '@Common/Components/Buttons/TorCToggle';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { CardorTableViewToggle } from '@CommonLegacy/Components/Buttons/TorCToggle';
 import { TextField, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectOrgs } from '@Redux/Slices/Orgs/orgs.selectors';

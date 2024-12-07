@@ -1,4 +1,4 @@
-import GlassBox from '@Common/Components/Boxes/GlassBox';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
 import { useIsMobile } from '@Utils/isMobile';
 import { useIsTablet } from '@Utils/isTablet';
 import React from 'react';

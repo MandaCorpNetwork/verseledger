@@ -1,6 +1,6 @@
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
-import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';
+import { PayStructure } from '@CommonLegacy/Components/Custom/DigiField/PayStructure';
 import { Box, Typography } from '@mui/material';
 import { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
 import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';

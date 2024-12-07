@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { DoubleArrow } from '@mui/icons-material';
 import { Collapse, IconButton, Typography } from '@mui/material';
 import React from 'react';

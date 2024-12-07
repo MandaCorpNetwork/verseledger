@@ -2,7 +2,7 @@
 import '@Routes/Index/Home/Home.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
-import { UnderConstruction } from '@Common/Components/App/UnderContruction';
+import { UnderConstruction } from '@CommonLegacy/Components/App/UnderContruction';
 import { useTheme } from '@emotion/react';
 import { Button, Typography } from '@mui/material';
 import React, { useState } from 'react';

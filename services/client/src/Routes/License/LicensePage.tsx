@@ -2,7 +2,7 @@
 import '@Components/Home/Home.css';
 
 import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
-import GlassBox from '@Common/Components/Boxes/GlassBox';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
 import { Box } from '@mui/material';
 import React from 'react';
 

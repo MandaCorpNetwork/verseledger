@@ -1,5 +1,5 @@
-import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { VLViewport } from '@Common/Components/Boxes/VLViewport';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import { VLViewport } from '@CommonLegacy/Components/Boxes/VLViewport';
 import { BugsPage } from '@Components/Admin/Page/Bugs/BugsPage';
 import { MilestonesPage } from '@Components/Admin/Page/MilestonesPage';
 import { OverviewPage } from '@Components/Admin/Page/OverviewPage';

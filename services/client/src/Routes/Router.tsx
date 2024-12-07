@@ -1,5 +1,5 @@
-import { AppDockRenderer } from '@Common/AppDockV3/AppDockContainerV2';
-import { LoginCheck } from '@Common/Components/App/TempLoginCheck';
+import { AppDockRenderer } from '@CommonLegacy/AppDockV3/AppDockContainerV2';
+import { LoginCheck } from '@CommonLegacy/Components/App/TempLoginCheck';
 import { ContractManagerApp } from '@Components/Contracts/ContractManager/ContractManagerApp';
 import { ExploreApp } from '@Components/Locations/Explore/ExploreApp';
 import { InventoryApp } from '@Components/Locations/Inventory/InventoryApp';

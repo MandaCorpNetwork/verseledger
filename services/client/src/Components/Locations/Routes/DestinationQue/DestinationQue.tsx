@@ -1,4 +1,4 @@
-import GlassBox from '@Common/Components/Boxes/GlassBox';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
 import { Divider, Typography } from '@mui/material';
 import { capFirstLetter } from '@Utils/StringUtil';
 import React from 'react';

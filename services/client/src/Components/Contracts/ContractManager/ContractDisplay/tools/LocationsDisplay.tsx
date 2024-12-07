@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
-import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { DoubleArrow } from '@mui/icons-material';
 import { Box, Collapse, IconButton, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';

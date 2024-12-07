@@ -1,6 +1,6 @@
-import { UserSearch } from '@Common/Components/App/UserSearch';
-import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
-import { UserChip } from '@Common/Components/Chips/UserChip';
+import { UserSearch } from '@CommonLegacy/Components/App/UserSearch';
+import PopupFormDisplay from '@CommonLegacy/Components/Boxes/PopupFormDisplay';
+import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
 import {
   Box,
   FormControl,

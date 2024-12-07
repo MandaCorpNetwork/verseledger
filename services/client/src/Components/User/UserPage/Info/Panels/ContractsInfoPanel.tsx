@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { ArrowRight } from '@mui/icons-material';
 import {
   Box,

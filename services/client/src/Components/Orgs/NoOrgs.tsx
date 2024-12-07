@@ -1,4 +1,4 @@
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
 import { GroupAddTwoTone } from '@mui/icons-material';
 import { Button, Typography } from '@mui/material';
 import { POPUP_ADD_ORG } from '@Popups/Orgs/AddOrg/AddOrg';

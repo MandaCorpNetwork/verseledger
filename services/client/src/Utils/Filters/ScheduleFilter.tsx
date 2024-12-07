@@ -1,5 +1,5 @@
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-import { TimePicker } from '@Common/Components/TextFields/TimePicker';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { TimePicker } from '@CommonLegacy/Components/TextFields/TimePicker';
 import { Box, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import { ClearIcon } from '@mui/x-date-pickers';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';

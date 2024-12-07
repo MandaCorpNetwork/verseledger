@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { useRadioController } from '@Audio/AudioProvider';
-import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
 import { PowerSettingsNew, Sync } from '@mui/icons-material';
 import { Badge, Box, Button, IconButton, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';

@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { Link } from '@mui/icons-material';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';

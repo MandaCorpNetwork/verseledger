@@ -1,5 +1,5 @@
-import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
 import { Button, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { nextStop } from '@Redux/Slices/Routes/actions/activeRoute.action';

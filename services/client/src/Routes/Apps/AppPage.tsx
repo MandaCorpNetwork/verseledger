@@ -1,4 +1,4 @@
-import { VLViewport } from '@Common/Components/Boxes/VLViewport';
+import { VLViewport } from '@CommonLegacy/Components/Boxes/VLViewport';
 import { Box } from '@mui/material';
 import React from 'react';
 import { Outlet } from 'react-router-dom';

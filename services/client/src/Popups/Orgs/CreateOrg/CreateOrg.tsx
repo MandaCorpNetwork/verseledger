@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import { useSoundEffect } from '@Audio/AudioManager';
-import { FormLoadingButton } from '@Common/Components/Buttons/FormLoadingButton';
+import { FormLoadingButton } from '@CommonLegacy/Components/Buttons/FormLoadingButton';
 import { Alert, TextField, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';

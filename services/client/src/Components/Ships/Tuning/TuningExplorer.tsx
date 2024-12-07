@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
-import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
-import GlassBox from '@Common/Components/Boxes/GlassBox';
+import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
+import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
 import { Tab, Tabs } from '@mui/material';
 import React from 'react';
 

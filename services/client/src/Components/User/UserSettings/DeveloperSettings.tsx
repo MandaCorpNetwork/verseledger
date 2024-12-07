@@ -1,4 +1,4 @@
-import GlassBox from '@Common/Components/Boxes/GlassBox';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
 import { Button, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material';
 import { POPUP_CREATE_TOKEN } from '@Popups/Tokens/CreateToken';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';

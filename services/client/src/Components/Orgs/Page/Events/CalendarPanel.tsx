@@ -1,5 +1,5 @@
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { Typography } from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers';
 import React from 'react';

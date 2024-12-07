@@ -1,8 +1,8 @@
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
-import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
+import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
+import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
 import { Box, Typography } from '@mui/material';
 import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 

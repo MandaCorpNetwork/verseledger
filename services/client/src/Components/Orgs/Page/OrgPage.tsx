@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
 import { DoubleArrow } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';

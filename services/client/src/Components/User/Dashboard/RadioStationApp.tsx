@@ -2,7 +2,7 @@ import '@Assets/Css/RadioStationApp.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
 import { useRadioController } from '@Audio/AudioProvider';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import {
   Language,
   SkipNext,

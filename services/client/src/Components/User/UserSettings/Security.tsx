@@ -1,4 +1,4 @@
-import GlassBox from '@Common/Components/Boxes/GlassBox';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
 import { Grow, Typography } from '@mui/material';
 
 export const SecuritySettings: React.FC = () => {

@@ -1,10 +1,10 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
-import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
-import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
-import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
-import { UserDisplay } from '@Common/Components/Users/UserDisplay';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { ContractStatusChip } from '@CommonLegacy/Components/Chips/ContractStatusChip';
+import { SubtypeChip } from '@CommonLegacy/Components/Chips/SubtypeChip';
+import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';
+import { PayStructure } from '@CommonLegacy/Components/Custom/DigiField/PayStructure';
+import { UserDisplay } from '@CommonLegacy/Components/Users/UserDisplay';
 import { DoubleArrow } from '@mui/icons-material';
 import { Collapse, IconButton, Typography } from '@mui/material';
 import React from 'react';

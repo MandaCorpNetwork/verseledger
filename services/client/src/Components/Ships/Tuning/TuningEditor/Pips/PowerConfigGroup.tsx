@@ -1,6 +1,6 @@
-import { TuningGroup } from '@Common/Components/Boxes/TuningGroup';
-import { TuningTick } from '@Common/Components/Boxes/TuningTick';
-import { Power } from '@Common/Definitions/CustomIcons';
+import { TuningGroup } from '@CommonLegacy/Components/Boxes/TuningGroup';
+import { TuningTick } from '@CommonLegacy/Components/Boxes/TuningTick';
+import { Power } from '@CommonLegacy/Definitions/CustomIcons';
 import { Box } from '@mui/material';
 import React from 'react';
 

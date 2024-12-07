@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import {
   ArrowDropDown,
   ArrowDropUp,

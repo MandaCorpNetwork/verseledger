@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { MinimumTuningTick } from '@Common/Components/Boxes/MinimumTuningTick';
-import { TuningGroup } from '@Common/Components/Boxes/TuningGroup';
-import { TuningTick } from '@Common/Components/Boxes/TuningTick';
+import { MinimumTuningTick } from '@CommonLegacy/Components/Boxes/MinimumTuningTick';
+import { TuningGroup } from '@CommonLegacy/Components/Boxes/TuningGroup';
+import { TuningTick } from '@CommonLegacy/Components/Boxes/TuningTick';
 import {
   Cooler,
   MedicalItems,
@@ -9,7 +9,7 @@ import {
   Shield,
   Thruster,
   Weapons,
-} from '@Common/Definitions/CustomIcons';
+} from '@CommonLegacy/Definitions/CustomIcons';
 import { QuestionMark } from '@mui/icons-material';
 import { Box } from '@mui/material';
 import React from 'react';

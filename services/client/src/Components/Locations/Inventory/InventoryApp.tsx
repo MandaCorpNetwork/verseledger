@@ -1,4 +1,4 @@
-import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
+import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
 import { Box } from '@mui/material';
 import { isDev } from '@Utils/isDev';
 

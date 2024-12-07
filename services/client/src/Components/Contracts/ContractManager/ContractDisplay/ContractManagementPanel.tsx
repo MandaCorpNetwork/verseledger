@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { ContractorList } from '@Common/Components/Contracts/ContractorList';
-import TabListHolo from '@Common/Components/Tabs/TabListHolo';
+import { ContractorList } from '@CommonLegacy/Components/Contracts/ContractorList';
+import TabListHolo from '@CommonLegacy/Components/Tabs/TabListHolo';
 import { Tab } from '@mui/material';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';

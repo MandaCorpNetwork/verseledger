@@ -1,5 +1,5 @@
-import { LocationSearch } from '@Common/Components/App/LocationSearch';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
 import { Box, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';

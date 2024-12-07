@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { useMasterAppList } from '@Common/Definitions/AppListings';
-import { Contracts } from '@Common/Definitions/CustomIcons';
+import { useMasterAppList } from '@CommonLegacy/Definitions/AppListings';
+import { Contracts } from '@CommonLegacy/Definitions/CustomIcons';
 import {
   AccountCircleTwoTone,
   AppsTwoTone,

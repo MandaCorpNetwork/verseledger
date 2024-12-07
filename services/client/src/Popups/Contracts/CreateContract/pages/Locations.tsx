@@ -1,8 +1,8 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { LocationSearch } from '@Common/Components/App/LocationSearch';
-import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
-import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
-import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
+import PopupFormDisplay from '@CommonLegacy/Components/Boxes/PopupFormDisplay';
+import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
+import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { Box, FormControl, FormLabel, TextField, Typography } from '@mui/material';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';

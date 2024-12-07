@@ -1,7 +1,7 @@
 import '@Assets/Css/ripple.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
-import { SideControlPanel } from '@Common/Components/Collapse/SideControlPanel';
+import { SideControlPanel } from '@CommonLegacy/Components/Collapse/SideControlPanel';
 import {
   AdminPanelSettingsTwoTone,
   BugReportTwoTone,

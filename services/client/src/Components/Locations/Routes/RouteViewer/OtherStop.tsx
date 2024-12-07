@@ -1,7 +1,7 @@
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import { ReadOnlyField } from '@Common/Components/TextFields/ReadOnlyField';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
+import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField';
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { Float3, MathX } from 'vl-shared/src/math';

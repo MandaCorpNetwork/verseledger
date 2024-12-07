@@ -1,4 +1,4 @@
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { Box, LinearProgress, Tooltip, Typography } from '@mui/material';
 import dayjs, { Dayjs } from 'dayjs';
 import duration from 'dayjs/plugin/duration';

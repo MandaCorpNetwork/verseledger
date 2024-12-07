@@ -1,8 +1,8 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { PayDisplay } from '@Common/Components/App/PayDisplay';
-import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
-import { UserChip } from '@Common/Components/Chips/UserChip';
+import { PayDisplay } from '@CommonLegacy/Components/App/PayDisplay';
+import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
+import { SubtypeChip } from '@CommonLegacy/Components/Chips/SubtypeChip';
+import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
 import {
   Box,
   Table,

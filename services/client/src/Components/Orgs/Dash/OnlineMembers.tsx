@@ -1,4 +1,4 @@
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
 import { Typography } from '@mui/material';
 
 export const OnlineMembers: React.FC = () => {

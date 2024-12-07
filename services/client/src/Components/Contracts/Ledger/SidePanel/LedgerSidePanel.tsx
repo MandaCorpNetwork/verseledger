@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { SideControlPanel } from '@Common/Components/Collapse/SideControlPanel';
+import { SideControlPanel } from '@CommonLegacy/Components/Collapse/SideControlPanel';
 import { DoubleArrow } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { POPUP_CREATE_CONTRACT } from '@Popups/Contracts/CreateContract/CreateContract';

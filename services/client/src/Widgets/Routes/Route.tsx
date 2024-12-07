@@ -1,8 +1,8 @@
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import { Scu, Scu3d } from '@Common/Definitions/CustomIcons';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
+import { Scu, Scu3d } from '@CommonLegacy/Definitions/CustomIcons';
 import {
   binaryLocationTree,
   formatDistance,

@@ -1,6 +1,6 @@
 import './App.css';
 
-import { LoadingScreen } from '@Common/LoadingObject/LoadingScreen';
+import { LoadingScreen } from '@CommonLegacy/LoadingObject/LoadingScreen';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';

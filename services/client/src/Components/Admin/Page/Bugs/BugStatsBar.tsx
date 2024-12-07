@@ -1,4 +1,4 @@
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { SparkLineChart } from '@mui/x-charts';
 import React from 'react';

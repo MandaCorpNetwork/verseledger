@@ -1,6 +1,6 @@
-import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import { SmallTabHolo, SmallTabsHolo } from '@Common/Components/Tabs/SmallTabsHolo';
+import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { SmallTabHolo, SmallTabsHolo } from '@CommonLegacy/Components/Tabs/SmallTabsHolo';
 import { Box } from '@mui/material';
 import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 

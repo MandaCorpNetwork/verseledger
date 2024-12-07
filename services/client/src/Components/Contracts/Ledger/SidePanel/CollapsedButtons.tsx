@@ -1,4 +1,4 @@
-import { contractArchetypes } from '@Common/Definitions/Structures/Contracts/ContractArchetypes';
+import { contractArchetypes } from '@CommonLegacy/Definitions/Structures/Contracts/ContractArchetypes';
 import { AddCircle, Search } from '@mui/icons-material';
 import { IconButton, Slide, Tooltip } from '@mui/material';
 import React from 'react';

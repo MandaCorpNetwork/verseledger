@@ -1,4 +1,4 @@
-import GlassBox from '@Common/Components/Boxes/GlassBox';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
 import { Autocomplete, Box, TextField } from '@mui/material';
 
 import { MarketBrowserTable } from './BrowserTable';

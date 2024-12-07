@@ -1,10 +1,10 @@
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import GlassBox from '@Common/Components/Boxes/GlassBox';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
 import {
   ExpandIconButton,
   ProfileBackgroundDisplay,
-} from '@Common/Components/Boxes/ProfileBackgroundDisplay';
-import { userBackgroundOptions } from '@Common/Definitions/Structures/Users/UserBackgrounds';
+} from '@CommonLegacy/Components/Boxes/ProfileBackgroundDisplay';
+import { userBackgroundOptions } from '@CommonLegacy/Definitions/Structures/Users/UserBackgrounds';
 import { OpenInFull } from '@mui/icons-material';
 import {
   Box,

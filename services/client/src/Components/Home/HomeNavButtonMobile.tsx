@@ -1,4 +1,4 @@
-import { UnderConstruction } from '@Common/Components/App/UnderContruction';
+import { UnderConstruction } from '@CommonLegacy/Components/App/UnderContruction';
 import { Button } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';

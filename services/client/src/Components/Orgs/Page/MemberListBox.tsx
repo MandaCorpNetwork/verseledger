@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
 import { List } from '@mui/icons-material';
 import { ToggleButton, Typography } from '@mui/material';
 import React from 'react';

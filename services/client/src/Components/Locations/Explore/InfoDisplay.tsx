@@ -1,8 +1,8 @@
-import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import { ReadOnlyField } from '@Common/Components/TextFields/ReadOnlyField';
+import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField';
 import { Box, Chip, Divider, TextField, Typography } from '@mui/material';
 import { SparkLineChart } from '@mui/x-charts';
 import { isDev } from '@Utils/isDev';

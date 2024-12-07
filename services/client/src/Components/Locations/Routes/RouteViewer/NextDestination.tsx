@@ -1,7 +1,7 @@
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
-import { LocationChip } from '@Common/Components/Chips/LocationChip';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import PopupFormDisplay from '@CommonLegacy/Components/Boxes/PopupFormDisplay';
+import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { TextField, Typography } from '@mui/material';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';

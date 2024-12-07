@@ -1,5 +1,5 @@
 import MandaLogo from '@Assets/media/MandaLogo.png';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
 import { Divider, Typography } from '@mui/material';
 import { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 

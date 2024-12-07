@@ -1,8 +1,8 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import PopupFormDisplay from '@Common/Components/Boxes/PopupFormDisplay';
-import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
-import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
-import { ReadOnlyField } from '@Common/Components/TextFields/ReadOnlyField';
+import PopupFormDisplay from '@CommonLegacy/Components/Boxes/PopupFormDisplay';
+import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
+import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
+import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField';
 import { ContentCopy, GpsFixed } from '@mui/icons-material';
 import {
   Box,

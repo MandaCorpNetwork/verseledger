@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { soundEffectPacks } from '@Common/Definitions/SoundEffectOptions';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import { soundEffectPacks } from '@CommonLegacy/Definitions/SoundEffectOptions';
 import {
   Box,
   Divider,

@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import { UserChip } from '@Common/Components/Chips/UserChip';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
 import { DoubleArrow } from '@mui/icons-material';
 import { Button, Collapse, IconButton, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';

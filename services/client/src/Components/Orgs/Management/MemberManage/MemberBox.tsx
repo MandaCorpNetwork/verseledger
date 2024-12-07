@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import { UserChip } from '@Common/Components/Chips/UserChip';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
 import { ExpandMoreTwoTone } from '@mui/icons-material';
 import {
   Accordion,

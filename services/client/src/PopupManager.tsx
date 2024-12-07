@@ -1,4 +1,4 @@
-import { AllApps, POPUP_APP_LIST } from '@Common/AppDockV3/Tools/AllAppsModal';
+import { AllApps, POPUP_APP_LIST } from '@CommonLegacy/AppDockV3/Tools/AllAppsModal';
 import {
   AddLocationPopup,
   AddLocationProps,

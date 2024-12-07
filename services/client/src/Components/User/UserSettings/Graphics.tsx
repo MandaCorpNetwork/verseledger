@@ -1,9 +1,9 @@
 /* eslint-disable react/no-children-prop */
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { FormLoadingButton } from '@Common/Components/Buttons/FormLoadingButton';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import { FormLoadingButton } from '@CommonLegacy/Components/Buttons/FormLoadingButton';
 import { WarningAmberTwoTone } from '@mui/icons-material';
 import { FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';

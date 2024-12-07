@@ -1,5 +1,5 @@
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import GlassBox from '@Common/Components/Boxes/GlassBox';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
 import { Box, ListItem, Switch, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { updateUserSettingsFlag } from '@Redux/Slices/Auth/Actions/updateUserSettingsFlag.action';

@@ -1,5 +1,5 @@
 import MandaLogo from '@Assets/media/MandaLogo.png';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';

@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { MoveDownTwoTone, MoveUpTwoTone } from '@mui/icons-material';
 import { Button, IconButton, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';

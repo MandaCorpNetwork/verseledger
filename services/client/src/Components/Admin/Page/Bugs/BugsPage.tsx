@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
+import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
 import { Box, Tab, Tabs, Typography } from '@mui/material';
 import React from 'react';
 
