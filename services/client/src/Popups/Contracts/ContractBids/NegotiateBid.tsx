@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
@@ -99,7 +99,7 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
   };
 
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="ContractBid__NonNegotiateBid_Wrapper"
       sx={{ p: '.5em', maxHeight: { xs: '100%', md: '65%' } }}
     >
@@ -326,6 +326,6 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
           </PopupFormSelection>
         </DigiDisplay>
       </Box>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

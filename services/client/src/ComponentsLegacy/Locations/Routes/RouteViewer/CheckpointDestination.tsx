@@ -1,4 +1,4 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { TextField, Typography } from '@mui/material';
@@ -15,7 +15,7 @@ export const CheckpointDestination: React.FC<CheckpointDestinationProps> = ({
   distance,
 }) => {
   return (
-    <DigiBox sx={{ p: '0.5em', gap: '1em' }}>
+    <ComponentContainer sx={{ p: '0.5em', gap: '1em' }}>
       <DigiDisplay
         sx={{
           flexDirection: 'row',
@@ -38,6 +38,6 @@ export const CheckpointDestination: React.FC<CheckpointDestinationProps> = ({
         <TextField size="small" label="Local Time" color="secondary" disabled />
         <TextField size="small" label="Distance" color="secondary" value={distance} />
       </div>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

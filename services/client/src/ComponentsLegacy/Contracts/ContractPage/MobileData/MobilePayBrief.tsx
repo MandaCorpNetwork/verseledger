@@ -1,4 +1,4 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';
 import { PayStructure } from '@CommonLegacy/Components/Custom/DigiField/PayStructure';
@@ -25,7 +25,7 @@ type MobilePayBriefProps = {
  */
 export const MobilePayBrief: React.FC<MobilePayBriefProps> = ({ contract }) => {
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="ContractPage__Pay&Breifing_Mobile_Wrapper"
       sx={{ my: '1em', p: '.5em' }}
     >
@@ -97,6 +97,6 @@ export const MobilePayBrief: React.FC<MobilePayBriefProps> = ({ contract }) => {
           </Typography>
         )}
       </DigiDisplay>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

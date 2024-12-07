@@ -1,4 +1,4 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import {
   ExpandIconButton,
@@ -80,7 +80,7 @@ export const ProfileSettings: React.FC = () => {
         data-testid="ProfileSettings__Settings_Wrapper"
         sx={{ display: 'flex', m: '5%' }}
       >
-        <DigiBox
+        <ComponentContainer
           data-testid="ProfileSettings-Settings__ProfileBackground_Container"
           sx={{ p: '.5em' }}
         >
@@ -155,7 +155,7 @@ export const ProfileSettings: React.FC = () => {
               </ExpandIconButton>
             </ProfileBackgroundDisplay>
           </Box>
-        </DigiBox>
+        </ComponentContainer>
       </Box>
     </FeatureContainer>
   );

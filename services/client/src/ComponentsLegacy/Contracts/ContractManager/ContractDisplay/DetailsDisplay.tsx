@@ -1,5 +1,5 @@
 import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { CopyString } from '@CommonLegacy/Components/Buttons/CopyString';
 import { GeneralNav } from '@CommonLegacy/Components/Buttons/GeneralNavIcon';
@@ -46,7 +46,7 @@ export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
   );
 
   return (
-    <DigiBox
+    <ComponentContainer
       content="section"
       data-testid="SelectedContract__DetailsDisplay_Container"
       sx={{
@@ -156,6 +156,6 @@ export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
         />
       </div>
       <ContractDetailsCollapse contract={contract} />
-    </DigiBox>
+    </ComponentContainer>
   );
 };

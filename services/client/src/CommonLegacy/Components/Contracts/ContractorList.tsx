@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_USER_INVITE } from '@Popups/UserInvite/UserInvite';
@@ -105,7 +105,7 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
    */
   const contractorCountColor = getContractorCountColor();
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="SelectedContract-ContractManagement__ContractorsTabWrapper"
       sx={{
         width: '100%',
@@ -278,6 +278,6 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
             </Typography>
           ))}
       </Box>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

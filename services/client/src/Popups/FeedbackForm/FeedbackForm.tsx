@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import {
@@ -71,7 +71,7 @@ export const FeedbackForm: React.FC<{
         gap: '1em',
       }}
     >
-      <DigiBox
+      <ComponentContainer
         data-testid="Feedback-Popup-Form__IssueType_Wrapper"
         sx={{ p: { xs: '.5em', md: '1em' }, maxHeight: '100%' }}
       >
@@ -191,13 +191,13 @@ export const FeedbackForm: React.FC<{
             />
           </DigiDisplay>
         </FormControl>
-      </DigiBox>
-      <DigiBox
+      </ComponentContainer>
+      <ComponentContainer
         data-testid="Feedback-Popup-Form__IssueBody_Wrapper"
         sx={{ p: { xs: '.5em', md: '1em' } }}
       >
         {renderForm()}
-      </DigiBox>
+      </ComponentContainer>
     </FeatureContainer>
   );
 };

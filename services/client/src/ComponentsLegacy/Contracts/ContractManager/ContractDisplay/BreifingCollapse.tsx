@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { DoubleArrow } from '@mui/icons-material';
 import { Collapse, IconButton, Typography } from '@mui/material';
@@ -23,7 +23,7 @@ export const BriefingCollapse: React.FC<BriefingCollapseProps> = ({ briefing }) 
     });
   }, [sound, setIsExpanded]);
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="SelectedContract__BriefingWrapper"
       sx={{
         width: '100%',
@@ -81,6 +81,6 @@ export const BriefingCollapse: React.FC<BriefingCollapseProps> = ({ briefing }) 
           </Typography>
         </DigiDisplay>
       </Collapse>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

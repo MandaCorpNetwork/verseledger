@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { ContractStatusChip } from '@CommonLegacy/Components/Chips/ContractStatusChip';
 import { SubtypeChip } from '@CommonLegacy/Components/Chips/SubtypeChip';
@@ -208,7 +208,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
           },
         }}
       >
-        <DigiBox
+        <ComponentContainer
           data-testid="ContractBid-ContractDetails__Wrapper"
           sx={{ p: '.5em', maxHeight: '30%' }}
         >
@@ -331,7 +331,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
               </Typography>
             </Box>
           </DigiDisplay>
-        </DigiBox>
+        </ComponentContainer>
         <Divider
           data-testid="ContractBid-StaticVsDynamic__Divider"
           sx={{ my: '1em', width: '75%', mx: 'auto' }}

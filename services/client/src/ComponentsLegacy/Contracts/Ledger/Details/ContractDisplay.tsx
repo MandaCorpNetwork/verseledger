@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import { ContractStatusChip } from '@CommonLegacy/Components/Chips/ContractStatusChip';
@@ -223,7 +223,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
         justifyContent: 'space-between',
       }}
     >
-      <DigiBox
+      <ComponentContainer
         data-testid="ContractDisplay-Info__TitleBoxWrapper"
         sx={{ width: '100%', height: '20%', p: '.5em' }}
       >
@@ -337,7 +337,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           </DigiDisplay>
           <UserDisplay user={contract.Owner} />
         </Box>
-      </DigiBox>
+      </ComponentContainer>
       <Box
         data-testid="ContractDisplay__MiddleBox"
         sx={{
@@ -358,7 +358,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             maxHeight: '100%',
           }}
         >
-          <DigiBox
+          <ComponentContainer
             data-testid="ContractDisplay-PayandBriefing__BriefingWrapper"
             sx={{
               px: '.5em',
@@ -438,8 +438,8 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 </Typography>
               </DigiDisplay>
             </Collapse>
-          </DigiBox>
-          <DigiBox
+          </ComponentContainer>
+          <ComponentContainer
             data-testid="ContractDisplay-PayandBriefing__PayWrapper"
             sx={{
               px: '.5em',
@@ -532,7 +532,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 </Tooltip>
               </Box>
             </Collapse>
-          </DigiBox>
+          </ComponentContainer>
         </Box>
         <Box
           data-testid="ContractDisplay__LocationContainer"
@@ -543,7 +543,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             maxHeight: '100%',
           }}
         >
-          <DigiBox
+          <ComponentContainer
             data-testid="ContractDisplay__LocationWrapper"
             sx={{
               width: '100%',
@@ -700,7 +700,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 </Typography>
               )}
             </Collapse>
-          </DigiBox>
+          </ComponentContainer>
         </Box>
       </Box>
       <Box
@@ -732,7 +732,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             <SmallTabHolo label="Ships" value="ships" disabled />
           </SmallTabsHolo>
         </ControlPanelBox>
-        <DigiBox
+        <ComponentContainer
           data-testid="ContractDisplay-ActiveData__PanelContainer"
           sx={{
             width: '100%',
@@ -741,7 +741,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           }}
         >
           {activeDataPanel(activeDataTab)}
-        </DigiBox>
+        </ComponentContainer>
       </Box>
       <Box
         data-testid="ContractDisplay__BottomBox"
@@ -779,7 +779,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               <SmallTabHolo label="Duration" value="start" />
             </SmallTabsHolo>
           </ControlPanelBox>
-          <DigiBox
+          <ComponentContainer
             data-testid="ContractDisplay-ContractTime__PanelWrapper"
             sx={{
               height: '90%',
@@ -787,7 +787,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             }}
           >
             {contractTimePanel(timeTab)}
-          </DigiBox>
+          </ComponentContainer>
         </Box>
         <Box
           data-testid="ContractDisplay__SubmitBidButtonWrapper"

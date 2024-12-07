@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import {
   FormControl,
@@ -54,7 +54,7 @@ export const RankAndRoles: React.FC<RanksAndRolesProps> = ({ ranks }) => {
         <div>
           <div>
             <Typography variant="h6">Add Rank</Typography>
-            <DigiBox></DigiBox>
+            <ComponentContainer></ComponentContainer>
           </div>
           <div>
             <Typography variant="h6">Edit Ranks</Typography>
@@ -75,7 +75,7 @@ export const RankAndRoles: React.FC<RanksAndRolesProps> = ({ ranks }) => {
                 'None'
               )}
             </FormControl>
-            <DigiBox></DigiBox>
+            <ComponentContainer></ComponentContainer>
           </div>
         </div>
       </FeatureDisplay>

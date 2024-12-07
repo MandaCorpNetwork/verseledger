@@ -1,5 +1,5 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 
 export const FleetInfoPanel: React.FC = () => {
-  return <DigiBox>Fleet Info Go Here</DigiBox>;
+  return <ComponentContainer>Fleet Info Go Here</ComponentContainer>;
 };

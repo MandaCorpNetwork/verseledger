@@ -1,4 +1,4 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
@@ -205,7 +205,7 @@ export const RoutesWidget: React.FC = () => {
           gap: '0.5em',
         }}
       >
-        <DigiBox sx={{ p: '0.2em' }}>
+        <ComponentContainer sx={{ p: '0.2em' }}>
           <DigiDisplay
             sx={{
               flexDirection: 'row',
@@ -267,7 +267,7 @@ export const RoutesWidget: React.FC = () => {
               );
             })}
           </FeatureDisplay>
-        </DigiBox>
+        </ComponentContainer>
         <div
           style={{
             display: 'flex',
@@ -275,7 +275,7 @@ export const RoutesWidget: React.FC = () => {
             justifyContent: 'space-between',
           }}
         >
-          <DigiBox sx={{ p: '0.2em' }}>
+          <ComponentContainer sx={{ p: '0.2em' }}>
             <DigiDisplay
               sx={{
                 flexDirection: 'row',
@@ -309,7 +309,7 @@ export const RoutesWidget: React.FC = () => {
               Distance:
               <Typography variant="caption">{`${distance}`}</Typography>
             </Typography>
-          </DigiBox>
+          </ComponentContainer>
           <div style={{ display: 'flex', gap: '0.2em' }}>
             <Button size="small" variant="contained" disabled>
               Add Stop

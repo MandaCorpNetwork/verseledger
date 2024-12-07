@@ -1,11 +1,11 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
 import { useSoundEffect } from '@Audio/AudioManager';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
 import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { UserViewport } from '@CommonLegacy/Components/Boxes/UserViewport';
 import { Security } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { userBackgroundOptions } from '@CommonLegacy/DefinitionsLegacy/Structures/Users/UserBackgrounds';
@@ -351,7 +351,7 @@ export const UserPage: React.FC = () => {
               height: '100%',
             }}
           >
-            <DigiBox
+            <ComponentContainer
               data-testid="UserPage-CurrentData_Wrapper"
               sx={{
                 display: 'flex',
@@ -474,7 +474,7 @@ export const UserPage: React.FC = () => {
                   2 Days Ago
                 </Typography>
               </DigiDisplay>
-            </DigiBox>
+            </ComponentContainer>
           </Box>
         </Box>
         <Box

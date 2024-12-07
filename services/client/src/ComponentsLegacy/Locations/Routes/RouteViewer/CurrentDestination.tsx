@@ -1,4 +1,4 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import PopupFormDisplay from '@CommonLegacy/Components/Boxes/PopupFormDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
@@ -59,7 +59,7 @@ export const CurrentDestination: React.FC<CurrentDestinationProps> = ({
   const completion = getCompletion();
 
   return (
-    <DigiBox sx={{ p: '0.5em', maxHeight: '45%', gap: '1em' }}>
+    <ComponentContainer sx={{ p: '0.5em', maxHeight: '45%', gap: '1em' }}>
       <DigiDisplay
         sx={{
           flexDirection: 'row',
@@ -114,6 +114,6 @@ export const CurrentDestination: React.FC<CurrentDestinationProps> = ({
           return <Task key={task.id} task={task} destination={destination} current />;
         })}
       </PopupFormDisplay>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

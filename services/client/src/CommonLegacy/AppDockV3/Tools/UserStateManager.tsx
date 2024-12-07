@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
 import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
@@ -37,7 +37,7 @@ export const UserStateManager: React.FC = () => {
         background: 'linear-gradient(135deg, rgba(14,35,141,0.5), rgba(0,30,100,0.5))',
       }}
     >
-      <DigiBox
+      <ComponentContainer
         data-testid="UserStateManager__Location_Wrapper"
         sx={{ p: '0.5em', gap: '1em' }}
       >
@@ -64,8 +64,8 @@ export const UserStateManager: React.FC = () => {
           )}
         </DigiDisplay>
         <LocationSearch onLocationSelect={handleLocationSelect} />
-      </DigiBox>
-      <DigiBox
+      </ComponentContainer>
+      <ComponentContainer
         data-testid="UserStateManager__Ship_Wrapper"
         sx={{ p: '0.5em', gap: '1em', position: 'relative' }}
       >
@@ -87,7 +87,7 @@ export const UserStateManager: React.FC = () => {
           </Typography>
         </DigiDisplay>
         <Box sx={{ height: '20px' }} />
-      </DigiBox>
+      </ComponentContainer>
     </FeatureDisplay>
   );
 };

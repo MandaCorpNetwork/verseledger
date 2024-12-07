@@ -1,4 +1,4 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { Box, ListItem, Switch, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -56,7 +56,7 @@ export const BetaSettings: React.FC = () => {
             const checked = setting_value == flag.settingValue;
             return (
               <ListItem key={flag.id}>
-                <DigiBox width={'100%'}>
+                <ComponentContainer width={'100%'}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Box>
                       <Typography
@@ -68,7 +68,7 @@ export const BetaSettings: React.FC = () => {
                       <Typography variant="caption">{flag.description}</Typography>
                     </Box>
                   </Box>
-                </DigiBox>
+                </ComponentContainer>
               </ListItem>
             );
           })
@@ -92,7 +92,7 @@ export const BetaSettings: React.FC = () => {
           };
           return (
             <ListItem key={flag.id}>
-              <DigiBox width={'100%'}>
+              <ComponentContainer width={'100%'}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                   <Box>
                     <Typography variant="subtitle1" color={checked ? 'lime' : undefined}>
@@ -104,7 +104,7 @@ export const BetaSettings: React.FC = () => {
                     <Switch checked={checked} onChange={toggleSetting} />
                   </Box>
                 </Box>
-              </DigiBox>
+              </ComponentContainer>
             </ListItem>
           );
         })

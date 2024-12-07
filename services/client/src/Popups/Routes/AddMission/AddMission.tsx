@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 import { useSoundEffect } from '@Audio/AudioManager';
 import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { SCUField } from '@CommonLegacy/Components/TextFields/SCUField';
@@ -144,7 +144,10 @@ export const AddMissionPopup: React.FC = () => {
               <div>
                 {field.state.value.map((_, i) => {
                   return (
-                    <DigiBox key={i} sx={{ p: '1em', gap: '0.5em', my: '0.5em' }}>
+                    <ComponentContainer
+                      key={i}
+                      sx={{ p: '1em', gap: '0.5em', my: '0.5em' }}
+                    >
                       <div>
                         {/** TASK MAP */}
                         <form.Field
@@ -332,7 +335,7 @@ export const AddMissionPopup: React.FC = () => {
                           </form.Field>
                         </div>
                       </div>
-                    </DigiBox>
+                    </ComponentContainer>
                   );
                 })}
                 <Button

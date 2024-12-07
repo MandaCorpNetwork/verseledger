@@ -1,6 +1,6 @@
 import '@Assets/Css/contractDetails.css';
 
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
@@ -55,7 +55,7 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
   const scrollRef = useHorizontalAdvancedScroll();
 
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="ContractBid__NonNegotiateBid_Wrapper"
       sx={{ p: '.5em', maxHeight: { xs: '100%', md: '65%' } }}
     >
@@ -293,6 +293,6 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
           )}
         </DigiDisplay>
       </Box>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

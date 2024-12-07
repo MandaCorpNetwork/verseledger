@@ -1,4 +1,4 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
@@ -37,7 +37,7 @@ export const MobileLocations: React.FC<MobileLocationProps> = ({
   otherLocations,
 }) => {
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="ContractPage__Location_Mobile_Wrapper"
       sx={{
         p: '.5em',
@@ -206,6 +206,6 @@ export const MobileLocations: React.FC<MobileLocationProps> = ({
           Contract Missing Start Location. Please report error.
         </Typography>
       )}
-    </DigiBox>
+    </ComponentContainer>
   );
 };

@@ -1,4 +1,4 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
@@ -52,7 +52,7 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({
         justifyContent: 'space-around',
       }}
     >
-      <DigiBox
+      <ComponentContainer
         data-testid="ContractPage__Pay&Briefing_Tablet_Wrapper"
         sx={{ p: '2em', width: '45%' }}
       >
@@ -125,8 +125,8 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({
             <Typography sx={{ color: 'text.primary' }}>{contract.briefing}</Typography>
           )}
         </DigiDisplay>
-      </DigiBox>
-      <DigiBox
+      </ComponentContainer>
+      <ComponentContainer
         data-testid="ContractPage__Location_Tablet_Wrapper"
         sx={{
           p: '2em',
@@ -296,7 +296,7 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({
             Contract Missing Start Location. Please report error.
           </Typography>
         )}
-      </DigiBox>
+      </ComponentContainer>
     </Box>
   );
 };

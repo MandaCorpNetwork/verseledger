@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { FormLoadingButton } from '@CommonLegacy/Components/Buttons/FormLoadingButton';
@@ -81,7 +81,7 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
           padding: '0 1em',
         }}
       >
-        <DigiBox
+        <ComponentContainer
           data-testid="UserSettings-SectionDisplay-GraphicsSettings-Form__AnimationsSettings_Container"
           sx={{ width: '300px', p: '0.5em 1em' }}
         >
@@ -159,8 +159,8 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
               )}
             />
           </DigiDisplay>
-        </DigiBox>
-        <DigiBox
+        </ComponentContainer>
+        <ComponentContainer
           data-testid="UserSettings-SectionDisplay-GraphicsSettings-Form__ComponentFidelity_Container"
           sx={{ width: '300px', p: '0.5em 1em' }}
         >
@@ -230,7 +230,7 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
               )}
             />
           </DigiDisplay>
-        </DigiBox>
+        </ComponentContainer>
         <div
           style={{
             position: 'fixed',

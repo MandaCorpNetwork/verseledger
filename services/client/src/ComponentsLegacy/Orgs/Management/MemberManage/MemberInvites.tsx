@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
 import { DoubleArrow } from '@mui/icons-material';
@@ -70,14 +70,14 @@ export const MemberInvites: React.FC = () => {
           <Button color="success" variant="outlined" size="small" disabled>
             Invite User
           </Button>
-          <DigiBox sx={{ p: '0.5em' }}>
+          <ComponentContainer sx={{ p: '0.5em' }}>
             <div style={{ display: 'flex', gap: '0.5em' }}>
               <UserChip user={currentUser as IUser} size="medium" />
               <Button color="warning" size="small" disabled>
                 Cancel Invite
               </Button>
             </div>
-          </DigiBox>
+          </ComponentContainer>
         </div>
       </Collapse>
     </FeatureDisplay>

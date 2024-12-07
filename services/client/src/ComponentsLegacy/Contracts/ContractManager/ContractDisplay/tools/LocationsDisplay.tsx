@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { DoubleArrow } from '@mui/icons-material';
@@ -63,7 +63,7 @@ export const LocationsDisplay: React.FC<LocationsDisplayProps> = ({ locations = 
   const otherLocationIds = getOtherLocationIds();
 
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="SelectedContract__LocationsContainer"
       sx={{
         width: '100%',
@@ -199,6 +199,6 @@ export const LocationsDisplay: React.FC<LocationsDisplayProps> = ({ locations = 
           </DigiDisplay>
         )}
       </Collapse>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

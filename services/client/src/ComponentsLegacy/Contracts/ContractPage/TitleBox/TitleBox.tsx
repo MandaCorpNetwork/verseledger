@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { Link } from '@mui/icons-material';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
@@ -80,7 +80,7 @@ export const TitleBox: React.FC<TitleBoxProps> = ({
 
   const ownerRating = getContractorRating();
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="ContractPage__Info_Container"
       sx={{
         py: { xs: '.5em', md: '1em', lg: '2em' },
@@ -144,6 +144,6 @@ export const TitleBox: React.FC<TitleBoxProps> = ({
           <InfoNonMobile contract={contract} archetype={archetype} tablet={tablet} />
         )}
       </Box>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

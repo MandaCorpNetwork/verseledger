@@ -1,4 +1,4 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { Typography } from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers';
@@ -6,7 +6,7 @@ import React from 'react';
 
 export const OrgCalendarPanel: React.FC = () => {
   return (
-    <DigiBox sx={{ flexGrow: 1, alignItems: 'center', gap: '2em' }}>
+    <ComponentContainer sx={{ flexGrow: 1, alignItems: 'center', gap: '2em' }}>
       <DigiDisplay style={{ flexDirection: 'row', width: 'fit-content' }}>
         <DateCalendar />
         <div
@@ -33,6 +33,6 @@ export const OrgCalendarPanel: React.FC = () => {
           No News
         </Typography>
       </DigiDisplay>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

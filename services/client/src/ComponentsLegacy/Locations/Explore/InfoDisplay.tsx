@@ -1,7 +1,7 @@
-import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
+import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField';
 import { Box, Chip, Divider, TextField, Typography } from '@mui/material';
 import { SparkLineChart } from '@mui/x-charts';
@@ -33,7 +33,7 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
           <Chip label="Current Location" variant="filled" color="info" />
         )}
       </DigiDisplay>
-      <DigiBox
+      <ComponentContainer
         data-testid="ExploreApp-Information__Time_Wrapper"
         sx={{ flexDirection: 'row' }}
       >
@@ -41,8 +41,8 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
         <ReadOnlyField label="Local Time" />
         <ReadOnlyField label="StarRise Time" />
         <ReadOnlyField label="StarSet Time" />
-      </DigiBox>
-      <DigiBox
+      </ComponentContainer>
+      <ComponentContainer
         data-testid="ExploreApp-Information__Parent&Population_Wrapper"
         sx={{
           flexDirection: 'row',
@@ -111,8 +111,8 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
             data={[2500, 800, 1500, 900, 700, 600, 3200]}
           />
         </DigiDisplay>
-      </DigiBox>
-      <DigiBox
+      </ComponentContainer>
+      <ComponentContainer
         data-testid="ExploreApp-Information__Data_Container"
         sx={{ width: '100%', px: '.5em', alignItems: 'center', py: '.5em' }}
       >
@@ -156,7 +156,7 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
             rows={3}
           />
         </DigiDisplay>
-      </DigiBox>
+      </ComponentContainer>
     </FeatureDisplay>
   );
 };

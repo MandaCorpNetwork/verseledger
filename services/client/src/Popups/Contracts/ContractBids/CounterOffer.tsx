@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';
 import { PayField } from '@CommonLegacy/Components/TextFields/PayField';
@@ -128,7 +128,10 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
       onCancel={handleRejectOffer}
     >
       <Box data-testid="CounterOffer__Container">
-        <DigiBox data-testid="CounterOffer__Wrapper" sx={{ p: '.5em', gap: '1em' }}>
+        <ComponentContainer
+          data-testid="CounterOffer__Wrapper"
+          sx={{ p: '.5em', gap: '1em' }}
+        >
           <UserDisplay
             data-testid="CounterOffer__User"
             user={ownerView ? (bid?.User as IUser) : contract.Owner}
@@ -161,7 +164,7 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
                 : 'Contract Owner has sent a Counter Offer'}
             </Typography>
           </Box>
-        </DigiBox>
+        </ComponentContainer>
       </Box>
     </VLPopup>
   );

@@ -1,5 +1,5 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 
 export const OrderStatsPanel: React.FC = () => {
-  return <DigiBox>Order Stats Go Here</DigiBox>;
+  return <ComponentContainer>Order Stats Go Here</ComponentContainer>;
 };

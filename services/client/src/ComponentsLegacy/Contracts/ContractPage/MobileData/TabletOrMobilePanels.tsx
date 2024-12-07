@@ -1,5 +1,5 @@
 import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { SmallTabHolo, SmallTabsHolo } from '@CommonLegacy/Components/Tabs/SmallTabsHolo';
 import { Box } from '@mui/material';
 import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
@@ -76,12 +76,12 @@ export const TabletOrMobilePanels: React.FC<TabletOrMobilePanelProps> = ({
             <SmallTabHolo label="Duration" value="start" />
           </SmallTabsHolo>
         </ControlPanelBox>
-        <DigiBox
+        <ComponentContainer
           data-testid="ContractPage-TimePanel-Small__Tab_List"
           sx={{ width: { xs: '100%', sm: '90%', md: '75%' }, mx: 'auto', py: '1em' }}
         >
           {timePanel(timeTab)}
-        </DigiBox>
+        </ComponentContainer>
       </Box>
       <Box
         data-testid="ContractPage__ActiveData_Small_Wrapper"

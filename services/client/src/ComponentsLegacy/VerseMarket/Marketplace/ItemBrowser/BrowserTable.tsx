@@ -1,4 +1,4 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { ItemTypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Orders/ItemTypes';
 import { Table, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
@@ -33,7 +33,7 @@ export const MarketBrowserTable: React.FC = () => {
     return matchingItemType ? matchingItemType.header : allItemsHeader;
   }, [currentFilter]);
   return (
-    <DigiBox>
+    <ComponentContainer>
       <TableContainer>
         <Table stickyHeader>
           <TableHead>
@@ -51,6 +51,6 @@ export const MarketBrowserTable: React.FC = () => {
           </TableHead>
         </Table>
       </TableContainer>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

@@ -43,7 +43,12 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["src", "tsconfig.json", "tsconfig.node.json"],
+  "include": [
+    "src",
+    "tsconfig.json",
+    "tsconfig.node.json",
+    "src/Common/Components/Core/Boxes/.tsx"
+  ],
   "exclude": ["cypress", "cypress.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

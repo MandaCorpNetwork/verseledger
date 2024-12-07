@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
@@ -87,7 +87,7 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
     new Set(tasks.map((task) => task.relationId).filter(Boolean)),
   );
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="RouteTool-MissionViewer__Mission_Container"
       sx={{ alignItems: 'center', p: '.5em' }}
     >
@@ -206,6 +206,6 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
           Abandon Mission
         </Button>
       </Box>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

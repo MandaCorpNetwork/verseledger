@@ -1,4 +1,4 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField';
@@ -36,7 +36,7 @@ export const OtherStop: React.FC<OtherStopProps> = ({ destination, nextDestinati
   const absDistance = Math.abs(floatDistance);
   const formattedDistance = formatDistance(absDistance);
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="RouteTool-RouteViewer__OtherStop_Container"
       sx={{ p: '.5em', gap: '.5em' }}
     >
@@ -65,6 +65,6 @@ export const OtherStop: React.FC<OtherStopProps> = ({ destination, nextDestinati
         <ReadOnlyField label="Distance" value={formattedDistance} />
         <ReadOnlyField label="Est. Travel Time" />
       </DigiDisplay>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

@@ -1,6 +1,7 @@
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Box } from '@mui/material';
 
-import { FeatureDisplay } from '../Common/Components/Core/Boxes/FeatureDisplay';
 import { ListSelectButton } from './Components/Styled/Buttons/IndicatorButton';
 import { Contracts, Scu, Scu3d } from './DefinitionsLegacy/CustomIcons';
 
@@ -19,9 +20,12 @@ export const SandboxContent: React.FC<unknown> = () => {
       <Box sx={{ display: 'flex', gap: '1em', flexDirection: 'column' }}>
         <ListSelectButton>Pick Me</ListSelectButton>
         <FeatureDisplay>
-          <Scu fontSize="large" />
-          <Scu3d fontSize="large" />
-          <Contracts fontSize="large" />
+          Potential Feature
+          <ComponentContainer sx={{ m: '20px 50px' }}>
+            <Scu fontSize="large" />
+            <Scu3d fontSize="large" />
+            <Contracts fontSize="large" />
+          </ComponentContainer>
         </FeatureDisplay>
       </Box>
     </Box>

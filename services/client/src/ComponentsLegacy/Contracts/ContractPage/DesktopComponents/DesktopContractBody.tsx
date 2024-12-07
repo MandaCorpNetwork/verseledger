@@ -1,5 +1,5 @@
 import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
@@ -162,7 +162,7 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
           mr: '3em',
         }}
       >
-        <DigiBox
+        <ComponentContainer
           data-testid="ContractPage-Bottom-Right__Location_Container"
           sx={{ mb: 'auto', p: '.5em', alignItems: 'center' }}
         >
@@ -338,7 +338,7 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
               Contract Missing Start Location. Please report error.
             </Typography>
           )}
-        </DigiBox>
+        </ComponentContainer>
         <ContractController contract={contract} />
       </Box>
     </Box>

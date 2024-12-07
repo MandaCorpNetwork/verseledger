@@ -1,4 +1,4 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Box, Button, TextField, Typography } from '@mui/material';
@@ -157,7 +157,7 @@ export const TuningSetup: React.FC<TuningSetupProps> = ({ tuningSetup, setConfig
         mt: 'auto',
       }}
     >
-      <DigiBox
+      <ComponentContainer
         data-testid="ShipTuning-TuningEditor-ConfigSetup__PowerSetup_Wrapper"
         sx={{ p: '.5em', display: 'flex', flexDirection: 'column', gap: '.2em' }}
       >
@@ -229,8 +229,8 @@ export const TuningSetup: React.FC<TuningSetupProps> = ({ tuningSetup, setConfig
             </Box>
           ))}
         </DigiDisplay>
-      </DigiBox>
-      <DigiBox
+      </ComponentContainer>
+      <ComponentContainer
         data-testid="ShipTuning-TuningEditor-ConfigSetup__ComponentsSetup_Wrapper"
         sx={{ p: '.5em', display: 'flex', flexDirection: 'column', gap: '.2em' }}
       >
@@ -350,7 +350,7 @@ export const TuningSetup: React.FC<TuningSetupProps> = ({ tuningSetup, setConfig
             </Box>
           ))}
         </DigiDisplay>
-      </DigiBox>
+      </ComponentContainer>
     </FeatureDisplay>
   );
 };
