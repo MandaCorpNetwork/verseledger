@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { Scu3d } from '@CommonLegacy/Definitions/CustomIcons';
+import { Scu3d } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { IconButton, Popper, TextField } from '@mui/material';
 import { numericalFilter } from '@Utils/numericFilter';
 import React from 'react';

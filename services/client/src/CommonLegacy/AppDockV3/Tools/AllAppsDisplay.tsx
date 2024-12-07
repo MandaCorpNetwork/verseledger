@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { AppButtonV2 } from '@CommonLegacy/Components/Buttons/AppButtonV2';
-import { useMasterAppList } from '@CommonLegacy/Definitions/AppListings';
+import { useMasterAppList } from '@CommonLegacy/DefinitionsLegacy/AppListings';
 import { Close } from '@mui/icons-material';
 import { Box, Grid2, IconButton, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';

@@ -3,7 +3,7 @@ import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
 import { VLViewport } from '@CommonLegacy/Components/Boxes/VLViewport';
 import { ContractController } from '@CommonLegacy/Components/Contracts/ContractController';
 import { ContractorList } from '@CommonLegacy/Components/Contracts/ContractorList';
-import { contractArchetypes } from '@CommonLegacy/Definitions/Structures/Contracts/ContractArchetypes';
+import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
 import { LoadingScreen } from '@CommonLegacy/LoadingObject/LoadingScreen';
 import { DesktopContractBody } from '@Components/Contracts/ContractPage/DesktopComponents/DesktopContractBody';
 import { MobileLocations } from '@Components/Contracts/ContractPage/MobileData/MobileLocations';

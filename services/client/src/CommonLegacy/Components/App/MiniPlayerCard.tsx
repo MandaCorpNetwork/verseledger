@@ -1,7 +1,7 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
 import { useSoundEffect } from '@Audio/AudioManager';
 import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
-import { userBackgroundOptions } from '@CommonLegacy/Definitions/Structures/Users/UserBackgrounds';
+import { userBackgroundOptions } from '@CommonLegacy/DefinitionsLegacy/Structures/Users/UserBackgrounds';
 import { AccountBox, Message } from '@mui/icons-material';
 import { Avatar, Box, IconButton, Popper, Typography } from '@mui/material';
 import React, { PropsWithChildren } from 'react';

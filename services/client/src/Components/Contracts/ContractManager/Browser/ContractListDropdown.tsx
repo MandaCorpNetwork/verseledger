@@ -1,6 +1,6 @@
 import '@Assets/Css/ripple.css';
 
-import { contractArchetypes } from '@CommonLegacy/Definitions/Structures/Contracts/ContractArchetypes';
+import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
 import { ArrowRight } from '@mui/icons-material';
 import { Badge, Box, ButtonBase, Collapse, IconButton, Typography } from '@mui/material';
 import { PropsWithChildren } from 'react';

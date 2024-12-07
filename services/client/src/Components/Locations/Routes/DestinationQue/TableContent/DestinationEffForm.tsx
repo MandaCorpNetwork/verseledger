@@ -1,4 +1,4 @@
-import { Scu, Scu3d } from '@CommonLegacy/Definitions/CustomIcons';
+import { Scu, Scu3d } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { Functions } from '@mui/icons-material';
 import { Button, TextField } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';

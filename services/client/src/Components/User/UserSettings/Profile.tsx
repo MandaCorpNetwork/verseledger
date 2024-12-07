@@ -4,7 +4,7 @@ import {
   ExpandIconButton,
   ProfileBackgroundDisplay,
 } from '@CommonLegacy/Components/Boxes/ProfileBackgroundDisplay';
-import { userBackgroundOptions } from '@CommonLegacy/Definitions/Structures/Users/UserBackgrounds';
+import { userBackgroundOptions } from '@CommonLegacy/DefinitionsLegacy/Structures/Users/UserBackgrounds';
 import { OpenInFull } from '@mui/icons-material';
 import {
   Box,

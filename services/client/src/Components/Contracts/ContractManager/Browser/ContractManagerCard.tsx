@@ -1,6 +1,6 @@
 import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
 import { PayInput } from '@CommonLegacy/Components/Custom/PayInput';
-import { Industry } from '@CommonLegacy/Definitions/CustomIcons';
+import { Industry } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { Box, ButtonBase, Tooltip, Typography, useTheme } from '@mui/material';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';

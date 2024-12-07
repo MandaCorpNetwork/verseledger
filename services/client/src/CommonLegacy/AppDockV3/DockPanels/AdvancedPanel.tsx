@@ -1,7 +1,7 @@
 import '@Assets/Css/AppDockV3.css';
 
 import { AppButtonV2 } from '@CommonLegacy/Components/Buttons/AppButtonV2';
-import { useMasterAppList } from '@CommonLegacy/Definitions/AppListings';
+import { useMasterAppList } from '@CommonLegacy/DefinitionsLegacy/AppListings';
 import React from 'react';
 
 import { PanelScrollButton } from '../Buttons/ScrollButton';

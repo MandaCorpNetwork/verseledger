@@ -1,4 +1,4 @@
-import { soundEffectPacks } from '@CommonLegacy/Definitions/SoundEffectOptions';
+import { soundEffectPacks } from '@CommonLegacy/DefinitionsLegacy/SoundEffectOptions';
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserSoundPack } from '@Redux/Slices/Auth/auth.selectors';
 import { useSound } from '@Utils/useAudio';

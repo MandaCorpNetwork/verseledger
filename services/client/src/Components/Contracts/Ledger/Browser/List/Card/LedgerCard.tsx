@@ -2,7 +2,7 @@ import { useSoundEffect } from '@Audio/AudioManager';
 import { MiniPlayerCard } from '@CommonLegacy/Components/App/MiniPlayerCard';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';
-import { contractArchetypes } from '@CommonLegacy/Definitions/Structures/Contracts/ContractArchetypes';
+import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
 import { EmergencyShare, ErrorTwoTone } from '@mui/icons-material';
 import {
   Avatar,

@@ -3,7 +3,7 @@ import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { CopyString } from '@CommonLegacy/Components/Buttons/CopyString';
 import { GeneralNav } from '@CommonLegacy/Components/Buttons/GeneralNavIcon';
-import { contractArchetypes } from '@CommonLegacy/Definitions/Structures/Contracts/ContractArchetypes';
+import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
 import { ErrorOutline, HighlightOffTwoTone } from '@mui/icons-material';
 import { IconButton, Tooltip, Typography } from '@mui/material';
 import { useNav } from '@Utils/Hooks/useNav';

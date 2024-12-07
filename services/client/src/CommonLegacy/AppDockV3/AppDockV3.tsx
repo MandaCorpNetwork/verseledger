@@ -9,7 +9,7 @@ import { UserStateManager } from '@CommonLegacy/AppDockV3/Tools/UserStateManager
 import {
   useMasterAppList,
   VerseLedgerVersion,
-} from '@CommonLegacy/Definitions/AppListings';
+} from '@CommonLegacy/DefinitionsLegacy/AppListings';
 import { ErrorOutline, HomeTwoTone, Person } from '@mui/icons-material';
 import {
   Alert,

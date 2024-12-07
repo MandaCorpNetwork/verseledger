@@ -3,7 +3,7 @@ import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
-import { Scu3d } from '@CommonLegacy/Definitions/CustomIcons';
+import { Scu3d } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { Box, Button, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { replaceDestinations } from '@Redux/Slices/Routes/actions/destination.action';

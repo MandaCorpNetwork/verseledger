@@ -2,7 +2,7 @@ import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import PopupFormDisplay from '@CommonLegacy/Components/Boxes/PopupFormDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
-import { Scu3d } from '@CommonLegacy/Definitions/CustomIcons';
+import { Scu3d } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { LinearProgress, TextField, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { currentRouteLoad } from '@Redux/Slices/Routes/routes.selectors';

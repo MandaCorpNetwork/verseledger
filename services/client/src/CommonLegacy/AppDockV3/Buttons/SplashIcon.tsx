@@ -1,6 +1,6 @@
 import '@Assets/Css/AppDockV3.css';
 
-import { VLLogo } from '@CommonLegacy/Definitions/CustomIcons';
+import { VLLogo } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { Box } from '@mui/material';
 import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';

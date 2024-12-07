@@ -1,4 +1,4 @@
-import { soundEffectPacks } from '@CommonLegacy/Definitions/SoundEffectOptions';
+import { soundEffectPacks } from '@CommonLegacy/DefinitionsLegacy/SoundEffectOptions';
 import { Howl } from 'howler';
 import React, { useEffect, useRef, useState } from 'react';
 

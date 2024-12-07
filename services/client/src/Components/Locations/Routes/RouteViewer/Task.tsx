@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { Scu, Scu3d } from '@CommonLegacy/Definitions/CustomIcons';
+import { Scu, Scu3d } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import {
   AirlineStopsTwoTone,
   ArrowCircleUpTwoTone,

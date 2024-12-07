@@ -1,4 +1,4 @@
-import { radioSources } from '@CommonLegacy/Definitions/RadioSources';
+import { radioSources } from '@CommonLegacy/DefinitionsLegacy/RadioSources';
 import { useEffect, useRef, useState } from 'react';
 
 //Attempted to use GainNode but ran into a CORS issue

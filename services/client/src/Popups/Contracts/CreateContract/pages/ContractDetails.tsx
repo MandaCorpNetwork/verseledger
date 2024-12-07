@@ -3,7 +3,7 @@ import '@Assets/Css/contractDetails.css';
 import { useSoundEffect } from '@Audio/AudioManager';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import ArchetypeListChip from '@CommonLegacy/Components/Chips/ArchetypeListChip';
-import { contractArchetypes } from '@CommonLegacy/Definitions/Structures/Contracts/ContractArchetypes';
+import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
 import { HelpOutline } from '@mui/icons-material';
 import {
   Autocomplete,

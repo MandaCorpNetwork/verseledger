@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 
 import { ListSelectButton } from './Components/Styled/Buttons/IndicatorButton';
-import { Contracts, Scu, Scu3d } from './Definitions/CustomIcons';
+import { Contracts, Scu, Scu3d } from './DefinitionsLegacy/CustomIcons';
 
 export const SandboxContent: React.FC<unknown> = () => {
   return (

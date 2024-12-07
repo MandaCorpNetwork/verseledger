@@ -4,7 +4,7 @@ import {
   RRR,
   Salvage,
   Security,
-} from '@CommonLegacy/Definitions/CustomIcons';
+} from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { Explore, Factory, LocalHospital, VisibilityOff } from '@mui/icons-material';
 import { Box, Divider, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';

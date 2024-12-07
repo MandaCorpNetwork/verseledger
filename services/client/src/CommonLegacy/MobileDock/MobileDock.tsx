@@ -10,8 +10,8 @@ import {
   shipApps,
   splashApps,
   useMasterAppList,
-} from '@CommonLegacy/Definitions/AppListings';
-import { Discord } from '@CommonLegacy/Definitions/CustomIcons';
+} from '@CommonLegacy/DefinitionsLegacy/AppListings';
+import { Discord } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import {
   AppsTwoTone,
   Google,

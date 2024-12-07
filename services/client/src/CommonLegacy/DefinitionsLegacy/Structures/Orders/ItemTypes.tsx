@@ -9,7 +9,7 @@ import {
   VehicleComponent,
   Vehicles,
   VehicleWeapons,
-} from '@CommonLegacy/Definitions/CustomIcons';
+} from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import {
   allItemsHeader,
   armorListHeader,

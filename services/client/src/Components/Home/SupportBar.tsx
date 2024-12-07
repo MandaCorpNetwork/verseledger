@@ -1,7 +1,7 @@
 import MadeByCommunity from '@Assets/media/MenuPage/MadeByTheCommunity.png';
 import Pally from '@Assets/media/MenuPage/Pally.png?url';
 import { useSoundEffect } from '@Audio/AudioManager';
-import { Discord, KoFi, Patreon } from '@CommonLegacy/Definitions/CustomIcons';
+import { Discord, KoFi, Patreon } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { ButtonBase, IconButton } from '@mui/material';
 import React from 'react';
 

@@ -1,5 +1,5 @@
 import AppButtonV2 from '@CommonLegacy/Components/Buttons/AppButtonV2';
-import { useMasterAppList } from '@CommonLegacy/Definitions/AppListings';
+import { useMasterAppList } from '@CommonLegacy/DefinitionsLegacy/AppListings';
 
 export const PotatoDockPanel: React.FC = () => {
   const masterAppList = useMasterAppList();

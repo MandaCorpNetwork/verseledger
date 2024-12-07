@@ -1,5 +1,5 @@
 import PallyLogo from '@Assets/media/MenuPage/PallyLogo.png?url';
-import { Discord, KoFi, Patreon } from '@CommonLegacy/Definitions/CustomIcons';
+import { Discord, KoFi, Patreon } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { GitHub } from '@mui/icons-material';
 import { Box, IconButton } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
