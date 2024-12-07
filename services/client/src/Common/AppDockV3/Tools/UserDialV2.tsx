@@ -3,7 +3,6 @@ import '@Assets/Css/AppDockV3.css';
 import { useSoundEffect } from '@Audio/AudioManager';
 import { NotificationsBox } from '@Common/Components/App/NotificationsBox';
 import {
-  BreakfastDiningOutlined,
   Feedback,
   Logout,
   Mail,
