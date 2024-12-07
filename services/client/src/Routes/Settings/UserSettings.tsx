@@ -23,7 +23,7 @@ import { useAppSelector } from '@Redux/hooks';
 import { selectUserSettings } from '@Redux/Slices/Auth/auth.selectors';
 import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
 
 //TODO: Fix Animations
@@ -43,6 +43,7 @@ type SettingsListItem = (typeof settingsList)[number];
 export const UserSettings: React.FC = () => {
   const { tab } = useParams();
   const nav = useNav();
+  const navigate = useNavigate();
   const sound = useSoundEffect();
   const [selectedSetting, _setSelectedSetting] =
     React.useState<SettingsListItem>('Profile');
@@ -50,6 +51,13 @@ export const UserSettings: React.FC = () => {
   const [transitioning, setTransitioning] = React.useState<boolean>(false);
 
   const currentSettings = useAppSelector(selectUserSettings);
+
+  React.useEffect(() => {
+    if (!tab) {
+      const url = '/settings/Profile';
+      navigate(url);
+    }
+  }, [tab, navigate]);
 
   const settingsPageRender = React.useCallback(() => {
     switch (tab) {
@@ -198,6 +206,8 @@ export const UserSettings: React.FC = () => {
             timeout="auto"
             easing={{ enter: 'ease-in-out', exit: 'ease-out' }}
             style={{ transformOrigin: 'center' }}
+            unmountOnExit
+            mountOnEnter
           >
             <Box sx={{ width: '100%', height: '100%' }}>{settingsPageRender()}</Box>
           </Grow>

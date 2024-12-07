@@ -37,7 +37,7 @@ import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-export const WikiDrawer: React.FC = () => {
+export const SupportDrawer: React.FC = () => {
   const nav = useNav();
   const masterAppList = useMasterAppList();
   const handleReturnHome = React.useCallback(

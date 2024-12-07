@@ -8,7 +8,7 @@ import NewSettings from './Pages/AccountSetup/NewSettings.mdx';
 import SignUp from './Pages/AccountSetup/SignUp.mdx';
 import Verification from './Pages/AccountSetup/Verification.mdx';
 
-export const WikiDisplay: React.FC = () => {
+export const SupportDisplay: React.FC = () => {
   const { page, subpage } = useParams();
   const fileRender = React.useMemo(() => {
     if (!subpage && page) {

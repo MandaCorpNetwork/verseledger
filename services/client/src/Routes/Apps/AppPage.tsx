@@ -50,6 +50,7 @@ export const AppPage: React.FC<unknown> = () => {
         >
           <Outlet />
         </Box>
+        <div style={{ marginTop: '100px' }} />
       </Box>
     </VLViewport>
   );

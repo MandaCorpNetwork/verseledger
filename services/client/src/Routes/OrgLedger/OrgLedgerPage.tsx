@@ -61,6 +61,7 @@ export const OrgLedgerPage: React.FC = () => {
           >
             <Outlet />
           </div>
+          <div style={{ marginTop: '100px' }} />
         </Box>
         {!location.pathname.startsWith('/orgs/finder') && <OrgSwitcher />}
       </Box>

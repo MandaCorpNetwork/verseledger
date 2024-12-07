@@ -23,11 +23,13 @@
     /* Pathing */
     "baseUrl": "./src/",
     "paths": {
+      "@Apps/*": ["./Apps/*"],
       "@Assets/*": ["./Assets/*"],
       "@Audio/*": ["./Audio/*"],
       "@Common/*": ["./Common/*"],
       "@Components/*": ["./Components/*"],
       "@Definitions/*": ["./Common/Definitions/*"],
+      "@LegacyCommon/*": ["./LegacyCommon/*"],
       "@Popups/*": ["./Popups/*"],
       "@Redux/*": ["./Redux/*"],
       "@Routes/*": ["./Routes/*"],

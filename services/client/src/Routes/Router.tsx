@@ -30,10 +30,10 @@ import { NotFoundPage } from './NotFound/NotFound';
 import { OrgLedgerPage } from './OrgLedger/OrgLedgerPage';
 import { SecureRoute } from './SecureRoute';
 import { UserSettings } from './Settings/UserSettings';
+import { SupportPage } from './Support/SupportPage';
 import { Sandbox } from './ui-sandbox/SandboxPage';
 import { UserPage } from './User/UserPage';
 import { VerseNewsPage } from './VerseNews/VerseNews';
-import { WikiPage } from './Wiki/WikiPage';
 
 export const routingInfo: RouteObject[] = [
   {
@@ -218,15 +218,15 @@ export const routingInfo: RouteObject[] = [
       },
       {
         path: '/support',
-        element: <WikiPage />,
+        element: <SupportPage />,
         children: [
           {
             path: '/support/:page',
-            element: <WikiPage />,
+            element: <SupportPage />,
           },
           {
             path: '/support/:page/:subpage',
-            element: <WikiPage />,
+            element: <SupportPage />,
           },
         ],
       },

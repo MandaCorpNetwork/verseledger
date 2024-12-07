@@ -156,7 +156,7 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
     });
   }, [userBid, sound, dispatch, contract.id, dashboard, location, overwriteURLQuery]);
 
-  const handleCancelBid = React.useCallback(() => {
+  const cancelBid = React.useCallback(() => {
     if (!userBid) {
       enqueueSnackbar(`Bid doesn't Exist`, { variant: 'error' });
       sound.playSound('error');
@@ -180,6 +180,20 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
       }
     });
   }, [userBid, sound, dispatch, contract.id, dashboard, location, overwriteURLQuery]);
+
+  const handleCancelBid = React.useCallback(() => {
+    dispatch(
+      openPopup(POPUP_YOU_SURE, {
+        title: 'Cancel Bid',
+        subjectText: `Canceling Bid for ${contract.title}`,
+        bodyText: `Are you sure you want to cancel your bid?`,
+        acceptText: 'Cancel Bid',
+        cancelText: 'Nevermind',
+        clickaway: true,
+        onAccept: cancelBid,
+      }),
+    );
+  }, [cancelBid, contract.title, dispatch]);
 
   const handleResubmitBid = React.useCallback(() => {
     if (!userBid) {
