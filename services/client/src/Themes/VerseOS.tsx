@@ -2,7 +2,7 @@ import '@Assets/Css/fonts.css';
 
 import { createTheme } from '@mui/material/styles';
 
-export const verseOSTheme = createTheme({
+export const verseOS = createTheme({
   breakpoints: {
     values: {
       xs: 0,

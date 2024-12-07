@@ -7,7 +7,7 @@ import {
   binaryLocationTree,
   formatDistance,
   getMappedLocation,
-} from '@Components/Locations/Routes/RouteUtilities';
+} from '@ComponentsLegacy/Locations/Routes/RouteUtilities';
 import {
   AirlineStopsTwoTone,
   ArrowCircleUpTwoTone,

@@ -1,6 +1,6 @@
-import { LedgerBrowser } from '@Components/Contracts/Ledger/Browser/LedgerBrowser';
-import { ContractDisplayContainer } from '@Components/Contracts/Ledger/Details/ContractDisplayContainer';
-import { LedgerSidePanel } from '@Components/Contracts/Ledger/SidePanel/LedgerSidePanel';
+import { LedgerBrowser } from '@ComponentsLegacy/Contracts/Ledger/Browser/LedgerBrowser';
+import { ContractDisplayContainer } from '@ComponentsLegacy/Contracts/Ledger/Details/ContractDisplayContainer';
+import { LedgerSidePanel } from '@ComponentsLegacy/Contracts/Ledger/SidePanel/LedgerSidePanel';
 import { Box } from '@mui/material';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';

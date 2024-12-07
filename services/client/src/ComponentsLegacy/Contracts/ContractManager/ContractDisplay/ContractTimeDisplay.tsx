@@ -5,7 +5,7 @@ import { SmallTabHolo, SmallTabsHolo } from '@CommonLegacy/Components/Tabs/Small
 import {
   BiddingTimePanel,
   ContractDurationPanel,
-} from '@Components/Contracts/Ledger/Details/TimePanel';
+} from '@ComponentsLegacy/Contracts/Ledger/Details/TimePanel';
 import React from 'react';
 import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 

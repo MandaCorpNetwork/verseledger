@@ -3,13 +3,13 @@ import '@Assets/Css/ripple.css';
 import { useSoundEffect } from '@Audio/AudioManager';
 import { VLViewport } from '@CommonLegacy/Components/Boxes/VLViewport';
 import { DepressedListButton } from '@CommonLegacy/Components/Lists/DepressedListButton';
-import { BetaSettings } from '@Components/User/UserSettings/Beta';
-import { DeveloperSettings } from '@Components/User/UserSettings/DeveloperSettings';
-import { GraphicsSettings } from '@Components/User/UserSettings/Graphics';
-import { NotificationSettings } from '@Components/User/UserSettings/Notifications';
-import { ProfileSettings } from '@Components/User/UserSettings/Profile';
-import { SecuritySettings } from '@Components/User/UserSettings/Security';
-import { SoundSettings } from '@Components/User/UserSettings/Sounds';
+import { BetaSettings } from '@ComponentsLegacy/User/UserSettings/Beta';
+import { DeveloperSettings } from '@ComponentsLegacy/User/UserSettings/DeveloperSettings';
+import { GraphicsSettings } from '@ComponentsLegacy/User/UserSettings/Graphics';
+import { NotificationSettings } from '@ComponentsLegacy/User/UserSettings/Notifications';
+import { ProfileSettings } from '@ComponentsLegacy/User/UserSettings/Profile';
+import { SecuritySettings } from '@ComponentsLegacy/User/UserSettings/Security';
+import { SoundSettings } from '@ComponentsLegacy/User/UserSettings/Sounds';
 import {
   Box,
   Drawer,

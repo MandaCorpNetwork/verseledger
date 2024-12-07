@@ -1,5 +1,5 @@
 import { VLViewport } from '@CommonLegacy/Components/Boxes/VLViewport';
-import { OrgSwitcher } from '@Components/Orgs/Switcher/OrgSwitcher';
+import { OrgSwitcher } from '@ComponentsLegacy/Orgs/Switcher/OrgSwitcher';
 import { Box } from '@mui/material';
 import { Outlet, useLocation } from 'react-router-dom';
 

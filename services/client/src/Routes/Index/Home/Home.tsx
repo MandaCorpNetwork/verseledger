@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import '@Components/Home/Home.css';
+import '@ComponentsLegacy/Home/Home.css';
 
 import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
 import { Box } from '@mui/material';

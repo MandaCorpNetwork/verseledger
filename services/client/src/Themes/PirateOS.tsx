@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material';
 
-export const pirateOsTheme = createTheme({
+export const pirateOS = createTheme({
   breakpoints: {
     values: {
       xs: 0,

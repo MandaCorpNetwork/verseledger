@@ -29,6 +29,7 @@
       "@Common/*": ["./Common/*"],
       "@CommonLegacy/*": ["./CommonLegacy/*"],
       "@Components/*": ["./Components/*"],
+      "@ComponentsLegacy/*": ["./ComponentsLegacy/*"],
       "@Definitions/*": ["./Common/Definitions/*"],
       "@DefinitionsLegacy/*": ["./CommonLegacy/DefinitionsLegacy/*"],
       "@Popups/*": ["./Popups/*"],

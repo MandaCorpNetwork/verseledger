@@ -2,7 +2,7 @@ import '@Assets/Css/AppDockV3.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
 import { MobileDock } from '@CommonLegacy/MobileDock/MobileDock';
-import { SupportBar } from '@Components/Home/SupportBar';
+import { SupportBar } from '@ComponentsLegacy/Home/SupportBar';
 import { DoubleArrow } from '@mui/icons-material';
 import { Collapse, IconButton, Portal } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';

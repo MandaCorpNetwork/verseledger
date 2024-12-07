@@ -1,4 +1,4 @@
-import { ContractDisplay } from '@Components/Contracts/Ledger/Details/ContractDisplay';
+import { ContractDisplay } from '@ComponentsLegacy/Contracts/Ledger/Details/ContractDisplay';
 import { Box, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectContract } from '@Redux/Slices/Contracts/contracts.selectors';
