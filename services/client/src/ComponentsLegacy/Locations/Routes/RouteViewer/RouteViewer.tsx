@@ -1,5 +1,5 @@
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Button, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { nextStop } from '@Redux/Slices/Routes/actions/activeRoute.action';
@@ -71,7 +71,7 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({
     dispatch(openWidget(WIDGET_ROUTES));
   }, [dispatch]);
   return (
-    <GlassBox
+    <FeatureContainer
       data-testid="RouteTool__RouteViewer_Container"
       sx={{ p: '1em', gap: '1em', height: '100%', overflow: 'hidden' }}
     >
@@ -105,7 +105,7 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({
         </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'row', flexGrow: 1, gap: '1em' }}>
-        <GlassDisplay
+        <FeatureDisplay
           sx={{ p: '1em', height: '100%', gap: '1em', justifyContent: 'space-around' }}
         >
           <CurrentDestination destination={currentDestination} />
@@ -121,11 +121,11 @@ export const RouteViewer: React.FC<RouteViewerProps> = ({
           {(!nextIsCheckpoint || nextDestination.tasks.length > 1) && (
             <NextDestination destination={nextDestination} distance={nextDistance} />
           )}
-        </GlassDisplay>
-        <GlassDisplay sx={{ p: '1em' }}>
+        </FeatureDisplay>
+        <FeatureDisplay sx={{ p: '1em' }}>
           <RouteViewerTable destinations={destinations} locationTree={locationTree} />
-        </GlassDisplay>
+        </FeatureDisplay>
       </div>
-    </GlassBox>
+    </FeatureContainer>
   );
 };

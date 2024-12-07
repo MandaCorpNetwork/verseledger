@@ -1,6 +1,6 @@
 import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { Scu, Scu3d } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import {
@@ -236,7 +236,7 @@ export const RoutesWidget: React.FC = () => {
             Current Load:
             <Typography variant="caption">{`${currentLoad} SCU`}</Typography>
           </Typography>
-          <GlassDisplay sx={{ maxHeight: '75px', py: '0.2em', overflow: 'auto' }}>
+          <FeatureDisplay sx={{ maxHeight: '75px', py: '0.2em', overflow: 'auto' }}>
             {currentDestination.tasks.map((task) => {
               const scuDisplay = getSCUDisplay(task);
               const typeDisplay = getTypeDisplay(task);
@@ -266,7 +266,7 @@ export const RoutesWidget: React.FC = () => {
                 </div>
               );
             })}
-          </GlassDisplay>
+          </FeatureDisplay>
         </DigiBox>
         <div
           style={{

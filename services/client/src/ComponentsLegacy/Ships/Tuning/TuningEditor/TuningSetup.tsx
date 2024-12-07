@@ -1,6 +1,6 @@
 import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
@@ -144,7 +144,7 @@ export const TuningSetup: React.FC<TuningSetupProps> = ({ tuningSetup, setConfig
     [setConfig],
   );
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="ShipTuning-TuningEditor__ConfigSetup_Wrapper"
       sx={{
         display: 'flex',
@@ -351,6 +351,6 @@ export const TuningSetup: React.FC<TuningSetupProps> = ({ tuningSetup, setConfig
           ))}
         </DigiDisplay>
       </DigiBox>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

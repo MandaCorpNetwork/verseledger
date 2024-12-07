@@ -1,5 +1,5 @@
 import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { Box, ListItem, Switch, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { updateUserSettingsFlag } from '@Redux/Slices/Auth/Actions/updateUserSettingsFlag.action';
@@ -42,7 +42,7 @@ export const BetaSettings: React.FC = () => {
   );
   const dispatch = useAppDispatch();
   return (
-    <GlassBox sx={{ minHeight: '100%', minWidth: '100%' }}>
+    <FeatureContainer sx={{ minHeight: '100%', minWidth: '100%' }}>
       <Box height="45%">
         <Typography variant="h4">Enabled Beta Features</Typography>
         {featuresEnabled.length === 0 ? (
@@ -109,6 +109,6 @@ export const BetaSettings: React.FC = () => {
           );
         })
       )}
-    </GlassBox>
+    </FeatureContainer>
   );
 };

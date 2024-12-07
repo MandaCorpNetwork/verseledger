@@ -5,7 +5,7 @@ import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { UserViewport } from '@CommonLegacy/Components/Boxes/UserViewport';
 import { Security } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { userBackgroundOptions } from '@CommonLegacy/DefinitionsLegacy/Structures/Users/UserBackgrounds';
@@ -175,7 +175,7 @@ export const UserPage: React.FC = () => {
         justifyContent: 'center',
       }}
     >
-      <GlassDisplay
+      <FeatureDisplay
         data-testid="UserPage_ContentWrapper"
         sx={{
           p: '2em',
@@ -589,7 +589,7 @@ export const UserPage: React.FC = () => {
             </Box>
           </DigiDisplay>
         </Box>
-      </GlassDisplay>
+      </FeatureDisplay>
     </UserViewport>
   );
 };

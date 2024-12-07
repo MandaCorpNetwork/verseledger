@@ -1,12 +1,12 @@
 import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Typography } from '@mui/material';
 import React from 'react';
 
 export const OrgDetails: React.FC = () => {
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="OrgPage__Details_Wrapper"
       sx={{
         maxWidth: '600px',
@@ -81,6 +81,6 @@ export const OrgDetails: React.FC = () => {
           </Typography>
         </DigiDisplay>
       </DigiBox>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

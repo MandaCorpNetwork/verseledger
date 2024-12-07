@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
 import { DoubleArrow } from '@mui/icons-material';
 import { Button, Collapse, IconButton, Typography } from '@mui/material';
@@ -24,7 +24,7 @@ export const MemberInvites: React.FC = () => {
     });
   }, [sound, setExpanded]);
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="OrgManager-PanelDisplay-MemberManagement-Pending__Invites_Wrapper"
       sx={{ p: '0.5em 1em' }}
     >
@@ -80,6 +80,6 @@ export const MemberInvites: React.FC = () => {
           </DigiBox>
         </div>
       </Collapse>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

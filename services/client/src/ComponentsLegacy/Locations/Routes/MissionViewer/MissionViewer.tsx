@@ -1,5 +1,5 @@
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Button, Typography } from '@mui/material';
 import { POPUP_CREATE_MISSION } from '@Popups/Routes/AddMission/AddMission';
 import { useAppDispatch } from '@Redux/hooks';
@@ -35,7 +35,7 @@ export const MissionViewer: React.FC<MissionViewerProps> = ({ tasks }) => {
     {} as Record<string, ITask[]>,
   );
   return (
-    <GlassBox
+    <FeatureContainer
       data-testid="RouteTool__MissionViewer_Container"
       sx={{
         p: '1em',
@@ -66,7 +66,7 @@ export const MissionViewer: React.FC<MissionViewerProps> = ({ tasks }) => {
           Add Mission
         </Button>
       </div>
-      <GlassDisplay
+      <FeatureDisplay
         sx={{
           height: '90%',
           overflow: 'auto',
@@ -92,7 +92,7 @@ export const MissionViewer: React.FC<MissionViewerProps> = ({ tasks }) => {
             Add A Mission To Begin
           </Typography>
         )}
-      </GlassDisplay>
-    </GlassBox>
+      </FeatureDisplay>
+    </FeatureContainer>
   );
 };

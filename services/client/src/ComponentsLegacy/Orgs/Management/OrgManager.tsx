@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import TabListHolo from '@CommonLegacy/Components/Tabs/TabListHolo';
 import { Tab } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -153,12 +153,12 @@ export const OrgManager: React.FC = () => {
               />
             </TabListHolo>
           </div>
-          <GlassBox
+          <FeatureContainer
             data-testid="OrgManager__PanelDisplay_Container"
             sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, padding: '1em' }}
           >
             {renderPanel()}
-          </GlassBox>
+          </FeatureContainer>
         </div>
       )}
     </div>

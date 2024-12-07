@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { List } from '@mui/icons-material';
 import { ToggleButton, Typography } from '@mui/material';
 import React from 'react';
@@ -15,7 +15,7 @@ export const MemberListBox: React.FC = () => {
     });
   }, [setListView, sound]);
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="OrgPage__MemberList_Wrapper"
       sx={{ minWidth: { xs: '320px', md: '400', lg: '600' }, p: '0.5em' }}
     >
@@ -84,6 +84,6 @@ export const MemberListBox: React.FC = () => {
           </div>
         </div>
       </div>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

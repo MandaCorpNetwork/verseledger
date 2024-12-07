@@ -35,12 +35,12 @@ declare module '@mui/material/Typography' {
 
 declare module '@mui/material/styles' {
   interface Theme {
-    themeType?: 'verseOS' | 'pirateOS';
+    themeType?: 'verseOS' | 'pirateOS' | 'refinerySystem';
     animations?: 'high' | 'medium' | 'low' | 'none';
     fidelity?: 'high' | 'medium' | 'low' | 'potato';
   }
   interface ThemeOptions {
-    themeType?: 'verseOS' | 'pirateOS';
+    themeType?: 'verseOS' | 'pirateOS' | 'refinerySystem';
     animations?: 'high' | 'medium' | 'low' | 'none';
     fidelity?: 'high' | 'medium' | 'low' | 'potato';
   }

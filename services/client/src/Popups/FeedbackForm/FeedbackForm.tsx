@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import {
   FormControl,
   FormControlLabel,
@@ -62,7 +62,7 @@ export const FeedbackForm: React.FC<{
     }
   }, [formData, setFormData]);
   return (
-    <GlassBox
+    <FeatureContainer
       data-testid="Feedback-Popup__Form_Container"
       sx={{
         p: '.5em',
@@ -198,6 +198,6 @@ export const FeedbackForm: React.FC<{
       >
         {renderForm()}
       </DigiBox>
-    </GlassBox>
+    </FeatureContainer>
   );
 };

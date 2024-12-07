@@ -1,7 +1,7 @@
 import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
 import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField';
 import { Box, Chip, Divider, TextField, Typography } from '@mui/material';
 import { SparkLineChart } from '@mui/x-charts';
@@ -18,7 +18,7 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
 }) => {
   const dev = isDev();
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="ExploreApp__Information_Wrapper"
       sx={{ width: '100%', p: '1em', alignItems: 'center', gap: '.5em' }}
     >
@@ -157,6 +157,6 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
           />
         </DigiDisplay>
       </DigiBox>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

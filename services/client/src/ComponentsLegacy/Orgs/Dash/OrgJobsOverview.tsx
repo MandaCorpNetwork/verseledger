@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import TabListHolo from '@CommonLegacy/Components/Tabs/TabListHolo';
 import { Tab } from '@mui/material';
 import React from 'react';
@@ -16,7 +16,7 @@ export const OrgJobsOverview: React.FC = () => {
     [sound, setOrgJobTab],
   );
   return (
-    <GlassDisplay sx={{ p: '1em' }}>
+    <FeatureDisplay sx={{ p: '1em' }}>
       <TabListHolo
         value={orgJobTab}
         onChange={handleTabChange}
@@ -29,6 +29,6 @@ export const OrgJobsOverview: React.FC = () => {
         <Tab label="Orders" value="orders" disabled />
       </TabListHolo>
       <div style={{ marginTop: '5px' }}>Contract Accordian Display</div>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

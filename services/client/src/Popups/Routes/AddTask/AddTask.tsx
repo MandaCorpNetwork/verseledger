@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 import { useSoundEffect } from '@Audio/AudioManager';
 import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { VLOptButtonGroup } from '@CommonLegacy/Components/Functional/ListButtonSelection';
 import { TextField, Typography } from '@mui/material';
@@ -71,7 +71,7 @@ export const AddTaskPopup: React.FC = () => {
       onCancel={() => {}}
       sx={{ minWidth: { xs: '300px', md: '600px' } }}
     >
-      <GlassDisplay
+      <FeatureDisplay
         data-testid="AddTask-Popup_Form_Wrapper"
         sx={{
           p: '1em',
@@ -184,7 +184,7 @@ export const AddTaskPopup: React.FC = () => {
             />
           </div>
         </form>
-      </GlassDisplay>
+      </FeatureDisplay>
     </VLPopup>
   );
 };

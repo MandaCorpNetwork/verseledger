@@ -1,5 +1,5 @@
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { CardorTableViewToggle } from '@CommonLegacy/Components/Buttons/TorCToggle';
 import { TextField, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
@@ -15,7 +15,7 @@ export const OrgFinder: React.FC = () => {
   const [view, setView] = React.useState<'card' | 'table'>('card');
   const orgList = useAppSelector(selectOrgs);
   return (
-    <GlassBox sx={{ gap: '1em', width: '90%' }}>
+    <FeatureContainer sx={{ gap: '1em', width: '90%' }}>
       <div
         style={{
           display: 'flex',
@@ -30,7 +30,7 @@ export const OrgFinder: React.FC = () => {
           <CardorTableViewToggle onChange={setView} view={view} disabled />
         </div>
       </div>
-      <GlassDisplay
+      <FeatureDisplay
         sx={{
           flexGrow: 1,
           position: 'relative',
@@ -43,7 +43,7 @@ export const OrgFinder: React.FC = () => {
       >
         {view === 'card' && <OrgCardDisplay orgs={orgList} />}
         <PaginationAnchor isMobile={isMobile} />
-      </GlassDisplay>
-    </GlassBox>
+      </FeatureDisplay>
+    </FeatureContainer>
   );
 };

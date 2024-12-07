@@ -1,9 +1,9 @@
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { Typography } from '@mui/material';
 
 export const EmptyDisplay: React.FC = () => {
   return (
-    <GlassBox
+    <FeatureContainer
       data-testid="VerseMarket-Marketplace__EmptyDisplayContainer"
       sx={{
         height: '100%',
@@ -16,6 +16,6 @@ export const EmptyDisplay: React.FC = () => {
       }}
     >
       <Typography variant="h4">No Selected Item</Typography>
-    </GlassBox>
+    </FeatureContainer>
   );
 };

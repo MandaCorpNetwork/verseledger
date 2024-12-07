@@ -1,5 +1,5 @@
 import MandaLogo from '@Assets/media/MandaLogo.png';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
@@ -10,7 +10,7 @@ type OrgTitleProps = {
 
 export const OrgTitleBar: React.FC<OrgTitleProps> = ({ org }) => {
   return (
-    <GlassDisplay
+    <FeatureDisplay
       sx={{ p: '0.5em 1em', flexDirection: 'row', minWidth: '320px', gap: '2em' }}
     >
       <div style={{ display: 'flex', gap: '0.5em' }}>
@@ -58,6 +58,6 @@ export const OrgTitleBar: React.FC<OrgTitleProps> = ({ org }) => {
           Activity: <Typography variant="caption">Low</Typography>
         </Typography>
       </div>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

@@ -2,7 +2,7 @@
 import '@ComponentsLegacy/Home/Home.css';
 
 import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { Box } from '@mui/material';
 import React from 'react';
 
@@ -23,11 +23,11 @@ export const LicensePage: React.FC<unknown> = () => {
       <video autoPlay loop muted id="videobg">
         <source src={backgroundvideo} />
       </video>
-      <GlassBox width="100%">
-        <GlassBox mx="20%" mb="220px" overflow="scroll">
+      <FeatureContainer width="100%">
+        <FeatureContainer mx="20%" mb="220px" overflow="scroll">
           <License />
-        </GlassBox>
-      </GlassBox>
+        </FeatureContainer>
+      </FeatureContainer>
       <Box
         sx={{
           position: 'absolute',

@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Box, Tab, Tabs, Typography } from '@mui/material';
 import React from 'react';
 
@@ -80,7 +80,7 @@ export const BugsPage: React.FC = () => {
           </Tabs>
         </ControlPanelBox>
       </Box>
-      <GlassDisplay
+      <FeatureDisplay
         data-testid="AdminPage-Content-BugPage__Content_Wrapper"
         sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, p: '1em' }}
       >
@@ -90,7 +90,7 @@ export const BugsPage: React.FC = () => {
         <Box data-testid="AdminPage-Content-BugPage__List_Container" sx={{ p: '1em' }}>
           <BugReport />
         </Box>
-      </GlassDisplay>
+      </FeatureDisplay>
     </Box>
   );
 };

@@ -1,13 +1,13 @@
 import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { FileOpen } from '@mui/icons-material';
 import { Box, Divider, IconButton, Typography } from '@mui/material';
 
 export const ItemDisplay: React.FC<unknown> = () => {
   return (
-    <GlassBox
+    <FeatureContainer
       data-testid="VerseMarket-Marketplace-ItemDisplay"
       sx={{
         height: '100%',
@@ -78,12 +78,12 @@ export const ItemDisplay: React.FC<unknown> = () => {
             </DigiDisplay>
           </DigiBox>
         </Box>
-        <GlassBox
+        <FeatureContainer
           data-testid="VerseMarket-Marketplace-ItemDisplay__Item_Charts_Wrapper"
           sx={{ flexGrow: 1, p: '.5em' }}
         >
           Item Charts
-        </GlassBox>
+        </FeatureContainer>
       </Box>
       <Box
         data-testid="VerseMarket-Marketplace-ItemDisplay__BottomBox"
@@ -282,6 +282,6 @@ export const ItemDisplay: React.FC<unknown> = () => {
           </Box>
         </DigiBox>
       </Box>
-    </GlassBox>
+    </FeatureContainer>
   );
 };

@@ -1,4 +1,4 @@
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
 
@@ -105,7 +105,7 @@ const initialTune: TuningConfig = {
 export const TuningEditor: React.FC = () => {
   const [config, setConfig] = React.useState<TuningConfig>(initialTune);
   return (
-    <GlassBox
+    <FeatureContainer
       data-testid="ShipTuning__TuningEditor_Container"
       sx={{ p: '.5em', maxWidth: { xs: '100%', md: '45%' } }}
     >
@@ -132,6 +132,6 @@ export const TuningEditor: React.FC = () => {
           Import Config
         </Button>
       </Box>
-    </GlassBox>
+    </FeatureContainer>
   );
 };

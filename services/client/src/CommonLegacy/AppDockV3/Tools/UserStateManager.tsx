@@ -3,7 +3,7 @@ import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
 import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
 import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { Box, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -28,7 +28,7 @@ export const UserStateManager: React.FC = () => {
     [sound, dispatch],
   );
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="UserStateManager__Container"
       sx={{
         px: '1em',
@@ -88,6 +88,6 @@ export const UserStateManager: React.FC = () => {
         </DigiDisplay>
         <Box sx={{ height: '20px' }} />
       </DigiBox>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

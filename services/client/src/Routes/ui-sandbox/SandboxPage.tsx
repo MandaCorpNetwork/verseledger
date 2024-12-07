@@ -1,5 +1,5 @@
 import background from '@Assets/media/VLSandboxPic.jpg?url';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { VLViewport } from '@CommonLegacy/Components/Boxes/VLViewport';
 import { SandboxContent } from '@CommonLegacy/SandboxContent';
 import { Box, Typography } from '@mui/material';
@@ -46,7 +46,7 @@ export const Sandbox = () => {
           mt: '10%',
         }}
       >
-        <GlassBox sx={{ width: '50%', p: '2em' }}>
+        <FeatureContainer sx={{ width: '50%', p: '2em' }}>
           <Typography
             variant="h6"
             sx={{
@@ -61,7 +61,7 @@ export const Sandbox = () => {
             Test Environment
           </Typography>
           <SandboxContent />
-        </GlassBox>
+        </FeatureContainer>
       </Box>
     </VLViewport>
   );

@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import {
   FormControl,
   FormControlLabel,
@@ -47,7 +47,7 @@ export const RankAndRoles: React.FC<RanksAndRolesProps> = ({ ranks }) => {
         gap: '2em',
       }}
     >
-      <GlassDisplay sx={{ flexGrow: 1, p: '0.5em' }}>
+      <FeatureDisplay sx={{ flexGrow: 1, p: '0.5em' }}>
         <Typography variant="h4" align="center">
           Ranks
         </Typography>
@@ -78,12 +78,12 @@ export const RankAndRoles: React.FC<RanksAndRolesProps> = ({ ranks }) => {
             <DigiBox></DigiBox>
           </div>
         </div>
-      </GlassDisplay>
-      <GlassDisplay sx={{ flexGrow: 1, p: '0.5em' }}>
+      </FeatureDisplay>
+      <FeatureDisplay sx={{ flexGrow: 1, p: '0.5em' }}>
         <Typography variant="h4" align="center">
           Roles
         </Typography>
-      </GlassDisplay>
+      </FeatureDisplay>
     </div>
   );
 };

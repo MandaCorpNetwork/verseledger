@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
 import { DoubleArrow } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
@@ -44,7 +44,7 @@ export const OrgPage: React.FC = () => {
   }, [sound, navigate]);
 
   return (
-    <GlassBox data-testid="OrgPage__Container">
+    <FeatureContainer data-testid="OrgPage__Container">
       <div data-testid="OrgPage__ReturnButton_Wrapper" style={{ marginBottom: '0.5em' }}>
         <Button
           variant="contained"
@@ -92,6 +92,6 @@ export const OrgPage: React.FC = () => {
           </Box>
         </>
       )}
-    </GlassBox>
+    </FeatureContainer>
   );
 };

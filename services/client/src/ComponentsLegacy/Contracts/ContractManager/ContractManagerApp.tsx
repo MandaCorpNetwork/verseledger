@@ -1,6 +1,6 @@
 // Imports
 import { useSoundEffect } from '@Audio/AudioManager';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
 import { Box, useMediaQuery } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -317,7 +317,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     >
       <ContractManagerBrowser />
       {!mobile && (
-        <GlassBox
+        <FeatureContainer
           data-testid="ContractManagerContainer"
           sx={{
             width: '65%',
@@ -332,7 +332,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
           ) : (
             <ContractorInfo willChange={hideContracts} />
           )}
-        </GlassBox>
+        </FeatureContainer>
       )}
     </Box>
   );

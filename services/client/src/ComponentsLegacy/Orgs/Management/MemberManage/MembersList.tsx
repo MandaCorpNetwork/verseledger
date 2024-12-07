@@ -1,4 +1,4 @@
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Typography } from '@mui/material';
 import React from 'react';
 import {
@@ -18,7 +18,7 @@ export const MemberManagementList: React.FC<MemberManagementListProps> = ({
   ranks,
 }) => {
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="OrgManager-PanelDisplay-MemberManagement__MemberList_Wrapper"
       sx={{ p: '0.5em 1em' }}
     >
@@ -31,6 +31,6 @@ export const MemberManagementList: React.FC<MemberManagementListProps> = ({
           <MemberBox key={member.id} member={member} ranks={ranks} />
         ))}
       </div>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

@@ -1,7 +1,7 @@
 import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
 import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { ContractController } from '@CommonLegacy/Components/Contracts/ContractController';
@@ -57,7 +57,7 @@ type DesktopBodyProps = {
  * @component {@link ControlPanelBox}
  * @component {@link DigiBox}
  * @component {@link DigiDisplay}
- * @component {@link GlassDisplay}
+ * @component {@link FeatureDisplay}
  * @component {@link PopupFormSelection}
  * @component {@link DigiField}
  */
@@ -99,7 +99,7 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
           flexGrow: 1,
         }}
       >
-        <GlassDisplay
+        <FeatureDisplay
           data-testid="ContractPage-Bottom-Left__Time_Container"
           sx={{ width: '50%', mb: 'auto', p: '1em' }}
         >
@@ -121,8 +121,8 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
           <DigiDisplay data-testid="ContractPage-Time__Panel_Wrapper" sx={{ py: '1em' }}>
             {timePanel(timeTab)}
           </DigiDisplay>
-        </GlassDisplay>
-        <GlassDisplay
+        </FeatureDisplay>
+        <FeatureDisplay
           data-testid="ContractPage-Bottom-Left__ActiveData_Container"
           sx={{ width: '80%', mb: 'auto', p: '1em' }}
         >
@@ -150,7 +150,7 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
           >
             {activeDataPanel(activeDataTab)}
           </DigiDisplay>
-        </GlassDisplay>
+        </FeatureDisplay>
       </Box>
       <Box
         data-testid="ContractPage-Bottom__Right_Container"

@@ -1,4 +1,4 @@
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { Divider, Typography } from '@mui/material';
 import { capFirstLetter } from '@Utils/StringUtil';
 import React from 'react';
@@ -23,7 +23,7 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
 }) => {
   const [routeOrder, setRouteOrder] = React.useState<RouteOrder>('custom');
   return (
-    <GlassBox
+    <FeatureContainer
       data-testid="RouteTool__DestinationList__Wrapper"
       sx={{
         p: '1em',
@@ -116,6 +116,6 @@ export const DestinationQue: React.FC<DestinationQueProps> = ({
           )}
         </div>
       )}
-    </GlassBox>
+    </FeatureContainer>
   );
 };

@@ -2,7 +2,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { FormLoadingButton } from '@CommonLegacy/Components/Buttons/FormLoadingButton';
 import { WarningAmberTwoTone } from '@mui/icons-material';
 import { FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
@@ -54,7 +54,7 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
     },
   });
   return (
-    <GlassBox
+    <FeatureContainer
       data-testid="UserSettings-SectionDisplay__GraphicsSettings_Container"
       sx={{ minHeight: '100%', minWidth: '100%', p: '2em' }}
     >
@@ -267,6 +267,6 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
           />
         </div>
       </form>
-    </GlassBox>
+    </FeatureContainer>
   );
 };

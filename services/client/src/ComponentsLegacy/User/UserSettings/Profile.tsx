@@ -1,5 +1,5 @@
 import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import {
   ExpandIconButton,
   ProfileBackgroundDisplay,
@@ -65,7 +65,7 @@ export const ProfileSettings: React.FC = () => {
       });
   };
   return (
-    <GlassBox
+    <FeatureContainer
       data-testid="ProfileSettings__Container"
       sx={{ minHeight: '100%', minWidth: '100%', p: '2em' }}
     >
@@ -157,6 +157,6 @@ export const ProfileSettings: React.FC = () => {
           </Box>
         </DigiBox>
       </Box>
-    </GlassBox>
+    </FeatureContainer>
   );
 };

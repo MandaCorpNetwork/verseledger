@@ -1,5 +1,5 @@
 import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Divider, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
@@ -33,7 +33,7 @@ export const ContractorInfo: React.FC<ContractorInfoProps> = ({ willChange }) =>
         </>
       )}
 
-      <GlassDisplay sx={{ p: '1em' }}>
+      <FeatureDisplay sx={{ p: '1em' }}>
         <Typography variant="h4" sx={{ color: 'text.secondary' }}>
           {currentUser?.displayName}
         </Typography>
@@ -60,7 +60,7 @@ export const ContractorInfo: React.FC<ContractorInfoProps> = ({ willChange }) =>
             <RatingDisplay value={overallRating} variant="defined" size="small" />
           </div>
         </div>
-      </GlassDisplay>
+      </FeatureDisplay>
     </div>
   );
 };

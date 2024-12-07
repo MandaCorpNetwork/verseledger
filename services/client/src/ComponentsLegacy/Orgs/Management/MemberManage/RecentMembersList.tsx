@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { ListSelectButton } from '@CommonLegacy/Components/Styled/Buttons/IndicatorButton';
 import { DoubleArrow } from '@mui/icons-material';
 import { IconButton, List, Typography } from '@mui/material';
@@ -33,7 +33,7 @@ export const RecentMemberManageList: React.FC = () => {
     [sound, setTimespan],
   );
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="OrgManager-PanelDisplay-MemberManagement__Recents_Wrapper"
       sx={{ p: '0.5em 1em' }}
     >
@@ -93,6 +93,6 @@ export const RecentMemberManageList: React.FC = () => {
           />
         </IconButton>
       </div>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

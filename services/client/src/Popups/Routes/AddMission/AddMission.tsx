@@ -3,7 +3,7 @@ import { useSoundEffect } from '@Audio/AudioManager';
 import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
 import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { SCUField } from '@CommonLegacy/Components/TextFields/SCUField';
 import { RemoveCircle } from '@mui/icons-material';
 import { Button, IconButton, TextField, Typography } from '@mui/material';
@@ -125,7 +125,7 @@ export const AddMissionPopup: React.FC = () => {
             />
           )}
         />
-        <GlassDisplay
+        <FeatureDisplay
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -346,7 +346,7 @@ export const AddMissionPopup: React.FC = () => {
               </div>
             )}
           </form.Field>
-        </GlassDisplay>
+        </FeatureDisplay>
       </form>
     </VLPopup>
   );
