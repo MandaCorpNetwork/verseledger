@@ -43,6 +43,16 @@ const AdvancedDockPanel = React.lazy(async () => {
   return { default: module.AdvancedDockPanel };
 });
 
+const NormalDockPanel = React.lazy(async () => {
+  const module = await import('./DockPanels/NormalPanel');
+  return { default: module.NormalDockPanel };
+});
+
+const PotatoDockPanel = React.lazy(async () => {
+  const module = await import('./DockPanels/PotatoPanel');
+  return { default: module.PotatoDockPanel };
+});
+
 export const AppDock: React.FC = () => {
   const location = useLocation();
   const containerRef = React.useRef<HTMLElement>(null);
@@ -142,6 +152,12 @@ export const AppDock: React.FC = () => {
         classNames.push('AdvDock');
         classNames.push('AdvDockHighFidelity');
         break;
+      case 'low':
+        classNames.push('NormalDock');
+        break;
+      case 'potato':
+        classNames.push('PotatoDock');
+        break;
       case 'medium':
       default:
         classNames.push('AdvDock');
@@ -150,15 +166,22 @@ export const AppDock: React.FC = () => {
 
     switch (animationSetting) {
       case 'high':
-        classNames.push('AdvDockHighAnimation');
+        if (qualitySetting === 'high' || qualitySetting === 'medium')
+          classNames.push('AdvDockHighAnimation');
+        else classNames.push('HighAnimations');
+        break;
+      case 'low':
+        if (qualitySetting === 'high' || qualitySetting === 'medium')
+          classNames.push('AdvDockLowAnimation');
+        else classNames.push('LowAnimations');
         break;
       case 'none':
-        return classNames.join(' ');
+        break;
       case 'medium':
       default:
-        if (qualitySetting === 'high' || qualitySetting === 'medium') {
+        if (qualitySetting === 'high' || qualitySetting === 'medium')
           classNames.push('AdvDockMedAnimation');
-        }
+        else classNames.push('MedAnimations');
         break;
     }
 
@@ -180,7 +203,6 @@ export const AppDock: React.FC = () => {
         zIndex: 10,
         borderRadius: '10px',
         background: 'linear-gradient(135deg, rgba(255,0,0), rgba(120,0,0))',
-        backdropFilter: 'blur(50px)',
         '&:before': {
           content: '""',
           position: 'absolute',
@@ -194,13 +216,12 @@ export const AppDock: React.FC = () => {
         },
       }}
       iconMapping={{
-        error: <ErrorOutline fontSize="medium" className="Alert-Icon" />,
+        error: <ErrorOutline fontSize="medium" />,
       }}
     >
       <AlertTitle
         data-testid="AppDock-NotLoggedIn-Alert__Title"
         id="AppDock-NotLoggedIn-Alert__Title"
-        className="Alert-Text"
         sx={{
           color: 'error.contrastText',
         }}
@@ -215,6 +236,18 @@ export const AppDock: React.FC = () => {
 
   const renderDockPanel = React.useCallback(() => {
     switch (qualitySetting) {
+      case 'low':
+        return (
+          <Suspense>
+            <NormalDockPanel />
+          </Suspense>
+        );
+      case 'potato':
+        return (
+          <Suspense>
+            <PotatoDockPanel />
+          </Suspense>
+        );
       case 'high':
       case 'medium':
       default:
@@ -254,7 +287,7 @@ export const AppDock: React.FC = () => {
         </Slide>
       )}
       {!useAlertSlide && !isLoggedIn && loginAlert}
-      <div data-testid="AppDock__SplashButton&StateButton_Wrapper">
+      <div data-testid="AppDock__SplashButton&StateButton_Wrapper" className="IconStack">
         <SplashIcon quality={qualitySetting} animations={animationSetting} />
         {isLoggedIn && (
           <UserStateIcon
@@ -273,10 +306,7 @@ export const AppDock: React.FC = () => {
         sx={{ opacity: '0.4', borderRightWidth: '2px' }}
       />
       {dockPanel}
-      <div
-        data-testid="AppDock__AllAppsButton&UserButton_Wrapper"
-        style={{ display: 'flex', flexDirection: 'column' }}
-      >
+      <div data-testid="AppDock__AllAppsButton&UserButton_Wrapper" className="IconStack">
         <MoreIcon
           toggleView={handleOpenAll}
           quality={qualitySetting}

@@ -20,7 +20,8 @@ type GraphicsSettingsProps = {
   currentSettings: IUserSettings;
 };
 
-const options = ['high', 'medium', 'low', 'none'];
+const animationOptions = ['high', 'medium', 'low', 'none'];
+const qualityOptions = ['high', 'medium', 'low', 'potato'];
 
 export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
   const { currentSettings } = props;
@@ -107,9 +108,9 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
               data-testid="UserSettings-SectionDisplay-GraphicsSettings-Form__AnimationsSettings_Input"
               validators={{
                 onChange: ({ value }) =>
-                  options.includes(value) ? undefined : 'Invalid Option',
+                  animationOptions.includes(value) ? undefined : 'Invalid Option',
                 onBlur: ({ value }) =>
-                  options.includes(value) ? undefined : 'Invalid Option',
+                  animationOptions.includes(value) ? undefined : 'Invalid Option',
               }}
               children={(field) => (
                 <RadioGroup
@@ -186,9 +187,9 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
               data-testid="UserSettings-SectionDisplay-GraphicsSettings-Form__AnimationsSettings_Input"
               validators={{
                 onChange: ({ value }) =>
-                  options.includes(value) ? undefined : 'Invalid Option',
+                  qualityOptions.includes(value) ? undefined : 'Invalid Option',
                 onBlur: ({ value }) =>
-                  options.includes(value) ? undefined : 'Invalid Option',
+                  qualityOptions.includes(value) ? undefined : 'Invalid Option',
               }}
               children={(field) => (
                 <RadioGroup
@@ -220,9 +221,9 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
                     color="secondary"
                   />
                   <FormControlLabel
-                    value="none"
+                    value="potato"
                     control={<Radio color="secondary" />}
-                    label="None"
+                    label="Potato"
                     color="secondary"
                   />
                 </RadioGroup>

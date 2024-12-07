@@ -88,24 +88,51 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
   const appButtonStyles = React.useMemo(() => {
     const classNames: string[] = [];
     switch (qualitySetting) {
+      case 'low':
+        classNames.push('AppButton', activeClass);
+        break;
+      case 'potato':
+        classNames.push('PotatoAppButton', activeClass);
+        break;
+      case 'medium':
       case 'high':
       default:
         classNames.push('AdvAppButton', activeClass);
         break;
     }
+    //TODO: Simplify CSS to only use the High, Med, & Low Animation ClassNames
     if (
       animationSetting !== 'none' &&
       (qualitySetting === 'high' || qualitySetting === 'medium')
     ) {
       classNames.push('AdvAppButtonAnimations');
     }
+    switch (animationSetting) {
+      case 'high':
+        classNames.push('HighAnimations');
+        break;
+      case 'low':
+        classNames.push('LowAnimations');
+        break;
+      case 'none':
+        break;
+      case 'medium':
+      default:
+        classNames.push('MedAnimations');
+        break;
+    }
+
     return classNames.join(' ');
   }, [activeClass, animationSetting, qualitySetting]);
 
   const appIconStyles = React.useMemo(() => {
     const classNames: string[] = [];
     switch (qualitySetting) {
+      case 'low':
+        classNames.push('AppIcon', activeClass);
+        break;
       case 'high':
+      case 'medium':
       default:
         classNames.push('AdvAppIcon', activeClass);
         break;
@@ -113,20 +140,37 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
 
     switch (animationSetting) {
       case 'high':
-        if (qualitySetting === 'high' || qualitySetting === 'medium') {
+        if (qualitySetting === 'high' || qualitySetting === 'medium')
           classNames.push('AdvAppIconHighAnimation');
-        }
+        else classNames.push('HighAnimation');
+        break;
+      case 'low':
+        classNames.push('LowAnimations');
+        break;
+      case 'none':
         break;
       case 'medium':
       default:
-        if (qualitySetting === 'high' || qualitySetting === 'medium') {
+        if (qualitySetting === 'high' || qualitySetting === 'medium')
           classNames.push('AdvAppIconMedAnimation');
-        }
+        else classNames.push('MedAnimations');
         break;
     }
 
     return classNames.join(' ');
   }, [activeClass, animationSetting, qualitySetting]);
+
+  const iconSize = React.useMemo(() => {
+    switch (qualitySetting) {
+      case 'low':
+      case 'potato':
+        return 'medium';
+      case 'high':
+      case 'medium':
+      default:
+        return 'large';
+    }
+  }, [qualitySetting]);
 
   const appIcon = (
     <SvgIcon
@@ -134,7 +178,7 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
       id={`${testid}-AppButton-${label}__Icon`}
       component={Icon}
       className={appIconStyles}
-      fontSize="large"
+      fontSize={iconSize}
       sx={[animationSetting === 'high' && { '--rotate-y': `${rotateY}deg` }]}
     />
   );
@@ -151,6 +195,10 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
 
   const orgTextClass = React.useMemo(() => {
     switch (qualitySetting) {
+      case 'low':
+        return 'NormalOrgLabel';
+      case 'potato':
+        return 'PotatoOrgLabel';
       case 'high':
       case 'med':
       default:
@@ -160,6 +208,10 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
 
   const orgTextVariant = React.useMemo<TypographyProps['variant']>(() => {
     switch (qualitySetting) {
+      case 'low':
+        return 'caption';
+      case 'potato':
+        return 'caption';
       case 'high':
       case 'med':
       default:
@@ -185,6 +237,12 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
           fontWeight: 'bold',
           fontSize: '1.2em',
         },
+        qualitySetting === 'low' && {
+          position: 'absolute',
+          top: 0,
+          left: 10,
+          letterSpacing: '1px',
+        },
       ]}
     >
       {t('@APP.ORGS.LABEL')}
@@ -194,6 +252,12 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
   const appLabelStyles = React.useMemo(() => {
     const classNames: string[] = [];
     switch (qualitySetting) {
+      case 'low':
+        classNames.push('AppLabelLow', activeClass);
+        break;
+      case 'potato':
+        classNames.push('AppLabelPotato', activeClass);
+        break;
       case 'high':
       case 'medium':
       default:
@@ -241,8 +305,10 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
 
       const mouseX = clientX - left;
       const width = right - left;
-      const percentage = mouseX / width;
-      const boundedYRotation = -30 + percentage * 70;
+
+      const percentageX = Math.min(Math.max((mouseX + 5) / width - 0.05, 0), 1);
+
+      const boundedYRotation = -30 + percentageX * 70;
 
       targetRotateY.current = boundedYRotation;
 
@@ -284,23 +350,37 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
       onClick={handleClick}
       onAuxClick={handleAuxClick}
       disabled={disabled}
-      sx={{
-        borderRadius: '15px',
-        border: '2px outset',
-        borderColor: disabled ? 'rgba(8,22,80,0.3)' : 'rgba(0,183,252,0.5)',
-        minWidth: '120px',
-        '&:hover': {
+      sx={[
+        {
+          borderRadius: '15px',
           border: '2px outset',
-          borderColor: disabled ? 'rgba(8,22,80,0.5)' : 'rgba(0,183,252,0.8)',
+          borderColor: disabled ? 'rgba(8,22,80,0.3)' : 'rgba(0,183,252,0.5)',
+          minWidth: '120px',
+          '&:hover': {
+            borderColor: disabled ? 'rgba(8,22,80,0.5)' : 'rgba(0,183,252,0.8)',
+          },
         },
-      }}
+        qualitySetting === 'low' && {
+          border: '2px solid',
+          borderColor: 'rgba(0,183,252,0.8)',
+          minWidth: '100px',
+          backgroundColor: 'action.disabledBackground',
+          '&:hover': {
+            borderColor: 'rgba(24,252,252)',
+            backgroundColor: 'action.disabled',
+          },
+          '&:disabled': {
+            borderColor: 'rgba(8,22,80,0.8)',
+          },
+        },
+      ]}
       aria-label={`Navigate to ${orgButton && 'Org '}${t(label)} App`}
       aria-selected={isOn}
       aria-disabled={disabled}
       type="button"
     >
       <div className="AppIconContainer">
-        {appIcon}
+        {qualitySetting !== 'potato' && appIcon}
         {(qualitySetting === 'high' || qualitySetting === 'medium') && appIconReflection}
       </div>
       {orgButton && orgText}

@@ -3,6 +3,7 @@ import '@Assets/Css/AppDockV3.css';
 import { useSoundEffect } from '@Audio/AudioManager';
 import { NotificationsBox } from '@Common/Components/App/NotificationsBox';
 import {
+  BreakfastDiningOutlined,
   Feedback,
   Logout,
   Mail,
@@ -63,6 +64,10 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
   const userDialStyles = React.useMemo(() => {
     const classNames: string[] = [];
     switch (quality) {
+      case 'low':
+      case 'potato':
+        classNames.push('NormalUserDial');
+        break;
       case 'high':
       case 'medium':
       default:
@@ -81,6 +86,10 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
   const userDialAvatarStyles = React.useMemo(() => {
     const classNames: string[] = [];
     switch (quality) {
+      case 'low':
+      case 'potato':
+        classNames.push('LowUserDialAvatar');
+        break;
       case 'high':
       case 'medium':
       default:
@@ -174,7 +183,7 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
       sound.playSound('open');
       triggerOnClick(e);
     },
-    [sound, setMenuOpen, triggerOnClick],
+    [sound, triggerOnClick],
   );
 
   const mailOpen = false;
@@ -192,6 +201,18 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
     else return '';
   }, [unreadMailCount]);
 
+  const speedDialSize = React.useMemo(() => {
+    switch (quality) {
+      case 'low':
+      case 'potato':
+        return 'medium';
+      case 'high':
+      case 'medium':
+      default:
+        return 'large';
+    }
+  }, [quality]);
+
   return (
     <div data-testid="AppDock__UserDial_Wrapper" className="AppIconContainer">
       <SpeedDial
@@ -201,11 +222,25 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
         className={userDialStyles}
         direction="right"
         transitionDuration={userDialTransition}
-        icon={<Avatar className={userDialAvatarStyles} src={user?.pfp} />}
+        icon={
+          <Avatar
+            className={userDialAvatarStyles}
+            src={user?.pfp}
+            sx={[
+              (quality === 'low' || quality === 'potato') && {
+                width: 30,
+                height: 30,
+              },
+            ]}
+          />
+        }
         open={menuOpen}
         onClick={toggleOpen}
         onMouseLeave={closeMenu}
         onMouseEnter={openMenu}
+        FabProps={{
+          size: speedDialSize,
+        }}
         sx={{
           '& .MuiFab-root': {
             bgcolor: 'transparent',
@@ -225,7 +260,7 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
           icon={
             <SvgIcon
               component={NotificationIcon}
-              fontSize="large"
+              fontSize={speedDialSize}
               className={notificationIconStyle}
             />
           }
@@ -235,7 +270,11 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
           tooltipTitle="Messages"
           tooltipPlacement="bottom"
           icon={
-            <SvgIcon component={MailIcon} fontSize="large" className={mailIconStyle} />
+            <SvgIcon
+              component={MailIcon}
+              fontSize={speedDialSize}
+              className={mailIconStyle}
+            />
           }
         />
         <SpeedDialAction
@@ -244,7 +283,7 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
           tooltipPlacement="bottom"
           onClick={(e) => nav(`/user/${user?.id}`, 'internal', true).onClick(e)}
           onAuxClick={(e) => nav(`/user/${user?.id}`, 'internal', true).onAuxClick(e)}
-          icon={<Person fontSize="large" className={userDialActionIconStyles} />}
+          icon={<Person fontSize={speedDialSize} className={userDialActionIconStyles} />}
         />
         <SpeedDialAction
           data-testid="AppDock-UserDial__Settings_Button"
@@ -252,7 +291,9 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
           tooltipPlacement="bottom"
           onClick={(e) => nav(`/settings/Profile`, 'internal', true).onClick(e)}
           onAuxClick={(e) => nav(`/settings/Profile`, 'internal', true).onAuxClick(e)}
-          icon={<Settings fontSize="large" className={userDialActionIconStyles} />}
+          icon={
+            <Settings fontSize={speedDialSize} className={userDialActionIconStyles} />
+          }
         />
         <SpeedDialAction
           data-testid="AppDock-UserDial__Support_Button"
@@ -260,13 +301,15 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
           tooltipPlacement="bottom"
           onClick={(e) => nav(`/support/report`, 'internal', true).onClick(e)}
           onAuxClick={(e) => nav(`/support/reporrt`, 'internal', true).onAuxClick(e)}
-          icon={<Feedback fontSize="large" className={userDialActionIconStyles} />}
+          icon={
+            <Feedback fontSize={speedDialSize} className={userDialActionIconStyles} />
+          }
         />
         <SpeedDialAction
           data-testid="AppDock-UserDial__Logout_Button"
           tooltipTitle="Logout"
           tooltipPlacement="bottom"
-          icon={<Logout fontSize="large" className={userDialActionIconStyles} />}
+          icon={<Logout fontSize={speedDialSize} className={userDialActionIconStyles} />}
           onClick={() => sound.playSound('denied')}
         />
       </SpeedDial>

@@ -205,9 +205,7 @@ export const UserSettings: React.FC = () => {
       </div>
       <Box
         sx={{
-          mt: 'auto',
-          mx: 'auto',
-          mb: '20px',
+          mb: '150px',
           gap: '.5em',
           display: 'flex',
           flexDirection: 'column',

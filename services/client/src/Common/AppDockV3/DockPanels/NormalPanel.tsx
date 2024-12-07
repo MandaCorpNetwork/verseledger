@@ -1,12 +1,10 @@
-import '@Assets/Css/AppDockV3.css';
-
-import { AppButtonV2 } from '@Common/Components/Buttons/AppButtonV2';
+import AppButtonV2 from '@Common/Components/Buttons/AppButtonV2';
 import { useMasterAppList } from '@Common/Definitions/AppListings';
 import React from 'react';
 
 import { PanelScrollButton } from '../Buttons/ScrollButton';
 
-export const AdvancedDockPanel: React.FC = () => {
+export const NormalDockPanel: React.FC = () => {
   const masterAppList = useMasterAppList();
   const enabledApps = masterAppList.filter(
     (app) => !app.disabled && app.id !== 'dashboard',
@@ -30,7 +28,7 @@ export const AdvancedDockPanel: React.FC = () => {
   const visibleApps = enabledApps.slice(startIndex, startIndex + appsPerPage);
   return (
     <div
-      data-testid="AppDock__AdvPanel_Wrapper"
+      data-testid="AppDock__NormalPanel_Wrapper"
       style={{ display: 'flex', flexDirection: 'row', gap: '0.5em' }}
     >
       <PanelScrollButton

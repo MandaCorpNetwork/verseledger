@@ -88,11 +88,23 @@ export const MoreIcon: React.FC<MoreIconProps> = ({
     return classNames.join(' ');
   }, [animations, quality]);
 
+  const iconSize = React.useMemo(() => {
+    switch (quality) {
+      case 'low':
+      case 'potato':
+        return 'medium';
+      case 'high':
+      case 'medium':
+      default:
+        return 'large';
+    }
+  }, [quality]);
+
   const moreIcon = (
     <AppsTwoTone
       data-testid="AppDock__More_Icon"
       className={moreIconStyles}
-      fontSize="large"
+      fontSize={iconSize}
       sx={[animations === 'high' && { '--rotate-y': `${rotateY}deg` }]}
     />
   );

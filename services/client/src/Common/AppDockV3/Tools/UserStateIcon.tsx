@@ -107,11 +107,23 @@ export const UserStateIcon: React.FC<UserStateIconProps> = ({
     return classNames.join(' ');
   }, [animations, quality]);
 
+  const iconSize = React.useMemo(() => {
+    switch (quality) {
+      case 'low':
+      case 'potato':
+        return 'medium';
+      case 'high':
+      case 'medium':
+      default:
+        return 'large';
+    }
+  }, [quality]);
+
   const functionIcon = (
     <SensorOccupiedTwoTone
       data-testid="AppDock__UserState_Icon"
       className={userStateStyles}
-      fontSize="large"
+      fontSize={iconSize}
       sx={[animations === 'high' && { '--rotate-y': `${rotateY}deg` }]}
     />
   );

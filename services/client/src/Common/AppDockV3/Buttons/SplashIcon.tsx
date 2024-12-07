@@ -123,11 +123,23 @@ export const SplashIcon: React.FC<SplashIconProps> = ({ quality, animations }) =
     return classNames.join(' ');
   }, [animations, isActive, quality]);
 
+  const iconSize = React.useMemo(() => {
+    switch (quality) {
+      case 'low':
+      case 'potato':
+        return 'medium';
+      case 'high':
+      case 'medium':
+      default:
+        return 'large';
+    }
+  }, [quality]);
+
   const splashIcon = (
     <VLLogo
       data-testid="AppDock__Splash_Icon"
       className={splashIconStyles}
-      fontSize="large"
+      fontSize={iconSize}
       sx={[animations === 'high' && { '--rotate-y': `${rotateY}deg` }]}
     />
   );

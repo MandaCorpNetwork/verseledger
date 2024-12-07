@@ -32,6 +32,21 @@
     rgba(24, 252, 252, 0.8);
 }
 
+.NormalDock {
+  display: flex;
+  flex-direction: row;
+  position: static;
+  padding: 0.5em 1em;
+  gap: 0.5em;
+  margin: 5px 30px;
+  background-color: rgba(14, 49, 243, 0.5);
+  box-shadow: rgba(22, 31, 39, 0.5) 0px 60px 123px -25px;
+  border-radius: 10px;
+  border-left: 3px solid;
+  border-right: 3px solid;
+  border-color: rgba(24, 252, 252, 0.6);
+}
+
 .AdvDockHighFidelity {
   backdrop-filter: blur(20px);
 }
@@ -59,6 +74,43 @@
       rgba(0, 1, 19, 0.8) 0px 0px 40px 6px,
       rgba(22, 31, 39, 0.8) 0px 80px 160px -30px;
   }
+}
+
+.NormalDock.HighAnimations {
+  transition:
+    border-color 0.4s ease-in-out,
+    box-shadow 0.6s ease-in-out,
+    background-color 0.4s ease-in-out;
+}
+
+.NormalDock:hover.HighAnimations {
+  border-color: rgba(24, 252, 252);
+  box-shadow:
+    rgba(0, 1, 19, 0.8) 0px 0px 40px 6px,
+    rgba(22, 31, 39, 0.8) 0px 80px 160px -30px;
+  background-color: rgba(14, 49, 243, 0.8);
+}
+
+.NormalDock.MedAnimations {
+  transition:
+    border-color 0.4s ease-in-out,
+    background-color 0.4s ease-in-out;
+}
+
+.NormalDock:hover.MedAnimations {
+  border-color: rgba(24, 252, 252);
+  background-color: rgba(14, 49, 243, 0.8);
+}
+
+.NormalDock.LowAnimations {
+  transition:
+    border-color 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
+}
+
+.NormalDock:hover.LowAnimations {
+  border-color: rgba(24, 252, 252);
+  background-color: rgba(14, 49, 243, 0.8);
 }
 
 .Alert-Icon {
@@ -243,6 +295,7 @@
 .AppIconContainer {
   position: relative;
   cursor: pointer;
+  display: flex;
 }
 
 .AdvAppIcon {
@@ -565,3 +618,135 @@
   color: rgba(0, 255, 0);
   transform: translateY(-2px) translateX(1px);
 }
+
+.IconStack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1em;
+  justify-content: space-between;
+}
+
+.NormalUserDial {
+  position: absolute;
+  bottom: -15px;
+  left: -10px;
+  box-shadow: none;
+}
+
+.LowUserDialAvatar {
+  perspective: 0;
+  width: 25px;
+  height: 25px;
+}
+
+.AppButton {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.AppButton.HighAnimations {
+  transition:
+    box-shadow 0.3s ease-in-out,
+    border-color 0.3s ease-in-out,
+    transform 0.2s ease;
+}
+
+.AppButton.MedAnimations {
+  transition:
+    box-shadow 0.1s ease,
+    border-color 0.1s ease;
+}
+
+.AppButton:hover.HighAnimations {
+  box-shadow: 0px 5px 20px rgba(0, 183, 252, 0.6);
+  transform: translateY(-2px);
+}
+
+.AppButton:hover.MedAnimations {
+  box-shadow: 0px 5px 20px rgba(0, 183, 252, 0.6);
+}
+
+.AppButton:active.HighAnimations {
+  box-shadow:
+    0px 10px 30px rgba(0, 183, 252, 1),
+    0px 0px 30px rgba(0, 183, 252, 0.7);
+}
+
+.AppButton:active.MedAnimations {
+  box-shadow:
+    0px 10px 30px rgba(0, 183, 252, 1),
+    0px 0px 30px rgba(0, 183, 252, 0.7);
+}
+
+.AppButton:disabled .AppIcon {
+  color: rgb(100, 100, 100);
+}
+
+.AppIcon.on {
+  color: rgb(8, 201, 11);
+}
+
+.AppIcon.off {
+  color: rgb(33, 150, 243);
+}
+
+.AppButton:hover .AppIcon.on {
+  color: rgb(121, 192, 244);
+}
+
+.AppButton:hover .AppIcon.off {
+  color: rgb(24, 252, 252);
+}
+
+.AppIcon.HighAnimation {
+  transition: transform 0.2s ease;
+}
+
+.AppIcon.MedAnimation {
+  transition: transfrom 0.2s ease;
+}
+
+@keyframes onPulse {
+  0% {
+    filter: drop-shadow(0 0 0 rgba(0, 255, 21, 0.4))
+      drop-shadow(0 0 5px rgba(0, 255, 0, 0.6))
+      drop-shadow(0 0 10px rgba(0, 255, 42, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.6))
+      drop-shadow(0 0 15px rgba(0, 255, 34, 0.8))
+      drop-shadow(0 0 20px rgba(0, 255, 21, 0.7));
+  }
+  100% {
+    filter: drop-shadow(0 0 0 rgba(0, 255, 34, 0.4))
+      drop-shadow(0 0 5px rgba(21, 255, 0, 0.6))
+      drop-shadow(0 0 10px rgba(21, 255, 0, 0.5));
+  }
+}
+
+.AppIcon.on.HighAnimations {
+  animation: loginPulse 6s cubic-bezier(0.25, 0.1, 0.25, 1) 30;
+  will-change: filter;
+}
+
+.AppButton:hover .AppIcon.HighAnimations {
+  transform: scale(1.2);
+}
+
+.AppButton:hover .AppIcon.MedAnimations {
+  transform: scale(1.2);
+}
+
+.NormalOrgLabel {
+  color: rgba(33, 150, 243);
+  text-shadow:
+    -1px -1px 2px rgba(60, 255, 255, 0.2),
+    1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.AppButton:disabled .NormalOrgLabel {
+  color: rgba(100, 100, 100);
+}
+
