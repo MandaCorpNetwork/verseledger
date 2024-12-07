@@ -14,19 +14,15 @@ export const PanelScrollButton: React.FC<PanelScrollButtonProps> = ({
   disabled,
   direction,
 }) => {
-  const forwardIcon = (
-    <ArrowForwardIos fontSize="large" className="AdvDockDirectionIcon" />
-  );
-  const backwardIcon = (
-    <ArrowBackIosNew fontSize="large" className="AdvDockDirectionIcon" />
-  );
+  const forwardIcon = <ArrowForwardIos fontSize="large" className="DockDirectionIcon" />;
+  const backwardIcon = <ArrowBackIosNew fontSize="large" className="DockDirectionIcon" />;
   console.log('Scroll disabled', disabled);
 
   return (
     <Button
       data-testid={`AppDock-AdvPanel__${direction}_Button`}
       id={`AppDock-AdvPanel__${direction}_Button`}
-      className="AdvDockDirectionButton"
+      className="DockDirectionButton"
       onClick={onClick}
       disabled={disabled}
       size="small"

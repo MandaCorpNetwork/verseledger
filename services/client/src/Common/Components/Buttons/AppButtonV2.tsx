@@ -243,6 +243,10 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
           left: 10,
           letterSpacing: '1px',
         },
+        qualitySetting === 'potato' && {
+          letterSpacing: '1px',
+          fontWeight: 'bold',
+        },
       ]}
     >
       {t('@APP.ORGS.LABEL')}
@@ -372,6 +376,10 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
           '&:disabled': {
             borderColor: 'rgba(8,22,80,0.8)',
           },
+        },
+        qualitySetting === 'potato' && {
+          border: 'none',
+          minWidth: 'fit-content',
         },
       ]}
       aria-label={`Navigate to ${orgButton && 'Org '}${t(label)} App`}

@@ -31,6 +31,7 @@ export const AdvancedDockPanel: React.FC = () => {
   return (
     <div
       data-testid="AppDock__AdvPanel_Wrapper"
+      id="AdvPanelWrapper"
       style={{ display: 'flex', flexDirection: 'row', gap: '0.5em' }}
     >
       <PanelScrollButton

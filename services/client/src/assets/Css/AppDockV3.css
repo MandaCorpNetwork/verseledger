@@ -47,6 +47,17 @@
   border-color: rgba(24, 252, 252, 0.6);
 }
 
+.PotatoDock {
+  display: flex;
+  flex-direction: row;
+  position: static;
+  padding: 0.5em 1em;
+  gap: 0.5em;
+  margin: 5px 30px;
+  background-color: rgb(14, 49, 243);
+  border-radius: 10px;
+}
+
 .AdvDockHighFidelity {
   backdrop-filter: blur(20px);
 }
@@ -126,75 +137,6 @@
   gap: 0.5em;
   font-weight: bold;
   overflow: visible;
-}
-
-.AdvDockDirectionButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: linear-gradient(
-    135deg,
-    rgba(33, 150, 243, 0.8),
-    rgba(14, 35, 141, 0.8)
-  );
-  position: relative;
-  box-shadow:
-    0px 10px 10px rgba(0, 0, 0, 0.4),
-    0px 8px 24px rgba(0, 0, 0, 0.3);
-  transition:
-    box-shadow 0.3s ease,
-    transform 0.2s ease;
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    border-radius: 15px;
-    background-image: radial-gradient(circle, rgba(255, 255, 255) 1px, transparent 1px);
-    background-size: 5px 5px;
-    opacity: 0.8;
-    z-index: -1;
-    filter: blur(1px);
-  }
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0px 5px 20px rgba(0, 183, 252, 0.6);
-    background-image: linear-gradient(
-      135deg,
-      rgba(33, 155, 243, 0.9),
-      rgba(14, 35, 141, 0.9)
-    );
-    &:before {
-      filter: blur(2px);
-    }
-  }
-  &:active {
-    box-shadow:
-      0px 10px 30px rgba(0, 183, 252, 1),
-      0px 0px 30px rgba(0, 183, 252, 0.7);
-  }
-  &:disabled {
-    background-image: linear-gradient(
-      135deg,
-      rgba(14, 35, 141, 0.8),
-      rgba(8, 22, 80, 0.8)
-    );
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
-      opacity: 1;
-      filter: blur(0px);
-    }
-  }
-}
-
-.AdvDockDirectionIcon {
-  filter: drop-shadow(0px 0px 8px rgb(0, 0, 0));
 }
 
 .AdvAppButton {
@@ -516,7 +458,7 @@
 
 .AdvUserDial {
   position: absolute;
-  top: -5px;
+  bottom: -10px;
   left: -7px;
   box-shadow: none;
 }
@@ -750,3 +692,171 @@
   color: rgba(100, 100, 100);
 }
 
+#AdvPanelWrapper .DockDirectionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(
+    135deg,
+    rgba(33, 150, 243, 0.8),
+    rgba(14, 35, 141, 0.8)
+  );
+  position: relative;
+  box-shadow:
+    0px 10px 10px rgba(0, 0, 0, 0.4),
+    0px 8px 24px rgba(0, 0, 0, 0.3);
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border-radius: 15px;
+    background-image: radial-gradient(circle, rgba(255, 255, 255) 1px, transparent 1px);
+    background-size: 5px 5px;
+    opacity: 0.8;
+    z-index: -1;
+    filter: blur(1px);
+  }
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 20px rgba(0, 183, 252, 0.6);
+    background-image: linear-gradient(
+      135deg,
+      rgba(33, 155, 243, 0.9),
+      rgba(14, 35, 141, 0.9)
+    );
+    &:before {
+      filter: blur(2px);
+    }
+  }
+  &:active {
+    box-shadow:
+      0px 10px 30px rgba(0, 183, 252, 1),
+      0px 0px 30px rgba(0, 183, 252, 0.7);
+  }
+  &:disabled {
+    background-image: linear-gradient(
+      135deg,
+      rgba(14, 35, 141, 0.8),
+      rgba(8, 22, 80, 0.8)
+    );
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
+      opacity: 1;
+      filter: blur(0px);
+    }
+  }
+}
+
+.DockDirectionIcon {
+  filter: drop-shadow(0px 0px 8px rgb(0, 0, 0));
+}
+
+#NormalPanelWrapper .DockDirectionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.4);
+  background-color: rgba(33, 150, 243, 0.6);
+}
+
+#NormalPanelWrapper .DockDirectionButton:hover {
+  box-shadow: 0px 5px 20px rgba(0, 183, 252, 0.6);
+}
+
+#NormalPanelWrapper .DockDirectionButton:active {
+  box-shadow:
+    0px 10px 30px rgba(0, 183, 252, 1),
+    0px 0px 30px rgba(0, 183, 252, 0.7);
+}
+
+#NormalPanelWrapper .DockDirectionButton:disabled {
+  background-color: rgb(14, 35, 141);
+}
+
+.PotatoAppButton {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.PotatoOrgLabel {
+  color: rgb(211, 250, 254);
+}
+
+.AppLabelPotato {
+  color: rgb(211, 250, 254);
+}
+
+.PotatoOrgLabel.on {
+  color: rgb(83, 217, 84);
+}
+
+.AppLabelPotato.on {
+  color: rgb(83, 217, 84);
+}
+
+.PotatoAppButton:disabled .PotatoOrgLabel {
+  color: rgb(100, 100, 100);
+}
+
+.PotatoAppButton:disabled .AppLabelPotato {
+  color: rgb(100, 100, 100);
+}
+
+.PotatoAppButton:hover.HighAnimations .AppLabelPotato.on {
+  color: rgb(121, 192, 244);
+}
+
+.PotatoAppButton:hover.HighAnimations .AppLabelPotato.off {
+  color: rgb(24, 252, 252);
+}
+
+.PotatoAppButton:hover.HighAnimations .PotatoOrgLabel.on {
+  color: rgb(121, 192, 244);
+}
+
+.PotatoAppButton:hover.HighAnimations .PotatoOrgLabel.off {
+  color: rgb(24, 252, 252);
+}
+
+.PotatoAppButton:hover.MedAnimations .AppLabelPotato.on {
+  color: rgb(121, 192, 244);
+}
+
+.PotatoAppButton:hover.MedAnimations .AppLabelPotato.off {
+  color: rgb(24, 252, 252);
+}
+
+.PotatoAppButton:hover.MedAnimations .PotatoOrgLabel.on {
+  color: rgb(121, 192, 244);
+}
+
+.PotatoAppButton:hover.MedAnimations .PotatoOrgLabel.off {
+  color: rgb(24, 252, 252);
+}
+
+.PotatoAppButton:hover.LowAnimations .AppLabelPotato.on {
+  color: rgb(121, 192, 244);
+}
+
+.PotatoAppButton:hover.LowAnimations .AppLabelPotato.off {
+  color: rgb(24, 252, 252);
+}
+
+.PotatoAppButton:hover.LowAnimations .PotatoOrgLabel.on {
+  color: rgb(121, 192, 244);
+}
+
+.PotatoAppButton:hover.LowAnimations .PotatoOrgLabel.off {
+  color: rgb(24, 252, 252);
+}

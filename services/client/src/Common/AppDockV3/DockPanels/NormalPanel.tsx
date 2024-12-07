@@ -29,6 +29,7 @@ export const NormalDockPanel: React.FC = () => {
   return (
     <div
       data-testid="AppDock__NormalPanel_Wrapper"
+      id="NormalPanelWrapper"
       style={{ display: 'flex', flexDirection: 'row', gap: '0.5em' }}
     >
       <PanelScrollButton
