@@ -1,15 +1,17 @@
-import { TempLoginCheck } from '@Common/Components/App/TempLoginCheck';
-import { ContractManagerApp } from '@Components/Contracts/ContractManager/ContractManagerApp';
-import { ExploreApp } from '@Components/Locations/Explore/ExploreApp';
-import { InventoryApp } from '@Components/Locations/Inventory/InventoryApp';
-import { RouteApp } from '@Components/Locations/Routes/RouteApp';
-import { OrgDash } from '@Components/Orgs/Dash/OrgDash';
-import { OrgFinder } from '@Components/Orgs/Finder/OrgFinder';
-import { OrgManager } from '@Components/Orgs/Management/OrgManager';
-import { OrgPage } from '@Components/Orgs/Page/OrgPage';
-import { ShipTuning } from '@Components/Ships/Tuning/Tuning';
-import { DashboardApp } from '@Components/User/Dashboard/DashboardApp';
-import { VerseMarketPage } from '@Components/VerseMarket/VerseMarketPage';
+import { AppDockRenderer } from '@CommonLegacy/AppDockV3/AppDockContainerV2';
+import { LoginCheck } from '@CommonLegacy/Components/App/TempLoginCheck';
+import { ContractManagerApp } from '@ComponentsLegacy/Contracts/ContractManager/ContractManagerApp';
+import { ContractLedgerApp } from '@ComponentsLegacy/Contracts/Ledger/ContractLedgerApp';
+import { ExploreApp } from '@ComponentsLegacy/Locations/Explore/ExploreApp';
+import { InventoryApp } from '@ComponentsLegacy/Locations/Inventory/InventoryApp';
+import { RouteApp } from '@ComponentsLegacy/Locations/Routes/RouteApp';
+import { OrgDash } from '@ComponentsLegacy/Orgs/Dash/OrgDash';
+import { OrgFinder } from '@ComponentsLegacy/Orgs/Finder/OrgFinder';
+import { OrgManager } from '@ComponentsLegacy/Orgs/Management/OrgManager';
+import { OrgPage } from '@ComponentsLegacy/Orgs/Page/OrgPage';
+import { ShipTuning } from '@ComponentsLegacy/Ships/Tuning/Tuning';
+import { DashboardApp } from '@ComponentsLegacy/User/Dashboard/DashboardApp';
+import { VerseMarketPage } from '@ComponentsLegacy/VerseMarket/VerseMarketPage';
 import { DiscordLoginUtility } from '@Utils/discordLoginUtility';
 import { GoogleLoginUtility } from '@Utils/GoogleLoginUtility';
 import { Outlet, RouteObject } from 'react-router-dom';
@@ -17,7 +19,6 @@ import { Outlet, RouteObject } from 'react-router-dom';
 import { PopupManager } from '@/PopupManager';
 import { WidgetManager } from '@/WidgetManager';
 
-import { ContractLedgerApp } from '../Components/Contracts/Ledger/ContractLedgerApp';
 import { AdminPage } from './Admin/AdminPage';
 import { APIDocs } from './api-docs/APIDocs';
 import { AppPage } from './Apps/AppPage';
@@ -29,10 +30,10 @@ import { NotFoundPage } from './NotFound/NotFound';
 import { OrgLedgerPage } from './OrgLedger/OrgLedgerPage';
 import { SecureRoute } from './SecureRoute';
 import { UserSettings } from './Settings/UserSettings';
+import { SupportPage } from './Support/SupportPage';
 import { Sandbox } from './ui-sandbox/SandboxPage';
 import { UserPage } from './User/UserPage';
 import { VerseNewsPage } from './VerseNews/VerseNews';
-import { WikiPage } from './Wiki/WikiPage';
 
 export const routingInfo: RouteObject[] = [
   {
@@ -40,7 +41,8 @@ export const routingInfo: RouteObject[] = [
     //element: <LegacyLandingPage/>,
     element: (
       <>
-        <TempLoginCheck />
+        <LoginCheck />
+        <AppDockRenderer />
         <Outlet />
         <PopupManager />
         <WidgetManager />
@@ -216,15 +218,15 @@ export const routingInfo: RouteObject[] = [
       },
       {
         path: '/support',
-        element: <WikiPage />,
+        element: <SupportPage />,
         children: [
           {
             path: '/support/:page',
-            element: <WikiPage />,
+            element: <SupportPage />,
           },
           {
             path: '/support/:page/:subpage',
-            element: <WikiPage />,
+            element: <SupportPage />,
           },
         ],
       },

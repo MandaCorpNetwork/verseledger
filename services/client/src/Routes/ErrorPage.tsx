@@ -1,5 +1,5 @@
 import backgroundvideo from '@Assets/media/NotFoundVideo.webm';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { useNavigate, useRouteError } from 'react-router-dom';
 

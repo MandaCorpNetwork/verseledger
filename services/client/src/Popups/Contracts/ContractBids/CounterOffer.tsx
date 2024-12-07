@@ -1,9 +1,9 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
-import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
-import { PayField } from '@Common/Components/TextFields/PayField';
-import { UserDisplay } from '@Common/Components/Users/UserDisplay';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';
+import { PayField } from '@CommonLegacy/Components/TextFields/PayField';
+import { UserDisplay } from '@CommonLegacy/Components/Users/UserDisplay';
 import { Box, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';

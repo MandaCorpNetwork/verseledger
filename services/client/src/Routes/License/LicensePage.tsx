@@ -1,19 +1,14 @@
 /// <reference types="vite/client" />
-import '@Components/Home/Home.css';
+import '@ComponentsLegacy/Home/Home.css';
 
 import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
-import { AppDockRenderer } from '@Common/AppDockV3/AppDockV3';
-import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { MobileDock } from '@Common/MobileDock/MobileDock';
-import { SupportBar } from '@Components/Home/SupportBar';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
 import { Box } from '@mui/material';
-import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 
 import License from './License.mdx';
 
 export const LicensePage: React.FC<unknown> = () => {
-  const isMobile = useIsMobile();
   return (
     <Box
       sx={{
@@ -46,11 +41,7 @@ export const LicensePage: React.FC<unknown> = () => {
           height: '100%',
           pb: '5px',
         }}
-      >
-        {!isMobile && <AppDockRenderer />}
-        <SupportBar />
-      </Box>
-      {isMobile && <MobileDock top left />}
+      />
     </Box>
   );
 };

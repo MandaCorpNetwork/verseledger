@@ -1,6 +1,6 @@
-// import { QuickTimeButton } from '@Common/Components/App/QuickTimeButton';
+// import { QuickTimeButton } from '@CommonLegacy/Components/App/QuickTimeButton';
 import { useSoundEffect } from '@Audio/AudioManager';
-import { TimePicker } from '@Common/Components/TextFields/TimePicker';
+import { TimePicker } from '@CommonLegacy/Components/TextFields/TimePicker';
 import {
   Box,
   Checkbox,

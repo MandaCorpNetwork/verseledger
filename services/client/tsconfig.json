@@ -23,11 +23,15 @@
     /* Pathing */
     "baseUrl": "./src/",
     "paths": {
+      "@Apps/*": ["./Apps/*"],
       "@Assets/*": ["./Assets/*"],
       "@Audio/*": ["./Audio/*"],
       "@Common/*": ["./Common/*"],
+      "@CommonLegacy/*": ["./CommonLegacy/*"],
       "@Components/*": ["./Components/*"],
+      "@ComponentsLegacy/*": ["./ComponentsLegacy/*"],
       "@Definitions/*": ["./Common/Definitions/*"],
+      "@DefinitionsLegacy/*": ["./CommonLegacy/DefinitionsLegacy/*"],
       "@Popups/*": ["./Popups/*"],
       "@Redux/*": ["./Redux/*"],
       "@Routes/*": ["./Routes/*"],

@@ -1,5 +1,5 @@
-import { CopyString } from '@Common/Components/Buttons/CopyString';
-import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
+import { CopyString } from '@CommonLegacy/Components/Buttons/CopyString';
+import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {
   Avatar,

@@ -1,19 +1,27 @@
 import './App.css';
 
-import { LoadingScreen } from '@Common/LoadingObject/LoadingScreen';
+import { LoadingScreen } from '@CommonLegacy/LoadingObject/LoadingScreen';
 import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useAppSelector } from '@Redux/hooks';
+import { selectUserSettings } from '@Redux/Slices/Auth/auth.selectors';
+import { pirateOS } from '@Themes/PirateOS';
 import { SnackbarProvider } from 'notistack';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { AuthManager } from './AuthManager';
 import { routingInfo } from './Routes/Router';
-import { verseOSTheme } from './Themes/VerseOS';
+import { verseOS } from './Themes/VerseOS';
 
 const router = createBrowserRouter(routingInfo);
+
+const isValidAnimation = (value: string): value is 'high' | 'medium' | 'low' | 'none' =>
+  ['high', 'medium', 'low', 'none'].includes(value);
+const isValidFidelity = (value: string): value is 'high' | 'medium' | 'low' | 'potato' =>
+  ['high', 'medium', 'low', 'potato'].includes(value);
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -25,8 +33,35 @@ export default function App() {
       clearTimeout(loadingTimeout);
     };
   }, []);
+
+  const settings = useAppSelector(selectUserSettings);
+  const userAnimations = settings.animations ?? 'medium';
+  const userFidelity = settings.animations ?? 'medium';
+
+  const theme = useMemo(() => {
+    const animations = isValidAnimation(userAnimations) ? userAnimations : 'medium';
+    const fidelity = isValidFidelity(userFidelity) ? userFidelity : 'medium';
+    const themeName = settings.theme ?? 'verseOS';
+
+    let themeObject;
+    switch (themeName) {
+      case 'pirateOS':
+        themeObject = pirateOS;
+        break;
+      case 'verseOS':
+      default:
+        themeObject = verseOS;
+        break;
+    }
+
+    return createTheme({
+      animations,
+      fidelity,
+      ...themeObject,
+    });
+  }, [settings.theme, userAnimations, userFidelity]);
   return (
-    <ThemeProvider theme={verseOSTheme}>
+    <ThemeProvider theme={theme}>
       <SnackbarProvider maxSnack={4}>
         <DndProvider backend={HTML5Backend}>
           {loading && <LoadingScreen variant="wheel" controlType="indeterminate" />}

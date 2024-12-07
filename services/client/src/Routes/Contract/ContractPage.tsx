@@ -1,22 +1,20 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { AppDockRenderer } from '@Common/AppDockV3/AppDockV3';
-import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { VLViewport } from '@Common/Components/Boxes/VLViewport';
-import { ContractController } from '@Common/Components/Contracts/ContractController';
-import { ContractorList } from '@Common/Components/Contracts/ContractorList';
-import { contractArchetypes } from '@Common/Definitions/Structures/Contracts/ContractArchetypes';
-import { LoadingScreen } from '@Common/LoadingObject/LoadingScreen';
-import { MobileDock } from '@Common/MobileDock/MobileDock';
-import { DesktopContractBody } from '@Components/Contracts/ContractPage/DesktopComponents/DesktopContractBody';
-import { MobileLocations } from '@Components/Contracts/ContractPage/MobileData/MobileLocations';
-import { MobilePayBrief } from '@Components/Contracts/ContractPage/MobileData/MobilePayBrief';
-import { TabletDetails } from '@Components/Contracts/ContractPage/MobileData/TabletData/TabletDetails';
-import { TabletOrMobilePanels } from '@Components/Contracts/ContractPage/MobileData/TabletOrMobilePanels';
-import { TitleBox } from '@Components/Contracts/ContractPage/TitleBox/TitleBox';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import { VLViewport } from '@CommonLegacy/Components/Boxes/VLViewport';
+import { ContractController } from '@CommonLegacy/Components/Contracts/ContractController';
+import { ContractorList } from '@CommonLegacy/Components/Contracts/ContractorList';
+import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
+import { LoadingScreen } from '@CommonLegacy/LoadingObject/LoadingScreen';
+import { DesktopContractBody } from '@ComponentsLegacy/Contracts/ContractPage/DesktopComponents/DesktopContractBody';
+import { MobileLocations } from '@ComponentsLegacy/Contracts/ContractPage/MobileData/MobileLocations';
+import { MobilePayBrief } from '@ComponentsLegacy/Contracts/ContractPage/MobileData/MobilePayBrief';
+import { TabletDetails } from '@ComponentsLegacy/Contracts/ContractPage/MobileData/TabletData/TabletDetails';
+import { TabletOrMobilePanels } from '@ComponentsLegacy/Contracts/ContractPage/MobileData/TabletOrMobilePanels';
+import { TitleBox } from '@ComponentsLegacy/Contracts/ContractPage/TitleBox/TitleBox';
 import {
   BiddingTimePanel,
   ContractDurationPanel,
-} from '@Components/Contracts/Ledger/Details/TimePanel';
+} from '@ComponentsLegacy/Contracts/Ledger/Details/TimePanel';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContracts.action';
@@ -26,7 +24,6 @@ import { useIsTablet } from '@Utils/isTablet';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-// import { useNavigate, useParams } from 'react-router-dom';
 import {
   IContract,
   IContractWithOwner,
@@ -356,10 +353,7 @@ export const ContractPage: React.FC<unknown> = () => {
           width: '100%',
           justifyContent: 'center',
         }}
-      >
-        {!mobile && <AppDockRenderer />}
-        {mobile && <MobileDock top hCenter />}
-      </div>
+      />
     </VLViewport>
   );
 };

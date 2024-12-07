@@ -1,10 +1,10 @@
 /* eslint-disable react/no-children-prop */
 import { useSoundEffect } from '@Audio/AudioManager';
-import { LocationSearch } from '@Common/Components/App/LocationSearch';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import { SCUField } from '@Common/Components/TextFields/SCUField';
+import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { SCUField } from '@CommonLegacy/Components/TextFields/SCUField';
 import { RemoveCircle } from '@mui/icons-material';
 import { Button, IconButton, TextField, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';

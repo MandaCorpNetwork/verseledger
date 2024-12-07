@@ -1,4 +1,4 @@
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import StarIcon from '@mui/icons-material/Star';
 import { Box, Slider, Typography } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';

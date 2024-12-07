@@ -1,4 +1,4 @@
-import { LoadingWheel } from '@Common/LoadingObject/LoadingWheel';
+import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
 import { Button, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';

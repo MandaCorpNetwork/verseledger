@@ -1,4 +1,4 @@
-import WidgetTitleBar from '@Common/Components/Boxes/WidgetTitleBar';
+import WidgetTitleBar from '@CommonLegacy/Components/Boxes/WidgetTitleBar';
 import { Close, Maximize, Minimize } from '@mui/icons-material';
 import { Box, Collapse, IconButton, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';

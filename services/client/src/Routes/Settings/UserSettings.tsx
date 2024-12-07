@@ -1,18 +1,15 @@
 import '@Assets/Css/ripple.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
-import { AppDockRenderer } from '@Common/AppDockV3/AppDockV3';
-import { VLViewport } from '@Common/Components/Boxes/VLViewport';
-import { DepressedListButton } from '@Common/Components/Lists/DepressedListButton';
-import { MobileDock } from '@Common/MobileDock/MobileDock';
-import { SupportBar } from '@Components/Home/SupportBar';
-import { BetaSettings } from '@Components/User/UserSettings/Beta';
-import { DeveloperSettings } from '@Components/User/UserSettings/DeveloperSettings';
-import { GraphicsSettings } from '@Components/User/UserSettings/Graphics';
-import { NotificationSettings } from '@Components/User/UserSettings/Notifications';
-import { ProfileSettings } from '@Components/User/UserSettings/Profile';
-import { SecuritySettings } from '@Components/User/UserSettings/Security';
-import { SoundSettings } from '@Components/User/UserSettings/Sounds';
+import { VLViewport } from '@CommonLegacy/Components/Boxes/VLViewport';
+import { DepressedListButton } from '@CommonLegacy/Components/Lists/DepressedListButton';
+import { BetaSettings } from '@ComponentsLegacy/User/UserSettings/Beta';
+import { DeveloperSettings } from '@ComponentsLegacy/User/UserSettings/DeveloperSettings';
+import { GraphicsSettings } from '@ComponentsLegacy/User/UserSettings/Graphics';
+import { NotificationSettings } from '@ComponentsLegacy/User/UserSettings/Notifications';
+import { ProfileSettings } from '@ComponentsLegacy/User/UserSettings/Profile';
+import { SecuritySettings } from '@ComponentsLegacy/User/UserSettings/Security';
+import { SoundSettings } from '@ComponentsLegacy/User/UserSettings/Sounds';
 import {
   Box,
   Drawer,
@@ -25,9 +22,8 @@ import {
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserSettings } from '@Redux/Slices/Auth/auth.selectors';
 import { useNav } from '@Utils/Hooks/useNav';
-import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
 
 //TODO: Fix Animations
@@ -47,14 +43,21 @@ type SettingsListItem = (typeof settingsList)[number];
 export const UserSettings: React.FC = () => {
   const { tab } = useParams();
   const nav = useNav();
+  const navigate = useNavigate();
   const sound = useSoundEffect();
   const [selectedSetting, _setSelectedSetting] =
     React.useState<SettingsListItem>('Profile');
   const [_, setCurrentSetting] = React.useState<string>('Profile');
   const [transitioning, setTransitioning] = React.useState<boolean>(false);
-  const isMobile = useIsMobile();
 
   const currentSettings = useAppSelector(selectUserSettings);
+
+  React.useEffect(() => {
+    if (!tab) {
+      const url = '/settings/Profile';
+      navigate(url);
+    }
+  }, [tab, navigate]);
 
   const settingsPageRender = React.useCallback(() => {
     switch (tab) {
@@ -203,6 +206,8 @@ export const UserSettings: React.FC = () => {
             timeout="auto"
             easing={{ enter: 'ease-in-out', exit: 'ease-out' }}
             style={{ transformOrigin: 'center' }}
+            unmountOnExit
+            mountOnEnter
           >
             <Box sx={{ width: '100%', height: '100%' }}>{settingsPageRender()}</Box>
           </Grow>
@@ -210,19 +215,13 @@ export const UserSettings: React.FC = () => {
       </div>
       <Box
         sx={{
-          mt: 'auto',
-          mx: 'auto',
-          mb: '20px',
+          mb: '150px',
           gap: '.5em',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
         }}
-      >
-        {!isMobile && <AppDockRenderer />}
-        {isMobile && <MobileDock bottom hCenter />}
-        {!isMobile && <SupportBar />}
-      </Box>
+      />
     </VLViewport>
   );
 };

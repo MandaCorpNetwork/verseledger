@@ -1,4 +1,4 @@
-import { DropZone } from '@Common/Components/Functional/Dropzone';
+import { DropZone } from '@CommonLegacy/Components/Functional/Dropzone';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 
 export const POPUP_IMPORT_FILE = 'importFile';

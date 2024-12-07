@@ -1,22 +1,20 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
 import { useSoundEffect } from '@Audio/AudioManager';
-import { AppDockRenderer } from '@Common/AppDockV3/AppDockV3';
-import { InDevOverlay } from '@Common/Components/App/InDevOverlay';
-import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
-import { ControlPanelBox } from '@Common/Components/Boxes/ControlPanelBox';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import DigiDisplay from '@Common/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@Common/Components/Boxes/GlassDisplay';
-import { UserViewport } from '@Common/Components/Boxes/UserViewport';
-import { Security } from '@Common/Definitions/CustomIcons';
-import { userBackgroundOptions } from '@Common/Definitions/Structures/Users/UserBackgrounds';
-import { MobileDock } from '@Common/MobileDock/MobileDock';
-import { ContractInfoPanel } from '@Components/User/UserPage/Info/Panels/ContractsInfoPanel';
-import { FleetInfoPanel } from '@Components/User/UserPage/Info/Panels/FleetInfoPanel';
-import { OrderInfoPanel } from '@Components/User/UserPage/Info/Panels/OrdersInfoPanel';
-import { OrgsInfoPanel } from '@Components/User/UserPage/Info/Panels/OrgsInfoPanel';
-import { ContractStatsPanel } from '@Components/User/UserPage/Stats/Panels/ContractStatsPanel';
-import { OrderStatsPanel } from '@Components/User/UserPage/Stats/Panels/OrderStatsPanel';
+import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
+import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
+import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { UserViewport } from '@CommonLegacy/Components/Boxes/UserViewport';
+import { Security } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
+import { userBackgroundOptions } from '@CommonLegacy/DefinitionsLegacy/Structures/Users/UserBackgrounds';
+import { ContractInfoPanel } from '@ComponentsLegacy/User/UserPage/Info/Panels/ContractsInfoPanel';
+import { FleetInfoPanel } from '@ComponentsLegacy/User/UserPage/Info/Panels/FleetInfoPanel';
+import { OrderInfoPanel } from '@ComponentsLegacy/User/UserPage/Info/Panels/OrdersInfoPanel';
+import { OrgsInfoPanel } from '@ComponentsLegacy/User/UserPage/Info/Panels/OrgsInfoPanel';
+import { ContractStatsPanel } from '@ComponentsLegacy/User/UserPage/Stats/Panels/ContractStatsPanel';
+import { OrderStatsPanel } from '@ComponentsLegacy/User/UserPage/Stats/Panels/OrderStatsPanel';
 import { Mail, Place } from '@mui/icons-material';
 import {
   Avatar,
@@ -29,13 +27,11 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-// import { selectCurrentUser } from '@Redux/Slices/Auth/authSelectors';
 import { fetchSearchUserId } from '@Redux/Slices/Users/Actions/fetchUserById.action';
 import {
   selectUserById,
   selectUserPageImageById,
 } from '@Redux/Slices/Users/users.selectors';
-import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -61,7 +57,6 @@ export const UserPage: React.FC = () => {
   //LOCAL STATES
   /** Gets the URL Query parameter for read only. */
   const { selectedUserId } = useParams();
-  const isMobile = useIsMobile();
   const [statsTab, setStatsTab] = React.useState<string>('contracts');
   const [infoTab, setInfoTab] = React.useState<string>('contracts');
   const [_loading, setLoading] = React.useState<boolean>(true);
@@ -595,8 +590,6 @@ export const UserPage: React.FC = () => {
           </DigiDisplay>
         </Box>
       </GlassDisplay>
-      {!isMobile && <AppDockRenderer />}
-      {isMobile && <MobileDock top hCenter />}
     </UserViewport>
   );
 };

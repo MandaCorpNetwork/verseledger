@@ -1,4 +1,4 @@
-import { IRadioSource, radioSources } from '@Common/Definitions/RadioSources';
+import { IRadioSource, radioSources } from '@CommonLegacy/DefinitionsLegacy/RadioSources';
 import { useRadio } from '@Utils/Hooks/useRadio';
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 

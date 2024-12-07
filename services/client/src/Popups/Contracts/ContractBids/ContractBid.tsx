@@ -1,9 +1,9 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
-import { ContractStatusChip } from '@Common/Components/Chips/ContractStatusChip';
-import { SubtypeChip } from '@Common/Components/Chips/SubtypeChip';
-import { UserDisplay } from '@Common/Components/Users/UserDisplay';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { ContractStatusChip } from '@CommonLegacy/Components/Chips/ContractStatusChip';
+import { SubtypeChip } from '@CommonLegacy/Components/Chips/SubtypeChip';
+import { UserDisplay } from '@CommonLegacy/Components/Users/UserDisplay';
 import { Box, Divider, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';

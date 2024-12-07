@@ -1,9 +1,8 @@
 import background from '@Assets/media/VLSandboxPic.jpg?url';
-import GlassBox from '@Common/Components/Boxes/GlassBox';
-import { VLViewport } from '@Common/Components/Boxes/VLViewport';
+import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import { VLViewport } from '@CommonLegacy/Components/Boxes/VLViewport';
+import { SandboxContent } from '@CommonLegacy/SandboxContent';
 import { Box, Typography } from '@mui/material';
-
-import { SandboxContent } from '../../Common/SandboxContent';
 
 //This is a Sandbox Area for Testing Certain Components that may not have a home.
 //Utilize SandboxContent.tsx to work on items

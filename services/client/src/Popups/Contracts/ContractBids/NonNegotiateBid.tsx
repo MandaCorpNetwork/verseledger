@@ -1,12 +1,12 @@
 import '@Assets/Css/contractDetails.css';
 
-import { DigiBox } from '@Common/Components/Boxes/DigiBox';
-import { DigiDisplay } from '@Common/Components/Boxes/DigiDisplay';
-import { PopupFormSelection } from '@Common/Components/Boxes/PopupFormSelection';
-import { LocationChip } from '@Common/Components/Chips/LocationChip';
-import { DigiField } from '@Common/Components/Custom/DigiField/DigiField';
-import { PayDisplay } from '@Common/Components/Custom/DigiField/PayDisplay';
-import { PayStructure } from '@Common/Components/Custom/DigiField/PayStructure';
+import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
+import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
+import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
+import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';
+import { PayStructure } from '@CommonLegacy/Components/Custom/DigiField/PayStructure';
 import { Box, Tooltip, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import dayjs from 'dayjs';

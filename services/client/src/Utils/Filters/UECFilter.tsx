@@ -1,4 +1,4 @@
-import { PayField } from '@Common/Components/TextFields/PayField';
+import { PayField } from '@CommonLegacy/Components/TextFields/PayField';
 import { Clear } from '@mui/icons-material';
 import {
   Box,

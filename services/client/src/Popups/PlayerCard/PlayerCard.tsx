@@ -1,6 +1,6 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
 import { useSoundEffect } from '@Audio/AudioManager';
-import { RatingDisplay } from '@Common/Components/App/RatingDisplay';
+import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { AccountBox, Message } from '@mui/icons-material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import {

@@ -1,13 +1,9 @@
-import { AppDockContainer } from '@Common/AppDock/AppDockContainer';
-import { VLViewport } from '@Common/Components/Boxes/VLViewport';
-import { MobileDock } from '@Common/MobileDock/MobileDock';
-import { OrgSwitcher } from '@Components/Orgs/Switcher/OrgSwitcher';
+import { VLViewport } from '@CommonLegacy/Components/Boxes/VLViewport';
+import { OrgSwitcher } from '@ComponentsLegacy/Orgs/Switcher/OrgSwitcher';
 import { Box } from '@mui/material';
-import { useIsMobile } from '@Utils/isMobile';
 import { Outlet, useLocation } from 'react-router-dom';
 
 export const OrgLedgerPage: React.FC = () => {
-  const isMobile = useIsMobile();
   const location = useLocation();
   return (
     <VLViewport
@@ -65,11 +61,10 @@ export const OrgLedgerPage: React.FC = () => {
           >
             <Outlet />
           </div>
+          <div style={{ marginTop: '100px' }} />
         </Box>
         {!location.pathname.startsWith('/orgs/finder') && <OrgSwitcher />}
       </Box>
-      {isMobile && <MobileDock top right />}
-      {!isMobile && <AppDockContainer />}
     </VLViewport>
   );
 };
