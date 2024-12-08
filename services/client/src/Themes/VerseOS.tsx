@@ -4,6 +4,9 @@ import { createTheme } from '@mui/material/styles';
 
 export const verseOS = createTheme({
   themeType: 'verseOS',
+  shape: {
+    borderRadius: 10,
+  },
   breakpoints: {
     values: {
       xs: 0,

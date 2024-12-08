@@ -8,7 +8,7 @@ const FeatureContainer = styled(Box)(({ theme }) => [
     borderRadius: '10px',
     borderColor: theme.palette.secondary.main,
     height: '100%',
-    backgroundColor: alpha(theme.palette.action.disabledBackground, 0.5),
+    backgroundColor: alpha(theme.palette.background.paper, 0.5),
     padding: '.5em',
     '&::-webkit-scrollbar': {
       width: '5px',
@@ -25,7 +25,7 @@ const FeatureContainer = styled(Box)(({ theme }) => [
   },
   theme.themeType === 'verseOS' &&
     theme.fidelity === 'high' && {
-      backgroundColor: alpha(theme.palette.action.disabledBackground, 0.3),
+      backgroundColor: alpha(theme.palette.background.paper, 0.3),
       backdropFilter: 'blur(10px)',
     },
   theme.themeType === 'pirateOS' && {
@@ -51,12 +51,12 @@ const FeatureContainer = styled(Box)(({ theme }) => [
   },
   theme.themeType === 'pirateOS' &&
     theme.fidelity === 'high' && {
-      backgroundImage: `linear-gradient(135deg, ${alpha(theme.palette.primary.dark, 0.2)} 10%, ${alpha(theme.palette.background.paper, 0.8)} 80%)`,
+      backgroundImage: `linear-gradient(180deg, ${alpha(theme.palette.primary.dark, 0.2)} 10%, ${alpha(theme.palette.background.paper, 0.8)} 80%)`,
       backdropFilter: 'blur(5px)',
     },
   theme.themeType === 'pirateOS' &&
     theme.fidelity === 'medium' && {
-      backgroundImage: `linear-gradient(135deg, ${alpha(theme.palette.primary.dark, 0.2)} 10%, ${alpha(theme.palette.background.paper, 0.8)} 80%)`,
+      backgroundImage: `linear-gradient(180deg, ${alpha(theme.palette.primary.dark, 0.2)} 10%, ${alpha(theme.palette.background.paper, 0.8)} 80%)`,
     },
 ]);
 

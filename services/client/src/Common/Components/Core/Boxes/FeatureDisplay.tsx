@@ -63,7 +63,7 @@ export const FeatureDisplay = styled(Box)(({ theme }) => [
   },
   theme.themeType === 'pirateOS' &&
     theme.fidelity === 'high' && {
-      backgroundImage: `linear-gradient(135deg, ${alpha(theme.palette.primary.light, 0.7)} 0%, ${alpha(theme.palette.primary.dark, 0.3)} 100%)`,
+      backgroundImage: `linear-gradient(180deg, ${alpha(theme.palette.primary.light, 0.7)} 0%, ${alpha(theme.palette.primary.dark, 0.3)} 100%)`,
       boxShadow: `4px 6px 20px rgba(0,0,0,0.5), -1px -3px 20px rgba(0,0,0,0.2), 0 0 25px ${alpha(theme.palette.primary.light, 0.2)}`,
       '&:before': {
         content: '""',
@@ -99,7 +99,7 @@ export const FeatureDisplay = styled(Box)(({ theme }) => [
     },
   theme.themeType === 'pirateOS' &&
     theme.fidelity === 'medium' && {
-      backgroundImage: `linear-gradient(135deg, ${alpha(theme.palette.primary.light, 0.7)}, ${alpha(theme.palette.primary.dark, 0.3)})`,
+      backgroundImage: `linear-gradient(180deg, ${alpha(theme.palette.primary.light, 0.7)}, ${alpha(theme.palette.primary.dark, 0.3)})`,
       border: '3px solid',
       borderColor: theme.palette.secondary.light,
     },
