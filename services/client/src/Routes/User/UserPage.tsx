@@ -4,7 +4,7 @@ import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentConta
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
 import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
-import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
+import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { UserViewport } from '@CommonLegacy/Components/Boxes/UserViewport';
 import { Security } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';

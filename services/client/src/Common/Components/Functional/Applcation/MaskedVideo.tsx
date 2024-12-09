@@ -33,6 +33,7 @@ export const MaskedVideo: React.FC = () => {
         WebkitMaskSize: 'cover',
         WebkitMaskRepeat: 'no-repeat',
         WebkitMaskPosition: 'center',
+        zIndex: 0,
       }}
     />
   );

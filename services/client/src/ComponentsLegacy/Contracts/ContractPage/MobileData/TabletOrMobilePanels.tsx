@@ -1,4 +1,4 @@
-import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
+import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { SmallTabHolo, SmallTabsHolo } from '@CommonLegacy/Components/Tabs/SmallTabsHolo';
 import { Box } from '@mui/material';

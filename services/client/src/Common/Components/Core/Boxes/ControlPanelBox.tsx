@@ -1,10 +1,5 @@
 import { Box, styled } from '@mui/material';
 
-// Box Defaults:
-// display: block;
-// alignItems: stretch;
-// justifyContent: flex-start;
-
 export const ControlPanelBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',

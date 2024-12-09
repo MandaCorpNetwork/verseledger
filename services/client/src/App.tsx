@@ -41,7 +41,7 @@ export default function App() {
   const theme = useMemo(() => {
     const animations = isValidAnimation(userAnimations) ? userAnimations : 'medium';
     const fidelity = isValidFidelity(userFidelity) ? userFidelity : 'medium';
-    const themeName = (settings.theme ?? 'pirateOS') as ThemeName;
+    const themeName = (settings.theme ?? 'verseOS') as ThemeName;
     const baseTheme = baseThemesMap[themeName] || baseThemesMap.verseOS;
 
     const transitionsObject =

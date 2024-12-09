@@ -1,6 +1,6 @@
 import '@Assets/Css/fonts.css';
 
-import { createTheme } from '@mui/material/styles';
+import { alpha, createTheme } from '@mui/material/styles';
 
 export const verseOS = createTheme({
   themeType: 'verseOS',

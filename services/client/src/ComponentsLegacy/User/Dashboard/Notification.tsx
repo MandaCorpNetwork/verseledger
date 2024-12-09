@@ -1,4 +1,4 @@
-import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
+import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { Clear, Forward } from '@mui/icons-material';
 import { Box, Button, IconButton, Tooltip, Typography, useTheme } from '@mui/material';
 

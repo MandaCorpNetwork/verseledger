@@ -12,6 +12,7 @@ export const AppDisplay = styled(Box)(({ theme }) => [
     overflowY: 'auto',
     justifyContent: 'center',
     position: 'relative',
+    zIndex: 0,
     [theme.breakpoints.up('md')]: {
       margin: '1%',
       padding: '0.5em',

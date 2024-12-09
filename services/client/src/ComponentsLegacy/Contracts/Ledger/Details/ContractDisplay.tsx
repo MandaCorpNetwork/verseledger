@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
+import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { ComponentDisplay } from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';

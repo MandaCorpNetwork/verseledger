@@ -1,7 +1,10 @@
 import '@Assets/Css/ripple.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
+import { AppDisplay } from '@Common/Components/Core/Boxes/AppDisplay';
 import { VLViewport } from '@Common/Components/Core/Boxes/VLViewport';
+import { PanelSelection } from '@Common/Components/Core/Drawers/PanelSelection';
+import { MaskedVideo } from '@Common/Components/Functional/Applcation/MaskedVideo';
 import { DepressedListButton } from '@CommonLegacy/Components/Lists/DepressedListButton';
 import { BetaSettings } from '@ComponentsLegacy/User/UserSettings/Beta';
 import { DeveloperSettings } from '@ComponentsLegacy/User/UserSettings/DeveloperSettings';
@@ -18,6 +21,7 @@ import {
   ListItem,
   ListItemText,
   Typography,
+  useTheme,
 } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserSettings } from '@Redux/Slices/Auth/auth.selectors';
@@ -45,6 +49,7 @@ export const UserSettings: React.FC = () => {
   const nav = useNav();
   const navigate = useNavigate();
   const sound = useSoundEffect();
+  const theme = useTheme();
   const [selectedSetting, _setSelectedSetting] =
     React.useState<SettingsListItem>('Profile');
   const [_, setCurrentSetting] = React.useState<string>('Profile');
@@ -122,106 +127,67 @@ export const UserSettings: React.FC = () => {
     </Box>
   );
   return (
-    <VLViewport sx={{ display: 'flex', flexDirection: 'column', py: '1em' }}>
-      <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-        <Typography variant="h4">User Settings</Typography>
-      </div>
-      <div
-        style={{ display: 'flex', flexDirection: 'row', flexGrow: 1, margin: '1em 0' }}
+    <VLViewport data-testid="UserSettings__Page_Viewport">
+      <AppDisplay
+        data-testid="UserSettings__Page_Display"
+        style={{ marginLeft: 0, paddingLeft: 0 }}
       >
-        <Drawer
-          variant="persistent"
-          open={true}
-          sx={{
-            position: 'relative',
-            width: '150px',
-            boxShadow:
-              '2px 4px 4px rgba(0,1,19,0.4),3px 3px 4px rgba(0,1,19,.3), 4px 4px 12px rgba(0,1,19,.2), 5px 5px 16px rgba(0,1,19,.1)',
-            borderRadius: '10px',
-            '& .MuiDrawer-paper': {
-              position: 'relative',
-              width: '150px',
-              boxSizing: 'border-box',
-              bgcolor: 'rgba(14,35,141,0.8)',
-              backgroundImage:
-                'linear-gradient(145deg, rgba(33,150,243,0.1), rgba(0,1,19,0.2))',
-              boxShadow:
-                'inset 0px 1px 2px rgba(33,150,243,0.2), inset 0 -1px 2px rgba(0,1,19,0.2), 0 4px 6px rgba(0,0,0,0.3), 0 2px 4px rgba(33,150,243,0.2)',
-              border: '2px solid',
-              borderLeft: 'none',
-              borderRadius: '10px',
-              borderColor: 'primary.main',
-              transition: 'all 0.3s ease-in-out',
-              '&:before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0,
-                backgroundImage:
-                  'radial-gradient(circle, rgba(0,1,19,0.2) 1px, transparent 1px)',
-                backgroundSize: '4px 4px',
-                opacity: 0.6,
-              },
-              // '&:after': {
-              //   content: '""',
-              //   position: 'absolute',
-              //   top: 10,
-              //   left: 5,
-              //   width: 'calc(100% - 10px)',
-              //   height: 'calc(100% - 20px)',
-              //   border: '1px solid rgba(33,150,243,0.2)',
-              //   borderRadius: '8px',
-              // },
-              '&:hover': {
-                backgroundImage:
-                  'linear-gradient(125deg, rgba(0,1,19,0.25), rgba(0,30,100,0.3))',
-                borderColor: 'primary.light',
-                boxShadow:
-                  'inset 0px 1px 2px rgba(33,150,243,.2), inset 0 -1px 2px rgba(0,1,19,.2)',
-                '&:before': {
-                  backgroundImage:
-                    'radial-gradient(circle, rgba(33,150,252,0.2) 1px, transparent 1px)',
-                },
-              },
-            },
-            '&:hover': {
-              boxShadow:
-                '2px 2px 6px 6px rgba(0,1,19,0.3), 2px 4px 8px 8px rgba(0,1,19,.3), 4px 6px 12px 12px rgba(0,1,19,.2), 4px 8px 16px 24px rgba(0,1,19,.1)',
-            },
-          }}
-        >
-          {DrawerList}
-        </Drawer>
+        {theme.fidelity === 'high' && <MaskedVideo />}
+        <Typography variant="h4" sx={{ ml: '0.5em', zIndex: 2 }}>
+          User Settings
+        </Typography>
         <Box
-          data-testid="UserSettings-Settings__DisplayWrapper"
-          sx={{
+          sx={(theme) => ({
+            display: 'flex',
             flexGrow: 1,
-            px: '2em',
-          }}
+            ...(theme.themeType === 'verseOS' && {
+              margin: '1em 0',
+              flexDirection: 'row',
+            }),
+          })}
         >
-          <Grow
-            in={!transitioning}
-            timeout="auto"
-            easing={{ enter: 'ease-in-out', exit: 'ease-out' }}
-            style={{ transformOrigin: 'center' }}
-            unmountOnExit
-            mountOnEnter
+          <PanelSelection
+            variant="persistent"
+            open={true}
+            sx={{
+              width: '150px',
+              '& .MuiDrawer-paper': {
+                width: '150px',
+              },
+            }}
           >
-            <Box sx={{ width: '100%', height: '100%' }}>{settingsPageRender()}</Box>
-          </Grow>
+            {DrawerList}
+          </PanelSelection>
+          <div
+            data-testid="UserSettings-Settings__DisplayWrapper"
+            style={{
+              flexGrow: 1,
+              padding: '0 2em',
+            }}
+          >
+            <Grow
+              in={!transitioning}
+              timeout="auto"
+              easing={{ enter: 'ease-in-out', exit: 'ease-out' }}
+              style={{ transformOrigin: 'center' }}
+              unmountOnExit
+              mountOnEnter
+            >
+              <Box sx={{ width: '100%', height: '100%' }}>{settingsPageRender()}</Box>
+            </Grow>
+          </div>
         </Box>
-      </div>
-      <Box
-        sx={{
-          mb: '150px',
-          gap: '.5em',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      />
+        <div
+          data-testid="UserSettings-Page__Dock_Spacer"
+          style={{
+            marginBottom: '150px',
+            gap: '.5em',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        />
+      </AppDisplay>
     </VLViewport>
   );
 };

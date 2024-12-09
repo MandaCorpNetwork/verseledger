@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
+import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { Tab, Tabs, useTheme } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
