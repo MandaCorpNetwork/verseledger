@@ -26,6 +26,7 @@
 
 ## Components
 
+## Components
 ### Core
 
 - Boxes
