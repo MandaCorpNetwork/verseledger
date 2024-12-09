@@ -33,7 +33,7 @@ export class PallyService {
     this.client.on('connect', Logger.info.bind(Logger));
     this.client.on('close', Logger.info.bind(Logger));
     this.client.on('error', Logger.info.bind(Logger));
-    this.client.on('pong', Logger.info.bind(Logger));
+    // this.client.on('pong', Logger.info.bind(Logger));
     this.client.on('reconnecting', Logger.info.bind(Logger));
     this.client.connect();
     Logger.init();
