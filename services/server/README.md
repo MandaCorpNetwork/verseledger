@@ -91,7 +91,7 @@ password: verseledger-password
 ## Configure DB
 
 ```bash
-$ npm run resetdb
+$ npm run db:reset
 ```
 
 > [!NOTE]
@@ -122,7 +122,7 @@ The naming convention is `V${version}__${MigrationName}.sql`.
 Run all migration scripts with
 
 ```bash
-$ npm run migrate
+$ npm run db:migrate
 ```
 
 # Testing

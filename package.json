@@ -8,20 +8,21 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client dev\" \"manypkg run server dev\"",
     "postinstall": "preconstruct dev && manypkg check",
     "clean": "yarn manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules",
     "test": "yarn test:server && yarn test:client",
-    "lint": "yarn manypkg run server lint && yarn manypkg run vl-shared lint && manypkg run client lint",
-    "lint:check": "yarn manypkg run server lint:check && yarn manypkg run vl-shared lint:check && manypkg run client lint:check",
     "test:client": "yarn manypkg run client test",
     "test:server": "yarn manypkg run server test",
-    "resetdb": "cd scripts && setup-local-db.bat",
-    "migrate": "./.flyway/flyway -configFiles=./flyway.user.toml -environment=vl-db migrate",
-    "cypress:develop": "yarn manypkg run client cypress open --browser chrome",
+    "lint": "yarn manypkg run server lint && yarn manypkg run vl-shared lint && manypkg run client lint",
+    "lint:fix": "yarn lint:fix",
+    "lint:check": "yarn manypkg run server lint:check && yarn manypkg run vl-shared lint:check && manypkg run client lint:check",
+    "db:reset": "cd scripts && setup-local-db.bat",
+    "db:migrate": "./.flyway/flyway -configFiles=./flyway.user.toml -environment=vl-db migrate",
     "cypress": "yarn manypkg run client cypress run --browser chrome",
+    "cypress:develop": "yarn manypkg run client cypress open --browser chrome",
+    "dev": "concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client dev\" \"manypkg run server dev\"",
     "build": "yarn manypkg run client build",
-    "start": "yarn migrate && concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client serve\" \"manypkg run server serve\"",
+    "start": "yarn db:migrate && concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client serve\" \"manypkg run server serve\"",
     "docker:local": "docker compose --profile local up"
   },
   "devDependencies": {
