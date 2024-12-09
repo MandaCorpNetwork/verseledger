@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
-import { VLViewport } from '@CommonLegacy/Components/Boxes/VLViewport';
+import { VLViewport } from '@Common/Components/Core/Boxes/VLViewport';
 import { ContractController } from '@CommonLegacy/Components/Contracts/ContractController';
 import { ContractorList } from '@CommonLegacy/Components/Contracts/ContractorList';
 import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';

@@ -1,5 +1,5 @@
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
-import { VLViewport } from '@CommonLegacy/Components/Boxes/VLViewport';
+import { VLViewport } from '@Common/Components/Core/Boxes/VLViewport';
 import { BugsPage } from '@ComponentsLegacy/Admin/Page/Bugs/BugsPage';
 import { MilestonesPage } from '@ComponentsLegacy/Admin/Page/MilestonesPage';
 import { OverviewPage } from '@ComponentsLegacy/Admin/Page/OverviewPage';

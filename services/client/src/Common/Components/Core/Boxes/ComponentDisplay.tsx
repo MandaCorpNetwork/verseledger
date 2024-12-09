@@ -119,6 +119,17 @@ export const ComponentDisplay = styled(Box)(({ theme }) => [
     '&:hover': {
       color: theme.palette.secondary.light,
     },
+    '&::-webkit-scrollbar': {
+      width: '2px',
+      height: '2px',
+    },
+    '&::-webkit-scrollbar-track': {
+      background: theme.palette.divider,
+      borderRadius: '2px',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      background: theme.palette.secondary.main,
+    },
   },
   //PIRATEOS HIGH FIDELITY
   theme.themeType === 'pirateOS' &&

@@ -1,6 +1,6 @@
 import background from '@Assets/media/VLSandboxPic.jpg?url';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
-import { VLViewport } from '@CommonLegacy/Components/Boxes/VLViewport';
+import { VLViewport } from '@Common/Components/Core/Boxes/VLViewport';
 import { SandboxContent } from '@CommonLegacy/SandboxContent';
 import { Box, Typography } from '@mui/material';
 

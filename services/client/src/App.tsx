@@ -36,7 +36,7 @@ export default function App() {
 
   const settings = useAppSelector(selectUserSettings);
   const userAnimations = settings.animations ?? 'medium';
-  const userFidelity = settings.animations ?? 'medium';
+  const userFidelity = settings.quality ?? 'medium';
 
   const theme = useMemo(() => {
     const animations = isValidAnimation(userAnimations) ? userAnimations : 'medium';

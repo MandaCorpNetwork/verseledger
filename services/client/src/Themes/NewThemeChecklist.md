@@ -13,11 +13,20 @@
   - Normal Logo
     Glow Logo with a Good background Photo matching the Theme with a Layer Mask Alphaed to the selection of a VLLogo
 
-## Components
+## Definitions
+* themes.ts
+  - baseThemeMap
+    Add ThemeName
+  - logoThemeMap
+    Add GraphicDesign URLs for the Logos Added
+  - videoThemeMap
+    Add Video URL to the Map
 
+## Components
 ### Core
 * Boxes
   - FeatureContainer
   - FeatureDisplay
   - ComponentContainer
   - FeatureContainer
+  - AppDisplay
