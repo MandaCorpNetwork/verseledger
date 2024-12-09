@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import {
   FormControl,
@@ -83,7 +83,7 @@ export const FeedbackForm: React.FC<{
           <FormLabel data-testid="Feedback-Popup-Form-IssueType__FormLabel">
             Feedback Type
           </FormLabel>
-          <DigiDisplay data-testid="Feedback-Popup-Form-IssueType__RadioGroup_Wrapper">
+          <ComponentDisplay data-testid="Feedback-Popup-Form-IssueType__RadioGroup_Wrapper">
             <RadioGroup
               data-testid="Feedback-Popup-Form-IssueType__RadioGroup"
               value={formData.type ?? null}
@@ -130,7 +130,7 @@ export const FeedbackForm: React.FC<{
                 />
               )}
             </RadioGroup>
-          </DigiDisplay>
+          </ComponentDisplay>
         </FormControl>
         <FormControl
           color="info"
@@ -139,7 +139,7 @@ export const FeedbackForm: React.FC<{
           <FormLabel data-testid="Feedback-Popup-Form-IssueIntro__FormLabel">
             Feedback Intro
           </FormLabel>
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="Feedback-Popup-Form-IssueIntro__Field_Wrapper"
             sx={{ gap: '1.5em', py: '1em' }}
           >
@@ -189,7 +189,7 @@ export const FeedbackForm: React.FC<{
                 },
               }}
             />
-          </DigiDisplay>
+          </ComponentDisplay>
         </FormControl>
       </ComponentContainer>
       <ComponentContainer

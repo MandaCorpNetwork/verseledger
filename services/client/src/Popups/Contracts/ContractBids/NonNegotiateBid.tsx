@@ -1,7 +1,7 @@
 import '@Assets/Css/contractDetails.css';
 
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { ComponentDisplay } from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
@@ -107,7 +107,7 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
             gap: '1em',
           }}
         >
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="ContractBid__NonNegotiateBid_ContractPayWrapper"
             sx={{
               px: '1em',
@@ -140,8 +140,8 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
               maxWidth="125px"
               width="100%"
             />
-          </DigiDisplay>
-          <DigiDisplay
+          </ComponentDisplay>
+          <ComponentDisplay
             data-testid="ContractBid__NonNegotiateBid_ContractorsDetailsWrapper"
             sx={{
               px: '1em',
@@ -218,9 +218,9 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
                 {acceptedContractorsCount}
               </Typography>
             </Typography>
-          </DigiDisplay>
+          </ComponentDisplay>
         </Box>
-        <DigiDisplay
+        <ComponentDisplay
           sx={{
             flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-around',
@@ -231,8 +231,8 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
         >
           <DigiField label="Start Date">{startDate}</DigiField>
           <DigiField label="End Date">{endDate}</DigiField>
-        </DigiDisplay>
-        <DigiDisplay
+        </ComponentDisplay>
+        <ComponentDisplay
           sx={{
             my: '.5em',
             justifyContent: 'center',
@@ -291,7 +291,7 @@ export const NonNegotiateBid: React.FC<NonNegotiateBidProps> = ({ contract }) =>
               </Box>
             </PopupFormSelection>
           )}
-        </DigiDisplay>
+        </ComponentDisplay>
       </Box>
     </ComponentContainer>
   );

@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { MoveDownTwoTone, MoveUpTwoTone } from '@mui/icons-material';
 import { Button, IconButton, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -116,7 +116,10 @@ export const MoveTask: React.FC<MoveTaskProps> = ({
       data-testid={`${testid}__Wrapper`}
       style={{ gap: '0.5em', display: 'flex', flexDirection: 'column' }}
     >
-      <DigiDisplay data-testid={`${testid}__MoveList_Wrapper`} sx={{ p: '0.2em .4em' }}>
+      <ComponentDisplay
+        data-testid={`${testid}__MoveList_Wrapper`}
+        sx={{ p: '0.2em .4em' }}
+      >
         <Typography
           data-testid={`${testid}-MoveList__Header`}
           sx={{ fontWeight: 'bold', cursor: 'default' }}
@@ -166,7 +169,7 @@ export const MoveTask: React.FC<MoveTaskProps> = ({
               </Typography>
             );
           })}
-      </DigiDisplay>
+      </ComponentDisplay>
       <Button
         data-testid={`${testid}__NewDestination_Button`}
         variant="outlined"

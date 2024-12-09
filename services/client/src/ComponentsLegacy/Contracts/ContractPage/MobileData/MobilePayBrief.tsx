@@ -1,5 +1,5 @@
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';
 import { PayStructure } from '@CommonLegacy/Components/Custom/DigiField/PayStructure';
 import { Box, Typography } from '@mui/material';
@@ -21,7 +21,7 @@ type MobilePayBriefProps = {
  * @component {@link PayStructure}
  * #### Styled Components
  * @component {@link DigiBox}
- * @component {@link DigiDisplay}
+ * @component {@link ComponentDisplay}
  */
 export const MobilePayBrief: React.FC<MobilePayBriefProps> = ({ contract }) => {
   return (
@@ -29,7 +29,7 @@ export const MobilePayBrief: React.FC<MobilePayBriefProps> = ({ contract }) => {
       data-testid="ContractPage__Pay&Breifing_Mobile_Wrapper"
       sx={{ my: '1em', p: '.5em' }}
     >
-      <DigiDisplay
+      <ComponentDisplay
         data-testid="ContractPage-Pay&Briefing-Mobile__Pay_Wrapper"
         sx={{ mx: 'auto', px: '5%' }}
       >
@@ -69,8 +69,8 @@ export const MobilePayBrief: React.FC<MobilePayBriefProps> = ({ contract }) => {
             />
           )}
         </Box>
-      </DigiDisplay>
-      <DigiDisplay
+      </ComponentDisplay>
+      <ComponentDisplay
         data-testid="ContractPage-Pay&Briefing-Mobile__Briefing_Wrapper"
         sx={{
           my: '.5em',
@@ -96,7 +96,7 @@ export const MobilePayBrief: React.FC<MobilePayBriefProps> = ({ contract }) => {
             {contract.briefing}
           </Typography>
         )}
-      </DigiDisplay>
+      </ComponentDisplay>
     </ComponentContainer>
   );
 };

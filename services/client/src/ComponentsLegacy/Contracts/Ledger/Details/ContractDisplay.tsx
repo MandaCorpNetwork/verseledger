@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { ComponentDisplay } from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import { ContractStatusChip } from '@CommonLegacy/Components/Chips/ContractStatusChip';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
@@ -231,7 +231,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
           data-testid="ContractDisplay-Info__TitleBarWrapper"
           sx={{ width: '100%', mb: 'auto', display: 'flex', flexDirection: 'row' }}
         >
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="ContractDisplay-Info__TitleBar"
             sx={{
               flexDirection: 'row',
@@ -273,7 +273,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 <ErrorTwoTone fontSize="large" color="error" />
               )}
             </Tooltip>
-          </DigiDisplay>
+          </ComponentDisplay>
           <IconButton
             size="small"
             onClick={() => handleCopyURL(`/contract?contractID=${contract.id}`)}
@@ -295,7 +295,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             justifyContent: 'space-around',
           }}
         >
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="ContractDisplay-Info-Details__StatusWrapper"
             sx={{ px: '1em', my: 'auto', py: '.5em' }}
           >
@@ -308,8 +308,8 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               Status
             </Typography>
             <ContractStatusChip status={contract.status} />
-          </DigiDisplay>
-          <DigiDisplay
+          </ComponentDisplay>
+          <ComponentDisplay
             data-testid="ContractDisplay-Info-Details__SubTypeWrapper"
             sx={{ my: 'auto', px: '1em', py: '.5em' }}
           >
@@ -334,7 +334,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
             >
               <SubtypeChip subtype={contract.subtype} size="small" />
             </Box>
-          </DigiDisplay>
+          </ComponentDisplay>
           <UserDisplay user={contract.Owner} />
         </Box>
       </ComponentContainer>
@@ -366,7 +366,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               maxHeight: '50%',
             }}
           >
-            <DigiDisplay
+            <ComponentDisplay
               data-testid="ContractDisplay-PayandBriefing__BriefingTitle"
               sx={{
                 pl: '1em',
@@ -399,7 +399,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   }}
                 />
               </IconButton>
-            </DigiDisplay>
+            </ComponentDisplay>
             <Collapse
               data-testid="ContractDisplay-Briefing__Contents_Container"
               in={briefingExpanded}
@@ -420,7 +420,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 },
               }}
             >
-              <DigiDisplay
+              <ComponentDisplay
                 data-testid="ContractDisplay-Briefing__Contents_Wrapper"
                 sx={{
                   px: '1em',
@@ -436,7 +436,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                 >
                   {contract.briefing}
                 </Typography>
-              </DigiDisplay>
+              </ComponentDisplay>
             </Collapse>
           </ComponentContainer>
           <ComponentContainer
@@ -448,7 +448,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               mt: '1em',
             }}
           >
-            <DigiDisplay
+            <ComponentDisplay
               data-testid="ContractDisplay-PayandBriefing__PayTitle_Wrapper"
               sx={{
                 pl: '1em',
@@ -485,7 +485,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   }}
                 />
               </IconButton>
-            </DigiDisplay>
+            </ComponentDisplay>
 
             <Collapse
               data-testid="ContractDisplay-PayandBriefing_PayInfoWrapper"
@@ -550,7 +550,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               p: '.5em',
             }}
           >
-            <DigiDisplay
+            <ComponentDisplay
               data-testid="ContractDisplay__LocationTitle_Wrapper"
               sx={{
                 pl: '1em',
@@ -581,7 +581,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
                   }}
                 />
               </IconButton>
-            </DigiDisplay>
+            </ComponentDisplay>
 
             <Collapse
               data-testid="ContractDisplay-Locations__LocationsListWrapper"

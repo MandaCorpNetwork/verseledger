@@ -1,5 +1,5 @@
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Typography } from '@mui/material';
 import React from 'react';
@@ -33,7 +33,7 @@ export const OrgDetails: React.FC = () => {
         data-testid="OrgPage-Details__Info_Wrapper"
         sx={{ flexDirection: 'row', py: '0.5em', justifyContent: 'space-around' }}
       >
-        <DigiDisplay
+        <ComponentDisplay
           data-testid="OrgPage-Details-Info__Archetype_Wrapper"
           sx={{ px: '0.5em', justifyContent: 'flex-start' }}
         >
@@ -44,8 +44,8 @@ export const OrgDetails: React.FC = () => {
           >
             Archetype
           </Typography>
-        </DigiDisplay>
-        <DigiDisplay
+        </ComponentDisplay>
+        <ComponentDisplay
           data-testid="OrgPage-Details-Info__Activities_Wrapper"
           sx={{ px: '0.5em', justifyContent: 'flex-start' }}
         >
@@ -56,8 +56,8 @@ export const OrgDetails: React.FC = () => {
           >
             Activities
           </Typography>
-        </DigiDisplay>
-        <DigiDisplay
+        </ComponentDisplay>
+        <ComponentDisplay
           data-testid="OrgPage-Details-Info__Options_Wrapper"
           sx={{ px: '0.5em' }}
         >
@@ -82,7 +82,7 @@ export const OrgDetails: React.FC = () => {
           >
             Recruiting:
           </Typography>
-        </DigiDisplay>
+        </ComponentDisplay>
       </ComponentContainer>
     </FeatureDisplay>
   );

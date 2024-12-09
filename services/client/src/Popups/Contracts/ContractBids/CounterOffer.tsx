@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { ComponentDisplay } from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';
 import { PayField } from '@CommonLegacy/Components/TextFields/PayField';
 import { UserDisplay } from '@CommonLegacy/Components/Users/UserDisplay';
@@ -136,7 +136,7 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
             data-testid="CounterOffer__User"
             user={ownerView ? (bid?.User as IUser) : contract.Owner}
           />
-          <DigiDisplay sx={{ p: '.5em' }}>
+          <ComponentDisplay sx={{ p: '.5em' }}>
             <Typography>{ownerView ? 'Bid Proposal' : 'Counter Offer'}</Typography>
             <Box sx={{ display: 'flex', mt: '.5em', alignItems: 'center', gap: '.5em' }}>
               <PayDisplay
@@ -156,7 +156,7 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
                 sx={{ maxWidth: '160px' }}
               />
             </Box>
-          </DigiDisplay>
+          </ComponentDisplay>
           <Box sx={{ mx: 'auto' }}>
             <Typography variant="tip" sx={{ px: '.5em' }}>
               {ownerView

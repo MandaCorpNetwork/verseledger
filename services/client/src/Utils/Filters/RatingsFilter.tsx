@@ -1,4 +1,4 @@
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import StarIcon from '@mui/icons-material/Star';
 import { Box, Slider, Typography } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
@@ -70,7 +70,7 @@ export const RatingsFilter: React.FC<unknown> = () => {
         gap: '1em',
       }}
     >
-      <DigiDisplay
+      <ComponentDisplay
         data-testid="ContractorRating__Wrapper"
         sx={{
           pl: '.5em',
@@ -96,8 +96,8 @@ export const RatingsFilter: React.FC<unknown> = () => {
             mx: '1em',
           }}
         />
-      </DigiDisplay>
-      <DigiDisplay
+      </ComponentDisplay>
+      <ComponentDisplay
         data-testid="EmployerRating__Wrapper"
         sx={{
           pl: '.5em',
@@ -122,7 +122,7 @@ export const RatingsFilter: React.FC<unknown> = () => {
             mx: '1em',
           }}
         />
-      </DigiDisplay>
+      </ComponentDisplay>
       <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
         <Typography variant="tip" sx={{ px: '1em', fontSize: '.75em' }}>
           Sets the Max Rating allowed.

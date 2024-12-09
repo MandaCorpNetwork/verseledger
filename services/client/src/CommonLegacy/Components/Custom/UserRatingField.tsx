@@ -1,5 +1,5 @@
 import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
 import { AddComment } from '@mui/icons-material';
 import { Box, Button, Grow, TextField } from '@mui/material';
@@ -39,7 +39,7 @@ export const UserRatingField: React.FC<UserRatingFieldProps> = ({
   );
 
   return (
-    <DigiDisplay
+    <ComponentDisplay
       data-testid="UserRatingForm__UserField_Wrapper"
       sx={{
         p: '.5em',
@@ -111,6 +111,6 @@ export const UserRatingField: React.FC<UserRatingFieldProps> = ({
           />
         </Box>
       </Grow>
-    </DigiDisplay>
+    </ComponentDisplay>
   );
 };

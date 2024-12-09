@@ -1,6 +1,6 @@
 import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
@@ -56,7 +56,7 @@ type DesktopBodyProps = {
  * @component {@link SmallTabHolo}
  * @component {@link ControlPanelBox}
  * @component {@link DigiBox}
- * @component {@link DigiDisplay}
+ * @component {@link ComponentDisplay}
  * @component {@link FeatureDisplay}
  * @component {@link PopupFormSelection}
  * @component {@link DigiField}
@@ -118,9 +118,12 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
               <SmallTabHolo label="Duration" value="start" />
             </SmallTabsHolo>
           </ControlPanelBox>
-          <DigiDisplay data-testid="ContractPage-Time__Panel_Wrapper" sx={{ py: '1em' }}>
+          <ComponentDisplay
+            data-testid="ContractPage-Time__Panel_Wrapper"
+            sx={{ py: '1em' }}
+          >
             {timePanel(timeTab)}
-          </DigiDisplay>
+          </ComponentDisplay>
         </FeatureDisplay>
         <FeatureDisplay
           data-testid="ContractPage-Bottom-Left__ActiveData_Container"
@@ -144,12 +147,12 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
               )}
             </SmallTabsHolo>
           </ControlPanelBox>
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="ContractPage-ActiveData__Panel_Wrapper"
             sx={{ minHeight: '100px', maxHeight: { lg: '200px', xl: '' } }}
           >
             {activeDataPanel(activeDataTab)}
-          </DigiDisplay>
+          </ComponentDisplay>
         </FeatureDisplay>
       </Box>
       <Box
@@ -166,12 +169,12 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
           data-testid="ContractPage-Bottom-Right__Location_Container"
           sx={{ mb: 'auto', p: '.5em', alignItems: 'center' }}
         >
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="ContractPage-Location__Title_Wrapper"
             sx={{ width: '70%' }}
           >
             <Typography>Locations</Typography>
-          </DigiDisplay>
+          </ComponentDisplay>
           <Box
             data-testid="ContractPage-Location-Mobile__LocationList_Wrapper"
             sx={{

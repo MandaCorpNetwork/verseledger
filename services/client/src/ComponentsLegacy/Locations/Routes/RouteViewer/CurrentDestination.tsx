@@ -1,5 +1,5 @@
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import PopupFormDisplay from '@CommonLegacy/Components/Boxes/PopupFormDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { Scu3d } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
@@ -60,7 +60,7 @@ export const CurrentDestination: React.FC<CurrentDestinationProps> = ({
 
   return (
     <ComponentContainer sx={{ p: '0.5em', maxHeight: '45%', gap: '1em' }}>
-      <DigiDisplay
+      <ComponentDisplay
         sx={{
           flexDirection: 'row',
           alignItems: 'center',
@@ -77,7 +77,7 @@ export const CurrentDestination: React.FC<CurrentDestinationProps> = ({
         </Typography>
         <Typography variant="h6">Current Destination</Typography>
         <LocationChip locationId={destination.location.id} size="medium" />
-      </DigiDisplay>
+      </ComponentDisplay>
       <Typography
         variant="subtitle2"
         sx={{

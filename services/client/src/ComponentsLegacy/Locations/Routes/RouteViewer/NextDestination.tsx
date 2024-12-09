@@ -1,5 +1,5 @@
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import PopupFormDisplay from '@CommonLegacy/Components/Boxes/PopupFormDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { TextField, Typography } from '@mui/material';
@@ -31,7 +31,7 @@ export const NextDestination: React.FC<NextDestinationProps> = ({
 
   return (
     <ComponentContainer sx={{ p: '0.5em', gap: '1em' }}>
-      <DigiDisplay
+      <ComponentDisplay
         sx={{
           flexDirection: 'row',
           alignItems: 'center',
@@ -48,7 +48,7 @@ export const NextDestination: React.FC<NextDestinationProps> = ({
         </Typography>
         <Typography variant="h6">Next Destination</Typography>
         <LocationChip locationId={destination.location.id} size="medium" />
-      </DigiDisplay>
+      </ComponentDisplay>
       <div style={{ gap: '1em', display: 'flex', padding: '0 0.5em' }}>
         <TextField size="small" label="Local Time" color="secondary" disabled />
         <TextField size="small" label="Distance" color="secondary" value={distance} />

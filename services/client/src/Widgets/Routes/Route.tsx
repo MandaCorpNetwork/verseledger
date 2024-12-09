@@ -1,5 +1,5 @@
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { Scu, Scu3d } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
@@ -206,7 +206,7 @@ export const RoutesWidget: React.FC = () => {
         }}
       >
         <ComponentContainer sx={{ p: '0.2em' }}>
-          <DigiDisplay
+          <ComponentDisplay
             sx={{
               flexDirection: 'row',
               gap: '1em',
@@ -228,7 +228,7 @@ export const RoutesWidget: React.FC = () => {
               Current
               <LocationChip locationId={currentDestination.location.id} />
             </Typography>
-          </DigiDisplay>
+          </ComponentDisplay>
           <Typography
             variant="caption"
             sx={{ display: 'inline-flex', mx: 'auto', gap: '0.5em', my: '0.5em' }}
@@ -276,7 +276,7 @@ export const RoutesWidget: React.FC = () => {
           }}
         >
           <ComponentContainer sx={{ p: '0.2em' }}>
-            <DigiDisplay
+            <ComponentDisplay
               sx={{
                 flexDirection: 'row',
                 gap: '1em',
@@ -301,7 +301,7 @@ export const RoutesWidget: React.FC = () => {
                 Next
                 <LocationChip locationId={nextDestination.location.id} />
               </Typography>
-            </DigiDisplay>
+            </ComponentDisplay>
             <Typography
               variant="caption"
               sx={{ display: 'inline-flex', mx: 'auto', gap: '0.5em', my: '0.5em' }}

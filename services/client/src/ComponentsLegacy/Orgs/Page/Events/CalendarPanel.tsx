@@ -1,5 +1,5 @@
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { Typography } from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers';
 import React from 'react';
@@ -7,7 +7,7 @@ import React from 'react';
 export const OrgCalendarPanel: React.FC = () => {
   return (
     <ComponentContainer sx={{ flexGrow: 1, alignItems: 'center', gap: '2em' }}>
-      <DigiDisplay style={{ flexDirection: 'row', width: 'fit-content' }}>
+      <ComponentDisplay style={{ flexDirection: 'row', width: 'fit-content' }}>
         <DateCalendar />
         <div
           style={{
@@ -20,8 +20,8 @@ export const OrgCalendarPanel: React.FC = () => {
         >
           <Typography>Date Itenerary:</Typography>
         </div>
-      </DigiDisplay>
-      <DigiDisplay sx={{ p: '0.5em 1em', width: '90%' }}>
+      </ComponentDisplay>
+      <ComponentDisplay sx={{ p: '0.5em 1em', width: '90%' }}>
         <Typography variant="h6" align="center">
           News
         </Typography>
@@ -32,7 +32,7 @@ export const OrgCalendarPanel: React.FC = () => {
         >
           No News
         </Typography>
-      </DigiDisplay>
+      </ComponentDisplay>
     </ComponentContainer>
   );
 };

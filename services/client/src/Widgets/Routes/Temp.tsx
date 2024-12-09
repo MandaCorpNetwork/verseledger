@@ -1,5 +1,5 @@
 // import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-// import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+// import DigiDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 // import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 // import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
 // import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField';

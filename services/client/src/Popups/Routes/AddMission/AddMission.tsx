@@ -2,7 +2,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { SCUField } from '@CommonLegacy/Components/TextFields/SCUField';
 import { RemoveCircle } from '@mui/icons-material';
@@ -179,7 +179,7 @@ export const AddMissionPopup: React.FC = () => {
                         <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
                           Pickup Info
                         </Typography>
-                        <DigiDisplay
+                        <ComponentDisplay
                           sx={{
                             flexDirection: 'row',
                             justifyContent: 'space-between',
@@ -235,7 +235,7 @@ export const AddMissionPopup: React.FC = () => {
                               />
                             )}
                           />
-                        </DigiDisplay>
+                        </ComponentDisplay>
                         <div>
                           {/** DROPOFFS MAP */}
                           <form.Field
@@ -250,7 +250,7 @@ export const AddMissionPopup: React.FC = () => {
                                 </Typography>
                                 {subField.state.value.map((_, j) => {
                                   return (
-                                    <DigiDisplay
+                                    <ComponentDisplay
                                       key={j}
                                       sx={{
                                         flexDirection: 'row',
@@ -304,7 +304,7 @@ export const AddMissionPopup: React.FC = () => {
                                           />
                                         )}
                                       />
-                                    </DigiDisplay>
+                                    </ComponentDisplay>
                                   );
                                 })}
                                 <div

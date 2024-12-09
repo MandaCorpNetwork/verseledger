@@ -1,4 +1,4 @@
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { SparkLineChart } from '@mui/x-charts';
 import React from 'react';
@@ -56,7 +56,7 @@ export const BugStatsBar: React.FC<BugStatsProps> = ({ tab, count }) => {
           alignItems: 'center',
         }}
       >
-        <DigiDisplay
+        <ComponentDisplay
           data-testid="AdminPage-Content-BugsPage-Stats__Content_Wrapper"
           sx={{ p: '.5em' }}
         >
@@ -66,9 +66,9 @@ export const BugStatsBar: React.FC<BugStatsProps> = ({ tab, count }) => {
           >
             {countLabel}: {count}
           </Typography>
-        </DigiDisplay>
+        </ComponentDisplay>
 
-        <DigiDisplay
+        <ComponentDisplay
           data-testid="AdminPage-Content-BugPage-Stats__ActivityGraph_Wrapper"
           sx={{ display: 'flex', height: '100%', flexDirection: 'column', px: '.5em' }}
         >
@@ -80,8 +80,8 @@ export const BugStatsBar: React.FC<BugStatsProps> = ({ tab, count }) => {
             data={[1, 3, 2, 5, 8]}
             showHighlight
           />
-        </DigiDisplay>
-        <DigiDisplay
+        </ComponentDisplay>
+        <ComponentDisplay
           data-testid="AdminPage-Content-BugPage-Stats__Version_Wrapper"
           sx={{
             px: '1em',
@@ -97,8 +97,8 @@ export const BugStatsBar: React.FC<BugStatsProps> = ({ tab, count }) => {
           <Typography data-testid="AdminPage-Content-BugPage-Stats__TotalBugCount_Title">
             Bugs Found: XXX
           </Typography>
-        </DigiDisplay>
-        <DigiDisplay
+        </ComponentDisplay>
+        <ComponentDisplay
           data-testid="AdminPage-Content-BugPage-Stats__ActiveGraph_Container"
           sx={{
             display: 'flex',
@@ -143,7 +143,7 @@ export const BugStatsBar: React.FC<BugStatsProps> = ({ tab, count }) => {
           >
             {chartTab === 'patch' && <PatchBreakdown />}
           </Box>
-        </DigiDisplay>
+        </ComponentDisplay>
       </Box>
     </Box>
   );

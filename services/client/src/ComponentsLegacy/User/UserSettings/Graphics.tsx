@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { FormLoadingButton } from '@CommonLegacy/Components/Buttons/FormLoadingButton';
 import { WarningAmberTwoTone } from '@mui/icons-material';
@@ -99,7 +99,7 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
           >
             Sets the intensity of animations through app.
           </Typography>
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="UserSettings-SectionDisplay-GraphicsSettings-Form__AnimationsSettings_Wrapper"
             sx={{ my: '0.5em', alignItems: 'flex-start', px: '0.5em' }}
           >
@@ -158,7 +158,7 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
                 </RadioGroup>
               )}
             />
-          </DigiDisplay>
+          </ComponentDisplay>
         </ComponentContainer>
         <ComponentContainer
           data-testid="UserSettings-SectionDisplay-GraphicsSettings-Form__ComponentFidelity_Container"
@@ -178,7 +178,7 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
           >
             Sets the Quality of Components on the site
           </Typography>
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="UserSettings-SectionDisplay-GraphicsSettings-Form__ComponentFidelity_Wrapper"
             sx={{ my: '0.5em', alignItems: 'flex-start', px: '0.5em' }}
           >
@@ -229,7 +229,7 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
                 </RadioGroup>
               )}
             />
-          </DigiDisplay>
+          </ComponentDisplay>
         </ComponentContainer>
         <div
           style={{

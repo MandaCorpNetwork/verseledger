@@ -5,7 +5,7 @@ import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
 import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { UserViewport } from '@CommonLegacy/Components/Boxes/UserViewport';
 import { Security } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { userBackgroundOptions } from '@CommonLegacy/DefinitionsLegacy/Structures/Users/UserBackgrounds';
@@ -236,7 +236,7 @@ export const UserPage: React.FC = () => {
                 variant="defined"
               />
             </Box>
-            <DigiDisplay
+            <ComponentDisplay
               data-testid="UserPage-PlayerData_DataWrapper"
               sx={{
                 display: 'flex',
@@ -340,7 +340,7 @@ export const UserPage: React.FC = () => {
                   </IconButton>
                 </Tooltip>
               </Box>
-            </DigiDisplay>
+            </ComponentDisplay>
           </Box>
           <Box
             data-testid="UserPage_CurrentDataContainer"
@@ -364,7 +364,7 @@ export const UserPage: React.FC = () => {
               }}
             >
               <InDevOverlay />
-              <DigiDisplay
+              <ComponentDisplay
                 data-testid="UserPage-Wrapper_LocationDisplay"
                 sx={{ py: '0.8em', display: 'flex', flexDirection: 'row', width: '100%' }}
               >
@@ -418,8 +418,8 @@ export const UserPage: React.FC = () => {
                 >
                   2 Days Ago
                 </Typography>
-              </DigiDisplay>
-              <DigiDisplay
+              </ComponentDisplay>
+              <ComponentDisplay
                 data-testid="UserPage-Wrapper_ShipDisplay"
                 sx={{ py: '0.8em', display: 'flex', flexDirection: 'row' }}
               >
@@ -473,7 +473,7 @@ export const UserPage: React.FC = () => {
                 >
                   2 Days Ago
                 </Typography>
-              </DigiDisplay>
+              </ComponentDisplay>
             </ComponentContainer>
           </Box>
         </Box>
@@ -487,7 +487,7 @@ export const UserPage: React.FC = () => {
             justifyContent: 'space-between',
           }}
         >
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="UserPage-BottomRow_StatsContainer"
             sx={{
               width: '35%',
@@ -530,8 +530,8 @@ export const UserPage: React.FC = () => {
             <Grow data-testid="UserPage-Stats-Tab_Display_Wrapper" in={true}>
               <Box data-testid="UserPage-Tab_Display_Box">{getStatsPanel()}</Box>
             </Grow>
-          </DigiDisplay>
-          <DigiDisplay
+          </ComponentDisplay>
+          <ComponentDisplay
             data-testid="UserPage-BottomRow_UserInfoContainer"
             sx={{
               width: '60%',
@@ -587,7 +587,7 @@ export const UserPage: React.FC = () => {
             >
               {getInfoPanel()}
             </Box>
-          </DigiDisplay>
+          </ComponentDisplay>
         </Box>
       </FeatureDisplay>
     </UserViewport>

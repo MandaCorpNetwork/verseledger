@@ -1,4 +1,4 @@
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { TimePicker } from '@CommonLegacy/Components/TextFields/TimePicker';
 import { Box, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import { ClearIcon } from '@mui/x-date-pickers';
@@ -132,7 +132,7 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
         gap: '.5em',
       }}
     >
-      <DigiDisplay
+      <ComponentDisplay
         data-testid="SchedulingDropdownFilter__BidDate_Wrapper"
         sx={{
           p: '.5em',
@@ -170,8 +170,8 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
             onClear={() => clearDateFilter(QueryNames.BidAfter)}
           />
         </Box>
-      </DigiDisplay>
-      <DigiDisplay
+      </ComponentDisplay>
+      <ComponentDisplay
         data-testid="SchedulingDropdownFilter__StartDate_Wrapper"
         sx={{ p: '.5em' }}
       >
@@ -204,8 +204,8 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
             onClear={() => clearDateFilter(QueryNames.StartAfter)}
           />
         </Box>
-      </DigiDisplay>
-      <DigiDisplay
+      </ComponentDisplay>
+      <ComponentDisplay
         data-testid="SchedulingDropdownFilter__EndDate_Wrapper"
         sx={{ p: '.5em' }}
       >
@@ -238,8 +238,8 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
             onClear={() => clearDateFilter(QueryNames.EndAfter)}
           />
         </Box>
-      </DigiDisplay>
-      <DigiDisplay
+      </ComponentDisplay>
+      <ComponentDisplay
         data-testid="SchedulingDropdownFilter__Duration_Wrapper"
         sx={{ px: '.5em', pb: '.5em' }}
       >
@@ -316,7 +316,7 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
         <Typography variant="tip" sx={{ px: '1em', mt: '.5em' }}>
           Max Duration on Contract
         </Typography>
-      </DigiDisplay>
+      </ComponentDisplay>
       <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center', mt: '.5em' }}>
         <Typography variant="tip" sx={{ fontSize: '.75em', px: '1em' }}>
           All times are in Local Time

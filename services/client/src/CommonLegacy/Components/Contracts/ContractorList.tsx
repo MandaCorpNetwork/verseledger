@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_USER_INVITE } from '@Popups/UserInvite/UserInvite';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -115,7 +115,7 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
         flexGrow: 1,
       }}
     >
-      <DigiDisplay
+      <ComponentDisplay
         data-testid="ContractorsTab__ControlsWrapper"
         sx={{
           flexDirection: 'row',
@@ -161,7 +161,7 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
             Invite
           </Button>
         )}
-      </DigiDisplay>
+      </ComponentDisplay>
       <Box
         data-testid="ContractorsTab__ContractorsListWrapper"
         sx={{

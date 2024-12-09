@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { Link } from '@mui/icons-material';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
@@ -36,7 +36,7 @@ type TitleBoxProps = {
  * @component {@link MobileInfo}
  * #### Styled Components
  * @component {@link DigiBox}
- * @component {@link DigiDisplay}
+ * @component {@link ComponentDisplay}
  */
 export const TitleBox: React.FC<TitleBoxProps> = ({
   contract,
@@ -87,7 +87,7 @@ export const TitleBox: React.FC<TitleBoxProps> = ({
         px: { xs: '.5em', md: '3em', lg: '10em' },
       }}
     >
-      <DigiDisplay
+      <ComponentDisplay
         data-testid="ContractPage-Info__TitleBar_Wrapper"
         sx={{
           flexDirection: 'row',
@@ -126,7 +126,7 @@ export const TitleBox: React.FC<TitleBoxProps> = ({
         >
           <Link fontSize={mobile ? 'medium' : 'large'} />
         </IconButton>
-      </DigiDisplay>
+      </ComponentDisplay>
       <Box
         data-testid="ContractPage-Info__ContractInfo_Wrapper"
         sx={{

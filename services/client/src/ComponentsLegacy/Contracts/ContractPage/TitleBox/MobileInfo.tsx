@@ -1,4 +1,4 @@
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { ArchetypeChip } from '@CommonLegacy/Components/Chips/ArchetypeChip';
 import { ContractStatusChip } from '@CommonLegacy/Components/Chips/ContractStatusChip';
 import { SubtypeChip } from '@CommonLegacy/Components/Chips/SubtypeChip';
@@ -28,7 +28,7 @@ type MobileInfoProps = {
  * @component {@link UserDisplay}
  * #### Styled Components
  * @component {@link DigiField}
- * @component {@link DigiDisplay}
+ * @component {@link ComponentDisplay}
  */
 export const MobileInfo: React.FC<MobileInfoProps> = ({ contract, archetype }) => {
   return (
@@ -76,7 +76,7 @@ export const MobileInfo: React.FC<MobileInfoProps> = ({ contract, archetype }) =
           justifyContent: 'space-around',
         }}
       >
-        <DigiDisplay
+        <ComponentDisplay
           data-testid="ContractPage-Info-ContractInfo__Status_Wrapper"
           sx={{ px: '.5em' }}
         >
@@ -95,7 +95,7 @@ export const MobileInfo: React.FC<MobileInfoProps> = ({ contract, archetype }) =
               sx={{ my: 'auto' }}
             />
           )}
-        </DigiDisplay>
+        </ComponentDisplay>
         <UserDisplay user={contract.Owner} />
       </Box>
     </Box>

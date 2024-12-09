@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { ComponentDisplay } from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { ContractStatusChip } from '@CommonLegacy/Components/Chips/ContractStatusChip';
 import { SubtypeChip } from '@CommonLegacy/Components/Chips/SubtypeChip';
 import { UserDisplay } from '@CommonLegacy/Components/Users/UserDisplay';
@@ -243,7 +243,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                 justifyContent: 'space-around',
               }}
             >
-              <DigiDisplay
+              <ComponentDisplay
                 data-testid="ContractBid-ContractDetails__ContractTypeWrapper"
                 sx={{
                   px: '1em',
@@ -264,8 +264,8 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                 >
                   <SubtypeChip subtype={contract.subtype} />
                 </Box>
-              </DigiDisplay>
-              <DigiDisplay
+              </ComponentDisplay>
+              <ComponentDisplay
                 data-testid="ContractBid-ContractDetails__ContractStatusWrapper"
                 sx={{ px: '1em', pb: '.5em' }}
               >
@@ -283,10 +283,10 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                 >
                   <ContractStatusChip status={contract.status} />
                 </Box>
-              </DigiDisplay>
+              </ComponentDisplay>
             </Box>
           </Box>
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="ContractBid-ContractDetails__BriefingWrapper"
             sx={{ mt: '.5em', px: '1em' }}
           >
@@ -330,7 +330,7 @@ export const SubmitContractBid: React.FC<ContractBidProps> = ({ contract }) => {
                 {contract.briefing}
               </Typography>
             </Box>
-          </DigiDisplay>
+          </ComponentDisplay>
         </ComponentContainer>
         <Divider
           data-testid="ContractBid-StaticVsDynamic__Divider"

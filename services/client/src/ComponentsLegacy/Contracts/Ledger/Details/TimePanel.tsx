@@ -1,4 +1,4 @@
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { Box, LinearProgress, Tooltip, Typography } from '@mui/material';
 import dayjs, { Dayjs } from 'dayjs';
 import duration from 'dayjs/plugin/duration';
@@ -43,7 +43,7 @@ export const BiddingTimePanel: React.FC<TimePanelProps> = ({ contract }) => {
         justifyContent: 'center',
       }}
     >
-      <DigiDisplay
+      <ComponentDisplay
         data-testid="ContractTime-Panel-BidTime__TextWrapper"
         sx={{ p: '1em' }}
       >
@@ -99,7 +99,7 @@ export const BiddingTimePanel: React.FC<TimePanelProps> = ({ contract }) => {
             {formattedBidEnd}
           </Typography>
         </Typography>
-      </DigiDisplay>
+      </ComponentDisplay>
     </Box>
   );
 };
@@ -232,7 +232,7 @@ export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) =>
         justifyContent: 'center',
       }}
     >
-      <DigiDisplay
+      <ComponentDisplay
         data-testid="ContractTime-Panel-StartTime__TextWrapper"
         sx={{
           py: '.5em',
@@ -424,7 +424,7 @@ export const ContractDurationPanel: React.FC<TimePanelProps> = ({ contract }) =>
             </Tooltip>
           </Box>
         )}
-      </DigiDisplay>
+      </ComponentDisplay>
     </Box>
   );
 };

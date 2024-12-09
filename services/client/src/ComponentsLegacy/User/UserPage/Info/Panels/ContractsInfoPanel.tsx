@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { ArrowRight } from '@mui/icons-material';
 import {
   Box,
@@ -148,7 +148,7 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
   const contracts = useAppSelector(selectContracts);
 
   return (
-    <DigiDisplay
+    <ComponentDisplay
       data-testid="ContractInfo__DigiDisplay"
       sx={{
         display: 'flex',
@@ -303,6 +303,6 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
           </Collapse>
         </Box>
       </Box>
-    </DigiDisplay>
+    </ComponentDisplay>
   );
 };

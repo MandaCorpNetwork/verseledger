@@ -1,6 +1,6 @@
 import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { CopyString } from '@CommonLegacy/Components/Buttons/CopyString';
 import { GeneralNav } from '@CommonLegacy/Components/Buttons/GeneralNavIcon';
 import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
@@ -92,7 +92,7 @@ export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
           flexDirection: 'row',
         }}
       >
-        <DigiDisplay
+        <ComponentDisplay
           data-testid="SelectedContract-DetailsDisplay__HeaderWrapper"
           sx={{
             flexDirection: 'row',
@@ -142,7 +142,7 @@ export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
               )}
             </Tooltip>
           </div>
-        </DigiDisplay>
+        </ComponentDisplay>
         <CopyString
           data-testid="SelectedContract-DetailsDisplay-Header__ContractPageURL"
           variant="VLurl"

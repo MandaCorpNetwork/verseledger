@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
-import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { ComponentDisplay } from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
@@ -150,7 +150,7 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
             gap: '1em',
           }}
         >
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="ContractBid__NonNegotiateBid_ContractPayWrapper"
             sx={{
               px: '1em',
@@ -178,8 +178,8 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
                 width: '130px',
               }}
             />
-          </DigiDisplay>
-          <DigiDisplay
+          </ComponentDisplay>
+          <ComponentDisplay
             data-testid="ContractBid__NonNegotiateBid_ContractorsDetailsWrapper"
             sx={{
               px: '1em',
@@ -256,9 +256,9 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
                 {acceptedContractorsCount}
               </Typography>
             </Typography>
-          </DigiDisplay>
+          </ComponentDisplay>
         </Box>
-        <DigiDisplay
+        <ComponentDisplay
           sx={{
             flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-around',
@@ -273,8 +273,8 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
           <DigiField label="End Date" sx={{ minWidth: '150px' }}>
             {endDate}
           </DigiField>
-        </DigiDisplay>
-        <DigiDisplay sx={{ my: '.5em', width: '90%' }}>
+        </ComponentDisplay>
+        <ComponentDisplay sx={{ my: '.5em', width: '90%' }}>
           <Typography variant="body2" sx={{ fontWeight: 'bold', color: 'inherit' }}>
             Locations
           </Typography>
@@ -324,7 +324,7 @@ export const NegotiateBid: React.FC<NegotiateBidProps> = ({
               )}
             </Box>
           </PopupFormSelection>
-        </DigiDisplay>
+        </ComponentDisplay>
       </Box>
     </ComponentContainer>
   );
