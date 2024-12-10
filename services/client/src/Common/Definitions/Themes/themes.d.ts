@@ -17,6 +17,11 @@ declare type ThemeStyledComponents = Record<
   SxProps<Theme> | ((theme: Theme) => SxProps<Theme>)
 >;
 
+declare type ThemeLayouts = Record<
+  string,
+  SxProps<Theme> | ((theme: Theme) => SxProps<Theme>)
+>;
+
 declare type ThemeGenerator = (
   palette: Theme,
   fidelity: ThemeFidelity,
@@ -29,4 +34,5 @@ declare type BaseTheme = {
   palette: Theme;
   generator: ThemeGenerator;
   styledComponents: ThemeStyledComponents;
+  layouts: ThemeLayouts;
 };
