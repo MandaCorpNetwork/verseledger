@@ -2,6 +2,7 @@ import {
   verseOSAppDisplay,
   verseOSComponentContainer,
   verseOSComponentDisplay,
+  verseOSControlPanel,
   verseOSFeatureContainer,
   verseOSFeatureDisplay,
 } from './Styles/CoreBoxes';
@@ -13,4 +14,5 @@ export const verseOSComponents: ThemeStyledComponents = {
   FeatureDisplay: verseOSFeatureDisplay,
   ComponentContainer: verseOSComponentContainer,
   ComponentDisplay: verseOSComponentDisplay,
+  ControlPanel: verseOSControlPanel,
 };

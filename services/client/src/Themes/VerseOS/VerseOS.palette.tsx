@@ -54,7 +54,7 @@ export const verseOSPalette = createTheme({
       hover: 'rgb(30, 90, 200)',
       selected: 'rgb(0, 200, 255)',
       disabled: 'rgb(0,73,130)',
-      disabledBackground: 'rgb(0,30,100)',
+      disabledBackground: 'rgb(0,50,150)',
     },
     divider: 'rgb(24, 252, 252)',
   },
