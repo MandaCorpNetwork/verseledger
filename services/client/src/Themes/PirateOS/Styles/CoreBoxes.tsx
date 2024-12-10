@@ -97,3 +97,70 @@ export const pirateOSFeatureDisplay = (theme: Theme): SxProps<Theme> => ({
     borderColor: theme.palette.secondary.light,
   }),
 });
+
+export const pirateOSComponentContainer = (theme: Theme): SxProps<Theme> => ({
+  backgroundColor: alpha(theme.palette.divider, 0.7),
+  '&::-webkit-scrollbar': {
+    width: '2px',
+    height: '2px',
+  },
+  '&::-webkit-scrollbar-track': {
+    background: theme.palette.divider,
+    borderRadius: '2px',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    background: theme.palette.secondary.main,
+  },
+  // HIGH FIDELITY
+  ...(theme.fidelity === 'high' && {
+    backdropFilter: 'blur(10px)',
+    boxShadow: `0 4px 6px ${alpha(theme.palette.background.default, 0.3)}, 0 10px 20px ${alpha(theme.palette.background.default, 0.2)}, 0 2px 4px ${alpha(theme.palette.background.paper, 0.2)}`,
+    border: `1px solid ${theme.palette.background.paper}`,
+    '&:before': {
+      content: '""',
+      position: 'absolute',
+      inset: 0,
+      background: `radial-gradient(circle at right, ${alpha(theme.palette.primary.dark, 0.2)} 10%, transparent 70%)`,
+      pointerEvents: 'none',
+      transition: 'background 0.3s ease-in-out',
+    },
+  }),
+  ...(theme.fidelity === 'high' &&
+    theme.animations === 'high' && {
+      '@keyframes pulseRadial': {
+        '0%': {
+          opacity: 0.6,
+        },
+        '50%': {
+          opacity: 1,
+        },
+        '100%': {
+          opacity: 0.6,
+        },
+      },
+      transition: 'box-shadow 0.3s ease',
+      '&:hover': {
+        boxShadow: `0 8px 12px ${alpha(theme.palette.background.default, 0.5)}, 0 20px 40px ${alpha(theme.palette.background.default, 0.4)}, 0 4px 8px ${alpha(theme.palette.background.paper, 0.3)}`,
+        '&:before': {
+          background: `radial-gradient(circle at right, ${alpha(theme.palette.primary.dark, 0.4)} 10%, transparent 70%)`,
+          animation: 'pulseRadial 3s infinite ease-in-out',
+        },
+      },
+    }),
+  // MEDIUM FIDELITY
+  ...(theme.fidelity === 'medium' && {
+    boxShadow: `0 4px 6px ${alpha(theme.palette.background.default, 0.3)}, 0 10px 20px ${alpha(theme.palette.background.default, 0.2)}, 0 2px 4px ${alpha(theme.palette.background.paper, 0.2)}`,
+    border: `1px solid ${theme.palette.background.paper}`,
+  }),
+  ...(theme.fidelity === 'medium' &&
+    theme.animations === 'high' && {
+      transition: 'box-shadow 0.3s ease',
+      '&:hover': {
+        boxShadow: `0 8px 12px ${alpha(theme.palette.background.default, 0.5)}, 0 20px 40px ${alpha(theme.palette.background.default, 0.4)}, 0 4px 8px ${alpha(theme.palette.background.paper, 0.3)}`,
+      },
+    }),
+  // LOW FIDELITY
+  ...(theme.fidelity === 'low' && {
+    border: `1px solid ${theme.palette.background.paper}`,
+  }),
+});

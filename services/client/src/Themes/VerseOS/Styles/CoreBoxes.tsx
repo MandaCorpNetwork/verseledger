@@ -69,3 +69,103 @@ export const verseOSFeatureDisplay = (theme: Theme): SxProps<Theme> => ({
     backgroundColor: alpha(theme.palette.action.disabled, 0.2),
   }),
 });
+
+export const verseOSComponentContainer = (theme: Theme): SxProps<Theme> => ({
+  borderTop: '2px solid',
+  borderBottom: '2px solid',
+  borderRadius: '5px',
+  borderColor: theme.palette.primary.main,
+  borderLeft: `1px solid ${alpha(theme.palette.primary.main, 0.5)}`,
+  borderRight: `1px solid ${alpha(theme.palette.primary.main, 0.5)}`,
+  backgroundColor: alpha(theme.palette.divider, 0.1),
+
+  '&::-webkit-scrollbar': {
+    width: '5px',
+    height: '5px',
+  },
+  '&::-webkit-scrollbar-track': {
+    background: 'rgb(0,73,130)',
+    borderRadius: '10px',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    borderRadius: '20px',
+    background: 'rgb(24,252,252)',
+  },
+  // HIGH FIDELITY
+  ...(theme.fidelity === 'high' && {
+    boxShadow: `0 1px 3px ${alpha(theme.palette.primary.main, 0.4)}, 0 4px 6px ${alpha(theme.palette.primary.main, 0.3)}, 0 10px 20px ${alpha(theme.palette.primary.main, 0.2)}, 0 2px 4px rgba(0,0,0,0.6), inset 0 1px 2px ${alpha(theme.palette.divider, 0.05)}`,
+    backdropFilter: 'blur(10px)',
+    zIndex: 1,
+    '&:before': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      right: 0,
+      left: 0,
+      background: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.5)} 0%, ${alpha(theme.palette.primary.main, 0.8)} 100%)`,
+      opacity: 0.6,
+      backdropFilter: 'blur(10px)',
+      zIndex: -2,
+      backgroundImage: `linear-gradient(transparent 45%, ${alpha(theme.palette.primary.main, 0.45)} 5%)`,
+      backgroundSize: '100% 4px',
+    },
+  }),
+  ...(theme.fidelity === 'high' &&
+    theme.animations === 'high' && {
+      '@keyframes riseLines': {
+        from: {
+          backgroundPosition: '0% 100%',
+        },
+        to: {
+          backgroundPosition: '0% 0%',
+        },
+      },
+      '@keyframes pulseShadow': {
+        '0%': {
+          boxShadow: `0 2px 6px ${alpha(theme.palette.primary.main, 0.4)}, 0 6px 12px ${alpha(theme.palette.primary.main, 0.3)}, 0 16px 32px ${alpha(theme.palette.primary.main, 0.2)}, 0 4px 8px rgb(0,0,0,0.6), inset 0 1px 2px ${alpha(theme.palette.divider, 0.05)}`,
+        },
+        '50%': {
+          boxShadow: `0 3px 8px ${alpha(theme.palette.primary.main, 0.5)}, 0 8px 16px ${alpha(theme.palette.primary.main, 0.4)}, 0 20px 40px ${alpha(theme.palette.primary.main, 0.3)}, 0 5px 10px rgb(0,0,0,0.7), inset 0 2px 4px ${alpha(theme.palette.divider, 0.1)}`,
+        },
+        '100%': {
+          boxShadow: `0 2px 6px ${alpha(theme.palette.primary.main, 0.4)}, 0 6px 12px ${alpha(theme.palette.primary.main, 0.3)}, 0 16px 32px ${alpha(theme.palette.primary.main, 0.2)}, 0 4px 8px rgb(0,0,0,0.6), inset 0 1px 2px ${alpha(theme.palette.divider, 0.05)}`,
+        },
+      },
+      '&:before': {
+        backgroundRepeat: 'repeat',
+        animation: 'riseLines 5s linear infinite',
+      },
+      '&:hover': {
+        animation: 'pulseShadow 5s infinite ease-in-out',
+      },
+    }),
+  ...(theme.fidelity === 'high' &&
+    theme.animations === 'medium' && {
+      transition: 'box-shadow 0.3s ease-in-out',
+      '&:hover': {
+        boxShadow: `0 3px 8px ${alpha(theme.palette.primary.main, 0.5)}, 0 8px 16px ${alpha(theme.palette.primary.main, 0.4)}, 0 20px 40px ${alpha(theme.palette.primary.main, 0.3)}, 0 5px 10px rgb(0,0,0,0.7), inset 0 2px 4px ${alpha(theme.palette.divider, 0.1)}`,
+      },
+    }),
+  // MEDIUM FIDELITY
+  ...(theme.fidelity === 'medium' && {
+    boxShadow: `0 1px 3px ${alpha(theme.palette.primary.main, 0.4)}, 0 4px 6px ${alpha(theme.palette.primary.main, 0.3)}, 0 10px 20px ${alpha(theme.palette.primary.main, 0.2)}, 0 2px 4px rgba(0,0,0,0.6), inset 0 1px 2px ${alpha(theme.palette.divider, 0.05)}`,
+  }),
+  ...(theme.fidelity === 'medium' &&
+    theme.animations === 'high' && {
+      transition: 'box-shadow 0.3s ease-in-out',
+      '&:hover': {
+        boxShadow: `0 3px 8px ${alpha(theme.palette.primary.main, 0.5)}, 0 8px 16px ${alpha(theme.palette.primary.main, 0.4)}, 0 20px 40px ${alpha(theme.palette.primary.main, 0.3)}, 0 5px 10px rgb(0,0,0,0.7), inset 0 2px 4px ${alpha(theme.palette.divider, 0.1)}`,
+      },
+    }),
+  ...(theme.fidelity === 'medium' &&
+    theme.animations === 'medium' && {
+      transition: 'box-shadow 0.3s ease-in-out',
+      boxShadow:
+        '0 2px 3px rgb(0,0,0,0.4), 0 4px 6px rgb(0,0,0,0.3), 0 10px 20px rgb(0,0,0,0.2)',
+      '&:hover': {
+        boxShadow:
+          '0 3px 6px rgb(0,0,0,0.6), 0 8px 12px rgb(0,0,0,0.5), 0 15px 35px rgb(0,0,0,0.4)',
+      },
+    }),
+});
