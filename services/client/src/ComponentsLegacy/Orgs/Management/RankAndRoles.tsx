@@ -48,45 +48,44 @@ export const RankAndRoles: React.FC<RanksAndRolesProps> = ({ ranks }) => {
       }}
     >
       <FeatureDisplay sx={{ flexGrow: 1, p: '0.5em' }}>
-      <FeatureDisplay sx={{ flexGrow: 1, p: '0.5em' }}>
-        <Typography variant="h4" align="center">
-          Ranks
-        </Typography>
-        <div>
+        <FeatureDisplay sx={{ flexGrow: 1, p: '0.5em' }}>
+          <Typography variant="h4" align="center">
+            Ranks
+          </Typography>
           <div>
-            <Typography variant="h6">Add Rank</Typography>
-            <ComponentContainer></ComponentContainer>
+            <div>
+              <Typography variant="h6">Add Rank</Typography>
+              <ComponentContainer></ComponentContainer>
+            </div>
+            <div>
+              <Typography variant="h6">Edit Ranks</Typography>
+              <FormControl>
+                <FormLabel color="secondary">Selected Rank</FormLabel>
+                {ranks ? (
+                  <RadioGroup row value={selectedRank?.id} onChange={handleSelectRank}>
+                    {ranks.map((rank) => (
+                      <FormControlLabel
+                        key={rank.id}
+                        value={rank.id}
+                        control={<Radio color="secondary" />}
+                        label={rank.rank_name}
+                      />
+                    ))}
+                  </RadioGroup>
+                ) : (
+                  'None'
+                )}
+              </FormControl>
+              <ComponentContainer></ComponentContainer>
+            </div>
           </div>
-          <div>
-            <Typography variant="h6">Edit Ranks</Typography>
-            <FormControl>
-              <FormLabel color="secondary">Selected Rank</FormLabel>
-              {ranks ? (
-                <RadioGroup row value={selectedRank?.id} onChange={handleSelectRank}>
-                  {ranks.map((rank) => (
-                    <FormControlLabel
-                      key={rank.id}
-                      value={rank.id}
-                      control={<Radio color="secondary" />}
-                      label={rank.rank_name}
-                    />
-                  ))}
-                </RadioGroup>
-              ) : (
-                'None'
-              )}
-            </FormControl>
-            <ComponentContainer></ComponentContainer>
-          </div>
-        </div>
-      </FeatureDisplay>
-      <FeatureDisplay sx={{ flexGrow: 1, p: '0.5em' }}>
-      </FeatureDisplay>
-      <FeatureDisplay sx={{ flexGrow: 1, p: '0.5em' }}>
-        <Typography variant="h4" align="center">
-          Roles
-        </Typography>
-      </FeatureDisplay>
+        </FeatureDisplay>
+        <FeatureDisplay sx={{ flexGrow: 1, p: '0.5em' }}></FeatureDisplay>
+        <FeatureDisplay sx={{ flexGrow: 1, p: '0.5em' }}>
+          <Typography variant="h4" align="center">
+            Roles
+          </Typography>
+        </FeatureDisplay>
       </FeatureDisplay>
     </div>
   );
