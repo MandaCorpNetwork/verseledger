@@ -1,5 +1,6 @@
 import {
   pirateOSComponentContainer,
+  pirateOSComponentDisplay,
   pirateOSFeatureContainer,
   pirateOSFeatureDisplay,
 } from './Styles/CoreBoxes';
@@ -9,4 +10,5 @@ export const pirateOSComponents: ThemeStyledComponents = {
   FeatureContainer: pirateOSFeatureContainer,
   FeatureDisplay: pirateOSFeatureDisplay,
   ComponentContainer: pirateOSComponentContainer,
+  ComponentDisplay: pirateOSComponentDisplay,
 };
