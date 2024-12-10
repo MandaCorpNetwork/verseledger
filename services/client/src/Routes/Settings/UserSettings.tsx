@@ -24,6 +24,7 @@ import {
 } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserSettings } from '@Redux/Slices/Auth/auth.selectors';
+import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
 import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -49,10 +50,17 @@ export const UserSettings: React.FC = () => {
   const navigate = useNavigate();
   const sound = useSoundEffect();
   const theme = useTheme();
+  const themeExtend = useDynamicTheme();
   const [selectedSetting, _setSelectedSetting] =
     React.useState<SettingsListItem>('Profile');
   const [_, setCurrentSetting] = React.useState<string>('Profile');
   const [transitioning, setTransitioning] = React.useState<boolean>(false);
+
+  const layout = React.useMemo(() => {
+    const drawerList = themeExtend.layout('UserSettings.DrawerList');
+    const drawerListButton = themeExtend.layout('UserSettings.DrawListButton');
+    return { drawerList, drawerListButton };
+  }, [themeExtend]);
 
   const currentSettings = useAppSelector(selectUserSettings);
 
@@ -104,23 +112,16 @@ export const UserSettings: React.FC = () => {
       return () => clearTimeout(time);
     }
   }, [transitioning, selectedSetting]);
+
   const DrawerList = (
-    <List
-      sx={(theme) => ({
-        display: 'flex',
-        flexDirection: 'column',
-        ...(theme.themeType === 'pirateOS' && { flexDirection: 'row' }),
-      })}
-    >
+    <List sx={{ display: 'flex', flexDirection: 'column', ...layout.drawerList }}>
       {settingsList.map((text) => (
         <ListItem key={text} disablePadding onMouseEnter={() => sound.playSound('hover')}>
           <DepressedListButton
             onClick={(e) => handleSettingSelection(e, text)}
             selected={tab === text}
             TouchRippleProps={{ className: 'dark-ripple' }}
-            sx={(theme) => ({
-              ...(theme.themeType === 'pirateOS' && { textAlign: 'center' }),
-            })}
+            sx={layout.drawerListButton}
           >
             <ListItemText primary={text} />
           </DepressedListButton>

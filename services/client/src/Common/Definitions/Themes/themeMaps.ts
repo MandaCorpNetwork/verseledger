@@ -9,6 +9,7 @@ import Checkmate from '@Assets/Videos/Checkmate.webm?url';
 import RedMicrotech from '@Assets/Videos/RedMicrotech.webm?url';
 import { pirateOSComponents } from '@Themes/PirateOS/PirateOS.components';
 import { generatePirateOSBase } from '@Themes/PirateOS/PirateOS.generator';
+import { pirateOSLayouts } from '@Themes/PirateOS/PirateOS.layouts';
 import { pirateOSPalette } from '@Themes/PirateOS/PirateOS.palette';
 import { verseOSComponents } from '@Themes/VerseOS/VerseOS.components';
 import { generateVerseOSBase } from '@Themes/VerseOS/VerseOS.generator';
@@ -25,12 +26,14 @@ export const baseThemesMap: Record<ThemeType, BaseTheme> = {
     palette: verseOSPalette,
     generator: generateVerseOSBase,
     styledComponents: verseOSComponents,
+    layouts: {} as ThemeLayouts,
   },
   pirateOS: {
     themeName: 'pirateOS',
     palette: pirateOSPalette,
     generator: generatePirateOSBase,
     styledComponents: pirateOSComponents,
+    layouts: pirateOSLayouts,
   },
   refinerySystem: {} as BaseTheme,
 };
