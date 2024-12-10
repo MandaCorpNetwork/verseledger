@@ -1,14 +1,14 @@
 import VLLogo from '@Assets/media/VerseLogos/verselogo-0.png?url';
 import { Box, CircularProgress, SxProps } from '@mui/material';
-import type { verseOS } from '@Themes/VerseOS';
+import { Theme } from '@mui/material/styles';
 
 type LoadingWheelProps = {
   testid?: string;
   controlType?: 'determinate' | 'indeterminate';
   logoSize?: number;
   wheelSize?: number;
-  boxSX?: SxProps<typeof verseOS>;
-  logoSX?: SxProps<typeof verseOS>;
+  boxSX?: SxProps<Theme>;
+  logoSX?: SxProps<Theme>;
 };
 
 export const LoadingWheel: React.FC<LoadingWheelProps> = (props) => {

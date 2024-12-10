@@ -17,19 +17,21 @@ export const TuningExplorer: React.FC = () => {
   );
   return (
     <FeatureContainer sx={{ p: '1em' }}>
-      <InDevOverlay />
-      <ControlPanelBox>
-        <Tabs
-          value={tab}
-          onChange={handleTabChange}
-          color="secondary"
-          indicatorColor="secondary"
-          textColor="secondary"
-        >
-          <Tab label="Saved Presets" value="saved" />
-          <Tab label="Discover Presets" value="discover" />
-        </Tabs>
-      </ControlPanelBox>
+      <FeatureContainer sx={{ p: '1em' }}>
+        <InDevOverlay />
+        <ControlPanelBox>
+          <Tabs
+            value={tab}
+            onChange={handleTabChange}
+            color="secondary"
+            indicatorColor="secondary"
+            textColor="secondary"
+          >
+            <Tab label="Saved Presets" value="saved" />
+            <Tab label="Discover Presets" value="discover" />
+          </Tabs>
+        </ControlPanelBox>
+      </FeatureContainer>
     </FeatureContainer>
   );
 };

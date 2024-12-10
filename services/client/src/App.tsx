@@ -18,11 +18,6 @@ import { routingInfo } from './Routes/Router';
 
 const router = createBrowserRouter(routingInfo);
 
-const isValidAnimation = (value: string): value is 'high' | 'medium' | 'low' | 'none' =>
-  ['high', 'medium', 'low', 'none'].includes(value);
-const isValidFidelity = (value: string): value is 'high' | 'medium' | 'low' | 'potato' =>
-  ['high', 'medium', 'low', 'potato'].includes(value);
-
 export default function App() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -39,20 +34,25 @@ export default function App() {
   const userFidelity = settings.quality ?? 'medium';
 
   const theme = useMemo(() => {
-    const animations = isValidAnimation(userAnimations) ? userAnimations : 'medium';
-    const fidelity = isValidFidelity(userFidelity) ? userFidelity : 'medium';
-    const themeName = (settings.theme ?? 'verseOS') as ThemeName;
-    const baseTheme = baseThemesMap[themeName] || baseThemesMap['verseOS'];
+    const animations = userAnimations as ThemeAnimations;
+    const fidelity = userFidelity as ThemeFidelity;
+    const themeType = (settings.theme ?? 'verseOS') as ThemeType;
+
+    const basePalette = baseThemesMap[themeType].palette;
+    const palette = createTheme({
+      ...basePalette,
+      //...userPalette
+    });
 
     const transitionsObject =
       animationTransitionMap[animations] || animationTransitionMap.medium;
 
-    return createTheme({
-      ...baseTheme,
-      animations,
+    return baseThemesMap[themeType].generator(
+      palette,
       fidelity,
-      transitions: transitionsObject,
-    });
+      animations,
+      transitionsObject,
+    );
   }, [settings.theme, userAnimations, userFidelity]);
   return (
     <ThemeProvider theme={theme}>
