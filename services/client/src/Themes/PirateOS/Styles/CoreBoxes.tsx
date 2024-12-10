@@ -1,5 +1,35 @@
+import { logoThemeMap } from '@Common/Definitions/Themes/themeMaps';
 import { SxProps } from '@mui/material';
 import { alpha, Theme } from '@mui/material/styles';
+
+export const pirateOSAppDisplay = (theme: Theme): SxProps<Theme> => ({
+  '&::-webkit-scrollbar': {
+    width: '2px',
+    height: '2px',
+  },
+  '&::-webkit-scrollbar-track': {
+    background: theme.palette.divider,
+    borderRadius: '2px',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    background: theme.palette.secondary.main,
+  },
+  ...(theme.fidelity === 'high' && {
+    '&:before': {
+      backgroundImage: `url(${logoThemeMap.pirateOSGlow})`,
+    },
+  }),
+  ...(theme.fidelity === 'medium' && {
+    '&:before': {
+      backgroundImage: `url(${logoThemeMap.pirateOS})`,
+    },
+  }),
+  ...((theme.fidelity === 'low' || theme.fidelity === 'potato') && {
+    '&:before': {
+      backgroundImage: `url(${logoThemeMap.pirateOSPotato})`,
+    },
+  }),
+});
 
 export const pirateOSFeatureContainer = (theme: Theme): SxProps<Theme> => ({
   display: 'flex',

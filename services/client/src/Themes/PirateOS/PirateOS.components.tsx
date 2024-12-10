@@ -1,4 +1,5 @@
 import {
+  pirateOSAppDisplay,
   pirateOSComponentContainer,
   pirateOSComponentDisplay,
   pirateOSFeatureContainer,
@@ -7,6 +8,7 @@ import {
 
 export const pirateOSComponents: ThemeStyledComponents = {
   //CORE BOXES
+  AppDisplay: pirateOSAppDisplay,
   FeatureContainer: pirateOSFeatureContainer,
   FeatureDisplay: pirateOSFeatureDisplay,
   ComponentContainer: pirateOSComponentContainer,

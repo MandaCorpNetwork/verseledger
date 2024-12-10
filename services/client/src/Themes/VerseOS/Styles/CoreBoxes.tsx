@@ -1,4 +1,35 @@
+import { logoThemeMap } from '@Common/Definitions/Themes/themeMaps';
 import { alpha, SxProps, Theme } from '@mui/material/styles';
+
+export const verseOSAppDisplay = (theme: Theme): SxProps<Theme> => ({
+  '&::-webkit-scrollbar': {
+    width: '5px',
+    height: '5px',
+  },
+  '&::-webkit-scrollbar-track': {
+    background: theme.palette.action.disabled,
+    borderRadius: '10px',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    borderRadius: '20px',
+    background: theme.palette.divider,
+  },
+  ...(theme.fidelity === 'high' && {
+    '&:before': {
+      backgroundImage: `url(${logoThemeMap.verseOSGlow})`,
+    },
+  }),
+  ...(theme.fidelity === 'medium' && {
+    '&:before': {
+      backgroundImage: `url(${logoThemeMap.verseOS})`,
+    },
+  }),
+  ...((theme.fidelity === 'low' || theme.fidelity === 'potato') && {
+    '&:before': {
+      backgroundImage: `url(${logoThemeMap.verseOSPotato})`,
+    },
+  }),
+});
 
 export const verseOSFeatureContainer = (theme: Theme): SxProps<Theme> => ({
   display: 'flex',

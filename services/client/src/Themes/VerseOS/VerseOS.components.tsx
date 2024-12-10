@@ -1,4 +1,5 @@
 import {
+  verseOSAppDisplay,
   verseOSComponentContainer,
   verseOSComponentDisplay,
   verseOSFeatureContainer,
@@ -7,6 +8,7 @@ import {
 
 export const verseOSComponents: ThemeStyledComponents = {
   //CORE BOXES
+  AppDisplay: verseOSAppDisplay,
   FeatureContainer: verseOSFeatureContainer,
   FeatureDisplay: verseOSFeatureDisplay,
   ComponentContainer: verseOSComponentContainer,
