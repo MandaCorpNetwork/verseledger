@@ -1,5 +1,10 @@
 import { alpha, Box, styled } from '@mui/material';
 const FeatureContainer = styled(Box)(({ theme }) => [
+  {
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'relative',
+  },
   theme.themeType === 'verseOS' && {
     display: 'flex',
     flexDirection: 'column',

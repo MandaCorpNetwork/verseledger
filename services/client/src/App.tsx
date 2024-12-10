@@ -1,7 +1,7 @@
 import './App.css';
 
-import { baseThemesMap, ThemeName } from '@Common/Definitions/themes';
-import { animationTransitionMap } from '@Common/Definitions/transitions';
+import { baseThemesMap } from '@Common/Definitions/Themes/themeMaps';
+import { animationTransitionMap } from '@Common/Definitions/Themes/transitions';
 import { LoadingScreen } from '@CommonLegacy/LoadingObject/LoadingScreen';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -42,7 +42,7 @@ export default function App() {
     const animations = isValidAnimation(userAnimations) ? userAnimations : 'medium';
     const fidelity = isValidFidelity(userFidelity) ? userFidelity : 'medium';
     const themeName = (settings.theme ?? 'verseOS') as ThemeName;
-    const baseTheme = baseThemesMap[themeName] || baseThemesMap.verseOS;
+    const baseTheme = baseThemesMap[themeName] || baseThemesMap['verseOS'];
 
     const transitionsObject =
       animationTransitionMap[animations] || animationTransitionMap.medium;

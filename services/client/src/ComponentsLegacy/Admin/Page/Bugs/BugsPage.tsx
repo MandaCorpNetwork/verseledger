@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Box, Tab, Tabs, Typography } from '@mui/material';
 import React from 'react';

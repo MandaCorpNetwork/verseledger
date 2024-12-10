@@ -1,5 +1,5 @@
-import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
 import { AddComment } from '@mui/icons-material';
 import { Box, Button, Grow, TextField } from '@mui/material';

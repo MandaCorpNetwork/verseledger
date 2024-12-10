@@ -1,9 +1,9 @@
 /* eslint-disable react/no-children-prop */
 import { useSoundEffect } from '@Audio/AudioManager';
-import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
+import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
 import { SCUField } from '@CommonLegacy/Components/TextFields/SCUField';
 import { RemoveCircle } from '@mui/icons-material';
 import { Button, IconButton, TextField, Typography } from '@mui/material';

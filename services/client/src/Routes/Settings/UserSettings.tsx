@@ -15,7 +15,6 @@ import { SecuritySettings } from '@ComponentsLegacy/User/UserSettings/Security';
 import { SoundSettings } from '@ComponentsLegacy/User/UserSettings/Sounds';
 import {
   Box,
-  Drawer,
   Grow,
   List,
   ListItem,
@@ -106,25 +105,28 @@ export const UserSettings: React.FC = () => {
     }
   }, [transitioning, selectedSetting]);
   const DrawerList = (
-    <Box>
-      <List>
-        {settingsList.map((text) => (
-          <ListItem
-            key={text}
-            disablePadding
-            onMouseEnter={() => sound.playSound('hover')}
+    <List
+      sx={(theme) => ({
+        display: 'flex',
+        flexDirection: 'column',
+        ...(theme.themeType === 'pirateOS' && { flexDirection: 'row' }),
+      })}
+    >
+      {settingsList.map((text) => (
+        <ListItem key={text} disablePadding onMouseEnter={() => sound.playSound('hover')}>
+          <DepressedListButton
+            onClick={(e) => handleSettingSelection(e, text)}
+            selected={tab === text}
+            TouchRippleProps={{ className: 'dark-ripple' }}
+            sx={(theme) => ({
+              ...(theme.themeType === 'pirateOS' && { textAlign: 'center' }),
+            })}
           >
-            <DepressedListButton
-              onClick={(e) => handleSettingSelection(e, text)}
-              selected={tab === text}
-              TouchRippleProps={{ className: 'dark-ripple' }}
-            >
-              <ListItemText primary={text} />
-            </DepressedListButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
+            <ListItemText primary={text} />
+          </DepressedListButton>
+        </ListItem>
+      ))}
+    </List>
   );
   return (
     <VLViewport data-testid="UserSettings__Page_Viewport">
@@ -140,21 +142,33 @@ export const UserSettings: React.FC = () => {
           sx={(theme) => ({
             display: 'flex',
             flexGrow: 1,
-            ...(theme.themeType === 'verseOS' && {
-              margin: '1em 0',
-              flexDirection: 'row',
+            margin: '1em 0',
+            flexDirection: 'row',
+            ...(theme.themeType === 'pirateOS' && {
+              flexDirection: 'column',
+              gap: '1em',
             }),
           })}
         >
           <PanelSelection
             variant="persistent"
             open={true}
-            sx={{
+            anchor={theme.themeType === 'pirateOS' ? 'top' : 'left'}
+            sx={(theme) => ({
               width: '150px',
               '& .MuiDrawer-paper': {
                 width: '150px',
               },
-            }}
+              ...(theme.themeType === 'pirateOS' && {
+                width: '100%',
+                px: '2em',
+                '& .MuiDrawer-paper': {
+                  width: '100%',
+                  px: '0.5em',
+                  m: 0,
+                },
+              }),
+            })}
           >
             {DrawerList}
           </PanelSelection>

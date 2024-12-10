@@ -1,5 +1,5 @@
-import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
+import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { Divider, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';

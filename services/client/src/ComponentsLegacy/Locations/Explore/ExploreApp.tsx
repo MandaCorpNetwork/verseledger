@@ -1,5 +1,5 @@
-import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
+import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
 import { Box, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';

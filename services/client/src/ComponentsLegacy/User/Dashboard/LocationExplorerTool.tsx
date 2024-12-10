@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
-import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
+import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
 import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField';
 import { ContentCopy } from '@mui/icons-material';
 import {

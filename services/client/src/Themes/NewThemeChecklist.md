@@ -3,9 +3,10 @@
 ## Functionality
 
 ## Graphics Design
-* Videos
+
+- Videos
   - Backdrop Video For Home & Logo Mask
-* Images
+- Images
   - GlowLogo
     VLLogo With Palette Highlight Color with a Gaussian Blur
   - Potato Logo
@@ -14,7 +15,8 @@
     Glow Logo with a Good background Photo matching the Theme with a Layer Mask Alphaed to the selection of a VLLogo
 
 ## Definitions
-* themes.ts
+
+- themes.ts
   - baseThemeMap
     Add ThemeName
   - logoThemeMap
@@ -23,8 +25,10 @@
     Add Video URL to the Map
 
 ## Components
+
 ### Core
-* Boxes
+
+- Boxes
   - FeatureContainer
   - FeatureDisplay
   - ComponentContainer

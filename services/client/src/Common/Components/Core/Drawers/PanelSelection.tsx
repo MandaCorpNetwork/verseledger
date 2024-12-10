@@ -64,4 +64,18 @@ export const PanelSelection = styled(Drawer)(({ theme }) => [
         boxShadow: `2px 2px 6px 6px ${alpha(theme.palette.background.paper, 0.3)}, 2px 4px 8px 8px ${alpha(theme.palette.background.paper, 0.3)}, 4px 6px 12px 12px ${alpha(theme.palette.background.paper, 0.2)}, 4px 8px 16px 24px ${alpha(theme.palette.background.paper, 0.1)}`,
       },
     },
+  //PirateOS BASE THEME
+  theme.themeType === 'pirateOS' && {
+    '& .MuiDrawer-paper': {
+      border: '3px ridge',
+      borderColor: theme.palette.primary.main,
+    },
+  },
+  //PIRATEOS HIGH FIDELITY
+  theme.themeType === 'pirateOS' &&
+    theme.fidelity === 'high' && {
+      '& .MuiDrawer-paper': {
+        boxShadow: `2px 4px 4px ${alpha(theme.palette.action.hover, 0.4)}, 3px 3px 4px ${alpha(theme.palette.action.hover, 0.3)}, 4px 4px 12px ${alpha(theme.palette.action.hover, 0.2)}, 5px 5px 16px ${alpha(theme.palette.action.hover, 0.1)}, inset 0px 1px 2px ${alpha(theme.palette.primary.light, 0.2)}, inset 0 -1px 2px ${alpha(theme.palette.background.default, 0.2)}`,
+      },
+    },
 ]);

@@ -1,7 +1,7 @@
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
-import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField';
 import { Box, Chip, Divider, TextField, Typography } from '@mui/material';
 import { SparkLineChart } from '@mui/x-charts';

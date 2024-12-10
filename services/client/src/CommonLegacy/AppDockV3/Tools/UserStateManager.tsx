@@ -1,9 +1,9 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
-import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
+import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
+import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { Box, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';

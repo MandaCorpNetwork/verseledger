@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 import { useSoundEffect } from '@Audio/AudioManager';
-import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
+import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { VLOptButtonGroup } from '@CommonLegacy/Components/Functional/ListButtonSelection';
 import { TextField, Typography } from '@mui/material';

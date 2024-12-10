@@ -3,8 +3,8 @@ import { useSoundEffect } from '@Audio/AudioManager';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
-import { FormLoadingButton } from '@CommonLegacy/Components/Buttons/FormLoadingButton';
 import { WarningAmberTwoTone } from '@mui/icons-material';
+import { LoadingButton } from '@mui/lab';
 import { FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { updateUserSettings } from '@Redux/Slices/Auth/Actions/updateUserSettings.action';
@@ -231,16 +231,7 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
             />
           </ComponentDisplay>
         </ComponentContainer>
-        <div
-          style={{
-            position: 'fixed',
-            bottom: 0,
-            right: 0,
-            marginBottom: '16px',
-            marginRight: '16px',
-          }}
-        >
-          {/* <form.Subscribe
+        {/* <form.Subscribe
             selector={(state) => [state.errors, state.isFormValid]}
             childrenm={([_errors, isFormValid]) => (
               <Alert
@@ -249,23 +240,31 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
               ></Alert>
             )}
           /> */}
-          <form.Subscribe
-            selector={(state) => [state.canSubmit, state.isSubmitting, state.values]}
-            children={([canSubmit, isSubmitting, values]) => {
-              const defaultValues = form.options?.defaultValues;
-              const isUnchanged =
-                JSON.stringify(values) === JSON.stringify(defaultValues);
-              return (
-                <FormLoadingButton
-                  label="Save Settings"
-                  loading={!!isSubmitting}
-                  disabled={!canSubmit || isUnchanged}
-                  onClick={form.handleSubmit}
-                />
-              );
-            }}
-          />
-        </div>
+        <form.Subscribe
+          selector={(state) => [state.canSubmit, state.isSubmitting, state.values]}
+          children={([canSubmit, isSubmitting, values]) => {
+            const defaultValues = form.options?.defaultValues;
+            const isUnchanged = JSON.stringify(values) === JSON.stringify(defaultValues);
+            return (
+              <LoadingButton
+                data-testid="ProfileSettings__FormSubmit_Button"
+                loading={!!isSubmitting}
+                disabled={!canSubmit || isUnchanged}
+                onClick={form.handleSubmit}
+                variant="contained"
+                sx={{
+                  position: 'absolute',
+                  bottom: 0,
+                  right: 0,
+                  m: '16px',
+                  zIndex: 4,
+                }}
+              >
+                Save Settings
+              </LoadingButton>
+            );
+          }}
+        />
       </form>
     </FeatureContainer>
   );

@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { ComponentDisplay } from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import { ContractStatusChip } from '@CommonLegacy/Components/Chips/ContractStatusChip';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';

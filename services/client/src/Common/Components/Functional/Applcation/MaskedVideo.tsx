@@ -1,15 +1,21 @@
-import { logoThemeMap, videoThemeMap } from '@Common/Definitions/themes';
+import { logoThemeMap, videoThemeMap } from '@Common/Definitions/Themes/themeMaps';
 import { useTheme } from '@mui/material';
 import React from 'react';
 
-export const MaskedVideo: React.FC = () => {
+type MaskedVideoProps = {
+  themeOverride?: ThemeName;
+  sx?: object;
+};
+
+export const MaskedVideo: React.FC<MaskedVideoProps> = ({ themeOverride, sx }) => {
   const theme = useTheme();
   const videoSource = React.useMemo(() => {
-    const themeName = theme.themeType ?? 'verseOS';
+    const themeName = themeOverride ?? theme.themeType ?? 'verseOS';
     return videoThemeMap[themeName];
-  }, [theme.themeType]);
+  }, [theme.themeType, themeOverride]);
   return (
     <video
+      data-testid="ThemeVideoLogo"
       preload="auto"
       autoPlay
       playsInline
@@ -19,7 +25,7 @@ export const MaskedVideo: React.FC = () => {
       style={{
         position: 'absolute',
         maskImage: `url(${logoThemeMap.maskLogo})`,
-        maskSize: 'cover',
+        maskSize: 'contain',
         maskRepeat: 'no-repeat',
         maskPosition: 'center',
         maskType: 'alpha',
@@ -30,10 +36,11 @@ export const MaskedVideo: React.FC = () => {
         left: 0,
         right: 0,
         WebkitMaskImage: `url(${logoThemeMap.maskLogo})`,
-        WebkitMaskSize: 'cover',
+        WebkitMaskSize: 'contain',
         WebkitMaskRepeat: 'no-repeat',
         WebkitMaskPosition: 'center',
         zIndex: 0,
+        ...sx,
       }}
     />
   );

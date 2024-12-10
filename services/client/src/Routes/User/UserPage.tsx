@@ -1,14 +1,14 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
+import { profileBackgroundMap } from '@Common/Definitions/Themes/UserBackgroundMap';
 import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
 import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
-import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
-import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { UserViewport } from '@CommonLegacy/Components/Boxes/UserViewport';
 import { Security } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
-import { userBackgroundOptions } from '@CommonLegacy/DefinitionsLegacy/Structures/Users/UserBackgrounds';
 import { ContractInfoPanel } from '@ComponentsLegacy/User/UserPage/Info/Panels/ContractsInfoPanel';
 import { FleetInfoPanel } from '@ComponentsLegacy/User/UserPage/Info/Panels/FleetInfoPanel';
 import { OrderInfoPanel } from '@ComponentsLegacy/User/UserPage/Info/Panels/OrdersInfoPanel';
@@ -158,10 +158,8 @@ export const UserPage: React.FC = () => {
 
       */
   const selectedUserBackground = React.useCallback(() => {
-    const backgroundOption = userBackgroundOptions.find(
-      (option) => option.value === selectedUserImage,
-    );
-    return backgroundOption ? backgroundOption.url : userBackgroundOptions[0].url;
+    const backgroundOption = profileBackgroundMap[selectedUserImage ?? 'pioneer1'];
+    return backgroundOption.url;
   }, [selectedUserImage]);
   return (
     <UserViewport

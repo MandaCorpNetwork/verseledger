@@ -1,18 +1,10 @@
 import '@Assets/Css/fonts.css';
 
+import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
+import type {} from '@mui/lab/themeAugmentation';
 import { createTheme } from '@mui/material';
 
-export const pirateOS = createTheme({
-  themeType: 'pirateOS',
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 480,
-      md: 768,
-      lg: 1850,
-      xl: 3040,
-    },
-  },
+export const pirateOSPalette = createTheme({
   palette: {
     tonalOffset: {
       dark: 0.9,
@@ -68,34 +60,57 @@ export const pirateOS = createTheme({
     },
     divider: 'rgb(74, 74, 79)',
   },
+});
+
+export const pirateOS = createTheme(pirateOSPalette, {
+  themeType: 'pirateOS',
+  palette: pirateOSPalette.palette,
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 480,
+      md: 768,
+      lg: 1850,
+      xl: 3040,
+    },
+  },
   typography: {
     fontFamily: `'Exo', 'Roboto', 'Doto', 'Electrolize', sans-serif`,
     h1: {
       fontFamily: `'Electrolize', 'Aldrich'`,
+      cursor: 'default',
     },
     h2: {
       fontFamily: `'Electrolize', 'Aldrich'`,
+      cursor: 'default',
     },
     h3: {
       fontFamily: `'Electrolize', 'Aldrich'`,
+      cursor: 'default',
     },
     h4: {
       fontFamily: `'Electrolize', 'Aldrich'`,
+      cursor: 'default',
     },
     h5: {
       fontFamily: `'Electrolize', 'Aldrich'`,
+      cursor: 'default',
     },
     h6: {
       fontFamily: `'Electrolize', 'Aldrich'`,
+      cursor: 'default',
     },
     subtitle1: {
       fontFamily: 'Doto',
+      cursor: 'default',
     },
     subtitle2: {
       fontFamily: 'Doto',
+      cursor: 'default',
     },
     overline: {
       fontFamily: 'Exo',
+      cursor: 'default',
     },
     body1: {
       fontFamily: 'Exo',
@@ -106,9 +121,68 @@ export const pirateOS = createTheme({
     button: {
       fontFamily: 'Doto',
       fontWeight: 'bold',
+      cursor: 'default',
     },
     caption: {
       fontFamily: 'Doto',
+      cursor: 'default',
+    },
+  },
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          '&::-webkit-scrollbar': {
+            width: '2px',
+            height: '2px',
+          },
+          '&::-webkit-scrollbar-track': {
+            background: pirateOSPalette.palette.divider,
+            borderRadius: '2px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            background: pirateOSPalette.palette.secondary.main,
+          },
+        },
+      },
+    },
+    MuiLoadingButton: {
+      defaultProps: {
+        variant: 'outlined',
+        loadingIndicator: <LoadingWheel logoSize={20} wheelSize={35} />,
+        loadingPosition: 'center',
+        color: 'secondary',
+        size: 'medium',
+      },
+      styleOverrides: {
+        root: {
+          display: 'inline-flex',
+          maxHeight: 'fit-content',
+          maxWidth: 'fit-content',
+          cursor: 'pointer',
+          borderRadius: 0,
+        },
+      },
+      variants: [
+        {
+          props: { variant: 'outlined' },
+          style: {
+            '&.Mui-disabled': {
+              borderColor: pirateOSPalette.palette.action.disabled,
+            },
+          },
+        },
+        {
+          props: { variant: 'contained' },
+          style: {
+            border: '2px solid',
+            '&.Mui-disabled': {
+              borderColor: pirateOSPalette.palette.action.disabled,
+              backgroundColor: pirateOSPalette.palette.action.disabledBackground,
+            },
+          },
+        },
+      ],
     },
   },
 });

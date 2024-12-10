@@ -1,6 +1,8 @@
 import '@Assets/Css/fonts.css';
 
-import { alpha, createTheme } from '@mui/material/styles';
+import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
+import type {} from '@mui/lab/themeAugmentation';
+import { createTheme } from '@mui/material/styles';
 
 export const verseOS = createTheme({
   themeType: 'verseOS',
@@ -120,6 +122,15 @@ export const verseOS = createTheme({
     },
   },
   components: {
+    MuiLoadingButton: {
+      defaultProps: {
+        variant: 'outlined',
+        loadingIndicator: <LoadingWheel logoSize={20} wheelSize={35} />,
+        loadingPosition: 'center',
+        color: 'secondary',
+        size: 'medium',
+      },
+    },
     MuiTypography: {
       variants: [
         {
@@ -394,6 +405,18 @@ export const verseOS = createTheme({
           backdropFilter: 'blur(10px)',
           boxShadow:
             '0px 4px 6px -1px rgba(0, 0, 0, 0.6), 0px 8px 10px 0px rgba(0, 0, 0, 0.4), 0px 10px 20px 0px rgba(0, 0, 0, 0.3)',
+          '&::-webkit-scrollbar': {
+            width: '5px',
+            height: '5px',
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'rgb(0,73,130)',
+            borderRadius: '10px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            borderRadius: '20px',
+            background: 'rgb(24,252,252)',
+          },
         },
       },
     },

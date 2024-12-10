@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DropdownFilter } from '@CommonLegacy/Components/App/DropdownFilter';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import { DropdownFilter } from '@CommonLegacy/Components/App/DropdownFilter';
 import { ElevatedDropdownBox } from '@CommonLegacy/Components/Collapse/ElevatedDropdownBox';
 import { EmergencySwitch } from '@CommonLegacy/Components/Switch/EmergencySwitch';
 import { FilterAlt } from '@mui/icons-material';

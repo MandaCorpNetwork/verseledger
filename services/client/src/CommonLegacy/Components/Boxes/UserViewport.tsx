@@ -1,7 +1,6 @@
-import { userBackgroundOptions } from '@CommonLegacy/DefinitionsLegacy/Structures/Users/UserBackgrounds';
 import { Box, styled } from '@mui/material';
 
-const selectedWatermark = userBackgroundOptions[0].waterMark;
+// const selectedWatermark = profileBackgroundMap[0].waterMark;
 
 export const UserViewport = styled(Box)({
   height: '100vh',
@@ -14,18 +13,18 @@ export const UserViewport = styled(Box)({
   zIndex: -1,
   opaticy: 0.7,
   backdropFilter: 'blur(20px)',
-  '&:before': {
-    content: '""',
-    position: 'absolute',
-    backgroundImage: `url(${selectedWatermark})`,
-    backgroundSize: 'auto',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    zIndex: -2,
-    opacity: 0.15,
-  },
+  // '&:before': {
+  //   content: '""',
+  //   position: 'absolute',
+  //   backgroundImage: `url(${selectedWatermark})`,
+  //   backgroundSize: 'auto',
+  //   backgroundRepeat: 'no-repeat',
+  //   backgroundPosition: 'center',
+  //   top: 0,
+  //   bottom: 0,
+  //   left: 0,
+  //   right: 0,
+  //   zIndex: -2,
+  //   opacity: 0.15,
+  // },
 });

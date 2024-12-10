@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { Link } from '@mui/icons-material';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';

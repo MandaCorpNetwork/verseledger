@@ -1,7 +1,7 @@
 import Spectrum from '@Assets/media/Spectrum.png?url';
 import { useSoundEffect } from '@Audio/AudioManager';
+import { profileBackgroundMap } from '@Common/Definitions/Themes/UserBackgroundMap';
 import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
-import { userBackgroundOptions } from '@CommonLegacy/DefinitionsLegacy/Structures/Users/UserBackgrounds';
 import { AccountBox, Message } from '@mui/icons-material';
 import { Avatar, Box, IconButton, Popper, Typography } from '@mui/material';
 import React, { PropsWithChildren } from 'react';
@@ -74,10 +74,8 @@ export const MiniPlayerCard: React.FC<MiniPlayerCardProps> = (props) => {
 
   /** Fetches the URL of the user's background based on the Page Image value */
   const getUserBackground = React.useCallback(() => {
-    const backgroundOption = userBackgroundOptions.find(
-      (option) => option.value === selectedUserImage,
-    );
-    return backgroundOption ? backgroundOption.url : userBackgroundOptions[0].url;
+    const backgroundOption = profileBackgroundMap[selectedUserImage ?? 'pioneer1'];
+    return backgroundOption.url;
   }, [selectedUserImage]);
 
   /** Handles the Click of the User Profile Button to navigate to the UserPage */

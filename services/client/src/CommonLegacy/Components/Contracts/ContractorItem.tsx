@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
+import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
 import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
 import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';

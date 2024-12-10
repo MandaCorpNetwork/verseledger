@@ -1,4 +1,4 @@
-import { logoThemeMap } from '@Common/Definitions/themes';
+import { logoThemeMap } from '@Common/Definitions/Themes/themeMaps';
 import { Box, styled } from '@mui/material';
 
 export const AppDisplay = styled(Box)(({ theme }) => [
@@ -6,6 +6,7 @@ export const AppDisplay = styled(Box)(({ theme }) => [
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+    height: '100%',
     flexGrow: 1,
     margin: 0,
     padding: 0,
@@ -14,7 +15,6 @@ export const AppDisplay = styled(Box)(({ theme }) => [
     position: 'relative',
     zIndex: 0,
     [theme.breakpoints.up('md')]: {
-      margin: '1%',
       padding: '0.5em',
       overflowY: 'hidden',
     },
@@ -24,7 +24,7 @@ export const AppDisplay = styled(Box)(({ theme }) => [
     '&:before': {
       position: 'absolute',
       content: '""',
-      backgroundSize: 'cover',
+      backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
       top: 0,
@@ -32,6 +32,9 @@ export const AppDisplay = styled(Box)(({ theme }) => [
       bottom: 0,
       right: 0,
       zIndex: -1,
+      idth: '100%',
+      height: '100%',
+      objectFit: 'cover',
     },
   },
   //VERSEOS BASE THEME

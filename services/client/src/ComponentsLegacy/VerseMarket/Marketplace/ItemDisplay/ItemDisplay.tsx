@@ -1,6 +1,6 @@
-import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { FileOpen } from '@mui/icons-material';
 import { Box, Divider, IconButton, Typography } from '@mui/material';

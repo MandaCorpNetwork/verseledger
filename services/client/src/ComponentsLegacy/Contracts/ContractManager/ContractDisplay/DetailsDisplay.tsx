@@ -1,6 +1,6 @@
-import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { CopyString } from '@CommonLegacy/Components/Buttons/CopyString';
 import { GeneralNav } from '@CommonLegacy/Components/Buttons/GeneralNavIcon';
 import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';

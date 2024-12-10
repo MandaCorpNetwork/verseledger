@@ -9,10 +9,13 @@ import Checkmate from '@Assets/Videos/Checkmate.webm?url';
 import RedMicrotech from '@Assets/Videos/RedMicrotech.webm?url';
 import { Theme } from '@mui/material';
 import { pirateOS } from '@Themes/PirateOS';
-import { refinerySystem } from '@Themes/RefineryOS';
+import { refinerySystem } from '@Themes/RefinerySystem';
 import { verseOS } from '@Themes/VerseOS';
 
-export type ThemeName = 'verseOS' | 'pirateOS' | 'refinerySystem';
+const themeInfoDefault = {
+  warning: false,
+  disabled: false,
+};
 
 export const baseThemesMap: Record<ThemeName, Theme> = {
   verseOS: verseOS,
@@ -34,4 +37,29 @@ export const videoThemeMap: Record<ThemeName, string> = {
   pirateOS: Checkmate,
   verseOS: RedMicrotech,
   refinerySystem: 'error',
+};
+
+export const themeInfoMap: Record<ThemeName, ThemeInfo> = {
+  verseOS: {
+    theme: verseOS,
+    themeLabel: 'VerseOS',
+    themeType: 'verseOS',
+    ...themeInfoDefault,
+  },
+  pirateOS: {
+    theme: pirateOS,
+    themeLabel: 'PirateOS',
+    themeType: 'pirateOS',
+    ...themeInfoDefault,
+    warning: true,
+    warningMsg: 'Work In Progress',
+  },
+  refinerySystem: {
+    theme: refinerySystem,
+    themeLabel: 'Refinery System C47.02',
+    themeType: 'refinerySystem',
+    warning: true,
+    warningMsg: 'Awaiting Baseline',
+    disabled: true,
+  },
 };
