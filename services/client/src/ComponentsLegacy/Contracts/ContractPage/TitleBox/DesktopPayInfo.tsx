@@ -1,4 +1,4 @@
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';
 import { PayStructure } from '@CommonLegacy/Components/Custom/DigiField/PayStructure';
 import { Box, Typography } from '@mui/material';
@@ -19,11 +19,11 @@ type PayInfoProps = {
  * @component {@link PayDisplay}
  * @component {@link PayStructure}
  * #### Styled Components
- * @component {@link DigiDisplay}
+ * @component {@link ComponentDisplay}
  */
 export const DesktopPayInfo: React.FC<PayInfoProps> = ({ contract }) => {
   return (
-    <DigiDisplay data-testid="ContractPage-Info-ContractInfo__Pay_Wrapper">
+    <ComponentDisplay data-testid="ContractPage-Info-ContractInfo__Pay_Wrapper">
       <Typography
         sx={{
           fontWeight: 'bold',
@@ -89,6 +89,6 @@ export const DesktopPayInfo: React.FC<PayInfoProps> = ({ contract }) => {
           />
         )}
       </Box>
-    </DigiDisplay>
+    </ComponentDisplay>
   );
 };

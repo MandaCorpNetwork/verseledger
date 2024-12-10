@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { DropdownFilter } from '@CommonLegacy/Components/App/DropdownFilter';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import { ElevatedDropdownBox } from '@CommonLegacy/Components/Collapse/ElevatedDropdownBox';
 import { EmergencySwitch } from '@CommonLegacy/Components/Switch/EmergencySwitch';
 import { FilterAlt } from '@mui/icons-material';
@@ -122,7 +122,7 @@ export const LedgerSearchTools: React.FC<unknown> = () => {
   ];
 
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="ContractLedger-ColumnTwo__TableToolsContainer"
       ref={toolsRef}
       sx={{
@@ -235,6 +235,6 @@ export const LedgerSearchTools: React.FC<unknown> = () => {
           />
         </div>
       </div>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

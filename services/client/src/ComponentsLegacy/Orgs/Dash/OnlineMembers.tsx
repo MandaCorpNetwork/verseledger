@@ -1,12 +1,12 @@
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Typography } from '@mui/material';
 
 export const OnlineMembers: React.FC = () => {
   return (
-    <GlassDisplay>
+    <FeatureDisplay>
       <Typography variant="h6" align="center">
         Online Members:
       </Typography>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { ContractStatusChip } from '@CommonLegacy/Components/Chips/ContractStatusChip';
 import { SubtypeChip } from '@CommonLegacy/Components/Chips/SubtypeChip';
 import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';
@@ -75,7 +75,7 @@ export const ContractDetailsCollapse: React.FC<DetailsDisplayProps> = ({ contrac
               justifyContent: 'space-around',
             }}
           >
-            <DigiDisplay
+            <ComponentDisplay
               data-testid="SelectedContract-OverviewInfo-Bottom__StatusChipWrapper"
               sx={{
                 width: '100%',
@@ -89,8 +89,8 @@ export const ContractDetailsCollapse: React.FC<DetailsDisplayProps> = ({ contrac
                 Status
               </Typography>
               <ContractStatusChip status={contract.status} />
-            </DigiDisplay>
-            <DigiDisplay
+            </ComponentDisplay>
+            <ComponentDisplay
               data-testid="SelectedContract-OverviewInfo-Bottom__SubtypeChipWrapper"
               sx={{
                 width: '100%',
@@ -108,9 +108,9 @@ export const ContractDetailsCollapse: React.FC<DetailsDisplayProps> = ({ contrac
                 subtype={contract.subtype}
                 size="medium"
               />
-            </DigiDisplay>
+            </ComponentDisplay>
           </div>
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="SelectedContract-OverviewInfo-Bottom__DetailsContainer"
             sx={{ py: '.2em', px: '1em', gap: '.2em', alignItems: 'space-between' }}
           >
@@ -126,7 +126,7 @@ export const ContractDetailsCollapse: React.FC<DetailsDisplayProps> = ({ contrac
                 minWidth: '120px',
               }}
             />
-          </DigiDisplay>
+          </ComponentDisplay>
           <ContractTimeDisplay
             data-testid="SelectedContract-OverviewInfo-Bottom__DetailsContainer"
             contract={contract}

@@ -1,5 +1,5 @@
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 
 export const OrgLinkBar: React.FC = () => {
-  return <GlassDisplay></GlassDisplay>;
+  return <FeatureDisplay></FeatureDisplay>;
 };

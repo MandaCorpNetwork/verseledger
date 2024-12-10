@@ -1,4 +1,4 @@
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 // import { Box } from '@mui/material';
 // import { Line, OrbitControls, Sphere, Text } from '@react-three/drei';
 // import { Canvas, useThree } from '@react-three/fiber';
@@ -65,7 +65,7 @@ export const ExploreMap: React.FC<ExploreMapProps> = (_props) => {
   //   setLocationMap(binaryLocationTree(locations));
   // }, [locations]);
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="ExploreApp-Explorer__Map_Container"
       sx={{
         display: 'flex',
@@ -126,6 +126,6 @@ export const ExploreMap: React.FC<ExploreMapProps> = (_props) => {
           })}
         </Canvas>
       </Box> */}
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

@@ -1,6 +1,6 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { Scu, Scu3d } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import {
@@ -205,8 +205,8 @@ export const RoutesWidget: React.FC = () => {
           gap: '0.5em',
         }}
       >
-        <DigiBox sx={{ p: '0.2em' }}>
-          <DigiDisplay
+        <ComponentContainer sx={{ p: '0.2em' }}>
+          <ComponentDisplay
             sx={{
               flexDirection: 'row',
               gap: '1em',
@@ -228,7 +228,7 @@ export const RoutesWidget: React.FC = () => {
               Current
               <LocationChip locationId={currentDestination.location.id} />
             </Typography>
-          </DigiDisplay>
+          </ComponentDisplay>
           <Typography
             variant="caption"
             sx={{ display: 'inline-flex', mx: 'auto', gap: '0.5em', my: '0.5em' }}
@@ -236,7 +236,7 @@ export const RoutesWidget: React.FC = () => {
             Current Load:
             <Typography variant="caption">{`${currentLoad} SCU`}</Typography>
           </Typography>
-          <GlassDisplay sx={{ maxHeight: '75px', py: '0.2em', overflow: 'auto' }}>
+          <FeatureDisplay sx={{ maxHeight: '75px', py: '0.2em', overflow: 'auto' }}>
             {currentDestination.tasks.map((task) => {
               const scuDisplay = getSCUDisplay(task);
               const typeDisplay = getTypeDisplay(task);
@@ -266,8 +266,8 @@ export const RoutesWidget: React.FC = () => {
                 </div>
               );
             })}
-          </GlassDisplay>
-        </DigiBox>
+          </FeatureDisplay>
+        </ComponentContainer>
         <div
           style={{
             display: 'flex',
@@ -275,8 +275,8 @@ export const RoutesWidget: React.FC = () => {
             justifyContent: 'space-between',
           }}
         >
-          <DigiBox sx={{ p: '0.2em' }}>
-            <DigiDisplay
+          <ComponentContainer sx={{ p: '0.2em' }}>
+            <ComponentDisplay
               sx={{
                 flexDirection: 'row',
                 gap: '1em',
@@ -301,7 +301,7 @@ export const RoutesWidget: React.FC = () => {
                 Next
                 <LocationChip locationId={nextDestination.location.id} />
               </Typography>
-            </DigiDisplay>
+            </ComponentDisplay>
             <Typography
               variant="caption"
               sx={{ display: 'inline-flex', mx: 'auto', gap: '0.5em', my: '0.5em' }}
@@ -309,7 +309,7 @@ export const RoutesWidget: React.FC = () => {
               Distance:
               <Typography variant="caption">{`${distance}`}</Typography>
             </Typography>
-          </DigiBox>
+          </ComponentContainer>
           <div style={{ display: 'flex', gap: '0.2em' }}>
             <Button size="small" variant="contained" disabled>
               Add Stop

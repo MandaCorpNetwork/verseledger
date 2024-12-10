@@ -2,7 +2,7 @@ import '@Assets/Css/RadioStationApp.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
 import { useRadioController } from '@Audio/AudioProvider';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import {
   Language,
   SkipNext,
@@ -55,7 +55,7 @@ export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) 
   };
 
   return (
-    <DigiBox
+    <ComponentContainer
       data-id="RadioFrequenciesToolFunctionContainer"
       sx={{
         my: '.5em',
@@ -159,6 +159,6 @@ export const RadioStationApp: React.FC<RadioStationAppProps> = ({ isDisabled }) 
           sx={{ width: '10em' }}
         />
       </Box>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

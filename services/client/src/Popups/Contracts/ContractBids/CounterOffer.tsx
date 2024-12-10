@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import { ComponentDisplay } from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';
 import { PayField } from '@CommonLegacy/Components/TextFields/PayField';
 import { UserDisplay } from '@CommonLegacy/Components/Users/UserDisplay';
@@ -128,12 +128,15 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
       onCancel={handleRejectOffer}
     >
       <Box data-testid="CounterOffer__Container">
-        <DigiBox data-testid="CounterOffer__Wrapper" sx={{ p: '.5em', gap: '1em' }}>
+        <ComponentContainer
+          data-testid="CounterOffer__Wrapper"
+          sx={{ p: '.5em', gap: '1em' }}
+        >
           <UserDisplay
             data-testid="CounterOffer__User"
             user={ownerView ? (bid?.User as IUser) : contract.Owner}
           />
-          <DigiDisplay sx={{ p: '.5em' }}>
+          <ComponentDisplay sx={{ p: '.5em' }}>
             <Typography>{ownerView ? 'Bid Proposal' : 'Counter Offer'}</Typography>
             <Box sx={{ display: 'flex', mt: '.5em', alignItems: 'center', gap: '.5em' }}>
               <PayDisplay
@@ -153,7 +156,7 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
                 sx={{ maxWidth: '160px' }}
               />
             </Box>
-          </DigiDisplay>
+          </ComponentDisplay>
           <Box sx={{ mx: 'auto' }}>
             <Typography variant="tip" sx={{ px: '.5em' }}>
               {ownerView
@@ -161,7 +164,7 @@ export const CounterOfferBid: React.FC<CounterOfferBidProps> = ({ bid, contract 
                 : 'Contract Owner has sent a Counter Offer'}
             </Typography>
           </Box>
-        </DigiBox>
+        </ComponentContainer>
       </Box>
     </VLPopup>
   );

@@ -1,5 +1,5 @@
 import MandaLogo from '@Assets/media/MandaLogo.png';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Divider, Typography } from '@mui/material';
 import { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
@@ -9,7 +9,7 @@ type OrgNamePlateProps = {
 
 export const OrgNamePlate: React.FC<OrgNamePlateProps> = ({ organization: org }) => {
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="OrgPage__NamePlate_Wrapper"
       sx={{ flexDirection: 'row', minHeight: '150px', minWidth: '340px', p: '0.5em' }}
     >
@@ -86,6 +86,6 @@ export const OrgNamePlate: React.FC<OrgNamePlateProps> = ({ organization: org })
           Rating:
         </Typography>
       </div>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

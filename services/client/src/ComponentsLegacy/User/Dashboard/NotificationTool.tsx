@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { ArrowRight } from '@mui/icons-material';
 import { Collapse, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -44,7 +44,7 @@ export const NotificationTool: React.FC = () => {
   );
 
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-id="NotificationToolContent"
       sx={{
         display: 'flex',
@@ -130,7 +130,7 @@ export const NotificationTool: React.FC = () => {
           </Typography>
         )}
       </Collapse>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };
 

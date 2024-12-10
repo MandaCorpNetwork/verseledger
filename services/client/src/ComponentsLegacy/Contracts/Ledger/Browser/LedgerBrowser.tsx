@@ -1,4 +1,4 @@
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { useIsMobile } from '@Utils/isMobile';
 import { useIsTablet } from '@Utils/isTablet';
 import React from 'react';
@@ -15,7 +15,7 @@ export const LedgerBrowser: React.FC<LedgerBrowserProps> = ({ mobileSearchOpen }
   const mobile = useIsMobile();
   const tablet = useIsTablet();
   return (
-    <GlassBox
+    <FeatureContainer
       data-testid="ContractLedger__ColumnTwo"
       sx={{
         minWidth: '400px',
@@ -30,6 +30,6 @@ export const LedgerBrowser: React.FC<LedgerBrowserProps> = ({ mobileSearchOpen }
       {(mobile || tablet) && <SmallSearchTools isOpen={mobileSearchOpen} />}
       {!mobile && !tablet && <LedgerSearchTools />}
       <LedgerListContainer />
-    </GlassBox>
+    </FeatureContainer>
   );
 };

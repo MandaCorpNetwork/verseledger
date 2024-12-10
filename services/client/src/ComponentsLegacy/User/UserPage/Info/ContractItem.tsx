@@ -1,4 +1,4 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { ContractStatusChip } from '@CommonLegacy/Components/Chips/ContractStatusChip';
 import { SubtypeChip } from '@CommonLegacy/Components/Chips/SubtypeChip';
 import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
@@ -56,7 +56,7 @@ export const ContractItem: React.FC<ContractProps> = ({
   }, [contract]);
 
   return (
-    <DigiBox sx={{ px: '1em', my: '.5em' }} data-testid="ContractItem_DigiBox">
+    <ComponentContainer sx={{ px: '1em', my: '.5em' }} data-testid="ContractItem_DigiBox">
       <Grid2
         container
         columnSpacing={2}
@@ -132,6 +132,6 @@ export const ContractItem: React.FC<ContractProps> = ({
           </Typography>
         </Grid2>
       </Grid2>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

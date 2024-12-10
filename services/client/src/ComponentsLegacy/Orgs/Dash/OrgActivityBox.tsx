@@ -1,5 +1,5 @@
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Typography } from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers';
 import React from 'react';
@@ -7,14 +7,14 @@ import React from 'react';
 export const OrgActivityBox: React.FC = () => {
   return (
     <div>
-      <GlassBox sx={{ p: '1em', gap: '1em' }}>
+      <FeatureContainer sx={{ p: '1em', gap: '1em' }}>
         <div style={{ display: 'flex', gap: '1em' }}>
-          <GlassDisplay>
+          <FeatureDisplay>
             <DateCalendar />
-          </GlassDisplay>
-          <GlassDisplay sx={{ p: '0.5em' }}>Date Itenerary:</GlassDisplay>
+          </FeatureDisplay>
+          <FeatureDisplay sx={{ p: '0.5em' }}>Date Itenerary:</FeatureDisplay>
         </div>
-        <GlassDisplay sx={{ minHeight: '100px' }}>
+        <FeatureDisplay sx={{ minHeight: '100px' }}>
           <Typography variant="h6" align="center">
             News
           </Typography>
@@ -25,8 +25,8 @@ export const OrgActivityBox: React.FC = () => {
           >
             No News
           </Typography>
-        </GlassDisplay>
-      </GlassBox>
+        </FeatureDisplay>
+      </FeatureContainer>
     </div>
   );
 };

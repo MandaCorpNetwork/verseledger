@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
-import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
 import { Tab, Tabs } from '@mui/material';
 import React from 'react';
 
@@ -16,7 +16,7 @@ export const TuningExplorer: React.FC = () => {
     [setTab, sound],
   );
   return (
-    <GlassBox sx={{ p: '1em' }}>
+    <FeatureContainer sx={{ p: '1em' }}>
       <InDevOverlay />
       <ControlPanelBox>
         <Tabs
@@ -30,6 +30,6 @@ export const TuningExplorer: React.FC = () => {
           <Tab label="Discover Presets" value="discover" />
         </Tabs>
       </ControlPanelBox>
-    </GlassBox>
+    </FeatureContainer>
   );
 };

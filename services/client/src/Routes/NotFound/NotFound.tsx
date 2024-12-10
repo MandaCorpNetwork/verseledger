@@ -1,6 +1,6 @@
 import backgroundvideo from '@Assets/media/NotFoundVideo.webm';
 import { useSoundEffect } from '@Audio/AudioManager';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -39,7 +39,7 @@ export const NotFoundPage: React.FC<unknown> = () => {
       >
         <source src={backgroundvideo} />
       </video>
-      <DigiDisplay sx={{ py: '1em', px: '5em', mb: 'auto', mt: '5em' }}>
+      <ComponentDisplay sx={{ py: '1em', px: '5em', mb: 'auto', mt: '5em' }}>
         <Typography
           variant="h1"
           sx={{
@@ -61,7 +61,7 @@ export const NotFoundPage: React.FC<unknown> = () => {
         >
           Page Not Found
         </Typography>
-      </DigiDisplay>
+      </ComponentDisplay>
       <Box sx={{ my: 'auto', width: '20%' }}>
         <Button
           size="large"

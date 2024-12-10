@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { useRadioController } from '@Audio/AudioProvider';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
 import { PowerSettingsNew, Sync } from '@mui/icons-material';
 import { Badge, Box, Button, IconButton, Tooltip, Typography } from '@mui/material';
@@ -78,7 +78,7 @@ export const DashboardApp: React.FC<unknown> = () => {
           height: 'fit-content',
         }}
       >
-        <GlassBox
+        <FeatureContainer
           data-testid="Overview__NotificationWrapper"
           sx={{
             display: 'flex',
@@ -129,8 +129,8 @@ export const DashboardApp: React.FC<unknown> = () => {
           <Suspense fallback={<LoadingWheel />}>
             <NotificationToolComponent />
           </Suspense>
-        </GlassBox>
-        <GlassBox
+        </FeatureContainer>
+        <FeatureContainer
           data-testid="RadioFrequenciesToolContainer"
           sx={{
             display: 'flex',
@@ -167,7 +167,7 @@ export const DashboardApp: React.FC<unknown> = () => {
           >
             <RadioStationApp isDisabled={!isPlaying} />
           </Box>
-        </GlassBox>
+        </FeatureContainer>
       </Box>
       <Box
         sx={{
@@ -177,7 +177,7 @@ export const DashboardApp: React.FC<unknown> = () => {
           height: { xs: 'auto', md: '100%' },
         }}
       >
-        <GlassBox
+        <FeatureContainer
           data-id="LocationExplorerToolContainer"
           sx={{
             display: 'flex',
@@ -205,8 +205,8 @@ export const DashboardApp: React.FC<unknown> = () => {
               setSelectedLocation={setSelectedLocation}
             />
           </Box>
-        </GlassBox>
-        <GlassBox
+        </FeatureContainer>
+        <FeatureContainer
           data-id="ShipStatusToolContainer"
           sx={{
             display: 'flex',
@@ -242,7 +242,7 @@ export const DashboardApp: React.FC<unknown> = () => {
               In Development
             </Typography>
           </Box>
-        </GlassBox>
+        </FeatureContainer>
       </Box>
     </Box>
   );

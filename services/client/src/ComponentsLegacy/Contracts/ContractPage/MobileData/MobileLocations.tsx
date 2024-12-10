@@ -1,5 +1,5 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
@@ -28,7 +28,7 @@ type MobileLocationProps = {
  * @component {@link PopupFormSelection}
  * #### Styled Components
  * @component {@link DigiBox}
- * @component {@link DigiDisplay}
+ * @component {@link ComponentDisplay}
  */
 export const MobileLocations: React.FC<MobileLocationProps> = ({
   contract,
@@ -37,7 +37,7 @@ export const MobileLocations: React.FC<MobileLocationProps> = ({
   otherLocations,
 }) => {
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="ContractPage__Location_Mobile_Wrapper"
       sx={{
         p: '.5em',
@@ -45,7 +45,7 @@ export const MobileLocations: React.FC<MobileLocationProps> = ({
         alignItems: 'center',
       }}
     >
-      <DigiDisplay
+      <ComponentDisplay
         data-testid="ContractPage-Location-Mobile__Title_Wrapper"
         sx={{ width: '80%', mb: '.5em' }}
       >
@@ -56,7 +56,7 @@ export const MobileLocations: React.FC<MobileLocationProps> = ({
         >
           Locations
         </Typography>
-      </DigiDisplay>
+      </ComponentDisplay>
       {contract && contract.Locations && (
         <Box
           data-testid="ContractPage-Location-Mobile__LocationList_Wrapper"
@@ -206,6 +206,6 @@ export const MobileLocations: React.FC<MobileLocationProps> = ({
           Contract Missing Start Location. Please report error.
         </Typography>
       )}
-    </DigiBox>
+    </ComponentContainer>
   );
 };

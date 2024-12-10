@@ -1,5 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
 import { ExpandMoreTwoTone } from '@mui/icons-material';
 import {
@@ -149,7 +149,7 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member, ranks }) => {
             alignItems: 'flex-start',
           }}
         >
-          <DigiBox sx={{ p: '0.5em 1em', gap: '0.5em' }}>
+          <ComponentContainer sx={{ p: '0.5em 1em', gap: '0.5em' }}>
             <Typography
               variant="body1"
               sx={{
@@ -185,8 +185,8 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member, ranks }) => {
                 </FormControl>
               )}
             />
-          </DigiBox>
-          <DigiBox sx={{ p: '0.5em 1em' }}>
+          </ComponentContainer>
+          <ComponentContainer sx={{ p: '0.5em 1em' }}>
             <Typography
               variant="body1"
               sx={{
@@ -230,8 +230,8 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member, ranks }) => {
                 </List>
               )}
             />
-          </DigiBox>
-          <DigiBox sx={{ p: '0.5em 1em' }}>
+          </ComponentContainer>
+          <ComponentContainer sx={{ p: '0.5em 1em' }}>
             <Typography
               variant="body1"
               sx={{
@@ -244,7 +244,7 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member, ranks }) => {
               Awards
             </Typography>
             <Typography color="textDisabled">Unavailble</Typography>
-          </DigiBox>
+          </ComponentContainer>
         </form>
         <AccordionActions>
           <Button color="error" variant="outlined">

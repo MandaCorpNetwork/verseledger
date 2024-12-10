@@ -1,4 +1,4 @@
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
@@ -21,7 +21,7 @@ export const ContractManagerBrowser: React.FC = () => {
     return tab;
   }, [searchParams, setFilters]);
   return (
-    <GlassBox
+    <FeatureContainer
       data-testid="ContractManager__ContractBrowserContainer"
       sx={{ width: { xs: '100%', md: '30%' } }}
     >
@@ -33,6 +33,6 @@ export const ContractManagerBrowser: React.FC = () => {
         <SearchTools />
       </div>
       <ContractList currentTab={currentTab} />
-    </GlassBox>
+    </FeatureContainer>
   );
 };

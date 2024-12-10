@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_USER_INVITE } from '@Popups/UserInvite/UserInvite';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -105,7 +105,7 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
    */
   const contractorCountColor = getContractorCountColor();
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="SelectedContract-ContractManagement__ContractorsTabWrapper"
       sx={{
         width: '100%',
@@ -115,7 +115,7 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
         flexGrow: 1,
       }}
     >
-      <DigiDisplay
+      <ComponentDisplay
         data-testid="ContractorsTab__ControlsWrapper"
         sx={{
           flexDirection: 'row',
@@ -161,7 +161,7 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
             Invite
           </Button>
         )}
-      </DigiDisplay>
+      </ComponentDisplay>
       <Box
         data-testid="ContractorsTab__ContractorsListWrapper"
         sx={{
@@ -278,6 +278,6 @@ export const ContractorList: React.FC<ContractorListProps> = ({ contract }) => {
             </Typography>
           ))}
       </Box>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

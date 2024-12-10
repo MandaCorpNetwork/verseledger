@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { SmallTabHolo, SmallTabsHolo } from '@CommonLegacy/Components/Tabs/SmallTabsHolo';
 import {
   BiddingTimePanel,
@@ -74,13 +74,13 @@ export const ContractTimeDisplay: React.FC<ContractTimeDisplayProps> = ({
           />
         </SmallTabsHolo>
       </ControlPanelBox>
-      <GlassDisplay
+      <FeatureDisplay
         sx={{
           p: '.5em',
         }}
       >
         {renderTimePanel()}
-      </GlassDisplay>
+      </FeatureDisplay>
     </div>
   );
 };

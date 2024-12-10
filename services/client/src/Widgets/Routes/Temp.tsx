@@ -1,5 +1,5 @@
 // import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-// import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+// import DigiDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 // import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 // import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
 // import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField';
@@ -171,7 +171,7 @@
 //           </DigiDisplay>
 //           {currentDestination.objectives &&
 //             currentDestination.objectives.map((obj) => (
-//               <DigiBox
+//               <ComponentContainer
 //                 key={obj.packageId}
 //                 sx={{ flexDirection: 'row', justifyContent: 'space-between', px: '.5em' }}
 //               >
@@ -189,7 +189,7 @@
 //                   {checkPickup(obj.pickup.id) ? 'Pickup' : 'DropOff'}
 //                 </DigiField>
 //                 <DigiField label="Package Id">{obj.packageId}</DigiField>
-//               </DigiBox>
+//               </ComponentContainer>
 //             ))}
 //           <DigiDisplay sx={{ flexDirection: 'row', py: '.2em', px: '.5em', gap: '.5em' }}>
 //             <Typography variant="body2" color="info">
@@ -198,10 +198,10 @@
 //             <Typography>Next Location:</Typography>
 //             <LocationChip locationId={nextDestination.location.id} />
 //           </DigiDisplay>
-//           <DigiBox>
+//           <ComponentContainer>
 //             <ReadOnlyField label="Distance" value={formattedDistance} />
-//           </DigiBox>
-//           <DigiBox sx={{ flexDirection: 'column', p: '.2em' }}>
+//           </ComponentContainer>
+//           <ComponentContainer sx={{ flexDirection: 'column', p: '.2em' }}>
 //             <Typography align="center">Stops Remaining: {destinationCount}</Typography>
 //             <Box
 //               sx={{
@@ -231,7 +231,7 @@
 //                 {destinationCount > 1 ? 'Next Stop' : 'Complete Route'}
 //               </Button>
 //             </Box>
-//           </DigiBox>
+//           </ComponentContainer>
 //         </Box>
 //       ) : (
 //         <Box sx={{ p: '.5em', display: 'flex', flexDirection: 'column' }}>

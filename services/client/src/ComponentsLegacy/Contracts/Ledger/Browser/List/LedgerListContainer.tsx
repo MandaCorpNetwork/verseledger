@@ -1,4 +1,4 @@
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { CardorTableViewToggle } from '@CommonLegacy/Components/Buttons/TorCToggle';
 import { Close } from '@mui/icons-material';
 import { Button } from '@mui/material';
@@ -29,7 +29,7 @@ export const LedgerListContainer: React.FC = () => {
 
   const contracts = useAppSelector(selectContracts);
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="ContractLedger-ColumnTwo__ContractBrowserContainer"
       sx={{
         height: '100%',
@@ -85,6 +85,6 @@ export const LedgerListContainer: React.FC = () => {
         {view === 'card' && <LedgerCardDisplay contracts={contracts} />}
         <PaginationAnchor isMobile={isMobile} />
       </div>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import TabListHolo from '@CommonLegacy/Components/Tabs/TabListHolo';
 import { Tab } from '@mui/material';
 import React from 'react';
@@ -31,7 +31,7 @@ export const OrgEventsBox: React.FC = () => {
   }, [eventTab]);
 
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="OrgPage__Events_Wrapper"
       sx={{ flexGrow: 1, p: '0.5em', gap: '1em' }}
     >
@@ -65,6 +65,6 @@ export const OrgEventsBox: React.FC = () => {
         />
       </TabListHolo>
       {renderPanel()}
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

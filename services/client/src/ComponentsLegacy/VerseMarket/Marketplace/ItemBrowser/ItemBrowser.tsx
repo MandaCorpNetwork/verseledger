@@ -1,4 +1,4 @@
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { Autocomplete, Box, TextField } from '@mui/material';
 
 import { MarketBrowserTable } from './BrowserTable';
@@ -13,7 +13,7 @@ import { ItemTypeFilters } from './TypeFilters';
  */
 export const ItemBrowser: React.FC<unknown> = () => {
   return (
-    <GlassBox
+    <FeatureContainer
       data-testid="VerseMarket-Marketplace-Browser"
       sx={{
         height: '100%',
@@ -40,7 +40,7 @@ export const ItemBrowser: React.FC<unknown> = () => {
         />
       </Box>
       <ItemTypeFilters />
-      <GlassBox
+      <FeatureContainer
         data-testid="VerseMarket-Marketplace-Browser__List_Wrapper"
         sx={{
           display: 'flex',
@@ -50,8 +50,8 @@ export const ItemBrowser: React.FC<unknown> = () => {
         }}
       >
         <MarketBrowserTable />
-      </GlassBox>
-    </GlassBox>
+      </FeatureContainer>
+    </FeatureContainer>
   );
 };
 

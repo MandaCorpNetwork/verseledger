@@ -1,6 +1,6 @@
 //CLFilterDropdown is a reusable DropDown for displaying filters in the Contract Ledger Table Tools Component.
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import PopupFormDisplay from '@CommonLegacy/Components/Boxes/PopupFormDisplay';
 import { ClearAllButton } from '@CommonLegacy/Components/Buttons/ClearAllButton';
 import { ArrowRight } from '@mui/icons-material';
@@ -274,7 +274,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
         }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-          <DigiBox
+          <ComponentContainer
             data-testid={`ContractLedgerFilters-${filter}-FilterCollapse__CollapseWrapper`}
             sx={{
               display: 'flex',
@@ -352,7 +352,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
                 </PopupFormDisplay>
               )}
             </Box>
-          </DigiBox>
+          </ComponentContainer>
         </Box>
       </Collapse>
     </Box>

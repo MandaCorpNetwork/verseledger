@@ -1,9 +1,9 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
 import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { Box, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -28,7 +28,7 @@ export const UserStateManager: React.FC = () => {
     [sound, dispatch],
   );
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="UserStateManager__Container"
       sx={{
         px: '1em',
@@ -37,11 +37,11 @@ export const UserStateManager: React.FC = () => {
         background: 'linear-gradient(135deg, rgba(14,35,141,0.5), rgba(0,30,100,0.5))',
       }}
     >
-      <DigiBox
+      <ComponentContainer
         data-testid="UserStateManager__Location_Wrapper"
         sx={{ p: '0.5em', gap: '1em' }}
       >
-        <DigiDisplay
+        <ComponentDisplay
           data-testid="UserStateManager-Location__Title_Wrapper"
           sx={{
             flexDirection: 'row',
@@ -62,15 +62,15 @@ export const UserStateManager: React.FC = () => {
               No Location
             </Typography>
           )}
-        </DigiDisplay>
+        </ComponentDisplay>
         <LocationSearch onLocationSelect={handleLocationSelect} />
-      </DigiBox>
-      <DigiBox
+      </ComponentContainer>
+      <ComponentContainer
         data-testid="UserStateManager__Ship_Wrapper"
         sx={{ p: '0.5em', gap: '1em', position: 'relative' }}
       >
         <InDevOverlay />
-        <DigiDisplay
+        <ComponentDisplay
           data-testid="UserStateManager-Ship__Title_Wrapper"
           sx={{
             flexDirection: 'row',
@@ -85,9 +85,9 @@ export const UserStateManager: React.FC = () => {
           <Typography variant="body2" color="info">
             No Ship
           </Typography>
-        </DigiDisplay>
+        </ComponentDisplay>
         <Box sx={{ height: '20px' }} />
-      </DigiBox>
-    </GlassDisplay>
+      </ComponentContainer>
+    </FeatureDisplay>
   );
 };

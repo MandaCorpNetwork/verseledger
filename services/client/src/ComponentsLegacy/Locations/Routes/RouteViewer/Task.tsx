@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { Scu, Scu3d } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import {
   AirlineStopsTwoTone,
@@ -143,7 +143,7 @@ export const Task: React.FC<RouteViewerTaskProps> = ({
   // const destinations = useAppSelector(selectDestinations);
   // const nextStop
   return (
-    <DigiDisplay
+    <ComponentDisplay
       sx={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -163,6 +163,6 @@ export const Task: React.FC<RouteViewerTaskProps> = ({
       <IconButton disabled>
         <MoveDownTwoTone color="info" sx={{ opacity: '0.4' }} />
       </IconButton>
-    </DigiDisplay>
+    </ComponentDisplay>
   );
 };

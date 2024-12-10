@@ -1,7 +1,7 @@
-import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { ContractController } from '@CommonLegacy/Components/Contracts/ContractController';
@@ -56,8 +56,8 @@ type DesktopBodyProps = {
  * @component {@link SmallTabHolo}
  * @component {@link ControlPanelBox}
  * @component {@link DigiBox}
- * @component {@link DigiDisplay}
- * @component {@link GlassDisplay}
+ * @component {@link ComponentDisplay}
+ * @component {@link FeatureDisplay}
  * @component {@link PopupFormSelection}
  * @component {@link DigiField}
  */
@@ -99,7 +99,7 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
           flexGrow: 1,
         }}
       >
-        <GlassDisplay
+        <FeatureDisplay
           data-testid="ContractPage-Bottom-Left__Time_Container"
           sx={{ width: '50%', mb: 'auto', p: '1em' }}
         >
@@ -118,11 +118,14 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
               <SmallTabHolo label="Duration" value="start" />
             </SmallTabsHolo>
           </ControlPanelBox>
-          <DigiDisplay data-testid="ContractPage-Time__Panel_Wrapper" sx={{ py: '1em' }}>
+          <ComponentDisplay
+            data-testid="ContractPage-Time__Panel_Wrapper"
+            sx={{ py: '1em' }}
+          >
             {timePanel(timeTab)}
-          </DigiDisplay>
-        </GlassDisplay>
-        <GlassDisplay
+          </ComponentDisplay>
+        </FeatureDisplay>
+        <FeatureDisplay
           data-testid="ContractPage-Bottom-Left__ActiveData_Container"
           sx={{ width: '80%', mb: 'auto', p: '1em' }}
         >
@@ -144,13 +147,13 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
               )}
             </SmallTabsHolo>
           </ControlPanelBox>
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="ContractPage-ActiveData__Panel_Wrapper"
             sx={{ minHeight: '100px', maxHeight: { lg: '200px', xl: '' } }}
           >
             {activeDataPanel(activeDataTab)}
-          </DigiDisplay>
-        </GlassDisplay>
+          </ComponentDisplay>
+        </FeatureDisplay>
       </Box>
       <Box
         data-testid="ContractPage-Bottom__Right_Container"
@@ -162,16 +165,16 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
           mr: '3em',
         }}
       >
-        <DigiBox
+        <ComponentContainer
           data-testid="ContractPage-Bottom-Right__Location_Container"
           sx={{ mb: 'auto', p: '.5em', alignItems: 'center' }}
         >
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="ContractPage-Location__Title_Wrapper"
             sx={{ width: '70%' }}
           >
             <Typography>Locations</Typography>
-          </DigiDisplay>
+          </ComponentDisplay>
           <Box
             data-testid="ContractPage-Location-Mobile__LocationList_Wrapper"
             sx={{
@@ -338,7 +341,7 @@ export const DesktopContractBody: React.FC<DesktopBodyProps> = ({
               Contract Missing Start Location. Please report error.
             </Typography>
           )}
-        </DigiBox>
+        </ComponentContainer>
         <ContractController contract={contract} />
       </Box>
     </Box>

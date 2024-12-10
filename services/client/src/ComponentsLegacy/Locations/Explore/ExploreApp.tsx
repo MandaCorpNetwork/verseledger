@@ -1,5 +1,5 @@
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
 import { Box, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
@@ -43,7 +43,7 @@ export const ExploreApp: React.FC<unknown> = () => {
         gap: '2em',
       }}
     >
-      <GlassDisplay
+      <FeatureDisplay
         data-testid="ExploreApp__Information_Container"
         sx={{
           height: '100%',
@@ -59,7 +59,7 @@ export const ExploreApp: React.FC<unknown> = () => {
             currentLocation={currentLocation}
           />
         ) : (
-          <GlassDisplay
+          <FeatureDisplay
             data-testid="ExploreApp-Information__NoLocation_Wrapper"
             sx={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}
           >
@@ -74,10 +74,10 @@ export const ExploreApp: React.FC<unknown> = () => {
             >
               No Selected Location
             </Typography>
-          </GlassDisplay>
+          </FeatureDisplay>
         )}
-      </GlassDisplay>
-      <GlassDisplay
+      </FeatureDisplay>
+      <FeatureDisplay
         data-testid="ExploreApp__Explorer_Container"
         sx={{
           flexGrow: '1',
@@ -88,7 +88,7 @@ export const ExploreApp: React.FC<unknown> = () => {
       >
         {!isMobile && <ExploreMap />}
         <ExploreController />
-      </GlassDisplay>
+      </FeatureDisplay>
     </Box>
   );
 };

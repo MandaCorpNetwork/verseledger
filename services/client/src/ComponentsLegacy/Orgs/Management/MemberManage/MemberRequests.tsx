@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { DoubleArrow } from '@mui/icons-material';
 import { Collapse, IconButton, Typography } from '@mui/material';
 import React from 'react';
@@ -18,7 +18,7 @@ export const MemberRequests: React.FC = () => {
     });
   }, [sound, setExpanded]);
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="OrgManager-PanelDisplay-MemberManagement-Pending__Requests_Wrapper"
       sx={{ p: '0.5em 1em' }}
     >
@@ -62,6 +62,6 @@ export const MemberRequests: React.FC = () => {
       <Collapse in={expanded}>
         <Typography>No Requests</Typography>
       </Collapse>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
 import { DoubleArrow } from '@mui/icons-material';
 import { Button, Collapse, IconButton, Typography } from '@mui/material';
@@ -24,7 +24,7 @@ export const MemberInvites: React.FC = () => {
     });
   }, [sound, setExpanded]);
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="OrgManager-PanelDisplay-MemberManagement-Pending__Invites_Wrapper"
       sx={{ p: '0.5em 1em' }}
     >
@@ -70,16 +70,16 @@ export const MemberInvites: React.FC = () => {
           <Button color="success" variant="outlined" size="small" disabled>
             Invite User
           </Button>
-          <DigiBox sx={{ p: '0.5em' }}>
+          <ComponentContainer sx={{ p: '0.5em' }}>
             <div style={{ display: 'flex', gap: '0.5em' }}>
               <UserChip user={currentUser as IUser} size="medium" />
               <Button color="warning" size="small" disabled>
                 Cancel Invite
               </Button>
             </div>
-          </DigiBox>
+          </ComponentContainer>
         </div>
       </Collapse>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

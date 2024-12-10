@@ -1,11 +1,12 @@
 import './App.css';
 
+import { baseThemesMap } from '@Common/Definitions/Themes/themeMaps';
+import { animationTransitionMap } from '@Common/Definitions/Themes/transitions';
 import { LoadingScreen } from '@CommonLegacy/LoadingObject/LoadingScreen';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserSettings } from '@Redux/Slices/Auth/auth.selectors';
-import { pirateOS } from '@Themes/PirateOS';
 import { SnackbarProvider } from 'notistack';
 import { useEffect, useMemo, useState } from 'react';
 import { DndProvider } from 'react-dnd';
@@ -14,7 +15,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { AuthManager } from './AuthManager';
 import { routingInfo } from './Routes/Router';
-import { verseOS } from './Themes/VerseOS';
 
 const router = createBrowserRouter(routingInfo);
 
@@ -36,28 +36,22 @@ export default function App() {
 
   const settings = useAppSelector(selectUserSettings);
   const userAnimations = settings.animations ?? 'medium';
-  const userFidelity = settings.animations ?? 'medium';
+  const userFidelity = settings.quality ?? 'medium';
 
   const theme = useMemo(() => {
     const animations = isValidAnimation(userAnimations) ? userAnimations : 'medium';
     const fidelity = isValidFidelity(userFidelity) ? userFidelity : 'medium';
-    const themeName = settings.theme ?? 'verseOS';
+    const themeName = (settings.theme ?? 'verseOS') as ThemeName;
+    const baseTheme = baseThemesMap[themeName] || baseThemesMap['verseOS'];
 
-    let themeObject;
-    switch (themeName) {
-      case 'pirateOS':
-        themeObject = pirateOS;
-        break;
-      case 'verseOS':
-      default:
-        themeObject = verseOS;
-        break;
-    }
+    const transitionsObject =
+      animationTransitionMap[animations] || animationTransitionMap.medium;
 
     return createTheme({
+      ...baseTheme,
       animations,
       fidelity,
-      ...themeObject,
+      transitions: transitionsObject,
     });
   }, [settings.theme, userAnimations, userFidelity]);
   return (

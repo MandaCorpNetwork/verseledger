@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { soundEffectPacks } from '@CommonLegacy/DefinitionsLegacy/SoundEffectOptions';
 import {
   Box,
@@ -62,7 +62,7 @@ export const SoundSettings: React.FC = () => {
     }
   };
   return (
-    <GlassBox
+    <FeatureContainer
       data-testid="SoundSettings__Container"
       sx={{ minHeight: '100%', minWidth: '100%', p: '2em' }}
     >
@@ -77,7 +77,7 @@ export const SoundSettings: React.FC = () => {
         data-testid="SoundSettings__Settings_Wrapper"
         sx={{ display: 'flex', m: '5%' }}
       >
-        <DigiBox
+        <ComponentContainer
           data-testid="SoundSettings-Settings__SoundEffects_Container"
           sx={{ p: '.5em', minWidth: '250px' }}
         >
@@ -135,8 +135,8 @@ export const SoundSettings: React.FC = () => {
               </FormControl>
             </DigiDisplay> */}
           </Box>
-        </DigiBox>
+        </ComponentContainer>
       </Box>
-    </GlassBox>
+    </FeatureContainer>
   );
 };

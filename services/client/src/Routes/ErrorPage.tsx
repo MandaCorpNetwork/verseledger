@@ -1,5 +1,5 @@
 import backgroundvideo from '@Assets/media/NotFoundVideo.webm';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { Box, Button, Typography } from '@mui/material';
 import { useNavigate, useRouteError } from 'react-router-dom';
 
@@ -40,7 +40,7 @@ const ErrorPage: React.FC<unknown> = () => {
       >
         <source src={backgroundvideo} />
       </video>
-      <DigiDisplay sx={{ py: '1em', px: '5em', mt: '5em' }}>
+      <ComponentDisplay sx={{ py: '1em', px: '5em', mt: '5em' }}>
         <Typography
           variant="h1"
           sx={{
@@ -62,10 +62,10 @@ const ErrorPage: React.FC<unknown> = () => {
         >
           Something Went Wrong
         </Typography>
-      </DigiDisplay>
-      <DigiDisplay sx={{ py: '1em', px: '5em', mb: 'auto', mt: '5em' }}>
+      </ComponentDisplay>
+      <ComponentDisplay sx={{ py: '1em', px: '5em', mb: 'auto', mt: '5em' }}>
         <Typography variant="body1">{errorMessage}</Typography>
-      </DigiDisplay>
+      </ComponentDisplay>
       <Box sx={{ my: 'auto', width: '20%' }}>
         <Button
           size="large"

@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { UserRatingField } from '@CommonLegacy/Components/Custom/UserRatingField';
 import { Divider, FormControl, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
@@ -144,7 +144,7 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
       onCancel={handleCancel}
     >
       <FormControl>
-        <GlassBox sx={{ overflow: 'auto', gap: '.5em' }}>
+        <FeatureContainer sx={{ overflow: 'auto', gap: '.5em' }}>
           {contract && owner && (
             <>
               <Typography>Contract Owner</Typography>
@@ -180,7 +180,7 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
                 setFormData={handleFormDataChange}
               />
             ))}
-        </GlassBox>
+        </FeatureContainer>
       </FormControl>
     </VLPopup>
   );

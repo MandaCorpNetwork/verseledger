@@ -1,6 +1,6 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
@@ -144,7 +144,7 @@ export const TuningSetup: React.FC<TuningSetupProps> = ({ tuningSetup, setConfig
     [setConfig],
   );
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="ShipTuning-TuningEditor__ConfigSetup_Wrapper"
       sx={{
         display: 'flex',
@@ -157,11 +157,11 @@ export const TuningSetup: React.FC<TuningSetupProps> = ({ tuningSetup, setConfig
         mt: 'auto',
       }}
     >
-      <DigiBox
+      <ComponentContainer
         data-testid="ShipTuning-TuningEditor-ConfigSetup__PowerSetup_Wrapper"
         sx={{ p: '.5em', display: 'flex', flexDirection: 'column', gap: '.2em' }}
       >
-        <DigiDisplay
+        <ComponentDisplay
           data-testid="ShipTuning-TuningEditor-ConfigSetup-ComponentsSetup__TitleBar_Wrapper"
           sx={{
             display: 'flex',
@@ -184,8 +184,8 @@ export const TuningSetup: React.FC<TuningSetupProps> = ({ tuningSetup, setConfig
           >
             Add Supply
           </Button>
-        </DigiDisplay>
-        <DigiDisplay
+        </ComponentDisplay>
+        <ComponentDisplay
           data-testid="ShipTuning-TuningEditor-ConfigSetup-ComponentsSetup__SetupList_Wrapper"
           sx={{ display: 'flex', flexDirection: 'column', gap: '.5em', p: '.5em' }}
         >
@@ -228,13 +228,13 @@ export const TuningSetup: React.FC<TuningSetupProps> = ({ tuningSetup, setConfig
               </Button>
             </Box>
           ))}
-        </DigiDisplay>
-      </DigiBox>
-      <DigiBox
+        </ComponentDisplay>
+      </ComponentContainer>
+      <ComponentContainer
         data-testid="ShipTuning-TuningEditor-ConfigSetup__ComponentsSetup_Wrapper"
         sx={{ p: '.5em', display: 'flex', flexDirection: 'column', gap: '.2em' }}
       >
-        <DigiDisplay
+        <ComponentDisplay
           data-testid="ShipTuning-TuningEditor-ConfigSetup-ComponentsSetup__TitleBar_Wrapper"
           sx={{
             display: 'flex',
@@ -256,8 +256,8 @@ export const TuningSetup: React.FC<TuningSetupProps> = ({ tuningSetup, setConfig
           >
             Add Component
           </Button>
-        </DigiDisplay>
-        <DigiDisplay
+        </ComponentDisplay>
+        <ComponentDisplay
           data-testid="ShipTuning-TuningEditor-ConfigSetup-ComponentsSetup__ComponentList_Wrapper"
           sx={{ display: 'flex', flexDirection: 'column', gap: '.5em', p: '.5em' }}
         >
@@ -349,8 +349,8 @@ export const TuningSetup: React.FC<TuningSetupProps> = ({ tuningSetup, setConfig
               </Box>
             </Box>
           ))}
-        </DigiDisplay>
-      </DigiBox>
-    </GlassDisplay>
+        </ComponentDisplay>
+      </ComponentContainer>
+    </FeatureDisplay>
   );
 };

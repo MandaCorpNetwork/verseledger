@@ -1,4 +1,4 @@
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { Button, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material';
 import { POPUP_CREATE_TOKEN } from '@Popups/Tokens/CreateToken';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -28,7 +28,7 @@ export const DeveloperSettings: React.FC<DeveloperSettingsProps> = ({ onClose })
     [dispatch],
   );
   return (
-    <GlassBox sx={{ minHeight: '100%', minWidth: '100%' }}>
+    <FeatureContainer sx={{ minHeight: '100%', minWidth: '100%' }}>
       <Typography>Developer Settings</Typography>
       <Button
         variant="contained"
@@ -41,7 +41,7 @@ export const DeveloperSettings: React.FC<DeveloperSettingsProps> = ({ onClose })
         View API Docs
       </Button>
       <Typography sx={{ mt: '1em' }}>Api Tokens</Typography>
-      <GlassBox sx={{ maxHeight: '25em', maxWidth: '45em', overflow: 'auto' }}>
+      <FeatureContainer sx={{ maxHeight: '25em', maxWidth: '45em', overflow: 'auto' }}>
         <Table>
           <TableBody>
             {tokens.map((token) => {
@@ -68,7 +68,7 @@ export const DeveloperSettings: React.FC<DeveloperSettingsProps> = ({ onClose })
             })}
           </TableBody>
         </Table>
-      </GlassBox>
+      </FeatureContainer>
       <Button
         variant="popupButton"
         sx={{ maxWidth: '15em' }}
@@ -78,6 +78,6 @@ export const DeveloperSettings: React.FC<DeveloperSettingsProps> = ({ onClose })
       >
         Create API Token
       </Button>
-    </GlassBox>
+    </FeatureContainer>
   );
 };

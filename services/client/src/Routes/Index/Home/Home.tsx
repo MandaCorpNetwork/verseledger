@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 import '@ComponentsLegacy/Home/Home.css';
 
-import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
+import { BackdropVideo } from '@Common/Components/Functional/Applcation/BackdropVideo';
 import { Box } from '@mui/material';
 import React from 'react';
 
@@ -49,13 +49,10 @@ export const Home: React.FC<unknown> = () => {
         height: '100vh',
         overflow: 'hidden',
         display: 'flex',
-        flexGrow: 1,
         position: 'relative',
       }}
     >
-      <video autoPlay loop muted id="videobg">
-        <source src={backgroundvideo} />
-      </video>
+      <BackdropVideo />
     </Box>
   );
 };

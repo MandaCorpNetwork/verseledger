@@ -1,4 +1,4 @@
-import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
+import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { Button } from '@mui/material';
 
 export const ExploreController: React.FC = () => {

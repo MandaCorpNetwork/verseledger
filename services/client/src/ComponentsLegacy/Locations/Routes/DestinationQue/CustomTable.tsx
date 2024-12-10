@@ -1,4 +1,4 @@
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Grid2 } from '@mui/material';
 import React from 'react';
 import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
@@ -32,7 +32,7 @@ export const CustomDestinationTable: React.FC<CustomTableProps> = ({
     [sortedDestinations, locationTree],
   );
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="RouteTool-RouteViewer-DestinationQue__CustomTable_Container"
       sx={{
         flexGrow: 1,
@@ -69,6 +69,6 @@ export const CustomDestinationTable: React.FC<CustomTableProps> = ({
           })}
         </Grid2>
       </Grid2>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

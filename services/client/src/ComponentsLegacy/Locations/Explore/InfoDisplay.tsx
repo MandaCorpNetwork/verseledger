@@ -1,7 +1,7 @@
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
 import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField';
 import { Box, Chip, Divider, TextField, Typography } from '@mui/material';
 import { SparkLineChart } from '@mui/x-charts';
@@ -18,11 +18,11 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
 }) => {
   const dev = isDev();
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="ExploreApp__Information_Wrapper"
       sx={{ width: '100%', p: '1em', alignItems: 'center', gap: '.5em' }}
     >
-      <DigiDisplay
+      <ComponentDisplay
         data-testid="ExploreApp-Information__Title_Wrapper"
         sx={{ px: '1em', py: '.2em', flexDirection: 'row', gap: '1em' }}
       >
@@ -32,8 +32,8 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
         {selectedLocation?.id == currentLocation?.id && (
           <Chip label="Current Location" variant="filled" color="info" />
         )}
-      </DigiDisplay>
-      <DigiBox
+      </ComponentDisplay>
+      <ComponentContainer
         data-testid="ExploreApp-Information__Time_Wrapper"
         sx={{ flexDirection: 'row' }}
       >
@@ -41,8 +41,8 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
         <ReadOnlyField label="Local Time" />
         <ReadOnlyField label="StarRise Time" />
         <ReadOnlyField label="StarSet Time" />
-      </DigiBox>
-      <DigiBox
+      </ComponentContainer>
+      <ComponentContainer
         data-testid="ExploreApp-Information__Parent&Population_Wrapper"
         sx={{
           flexDirection: 'row',
@@ -54,7 +54,7 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
         }}
       >
         {!dev && <InDevOverlay />}
-        <DigiDisplay
+        <ComponentDisplay
           data-testid="ExploreApp-Information-Parent&Population__Parents_Wrapper"
           sx={{ px: '.5em', justifyContent: 'flex-start' }}
         >
@@ -94,8 +94,8 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
               Moon:
             </Typography>
           </Box>
-        </DigiDisplay>
-        <DigiDisplay
+        </ComponentDisplay>
+        <ComponentDisplay
           data-testid="ExploreApp-Information-Parent&Population__Population_Wrapper"
           sx={{ flexGrow: 1, px: '1em' }}
         >
@@ -110,9 +110,9 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
             height={100}
             data={[2500, 800, 1500, 900, 700, 600, 3200]}
           />
-        </DigiDisplay>
-      </DigiBox>
-      <DigiBox
+        </ComponentDisplay>
+      </ComponentContainer>
+      <ComponentContainer
         data-testid="ExploreApp-Information__Data_Container"
         sx={{ width: '100%', px: '.5em', alignItems: 'center', py: '.5em' }}
       >
@@ -120,7 +120,7 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
         <Typography data-testid="ExploreApp-Information__Data_Title" variant="overline">
           Location Description & Lore
         </Typography>
-        <DigiDisplay
+        <ComponentDisplay
           data-testid="ExploreApp-Information-Data__Data_Wrapper"
           sx={{ flexDirection: 'row', width: '100%', flexWrap: 'wrap' }}
         >
@@ -130,8 +130,8 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
           <ReadOnlyField label="Hazards" />
           <ReadOnlyField label="Gravity" />
           <ReadOnlyField label="Atmosphere" />
-        </DigiDisplay>
-        <DigiDisplay
+        </ComponentDisplay>
+        <ComponentDisplay
           data-testid="ExploreApp-Information-Data__FacilityLists_Wrapper"
           sx={{
             flexDirection: 'row',
@@ -155,8 +155,8 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
             multiline
             rows={3}
           />
-        </DigiDisplay>
-      </DigiBox>
-    </GlassDisplay>
+        </ComponentDisplay>
+      </ComponentContainer>
+    </FeatureDisplay>
   );
 };

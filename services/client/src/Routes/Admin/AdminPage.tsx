@@ -1,5 +1,5 @@
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
-import { VLViewport } from '@CommonLegacy/Components/Boxes/VLViewport';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
+import { VLViewport } from '@Common/Components/Core/Boxes/VLViewport';
 import { BugsPage } from '@ComponentsLegacy/Admin/Page/Bugs/BugsPage';
 import { MilestonesPage } from '@ComponentsLegacy/Admin/Page/MilestonesPage';
 import { OverviewPage } from '@ComponentsLegacy/Admin/Page/OverviewPage';
@@ -58,9 +58,9 @@ export const AdminPage: React.FC = () => {
         >
           <AdminSideBar />
         </Box>
-        <GlassBox data-testid="AdminPage__Content_Container" sx={{ flexGrow: 1 }}>
+        <FeatureContainer data-testid="AdminPage__Content_Container" sx={{ flexGrow: 1 }}>
           {renderTab()}
-        </GlassBox>
+        </FeatureContainer>
       </Box>
     </VLViewport>
   );

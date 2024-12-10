@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
 import { Scu3d } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
@@ -87,7 +87,7 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
     new Set(tasks.map((task) => task.relationId).filter(Boolean)),
   );
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="RouteTool-MissionViewer__Mission_Container"
       sx={{ alignItems: 'center', p: '.5em' }}
     >
@@ -117,7 +117,7 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
             (task) => task.relationId === id && task.type === 'dropoff',
           );
           return (
-            <DigiDisplay
+            <ComponentDisplay
               key={id}
               data-testid="RouteTool-MissionViewer-Mission__Objective_Item"
               sx={[
@@ -172,7 +172,7 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
                   </div>
                 ))}
               </div>
-            </DigiDisplay>
+            </ComponentDisplay>
           );
         })}
       </Box>
@@ -206,6 +206,6 @@ export const Mission: React.FC<MissionProps> = ({ tasks }) => {
           Abandon Mission
         </Button>
       </Box>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

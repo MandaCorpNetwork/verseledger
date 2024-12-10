@@ -1,9 +1,9 @@
 /* eslint-disable react/no-children-prop */
 import { useSoundEffect } from '@Audio/AudioManager';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
 import { SCUField } from '@CommonLegacy/Components/TextFields/SCUField';
 import { RemoveCircle } from '@mui/icons-material';
 import { Button, IconButton, TextField, Typography } from '@mui/material';
@@ -125,7 +125,7 @@ export const AddMissionPopup: React.FC = () => {
             />
           )}
         />
-        <GlassDisplay
+        <FeatureDisplay
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -144,7 +144,10 @@ export const AddMissionPopup: React.FC = () => {
               <div>
                 {field.state.value.map((_, i) => {
                   return (
-                    <DigiBox key={i} sx={{ p: '1em', gap: '0.5em', my: '0.5em' }}>
+                    <ComponentContainer
+                      key={i}
+                      sx={{ p: '1em', gap: '0.5em', my: '0.5em' }}
+                    >
                       <div>
                         {/** TASK MAP */}
                         <form.Field
@@ -176,7 +179,7 @@ export const AddMissionPopup: React.FC = () => {
                         <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
                           Pickup Info
                         </Typography>
-                        <DigiDisplay
+                        <ComponentDisplay
                           sx={{
                             flexDirection: 'row',
                             justifyContent: 'space-between',
@@ -232,7 +235,7 @@ export const AddMissionPopup: React.FC = () => {
                               />
                             )}
                           />
-                        </DigiDisplay>
+                        </ComponentDisplay>
                         <div>
                           {/** DROPOFFS MAP */}
                           <form.Field
@@ -247,7 +250,7 @@ export const AddMissionPopup: React.FC = () => {
                                 </Typography>
                                 {subField.state.value.map((_, j) => {
                                   return (
-                                    <DigiDisplay
+                                    <ComponentDisplay
                                       key={j}
                                       sx={{
                                         flexDirection: 'row',
@@ -301,7 +304,7 @@ export const AddMissionPopup: React.FC = () => {
                                           />
                                         )}
                                       />
-                                    </DigiDisplay>
+                                    </ComponentDisplay>
                                   );
                                 })}
                                 <div
@@ -332,7 +335,7 @@ export const AddMissionPopup: React.FC = () => {
                           </form.Field>
                         </div>
                       </div>
-                    </DigiBox>
+                    </ComponentContainer>
                   );
                 })}
                 <Button
@@ -346,7 +349,7 @@ export const AddMissionPopup: React.FC = () => {
               </div>
             )}
           </form.Field>
-        </GlassDisplay>
+        </FeatureDisplay>
       </form>
     </VLPopup>
   );

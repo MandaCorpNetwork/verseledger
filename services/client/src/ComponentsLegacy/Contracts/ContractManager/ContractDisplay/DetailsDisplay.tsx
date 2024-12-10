@@ -1,6 +1,6 @@
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { CopyString } from '@CommonLegacy/Components/Buttons/CopyString';
 import { GeneralNav } from '@CommonLegacy/Components/Buttons/GeneralNavIcon';
 import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
@@ -46,7 +46,7 @@ export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
   );
 
   return (
-    <DigiBox
+    <ComponentContainer
       content="section"
       data-testid="SelectedContract__DetailsDisplay_Container"
       sx={{
@@ -92,7 +92,7 @@ export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
           flexDirection: 'row',
         }}
       >
-        <DigiDisplay
+        <ComponentDisplay
           data-testid="SelectedContract-DetailsDisplay__HeaderWrapper"
           sx={{
             flexDirection: 'row',
@@ -142,7 +142,7 @@ export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
               )}
             </Tooltip>
           </div>
-        </DigiDisplay>
+        </ComponentDisplay>
         <CopyString
           data-testid="SelectedContract-DetailsDisplay-Header__ContractPageURL"
           variant="VLurl"
@@ -156,6 +156,6 @@ export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
         />
       </div>
       <ContractDetailsCollapse contract={contract} />
-    </DigiBox>
+    </ComponentContainer>
   );
 };

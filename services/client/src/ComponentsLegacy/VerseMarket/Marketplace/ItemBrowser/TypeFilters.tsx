@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { ItemTypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Orders/ItemTypes';
 import { Grid2, IconButton, Tooltip } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
@@ -39,7 +39,7 @@ export const ItemTypeFilters: React.FC<unknown> = () => {
   /** @var {currentFilter} - The current filter */
   const currentFilter = searchParams.get(QueryNames.ItemType);
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="VerseMarket-Marketplace-Browser__TypeFilterWrapper"
       sx={{
         display: 'flex',
@@ -73,6 +73,6 @@ export const ItemTypeFilters: React.FC<unknown> = () => {
           </Grid2>
         ))}
       </Grid2>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

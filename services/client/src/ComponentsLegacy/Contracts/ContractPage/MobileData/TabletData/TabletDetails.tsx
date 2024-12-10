@@ -1,5 +1,5 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
@@ -31,7 +31,7 @@ type TabletDetailsProps = {
  * @component {@link LocationChip}
  * #### Styled Components
  * @component {@link DigiBox}
- * @component {@link DigiDisplay}
+ * @component {@link ComponentDisplay}
  * @component {@link DigiField}
  * @component {@link PopupFormSelection}
  */
@@ -52,11 +52,11 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({
         justifyContent: 'space-around',
       }}
     >
-      <DigiBox
+      <ComponentContainer
         data-testid="ContractPage__Pay&Briefing_Tablet_Wrapper"
         sx={{ p: '2em', width: '45%' }}
       >
-        <DigiDisplay
+        <ComponentDisplay
           data-testid="ContractPage-Pay&Briefing__Pay_Tablet_Wrapper"
           sx={{ px: '1em', py: '.5em' }}
         >
@@ -110,8 +110,8 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({
               />
             </Box>
           )}
-        </DigiDisplay>
-        <DigiDisplay
+        </ComponentDisplay>
+        <ComponentDisplay
           data-testid="ContractPage-Pay&Briefing__Briefing_Tablet_Wrapper"
           sx={{ mt: '2em', px: '1em', py: '.5em' }}
         >
@@ -124,9 +124,9 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({
           {contract && (
             <Typography sx={{ color: 'text.primary' }}>{contract.briefing}</Typography>
           )}
-        </DigiDisplay>
-      </DigiBox>
-      <DigiBox
+        </ComponentDisplay>
+      </ComponentContainer>
+      <ComponentContainer
         data-testid="ContractPage__Location_Tablet_Wrapper"
         sx={{
           p: '2em',
@@ -135,7 +135,7 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({
           flexGrow: 1,
         }}
       >
-        <DigiDisplay
+        <ComponentDisplay
           data-testid="ContractPage-Location-Tablet__Title_Wrapper"
           sx={{ mb: '1em' }}
         >
@@ -145,7 +145,7 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({
           >
             Locations
           </Typography>
-        </DigiDisplay>
+        </ComponentDisplay>
         {contract && contract.Locations && (
           <Box
             data-testid="ContractPage-Location-Tablet__LocationList_Wrapper"
@@ -296,7 +296,7 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({
             Contract Missing Start Location. Please report error.
           </Typography>
         )}
-      </DigiBox>
+      </ComponentContainer>
     </Box>
   );
 };

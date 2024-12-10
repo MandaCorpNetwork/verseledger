@@ -1,4 +1,4 @@
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { GroupAddTwoTone } from '@mui/icons-material';
 import { Button, Typography } from '@mui/material';
 import { POPUP_ADD_ORG } from '@Popups/Orgs/AddOrg/AddOrg';
@@ -21,7 +21,7 @@ export const NoOrgs: React.FC = () => {
         justifyContent: 'center',
       }}
     >
-      <GlassDisplay sx={{ p: '1em' }}>
+      <FeatureDisplay sx={{ p: '1em' }}>
         <Typography
           variant="h4"
           color="textDisabled"
@@ -41,7 +41,7 @@ export const NoOrgs: React.FC = () => {
         >
           Add Organization
         </Button>
-      </GlassDisplay>
+      </FeatureDisplay>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import {
   FormControl,
   FormControlLabel,
@@ -62,7 +62,7 @@ export const FeedbackForm: React.FC<{
     }
   }, [formData, setFormData]);
   return (
-    <GlassBox
+    <FeatureContainer
       data-testid="Feedback-Popup__Form_Container"
       sx={{
         p: '.5em',
@@ -71,7 +71,7 @@ export const FeedbackForm: React.FC<{
         gap: '1em',
       }}
     >
-      <DigiBox
+      <ComponentContainer
         data-testid="Feedback-Popup-Form__IssueType_Wrapper"
         sx={{ p: { xs: '.5em', md: '1em' }, maxHeight: '100%' }}
       >
@@ -83,7 +83,7 @@ export const FeedbackForm: React.FC<{
           <FormLabel data-testid="Feedback-Popup-Form-IssueType__FormLabel">
             Feedback Type
           </FormLabel>
-          <DigiDisplay data-testid="Feedback-Popup-Form-IssueType__RadioGroup_Wrapper">
+          <ComponentDisplay data-testid="Feedback-Popup-Form-IssueType__RadioGroup_Wrapper">
             <RadioGroup
               data-testid="Feedback-Popup-Form-IssueType__RadioGroup"
               value={formData.type ?? null}
@@ -130,7 +130,7 @@ export const FeedbackForm: React.FC<{
                 />
               )}
             </RadioGroup>
-          </DigiDisplay>
+          </ComponentDisplay>
         </FormControl>
         <FormControl
           color="info"
@@ -139,7 +139,7 @@ export const FeedbackForm: React.FC<{
           <FormLabel data-testid="Feedback-Popup-Form-IssueIntro__FormLabel">
             Feedback Intro
           </FormLabel>
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="Feedback-Popup-Form-IssueIntro__Field_Wrapper"
             sx={{ gap: '1.5em', py: '1em' }}
           >
@@ -189,15 +189,15 @@ export const FeedbackForm: React.FC<{
                 },
               }}
             />
-          </DigiDisplay>
+          </ComponentDisplay>
         </FormControl>
-      </DigiBox>
-      <DigiBox
+      </ComponentContainer>
+      <ComponentContainer
         data-testid="Feedback-Popup-Form__IssueBody_Wrapper"
         sx={{ p: { xs: '.5em', md: '1em' } }}
       >
         {renderForm()}
-      </DigiBox>
-    </GlassBox>
+      </ComponentContainer>
+    </FeatureContainer>
   );
 };

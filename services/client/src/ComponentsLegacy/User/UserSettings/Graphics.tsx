@@ -1,10 +1,10 @@
 /* eslint-disable react/no-children-prop */
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
-import { FormLoadingButton } from '@CommonLegacy/Components/Buttons/FormLoadingButton';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { WarningAmberTwoTone } from '@mui/icons-material';
+import { LoadingButton } from '@mui/lab';
 import { FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { updateUserSettings } from '@Redux/Slices/Auth/Actions/updateUserSettings.action';
@@ -54,7 +54,7 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
     },
   });
   return (
-    <GlassBox
+    <FeatureContainer
       data-testid="UserSettings-SectionDisplay__GraphicsSettings_Container"
       sx={{ minHeight: '100%', minWidth: '100%', p: '2em' }}
     >
@@ -81,7 +81,7 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
           padding: '0 1em',
         }}
       >
-        <DigiBox
+        <ComponentContainer
           data-testid="UserSettings-SectionDisplay-GraphicsSettings-Form__AnimationsSettings_Container"
           sx={{ width: '300px', p: '0.5em 1em' }}
         >
@@ -99,7 +99,7 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
           >
             Sets the intensity of animations through app.
           </Typography>
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="UserSettings-SectionDisplay-GraphicsSettings-Form__AnimationsSettings_Wrapper"
             sx={{ my: '0.5em', alignItems: 'flex-start', px: '0.5em' }}
           >
@@ -158,9 +158,9 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
                 </RadioGroup>
               )}
             />
-          </DigiDisplay>
-        </DigiBox>
-        <DigiBox
+          </ComponentDisplay>
+        </ComponentContainer>
+        <ComponentContainer
           data-testid="UserSettings-SectionDisplay-GraphicsSettings-Form__ComponentFidelity_Container"
           sx={{ width: '300px', p: '0.5em 1em' }}
         >
@@ -178,7 +178,7 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
           >
             Sets the Quality of Components on the site
           </Typography>
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="UserSettings-SectionDisplay-GraphicsSettings-Form__ComponentFidelity_Wrapper"
             sx={{ my: '0.5em', alignItems: 'flex-start', px: '0.5em' }}
           >
@@ -229,18 +229,9 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
                 </RadioGroup>
               )}
             />
-          </DigiDisplay>
-        </DigiBox>
-        <div
-          style={{
-            position: 'fixed',
-            bottom: 0,
-            right: 0,
-            marginBottom: '16px',
-            marginRight: '16px',
-          }}
-        >
-          {/* <form.Subscribe
+          </ComponentDisplay>
+        </ComponentContainer>
+        {/* <form.Subscribe
             selector={(state) => [state.errors, state.isFormValid]}
             childrenm={([_errors, isFormValid]) => (
               <Alert
@@ -249,24 +240,32 @@ export const GraphicsSettings: React.FC<GraphicsSettingsProps> = (props) => {
               ></Alert>
             )}
           /> */}
-          <form.Subscribe
-            selector={(state) => [state.canSubmit, state.isSubmitting, state.values]}
-            children={([canSubmit, isSubmitting, values]) => {
-              const defaultValues = form.options?.defaultValues;
-              const isUnchanged =
-                JSON.stringify(values) === JSON.stringify(defaultValues);
-              return (
-                <FormLoadingButton
-                  label="Save Settings"
-                  loading={!!isSubmitting}
-                  disabled={!canSubmit || isUnchanged}
-                  onClick={form.handleSubmit}
-                />
-              );
-            }}
-          />
-        </div>
+        <form.Subscribe
+          selector={(state) => [state.canSubmit, state.isSubmitting, state.values]}
+          children={([canSubmit, isSubmitting, values]) => {
+            const defaultValues = form.options?.defaultValues;
+            const isUnchanged = JSON.stringify(values) === JSON.stringify(defaultValues);
+            return (
+              <LoadingButton
+                data-testid="ProfileSettings__FormSubmit_Button"
+                loading={!!isSubmitting}
+                disabled={!canSubmit || isUnchanged}
+                onClick={form.handleSubmit}
+                variant="contained"
+                sx={{
+                  position: 'absolute',
+                  bottom: 0,
+                  right: 0,
+                  m: '16px',
+                  zIndex: 4,
+                }}
+              >
+                Save Settings
+              </LoadingButton>
+            );
+          }}
+        />
       </form>
-    </GlassBox>
+    </FeatureContainer>
   );
 };

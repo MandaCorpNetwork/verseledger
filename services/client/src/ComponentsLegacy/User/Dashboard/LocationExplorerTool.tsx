@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
-import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
 import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField';
 import { ContentCopy } from '@mui/icons-material';
 import {
@@ -114,7 +114,7 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
           >
             <LocationSearch onLocationSelect={handleLocationSelect} width="100%" />
           </ControlPanelBox>
-          <DigiBox
+          <ComponentContainer
             data-testid="LocationExplorer-TopBox-LeftBox__LocationInfoWrapper"
             sx={{
               p: '.5em',
@@ -188,7 +188,7 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
                 Select a location to view information
               </Typography>
             )}
-          </DigiBox>
+          </ComponentContainer>
         </Box>
         <Box
           data-testid="LocationExplorer-TopBox__RightWrapper"
@@ -199,7 +199,7 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
             width: { xs: '100%', md: '50%' },
           }}
         >
-          <DigiBox
+          <ComponentContainer
             data-testid="LocationTimeDataContainer"
             sx={{
               flexDirection: { xs: 'column', md: 'row' },
@@ -210,7 +210,7 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
             <ReadOnlyField label="Local Time" />
             <ReadOnlyField label="StarRise Time" />
             <ReadOnlyField label="StarSet Time" />
-          </DigiBox>
+          </ComponentContainer>
           {/* <Box
             data-testid="NearbyTablesContainer"
             sx={{
@@ -220,7 +220,7 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
               justifyContent: 'center',
             }}
           >
-            <DigiBox
+            <ComponentContainer
               data-id="LocationStatisticsData"
               sx={{
                 p: '.5em',
@@ -272,7 +272,7 @@ export const LocationExplorerTool: React.FC<LocationExplorerToolProps> = ({
                   value="1000"
                 />
               </Box>
-            </DigiBox>
+            </ComponentContainer>
           </Box> */}
           <Box
             data-testid="LocationExplorer__BottomBox"

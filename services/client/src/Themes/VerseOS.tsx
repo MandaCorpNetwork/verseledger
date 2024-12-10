@@ -1,8 +1,14 @@
 import '@Assets/Css/fonts.css';
 
+import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
+import type {} from '@mui/lab/themeAugmentation';
 import { createTheme } from '@mui/material/styles';
 
 export const verseOS = createTheme({
+  themeType: 'verseOS',
+  shape: {
+    borderRadius: 10,
+  },
   breakpoints: {
     values: {
       xs: 0,
@@ -19,6 +25,7 @@ export const verseOS = createTheme({
     },
     background: {
       default: 'rgb(0, 1, 19)',
+      paper: 'rgb(10, 10, 30)',
       //default: 'white', //Theme Test Switch
     },
     primary: {
@@ -27,8 +34,8 @@ export const verseOS = createTheme({
       light: 'rgb(33,150,243)',
     },
     secondary: {
-      main: 'rgb(24, 252, 252)',
-      dark: 'rgb(6,86,145)',
+      main: 'rgb(0, 204, 252)',
+      dark: 'rgb(0,102,204)',
       light: 'rgb(121,192,244)',
     },
     text: {
@@ -37,29 +44,32 @@ export const verseOS = createTheme({
       disabled: 'rgb(100,100,100)',
     },
     info: {
-      main: 'rgb(255, 141, 15)',
-      dark: 'rgb(181,180,5)',
-      light: 'rgb(255,181,100)',
-      contrastText: 'rgb(35,35,35)',
+      main: 'rgb(100, 200, 255)',
+      light: 'rgb(150, 220, 255)',
+      dark: 'rgb(50, 150, 255)',
+      contrastText: 'rgb(20, 20, 20)',
     },
     success: {
       main: 'rgb(8, 201, 11)',
-      dark: 'rgb(14,140,11)',
-      light: 'rgb(83,217,84)',
+      light: 'rgb(83, 217, 84)',
+      dark: 'rgb(14, 140, 11)',
     },
     warning: {
-      main: 'rgb(255,193,0)',
-      dark: 'rgb(181,137,4)',
-      light: 'rgb(247,207,87)',
-      contrastText: 'rgb(50,50,20)',
+      main: 'rgb(255, 193, 0)',
+      light: 'rgb(247, 207, 87)',
+      dark: 'rgb(181, 137, 4)',
+      contrastText: 'rgb(50, 50, 20)',
     },
     error: {
-      main: 'rgb(255,0,0)',
-      dark: 'rgb(140,0,0)',
-      light: 'rgb(255,100,100)',
-      contrastText: 'rgb(255,160,160)',
+      main: 'rgb(255, 0, 0)',
+      light: 'rgb(255, 100, 100)',
+      dark: 'rgb(140, 0, 0)',
+      contrastText: 'rgb(255, 160, 160)',
     },
     action: {
+      active: 'rgb(0, 120, 255)',
+      hover: 'rgb(30, 90, 200)',
+      selected: 'rgb(0, 200, 255)',
       disabled: 'rgb(0,73,130)',
       disabledBackground: 'rgb(0,30,100)',
     },
@@ -112,6 +122,15 @@ export const verseOS = createTheme({
     },
   },
   components: {
+    MuiLoadingButton: {
+      defaultProps: {
+        variant: 'outlined',
+        loadingIndicator: <LoadingWheel logoSize={20} wheelSize={35} />,
+        loadingPosition: 'center',
+        color: 'secondary',
+        size: 'medium',
+      },
+    },
     MuiTypography: {
       variants: [
         {
@@ -386,6 +405,18 @@ export const verseOS = createTheme({
           backdropFilter: 'blur(10px)',
           boxShadow:
             '0px 4px 6px -1px rgba(0, 0, 0, 0.6), 0px 8px 10px 0px rgba(0, 0, 0, 0.4), 0px 10px 20px 0px rgba(0, 0, 0, 0.3)',
+          '&::-webkit-scrollbar': {
+            width: '5px',
+            height: '5px',
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'rgb(0,73,130)',
+            borderRadius: '10px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            borderRadius: '20px',
+            background: 'rgb(24,252,252)',
+          },
         },
       },
     },

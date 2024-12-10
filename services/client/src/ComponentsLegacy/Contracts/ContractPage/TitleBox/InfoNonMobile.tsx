@@ -1,4 +1,4 @@
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { ArchetypeChip } from '@CommonLegacy/Components/Chips/ArchetypeChip';
 import { ContractStatusChip } from '@CommonLegacy/Components/Chips/ContractStatusChip';
 import { SubtypeChip } from '@CommonLegacy/Components/Chips/SubtypeChip';
@@ -33,7 +33,7 @@ type InfoNonMobileProps = {
  * @component {@link UserDisplay}
  * @component {@link DesktopPayInfo}
  * #### Styled Components
- * @component {@link DigiDisplay}
+ * @component {@link ComponentDisplay}
  * @component {@link DigiField}
  */
 export const InfoNonMobile: React.FC<InfoNonMobileProps> = ({
@@ -43,7 +43,7 @@ export const InfoNonMobile: React.FC<InfoNonMobileProps> = ({
 }) => {
   return (
     <>
-      <DigiDisplay
+      <ComponentDisplay
         data-testid="ContractPage-Info-ContractInfo__Status_Wrapper"
         sx={{
           py: { s: '.8em' },
@@ -67,8 +67,8 @@ export const InfoNonMobile: React.FC<InfoNonMobileProps> = ({
             size="medium"
           />
         )}
-      </DigiDisplay>
-      <DigiDisplay
+      </ComponentDisplay>
+      <ComponentDisplay
         data-testid="ContractPage-Info-ContractInfo__Type_Container"
         sx={{
           flexDirection: 'row',
@@ -129,7 +129,7 @@ export const InfoNonMobile: React.FC<InfoNonMobileProps> = ({
             )}
           </Box>
         </DigiField>
-      </DigiDisplay>
+      </ComponentDisplay>
       {!tablet && <DesktopPayInfo contract={contract} />}
       <UserDisplay user={contract.Owner} />
     </>

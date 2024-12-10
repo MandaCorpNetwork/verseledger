@@ -1,5 +1,5 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField';
 import { Box, Typography } from '@mui/material';
@@ -36,11 +36,11 @@ export const OtherStop: React.FC<OtherStopProps> = ({ destination, nextDestinati
   const absDistance = Math.abs(floatDistance);
   const formattedDistance = formatDistance(absDistance);
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="RouteTool-RouteViewer__OtherStop_Container"
       sx={{ p: '.5em', gap: '.5em' }}
     >
-      <DigiDisplay
+      <ComponentDisplay
         data-testid="RouteTool-RouteViewer-NextDestination__Title_Wrapper"
         sx={{
           flexDirection: 'row',
@@ -56,15 +56,15 @@ export const OtherStop: React.FC<OtherStopProps> = ({ destination, nextDestinati
           </Typography>
           <LocationChip locationId={destination.location.id} sx={{ minWidth: '120px' }} />
         </Box>
-      </DigiDisplay>
-      <DigiDisplay
+      </ComponentDisplay>
+      <ComponentDisplay
         data-testid="RouteTool-RouteViewer-NextDestination__Information_Container"
         sx={{ flexDirection: 'row' }}
       >
         <ReadOnlyField label="Local Time" />
         <ReadOnlyField label="Distance" value={formattedDistance} />
         <ReadOnlyField label="Est. Travel Time" />
-      </DigiDisplay>
-    </DigiBox>
+      </ComponentDisplay>
+    </ComponentContainer>
   );
 };

@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { DoubleArrow } from '@mui/icons-material';
 import { Collapse, IconButton, Typography } from '@mui/material';
 import React from 'react';
@@ -23,7 +23,7 @@ export const BriefingCollapse: React.FC<BriefingCollapseProps> = ({ briefing }) 
     });
   }, [sound, setIsExpanded]);
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="SelectedContract__BriefingWrapper"
       sx={{
         width: '100%',
@@ -32,7 +32,7 @@ export const BriefingCollapse: React.FC<BriefingCollapseProps> = ({ briefing }) 
         mb: '1em',
       }}
     >
-      <DigiDisplay data-testid="SelectedContract-Briefing__BriefingTitle">
+      <ComponentDisplay data-testid="SelectedContract-Briefing__BriefingTitle">
         <Typography variant="body2" sx={{ fontWeight: 'bold', cursor: 'default' }}>
           Briefing
         </Typography>
@@ -56,9 +56,9 @@ export const BriefingCollapse: React.FC<BriefingCollapseProps> = ({ briefing }) 
             }}
           />
         </IconButton>
-      </DigiDisplay>
+      </ComponentDisplay>
       <Collapse in={isExpanded} sx={{ width: '100%' }}>
-        <DigiDisplay
+        <ComponentDisplay
           data-testid="SelectedContract-Briefing__ContentWrapper"
           sx={{
             mx: '5%',
@@ -79,8 +79,8 @@ export const BriefingCollapse: React.FC<BriefingCollapseProps> = ({ briefing }) 
           >
             {briefing}
           </Typography>
-        </DigiDisplay>
+        </ComponentDisplay>
       </Collapse>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

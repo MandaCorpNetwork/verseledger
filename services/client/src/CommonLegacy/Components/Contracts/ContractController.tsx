@@ -16,7 +16,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
-import { ControlPanelBox } from '../Boxes/ControlPanelBox';
+import { ControlPanelBox } from '../../../Common/Components/Core/Boxes/ControlPanelBox';
 
 type ContractControllerProps = {
   mobileView?: boolean;

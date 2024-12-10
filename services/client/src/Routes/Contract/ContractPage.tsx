@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
-import { VLViewport } from '@CommonLegacy/Components/Boxes/VLViewport';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
+import { VLViewport } from '@Common/Components/Core/Boxes/VLViewport';
 import { ContractController } from '@CommonLegacy/Components/Contracts/ContractController';
 import { ContractorList } from '@CommonLegacy/Components/Contracts/ContractorList';
 import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
@@ -271,7 +271,7 @@ export const ContractPage: React.FC<unknown> = () => {
     >
       {isLoading && <LoadingScreen variant="wheel" controlType="indeterminate" />}
       {contract && (
-        <GlassBox
+        <FeatureContainer
           data-testid="ContractPage__Wrapper"
           sx={{
             py: { xs: '.5em', md: '1em', lg: '2em', xl: '3em' },
@@ -344,7 +344,7 @@ export const ContractPage: React.FC<unknown> = () => {
               userBid={userBid}
             />
           )}
-        </GlassBox>
+        </FeatureContainer>
       )}
       <div
         style={{

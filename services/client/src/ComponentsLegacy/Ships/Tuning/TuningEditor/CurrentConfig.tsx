@@ -1,4 +1,4 @@
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Box, Divider } from '@mui/material';
 import React from 'react';
 
@@ -15,7 +15,7 @@ export const CurrentConfig: React.FC<CurrentConfigProps> = ({
   setConfig,
 }) => {
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="ShipTuning-TuningEditor__CurrentConfig_Wrapper"
       sx={{
         display: 'flex',
@@ -91,6 +91,6 @@ export const CurrentConfig: React.FC<CurrentConfigProps> = ({
             />
           ))}
       </Box>
-    </GlassDisplay>
+    </FeatureDisplay>
   );
 };

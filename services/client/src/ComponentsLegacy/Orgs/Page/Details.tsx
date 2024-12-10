@@ -1,12 +1,12 @@
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import { GlassDisplay } from '@CommonLegacy/Components/Boxes/GlassDisplay';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Typography } from '@mui/material';
 import React from 'react';
 
 export const OrgDetails: React.FC = () => {
   return (
-    <GlassDisplay
+    <FeatureDisplay
       data-testid="OrgPage__Details_Wrapper"
       sx={{
         maxWidth: '600px',
@@ -15,7 +15,10 @@ export const OrgDetails: React.FC = () => {
         gap: '0.5em',
       }}
     >
-      <DigiBox data-testid="OrgPage-Details__Description_Wrapper" sx={{ p: '0 0.2em' }}>
+      <ComponentContainer
+        data-testid="OrgPage-Details__Description_Wrapper"
+        sx={{ p: '0 0.2em' }}
+      >
         <Typography
           data-testid="OrgPage-Details__Description"
           variant="body2"
@@ -25,12 +28,12 @@ export const OrgDetails: React.FC = () => {
           eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient
           montes, nascetur ridiculus mus. Donec qu
         </Typography>
-      </DigiBox>
-      <DigiBox
+      </ComponentContainer>
+      <ComponentContainer
         data-testid="OrgPage-Details__Info_Wrapper"
         sx={{ flexDirection: 'row', py: '0.5em', justifyContent: 'space-around' }}
       >
-        <DigiDisplay
+        <ComponentDisplay
           data-testid="OrgPage-Details-Info__Archetype_Wrapper"
           sx={{ px: '0.5em', justifyContent: 'flex-start' }}
         >
@@ -41,8 +44,8 @@ export const OrgDetails: React.FC = () => {
           >
             Archetype
           </Typography>
-        </DigiDisplay>
-        <DigiDisplay
+        </ComponentDisplay>
+        <ComponentDisplay
           data-testid="OrgPage-Details-Info__Activities_Wrapper"
           sx={{ px: '0.5em', justifyContent: 'flex-start' }}
         >
@@ -53,8 +56,8 @@ export const OrgDetails: React.FC = () => {
           >
             Activities
           </Typography>
-        </DigiDisplay>
-        <DigiDisplay
+        </ComponentDisplay>
+        <ComponentDisplay
           data-testid="OrgPage-Details-Info__Options_Wrapper"
           sx={{ px: '0.5em' }}
         >
@@ -79,8 +82,8 @@ export const OrgDetails: React.FC = () => {
           >
             Recruiting:
           </Typography>
-        </DigiDisplay>
-      </DigiBox>
-    </GlassDisplay>
+        </ComponentDisplay>
+      </ComponentContainer>
+    </FeatureDisplay>
   );
 };

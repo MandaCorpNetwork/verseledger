@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import { DigiDisplay } from '@CommonLegacy/Components/Boxes/DigiDisplay';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import { ComponentDisplay } from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { DoubleArrow } from '@mui/icons-material';
 import { Box, Collapse, IconButton, Typography } from '@mui/material';
@@ -63,7 +63,7 @@ export const LocationsDisplay: React.FC<LocationsDisplayProps> = ({ locations = 
   const otherLocationIds = getOtherLocationIds();
 
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="SelectedContract__LocationsContainer"
       sx={{
         width: '100%',
@@ -72,7 +72,7 @@ export const LocationsDisplay: React.FC<LocationsDisplayProps> = ({ locations = 
         mb: '1em',
       }}
     >
-      <DigiDisplay data-testid="SelectedContract-Locations__TitleText">
+      <ComponentDisplay data-testid="SelectedContract-Locations__TitleText">
         <Typography variant="body2" sx={{ fontWeight: 'bold', cursor: 'default' }}>
           Locations
         </Typography>
@@ -96,7 +96,7 @@ export const LocationsDisplay: React.FC<LocationsDisplayProps> = ({ locations = 
             }}
           />
         </IconButton>
-      </DigiDisplay>
+      </ComponentDisplay>
       <Collapse in={isExpanded} sx={{ width: '100%' }}>
         <Box
           data-testid="SelectedContract-Locations__StartandEndWrapper"
@@ -108,7 +108,7 @@ export const LocationsDisplay: React.FC<LocationsDisplayProps> = ({ locations = 
             my: '.5em',
           }}
         >
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="SelectedContract-Locations__StartLocationWrapper"
             sx={{
               width: '40%',
@@ -120,9 +120,9 @@ export const LocationsDisplay: React.FC<LocationsDisplayProps> = ({ locations = 
               Start Location
             </Typography>
             <LocationChip locationId={startLocationId ?? ''} />
-          </DigiDisplay>
+          </ComponentDisplay>
           {endLocationId && (
-            <DigiDisplay
+            <ComponentDisplay
               data-testid="SelectedContract-Locations__EndLocationWrapper"
               sx={{
                 width: '40%',
@@ -134,11 +134,11 @@ export const LocationsDisplay: React.FC<LocationsDisplayProps> = ({ locations = 
                 End Location
               </Typography>
               <LocationChip locationId={endLocationId ?? ''} />
-            </DigiDisplay>
+            </ComponentDisplay>
           )}
         </Box>
         {otherLocationIds.length > 0 && (
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="SelectedContract-Locations_OtherLocationsContainer"
             sx={{
               width: '82%',
@@ -196,9 +196,9 @@ export const LocationsDisplay: React.FC<LocationsDisplayProps> = ({ locations = 
                 </Box>
               </Box>
             </Box>
-          </DigiDisplay>
+          </ComponentDisplay>
         )}
       </Collapse>
-    </DigiBox>
+    </ComponentContainer>
   );
 };

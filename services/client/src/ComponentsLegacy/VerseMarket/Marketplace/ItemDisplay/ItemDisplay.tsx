@@ -1,13 +1,13 @@
-import { ControlPanelBox } from '@CommonLegacy/Components/Boxes/ControlPanelBox';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
-import GlassBox from '@CommonLegacy/Components/Boxes/GlassBox';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
+import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { FileOpen } from '@mui/icons-material';
 import { Box, Divider, IconButton, Typography } from '@mui/material';
 
 export const ItemDisplay: React.FC<unknown> = () => {
   return (
-    <GlassBox
+    <FeatureContainer
       data-testid="VerseMarket-Marketplace-ItemDisplay"
       sx={{
         height: '100%',
@@ -41,7 +41,7 @@ export const ItemDisplay: React.FC<unknown> = () => {
             alignItems: 'center',
           }}
         >
-          <DigiDisplay
+          <ComponentDisplay
             data-testid="VerseMarket-Marketplace-ItemDisplay__ItemPicture_Container"
             sx={{ width: '175px', height: '175px', p: '5px' }}
           >
@@ -59,8 +59,8 @@ export const ItemDisplay: React.FC<unknown> = () => {
             >
               No Image Available
             </Box>
-          </DigiDisplay>
-          <DigiBox
+          </ComponentDisplay>
+          <ComponentContainer
             data-testid="VerseMarket-Marketplace-ItemDisplay__ItemLocations_Wrapper"
             sx={{ flexGrow: 1, p: '1em', alignItems: 'center' }}
           >
@@ -70,20 +70,20 @@ export const ItemDisplay: React.FC<unknown> = () => {
             >
               Item Locations
             </Typography>
-            <DigiDisplay
+            <ComponentDisplay
               data-testid="VerseMarket-Marketplace-ItemDisplay-ItemLocations__ChipsList_Wrapper"
               sx={{ p: '.5em' }}
             >
               Location Chip Scroller
-            </DigiDisplay>
-          </DigiBox>
+            </ComponentDisplay>
+          </ComponentContainer>
         </Box>
-        <GlassBox
+        <FeatureContainer
           data-testid="VerseMarket-Marketplace-ItemDisplay__Item_Charts_Wrapper"
           sx={{ flexGrow: 1, p: '.5em' }}
         >
           Item Charts
-        </GlassBox>
+        </FeatureContainer>
       </Box>
       <Box
         data-testid="VerseMarket-Marketplace-ItemDisplay__BottomBox"
@@ -106,17 +106,17 @@ export const ItemDisplay: React.FC<unknown> = () => {
             flexGrow: 1,
           }}
         >
-          <DigiBox
+          <ComponentContainer
             data-testid="VerseMarket-Marketplace-ItemDisplay__Description_Container"
             sx={{ p: '.5em', alignItems: 'center', gap: '.5em' }}
           >
-            <DigiDisplay
+            <ComponentDisplay
               data-testid="VerseMarket-Marketplace-ItemDisplay__Description_Wrapper"
               sx={{ p: '.5em' }}
             >
               Item Description
-            </DigiDisplay>
-            <DigiDisplay
+            </ComponentDisplay>
+            <ComponentDisplay
               data-testid="VerseMarket-Marketplace-ItemDisplay-Description__Details__Container"
               sx={{ display: 'flex', flexDirection: 'row', p: '.5em' }}
             >
@@ -159,13 +159,13 @@ export const ItemDisplay: React.FC<unknown> = () => {
                   </Box>
                 </Box>
               </Box>
-            </DigiDisplay>
-          </DigiBox>
-          <DigiBox
+            </ComponentDisplay>
+          </ComponentContainer>
+          <ComponentContainer
             data-testid="VerseMarket-Marketplace-ItemDisplay__OrderMarket"
             sx={{ p: '.5em', flexDirection: 'row', justifyContent: 'space-around' }}
           >
-            <DigiDisplay
+            <ComponentDisplay
               data-testid="VerseMarket-Marketplace-ItemDisplay-OrderMarket__BuyOrder__Container"
               sx={{ p: '.5em', gap: '1em' }}
             >
@@ -209,8 +209,8 @@ export const ItemDisplay: React.FC<unknown> = () => {
                   </IconButton>
                 </ControlPanelBox>
               </Box>
-            </DigiDisplay>
-            <DigiDisplay
+            </ComponentDisplay>
+            <ComponentDisplay
               data-testid="VerseMarket-Marketplace-ItemDisplay-OrderMarket__SellOrder__Container"
               sx={{ p: '.5em', gap: '1em' }}
             >
@@ -254,10 +254,10 @@ export const ItemDisplay: React.FC<unknown> = () => {
                   </IconButton>
                 </ControlPanelBox>
               </Box>
-            </DigiDisplay>
-          </DigiBox>
+            </ComponentDisplay>
+          </ComponentContainer>
         </Box>
-        <DigiBox
+        <ComponentContainer
           data-testid="VerseMarket-Marketplace-ItemDisplay-Bottom__RightBox"
           sx={{
             minWidth: '200px',
@@ -280,8 +280,8 @@ export const ItemDisplay: React.FC<unknown> = () => {
               <div>150</div>
             </Box>
           </Box>
-        </DigiBox>
+        </ComponentContainer>
       </Box>
-    </GlassBox>
+    </FeatureContainer>
   );
 };

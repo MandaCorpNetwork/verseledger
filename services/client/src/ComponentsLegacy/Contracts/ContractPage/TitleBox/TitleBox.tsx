@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
-import { DigiBox } from '@CommonLegacy/Components/Boxes/DigiBox';
-import DigiDisplay from '@CommonLegacy/Components/Boxes/DigiDisplay';
 import { Link } from '@mui/icons-material';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
@@ -36,7 +36,7 @@ type TitleBoxProps = {
  * @component {@link MobileInfo}
  * #### Styled Components
  * @component {@link DigiBox}
- * @component {@link DigiDisplay}
+ * @component {@link ComponentDisplay}
  */
 export const TitleBox: React.FC<TitleBoxProps> = ({
   contract,
@@ -80,14 +80,14 @@ export const TitleBox: React.FC<TitleBoxProps> = ({
 
   const ownerRating = getContractorRating();
   return (
-    <DigiBox
+    <ComponentContainer
       data-testid="ContractPage__Info_Container"
       sx={{
         py: { xs: '.5em', md: '1em', lg: '2em' },
         px: { xs: '.5em', md: '3em', lg: '10em' },
       }}
     >
-      <DigiDisplay
+      <ComponentDisplay
         data-testid="ContractPage-Info__TitleBar_Wrapper"
         sx={{
           flexDirection: 'row',
@@ -126,7 +126,7 @@ export const TitleBox: React.FC<TitleBoxProps> = ({
         >
           <Link fontSize={mobile ? 'medium' : 'large'} />
         </IconButton>
-      </DigiDisplay>
+      </ComponentDisplay>
       <Box
         data-testid="ContractPage-Info__ContractInfo_Wrapper"
         sx={{
@@ -144,6 +144,6 @@ export const TitleBox: React.FC<TitleBoxProps> = ({
           <InfoNonMobile contract={contract} archetype={archetype} tablet={tablet} />
         )}
       </Box>
-    </DigiBox>
+    </ComponentContainer>
   );
 };
