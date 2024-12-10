@@ -844,7 +844,7 @@
     "@babel/parser" "^7.25.9"
     "@babel/types" "^7.25.9"
 
-"@babel/traverse@^7.23.7", "@babel/traverse@^7.25.9":
+"@babel/traverse@^7.23.7", "@babel/traverse@^7.25.9", "@babel/traverse@^7.26.4":
   version "7.26.4"
   resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.26.4.tgz#ac3a2a84b908dde6d463c3bfa2c5fdc1653574bd"
   integrity sha512-fH+b7Y4p3yqvApJALCPJcwb0/XaOSgtK4pzV6WVjPR5GLFQBRI7pfoX2V2iM48NXvX07NUxxm1Vw98YjqTcU5w==
@@ -3675,10 +3675,10 @@
   dependencies:
     "@tanstack/ranger" "0.0.3"
 
-"@tanstack/react-router@1.87.1":
-  version "1.87.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.87.1.tgz#3d26183631e6eb47e2f0612e87c70db5ba33e10b"
-  integrity sha512-LqpP235wfHJQl1LmjfoII4xll29IOjmFFp1i3G/k1zIffjdmsEshmsAJozPxgsJEe6M8r34mlG7IBvfmYmXK6w==
+"@tanstack/react-router@1.87.3":
+  version "1.87.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.87.3.tgz#c97512d6915831a3a54cf08c286e009509c139fc"
+  integrity sha512-Fvhwy79M9w9wLjg3F9IhnGONcWt4RA88VR+iuKk3SxnHoXMp7oj2dSK9hKA+oTAzG7ee66wOmFi237UeeNfTJA==
   dependencies:
     "@tanstack/history" "1.85.3"
     "@tanstack/react-store" "^0.6.1"
@@ -3716,38 +3716,38 @@
   dependencies:
     "@tanstack/virtual-core" "3.10.9"
 
-"@tanstack/router-devtools@1.87.1":
-  version "1.87.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools/-/router-devtools-1.87.1.tgz#bb0797039f10b22d94cf65d5990ca82c5c6252f2"
-  integrity sha512-gvbAPUTQTwv95tNJcAhY9R+JERtekKd9jaLJOrjVj9hdS2GvXler7dBDoJXIvet1x9rW8rZihTkP8HhHbMia6Q==
+"@tanstack/router-devtools@1.87.3":
+  version "1.87.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools/-/router-devtools-1.87.3.tgz#e50c3c8627d7528eff226b6cca3e5211de4ea258"
+  integrity sha512-xD+vMp4YWLauzxX7U/AxpFQmXtNe6Hnz8tolGlNjBlIKJM0Iz7EQ9SnVleT9sI/bQQz4GXRRPssWHd78pCMKQg==
   dependencies:
     clsx "^2.1.1"
     goober "^2.1.16"
 
-"@tanstack/router-generator@^1.86.0":
-  version "1.86.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-generator/-/router-generator-1.86.0.tgz#2760ae818d5ea0bbca97673bdf1565994968c1c6"
-  integrity sha512-6UrQmysjRNZZp1KnAR4aghqrHJKz+5TwGpq8w+kjVWj7ac6OLekqaWbF+LvfwRs03rLiRNxI9VYHmrSkCvIF+A==
+"@tanstack/router-generator@^1.87.3":
+  version "1.87.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-generator/-/router-generator-1.87.3.tgz#225206411a9619731d5b977a8ad1491992fea1ab"
+  integrity sha512-zXZBityJG9puzcf6ZJ4qZvgBhVF5pWScULcA+oB+ZmN9T0HxjbqBLtHJlQaxj0Y67WpQ4oxKcxdBW7bn6KZ3LQ==
   dependencies:
     "@tanstack/virtual-file-routes" "^1.81.9"
-    prettier "^3.4.1"
+    prettier "^3.4.2"
     tsx "^4.19.2"
     zod "^3.23.8"
 
-"@tanstack/router-plugin@1.86.0":
-  version "1.86.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-plugin/-/router-plugin-1.86.0.tgz#c9d3bc06c11a555f01a05d1268e6bb1383068d6a"
-  integrity sha512-cKBgHBva1amOV+86AKP3DwIT9DYH9keF7GDjqhEMzLHgsTAtJ8IqEQk87xnGw9z55acQJGaVGkP6xuRCACy9eQ==
+"@tanstack/router-plugin@1.87.4":
+  version "1.87.4"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-plugin/-/router-plugin-1.87.4.tgz#a5ac2952728a11701de05491fa5bcefb29e28685"
+  integrity sha512-c9OGNTA9HNgRjfB681S3RaDPJ6lXNkZrs8IMfFZ1Tp8vomo4JGEIteYJpn+L35x690rSzfRB47Pif3Y7gedQlg==
   dependencies:
     "@babel/core" "^7.26.0"
-    "@babel/generator" "^7.26.2"
-    "@babel/parser" "^7.26.2"
+    "@babel/generator" "^7.26.3"
+    "@babel/parser" "^7.26.3"
     "@babel/plugin-syntax-jsx" "^7.25.9"
     "@babel/plugin-syntax-typescript" "^7.25.9"
     "@babel/template" "^7.25.9"
-    "@babel/traverse" "^7.25.9"
-    "@babel/types" "^7.26.0"
-    "@tanstack/router-generator" "^1.86.0"
+    "@babel/traverse" "^7.26.4"
+    "@babel/types" "^7.26.3"
+    "@tanstack/router-generator" "^1.87.3"
     "@tanstack/virtual-file-routes" "^1.81.9"
     "@types/babel__core" "^7.20.5"
     "@types/babel__generator" "^7.6.8"
@@ -10959,7 +10959,7 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@3.4.2, prettier@^3.4.1:
+prettier@3.4.2, prettier@^3.4.2:
   version "3.4.2"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.4.2.tgz#a5ce1fb522a588bf2b78ca44c6e6fe5aa5a2b13f"
   integrity sha512-e9MewbtFo+Fevyuxn/4rrcDAaq0IYxPGLvObpQjiZBMAzB9IGmzlnG9RZy3FFas+eBMu2vA0CszMeduow5dIuQ==
