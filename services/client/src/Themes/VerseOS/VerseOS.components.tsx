@@ -1,5 +1,6 @@
-import { verseOSFeatureContainer } from './Styles/FeatureContainer';
+import { verseOSFeatureContainer, verseOSFeatureDisplay } from './Styles/CoreBoxes';
 
 export const verseOSComponents: ThemeStyledComponents = {
   FeatureContainer: verseOSFeatureContainer,
+  FeatureDisplay: verseOSFeatureDisplay,
 };
