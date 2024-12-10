@@ -1,4 +1,4 @@
-import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
+import { FeatureContainer } from '@Common/Components/Core/Boxes/FeatureContainer';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';

@@ -18,7 +18,7 @@
 
 - themes.ts
   - baseThemeMap
-    Add ThemeName
+    Add ThemeType
   - logoThemeMap
     Add GraphicDesign URLs for the Logos Added
   - videoThemeMap

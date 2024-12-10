@@ -7,20 +7,32 @@ import VerseOSLogo from '@Assets/Images/Logos/VerseOSLogo.png?url';
 import VerseOSPotato from '@Assets/Images/Logos/VerseOSPotatoLogo.png?url';
 import Checkmate from '@Assets/Videos/Checkmate.webm?url';
 import RedMicrotech from '@Assets/Videos/RedMicrotech.webm?url';
-import { Theme } from '@mui/material';
-import { pirateOS } from '@Themes/PirateOS';
-import { refinerySystem } from '@Themes/RefinerySystem';
-import { verseOS } from '@Themes/VerseOS';
+import { pirateOSComponents } from '@Themes/PirateOS/PirateOS.components';
+import { generatePirateOSBase } from '@Themes/PirateOS/PirateOS.generator';
+import { pirateOSPalette } from '@Themes/PirateOS/PirateOS.palette';
+import { verseOSComponents } from '@Themes/VerseOS/VerseOS.components';
+import { generateVerseOSBase } from '@Themes/VerseOS/VerseOS.generator';
+import { verseOSPalette } from '@Themes/VerseOS/VerseOS.palette';
 
 const themeInfoDefault = {
   warning: false,
   disabled: false,
 };
 
-export const baseThemesMap: Record<ThemeName, Theme> = {
-  verseOS: verseOS,
-  pirateOS: pirateOS,
-  refinerySystem: refinerySystem,
+export const baseThemesMap: Record<ThemeType, BaseTheme> = {
+  verseOS: {
+    themeName: 'verseOS',
+    palette: verseOSPalette,
+    generator: generateVerseOSBase,
+    styledComponents: verseOSComponents,
+  },
+  pirateOS: {
+    themeName: 'pirateOS',
+    palette: pirateOSPalette,
+    generator: generatePirateOSBase,
+    styledComponents: pirateOSComponents,
+  },
+  refinerySystem: {} as BaseTheme,
 };
 
 export const logoThemeMap: Record<string, string> = {
@@ -33,21 +45,19 @@ export const logoThemeMap: Record<string, string> = {
   pirateOS: PirateOSLogo,
 };
 
-export const videoThemeMap: Record<ThemeName, string> = {
+export const videoThemeMap: Record<ThemeType, string> = {
   pirateOS: Checkmate,
   verseOS: RedMicrotech,
   refinerySystem: 'error',
 };
 
-export const themeInfoMap: Record<ThemeName, ThemeInfo> = {
+export const themeInfoMap: Record<ThemeType, ThemeInfo> = {
   verseOS: {
-    theme: verseOS,
     themeLabel: 'VerseOS',
     themeType: 'verseOS',
     ...themeInfoDefault,
   },
   pirateOS: {
-    theme: pirateOS,
     themeLabel: 'PirateOS',
     themeType: 'pirateOS',
     ...themeInfoDefault,
@@ -55,7 +65,6 @@ export const themeInfoMap: Record<ThemeName, ThemeInfo> = {
     warningMsg: 'Work In Progress',
   },
   refinerySystem: {
-    theme: refinerySystem,
     themeLabel: 'Refinery System C47.02',
     themeType: 'refinerySystem',
     warning: true,

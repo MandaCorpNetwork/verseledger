@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material';
 import React from 'react';
 
 type MaskedVideoProps = {
-  themeOverride?: ThemeName;
+  themeOverride?: ThemeType;
   sx?: object;
 };
 

@@ -255,7 +255,7 @@ export const ProfileSettings: React.FC = () => {
                   >
                     {theme.fidelity === 'high' && (
                       <MaskedVideo
-                        themeOverride={field.state.value as ThemeName}
+                        themeOverride={field.state.value as ThemeType}
                         sx={{ opacity: 0.5 }}
                       />
                     )}
@@ -308,13 +308,13 @@ export const ProfileSettings: React.FC = () => {
                         display: 'flex',
                       }}
                     >
-                      {themeInfoMap[field.state.value as ThemeName].warning && (
+                      {themeInfoMap[field.state.value as ThemeType].warning && (
                         <>
                           <WarningTwoTone
                             data-testid="ProfileSettings-Form-Aesthetics-Theme-Field__Warning_Icon"
                             fontSize="small"
                           />
-                          {themeInfoMap[field.state.value as ThemeName].warningMsg}
+                          {themeInfoMap[field.state.value as ThemeType].warningMsg}
                         </>
                       )}
                     </Typography>

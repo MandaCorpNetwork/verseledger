@@ -23,7 +23,7 @@ import {
   SvgIconComponent,
   WorkTwoTone,
 } from '@mui/icons-material';
-import { useHasFeatureFlag } from '@Utils/FeatureFlag';
+import { useHasFeatureFlag } from '@Utils/Hooks/FeatureFlag';
 import React from 'react';
 
 import { Contracts, Exploration, Fleet, Vehicles } from './CustomIcons';
