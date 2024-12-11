@@ -3685,10 +3685,10 @@
   dependencies:
     "@tanstack/ranger" "0.0.3"
 
-"@tanstack/react-router@1.87.6":
-  version "1.87.6"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.87.6.tgz#a32c8c5555cc43da400628ea2de7d0e82d9f0e8a"
-  integrity sha512-rykNc4DCDJAkOng0WQZhUoMZgT8Ss4HqgXYJOMOiGyOeaGzrl9BzBGEMDDybCRk5RIFBC5ZLwlzJQ8GaqXc7mg==
+"@tanstack/react-router@1.87.7":
+  version "1.87.7"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.87.7.tgz#50e968860882dced6482c935e4f10175183f0540"
+  integrity sha512-588U3sagWbuFwzXCs8tHXLLaxZS6/bgQiyIXifrjbKu2UlEtdA98hxf5gezHw8ycYSf79GhjqOxfTHWev+V0Cw==
   dependencies:
     "@tanstack/history" "1.87.6"
     "@tanstack/react-store" "^0.6.1"
@@ -3718,28 +3718,28 @@
   dependencies:
     "@tanstack/virtual-core" "3.10.9"
 
-"@tanstack/router-devtools@1.87.6":
-  version "1.87.6"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools/-/router-devtools-1.87.6.tgz#b13a1e75810ebf5514478aa9996e41e5c3990a58"
-  integrity sha512-ArK0WN32l4ey0rP8smTjW6lWg1xvKjxl3aGrSf+NgWukh6dT99bBvUsCWqPFBJ4VThm5r4BhIXpulbf8Ap+M0g==
+"@tanstack/router-devtools@1.87.7":
+  version "1.87.7"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools/-/router-devtools-1.87.7.tgz#02291dc9bf912910fdaae01d5677862bd74abc92"
+  integrity sha512-r99mxCI7NPTU1ZLUAZfIdHEG8aIOVw26kdsVxxY5MeASHBLrSS74CcGQTcaqHPVt8QbV8OXalVSehvLRK7IMFw==
   dependencies:
     clsx "^2.1.1"
     goober "^2.1.16"
 
-"@tanstack/router-generator@^1.87.6":
-  version "1.87.6"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-generator/-/router-generator-1.87.6.tgz#4b23d6b669650200d806c8cee6892b83a1262418"
-  integrity sha512-WDOjlOBhXNYgsr+vD+G3beia80gtG5Uiv/NXkX3zwR1RfJLcysKoRzCWxDzlfB82ps/N5F4rBSlZ7GzARNCXhw==
+"@tanstack/router-generator@^1.87.7":
+  version "1.87.7"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-generator/-/router-generator-1.87.7.tgz#8559b455ae6b0a5579ef88cb533001ea17085268"
+  integrity sha512-w9Px1C6DM0YNVXvu1VjUuZ5el0ykOeofEmEZBW83VUTzvCXFpcjPCHncU9FO9uXup8NFIxNfGz+xpwf93GoFnQ==
   dependencies:
     "@tanstack/virtual-file-routes" "^1.87.6"
     prettier "^3.4.2"
     tsx "^4.19.2"
     zod "^3.23.8"
 
-"@tanstack/router-plugin@1.87.6":
-  version "1.87.6"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-plugin/-/router-plugin-1.87.6.tgz#d0adc66a0d07c9bd7b9abfdf63d553c425f54fe8"
-  integrity sha512-Wss68JFzUP+/ETr1e+uIm9QJO9cyO08k8BMv/n1qlTfTTkC0SE/Yma6sh9lULD2SzBueN0SABP8Yq7Azkgw8rw==
+"@tanstack/router-plugin@1.87.7":
+  version "1.87.7"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-plugin/-/router-plugin-1.87.7.tgz#3aacce994d3462ec3f291aa63f5ca0125a64d8ce"
+  integrity sha512-3QdDyanjZkGW9yqqiDbjrFIEnrDpJGydNB5pawTbv2UsWO3vXQfzFY6wYuUZGjbXjXxXZ+C0H2f/igIP0dDDqg==
   dependencies:
     "@babel/core" "^7.26.0"
     "@babel/generator" "^7.26.3"
@@ -3749,7 +3749,7 @@
     "@babel/template" "^7.25.9"
     "@babel/traverse" "^7.26.4"
     "@babel/types" "^7.26.3"
-    "@tanstack/router-generator" "^1.87.6"
+    "@tanstack/router-generator" "^1.87.7"
     "@tanstack/virtual-file-routes" "^1.87.6"
     "@types/babel__core" "^7.20.5"
     "@types/babel__generator" "^7.6.8"
