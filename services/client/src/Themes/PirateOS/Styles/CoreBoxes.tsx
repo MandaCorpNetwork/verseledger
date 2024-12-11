@@ -1,3 +1,6 @@
+import ObjectsUI from '@Assets/Images/Textures/ConscientiousObjects.jpg?url';
+import SKDefault from '@Assets/Images/Textures/SKDefault.png?url';
+// import Skutters from '@Assets/Images/Textures/SkuttersUI.png?url';
 import { logoThemeMap } from '@Common/Definitions/Themes/themeMaps';
 import { SxProps } from '@mui/material';
 import { alpha, Theme } from '@mui/material/styles';
@@ -54,9 +57,41 @@ export const pirateOSFeatureContainer = (theme: Theme): SxProps<Theme> => ({
   ...(theme.fidelity === 'high' && {
     backgroundImage: `linear-gradient(180deg, ${alpha(theme.palette.primary.dark, 0.2)} 10%, ${alpha(theme.palette.background.paper, 0.8)} 80%)`,
     backdropFilter: 'blur(5px)',
+    boxShadow: `8px 12px 40px rgba(0,0,0,0.5), -2px -6px 40px rgba(0,0,0,0.2), 0 0 50px ${alpha(theme.palette.primary.light, 0.2)}`,
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      zIndex: -1,
+      backgroundImage: `url(${ObjectsUI})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      opacity: 0.2,
+      maskImage: 'radial-gradient(circle, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)',
+      WebkitMaskImage: 'radial-gradient(circle, rgba(0,0,0,1) 70%, transparent 100%)',
+      pointerEvents: 'none',
+    },
   }),
   ...(theme.fidelity === 'medium' && {
     backgroundImage: `linear-gradient(180deg, ${alpha(theme.palette.primary.dark, 0.2)} 10%, ${alpha(theme.palette.background.paper, 0.8)} 80%)`,
+    boxShadow: `8px 12px 40px rgba(0,0,0,0.5), -2px -6px 40px rgba(0,0,0,0.2), 0 0 50px ${alpha(theme.palette.primary.light, 0.2)}`,
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      zIndex: -1,
+      backgroundImage: `url(${ObjectsUI})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      opacity: 0.2,
+      pointerEvents: 'none',
+    },
   }),
 });
 
@@ -231,6 +266,7 @@ export const pirateOSComponentDisplay = (theme: Theme): SxProps<Theme> => ({
       backgroundSize: '6px 6px',
       opacity: 1,
       backgroundPosition: 'center',
+      pointerEvents: 'none',
     },
   }),
   ...(theme.fidelity === 'high' &&
@@ -309,6 +345,53 @@ export const pirateOSComponentDisplay = (theme: Theme): SxProps<Theme> => ({
       transition: 'box-shadow 0.2s ease-in-out',
       '&:hover': {
         boxShadow: `0 3px 6px ${alpha(theme.palette.background.paper, 0.6)},`,
+      },
+    }),
+});
+
+export const pirateOSControlPanel = (theme: Theme): SxProps<Theme> => ({
+  backgroundColor: alpha(theme.palette.primary.main, 0.5),
+  border: `3px ridge ${theme.palette.secondary.main}`,
+  '&:hover': {
+    color: theme.palette.secondary.light,
+  },
+  '&::-webkit-scrollbar': {
+    width: '2px',
+    height: '2px',
+  },
+  '&::-webkit-scrollbar-track': {
+    background: theme.palette.divider,
+    borderRadius: '2px',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    background: theme.palette.secondary.main,
+  },
+  ...((theme.fidelity === 'high' || theme.fidelity === 'medium') && {
+    boxShadow: `0 8px 12px ${alpha(theme.palette.background.default, 0.4)}, 0 16px 30px ${alpha(theme.palette.background.default, 0.3)}, 0 4px 8px ${alpha(theme.palette.background.paper, 0.3)}`,
+    backgroundImage: `linear-gradient(180deg, ${alpha(theme.palette.primary.dark, 0.5)}, ${alpha(theme.palette.background.default, 0.2)})`,
+    backgroundColor: alpha(theme.palette.primary.main, 0.3),
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      zIndex: -1,
+      backgroundImage: `url(${SKDefault})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      pointerEvents: 'none',
+    },
+  }),
+  ...((theme.fidelity === 'high' || theme.fidelity === 'medium') &&
+    (theme.animations === 'high' || theme.animations === 'medium') && {
+      transitions:
+        'box-shadow 0.3s ease-in-out, background-image 0.3 ease-in-out, border-color 0.3s ease',
+      '&:hover': {
+        boxShadow: `0 16px 24px ${alpha(theme.palette.background.default, 0.5)}, 0 30px 40px ${alpha(theme.palette.background.default, 0.4)}, 0 8px 16px ${alpha(theme.palette.background.paper, 0.4)}`,
+        backgroundImage: `linear-gradient(180deg, ${alpha(theme.palette.primary.main, 0.5)}, ${alpha(theme.palette.background.default, 0.3)})`,
+        borderColor: theme.palette.secondary.dark,
       },
     }),
 });

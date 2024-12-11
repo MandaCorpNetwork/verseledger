@@ -2,6 +2,7 @@ import {
   pirateOSAppDisplay,
   pirateOSComponentContainer,
   pirateOSComponentDisplay,
+  pirateOSControlPanel,
   pirateOSFeatureContainer,
   pirateOSFeatureDisplay,
 } from './Styles/CoreBoxes';
@@ -13,4 +14,5 @@ export const pirateOSComponents: ThemeStyledComponents = {
   FeatureDisplay: pirateOSFeatureDisplay,
   ComponentContainer: pirateOSComponentContainer,
   ComponentDisplay: pirateOSComponentDisplay,
+  ControlPanel: pirateOSControlPanel,
 };
