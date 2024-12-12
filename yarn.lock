@@ -3697,10 +3697,10 @@
   dependencies:
     "@tanstack/ranger" "0.0.3"
 
-"@tanstack/react-router@1.87.9":
-  version "1.87.9"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.87.9.tgz#1a0b5cfc69a3d89ff1ed8c50befc25ddae90989d"
-  integrity sha512-oHmgGsN5rEZkRfCDei9OisOGDpLTUgdriW8nNvaNwYdnd1x7igR4gXYbX57Pv7JJjG0CHsmlR/2Oisp7JYoZqA==
+"@tanstack/react-router@1.87.12":
+  version "1.87.12"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.87.12.tgz#a20d7a8614c87288f1c9017e3883307fcdaf14bd"
+  integrity sha512-zrzAELXkZVia66zXKO8LOXt7TZKQPCoRBu7RMYJnhH276/h4+5iUQOGcY9Qo+Ea+4Q1+ENcCd3NSwZIYf8TCAA==
   dependencies:
     "@tanstack/history" "1.87.6"
     "@tanstack/react-store" "^0.6.1"
@@ -3730,10 +3730,10 @@
   dependencies:
     "@tanstack/virtual-core" "3.10.9"
 
-"@tanstack/router-devtools@1.87.9":
-  version "1.87.9"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools/-/router-devtools-1.87.9.tgz#18253362c6849d84e33502d4109e03cf07a66318"
-  integrity sha512-8IY/j8nRqpHZiyC8YgtNZ0oTCxig4TpbpebgOh1L6Vf/Y92T0zSsXX+qFXiJZXTkfhSkuaUI4BSAdQgyphmbMg==
+"@tanstack/router-devtools@1.87.12":
+  version "1.87.12"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools/-/router-devtools-1.87.12.tgz#ada0fdc375ed744f550938af040a082dead8381d"
+  integrity sha512-c8ZiMWG/1ipZV8qkJl1UlexcSCwzae8f8//xNeam+t/0W3MdCDlkFaW7Pl48plhExuCjSQcw/AuasPRFheKt/w==
   dependencies:
     clsx "^2.1.1"
     goober "^2.1.16"
