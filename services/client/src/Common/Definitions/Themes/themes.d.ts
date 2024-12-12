@@ -17,11 +17,6 @@ declare type ThemeStyledComponents = Record<
   SxProps<Theme> | ((theme: Theme) => SxProps<Theme>)
 >;
 
-declare type ThemeLayouts = Record<
-  string,
-  SxProps<Theme> | ((theme: Theme) => SxProps<Theme>)
->;
-
 declare type ThemeSwap = Record<string, React.Component>;
 
 declare type ThemeGenerator = (
@@ -36,6 +31,5 @@ declare type BaseTheme = {
   palette: Theme;
   generator: ThemeGenerator;
   styledComponents: ThemeStyledComponents;
-  layouts: ThemeLayouts;
   swaps: unknown;
 };

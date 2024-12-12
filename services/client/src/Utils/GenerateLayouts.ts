@@ -7,7 +7,7 @@ export const generateLayout = (
 ): SxProps<Theme> | undefined => {
   const themeType = theme.themeType;
   if (!themeType) return;
-  const layout = baseThemesMap[themeType].layouts[componentKey];
+  const layout = baseThemesMap[themeType].styledComponents[componentKey];
 
   if (!layout) return;
   if (typeof layout === 'function') {

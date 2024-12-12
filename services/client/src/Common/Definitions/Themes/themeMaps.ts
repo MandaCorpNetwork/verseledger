@@ -8,7 +8,6 @@ import VerseOSPotato from '@Assets/Images/Logos/VerseOSPotatoLogo.png?url';
 import Checkmate from '@Assets/Videos/Checkmate.webm?url';
 import RedMicrotech from '@Assets/Videos/RedMicrotech.webm?url';
 import { generatePirateOSBase } from '@Themes/PirateOS/PirateOS.generator';
-import { pirateOSLayouts } from '@Themes/PirateOS/PirateOS.layouts';
 import { pirateOSPalette } from '@Themes/PirateOS/PirateOS.palette';
 import { pirateOSStyles } from '@Themes/PirateOS/PirateOS.styles';
 import { generateVerseOSBase } from '@Themes/VerseOS/VerseOS.generator';
@@ -26,7 +25,6 @@ export const baseThemesMap: Record<ThemeType, BaseTheme> = {
     palette: verseOSPalette,
     generator: generateVerseOSBase,
     styledComponents: verseOSStyles,
-    layouts: {} as ThemeLayouts,
     swaps: {} as ThemeSwap,
   },
   pirateOS: {
@@ -34,7 +32,6 @@ export const baseThemesMap: Record<ThemeType, BaseTheme> = {
     palette: pirateOSPalette,
     generator: generatePirateOSBase,
     styledComponents: pirateOSStyles,
-    layouts: pirateOSLayouts,
     swaps: {} as ThemeSwap,
   },
   refinerySystem: {} as BaseTheme,

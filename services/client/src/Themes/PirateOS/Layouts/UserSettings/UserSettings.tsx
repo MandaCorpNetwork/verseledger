@@ -1,4 +1,4 @@
-export const pirateOSUserSettingsLayout: ThemeLayouts = {
+export const pirateOSUserSettingsLayout: ThemeStyledComponents = {
   'UserSettings.DrawerList': {
     flexDirection: 'row',
   },
