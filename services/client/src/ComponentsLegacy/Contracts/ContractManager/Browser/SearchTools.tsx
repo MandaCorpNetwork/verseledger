@@ -1,9 +1,9 @@
-import { ArrowBackIosNew, FilterAlt } from '@mui/icons-material';
+import { FilterButton } from '@Common/Components/Extended/Buttons/FilterButton';
+import { ArrowBackIosNew } from '@mui/icons-material';
 import { Badge, Box, Collapse, IconButton, Tooltip, useTheme } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
 import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
-import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import React from 'react';
 
 import { FilterList } from './FilterList';
@@ -20,7 +20,6 @@ export const SearchTools: React.FC = () => {
   const [filterListOpen, setFilterListOpen] = React.useState<boolean>(false);
   // HOOKS
   const theme = useTheme();
-  const { searchParams } = useURLQuery();
   const filterUtils = useFilterUtils();
 
   // LOGIC
@@ -64,6 +63,10 @@ export const SearchTools: React.FC = () => {
     },
   ];
 
+  /** Disables the MuiCollapse if Animation Settings are Low or None */
+  const disableCollapse =
+    theme.animations === 'low' || theme.animations === 'none' ? true : searchToolsOpen;
+
   return (
     <Box
       component="search"
@@ -81,7 +84,7 @@ export const SearchTools: React.FC = () => {
     >
       <Collapse
         data-testid="ContractManager-ContractList-SearchTools__TransformationWrapper"
-        in={searchToolsOpen}
+        in={disableCollapse}
         timeout={theme.transitions.duration.shorter}
         unmountOnExit
         mountOnEnter
@@ -91,40 +94,30 @@ export const SearchTools: React.FC = () => {
           alignItems: 'center',
         }}
       >
-        <Box
+        <div
           data-testid="ContractManager-ContractList-SearchTools__SearchToolsWrapper"
-          sx={{
+          style={{
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'center',
+            justifyContent: 'space-evenly',
             alignItems: 'center',
             gap: '1em',
             flexGrow: 1,
             position: 'relative',
           }}
         >
-          <Badge
-            badgeContent={filterCount}
-            color="error"
-            variant="dot"
-            overlap="circular"
-          >
-            <IconButton
-              data-testid="ContractManager-ContractList-SearchTools__FiltersButton"
-              onClick={toggleFilterList}
-              size={theme.breakpoints.down('md') ? 'small' : 'medium'}
-            >
-              <FilterAlt />
-            </IconButton>
-          </Badge>
-          <FilterList isOpen={filterListOpen} />
+          <FilterButton onClick={toggleFilterList} />
+          <FilterList
+            data-testid="ContractManager-ContractList-SearchTools__FiltersButton"
+            isOpen={filterListOpen}
+          />
           <SortBySelect size="small" sortOptions={sortOptions} containerSize="small" />
           <SearchBar
             size="small"
             label="Search Contracts"
             placeholder="Title, Contractors, Ships..."
           />
-        </Box>
+        </div>
       </Collapse>
       <Box
         data-testid="ContractManager-ContractList-SearchTools__SearchToolsExpansionWrapper"

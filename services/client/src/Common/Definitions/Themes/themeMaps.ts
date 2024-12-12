@@ -25,14 +25,12 @@ export const baseThemesMap: Record<ThemeType, BaseTheme> = {
     palette: verseOSPalette,
     generator: generateVerseOSBase,
     styledComponents: verseOSStyles,
-    swaps: {} as ThemeSwap,
   },
   pirateOS: {
     themeName: 'pirateOS',
     palette: pirateOSPalette,
     generator: generatePirateOSBase,
     styledComponents: pirateOSStyles,
-    swaps: {} as ThemeSwap,
   },
   refinerySystem: {} as BaseTheme,
 };
