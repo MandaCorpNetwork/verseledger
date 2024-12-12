@@ -74,7 +74,6 @@ export const generatePirateOSBase = (
       button: {
         fontFamily: 'Doto',
         fontWeight: 'bold',
-        cursor: 'default',
       },
       caption: {
         fontFamily: 'Doto',
@@ -136,6 +135,11 @@ export const generatePirateOSBase = (
             },
           },
         ],
+      },
+      MuiButton: {
+        defaultProps: {
+          variant: 'contained',
+        },
       },
     },
   });

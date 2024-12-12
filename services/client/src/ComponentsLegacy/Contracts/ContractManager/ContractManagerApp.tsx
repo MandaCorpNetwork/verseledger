@@ -6,7 +6,6 @@ import { Box, useMediaQuery } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContracts.action';
-import { selectContracts } from '@Redux/Slices/Contracts/contracts.selectors';
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser.action';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { useIsMobile } from '@Utils/isMobile';
@@ -35,41 +34,25 @@ const SelectedContract = React.lazy(async () => {
  * The Contract Manager App for managing Contracts owned or connected to.
  */
 export const ContractManagerApp: React.FC<unknown> = () => {
+  /** Currently Selected ID of a Contract */
   const { selectedContractId } = useParams();
-
-  /** State uses {@link useURLQuery} hook to view & set filters */
   const { searchParams, setFilters } = useURLQuery();
-
-  /**
-   * State Determins the Selected Contract Id
-   *
-   * @todo - Replace with using URLQuery for contractId
-   */
-  const [selectedId, setSelectedId] = React.useState<string | null>(null);
-
-  /**
-   * State Determines which page of contracts to fetch from the backend
-   */
+  /** State Determines which page of contracts to fetch from the backend */
   const [page] = React.useState(1);
 
-  // const { selectedContractId } = useParams();
   // HOOKS
   const dispatch = useAppDispatch();
   const mobile = useIsMobile();
-  // const location = useLocation();
   const sound = useSoundEffect();
 
   // LOGIC
-
   /**
    * Creates Custom Breakpoint @ `1400px` to Stop Rendering of the Selected Contract Display.
    * If 1400px or less, only the Contractor Info will render
    */
   const hideContracts = useMediaQuery('(max-width: 1400px)');
 
-  /**
-   * Memo for the currently set `Contract Browser List`
-   */
+  /** Memo for the currently set `Contract Browser List` */
   const currentTab = React.useMemo(() => {
     const tab = searchParams.get(QueryNames.ContractManagerTab);
     if (!tab) {
@@ -81,14 +64,10 @@ export const ContractManagerApp: React.FC<unknown> = () => {
 
   /** Fetchs the Current User from `Auth` slice */
   const currentUser = useAppSelector(selectCurrentUser);
-
   /** Determines the id of the Current User if found */
   const userId = currentUser?.id;
 
-  /**
-   * @async
-   * Fetches the Bids from the backend
-   */
+  /** Fetches the Bids from the backend */
   const handleFetchBids = React.useCallback(
     async (params: IUserBidSearch) => {
       const bidParams = {
@@ -292,18 +271,11 @@ export const ContractManagerApp: React.FC<unknown> = () => {
     currentTab,
     userId,
   ]);
-
-  /** Selects the Contracts currently stored in the `Contracts` Slice */
-  const contracts = useAppSelector(selectContracts);
-
-  /** A useEffect to ensure that the Selected Contract is Available in the `Contracts` Slice, otherwise cleares the SelectedId */
-  React.useEffect(() => {
-    if (selectedId && !contracts.some((contract) => contract.id === selectedId)) {
-      setSelectedId(null);
-    }
-  }, [contracts, selectedId, setSelectedId]);
   return (
     <Box
+      component="section"
+      aria-label="Contracts Manager Application"
+      id="ContractsManager__AppContainer"
       data-testid="ContractsManager__AppContainer"
       sx={{
         display: 'flex',

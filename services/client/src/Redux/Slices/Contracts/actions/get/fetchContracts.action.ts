@@ -33,7 +33,7 @@ export const fetchContracts = createAsyncThunk(
       if (updatedUsers.length > 0) {
         dispatch(usersActions.upsertUsers(updatedUsers));
       }
-      dispatch(contractActions.addContracts(contracts));
+      dispatch(contractActions.replaceContracts(contracts));
       return response.data;
     } catch (error) {
       Logger.error(error);

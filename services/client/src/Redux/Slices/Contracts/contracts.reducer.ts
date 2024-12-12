@@ -57,6 +57,9 @@ const contractsReducer = createSlice({
         }),
       });
     },
+    replaceContracts(state, action) {
+      contractsAdapter.setAll(state.contracts, action.payload);
+    },
   },
   extraReducers(builder) {
     builder

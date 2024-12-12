@@ -1,7 +1,7 @@
 import '@Assets/Css/ripple.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
-import { AppDisplay } from '@Common/Components/Core/Boxes/AppDisplay';
+import { AppDisplay } from '@Common/Components/Core/Boxes/AppContainer';
 import { VLViewport } from '@Common/Components/Core/Boxes/VLViewport';
 import { PanelSelection } from '@Common/Components/Core/Drawers/PanelSelection';
 import { MaskedVideo } from '@Common/Components/Functional/Applcation/MaskedVideo';

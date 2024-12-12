@@ -6,7 +6,7 @@ import React from 'react';
 
 export const OrgCalendarPanel: React.FC = () => {
   return (
-    <ComponentContainer sx={{ flexGrow: 1, alignItems: 'center', gap: '2em' }}>
+    <ComponentContainer sx={{ alignItems: 'center', gap: '2em', p: '1em' }}>
       <ComponentDisplay style={{ flexDirection: 'row', width: 'fit-content' }}>
         <DateCalendar />
         <div
