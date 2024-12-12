@@ -4,7 +4,6 @@ import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
 import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 
 import { FilterList } from './FilterList';
@@ -38,17 +37,10 @@ export const SearchTools: React.FC = () => {
   /** Uses filterCount Function from FilterUtils */
   const filterCount = filterUtils.filterCount();
 
-  /**
-   * Checks if any values are set in search tools to render a badge dot on the searchtools expansion button
+  /** Renders Badge Dot on Expand Button when true */
+  const isFiltered = filterCount > 0;
 
-   */
-  const checkIsQueried = React.useCallback(() => {
-    if (filterCount > 0) return true;
-    return false;
-  }, [filterCount]);
-  /** Calls {@link checkIsQueried} */
-  const isQueried = checkIsQueried();
-
+  //TODO: Build Sorting Functionality for the App
   const sortOptions = [
     {
       label: 'Pay',
@@ -74,13 +66,25 @@ export const SearchTools: React.FC = () => {
 
   return (
     <Box
+      component="search"
+      aria-label="Search Tools Dropdown"
+      id="SearchToolsContainer"
       data-testid="ContractManager-ContractList__SearchToolsContainer"
-      sx={{ width: '100%', display: 'flex', flexDirection: 'row', mt: '.5em' }}
+      sx={{
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        mt: '.5em',
+        position: 'relative',
+        minHeight: '40px',
+      }}
     >
       <Collapse
         data-testid="ContractManager-ContractList-SearchTools__TransformationWrapper"
         in={searchToolsOpen}
-        timeout={200}
+        timeout={theme.transitions.duration.shorter}
+        unmountOnExit
+        mountOnEnter
         sx={{
           flexGrow: 1,
           justifyContent: 'center',
@@ -126,7 +130,7 @@ export const SearchTools: React.FC = () => {
         data-testid="ContractManager-ContractList-SearchTools__SearchToolsExpansionWrapper"
         sx={{ display: 'flex', ml: 'auto' }}
       >
-        <Badge invisible={!isQueried} color="error" variant="dot" overlap="circular">
+        <Badge invisible={!isFiltered} color="error" variant="dot" overlap="circular">
           <Tooltip arrow title="Search Tools">
             <IconButton
               data-testid="ContractManager-ContractList-SearchTools__SearchToolsExpansionButton"

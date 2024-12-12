@@ -28,7 +28,12 @@ export const ContractManagerBrowser: React.FC = () => {
       sx={{ width: { xs: '100%', md: '30%' } }}
     >
       <BrowserTabs currentTab={currentTab} />
-      <SearchTools />
+      <div
+        data-testid="ContractManager-ContractList__SearchTools_Wrapper"
+        style={{ height: '80px' }}
+      >
+        <SearchTools />
+      </div>
       <ContractList currentTab={currentTab} />
     </FeatureContainer>
   );

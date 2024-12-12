@@ -7,13 +7,13 @@ import VerseOSLogo from '@Assets/Images/Logos/VerseOSLogo.png?url';
 import VerseOSPotato from '@Assets/Images/Logos/VerseOSPotatoLogo.png?url';
 import Checkmate from '@Assets/Videos/Checkmate.webm?url';
 import RedMicrotech from '@Assets/Videos/RedMicrotech.webm?url';
-import { pirateOSComponents } from '@Themes/PirateOS/PirateOS.components';
 import { generatePirateOSBase } from '@Themes/PirateOS/PirateOS.generator';
 import { pirateOSLayouts } from '@Themes/PirateOS/PirateOS.layouts';
 import { pirateOSPalette } from '@Themes/PirateOS/PirateOS.palette';
-import { verseOSComponents } from '@Themes/VerseOS/VerseOS.components';
+import { pirateOSStyles } from '@Themes/PirateOS/PirateOS.styles';
 import { generateVerseOSBase } from '@Themes/VerseOS/VerseOS.generator';
 import { verseOSPalette } from '@Themes/VerseOS/VerseOS.palette';
+import { verseOSStyles } from '@Themes/VerseOS/VerseOS.styles';
 
 const themeInfoDefault = {
   warning: false,
@@ -25,15 +25,17 @@ export const baseThemesMap: Record<ThemeType, BaseTheme> = {
     themeName: 'verseOS',
     palette: verseOSPalette,
     generator: generateVerseOSBase,
-    styledComponents: verseOSComponents,
+    styledComponents: verseOSStyles,
     layouts: {} as ThemeLayouts,
+    swaps: {} as ThemeSwap,
   },
   pirateOS: {
     themeName: 'pirateOS',
     palette: pirateOSPalette,
     generator: generatePirateOSBase,
-    styledComponents: pirateOSComponents,
+    styledComponents: pirateOSStyles,
     layouts: pirateOSLayouts,
+    swaps: {} as ThemeSwap,
   },
   refinerySystem: {} as BaseTheme,
 };
