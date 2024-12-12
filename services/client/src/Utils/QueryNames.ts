@@ -21,7 +21,7 @@ export enum QueryNames {
   Page = 'page',
   BidBefore = 'bidBefore',
   BidAfter = 'bidAfter',
-  bidExact = 'bidExact',
+  BidExact = 'bidExact',
   StartBefore = 'startBefore',
   StartAfter = 'startAfter',
   StartExact = 'startExact',

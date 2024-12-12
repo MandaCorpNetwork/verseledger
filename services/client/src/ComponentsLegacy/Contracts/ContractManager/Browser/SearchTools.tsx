@@ -2,6 +2,7 @@ import { ArrowBackIosNew, FilterAlt } from '@mui/icons-material';
 import { Badge, Box, Collapse, IconButton, Tooltip, useTheme } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
+import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
@@ -21,54 +22,21 @@ export const SearchTools: React.FC = () => {
   // HOOKS
   const theme = useTheme();
   const { searchParams } = useURLQuery();
+  const filterUtils = useFilterUtils();
 
   // LOGIC
-  /**
-   * Handles the clickEvent that displays the SearchTools
-   */
+  /** Handles the clickEvent that displays the SearchTools */
   const toggleSearchTools = React.useCallback(() => {
     setSearchToolsOpen(!searchToolsOpen);
   }, [searchToolsOpen, setSearchToolsOpen]);
 
-  /**
-   * Handles the clickEvent that displays the {@link FilterList}
-   */
+  /** Handles the clickEvent that displays the {@link FilterList} */
   const toggleFilterList = React.useCallback(() => {
     setFilterListOpen(!filterListOpen);
   }, [filterListOpen, setFilterListOpen]);
 
-  /**
-   * Calculates the number of filters currently applied
-
-   */
-  const getFilterCount = React.useCallback(() => {
-    const subtypes = searchParams.getAll(QueryNames.Subtype);
-    const bidDateBefore = searchParams.has(QueryNames.BidBefore) ? 1 : 0;
-    const bidDateAfter = searchParams.has(QueryNames.BidAfter) ? 1 : 0;
-    const startDateBefore = searchParams.has(QueryNames.StartBefore) ? 1 : 0;
-    const startDateAfter = searchParams.has(QueryNames.StartAfter) ? 1 : 0;
-    const endDateBefore = searchParams.has(QueryNames.EndBefore) ? 1 : 0;
-    const endDateAfter = searchParams.has(QueryNames.EndAfter) ? 1 : 0;
-    const duration = searchParams.has(QueryNames.Duration) ? 1 : 0;
-    const payStructure = searchParams.has(QueryNames.PayStructure) ? 1 : 0;
-    const payMin = searchParams.has(QueryNames.UECRangeMin) ? 1 : 0;
-    const payMax = searchParams.has(QueryNames.UECRangeMax) ? 1 : 0;
-    return (
-      subtypes.length +
-      bidDateBefore +
-      bidDateAfter +
-      startDateBefore +
-      startDateAfter +
-      endDateBefore +
-      endDateAfter +
-      duration +
-      payStructure +
-      payMin +
-      payMax
-    );
-  }, [searchParams]);
-  /** Calls {@link getFilterCount} */
-  const filterCount = getFilterCount();
+  /** Uses filterCount Function from FilterUtils */
+  const filterCount = filterUtils.filterCount();
 
   /**
    * Checks if any values are set in search tools to render a badge dot on the searchtools expansion button
