@@ -1,4 +1,4 @@
-import { baseThemesMap } from '@Common/Definitions/Themes/ThemeMaps';
+import { baseThemesMap } from '@Common/Definitions/Themes/themeMaps';
 import { SxProps, Theme } from '@mui/material/styles';
 
 import { Logger } from './Logger';
