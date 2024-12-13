@@ -3697,10 +3697,10 @@
   dependencies:
     "@tanstack/ranger" "0.0.3"
 
-"@tanstack/react-router@1.87.12":
-  version "1.87.12"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.87.12.tgz#a20d7a8614c87288f1c9017e3883307fcdaf14bd"
-  integrity sha512-zrzAELXkZVia66zXKO8LOXt7TZKQPCoRBu7RMYJnhH276/h4+5iUQOGcY9Qo+Ea+4Q1+ENcCd3NSwZIYf8TCAA==
+"@tanstack/react-router@1.88.0":
+  version "1.88.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.88.0.tgz#a60ad68cdf06dc2bc5055b17d1a9dc5e5ffa3207"
+  integrity sha512-kC5sqBlMcfAZeHSLyTtPrscmEgjmZiT2GyrfG8muGPzsLhjcMbSbnTrMETdJccPDId/b7aNyJIyseqwxX9CTbA==
   dependencies:
     "@tanstack/history" "1.87.6"
     "@tanstack/react-store" "^0.6.1"
@@ -3730,10 +3730,10 @@
   dependencies:
     "@tanstack/virtual-core" "3.10.9"
 
-"@tanstack/router-devtools@1.87.12":
-  version "1.87.12"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools/-/router-devtools-1.87.12.tgz#ada0fdc375ed744f550938af040a082dead8381d"
-  integrity sha512-c8ZiMWG/1ipZV8qkJl1UlexcSCwzae8f8//xNeam+t/0W3MdCDlkFaW7Pl48plhExuCjSQcw/AuasPRFheKt/w==
+"@tanstack/router-devtools@1.88.0":
+  version "1.88.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools/-/router-devtools-1.88.0.tgz#bda4230f2316f9eb52f51f9d782714cf3fb1edb8"
+  integrity sha512-5gpv+iSgHWNKzLITHq0bc3ND87PP7Ys0mmcnm99zf+JjSMiwYK4e3GoQ37bsByV0gf2tqJ8iRFd1w2Trgll2sw==
   dependencies:
     clsx "^2.1.1"
     goober "^2.1.16"
@@ -3748,10 +3748,10 @@
     tsx "^4.19.2"
     zod "^3.23.8"
 
-"@tanstack/router-plugin@1.87.11":
-  version "1.87.11"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-plugin/-/router-plugin-1.87.11.tgz#078225e110d6c3a7c0cea9c621d8103af9eea446"
-  integrity sha512-mg8Ci9IT2H5aDBM6DippwKr1AHTBc6eudgpvHRMelGxLl4VY7vlKNx5Ds5yZeqE9Jp6VNr2z7E0xx70e8cFoBg==
+"@tanstack/router-plugin@1.87.13":
+  version "1.87.13"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-plugin/-/router-plugin-1.87.13.tgz#480949062165e5edc726d4f7cccaf45953a697a5"
+  integrity sha512-h5dD0m5ixSsmIMOrNXd4NBH2Fwx+4Mb5GK0JCUVlcegjtNQ9Zx9kdWqWXi+4P595XKCmjdHVOP4vhBr9cfwozg==
   dependencies:
     "@babel/core" "^7.26.0"
     "@babel/generator" "^7.26.3"
