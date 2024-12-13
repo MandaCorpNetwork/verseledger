@@ -3,7 +3,7 @@ import { TimePicker } from '@CommonLegacy/Components/TextFields/TimePicker';
 import { Box, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import { ClearIcon } from '@mui/x-date-pickers';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 

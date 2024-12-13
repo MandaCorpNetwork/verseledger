@@ -1,4 +1,4 @@
-import { QueryNames } from '@Utils/QueryNames';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { useCallback } from 'react';
 
 import { useURLQuery } from './useURLQuery';

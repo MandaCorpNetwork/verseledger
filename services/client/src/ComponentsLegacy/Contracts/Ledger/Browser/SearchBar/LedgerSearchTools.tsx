@@ -8,7 +8,7 @@ import { Badge, Button, Typography } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import React, { useRef, useState } from 'react';
 
 /**

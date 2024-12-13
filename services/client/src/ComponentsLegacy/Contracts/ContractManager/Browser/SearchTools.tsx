@@ -1,12 +1,15 @@
-import { FilterButton } from '@Common/Components/Extended/Buttons/FilterButton';
+import { FilterButton } from '@Common/Components/Functional/Applcation/Buttons/FilterButton';
+import { FilterMenu } from '@Common/Components/Functional/Applcation/Menus/FilterMenu';
 import { ArrowBackIosNew } from '@mui/icons-material';
 import { Badge, Box, Collapse, IconButton, Tooltip, useTheme } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
 import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
+import { bindTrigger, usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 
 import { FilterList } from './FilterList';
+import { useSoundEffect } from '@Audio/AudioManager';
 
 /**
  * ## SearchTools
@@ -16,11 +19,13 @@ export const SearchTools: React.FC = () => {
   // LOCAL STATES
   /** State determines if the SearchTools are rendered */
   const [searchToolsOpen, setSearchToolsOpen] = React.useState<boolean>(false);
-  /** State determines if the {@link FilterList} is expanded */
-  const [filterListOpen, setFilterListOpen] = React.useState<boolean>(false);
+  /** Ref for The Filter Menu */
+  const filterMenuAnchor = React.useRef<HTMLDivElement>(null);
+
   // HOOKS
   const theme = useTheme();
   const filterUtils = useFilterUtils();
+  const sound = useSoundEffect();
 
   // LOGIC
   /** Handles the clickEvent that displays the SearchTools */
@@ -28,10 +33,25 @@ export const SearchTools: React.FC = () => {
     setSearchToolsOpen(!searchToolsOpen);
   }, [searchToolsOpen, setSearchToolsOpen]);
 
+  /** Define the FilterMenu State */
+  const filterOpenState = usePopupState({ variant: 'popover', popupId: 'filterMenu' });
+
   /** Handles the clickEvent that displays the {@link FilterList} */
   const toggleFilterList = React.useCallback(() => {
-    setFilterListOpen(!filterListOpen);
-  }, [filterListOpen, setFilterListOpen]);
+    sound.playSound('clickMain');
+    if (filterOpenState.isOpen) {
+      filterOpenState.close();
+    } else {
+      filterOpenState.open();
+    }
+  }, [filterOpenState, sound]);
+
+  /** Disables the MuiCollapse if Animation Settings are Low or None */
+  const disableCollapse =
+    theme.animations === 'low' || theme.animations === 'none' ? true : searchToolsOpen;
+
+  /** Defines Filters for Filter List */
+  //const filterList = ['Subtype', 'Locations', 'ContractScheduling', 'ContractPay'];
 
   /** Uses filterCount Function from FilterUtils */
   const filterCount = filterUtils.filterCount();
@@ -63,10 +83,6 @@ export const SearchTools: React.FC = () => {
     },
   ];
 
-  /** Disables the MuiCollapse if Animation Settings are Low or None */
-  const disableCollapse =
-    theme.animations === 'low' || theme.animations === 'none' ? true : searchToolsOpen;
-
   return (
     <Box
       component="search"
@@ -96,6 +112,7 @@ export const SearchTools: React.FC = () => {
       >
         <div
           data-testid="ContractManager-ContractList-SearchTools__SearchToolsWrapper"
+          ref={filterMenuAnchor}
           style={{
             display: 'flex',
             flexDirection: 'row',
@@ -107,10 +124,7 @@ export const SearchTools: React.FC = () => {
           }}
         >
           <FilterButton onClick={toggleFilterList} />
-          <FilterList
-            data-testid="ContractManager-ContractList-SearchTools__FiltersButton"
-            isOpen={filterListOpen}
-          />
+          <FilterMenu popupState={filterOpenState} anchorEl={filterMenuAnchor} />
           <SortBySelect size="small" sortOptions={sortOptions} containerSize="small" />
           <SearchBar
             size="small"

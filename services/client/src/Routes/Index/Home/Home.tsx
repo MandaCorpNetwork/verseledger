@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 import '@ComponentsLegacy/Home/Home.css';
 
-import { BackdropVideo } from '@Common/Components/Functional/Applcation/BackdropVideo';
+import { BackdropVideo } from '@Common/Components/Functional/Applcation/Media/BackdropVideo';
 import { Box } from '@mui/material';
 import React from 'react';
 

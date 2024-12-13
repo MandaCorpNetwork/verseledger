@@ -3,7 +3,7 @@ import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentConta
 import { ItemTypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Orders/ItemTypes';
 import { Grid2, IconButton, Tooltip } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import React from 'react';
 
 /**

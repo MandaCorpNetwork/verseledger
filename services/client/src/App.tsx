@@ -1,7 +1,7 @@
 import './App.css';
 
-import { baseThemesMap } from '@Common/Definitions/Themes/themeMaps';
-import { animationTransitionMap } from '@Common/Definitions/Themes/transitions';
+import { baseThemesMap } from '@Common/Definitions/Themes/ThemeMaps';
+import { animationTransitionMap } from '@Common/Definitions/Themes/Transitions';
 import { LoadingScreen } from '@CommonLegacy/LoadingObject/LoadingScreen';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';

@@ -4,40 +4,16 @@ import { ElevatedDropdownBox } from '@CommonLegacy/Components/Collapse/ElevatedD
 import React from 'react';
 
 type FilterListProps = {
-  /**
-   * Sets the List Collapse to Open or Closed
-   */
+  /** Sets the List Collapse to Open or Close */
   isOpen: boolean;
 };
 
-/**
- * ### FilterList
- * @description
- * An {@link ElevatedDropdownBox} containing Filters for {@link ContractManagerApp}.
- * Determines if the filter list is currently open.
- * @example
- * <FilterList isOpen={true} />
- * #### Functional Components
- * @component {@link DropdownFilter}
- * #### Styled Components
- * @component {@link ElevatedDropdownBox}
- */
 export const FilterList: React.FC<FilterListProps> = ({ isOpen }) => {
   // LOCAL STATES
-  /**
-   * State determins which Dropdown Filer is currently open.
-   */
-  const [expanded, setExpanded] = React.useState<string | null>(null);
   // HOOKS
   const sound = useSoundEffect();
   // LOGIC
-  /**
-   * Handles the clickEvent that expands a `DropdownFilter` component.
-   * @params {string} panel - The name of the filter to expand.
-   * @fires
-   * - `sound.playSound('clickMain')`
-   * - `setExpanded` - Sets the expanded filter.
-   */
+  /** Handles the clickEvent that expands a `DropdownFilter` component. */
   const handleExpand = React.useCallback(
     (panel: string) => {
       sound.playSound('clickMain');

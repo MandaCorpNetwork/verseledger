@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContracts.action';
 import { selectContractPagination } from '@Redux/Slices/Contracts/contracts.selectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { ArchetypeToSubtypes, QueryNames } from '@Utils/QueryNames';
+import { ArchetypeToSubtypes, QueryNames } from '@Common/Definitions/Search/QueryNames';
 import React, { SyntheticEvent } from 'react';
 import { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
 import { IContractSearch } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';

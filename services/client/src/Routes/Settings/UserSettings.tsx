@@ -4,7 +4,7 @@ import { useSoundEffect } from '@Audio/AudioManager';
 import { AppDisplay } from '@Common/Components/Core/Boxes/AppContainer';
 import { VLViewport } from '@Common/Components/Core/Boxes/VLViewport';
 import { PanelSelection } from '@Common/Components/Core/Drawers/PanelSelection';
-import { MaskedVideo } from '@Common/Components/Functional/Applcation/MaskedVideo';
+import { MaskedVideo } from '@Common/Components/Functional/Applcation/Media/MaskedVideo';
 import { DepressedListButton } from '@CommonLegacy/Components/Lists/DepressedListButton';
 import { BetaSettings } from '@ComponentsLegacy/User/UserSettings/Beta';
 import { DeveloperSettings } from '@ComponentsLegacy/User/UserSettings/DeveloperSettings';

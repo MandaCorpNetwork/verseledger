@@ -1,6 +1,6 @@
 import { FeatureContainer } from '@Common/Components/Core/Boxes/FeatureContainer';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import React from 'react';
 
 import { BrowserTabs } from '../../../../Apps/Contracts/ContractManager/Browser/BrowserTabs';

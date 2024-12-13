@@ -10,7 +10,7 @@ import { updateBid } from '@Redux/Slices/Bids/Actions/patch/updateBid.action';
 import { updateContract } from '@Redux/Slices/Contracts/actions/patch/updateContract.action';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useLocation } from 'react-router-dom';

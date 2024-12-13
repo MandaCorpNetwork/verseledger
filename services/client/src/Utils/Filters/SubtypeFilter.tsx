@@ -4,7 +4,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 // import { Logger } from '@Utils/Logger';
-import { QueryNames } from '@Utils/QueryNames';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import React, { useMemo } from 'react';
 
 const menuValues = [

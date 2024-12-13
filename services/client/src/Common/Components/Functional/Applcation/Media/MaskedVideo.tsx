@@ -1,4 +1,4 @@
-import { logoThemeMap, videoThemeMap } from '@Common/Definitions/Themes/themeMaps';
+import { logoThemeMap, videoThemeMap } from '@Common/Definitions/Themes/ThemeMaps';
 import { useTheme } from '@mui/material';
 import React from 'react';
 

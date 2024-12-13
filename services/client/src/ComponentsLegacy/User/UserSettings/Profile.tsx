@@ -4,8 +4,8 @@ import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentConta
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
-import { MaskedVideo } from '@Common/Components/Functional/Applcation/MaskedVideo';
-import { themeInfoMap } from '@Common/Definitions/Themes/themeMaps';
+import { MaskedVideo } from '@Common/Components/Functional/Applcation/Media/MaskedVideo';
+import { themeInfoMap } from '@Common/Definitions/Themes/ThemeMaps';
 import { profileBackgroundMap } from '@Common/Definitions/Themes/UserBackgroundMap';
 import {
   ExpandIconButton,

@@ -1,4 +1,4 @@
-import { baseThemesMap } from '@Common/Definitions/Themes/themeMaps';
+import { baseThemesMap } from '@Common/Definitions/Themes/ThemeMaps';
 import { SxProps, Theme } from '@mui/material/styles';
 
 export const generateLayout = (

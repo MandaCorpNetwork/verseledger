@@ -9,7 +9,7 @@ import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContrac
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser.action';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { useIsMobile } from '@Utils/isMobile';
-import { QueryNames } from '@Utils/QueryNames';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { enqueueSnackbar } from 'notistack';
 import React, { Suspense } from 'react';
 import { useParams } from 'react-router-dom';
