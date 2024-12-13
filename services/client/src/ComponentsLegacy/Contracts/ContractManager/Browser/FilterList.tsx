@@ -1,4 +1,3 @@
-import { useSoundEffect } from '@Audio/AudioManager';
 import { DropdownFilter } from '@CommonLegacy/Components/App/DropdownFilter';
 import { ElevatedDropdownBox } from '@CommonLegacy/Components/Collapse/ElevatedDropdownBox';
 import React from 'react';
@@ -11,16 +10,8 @@ type FilterListProps = {
 export const FilterList: React.FC<FilterListProps> = ({ isOpen }) => {
   // LOCAL STATES
   // HOOKS
-  const sound = useSoundEffect();
   // LOGIC
   /** Handles the clickEvent that expands a `DropdownFilter` component. */
-  const handleExpand = React.useCallback(
-    (panel: string) => {
-      sound.playSound('clickMain');
-      setExpanded((prev) => (prev === panel ? null : panel));
-    },
-    [sound, setExpanded],
-  );
 
   return (
     <ElevatedDropdownBox
@@ -31,26 +22,26 @@ export const FilterList: React.FC<FilterListProps> = ({ isOpen }) => {
       <DropdownFilter
         filter="Subtype"
         label="Subtypes"
-        isExpanded={expanded === 'Subtype'}
-        onExpand={() => handleExpand('Subtype')}
+        isExpanded={false}
+        onExpand={() => {}}
       />
       <DropdownFilter
         filter="Locations"
         label="Locations"
-        isExpanded={expanded === 'Locations'}
-        onExpand={() => handleExpand('Locations')}
+        isExpanded={false}
+        onExpand={() => {}}
       />
       <DropdownFilter
         filter="Scheduling"
         label="Scheduling"
-        isExpanded={expanded === 'Scheduling'}
-        onExpand={() => handleExpand('Scheduling')}
+        isExpanded={false}
+        onExpand={() => {}}
       />
       <DropdownFilter
         filter="Pay"
         label="Compensation"
-        isExpanded={expanded === 'Pay'}
-        onExpand={() => handleExpand('Pay')}
+        isExpanded={false}
+        onExpand={() => {}}
       />
     </ElevatedDropdownBox>
   );

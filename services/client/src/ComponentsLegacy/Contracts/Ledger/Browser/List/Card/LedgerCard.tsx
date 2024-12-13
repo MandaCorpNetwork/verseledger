@@ -1,14 +1,15 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { MiniPlayerCard } from '@CommonLegacy/Components/App/MiniPlayerCard';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';
-import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
 import { EmergencyShare, ErrorTwoTone } from '@mui/icons-material';
 import {
   Avatar,
   Card,
   CardActionArea,
   Skeleton,
+  SvgIcon,
   Tooltip,
   Typography,
 } from '@mui/material';
@@ -55,7 +56,7 @@ export const LedgerCard: React.FC<LedgerCardProps> = ({ contract, isSelected }) 
   )?.id;
 
   const contractArchetype = contractArchetypes.find((a) =>
-    a.subTypes.some((s) => s.value === contract.subtype),
+    a.subtypes.some((s) => s.value === contract.subtype),
   );
 
   const handleSelectContract = React.useCallback(
@@ -106,6 +107,7 @@ export const LedgerCard: React.FC<LedgerCardProps> = ({ contract, isSelected }) 
             '0px 1px 3px 0px rgba(24,252,252,0.12), 0px 1px 1px 0px rgba(24,252,252,0.14), 0px 2px 1px -1px rgba(24,252,252,0.2), 0px 4px 6px -1px rgba(24,252,252,0.6), 0px 8px 10px 0px rgba(24,252,252,0.4), 0px 10px 20px 0px rgba(24,252,252,0.3)',
         },
       };
+  const ArchetypeIcon = contractArchetype?.archetypeIcon ?? ErrorTwoTone;
   return (
     <Card
       data-testid={`ContractLedger__LedgerCard_${contract.id}`}
@@ -221,14 +223,7 @@ export const LedgerCard: React.FC<LedgerCardProps> = ({ contract, isSelected }) 
           }}
         >
           <Tooltip title={contractArchetype?.archetype}>
-            {contractArchetype ? (
-              React.cloneElement(contractArchetype.archetypeIcon, {
-                fontSize: 'large',
-                color: 'secondary',
-              })
-            ) : (
-              <ErrorTwoTone fontSize="large" color="error" />
-            )}
+            <SvgIcon component={ArchetypeIcon} color="secondary" fontSize="large" />
           </Tooltip>
           <Typography
             variant="body1"

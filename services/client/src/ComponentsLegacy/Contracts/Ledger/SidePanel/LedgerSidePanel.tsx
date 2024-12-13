@@ -1,4 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { SideControlPanel } from '@CommonLegacy/Components/Collapse/SideControlPanel';
 import { DoubleArrow } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
@@ -8,7 +9,6 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { useIsMobile } from '@Utils/isMobile';
 import { useIsTablet } from '@Utils/isTablet';
-import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import React from 'react';
 
 import { CollapsedButtons } from './CollapsedButtons';
@@ -64,10 +64,10 @@ export const LedgerSidePanel: React.FC<LedgerSidePanelProps> = ({ openMobileSear
 
   const handleArchetypeChange = React.useCallback(
     (value: ContractArchetype) => {
-      const currentFilterValues = searchParams.getAll(QueryNames.Archetype);
+      const currentFilterValues = searchParams.getAll(QueryNames.ContractArchetype);
       sound.playSound('clickMain');
       setFilters(
-        QueryNames.Archetype,
+        QueryNames.ContractArchetype,
         currentFilterValues.includes(value)
           ? currentFilterValues.filter((archetype) => archetype !== value)
           : [...currentFilterValues, value],
@@ -77,7 +77,7 @@ export const LedgerSidePanel: React.FC<LedgerSidePanelProps> = ({ openMobileSear
   );
 
   const currentArchetypeFilters = React.useMemo(() => {
-    return searchParams.getAll(QueryNames.Archetype);
+    return searchParams.getAll(QueryNames.ContractArchetype);
   }, [searchParams]);
 
   const openCreateContract = React.useCallback(() => {

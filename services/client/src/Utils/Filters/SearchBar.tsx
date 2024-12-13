@@ -1,7 +1,7 @@
 // import { ClearOutlined } from '@mui/icons-material';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { Box, TextField } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 
 type SearchBarProps = {
   size: 'small' | 'medium';

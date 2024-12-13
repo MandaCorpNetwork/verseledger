@@ -1,7 +1,7 @@
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import React from 'react';
 
 type LocationFilterProps = {

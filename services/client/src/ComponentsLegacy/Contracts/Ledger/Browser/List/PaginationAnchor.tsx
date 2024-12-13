@@ -1,10 +1,10 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { ArchetypeToSubtypes, QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { Box, debounce, TablePagination } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContracts.action';
 import { selectContractPagination } from '@Redux/Slices/Contracts/contracts.selectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { ArchetypeToSubtypes, QueryNames } from '@Common/Definitions/Search/QueryNames';
 import React, { SyntheticEvent } from 'react';
 import { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
 import { IContractSearch } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
@@ -52,9 +52,11 @@ export const PaginationAnchor: React.FC<PaginationAnchorProps> = ({ isMobile }) 
   React.useEffect(() => {
     // Subtype Filter Initialization
     const selectedSubtypes = searchParams.getAll(
-      QueryNames.Subtype,
+      QueryNames.ContractSubtype,
     ) as IContractSubType[];
-    const selectedArchetype = searchParams.getAll(QueryNames.Archetype) as string[];
+    const selectedArchetype = searchParams.getAll(
+      QueryNames.ContractArchetype,
+    ) as string[];
     const archetypeToSub: IContractSubType[] = selectedArchetype.flatMap(
       (a) => ArchetypeToSubtypes[a] ?? [],
     );

@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 
-import { ListSelectButton } from '../Styled/Buttons/IndicatorButton';
+import { ListSelectButton } from '../../../Common/Components/Core/Buttons/ListSelectButton';
 
 type ListButtonSelectionProps = {
   dense?: boolean;

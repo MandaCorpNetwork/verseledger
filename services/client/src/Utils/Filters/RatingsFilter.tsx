@@ -1,8 +1,8 @@
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import StarIcon from '@mui/icons-material/Star';
 import { Box, Slider, Typography } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import React from 'react';
 
 const RatingSliderMarks = [

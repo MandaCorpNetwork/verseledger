@@ -1,5 +1,6 @@
 import { QueryNames } from '@Common/Definitions/Search/QueryNames';
-import { useCallback } from 'react';
+import { getSubtypeOptions } from '@Utils/Contracts/ContractTypeUtils';
+import { useCallback, useMemo } from 'react';
 
 import { useURLQuery } from './useURLQuery';
 
@@ -8,7 +9,7 @@ export const useFilterUtils = () => {
 
   const filterCount = useCallback(() => {
     const counts = [
-      searchParams.getAll(QueryNames.Subtype).length,
+      searchParams.getAll(QueryNames.ContractSubtype).length,
       searchParams.getAll(QueryNames.Locations).length,
       +searchParams.has(QueryNames.UECRangeMin),
       +searchParams.has(QueryNames.UECRangeMax),
@@ -31,5 +32,9 @@ export const useFilterUtils = () => {
     return counts.reduce((sum, count) => sum + count, 0);
   }, [searchParams]);
 
-  return { filterCount };
+  const contractSubtypeList = useMemo(() => {
+    return getSubtypeOptions();
+  }, []);
+
+  return { filterCount, contractSubtypeList };
 };

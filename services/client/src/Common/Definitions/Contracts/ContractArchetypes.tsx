@@ -6,6 +6,7 @@ import ProxyLoop from '@Assets/media/ContractLedger/ProxyLoop.webm?url';
 import RRRLoop from '@Assets/media/ContractLedger/RRRLoop.webm?url';
 import SalvageLoop from '@Assets/media/ContractLedger/SalvLoop.webm?url';
 import SecurityLoop from '@Assets/media/ContractLedger/SecLoop.webm?url';
+import { SvgIconComponent } from '@mui/icons-material';
 
 import {
   Exploration,
@@ -17,13 +18,21 @@ import {
   RRR,
   Salvage,
   Security,
-} from '../../CustomIcons';
+} from '../../../CommonLegacy/DefinitionsLegacy/CustomIcons';
+
+export type ContractArchetypeTree = {
+  archetype: ContractArchetype;
+  archetypeLabel: string;
+  archetypeIcon: SvgIconComponent;
+  subtypes: ContractSubtypeObj[];
+};
 
 export const contractArchetypes: ContractArchetypeTree[] = [
   {
     archetype: 'Logistics',
-    archetypeIcon: <Logistics />,
-    subTypes: [
+    archetypeLabel: 'Logistics',
+    archetypeIcon: Logistics,
+    subtypes: [
       {
         label: 'Transport',
         value: 'Transport',
@@ -40,8 +49,9 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Medical',
-    archetypeIcon: <Medical />,
-    subTypes: [
+    archetypeLabel: 'Medical',
+    archetypeIcon: Medical,
+    subtypes: [
       {
         label: 'Trauma',
         value: 'Trauma',
@@ -54,8 +64,9 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Security',
-    archetypeIcon: <Security />,
-    subTypes: [
+    archetypeLabel: 'Security',
+    archetypeIcon: Security,
+    subtypes: [
       {
         label: 'Escort',
         value: 'Escort',
@@ -80,8 +91,9 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Salvage',
-    archetypeIcon: <Salvage />,
-    subTypes: [
+    archetypeLabel: 'Salvage',
+    archetypeIcon: Salvage,
+    subtypes: [
       {
         label: 'Collection',
         value: 'Collection',
@@ -94,8 +106,9 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Industry',
-    archetypeIcon: <Industry />,
-    subTypes: [
+    archetypeLabel: 'Industry',
+    archetypeIcon: Industry,
+    subtypes: [
       {
         label: 'Mining',
         value: 'Mining',
@@ -116,8 +129,9 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'RRR',
-    archetypeIcon: <RRR />,
-    subTypes: [
+    archetypeLabel: 'Rearm Refuel Repair',
+    archetypeIcon: RRR,
+    subtypes: [
       {
         label: 'Refuel',
         value: 'Refuel',
@@ -134,8 +148,9 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Fleet',
-    archetypeIcon: <Fleet />,
-    subTypes: [
+    archetypeLabel: 'Fleet',
+    archetypeIcon: Fleet,
+    subtypes: [
       {
         label: 'Crewman',
         value: 'Crewman',
@@ -148,8 +163,9 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Exploration',
-    archetypeIcon: <Exploration />,
-    subTypes: [
+    archetypeLabel: 'Exploration',
+    archetypeIcon: Exploration,
+    subtypes: [
       {
         label: 'Locate',
         value: 'Locate',
@@ -162,8 +178,9 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Proxy',
-    archetypeIcon: <Proxy />,
-    subTypes: [
+    archetypeLabel: 'Other',
+    archetypeIcon: Proxy,
+    subtypes: [
       {
         label: 'Middleman',
         value: 'Middleman',

@@ -1,9 +1,9 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { VLViewport } from '@Common/Components/Core/Boxes/VLViewport';
+import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { ContractController } from '@CommonLegacy/Components/Contracts/ContractController';
 import { ContractorList } from '@CommonLegacy/Components/Contracts/ContractorList';
-import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
 import { LoadingScreen } from '@CommonLegacy/LoadingObject/LoadingScreen';
 import { DesktopContractBody } from '@ComponentsLegacy/Contracts/ContractPage/DesktopComponents/DesktopContractBody';
 import { MobileLocations } from '@ComponentsLegacy/Contracts/ContractPage/MobileData/MobileLocations';
@@ -88,7 +88,7 @@ export const ContractPage: React.FC<unknown> = () => {
   React.useEffect(() => {
     if (!contract) return;
     const selectedArchetype = contractArchetypes.find((option) =>
-      option.subTypes.some((subType) => subType.value === contract.subtype),
+      option.subtypes.some((subType) => subType.value === contract.subtype),
     );
     if (selectedArchetype) {
       setArchetype(selectedArchetype.archetype);

@@ -1,12 +1,16 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { DropdownStack } from '@Common/Components/Core/Menus/DropdownStack';
 import { CollapseWrapper } from '@Common/Components/Wrappers/CollapseWrapper';
-import { Box, Popover, useTheme } from '@mui/material';
+import { filterComponents } from '@Common/Definitions/Search/FilterComponentsMap';
+import { Popover, useTheme } from '@mui/material';
 import { PopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 
+import { FilterList } from './FilterList';
+
 type FilterMenuProps = {
   /** Identifies which Filter Dropdowns to Render */
-  filters?: SearchFilter[];
+  filterKeys: SearchFilter[];
   /** Binding for the Wrapping Component State */
   popupState: PopupState;
   /** Sets The Anchor Component for the Menu */
@@ -17,7 +21,7 @@ type FilterMenuProps = {
 
 export const FilterMenu: React.FC<FilterMenuProps> = ({
   popupState,
-  filters,
+  filterKeys,
   anchorEl,
 }) => {
   // Hooks
@@ -34,8 +38,16 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({
       theme.fidelity === 'high') ||
     (theme.fidelity === 'medium' && theme.animations === 'high');
 
+  const filters = React.useMemo(() => {
+    return filterKeys.map((filterKey) => filterComponents[filterKey]);
+  }, [filterKeys]);
+
+  console.log(filters);
+
   const children = (
-    <Box sx={{ backgroundColor: 'error.main', width: '100%', height: '300px' }} />
+    <DropdownStack>
+      <FilterList filterList={filters} />
+    </DropdownStack>
   );
 
   return (

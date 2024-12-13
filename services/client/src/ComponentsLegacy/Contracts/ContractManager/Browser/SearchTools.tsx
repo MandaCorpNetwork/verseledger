@@ -1,15 +1,13 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import { FilterButton } from '@Common/Components/Functional/Applcation/Buttons/FilterButton';
-import { FilterMenu } from '@Common/Components/Functional/Applcation/Menus/FilterMenu';
+import { FilterMenu } from '@Common/Components/Functional/Applcation/Menus/Filters/FilterMenu';
 import { ArrowBackIosNew } from '@mui/icons-material';
 import { Badge, Box, Collapse, IconButton, Tooltip, useTheme } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
 import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
-import { bindTrigger, usePopupState } from 'material-ui-popup-state/hooks';
+import { usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
-
-import { FilterList } from './FilterList';
-import { useSoundEffect } from '@Audio/AudioManager';
 
 /**
  * ## SearchTools
@@ -51,7 +49,13 @@ export const SearchTools: React.FC = () => {
     theme.animations === 'low' || theme.animations === 'none' ? true : searchToolsOpen;
 
   /** Defines Filters for Filter List */
-  //const filterList = ['Subtype', 'Locations', 'ContractScheduling', 'ContractPay'];
+  const filterList = [
+    'ContractType',
+    // 'ContractLocations',
+    // 'ContractSchedule',
+    // 'ContractPay',
+    // 'ContractRating',
+  ] as SearchFilter[];
 
   /** Uses filterCount Function from FilterUtils */
   const filterCount = filterUtils.filterCount();
@@ -86,7 +90,7 @@ export const SearchTools: React.FC = () => {
   return (
     <Box
       component="search"
-      aria-label="Search Tools Dropdown"
+      aria-label="Contract Manager Search Tools Dropdown"
       id="SearchToolsContainer"
       data-testid="ContractManager-ContractList__SearchToolsContainer"
       sx={{
@@ -124,7 +128,11 @@ export const SearchTools: React.FC = () => {
           }}
         >
           <FilterButton onClick={toggleFilterList} />
-          <FilterMenu popupState={filterOpenState} anchorEl={filterMenuAnchor} />
+          <FilterMenu
+            popupState={filterOpenState}
+            anchorEl={filterMenuAnchor}
+            filterKeys={filterList}
+          />
           <SortBySelect size="small" sortOptions={sortOptions} containerSize="small" />
           <SearchBar
             size="small"

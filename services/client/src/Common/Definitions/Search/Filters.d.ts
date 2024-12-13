@@ -1,6 +1,6 @@
 declare type SearchFilter =
   | 'ContractType'
-  | 'Locations'
+  | 'ContractLocations'
   | 'ContractPay'
   | 'ContractRating'
   | 'ContractStatus'

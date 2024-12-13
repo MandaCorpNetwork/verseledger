@@ -1,6 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
-import { ListSelectButton } from '@CommonLegacy/Components/Styled/Buttons/IndicatorButton';
+import { ListSelectButton } from '@Common/Components/Core/Buttons/ListSelectButton';
 import { DoubleArrow } from '@mui/icons-material';
 import { IconButton, List, Typography } from '@mui/material';
 import React from 'react';

@@ -1,6 +1,7 @@
 //CLFilterDropdown is a reusable DropDown for displaying filters in the Contract Ledger Table Tools Component.
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import PopupFormDisplay from '@CommonLegacy/Components/Boxes/PopupFormDisplay';
 import { ClearAllButton } from '@CommonLegacy/Components/Buttons/ClearAllButton';
 import { ArrowRight } from '@mui/icons-material';
@@ -11,7 +12,6 @@ import { SchedulingDropdownFilter } from '@Utils/Filters/ScheduleFilter';
 import { SubTypeFilter } from '@Utils/Filters/SubtypeFilter';
 import { UECFilter } from '@Utils/Filters/UECFilter';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import React, { useCallback } from 'react';
 
 type DropdownFilterProps = {
@@ -88,7 +88,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
     (filterName: string) => {
       switch (filterName) {
         case 'Subtype':
-          return searchParams.has(QueryNames.Subtype);
+          return searchParams.has(QueryNames.ContractSubtype);
         case 'Locations':
           return searchParams.has(QueryNames.Locations);
         case 'Scheduling':
@@ -128,7 +128,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
     (filterName: string) => {
       switch (filterName) {
         case 'Subtype':
-          return searchParams.getAll(QueryNames.Subtype);
+          return searchParams.getAll(QueryNames.ContractSubtype);
         case 'Locations':
           return searchParams.getAll(QueryNames.Locations);
         default:
@@ -166,7 +166,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
   const getFilterToClear = React.useCallback((filter: string): QueryNames[] => {
     switch (filter) {
       case 'Subtype':
-        return [QueryNames.Subtype];
+        return [QueryNames.ContractSubtype];
       case 'Locations':
         return [QueryNames.Locations];
       case 'Scheduling':
@@ -308,7 +308,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
             >
               <ClearAllButton onClear={handleClearAll} />
               {QueryNames[filter as unknown as keyof typeof QueryNames] ===
-                QueryNames.Subtype && (
+                QueryNames.ContractSubtype && (
                 <PopupFormDisplay
                   data-testid={`ContractLedgerFilters-${filter}-FilterCollapse__FilterListWrapper`}
                   sx={{
