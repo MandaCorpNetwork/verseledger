@@ -5,7 +5,7 @@ import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { MaskedVideo } from '@Common/Components/Functional/Applcation/Media/MaskedVideo';
-import { themeInfoMap } from '@Common/Definitions/Themes/ThemeMaps';
+import { themeInfoMap } from '@Common/Definitions/Themes/themeMaps';
 import { profileBackgroundMap } from '@Common/Definitions/Themes/UserBackgroundMap';
 import {
   ExpandIconButton,
