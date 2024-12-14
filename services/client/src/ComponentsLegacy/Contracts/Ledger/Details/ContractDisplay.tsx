@@ -2,6 +2,7 @@ import { useSoundEffect } from '@Audio/AudioManager';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { ComponentDisplay } from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
+import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import { ContractStatusChip } from '@CommonLegacy/Components/Chips/ContractStatusChip';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
@@ -12,9 +13,16 @@ import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay
 import { PayStructure } from '@CommonLegacy/Components/Custom/DigiField/PayStructure';
 import { SmallTabHolo, SmallTabsHolo } from '@CommonLegacy/Components/Tabs/SmallTabsHolo';
 import { UserDisplay } from '@CommonLegacy/Components/Users/UserDisplay';
-import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
 import { ErrorTwoTone, ExpandMore, Launch, Link } from '@mui/icons-material';
-import { Box, Button, Collapse, IconButton, Tooltip, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Collapse,
+  IconButton,
+  SvgIcon,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBids/ContractBid';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
@@ -50,7 +58,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
 
   React.useEffect(() => {
     const selectedArchetype = contractArchetypes.find((option) =>
-      option.subTypes.some((subType) => subType.value === contract.subtype),
+      option.subtypes.some((subType) => subType.value === contract.subtype),
     );
     if (selectedArchetype) {
       setArchetype(selectedArchetype.archetype);
@@ -209,6 +217,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
   const archetypeObject = contractArchetypes.find(
     (option) => option.archetype === archetype,
   );
+  const ArchetypeIcon = archetypeObject?.archetypeIcon ?? ErrorTwoTone;
 
   return (
     <Box
@@ -264,14 +273,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
               }}
             />
             <Tooltip title={archetype}>
-              {archetypeObject ? (
-                React.cloneElement(archetypeObject.archetypeIcon, {
-                  fontSize: 'large',
-                  color: 'secondary',
-                })
-              ) : (
-                <ErrorTwoTone fontSize="large" color="error" />
-              )}
+              <SvgIcon component={ArchetypeIcon} color="secondary" fontSize="large" />
             </Tooltip>
           </ComponentDisplay>
           <IconButton

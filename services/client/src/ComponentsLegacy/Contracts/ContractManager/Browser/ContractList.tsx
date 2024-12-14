@@ -1,5 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
+import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { ErrorOutline } from '@mui/icons-material';
 import { Box, Pagination } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
@@ -55,7 +55,7 @@ export const ContractList: React.FC<ContractListProps> = ({ currentTab }) => {
         };
       }
 
-      const subtypeFilter = selectedArchetype.subTypes.map((sub) => sub.value);
+      const subtypeFilter = selectedArchetype.subtypes.map((sub) => sub.value);
       const filteredContracts = contracts.filter((contract) =>
         subtypeFilter.includes(contract.subtype),
       );

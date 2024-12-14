@@ -1,8 +1,16 @@
 import '@Assets/Css/ripple.css';
 
-import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
-import { ArrowRight } from '@mui/icons-material';
-import { Badge, Box, ButtonBase, Collapse, IconButton, Typography } from '@mui/material';
+import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
+import { ArrowRight, ErrorTwoTone } from '@mui/icons-material';
+import {
+  Badge,
+  Box,
+  ButtonBase,
+  Collapse,
+  IconButton,
+  SvgIcon,
+  Typography,
+} from '@mui/material';
 import { PropsWithChildren } from 'react';
 
 type ContractListDropdownProps = PropsWithChildren<{
@@ -38,6 +46,8 @@ export const ContractListDropdown: React.FC<ContractListDropdownProps> = ({
   const archetypeObj = contractArchetypes.find(
     (option) => option.archetype === archetype,
   );
+
+  const ArchetypeIcon = archetypeObj?.archetypeIcon ?? ErrorTwoTone;
 
   return (
     <Box
@@ -79,7 +89,7 @@ export const ContractListDropdown: React.FC<ContractListDropdownProps> = ({
             },
           }}
         >
-          {archetypeObj?.archetypeIcon}
+          <SvgIcon component={ArchetypeIcon} color="secondary" fontSize="medium" />
           {archetype === 'RRR' ? 'Rearm Refuel Repair' : archetype}
         </Typography>
         <Badge

@@ -1,11 +1,11 @@
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { CopyString } from '@CommonLegacy/Components/Buttons/CopyString';
 import { GeneralNav } from '@CommonLegacy/Components/Buttons/GeneralNavIcon';
-import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
-import { ErrorOutline, HighlightOffTwoTone } from '@mui/icons-material';
-import { IconButton, Tooltip, Typography } from '@mui/material';
+import { ErrorTwoTone, HighlightOffTwoTone } from '@mui/icons-material';
+import { IconButton, SvgIcon, Tooltip, Typography } from '@mui/material';
 import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
 import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
@@ -33,7 +33,7 @@ export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
 
   const selectedArchetype =
     contractArchetypes.find((option) =>
-      option.subTypes.some((subtype) => subtype.value === contract.subtype),
+      option.subtypes.some((subtype) => subtype.value === contract.subtype),
     ) || null;
 
   const closeContract = React.useCallback(
@@ -44,6 +44,8 @@ export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
     },
     [nav],
   );
+
+  const ArchetypeIcon = selectedArchetype?.archetypeIcon ?? ErrorTwoTone;
 
   return (
     <ComponentContainer
@@ -132,14 +134,7 @@ export const DetailsDisplay: React.FC<DetailsDisplayProps> = ({ contract }) => {
             style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
           >
             <Tooltip title={selectedArchetype ? selectedArchetype.archetype : 'Error'}>
-              {selectedArchetype ? (
-                React.cloneElement(selectedArchetype.archetypeIcon, {
-                  fontSize: 'large',
-                  color: 'secondary',
-                })
-              ) : (
-                <ErrorOutline fontSize="medium" color="error" />
-              )}
+              <SvgIcon component={ArchetypeIcon} color="secondary" fontSize="large" />
             </Tooltip>
           </div>
         </ComponentDisplay>

@@ -1,6 +1,6 @@
 import { FeatureContainer } from '@Common/Components/Core/Boxes/FeatureContainer';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 
 import { BrowserTabs } from '../../../../Apps/Contracts/ContractManager/Browser/BrowserTabs';
@@ -30,7 +30,7 @@ export const ContractManagerBrowser: React.FC = () => {
       <BrowserTabs currentTab={currentTab} />
       <div
         data-testid="ContractManager-ContractList__SearchTools_Wrapper"
-        style={{ height: '75px' }}
+        style={{ height: '80px' }}
       >
         <SearchTools />
       </div>

@@ -1,4 +1,15 @@
-type ContractSubType =
+declare type ContractArchetype =
+  | 'Logistics'
+  | 'Medical'
+  | 'Security'
+  | 'Salvage'
+  | 'Industry'
+  | 'RRR'
+  | 'Fleet'
+  | 'Exploration'
+  | 'Proxy';
+
+declare type ContractSubtype =
   | 'Transport'
   | 'Hauling'
   | 'Manage'
@@ -24,3 +35,8 @@ type ContractSubType =
   | 'Charting'
   | 'Middleman'
   | 'Redacted';
+
+declare type ContractSubtypeObj = {
+  label: string;
+  value: ContractSubtype;
+};

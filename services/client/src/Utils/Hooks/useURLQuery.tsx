@@ -1,5 +1,5 @@
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { Logger } from '@Utils/Logger';
-import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 

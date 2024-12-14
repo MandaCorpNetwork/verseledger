@@ -1,9 +1,9 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { ItemTypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Orders/ItemTypes';
 import { Grid2, IconButton, Tooltip } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 
 /**

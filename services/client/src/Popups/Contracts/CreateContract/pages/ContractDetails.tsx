@@ -1,9 +1,9 @@
 import '@Assets/Css/contractDetails.css';
 
 import { useSoundEffect } from '@Audio/AudioManager';
+import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSelection';
 import ArchetypeListChip from '@CommonLegacy/Components/Chips/ArchetypeListChip';
-import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
 import { HelpOutline } from '@mui/icons-material';
 import {
   Autocomplete,
@@ -12,6 +12,7 @@ import {
   FormControl,
   FormLabel,
   IconButton,
+  SvgIcon,
   TextField,
   Tooltip,
   Typography,
@@ -28,9 +29,9 @@ import { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTyp
 
 const optionsMap: Record<string, { label: string; group: string }> = {};
 const flatOptions = contractArchetypes.flatMap((option) =>
-  option.subTypes.map((subType) => {
-    optionsMap[subType.value] = { group: option.archetype, label: subType.label };
-    return subType.value;
+  option.subtypes.map((subtype) => {
+    optionsMap[subtype.value] = { group: option.archetype, label: subtype.label };
+    return subtype.value;
   }),
 );
 export const ContractDetails: React.FC<{
@@ -262,20 +263,24 @@ export const ContractDetails: React.FC<{
                 ref={scrollRef}
                 className="SelectScrollWrapper"
               >
-                {contractArchetypes.map((option) => (
-                  <ArchetypeListChip
-                    key={option.archetype}
-                    icon={option.archetypeIcon}
-                    variant="filled"
-                    label={option.archetype}
-                    color="primary"
-                    onClick={() => handleArchetypeSelect(option.archetype)}
-                    isSelected={option.archetype == archetype}
-                    sx={{
-                      mb: '.7em',
-                    }}
-                  />
-                ))}
+                {contractArchetypes.map((option) => {
+                  const ArchetypeIcon = option.archetypeIcon;
+
+                  return (
+                    <ArchetypeListChip
+                      key={option.archetype}
+                      icon={<SvgIcon component={ArchetypeIcon} />}
+                      variant="filled"
+                      label={option.archetype}
+                      color="primary"
+                      onClick={() => handleArchetypeSelect(option.archetype)}
+                      isSelected={option.archetype == archetype}
+                      sx={{
+                        mb: '.7em',
+                      }}
+                    />
+                  );
+                })}
               </Box>
             </PopupFormSelection>
           </Box>

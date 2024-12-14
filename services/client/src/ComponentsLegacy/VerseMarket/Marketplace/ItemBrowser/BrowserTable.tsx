@@ -1,8 +1,8 @@
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { ItemTypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Orders/ItemTypes';
 import { Table, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 
 import { allItemsHeader } from './TableColumns';

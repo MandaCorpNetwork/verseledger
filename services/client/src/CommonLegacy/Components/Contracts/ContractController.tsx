@@ -1,4 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_SUBMIT_CONTRACT_BID } from '@Popups/Contracts/ContractBids/ContractBid';
 import { POPUP_EDIT_CONTRACT } from '@Popups/Contracts/EditContract/EditContract';
@@ -10,7 +11,6 @@ import { updateBid } from '@Redux/Slices/Bids/Actions/patch/updateBid.action';
 import { updateContract } from '@Redux/Slices/Contracts/actions/patch/updateContract.action';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import { useLocation } from 'react-router-dom';

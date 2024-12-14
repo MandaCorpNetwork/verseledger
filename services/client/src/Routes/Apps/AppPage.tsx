@@ -1,6 +1,6 @@
 import { AppDisplay } from '@Common/Components/Core/Boxes/AppContainer';
 import { VLViewport } from '@Common/Components/Core/Boxes/VLViewport';
-import { MaskedVideo } from '@Common/Components/Functional/Applcation/MaskedVideo';
+import { MaskedVideo } from '@Common/Components/Functional/Applcation/Media/MaskedVideo';
 import { Box, useTheme } from '@mui/material';
 import React from 'react';
 import { Outlet } from 'react-router-dom';

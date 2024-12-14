@@ -1,10 +1,10 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { Box, debounce, TablePagination } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchOrgs } from '@Redux/Slices/Orgs/actions/post/fetchOrgs.action';
 import { selectOrgPagination } from '@Redux/Slices/Orgs/orgs.selectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
 import React, { SyntheticEvent } from 'react';
 import { IOrgSearchCMD } from 'vl-shared/src/schemas/orgs/OrgSearchCMD';
 

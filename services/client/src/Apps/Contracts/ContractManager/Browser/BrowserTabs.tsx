@@ -1,8 +1,8 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { Tab, Tabs, useTheme } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 

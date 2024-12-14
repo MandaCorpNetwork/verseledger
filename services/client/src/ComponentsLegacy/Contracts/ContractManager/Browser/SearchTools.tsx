@@ -1,12 +1,13 @@
-import { ArrowBackIosNew, FilterAlt } from '@mui/icons-material';
+import { useSoundEffect } from '@Audio/AudioManager';
+import { FilterButton } from '@Common/Components/Functional/Applcation/Buttons/FilterButton';
+import { FilterMenu } from '@Common/Components/Functional/Applcation/Menus/Filters/FilterMenu';
+import { ArrowBackIosNew } from '@mui/icons-material';
 import { Badge, Box, Collapse, IconButton, Tooltip, useTheme } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
-import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
+import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
+import { usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
-
-import { FilterList } from './FilterList';
 
 /**
  * ## SearchTools
@@ -16,71 +17,53 @@ export const SearchTools: React.FC = () => {
   // LOCAL STATES
   /** State determines if the SearchTools are rendered */
   const [searchToolsOpen, setSearchToolsOpen] = React.useState<boolean>(false);
-  /** State determines if the {@link FilterList} is expanded */
-  const [filterListOpen, setFilterListOpen] = React.useState<boolean>(false);
+  /** Ref for The Filter Menu */
+  const filterMenuAnchor = React.useRef<HTMLDivElement>(null);
+
   // HOOKS
   const theme = useTheme();
-  const { searchParams } = useURLQuery();
+  const filterUtils = useFilterUtils();
+  const sound = useSoundEffect();
 
   // LOGIC
-  /**
-   * Handles the clickEvent that displays the SearchTools
-   */
+  /** Handles the clickEvent that displays the SearchTools */
   const toggleSearchTools = React.useCallback(() => {
     setSearchToolsOpen(!searchToolsOpen);
   }, [searchToolsOpen, setSearchToolsOpen]);
 
-  /**
-   * Handles the clickEvent that displays the {@link FilterList}
-   */
+  /** Define the FilterMenu State */
+  const filterOpenState = usePopupState({ variant: 'popover', popupId: 'filterMenu' });
+
+  /** Handles the clickEvent that displays the {@link FilterList} */
   const toggleFilterList = React.useCallback(() => {
-    setFilterListOpen(!filterListOpen);
-  }, [filterListOpen, setFilterListOpen]);
+    sound.playSound('clickMain');
+    if (filterOpenState.isOpen) {
+      filterOpenState.close();
+    } else {
+      filterOpenState.open();
+    }
+  }, [filterOpenState, sound]);
 
-  /**
-   * Calculates the number of filters currently applied
+  /** Disables the MuiCollapse if Animation Settings are Low or None */
+  const disableCollapse =
+    theme.animations === 'low' || theme.animations === 'none' ? true : searchToolsOpen;
 
-   */
-  const getFilterCount = React.useCallback(() => {
-    const subtypes = searchParams.getAll(QueryNames.Subtype);
-    const bidDateBefore = searchParams.has(QueryNames.BidBefore) ? 1 : 0;
-    const bidDateAfter = searchParams.has(QueryNames.BidAfter) ? 1 : 0;
-    const startDateBefore = searchParams.has(QueryNames.StartBefore) ? 1 : 0;
-    const startDateAfter = searchParams.has(QueryNames.StartAfter) ? 1 : 0;
-    const endDateBefore = searchParams.has(QueryNames.EndBefore) ? 1 : 0;
-    const endDateAfter = searchParams.has(QueryNames.EndAfter) ? 1 : 0;
-    const duration = searchParams.has(QueryNames.Duration) ? 1 : 0;
-    const payStructure = searchParams.has(QueryNames.PayStructure) ? 1 : 0;
-    const payMin = searchParams.has(QueryNames.UECRangeMin) ? 1 : 0;
-    const payMax = searchParams.has(QueryNames.UECRangeMax) ? 1 : 0;
-    return (
-      subtypes.length +
-      bidDateBefore +
-      bidDateAfter +
-      startDateBefore +
-      startDateAfter +
-      endDateBefore +
-      endDateAfter +
-      duration +
-      payStructure +
-      payMin +
-      payMax
-    );
-  }, [searchParams]);
-  /** Calls {@link getFilterCount} */
-  const filterCount = getFilterCount();
+  /** Defines Filters for Filter List */
+  const filterList = [
+    'ContractType',
+    // 'ContractLocations',
+    // 'ContractSchedule',
+    // 'ContractPay',
+    // 'ContractRating',
+  ] as SearchFilter[];
 
-  /**
-   * Checks if any values are set in search tools to render a badge dot on the searchtools expansion button
+  /** Uses filterCount Function from FilterUtils */
+  const filterCount = filterUtils.filterCount();
 
-   */
-  const checkIsQueried = React.useCallback(() => {
-    if (filterCount > 0) return true;
-    return false;
-  }, [filterCount]);
-  /** Calls {@link checkIsQueried} */
-  const isQueried = checkIsQueried();
+  /** Renders Badge Dot on Expand Button when true */
+  const isFiltered = filterCount > 0;
 
+  //TODO: Build Sorting Functionality for the App
   const sortOptions = [
     {
       label: 'Pay',
@@ -106,59 +89,63 @@ export const SearchTools: React.FC = () => {
 
   return (
     <Box
+      component="search"
+      aria-label="Contract Manager Search Tools Dropdown"
+      id="SearchToolsContainer"
       data-testid="ContractManager-ContractList__SearchToolsContainer"
-      sx={{ width: '100%', display: 'flex', flexDirection: 'row', mt: '.5em' }}
+      sx={{
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        mt: '.5em',
+        position: 'relative',
+        minHeight: '40px',
+      }}
     >
       <Collapse
         data-testid="ContractManager-ContractList-SearchTools__TransformationWrapper"
-        in={searchToolsOpen}
-        timeout={200}
+        in={disableCollapse}
+        timeout={theme.transitions.duration.shorter}
+        unmountOnExit
+        mountOnEnter
         sx={{
           flexGrow: 1,
           justifyContent: 'center',
           alignItems: 'center',
         }}
       >
-        <Box
+        <div
           data-testid="ContractManager-ContractList-SearchTools__SearchToolsWrapper"
-          sx={{
+          ref={filterMenuAnchor}
+          style={{
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'center',
+            justifyContent: 'space-evenly',
             alignItems: 'center',
             gap: '1em',
             flexGrow: 1,
             position: 'relative',
           }}
         >
-          <Badge
-            badgeContent={filterCount}
-            color="error"
-            variant="dot"
-            overlap="circular"
-          >
-            <IconButton
-              data-testid="ContractManager-ContractList-SearchTools__FiltersButton"
-              onClick={toggleFilterList}
-              size={theme.breakpoints.down('md') ? 'small' : 'medium'}
-            >
-              <FilterAlt />
-            </IconButton>
-          </Badge>
-          <FilterList isOpen={filterListOpen} />
+          <FilterButton onClick={toggleFilterList} />
+          <FilterMenu
+            popupState={filterOpenState}
+            anchorEl={filterMenuAnchor}
+            filterKeys={filterList}
+          />
           <SortBySelect size="small" sortOptions={sortOptions} containerSize="small" />
           <SearchBar
             size="small"
             label="Search Contracts"
             placeholder="Title, Contractors, Ships..."
           />
-        </Box>
+        </div>
       </Collapse>
       <Box
         data-testid="ContractManager-ContractList-SearchTools__SearchToolsExpansionWrapper"
         sx={{ display: 'flex', ml: 'auto' }}
       >
-        <Badge invisible={!isQueried} color="error" variant="dot" overlap="circular">
+        <Badge invisible={!isFiltered} color="error" variant="dot" overlap="circular">
           <Tooltip arrow title="Search Tools">
             <IconButton
               data-testid="ContractManager-ContractList-SearchTools__SearchToolsExpansionButton"

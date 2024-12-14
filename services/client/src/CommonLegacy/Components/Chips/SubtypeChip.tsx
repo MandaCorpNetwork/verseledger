@@ -1,6 +1,6 @@
-import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
+import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { ErrorTwoTone } from '@mui/icons-material';
-import { Chip, Tooltip } from '@mui/material';
+import { Chip, SvgIcon, Tooltip } from '@mui/material';
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
@@ -29,30 +29,23 @@ export const SubtypeChip: React.FC<SubtypeChipProps> = (props) => {
   //Defining Subtype Objects
   const dispatch = useAppDispatch();
   const archetypeObj = contractArchetypes.find((option) =>
-    option.subTypes.some((subType) => subType.value === subtype),
+    option.subtypes.some((subType) => subType.value === subtype),
   );
 
-  const subtypeObj = archetypeObj?.subTypes.find((subType) => subType.value === subtype);
+  const subtypeObj = archetypeObj?.subtypes.find((subType) => subType.value === subtype);
 
   // Handler to open Archetype Info Popup
   const handleArchetypeOpen = React.useCallback(() => {
     dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetypeObj?.archetype }));
   }, [dispatch, archetypeObj]);
 
-  const iconElement = archetypeObj ? (
-    React.cloneElement(archetypeObj.archetypeIcon, {
-      fontSize: iconSize,
-      color: color,
-    })
-  ) : (
-    <ErrorTwoTone color="error" fontSize={iconSize} />
-  );
+  const ArchetypeIcon = archetypeObj?.archetypeIcon ?? ErrorTwoTone;
   return (
     <Tooltip title={subtypeObj?.label}>
       <Chip
         data-testid={`SubtypeChip__${testid}_root`}
         label={subtypeObj?.label}
-        icon={iconElement}
+        icon={<SvgIcon component={ArchetypeIcon} color={color} fontSize={iconSize} />}
         variant={variant}
         size={size}
         color={color}

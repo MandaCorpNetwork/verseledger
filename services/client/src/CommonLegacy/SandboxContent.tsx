@@ -6,7 +6,7 @@ import { ComponentDisplay } from '@Common/Components/Core/Boxes/ComponentDisplay
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Box } from '@mui/material';
 
-import { ListSelectButton } from './Components/Styled/Buttons/IndicatorButton';
+import { ListSelectButton } from '../Common/Components/Core/Buttons/ListSelectButton';
 import { Contracts, Scu, Scu3d } from './DefinitionsLegacy/CustomIcons';
 
 export const SandboxContent: React.FC<unknown> = () => {

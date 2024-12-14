@@ -1,9 +1,10 @@
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { ContractStatusChip } from '@CommonLegacy/Components/Chips/ContractStatusChip';
 import { SubtypeChip } from '@CommonLegacy/Components/Chips/SubtypeChip';
 import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
-import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
-import { Box, Grid2, Tooltip, Typography } from '@mui/material';
+import { ErrorTwoTone } from '@mui/icons-material';
+import { Box, Grid2, SvgIcon, Tooltip, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
@@ -34,7 +35,7 @@ export const ContractItem: React.FC<ContractProps> = ({
   /** Finds the achetype the of the selected contract. */
   const selectedArchetype =
     contractArchetypes.find((option) =>
-      option.subTypes.some((subType) => subType.value === contract.subtype),
+      option.subtypes.some((subType) => subType.value === contract.subtype),
     ) || null;
   /** Sets up the end date text string displayed on the contract information. */
   const endDateText = React.useCallback(() => {
@@ -54,6 +55,8 @@ export const ContractItem: React.FC<ContractProps> = ({
       return `Ends ${endDate.fromNow()}`;
     }
   }, [contract]);
+
+  const ArchetypeIcon = selectedArchetype?.archetypeIcon ?? ErrorTwoTone;
 
   return (
     <ComponentContainer sx={{ px: '1em', my: '.5em' }} data-testid="ContractItem_DigiBox">
@@ -111,7 +114,7 @@ export const ContractItem: React.FC<ContractProps> = ({
               title={selectedArchetype?.archetype}
               data-testid="ContractItemGrid-Containter-ArchetypeIconGrid-Icon_ToolTip"
             >
-              {selectedArchetype ? selectedArchetype.archetypeIcon : <></>}
+              <SvgIcon component={ArchetypeIcon} />
             </Tooltip>
             <SubtypeChip
               subtype={contract.subtype}

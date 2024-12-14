@@ -1,6 +1,7 @@
 // Imports
 import { useSoundEffect } from '@Audio/AudioManager';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
 import { Box, useMediaQuery } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
@@ -9,7 +10,6 @@ import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContrac
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser.action';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { useIsMobile } from '@Utils/isMobile';
-import { QueryNames } from '@Utils/QueryNames';
 import { enqueueSnackbar } from 'notistack';
 import React, { Suspense } from 'react';
 import { useParams } from 'react-router-dom';
@@ -104,7 +104,9 @@ export const ContractManagerApp: React.FC<unknown> = () => {
    */
   const handleFetchContracts = React.useCallback(
     (params: IContractSearch) => {
-      const subtypes = searchParams.getAll(QueryNames.Subtype) as IContractSubType[];
+      const subtypes = searchParams.getAll(
+        QueryNames.ContractSubtype,
+      ) as IContractSubType[];
       const bidBefore = new Date(searchParams.get(QueryNames.BidBefore) as string);
       const bidAfter = new Date(searchParams.get(QueryNames.BidAfter) as string);
       const startBefore = new Date(searchParams.get(QueryNames.StartBefore) as string);

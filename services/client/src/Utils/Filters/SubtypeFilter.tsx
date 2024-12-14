@@ -1,10 +1,10 @@
 // SubTypeFilter.tsx
 import { useSoundEffect } from '@Audio/AudioManager';
+// import { Logger } from '@Utils/Logger';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-// import { Logger } from '@Utils/Logger';
-import { QueryNames } from '@Utils/QueryNames';
 import React, { useMemo } from 'react';
 
 const menuValues = [
@@ -44,14 +44,14 @@ export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
   const { searchParams, setFilters } = useURLQuery();
 
   const currentFilterValues = useMemo(() => {
-    const subtypeFilters = searchParams.getAll(QueryNames.Subtype);
+    const subtypeFilters = searchParams.getAll(QueryNames.ContractSubtype);
     return Array.isArray(subtypeFilters) ? subtypeFilters : [subtypeFilters];
   }, [searchParams]);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: { value: string }[]) => {
     sound.playSound('clickMain');
     setFilters(
-      QueryNames.Subtype,
+      QueryNames.ContractSubtype,
       newValue.map((v) => v.value),
     );
   };

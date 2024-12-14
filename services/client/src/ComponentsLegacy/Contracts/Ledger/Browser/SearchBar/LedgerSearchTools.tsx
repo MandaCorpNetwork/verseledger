@@ -1,5 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { DropdownFilter } from '@CommonLegacy/Components/App/DropdownFilter';
 import { ElevatedDropdownBox } from '@CommonLegacy/Components/Collapse/ElevatedDropdownBox';
 import { EmergencySwitch } from '@CommonLegacy/Components/Switch/EmergencySwitch';
@@ -8,7 +9,6 @@ import { Badge, Button, Typography } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
 import { SortBySelect } from '@Utils/Filters/SortBySelect';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
 import React, { useRef, useState } from 'react';
 
 /**
@@ -44,7 +44,7 @@ export const LedgerSearchTools: React.FC<unknown> = () => {
 
    */
   const getFilterCount = React.useCallback(() => {
-    const subtypes = searchParams.getAll(QueryNames.Subtype);
+    const subtypes = searchParams.getAll(QueryNames.ContractSubtype);
     const bidDateBefore = searchParams.has(QueryNames.BidBefore) ? 1 : 0;
     const bidDateAfter = searchParams.has(QueryNames.BidAfter) ? 1 : 0;
     const startDateBefore = searchParams.has(QueryNames.StartBefore) ? 1 : 0;

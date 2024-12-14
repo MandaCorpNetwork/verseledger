@@ -1,3 +1,4 @@
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { PayField } from '@CommonLegacy/Components/TextFields/PayField';
 import { Clear } from '@mui/icons-material';
 import {
@@ -9,7 +10,6 @@ import {
   TextField,
 } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { QueryNames } from '@Utils/QueryNames';
 import React from 'react';
 import { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
 

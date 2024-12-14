@@ -1,6 +1,6 @@
-import { contractArchetypes } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/ContractArchetypes';
-import { AddCircle, Search } from '@mui/icons-material';
-import { IconButton, Slide, Tooltip } from '@mui/material';
+import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
+import { AddCircle, ErrorTwoTone, Search } from '@mui/icons-material';
+import { IconButton, Slide, SvgIcon, Tooltip } from '@mui/material';
 import React from 'react';
 
 type CollapsedButtonsProps = {
@@ -61,30 +61,30 @@ export const CollapsedButtons: React.FC<CollapsedButtonsProps> = ({
             <AddCircle fontSize="large" />
           </IconButton>
         </Tooltip>
-        {contractArchetypes.map((archetype) => (
-          <Tooltip
-            key={archetype.archetype}
-            title={archetype.archetype}
-            placement="right"
-            disableInteractive
-            enterDelay={300}
-          >
-            <IconButton
-              data-testid={`ContractLedger-ColumnOne-ArchetypeButton__${archetype.archetype}_Button`}
-              onClick={() => setFilter(archetype.archetype)}
-              sx={{
-                color: currentFilters.includes(archetype.archetype)
-                  ? 'secondary.main'
-                  : 'primary.light',
-              }}
+        {contractArchetypes.map((archetype) => {
+          const ArchetypeIcon = archetype.archetypeIcon ?? ErrorTwoTone;
+          return (
+            <Tooltip
+              key={archetype.archetype}
+              title={archetype.archetype}
+              placement="right"
+              disableInteractive
+              enterDelay={300}
             >
-              {React.cloneElement(archetype.archetypeIcon, {
-                fontSize: 'large',
-                color: 'inherit',
-              })}
-            </IconButton>
-          </Tooltip>
-        ))}
+              <IconButton
+                data-testid={`ContractLedger-ColumnOne-ArchetypeButton__${archetype.archetype}_Button`}
+                onClick={() => setFilter(archetype.archetype)}
+                sx={{
+                  color: currentFilters.includes(archetype.archetype)
+                    ? 'secondary.main'
+                    : 'primary.light',
+                }}
+              >
+                <SvgIcon component={ArchetypeIcon} />
+              </IconButton>
+            </Tooltip>
+          );
+        })}
       </div>
     </Slide>
   );
