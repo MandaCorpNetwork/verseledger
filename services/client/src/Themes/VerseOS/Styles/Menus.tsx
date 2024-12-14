@@ -43,7 +43,7 @@ export const verseOSMenus: ThemeStyledComponents = {
         },
       }),
     ...(theme.fidelity === 'medium' && {
-      backgroundColor: alpha(theme.palette.background.paper, 0.3),
+      backgroundColor: alpha(theme.palette.background.paper, 0.8),
       backgroundImage: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.7)}, ${alpha(theme.palette.primary.dark, 0.6)})`,
       boxShadow: `0 1px 3px ${alpha(theme.palette.background.paper, 0.5)}, 0 4px 6px ${alpha(theme.palette.background.paper, 0.3)}, 0 1px 1px ${alpha(theme.palette.secondary.main, 0.2)}`,
     }),

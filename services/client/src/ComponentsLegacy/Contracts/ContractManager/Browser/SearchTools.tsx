@@ -51,10 +51,10 @@ export const SearchTools: React.FC = () => {
   /** Defines Filters for Filter List */
   const filterList = [
     'ContractType',
-    // 'ContractLocations',
-    // 'ContractSchedule',
-    // 'ContractPay',
-    // 'ContractRating',
+    'ContractLocations',
+    'ContractSchedule',
+    'ContractPay',
+    'ContractRating',
   ] as SearchFilter[];
 
   /** Uses filterCount Function from FilterUtils */
