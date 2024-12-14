@@ -3,7 +3,7 @@ import Burn1 from '@Assets/Images/Textures/burn1.png?url';
 import ObjectsUI from '@Assets/Images/Textures/ConscientiousObjects.jpg?url';
 import Shotgun from '@Assets/Images/Textures/shotgun.png?url';
 import Skutters from '@Assets/Images/Textures/SkuttersUI.png?url';
-import { logoThemeMap } from '@Common/Definitions/Themes/ThemeMaps';
+import { logoThemeMap } from '@Common/Definitions/Themes/themeMaps';
 import { SxProps } from '@mui/material';
 import { alpha, Theme } from '@mui/material/styles';
 

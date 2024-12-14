@@ -1,4 +1,4 @@
-import { logoThemeMap } from '@Common/Definitions/Themes/ThemeMaps';
+import { logoThemeMap } from '@Common/Definitions/Themes/themeMaps';
 import { alpha, SxProps, Theme } from '@mui/material/styles';
 
 export const verseOSCoreBoxes: ThemeStyledComponents = {
@@ -310,10 +310,10 @@ export const verseOSCoreBoxes: ThemeStyledComponents = {
     },
     // HIGH FIDELITY
     ...(theme.fidelity === 'high' && {
-      boxShadow: `0 3px 6px ${alpha(theme.palette.background.paper, 0.4)}, 0 8px 12px ${alpha(theme.palette.background.paper, 0.3)}, 0 15px 25px ${alpha(theme.palette.background.default, 0.2)}, inset 2px 0 3px ${alpha(theme.palette.background.paper, 0.3)}, 
+      boxShadow: `0 3px 6px ${alpha(theme.palette.background.paper, 0.4)}, 0 8px 12px ${alpha(theme.palette.background.paper, 0.3)}, 0 15px 25px ${alpha(theme.palette.background.default, 0.2)}, inset 2px 0 3px ${alpha(theme.palette.background.paper, 0.3)},
     inset -2px 0 3px ${alpha(theme.palette.background.paper, 0.3)}`,
       backdropFilter: 'blur(12px)',
-      backgroundImage: `linear-gradient(145deg, ${alpha(theme.palette.primary.light, 0.1)}, ${alpha(theme.palette.primary.dark, 0.2)}), 
+      backgroundImage: `linear-gradient(145deg, ${alpha(theme.palette.primary.light, 0.1)}, ${alpha(theme.palette.primary.dark, 0.2)}),
                   linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.5)}, ${alpha(theme.palette.primary.dark, 0.4)})`,
       borderBottom: `1px solid ${alpha(theme.palette.secondary.dark, 0.5)}`,
       borderTop: `1px solid ${alpha(theme.palette.secondary.dark, 0.7)}`,
@@ -375,7 +375,7 @@ export const verseOSCoreBoxes: ThemeStyledComponents = {
           borderTop: `1px solid ${alpha(theme.palette.secondary.light, 0.4)}`,
           borderBottom: `1px solid ${alpha(theme.palette.secondary.light, 0.3)}`,
           boxShadow: `0 5px 10px ${alpha(theme.palette.primary.main, 0.3)}, 0 15px 25px ${alpha(theme.palette.primary.dark, 0.4)}, 0 5px 10px ${alpha(theme.palette.primary.light, 0.4)}, 0 15px 25px ${alpha(theme.palette.primary.dark, 0.6)}, inset 3px 0 5px ${alpha(theme.palette.background.paper, 0.4)}, inset -3px 0 5px ${alpha(theme.palette.background.paper, 0.4)}`,
-          backgroundImage: `linear-gradient(145deg, ${alpha(theme.palette.primary.light, 0.2)}, ${alpha(theme.palette.primary.main, 0.5)}), 
+          backgroundImage: `linear-gradient(145deg, ${alpha(theme.palette.primary.light, 0.2)}, ${alpha(theme.palette.primary.main, 0.5)}),
                     linear-gradient(135deg, ${alpha(theme.palette.primary.dark, 0.6)}, ${alpha(theme.palette.primary.dark, 0.4)})`,
           transform: 'translateY(-3px)',
           overflow: 'hidden',
@@ -393,7 +393,7 @@ export const verseOSCoreBoxes: ThemeStyledComponents = {
           borderTop: `1px solid ${alpha(theme.palette.secondary.light, 0.4)}`,
           borderBottom: `1px solid ${alpha(theme.palette.secondary.light, 0.3)}`,
           boxShadow: `0 5px 10px ${alpha(theme.palette.primary.main, 0.3)}, 0 15px 25px ${alpha(theme.palette.primary.dark, 0.4)}, inset 3px 0 5px ${alpha(theme.palette.background.paper, 0.4)}, inset -3px 0 5px ${alpha(theme.palette.background.paper, 0.4)}`,
-          backgroundImage: `linear-gradient(145deg, ${alpha(theme.palette.primary.light, 0.2)}, ${alpha(theme.palette.primary.main, 0.5)}), 
+          backgroundImage: `linear-gradient(145deg, ${alpha(theme.palette.primary.light, 0.2)}, ${alpha(theme.palette.primary.main, 0.5)}),
                     linear-gradient(135deg, ${alpha(theme.palette.primary.dark, 0.6)}, ${alpha(theme.palette.primary.dark, 0.4)})`,
         },
       }),
