@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IDTOComplete, ITimestamped } from 'vl-shared/src/schemas/DTOSchema';
-import { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
+import type { IDTOComplete, ITimestamped } from 'vl-shared/src/schemas/DTOSchema';
+import type { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
 
 import { fetchNotifications } from './actions/getNotifications.action';
 import { fetchUnreadCount } from './actions/getUnreadCount.action';

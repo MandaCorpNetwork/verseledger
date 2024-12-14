@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { Logger } from '@Utils/Logger';
-import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
+import type { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 
 import { bidsActions } from '../../bids.reducer';
 

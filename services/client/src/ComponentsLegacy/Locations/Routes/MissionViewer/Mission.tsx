@@ -12,7 +12,7 @@ import { selectDestinations, selectTasks } from '@Redux/Slices/Routes/routes.sel
 import { enqueueSnackbar } from 'notistack';
 // import { useAppDispatch } from '@Redux/hooks';
 import React from 'react';
-import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
+import type { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 type MissionProps = {
   tasks: ITask[];

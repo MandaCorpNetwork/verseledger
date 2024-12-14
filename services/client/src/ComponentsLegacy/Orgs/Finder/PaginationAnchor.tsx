@@ -5,8 +5,8 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchOrgs } from '@Redux/Slices/Orgs/actions/post/fetchOrgs.action';
 import { selectOrgPagination } from '@Redux/Slices/Orgs/orgs.selectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import React, { SyntheticEvent } from 'react';
-import { IOrgSearchCMD } from 'vl-shared/src/schemas/orgs/OrgSearchCMD';
+import React, { type SyntheticEvent } from 'react';
+import type { IOrgSearchCMD } from 'vl-shared/src/schemas/orgs/OrgSearchCMD';
 
 type PaginationAnchorProps = {
   isMobile: boolean;

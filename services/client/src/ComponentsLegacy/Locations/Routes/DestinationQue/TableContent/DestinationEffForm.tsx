@@ -7,9 +7,9 @@ import { replaceDestinations } from '@Redux/Slices/Routes/actions/destination.ac
 import { selectTasks } from '@Redux/Slices/Routes/routes.selectors';
 import { useForm } from '@tanstack/react-form';
 import { numericalFilter } from '@Utils/numericFilter';
-import React from 'react';
+import type React from 'react';
 
-import { getEfficientDistancePath, MappedLocation } from '../../RouteUtilities';
+import { getEfficientDistancePath, type MappedLocation } from '../../RouteUtilities';
 
 type DestinationEffFormProps = {
   locationTree: Map<string, MappedLocation>;

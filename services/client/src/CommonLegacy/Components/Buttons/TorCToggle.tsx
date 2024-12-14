@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { RecentActors, TableChart } from '@mui/icons-material';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
-import React from 'react';
+import type React from 'react';
 
 type CardorTableViewToggleProps = {
   onChange: (view: 'card' | 'table') => void;

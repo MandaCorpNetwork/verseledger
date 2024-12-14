@@ -3,7 +3,7 @@ import { DropdownStack } from '@Common/Components/Core/Menus/DropdownStack';
 import { CollapseWrapper } from '@Common/Components/Wrappers/CollapseWrapper';
 import { filterComponents } from '@Common/Definitions/Search/FilterComponentsMap';
 import { Popover, useTheme } from '@mui/material';
-import { PopupState } from 'material-ui-popup-state/hooks';
+import type { PopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 
 import { FilterList } from './FilterList';

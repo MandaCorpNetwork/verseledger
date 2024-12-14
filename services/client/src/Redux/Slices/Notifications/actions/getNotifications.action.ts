@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
-import { IDTOComplete, ITimestamped } from 'vl-shared/src/schemas/DTOSchema';
-import { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
+import type { IDTOComplete, ITimestamped } from 'vl-shared/src/schemas/DTOSchema';
+import type { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
 
 export const fetchNotifications = createAsyncThunk(
   'GET /v1/notifications',

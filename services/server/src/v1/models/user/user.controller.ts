@@ -11,11 +11,11 @@ import {
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
-import { UserService } from '@V1/models/user/user.service';
-import { AuthService } from '@V1/models/auth/auth.service';
-import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
-import { ContractService } from '@V1/models/contract/contract.service';
-import { NextFunction } from 'express';
+import type { UserService } from '@V1/models/user/user.service';
+import type { AuthService } from '@V1/models/auth/auth.service';
+import type { VLAuthPrincipal } from '@AuthProviders/VL.principal';
+import type { ContractService } from '@V1/models/contract/contract.service';
+import type { NextFunction } from 'express';
 import { NetworkError } from '@V1/errors/NetworkError';
 import { IdPrefix, IdUtil } from '@Utils/IdUtil';
 import { BadRequestError } from '@V1/errors/BadRequest';
@@ -23,7 +23,7 @@ import { ApiOperationGet, ApiPath } from 'swagger-express-ts';
 import { Logger } from '@Utils/Logger';
 import { UserBidsSearchSchema } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
 import { GenericError } from '@V1/errors/GenericError';
-import { z, ZodError } from 'zod';
+import { z, type ZodError } from 'zod';
 import { UserToUserDTOMapper } from './mapping/UserToUserDTO.mapper';
 import { stringArray } from 'vl-shared/src/utils/stringArray';
 

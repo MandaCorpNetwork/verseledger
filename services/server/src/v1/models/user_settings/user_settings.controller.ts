@@ -7,12 +7,12 @@ import {
   httpPatch,
   requestBody,
 } from 'inversify-express-utils';
-import { UserSettingsService } from './user_settings.service';
-import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
+import type { UserSettingsService } from './user_settings.service';
+import type { VLAuthPrincipal } from '@AuthProviders/VL.principal';
 import { UserSettingsArrayToUserSettingsDTOMapper } from './mapping/UserSettingsArrayToUserSettingsDTO.mapper';
 import {
-  IUpdateUserSettingsCMD,
-  IUpdateUserSettingsFlagsCMD,
+  type IUpdateUserSettingsCMD,
+  type IUpdateUserSettingsFlagsCMD,
   UpdateUserSettingsCMD,
   UpdateUserSettingsFlagsCMD,
 } from 'vl-shared/src/schemas/UserSettings';

@@ -13,7 +13,7 @@ import { useIsMobile } from '@Utils/isMobile';
 import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { ICreateContractBody } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { ICreateContractBody } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { LargeEmergencyOverlay } from '../EmergencyOverlay';
 

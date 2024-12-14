@@ -4,8 +4,8 @@ import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
 import { AddComment } from '@mui/icons-material';
 import { Box, Button, Grow, TextField } from '@mui/material';
 import React from 'react';
-import { ICreateUserRatingBody } from 'vl-shared/src/schemas/UserRatingsSchema';
-import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import type { ICreateUserRatingBody } from 'vl-shared/src/schemas/UserRatingsSchema';
+import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 type UserRatingFieldProps = {
   user: IUser;

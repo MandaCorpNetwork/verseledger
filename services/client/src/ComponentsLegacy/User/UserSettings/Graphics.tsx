@@ -11,7 +11,7 @@ import { updateUserSettings } from '@Redux/Slices/Auth/Actions/updateUserSetting
 import { useForm } from '@tanstack/react-form';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
-import {
+import type {
   IUpdateUserSettingsCMD,
   IUserSettings,
 } from 'vl-shared/src/schemas/UserSettings';

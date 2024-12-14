@@ -1,8 +1,8 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { POPUP_APP_LIST } from '@CommonLegacy/AppDockV3/Tools/AllAppsModal';
 import {
-  AppGroup,
-  AppListing,
+  type AppGroup,
+  type AppListing,
   contractApps,
   dashApps,
   exploreApps,

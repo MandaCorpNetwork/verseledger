@@ -1,7 +1,7 @@
 import { Mapper } from '@Infrastructure/Mapper';
-import { UserSettings } from '@V1/models/user_settings/user_settings.model';
+import type { UserSettings } from '@V1/models/user_settings/user_settings.model';
 import { UserSettingsDTO } from './UserSettingsDTO';
-import { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
+import type { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
 
 export class UserSettingsArrayToUserSettingsDTOMapper extends Mapper<
   UserSettings[],

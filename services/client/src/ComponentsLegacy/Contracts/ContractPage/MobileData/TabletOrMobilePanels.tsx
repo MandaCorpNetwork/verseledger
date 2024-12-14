@@ -2,7 +2,7 @@ import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentConta
 import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { SmallTabHolo, SmallTabsHolo } from '@CommonLegacy/Components/Tabs/SmallTabsHolo';
 import { Box } from '@mui/material';
-import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
+import type { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 
 type TabletOrMobilePanelProps = {
   /** The current time tab */

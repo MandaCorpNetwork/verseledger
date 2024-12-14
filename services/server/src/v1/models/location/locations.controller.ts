@@ -8,9 +8,9 @@ import {
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
-import { UserService } from '@V1/models/user/user.service';
-import { AuthService } from '@V1/models/auth/auth.service';
-import { ContractService } from '@V1/models/contract/contract.service';
+import type { UserService } from '@V1/models/user/user.service';
+import type { AuthService } from '@V1/models/auth/auth.service';
+import type { ContractService } from '@V1/models/contract/contract.service';
 import { IdPrefix, IdUtil } from '@Utils/IdUtil';
 import { Location } from '@V1/models/location/location.model';
 import { NotFoundError } from '@V1/errors/NotFoundError';
@@ -18,12 +18,12 @@ import { parse } from 'csv-parse/sync';
 import fs from 'fs';
 import { ApiOperationGet, ApiPath } from 'swagger-express-ts';
 import { LocationSearchSchema } from 'vl-shared/src/schemas/SearchSchema';
-import { NextFunction } from 'express';
+import type { NextFunction } from 'express';
 import { Logger } from '@Utils/Logger';
 import { BadRequestError } from '@V1/errors/BadRequest';
-import { LocationService } from './locations.services';
+import type { LocationService } from './locations.services';
 import { PaginatedDataDTO } from '@V1/DTO';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { LocationDTO } from './mapping/LocationDTO';
 @ApiPath({
   path: '/v1/locations',

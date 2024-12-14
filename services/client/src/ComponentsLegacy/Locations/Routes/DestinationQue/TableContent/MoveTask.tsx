@@ -10,7 +10,11 @@ import {
 import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
 import { createLocalID } from '@Utils/createId';
 import React from 'react';
-import { IDestination, ITask, ITaskStatus } from 'vl-shared/src/schemas/RoutesSchema';
+import type {
+  IDestination,
+  ITask,
+  ITaskStatus,
+} from 'vl-shared/src/schemas/RoutesSchema';
 
 import { getSiblingDestinations } from '../../RouteUtilities';
 

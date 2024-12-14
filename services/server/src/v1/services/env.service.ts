@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import 'dotenv/config';
 import colors from 'colors/safe';
-import { envConfig, EnvironmentConfig } from '@Configs/Environment';
+import { envConfig, type EnvironmentConfig } from '@Configs/Environment';
 import { Logger } from '@Utils/Logger';
 let has_warned = false;
 @injectable()
@@ -72,7 +72,7 @@ export class EnvService implements EnvironmentConfig {
           break;
         }
         case 'number': {
-          this[prop] = parseFloat(envar) as never;
+          this[prop] = Number.parseFloat(envar) as never;
           break;
         }
       }

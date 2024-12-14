@@ -2,7 +2,7 @@ import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Typography } from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers';
-import React from 'react';
+import type React from 'react';
 
 export const OrgActivityBox: React.FC = () => {
   return (

@@ -3,7 +3,7 @@ import Pally from '@Assets/media/MenuPage/Pally.png?url';
 import { useSoundEffect } from '@Audio/AudioManager';
 import { Discord, KoFi, Patreon } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { ButtonBase, IconButton } from '@mui/material';
-import React from 'react';
+import type React from 'react';
 
 export const SupportBar: React.FC = () => {
   const sound = useSoundEffect();

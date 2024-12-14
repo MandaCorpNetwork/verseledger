@@ -8,7 +8,7 @@ import { postContractInvite } from '@Redux/Slices/Bids/Actions/post/postContract
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
-import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 export const POPUP_USER_INVITE = 'userInvite';
 

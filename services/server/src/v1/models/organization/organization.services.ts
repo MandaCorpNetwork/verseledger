@@ -1,10 +1,10 @@
 import { Logger } from '@Utils/Logger';
 import { injectable } from 'inversify';
-import { ICreateOrganizationCMD } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
+import type { ICreateOrganizationCMD } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 import { Organization } from './organization.model';
 import { Op } from 'sequelize';
 import { BadRequestError } from '@V1/errors/BadRequest';
-import { IOrgSearchCMD } from 'vl-shared/src/schemas/orgs/OrgSearchCMD';
+import type { IOrgSearchCMD } from 'vl-shared/src/schemas/orgs/OrgSearchCMD';
 import { optionalSet, queryLike } from '@Utils/Sequelize/queryIn';
 import { OrganizationMember } from './organization_member.model';
 import { OrganizationRank } from './organization_rank.model';

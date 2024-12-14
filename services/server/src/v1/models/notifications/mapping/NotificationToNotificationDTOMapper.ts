@@ -1,7 +1,7 @@
 import { Mapper } from '@Infrastructure/Mapper';
-import { Notification } from '@V1/models/notifications/notification.model';
+import type { Notification } from '@V1/models/notifications/notification.model';
 import { NotificationDTO } from './NotificationDTO';
-import { INotification } from 'vl-shared/src/schemas/NotificationSchema';
+import type { INotification } from 'vl-shared/src/schemas/NotificationSchema';
 
 export class NotificationToNotificationDTOMapper extends Mapper<
   Notification,

@@ -11,7 +11,7 @@ import { selectNotificationsUnreadCount } from '@Redux/Slices/Notifications/noti
 import { closeWidget, openWidget } from '@Redux/Slices/Widgets/widgets.actions';
 import { WIDGET_RADIO } from '@Widgets/Radio/Radio';
 import React, { Suspense } from 'react';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { LocationExplorerTool } from './LocationExplorerTool';
 import { RadioStationApp } from './RadioStationApp';

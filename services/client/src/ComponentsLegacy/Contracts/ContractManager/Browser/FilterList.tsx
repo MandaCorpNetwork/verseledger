@@ -1,6 +1,6 @@
 import { DropdownFilter } from '@CommonLegacy/Components/App/DropdownFilter';
 import { ElevatedDropdownBox } from '@CommonLegacy/Components/Collapse/ElevatedDropdownBox';
-import React from 'react';
+import type React from 'react';
 
 type FilterListProps = {
   /** Sets the List Collapse to Open or Close */

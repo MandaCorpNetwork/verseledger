@@ -4,7 +4,7 @@ import { SensorOccupiedTwoTone } from '@mui/icons-material';
 import { Box } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
-import { bindTrigger, PopupState } from 'material-ui-popup-state/hooks';
+import { bindTrigger, type PopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 
 type UserStateIconProps = {

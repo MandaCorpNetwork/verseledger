@@ -6,7 +6,7 @@ import {
   FormControl,
   FormLabel,
   IconButton,
-  SelectChangeEvent,
+  type SelectChangeEvent,
   TextField,
   Typography,
 } from '@mui/material';
@@ -18,16 +18,16 @@ import { TableSelect } from '@Popups/FeedbackForm/Fields/TableSelect';
 import { ToolSelect } from '@Popups/FeedbackForm/Fields/ToolSelect';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
-import { IFeedbackConcern } from 'vl-shared/src/schemas/FeedbackConcernSchema';
-import { IFeedbackFeatures } from 'vl-shared/src/schemas/FeedbackFeatureSchema';
-import {
+import type { IFeedbackConcern } from 'vl-shared/src/schemas/FeedbackConcernSchema';
+import type { IFeedbackFeatures } from 'vl-shared/src/schemas/FeedbackFeatureSchema';
+import type {
   IFeatureQueFeedback,
   IFeedbackForm,
   IFeedbackNeeds,
 } from 'vl-shared/src/schemas/FeedbackFormSchema';
-import { IFeedbackServices } from 'vl-shared/src/schemas/FeedbackServiceSchema';
-import { IFeedbackTables } from 'vl-shared/src/schemas/FeedbackTableSchema';
-import { IFeedbackTools } from 'vl-shared/src/schemas/FeedbackToolSchema';
+import type { IFeedbackServices } from 'vl-shared/src/schemas/FeedbackServiceSchema';
+import type { IFeedbackTables } from 'vl-shared/src/schemas/FeedbackTableSchema';
+import type { IFeedbackTools } from 'vl-shared/src/schemas/FeedbackToolSchema';
 
 export const FeatureQueForm: React.FC<{
   formData: Partial<IFeedbackForm> | IFeedbackForm;

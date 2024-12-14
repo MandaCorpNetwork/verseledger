@@ -4,9 +4,9 @@ import { profileBackgroundMap } from '@Common/Definitions/Themes/UserBackgroundM
 import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { AccountBox, Message } from '@mui/icons-material';
 import { Avatar, Box, IconButton, Popper, Typography } from '@mui/material';
-import React, { PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IUserWithSettings } from 'vl-shared/src/schemas/UserSchema';
+import type { IUserWithSettings } from 'vl-shared/src/schemas/UserSchema';
 
 type MiniPlayerCardProps = PropsWithChildren<{
   /** User Object passed to the component */

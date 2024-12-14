@@ -1,4 +1,4 @@
-import { Response } from 'express';
+import type { Response } from 'express';
 
 export type NetIssue = {
   code: string;
@@ -11,7 +11,7 @@ export class NetworkError<T extends string, I extends Record<string, string>> {
   public name: T;
   public statusCode: number;
   constructor(
-    statusCode: number = 500,
+    statusCode = 500,
     name: T = 'UnhandledError' as T,
     ...issues: Array<I | NetIssue>
   ) {

@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
-import { IDTO } from 'vl-shared/src/schemas/DTOSchema';
-import {
+import type { IDTO } from 'vl-shared/src/schemas/DTOSchema';
+import type {
   IUpdateUserSettingsFlagsCMD,
   IUserSettings,
 } from 'vl-shared/src/schemas/UserSettings';

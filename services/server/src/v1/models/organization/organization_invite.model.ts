@@ -13,8 +13,8 @@ import {
 import { User } from '@V1/models/user/user.model';
 import { OrganizationMember } from './organization_member.model';
 import { IdUtil } from '@Utils/IdUtil';
-import { IOrganizationInviteStatus } from 'vl-shared/src/schemas/orgs/OrganizationInviteSchema';
-import {
+import type { IOrganizationInviteStatus } from 'vl-shared/src/schemas/orgs/OrganizationInviteSchema';
+import type {
   CreationOptional,
   InferAttributes,
   InferCreationAttributes,

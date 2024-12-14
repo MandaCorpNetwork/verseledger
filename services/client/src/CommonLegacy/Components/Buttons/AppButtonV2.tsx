@@ -3,7 +3,7 @@ import '@Assets/Css/AppDockV3.css';
 import { useSoundEffect } from '@Audio/AudioManager';
 import { POPUP_APP_LIST } from '@CommonLegacy/AppDockV3/Tools/AllAppsModal';
 import type { SvgIconComponent } from '@mui/icons-material';
-import { Button, SvgIcon, Typography, TypographyProps } from '@mui/material';
+import { Button, SvgIcon, Typography, type TypographyProps } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectAnimations, selectQuality } from '@Redux/Slices/Auth/auth.selectors';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';

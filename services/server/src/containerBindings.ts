@@ -1,4 +1,4 @@
-import { Container } from 'inversify';
+import type { Container } from 'inversify';
 
 import { ContractService } from '@V1/models/contract/contract.service';
 import { TYPES } from '@Constant/types';

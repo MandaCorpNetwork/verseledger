@@ -7,7 +7,7 @@ import { Box, Collapse, IconButton, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
-import { ILocationWithContractLocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { ILocationWithContractLocation } from 'vl-shared/src/schemas/LocationSchema';
 
 type LocationsDisplayProps = {
   locations: ILocationWithContractLocation[];

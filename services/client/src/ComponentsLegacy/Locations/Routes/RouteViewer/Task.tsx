@@ -16,7 +16,7 @@ import {
 } from '@Redux/Slices/Routes/actions/activeRoute.action';
 import { currentRouteLoad } from '@Redux/Slices/Routes/routes.selectors';
 import React from 'react';
-import { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
+import type { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 type RouteViewerTaskProps = {
   task: ITask;

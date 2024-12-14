@@ -3,8 +3,8 @@ import { PayField } from '@CommonLegacy/Components/TextFields/PayField';
 import { Box, FormControlLabel, MenuItem, Select, Switch } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
-import { ICreateContractBody } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import type { ICreateContractBody } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 export const FlatRatePayroll: React.FC<{
   formData: Partial<ICreateContractBody>;

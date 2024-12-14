@@ -11,7 +11,7 @@ import {
   SvgIcon,
   Typography,
 } from '@mui/material';
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 type ContractListDropdownProps = PropsWithChildren<{
   /** Function to trigger on Expand */

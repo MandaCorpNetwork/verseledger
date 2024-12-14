@@ -1,6 +1,12 @@
 import 'reflect-metadata';
 import { setupModels } from './connection';
-import { json, urlencoded, Request, Response, NextFunction } from 'express';
+import {
+  json,
+  urlencoded,
+  type Request,
+  type Response,
+  type NextFunction,
+} from 'express';
 import * as swagger from 'swagger-express-ts';
 import cors from 'cors';
 import './v1';

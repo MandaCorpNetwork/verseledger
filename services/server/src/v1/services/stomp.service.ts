@@ -6,7 +6,7 @@ import { WebSocket } from 'ws';
 import { Logger } from '@Utils/Logger';
 import { EnvService } from './env.service';
 import { TYPES } from '@Constant/types';
-import { SubscriptionService } from '@V1/models/subscriptions/subscriptions.service';
+import type { SubscriptionService } from '@V1/models/subscriptions/subscriptions.service';
 Object.assign(global, { WebSocket });
 const env = new EnvService();
 //TODO: Set Up Users

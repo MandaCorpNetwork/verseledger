@@ -1,6 +1,6 @@
 import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
 import { DTOBase } from '@V1/DTO/DTOBase';
-import { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
+import type { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
 
 @ApiModel({
   description: 'Contract Bid Object',

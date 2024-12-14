@@ -1,6 +1,6 @@
 import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
 import { DTOBase } from '@V1/DTO/DTOBase';
-import {
+import type {
   IRatingType,
   IUserRating,
 } from 'vl-shared/src/schemas/UserRatingsSchema';

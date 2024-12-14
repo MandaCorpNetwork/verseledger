@@ -1,8 +1,8 @@
 import { usersActions as userActions } from '@Redux/Slices/Users/users.reducer';
-import { AppDispatch } from '@Redux/store';
-import { Middleware } from 'redux';
-import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
-import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { AppDispatch } from '@Redux/store';
+import type { Middleware } from 'redux';
+import type { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
+import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { fetchContracts } from '../Contracts/actions/get/fetchContracts.action';
 

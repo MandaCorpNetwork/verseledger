@@ -5,8 +5,8 @@ import { Box, ButtonBase, Tooltip, Typography, useTheme } from '@mui/material';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
-import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 type ContractManagerCardProps = {
   /** The Contract Being Rendered */

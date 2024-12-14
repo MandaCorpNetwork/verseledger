@@ -5,7 +5,7 @@ import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { Float3, MathX } from 'vl-shared/src/math';
-import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
+import type { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
 type OtherStopProps = {
   destination: IDestination;

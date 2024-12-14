@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
-import { IDTOComplete } from 'vl-shared/src/schemas/DTOSchema';
-import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import type { IDTOComplete } from 'vl-shared/src/schemas/DTOSchema';
+import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 import { usersActions } from '../users.reducer';
 

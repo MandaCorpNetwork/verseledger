@@ -1,5 +1,5 @@
 import { createEntityAdapter } from '@reduxjs/toolkit';
-import { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
+import type { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 export const destinationsAdapter = createEntityAdapter({
   selectId: (destination: IDestination) => destination.id,

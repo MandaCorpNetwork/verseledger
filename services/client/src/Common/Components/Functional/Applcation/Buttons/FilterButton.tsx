@@ -1,7 +1,7 @@
 import { FilterAlt } from '@mui/icons-material';
-import { Badge, IconButton, IconButtonProps, useTheme } from '@mui/material';
+import { Badge, IconButton, type IconButtonProps, useTheme } from '@mui/material';
 import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
-import React from 'react';
+import type React from 'react';
 
 export const FilterButton: React.FC<IconButtonProps> = (props) => {
   const theme = useTheme();

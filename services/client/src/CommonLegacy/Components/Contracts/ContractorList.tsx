@@ -7,8 +7,8 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
-import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 import { Contractor } from './ContractorItem';
 

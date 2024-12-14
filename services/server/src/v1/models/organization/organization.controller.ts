@@ -9,19 +9,19 @@ import {
   requestParam,
 } from 'inversify-express-utils';
 import { ApiOperationGet, ApiOperationPost, ApiPath } from 'swagger-express-ts';
-import { OrganizationService } from './organization.services';
+import type { OrganizationService } from './organization.services';
 import { inject } from 'inversify';
-import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
-import { NextFunction } from 'express';
+import type { VLAuthPrincipal } from '@AuthProviders/VL.principal';
+import type { NextFunction } from 'express';
 import {
   createOrganizationCMD,
-  ICreateOrganizationCMD,
+  type ICreateOrganizationCMD,
 } from 'vl-shared/src/schemas//orgs/OrganizationSchema';
 import { BadRequestError } from '@V1/errors/BadRequest';
 import { OrganizationToOrganizationDTO } from './mapping/OrganizationToOrganizationDTO.mapper';
 import { ZodToOpenapi } from '@Utils/ZodToOpenapi';
 import {
-  IOrgSearchCMD,
+  type IOrgSearchCMD,
   OrgSearchCMD,
 } from 'vl-shared/src/schemas/orgs/OrgSearchCMD';
 import { IdUtil } from '@Utils/IdUtil';

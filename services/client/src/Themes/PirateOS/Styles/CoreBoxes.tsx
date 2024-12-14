@@ -4,8 +4,8 @@ import ObjectsUI from '@Assets/Images/Textures/ConscientiousObjects.jpg?url';
 import Shotgun from '@Assets/Images/Textures/shotgun.png?url';
 import Skutters from '@Assets/Images/Textures/SkuttersUI.png?url';
 import { logoThemeMap } from '@Common/Definitions/Themes/themeMaps';
-import { SxProps } from '@mui/material';
-import { alpha, Theme } from '@mui/material/styles';
+import type { SxProps } from '@mui/material';
+import { alpha, type Theme } from '@mui/material/styles';
 
 export const pirateOSCoreBoxes: ThemeStyledComponents = {
   AppDisplay: (theme: Theme): SxProps<Theme> => ({

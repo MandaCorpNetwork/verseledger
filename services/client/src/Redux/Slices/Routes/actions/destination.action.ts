@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
+import type { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
 export const addDestinations = createAction<IDestination[]>('routes/addDestinations');
 

@@ -1,13 +1,16 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import { FormControl, FormLabel, SelectChangeEvent, TextField } from '@mui/material';
+import { FormControl, FormLabel, type SelectChangeEvent, TextField } from '@mui/material';
 import { BrowserSelect } from '@Popups/FeedbackForm/Fields/BrowserSelect';
 import { FeatureSelect } from '@Popups/FeedbackForm/Fields/FeatureSelect';
 import { ToolSelect } from '@Popups/FeedbackForm/Fields/ToolSelect';
 import React from 'react';
-import { IBrowser } from 'vl-shared/src/schemas/FeedbackBrowserSchema';
-import { IFeedbackFeatures } from 'vl-shared/src/schemas/FeedbackFeatureSchema';
-import { IBugFeedback, IFeedbackForm } from 'vl-shared/src/schemas/FeedbackFormSchema';
-import { IFeedbackTools } from 'vl-shared/src/schemas/FeedbackToolSchema';
+import type { IBrowser } from 'vl-shared/src/schemas/FeedbackBrowserSchema';
+import type { IFeedbackFeatures } from 'vl-shared/src/schemas/FeedbackFeatureSchema';
+import type {
+  IBugFeedback,
+  IFeedbackForm,
+} from 'vl-shared/src/schemas/FeedbackFormSchema';
+import type { IFeedbackTools } from 'vl-shared/src/schemas/FeedbackToolSchema';
 
 export const BugForm: React.FC<{
   formData: Partial<IFeedbackForm> | IFeedbackForm;

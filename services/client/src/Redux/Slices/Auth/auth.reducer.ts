@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthUtil } from '@Utils/AuthUtil';
-import { IDTO } from 'vl-shared/src/schemas/DTOSchema';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-import { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
+import type { IDTO } from 'vl-shared/src/schemas/DTOSchema';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
 
 import { fetchCheckVerificationCode } from './Actions/checkVerificationCode.action';
 import { fetchCurrentUser } from './Actions/fetchCurrentUser.action';

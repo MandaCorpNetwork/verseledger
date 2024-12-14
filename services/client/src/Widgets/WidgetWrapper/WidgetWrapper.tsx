@@ -3,7 +3,7 @@ import { Close, Maximize, Minimize } from '@mui/icons-material';
 import { Box, Collapse, IconButton, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { closeWidget } from '@Redux/Slices/Widgets/widgets.actions';
-import React, { PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
 import { Float2 } from 'vl-shared/src/math';
 
 type VLWidgetProps = PropsWithChildren<{

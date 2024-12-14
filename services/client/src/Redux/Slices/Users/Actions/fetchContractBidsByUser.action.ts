@@ -3,9 +3,9 @@ import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { composeQuery } from '@Utils/composeQuery';
 import { Logger } from '@Utils/Logger';
-import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
-import { IUserBidSearch } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
-import { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
+import type { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
+import type { IUserBidSearch } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
+import type { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
 
 export const fetchContractBidsOfUser = createAsyncThunk(
   'GET /v1/users/userId/bids',

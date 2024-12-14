@@ -11,19 +11,19 @@ import {
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
-import { ContractService } from '@V1/models/contract/contract.service';
-import { NextFunction } from 'express';
+import type { ContractService } from '@V1/models/contract/contract.service';
+import type { NextFunction } from 'express';
 import { BodyError } from '@V1/errors/BodyError';
-import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
+import type { VLAuthPrincipal } from '@AuthProviders/VL.principal';
 import { IdUtil } from '@Utils/IdUtil';
 import { BadParameterError } from '@V1/errors/BadParameter';
 import { NotFoundError } from '@V1/errors/NotFoundError';
 import {
   CreateContractBodySchema,
-  IContract,
+  type IContract,
   UpdateContractSchema,
 } from 'vl-shared/src/schemas/contracts/ContractSchema';
-import { ZodError } from 'zod';
+import type { ZodError } from 'zod';
 import {
   ApiOperationGet,
   ApiOperationPatch,
@@ -37,7 +37,7 @@ import { GenericError } from '@V1/errors/GenericError';
 import { PaginatedDataDTO } from '@V1/DTO/PaginatedDataDTO';
 import { ContractDTO } from '@V1/models/contract/mapping/ContractDTO';
 import { UnauthorizedError } from '@V1/errors/UnauthorizedError';
-import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
+import type { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 import { ContractToContractDTOMapper } from './mapping/contract.mapper';
 
 @ApiPath({

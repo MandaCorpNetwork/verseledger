@@ -11,14 +11,14 @@ import {
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
-import { ContractService } from '@V1/models/contract/contract.service';
+import type { ContractService } from '@V1/models/contract/contract.service';
 import {
   ApiOperationGet,
   ApiOperationPatch,
   ApiOperationPost,
   ApiPath,
 } from 'swagger-express-ts';
-import { NextFunction } from 'express';
+import type { NextFunction } from 'express';
 import { BadParameterError } from '@V1/errors/BadParameter';
 import { IdUtil } from '@Utils/IdUtil';
 import { NotFoundError } from '@V1/errors/NotFoundError';
@@ -26,11 +26,11 @@ import { PaginatedDataDTO } from '@V1/DTO';
 import { ContractBidDTO } from './mapping/ContractBidDTO';
 import { UnauthorizedError } from '@V1/errors/UnauthorizedError';
 import { NotModified } from '@V1/errors/NotModified';
-import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
+import type { VLAuthPrincipal } from '@AuthProviders/VL.principal';
 import { ContractBidStatusSchema } from 'vl-shared/src/schemas/contracts/ContractBidStatusSchema';
 import { z } from 'zod';
-import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
-import { ContractBidsService } from './contract_bid.service';
+import type { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
+import type { ContractBidsService } from './contract_bid.service';
 
 @ApiPath({
   path: '/v1/contracts/{contractId}/bids',

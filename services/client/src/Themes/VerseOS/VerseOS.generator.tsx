@@ -2,7 +2,7 @@ import '@Assets/Css/fonts.css';
 
 import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
 import type {} from '@mui/lab/themeAugmentation';
-import { Theme, ThemeOptions } from '@mui/material';
+import type { Theme, ThemeOptions } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
 export const generateVerseOSBase = (

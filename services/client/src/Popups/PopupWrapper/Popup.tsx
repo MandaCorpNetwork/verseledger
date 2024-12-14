@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
-import React, { PropsWithChildren, ReactElement, useCallback } from 'react';
+import React, { type PropsWithChildren, type ReactElement, useCallback } from 'react';
 
 export type TitleWithObject = {
   text: string;

@@ -1,4 +1,4 @@
-import { Action, createSlice } from '@reduxjs/toolkit';
+import { type Action, createSlice } from '@reduxjs/toolkit';
 
 import { closeWidget, openWidget } from './widgets.actions';
 

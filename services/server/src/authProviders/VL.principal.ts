@@ -1,5 +1,5 @@
-import { User } from '@V1/models/user/user.model';
-import { interfaces } from 'inversify-express-utils';
+import type { User } from '@V1/models/user/user.model';
+import type { interfaces } from 'inversify-express-utils';
 import { ApiPermission } from 'vl-shared/src/enum/ApiPermission';
 
 export class VLAuthPrincipal implements interfaces.Principal {

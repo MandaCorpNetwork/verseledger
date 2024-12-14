@@ -3,7 +3,8 @@ import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { createUserTokens } from '@Redux/Slices/Tokens/Actions/createUserToken.action';
-import React, { useState } from 'react';
+import type React from 'react';
+import { useState } from 'react';
 import { ApiPermission } from 'vl-shared/src/enum/ApiPermission';
 
 import { PermissionGroup } from './PermissionGroup';

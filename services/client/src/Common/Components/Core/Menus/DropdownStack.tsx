@@ -1,5 +1,5 @@
-import { Stack, SxProps } from '@mui/material';
-import { styled, Theme } from '@mui/material/styles';
+import { Stack, type SxProps } from '@mui/material';
+import { styled, type Theme } from '@mui/material/styles';
 import { generateStyles } from '@Utils/GenerateStyles';
 
 const defaultStyles: SxProps<Theme> = {

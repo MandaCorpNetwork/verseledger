@@ -5,7 +5,7 @@ import { POPUP_CREATE_MISSION } from '@Popups/Routes/AddMission/AddMission';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
-import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
+import type { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { Mission } from './Mission';
 

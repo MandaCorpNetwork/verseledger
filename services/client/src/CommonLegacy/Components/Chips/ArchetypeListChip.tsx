@@ -1,4 +1,4 @@
-import { Chip, ChipProps, styled } from '@mui/material';
+import { Chip, type ChipProps, styled } from '@mui/material';
 
 interface StyledChipProps extends ChipProps {
   isSelected?: boolean;

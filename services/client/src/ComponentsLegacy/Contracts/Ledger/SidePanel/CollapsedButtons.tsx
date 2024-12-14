@@ -1,7 +1,7 @@
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { AddCircle, ErrorTwoTone, Search } from '@mui/icons-material';
 import { IconButton, Slide, SvgIcon, Tooltip } from '@mui/material';
-import React from 'react';
+import type React from 'react';
 
 type CollapsedButtonsProps = {
   isExpanded: boolean;

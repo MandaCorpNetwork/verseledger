@@ -9,7 +9,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { User } from '@V1/models/user/user.model';
-import {
+import type {
   CreationOptional,
   InferAttributes,
   InferCreationAttributes,

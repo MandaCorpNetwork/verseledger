@@ -1,4 +1,4 @@
-import { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTypeSchema';
+import type { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTypeSchema';
 
 export enum QueryNames {
   ContractManagerTab = 'cmTab',

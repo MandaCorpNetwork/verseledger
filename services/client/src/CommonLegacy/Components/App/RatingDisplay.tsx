@@ -22,7 +22,7 @@ export const RatingDisplay: React.FC<RatingDisplayProps> = (props) => {
   const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
 
   const ratingBackground = React.useCallback(
-    (color: 'red' | 'green', filled: boolean, isHovered: boolean = false) => {
+    (color: 'red' | 'green', filled: boolean, isHovered = false) => {
       if (isHovered && variant === 'submission') {
         return color === 'red'
           ? 'linear-gradient(135deg, rgba(255,150,150), rgba(200,0,0))'

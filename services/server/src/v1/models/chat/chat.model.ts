@@ -8,8 +8,8 @@ import {
 } from 'sequelize-typescript';
 
 import { IdUtil } from '@Utils/IdUtil';
-import { CreationOptional, ForeignKey as ForeignKeyType } from 'sequelize';
-import { IChat } from 'vl-shared/src/schemas/ChatSchema';
+import type { CreationOptional, ForeignKey as ForeignKeyType } from 'sequelize';
+import type { IChat } from 'vl-shared/src/schemas/ChatSchema';
 @Table({ tableName: 'chat', timestamps: true })
 export class Chat extends Model implements IChat {
   @Column({ type: DataType.VIRTUAL })

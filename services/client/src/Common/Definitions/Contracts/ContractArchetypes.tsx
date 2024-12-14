@@ -6,7 +6,7 @@ import ProxyLoop from '@Assets/media/ContractLedger/ProxyLoop.webm?url';
 import RRRLoop from '@Assets/media/ContractLedger/RRRLoop.webm?url';
 import SalvageLoop from '@Assets/media/ContractLedger/SalvLoop.webm?url';
 import SecurityLoop from '@Assets/media/ContractLedger/SecLoop.webm?url';
-import { SvgIconComponent } from '@mui/icons-material';
+import type { SvgIconComponent } from '@mui/icons-material';
 
 import {
   Exploration,

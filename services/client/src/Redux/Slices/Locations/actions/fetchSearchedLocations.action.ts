@@ -3,10 +3,10 @@ import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { composeQuery } from '@Utils/composeQuery';
 import { Logger } from '@Utils/Logger';
-import { IDTOComplete } from 'vl-shared/src/schemas/DTOSchema';
-import { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-import { ILocationSearch } from 'vl-shared/src/schemas/SearchSchema';
+import type { IDTOComplete } from 'vl-shared/src/schemas/DTOSchema';
+import type { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { ILocationSearch } from 'vl-shared/src/schemas/SearchSchema';
 
 import { locationsActions } from '../locations.reducer';
 

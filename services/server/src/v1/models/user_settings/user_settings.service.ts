@@ -1,7 +1,7 @@
 import { Logger } from '@Utils/Logger';
 import { injectable } from 'inversify';
 import { UserSettingsRepository } from './user_settings.repository';
-import { IUpdateUserSettingsCMD } from 'vl-shared/src/schemas/UserSettings';
+import type { IUpdateUserSettingsCMD } from 'vl-shared/src/schemas/UserSettings';
 import { UserSettingCMDToUserSettingsDataMapper } from './mapping/UserSettingCMDToUserSettingsData.mapper';
 
 @injectable()

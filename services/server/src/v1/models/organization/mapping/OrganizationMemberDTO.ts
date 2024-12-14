@@ -1,7 +1,7 @@
 import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
 import { DTOBase } from '@V1/DTO/DTOBase';
 import { UserDTO } from '@V1/models/user/mapping/UserDTO';
-import { IOrganizationMember } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
+import type { IOrganizationMember } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 import { OrganizationDTO } from './OrganizationDTO';
 
 @ApiModel({

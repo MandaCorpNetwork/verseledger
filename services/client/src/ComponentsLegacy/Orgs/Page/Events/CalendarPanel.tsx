@@ -2,7 +2,7 @@ import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentConta
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { Typography } from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers';
-import React from 'react';
+import type React from 'react';
 
 export const OrgCalendarPanel: React.FC = () => {
   return (

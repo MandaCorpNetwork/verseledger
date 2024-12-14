@@ -1,6 +1,6 @@
 import { createLocalID } from '@Utils/createId';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-import { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 export function createTaskArray(value: {
   missionId: string;

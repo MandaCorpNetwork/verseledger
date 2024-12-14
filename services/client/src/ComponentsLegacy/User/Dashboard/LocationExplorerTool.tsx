@@ -22,7 +22,7 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 // import { Gauge, gaugeClasses } from '@mui/x-charts';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 type LocationExplorerToolProps = {
   selectedLocation: ILocation | null;

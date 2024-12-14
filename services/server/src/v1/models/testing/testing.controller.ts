@@ -9,10 +9,10 @@ import {
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
-import { UserService } from '@V1/models/user/user.service';
-import { AuthService } from '@V1/models/auth/auth.service';
-import { ContractService } from '@V1/models/contract/contract.service';
-import { NextFunction } from 'express';
+import type { UserService } from '@V1/models/user/user.service';
+import type { AuthService } from '@V1/models/auth/auth.service';
+import type { ContractService } from '@V1/models/contract/contract.service';
+import type { NextFunction } from 'express';
 import { BadRequestError } from '@V1/errors/BadRequest';
 import { User } from '@V1/models/user/user.model';
 @controller('/@TESTING', TYPES.TestingMiddleware)

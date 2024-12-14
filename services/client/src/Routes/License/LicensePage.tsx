@@ -4,7 +4,7 @@ import '@ComponentsLegacy/Home/Home.css';
 import backgroundvideo from '@Assets/media/MenuPage/backgroundvideo.webm?url';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { Box } from '@mui/material';
-import React from 'react';
+import type React from 'react';
 
 import License from './License.mdx';
 

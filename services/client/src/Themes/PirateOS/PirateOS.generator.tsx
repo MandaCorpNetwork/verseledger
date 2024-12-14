@@ -1,6 +1,6 @@
 import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
-import { ThemeOptions } from '@mui/material';
-import { createTheme, Theme } from '@mui/material/styles';
+import type { ThemeOptions } from '@mui/material';
+import { createTheme, type Theme } from '@mui/material/styles';
 
 export const generatePirateOSBase = (
   palette: Theme,

@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
-import { IFeedbackForm } from 'vl-shared/src/schemas/FeedbackFormSchema';
+import type { IFeedbackForm } from 'vl-shared/src/schemas/FeedbackFormSchema';
 
 import { FeedbackForm } from './FeedbackForm';
 import { FeedbackIntro } from './FeedbackIntro';

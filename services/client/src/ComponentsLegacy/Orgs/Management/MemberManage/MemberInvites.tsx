@@ -7,7 +7,7 @@ import { Button, Collapse, IconButton, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import React from 'react';
-import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 export const MemberInvites: React.FC = () => {
   const [expanded, setExpanded] = React.useState<boolean>(false);

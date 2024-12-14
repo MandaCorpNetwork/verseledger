@@ -6,7 +6,7 @@ import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField
 import { Box, Chip, Divider, TextField, Typography } from '@mui/material';
 import { SparkLineChart } from '@mui/x-charts';
 import { isDev } from '@Utils/isDev';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 type InfoDisplayProps = {
   selectedLocation: ILocation | null;

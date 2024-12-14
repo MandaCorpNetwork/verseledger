@@ -1,17 +1,17 @@
 import { AllApps, POPUP_APP_LIST } from '@CommonLegacy/AppDockV3/Tools/AllAppsModal';
 import {
   AddLocationPopup,
-  AddLocationProps,
+  type AddLocationProps,
   POPUP_ADD_LOCATION,
 } from '@Popups/AddLocation/AddLocation';
 import {
-  ContractBidProps,
+  type ContractBidProps,
   POPUP_SUBMIT_CONTRACT_BID,
   SubmitContractBid,
 } from '@Popups/Contracts/ContractBids/ContractBid';
 import {
   CounterOfferBid,
-  CounterOfferBidProps,
+  type CounterOfferBidProps,
   POPUP_COUNTER_OFFER_BID,
 } from '@Popups/Contracts/ContractBids/CounterOffer';
 import {
@@ -20,23 +20,23 @@ import {
 } from '@Popups/Contracts/CreateContract/CreateContract';
 import {
   EditContractPopup,
-  EditContractPopupProps,
+  type EditContractPopupProps,
   POPUP_EDIT_CONTRACT,
 } from '@Popups/Contracts/EditContract/EditContract';
 import { FeedbackPopup, POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
 import {
   ImportFilePopup,
-  ImportFileProps,
+  type ImportFileProps,
   POPUP_IMPORT_FILE,
 } from '@Popups/Import/ImportFile';
 import {
   ArchetypeInfoPopup,
-  ArchetypeInfoProps,
+  type ArchetypeInfoProps,
   POPUP_ARCHETYPE_INFO,
 } from '@Popups/Info/Archetypes';
 import {
   LocationInfoPopup,
-  LocationInfoProps,
+  type LocationInfoProps,
   POPUP_LOCATION_INFO,
 } from '@Popups/Info/Locations';
 import { PayStructuresPopup, POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
@@ -45,13 +45,13 @@ import { AddOrgPopup, POPUP_ADD_ORG } from '@Popups/Orgs/AddOrg/AddOrg';
 import { CreateOrgPopup, POPUP_CREATE_ORG } from '@Popups/Orgs/CreateOrg/CreateOrg';
 import {
   PlayerCardPopup,
-  PlayerCardPopupProps,
+  type PlayerCardPopupProps,
   POPUP_PLAYER_CARD,
 } from '@Popups/PlayerCard/PlayerCard';
 import {
   POPUP_SUBMIT_RATING,
   SubmitRatingPopup,
-  SubmitRatingPopupProps,
+  type SubmitRatingPopupProps,
 } from '@Popups/Ratings/SubmitRating';
 import {
   AddMissionPopup,
@@ -63,22 +63,22 @@ import { CreateTokenPopup, POPUP_CREATE_TOKEN } from '@Popups/Tokens/CreateToken
 import {
   POPUP_SHOW_TOKEN,
   ShowTokenPopup,
-  ShowTokenPopupProps,
+  type ShowTokenPopupProps,
 } from '@Popups/Tokens/ShowToken';
 import {
   POPUP_USER_INVITE,
   UserInvitePopup,
-  UserInvitePopupProps,
+  type UserInvitePopupProps,
 } from '@Popups/UserInvite/UserInvite';
 import { POPUP_VERIFY_USER, VerifyUserPopup } from '@Popups/VerifyPopup/VerifyUser';
 import {
   POPUP_YOU_SURE,
   YouSurePopup,
-  YouSurePopupProps,
+  type YouSurePopupProps,
 } from '@Popups/VerifyPopup/YouSure';
 import { useAppSelector } from '@Redux/hooks';
 import { selectPopup } from '@Redux/Slices/Popups/popups.selectors';
-import React from 'react';
+import type React from 'react';
 
 export const PopupManager: React.FC = () => {
   const feedbackPopup = useAppSelector((state) => selectPopup(state, POPUP_FEEDBACK));

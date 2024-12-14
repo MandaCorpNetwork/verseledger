@@ -1,8 +1,8 @@
 import { createLocalID } from '@Utils/createId';
 import { Logger } from '@Utils/Logger';
 import { Float3, MathX } from 'vl-shared/src/math';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-import { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 export interface MappedLocation {
   location: ILocation;
@@ -170,7 +170,7 @@ export function getEfficientDistancePath(
 
   // Initialize the Distance Matrix
   const distMatrix: number[][] = Array.from({ length: totalLocations }, () =>
-    Array(totalLocations).fill(Infinity),
+    Array(totalLocations).fill(Number.POSITIVE_INFINITY),
   );
 
   // Initialize the Next Function
@@ -297,7 +297,7 @@ export function getEfficientDistancePath(
 
       // Find the Next Location
       let nextLocation: number | null = null;
-      let minDistance = Infinity;
+      let minDistance = Number.POSITIVE_INFINITY;
       for (let i = 0; i < totalTasks; i++) {
         if (
           !visitedLocations.has(i) &&

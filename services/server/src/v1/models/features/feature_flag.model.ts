@@ -1,5 +1,5 @@
 import { IdUtil } from '@Utils/IdUtil';
-import {
+import type {
   CreationOptional,
   InferAttributes,
   InferCreationAttributes,
@@ -13,7 +13,7 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
-import { IFeatureFlag } from 'vl-shared/src/schemas/FeatureFlagSchema';
+import type { IFeatureFlag } from 'vl-shared/src/schemas/FeatureFlagSchema';
 
 @Table({ tableName: 'feature_flags', timestamps: true })
 export class FeatureFlag

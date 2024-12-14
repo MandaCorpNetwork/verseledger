@@ -1,5 +1,5 @@
-import { Accordion, SxProps } from '@mui/material';
-import { styled, Theme } from '@mui/material/styles';
+import { Accordion, type SxProps } from '@mui/material';
+import { styled, type Theme } from '@mui/material/styles';
 import { generateStyles } from '@Utils/GenerateStyles';
 
 const defaultStyle: SxProps<Theme> = (_theme: Theme) => ({});

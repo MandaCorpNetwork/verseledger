@@ -9,12 +9,12 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { TextFieldProps } from '@mui/material/TextField';
+import type { TextFieldProps } from '@mui/material/TextField';
 import { useAppDispatch } from '@Redux/hooks';
 import { fetchSearchUsers } from '@Redux/Slices/Users/Actions/fetchSearchUsers.action';
 import { fetchSearchUserId } from '@Redux/Slices/Users/Actions/fetchUserById.action';
 import React from 'react';
-import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 interface UserSearchProps extends Pick<TextFieldProps, 'color' | 'size' | 'variant'> {
   width?: string;

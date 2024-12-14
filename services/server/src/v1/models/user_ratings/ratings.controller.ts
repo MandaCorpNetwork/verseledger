@@ -1,4 +1,4 @@
-import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
+import type { VLAuthPrincipal } from '@AuthProviders/VL.principal';
 import { RatingDTO } from './mapping/UserRatingDTO';
 import { IdUtil } from '@Utils/IdUtil';
 import { Logger } from '@Utils/Logger';
@@ -7,8 +7,8 @@ import { TYPES } from '@Constant/types';
 import { BadParameterError } from '@V1/errors/BadParameter';
 import { BadRequestError } from '@V1/errors/BadRequest';
 import { NotFoundError } from '@V1/errors/NotFoundError';
-import { RatingService } from '@V1/models/user_ratings/rating.service';
-import { NextFunction } from 'express';
+import type { RatingService } from '@V1/models/user_ratings/rating.service';
+import type { NextFunction } from 'express';
 import { inject } from 'inversify';
 import {
   BaseHttpController,
@@ -21,11 +21,11 @@ import { ApiOperationPost, ApiPath } from 'swagger-express-ts';
 import {
   CreateContractRatingsBodySchema,
   CreateUserRatingBodySchema,
-  ICreateContractRatingsBody,
-  ICreateUserRatingBody,
-  IUserRating,
+  type ICreateContractRatingsBody,
+  type ICreateUserRatingBody,
+  type IUserRating,
 } from 'vl-shared/src/schemas/UserRatingsSchema';
-import { ContractService } from '@V1/models/contract/contract.service';
+import type { ContractService } from '@V1/models/contract/contract.service';
 import { UserRepository } from '@V1/models/user/user.repository';
 
 @ApiPath({

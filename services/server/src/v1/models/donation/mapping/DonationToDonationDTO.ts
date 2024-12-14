@@ -1,7 +1,7 @@
 import { Mapper } from '@Infrastructure/Mapper';
-import { Donation } from '../donation.model';
+import type { Donation } from '../donation.model';
 import { DonationDTO } from './DonationDTO';
-import { IDonation } from 'vl-shared/src/schemas/DonationSchema';
+import type { IDonation } from 'vl-shared/src/schemas/DonationSchema';
 
 export class DonationToDonationDTOMapper extends Mapper<Donation, DonationDTO> {
   public static override map(artifact: Donation): DonationDTO {

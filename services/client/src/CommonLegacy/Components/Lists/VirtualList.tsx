@@ -4,7 +4,7 @@ import {
   Children,
   forwardRef,
   type HTMLAttributes,
-  Key,
+  type Key,
   type ReactElement,
   useRef,
 } from 'react';

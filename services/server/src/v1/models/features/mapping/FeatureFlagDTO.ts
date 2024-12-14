@@ -1,6 +1,6 @@
 import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
 import { DTOBase } from '@V1/DTO/DTOBase';
-import { IFeatureFlag } from 'vl-shared/src/schemas/FeatureFlagSchema';
+import type { IFeatureFlag } from 'vl-shared/src/schemas/FeatureFlagSchema';
 
 @ApiModel({
   description: 'Contract Object',

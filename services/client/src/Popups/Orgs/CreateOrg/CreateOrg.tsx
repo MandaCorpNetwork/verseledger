@@ -8,8 +8,8 @@ import { postCreateOrg } from '@Redux/Slices/Orgs/actions/post/postCreateOrg.act
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { useForm } from '@tanstack/react-form';
 import { enqueueSnackbar } from 'notistack';
-import React from 'react';
-import { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
+import type React from 'react';
+import type { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
 //TODO: ERROR UI FEEDBACK
 

@@ -1,6 +1,6 @@
 import { FormGroup, FormLabel } from '@mui/material';
 import React from 'react';
-import { ApiPermission } from 'vl-shared/src/enum/ApiPermission';
+import type { ApiPermission } from 'vl-shared/src/enum/ApiPermission';
 
 import { PermissionCheck } from './PermissionCheck';
 

@@ -33,7 +33,7 @@ import { useForm } from '@tanstack/react-form';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { IUpdateUserSettingsCMD } from 'vl-shared/src/schemas/UserSettings';
+import type { IUpdateUserSettingsCMD } from 'vl-shared/src/schemas/UserSettings';
 
 /**
  * ### Profile Settings

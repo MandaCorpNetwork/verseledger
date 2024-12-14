@@ -6,8 +6,8 @@ import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { Box, FormControl, FormLabel, TextField, Typography } from '@mui/material';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
-import { ICreateContractBody } from 'vl-shared/src/schemas/contracts/ContractSchema';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { ICreateContractBody } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { SmallEmergencyOverlay } from '../EmergencyOverlay';
 export const Locations: React.FC<{

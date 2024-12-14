@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
+import type { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
 // type DropZoneProps = {
 //   stateSetter: React.Dispatch<React.SetStateAction>;

@@ -1,10 +1,10 @@
 import { inject, injectable } from 'inversify';
 import { TYPES } from '@Constant/types';
-import { EnvService } from '../../services/env.service';
+import type { EnvService } from '../../services/env.service';
 import { Logger } from '@Utils/Logger';
 import chalk from 'chalk';
-import { Client as PallyClient, CampaignTip } from 'pally.gg';
-import { NotificationService } from '@V1/models/notifications/notification.service';
+import { Client as PallyClient, type CampaignTip } from 'pally.gg';
+import type { NotificationService } from '@V1/models/notifications/notification.service';
 import { Donation } from './donation.model';
 import { DonationToDonationDTOMapper } from './mapping/DonationToDonationDTO';
 
