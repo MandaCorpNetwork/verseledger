@@ -3716,10 +3716,10 @@
   dependencies:
     defer-to-connect "^2.0.1"
 
-"@tanstack/form-core@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/form-core/-/form-core-0.40.0.tgz#8a0d7556a96ea97260fec927d84254af0057cd38"
-  integrity sha512-wSEMLorvYVD7ff4OMxf0cBRcOZVNPzOWDepOxDhxmrw70cfjrq1mRKina5x6ITDFD6WRyK1c2RMV5D7T6Y95Ng==
+"@tanstack/form-core@0.40.2":
+  version "0.40.2"
+  resolved "https://registry.yarnpkg.com/@tanstack/form-core/-/form-core-0.40.2.tgz#095ead78f09c1a3aa75b46456bfdb55cf13fc786"
+  integrity sha512-ecJgr+jRKSClUzYhOixfiJTXqfCxAiWmeMTKKzV848OfCtdzWxEzSasZLDMQG5KlyL9q/GDhk1GRHQmEUxynoA==
   dependencies:
     "@tanstack/store" "^0.6.0"
 
@@ -3733,13 +3733,13 @@
   resolved "https://registry.yarnpkg.com/@tanstack/ranger/-/ranger-0.0.3.tgz#3fb287dea26d6ed88eb405f1d77982f5cfd3ec8f"
   integrity sha512-RYpW7MnEMxKLuskfadeyBfxpU8cUTGrtp5TnCV9PKEgMfrR6vwlk9/1/eU2EvJfYZbDAr1inphL4TGWCcRLAXQ==
 
-"@tanstack/react-form@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-form/-/react-form-0.40.0.tgz#e69bafa978a89ab6a2710911121b2e1c1a24afeb"
-  integrity sha512-hn9VY75WVosco/967hTkkSdinyRmKqOq4muiO/99ff7H9fq1/s4vgZoHFtQgpTGU33/aS+azYSs8/LGjKzRnYQ==
+"@tanstack/react-form@0.40.2":
+  version "0.40.2"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-form/-/react-form-0.40.2.tgz#c4382ccd04644ccf4873a470000f57c7b177c311"
+  integrity sha512-YHGsnqYLE5lFz5jvoR0RGczhzX0WFLqe8mtFRixk2uN92zdNTcxSgoJHrCV5/q+fWY5+bxtixB/B0cApi8qQmA==
   dependencies:
     "@remix-run/node" "^2.15.0"
-    "@tanstack/form-core" "0.40.0"
+    "@tanstack/form-core" "0.40.2"
     "@tanstack/react-store" "^0.6.1"
     decode-formdata "^0.8.0"
 
@@ -4132,17 +4132,10 @@
   resolved "https://registry.yarnpkg.com/@types/mdx/-/mdx-2.0.13.tgz#68f6877043d377092890ff5b298152b0a21671bd"
   integrity sha512-+OWZQfAYyio6YkJb3HLxDrvnx6SWWDbC0zVPfBRzUk0/nqoDyf6dNxQi3eArPe8rJ473nobTMQ/8Zk+LxJ+Yuw==
 
-"@types/mime@4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@types/mime/-/mime-4.0.0.tgz#b5f8a75697ac775ecf1daaea9bfb91cde065b397"
-  integrity sha512-5eEkJZ/BLvTE3vXGKkWlyTSUVZuzj23Wj8PoyOq2lt5I3CYbiLBOPb3XmCW6QcuOibIUE6emHXHt9E/F/rCa6w==
-  dependencies:
-    mime "*"
-
-"@types/mime@^1":
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.5.tgz#1ef302e01cf7d2b5a0fa526790c9123bf1d06690"
-  integrity sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==
+"@types/mime@3.0.4", "@types/mime@4.0.0", "@types/mime@^1":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@types/mime/-/mime-3.0.4.tgz#2198ac274de6017b44d941e00261d5bc6a0e0a45"
+  integrity sha512-iJt33IQnVRkqeqC7PzBHPTC6fDlRNRW8vjrgqtScAhrmMwe8c4Eo7+fUGTa+XdWrpEgpyKWMYmi2dIwMAYRzPw==
 
 "@types/morgan@1.9.9":
   version "1.9.9"
@@ -10206,11 +10199,6 @@ mime-types@^2.1.12, mime-types@~2.1.19, mime-types@~2.1.24, mime-types@~2.1.34:
   integrity sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==
   dependencies:
     mime-db "1.52.0"
-
-mime@*:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/mime/-/mime-4.0.4.tgz#9f851b0fc3c289d063b20a7a8055b3014b25664b"
-  integrity sha512-v8yqInVjhXyqP6+Kw4fV3ZzeMRqEW6FotRsKXjRS5VMTNIuXsdRoAvklpoRgSqXm6o9VNH4/C0mgedko9DdLsQ==
 
 mime@1.6.0:
   version "1.6.0"
