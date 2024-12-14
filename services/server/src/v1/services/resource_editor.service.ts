@@ -1,7 +1,7 @@
 import { TYPES } from '@Constant/types';
 import { inject, injectable } from 'inversify';
-import { ContractService } from '@V1/models/contract/contract.service';
-import { UserService } from '@V1/models/user/user.service';
+import type { ContractService } from '@V1/models/contract/contract.service';
+import type { UserService } from '@V1/models/user/user.service';
 import { Logger } from '@Utils/Logger';
 
 @injectable()

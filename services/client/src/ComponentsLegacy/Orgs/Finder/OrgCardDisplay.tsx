@@ -2,7 +2,7 @@ import '@Assets/Css/scrollbar.css';
 
 import { Grid2 } from '@mui/material';
 // import { useParams } from 'react-router-dom';
-import { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
+import type { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
 import { OrgCard } from './OrgCard';
 

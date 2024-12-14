@@ -1,18 +1,18 @@
-import {
+import type {
   Model,
-  type BelongsToGetAssociationMixin,
-  type BelongsToSetAssociationMixin,
-  type BelongsToCreateAssociationMixin,
-  type HasManyGetAssociationsMixin,
-  type HasManyCountAssociationsMixin,
-  type HasManyHasAssociationsMixin,
-  type HasManySetAssociationsMixin,
-  type HasManyAddAssociationsMixin,
-  type HasManyRemoveAssociationsMixin,
-  type HasManyHasAssociationMixin,
-  type HasManyAddAssociationMixin,
-  type HasManyRemoveAssociationMixin,
-  type HasManyCreateAssociationMixin,
+  BelongsToGetAssociationMixin,
+  BelongsToSetAssociationMixin,
+  BelongsToCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+  HasManyCountAssociationsMixin,
+  HasManyHasAssociationsMixin,
+  HasManySetAssociationsMixin,
+  HasManyAddAssociationsMixin,
+  HasManyRemoveAssociationsMixin,
+  HasManyHasAssociationMixin,
+  HasManyAddAssociationMixin,
+  HasManyRemoveAssociationMixin,
+  HasManyCreateAssociationMixin,
 } from 'sequelize';
 
 // helper types

@@ -12,12 +12,12 @@ import { selectUserById } from '@Redux/Slices/Users/users.selectors';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
-import {
+import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type {
   ICreateContractRatingsBody,
   ICreateUserRatingBody,
 } from 'vl-shared/src/schemas/UserRatingsSchema';
-import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 export const POPUP_SUBMIT_RATING = 'submitRating';
 

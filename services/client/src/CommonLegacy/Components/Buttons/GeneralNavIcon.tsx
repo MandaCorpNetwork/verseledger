@@ -1,7 +1,7 @@
 import { Launch } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { useNav } from '@Utils/Hooks/useNav';
-import React from 'react';
+import type React from 'react';
 
 type CopyStringProps = {
   /** URL String */

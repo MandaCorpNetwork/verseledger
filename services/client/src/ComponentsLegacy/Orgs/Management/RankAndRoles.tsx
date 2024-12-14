@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { IOrganizationRank } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
+import type { IOrganizationRank } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
 type RanksAndRolesProps = {
   ranks: IOrganizationRank[] | null;

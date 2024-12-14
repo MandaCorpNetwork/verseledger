@@ -3,8 +3,8 @@ import { usersActions } from '@Redux/Slices/Users/users.reducer';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
-import { IOrganizationMemberWithOrg } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
-import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import type { IOrganizationMemberWithOrg } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
+import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 export const FETCH_CURRENT_USER = 'GET /v1/users/@me';
 

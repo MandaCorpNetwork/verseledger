@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import React from 'react';
+import type React from 'react';
 
 import { TuningEditor } from './TuningEditor/TuningEditor';
 import { TuningExplorer } from './TuningExplorer';

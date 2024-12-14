@@ -20,7 +20,7 @@ import {
   StackedBarChartTwoTone,
   StorefrontTwoTone,
   StoreTwoTone,
-  SvgIconComponent,
+  type SvgIconComponent,
   WorkTwoTone,
 } from '@mui/icons-material';
 import { useHasFeatureFlag } from '@Utils/Hooks/FeatureFlag';

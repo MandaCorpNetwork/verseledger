@@ -3,17 +3,17 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
-  SelectChangeEvent,
+  type SelectChangeEvent,
   Switch,
   TextField,
 } from '@mui/material';
 import React from 'react';
-import { IFeedbackFeatures } from 'vl-shared/src/schemas/FeedbackFeatureSchema';
-import {
+import type { IFeedbackFeatures } from 'vl-shared/src/schemas/FeedbackFeatureSchema';
+import type {
   IFeedbackForm,
   IQuestionFeedback,
 } from 'vl-shared/src/schemas/FeedbackFormSchema';
-import { IFeedbackTools } from 'vl-shared/src/schemas/FeedbackToolSchema';
+import type { IFeedbackTools } from 'vl-shared/src/schemas/FeedbackToolSchema';
 
 import { FeatureSelect } from '../Fields/FeatureSelect';
 import { ToolSelect } from '../Fields/ToolSelect';

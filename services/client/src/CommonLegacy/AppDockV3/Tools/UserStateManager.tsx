@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation.action';
 import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import React from 'react';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 //TODO: DISABLE ANIMATION ON NOT-HIGH Animation
 

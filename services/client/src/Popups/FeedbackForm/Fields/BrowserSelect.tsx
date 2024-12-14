@@ -3,7 +3,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  SelectChangeEvent,
+  type SelectChangeEvent,
 } from '@mui/material';
 
 const browsers = ['CHROME', 'FIREFOX', 'SAFARI', 'EDGE', 'OPERA'];

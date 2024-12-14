@@ -3,7 +3,8 @@ import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { Logger } from '@Utils/Logger';
 import { URLUtil } from '@Utils/URLUtil';
-import React, { PropsWithChildren } from 'react';
+import type React from 'react';
+import type { PropsWithChildren } from 'react';
 import { StompSessionProvider } from 'react-stomp-hooks';
 export const StompProvider: React.FC<PropsWithChildren> = (props) => {
   const { children } = props;

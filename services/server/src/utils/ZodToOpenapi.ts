@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import type { z } from 'zod';
 
 export const ZodToOpenapi = (schema: z.AnyZodObject) => {
   const shape = schema.shape as {

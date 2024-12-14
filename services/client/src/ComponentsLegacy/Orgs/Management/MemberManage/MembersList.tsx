@@ -1,7 +1,7 @@
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Typography } from '@mui/material';
-import React from 'react';
-import {
+import type React from 'react';
+import type {
   IOrganizationMemberWithUser,
   IOrganizationRank,
 } from 'vl-shared/src/schemas/orgs/OrganizationSchema';

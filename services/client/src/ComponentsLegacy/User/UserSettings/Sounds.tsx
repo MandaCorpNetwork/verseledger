@@ -9,15 +9,15 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  SelectChangeEvent,
+  type SelectChangeEvent,
   Typography,
 } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { updateUserSettings } from '@Redux/Slices/Auth/Actions/updateUserSettings.action';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
-import React from 'react';
-import { IUpdateUserSettingsCMD } from 'vl-shared/src/schemas/UserSettings';
+import type React from 'react';
+import type { IUpdateUserSettingsCMD } from 'vl-shared/src/schemas/UserSettings';
 
 export const SoundSettings: React.FC = () => {
   const { playSound, switchSoundPack, currentSoundPack } = useSoundEffect();

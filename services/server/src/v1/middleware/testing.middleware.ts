@@ -1,5 +1,5 @@
 import { UnauthorizedError } from '@V1/errors/UnauthorizedError';
-import { Request, Response, NextFunction } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { BaseMiddleware } from 'inversify-express-utils';
 
 export class TestingMiddleware extends BaseMiddleware {

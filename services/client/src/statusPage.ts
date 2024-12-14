@@ -31,7 +31,7 @@ export const statusPage = () => {
   document.body.appendChild(frame);
 
   const actions = {
-    showFrame: function () {
+    showFrame: () => {
       frame.tabIndex = 0;
       if (mobile) {
         frame.style.left = '0';
@@ -41,7 +41,7 @@ export const statusPage = () => {
         frame.style.right = '60px';
       }
     },
-    dismissFrame: function () {
+    dismissFrame: () => {
       frame.style.left = '-9999px';
       frame.tabIndex = -1;
     },
@@ -49,7 +49,7 @@ export const statusPage = () => {
 
   window.addEventListener(
     'message',
-    function (event) {
+    (event) => {
       if (event.origin !== origin) return;
       if (event.data.action && Object.hasOwn(actions, event.data.action)) {
         // @ts-expect-error Key props

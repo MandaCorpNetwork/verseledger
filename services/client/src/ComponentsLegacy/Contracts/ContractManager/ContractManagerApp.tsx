@@ -13,13 +13,13 @@ import { useIsMobile } from '@Utils/isMobile';
 import { enqueueSnackbar } from 'notistack';
 import React, { Suspense } from 'react';
 import { useParams } from 'react-router-dom';
-import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
-import { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
-import {
+import type { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
+import type { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import type {
   IContractSearch,
   IUserBidSearch,
 } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
-import { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTypeSchema';
+import type { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTypeSchema';
 
 import { ContractManagerBrowser } from './Browser/ContractManagerBrowser';
 import { ContractorInfo } from './ContractDisplay/tools/ContractorInfo';
@@ -113,7 +113,10 @@ export const ContractManagerApp: React.FC<unknown> = () => {
       const startAfter = new Date(searchParams.get(QueryNames.StartAfter) as string);
       const endBefore = new Date(searchParams.get(QueryNames.EndBefore) as string);
       const endAfter = new Date(searchParams.get(QueryNames.EndAfter) as string);
-      const duration = parseInt(searchParams.get(QueryNames.Duration) as string, 10);
+      const duration = Number.parseInt(
+        searchParams.get(QueryNames.Duration) as string,
+        10,
+      );
       const payStructure = searchParams.get(
         QueryNames.PayStructure,
       ) as IContractPayStructure;

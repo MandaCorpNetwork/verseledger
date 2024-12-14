@@ -62,7 +62,7 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
   const handleDurationChange = React.useCallback(
     (field: 'hours' | 'minutes', value: string) => {
       const filterValue = filterNumericInput(value);
-      const totalDurationInMinutes = parseInt(
+      const totalDurationInMinutes = Number.parseInt(
         searchParams.get(QueryNames.Duration) ?? '0',
         10,
       );
@@ -71,10 +71,10 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
       let newTotalDurationInMinutes = totalDurationInMinutes;
 
       if (field === 'hours') {
-        const newHours = parseInt(filterValue, 10);
+        const newHours = Number.parseInt(filterValue, 10);
         newTotalDurationInMinutes = newHours * 60 + currentMinutes;
       } else {
-        const newMinutes = parseInt(filterValue, 10);
+        const newMinutes = Number.parseInt(filterValue, 10);
         newTotalDurationInMinutes = currentHours * 60 + newMinutes;
       }
 
@@ -92,7 +92,7 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
 
   const clearDurationFilter = React.useCallback(
     (field: 'hours' | 'minutes') => {
-      const totalDurationInMinutes = parseInt(
+      const totalDurationInMinutes = Number.parseInt(
         searchParams.get(QueryNames.Duration) ?? '0',
         10,
       );
@@ -119,7 +119,7 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
     [searchParams, setFilters],
   );
 
-  const duration = parseInt(searchParams.get(QueryNames.Duration) ?? '0', 10);
+  const duration = Number.parseInt(searchParams.get(QueryNames.Duration) ?? '0', 10);
   const hours = Math.floor(duration / 60);
   const minutes = duration % 60;
 

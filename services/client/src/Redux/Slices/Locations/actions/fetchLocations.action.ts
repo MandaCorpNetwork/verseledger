@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { locationsActions } from '../locations.reducer';
 

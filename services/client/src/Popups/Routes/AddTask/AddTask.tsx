@@ -13,8 +13,8 @@ import { addTasks } from '@Redux/Slices/Routes/actions/task.action';
 import { useForm } from '@tanstack/react-form';
 import { createLocalID } from '@Utils/createId';
 import { enqueueSnackbar } from 'notistack';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 export const POPUP_ADD_TASK = 'add_stop';
 

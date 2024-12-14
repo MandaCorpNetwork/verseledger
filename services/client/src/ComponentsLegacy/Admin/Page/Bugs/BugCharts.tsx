@@ -1,7 +1,7 @@
 import { Paper, Typography } from '@mui/material';
 import {
   BarChart,
-  ChartsAxisContentProps,
+  type ChartsAxisContentProps,
   ChartsTooltipCell,
   ChartsTooltipMark,
   ChartsTooltipRow,

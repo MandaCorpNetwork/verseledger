@@ -9,10 +9,10 @@ import {
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
-import { UserService } from '@V1/models/user/user.service';
-import { NotificationService } from '@V1/models/notifications/notification.service';
-import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
-import { NextFunction } from 'express';
+import type { UserService } from '@V1/models/user/user.service';
+import type { NotificationService } from '@V1/models/notifications/notification.service';
+import type { VLAuthPrincipal } from '@AuthProviders/VL.principal';
+import type { NextFunction } from 'express';
 import { IdUtil } from '@Utils/IdUtil';
 import { NotificationToNotificationDTOMapper } from './mapping/NotificationToNotificationDTOMapper';
 import { NotFoundError } from '@V1/errors/NotFoundError';

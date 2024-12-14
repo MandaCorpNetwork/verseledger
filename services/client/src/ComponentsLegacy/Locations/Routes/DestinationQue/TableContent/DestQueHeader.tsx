@@ -13,9 +13,9 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { startRoute } from '@Redux/Slices/Routes/actions/activeRoute.action';
 import { routingActive } from '@Redux/Slices/Routes/routes.selectors';
 import React from 'react';
-import { IDestination, ITaskStatus } from 'vl-shared/src/schemas/RoutesSchema';
+import type { IDestination, ITaskStatus } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { RouteOrder } from '../DestinationQue';
+import type { RouteOrder } from '../DestinationQue';
 
 type DestQueHeaderProps = {
   routeOrder: RouteOrder;

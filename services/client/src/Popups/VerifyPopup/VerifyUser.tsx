@@ -18,7 +18,8 @@ import { fetchCreateVerificationCode } from '@Redux/Slices/Auth/Actions/createVe
 import { fetchDeleteVerificationCode } from '@Redux/Slices/Auth/Actions/deleteVerificationCode.action';
 import { fetchVerificationCode } from '@Redux/Slices/Auth/Actions/fetchVerificationCode.action';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
-import React, { useCallback, useEffect, useState } from 'react';
+import type React from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export const POPUP_VERIFY_USER = 'verifyCard';
 

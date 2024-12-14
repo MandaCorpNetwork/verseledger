@@ -8,8 +8,8 @@ import { UserDisplay } from '@CommonLegacy/Components/Users/UserDisplay';
 import { DoubleArrow } from '@mui/icons-material';
 import { Collapse, IconButton, Typography } from '@mui/material';
 import React from 'react';
-import { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
-import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import type { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { ContractTimeDisplay } from './ContractTimeDisplay';
 

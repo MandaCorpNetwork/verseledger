@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
-import { IOrganizationWithMembers } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
+import type { IOrganizationWithMembers } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
 import { orgActions } from '../../orgs.reducer';
 

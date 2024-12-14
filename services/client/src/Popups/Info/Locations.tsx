@@ -14,7 +14,7 @@ import {
   Typography,
 } from '@mui/material';
 import { SparkLineChart } from '@mui/x-charts';
-import { TitleWithObject, VLPopup } from '@Popups/PopupWrapper/Popup';
+import { type TitleWithObject, VLPopup } from '@Popups/PopupWrapper/Popup';
 import { POPUP_YOU_SURE } from '@Popups/VerifyPopup/YouSure';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { setUserLocation } from '@Redux/Slices/Auth/Actions/setUserLocation.action';
@@ -23,7 +23,7 @@ import { selectLocationById } from '@Redux/Slices/Locations/locations.selectors'
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 export type LocationInfoProps = {
   locationId: string;

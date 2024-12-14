@@ -24,11 +24,11 @@ import { useIsTablet } from '@Utils/isTablet';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import {
+import type {
   IContract,
   IContractWithOwner,
 } from 'vl-shared/src/schemas/contracts/ContractSchema';
-import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 /**
  * ### ContractPage

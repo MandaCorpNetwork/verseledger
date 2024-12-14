@@ -14,7 +14,7 @@ import { QuestionMark } from '@mui/icons-material';
 import { Box } from '@mui/material';
 import React from 'react';
 
-import { TuningConfig, TuningOption } from '../TuningEditor';
+import type { TuningConfig, TuningOption } from '../TuningEditor';
 
 export const ConfigGroup: React.FC<{
   setConfig: React.Dispatch<React.SetStateAction<TuningConfig>>;

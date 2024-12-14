@@ -49,7 +49,7 @@ export const RatingsFilter: React.FC<unknown> = () => {
   const currentFilterValue = React.useMemo(() => {
     return (queryName: QueryNames): number | null => {
       const value = searchParams.get(queryName);
-      return value ? parseInt(value, 10) : null;
+      return value ? Number.parseInt(value, 10) : null;
     };
   }, [searchParams]);
 

@@ -1,6 +1,6 @@
 import { Mapper } from '@Infrastructure/Mapper';
-import { IUser } from 'vl-shared/src/schemas/UserSchema';
-import { User } from '@V1/models/user/user.model';
+import type { IUser } from 'vl-shared/src/schemas/UserSchema';
+import type { User } from '@V1/models/user/user.model';
 import { UserDTO } from './UserDTO';
 
 export class UserToUserDTOMapper extends Mapper<User, UserDTO> {

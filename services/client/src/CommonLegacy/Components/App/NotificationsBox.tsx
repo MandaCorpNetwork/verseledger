@@ -18,11 +18,11 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchNotifications } from '@Redux/Slices/Notifications/actions/getNotifications.action';
 import { selectNotificationsArray } from '@Redux/Slices/Notifications/notifications.selectors';
 import useNotification from '@Utils/Hooks/notificationHandler';
-import { PopupState } from 'material-ui-popup-state/hooks';
+import type { PopupState } from 'material-ui-popup-state/hooks';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
+import type { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
 
 type NotificationBoxProps = {
   popupState: PopupState;

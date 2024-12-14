@@ -24,7 +24,7 @@ import { selectUserById } from '@Redux/Slices/Users/users.selectors';
 import { useForm } from '@tanstack/react-form';
 import dayjs from 'dayjs';
 import React from 'react';
-import {
+import type {
   IOrganizationMemberWithUser,
   IOrganizationRank,
 } from 'vl-shared/src/schemas/orgs/OrganizationSchema';

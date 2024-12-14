@@ -5,7 +5,8 @@ import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import React, { useMemo } from 'react';
+import type React from 'react';
+import { useMemo } from 'react';
 
 const menuValues = [
   { archetype: 'logistics', value: 'Transport', label: 'Transport' },

@@ -8,7 +8,7 @@ import {
 import { IdUtil } from '@Utils/IdUtil';
 import { Contract } from './contract.model';
 import { Location } from '@V1/models/location/location.model';
-import {
+import type {
   CreationOptional,
   ForeignKey as ForeignKeyType,
   InferAttributes,

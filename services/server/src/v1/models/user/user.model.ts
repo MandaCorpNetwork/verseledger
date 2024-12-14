@@ -11,10 +11,10 @@ import {
 import { Contract } from '@V1/models/contract/contract.model';
 import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
 import { IdUtil } from '@Utils/IdUtil';
-import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { UserRating } from '@V1/models/user_ratings/user_ratings.model';
 import { UserSettings } from '@V1/models/user_settings/user_settings.model';
-import {
+import type {
   CreationOptional,
   HasManyAddAssociationMixin,
   HasManyAddAssociationsMixin,

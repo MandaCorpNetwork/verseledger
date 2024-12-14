@@ -78,7 +78,7 @@ export class AuthRepository {
     return { accessToken, refreshToken };
   }
 
-  public static async getTokens(user: string, type: string = 'api') {
+  public static async getTokens(user: string, type = 'api') {
     return ApiToken.findAll({
       where: { user_id: user, type, expiresAt: { [Op.gte]: Date.now() } },
     });

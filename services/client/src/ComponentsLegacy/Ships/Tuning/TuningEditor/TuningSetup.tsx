@@ -5,7 +5,7 @@ import { Box, Button, TextField, Typography } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 
-import { PowerConfig, TuningConfig, TuningOption } from './TuningEditor';
+import type { PowerConfig, TuningConfig, TuningOption } from './TuningEditor';
 
 type TuningSetupProps = {
   tuningSetup: TuningConfig;

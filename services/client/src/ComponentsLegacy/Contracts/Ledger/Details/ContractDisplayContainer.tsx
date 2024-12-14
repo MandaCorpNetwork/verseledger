@@ -2,9 +2,9 @@ import { ContractDisplay } from '@ComponentsLegacy/Contracts/Ledger/Details/Cont
 import { Box, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectContract } from '@Redux/Slices/Contracts/contracts.selectors';
-import React from 'react';
+import type React from 'react';
 import { useParams } from 'react-router-dom';
-import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 export const ContractDisplayContainer: React.FC = () => {
   const { selectedContractId } = useParams();

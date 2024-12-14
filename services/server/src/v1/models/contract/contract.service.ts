@@ -2,11 +2,11 @@ import { inject, injectable } from 'inversify';
 import { Contract } from '@V1/models/contract/contract.model';
 import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
 import { TYPES } from '@Constant/types';
-import { Location } from '@V1/models/location/location.model';
+import type { Location } from '@V1/models/location/location.model';
 import { ContractLocation } from '@V1/models/contract/contract_locations.model';
 import { Op } from 'sequelize';
-import { IContractStatus } from 'vl-shared/src/schemas/contracts/ContractStatusSchema';
-import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
+import type { IContractStatus } from 'vl-shared/src/schemas/contracts/ContractStatusSchema';
+import type { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 import {
   buildDateQuery,
   buildDurationQuery,
@@ -17,9 +17,9 @@ import {
 } from '@Utils/Sequelize/queryIn';
 import { Logger } from '@Utils/Logger';
 import { ContractToContractDTOMapper } from './mapping/contract.mapper';
-import { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
-import { StompService } from '@V1/services/stomp.service';
-import { NotificationService } from '@V1/models/notifications/notification.service';
+import type { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import type { StompService } from '@V1/services/stomp.service';
+import type { NotificationService } from '@V1/models/notifications/notification.service';
 
 const recievingBidStatus = new Set(['WITHDRAWN', 'DISMISSED', 'ACCEPTED']);
 const statusIgnore = new Set(['COMPLETED', 'CANCELED']);
@@ -67,7 +67,7 @@ export class ContractService {
   public async addLocationToContract(
     contract: Contract | string,
     location: Location | string,
-    tag: string = 'other',
+    tag = 'other',
   ) {
     const contract_id = typeof contract === 'string' ? contract : contract.id;
     const location_id = typeof location === 'string' ? location : location.id;

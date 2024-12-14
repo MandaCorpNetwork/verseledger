@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Logger } from '@Utils/Logger';
-import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
-import { IPaginatedDataSlice } from 'vl-shared/src/schemas/IPaginatedData';
+import type { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
+import type { IPaginatedDataSlice } from 'vl-shared/src/schemas/IPaginatedData';
 
 import { fetchContracts } from './actions/get/fetchContracts.action';
 import { contractsAdapter } from './contracts.adapters';

@@ -1,6 +1,15 @@
-import { IRadioSource, radioSources } from '@CommonLegacy/DefinitionsLegacy/RadioSources';
+import {
+  type IRadioSource,
+  radioSources,
+} from '@CommonLegacy/DefinitionsLegacy/RadioSources';
 import { useRadio } from '@Utils/Hooks/useRadio';
-import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
+import {
+  createContext,
+  type PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 interface AudioContextProps {
   currentStation: IRadioSource;

@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import React from 'react';
+import type React from 'react';
 
 export const FlatRateTab: React.FC<unknown> = () => {
   return (

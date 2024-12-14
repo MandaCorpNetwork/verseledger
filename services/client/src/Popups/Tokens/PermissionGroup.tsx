@@ -3,12 +3,12 @@ import {
   Box,
   MenuItem,
   Select,
-  SelectChangeEvent,
+  type SelectChangeEvent,
   Tooltip,
   Typography,
 } from '@mui/material';
 import React from 'react';
-import { ApiPermission } from 'vl-shared/src/enum/ApiPermission';
+import type { ApiPermission } from 'vl-shared/src/enum/ApiPermission';
 
 type PermissionGroupProps = {
   readwrite?: ApiPermission;

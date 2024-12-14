@@ -4,7 +4,7 @@ import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 // import { Canvas, useThree } from '@react-three/fiber';
 // import { useAppSelector } from '@Redux/hooks';
 // import { selectLocationsArray } from '@Redux/Slices/Locations/locations.selectors';
-import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
+import type { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
 // import { useEffect, useMemo, useState } from 'react';
 // import { CubeTextureLoader } from 'three';
 

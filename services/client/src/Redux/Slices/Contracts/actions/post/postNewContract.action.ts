@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { Logger } from '@Utils/Logger';
-import { ICreateContractBody } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { ICreateContractBody } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { contractActions } from '../../contracts.reducer';
 

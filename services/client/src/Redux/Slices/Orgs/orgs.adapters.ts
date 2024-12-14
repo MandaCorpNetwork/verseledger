@@ -1,5 +1,5 @@
 import { createEntityAdapter } from '@reduxjs/toolkit';
-import {
+import type {
   IOrganization,
   IOrganizationMember,
   IOrganizationMemberWithOrg,

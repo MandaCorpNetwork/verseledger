@@ -4,7 +4,7 @@ import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSele
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
 import { Box, Typography } from '@mui/material';
-import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 type MobileLocationProps = {
   /** The contract to display information for */

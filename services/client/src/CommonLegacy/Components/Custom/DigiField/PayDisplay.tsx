@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import React from 'react';
-import { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import type { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
 
 import { DigiField } from './DigiField';
 

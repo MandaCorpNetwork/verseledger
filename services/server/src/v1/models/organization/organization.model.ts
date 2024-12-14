@@ -13,7 +13,7 @@ import {
 import { User } from '@V1/models/user/user.model';
 import { OrganizationMember } from './organization_member.model';
 import { IdUtil } from '@Utils/IdUtil';
-import {
+import type {
   CreationOptional,
   InferAttributes,
   InferCreationAttributes,

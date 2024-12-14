@@ -1,6 +1,6 @@
 import type { RootState } from '@Redux/store';
 import { createSelector } from '@reduxjs/toolkit';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { locationsAdapter } from './locations.adapters';
 

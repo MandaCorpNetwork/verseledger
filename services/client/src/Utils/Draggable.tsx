@@ -1,7 +1,7 @@
 import {
-  MouseEventHandler,
-  PropsWithChildren,
-  RefObject,
+  type MouseEventHandler,
+  type PropsWithChildren,
+  type RefObject,
   useEffect,
   useRef,
 } from 'react';

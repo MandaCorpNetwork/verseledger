@@ -14,12 +14,12 @@ import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContrac
 import { selectContracts } from '@Redux/Slices/Contracts/contracts.selectors';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
-import {
+import type { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
+import type {
   IContractSearch,
   IUserBidSearch,
 } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
-import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 import { ContractItem } from '../ContractItem';
 

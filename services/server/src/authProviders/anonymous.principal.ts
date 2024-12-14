@@ -1,4 +1,4 @@
-import { interfaces } from 'inversify-express-utils';
+import type { interfaces } from 'inversify-express-utils';
 
 export class AnonymousPrincipal implements interfaces.Principal {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

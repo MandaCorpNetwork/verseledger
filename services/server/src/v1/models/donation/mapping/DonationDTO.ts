@@ -1,7 +1,7 @@
 import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
 
 import { DTOBase } from '@V1/DTO/DTOBase';
-import { IDonation } from 'vl-shared/src/schemas/DonationSchema';
+import type { IDonation } from 'vl-shared/src/schemas/DonationSchema';
 
 @ApiModel({
   description: 'Notification Object',

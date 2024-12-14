@@ -4,10 +4,10 @@ import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { composeQuery } from '@Utils/composeQuery';
 import { Logger } from '@Utils/Logger';
-import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
-import { IContractSearch } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
-import { IDTOComplete } from 'vl-shared/src/schemas/DTOSchema';
-import { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
+import type { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { IContractSearch } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
+import type { IDTOComplete } from 'vl-shared/src/schemas/DTOSchema';
+import type { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
 
 import { contractActions } from '../../contracts.reducer';
 

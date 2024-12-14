@@ -1,9 +1,13 @@
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Grid2 } from '@mui/material';
 import React from 'react';
-import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
+import type { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { formatDistance, getMappedLocation, MappedLocation } from '../RouteUtilities';
+import {
+  formatDistance,
+  getMappedLocation,
+  type MappedLocation,
+} from '../RouteUtilities';
 import { TableHeader } from './TableContent/TableHeader';
 import { DestinationTableRow } from './TableContent/TableRow';
 

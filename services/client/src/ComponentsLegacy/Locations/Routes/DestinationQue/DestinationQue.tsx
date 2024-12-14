@@ -2,9 +2,9 @@ import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { Divider, Typography } from '@mui/material';
 import { capFirstLetter } from '@Utils/StringUtil';
 import React from 'react';
-import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
+import type { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { MappedLocation } from '../RouteUtilities';
+import type { MappedLocation } from '../RouteUtilities';
 import { CustomDestinationTable } from './CustomTable';
 import { DistanceTable } from './DistanceTable';
 import { DestinationEffForm } from './TableContent/DestinationEffForm';

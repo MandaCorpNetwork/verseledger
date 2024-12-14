@@ -1,11 +1,15 @@
 import { DoubleArrow } from '@mui/icons-material';
 import { Collapse, Grid2, IconButton, Typography } from '@mui/material';
 import React from 'react';
-import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
+import type { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { TableHeader } from '../DestinationQue/TableContent/TableHeader';
 import { DestinationTableRow } from '../DestinationQue/TableContent/TableRow';
-import { formatDistance, getMappedLocation, MappedLocation } from '../RouteUtilities';
+import {
+  formatDistance,
+  getMappedLocation,
+  type MappedLocation,
+} from '../RouteUtilities';
 
 type RouteViewerTableProps = {
   destinations: IDestination[];

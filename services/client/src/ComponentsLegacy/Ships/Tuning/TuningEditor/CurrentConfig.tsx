@@ -1,10 +1,10 @@
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Box, Divider } from '@mui/material';
-import React from 'react';
+import type React from 'react';
 
 import { ConfigGroup } from './Pips/ConfigGroup';
 import { PowerConfigGroup } from './Pips/PowerConfigGroup';
-import { TuningConfig } from './TuningEditor';
+import type { TuningConfig } from './TuningEditor';
 
 type CurrentConfigProps = {
   currentConfig: TuningConfig;

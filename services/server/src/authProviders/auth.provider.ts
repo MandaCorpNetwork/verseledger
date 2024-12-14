@@ -1,10 +1,10 @@
-import { Request } from 'express';
-import { ParamsDictionary } from 'express-serve-static-core';
+import type { Request } from 'express';
+import type { ParamsDictionary } from 'express-serve-static-core';
 import { inject, injectable } from 'inversify';
-import { interfaces } from 'inversify-express-utils';
-import { ParsedQs } from 'qs';
+import type { interfaces } from 'inversify-express-utils';
+import type { ParsedQs } from 'qs';
 import { TYPES } from '@Constant/types';
-import { AuthService } from '@V1/models/auth/auth.service';
+import type { AuthService } from '@V1/models/auth/auth.service';
 import { AnonymousPrincipal } from './anonymous.principal';
 import { VLAuthPrincipal } from './VL.principal';
 import { User } from '@V1/models/user/user.model';

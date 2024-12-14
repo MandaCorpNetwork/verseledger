@@ -4,8 +4,8 @@ import { useAppSelector } from '@Redux/hooks';
 import { selectContract } from '@Redux/Slices/Contracts/contracts.selectors';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
-import { ILocationWithContractLocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { ILocationWithContractLocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { BriefingCollapse } from './BreifingCollapse';
 import { ContractManagementPanel } from './ContractManagementPanel';

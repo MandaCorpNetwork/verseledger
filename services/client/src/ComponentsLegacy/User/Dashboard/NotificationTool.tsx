@@ -8,7 +8,7 @@ import { selectNotificationsArray } from '@Redux/Slices/Notifications/notificati
 import useNotification from '@Utils/Hooks/notificationHandler';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
+import type { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
 
 import { OverviewNotification } from './Notification';
 

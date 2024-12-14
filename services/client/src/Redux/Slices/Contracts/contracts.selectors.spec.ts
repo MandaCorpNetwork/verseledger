@@ -1,4 +1,4 @@
-import { RootState } from '@Redux/store';
+import type { RootState } from '@Redux/store';
 import { describe, expect, it } from 'vitest';
 
 import { selectContract } from './contracts.selectors';

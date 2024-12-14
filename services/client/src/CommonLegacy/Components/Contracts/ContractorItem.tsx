@@ -11,10 +11,10 @@ import { updateBid } from '@Redux/Slices/Bids/Actions/patch/updateBid.action';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
-import { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
-import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
-import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import type { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
+import type { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 type ContractorProps = {
   bid: IContractBid | null;

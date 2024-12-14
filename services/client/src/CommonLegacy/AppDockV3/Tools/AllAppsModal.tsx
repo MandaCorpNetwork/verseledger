@@ -1,5 +1,5 @@
 import { Dialog, Grow } from '@mui/material';
-import { TransitionProps } from '@mui/material/transitions';
+import type { TransitionProps } from '@mui/material/transitions';
 import { useAppSelector } from '@Redux/hooks';
 import { selectAnimations } from '@Redux/Slices/Auth/auth.selectors';
 import React from 'react';

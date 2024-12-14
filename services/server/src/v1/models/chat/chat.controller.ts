@@ -6,9 +6,9 @@ import {
 } from 'inversify-express-utils';
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
-import { UserService } from '@V1/models/user/user.service';
+import type { UserService } from '@V1/models/user/user.service';
 import { CreateChatSchema } from 'vl-shared/src/schemas/ChatSchema';
-import { ChatService } from './chat.service';
+import type { ChatService } from './chat.service';
 import { Logger } from '@Utils/Logger';
 
 @controller('/v1/chat')

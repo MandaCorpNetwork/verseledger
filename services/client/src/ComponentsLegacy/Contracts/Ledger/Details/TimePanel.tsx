@@ -1,10 +1,10 @@
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { Box, LinearProgress, Tooltip, Typography } from '@mui/material';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs, { type Dayjs } from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
-import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 type TimePanelProps = {
   contract: IContract;

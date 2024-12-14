@@ -11,12 +11,12 @@ import {
 
 import { User } from '@V1/models/user/user.model';
 import { IdUtil } from '@Utils/IdUtil';
-import {
+import type {
   CreationOptional,
   InferAttributes,
   InferCreationAttributes,
 } from 'sequelize';
-import { PushSubscription } from 'web-push';
+import type { PushSubscription } from 'web-push';
 
 @Table({ tableName: 'organizations', timestamps: true })
 export class Subscription extends Model<

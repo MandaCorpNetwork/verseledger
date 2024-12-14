@@ -1,8 +1,8 @@
 import { Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectOrgMembersByOrgId } from '@Redux/Slices/Orgs/orgs.selectors';
-import React from 'react';
-import {
+import type React from 'react';
+import type {
   IOrganization,
   IOrganizationMemberWithUser,
   IOrganizationRank,

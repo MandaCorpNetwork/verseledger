@@ -1,5 +1,5 @@
 import { Logger } from '@Utils/Logger';
-import axios, { AxiosResponse } from 'axios';
+import axios, { type AxiosResponse } from 'axios';
 import { injectable } from 'inversify';
 
 export type RSIUser = {

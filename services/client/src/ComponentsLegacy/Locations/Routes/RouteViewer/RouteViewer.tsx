@@ -7,9 +7,13 @@ import { currentRouteStop } from '@Redux/Slices/Routes/routes.selectors';
 import { openWidget } from '@Redux/Slices/Widgets/widgets.actions';
 import { WIDGET_ROUTES } from '@Widgets/Routes/Route';
 import React from 'react';
-import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
+import type { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
-import { formatDistance, getMappedLocation, MappedLocation } from '../RouteUtilities';
+import {
+  formatDistance,
+  getMappedLocation,
+  type MappedLocation,
+} from '../RouteUtilities';
 import { CheckpointDestination } from './CheckpointDestination';
 import { CurrentDestination } from './CurrentDestination';
 import { NextDestination } from './NextDestination';

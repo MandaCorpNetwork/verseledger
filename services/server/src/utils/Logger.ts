@@ -1,7 +1,7 @@
 /* eslint-disable no-control-regex */
 import chalk from 'chalk';
 import { _getCallerFile } from './getCallerFile';
-import fs, { WriteStream } from 'node:fs';
+import fs, { type WriteStream } from 'node:fs';
 
 let writer: WriteStream;
 const logFile = process.env.LOGFILE;

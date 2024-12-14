@@ -2,8 +2,8 @@ import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentConta
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { TextField, Typography } from '@mui/material';
-import React from 'react';
-import { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
+import type React from 'react';
+import type { IDestination } from 'vl-shared/src/schemas/RoutesSchema';
 
 type CheckpointDestinationProps = {
   destination: IDestination;

@@ -1,4 +1,4 @@
-import { Action, createSlice } from '@reduxjs/toolkit';
+import { type Action, createSlice } from '@reduxjs/toolkit';
 
 import { closePopup, openPopup } from './popups.actions';
 type PopupState = {

@@ -1,5 +1,5 @@
 import path from 'path';
-export function _getCallerFile(stackPoint: number = 1) {
+export function _getCallerFile(stackPoint = 1) {
   const err = new Error();
 
   Error.prepareStackTrace = (_, stack) => stack;

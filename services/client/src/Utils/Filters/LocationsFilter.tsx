@@ -2,7 +2,7 @@ import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import CheckIcon from '@mui/icons-material/Check';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import React from 'react';
+import type React from 'react';
 
 type LocationFilterProps = {
   size: 'small' | 'medium';

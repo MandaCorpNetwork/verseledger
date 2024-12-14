@@ -8,10 +8,10 @@ import {
 import { TYPES } from '@Constant/types';
 import { inject } from 'inversify';
 import { ApiPath } from 'swagger-express-ts';
-import { SubscriptionService } from './subscriptions.service';
-import { PushSubscription } from 'web-push';
+import type { SubscriptionService } from './subscriptions.service';
+import type { PushSubscription } from 'web-push';
 import { BadRequestError } from '@V1/errors/BadRequest';
-import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
+import type { VLAuthPrincipal } from '@AuthProviders/VL.principal';
 
 @ApiPath({
   path: '/v1/notifications',

@@ -2,7 +2,7 @@ import './LoadingScreen.css';
 
 import VLLogo from '@Assets/media/VerseLogos/VLLogo_Large.png?url';
 import { Box, CircularProgress, LinearProgress, Modal } from '@mui/material';
-import React from 'react';
+import type React from 'react';
 
 type LoadingScreenProps = {
   variant: 'wheel' | 'linear';

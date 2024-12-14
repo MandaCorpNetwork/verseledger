@@ -8,7 +8,7 @@ import {
   Select,
   // SelectChangeEvent,
 } from '@mui/material';
-import React from 'react';
+import type React from 'react';
 
 // import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 

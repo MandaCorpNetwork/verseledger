@@ -16,8 +16,8 @@ import { selectDestinations } from '@Redux/Slices/Routes/routes.selectors';
 import { useForm } from '@tanstack/react-form';
 import { createLocalID } from '@Utils/createId';
 import { enqueueSnackbar } from 'notistack';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
-import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { createDestinations, createTaskArray } from './AddMissionUtils';
 export const POPUP_CREATE_MISSION = 'create_mission';

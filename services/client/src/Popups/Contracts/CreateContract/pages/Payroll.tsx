@@ -18,8 +18,8 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useIsMobile } from '@Utils/isMobile';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
-import { ICreateContractBody } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import type { ICreateContractBody } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { LargeEmergencyOverlay } from '../EmergencyOverlay';
 import { FlatRatePayroll, PoolPayroll, TimedPayroll } from './Simple';

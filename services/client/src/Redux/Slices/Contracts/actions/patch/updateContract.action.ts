@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
-import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { contractActions } from '../../contracts.reducer';
 

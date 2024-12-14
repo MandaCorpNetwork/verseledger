@@ -11,7 +11,7 @@ import {
 import { IdUtil } from '@Utils/IdUtil';
 import { ContractLocation } from '@V1/models/contract/contract_locations.model';
 import { Contract } from '@V1/models/contract/contract.model';
-import {
+import type {
   CreationOptional,
   InferAttributes,
   InferCreationAttributes,

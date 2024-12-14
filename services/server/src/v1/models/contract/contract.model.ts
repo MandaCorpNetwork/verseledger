@@ -13,11 +13,11 @@ import {
   BelongsToMany,
 } from 'sequelize-typescript';
 
-import { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import type { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
 import { User } from '@V1/models/user/user.model';
 import { ContractBid } from '@V1/models/contract_bid/contract_bid.model';
 import { IdUtil } from '@Utils/IdUtil';
-import {
+import type {
   CreationOptional,
   ForeignKey as ForeignKeyType,
   HasManyAddAssociationMixin,
@@ -32,13 +32,13 @@ import {
   HasManySetAssociationsMixin,
   NonAttribute,
 } from 'sequelize';
-import { Organization } from '@V1/models/organization/organization.model';
+import type { Organization } from '@V1/models/organization/organization.model';
 import { OwnerType } from '@Utils/OwnerType';
 import { Location } from '@V1/models/location/location.model';
 import { ContractLocation } from './contract_locations.model';
-import { IContractStatus } from 'vl-shared/src/schemas/contracts/ContractStatusSchema';
-import { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTypeSchema';
-import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { IContractStatus } from 'vl-shared/src/schemas/contracts/ContractStatusSchema';
+import type { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTypeSchema';
+import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 import { UserRating } from '@V1/models/user_ratings/user_ratings.model';
 import { UserSettings } from '@V1/models/user_settings/user_settings.model';
 import { OrganizationMember } from '../organization/organization_member.model';

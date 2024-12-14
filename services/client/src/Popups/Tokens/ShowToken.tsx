@@ -3,7 +3,7 @@ import { VLPopup } from '@Popups/PopupWrapper/Popup';
 import { useAppDispatch } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import { enqueueSnackbar } from 'notistack';
-import React from 'react';
+import type React from 'react';
 
 export const POPUP_SHOW_TOKEN = 'ShowToken';
 export type ShowTokenPopupProps = { token: string };

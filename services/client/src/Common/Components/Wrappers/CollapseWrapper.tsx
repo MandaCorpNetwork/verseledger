@@ -1,5 +1,5 @@
-import { Collapse, CollapseProps } from '@mui/material';
-import React, { PropsWithChildren } from 'react';
+import { Collapse, type CollapseProps } from '@mui/material';
+import React, { type PropsWithChildren } from 'react';
 
 /** Collapse Component used to Wrap Children Components on Higher Animation Settings */
 type CollapseWrapperProps = PropsWithChildren<CollapseProps>;

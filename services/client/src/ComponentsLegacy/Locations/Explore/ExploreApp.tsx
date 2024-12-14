@@ -7,7 +7,7 @@ import { selectLocationById } from '@Redux/Slices/Locations/locations.selectors'
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 import { ExploreController } from './ExploreController';
 import { ExploreMap } from './ExplorerMap';

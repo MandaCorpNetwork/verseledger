@@ -1,8 +1,8 @@
-import { VLAuthPrincipal } from '@AuthProviders/VL.principal';
+import type { VLAuthPrincipal } from '@AuthProviders/VL.principal';
 import { UnauthorizedError } from '@V1/errors/UnauthorizedError';
 import { NotVerifiedError } from '@V1/errors/NotVerifiedError';
 import { User } from '@V1/models/user/user.model';
-import { Request, Response, NextFunction } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { BaseMiddleware } from 'inversify-express-utils';
 
 export class VerifiedUserMiddleware extends BaseMiddleware {

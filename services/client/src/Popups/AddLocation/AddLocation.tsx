@@ -1,8 +1,8 @@
 import { LocationSearch } from '@CommonLegacy/Components/App/LocationSearch';
 import { Box } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
-import React from 'react';
-import { ILocation } from 'vl-shared/src/schemas/LocationSchema';
+import type React from 'react';
+import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 export const POPUP_ADD_LOCATION = 'add_location';
 

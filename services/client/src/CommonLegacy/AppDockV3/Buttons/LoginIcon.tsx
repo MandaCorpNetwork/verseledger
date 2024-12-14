@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 import { POPUP_LOGIN } from '@Popups/Login/LoginPopup';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
-import React from 'react';
+import type React from 'react';
 
 export const LoginIcon: React.FC = () => {
   const dispatch = useAppDispatch();

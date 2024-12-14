@@ -30,7 +30,7 @@ import {
 } from '@Redux/Slices/Routes/routes.selectors';
 import { VLWidget } from '@Widgets/WidgetWrapper/WidgetWrapper';
 import React from 'react';
-import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
+import type { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 export const WIDGET_ROUTES = 'routes';
 

@@ -1,7 +1,7 @@
-import { RootState } from '@Redux/store';
+import type { RootState } from '@Redux/store';
 import { createSelector } from '@reduxjs/toolkit';
 import { murmurhash } from 'vl-shared/src/murmurhash';
-import { IFeatureFlag } from 'vl-shared/src/schemas/FeatureFlagSchema';
+import type { IFeatureFlag } from 'vl-shared/src/schemas/FeatureFlagSchema';
 
 import { selectCurrentUser, selectUserSettings } from '../Auth/auth.selectors';
 

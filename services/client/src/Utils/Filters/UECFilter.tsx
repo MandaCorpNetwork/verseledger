@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import React from 'react';
-import { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import type { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
 
 const structureOptions = [
   { label: 'Flatrate', value: 'FLATRATE' },

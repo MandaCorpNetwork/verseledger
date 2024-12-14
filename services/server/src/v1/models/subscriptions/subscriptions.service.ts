@@ -1,13 +1,13 @@
 import { Logger } from '@Utils/Logger';
 import { inject, injectable } from 'inversify';
-import { EnvService } from '@V1/services/env.service';
+import type { EnvService } from '@V1/services/env.service';
 import { TYPES } from '@Constant/types';
 import chalk from 'chalk';
-import { PushSubscription } from 'web-push';
+import type { PushSubscription } from 'web-push';
 import { Subscription } from './subscription.model';
 @injectable()
 export class SubscriptionService {
-  public initialized: boolean = false;
+  public initialized = false;
   constructor(@inject(TYPES.EnvService) private readonly _envars: EnvService) {
     let failed = false;
     if (this._envars.VAPID_PRIVATE_KEY == null) {

@@ -1,7 +1,8 @@
 import { Diamond, Storefront, TextSnippet, Widgets } from '@mui/icons-material';
 import { Badge, Box, IconButton } from '@mui/material';
-import { IconButtonProps } from '@mui/material/IconButton';
-import React, { useState } from 'react';
+import type { IconButtonProps } from '@mui/material/IconButton';
+import type React from 'react';
+import { useState } from 'react';
 
 interface ActiveToolOverviewIconProps extends IconButtonProps {
   icon: React.ReactNode;

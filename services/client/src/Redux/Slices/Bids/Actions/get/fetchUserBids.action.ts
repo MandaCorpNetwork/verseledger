@@ -2,10 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import NetworkService from '@Services/NetworkService';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { composeQuery } from '@Utils/composeQuery';
-import { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
-import { IUserBidSearch } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
-import { IDTOComplete } from 'vl-shared/src/schemas/DTOSchema';
-import { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
+import type { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
+import type { IUserBidSearch } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
+import type { IDTOComplete } from 'vl-shared/src/schemas/DTOSchema';
+import type { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
 
 import { bidsActions } from '../../bids.reducer';
 

@@ -18,7 +18,11 @@ import {
 import { useAppDispatch } from '@Redux/hooks';
 import { updateDestinations } from '@Redux/Slices/Routes/actions/destination.action';
 import React from 'react';
-import { IDestination, ITask, ITaskStatus } from 'vl-shared/src/schemas/RoutesSchema';
+import type {
+  IDestination,
+  ITask,
+  ITaskStatus,
+} from 'vl-shared/src/schemas/RoutesSchema';
 
 import { getSiblingDestinations } from '../../RouteUtilities';
 import { DestinationTask } from './DestinationTask';

@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { isDev } from '@Utils/isDev';
 import React from 'react';
-import { IFeedbackForm } from 'vl-shared/src/schemas/FeedbackFormSchema';
+import type { IFeedbackForm } from 'vl-shared/src/schemas/FeedbackFormSchema';
 
 import { BugForm } from './Forms/BugForm';
 import { FeatureQueForm } from './Forms/FeatureQueForm';

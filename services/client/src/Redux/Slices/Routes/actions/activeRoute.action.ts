@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
+import type { IDestination, ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 export const startRoute = createAction<{ destination: IDestination; scuLoad: number }>(
   'routes/startRoute',

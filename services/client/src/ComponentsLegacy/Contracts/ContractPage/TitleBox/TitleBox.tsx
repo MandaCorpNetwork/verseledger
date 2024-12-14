@@ -6,7 +6,7 @@ import { Link } from '@mui/icons-material';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { InfoNonMobile } from './InfoNonMobile';
 import { MobileInfo } from './MobileInfo';

@@ -11,9 +11,9 @@ import {
 } from 'sequelize-typescript';
 import { User } from '@V1/models/user/user.model';
 import { IdUtil } from '@Utils/IdUtil';
-import { IRatingType } from 'vl-shared/src/schemas/UserRatingsSchema';
+import type { IRatingType } from 'vl-shared/src/schemas/UserRatingsSchema';
 import { Contract } from '@V1/models/contract/contract.model';
-import {
+import type {
   CreationOptional,
   InferAttributes,
   InferCreationAttributes,

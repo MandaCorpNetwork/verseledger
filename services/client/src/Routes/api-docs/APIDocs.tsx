@@ -5,7 +5,8 @@ import { Box } from '@mui/material';
 import { ApiReferenceReact } from '@scalar/api-reference-react';
 import NetworkService from '@Services/NetworkService';
 import { URLUtil } from '@Utils/URLUtil';
-import React, { useEffect, useState } from 'react';
+import type React from 'react';
+import { useEffect, useState } from 'react';
 
 export const APIDocs: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -16,7 +16,7 @@ import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { useIsMobile } from '@Utils/isMobile';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { ICreateContractBody } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { ICreateContractBody } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { SmallEmergencyOverlay } from '../EmergencyOverlay';
 

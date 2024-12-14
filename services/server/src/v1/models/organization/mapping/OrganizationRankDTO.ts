@@ -1,6 +1,6 @@
 import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
 import { DTOBase } from '@V1/DTO/DTOBase';
-import { IOrganizationRank } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
+import type { IOrganizationRank } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 import { OrganizationDTO } from './OrganizationDTO';
 
 @ApiModel({

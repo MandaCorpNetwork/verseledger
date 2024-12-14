@@ -7,7 +7,7 @@ import {
 import { Button, Popover, Typography } from '@mui/material';
 import { bindPopover, bindTrigger, usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
-import { ITask } from 'vl-shared/src/schemas/RoutesSchema';
+import type { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
 import { MoveTask } from './MoveTask';
 

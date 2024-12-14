@@ -1,7 +1,7 @@
 import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
 import { DTOBase } from '@V1/DTO/DTOBase';
 import { ContractDTO } from '@V1/models/contract/mapping/ContractDTO';
-import { IUser } from 'vl-shared/src/schemas/UserSchema';
+import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 import { ContractBidDTO } from '@V1/models/contract_bid/mapping/ContractBidDTO';
 import { UserSettingsArrayToUserSettingsDTOMapper } from '@V1/models/user_settings/mapping/UserSettingsArrayToUserSettingsDTO.mapper';
 import { NotificationDTO } from '@V1/models/notifications/mapping/NotificationDTO';

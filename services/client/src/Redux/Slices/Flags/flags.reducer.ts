@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IFeatureFlag } from 'vl-shared/src/schemas/FeatureFlagSchema';
+import type { IFeatureFlag } from 'vl-shared/src/schemas/FeatureFlagSchema';
 
 import { fetchUserFlags } from './Actions/fetchFlags.action';
 

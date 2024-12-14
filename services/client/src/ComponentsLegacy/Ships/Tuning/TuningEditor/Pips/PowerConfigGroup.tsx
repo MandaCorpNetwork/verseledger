@@ -4,7 +4,7 @@ import { Power } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { Box } from '@mui/material';
 import React from 'react';
 
-import { PowerConfig, TuningConfig } from '../TuningEditor';
+import type { PowerConfig, TuningConfig } from '../TuningEditor';
 
 type PowerConfigProps = {
   minimumPips?: number;

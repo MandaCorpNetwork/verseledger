@@ -3,7 +3,7 @@ import '@ComponentsLegacy/Home/Home.css';
 
 import { BackdropVideo } from '@Common/Components/Functional/Applcation/Media/BackdropVideo';
 import { Box } from '@mui/material';
-import React from 'react';
+import type React from 'react';
 
 export const Home: React.FC<unknown> = () => {
   // **Mouse Parallax for BGVideo**

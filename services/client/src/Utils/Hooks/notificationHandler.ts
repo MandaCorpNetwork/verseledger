@@ -6,7 +6,7 @@ import { markRead } from '@Redux/Slices/Notifications/actions/patchMarkRead.acti
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
+import type { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
 
 function useNotification() {
   const sound = useSoundEffect();

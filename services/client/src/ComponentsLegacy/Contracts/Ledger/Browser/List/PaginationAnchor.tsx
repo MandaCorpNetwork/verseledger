@@ -5,10 +5,10 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContracts.action';
 import { selectContractPagination } from '@Redux/Slices/Contracts/contracts.selectors';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import React, { SyntheticEvent } from 'react';
-import { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
-import { IContractSearch } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
-import { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTypeSchema';
+import React, { type SyntheticEvent } from 'react';
+import type { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
+import type { IContractSearch } from 'vl-shared/src/schemas/contracts/ContractSearchSchema';
+import type { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTypeSchema';
 
 type PaginationAnchorProps = {
   isMobile: boolean;
@@ -69,7 +69,7 @@ export const PaginationAnchor: React.FC<PaginationAnchorProps> = ({ isMobile }) 
     const startAfter = new Date(searchParams.get(QueryNames.StartAfter) as string);
     const endBefore = new Date(searchParams.get(QueryNames.EndBefore) as string);
     const endAfter = new Date(searchParams.get(QueryNames.EndAfter) as string);
-    const duration = parseInt(searchParams.get(QueryNames.Duration) as string, 10);
+    const duration = Number.parseInt(searchParams.get(QueryNames.Duration) as string, 10);
     const payStructure = searchParams.get(
       QueryNames.PayStructure,
     ) as IContractPayStructure;

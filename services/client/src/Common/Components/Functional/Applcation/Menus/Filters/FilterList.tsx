@@ -1,5 +1,5 @@
 import { FilterGroup } from '@Common/Components/Core/Accordions/FilterGroup';
-import { FilterComponent } from '@Common/Definitions/Search/FilterComponentsMap';
+import type { FilterComponent } from '@Common/Definitions/Search/FilterComponentsMap';
 import { ExpandMore } from '@mui/icons-material';
 import { AccordionDetails, AccordionSummary } from '@mui/material';
 import React from 'react';

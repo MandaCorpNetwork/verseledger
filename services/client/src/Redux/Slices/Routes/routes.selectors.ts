@@ -1,4 +1,4 @@
-import { RootState } from '@Redux/store';
+import type { RootState } from '@Redux/store';
 
 import { destinationsAdapter, tasksAdapter } from './routes.adapters';
 

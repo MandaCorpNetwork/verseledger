@@ -9,7 +9,7 @@ import {
 } from 'sequelize-typescript';
 
 import { IdUtil } from '@Utils/IdUtil';
-import {
+import type {
   CreationOptional,
   InferAttributes,
   InferCreationAttributes,

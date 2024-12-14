@@ -1,6 +1,7 @@
 import { useAppSelector } from '@Redux/hooks';
 import { selectHasFlag } from '@Redux/Slices/Flags/flags.selectors';
-import React, { PropsWithChildren } from 'react';
+import type React from 'react';
+import type { PropsWithChildren } from 'react';
 
 export const useHasFeatureFlag = (flag: string): boolean => {
   return useAppSelector((state) => selectHasFlag(state, flag));

@@ -28,7 +28,7 @@ import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
 import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
+import type { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
 
 //TODO: Fix Animations
 

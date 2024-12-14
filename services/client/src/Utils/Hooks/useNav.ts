@@ -13,7 +13,7 @@ export const useNav = () => {
       e: React.MouseEvent,
       url: string,
       variant: 'external' | 'internal' = 'internal',
-      pageChange: boolean = true,
+      pageChange = true,
     ) => {
       if (e.button === 1) e.preventDefault();
       if (variant === 'internal') {
@@ -38,11 +38,7 @@ export const useNav = () => {
   );
 
   const click = useCallback(
-    (
-      url: string,
-      variant: 'external' | 'internal' = 'internal',
-      pageChange: boolean = true,
-    ) => {
+    (url: string, variant: 'external' | 'internal' = 'internal', pageChange = true) => {
       return {
         onClick: (e: React.MouseEvent) => {
           handleClick(e, url, variant, pageChange);

@@ -5,7 +5,7 @@ import { SubtypeChip } from '@CommonLegacy/Components/Chips/SubtypeChip';
 import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
 import { UserDisplay } from '@CommonLegacy/Components/Users/UserDisplay';
 import { Box, Typography } from '@mui/material';
-import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 type MobileInfoProps = {
   /** The contract to display information for */

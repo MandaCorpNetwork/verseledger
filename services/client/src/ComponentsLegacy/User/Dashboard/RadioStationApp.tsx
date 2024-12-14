@@ -15,7 +15,8 @@ import {
 import { Box, Button, IconButton, Slider, Typography, useTheme } from '@mui/material';
 import useScrollSlider from '@Utils/Hooks/scrollSlider';
 import { useIsMobile } from '@Utils/isMobile';
-import React, { useRef } from 'react';
+import type React from 'react';
+import { useRef } from 'react';
 
 type RadioStationAppProps = {
   isDisabled: boolean;

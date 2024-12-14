@@ -2,7 +2,7 @@ import MandaLogo from '@Assets/media/MandaLogo.png';
 import { Box, Card, CardContent, Divider, Typography } from '@mui/material';
 import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
-import { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
+import type { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
 type OrgCardProps = {
   organization: IOrganization;

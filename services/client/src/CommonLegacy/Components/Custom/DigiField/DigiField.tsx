@@ -1,5 +1,5 @@
 import { Box, Tooltip, Typography } from '@mui/material';
-import React, { PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
 
 type DigiFieldProps = PropsWithChildren<{
   /** The test id for the component */

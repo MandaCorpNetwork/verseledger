@@ -1,7 +1,7 @@
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { useIsMobile } from '@Utils/isMobile';
 import { useIsTablet } from '@Utils/isTablet';
-import React from 'react';
+import type React from 'react';
 
 import { LedgerListContainer } from './List/LedgerListContainer';
 import { LedgerSearchTools } from './SearchBar/LedgerSearchTools';
