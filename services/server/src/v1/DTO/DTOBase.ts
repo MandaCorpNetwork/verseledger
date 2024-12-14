@@ -39,7 +39,6 @@ export abstract class DTOBase<T> {
       }
       if (value == null) continue;
       if (typeof value === 'function') continue;
-
       (this as any)[key] = value;
     }
   }

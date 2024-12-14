@@ -76,8 +76,5 @@
   "resolutions": {
     "chalk": "4.1.2"
   },
-  "trustedDependencies": [
-    "@swc/core",
-    "esbuild"
-  ]
+  "trustedDependencies": ["@swc/core", "esbuild"]
 }
