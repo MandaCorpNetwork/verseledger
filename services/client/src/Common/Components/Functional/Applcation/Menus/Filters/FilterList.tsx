@@ -30,7 +30,7 @@ export const FilterList: React.FC<FilterListProps> = ({ filterList }) => {
     return filterList.map((filter) => {
       const FilterComponent = getComponent(filter.key);
       return (
-        <FilterGroup key={filter.key}>
+        <FilterGroup key={filter.key} sx={{ backgroundColor: 'transparent' }}>
           <AccordionSummary expandIcon={<ExpandMore />}>{filter.label}</AccordionSummary>
           <AccordionDetails>{FilterComponent}</AccordionDetails>
         </FilterGroup>
