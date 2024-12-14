@@ -2,6 +2,7 @@ import '@Assets/Css/AppDockV3.css';
 
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
 import { Button } from '@mui/material';
+import type React from 'react';
 
 type PanelScrollButtonProps = {
   onClick: () => void;

@@ -1,3 +1,7 @@
+import type {
+  ThemeAnimations,
+  ThemeFidelity,
+} from '@Common/Definitions/Themes/themeTypes';
 import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
 import type { ThemeOptions } from '@mui/material';
 import { createTheme, type Theme } from '@mui/material/styles';

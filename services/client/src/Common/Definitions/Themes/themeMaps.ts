@@ -7,6 +7,11 @@ import VerseOSLogo from '@Assets/Images/Logos/VerseOSLogo.png?url';
 import VerseOSPotato from '@Assets/Images/Logos/VerseOSPotatoLogo.png?url';
 import Checkmate from '@Assets/Videos/Checkmate.webm?url';
 import RedMicrotech from '@Assets/Videos/RedMicrotech.webm?url';
+import type {
+  BaseTheme,
+  ThemeInfo,
+  ThemeType,
+} from '@Common/Definitions/Themes/themeTypes';
 import { generatePirateOSBase } from '@Themes/PirateOS/PirateOS.generator';
 import { pirateOSPalette } from '@Themes/PirateOS/PirateOS.palette';
 import { pirateOSStyles } from '@Themes/PirateOS/PirateOS.styles';

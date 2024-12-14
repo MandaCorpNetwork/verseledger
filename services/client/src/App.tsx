@@ -1,6 +1,11 @@
 import './App.css';
 
 import { baseThemesMap } from '@Common/Definitions/Themes/themeMaps';
+import type {
+  ThemeAnimations,
+  ThemeFidelity,
+  ThemeType,
+} from '@Common/Definitions/Themes/themeTypes';
 import { animationTransitionMap } from '@Common/Definitions/Themes/transitions';
 import { LoadingScreen } from '@CommonLegacy/LoadingObject/LoadingScreen';
 import CssBaseline from '@mui/material/CssBaseline';

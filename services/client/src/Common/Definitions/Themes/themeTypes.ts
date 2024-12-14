@@ -1,10 +1,12 @@
-declare type ThemeType = 'verseOS' | 'pirateOS' | 'refinerySystem';
+import type { SxProps, Theme, ThemeOptions } from '@mui/material';
 
-declare type ThemeFidelity = 'high' | 'medium' | 'low' | 'potato';
+export type ThemeType = 'verseOS' | 'pirateOS' | 'refinerySystem';
 
-declare type ThemeAnimations = 'high' | 'medium' | 'low' | 'none';
+export type ThemeFidelity = 'high' | 'medium' | 'low' | 'potato';
 
-declare type ThemeInfo = {
+export type ThemeAnimations = 'high' | 'medium' | 'low' | 'none';
+
+export type ThemeInfo = {
   themeLabel: string;
   themeType: ThemeType;
   warning: boolean;
@@ -12,19 +14,19 @@ declare type ThemeInfo = {
   disabled: boolean;
 };
 
-declare type ThemeStyledComponents = Record<
+export type ThemeStyledComponents = Record<
   string,
   SxProps<Theme> | ((theme: Theme) => SxProps<Theme>)
 >;
 
-declare type ThemeGenerator = (
+export type ThemeGenerator = (
   palette: Theme,
   fidelity: ThemeFidelity,
   animations: ThemeAnimations,
   transtions: ThemeOptions['transitions'],
 ) => Theme;
 
-declare type BaseTheme = {
+export type BaseTheme = {
   themeName: string;
   palette: Theme;
   generator: ThemeGenerator;

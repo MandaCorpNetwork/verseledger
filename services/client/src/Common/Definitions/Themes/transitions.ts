@@ -1,4 +1,5 @@
-import type { ThemeOptions } from '@mui/material/styles';
+import type { ThemeAnimations } from '@Common/Definitions/Themes/themeTypes';
+import type { ThemeOptions, TransitionsOptions } from '@mui/material/styles';
 
 export const highAnimationTransitionObject: ThemeOptions['transitions'] = {
   duration: {
@@ -73,4 +74,4 @@ export const animationTransitionMap = {
   low: lowAnimationTransitionObject,
   medium: mediumAnimationTransitionObject,
   high: highAnimationTransitionObject,
-};
+} as Record<ThemeAnimations, TransitionsOptions>;

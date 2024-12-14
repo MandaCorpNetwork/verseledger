@@ -14,7 +14,7 @@ import {
   Industry,
   Logistics,
   Medical,
-  Proxy,
+  Proxy as ProxyIcon,
   RRR,
   Salvage,
   Security,
@@ -179,7 +179,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   {
     archetype: 'Proxy',
     archetypeLabel: 'Other',
-    archetypeIcon: Proxy,
+    archetypeIcon: ProxyIcon,
     subtypes: [
       {
         label: 'Middleman',

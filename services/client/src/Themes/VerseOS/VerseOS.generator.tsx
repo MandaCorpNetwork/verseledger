@@ -1,5 +1,6 @@
 import '@Assets/Css/fonts.css';
 
+import { ThemeAnimations, ThemeFidelity } from '@Common/Definitions/Themes/themeTypes';
 import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
 import type {} from '@mui/lab/themeAugmentation';
 import type { Theme, ThemeOptions } from '@mui/material';

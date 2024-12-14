@@ -1,4 +1,5 @@
 import { logoThemeMap } from '@Common/Definitions/Themes/themeMaps';
+import { ThemeStyledComponents } from '@Common/Definitions/Themes/themeTypes';
 import { alpha, type SxProps, type Theme } from '@mui/material/styles';
 
 export const verseOSCoreBoxes: ThemeStyledComponents = {

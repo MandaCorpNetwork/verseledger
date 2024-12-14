@@ -4,6 +4,7 @@ import ObjectsUI from '@Assets/Images/Textures/ConscientiousObjects.jpg?url';
 import Shotgun from '@Assets/Images/Textures/shotgun.png?url';
 import Skutters from '@Assets/Images/Textures/SkuttersUI.png?url';
 import { logoThemeMap } from '@Common/Definitions/Themes/themeMaps';
+import type { ThemeStyledComponents } from '@Common/Definitions/Themes/themeTypes';
 import type { SxProps } from '@mui/material';
 import { alpha, type Theme } from '@mui/material/styles';
 

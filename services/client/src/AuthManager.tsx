@@ -7,6 +7,7 @@ import { contractActions } from '@Redux/Slices/Contracts/contracts.reducer';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { Logger } from '@Utils/Logger';
 import { closeSnackbar, enqueueSnackbar } from 'notistack';
+import type React from 'react';
 import { useCallback, useEffect } from 'react';
 import { useSubscription } from 'react-stomp-hooks';
 import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
@@ -59,6 +60,7 @@ export const AuthManager: React.FC = () => {
       dispatch(updateTokens());
       return;
     }
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
     const accessTokenContents = AuthUtil.getAccessTokenContents()!;
     if (accessTokenContents.exp * 1000 - Date.now() <= 1000 * 60 * 10) {
       dispatch(updateTokens());
@@ -69,7 +71,7 @@ export const AuthManager: React.FC = () => {
     checkKeys();
     const interval = setInterval(checkKeys, 1000 * 60);
     return () => clearInterval(interval);
-  }, [dispatch, checkKeys]);
+  }, [checkKeys]);
 
   return <></>;
 };
