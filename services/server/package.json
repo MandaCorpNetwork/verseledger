@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "dist/server.cjs.js",
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@eslint/eslintrc": "3.2.0",
     "@eslint/js": "9.17.0",
     "@swc-node/register": "1.10.9",
@@ -72,7 +73,9 @@
     "ws": "8.18.0",
     "zod": "3.24.1"
   },
-  "resolutions": {"chalk": "4.1.2"},
+  "resolutions": {
+    "chalk": "4.1.2"
+  },
   "trustedDependencies": [
     "@swc/core",
     "esbuild"
