@@ -1,6 +1,6 @@
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserMembershipByOrgId } from '@Redux/Slices/Orgs/orgs.selectors';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import { OnlineMembers } from './OnlineMembers';
 import { OrgActivityBox } from './OrgActivityBox';

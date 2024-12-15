@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-fallthrough */
-export const murmurhash = (key: string, seed: number = 0) => {
+export const murmurhash = (key: string, seed = 0) => {
   let h1b, k1;
 
   const remainder = key.length & 3; // key.length % 4

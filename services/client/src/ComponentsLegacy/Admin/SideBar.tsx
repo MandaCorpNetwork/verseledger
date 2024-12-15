@@ -16,7 +16,7 @@ import { Box, Button, Grow, IconButton, Slide, Tooltip } from '@mui/material';
 import { useIsMobile } from '@Utils/isMobile';
 import { useIsTablet } from '@Utils/isTablet';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 
 const adminTabs = [
   {

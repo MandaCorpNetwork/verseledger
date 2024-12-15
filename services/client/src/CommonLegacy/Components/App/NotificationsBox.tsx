@@ -21,7 +21,7 @@ import useNotification from '@Utils/Hooks/notificationHandler';
 import type { PopupState } from 'material-ui-popup-state/hooks';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import type { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
 
 type NotificationBoxProps = {

@@ -12,7 +12,7 @@ import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { useIsMobile } from '@Utils/isMobile';
 import { enqueueSnackbar } from 'notistack';
 import React, { Suspense } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import type { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 import type { IContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
 import type {

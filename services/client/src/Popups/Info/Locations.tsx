@@ -22,7 +22,7 @@ import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { selectLocationById } from '@Redux/Slices/Locations/locations.selectors';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 export type LocationInfoProps = {

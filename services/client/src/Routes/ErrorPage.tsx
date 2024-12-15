@@ -1,7 +1,8 @@
 import backgroundvideo from '@Assets/media/NotFoundVideo.webm';
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { Box, Button, Typography } from '@mui/material';
-import { useNavigate, useRouteError } from 'react-router-dom';
+import type React from 'react';
+import { useNavigate, useRouteError } from 'react-router';
 
 const ErrorPage: React.FC<unknown> = () => {
   const navigate = useNavigate();

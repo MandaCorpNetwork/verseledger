@@ -7,7 +7,7 @@ import { selectContracts } from '@Redux/Slices/Contracts/contracts.selectors';
 import { useNav } from '@Utils/Hooks/useNav';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import { LedgerCardDisplay } from './Card/LedgerCardDisplay';
 import { PaginationAnchor } from './PaginationAnchor';

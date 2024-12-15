@@ -18,7 +18,7 @@ import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { closePopup, openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { selectUserById } from '@Redux/Slices/Users/users.selectors';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 export const POPUP_PLAYER_CARD = 'playerCard';
 

@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectContract } from '@Redux/Slices/Contracts/contracts.selectors';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import type { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
 import type { ILocationWithContractLocation } from 'vl-shared/src/schemas/LocationSchema';
 

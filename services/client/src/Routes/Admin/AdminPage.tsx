@@ -11,7 +11,7 @@ import { UserIssuePage } from '@ComponentsLegacy/Admin/Page/UserIssuePage';
 import { AdminSideBar } from '@ComponentsLegacy/Admin/SideBar';
 import { Box } from '@mui/material';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 export const AdminPage: React.FC = () => {
   const { adminTab } = useParams();

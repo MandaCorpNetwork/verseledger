@@ -31,7 +31,7 @@ import { Logger } from '@Utils/Logger';
 import { URLUtil } from '@Utils/URLUtil';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import type { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
 import type { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
 

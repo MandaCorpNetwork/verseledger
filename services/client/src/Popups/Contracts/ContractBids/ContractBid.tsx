@@ -16,7 +16,7 @@ import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContra
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import type { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { BidTimeRemaining } from './BidTimeRemaining';

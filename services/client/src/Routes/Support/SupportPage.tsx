@@ -1,7 +1,7 @@
 import VLLogo from '@Assets/media/VLLogo_LargeSquare.png';
 import { Box } from '@mui/material';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 
 import { SupportDisplay } from '@/wiki/SupportDisplay';
 import { SupportDrawer } from '@/wiki/SupportDrawer';

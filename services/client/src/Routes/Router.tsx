@@ -14,7 +14,7 @@ import { DashboardApp } from '@ComponentsLegacy/User/Dashboard/DashboardApp';
 import { VerseMarketPage } from '@ComponentsLegacy/VerseMarket/VerseMarketPage';
 import { DiscordLoginUtility } from '@Utils/discordLoginUtility';
 import { GoogleLoginUtility } from '@Utils/GoogleLoginUtility';
-import { Outlet, type RouteObject } from 'react-router-dom';
+import { Outlet, type RouteObject } from 'react-router';
 
 import { PopupManager } from '@/PopupManager';
 import { WidgetManager } from '@/WidgetManager';

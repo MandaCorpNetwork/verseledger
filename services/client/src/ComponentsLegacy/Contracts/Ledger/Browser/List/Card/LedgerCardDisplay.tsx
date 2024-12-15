@@ -3,7 +3,7 @@ import '@Assets/Css/scrollbar.css';
 import { Grid2 } from '@mui/material';
 // import { useIsMobile } from '@Utils/isMobile';
 import type React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { LedgerCard } from './LedgerCard';

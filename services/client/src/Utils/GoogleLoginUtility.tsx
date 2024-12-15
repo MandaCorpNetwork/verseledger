@@ -4,7 +4,7 @@ import { loginWithGoogle } from '@Redux/Slices/Auth/Actions/loginWithGoogle.acti
 import { fetchUserFlags } from '@Redux/Slices/Flags/Actions/fetchFlags.action';
 import { AuthUtil } from '@Utils/AuthUtil';
 import { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router';
 
 export const GoogleLoginUtility = () => {
   const [searchParams] = useSearchParams();

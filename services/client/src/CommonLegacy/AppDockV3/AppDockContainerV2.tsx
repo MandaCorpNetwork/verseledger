@@ -9,7 +9,7 @@ import { useAppSelector } from '@Redux/hooks';
 import { selectAnimations } from '@Redux/Slices/Auth/auth.selectors';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import { AppDock } from './AppDockV3';
 

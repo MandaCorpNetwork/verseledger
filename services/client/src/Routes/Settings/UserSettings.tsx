@@ -27,7 +27,7 @@ import { selectUserSettings } from '@Redux/Slices/Auth/auth.selectors';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
 import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import type { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
 
 //TODO: Fix Animations

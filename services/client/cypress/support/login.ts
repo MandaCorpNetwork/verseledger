@@ -1,6 +1,6 @@
 export const login = (
   as: 'verified' | 'unverified' | 'none',
-  id: number = 0,
+  id = 0,
   name = `${as} user`,
 ) => {
   cy.session(`${as}__${name}`, () => {

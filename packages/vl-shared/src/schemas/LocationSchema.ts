@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ITimestamped, TimestampedSchema } from './TimestampedSchema';
+import { type ITimestamped, TimestampedSchema } from './TimestampedSchema';
 
 export const ContractLocationSchema = z.object({
   constract_id: z.string(),

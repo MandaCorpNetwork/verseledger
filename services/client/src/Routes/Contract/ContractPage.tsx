@@ -23,7 +23,7 @@ import { useIsMobile } from '@Utils/isMobile';
 import { useIsTablet } from '@Utils/isTablet';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import type {
   IContract,
   IContractWithOwner,

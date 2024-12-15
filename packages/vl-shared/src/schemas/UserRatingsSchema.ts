@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { ContractSubTypeSchema } from './contracts/ContractSubTypeSchema';
-import { ITimestamped, TimestampedSchema } from './TimestampedSchema';
+import { type ITimestamped, TimestampedSchema } from './TimestampedSchema';
 
 export const RatingTypeSchema = z.enum([...ContractSubTypeSchema.options]);
 

@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 const marketPages = [
   {

@@ -31,7 +31,7 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { siteMode } from '@Utils/siteMode';
 import { bindPopover, usePopupState } from 'material-ui-popup-state/hooks';
 import React, { Suspense } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import { POPUP_APP_LIST } from './Tools/AllAppsModal';
 import { UserDialV2 } from './Tools/UserDialV2';

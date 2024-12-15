@@ -8,7 +8,7 @@ import { fetchUserTokens } from '@Redux/Slices/Tokens/Actions/fetchUserTokens.ac
 import { selectTokensArray } from '@Redux/Slices/Tokens/tokens.selectors';
 import ms from 'ms';
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 type DeveloperSettingsProps = {
   onClose: () => void;

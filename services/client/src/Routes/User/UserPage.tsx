@@ -33,7 +33,7 @@ import {
   selectUserPageImageById,
 } from '@Redux/Slices/Users/users.selectors';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 /**
  * ### UserPage

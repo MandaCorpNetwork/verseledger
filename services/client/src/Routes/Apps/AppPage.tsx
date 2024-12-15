@@ -3,7 +3,7 @@ import { VLViewport } from '@Common/Components/Core/Boxes/VLViewport';
 import { MaskedVideo } from '@Common/Components/Functional/Applcation/Media/MaskedVideo';
 import { Box, useTheme } from '@mui/material';
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 export const AppPage: React.FC<unknown> = () => {
   const theme = useTheme();
