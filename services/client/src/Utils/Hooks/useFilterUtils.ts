@@ -36,5 +36,12 @@ export const useFilterUtils = () => {
     return getSubtypeOptions();
   }, []);
 
-  return { filterCount, contractSubtypeList };
+  const dateFilterValues = useMemo(() => {
+    return (queryName: QueryNames): Date | null => {
+      const dateStr = searchParams.get(queryName);
+      return dateStr ? new Date(dateStr) : null;
+    };
+  }, [searchParams]);
+
+  return { filterCount, contractSubtypeList, dateFilterValues };
 };
