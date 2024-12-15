@@ -10,7 +10,15 @@ type FilterListProps = {
   filterList: FilterComponent[];
 };
 
-//TODO: Add Clear Filters in AccordionActions
+/**
+ * @description Dynamic Filter List Component for Rendering Filter Component DropDowns
+ * Accordion Collapse Animation Setting disabled in Low & None Animation Modes
+ * ___
+ * TODO:
+ * - Add Clear Filters in AccordionActions
+ * - Style the Expand Button & Text
+ * - Add Remaining Filter Components from {@link FilterComponentsMap}
+ */
 export const FilterList: React.FC<FilterListProps> = ({ filterList }) => {
   //Hooks
   const theme = useTheme();
@@ -43,7 +51,6 @@ export const FilterList: React.FC<FilterListProps> = ({ filterList }) => {
           disabled={filter.disabled}
           expanded={disableTransition}
         >
-          {/* TODO: Style the Expand Button & Text */}
           <AccordionSummary expandIcon={<ExpandMore />}>{filter.label}</AccordionSummary>
           <AccordionDetails>{FilterComponent}</AccordionDetails>
         </FilterGroup>
