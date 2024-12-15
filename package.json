@@ -1,46 +1,42 @@
 {
-  "name": "verseledger",
-  "version": "0.1.0",
-  "licence": "CC-BY-NC-ND-4.0",
-  "private": true,
-  "workspaces": [
-    "services/*",
-    "packages/*"
-  ],
-  "scripts": {
-    "postinstall": "preconstruct dev && manypkg check",
-    "clean": "yarn manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules",
-    "test": "yarn test:server && yarn test:client",
-    "test:client": "yarn manypkg run client test",
-    "test:server": "yarn manypkg run server test",
-    "lint": "yarn manypkg run server lint && yarn manypkg run vl-shared lint && manypkg run client lint",
-    "lint:fix": "yarn lint:fix",
-    "lint:check": "yarn manypkg run server lint:check && yarn manypkg run vl-shared lint:check && manypkg run client lint:check",
-    "db:reset": "cd scripts && setup-local-db.bat",
-    "db:migrate": "./.flyway/flyway -configFiles=./flyway.user.toml -environment=vl-db migrate",
-    "cypress": "yarn manypkg run client cypress run --browser chrome",
-    "cypress:develop": "yarn manypkg run client cypress open --browser chrome",
-    "dev": "concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client dev\" \"manypkg run server dev\"",
-    "build": "yarn manypkg run client build",
-    "start": "yarn db:migrate && concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client serve\" \"manypkg run server serve\"",
-    "docker:local": "docker compose --profile local up"
-  },
-  "devDependencies": {
-    "@babel/core": "7.26.0",
-    "@babel/preset-env": "7.26.0",
-    "@babel/preset-typescript": "7.26.0",
-    "@changesets/cli": "2.27.10",
-    "@manypkg/cli": "0.23.0",
-    "@preconstruct/cli": "2.8.10",
-    "concurrently": "9.1.0"
-  },
-  "preconstruct": {
-    "packages": [
-      "packages/*"
-    ]
-  },
-  "resolutions": {
-    "@types/mime": "3.0.4",
-    "express": "4.21.2"
-  }
+	"name": "verseledger",
+	"version": "0.1.0",
+	"licence": "CC-BY-NC-ND-4.0",
+	"private": true,
+	"workspaces": ["services/*", "packages/*"],
+	"scripts": {
+		"postinstall": "preconstruct dev && manypkg check",
+		"clean": "yarn manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules",
+		"test": "yarn test:server && yarn test:client",
+		"test:client": "yarn manypkg run client test",
+		"test:server": "yarn manypkg run server test",
+		"lint": "yarn manypkg run server lint && yarn manypkg run vl-shared lint && manypkg run client lint",
+		"lint:fix": "yarn lint:fix",
+		"lint:check": "yarn manypkg run server lint:check && yarn manypkg run vl-shared lint:check && manypkg run client lint:check",
+		"db:reset": "cd scripts && setup-local-db.bat",
+		"db:migrate": "./.flyway/flyway -configFiles=./flyway.user.toml -environment=vl-db migrate",
+		"cypress": "yarn manypkg run client cypress run --browser chrome",
+		"cypress:develop": "yarn manypkg run client cypress open --browser chrome",
+		"dev": "concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client dev\" \"manypkg run server dev\"",
+		"build": "yarn manypkg run client build",
+		"start": "yarn db:migrate && concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client serve\" \"manypkg run server serve\"",
+		"start:stg": "docker compose -f docker-compose.staging.yml up --build -d",
+		"docker:local": "docker compose --profile local up"
+	},
+	"devDependencies": {
+		"@babel/core": "7.26.0",
+		"@babel/preset-env": "7.26.0",
+		"@babel/preset-typescript": "7.26.0",
+		"@changesets/cli": "2.27.10",
+		"@manypkg/cli": "0.23.0",
+		"@preconstruct/cli": "2.8.10",
+		"concurrently": "9.1.0"
+	},
+	"preconstruct": {
+		"packages": ["packages/*"]
+	},
+	"resolutions": {
+		"@types/mime": "3.0.4",
+		"express": "4.21.2"
+	}
 }
