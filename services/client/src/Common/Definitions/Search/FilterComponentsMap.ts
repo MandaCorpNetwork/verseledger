@@ -54,6 +54,5 @@ export const filterComponents: Record<SearchFilter, FilterComponent> = {
       QueryNames.StartExact,
       QueryNames.Duration,
     ],
-    disabled: true,
   },
 };
