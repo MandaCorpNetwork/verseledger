@@ -1,10 +1,12 @@
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { TimePicker } from '@Common/Components/Functional/Applcation/Menus/DateAndTime/TimePicker';
 import { QueryNames } from '@Common/Definitions/Search/QueryNames';
-import { Box, Typography } from '@mui/material';
+import { Box, TextField, Typography } from '@mui/material';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
 import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { numericalFilter } from '@Utils/numericFilter';
+import { capFirstLetter } from '@Utils/StringUtil';
 import React from 'react';
 
 type ContractScheduleFilterProps = {
@@ -80,7 +82,7 @@ export const ContractScheduleFilter: React.FC<ContractScheduleFilterProps> = ({
   'data-testid': testid = 'FilterMenu',
 }) => {
   const themeExtend = useDynamicTheme();
-  const { setFilters } = useURLQuery();
+  const { setFilters, searchParams } = useURLQuery();
   const filterUtils = useFilterUtils();
 
   const layout = React.useMemo(() => {
@@ -186,6 +188,32 @@ export const ContractScheduleFilter: React.FC<ContractScheduleFilterProps> = ({
     layout.filterGroupWrapper,
     testid,
   ]);
+
+  /** Handle Duration Filter Change */
+  const handleDurationChange = React.useCallback(
+    (field: 'hours' | 'minutes', value: string) => {
+      const filterValue = numericalFilter(value);
+      const totalDurationInMinutes = Number.parseInt(
+        searchParams.get(QueryNames.Duration) ?? '0',
+        10,
+      );
+
+      const currentHours = Math.floor(totalDurationInMinutes / 60);
+      const currentMinutes = totalDurationInMinutes % 60;
+      let newTotalDurationInMinutes = totalDurationInMinutes;
+
+      if (field === 'hours') {
+        const newHours = Number.parseInt(filterValue, 10);
+        newTotalDurationInMinutes = newHours * 60 + currentMinutes;
+      } else {
+        const newMinutes = Number.parseInt(filterValue, 10);
+        newTotalDurationInMinutes = currentHours * 60 + newMinutes;
+      }
+
+      setFilters(QueryNames.Duration, newTotalDurationInMinutes.toString());
+    },
+    [searchParams, setFilters],
+  );
   return (
     <Box
       aria-label="Contract Scheduling Filter List Container"
@@ -231,7 +259,19 @@ export const ContractScheduleFilter: React.FC<ContractScheduleFilterProps> = ({
             justifyContent: 'space-evenly',
             ...layout.filterGroupWrapper,
           }}
-        ></Box>
+        >
+          {[
+            { string: 'hours', value: null },
+            { string: 'minutes', value: null },
+          ].map((time) => (
+            <TextField
+              key={time.string}
+              label={capFirstLetter(time.string)}
+              value={time.value > 0 ? time.value : null}
+              onChange={(e) => {}}
+            />
+          ))}
+        </Box>
       </ComponentDisplay>
     </Box>
   );
