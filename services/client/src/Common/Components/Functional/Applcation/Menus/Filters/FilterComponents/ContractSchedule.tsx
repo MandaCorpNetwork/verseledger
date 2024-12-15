@@ -11,6 +11,67 @@ type ContractScheduleFilterProps = {
   ['data-testid']?: string;
 };
 
+/** Define the DatePicker Filters */
+const dateFilters = [
+  {
+    label: 'Bid Date',
+    aria: 'Bid Date Filters',
+    testid: 'BidDate',
+    fields: [
+      {
+        query: QueryNames.BidBefore,
+        label: 'Bids Ends Before',
+        testid: 'BidBefore',
+        aria: 'Bidding Ending Before Date Filter',
+      },
+      {
+        query: QueryNames.BidAfter,
+        label: 'Bids End After',
+        testid: 'BidAfter',
+        aria: 'Bidding Ending After Date Filter',
+      },
+    ],
+  },
+  {
+    label: 'Start Date',
+    aria: 'Start Date Filters',
+    testid: 'StartDate',
+    fields: [
+      {
+        query: QueryNames.StartBefore,
+        label: 'Starts Before',
+        testid: 'StartBefore',
+        aria: 'Contract Starts Before Date Filter',
+      },
+      {
+        query: QueryNames.StartAfter,
+        label: 'Starts After',
+        testid: 'StartAfter',
+        aria: 'Contract Starts After Date Filter',
+      },
+    ],
+  },
+  {
+    label: 'End Date',
+    aria: 'End Date Filters',
+    testid: 'EndDate',
+    fields: [
+      {
+        query: QueryNames.EndBefore,
+        label: 'Ends Before',
+        testid: 'EndBefore',
+        aria: 'Contract Ends Before Date Filter',
+      },
+      {
+        query: QueryNames.EndAfter,
+        label: 'Ends After',
+        testid: 'EndAfter',
+        aria: 'Contract Ends After Date Filter',
+      },
+    ],
+  },
+];
+
 /**
  * @description Filter Component for Contract Scheduling. Filters for Bid Dates, Start Dates & End Dates.
  * ___
@@ -61,6 +122,70 @@ export const ContractScheduleFilter: React.FC<ContractScheduleFilterProps> = ({
     },
     [setFilters],
   );
+
+  /** Render the DatePicker Feilds */
+  const renderDatePickers = React.useCallback(() => {
+    return dateFilters.map((group) => {
+      return (
+        <ComponentDisplay
+          key={testid}
+          aria-label={group.aria}
+          id={`ContractScheduling__${group.testid}Group`}
+          data-testid={`${testid}-ContractSchedule__${group.testid}_Container`}
+          sx={{
+            p: '0.5em',
+            ...layout.filterGroupContainer,
+          }}
+        >
+          <Typography
+            aria-labelledby={`ContractScheduling__${group.testid}Group`}
+            data-testid={`${testid}-ContractSchedule__${group.testid}`}
+            variant="subtitle2"
+            sx={{
+              display: 'flex',
+              textAlign: 'left',
+              width: '100%',
+              pl: '1em',
+              ...layout.filterGroupLabel,
+            }}
+          >
+            {group.label}
+          </Typography>
+          <Box
+            aria-labelledby={`ContractScheduling__${group.testid}Group`}
+            data-testid={`${testid}-ContractSchedule-${group.testid}__FilterGroup_Wrapper`}
+            sx={{
+              display: 'flex',
+              width: 'grow',
+              justifyContent: 'space-evenly',
+              gap: '1em',
+              py: '0.5em',
+              ...layout.filterGroupWrapper,
+            }}
+          >
+            {group.fields.map((field) => (
+              <TimePicker
+                key={field.testid}
+                aria-label={field.aria}
+                label={field.label}
+                value={filterUtils.dateFilterValues(field.query)}
+                onChange={(date) => handleTimeFilterChange(field.query, date)}
+                onClear={() => clearDateFilter(field.query)}
+              />
+            ))}
+          </Box>
+        </ComponentDisplay>
+      );
+    });
+  }, [
+    clearDateFilter,
+    filterUtils,
+    handleTimeFilterChange,
+    layout.filterGroupContainer,
+    layout.filterGroupLabel,
+    layout.filterGroupWrapper,
+    testid,
+  ]);
   return (
     <Box
       aria-label="Contract Scheduling Filter List Container"
@@ -73,127 +198,7 @@ export const ContractScheduleFilter: React.FC<ContractScheduleFilterProps> = ({
         ...layout.filterListContainer,
       }}
     >
-      <ComponentDisplay
-        aria-label="Bid Date Filters"
-        id="ContractScheduling__BidDatesGroup"
-        data-testid={`${testid}-ContractSchedule__BidDate_Container`}
-        sx={{
-          p: '0.5em',
-          ...layout.filterGroupContainer,
-        }}
-      >
-        <Typography
-          aria-labelledby="ContractScheduling__BidDatesGroup"
-          data-testid={`${testid}-ContractSchedule-BidDate__Label`}
-          variant="subtitle2"
-          sx={{
-            display: 'flex',
-            textAlign: 'left',
-            width: '100%',
-            pl: '1em',
-            ...layout.filterGroupLabel,
-          }}
-        >
-          Bid Dates
-        </Typography>
-        <Box
-          aria-labelledby="ContractScheduling_BidDatesGroup"
-          data-testid={`${testid}-ContractSchedule-BidDate__FilterGroup_Wrapper`}
-          sx={{
-            display: 'flex',
-            width: 'grow',
-            justifyContent: 'space-evenly',
-            gap: '1em',
-            py: '0.5em',
-            ...layout.filterGroupWrapper,
-          }}
-        >
-          <TimePicker
-            aria-label="Bidding Ending Before Date Filter"
-            data-testid={`${testid}-ContractSchedule-BidDate__BidBefore_Filter`}
-            label="Bid Ends Before"
-            value={filterUtils.dateFilterValues(QueryNames.BidBefore)}
-            onChange={(date) => handleTimeFilterChange(QueryNames.BidBefore, date)}
-            onClear={() => clearDateFilter(QueryNames.BidBefore)}
-          />
-          <TimePicker
-            aria-label="Bidding Ending After Date Filter"
-            data-testid={`${testid}-ContractSchedule-BidDate__BidAfter_Filter`}
-            label="Bid Ends After"
-            value={filterUtils.dateFilterValues(QueryNames.BidAfter)}
-            onChange={(date) => handleTimeFilterChange(QueryNames.BidAfter, date)}
-            onClear={() => clearDateFilter(QueryNames.BidAfter)}
-          />
-        </Box>
-      </ComponentDisplay>
-      <ComponentDisplay
-        aria-label="Bid Date Filters"
-        id="ContractScheduling__BidDatesGroup"
-        data-testid={`${testid}-ContractSchedule__BidDate_Container`}
-        sx={{
-          p: '0.5em',
-          ...layout.filterGroupContainer,
-        }}
-      >
-        <Typography
-          aria-labelledby="ContractScheduling__BidDatesGroup"
-          data-testid={`${testid}-ContractSchedule-BidDate__Label`}
-          variant="subtitle2"
-          sx={{
-            display: 'flex',
-            textAlign: 'left',
-            width: '100%',
-            pl: '1em',
-            ...layout.filterGroupLabel,
-          }}
-        >
-          Start Dates
-        </Typography>
-        <Box
-          aria-labelledby="ContractScheduling_BidDatesGroup"
-          data-testid={`${testid}-ContractSchedule-BidDate__FilterGroup_Wrapper`}
-          sx={{
-            display: 'flex',
-            width: 'grow',
-            justifyContent: 'space-evenly',
-            ...layout.filterGroupWrapper,
-          }}
-        ></Box>
-      </ComponentDisplay>
-      <ComponentDisplay
-        aria-label="Bid Date Filters"
-        id="ContractScheduling__BidDatesGroup"
-        data-testid={`${testid}-ContractSchedule__BidDate_Container`}
-        sx={{
-          p: '0.5em',
-          ...layout.filterGroupContainer,
-        }}
-      >
-        <Typography
-          aria-labelledby="ContractScheduling__BidDatesGroup"
-          data-testid={`${testid}-ContractSchedule-BidDate__Label`}
-          variant="subtitle2"
-          sx={{
-            display: 'flex',
-            textAlign: 'left',
-            width: '100%',
-            pl: '1em',
-            ...layout.filterGroupLabel,
-          }}
-        >
-          End Dates
-        </Typography>
-        <Box
-          aria-labelledby="ContractScheduling_BidDatesGroup"
-          data-testid={`${testid}-ContractSchedule-BidDate__FilterGroup_Wrapper`}
-          sx={{
-            display: 'flex',
-            width: 'grow',
-            justifyContent: 'space-evenly',
-            ...layout.filterGroupWrapper,
-          }}
-        ></Box>
-      </ComponentDisplay>
+      {renderDatePickers()}
       <ComponentDisplay
         aria-label="Bid Date Filters"
         id="ContractScheduling__BidDatesGroup"
