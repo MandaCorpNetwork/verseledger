@@ -4,6 +4,7 @@ import { ExpandMore } from '@mui/icons-material';
 import { AccordionDetails, AccordionSummary, useTheme } from '@mui/material';
 import React from 'react';
 
+import { ContractScheduleFilter } from './FilterComponents/ContractSchedule';
 import { ContractTypeFilter } from './FilterComponents/ContractType';
 
 type FilterListProps = {
@@ -35,6 +36,7 @@ export const FilterList: React.FC<FilterListProps> = ({ filterList }) => {
       case 'ContractLocations':
       case 'ContractPay':
       case 'ContractSchedule':
+        return <ContractScheduleFilter />;
       case 'ContractRating':
       case 'ContractStatus':
       default:
