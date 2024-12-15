@@ -40,6 +40,9 @@ type SubTypeFilterProps = {
   size: 'small' | 'medium';
 };
 
+/**
+ * @deprecated
+ */
 export const SubTypeFilter: React.FC<SubTypeFilterProps> = ({ size }) => {
   const sound = useSoundEffect();
   const { searchParams, setFilters } = useURLQuery();

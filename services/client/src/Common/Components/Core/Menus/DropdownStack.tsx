@@ -5,6 +5,7 @@ import { generateStyles } from '@Utils/GenerateStyles';
 const defaultStyles: SxProps<Theme> = {
   alignItems: 'stretch',
   flexGrow: 1,
+  padding: '0.5em',
 };
 
 export const DropdownStack = styled(Stack)(({ theme }) => ({

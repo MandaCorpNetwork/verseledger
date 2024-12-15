@@ -144,6 +144,12 @@ export const generateVerseOSBase = (
           },
         ],
       },
+      MuiTextField: {
+        defaultProps: {
+          color: 'secondary',
+          size: 'small',
+        },
+      },
       MuiLinearProgress: {
         styleOverrides: {
           root: {

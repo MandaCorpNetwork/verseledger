@@ -6,6 +6,7 @@ export type FilterComponent = {
   key: SearchFilter;
   label: string;
   filters: QueryNames[];
+  disabled?: boolean;
 };
 
 export const filterComponents: Record<SearchFilter, FilterComponent> = {
@@ -14,9 +15,45 @@ export const filterComponents: Record<SearchFilter, FilterComponent> = {
     label: 'Contract Type',
     filters: [QueryNames.ContractSubtype, QueryNames.ContractArchetype],
   },
-  ContractLocations: {} as FilterComponent,
-  ContractPay: {} as FilterComponent,
-  ContractRating: {} as FilterComponent,
-  ContractStatus: {} as FilterComponent,
-  ContractSchedule: {} as FilterComponent,
+  ContractLocations: {
+    key: 'ContractLocations',
+    label: 'Contract Locations',
+    filters: [QueryNames.Locations],
+    disabled: true,
+  },
+  ContractPay: {
+    key: 'ContractPay',
+    label: 'Contract Pay',
+    filters: [QueryNames.UECRangeMin, QueryNames.UECRangeMax, QueryNames.PayStructure],
+    disabled: true,
+  },
+  ContractRating: {
+    key: 'ContractRating',
+    label: 'Rating Stats',
+    filters: [QueryNames.ContractorRating, QueryNames.EmployerRating],
+    disabled: true,
+  },
+  ContractStatus: {
+    key: 'ContractStatus',
+    label: 'Contract Status',
+    filters: [QueryNames.Status],
+    disabled: true,
+  },
+  ContractSchedule: {
+    key: 'ContractSchedule',
+    label: 'Contract Scheduling',
+    filters: [
+      QueryNames.BidAfter,
+      QueryNames.BidBefore,
+      QueryNames.BidExact,
+      QueryNames.EndAfter,
+      QueryNames.EndBefore,
+      QueryNames.EndExact,
+      QueryNames.StartAfter,
+      QueryNames.StartBefore,
+      QueryNames.StartExact,
+      QueryNames.Duration,
+    ],
+    disabled: true,
+  },
 };
