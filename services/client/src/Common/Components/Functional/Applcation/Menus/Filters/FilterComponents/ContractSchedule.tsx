@@ -1,7 +1,8 @@
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { TimePicker } from '@Common/Components/Functional/Applcation/Menus/DateAndTime/TimePicker';
 import { QueryNames } from '@Common/Definitions/Search/QueryNames';
-import { Box, TextField, Typography } from '@mui/material';
+import { Clear } from '@mui/icons-material';
+import { Box, InputAdornment, TextField, Typography } from '@mui/material';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
 import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
@@ -77,6 +78,8 @@ const dateFilters = [
 /**
  * @description Filter Component for Contract Scheduling. Filters for Bid Dates, Start Dates & End Dates.
  * ___
+ * TODO:
+ * - Add Descriptions of the Fields
  */
 export const ContractScheduleFilter: React.FC<ContractScheduleFilterProps> = ({
   'data-testid': testid = 'FilterMenu',
@@ -98,11 +101,13 @@ export const ContractScheduleFilter: React.FC<ContractScheduleFilterProps> = ({
     const filterGroupWrapper = themeExtend.layout(
       'ContractScheduleFilter.FilterGroupWrapper',
     );
+    const durationInput = themeExtend.layout('ContractScheduleFilter.DurationInput');
     return {
       filterListContainer,
       filterGroupContainer,
       filterGroupLabel,
       filterGroupWrapper,
+      durationInput,
     };
   }, [themeExtend]);
 
@@ -158,7 +163,7 @@ export const ContractScheduleFilter: React.FC<ContractScheduleFilterProps> = ({
             data-testid={`${testid}-ContractSchedule-${group.testid}__FilterGroup_Wrapper`}
             sx={{
               display: 'flex',
-              width: 'grow',
+              width: '100%',
               justifyContent: 'space-evenly',
               gap: '1em',
               py: '0.5em',
@@ -189,30 +194,45 @@ export const ContractScheduleFilter: React.FC<ContractScheduleFilterProps> = ({
     testid,
   ]);
 
+  /** Memoized Duration Fields */
+  const durationValues = React.useMemo(() => {
+    const total = Number.parseInt(searchParams.get(QueryNames.Duration) ?? '0', 10);
+    const currentHours = Math.floor(total / 60);
+    const currentMinutes = total % 60;
+    return { total, currentHours, currentMinutes };
+  }, [searchParams]);
+
   /** Handle Duration Filter Change */
   const handleDurationChange = React.useCallback(
     (field: 'hours' | 'minutes', value: string) => {
       const filterValue = numericalFilter(value);
-      const totalDurationInMinutes = Number.parseInt(
-        searchParams.get(QueryNames.Duration) ?? '0',
-        10,
-      );
-
-      const currentHours = Math.floor(totalDurationInMinutes / 60);
-      const currentMinutes = totalDurationInMinutes % 60;
-      let newTotalDurationInMinutes = totalDurationInMinutes;
+      const parsedValue = filterValue !== null ? filterValue.toString() : '';
 
       if (field === 'hours') {
-        const newHours = Number.parseInt(filterValue, 10);
-        newTotalDurationInMinutes = newHours * 60 + currentMinutes;
+        const newHours = Number.parseInt(parsedValue, 10);
+        const newTotal = newHours * 60 + durationValues.currentMinutes;
+        setFilters(QueryNames.Duration, newTotal.toString());
       } else {
-        const newMinutes = Number.parseInt(filterValue, 10);
-        newTotalDurationInMinutes = currentHours * 60 + newMinutes;
+        const newMinutes = Number.parseInt(parsedValue, 10);
+        const newTotal = durationValues.currentMinutes * 60 + newMinutes;
+        setFilters(QueryNames.Duration, newTotal.toString());
       }
-
-      setFilters(QueryNames.Duration, newTotalDurationInMinutes.toString());
     },
-    [searchParams, setFilters],
+    [durationValues.currentMinutes, setFilters],
+  );
+
+  /** Handle Clearing a Duration Change */
+  const clearDurationFilter = React.useCallback(
+    (field: 'hours' | 'minutes') => {
+      if (field === 'hours') {
+        const newTotal = durationValues.currentMinutes;
+        setFilters(QueryNames.Duration, newTotal.toString());
+      } else {
+        const newTotal = durationValues.total - durationValues.currentMinutes;
+        setFilters(QueryNames.Duration, newTotal.toString());
+      }
+    },
+    [durationValues.currentMinutes, durationValues.total, setFilters],
   );
   return (
     <Box
@@ -255,20 +275,40 @@ export const ContractScheduleFilter: React.FC<ContractScheduleFilterProps> = ({
           data-testid={`${testid}-ContractSchedule-BidDate__FilterGroup_Wrapper`}
           sx={{
             display: 'flex',
-            width: 'grow',
+            width: '100%',
             justifyContent: 'space-evenly',
             ...layout.filterGroupWrapper,
           }}
         >
           {[
-            { string: 'hours', value: null },
-            { string: 'minutes', value: null },
+            { string: 'hours', value: durationValues.currentHours },
+            { string: 'minutes', value: durationValues.currentMinutes },
           ].map((time) => (
             <TextField
               key={time.string}
               label={capFirstLetter(time.string)}
               value={time.value > 0 ? time.value : null}
-              onChange={(e) => {}}
+              onChange={(e) =>
+                handleDurationChange(time.string as 'hours' | 'minutes', e.target.value)
+              }
+              sx={{
+                width: '100px',
+                ...layout.durationInput,
+              }}
+              slotProps={{
+                input: {
+                  endAdornment: time.value > 0 && (
+                    <InputAdornment
+                      position="end"
+                      onClick={() =>
+                        clearDurationFilter(time.string as 'hours' | 'minutes')
+                      }
+                    >
+                      <Clear />
+                    </InputAdornment>
+                  ),
+                },
+              }}
             />
           ))}
         </Box>

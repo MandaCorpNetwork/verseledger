@@ -60,7 +60,7 @@ export type AppGroup = {
   list: string[];
 };
 
-export const VerseLedgerVersion = '0.4.5';
+export const VerseLedgerVersion = '0.4.8';
 export const useMasterAppList = () => {
   const news = !useHasFeatureFlag('F-news');
   const wiki = !useHasFeatureFlag('F-wiki');
@@ -130,7 +130,7 @@ export const useMasterAppList = () => {
         path: '/settings',
         icon: SettingsTwoTone,
         versionLabel: 'Settings',
-        version: '1.2',
+        version: '2.0.1',
         severityCode: 5,
       },
       {
@@ -209,7 +209,7 @@ export const useMasterAppList = () => {
         path: '/apps/contracts',
         icon: Contracts,
         versionLabel: 'Contract Manager',
-        version: '2.1',
+        version: '3.0.2',
         severityCode: 1,
       },
       {

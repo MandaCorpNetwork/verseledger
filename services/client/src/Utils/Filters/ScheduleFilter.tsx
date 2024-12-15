@@ -317,7 +317,14 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
           Max Duration on Contract
         </Typography>
       </ComponentDisplay>
-      <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center', mt: '.5em' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'space-evenly',
+          mt: '.5em',
+        }}
+      >
         <Typography variant="tip" sx={{ fontSize: '.75em', px: '1em' }}>
           All times are in Local Time
         </Typography>
