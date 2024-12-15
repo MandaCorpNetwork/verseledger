@@ -23,7 +23,7 @@ export const MoreIcon: React.FC<MoreIconProps> = ({
       const step = delta * 0.1; //Smoothing Factor
 
       if (Math.abs(delta) < 0.1) {
-        cancelAnimationFrame(animationFrameId.current!);
+        cancelAnimationFrame(animationFrameId!.current!);
         animationFrameId.current = null;
         return targetRotateY.current;
       }
@@ -57,7 +57,7 @@ export const MoreIcon: React.FC<MoreIconProps> = ({
     if (!animationFrameId.current) {
       animationFrameId.current = requestAnimationFrame(smoothRotate);
     }
-  }, [smoothRotate, targetRotateY]);
+  }, [smoothRotate]);
 
   const advButtonAnimation = React.useMemo(() => {
     if (animations === 'high') {

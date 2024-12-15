@@ -1,5 +1,6 @@
 import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
 import { LoadingButton } from '@mui/lab';
+import React from 'react';
 
 type FormLoadingButtonProps = {
   label: string;

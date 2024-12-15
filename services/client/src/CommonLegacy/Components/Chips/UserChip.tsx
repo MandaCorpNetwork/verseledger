@@ -5,6 +5,7 @@ import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { selectUserById } from '@Redux/Slices/Users/users.selectors';
+import type React from 'react';
 import type { IUser, IUserWithSettings } from 'vl-shared/src/schemas/UserSchema';
 
 type UserChipProps = {

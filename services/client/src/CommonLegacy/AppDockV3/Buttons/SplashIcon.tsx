@@ -57,7 +57,7 @@ export const SplashIcon: React.FC<SplashIconProps> = ({ quality, animations }) =
     if (!animationFrameId.current) {
       animationFrameId.current = requestAnimationFrame(smoothRotate);
     }
-  }, [smoothRotate, targetRotateY]);
+  }, [smoothRotate]);
 
   const advButtonAnimation = React.useMemo(() => {
     if (animations === 'high') {

@@ -41,7 +41,6 @@ export const UserSearch: React.FC<UserSearchProps> = ({
         const searchResults = await dispatch(fetchSearchUsers(searchTerm)).unwrap();
         setOptions(searchResults);
       } catch (error) {
-        console.error('Error fetching users', error);
         setOptions([]);
       } finally {
         setLoading(false);

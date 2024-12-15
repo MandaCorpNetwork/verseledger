@@ -17,7 +17,6 @@ export const PanelScrollButton: React.FC<PanelScrollButtonProps> = ({
 }) => {
   const forwardIcon = <ArrowForwardIos fontSize="large" className="DockDirectionIcon" />;
   const backwardIcon = <ArrowBackIosNew fontSize="large" className="DockDirectionIcon" />;
-  console.log('Scroll disabled', disabled);
 
   return (
     <Button

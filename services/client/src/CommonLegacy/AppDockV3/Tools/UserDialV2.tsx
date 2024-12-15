@@ -41,14 +41,14 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
 
   const toggleOpen = React.useCallback(() => {
     setMenuOpen((prev) => !prev);
-  }, [setMenuOpen]);
+  }, []);
 
   const closeMenu = React.useCallback(() => {
     sound.playSound('close');
     setMenuOpen(false);
     hoverRef.current = false;
     if (timeoutRef.current !== null) clearTimeout(timeoutRef.current);
-  }, [sound, setMenuOpen]);
+  }, [sound]);
 
   const openMenu = React.useCallback(() => {
     hoverRef.current = true;
@@ -58,7 +58,7 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
         sound.playSound('open');
       }
     }, 800);
-  }, [sound, menuOpen, setMenuOpen]);
+  }, [sound, menuOpen]);
 
   const userDialStyles = React.useMemo(() => {
     const classNames: string[] = [];
@@ -67,8 +67,8 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
       case 'potato':
         classNames.push('NormalUserDial');
         break;
-      case 'high':
-      case 'medium':
+      // case 'high':
+      // case 'medium':
       default:
         classNames.push('AdvUserDial');
         break;
@@ -78,8 +78,8 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
 
   const userDialTransition = React.useMemo(() => {
     if (animations === 'low' || animations === 'none') return 0;
-    else if (animations === 'high') return 1000;
-    else return 250;
+    if (animations === 'high') return 1000;
+    return 250;
   }, [animations]);
 
   const userDialAvatarStyles = React.useMemo(() => {
@@ -89,8 +89,8 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
       case 'potato':
         classNames.push('LowUserDialAvatar');
         break;
-      case 'high':
-      case 'medium':
+      // case 'high':
+      // case 'medium':
       default:
         classNames.push('UserDialAvatar');
     }
@@ -103,7 +103,7 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
         break;
       case 'none':
         break;
-      case 'medium':
+      // case 'medium':
       default:
         classNames.push('UserDialAvatarMedAnimations');
         break;
@@ -123,7 +123,7 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
       case 'potato':
         classNames.push('PotatoUserDialAction');
         break;
-      case 'medium':
+      // case 'medium':
       default:
         classNames.push('AdvUserDialAction');
         break;
@@ -137,7 +137,7 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
         break;
       case 'none':
         break;
-      case 'medium':
+      // case 'medium':
       default:
         classNames.push('UserDialActionMedAnimation');
         break;
@@ -167,12 +167,12 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
   const NotificationIcon = React.useMemo(() => {
     if (notificationOpen) return Notifications;
     if (unreadNotifCount > 0) return NotificationsActive;
-    else return NotificationsOutlined;
+    return NotificationsOutlined;
   }, [notificationOpen, unreadNotifCount]);
 
   const notificationIconStyle = React.useMemo(() => {
     if (unreadNotifCount > 0) return 'UnreadNotifications';
-    else return '';
+    return '';
   }, [unreadNotifCount]);
 
   const { onClick: triggerOnClick } = bindTrigger(notificationPopupState);
@@ -192,12 +192,12 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
   const MailIcon = React.useMemo(() => {
     if (mailOpen) return Mail;
     if (unreadMailCount > 0) return MarkunreadMailbox;
-    else return MailOutline;
+    return MailOutline;
   }, [mailOpen, unreadMailCount]);
 
   const mailIconStyle = React.useMemo(() => {
     if (unreadMailCount > 0) return 'UnreadNotifications';
-    else return '';
+    return '';
   }, [unreadMailCount]);
 
   const speedDialSize = React.useMemo(() => {
@@ -205,8 +205,8 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
       case 'low':
       case 'potato':
         return 'medium';
-      case 'high':
-      case 'medium':
+      // case 'high':
+      // case 'medium':
       default:
         return 'large';
     }
@@ -288,8 +288,8 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
           data-testid="AppDock-UserDial__Settings_Button"
           tooltipTitle="Settings"
           tooltipPlacement="bottom"
-          onClick={(e) => nav(`/settings/Profile`, 'internal', true).onClick(e)}
-          onAuxClick={(e) => nav(`/settings/Profile`, 'internal', true).onAuxClick(e)}
+          onClick={(e) => nav('/settings/Profile', 'internal', true).onClick(e)}
+          onAuxClick={(e) => nav('/settings/Profile', 'internal', true).onAuxClick(e)}
           icon={
             <Settings fontSize={speedDialSize} className={userDialActionIconStyles} />
           }
@@ -298,8 +298,8 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
           data-testid="AppDock-UserDial__Support_Button"
           tooltipTitle="Support"
           tooltipPlacement="bottom"
-          onClick={(e) => nav(`/support/report`, 'internal', true).onClick(e)}
-          onAuxClick={(e) => nav(`/support/reporrt`, 'internal', true).onAuxClick(e)}
+          onClick={(e) => nav('/support/report', 'internal', true).onClick(e)}
+          onAuxClick={(e) => nav('`/support/reporrt', 'internal', true).onAuxClick(e)}
           icon={
             <Feedback fontSize={speedDialSize} className={userDialActionIconStyles} />
           }

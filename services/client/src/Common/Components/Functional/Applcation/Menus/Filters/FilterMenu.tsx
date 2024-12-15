@@ -42,8 +42,6 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({
     return filterKeys.map((filterKey) => filterComponents[filterKey]);
   }, [filterKeys]);
 
-  console.log(filters);
-
   const children = (
     <DropdownStack>
       <FilterList filterList={filters} />

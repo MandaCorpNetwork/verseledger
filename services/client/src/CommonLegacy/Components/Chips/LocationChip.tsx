@@ -5,12 +5,13 @@ import { POPUP_LOCATION_INFO } from '@Popups/Info/Locations';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectLocationById } from '@Redux/Slices/Locations/locations.selectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import React from 'react';
 
 type LocationChipProps = {
   locationId: string;
   onDelete?: (locationId: string) => void;
   sx?: object;
-  ['data-testid']?: string;
+  'data-testid'?: string;
   variant?: 'filled' | 'outlined';
   size?: 'small' | 'medium';
   color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';

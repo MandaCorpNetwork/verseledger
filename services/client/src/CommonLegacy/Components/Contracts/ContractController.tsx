@@ -57,7 +57,6 @@ export const ContractController: React.FC<ContractControllerProps> = (props) => 
 
   const getContractors = React.useCallback(() => {
     //CHECK: Successfully Finds Bid
-    // console.log('Found Bids:', contract.Bids);
     return contract.Bids?.filter(
       (bid) =>
         bid.status === 'ACCEPTED' ||

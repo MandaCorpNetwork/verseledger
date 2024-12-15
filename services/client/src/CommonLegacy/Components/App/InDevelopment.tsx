@@ -1,4 +1,5 @@
 import { Box, keyframes } from '@mui/material';
+import type React from 'react';
 
 const stripesTop = keyframes`
   from {
@@ -59,29 +60,29 @@ export const WorkZoneBar: React.FC<WorkZoneBarProps> = (props) => {
 
   const severityMapping = {
     testing: `repeating-linear-gradient(
-      -45deg, 
-      transparent, 
+      -45deg,
+      transparent,
       transparent 0.6rem,
       gray 0.6rem,
       gray 1.2rem
     )`,
     construction: `repeating-linear-gradient(
-      -45deg, 
-      transparent, 
+      -45deg,
+      transparent,
       transparent 0.6rem,
       orange 0.6rem,
       #fcba03 1.2rem
     )`,
     broken: `repeating-linear-gradient(
-      -45deg, 
-      transparent, 
+      -45deg,
+      transparent,
       transparent 0.6rem,
       red 0.6rem,
       red 1.2rem
     )`,
     pending: `repeating-linear-gradient(
-      -45deg, 
-      transparent, 
+      -45deg,
+      transparent,
       transparent 0.6rem,
       #A0AEC0 0.6rem,
       #CBD5E0 1.2rem

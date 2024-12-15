@@ -1,4 +1,5 @@
 import { Button } from '@mui/material';
+import type React from 'react';
 
 type ClearAllButtonProps = {
   onClear: () => void;

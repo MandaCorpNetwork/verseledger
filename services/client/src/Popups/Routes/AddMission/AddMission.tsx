@@ -46,9 +46,7 @@ export const AddMissionPopup: React.FC = () => {
     onSubmit: ({ value }) => {
       sound.playSound('loading');
       const tasks = createTaskArray(value);
-      console.log('Add Mission Tasks', tasks);
       const updatedDestinations = createDestinations(destinations, tasks as ITask[]);
-      console.log('Add Mission Dests', updateDestinations);
       //TODO: Consolidation Logic When Adding Missions
       dispatch(updateDestinations(updatedDestinations));
       dispatch(addTasks(tasks as ITask[]));
@@ -197,7 +195,6 @@ export const AddMissionPopup: React.FC = () => {
                               <LocationSearch
                                 onLocationSelect={(e) => {
                                   subField.handleChange(e ?? ({} as ILocation));
-                                  console.log(subField, e);
                                 }}
                                 // label="Pickup Location"
                                 // required
@@ -286,7 +283,6 @@ export const AddMissionPopup: React.FC = () => {
                                               subField.handleChange(
                                                 e ?? ({} as ILocation),
                                               );
-                                              console.log(subField, e);
                                             }}
                                             // label="Pickup Location"
                                             // required

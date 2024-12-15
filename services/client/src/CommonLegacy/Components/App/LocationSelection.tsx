@@ -1,17 +1,16 @@
 import { Autocomplete, TextField } from '@mui/material';
+import type React from 'react';
 
 export const LocationSelection: React.FC<unknown> = () => {
   return (
-    <>
-      <Autocomplete
-        limitTags={2}
-        options={locationTestDB}
-        getOptionLabel={(option) => option.location}
-        renderInput={(params) => (
-          <TextField {...params} label="Set Location" placeholder="Location" />
-        )}
-      />
-    </>
+    <Autocomplete
+      limitTags={2}
+      options={locationTestDB}
+      getOptionLabel={(option) => option.location}
+      renderInput={(params) => (
+        <TextField {...params} label="Set Location" placeholder="Location" />
+      )}
+    />
   );
 };
 

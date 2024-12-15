@@ -9,7 +9,6 @@ const MAX_UINT_SIZE = 4294967295;
 
 export const inFlagPercent = (key: string, percent: number) => {
   const hash = murmurhash(key) / MAX_UINT_SIZE;
-  console.log(key, hash);
   return hash <= percent;
 };
 

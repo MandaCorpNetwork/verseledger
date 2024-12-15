@@ -50,19 +50,20 @@ export function getMappedLocation(
 }
 
 export function formatDistance(locA: MappedLocation, locB: MappedLocation): string {
-  if (locA.parent && locA.parent.location.id === locB.location.id) return `Fluctuates`;
-  if (locB.parent && locB.parent.location.id === locA.location.id) return `Exit Atmo`;
+  if (locA.parent && locA.parent.location.id === locB.location.id) return 'Fluctuates';
+  if (locB.parent && locB.parent.location.id === locA.location.id) return 'Exit Atmo';
   const floatDistance = MathX.distance(locA.position, locB.position);
   const absDistance = Math.abs(floatDistance);
   if (absDistance < 1_000) {
     return `${absDistance.toFixed(2).toLocaleString()} km`;
-  } else if (absDistance < 1_000_000) {
-    return `${(absDistance / 1_000).toFixed(2)} Mm`;
-  } else if (absDistance < 1_000_000_000) {
-    return `${(absDistance / 1_000_000).toFixed(2)} Gm`;
-  } else {
-    return `${(absDistance / 1_000_000_000).toFixed(2).toLocaleString()} Tm`;
   }
+  if (absDistance < 1_000_000) {
+    return `${(absDistance / 1_000).toFixed(2)} Mm`;
+  }
+  if (absDistance < 1_000_000_000) {
+    return `${(absDistance / 1_000_000).toFixed(2)} Gm`;
+  }
+  return `${(absDistance / 1_000_000_000).toFixed(2).toLocaleString()} Tm`;
 }
 
 export function getSiblingDestinations(task: ITask, destinations: IDestination[]) {
@@ -147,7 +148,7 @@ export function getEfficientDistancePath(
   existingLoad: number,
   userLocation: ILocation | null,
 ) {
-  const foundUserLocation = Boolean(userLocation && userLocation.id);
+  const foundUserLocation = Boolean(userLocation?.id);
   // *Initial Values*
   // The Constructed Path to be built from Destinations
   const constructedPath: IDestination[] = [];
@@ -208,7 +209,7 @@ export function getEfficientDistancePath(
 
   // **Construct Path**
   // Push the Start Location to the Constructed Path Array
-  if (userLocation && userLocation.id) {
+  if (userLocation?.id) {
     constructedPath.push(createStartDestination(userLocation));
   }
   // Set the currentLocation for the Path
@@ -219,23 +220,8 @@ export function getEfficientDistancePath(
   const droppedPackages: ITask[] = [];
   const visitedLocations = new Set<number>();
 
-  console.log('InitialState:', {
-    currentLocation,
-    currentLocationIndex,
-    constructedPath,
-    totalLocations,
-    totalTasks,
-    currentLoad,
-  });
-
   while (assignedTasks.size < totalTasks) {
-    console.log('Current Loop State:', {
-      currentLocation,
-      currentLocationIndex,
-      currentLoad,
-    });
     if (currentLocationIndex === -1) {
-      console.error('Start Location not found in Location Ids Array');
       return [];
     }
     if (currentLocation != null) {
@@ -266,9 +252,8 @@ export function getEfficientDistancePath(
         if (valid) {
           currentLoad -= task.scu ?? 0;
           return true;
-        } else {
-          return false;
         }
+        return false;
       });
       tempTasks.push(...validDrops);
       droppedPackages.push(...validDrops);
@@ -288,7 +273,10 @@ export function getEfficientDistancePath(
           location: currentLocation,
           tasks: [...tempTasks],
         });
-        tempTasks.forEach((task) => assignedTasks.add(task.id));
+        for (const task of tempTasks) {
+          assignedTasks.add(task.id);
+        }
+
         currentLoad += pickedLoad;
       }
 

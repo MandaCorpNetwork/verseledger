@@ -57,7 +57,7 @@
 
 @font-face {
   font-family: 'Electrolize';
-  src: ('../Fonts/ElectrolizeRegular.ttf') format('truetype');
+  src: url('../Fonts/ElectrolizeRegular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }

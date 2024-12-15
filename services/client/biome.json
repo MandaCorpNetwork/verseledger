@@ -19,12 +19,13 @@
     "lineWidth": 90,
     "attributePosition": "auto",
     "bracketSpacing": true,
-    "ignore": ["**/dev-dist/"]
+    "ignore": ["**/dev-dist/", "**/cypress/e2e/**/*"]
   },
   "organizeImports": {
     "enabled": true
   },
   "linter": {
+    "ignore": ["**/dev-dist/", "**/cypress/e2e/**/*"],
     "enabled": true,
     "rules": {
       "recommended": false,
@@ -66,7 +67,7 @@
         "noWith": "error"
       },
       "correctness": {
-        "noChildrenProp": "error",
+        "noChildrenProp": "off",
         "noConstAssign": "error",
         "noConstantCondition": "error",
         "noEmptyCharacterClassInRegex": "error",
@@ -108,6 +109,7 @@
         "useConst": "error"
       },
       "suspicious": {
+        "noConsole": "error",
         "noAsyncPromiseExecutor": "error",
         "noCatchAssign": "error",
         "noClassAssign": "error",

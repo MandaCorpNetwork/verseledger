@@ -60,7 +60,6 @@ export const AuthManager: React.FC = () => {
       dispatch(updateTokens());
       return;
     }
-    // biome-ignore lint/style/noNonNullAssertion: <explanation>
     const accessTokenContents = AuthUtil.getAccessTokenContents()!;
     if (accessTokenContents.exp * 1000 - Date.now() <= 1000 * 60 * 10) {
       dispatch(updateTokens());

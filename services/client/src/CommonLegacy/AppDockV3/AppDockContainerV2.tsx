@@ -55,7 +55,7 @@ export const AppDockRenderer: React.FC = () => {
     const isEnabled = checkEnabled(path);
     if (!isEnabled && !isExpanded) setIsExpanded(true);
     return isEnabled;
-  }, [isExpanded, location.pathname, setIsExpanded, checkEnabled, isMobile]);
+  }, [isExpanded, location.pathname, checkEnabled, isMobile]);
 
   const handleExpand = React.useCallback(() => {
     setIsExpanded((prev) => {

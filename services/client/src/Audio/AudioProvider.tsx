@@ -3,6 +3,7 @@ import {
   radioSources,
 } from '@CommonLegacy/DefinitionsLegacy/RadioSources';
 import { useRadio } from '@Utils/Hooks/useRadio';
+import React from 'react';
 import {
   createContext,
   type PropsWithChildren,
@@ -37,11 +38,12 @@ export const AudioProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   const [currentStation, setCurrentStation] = useState(radioSources[0]);
 
-  return (
-    <AudioContext.Provider value={{ ...audioControls, currentStation }}>
-      {children}
-    </AudioContext.Provider>
+  const context = React.useMemo(
+    () => ({ ...audioControls, currentStation }),
+    [audioControls, currentStation],
   );
+
+  return <AudioContext.Provider value={context}>{children}</AudioContext.Provider>;
 };
 
 export const useRadioController = () => {

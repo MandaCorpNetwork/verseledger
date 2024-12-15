@@ -2,6 +2,7 @@ import { soundEffectPacks } from '@CommonLegacy/DefinitionsLegacy/SoundEffectOpt
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserSoundPack } from '@Redux/Slices/Auth/auth.selectors';
 import { useSound } from '@Utils/useAudio';
+import type React from 'react';
 import { createContext, type PropsWithChildren, useContext } from 'react';
 
 interface SoundEffectContextProps {
