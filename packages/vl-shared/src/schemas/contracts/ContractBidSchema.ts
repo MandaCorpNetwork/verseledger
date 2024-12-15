@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ITimestamped, TimestampedSchema } from '../TimestampedSchema';
+import { type ITimestamped, TimestampedSchema } from '../TimestampedSchema';
 import { UserSchema } from '../UserSchema';
 import { ContractBidStatusSchema } from './ContractBidStatusSchema';
 

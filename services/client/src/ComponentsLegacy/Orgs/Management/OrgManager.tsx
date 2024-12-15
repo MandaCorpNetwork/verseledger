@@ -10,7 +10,7 @@ import {
   selectUserMembershipByOrgId,
 } from '@Redux/Slices/Orgs/orgs.selectors';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import { MemberManagement } from './MemberManage/MemberManagement';
 import { RankAndRoles } from './RankAndRoles';

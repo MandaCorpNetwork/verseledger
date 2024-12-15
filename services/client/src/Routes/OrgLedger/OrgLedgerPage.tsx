@@ -1,7 +1,7 @@
 import { VLViewport } from '@Common/Components/Core/Boxes/VLViewport';
 import { OrgSwitcher } from '@ComponentsLegacy/Orgs/Switcher/OrgSwitcher';
 import { Box } from '@mui/material';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router';
 
 export const OrgLedgerPage: React.FC = () => {
   const location = useLocation();

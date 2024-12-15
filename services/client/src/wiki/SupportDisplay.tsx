@@ -1,6 +1,6 @@
 import { Box, Breadcrumbs, Link } from '@mui/material';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import About from './Pages/About/About.mdx';
 import AccountSetup from './Pages/AccountSetup/AccountSetup.mdx';

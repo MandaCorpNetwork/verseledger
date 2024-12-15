@@ -13,7 +13,7 @@ export class Float2 {
     return new Float2(1, 1);
   }
   public static NaN() {
-    return new Float2(NaN, NaN);
+    return new Float2(Number.NaN, Number.NaN);
   }
 
   public get isNaN() {

@@ -6,7 +6,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectOrg } from '@Redux/Slices/Orgs/orgs.selectors';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 
 import { OrgDetails } from './Details';
 import { OrgEventsBox } from './Events/EventsBox';

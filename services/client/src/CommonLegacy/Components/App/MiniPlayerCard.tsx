@@ -5,7 +5,7 @@ import { RatingDisplay } from '@CommonLegacy/Components/App/RatingDisplay';
 import { AccountBox, Message } from '@mui/icons-material';
 import { Avatar, Box, IconButton, Popper, Typography } from '@mui/material';
 import React, { type PropsWithChildren } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import type { IUserWithSettings } from 'vl-shared/src/schemas/UserSchema';
 
 type MiniPlayerCardProps = PropsWithChildren<{

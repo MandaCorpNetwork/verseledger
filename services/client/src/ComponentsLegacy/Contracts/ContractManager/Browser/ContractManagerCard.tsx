@@ -4,7 +4,7 @@ import { Industry } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { Box, ButtonBase, Tooltip, Typography, useTheme } from '@mui/material';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import type { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
 import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 

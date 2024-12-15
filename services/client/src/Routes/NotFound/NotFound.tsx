@@ -2,7 +2,7 @@ import backgroundvideo from '@Assets/media/NotFoundVideo.webm';
 import { useSoundEffect } from '@Audio/AudioManager';
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { Box, Button, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 export const NotFoundPage: React.FC<unknown> = () => {
   const navigate = useNavigate();

@@ -16,7 +16,7 @@ import { SnackbarProvider } from 'notistack';
 import { useEffect, useMemo, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import { AuthManager } from './AuthManager';
 import { routingInfo } from './Routes/Router';

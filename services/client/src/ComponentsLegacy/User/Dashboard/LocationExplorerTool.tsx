@@ -21,7 +21,7 @@ import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 // import { Gauge, gaugeClasses } from '@mui/x-charts';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 type LocationExplorerToolProps = {

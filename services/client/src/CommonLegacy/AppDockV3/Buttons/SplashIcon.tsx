@@ -4,7 +4,7 @@ import { VLLogo } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { Box } from '@mui/material';
 import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 type SplashIconProps = {
   quality: string;

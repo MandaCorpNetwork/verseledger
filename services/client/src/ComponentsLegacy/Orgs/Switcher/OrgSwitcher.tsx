@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserMemberships } from '@Redux/Slices/Orgs/orgs.selectors';
 import React from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router';
 
 import { AddOrgButton } from './AddOrgButton';
 import { EmptySpace } from './EmptySpace';

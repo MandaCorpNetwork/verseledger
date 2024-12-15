@@ -5,7 +5,7 @@ import { markAllRead } from '@Redux/Slices/Notifications/actions/markAllRead.act
 import { markRead } from '@Redux/Slices/Notifications/actions/patchMarkRead.action';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import type { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
 
 function useNotification() {

@@ -1,4 +1,4 @@
-import { type ThemeStyledComponents } from '@Common/Definitions/Themes/themeTypes';
+import type { ThemeStyledComponents } from '@Common/Definitions/Themes/themeTypes';
 import { alpha, type SxProps, type Theme } from '@mui/material/styles';
 
 import { verseOSMainScroll } from './Scrollbars';

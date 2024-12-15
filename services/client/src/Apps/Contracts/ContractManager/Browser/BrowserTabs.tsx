@@ -4,7 +4,7 @@ import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { Tab, Tabs, useTheme } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 
 type BrowserTabsProps = {
   currentTab: string;

@@ -1,7 +1,7 @@
 import type { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { Logger } from '@Utils/Logger';
 import React from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 export const useURLQuery = () => {
   const [searchParams, setSearchParams] = useSearchParams();

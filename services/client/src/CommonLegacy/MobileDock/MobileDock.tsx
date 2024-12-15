@@ -28,7 +28,7 @@ import { selectCurrentUser, selectIsLoggedIn } from '@Redux/Slices/Auth/auth.sel
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 const appConstants = [
   { id: 'all', icon: <AppsTwoTone />, name: 'All Apps' },

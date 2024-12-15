@@ -11,7 +11,7 @@ import { selectIsPopupOpen } from '@Redux/Slices/Popups/popups.selectors';
 import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router';
 
 type AppButtonProps = {
   label: string;

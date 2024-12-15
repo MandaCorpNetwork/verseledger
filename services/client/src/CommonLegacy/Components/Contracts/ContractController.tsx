@@ -13,7 +13,7 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { ControlPanelBox } from '../../../Common/Components/Core/Boxes/ControlPanelBox';

@@ -3,7 +3,7 @@ import { useSoundEffect } from '@Audio/AudioManager';
 import { ButtonBase, Tooltip } from '@mui/material';
 import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router';
 import type { IOrganizationMemberWithOrg } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
 type OrgSelectButtonProps = {

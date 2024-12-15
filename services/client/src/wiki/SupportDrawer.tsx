@@ -35,7 +35,7 @@ import {
 } from '@mui/material';
 import { useNav } from '@Utils/Hooks/useNav';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 export const SupportDrawer: React.FC = () => {
   const nav = useNav();

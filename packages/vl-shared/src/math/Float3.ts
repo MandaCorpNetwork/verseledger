@@ -15,7 +15,7 @@ export class Float3 {
     return new Float3(1, 1, 1);
   }
   public static NaN() {
-    return new Float3(NaN, NaN, NaN);
+    return new Float3(Number.NaN, Number.NaN, Number.NaN);
   }
   public static Forward() {
     return new Float3(0, 0, 1);

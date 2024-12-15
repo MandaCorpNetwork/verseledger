@@ -3,7 +3,7 @@ import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
 import { Box } from '@mui/material';
 import { isDev } from '@Utils/isDev';
 import type React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 import { CollapseMenu } from './CollapseMenu';
 

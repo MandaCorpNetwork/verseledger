@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { URLUtil } from '@Utils/URLUtil';
 import { useCallback, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 export const useNavAux = () => {};
 
 export const useNav = () => {
