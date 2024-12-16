@@ -5,7 +5,7 @@ import { PopupFormSelection } from '@CommonLegacy/Components/Boxes/PopupFormSele
 import { LocationChip } from '@CommonLegacy/Components/Chips/LocationChip';
 import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
 import { PayStructure } from '@CommonLegacy/Components/Custom/DigiField/PayStructure';
-import { PayField } from '@CommonLegacy/Components/TextFields/PayField';
+import { PayField } from '@Common/Components/Functional/Applcation/Inputs/PayField';
 import { Box, Tooltip, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import { Logger } from '@Utils/Logger';

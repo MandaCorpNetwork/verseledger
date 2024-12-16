@@ -1,5 +1,5 @@
+import { PayField } from '@Common/Components/Functional/Applcation/Inputs/PayField';
 import { QueryNames } from '@Common/Definitions/Search/QueryNames';
-import { PayField } from '@CommonLegacy/Components/TextFields/PayField';
 import { Clear } from '@mui/icons-material';
 import {
   Box,
