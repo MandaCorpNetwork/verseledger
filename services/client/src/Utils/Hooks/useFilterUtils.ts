@@ -1,11 +1,12 @@
 import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { getSubtypeOptions } from '@Utils/Contracts/ContractTypeUtils';
+import { numericFieldInput } from '@Utils/numericFilter';
 import { useCallback, useMemo } from 'react';
 
 import { useURLQuery } from './useURLQuery';
 
 export const useFilterUtils = () => {
-  const { searchParams } = useURLQuery();
+  const { searchParams, setFilters } = useURLQuery();
 
   const filterCount = useCallback(() => {
     const counts = [
@@ -43,5 +44,36 @@ export const useFilterUtils = () => {
     };
   }, [searchParams]);
 
-  return { filterCount, contractSubtypeList, dateFilterValues };
+  const setNumericFilter = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, field: QueryNames) => {
+      const value = numericFieldInput(e.target.value);
+      if (value) {
+        setFilters(field, value.toString());
+      } else {
+        setFilters(field, []);
+      }
+    },
+    [setFilters],
+  );
+
+  const clearFilters = useCallback(
+    (fields: QueryNames | QueryNames[]) => {
+      if (Array.isArray(fields)) {
+        for (const field of fields) {
+          setFilters(field, []);
+        }
+      } else {
+        setFilters(fields, []);
+      }
+    },
+    [setFilters],
+  );
+
+  return {
+    filterCount,
+    contractSubtypeList,
+    dateFilterValues,
+    setNumericFilter,
+    clearFilters,
+  };
 };
