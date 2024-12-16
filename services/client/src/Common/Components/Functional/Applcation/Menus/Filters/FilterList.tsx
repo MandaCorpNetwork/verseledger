@@ -5,6 +5,7 @@ import {
   AccordionActions,
   AccordionDetails,
   AccordionSummary,
+  Badge,
   Button,
   useTheme,
 } from '@mui/material';
@@ -66,13 +67,30 @@ export const FilterList: React.FC<FilterListProps> = ({ filterList }) => {
   const renderFilters = React.useCallback(() => {
     return filterList.map((filter) => {
       const FilterComponent = getComponent(filter.key);
+      const filterCount = filterUtils.dynamicFilterCount(filter.filters);
+      console.log('FilterCount', filterCount);
       return (
         <FilterGroup
           key={filter.key}
           disabled={filter.disabled}
           expanded={disableTransition}
         >
-          <AccordionSummary expandIcon={<ExpandMore />}>{filter.label}</AccordionSummary>
+          <AccordionSummary expandIcon={<ExpandMore />}>
+            <Badge
+              badgeContent={filterCount}
+              overlap="rectangular"
+              color="error"
+              slotProps={{
+                badge: {
+                  style: {
+                    left: '90%',
+                  },
+                },
+              }}
+            >
+              {filter.label}
+            </Badge>
+          </AccordionSummary>
           <AccordionDetails>{FilterComponent}</AccordionDetails>
           <AccordionActions>
             <Button

@@ -8,6 +8,10 @@ import { useURLQuery } from './useURLQuery';
 export const useFilterUtils = () => {
   const { searchParams, setFilters } = useURLQuery();
 
+  /**
+   * TODO:
+   * - Convert Usage to New FilterCount
+   */
   const filterCount = useCallback(() => {
     const counts = [
       searchParams.getAll(QueryNames.ContractSubtype).length,
@@ -32,6 +36,21 @@ export const useFilterUtils = () => {
     ];
     return counts.reduce((sum, count) => sum + count, 0);
   }, [searchParams]);
+
+  const dynamicFilterCount = useCallback(
+    (fields: QueryNames | QueryNames[]) => {
+      const queryArray = Array.isArray(fields) ? fields : [fields];
+
+      const totalCount = queryArray.reduce((count, field) => {
+        const fieldCount = searchParams.getAll(field).length;
+        const isBooleanFilter = fieldCount === 0 && searchParams.has(field) ? 1 : 0;
+
+        return count + fieldCount + isBooleanFilter;
+      }, 0);
+      return totalCount;
+    },
+    [searchParams],
+  );
 
   const contractSubtypeList = useMemo(() => {
     return getSubtypeOptions();
@@ -75,5 +94,6 @@ export const useFilterUtils = () => {
     dateFilterValues,
     setNumericFilter,
     clearFilters,
+    dynamicFilterCount,
   };
 };
