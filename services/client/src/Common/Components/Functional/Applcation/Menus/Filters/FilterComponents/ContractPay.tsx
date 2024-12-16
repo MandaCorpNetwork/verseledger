@@ -27,7 +27,7 @@ type ContractPayFilterProps = {
  * ___
  * TODO:
  * - Create Additive Filtering for Different Pay Structures
- * - Improve Render Performance by Removing useMemo
+ * - Add Custom Range Inputs for Hourly & Pool & Shares
  */
 export const ContractPayFilter: React.FC<ContractPayFilterProps> = ({
   'data-testid': testid = 'FilterMenu',
