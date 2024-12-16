@@ -1,12 +1,20 @@
 import { FilterGroup } from '@Common/Components/Core/Accordions/FilterGroup';
 import type { FilterComponent } from '@Common/Definitions/Search/FilterComponentsMap';
 import { ExpandMore } from '@mui/icons-material';
-import { AccordionDetails, AccordionSummary, useTheme } from '@mui/material';
+import {
+  AccordionActions,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  useTheme,
+} from '@mui/material';
 import React from 'react';
 
 import { ContractPayFilter } from './FilterComponents/ContractPay';
 import { ContractScheduleFilter } from './FilterComponents/ContractSchedule';
 import { ContractTypeFilter } from './FilterComponents/ContractType';
+import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
+import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
 
 type FilterListProps = {
   filterList: FilterComponent[];
@@ -25,10 +33,18 @@ type FilterListProps = {
 export const FilterList: React.FC<FilterListProps> = ({ filterList }) => {
   //Hooks
   const theme = useTheme();
+  const extendTheme = useDynamicTheme();
+  const filterUtils = useFilterUtils();
 
   /** Switches the Local Component State if Animations setting too low */
   const disableTransition =
     theme.animations === 'low' || theme.animations === 'none' ? true : undefined;
+
+  /** Get Theme Extensions */
+  const layout = React.useMemo(() => {
+    const cancelButton = extendTheme.layout('FilterGroup.CancelButton');
+    return { cancelButton };
+  }, [extendTheme]);
 
   /** Fetches the Filter Component for Dropdown */
   const getComponent = React.useCallback((key: SearchFilter) => {
@@ -58,9 +74,18 @@ export const FilterList: React.FC<FilterListProps> = ({ filterList }) => {
         >
           <AccordionSummary expandIcon={<ExpandMore />}>{filter.label}</AccordionSummary>
           <AccordionDetails>{FilterComponent}</AccordionDetails>
+          <AccordionActions>
+            <Button
+              aria-label={`Clear ${filter.label} Filters`}
+              color="warning"
+              onClick={() => filterUtils.clearFilters(filter.filters)}
+            >
+              Clear Filters
+            </Button>
+          </AccordionActions>
         </FilterGroup>
       );
     });
-  }, [disableTransition, filterList, getComponent]);
+  }, [disableTransition, filterList, filterUtils, getComponent]);
   return <>{renderFilters()}</>;
 };
