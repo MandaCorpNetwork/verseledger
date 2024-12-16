@@ -19,6 +19,8 @@ type CurrencyInputProps = {
  * @description
  * Input Field for Currency
  * ___
+ * TODO:
+ * - Fix Styling of the End Adornment Icon
  */
 export const CurrencyInput: React.FC<CurrencyInputProps> = ({
   label,
