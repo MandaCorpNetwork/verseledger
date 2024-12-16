@@ -6,7 +6,7 @@ import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { replaceDestinations } from '@Redux/Slices/Routes/actions/destination.action';
 import { selectTasks } from '@Redux/Slices/Routes/routes.selectors';
 import { useForm } from '@tanstack/react-form';
-import { numericalFilter } from '@Utils/numericFilter';
+import { numericFieldInput } from '@Utils/numericFilter';
 import type React from 'react';
 
 import { getEfficientDistancePath, type MappedLocation } from '../../RouteUtilities';
@@ -53,7 +53,7 @@ export const DestinationEffForm: React.FC<DestinationEffFormProps> = (props) => 
             label="Current Load"
             value={field.state.value !== 0 ? field.state.value.toLocaleString() : ''}
             onChange={(e) =>
-              field.handleChange(numericalFilter(e.currentTarget.value) ?? 0)
+              field.handleChange(numericFieldInput(e.currentTarget.value) ?? 0)
             }
             onBlur={field.handleBlur}
             slotProps={{
@@ -71,7 +71,7 @@ export const DestinationEffForm: React.FC<DestinationEffFormProps> = (props) => 
             label="Max Load"
             value={field.state.value !== 0 ? field.state.value.toLocaleString() : ''}
             onChange={(e) =>
-              field.handleChange(numericalFilter(e.currentTarget.value) ?? 0)
+              field.handleChange(numericFieldInput(e.currentTarget.value) ?? 0)
             }
             onBlur={field.handleBlur}
             slotProps={{

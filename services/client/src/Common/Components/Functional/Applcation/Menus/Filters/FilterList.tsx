@@ -4,6 +4,7 @@ import { ExpandMore } from '@mui/icons-material';
 import { AccordionDetails, AccordionSummary, useTheme } from '@mui/material';
 import React from 'react';
 
+import { ContractPayFilter } from './FilterComponents/ContractPay';
 import { ContractScheduleFilter } from './FilterComponents/ContractSchedule';
 import { ContractTypeFilter } from './FilterComponents/ContractType';
 
@@ -18,7 +19,8 @@ type FilterListProps = {
  * TODO:
  * - Add Clear Filters in AccordionActions
  * - Style the Expand Button & Text
- * - Add Remaining Filter Components from {@link FilterComponentsMap}
+ * - Add Rating Stats Filter
+ * - Add Contract Locations Filter
  */
 export const FilterList: React.FC<FilterListProps> = ({ filterList }) => {
   //Hooks
@@ -35,6 +37,7 @@ export const FilterList: React.FC<FilterListProps> = ({ filterList }) => {
         return <ContractTypeFilter />;
       case 'ContractLocations':
       case 'ContractPay':
+        return <ContractPayFilter />;
       case 'ContractSchedule':
         return <ContractScheduleFilter />;
       case 'ContractRating':

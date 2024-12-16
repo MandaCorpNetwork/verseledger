@@ -209,7 +209,7 @@ export const useMasterAppList = () => {
         path: '/apps/contracts',
         icon: Contracts,
         versionLabel: 'Contract Manager',
-        version: '3.0.2',
+        version: '3.0.4',
         severityCode: 1,
       },
       {

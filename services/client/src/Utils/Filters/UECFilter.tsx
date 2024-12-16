@@ -19,6 +19,10 @@ const structureOptions = [
   { label: 'Pool', value: 'POOL' },
 ];
 
+/**
+ * @deprecated -
+ * !Pending Migration on Contract Ledger
+ */
 export const UECFilter: React.FC<unknown> = () => {
   const { searchParams, setFilters } = useURLQuery();
   const [localMin, setLocalMin] = React.useState<string>('');
