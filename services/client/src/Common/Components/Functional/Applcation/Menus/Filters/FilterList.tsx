@@ -9,13 +9,13 @@ import {
   Button,
   useTheme,
 } from '@mui/material';
+import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
+import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
 import React from 'react';
 
 import { ContractPayFilter } from './FilterComponents/ContractPay';
 import { ContractScheduleFilter } from './FilterComponents/ContractSchedule';
 import { ContractTypeFilter } from './FilterComponents/ContractType';
-import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
-import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
 
 type FilterListProps = {
   filterList: FilterComponent[];
@@ -26,7 +26,7 @@ type FilterListProps = {
  * Accordion Collapse Animation Setting disabled in Low & None Animation Modes
  * ___
  * TODO:
- * - Add Clear Filters in AccordionActions
+ * - Add Disabled Feature to Clear Filters Button
  * - Style the Expand Button & Text
  * - Add Rating Stats Filter
  * - Add Contract Locations Filter

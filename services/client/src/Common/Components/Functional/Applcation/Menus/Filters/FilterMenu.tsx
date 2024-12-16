@@ -2,7 +2,9 @@ import { useSoundEffect } from '@Audio/AudioManager';
 import { DropdownStack } from '@Common/Components/Core/Menus/DropdownStack';
 import { CollapseWrapper } from '@Common/Components/Wrappers/CollapseWrapper';
 import { filterComponents } from '@Common/Definitions/Search/FilterComponentsMap';
-import { Popover, useTheme } from '@mui/material';
+import { Button, Popover, useTheme } from '@mui/material';
+import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
+import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
 import type { PopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 
@@ -17,8 +19,13 @@ type FilterMenuProps = {
   anchorEl: React.RefObject<HTMLDivElement>;
 };
 
-//TODO: Add Clickaway for the FilterMenu
-
+/**
+ * @description Dynamic Filter Menu for reuse through Application. Acts as a Wrapper for generated Filters for a specific usage. Requires a Popup state due to using either a Collapse or Menu Popover. Takes in FilterKeys to determine which filters to render in.
+ * ___
+ * TODO:
+ * - Finish Labeling for Components
+ * - Add Clickaway for the Collapse Wrapper
+ */
 export const FilterMenu: React.FC<FilterMenuProps> = ({
   popupState,
   filterKeys,
@@ -26,24 +33,57 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({
 }) => {
   // Hooks
   const theme = useTheme();
+  const extendTheme = useDynamicTheme();
   const sound = useSoundEffect();
+  const filterUtils = useFilterUtils();
 
+  /** Layout Extension */
+  const layout = React.useMemo(() => {
+    const clearAllButton = extendTheme.layout('FilterMenu.ClearAllButton');
+    return { clearAllButton };
+  }, [extendTheme]);
+
+  /** Handles Closing the Popup State internally */
   const close = React.useCallback(() => {
     sound.playSound('close');
     popupState.close();
   }, [popupState, sound]);
 
+  /** Evaluation for Rendering the Collapse Wrapper based on User Settings */
   const renderCollapse =
     ((theme.animations === 'medium' || theme.animations === 'high') &&
       theme.fidelity === 'high') ||
     (theme.fidelity === 'medium' && theme.animations === 'high');
 
+  /** Get the Filter Component Objects to be Passed to the Filter List Component
+   * Filter List Component Handles the Individual Filter Rendering Logic
+   */
   const filters = React.useMemo(() => {
     return filterKeys.map((filterKey) => filterComponents[filterKey]);
   }, [filterKeys]);
 
+  /** Single Out the Queries being used by the Menu */
+  const queries = React.useMemo(() => {
+    return filterKeys.flatMap((filterKey) => filterComponents[filterKey].filters || []);
+  }, [filterKeys]);
+
+  /** Gets the Current Filter Count from the Queries being used  by the Menu*/
+  const filterCount = filterUtils.dynamicFilterCount(queries);
+
   const children = (
     <DropdownStack>
+      <Button
+        size="small"
+        color="warning"
+        disabled={filterCount === 0}
+        onClick={() => filterUtils.clearFilters(queries)}
+        sx={{
+          my: '0.5em',
+          ...layout.clearAllButton,
+        }}
+      >
+        Clear All Filters
+      </Button>
       <FilterList filterList={filters} />
     </DropdownStack>
   );
