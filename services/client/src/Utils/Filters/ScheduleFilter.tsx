@@ -11,11 +11,8 @@ import React from 'react';
  * Component that provides a user interface for filtering by date and time.
  * It utilizes time pickers to allow users to set filters for bid dates, start dates, and end dates.
  * The selected filters are managed via URL query parameters.
- * @component
- * @example
- * return (
- *   <SchedulingDropdownFilter />
- * );
+ * @deprecated -
+ * !- Pending Migration on Contract Ledger
  */
 export const SchedulingDropdownFilter: React.FC<unknown> = () => {
   const { searchParams, setFilters } = useURLQuery();

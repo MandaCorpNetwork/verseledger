@@ -25,7 +25,6 @@ export const filterComponents: Record<SearchFilter, FilterComponent> = {
     key: 'ContractPay',
     label: 'Contract Pay',
     filters: [QueryNames.UECRangeMin, QueryNames.UECRangeMax, QueryNames.PayStructure],
-    disabled: true,
   },
   ContractRating: {
     key: 'ContractRating',
