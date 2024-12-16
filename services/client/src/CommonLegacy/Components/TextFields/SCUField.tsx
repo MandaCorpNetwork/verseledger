@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { Scu3d } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { IconButton, Popper, TextField } from '@mui/material';
-import { numericalFilter } from '@Utils/numericFilter';
+import { numericFieldInput } from '@Utils/numericFilter';
 import React from 'react';
 
 import { SCUQuickSelect } from '../App/SCUQuickSelect';
@@ -41,7 +41,7 @@ export const SCUField: React.FC<SCUFieldProps> = (props) => {
         handleClosePop();
         return onChange(value);
       }
-      const filteredValue = numericalFilter(value) ?? 0;
+      const filteredValue = numericFieldInput(value) ?? 0;
       handleClosePop();
       return onChange(filteredValue);
     },

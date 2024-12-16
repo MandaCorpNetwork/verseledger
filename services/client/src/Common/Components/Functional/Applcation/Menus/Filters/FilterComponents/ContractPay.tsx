@@ -1,7 +1,10 @@
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import { CurrencyInput } from '@Common/Components/Functional/Applcation/Inputs/CurrencyInput';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { Box, Typography } from '@mui/material';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
-// import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import { numericFieldInput } from '@Utils/numericFilter';
 import React from 'react';
 
 type ContractPayFilterProps = {
@@ -11,11 +14,14 @@ type ContractPayFilterProps = {
 /**
  * @description Filter Component for Contract Pay.
  * ___
+ * TODO:
+ * - Create Additive Filtering for Different Pay Structures
+ * - Improve Render Performance by Removing useMemo
  */
 export const ContractPayFilter: React.FC<ContractPayFilterProps> = ({
   'data-testid': testid = 'FilterMenu',
 }) => {
-  // const { searchParams, setFilters } = useURLQuery();
+  const { searchParams, setFilters } = useURLQuery();
   const themeExtend = useDynamicTheme();
 
   const layout = React.useMemo(() => {
@@ -35,6 +41,51 @@ export const ContractPayFilter: React.FC<ContractPayFilterProps> = ({
       filterGroupLabel,
     };
   }, [themeExtend]);
+
+  const structure = searchParams.get(QueryNames.PayStructure) ?? 'flat';
+
+  const handleRangeFilter = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, field: QueryNames) => {
+      const value = numericFieldInput(e.target.value);
+      if (value) {
+        setFilters(field, value.toString());
+      } else {
+        setFilters(field, []);
+      }
+    },
+    [setFilters],
+  );
+
+  const handleRangeClear = React.useCallback(
+    (field: QueryNames) => {
+      setFilters(field, []);
+    },
+    [setFilters],
+  );
+
+  const renderRangeField = React.useCallback(() => {
+    switch (structure) {
+      case 'FLATRATE':
+      case 'flat':
+      default:
+        return (
+          <>
+            <CurrencyInput
+              label="Minimum Pay"
+              onChange={(e) => handleRangeFilter(e, QueryNames.UECRangeMin)}
+              onClear={() => handleRangeClear(QueryNames.UECRangeMin)}
+              value={searchParams.get(QueryNames.UECRangeMin) ?? ''}
+            />
+            <CurrencyInput
+              label="Maximum Pay"
+              onChange={(e) => handleRangeFilter(e, QueryNames.UECRangeMax)}
+              onClear={() => handleRangeClear(QueryNames.UECRangeMax)}
+              value={searchParams.get(QueryNames.UECRangeMax) ?? ''}
+            />
+          </>
+        );
+    }
+  }, [handleRangeClear, handleRangeFilter, searchParams, structure]);
   return (
     <Box
       aria-label="Contract Pay Filter List Container"
@@ -79,7 +130,9 @@ export const ContractPayFilter: React.FC<ContractPayFilterProps> = ({
             justifyContent: 'space-evenly',
             ...layout.filterGroupWrapper,
           }}
-        ></Box>
+        >
+          {renderRangeField()}
+        </Box>
       </ComponentDisplay>
       <ComponentDisplay></ComponentDisplay>
     </Box>

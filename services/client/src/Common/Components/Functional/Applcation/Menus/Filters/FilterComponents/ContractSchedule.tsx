@@ -6,7 +6,7 @@ import { Box, InputAdornment, TextField, Typography } from '@mui/material';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
 import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import { numericalFilter } from '@Utils/numericFilter';
+import { numericFieldInput } from '@Utils/numericFilter';
 import { capFirstLetter } from '@Utils/StringUtil';
 import React from 'react';
 
@@ -205,7 +205,7 @@ export const ContractScheduleFilter: React.FC<ContractScheduleFilterProps> = ({
   /** Handle Duration Filter Change */
   const handleDurationChange = React.useCallback(
     (field: 'hours' | 'minutes', value: string) => {
-      const filterValue = numericalFilter(value);
+      const filterValue = numericFieldInput(value);
       const parsedValue = filterValue !== null ? filterValue.toString() : '';
 
       if (field === 'hours') {
