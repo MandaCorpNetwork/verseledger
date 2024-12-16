@@ -2,7 +2,7 @@ import { useSoundEffect } from '@Audio/AudioManager';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import { ComponentDisplay } from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';
-import { PayField } from '@Common/Components/Functional/Applcation/Inputs/PayField';
+import { PayField } from '@CommonLegacy/Components/TextFields/PayField';
 import { UserDisplay } from '@CommonLegacy/Components/Users/UserDisplay';
 import { Box, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';

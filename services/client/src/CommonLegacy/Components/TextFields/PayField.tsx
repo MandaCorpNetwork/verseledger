@@ -24,6 +24,7 @@ type ContractDefaultPayLabelProps = {
   defaultValue?: string;
 };
 
+/** Input for UEC Amount */
 export const PayField: React.FC<ContractDefaultPayLabelProps> = ({
   label,
   value,
