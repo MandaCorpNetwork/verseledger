@@ -1,3 +1,4 @@
+import { ServiceHubApp } from '@Apps/Contracts/ServiceHub/ServiceHubApp';
 import { AppDockRenderer } from '@CommonLegacy/AppDockV3/AppDockContainerV2';
 import { LoginCheck } from '@CommonLegacy/Components/App/TempLoginCheck';
 import { ContractManagerApp } from '@ComponentsLegacy/Contracts/ContractManager/ContractManagerApp';
@@ -158,6 +159,10 @@ export const routingInfo: RouteObject[] = [
           {
             path: 'verse-market',
             element: <VerseMarketPage />,
+          },
+          {
+            path: 'services',
+            element: <ServiceHubApp />,
           },
         ],
       },
