@@ -1,7 +1,16 @@
 import { FilterGroup } from '@Common/Components/Core/Accordions/FilterGroup';
 import type { FilterComponent } from '@Common/Definitions/Search/FilterComponentsMap';
 import { ExpandMore } from '@mui/icons-material';
-import { AccordionDetails, AccordionSummary, useTheme } from '@mui/material';
+import {
+  AccordionActions,
+  AccordionDetails,
+  AccordionSummary,
+  Badge,
+  Button,
+  useTheme,
+} from '@mui/material';
+import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
+import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
 import React from 'react';
 
 import { ContractPayFilter } from './FilterComponents/ContractPay';
@@ -17,7 +26,7 @@ type FilterListProps = {
  * Accordion Collapse Animation Setting disabled in Low & None Animation Modes
  * ___
  * TODO:
- * - Add Clear Filters in AccordionActions
+ * - Add Disabled Feature to Clear Filters Button
  * - Style the Expand Button & Text
  * - Add Rating Stats Filter
  * - Add Contract Locations Filter
@@ -25,10 +34,18 @@ type FilterListProps = {
 export const FilterList: React.FC<FilterListProps> = ({ filterList }) => {
   //Hooks
   const theme = useTheme();
+  const extendTheme = useDynamicTheme();
+  const filterUtils = useFilterUtils();
 
   /** Switches the Local Component State if Animations setting too low */
   const disableTransition =
     theme.animations === 'low' || theme.animations === 'none' ? true : undefined;
+
+  /** Get Theme Extensions */
+  const layout = React.useMemo(() => {
+    const cancelButton = extendTheme.layout('FilterGroup.CancelButton');
+    return { cancelButton };
+  }, [extendTheme]);
 
   /** Fetches the Filter Component for Dropdown */
   const getComponent = React.useCallback((key: SearchFilter) => {
@@ -50,17 +67,46 @@ export const FilterList: React.FC<FilterListProps> = ({ filterList }) => {
   const renderFilters = React.useCallback(() => {
     return filterList.map((filter) => {
       const FilterComponent = getComponent(filter.key);
+      const filterCount = filterUtils.dynamicFilterCount(filter.filters);
+      console.log('FilterCount', filterCount);
       return (
         <FilterGroup
           key={filter.key}
           disabled={filter.disabled}
           expanded={disableTransition}
         >
-          <AccordionSummary expandIcon={<ExpandMore />}>{filter.label}</AccordionSummary>
+          <AccordionSummary expandIcon={<ExpandMore />}>
+            <Badge
+              badgeContent={filterCount}
+              overlap="rectangular"
+              color="error"
+              slotProps={{
+                badge: {
+                  style: {
+                    left: '90%',
+                  },
+                },
+              }}
+            >
+              {filter.label}
+            </Badge>
+          </AccordionSummary>
           <AccordionDetails>{FilterComponent}</AccordionDetails>
+          <AccordionActions>
+            <Button
+              aria-label={`Clear ${filter.label} Filters`}
+              color="warning"
+              onClick={() => filterUtils.clearFilters(filter.filters)}
+              sx={{
+                ...layout.cancelButton,
+              }}
+            >
+              Clear Filters
+            </Button>
+          </AccordionActions>
         </FilterGroup>
       );
     });
-  }, [disableTransition, filterList, getComponent]);
+  }, [disableTransition, filterList, filterUtils, getComponent, layout.cancelButton]);
   return <>{renderFilters()}</>;
 };
