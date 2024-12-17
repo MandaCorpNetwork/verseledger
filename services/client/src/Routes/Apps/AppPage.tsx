@@ -21,6 +21,7 @@ export const AppPage: React.FC<unknown> = () => {
             display: 'flex',
             flexDirection: 'column',
             width: '100%',
+            zIndex: 1,
           }}
         >
           <Outlet />

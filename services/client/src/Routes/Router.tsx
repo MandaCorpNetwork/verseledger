@@ -161,6 +161,18 @@ export const routingInfo: RouteObject[] = [
             element: <VerseMarketPage />,
           },
           {
+            path: '/apps/services/:page',
+            element: <ServiceHubApp />,
+          },
+          {
+            path: '/apps/services/:page/:selectedContractId',
+            element: <ServiceHubApp />,
+          },
+          {
+            path: '/apps/services/:page/:selectedUserId',
+            element: <ServiceHubApp />,
+          },
+          {
             path: 'services',
             element: <ServiceHubApp />,
           },
