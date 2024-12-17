@@ -107,6 +107,6 @@ export const FilterList: React.FC<FilterListProps> = ({ filterList }) => {
         </FilterGroup>
       );
     });
-  }, [disableTransition, filterList, filterUtils, getComponent]);
+  }, [disableTransition, filterList, filterUtils, getComponent, layout.cancelButton]);
   return <>{renderFilters()}</>;
 };
