@@ -40,8 +40,7 @@ export const VirtualListboxComponent = forwardRef<
       >
         {virtualizer
           .getVirtualItems()
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .map((item: { key: Key | null | undefined; start: any; index: number }) => (
+          .map((item: { key: Key | null | undefined; start: unknown; index: number }) => (
             <Box
               key={item.key}
               sx={{

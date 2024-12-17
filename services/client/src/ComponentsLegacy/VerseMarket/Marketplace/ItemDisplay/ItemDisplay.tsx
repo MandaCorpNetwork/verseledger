@@ -4,6 +4,7 @@ import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { FileOpen } from '@mui/icons-material';
 import { Box, Divider, IconButton, Typography } from '@mui/material';
+import type React from 'react';
 
 export const ItemDisplay: React.FC<unknown> = () => {
   return (

@@ -29,7 +29,7 @@ export const ContractDetailsCollapse: React.FC<DetailsDisplayProps> = ({ contrac
       }
       return !prev;
     });
-  }, [sound, setIsExpanded]);
+  }, [sound]);
   return (
     <div
       data-testid="SelectedContract-DetailsDisplay__Details_Collapse"

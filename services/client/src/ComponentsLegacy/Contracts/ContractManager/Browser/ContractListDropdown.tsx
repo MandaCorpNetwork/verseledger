@@ -12,6 +12,7 @@ import {
   Typography,
 } from '@mui/material';
 import type { PropsWithChildren } from 'react';
+import React from 'react';
 
 type ContractListDropdownProps = PropsWithChildren<{
   /** Function to trigger on Expand */

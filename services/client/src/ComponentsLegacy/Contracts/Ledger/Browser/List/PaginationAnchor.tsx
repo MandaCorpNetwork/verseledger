@@ -29,7 +29,7 @@ export const PaginationAnchor: React.FC<PaginationAnchorProps> = ({ isMobile }) 
       sound.playSound('loading');
       setPage(newPage);
     },
-    [sound, setPage],
+    [sound],
   );
 
   // TODO: Math to make the page stay the same whether decreasing or increasing
@@ -39,7 +39,7 @@ export const PaginationAnchor: React.FC<PaginationAnchorProps> = ({ isMobile }) 
       setRowsPerPage(+event.target.value);
       setPage(0);
     },
-    [sound, setRowsPerPage, setPage],
+    [sound],
   );
 
   const search = React.useCallback(
@@ -54,9 +54,7 @@ export const PaginationAnchor: React.FC<PaginationAnchorProps> = ({ isMobile }) 
     const selectedSubtypes = searchParams.getAll(
       QueryNames.ContractSubtype,
     ) as IContractSubType[];
-    const selectedArchetype = searchParams.getAll(
-      QueryNames.ContractArchetype,
-    ) as string[];
+    const selectedArchetype = searchParams.getAll(QueryNames.ContractArchetype);
     const archetypeToSub: IContractSubType[] = selectedArchetype.flatMap(
       (a) => ArchetypeToSubtypes[a] ?? [],
     );

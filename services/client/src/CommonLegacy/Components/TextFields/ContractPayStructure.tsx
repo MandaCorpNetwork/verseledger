@@ -3,6 +3,7 @@ import { InputAdornment, TextField } from '@mui/material';
 import { POPUP_PAY_STRUCTURES } from '@Popups/Info/PayStructures';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import type React from 'react';
 
 type ContractPayStructureProps = {
   payStructure: string;

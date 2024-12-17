@@ -1,5 +1,6 @@
 import { Box, LinearProgress, Typography } from '@mui/material';
 import dayjs from 'dayjs';
+import type React from 'react';
 import { useCallback } from 'react';
 
 type BidTimeRemainingProps = {

@@ -6,6 +6,7 @@ import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
 import { PayDisplay } from '@CommonLegacy/Components/Custom/DigiField/PayDisplay';
 import { PayStructure } from '@CommonLegacy/Components/Custom/DigiField/PayStructure';
 import { Box, Typography } from '@mui/material';
+import type React from 'react';
 import type { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
 import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 

@@ -72,7 +72,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       sound.playSound('clickMain');
       setActiveDataTab(value);
     },
-    [sound, setActiveDataTab],
+    [sound],
   );
 
   const handleTimeTabChange = React.useCallback(
@@ -80,7 +80,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       sound.playSound('clickMain');
       setTimeTab(value);
     },
-    [sound, setTimeTab],
+    [sound],
   );
 
   const toggleBriefingExpand = React.useCallback(() => {
@@ -92,7 +92,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       }
       return !prev;
     });
-  }, [setBriefingExpanded, sound]);
+  }, [sound]);
 
   const togglePayExpand = React.useCallback(() => {
     setPayExpanded((prev) => {
@@ -103,7 +103,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       }
       return !prev;
     });
-  }, [setPayExpanded, sound]);
+  }, [sound]);
 
   const toggleLocationsExpand = React.useCallback(() => {
     setLocationsExpanded((prev) => {
@@ -114,7 +114,7 @@ export const ContractDisplay: React.FC<ContractDisplayProps> = ({ contract }) =>
       }
       return !prev;
     });
-  }, [setLocationsExpanded, sound]);
+  }, [sound]);
 
   const contractTimePanel = React.useCallback(
     (panel: string) => {

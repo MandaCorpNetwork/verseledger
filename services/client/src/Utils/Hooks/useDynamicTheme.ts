@@ -12,7 +12,9 @@ export const useDynamicTheme = () => {
     [theme],
   );
 
-  const swap = useCallback(() => {}, []);
+  const swap = useCallback(() => {
+    //
+  }, []);
 
   return { layout, swap };
 };

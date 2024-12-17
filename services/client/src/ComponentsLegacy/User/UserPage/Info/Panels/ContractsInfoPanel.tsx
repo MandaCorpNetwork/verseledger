@@ -53,7 +53,7 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
       sound.playSound('clickMain');
       setContractActivity((prev) => (prev === value ? null : value));
     },
-    [setContractActivity, sound],
+    [sound],
   );
 
   /* Callback for displaying contracts owned by player and employed by player. */
@@ -65,7 +65,7 @@ export const ContractInfoPanel: React.FC<ContractInfoPanelProps> = ({ user }) =>
         setContractOwnership(value);
       }
     },
-    [setContractOwnership, sound, contractOwnership],
+    [sound, contractOwnership],
   );
   /** Gets the bid status of a contract for search params. */
   const handleFetchBids = React.useCallback(

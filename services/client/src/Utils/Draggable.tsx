@@ -1,4 +1,4 @@
-import {
+import React, {
   type MouseEventHandler,
   type PropsWithChildren,
   type RefObject,
@@ -18,7 +18,7 @@ export const Draggable: React.FC<PropsWithChildren> = (props) => {
   const last = useRef(new Float2());
   const drag = useRef(new Float2());
 
-  const handleMove = (e: MouseEvent) => {
+  const handleMove = React.useCallback((e: MouseEvent) => {
     if (!dragging.current) return;
     const cur = new Float2(e.pageX, e.pageY);
     const delta = last.current.subtract(cur);
@@ -31,16 +31,16 @@ export const Draggable: React.FC<PropsWithChildren> = (props) => {
       const transform = `translate3d(${drag.current.x}px, ${drag.current.y}px, 0)`;
       if (block.current != null) block.current.style.transform = transform;
     });
-  };
+  }, []);
 
   const handleMouseDown: MouseEventHandler<HTMLDivElement> = (e) => {
     last.current = new Float2(e.pageX, e.pageY);
     dragging.current = true;
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = React.useCallback(() => {
     dragging.current = false;
-  };
+  }, []);
 
   useEffect(() => {
     document.addEventListener('mousemove', handleMove);
@@ -49,7 +49,7 @@ export const Draggable: React.FC<PropsWithChildren> = (props) => {
       document.removeEventListener('mousemove', handleMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };
-  }, []);
+  }, [handleMove, handleMouseUp]);
 
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions

@@ -89,7 +89,7 @@ export const ContractDetails: React.FC<{
         setSelectedSubtype(newValue);
       }
     },
-    [setFormData, setSelectedSubtype, archetype, setArchetype],
+    [setFormData, archetype],
   );
 
   const toggleEmergencyMode = React.useCallback(() => {

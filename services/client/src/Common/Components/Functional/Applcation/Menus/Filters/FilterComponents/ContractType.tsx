@@ -11,7 +11,7 @@ import { Logger } from '@Utils/Logger';
 import React from 'react';
 
 type ContractTypeFilterProps = {
-  ['data-testid']?: string;
+  'data-testid'?: string;
 };
 
 /**
@@ -70,7 +70,7 @@ export const ContractTypeFilter: React.FC<ContractTypeFilterProps> = ({
       if (selectedSubtypeFilters.includes(value)) return true;
       const group = subtypeOptions.optionsMap[value].group;
       if (selectedArchtypeFilters.includes(group)) return true;
-      else return false;
+      return false;
     },
     [selectedArchtypeFilters, selectedSubtypeFilters, subtypeOptions.optionsMap],
   );

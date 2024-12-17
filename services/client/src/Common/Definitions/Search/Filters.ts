@@ -1,4 +1,4 @@
-declare type SearchFilter =
+export type SearchFilter =
   | 'ContractType'
   | 'ContractLocations'
   | 'ContractPay'

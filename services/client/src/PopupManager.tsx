@@ -23,7 +23,6 @@ import {
   type EditContractPopupProps,
   POPUP_EDIT_CONTRACT,
 } from '@Popups/Contracts/EditContract/EditContract';
-import { FeedbackPopup, POPUP_FEEDBACK } from '@Popups/FeedbackForm/FeedbackPopup';
 import {
   ImportFilePopup,
   type ImportFileProps,
@@ -81,7 +80,6 @@ import { selectPopup } from '@Redux/Slices/Popups/popups.selectors';
 import type React from 'react';
 
 export const PopupManager: React.FC = () => {
-  const feedbackPopup = useAppSelector((state) => selectPopup(state, POPUP_FEEDBACK));
   const createContractPopup = useAppSelector((state) =>
     selectPopup(state, POPUP_CREATE_CONTRACT),
   );
@@ -147,7 +145,6 @@ export const PopupManager: React.FC = () => {
       {showTokenPopup.open && (
         <ShowTokenPopup {...(showTokenPopup.props as ShowTokenPopupProps)} />
       )}
-      {feedbackPopup.open && <FeedbackPopup />}
       {createContractPopup.open && <CreateContractPopup />}
       {playerCardPopup.open && (
         <PlayerCardPopup {...(playerCardPopup.props as PlayerCardPopupProps)} />

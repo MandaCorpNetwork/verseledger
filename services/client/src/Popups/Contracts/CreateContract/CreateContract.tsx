@@ -23,6 +23,7 @@ import type {
   IContract,
   ICreateContractBody,
 } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 import { ContractDetails } from './pages/ContractDetails';
 import { Contractors } from './pages/Contractors';
@@ -108,7 +109,7 @@ export const CreateContractPopup: React.FC = () => {
     status: 'BIDDING',
   } as unknown as ICreateContractBody);
   const mobile = useIsMobile();
-  const [invites, setInvites] = React.useState<User[]>([]);
+  const [invites, setInvites] = React.useState<IUser[]>([]);
 
   const onSubmit = useCallback(() => {
     if (page >= 4) {
@@ -169,16 +170,6 @@ export const CreateContractPopup: React.FC = () => {
   const isSubmitEnabled = React.useMemo(() => {
     Logger.info(formData);
     switch (page) {
-      default:
-      case 0:
-        return (
-          formData.title != null &&
-          formData.title.trim() != '' &&
-          formData.briefing != null &&
-          formData.briefing.trim() != '' &&
-          formData.subtype != null &&
-          formData.subtype.trim() != ''
-        );
       case 1:
         return true;
       case 2:
@@ -192,8 +183,16 @@ export const CreateContractPopup: React.FC = () => {
           formData.defaultPay != 0 &&
           formData.defaultPay != undefined
         );
+      default:
+        return (
+          formData.title != null &&
+          formData.title.trim() != '' &&
+          formData.briefing != null &&
+          formData.briefing.trim() != '' &&
+          formData.subtype != null &&
+          formData.subtype.trim() != ''
+        );
     }
-    return false;
   }, [formData, page]);
 
   return (
@@ -211,7 +210,6 @@ export const CreateContractPopup: React.FC = () => {
             testid: 'CreateContractPopup_Cancel',
           }),
         );
-        return;
       }}
       name={POPUP_CREATE_CONTRACT}
       title="Create Contract"

@@ -17,7 +17,7 @@ export const OrgEventsBox: React.FC = () => {
       sound.playSound('clickMain');
       setEventTab(value);
     },
-    [sound, setEventTab],
+    [sound],
   );
 
   const renderPanel = React.useCallback(() => {

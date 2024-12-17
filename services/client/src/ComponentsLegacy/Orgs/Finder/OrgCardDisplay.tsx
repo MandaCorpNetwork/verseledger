@@ -1,6 +1,7 @@
 import '@Assets/Css/scrollbar.css';
 
 import { Grid2 } from '@mui/material';
+import type React from 'react';
 // import { useParams } from 'react-router';
 import type { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 

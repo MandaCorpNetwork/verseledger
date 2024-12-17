@@ -22,7 +22,7 @@ export const MemberInvites: React.FC = () => {
       }
       return !prev;
     });
-  }, [sound, setExpanded]);
+  }, [sound]);
   return (
     <FeatureDisplay
       data-testid="OrgManager-PanelDisplay-MemberManagement-Pending__Invites_Wrapper"

@@ -1,5 +1,6 @@
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { Typography } from '@mui/material';
+import type React from 'react';
 
 export const NotificationSettings: React.FC = () => {
   return (

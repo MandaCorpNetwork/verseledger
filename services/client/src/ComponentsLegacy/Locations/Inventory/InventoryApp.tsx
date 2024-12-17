@@ -1,6 +1,7 @@
 import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
 import { Box } from '@mui/material';
 import { isDev } from '@Utils/isDev';
+import type React from 'react';
 
 export const InventoryApp: React.FC = () => {
   const dev = isDev();

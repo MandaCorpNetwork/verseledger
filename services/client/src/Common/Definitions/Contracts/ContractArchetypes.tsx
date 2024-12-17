@@ -14,14 +14,15 @@ import {
   Industry,
   Logistics,
   Medical,
-  Proxy as ProxyIcon,
+  ProxyIcon as ProxyIcon,
   RRR,
   Salvage,
   Security,
 } from '../../../CommonLegacy/DefinitionsLegacy/CustomIcons';
+import type { ContractSubtypeObj, IContractArchetype } from './ContractTypes';
 
 export type ContractArchetypeTree = {
-  archetype: ContractArchetype;
+  archetype: IContractArchetype;
   archetypeLabel: string;
   archetypeIcon: SvgIconComponent;
   subtypes: ContractSubtypeObj[];

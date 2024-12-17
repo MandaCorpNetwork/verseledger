@@ -23,25 +23,33 @@ export const FilterList: React.FC<FilterListProps> = ({ isOpen }) => {
         filter="Subtype"
         label="Subtypes"
         isExpanded={false}
-        onExpand={() => {}}
+        onExpand={() => {
+          //
+        }}
       />
       <DropdownFilter
         filter="Locations"
         label="Locations"
         isExpanded={false}
-        onExpand={() => {}}
+        onExpand={() => {
+          //
+        }}
       />
       <DropdownFilter
         filter="Scheduling"
         label="Scheduling"
         isExpanded={false}
-        onExpand={() => {}}
+        onExpand={() => {
+          //
+        }}
       />
       <DropdownFilter
         filter="Pay"
         label="Compensation"
         isExpanded={false}
-        onExpand={() => {}}
+        onExpand={() => {
+          //
+        }}
       />
     </ElevatedDropdownBox>
   );

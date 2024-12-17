@@ -25,6 +25,7 @@ import type {
   IContract,
   ICreateContractBody,
 } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 export const POPUP_EDIT_CONTRACT = 'contracts_edit';
 
@@ -69,12 +70,14 @@ const ColorlibConnector = styled(StepConnector)(() => ({
   },
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage: `linear-gradient( 95deg,rgb(24,252,252) 0%,rgb(121,192,244) 50%,rgb(6,86,145) 100%)`,
+      backgroundImage:
+        'linear-gradient( 95deg,rgb(24,252,252) 0%,rgb(121,192,244) 50%,rgb(6,86,145) 100%)',
     },
   },
   [`&.${stepConnectorClasses.completed}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage: `linear-gradient( 95deg,rgb(24,252,252) 0%,rgb(121,192,244) 50%,rgb(6,86,145) 100%)`,
+      backgroundImage:
+        'linear-gradient( 95deg,rgb(24,252,252) 0%,rgb(121,192,244) 50%,rgb(6,86,145) 100%)',
     },
   },
   [`& .${stepConnectorClasses.line}`]: {
@@ -124,34 +127,31 @@ export const EditContractPopup: React.FC<EditContractPopupProps> = ({ contract }
     );
   }, [dispatch]);
 
-  const [invites, setInvites] = useState<User[]>([]);
+  const [invites, setInvites] = useState<IUser[]>([]);
 
   const isSubmitEnabled = React.useMemo(() => {
     Logger.info(formData);
     switch (page) {
-      default:
-      case 0:
-        return (
-          formData.title != null &&
-          formData.title.trim() != '' &&
-          formData.briefing != null &&
-          formData.briefing.trim() != '' &&
-          formData.subtype != null &&
-          formData.subtype.trim() != ''
-        );
       case 1:
         return true;
       case 2:
-        return formData.contractorLimit != null && formData.contractorLimit != 0;
+        return formData.contractorLimit != null && formData.contractorLimit !== 0;
       case 3:
         return (
           formData.payStructure != null &&
           formData.defaultPay != null &&
-          formData.defaultPay != 0 &&
-          formData.defaultPay != undefined
+          formData.defaultPay !== 0
+        );
+      default:
+        return (
+          formData.title != null &&
+          formData.title.trim() !== '' &&
+          formData.briefing != null &&
+          formData.briefing.trim() !== '' &&
+          formData.subtype != null &&
+          formData.subtype.trim() !== ''
         );
     }
-    return false;
   }, [formData, page]);
 
   const onSubmit = React.useCallback(() => {
@@ -169,9 +169,9 @@ export const EditContractPopup: React.FC<EditContractPopupProps> = ({ contract }
         }),
       ).then((res) => {
         if ((res.payload as { __type: string }).__type === 'Contract') {
-          invites.forEach((invite) => {
+          for (const invite of invites) {
             dispatch(postContractInvite({ contractId: contract.id, userId: invite.id }));
-          });
+          }
           enqueueSnackbar('Contract Updated', { variant: 'success' });
         } else {
           enqueueSnackbar('Contract Update Failed', { variant: 'error' });
@@ -182,7 +182,7 @@ export const EditContractPopup: React.FC<EditContractPopupProps> = ({ contract }
   }, [page, formData, dispatch, contract.id, invites]);
 
   const onCancel = React.useCallback(() => {
-    if (page == 0) {
+    if (page === 0) {
       return handleClose();
     }
     setPage(Math.max(page - 1, 0));

@@ -1,4 +1,5 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { IContractArchetype } from '@Common/Definitions/Contracts/ContractTypes';
 import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { SideControlPanel } from '@CommonLegacy/Components/Collapse/SideControlPanel';
 import { DoubleArrow } from '@mui/icons-material';
@@ -56,14 +57,14 @@ export const LedgerSidePanel: React.FC<LedgerSidePanelProps> = ({ openMobileSear
       }
       return !prev;
     });
-  }, [setExpanded, sound]);
+  }, [sound]);
 
   const handleMobileSearchOpen = React.useCallback(() => {
     openMobileSearch((prev) => !prev);
   }, [openMobileSearch]);
 
   const handleArchetypeChange = React.useCallback(
-    (value: ContractArchetype) => {
+    (value: IContractArchetype) => {
       const currentFilterValues = searchParams.getAll(QueryNames.ContractArchetype);
       sound.playSound('clickMain');
       setFilters(
@@ -125,13 +126,13 @@ export const LedgerSidePanel: React.FC<LedgerSidePanelProps> = ({ openMobileSear
         isTablet={isTablet}
         searchClick={handleMobileSearchOpen}
         setFilter={handleArchetypeChange}
-        currentFilters={currentArchetypeFilters as ContractArchetype[]}
+        currentFilters={currentArchetypeFilters as IContractArchetype[]}
         openCreate={openCreateContract}
       />
       <ExpandedButtons
         isExpanded={isExpanded}
         setFilter={handleArchetypeChange}
-        currentFilters={currentArchetypeFilters as ContractArchetype[]}
+        currentFilters={currentArchetypeFilters as IContractArchetype[]}
         openCreate={openCreateContract}
       />
     </SideControlPanel>

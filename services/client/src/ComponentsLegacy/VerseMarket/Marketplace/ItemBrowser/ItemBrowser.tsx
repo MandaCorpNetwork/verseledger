@@ -1,5 +1,6 @@
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { Autocomplete, Box, TextField } from '@mui/material';
+import type React from 'react';
 
 import { MarketBrowserTable } from './BrowserTable';
 import { ItemTypeFilters } from './TypeFilters';

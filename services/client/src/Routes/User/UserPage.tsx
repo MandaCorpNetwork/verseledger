@@ -77,7 +77,7 @@ export const UserPage: React.FC = () => {
           setIsError(true);
         });
     }
-  }, [selectedUserId, dispatch, setLoading]);
+  }, [selectedUserId, dispatch]);
   /**
    * Fetches the user object from the state based on the selected user id.
    * @paramuserId
@@ -100,7 +100,7 @@ export const UserPage: React.FC = () => {
       sound.playSound('clickMain');
       setStatsTab(value);
     },
-    [setStatsTab, sound],
+    [sound],
   );
   /**
    * Call back function created for the user stats panel.
@@ -111,7 +111,7 @@ export const UserPage: React.FC = () => {
     switch (statsTab) {
       case 'orders':
         return <OrderStatsPanel />;
-      case 'contracts':
+      // case 'contracts':
       default:
         return <ContractStatsPanel />;
     }
@@ -126,7 +126,7 @@ export const UserPage: React.FC = () => {
       sound.playSound('clickMain');
       setInfoTab(value);
     },
-    [setInfoTab, sound],
+    [sound],
   );
   /**
    * Call back function created for the user info panel.
@@ -141,7 +141,7 @@ export const UserPage: React.FC = () => {
         return <OrderInfoPanel />;
       case 'contracts':
         return <ContractInfoPanel user={selectedUser ?? null} />;
-      case 'fleet':
+      // case 'fleet':
       default:
         return <FleetInfoPanel />;
     }
@@ -326,7 +326,7 @@ export const UserPage: React.FC = () => {
                   title="Message"
                 >
                   <IconButton>
-                    <Mail data-testid="UserPage-PlayerData_MailUserButton"></Mail>
+                    <Mail data-testid="UserPage-PlayerData_MailUserButton" />
                   </IconButton>
                 </Tooltip>
                 <Tooltip
@@ -334,7 +334,7 @@ export const UserPage: React.FC = () => {
                   title="Invite to Crew"
                 >
                   <IconButton>
-                    <Security data-testid="UserPage-PlayerData_CrewInvitationButton"></Security>
+                    <Security data-testid="UserPage-PlayerData_CrewInvitationButton" />
                   </IconButton>
                 </Tooltip>
               </Box>
@@ -372,7 +372,9 @@ export const UserPage: React.FC = () => {
                 >
                   <IconButton
                     data-testid="UserPage-LocationDisplay_LocationButton"
-                    onClick={() => {}}
+                    onClick={() => {
+                      //
+                    }}
                   >
                     <Place fontSize="large" />
                   </IconButton>
@@ -427,7 +429,9 @@ export const UserPage: React.FC = () => {
                 >
                   <IconButton
                     data-testid="UserPage-ShipDisplay_ShipButton"
-                    onClick={() => {}}
+                    onClick={() => {
+                      //
+                    }}
                   >
                     <Security fontSize="large" />
                   </IconButton>

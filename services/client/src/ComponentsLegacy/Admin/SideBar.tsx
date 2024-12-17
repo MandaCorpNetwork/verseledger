@@ -85,7 +85,7 @@ export const AdminSideBar: React.FC = () => {
       sound.playSound('toggleOn');
     }
     setIsExpanded(!isExpanded);
-  }, [setIsExpanded, isExpanded, sound]);
+  }, [isExpanded, sound]);
 
   return (
     <SideControlPanel

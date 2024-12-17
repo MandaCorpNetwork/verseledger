@@ -1,4 +1,5 @@
 import { Box, Divider, Skeleton } from '@mui/material';
+import type React from 'react';
 
 export const ContractBriefingSkelton: React.FC<unknown> = () => {
   return (

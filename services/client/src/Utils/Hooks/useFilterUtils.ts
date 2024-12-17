@@ -1,7 +1,7 @@
 import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { getSubtypeOptions } from '@Utils/Contracts/ContractTypeUtils';
 import { numericFieldInput } from '@Utils/numericFilter';
-import { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useURLQuery } from './useURLQuery';
 

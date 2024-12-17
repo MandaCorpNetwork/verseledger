@@ -24,16 +24,13 @@ export const ConfigGroup: React.FC<{
   const sound = useSoundEffect();
   const isActive = config.active;
 
-  const handleMouseEnter = React.useCallback(
-    (index: number) => {
-      setHoveredTick(index);
-    },
-    [setHoveredTick],
-  );
+  const handleMouseEnter = React.useCallback((index: number) => {
+    setHoveredTick(index);
+  }, []);
 
   const handleMouseLeave = React.useCallback(() => {
     setHoveredTick(null);
-  }, [setHoveredTick]);
+  }, []);
 
   const handleConfigValue = React.useCallback(
     (index: number) => {
@@ -41,7 +38,7 @@ export const ConfigGroup: React.FC<{
       setConfig((prev) => ({
         ...prev,
         tuningOptions: prev.tuningOptions.map((option) => {
-          if (option.id === config.id && config.type == option.type) {
+          if (option.id === config.id && config.type === option.type) {
             return {
               ...option,
               assignedPips: index,
@@ -90,7 +87,7 @@ export const ConfigGroup: React.FC<{
   }, []);
   return (
     <Box
-      data-testid={`ShipTuning-TuningEditor__ConfigGroup_Wrapper`}
+      data-testid={'ShipTuning-TuningEditor__ConfigGroup_Wrapper'}
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -101,7 +98,7 @@ export const ConfigGroup: React.FC<{
       }}
     >
       <Box
-        data-testid={`ShipTuning-TuningEditor__ConfigGroup_Wrapper`}
+        data-testid={'ShipTuning-TuningEditor__ConfigGroup_Wrapper'}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -115,7 +112,7 @@ export const ConfigGroup: React.FC<{
           const reversedIndex = config.totalPips - config.minimumPips - 1 - index;
           return (
             <TuningTick
-              data-testid={`ShipTuning-TuningEditor__ConfigGroup_Wrapper`}
+              data-testid={'ShipTuning-TuningEditor__ConfigGroup_Wrapper'}
               key={index}
               onClick={() => handleConfigValue(reversedIndex + 1 + config.minimumPips)}
               onMouseEnter={() => handleMouseEnter(reversedIndex)}

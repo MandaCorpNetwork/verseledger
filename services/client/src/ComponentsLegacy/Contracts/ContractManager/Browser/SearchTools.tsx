@@ -1,6 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { FilterButton } from '@Common/Components/Functional/Applcation/Buttons/FilterButton';
 import { FilterMenu } from '@Common/Components/Functional/Applcation/Menus/Filters/FilterMenu';
+import type { SearchFilter } from '@Common/Definitions/Search/Filters';
 import { ArrowBackIosNew } from '@mui/icons-material';
 import { Badge, Box, Collapse, IconButton, Tooltip, useTheme } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
@@ -29,7 +30,7 @@ export const SearchTools: React.FC = () => {
   /** Handles the clickEvent that displays the SearchTools */
   const toggleSearchTools = React.useCallback(() => {
     setSearchToolsOpen(!searchToolsOpen);
-  }, [searchToolsOpen, setSearchToolsOpen]);
+  }, [searchToolsOpen]);
 
   /** Define the FilterMenu State */
   const filterOpenState = usePopupState({ variant: 'popover', popupId: 'filterMenu' });

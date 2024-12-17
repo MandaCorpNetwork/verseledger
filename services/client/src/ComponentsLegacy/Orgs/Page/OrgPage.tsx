@@ -36,7 +36,7 @@ export const OrgPage: React.FC = () => {
       setLoading(false);
       setError(false);
     }
-  }, [setLoading, selectedOrgId, org, setError]);
+  }, [selectedOrgId, org]);
 
   const handleReturn = React.useCallback(() => {
     sound.playSound('close');

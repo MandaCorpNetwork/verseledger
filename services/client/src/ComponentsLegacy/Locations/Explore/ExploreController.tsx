@@ -1,5 +1,6 @@
 import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { Button } from '@mui/material';
+import type React from 'react';
 
 export const ExploreController: React.FC = () => {
   return (

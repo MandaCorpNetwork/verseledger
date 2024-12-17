@@ -2,6 +2,7 @@ import { VLViewport } from '@Common/Components/Core/Boxes/VLViewport';
 import { InDevOverlay } from '@CommonLegacy/Components/App/InDevOverlay';
 import { Typography } from '@mui/material';
 import { isDev } from '@Utils/isDev';
+import type React from 'react';
 
 export const VerseNewsPage: React.FC = () => {
   const dev = isDev();

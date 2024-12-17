@@ -47,7 +47,7 @@ export const RouteApp: React.FC<unknown> = () => {
       }
       return !prev;
     });
-  }, [setDetailsOpen, sound]);
+  }, [sound]);
   return (
     <Box
       data-testid="RouteTool__AppContainer"

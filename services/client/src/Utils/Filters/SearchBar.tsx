@@ -2,6 +2,7 @@
 import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { Box, TextField } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
+import type React from 'react';
 
 type SearchBarProps = {
   size: 'small' | 'medium';

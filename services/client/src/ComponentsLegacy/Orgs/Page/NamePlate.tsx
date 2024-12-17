@@ -1,6 +1,7 @@
 import MandaLogo from '@Assets/media/MandaLogo.png';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Divider, Typography } from '@mui/material';
+import type React from 'react';
 import type { IOrganization } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 
 type OrgNamePlateProps = {

@@ -1,4 +1,5 @@
 import { CopyString } from '@CommonLegacy/Components/Buttons/CopyString';
+import type { UserVerification } from '@CommonLegacy/DefinitionsLegacy/Structures/Users/UserVerification';
 import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {
@@ -77,8 +78,8 @@ export const VerifyUserPopup: React.FC = () => {
             sx={{ mt: '1em' }}
             fullWidth
             variant="outlined"
-            error={error != ''}
-            helperText={error != '' ? error : undefined}
+            error={error !== ''}
+            helperText={error !== '' ? error : undefined}
             label="RSI Handle"
             value={rsiHandleInput}
             onChange={(e) => {
@@ -86,7 +87,7 @@ export const VerifyUserPopup: React.FC = () => {
             }}
           />
           <Button
-            disabled={rsiHandleInput.trim() == ''}
+            disabled={rsiHandleInput.trim() === ''}
             sx={{ mt: '2em' }}
             variant="popupButton"
             onClick={createToken}

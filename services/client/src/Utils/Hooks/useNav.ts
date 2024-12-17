@@ -1,8 +1,11 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { URLUtil } from '@Utils/URLUtil';
+import type React from 'react';
 import { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router';
-export const useNavAux = () => {};
+export const useNavAux = () => {
+  //
+};
 
 export const useNav = () => {
   const navigate = useNavigate();

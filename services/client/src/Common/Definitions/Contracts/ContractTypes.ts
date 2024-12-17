@@ -1,4 +1,4 @@
-declare type ContractArchetype =
+export type IContractArchetype =
   | 'Logistics'
   | 'Medical'
   | 'Security'
@@ -9,7 +9,7 @@ declare type ContractArchetype =
   | 'Exploration'
   | 'Proxy';
 
-declare type ContractSubtype =
+export type IContractSubtype =
   | 'Transport'
   | 'Hauling'
   | 'Manage'
@@ -36,7 +36,7 @@ declare type ContractSubtype =
   | 'Middleman'
   | 'Redacted';
 
-declare type ContractSubtypeObj = {
+export type ContractSubtypeObj = {
   label: string;
-  value: ContractSubtype;
+  value: IContractSubtype;
 };

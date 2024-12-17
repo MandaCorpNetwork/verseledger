@@ -144,7 +144,6 @@ export const ProfileSettings: React.FC = () => {
               <form.Field
                 name="profileBackground"
                 data-testid="ProfileSettings-Form-Aesthetics-ProfileBackground__Field"
-                // biome-ignore lint/correctness/noChildrenProp: <explanation>
                 children={(field) => (
                   <div
                     data-testid="ProfileSettings-Form-Aesthetics-ProfileBackground-Field__Input_Wrapper"
@@ -199,7 +198,6 @@ export const ProfileSettings: React.FC = () => {
                 selector={(state) => ({
                   profileBackground: state.values.profileBackground,
                 })}
-                // biome-ignore lint/correctness/noChildrenProp: <explanation>
                 children={(profileBackground) => (
                   <ComponentDisplay
                     data-testid="ProfileSettings-Form-Aesthetics-ProfileBackground-Field__SelectionDisplay_Wrapper"
@@ -245,7 +243,6 @@ export const ProfileSettings: React.FC = () => {
               <form.Field
                 name="theme"
                 data-testid="ProfileSettings-Form-Aesthetics-Theme__Field"
-                // biome-ignore lint/correctness/noChildrenProp: <explanation>
                 children={(field) => (
                   <ComponentDisplay
                     data-testid="ProfileSettings-Form-Aesthetics-Theme-Field__Input_Wrapper"
@@ -330,7 +327,6 @@ export const ProfileSettings: React.FC = () => {
         </FeatureDisplay>
         <form.Subscribe
           selector={(state) => [state.canSubmit, state.isSubmitting, state.values]}
-          // biome-ignore lint/correctness/noChildrenProp: <explanation>
           children={([canSubmit, isSubmitting, values]) => {
             const defaultValues = form.options?.defaultValues;
             const isUnchanged = JSON.stringify(values) === JSON.stringify(defaultValues);

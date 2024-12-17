@@ -29,7 +29,7 @@ export const UserSearch: React.FC<UserSearchProps> = ({
   onUserSelect,
 }) => {
   const [inputValue, setInputValue] = React.useState('');
-  const [options, setOptions] = React.useState<User[]>([]);
+  const [options, setOptions] = React.useState<IUser[]>([]);
   const [loading, setLoading] = React.useState(false);
   const dispatch = useAppDispatch();
 
@@ -40,7 +40,7 @@ export const UserSearch: React.FC<UserSearchProps> = ({
       try {
         const searchResults = await dispatch(fetchSearchUsers(searchTerm)).unwrap();
         setOptions(searchResults);
-      } catch (error) {
+      } catch (_error) {
         setOptions([]);
       } finally {
         setLoading(false);
@@ -106,20 +106,22 @@ export const UserSearch: React.FC<UserSearchProps> = ({
             size={size}
             color={color}
             onFocus={handleInputFocus}
-            InputProps={{
-              ...params.InputProps,
-              endAdornment: (
-                <React.Fragment>
-                  {loading ? (
-                    <LoadingWheel
-                      logoSize={18}
-                      wheelSize={33}
-                      boxSX={{ marginRight: '.5em' }}
-                    />
-                  ) : null}
-                  {params.InputProps.endAdornment}
-                </React.Fragment>
-              ),
+            slotProps={{
+              input: {
+                ...params.InputProps,
+                endAdornment: (
+                  <React.Fragment>
+                    {loading ? (
+                      <LoadingWheel
+                        logoSize={18}
+                        wheelSize={33}
+                        boxSX={{ marginRight: '.5em' }}
+                      />
+                    ) : null}
+                    {params.InputProps.endAdornment}
+                  </React.Fragment>
+                ),
+              },
             }}
           />
         )}

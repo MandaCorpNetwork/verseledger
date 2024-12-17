@@ -28,7 +28,7 @@ export const ContractList: React.FC<ContractListProps> = ({ currentTab }) => {
       sound.playSound('open');
       setExpandedArchetype(value);
     },
-    [setExpandedArchetype, sound],
+    [sound],
   );
 
   const handleChangePage = React.useCallback(
@@ -36,7 +36,7 @@ export const ContractList: React.FC<ContractListProps> = ({ currentTab }) => {
       sound.playSound('clickMain');
       setPage(newPage);
     },
-    [sound, setPage],
+    [sound],
   );
 
   const contracts = useAppSelector(selectContracts);

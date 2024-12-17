@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import type React from 'react';
 
 import { ItemBrowser } from './ItemBrowser/ItemBrowser';
 import { ItemDisplay } from './ItemDisplay/ItemDisplay';

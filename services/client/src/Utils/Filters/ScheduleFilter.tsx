@@ -46,7 +46,7 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
     };
   }, [searchParams]);
 
-  const filterNumericInput = (input: string) => {
+  const filterNumericInput = React.useCallback((input: string) => {
     // Filter out non-numeric characters
     const invalidCharacters = input.match(/\D+/g);
 
@@ -54,7 +54,7 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
       enqueueSnackbar('Please only use numbers', { variant: 'error' });
     }
     return input.replace(/\D+/g, '');
-  };
+  }, []);
 
   const handleDurationChange = React.useCallback(
     (field: 'hours' | 'minutes', value: string) => {
@@ -77,7 +77,7 @@ export const SchedulingDropdownFilter: React.FC<unknown> = () => {
 
       setFilters(QueryNames.Duration, newTotalDurationInMinutes.toString());
     },
-    [searchParams, setFilters],
+    [searchParams, setFilters, filterNumericInput],
   );
 
   const clearDateFilter = React.useCallback(

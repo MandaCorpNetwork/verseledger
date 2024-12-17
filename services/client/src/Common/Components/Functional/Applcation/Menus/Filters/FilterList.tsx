@@ -1,5 +1,6 @@
 import { FilterGroup } from '@Common/Components/Core/Accordions/FilterGroup';
 import type { FilterComponent } from '@Common/Definitions/Search/FilterComponentsMap';
+import type { SearchFilter } from '@Common/Definitions/Search/Filters';
 import { ExpandMore } from '@mui/icons-material';
 import {
   AccordionActions,
@@ -57,8 +58,8 @@ export const FilterList: React.FC<FilterListProps> = ({ filterList }) => {
         return <ContractPayFilter />;
       case 'ContractSchedule':
         return <ContractScheduleFilter />;
-      case 'ContractRating':
-      case 'ContractStatus':
+      // case 'ContractRating':
+      // case 'ContractStatus':
       default:
         return;
     }
@@ -68,7 +69,6 @@ export const FilterList: React.FC<FilterListProps> = ({ filterList }) => {
     return filterList.map((filter) => {
       const FilterComponent = getComponent(filter.key);
       const filterCount = filterUtils.dynamicFilterCount(filter.filters);
-      console.log('FilterCount', filterCount);
       return (
         <FilterGroup
           key={filter.key}

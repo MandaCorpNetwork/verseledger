@@ -45,7 +45,7 @@ export const UECFilter: React.FC<unknown> = () => {
       }
       setFilters(field, []);
     },
-    [setLocalMax, setLocalMin, setFilters],
+    [setFilters],
   );
 
   const filterNumericInput = (input: string) => {
@@ -61,8 +61,8 @@ export const UECFilter: React.FC<unknown> = () => {
       switch (payStructure) {
         case 'POOL':
           return pay > 100 ? 'Over Limit' : pay.toString();
-        case 'FLATRATE':
-        case 'HOURLY':
+        // case 'FLATRATE':
+        // case 'HOURLY':
         default:
           return pay.toLocaleString();
       }

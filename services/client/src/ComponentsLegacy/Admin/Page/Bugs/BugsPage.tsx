@@ -16,7 +16,7 @@ export const BugsPage: React.FC = () => {
       sound.playSound('clickMain');
       setBugsTab(newValue);
     },
-    [sound, setBugsTab],
+    [sound],
   );
   return (
     <Box

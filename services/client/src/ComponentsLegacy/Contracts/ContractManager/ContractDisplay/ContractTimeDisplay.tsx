@@ -26,7 +26,7 @@ export const ContractTimeDisplay: React.FC<ContractTimeDisplayProps> = ({
       sound.playSound('clickMain');
       setTimeTab(value);
     },
-    [setTimeTab, sound],
+    [sound],
   );
 
   const renderTimePanel = React.useCallback(() => {

@@ -5,6 +5,7 @@ import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentConta
 import { ComponentDisplay } from '@Common/Components/Core/Boxes/ComponentDisplay';
 import { FeatureDisplay } from '@Common/Components/Core/Boxes/FeatureDisplay';
 import { Box } from '@mui/material';
+import type React from 'react';
 
 import { ListSelectButton } from '../Common/Components/Core/Buttons/ListSelectButton';
 import { Contracts, Scu, Scu3d } from './DefinitionsLegacy/CustomIcons';

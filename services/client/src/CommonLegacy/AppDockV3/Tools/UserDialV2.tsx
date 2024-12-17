@@ -20,7 +20,7 @@ import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { selectNotificationsUnreadCount } from '@Redux/Slices/Notifications/notifications.selectors';
 import { useNav } from '@Utils/Hooks/useNav';
 import { bindPopover, bindTrigger, usePopupState } from 'material-ui-popup-state/hooks';
-import React from 'react';
+import React, { useState } from 'react';
 
 type UserDialProps = {
   quality: string;
@@ -185,9 +185,9 @@ export const UserDialV2: React.FC<UserDialProps> = ({ quality, animations }) => 
     [sound, triggerOnClick],
   );
 
-  const mailOpen = false;
+  const [mailOpen] = useState(false);
 
-  const unreadMailCount = 0;
+  const [unreadMailCount] = useState(0);
 
   const MailIcon = React.useMemo(() => {
     if (mailOpen) return Mail;

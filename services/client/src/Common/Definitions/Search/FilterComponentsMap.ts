@@ -1,3 +1,4 @@
+import type { SearchFilter } from './Filters';
 import { QueryNames } from './QueryNames';
 
 //TODO: Add Support Page Links

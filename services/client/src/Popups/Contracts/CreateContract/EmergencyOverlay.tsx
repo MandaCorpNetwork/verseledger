@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material';
+import type React from 'react';
 
 export const LargeEmergencyOverlay: React.FC<unknown> = () => {
   return (
