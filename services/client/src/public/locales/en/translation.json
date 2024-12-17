@@ -76,6 +76,9 @@
     "CONTRACTS": {
       "LABEL": "Contracts"
     },
+    "SERVICES": {
+      "LABEL": "Services"
+    },
     "LEDGER": {
       "LABEL": "Ledger"
     },

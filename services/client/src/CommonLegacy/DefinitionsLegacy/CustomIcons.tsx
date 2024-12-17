@@ -3,8 +3,8 @@ import { createSvgIcon } from '@mui/material';
 /**
  * TODO:
  * - Move to New Common Folder
- * - Rename RRR to Rrr
  * - Fix Sizing of New Icons
+ * - Rotate Rrr Icon because it looks like a power Button
  */
 const FleetIconSVG = (
   <svg
@@ -106,7 +106,7 @@ const RRRIconSVG = (
       id="mask"
       d="M 567.82581,285.74759 A 284.8302,284.83023 0 0 1 282.99561,570.57782 284.8302,284.83023 0 0 1 -1.8345947,285.74759 284.8302,284.83023 0 0 1 282.99561,0.9173584 284.8302,284.83023 0 0 1 567.82581,285.74759 Z"
       fill="currentColor"
-      opacity="0.5"
+      opacity="0.3"
     />
     <path
       id="Cryastro"

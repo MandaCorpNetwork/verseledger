@@ -26,7 +26,7 @@ import {
 import { useHasFeatureFlag } from '@Utils/Hooks/FeatureFlag';
 import React from 'react';
 
-import { Contracts, Exploration, Fleet, Vehicles } from './CustomIcons';
+import { Contracts, Exploration, Fleet, Rrr, Vehicles } from './CustomIcons';
 
 export type AppListing = {
   id: string;
@@ -220,6 +220,15 @@ export const useMasterAppList = () => {
         versionLabel: 'Contract Ledger',
         version: '2.5',
         severityCode: 2,
+      },
+      {
+        id: 'contract-service',
+        label: '@APP.SERVICES.LABEL',
+        path: '/apps/services',
+        icon: Rrr,
+        versionLabel: 'Services',
+        version: '0.0.1',
+        severityCode: 9,
       },
       {
         id: 'orders',
