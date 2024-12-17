@@ -10,6 +10,7 @@ import { SmallTabHolo, SmallTabsHolo } from '@CommonLegacy/Components/Tabs/Small
 import { Box, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import { Logger } from '@Utils/Logger';
+import type React from 'react';
 import type { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 

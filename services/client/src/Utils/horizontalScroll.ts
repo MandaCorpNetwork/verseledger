@@ -19,7 +19,7 @@ export function useHorizontalSimpleScroll(): RefObject<HTMLDivElement> {
     return () => {
       el.removeEventListener('wheel', onWheel);
     };
-  }, [elRef]);
+  }, []);
 
   return elRef;
 }
@@ -120,7 +120,7 @@ export function useHorizontalAdvancedScroll(): RefObject<HTMLDivElement> {
       el.removeEventListener('touchend', onTouchEnd);
       if (scrollTimeout) clearTimeout(scrollTimeout);
     };
-  }, [elRef]);
+  }, []);
 
   return elRef;
 }

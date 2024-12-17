@@ -169,6 +169,8 @@ import SysOpenWeb from '@Assets/Sounds/System/sysOpen.webm?url';
 import SysPrimaryClickMp3 from '@Assets/Sounds/System/sysPrimaryClick.mp3?url';
 import SysPrimaryClickWeb from '@Assets/Sounds/System/sysPrimaryClick.webm?url';
 
+import { IAudioPack, SoundPack } from './ISounds';
+
 export const soundEffectOptions = {
   close: [
     {

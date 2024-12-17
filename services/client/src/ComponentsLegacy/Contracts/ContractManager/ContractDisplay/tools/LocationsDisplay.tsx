@@ -25,14 +25,14 @@ export const LocationsDisplay: React.FC<LocationsDisplayProps> = ({ locations = 
       }
       return !prev;
     });
-  }, [sound, setIsExpanded]);
+  }, [sound]);
   const scrollRef = useHorizontalAdvancedScroll();
   const getStartLocationId = React.useCallback(() => {
     if (locations) {
       const startLocationPull = locations?.find(
         (location) => location.ContractLocation?.tag === 'start',
       )?.id;
-      return startLocationPull || null;
+      return startLocationPull ?? null;
     }
     return null;
   }, [locations]);
@@ -43,7 +43,7 @@ export const LocationsDisplay: React.FC<LocationsDisplayProps> = ({ locations = 
         (location) => location.ContractLocation?.tag === 'end',
       )?.id;
       Logger.info(`EndLocation: ${endLocationPull}`);
-      return endLocationPull || null;
+      return endLocationPull ?? null;
     }
     return null;
   }, [locations]);

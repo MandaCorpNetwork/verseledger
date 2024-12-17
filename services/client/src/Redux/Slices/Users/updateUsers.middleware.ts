@@ -3,6 +3,7 @@ import type { AppDispatch } from '@Redux/store';
 import type { Middleware } from 'redux';
 import type { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSchema';
 import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 import { fetchContracts } from '../Contracts/actions/get/fetchContracts.action';
 
@@ -10,7 +11,7 @@ export const updateUsersMiddleware: Middleware<unknown, Record<string, unknown>>
   ({ dispatch }: { dispatch: AppDispatch }) =>
   (next) =>
   (action) => {
-    const activeContractors: User[] = [];
+    const activeContractors: IUser[] = [];
     if (fetchContracts.fulfilled.match(action)) {
       for (const contract of action.payload?.data as IContract[]) {
         for (const bid of contract.Bids as IContractBid[]) {

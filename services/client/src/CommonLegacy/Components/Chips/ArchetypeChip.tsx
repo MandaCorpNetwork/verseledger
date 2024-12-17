@@ -1,4 +1,5 @@
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
+import type { IContractArchetype } from '@Common/Definitions/Contracts/ContractTypes';
 import { ErrorTwoTone } from '@mui/icons-material';
 import { Chip, SvgIcon } from '@mui/material';
 import { POPUP_ARCHETYPE_INFO } from '@Popups/Info/Archetypes';
@@ -7,9 +8,9 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
 
 type ArchetypeChipProps = {
-  archetype: ContractArchetype;
+  archetype: IContractArchetype;
   sx?: object;
-  ['data-testid']?: string;
+  'data-testid'?: string;
   size?: 'small' | 'medium';
   color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
   variant?: 'filled' | 'outlined';
@@ -36,17 +37,15 @@ export const ArchetypeChip: React.FC<ArchetypeChipProps> = (props) => {
     dispatch(openPopup(POPUP_ARCHETYPE_INFO, { option: archetypeObj?.archetype }));
   }, [dispatch, archetypeObj]);
   return (
-    <>
-      <Chip
-        data-testid={`ArchetypeChip__${testid}_Root`}
-        label={archetype}
-        icon={<SvgIcon component={ArchetypeIcon} color={color} fontSize={iconSize} />}
-        size={size}
-        variant={variant}
-        color={color}
-        onClick={handleArchetypeOpen}
-        sx={{ ...sx }}
-      />
-    </>
+    <Chip
+      data-testid={`ArchetypeChip__${testid}_Root`}
+      label={archetype}
+      icon={<SvgIcon component={ArchetypeIcon} color={color} fontSize={iconSize} />}
+      size={size}
+      variant={variant}
+      color={color}
+      onClick={handleArchetypeOpen}
+      sx={{ ...sx }}
+    />
   );
 };

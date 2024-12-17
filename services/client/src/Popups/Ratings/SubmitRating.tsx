@@ -55,8 +55,8 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
   // Handle adding or updating an option on the dataForm
   const handleFormDataChange = React.useCallback(
     (updatedData: ICreateUserRatingBody) => {
-      Logger.info(`Updated Data:`, updatedData);
-      Logger.info(`Current FormData:`, formData);
+      Logger.info('Updated Data:', updatedData);
+      Logger.info('Current FormData:', formData);
       setFormData((prevData) => {
         if (!prevData) {
           return [updatedData];
@@ -68,12 +68,11 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
           const updatedFormData = [...prevData];
           updatedFormData[existingIndex] = updatedData;
           return updatedFormData;
-        } else {
-          return [...prevData, updatedData];
         }
+        return [...prevData, updatedData];
       });
     },
-    [setFormData, formData],
+    [formData],
   );
 
   const getTitle = () => {
@@ -81,9 +80,8 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
       if (contract) {
         if (currentUser.id === contract.owner_id) {
           return 'Rate Contractors';
-        } else {
-          return 'Rate Employer';
         }
+        return 'Rate Employer';
       }
     }
   };
@@ -150,7 +148,7 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
               <Typography>Contract Owner</Typography>
               <UserRatingField
                 user={owner}
-                contractId={contract && contract.id}
+                contractId={contract?.id}
                 formData={
                   formData?.find(
                     (data) => data.reciever_id === owner.id,
@@ -160,26 +158,21 @@ export const SubmitRatingPopup: React.FC<SubmitRatingPopupProps> = ({
               />
             </>
           )}
-          {owner && (
-            <>
-              <Divider />
-            </>
-          )}
+          {owner && <Divider />}
           {contract && <Typography>Contractors</Typography>}
-          {options &&
-            options.map((user) => (
-              <UserRatingField
-                key={user.id}
-                user={user}
-                contractId={contract && contract.id}
-                formData={
-                  formData?.find(
-                    (data) => data.reciever_id === user.id,
-                  ) as ICreateUserRatingBody
-                }
-                setFormData={handleFormDataChange}
-              />
-            ))}
+          {options?.map((user) => (
+            <UserRatingField
+              key={user.id}
+              user={user}
+              contractId={contract?.id}
+              formData={
+                formData?.find(
+                  (data) => data.reciever_id === user.id,
+                ) as ICreateUserRatingBody
+              }
+              setFormData={handleFormDataChange}
+            />
+          ))}
         </FeatureContainer>
       </FormControl>
     </VLPopup>

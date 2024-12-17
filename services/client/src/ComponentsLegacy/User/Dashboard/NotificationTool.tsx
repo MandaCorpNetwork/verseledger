@@ -40,7 +40,7 @@ export const NotificationTool: React.FC = () => {
       }
       setIsExpanded(value);
     },
-    [setIsExpanded, isExpanded, sound],
+    [isExpanded, sound],
   );
 
   return (

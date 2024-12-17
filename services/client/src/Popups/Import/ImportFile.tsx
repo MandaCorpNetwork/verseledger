@@ -1,5 +1,6 @@
 import { DropZone } from '@CommonLegacy/Components/Functional/Dropzone';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
+import type React from 'react';
 
 export const POPUP_IMPORT_FILE = 'importFile';
 

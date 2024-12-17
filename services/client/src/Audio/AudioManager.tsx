@@ -1,3 +1,4 @@
+import type { ISounds, SoundPack } from '@CommonLegacy/DefinitionsLegacy/ISounds';
 import { soundEffectPacks } from '@CommonLegacy/DefinitionsLegacy/SoundEffectOptions';
 import { useAppSelector } from '@Redux/hooks';
 import { selectUserSoundPack } from '@Redux/Slices/Auth/auth.selectors';

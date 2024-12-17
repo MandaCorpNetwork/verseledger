@@ -6,6 +6,7 @@ import { ReadOnlyField } from '@CommonLegacy/Components/TextFields/ReadOnlyField
 import { Box, Chip, Divider, TextField, Typography } from '@mui/material';
 import { SparkLineChart } from '@mui/x-charts';
 import { isDev } from '@Utils/isDev';
+import type React from 'react';
 import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
 type InfoDisplayProps = {
@@ -29,7 +30,7 @@ export const InfoDisplay: React.FC<InfoDisplayProps> = ({
         <Typography data-testid="ExploreApp-Information__Title" variant="h6">
           {selectedLocation?.short_name}
         </Typography>
-        {selectedLocation?.id == currentLocation?.id && (
+        {selectedLocation?.id === currentLocation?.id && (
           <Chip label="Current Location" variant="filled" color="info" />
         )}
       </ComponentDisplay>

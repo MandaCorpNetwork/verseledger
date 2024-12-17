@@ -17,7 +17,7 @@ export const RecentMemberManageList: React.FC = () => {
       }
       return !prev;
     });
-  }, [sound, setExpanded]);
+  }, [sound]);
   const [timespan, setTimespan] = React.useState<'hour' | 'week' | 'month'>('hour');
   const handleTimeSpanChange = React.useCallback(
     (value: 'hour' | 'week' | 'month') => {
@@ -30,7 +30,7 @@ export const RecentMemberManageList: React.FC = () => {
         return value;
       });
     },
-    [sound, setTimespan],
+    [sound],
   );
   return (
     <FeatureDisplay

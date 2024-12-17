@@ -37,7 +37,7 @@ export const UserStateIcon: React.FC<UserStateIconProps> = ({
       return prevRotateY + step;
     });
     animationFrameId.current = requestAnimationFrame(smoothRotate);
-  }, [targetRotateY]);
+  }, []);
 
   const handleMouseMove = React.useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
@@ -56,7 +56,7 @@ export const UserStateIcon: React.FC<UserStateIconProps> = ({
         animationFrameId.current = requestAnimationFrame(smoothRotate);
       }
     },
-    [smoothRotate, targetRotateY],
+    [smoothRotate],
   );
 
   const resetRotation = React.useCallback(() => {
@@ -64,7 +64,7 @@ export const UserStateIcon: React.FC<UserStateIconProps> = ({
     if (!animationFrameId.current) {
       animationFrameId.current = requestAnimationFrame(smoothRotate);
     }
-  }, [smoothRotate, targetRotateY]);
+  }, [smoothRotate]);
 
   const advButtonAnimation = React.useMemo(() => {
     if (animations === 'high') {
@@ -99,7 +99,7 @@ export const UserStateIcon: React.FC<UserStateIconProps> = ({
       case 'none':
         classNames.push('DockFunctionIconNoAnimation');
         break;
-      case 'medium':
+      // case 'medium':
       default:
         classNames.push('DockFunctionIconMedAnimation');
         break;
@@ -112,8 +112,8 @@ export const UserStateIcon: React.FC<UserStateIconProps> = ({
       case 'low':
       case 'potato':
         return 'medium';
-      case 'high':
-      case 'medium':
+      // case 'high':
+      // case 'medium':
       default:
         return 'large';
     }
@@ -140,7 +140,7 @@ export const UserStateIcon: React.FC<UserStateIconProps> = ({
       case 'none':
         classNames.push('DockFunctionIconNoAnimation');
         break;
-      case 'medium':
+      // case 'medium':
       default:
         classNames.push('DockFunctionIconMedAnimation');
         break;

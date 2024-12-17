@@ -17,14 +17,15 @@ import { useIsMobile } from '@Utils/isMobile';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
 import type { ICreateContractBody } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import { IUser } from 'vl-shared/src/schemas/UserSchema';
 
 import { SmallEmergencyOverlay } from '../EmergencyOverlay';
 
 export const Contractors: React.FC<{
   formData: Partial<ICreateContractBody>;
   setFormData: React.Dispatch<React.SetStateAction<Partial<ICreateContractBody>>>;
-  invites: Array<User>;
-  setInvites: React.Dispatch<React.SetStateAction<Array<User>>>;
+  invites: Array<IUser>;
+  setInvites: React.Dispatch<React.SetStateAction<Array<IUser>>>;
 }> = (props) => {
   const { formData, setFormData, invites, setInvites } = props;
   const mobile = useIsMobile();
@@ -37,10 +38,10 @@ export const Contractors: React.FC<{
       ...formData,
       ratingLimit: undefined,
     }));
-  }, [setFormData, setRatingDisabled]);
+  }, [setFormData]);
 
   const handleUserInvite = React.useCallback(
-    (selectedUser: User | null) => {
+    (selectedUser: IUser | null) => {
       if (selectedUser) {
         if (selectedUser.id === currentUser?.id) {
           enqueueSnackbar({

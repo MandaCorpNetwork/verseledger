@@ -1,4 +1,4 @@
-type ISounds =
+export type ISounds =
   | 'close'
   | 'denied'
   | 'error'
@@ -15,11 +15,11 @@ type ISounds =
   | 'open'
   | 'clickMain';
 
-type SoundPack = {
+export type SoundPack = {
   [key in ISounds]: string[];
 };
 
-type IAudioPack = {
+export type IAudioPack = {
   name: string;
   pack: SoundPack;
 };

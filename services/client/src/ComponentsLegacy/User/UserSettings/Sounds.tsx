@@ -1,6 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentContainer';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
+import type { SoundPack } from '@CommonLegacy/DefinitionsLegacy/ISounds';
 import { soundEffectPacks } from '@CommonLegacy/DefinitionsLegacy/SoundEffectOptions';
 import {
   Box,

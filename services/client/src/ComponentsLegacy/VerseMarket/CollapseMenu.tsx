@@ -61,7 +61,7 @@ export const CollapseMenu: React.FC<unknown> = () => {
    */
   const handleDrawerOpen = React.useCallback(() => {
     setIsExpanded((prev) => !prev);
-  }, [setIsExpanded]);
+  }, []);
 
   /**
    * Callback function to handle tab change

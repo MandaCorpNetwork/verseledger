@@ -10,6 +10,7 @@ import { PayStructure } from '@CommonLegacy/Components/Custom/DigiField/PayStruc
 import { Box, Tooltip, Typography } from '@mui/material';
 import { useHorizontalAdvancedScroll } from '@Utils/horizontalScroll';
 import dayjs from 'dayjs';
+import type React from 'react';
 import { useCallback } from 'react';
 import type { ContractPayStructure } from 'vl-shared/src/schemas/contracts/ContractPayStructureSchema';
 import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';

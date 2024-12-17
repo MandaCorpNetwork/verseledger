@@ -79,8 +79,7 @@ export const DropZone: React.FC = () => {
                 const json = JSON.parse(e.target?.result as string);
                 setDestinations(json);
                 alert('File imported successfully!');
-              } catch (error) {
-                console.error('Invalid JSON file', error);
+              } catch (_error) {
                 alert('Invalid JSON file. Please try again.');
               }
             };

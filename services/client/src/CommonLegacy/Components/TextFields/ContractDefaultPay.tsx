@@ -1,4 +1,5 @@
 import { InputAdornment, TextField, Tooltip, Typography } from '@mui/material';
+import type React from 'react';
 
 type ContractDefaultPayLabelProps = {
   pay: number;

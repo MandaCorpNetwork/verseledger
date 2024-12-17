@@ -21,7 +21,7 @@ export const BriefingCollapse: React.FC<BriefingCollapseProps> = ({ briefing }) 
       }
       return !prev;
     });
-  }, [sound, setIsExpanded]);
+  }, [sound]);
   return (
     <ComponentContainer
       data-testid="SelectedContract__BriefingWrapper"

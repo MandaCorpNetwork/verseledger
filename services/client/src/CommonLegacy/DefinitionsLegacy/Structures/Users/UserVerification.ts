@@ -1,4 +1,4 @@
-type UserVerification = {
+export type UserVerification = {
   id: string;
   handle: string;
   displayName: string;

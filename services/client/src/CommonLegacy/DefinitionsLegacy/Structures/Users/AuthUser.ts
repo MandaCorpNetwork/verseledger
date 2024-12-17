@@ -1,4 +1,4 @@
-type AuthUser = {
+export type AuthUser = {
   id: string;
   displayName: string;
   verified: boolean;

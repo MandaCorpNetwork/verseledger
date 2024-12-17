@@ -1,4 +1,5 @@
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
+import { IContractArchetype } from '@Common/Definitions/Contracts/ContractTypes';
 import { AddCircle, ErrorTwoTone, Search } from '@mui/icons-material';
 import { IconButton, Slide, SvgIcon, Tooltip } from '@mui/material';
 import type React from 'react';
@@ -8,8 +9,8 @@ type CollapsedButtonsProps = {
   isMobile: boolean;
   isTablet: boolean;
   searchClick: () => void;
-  setFilter: (value: ContractArchetype) => void;
-  currentFilters: ContractArchetype[];
+  setFilter: (value: IContractArchetype) => void;
+  currentFilters: IContractArchetype[];
   openCreate: () => void;
 };
 export const CollapsedButtons: React.FC<CollapsedButtonsProps> = ({

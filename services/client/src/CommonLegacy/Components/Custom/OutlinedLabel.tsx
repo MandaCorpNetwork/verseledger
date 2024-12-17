@@ -1,4 +1,5 @@
 import { FormControl, InputLabel, OutlinedInput, Tooltip } from '@mui/material';
+import type React from 'react';
 
 type OutlinedLabelProps = {
   size: 'small' | 'medium';

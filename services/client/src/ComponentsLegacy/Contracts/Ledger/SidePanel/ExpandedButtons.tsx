@@ -1,12 +1,14 @@
 import { archetypeLoopButtons } from '@Common/Definitions/Contracts/ContractArchetypes';
+import type { IContractArchetype } from '@Common/Definitions/Contracts/ContractTypes';
 import { Button, Grow } from '@mui/material';
+import type React from 'react';
 
 import { ContractLedgerLoopButton } from './ContractLedgerLoopButton';
 
 type CollapsedButtonsProps = {
   isExpanded: boolean;
-  setFilter: (value: ContractArchetype) => void;
-  currentFilters: ContractArchetype[];
+  setFilter: (value: IContractArchetype) => void;
+  currentFilters: IContractArchetype[];
   openCreate: () => void;
 };
 export const ExpandedButtons: React.FC<CollapsedButtonsProps> = ({
@@ -39,8 +41,8 @@ export const ExpandedButtons: React.FC<CollapsedButtonsProps> = ({
             key={button.value}
             title={button.title}
             videoSource={button.videoSource}
-            onClick={() => setFilter(button.value as ContractArchetype)}
-            selected={currentFilters.includes(button.value as ContractArchetype)}
+            onClick={() => setFilter(button.value as IContractArchetype)}
+            selected={currentFilters.includes(button.value as IContractArchetype)}
           />
         ))}
       </div>

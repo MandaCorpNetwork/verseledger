@@ -1,6 +1,5 @@
 import { isDev } from './isDev';
 
-// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class Logger {
   public static info(...args: Parameters<(typeof console)['info']>) {
     if (isDev()) {

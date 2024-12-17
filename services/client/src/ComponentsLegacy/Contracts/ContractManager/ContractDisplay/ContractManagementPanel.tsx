@@ -21,7 +21,7 @@ export const ContractManagementPanel: React.FC<PanelProps> = ({ contract }) => {
       sound.playSound('clickMain');
       setContractManagerTab(newValue);
     },
-    [sound, setContractManagerTab],
+    [sound],
   );
   const renderContractManagerTab = React.useCallback(() => {
     switch (contractManagerTab) {

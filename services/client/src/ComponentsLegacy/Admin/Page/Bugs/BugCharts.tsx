@@ -6,6 +6,7 @@ import {
   ChartsTooltipMark,
   ChartsTooltipRow,
 } from '@mui/x-charts';
+import type React from 'react';
 //TODO: Work on the Padding for the Band to ensure spacing is correct on smaller scale
 //TODO: Work on Developer Contribution BreakdownChart
 export const PatchBreakdown: React.FC = () => {

@@ -88,7 +88,7 @@ export const Payroll: React.FC<{
         defaultPay: 50,
       }));
     }
-  }, [evenSplit, setEvenSplit, setFormData]);
+  }, [evenSplit, setFormData]);
 
   const filterNumericInput = (input: string) => {
     // Filter out non-numeric characters

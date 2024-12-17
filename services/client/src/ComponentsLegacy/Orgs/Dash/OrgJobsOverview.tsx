@@ -13,7 +13,7 @@ export const OrgJobsOverview: React.FC = () => {
       sound.playSound('clickMain');
       setOrgJobTab(newValue);
     },
-    [sound, setOrgJobTab],
+    [sound],
   );
   return (
     <FeatureDisplay sx={{ p: '1em' }}>

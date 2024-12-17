@@ -2,6 +2,7 @@ import { useSoundEffect } from '@Audio/AudioManager';
 import { DropdownStack } from '@Common/Components/Core/Menus/DropdownStack';
 import { CollapseWrapper } from '@Common/Components/Wrappers/CollapseWrapper';
 import { filterComponents } from '@Common/Definitions/Search/FilterComponentsMap';
+import { SearchFilter } from '@Common/Definitions/Search/Filters';
 import { Button, Popover, useTheme } from '@mui/material';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
 import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';

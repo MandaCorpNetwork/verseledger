@@ -1,5 +1,6 @@
 import { render, type RenderOptions } from '@testing-library/react';
 import type { PropsWithChildren } from 'react';
+import type React from 'react';
 import { Provider } from 'react-redux';
 
 import type { AppStore, RootState } from '../Redux/store';

@@ -8,6 +8,7 @@ import {
 import { Explore, Factory, LocalHospital, VisibilityOff } from '@mui/icons-material';
 import { Box, Divider, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
+import type React from 'react';
 
 export type ArchetypeInfoProps = {
   option: string;

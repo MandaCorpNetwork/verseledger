@@ -1,4 +1,5 @@
 import { Grid2, Typography, useMediaQuery } from '@mui/material';
+import type React from 'react';
 
 export const TableHeader: React.FC = () => {
   const hideReason = useMediaQuery('(max-width: 1200px)');

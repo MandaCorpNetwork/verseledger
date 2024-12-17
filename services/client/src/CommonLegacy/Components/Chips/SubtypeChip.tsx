@@ -9,7 +9,7 @@ import React from 'react';
 type SubtypeChipProps = {
   subtype: string;
   sx?: object;
-  ['data-testid']?: string;
+  'data-testid'?: string;
   variant?: 'filled' | 'outlined';
   size?: 'small' | 'medium';
   color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';

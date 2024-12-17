@@ -3,6 +3,7 @@ import PallyLogo from '@Assets/media/MenuPage/PallyLogo.png?url';
 import { Discord, KoFi, Patreon } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { Box, IconButton, Typography } from '@mui/material';
 import { VLPopup } from '@Popups/PopupWrapper/Popup';
+import type React from 'react';
 
 export const POPUP_SUPPORT_DEVELOPMENT = 'supportDev';
 

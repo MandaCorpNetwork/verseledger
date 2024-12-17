@@ -1,10 +1,12 @@
 import ComponentDisplay from '@Common/Components/Core/Boxes/ComponentDisplay';
+import type { IContractArchetype } from '@Common/Definitions/Contracts/ContractTypes';
 import { ArchetypeChip } from '@CommonLegacy/Components/Chips/ArchetypeChip';
 import { ContractStatusChip } from '@CommonLegacy/Components/Chips/ContractStatusChip';
 import { SubtypeChip } from '@CommonLegacy/Components/Chips/SubtypeChip';
 import { DigiField } from '@CommonLegacy/Components/Custom/DigiField/DigiField';
 import { UserDisplay } from '@CommonLegacy/Components/Users/UserDisplay';
 import { Box, Typography } from '@mui/material';
+import type React from 'react';
 import type { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 type MobileInfoProps = {
@@ -65,7 +67,7 @@ export const MobileInfo: React.FC<MobileInfoProps> = ({ contract, archetype }) =
           data-testid="ContractPage-Info-ContractInfo-Type__Archetype_Field"
           label="Contract Archetype"
         >
-          {archetype && <ArchetypeChip archetype={archetype as ContractArchetype} />}
+          {archetype && <ArchetypeChip archetype={archetype as IContractArchetype} />}
         </DigiField>
       </Box>
       <Box

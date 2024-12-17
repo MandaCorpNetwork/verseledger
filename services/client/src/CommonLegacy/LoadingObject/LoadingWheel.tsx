@@ -1,6 +1,7 @@
 import VLLogo from '@Assets/media/VerseLogos/verselogo-0.png?url';
 import { Box, CircularProgress, type SxProps } from '@mui/material';
 import type { Theme } from '@mui/material/styles';
+import type React from 'react';
 
 type LoadingWheelProps = {
   testid?: string;
@@ -33,6 +34,7 @@ export const LoadingWheel: React.FC<LoadingWheelProps> = (props) => {
       }}
     >
       <svg width={0} height={0}>
+        <title>Loading</title>
         <defs>
           <linearGradient id="loadingWheelColor" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="rgb(24, 252, 252)" />

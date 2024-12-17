@@ -16,7 +16,7 @@ export const MemberRequests: React.FC = () => {
       }
       return !prev;
     });
-  }, [sound, setExpanded]);
+  }, [sound]);
   return (
     <FeatureDisplay
       data-testid="OrgManager-PanelDisplay-MemberManagement-Pending__Requests_Wrapper"

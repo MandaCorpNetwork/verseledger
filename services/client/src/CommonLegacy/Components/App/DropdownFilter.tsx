@@ -4,6 +4,7 @@ import { ComponentContainer } from '@Common/Components/Core/Boxes/ComponentConta
 import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import PopupFormDisplay from '@CommonLegacy/Components/Boxes/PopupFormDisplay';
 import { ClearAllButton } from '@CommonLegacy/Components/Buttons/ClearAllButton';
+import { IFilters } from '@CommonLegacy/DefinitionsLegacy/Structures/Contracts/IFilters';
 import { ArrowRight } from '@mui/icons-material';
 import { Badge, Box, Chip, Collapse, Typography } from '@mui/material';
 import { LocationsFilter } from '@Utils/Filters/LocationsFilter';

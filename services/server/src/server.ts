@@ -40,7 +40,7 @@ export const createServer = () => {
         origin: [env.FRONTEND_HOST, env.BACKEND_HOST, env.BROKER_HOST],
       }),
     );
-    app.use((req, res, next) => {
+    app.use((req, _res, next) => {
       const method = methodToColor(req.method);
       const type = chalk.bold.bgMagenta('[$NET]');
       Logger.withType(
@@ -116,11 +116,11 @@ export const createServer = () => {
   });
   const app = server.build();
 
-  app.use((req, res, next) => {
+  app.use((req, _res, next) => {
     next(new NotFoundError(req.path));
   });
 
-  app.use((err: unknown, req: Request, res: Response, _: NextFunction) => {
+  app.use((err: unknown, _req: Request, res: Response, _: NextFunction) => {
     if (err instanceof NetworkError) {
       res.status(err.statusCode).json(err);
     } else if (err instanceof ZodError) {

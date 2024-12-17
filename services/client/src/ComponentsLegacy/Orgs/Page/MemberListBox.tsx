@@ -13,7 +13,7 @@ export const MemberListBox: React.FC = () => {
       sound.playSound('clickMain');
       return !prev;
     });
-  }, [setListView, sound]);
+  }, [sound]);
   return (
     <FeatureDisplay
       data-testid="OrgPage__MemberList_Wrapper"

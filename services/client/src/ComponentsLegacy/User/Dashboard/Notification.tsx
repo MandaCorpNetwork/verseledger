@@ -1,6 +1,7 @@
 import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { Clear, Forward } from '@mui/icons-material';
 import { Box, Button, IconButton, Tooltip, Typography, useTheme } from '@mui/material';
+import type React from 'react';
 
 type OverviewNotificationProps = {
   title: string;

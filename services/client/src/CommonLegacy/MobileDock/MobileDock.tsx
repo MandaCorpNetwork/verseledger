@@ -99,7 +99,7 @@ export const MobileDock: React.FC<MobileDockProps> = ({
       }
       return !prev;
     });
-  }, [setOpen, sound]);
+  }, [sound]);
 
   // **Dock Position Logic
   const getPosition = React.useCallback(() => {
@@ -197,13 +197,13 @@ export const MobileDock: React.FC<MobileDockProps> = ({
       if (vCenter && hCenter) {
         const radius = inner ? -120 : -200;
         return getFCPos(index, count, radius);
-      } else if (vCenter || hCenter) {
+      }
+      if (vCenter || hCenter) {
         const radius = inner ? 120 : 200;
         return getHCPos(index, count, radius);
-      } else {
-        const radius = inner ? 120 : 200;
-        return getQCPos(index, count, radius);
       }
+      const radius = inner ? 120 : 200;
+      return getQCPos(index, count, radius);
     },
     [vCenter, hCenter, getFCPos, getHCPos, getQCPos],
   );
@@ -243,7 +243,7 @@ export const MobileDock: React.FC<MobileDockProps> = ({
       case path.startsWith('/user'):
       case path.startsWith('/settings'):
         return getAppListings(splashApps);
-      case path === '/':
+      // case path === '/':
       default:
         return getAppListings(splashApps);
     }
@@ -266,11 +266,11 @@ export const MobileDock: React.FC<MobileDockProps> = ({
   const handleConstNav = React.useCallback(
     (id: 'home' | 'settings', e: React.MouseEvent) => {
       if (id === 'home') {
-        const url = `/apps/dashboard`;
+        const url = '/apps/dashboard';
         navigate(url, 'internal', true).onClick(e);
       }
       if (id === 'settings') {
-        const url = `/settings`;
+        const url = '/settings';
         navigate(url, 'internal', true).onClick(e);
       }
     },
@@ -381,7 +381,7 @@ export const MobileDock: React.FC<MobileDockProps> = ({
               key={action.id}
               tooltipTitle={action.name}
               onClick={(e) => appConstantsOnClick(action.id, e)}
-              icon={React.cloneElement(action.icon as JSX.Element, {
+              icon={React.cloneElement(action.icon, {
                 fontSize: 'large',
                 sx: [
                   { color: 'primary.light' },
@@ -470,7 +470,7 @@ export const MobileDock: React.FC<MobileDockProps> = ({
           return (
             <SpeedDialAction
               key={action.id}
-              icon={React.cloneElement(action.icon as JSX.Element, {
+              icon={React.cloneElement(action.icon, {
                 fontSize: 'large',
               })}
               onClick={onClick}

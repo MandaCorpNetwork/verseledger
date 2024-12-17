@@ -61,6 +61,7 @@
       },
       "complexity": {
         "noExtraBooleanCast": "error",
+        "noStaticOnlyClass": "off",
         "noMultipleSpacesInRegularExpressionLiterals": "error",
         "noUselessCatch": "error",
         "noUselessTypeConstraint": "error",
@@ -109,7 +110,7 @@
         "useConst": "error"
       },
       "suspicious": {
-        "noConsole": "error",
+        "noConsole": "off",
         "noAsyncPromiseExecutor": "error",
         "noCatchAssign": "error",
         "noClassAssign": "error",
@@ -123,7 +124,7 @@
         "noDuplicateObjectKeys": "error",
         "noDuplicateParameters": "error",
         "noEmptyBlockStatements": "error",
-        "noExplicitAny": "error",
+        "noExplicitAny": "off",
         "noExtraNonNullAssertion": "error",
         "noFallthroughSwitchClause": "error",
         "noFunctionAssign": "error",

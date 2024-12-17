@@ -5,6 +5,7 @@ import { Avatar, Box, ButtonBase, Typography } from '@mui/material';
 import { POPUP_PLAYER_CARD } from '@Popups/PlayerCard/PlayerCard';
 import { useAppDispatch } from '@Redux/hooks';
 import { openPopup } from '@Redux/Slices/Popups/popups.actions';
+import type React from 'react';
 import { memo } from 'react';
 import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 
@@ -83,7 +84,8 @@ const UserDisplayComponent: React.FC<UserDisplayProps> = ({ sx, user }) => {
               width: '100%',
               height: '100%',
               borderRadius: '5px',
-              boxShadow: `inset 0 1px 2px rgba(24,252,252,.1), inset 0 -1px 2px rgba(0,1,19,0.1), inset 0 2px 4px rgba(24,252,252,0.1), inset 0 -2px 4px rgba(0,1,19,0.1)`,
+              boxShadow:
+                'inset 0 1px 2px rgba(24,252,252,.1), inset 0 -1px 2px rgba(0,1,19,0.1), inset 0 2px 4px rgba(24,252,252,0.1), inset 0 -2px 4px rgba(0,1,19,0.1)',
               zIndex: '1',
             },
             '&:hover': {

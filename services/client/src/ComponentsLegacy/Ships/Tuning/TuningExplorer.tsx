@@ -13,7 +13,7 @@ export const TuningExplorer: React.FC = () => {
       sound.playSound('clickMain');
       setTab(value);
     },
-    [setTab, sound],
+    [sound],
   );
   return (
     <FeatureContainer sx={{ p: '1em' }}>

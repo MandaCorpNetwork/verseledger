@@ -20,8 +20,8 @@ export const BetaSettings: React.FC = () => {
         }
         return true;
       }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [featuresRaw, user?.id, settings],
+
+    [featuresRaw, user?.id],
   );
   const featuresEnabled = React.useMemo(
     () =>
@@ -29,7 +29,7 @@ export const BetaSettings: React.FC = () => {
         if (flag.settingName) {
           const setting_name = flag.settingName;
           const setting_value = settings[setting_name as keyof typeof settings];
-          const checked = setting_value == flag.settingValue;
+          const checked = setting_value === flag.settingValue;
           if (!checked) return false;
         }
         if (flag.percentageOfUsers != null && flag.percentageOfUsers < 1) {
@@ -53,7 +53,7 @@ export const BetaSettings: React.FC = () => {
           featuresEnabled.map((flag) => {
             const setting_name = flag.settingName;
             const setting_value = settings[setting_name as keyof typeof settings];
-            const checked = setting_value == flag.settingValue;
+            const checked = setting_value === flag.settingValue;
             return (
               <ListItem key={flag.id}>
                 <ComponentContainer width={'100%'}>
@@ -83,7 +83,7 @@ export const BetaSettings: React.FC = () => {
         featuresToggleable.map((flag) => {
           const setting_name = flag.settingName;
           const setting_value = settings[setting_name as keyof typeof settings];
-          const checked = setting_value == flag.settingValue;
+          const checked = setting_value === flag.settingValue;
           const toggleSetting = () => {
             const body = {
               [setting_name as string]: checked ? '0' : (flag.settingValue as string),

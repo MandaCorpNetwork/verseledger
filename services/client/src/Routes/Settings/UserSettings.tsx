@@ -76,7 +76,13 @@ export const UserSettings: React.FC = () => {
       case 'Profile':
         return <ProfileSettings />;
       case 'Developer':
-        return <DeveloperSettings onClose={() => {}} />;
+        return (
+          <DeveloperSettings
+            onClose={() => {
+              //
+            }}
+          />
+        );
       case 'Security':
         return <SecuritySettings />;
       case 'Sounds':

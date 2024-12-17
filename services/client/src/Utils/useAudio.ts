@@ -1,3 +1,4 @@
+import { ISounds, SoundPack } from '@CommonLegacy/DefinitionsLegacy/ISounds';
 import { soundEffectPacks } from '@CommonLegacy/DefinitionsLegacy/SoundEffectOptions';
 import { Howl } from 'howler';
 import React, { useEffect, useRef, useState } from 'react';
@@ -47,17 +48,14 @@ export const useSound = (
     [currentSoundPack],
   );
 
-  const switchSoundPack = React.useCallback(
-    (packName: keyof typeof soundEffectPacks) => {
-      if (soundEffectPacks[packName]) {
-        setCurrentSoundPack(soundEffectPacks[packName].pack);
-        Logger.info(`Sound pack switched to: ${packName}`);
-      } else {
-        Logger.error(`SoundEffect: ${packName} not found`);
-      }
-    },
-    [setCurrentSoundPack],
-  );
+  const switchSoundPack = React.useCallback((packName: keyof typeof soundEffectPacks) => {
+    if (soundEffectPacks[packName]) {
+      setCurrentSoundPack(soundEffectPacks[packName].pack);
+      Logger.info(`Sound pack switched to: ${packName}`);
+    } else {
+      Logger.error(`SoundEffect: ${packName} not found`);
+    }
+  }, []);
 
   return React.useMemo(
     () => ({

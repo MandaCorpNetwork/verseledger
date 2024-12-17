@@ -28,11 +28,11 @@ export const RouteViewerTable: React.FC<RouteViewerTableProps> = ({
     .sort((a, b) => a.stopNumber - b.stopNumber);
   const getDistance = React.useCallback(
     (idxA: number, idxB: number, destinationList: IDestination[]) => {
-      if (idxB < 0) return `——`;
+      if (idxB < 0) return '——';
       const locA = getMappedLocation(locationTree, destinationList[idxA].location.id);
       const locB = getMappedLocation(locationTree, destinationList[idxB].location.id);
-      if (locA == null) return `Err«`;
-      if (locB == null) return `Err»`;
+      if (locA == null) return 'Err«';
+      if (locB == null) return 'Err»';
       return formatDistance(locA, locB);
     },
     [locationTree],
@@ -42,7 +42,7 @@ export const RouteViewerTable: React.FC<RouteViewerTableProps> = ({
 
   const handleToggleVisited = React.useCallback(() => {
     setVisitedExpanded((prev) => !prev);
-  }, [setVisitedExpanded]);
+  }, []);
   return (
     <Grid2 container direction="column" sx={{ gap: 1, flexGrow: 1, maxWidth: '600px' }}>
       <TableHeader />

@@ -1,6 +1,7 @@
 import { useAppSelector } from '@Redux/hooks';
 import { selectWidget } from '@Redux/Slices/Widgets/widgets.selectors';
 import { RoutesWidget, WIDGET_ROUTES } from '@Widgets/Routes/Route';
+import type React from 'react';
 
 import { RadioWidget, WIDGET_RADIO } from './Widgets/Radio/Radio';
 

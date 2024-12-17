@@ -25,7 +25,7 @@ const VLWidgetComponent: React.FC<VLWidgetProps> = (props) => {
   const last = React.useRef(new Float2());
   const drag = React.useRef(new Float2());
 
-  const handleMove = (e: MouseEvent) => {
+  const handleMove = React.useCallback((e: MouseEvent) => {
     if (!dragging.current) return;
     const cur = new Float2(e.pageX, e.pageY);
     const delta = last.current.subtract(cur);
@@ -38,7 +38,7 @@ const VLWidgetComponent: React.FC<VLWidgetProps> = (props) => {
       const transform = `translate3d(${drag.current.x}px, ${drag.current.y}px, 0)`;
       if (block.current != null) block.current.style.transform = transform;
     });
-  };
+  }, []);
 
   const handleMouseDown: React.MouseEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
@@ -47,9 +47,9 @@ const VLWidgetComponent: React.FC<VLWidgetProps> = (props) => {
     dragging.current = true;
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = React.useCallback(() => {
     dragging.current = false;
-  };
+  }, []);
 
   React.useEffect(() => {
     document.addEventListener('mousemove', handleMove);
@@ -58,7 +58,7 @@ const VLWidgetComponent: React.FC<VLWidgetProps> = (props) => {
       document.removeEventListener('mousemove', handleMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };
-  }, []);
+  }, [handleMouseUp, handleMove]);
 
   /** FUNCTIONAL LOGIC */
   const dispatch = useAppDispatch();
@@ -70,7 +70,7 @@ const VLWidgetComponent: React.FC<VLWidgetProps> = (props) => {
 
   const handleExpand = React.useCallback(() => {
     setIsExpanded((prev) => !prev);
-  }, [setIsExpanded]);
+  }, []);
 
   return (
     <Box

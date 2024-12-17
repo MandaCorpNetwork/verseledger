@@ -112,7 +112,9 @@ export const RatingsFilter: React.FC<unknown> = () => {
           min={1}
           max={5}
           size="small"
-          onChange={() => {}}
+          onChange={() => {
+            //
+          }}
           valueLabelDisplay="auto"
           marks={DisabledRatingSliderMarks}
           disabled

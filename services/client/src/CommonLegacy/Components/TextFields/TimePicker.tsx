@@ -1,5 +1,6 @@
 import { DateTimePicker, digitalClockClasses } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
+import type React from 'react';
 
 /**
  * TimePicker Props
@@ -16,7 +17,7 @@ type TimePickerProps = {
   /** Size of components TextField & FontSize, default is small */
   size?: 'small' | 'medium';
   /** Test ID for component */
-  ['data-testid']?: string;
+  'data-testid'?: string;
   /** Optional disabled flag */
   isDisabled?: boolean;
 };

@@ -13,6 +13,7 @@ import { addTasks } from '@Redux/Slices/Routes/actions/task.action';
 import { useForm } from '@tanstack/react-form';
 import { createLocalID } from '@Utils/createId';
 import { enqueueSnackbar } from 'notistack';
+import type React from 'react';
 import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import type { ITask } from 'vl-shared/src/schemas/RoutesSchema';
 
@@ -68,7 +69,9 @@ export const AddTaskPopup: React.FC = () => {
       name={POPUP_ADD_TASK}
       title="Add Task"
       onSubmit={form.handleSubmit}
-      onCancel={() => {}}
+      onCancel={() => {
+        //
+      }}
       sx={{ minWidth: { xs: '300px', md: '600px' } }}
     >
       <FeatureDisplay

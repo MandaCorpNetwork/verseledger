@@ -18,7 +18,7 @@ type AppButtonProps = {
   icon: SvgIconComponent;
   path: string;
   disabled?: boolean;
-  ['data-testid']?: string;
+  'data-testid'?: string;
 };
 
 export const AppButtonV2: React.FC<AppButtonProps> = ({
@@ -94,8 +94,8 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
       case 'potato':
         classNames.push('PotatoAppButton', activeClass);
         break;
-      case 'medium':
-      case 'high':
+      // case 'medium':
+      // case 'high':
       default:
         classNames.push('AdvAppButton', activeClass);
         break;
@@ -116,7 +116,7 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
         break;
       case 'none':
         break;
-      case 'medium':
+      // case 'medium':
       default:
         classNames.push('MedAnimations');
         break;
@@ -131,8 +131,8 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
       case 'low':
         classNames.push('AppIcon', activeClass);
         break;
-      case 'high':
-      case 'medium':
+      // case 'high':
+      // case 'medium':
       default:
         classNames.push('AdvAppIcon', activeClass);
         break;
@@ -149,7 +149,7 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
         break;
       case 'none':
         break;
-      case 'medium':
+      // case 'medium':
       default:
         if (qualitySetting === 'high' || qualitySetting === 'medium')
           classNames.push('AdvAppIconMedAnimation');
@@ -165,8 +165,8 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
       case 'low':
       case 'potato':
         return 'medium';
-      case 'high':
-      case 'medium':
+      // case 'high':
+      // case 'medium':
       default:
         return 'large';
     }
@@ -199,8 +199,8 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
         return 'NormalOrgLabel';
       case 'potato':
         return 'PotatoOrgLabel';
-      case 'high':
-      case 'med':
+      // case 'high':
+      // case 'med':
       default:
         return 'AdvOrgLabel';
     }
@@ -212,8 +212,8 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
         return 'caption';
       case 'potato':
         return 'caption';
-      case 'high':
-      case 'med':
+      // case 'high':
+      // case 'med':
       default:
         return 'h6';
     }
@@ -262,8 +262,8 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
       case 'potato':
         classNames.push('AppLabelPotato', activeClass);
         break;
-      case 'high':
-      case 'medium':
+      // case 'high':
+      // case 'medium':
       default:
         classNames.push('AppLabelHighFidelity', activeClass);
     }
@@ -292,14 +292,14 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
       const step = delta * 0.1;
 
       if (Math.abs(delta) < 0.1) {
-        cancelAnimationFrame(animationFrameId.current!);
+        cancelAnimationFrame(animationFrameId.current as number);
         animationFrameId.current = null;
         return targetRotateY.current;
       }
       return prevRotateY + step;
     });
     animationFrameId.current = requestAnimationFrame(smoothRotate);
-  }, [targetRotateY]);
+  }, []);
 
   const handleMouseMove = React.useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -320,7 +320,7 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
         animationFrameId.current = requestAnimationFrame(smoothRotate);
       }
     },
-    [smoothRotate, targetRotateY],
+    [smoothRotate],
   );
 
   const resetRotation = React.useCallback(() => {
@@ -328,7 +328,7 @@ export const AppButtonV2: React.FC<AppButtonProps> = ({
     if (!animationFrameId.current) {
       animationFrameId.current = requestAnimationFrame(smoothRotate);
     }
-  }, [smoothRotate, targetRotateY]);
+  }, [smoothRotate]);
 
   const advButtonAnimation = React.useMemo(() => {
     if (animationSetting === 'high') {

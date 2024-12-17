@@ -17,22 +17,19 @@ export const SCUField: React.FC<SCUFieldProps> = (props) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const sound = useSoundEffect();
 
-  const handlePopOpen = React.useCallback(
-    (e: React.MouseEvent<HTMLElement>) => {
-      setAnchorEl((prev) => {
-        if (prev == null) {
-          return e.currentTarget;
-        } else {
-          return null;
-        }
-      });
-    },
-    [setAnchorEl],
-  );
+  const handlePopOpen = React.useCallback((e: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl((prev) => {
+      if (prev == null) {
+        return e.currentTarget;
+      } else {
+        return null;
+      }
+    });
+  }, []);
 
   const handleClosePop = React.useCallback(() => {
     setAnchorEl(null);
-  }, [setAnchorEl]);
+  }, []);
 
   const handleChange = React.useCallback(
     (value: string | number) => {

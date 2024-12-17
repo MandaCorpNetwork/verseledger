@@ -1,4 +1,4 @@
-import Error from '@Assets/media/error.gif';
+import ErrorGif from '@Assets/media/error.gif';
 import { Box, Button, Typography } from '@mui/material';
 import { POPUP_LOGIN } from '@Popups/Login/LoginPopup';
 import { POPUP_VERIFY_USER } from '@Popups/VerifyPopup/VerifyUser';
@@ -42,7 +42,7 @@ export const SecureRoute: React.FC<PropsWithChildren<SecureRouteProps>> = (props
               position: 'relative',
             }}
           >
-            <img src={Error} alt="Error.gif" />
+            <img src={ErrorGif} alt="Error.gif" />
             <Box
               sx={{
                 position: 'absolute',

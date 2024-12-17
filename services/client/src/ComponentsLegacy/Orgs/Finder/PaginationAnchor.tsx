@@ -27,7 +27,7 @@ export const PaginationAnchor: React.FC<PaginationAnchorProps> = ({ isMobile }) 
       sound.playSound('loading');
       setPage(newPage);
     },
-    [sound, setPage],
+    [sound],
   );
 
   const handleChangeRowsPerPage = React.useCallback(
@@ -36,7 +36,7 @@ export const PaginationAnchor: React.FC<PaginationAnchorProps> = ({ isMobile }) 
       setRowsPerPage(+event.target.value);
       setPage(0);
     },
-    [sound, setRowsPerPage, setPage],
+    [sound],
   );
 
   const search = React.useCallback(

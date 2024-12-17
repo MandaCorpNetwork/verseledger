@@ -27,7 +27,7 @@ export const FlatRatePayroll: React.FC<{
       setCounterAmount(inputValue);
       onChange(inputValue.toString());
     },
-    [onChange, setCounterAmount, sound],
+    [onChange, sound],
   );
 
   return (
@@ -66,7 +66,7 @@ export const PoolPayroll: React.FC<{
       setCounterAmount(inputValue);
       onChange(inputValue.toString());
     },
-    [onChange, setCounterAmount, sound],
+    [onChange, sound],
   );
 
   return (
@@ -139,7 +139,7 @@ export const TimedPayroll: React.FC<{
       setCounterAmount(inputValue);
       onChange(inputValue.toString());
     },
-    [onChange, setCounterAmount, sound],
+    [onChange, sound],
   );
 
   return (

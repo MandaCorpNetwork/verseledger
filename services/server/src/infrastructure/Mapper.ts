@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export abstract class Mapper<ArtifactType, DTOType> {
+
+export abstract class Mapper<_ArtifactType, _DTOType> {
   // public static toDomain (raw: any): T;
   // public static toDTO(_t: ArtifactType): DTOType;
   // public static toPersistence (t: T): any;

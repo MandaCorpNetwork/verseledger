@@ -11,6 +11,7 @@ import { updateUserSettings } from '@Redux/Slices/Auth/Actions/updateUserSetting
 import { useForm } from '@tanstack/react-form';
 import { Logger } from '@Utils/Logger';
 import { enqueueSnackbar } from 'notistack';
+import type React from 'react';
 import type {
   IUpdateUserSettingsCMD,
   IUserSettings,
