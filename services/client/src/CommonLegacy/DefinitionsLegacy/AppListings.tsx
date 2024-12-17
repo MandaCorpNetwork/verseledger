@@ -73,6 +73,7 @@ export const useMasterAppList = () => {
   const tuning = !useHasFeatureFlag('F-tuning');
   const fleet = !useHasFeatureFlag('F-fleet');
   const orgs = !useHasFeatureFlag('F-orgs');
+  const services = !useHasFeatureFlag('F-services');
   const masterAppList: AppListing[] = React.useMemo(
     () => [
       {
@@ -229,6 +230,7 @@ export const useMasterAppList = () => {
         versionLabel: 'Services',
         version: '0.0.1',
         severityCode: 9,
+        disabled: services,
       },
       {
         id: 'orders',
@@ -370,6 +372,7 @@ export const useMasterAppList = () => {
       profile,
       relations,
       routing,
+      services,
       ship,
       tuning,
       wiki,
