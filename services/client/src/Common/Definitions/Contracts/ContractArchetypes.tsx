@@ -15,7 +15,7 @@ import {
   Logistics,
   Medical,
   ProxyIcon as ProxyIcon,
-  RRR,
+  Rrr,
   Salvage,
   Security,
 } from '../../../CommonLegacy/DefinitionsLegacy/CustomIcons';
@@ -131,7 +131,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   {
     archetype: 'RRR',
     archetypeLabel: 'Rearm Refuel Repair',
-    archetypeIcon: RRR,
+    archetypeIcon: Rrr,
     subtypes: [
       {
         label: 'Refuel',

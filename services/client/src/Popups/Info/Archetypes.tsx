@@ -1,7 +1,7 @@
 import {
   Fleet,
   Logistics,
-  RRR,
+  Rrr,
   Salvage,
   Security,
 } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
@@ -151,7 +151,7 @@ const archetypes = [
   },
   {
     archetype: 'RRR',
-    archetypeIcon: <RRR color="secondary" fontSize="large" />,
+    archetypeIcon: <Rrr color="secondary" fontSize="large" />,
     description: 'This Archetype covers ',
     subTypes: [
       {
