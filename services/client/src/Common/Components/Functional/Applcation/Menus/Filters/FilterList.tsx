@@ -97,6 +97,9 @@ export const FilterList: React.FC<FilterListProps> = ({ filterList }) => {
               aria-label={`Clear ${filter.label} Filters`}
               color="warning"
               onClick={() => filterUtils.clearFilters(filter.filters)}
+              sx={{
+                ...layout.cancelButton,
+              }}
             >
               Clear Filters
             </Button>
