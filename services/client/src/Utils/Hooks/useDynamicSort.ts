@@ -1,5 +1,6 @@
 import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { SortOption } from '@Common/Definitions/Search/SortOptions';
+import { dynamicSort } from '@Utils/Functions/Filters/SortUtils';
 import { Logger } from '@Utils/Logger';
 import { useCallback } from 'react';
 
@@ -11,7 +12,7 @@ export const useDynamicSort = <T>() => {
   const advSort = useCallback(
     (data: T[], sortOptions: SortOption<T>[]) => {
       const sortBy = searchParams.get(QueryNames.SortBy);
-      // const sortDirection = searchParams.get(QueryNames.SortDirection);
+      const sortDirection = searchParams.get(QueryNames.SortDirection);
 
       if (!sortBy) return data;
 
@@ -25,10 +26,14 @@ export const useDynamicSort = <T>() => {
         return data;
       }
 
-      // return dynamicSort(data, sortOption, sortDirection === 'desc');
+      const isDescending = sortDirection === 'desc';
+
+      return dynamicSort(data, sortOption, isDescending);
     },
     [searchParams],
   );
 
   return { advSort };
 };
+
+// Usage: const sortedData = advSort(fetchedData, sortOptions);
