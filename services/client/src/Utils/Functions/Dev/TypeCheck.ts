@@ -3,7 +3,7 @@ import { Logger } from '@Utils/Logger';
 
 type TypeName = keyof typeof schemaMap;
 
-function checkType<T>(typeName: TypeName, item: unknown): item is T {
+export function checkType<T>(typeName: TypeName, item: unknown): item is T {
   const schema = schemaMap[typeName];
 
   if (!schema) {
