@@ -7,7 +7,6 @@ import { EmergencySwitch } from '@CommonLegacy/Components/Switch/EmergencySwitch
 import { FilterAlt } from '@mui/icons-material';
 import { Badge, Button, Typography } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
-import { SortBySelect } from '@Utils/Filters/SortBySelect';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import React, { useRef, useState } from 'react';
 
@@ -224,9 +223,7 @@ export const LedgerSearchTools: React.FC<unknown> = () => {
         <div
           data-testid="ContractLedger-TableTools-SortandSearch__SortByWrapper"
           style={{ marginRight: '1em' }}
-        >
-          <SortBySelect size="small" sortOptions={sortOptions} containerSize="small" />
-        </div>
+        ></div>
         <div data-testid="ContractLedger-TableTools-SortandSearch__SearchWrapper">
           <SearchBar
             size="small"
