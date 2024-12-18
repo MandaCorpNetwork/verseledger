@@ -12,13 +12,13 @@ export type SortByKey =
   | 'created'
   | 'timeRemaining';
 
-export type SortOption<T, K extends keyof T = keyof T, SK extends keyof T = keyof T> = {
+export type SortOption<T, K extends keyof T = keyof T> = {
   key: K;
   value: string;
   label: string;
   order?: Array<T[K]>;
   secondaryKey?: keyof T | Array<keyof T>;
-  secondaryOrder?: Array<T[SK]>;
+  secondaryOrder?: Array<T[K]>;
 };
 
 export const contractSortGroup: SortOption<IContractTimestamped>[] = [
