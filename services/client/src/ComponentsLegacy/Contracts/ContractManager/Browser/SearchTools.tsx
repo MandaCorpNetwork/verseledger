@@ -1,5 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { FilterButton } from '@Common/Components/Functional/Applcation/Buttons/FilterButton';
+import { SortSelect } from '@Common/Components/Functional/Applcation/Inputs/SortSelect';
 import { FilterMenu } from '@Common/Components/Functional/Applcation/Menus/Filters/FilterMenu';
 import type { SearchFilter } from '@Common/Definitions/Search/Filters';
 import { ArrowBackIosNew } from '@mui/icons-material';
@@ -64,30 +65,6 @@ export const SearchTools: React.FC = () => {
   /** Renders Badge Dot on Expand Button when true */
   const isFiltered = filterCount > 0;
 
-  //TODO: Build Sorting Functionality for the App
-  const sortOptions = [
-    {
-      label: 'Pay',
-      value: 'pay',
-    },
-    {
-      label: 'Title',
-      value: 'title',
-    },
-    {
-      label: 'Status',
-      value: 'status',
-    },
-    {
-      label: 'Location',
-      value: 'location',
-    },
-    {
-      label: 'Time Left',
-      value: 'timeleft',
-    },
-  ];
-
   return (
     <Box
       component="search"
@@ -134,7 +111,7 @@ export const SearchTools: React.FC = () => {
             anchorEl={filterMenuAnchor}
             filterKeys={filterList}
           />
-          <SortBySelect size="small" sortOptions={sortOptions} containerSize="small" />
+          <SortSelect optionsKey="contracts" />
           <SearchBar
             size="small"
             label="Search Contracts"

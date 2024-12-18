@@ -47,3 +47,7 @@ export const contractSortGroup: SortOption<IContractTimestamped>[] = [
   },
   { key: 'createdAt', value: 'created', label: 'Created' },
 ];
+
+export const sortGroupMap: Record<string, SortOption<IContractTimestamped>[]> = {
+  contracts: contractSortGroup,
+};

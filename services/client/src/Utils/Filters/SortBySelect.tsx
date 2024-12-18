@@ -1,18 +1,6 @@
-// import { KeyboardDoubleArrowDown, KeyboardDoubleArrowUp } from '@mui/icons-material';
 import { useSoundEffect } from '@Audio/AudioManager';
-import {
-  FormControl,
-  // IconButton,
-  InputLabel,
-  MenuItem,
-  Select,
-  // SelectChangeEvent,
-} from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import type React from 'react';
-
-// import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-
-// import { QueryNames } from '@Utils/QueryNames';
 
 type SortOption = {
   label: string;
@@ -20,48 +8,16 @@ type SortOption = {
 };
 
 type SortBySelectProps = {
-  size: 'large' | 'medium' | 'small';
   containerSize: 'small' | 'medium';
   sortOptions: SortOption[];
 };
 
+/** @deprecated */
 export const SortBySelect: React.FC<SortBySelectProps> = ({
-  // size,
   sortOptions,
   containerSize,
 }) => {
   const sound = useSoundEffect();
-  // const [filters, setFilters, overwriteURLQuery] = useURLQuery();
-  // const [sortDirection, setSortDirection] = React.useState('desc');
-
-  // const toggleSortDirection = () => {
-  //   setSortDirection((prev) => (prev === 'desc' ? 'asc' : 'desc'));
-  //   setFilters(QueryNames.SortDirection, sortDirection);
-  // };
-
-  // const handleSortChange = (event: SelectChangeEvent<{ value: unknown }>) => {
-  //   const newValue = event.target.value as string;
-  //   if (newValue === '') {
-  //     filters.delete(QueryNames.SortBy);
-  //     filters.delete(QueryNames.SortDirection);
-  //     overwriteURLQuery({ ...Object.fromEntries(filters.entries()) });
-  //   } else {
-  //     setFilters(QueryNames.SortBy, newValue);
-  //     setFilters(QueryNames.SortDirection, sortDirection);
-  //   }
-  // };
-
-  // const SortDirectionButton: React.FC = () => {
-  //   return (
-  //     <IconButton onClick={toggleSortDirection} size={size}>
-  //       {sortDirection === 'desc' ? (
-  //         <KeyboardDoubleArrowDown fontSize={size} />
-  //       ) : (
-  //         <KeyboardDoubleArrowUp fontSize={size} />
-  //       )}
-  //     </IconButton>
-  //   );
-  // };
   return (
     <FormControl size={containerSize}>
       <InputLabel id="sort-by-label" color="secondary">
@@ -74,16 +30,12 @@ export const SortBySelect: React.FC<SortBySelectProps> = ({
         label="Sort By"
         onClick={() => sound.playSound('denied')}
         disabled
-        // onChange={handleSortChange}
         sx={{
           minWidth: '100px',
           '&:hover': {
             boxShadow: '0 0 10px rgb(24,252,252)',
           },
         }}
-        // startAdornment={
-        //   filters.has(QueryNames.SortBy) !== false && <SortDirectionButton />
-        // }
       >
         <MenuItem value="">None</MenuItem>
         {sortOptions.map((option) => (
