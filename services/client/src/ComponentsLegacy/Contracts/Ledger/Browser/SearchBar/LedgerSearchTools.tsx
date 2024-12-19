@@ -93,33 +93,6 @@ export const LedgerSearchTools: React.FC<unknown> = () => {
     }
   }, [emergencyMode, setFilters]);
 
-  const sortOptions = [
-    {
-      label: 'Rating',
-      value: 'rating',
-    },
-    {
-      label: 'Pay',
-      value: 'pay',
-    },
-    {
-      label: 'Contract Title',
-      value: 'title',
-    },
-    {
-      label: 'Bid Status',
-      value: 'bidStatus',
-    },
-    {
-      label: 'Location',
-      value: 'location',
-    },
-    {
-      label: 'Time Remaining',
-      value: 'timeRemain',
-    },
-  ];
-
   return (
     <ComponentContainer
       data-testid="ContractLedger-ColumnTwo__TableToolsContainer"

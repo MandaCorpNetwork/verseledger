@@ -2,7 +2,6 @@ import { DropdownFilter } from '@CommonLegacy/Components/App/DropdownFilter';
 import { ElevatedDropdownBox } from '@CommonLegacy/Components/Collapse/ElevatedDropdownBox';
 import { Divider, Typography } from '@mui/material';
 import { SearchBar } from '@Utils/Filters/SearchBar';
-import { SortBySelect } from '@Utils/Filters/SortBySelect';
 import React from 'react';
 
 type SmallSearchToolsProps = {
@@ -19,28 +18,6 @@ export const SmallSearchTools: React.FC<SmallSearchToolsProps> = ({ isOpen }) =>
   const handleExpand = React.useCallback((panel: string) => {
     setExpanded((prevExpanded) => (prevExpanded === panel ? null : panel));
   }, []);
-  const sortOptions = [
-    {
-      label: 'Pay',
-      value: 'pay',
-    },
-    {
-      label: 'Title',
-      value: 'title',
-    },
-    {
-      label: 'Status',
-      value: 'status',
-    },
-    {
-      label: 'Location',
-      value: 'location',
-    },
-    {
-      label: 'Time Left',
-      value: 'timeleft',
-    },
-  ];
   return (
     <ElevatedDropdownBox
       data-testid="ContractLedger-SmallSearchTools__Collapse"
@@ -65,7 +42,6 @@ export const SmallSearchTools: React.FC<SmallSearchToolsProps> = ({ isOpen }) =>
           marginBottom: '1em',
         }}
       >
-        <SortBySelect size="small" sortOptions={sortOptions} containerSize="small" />
         <SearchBar
           size="small"
           label="Search Contracts"
