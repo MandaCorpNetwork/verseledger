@@ -60,7 +60,7 @@ export type AppGroup = {
   list: string[];
 };
 
-export const VerseLedgerVersion = '0.4.8';
+export const VerseLedgerVersion = '0.4.9';
 export const useMasterAppList = () => {
   const news = !useHasFeatureFlag('F-news');
   const wiki = !useHasFeatureFlag('F-wiki');
@@ -210,7 +210,7 @@ export const useMasterAppList = () => {
         path: '/apps/contracts',
         icon: Contracts,
         versionLabel: 'Contract Manager',
-        version: '3.0.5',
+        version: '3.0.6',
         severityCode: 1,
       },
       {

@@ -40,3 +40,31 @@ export type ContractSubtypeObj = {
   label: string;
   value: IContractSubtype;
 };
+
+export const contractSubtypes = [
+  'Transport',
+  'Hauling',
+  'Manage',
+  'Trauma',
+  'On-Call',
+  'Escort',
+  'Bounty',
+  'QRF',
+  'Asset-Protection',
+  'Attache',
+  'Collection',
+  'Procurement',
+  'Mining',
+  'Refining',
+  'Manufacturing',
+  'Scouting',
+  'Refuel',
+  'Rearm',
+  'Repair',
+  'Crewman',
+  'Outsourcing',
+  'Locate',
+  'Charting',
+  'Middleman',
+  'Redacted',
+];

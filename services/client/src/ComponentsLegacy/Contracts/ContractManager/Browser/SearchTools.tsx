@@ -1,11 +1,11 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { FilterButton } from '@Common/Components/Functional/Applcation/Buttons/FilterButton';
+import { SearchBar } from '@Common/Components/Functional/Applcation/Inputs/SearchBar';
+import { SortSelect } from '@Common/Components/Functional/Applcation/Inputs/SortSelect';
 import { FilterMenu } from '@Common/Components/Functional/Applcation/Menus/Filters/FilterMenu';
 import type { SearchFilter } from '@Common/Definitions/Search/Filters';
 import { ArrowBackIosNew } from '@mui/icons-material';
 import { Badge, Box, Collapse, IconButton, Tooltip, useTheme } from '@mui/material';
-import { SearchBar } from '@Utils/Filters/SearchBar';
-import { SortBySelect } from '@Utils/Filters/SortBySelect';
 import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
 import { usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
@@ -64,30 +64,6 @@ export const SearchTools: React.FC = () => {
   /** Renders Badge Dot on Expand Button when true */
   const isFiltered = filterCount > 0;
 
-  //TODO: Build Sorting Functionality for the App
-  const sortOptions = [
-    {
-      label: 'Pay',
-      value: 'pay',
-    },
-    {
-      label: 'Title',
-      value: 'title',
-    },
-    {
-      label: 'Status',
-      value: 'status',
-    },
-    {
-      label: 'Location',
-      value: 'location',
-    },
-    {
-      label: 'Time Left',
-      value: 'timeleft',
-    },
-  ];
-
   return (
     <Box
       component="search"
@@ -134,12 +110,8 @@ export const SearchTools: React.FC = () => {
             anchorEl={filterMenuAnchor}
             filterKeys={filterList}
           />
-          <SortBySelect size="small" sortOptions={sortOptions} containerSize="small" />
-          <SearchBar
-            size="small"
-            label="Search Contracts"
-            placeholder="Title, Contractors, Ships..."
-          />
+          <SortSelect optionsKey="contracts" />
+          <SearchBar label="Search Contracts" placeholder="Title, Users, Ships..." />
         </div>
       </Collapse>
       <Box
