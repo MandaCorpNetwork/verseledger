@@ -3,7 +3,7 @@ import { DropdownStack } from '@Common/Components/Core/Menus/DropdownStack';
 import { CollapseWrapper } from '@Common/Components/Wrappers/CollapseWrapper';
 import { filterComponents } from '@Common/Definitions/Search/FilterComponentsMap';
 import { SearchFilter } from '@Common/Definitions/Search/Filters';
-import { Button, Popover, useTheme } from '@mui/material';
+import { Button, ClickAwayListener, Popover, useTheme } from '@mui/material';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
 import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
 import type { PopupState } from 'material-ui-popup-state/hooks';
@@ -18,19 +18,22 @@ type FilterMenuProps = {
   popupState: PopupState;
   /** Sets The Anchor Component for the Menu */
   anchorEl: React.RefObject<HTMLDivElement>;
+  'data-testid'?: string;
+  'aria-label'?: string;
 };
 
 /**
  * @description Dynamic Filter Menu for reuse through Application. Acts as a Wrapper for generated Filters for a specific usage. Requires a Popup state due to using either a Collapse or Menu Popover. Takes in FilterKeys to determine which filters to render in.
  * ___
  * TODO:
- * - Finish Labeling for Components
- * - Add Clickaway for the Collapse Wrapper
+ * - Extend Styles to be overwritten individually by Props if need arises
  */
 export const FilterMenu: React.FC<FilterMenuProps> = ({
   popupState,
   filterKeys,
   anchorEl,
+  'data-testid': testId = 'Filter Menu',
+  'aria-label': ariaLabel = 'Menu of Dropdowns for Groups of Filters',
 }) => {
   // Hooks
   const theme = useTheme();
@@ -72,8 +75,14 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({
   const filterCount = filterUtils.dynamicFilterCount(queries);
 
   const children = (
-    <DropdownStack>
+    <DropdownStack
+      aria-labelledby="FilterMenu"
+      data-testid={testId}
+      sx={{ maxHeight: '700px', overflow: 'auto' }}
+    >
       <Button
+        aria-label={`${ariaLabel} Clear All Filters Button`}
+        data-testid={`${testId}__ClearAll_Button`}
         size="small"
         color="warning"
         disabled={filterCount === 0}
@@ -93,6 +102,7 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({
     <>
       {renderCollapse && (
         <CollapseWrapper
+          data-testid={`${testId}__Transition`}
           in={popupState.isOpen}
           ref={anchorEl}
           unmountOnExit
@@ -106,11 +116,12 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({
             mt: '0.5em',
           }}
         >
-          {children}
+          <ClickAwayListener onClickAway={close}>{children}</ClickAwayListener>
         </CollapseWrapper>
       )}
       {!renderCollapse && (
         <Popover
+          data-testid={`${testId}__Transition`}
           open={popupState.isOpen}
           anchorEl={anchorEl.current}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}

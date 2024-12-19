@@ -1,11 +1,11 @@
+import { BrowserTabs } from '@Apps/Contracts/ContractManager/Browser/BrowserTabs';
+import { SearchTools } from '@Apps/Contracts/ContractManager/Browser/SearchTools';
 import { FeatureContainer } from '@Common/Components/Core/Boxes/FeatureContainer';
 import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import React from 'react';
 
-import { BrowserTabs } from '../../../../Apps/Contracts/ContractManager/Browser/BrowserTabs';
 import { ContractList } from './ContractList';
-import { SearchTools } from './SearchTools';
 
 export const ContractManagerBrowser: React.FC = () => {
   const { searchParams, setFilters } = useURLQuery();

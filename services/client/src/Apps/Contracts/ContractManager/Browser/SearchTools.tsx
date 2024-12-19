@@ -1,18 +1,19 @@
 import { useSoundEffect } from '@Audio/AudioManager';
+import { DropdownButton } from '@Common/Components/Functional/Applcation/Buttons/DropdownButton';
 import { FilterButton } from '@Common/Components/Functional/Applcation/Buttons/FilterButton';
 import { SearchBar } from '@Common/Components/Functional/Applcation/Inputs/SearchBar';
 import { SortSelect } from '@Common/Components/Functional/Applcation/Inputs/SortSelect';
 import { FilterMenu } from '@Common/Components/Functional/Applcation/Menus/Filters/FilterMenu';
 import type { SearchFilter } from '@Common/Definitions/Search/Filters';
-import { ArrowBackIosNew } from '@mui/icons-material';
-import { Badge, Box, Collapse, IconButton, Tooltip, useTheme } from '@mui/material';
+import { QueryNames } from '@Common/Definitions/Search/QueryNames';
+import { Badge, Box, Collapse, Tooltip, useTheme } from '@mui/material';
 import { useFilterUtils } from '@Utils/Hooks/useFilterUtils';
 import { usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 
 /**
- * ## SearchTools
- * Renders the {@link FilterList}, {@link SortBySelect} & {@link SearchBar}
+ * ### Contract Manager Search Tools
+ * @description Modular Search Tool Component for the Contract Manager App.
  */
 export const SearchTools: React.FC = () => {
   // LOCAL STATES
@@ -26,7 +27,6 @@ export const SearchTools: React.FC = () => {
   const filterUtils = useFilterUtils();
   const sound = useSoundEffect();
 
-  // LOGIC
   /** Handles the clickEvent that displays the SearchTools */
   const toggleSearchTools = React.useCallback(() => {
     setSearchToolsOpen(!searchToolsOpen);
@@ -59,10 +59,26 @@ export const SearchTools: React.FC = () => {
   ] as SearchFilter[];
 
   /** Uses filterCount Function from FilterUtils */
-  const filterCount = filterUtils.filterCount();
-
-  /** Renders Badge Dot on Expand Button when true */
-  const isFiltered = filterCount > 0;
+  const filterCount = filterUtils.dynamicFilterCount([
+    QueryNames.Locations,
+    QueryNames.UECRangeMax,
+    QueryNames.UECRangeMin,
+    QueryNames.EmployerRating,
+    QueryNames.ContractorRating,
+    QueryNames.BidAfter,
+    QueryNames.BidBefore,
+    QueryNames.StartBefore,
+    QueryNames.StartBefore,
+    QueryNames.EndAfter,
+    QueryNames.EndBefore,
+    QueryNames.Duration,
+    QueryNames.PayStructure,
+    QueryNames.ContractArchetype,
+    QueryNames.ContractSubtype,
+    QueryNames.SortBy,
+    QueryNames.SearchQuery,
+    QueryNames.Status,
+  ]);
 
   return (
     <Box
@@ -104,38 +120,56 @@ export const SearchTools: React.FC = () => {
             position: 'relative',
           }}
         >
-          <FilterButton onClick={toggleFilterList} />
+          <FilterButton
+            data-testid="ContractManager-ContractList-SearchTools__FilterMenu_Button"
+            onClick={toggleFilterList}
+            filterCount={filterCount}
+          />
           <FilterMenu
+            data-testid="ContractManager-ContractList-SearchTools-FilterMenu"
             popupState={filterOpenState}
             anchorEl={filterMenuAnchor}
             filterKeys={filterList}
           />
-          <SortSelect optionsKey="contracts" />
-          <SearchBar label="Search Contracts" placeholder="Title, Users, Ships..." />
+          <SortSelect
+            data-testid="ContractManager-ContractList-SearchTools__SortSelect"
+            aria-label="Dropdown for Sorting Displayed Contracts"
+            optionsKey="contracts"
+          />
+          <SearchBar
+            data-testid="ContractManager-ContractList-SearchTools__SearchBar"
+            label="Search Contracts"
+            placeholder="Title, Users, Ships..."
+          />
         </div>
       </Collapse>
-      <Box
-        data-testid="ContractManager-ContractList-SearchTools__SearchToolsExpansionWrapper"
-        sx={{ display: 'flex', ml: 'auto' }}
-      >
-        <Badge invisible={!isFiltered} color="error" variant="dot" overlap="circular">
-          <Tooltip arrow title="Search Tools">
-            <IconButton
-              data-testid="ContractManager-ContractList-SearchTools__SearchToolsExpansionButton"
+      <Tooltip arrow title="Search Tools" placement="right">
+        <Box
+          data-testid="ContractManager-ContractList-SearchTools__SearchToolsExpansionWrapper"
+          sx={{
+            position: 'absolute',
+            right: 0,
+            top: '50%',
+            transform: 'translateY(-50%)',
+          }}
+        >
+          <Badge
+            badgeContent={filterCount}
+            color="error"
+            variant="dot"
+            overlap="circular"
+          >
+            <DropdownButton
+              data-testid="ContractManager-ContractBrowser-SearchTools__Expand"
+              aria-label="Expand Button for Search Tools Bar"
+              open={searchToolsOpen}
               onClick={toggleSearchTools}
-              size={theme.breakpoints.down('md') ? 'small' : 'medium'}
-              sx={{
-                transform: !searchToolsOpen ? 'rotate(90deg)' : 'rotate(0deg)',
-                transition: 'transform 200ms',
-              }}
-            >
-              <ArrowBackIosNew
-                fontSize={theme.breakpoints.down('md') ? 'small' : 'medium'}
-              />
-            </IconButton>
-          </Tooltip>
-        </Badge>
-      </Box>
+              variant="outline"
+              size={theme.breakpoints.down('sm') ? 'large' : 'medium'}
+            />
+          </Badge>
+        </Box>
+      </Tooltip>
     </Box>
   );
 };

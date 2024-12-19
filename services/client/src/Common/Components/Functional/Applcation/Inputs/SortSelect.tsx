@@ -21,15 +21,22 @@ type Options = {
 type SortSelectProps = {
   optionsKey?: string;
   options?: Options[];
+  'data-testid'?: string;
+  'aria-label'?: string;
 };
 
 /**
  * @description Modular Sorting Select Component that either utilizes the objects of SortGroupsMap or a passed Options array. Using the SortGroupMap allows the component to sync with the Modular sorting system properly.
  * ___
  * TODO:
- * Properly style the component and extend it's styles and layout
+ * - Properly style the component and extend it's styles and layout
  */
-export const SortSelect: React.FC<SortSelectProps> = ({ optionsKey, options }) => {
+export const SortSelect: React.FC<SortSelectProps> = ({
+  optionsKey,
+  options,
+  'data-testid': testId = 'Sort_Select',
+  'aria-label': ariaLabel = 'Dropdown Select for Sorting',
+}) => {
   const sound = useSoundEffect();
   const { searchParams, setFilters } = useURLQuery();
 
@@ -73,14 +80,22 @@ export const SortSelect: React.FC<SortSelectProps> = ({ optionsKey, options }) =
         ? KeyboardDoubleArrowDown
         : KeyboardDoubleArrowUp;
     return (
-      <IconButton sx={{ minHeight: '100%' }} size="small" onClick={handleSwitchDirection}>
-        <SvgIcon component={SortIcon} />
+      <IconButton
+        data-testid={`${testId}__Direction_Button`}
+        aria-label="Sorting Direction Toggle Button"
+        sx={{ minHeight: '100%' }}
+        size="small"
+        onClick={handleSwitchDirection}
+      >
+        <SvgIcon data-testid={`${testId}-Direction__Icon`} component={SortIcon} />
       </IconButton>
     );
-  }, [handleSwitchDirection, searchParams]);
+  }, [handleSwitchDirection, searchParams, testId]);
 
   return (
     <TextField
+      aria-label={ariaLabel}
+      data-testid={testId}
       select
       label="Sort"
       value={searchParams.get(QueryNames.SortBy)}
@@ -99,11 +114,20 @@ export const SortSelect: React.FC<SortSelectProps> = ({ optionsKey, options }) =
         minWidth: '100px',
       }}
     >
-      <MenuItem value={[]}>
+      <MenuItem
+        data-testid={`${testId}__MenuItem_None`}
+        aria-label="None Option for Sorting Menu"
+        value={[]}
+      >
         <ListItemText primary="None" />
       </MenuItem>
       {optionsList.map((sort) => (
-        <MenuItem key={sort.value} value={sort.value}>
+        <MenuItem
+          key={sort.value}
+          data-testid={`${testId}__MenuItem_${sort.label}`}
+          aria-label={`${sort.label} Option for Sorting Menu`}
+          value={sort.value}
+        >
           <ListItemText primary={sort.label} />
         </MenuItem>
       ))}
