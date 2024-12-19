@@ -2455,10 +2455,10 @@
     clsx "^2.1.1"
     prop-types "^15.8.1"
 
-"@mui/x-data-grid@7.23.2":
-  version "7.23.2"
-  resolved "https://registry.yarnpkg.com/@mui/x-data-grid/-/x-data-grid-7.23.2.tgz#3cc82c609a56b02dfe0317d74ab21d0e69dbe964"
-  integrity sha512-Xhm4Bh+WiU5MSLFIZ8mE1egHoS0xPEVlwvjYvairPIkxNPubB7f+gtLkuAJ2+m+BYbgO7yDte+Pp7dfjkU+vOA==
+"@mui/x-data-grid@7.23.3":
+  version "7.23.3"
+  resolved "https://registry.yarnpkg.com/@mui/x-data-grid/-/x-data-grid-7.23.3.tgz#35b30c8aaf2afee43aaa9cd6273e8478dad2c863"
+  integrity sha512-EiM5kut6N/0o0iEYx8A7M3fJqknAa1kcPvGhlX3hH50ERLDeuJaqoKzvRYLBbYKWydHIc+0hHIFcK5oQTXLenw==
   dependencies:
     "@babel/runtime" "^7.25.7"
     "@mui/utils" "^5.16.6 || ^6.0.0"
@@ -2467,10 +2467,10 @@
     prop-types "^15.8.1"
     reselect "^5.1.1"
 
-"@mui/x-date-pickers@7.23.2":
-  version "7.23.2"
-  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers/-/x-date-pickers-7.23.2.tgz#9c447104f21a82abab17a954a4095ad2675a6800"
-  integrity sha512-Kt9VsEnShaBKiaastTYku66UIWptgc9UMA16d0G/0TkfIsvZrAD3iacQR6HHAXWspaFshdfsRmW2JAoFhzKZsg==
+"@mui/x-date-pickers@7.23.3":
+  version "7.23.3"
+  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers/-/x-date-pickers-7.23.3.tgz#0c2b3db6a99e6e38aeb0980bfdf98468f415dded"
+  integrity sha512-bjTYX/QzD5ZhVZNNnastMUS3j2Hy4p4IXmJgPJ0vKvQBvUdfEO+ZF42r3PJNNde0FVT1MmTzkmdTlz0JZ6ukdw==
   dependencies:
     "@babel/runtime" "^7.25.7"
     "@mui/utils" "^5.16.6 || ^6.0.0"
