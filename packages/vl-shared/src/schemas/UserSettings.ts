@@ -6,6 +6,7 @@ export const UserSettingsSchema = z.object({
   userPageImage: z.string().max(32),
   animations: z.string().max(32),
   quality: z.string().max(32),
+  dataDisplay: z.string().max(1).nullable(),
 });
 
 export const UpdateUserSettingsCMD = z
@@ -15,6 +16,7 @@ export const UpdateUserSettingsCMD = z
     userPageImage: z.string().max(32).nullable(),
     animations: z.string().max(32).nullable(),
     quality: z.string().max(32).nullable(),
+    dataDisplay: z.string().max(1).nullable(),
   })
   .partial();
 
