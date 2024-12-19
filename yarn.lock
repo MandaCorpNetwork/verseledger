@@ -3750,10 +3750,10 @@
   dependencies:
     "@tanstack/ranger" "0.0.3"
 
-"@tanstack/react-router@1.90.0":
-  version "1.90.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.90.0.tgz#4b5d22cb2767e85360a2ec6e22dcfe8238b4ca5d"
-  integrity sha512-BpNDRk3YRlYHisF5SwHRCwbuuwZe2TsadRkOc6p3kbcscwhyWcHx7F79eIk8TbK/GwZJoqOxzkvCmmo9dVn07w==
+"@tanstack/react-router@1.91.2":
+  version "1.91.2"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.91.2.tgz#41feec18b5b70b1abde3c46f788792785fc97365"
+  integrity sha512-L93/fXLJ3PTM0QXzPhUOCmm3zflCoO0KKiQptkPwh7S9GVj9OsNWhah+IC7ou2djt9cQ3LpnCyEWklkynXMhXg==
   dependencies:
     "@tanstack/history" "1.90.0"
     "@tanstack/react-store" "^0.6.1"
@@ -3783,10 +3783,10 @@
   dependencies:
     "@tanstack/virtual-core" "3.11.2"
 
-"@tanstack/router-devtools@1.90.0":
-  version "1.90.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools/-/router-devtools-1.90.0.tgz#536846842ac9d445ed246eb88fca7ca68ec82a63"
-  integrity sha512-l2w6n56ky6XRa28IQ+fsCwclkSxNcy6ylJadUklyNw5q4MlvoyNp812R2/VRW8oX7avHDaymMnVTZQ6KwPPqHw==
+"@tanstack/router-devtools@1.91.2":
+  version "1.91.2"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools/-/router-devtools-1.91.2.tgz#0dc3d2ce91465023eff24281592f6c59acba6fab"
+  integrity sha512-2ekQaPB63YE5xF9EAsI4G360gY4PPV6fB/gKBGNvMn4NIffyNj2ULYd60iTB/0nmSEOvAeUZhJgXXNoT6R/bFA==
   dependencies:
     clsx "^2.1.1"
     goober "^2.1.16"
@@ -3801,10 +3801,10 @@
     tsx "^4.19.2"
     zod "^3.23.8"
 
-"@tanstack/router-plugin@1.87.13":
-  version "1.87.13"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-plugin/-/router-plugin-1.87.13.tgz#480949062165e5edc726d4f7cccaf45953a697a5"
-  integrity sha512-h5dD0m5ixSsmIMOrNXd4NBH2Fwx+4Mb5GK0JCUVlcegjtNQ9Zx9kdWqWXi+4P595XKCmjdHVOP4vhBr9cfwozg==
+"@tanstack/router-plugin@1.91.1":
+  version "1.91.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-plugin/-/router-plugin-1.91.1.tgz#71c87b3e88addbd5c790ab569e79534f840dba8b"
+  integrity sha512-+htKBNRKwdZjpgT0ee32oBb7gpH3o0cJUKvx74oTfZ9N5oth255pns1ka4Sa6lhC/gyvC3NLgk/lMqD7eVJejA==
   dependencies:
     "@babel/core" "^7.26.0"
     "@babel/generator" "^7.26.3"
@@ -3820,7 +3820,7 @@
     "@types/babel__generator" "^7.6.8"
     "@types/babel__template" "^7.4.4"
     "@types/babel__traverse" "^7.20.6"
-    babel-dead-code-elimination "^1.0.6"
+    babel-dead-code-elimination "^1.0.8"
     chokidar "^3.6.0"
     unplugin "^1.16.0"
     zod "^3.23.8"
@@ -5245,10 +5245,10 @@ b4a@^1.6.4:
   resolved "https://registry.yarnpkg.com/b4a/-/b4a-1.6.7.tgz#a99587d4ebbfbd5a6e3b21bdb5d5fa385767abe4"
   integrity sha512-OnAYlL5b7LEkALw87fUVafQw5rVR9RjwGd4KUwNQ6DrrNmaVaUCgLipfVlzrPQ4tWOR9P0IXGNOx50jYCCdSJg==
 
-babel-dead-code-elimination@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/babel-dead-code-elimination/-/babel-dead-code-elimination-1.0.6.tgz#73c55a179e5350dea09fe5095f2f1edcc2a25342"
-  integrity sha512-JxFi9qyRJpN0LjEbbjbN8g0ux71Qppn9R8Qe3k6QzHg2CaKsbUQtbn307LQGiDLGjV6JCtEFqfxzVig9MyDCHQ==
+babel-dead-code-elimination@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/babel-dead-code-elimination/-/babel-dead-code-elimination-1.0.8.tgz#d8d14a7da8dc1650238834c2395594b77b716099"
+  integrity sha512-og6HQERk0Cmm+nTT4Od2wbPtgABXFMPaHACjbKLulZIFMkYyXZLkUGuAxdgpMJBrxyt/XFpSz++lNzjbcMnPkQ==
   dependencies:
     "@babel/core" "^7.23.7"
     "@babel/parser" "^7.23.6"
