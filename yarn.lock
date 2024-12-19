@@ -3716,10 +3716,10 @@
   dependencies:
     defer-to-connect "^2.0.1"
 
-"@tanstack/form-core@0.40.2":
-  version "0.40.2"
-  resolved "https://registry.yarnpkg.com/@tanstack/form-core/-/form-core-0.40.2.tgz#095ead78f09c1a3aa75b46456bfdb55cf13fc786"
-  integrity sha512-ecJgr+jRKSClUzYhOixfiJTXqfCxAiWmeMTKKzV848OfCtdzWxEzSasZLDMQG5KlyL9q/GDhk1GRHQmEUxynoA==
+"@tanstack/form-core@0.40.4":
+  version "0.40.4"
+  resolved "https://registry.yarnpkg.com/@tanstack/form-core/-/form-core-0.40.4.tgz#07a44535918ace21d66486cb0f9f089ee56aaa87"
+  integrity sha512-tmqQd9guHfIVHC2UmfHyFw76dtbtWzU5I9Gv4at3DQGpcM52pMOb5LfsdoBO6muFN5mvsYuZHp4UM6YnZ2gTSQ==
   dependencies:
     "@tanstack/store" "^0.6.0"
 
@@ -3733,13 +3733,13 @@
   resolved "https://registry.yarnpkg.com/@tanstack/ranger/-/ranger-0.0.3.tgz#3fb287dea26d6ed88eb405f1d77982f5cfd3ec8f"
   integrity sha512-RYpW7MnEMxKLuskfadeyBfxpU8cUTGrtp5TnCV9PKEgMfrR6vwlk9/1/eU2EvJfYZbDAr1inphL4TGWCcRLAXQ==
 
-"@tanstack/react-form@0.40.2":
-  version "0.40.2"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-form/-/react-form-0.40.2.tgz#c4382ccd04644ccf4873a470000f57c7b177c311"
-  integrity sha512-YHGsnqYLE5lFz5jvoR0RGczhzX0WFLqe8mtFRixk2uN92zdNTcxSgoJHrCV5/q+fWY5+bxtixB/B0cApi8qQmA==
+"@tanstack/react-form@0.40.4":
+  version "0.40.4"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-form/-/react-form-0.40.4.tgz#550b32c2213117eb28f1f4c9ca6ed12113fd4d48"
+  integrity sha512-gdHE10EoUaJd3chVEgG6u7dwzjDPu/Mkx64JsxnQK/zJjUD0ZSh0EErb6EJ1gptMtQNYIXz2EofwkTBBKcYqSg==
   dependencies:
     "@remix-run/node" "^2.15.0"
-    "@tanstack/form-core" "0.40.2"
+    "@tanstack/form-core" "0.40.4"
     "@tanstack/react-store" "^0.6.1"
     decode-formdata "^0.8.0"
 
