@@ -12,8 +12,8 @@ import { usePopupState } from 'material-ui-popup-state/hooks';
 import React from 'react';
 
 /**
- * ## SearchTools
- * Renders the {@link FilterList}, {@link SortBySelect} & {@link SearchBar}
+ * ### Contract Manager Search Tools
+ * @description Modular Search Tool Component for the Contract Manager App.
  */
 export const SearchTools: React.FC = () => {
   // LOCAL STATES
@@ -27,7 +27,6 @@ export const SearchTools: React.FC = () => {
   const filterUtils = useFilterUtils();
   const sound = useSoundEffect();
 
-  // LOGIC
   /** Handles the clickEvent that displays the SearchTools */
   const toggleSearchTools = React.useCallback(() => {
     setSearchToolsOpen(!searchToolsOpen);
@@ -121,7 +120,11 @@ export const SearchTools: React.FC = () => {
             position: 'relative',
           }}
         >
-          <FilterButton onClick={toggleFilterList} filterCount={filterCount} />
+          <FilterButton
+            data-testid="ContractManager-ContractList-SearchTools__FilterMenu_Button"
+            onClick={toggleFilterList}
+            filterCount={filterCount}
+          />
           <FilterMenu
             popupState={filterOpenState}
             anchorEl={filterMenuAnchor}
