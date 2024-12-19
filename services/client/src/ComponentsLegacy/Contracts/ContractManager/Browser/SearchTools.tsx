@@ -131,8 +131,16 @@ export const SearchTools: React.FC = () => {
             anchorEl={filterMenuAnchor}
             filterKeys={filterList}
           />
-          <SortSelect optionsKey="contracts" />
-          <SearchBar label="Search Contracts" placeholder="Title, Users, Ships..." />
+          <SortSelect
+            data-testid="ContractManager-ContractList-SearchTools__SortSelect"
+            aria-label="Dropdown for Sorting Displayed Contracts"
+            optionsKey="contracts"
+          />
+          <SearchBar
+            data-testid="ContractManager-ContractList-SearchTools__SearchBar"
+            label="Search Contracts"
+            placeholder="Title, Users, Ships..."
+          />
         </div>
       </Collapse>
       <Tooltip arrow title="Search Tools" placement="right">
