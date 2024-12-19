@@ -31,6 +31,7 @@ type FilterListProps = {
  * - Style the Expand Button & Text
  * - Add Rating Stats Filter
  * - Add Contract Locations Filter
+ * - Add Labeling
  */
 export const FilterList: React.FC<FilterListProps> = ({ filterList }) => {
   //Hooks

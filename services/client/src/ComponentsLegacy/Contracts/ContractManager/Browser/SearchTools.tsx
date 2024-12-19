@@ -126,6 +126,7 @@ export const SearchTools: React.FC = () => {
             filterCount={filterCount}
           />
           <FilterMenu
+            data-testid="ContractManager-ContractList-SearchTools-FilterMenu"
             popupState={filterOpenState}
             anchorEl={filterMenuAnchor}
             filterKeys={filterList}
