@@ -4,7 +4,7 @@ import {
   Materials,
   MedicalItems,
   Missiles,
-  RRR,
+  Rrr,
   Sustenance,
   VehicleComponent,
   Vehicles,
@@ -91,7 +91,7 @@ export const ItemTypes = (
   },
   {
     type: 'Utility',
-    icon: <RRR fontSize={size} sx={{ color: color }} />,
+    icon: <Rrr fontSize={size} sx={{ color: color }} />,
     value: 'utility',
     header: utilityListHeader,
   },

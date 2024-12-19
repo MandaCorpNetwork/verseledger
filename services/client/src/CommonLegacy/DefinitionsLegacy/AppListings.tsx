@@ -26,7 +26,7 @@ import {
 import { useHasFeatureFlag } from '@Utils/Hooks/FeatureFlag';
 import React from 'react';
 
-import { Contracts, Exploration, Fleet, Vehicles } from './CustomIcons';
+import { Contracts, Exploration, Fleet, Rrr, Vehicles } from './CustomIcons';
 
 export type AppListing = {
   id: string;
@@ -73,6 +73,7 @@ export const useMasterAppList = () => {
   const tuning = !useHasFeatureFlag('F-tuning');
   const fleet = !useHasFeatureFlag('F-fleet');
   const orgs = !useHasFeatureFlag('F-orgs');
+  const services = !useHasFeatureFlag('F-services');
   const masterAppList: AppListing[] = React.useMemo(
     () => [
       {
@@ -222,6 +223,16 @@ export const useMasterAppList = () => {
         severityCode: 2,
       },
       {
+        id: 'contract-service',
+        label: '@APP.SERVICES.LABEL',
+        path: '/apps/services',
+        icon: Rrr,
+        versionLabel: 'Services',
+        version: '0.0.1',
+        severityCode: 9,
+        disabled: services,
+      },
+      {
         id: 'orders',
         label: '@APP.ORDERS.LABEL',
         path: '/apps/orders',
@@ -361,6 +372,7 @@ export const useMasterAppList = () => {
       profile,
       relations,
       routing,
+      services,
       ship,
       tuning,
       wiki,

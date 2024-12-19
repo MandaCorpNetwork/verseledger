@@ -8,7 +8,18 @@ import { Box } from '@mui/material';
 import type React from 'react';
 
 import { ListSelectButton } from '../Common/Components/Core/Buttons/ListSelectButton';
-import { Contracts, Scu, Scu3d } from './DefinitionsLegacy/CustomIcons';
+import {
+  Contracts,
+  HydRefuel,
+  MissileRearm,
+  QtRefuel,
+  Refuel,
+  Repair,
+  Rrr,
+  Scu,
+  Scu3d,
+  UserLocation,
+} from './DefinitionsLegacy/CustomIcons';
 
 export const SandboxContent: React.FC<unknown> = () => {
   return (
@@ -31,6 +42,13 @@ export const SandboxContent: React.FC<unknown> = () => {
           >
             <div style={{ display: 'flex', flexDirection: 'column', width: '40px' }}>
               <Scu fontSize="large" />
+              <Repair fontSize="large" />
+              <Refuel fontSize="large" />
+              <QtRefuel fontSize="large" />
+              <HydRefuel fontSize="large" />
+              <UserLocation fontSize="large" />
+              <MissileRearm fontSize="large" />
+              <Rrr fontSize="large" />
               <Scu3d fontSize="large" />
               <Contracts fontSize="large" />
             </div>
