@@ -1,12 +1,13 @@
-import { fixupConfigRules, fixupPluginRules } from '@eslint/compat';
-import simpleImportSort from 'eslint-plugin-simple-import-sort';
-import prettier from 'eslint-plugin-prettier';
-import globals from 'globals';
-import tsParser from '@typescript-eslint/parser';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import js from '@eslint/js';
+
+import { fixupConfigRules, fixupPluginRules } from '@eslint/compat';
 import { FlatCompat } from '@eslint/eslintrc';
+import js from '@eslint/js';
+import tsParser from '@typescript-eslint/parser';
+import prettier from 'eslint-plugin-prettier';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import globals from 'globals';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
