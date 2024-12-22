@@ -1921,15 +1921,16 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/retry/-/retry-0.4.1.tgz#9a96ce501bc62df46c4031fbd970e3cc6b10f07b"
   integrity sha512-c7hNEllBlenFTHBky65mhq8WD2kbN9Q6gk0bTk8lSBvc554jpXSkST1iePudpt7+A/AQvuHs9EMqjHDXMY1lrA==
 
-"@hyperjump/browser@1.1.6":
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/@hyperjump/browser/-/browser-1.1.6.tgz#91b97c4489d4535e8549af12b10db60c01acb01e"
-  integrity sha512-i27uPV7SxK1GOn7TLTRxTorxchYa5ur9JHgtl6TxZ1MHuyb9ROAnXxEeu4q4H1836Xb7lL2PGPsaa5Jl3p+R6g==
+"@hyperjump/browser@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@hyperjump/browser/-/browser-1.2.0.tgz#658eff73b6f177531c1a442f385157d620bba5fc"
+  integrity sha512-xv7u4Ddbhnd9a4yi8V0bNYQrimL0SuBW2T+l4eSEKedxhIBVqxuZ6Vulm6+rPtcvg79LyhWxH4fB/J056qaSMQ==
   dependencies:
     "@hyperjump/json-pointer" "^1.1.0"
     "@hyperjump/uri" "^1.2.0"
     content-type "^1.0.5"
     just-curry-it "^5.3.0"
+    type-is "^1.6.18"
 
 "@hyperjump/json-pointer@^1.1.0":
   version "1.1.0"
@@ -13003,7 +13004,7 @@ type-fest@^0.21.3:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.21.3.tgz#d260a24b0198436e133fa26a524a6d65fa3b2e37"
   integrity sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==
 
-type-is@~1.6.18:
+type-is@^1.6.18, type-is@~1.6.18:
   version "1.6.18"
   resolved "https://registry.yarnpkg.com/type-is/-/type-is-1.6.18.tgz#4e552cd05df09467dcbc4ef739de89f2cf37c131"
   integrity sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==
