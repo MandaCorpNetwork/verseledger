@@ -1,0 +1,4 @@
+.encore/
+encore.gen/
+node_modules/
+build/

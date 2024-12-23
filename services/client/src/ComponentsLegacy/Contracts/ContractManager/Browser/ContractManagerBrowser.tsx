@@ -1,9 +1,8 @@
 import { ContractList } from '@Apps/Contracts/ContractManager/Browser/ContractList';
+import { BrowserTabs } from '@Apps/Contracts/ContractManager/Browser/BrowserTabs';
+import { SearchTools } from '@Apps/Contracts/ContractManager/Browser/SearchTools';
 import { FeatureContainer } from '@Common/Components/Core/Boxes/FeatureContainer';
 import React from 'react';
-
-import { BrowserTabs } from '../../../../Apps/Contracts/ContractManager/Browser/BrowserTabs';
-import { SearchTools } from './SearchTools';
 
 export const ContractManagerBrowser: React.FC = () => {
   return (
