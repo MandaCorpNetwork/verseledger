@@ -9,6 +9,9 @@ type CardorTableViewToggleProps = {
   disabled?: boolean;
 };
 
+/**
+ * @deprecated
+ */
 export const CardorTableViewToggle: React.FC<CardorTableViewToggleProps> = ({
   onChange,
   view,

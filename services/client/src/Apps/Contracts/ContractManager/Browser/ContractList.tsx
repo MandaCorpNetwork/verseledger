@@ -1,3 +1,4 @@
+import { DataDisplayToggle } from '@Common/Components/Functional/Applcation/Buttons/DataDisplayToggle';
 import { Box } from '@mui/material';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
 import { useMemo } from 'react';
@@ -14,7 +15,6 @@ export const ContractList: React.FC = () => {
   return (
     <Box
       data-testid="ContractManager-Browser__ContractList_Container"
-      component="area"
       aria-label="Contract Selection List"
       id="ContractManager_ContractList_Container"
       sx={{
@@ -27,6 +27,8 @@ export const ContractList: React.FC = () => {
         mb: '1em',
         ...layout.container,
       }}
-    ></Box>
+    >
+      <DataDisplayToggle pageKey="contractManager-Browser" />
+    </Box>
   );
 };

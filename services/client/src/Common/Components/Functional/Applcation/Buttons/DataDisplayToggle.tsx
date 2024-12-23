@@ -28,7 +28,9 @@ export const DataDisplayToggle: React.FC<DataDisplayToggleProps> = ({ pageKey })
 
   const handleToggle = useCallback(
     (_e: React.MouseEvent<HTMLElement>, value: 0 | 1) => {
+      console.log('Attempting Toggle');
       if (value !== null && value !== currentSetting) {
+        console.log(`Toggling to ${value}`);
         settings.updateSession(DATA_DISPLAY_KEY, currentSetting, position, value);
       }
     },
@@ -37,8 +39,8 @@ export const DataDisplayToggle: React.FC<DataDisplayToggleProps> = ({ pageKey })
 
   return (
     <ToggleButtonGroup value={currentSetting} exclusive onChange={handleToggle}>
-      <ToggleButton value={0}></ToggleButton>
-      <ToggleButton value={1}></ToggleButton>
+      <ToggleButton value={0}>Card</ToggleButton>
+      <ToggleButton value={1}>Table</ToggleButton>
     </ToggleButtonGroup>
   );
 };
