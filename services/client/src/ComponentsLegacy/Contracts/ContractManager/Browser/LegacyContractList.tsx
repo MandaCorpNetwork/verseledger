@@ -105,7 +105,7 @@ export const ContractList: React.FC<ContractListProps> = ({ currentTab }) => {
         mb: '5%',
         px: '.5em',
         height: '100%',
-        position: 'relative', 
+        position: 'relative',
       }}
     >
       <Box
