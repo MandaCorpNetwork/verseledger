@@ -3,6 +3,13 @@ import { Box } from '@mui/material';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
 import { useMemo } from 'react';
 
+/**
+ * Contract Display for Contracts within The Contract Manager App
+ * ___
+ * TODO:
+ * - Hook in the Data Display Toggle For DataDisplay View Variability (Using State For now)
+ * - Create Two Seperate Views for the DataDisplay.
+ */
 export const ContractList: React.FC = () => {
   const themeExtend = useDynamicTheme();
 
