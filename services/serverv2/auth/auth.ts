@@ -1,7 +1,9 @@
-import { Header, Gateway, Query, APIError } from 'encore.dev/api';
+import { Header, Gateway, Query, APIError, api } from 'encore.dev/api';
 import { authHandler } from 'encore.dev/auth';
 import jwt from 'jsonwebtoken';
 import { DB } from '../vl-database/vl-database';
+import { assertPermission } from '../utils/permissions';
+import { secret } from 'encore.dev/config';
 
 // AuthParams specifies the incoming request information
 // the auth handler is interested in. In this case it only
@@ -54,6 +56,7 @@ export enum ApiPermission {
   TOKEN_WRITE = 'TOKEN_WRITE',
 }
 
+const AUTH_SECRET = secret('AUTH_SECRET');
 // The auth handler itself.
 export const JWTAuthHandler = authHandler<AuthParams, AuthData>(
   async (params) => {
@@ -63,10 +66,7 @@ export const JWTAuthHandler = authHandler<AuthParams, AuthData>(
     if (bearer.startsWith('Bearer ')) token = bearer.slice('Bearer '.length);
     const userAuth = jwt.verify(
       token,
-      Buffer.from(
-        'MVEDNHGWvrz+bZQ5Co8+aRlw0ZhVW+aqMiSkzn8Y+NhG5Y+IB+dBcDTSWO4Iigrarhvx8lSAn6U42dZbfBWwbFZ1WHkxZwXIzpGKz6Iygf+LIXIGWu37qEECHfwbu7CKoL8YMqBwoJNNeBQaZrXll3HLqUHVfk47va2Dz9Dfd4MRh7XkM+uoS1Z2Q8ysNNa+7HdfTkbjN1ypo1ZNxvdiUPPcDP7YWcCZCqPhzw==',
-        'base64',
-      ),
+      Buffer.from(AUTH_SECRET(), 'base64'),
     ) as AuthData;
     userAuth.userID = userAuth.id;
     const _row = await DB.queryRow`
@@ -92,4 +92,8 @@ export const JWTAuthHandler = authHandler<AuthParams, AuthData>(
 // Define the API Gateway that will execute the auth handler:
 export const gateway = new Gateway({
   authHandler: JWTAuthHandler,
+});
+
+export const test = api({ method: 'GET', path: '/', auth: true }, async () => {
+  assertPermission(ApiPermission.USER);
 });

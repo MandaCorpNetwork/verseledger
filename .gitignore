@@ -18,3 +18,4 @@ packages/vl-shared/package.json
 crownScratch.md
 crownTasks.md
 services/client/src/assets/Workspace/*
+.secrets.*
