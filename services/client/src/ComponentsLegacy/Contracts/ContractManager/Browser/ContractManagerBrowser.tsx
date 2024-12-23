@@ -1,5 +1,5 @@
-import { ContractList } from '@Apps/Contracts/ContractManager/Browser/ContractList';
 import { BrowserTabs } from '@Apps/Contracts/ContractManager/Browser/BrowserTabs';
+import { ContractList } from '@Apps/Contracts/ContractManager/Browser/ContractList';
 import { SearchTools } from '@Apps/Contracts/ContractManager/Browser/SearchTools';
 import { FeatureContainer } from '@Common/Components/Core/Boxes/FeatureContainer';
 import React from 'react';

@@ -16,7 +16,7 @@ export const checkPermission = (checkRole: ApiPermission) => {
 
 export const assertPermission = (
   checkRole: ApiPermission,
-  throwOnFalse = true,
+  throwOnFalse = true
 ) => {
   const hasRole = checkPermission(checkRole);
   if (throwOnFalse && !hasRole)
