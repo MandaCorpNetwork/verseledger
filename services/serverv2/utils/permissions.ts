@@ -4,7 +4,6 @@ import { APIError } from 'encore.dev/api';
 
 export const checkPermission = (checkRole: ApiPermission) => {
   const auth = getAuthData();
-  console.log(auth);
   const parentRole = checkRole.includes('_') ? checkRole.split('_')[0] : null;
   if (auth == null) return false;
   for (const role of auth.roles) {
