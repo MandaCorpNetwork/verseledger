@@ -3,21 +3,34 @@ import { ControlPanelBox } from '@Common/Components/Core/Boxes/ControlPanelBox';
 import { QueryNames } from '@Common/Definitions/Search/QueryNames';
 import { Tab, Tabs, useTheme } from '@mui/material';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
-import React from 'react';
+import type React from 'react';
+import { useCallback, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
-type BrowserTabsProps = {
-  currentTab: string;
-};
-
-export const BrowserTabs: React.FC<BrowserTabsProps> = ({ currentTab }) => {
+export const BrowserTabs: React.FC = () => {
   const theme = useTheme();
   const { selectedContractId } = useParams();
   const navigate = useNavigate();
   const sound = useSoundEffect();
-  const { overwriteURLQuery } = useURLQuery();
+  const { overwriteURLQuery, searchParams } = useURLQuery();
+
+  const tab = useMemo(() => {
+    const tab = searchParams.get(QueryNames.ContractManagerTab);
+
+    if (!tab) {
+      if (selectedContractId) {
+        navigate('/apps/contracts?cmTab=employed');
+        return 'employed';
+      } else {
+        overwriteURLQuery({ [QueryNames.ContractManagerTab]: 'employed' });
+        return 'employed';
+      }
+    }
+    return tab;
+  }, [navigate, overwriteURLQuery, searchParams, selectedContractId]);
+
   /** Handles Tab Changes */
-  const handleTabChange = React.useCallback(
+  const handleTabChange = useCallback(
     (_event: React.SyntheticEvent, newValue: string) => {
       sound.playSound('loading');
 
@@ -33,6 +46,7 @@ export const BrowserTabs: React.FC<BrowserTabsProps> = ({ currentTab }) => {
 
   /** Decides whether or not to display ScrollButtons for the Tabs Component */
   const displayScrollButtons = !!theme.breakpoints.down('lg');
+
   return (
     <ControlPanelBox
       aria-label="Contract List Tabs"
@@ -57,7 +71,7 @@ export const BrowserTabs: React.FC<BrowserTabsProps> = ({ currentTab }) => {
         onChange={handleTabChange}
         scrollButtons={displayScrollButtons}
         allowScrollButtonsMobile
-        value={currentTab}
+        value={tab}
       >
         <Tab
           data-testid="ContractManager__AcceptedTab"

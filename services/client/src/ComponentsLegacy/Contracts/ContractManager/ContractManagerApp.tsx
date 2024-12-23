@@ -268,6 +268,7 @@ export const ContractManagerApp: React.FC<unknown> = () => {
         break;
     }
   }, [page, dispatch, handleFetchBids, handleFetchContracts, currentTab, userId]);
+
   return (
     <Box
       component="section"

@@ -17,10 +17,13 @@ type ContractListProps = {
   currentTab: string;
 };
 
+/**
+ * @deprecated
+ */
 export const ContractList: React.FC<ContractListProps> = ({ currentTab }) => {
+  const sound = useSoundEffect();
   const [expandedArchetype, setExpandedArchetype] = React.useState<string | null>(null);
   const [page, setPage] = React.useState(1);
-  const sound = useSoundEffect();
 
   const handleExpandArchetype = React.useCallback(
     (value: string) => {
@@ -103,18 +106,6 @@ export const ContractList: React.FC<ContractListProps> = ({ currentTab }) => {
         px: '.5em',
         height: '100%',
         position: 'relative',
-        '&::-webkit-scrollbar': {
-          width: '5px',
-          height: '5px',
-        },
-        '&::-webkit-scrollbar-track': {
-          background: 'rgb(0,73,130)',
-          borderRadius: '10px',
-        },
-        '&::-webkit-scrollbar-thumb': {
-          borderRadius: '20px',
-          background: 'rgb(24,252,252)',
-        },
       }}
     >
       <Box

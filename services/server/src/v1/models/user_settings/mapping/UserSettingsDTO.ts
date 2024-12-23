@@ -22,7 +22,8 @@ export class UserSettingsDTO
       this.quality == null ||
       this.soundPack == null ||
       this.theme == null ||
-      this.userPageImage == null
+      this.userPageImage == null ||
+      this.dataDisplay == null
     );
   }
 
@@ -60,4 +61,5 @@ export class UserSettingsDTO
     example: 'C-pu2lqjxks971z5ov62t9eg9p',
   })
   public userPageImage!: string;
+  public dataDisplay!: string;
 }

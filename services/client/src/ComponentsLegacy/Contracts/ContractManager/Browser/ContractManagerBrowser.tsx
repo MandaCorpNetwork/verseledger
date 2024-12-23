@@ -1,25 +1,10 @@
 import { BrowserTabs } from '@Apps/Contracts/ContractManager/Browser/BrowserTabs';
+import { ContractList } from '@Apps/Contracts/ContractManager/Browser/ContractList';
 import { SearchTools } from '@Apps/Contracts/ContractManager/Browser/SearchTools';
 import { FeatureContainer } from '@Common/Components/Core/Boxes/FeatureContainer';
-import { QueryNames } from '@Common/Definitions/Search/QueryNames';
-import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import React from 'react';
 
-import { ContractList } from './ContractList';
-
 export const ContractManagerBrowser: React.FC = () => {
-  const { searchParams, setFilters } = useURLQuery();
-  /** Memo Current Tab Set from SearchParams */
-  const currentTab = React.useMemo(() => {
-    const tab = searchParams.get(QueryNames.ContractManagerTab);
-
-    // If no Tab set, Defaults to Employed
-    if (!tab) {
-      setFilters(QueryNames.ContractManagerTab, 'employed');
-      return 'employed';
-    }
-    return tab;
-  }, [searchParams, setFilters]);
   return (
     <FeatureContainer
       aria-label="Contract Browser Container"
@@ -27,14 +12,14 @@ export const ContractManagerBrowser: React.FC = () => {
       data-testid="ContractManager__ContractBrowserContainer"
       sx={{ width: { xs: '100%', md: '30%' } }}
     >
-      <BrowserTabs currentTab={currentTab} />
+      <BrowserTabs />
       <div
-        data-testid="ContractManager-ContractList__SearchTools_Wrapper"
+        data-testid="ContractManager-Browser__SearchTools_Wrapper"
         style={{ height: '80px' }}
       >
         <SearchTools />
       </div>
-      <ContractList currentTab={currentTab} />
+      <ContractList />
     </FeatureContainer>
   );
 };
