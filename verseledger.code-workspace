@@ -13,6 +13,10 @@
       "path": "services/server",
     },
     {
+      "name": "Server 2.0",
+      "path": "services/serverv2",
+    },
+    {
       "name": "VLShared",
       "path": "packages/vl-shared",
     },
