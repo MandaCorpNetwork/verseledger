@@ -1,14 +1,20 @@
 import { useSoundEffect } from '@Audio/AudioManager';
-import type { SvgIconComponent } from '@mui/icons-material';
-import { type SxProps, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { type SvgIconComponent, TableChart, ViewStream } from '@mui/icons-material';
+import {
+  SvgIcon,
+  type SxProps,
+  ToggleButton,
+  ToggleButtonGroup,
+  Tooltip,
+} from '@mui/material';
 import type { Theme } from '@mui/material/styles';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
 import type React from 'react';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 type DataDisplayToggleProps = {
   view: 0 | 1;
-  onChange: (_e: React.MouseEvent<HTMLElement>, value: 0 | 1) => void;
+  onChange: (value: 0 | 1) => void;
   'data-testid'?: string;
   'aria-label'?: string;
   disabled?: boolean | 0 | 1;
@@ -35,7 +41,6 @@ type DataDisplayToggleProps = {
  * ___
  * TODO:
  * - Hook into new Local DB setup with LocalSettings allowing the user to switch their Views Dynamically.
- * - Upon Dynamic Setup, move to SearchTools Container
  */
 export const DataDisplayToggle: React.FC<DataDisplayToggleProps> = ({
   view,
@@ -45,17 +50,94 @@ export const DataDisplayToggle: React.FC<DataDisplayToggleProps> = ({
     ariaLabel = 'Toggle Button to Switch Display of Information between Card or Table',
   sx,
   slotProps,
+  disabled,
 }) => {
+  /** Hooks */
   const extendTheme = useDynamicTheme();
   const sound = useSoundEffect();
 
-  const handleClick = useCallback(() => {
+  /** Click Handle Intercept for Playing Sound */
+  const handleClick = useCallback(
+    (_e: React.MouseEvent<HTMLElement>, value: 0 | 1) => {
+      sound.playSound('clickMain');
+      onChange(value);
+    },
+    [onChange, sound],
+  );
 
-  }, []);
+  const CardIcon = useMemo(() => {
+    if (slotProps?.cardView?.icon) {
+      return slotProps.cardView.icon;
+    }
+    return ViewStream;
+  }, [slotProps?.cardView?.icon]);
+
+  const TableIcon = useMemo(() => {
+    if (slotProps?.tableView?.icon) {
+      return slotProps.tableView.icon;
+    }
+    return TableChart;
+  }, [slotProps?.tableView?.icon]);
+
+  /** Style Overwrites from Parent & Theme Settings */
+  const layout = useMemo(() => {
+    const buttonGroup = extendTheme.layout('Buttons.DataDisplayGroup');
+    const toggleButton = extendTheme.layout('Buttons.DataDisplayToggleButton');
+
+    const buttonGroupOverwrite = {
+      ...buttonGroup,
+      ...sx,
+    };
+    const toggleButtonOverwrite = {
+      ...toggleButton,
+      ...slotProps?.toggleButton?.sx,
+    };
+
+    return { buttonGroupOverwrite, toggleButtonOverwrite };
+  }, [extendTheme, slotProps?.toggleButton?.sx, sx]);
+
+  const groupSize = slotProps?.root?.size ?? 'small';
+  const buttonSize = slotProps?.toggleButton?.size ?? 'small';
+
   return (
-    <ToggleButtonGroup value={view} onChange={onChange} exclusive>
-      <ToggleButton value={0}>Card</ToggleButton>
-      <ToggleButton value={1}>Table</ToggleButton>
+    <ToggleButtonGroup
+      data-testid={testid}
+      aria-label={ariaLabel}
+      value={view}
+      onChange={handleClick}
+      exclusive
+      disabled={disabled === true}
+      sx={{ ...layout.buttonGroupOverwrite }}
+      size={groupSize}
+    >
+      <Tooltip data-testid={`${testid}__CardView_Tooltip`} title="Card View" arrow>
+        <ToggleButton
+          data-testid={`${testid}-CardView__ToggleButton`}
+          aria-label="Card View Toggle Button"
+          value={0}
+          size={buttonSize}
+          disabled={disabled === 0}
+          sx={{
+            ...layout.toggleButtonOverwrite,
+          }}
+        >
+          <SvgIcon component={CardIcon} />
+        </ToggleButton>
+      </Tooltip>
+      <Tooltip data-testid={`${testid}__TableView_Tooltip`} title="Table View" arrow>
+        <ToggleButton
+          data-testid={`${testid}-TableView__ToggleButton`}
+          aria-label="Table View Toggle Button"
+          value={1}
+          size={buttonSize}
+          disabled={disabled === 1}
+          sx={{
+            ...layout.toggleButtonOverwrite,
+          }}
+        >
+          <SvgIcon component={TableIcon} />
+        </ToggleButton>
+      </Tooltip>
     </ToggleButtonGroup>
   );
 };

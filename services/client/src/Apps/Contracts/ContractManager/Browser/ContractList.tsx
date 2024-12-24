@@ -9,6 +9,7 @@ import { useMemo } from 'react';
  * TODO:
  * - Hook in the Data Display Toggle For DataDisplay View Variability (Using State For now)
  * - Create Two Seperate Views for the DataDisplay.
+ * - Upon Dynamic Local Settings Setup, move Toggle to SearchTools Container
  */
 export const ContractList: React.FC = () => {
   const themeExtend = useDynamicTheme();

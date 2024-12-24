@@ -46,8 +46,8 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
   const theme = useTheme();
 
   const layout = useMemo(() => {
-    const button = extendTheme.layout('Global.DropdownButton');
-    const icon = extendTheme.layout('Global.DropdownIcon');
+    const button = extendTheme.layout('Buttons.DropdownButton');
+    const icon = extendTheme.layout('Buttons.DropdownIcon');
     const iconOverwrite = {
       ...icon,
       ...slotProps?.icon?.sx,
