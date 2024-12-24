@@ -1,45 +1,30 @@
-import { List, ListItem } from '@mui/material';
+import { ArchetypeListButton } from '@Common/Components/Functional/Contracts/ArchetypeListButton';
+import { List, ListItemButton, ListItemIcon, SvgIcon } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectContracts } from '@Redux/Slices/Contracts/contracts.selectors';
-import { useVirtualizer } from '@tanstack/react-virtual';
+import { groupContractsByArchetype } from '@Utils/Contracts/ContractTypeUtils';
 import type React from 'react';
-
-type CardViewProps = {
-  scrollRef: React.RefObject<HTMLDivElement>;
-};
+import { useMemo } from 'react';
 
 /**
  * Virtualized List of Contract Cards for the Contract Manager
  */
-export const CardView: React.FC<CardViewProps> = ({ scrollRef }) => {
+export const CardView: React.FC = () => {
   const contracts = useAppSelector(selectContracts);
 
-  const virtualizer = useVirtualizer({
-    count: contracts.length,
-    estimateSize: () => 120,
-    getScrollElement: () => scrollRef.current,
-    overscan: 3,
-  });
-
+  const groupedContracts = useMemo(
+    () => groupContractsByArchetype(contracts),
+    [contracts],
+  );
   return (
-    <List
-      sx={{
-        position: 'relative',
-        height: virtualizer.getTotalSize(),
-      }}
-    >
-      {virtualizer.getVirtualItems().map((virtualRow) => {
-        const contract = contracts[virtualRow.index];
+    <List>
+      {Object.keys(groupedContracts).map((archetypeKey) => {
+        const archetype = groupedContracts[archetypeKey].archetype;
+        const archetypeContracts = groupedContracts[archetypeKey].contracts;
         return (
-          <ListItem
-            key={contract.id}
-            sx={{
-              position: 'absolute',
-              transform: `translateY(${virtualRow.start}px)`,
-            }}
-          >
-            {contract.title}
-          </ListItem>
+          <>
+            <ArchetypeListButton key={archetype.archetype} archetype={archetype} />
+          </>
         );
       })}
     </List>

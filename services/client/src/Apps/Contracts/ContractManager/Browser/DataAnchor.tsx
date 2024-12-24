@@ -290,7 +290,6 @@ export const ContractManagerDataAnchor: React.FC = () => {
       shape="rounded"
       showFirstButton
       showLastButton
-      size="small"
       sx={{
         display: 'flex',
         position: 'sticky',

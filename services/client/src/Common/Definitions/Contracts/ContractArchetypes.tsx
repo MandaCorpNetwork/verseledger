@@ -14,7 +14,7 @@ import {
   Industry,
   Logistics,
   Medical,
-  ProxyIcon as ProxyIcon,
+  ProxyIcon,
   Rrr,
   Salvage,
   Security,

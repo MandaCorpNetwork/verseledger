@@ -1,3 +1,7 @@
+import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
+
+import { ContractArchetypeTree } from './ContractArchetypes';
+
 export type IContractArchetype =
   | 'Logistics'
   | 'Medical'
@@ -68,3 +72,8 @@ export const contractSubtypes = [
   'Middleman',
   'Redacted',
 ];
+
+export type GroupedContracts = Record<
+  string,
+  { archetype: ContractArchetypeTree; contracts: IContract[] }
+>;

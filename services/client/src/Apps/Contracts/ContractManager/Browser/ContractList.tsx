@@ -59,7 +59,7 @@ export const ContractList: React.FC = () => {
           alignSelf: 'flex-start',
         }}
       />
-      {listView === 0 && <CardView scrollRef={ref} />}
+      {listView === 0 && <CardView />}
       {listView === 1 && <TableView />}
       <ContractManagerDataAnchor />
     </Box>
