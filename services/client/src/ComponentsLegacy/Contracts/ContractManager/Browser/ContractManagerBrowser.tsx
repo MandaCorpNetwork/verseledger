@@ -15,7 +15,7 @@ export const ContractManagerBrowser: React.FC = () => {
       <BrowserTabs />
       <div
         data-testid="ContractManager-Browser__SearchTools_Wrapper"
-        style={{ height: '80px' }}
+        style={{ height: '50px' }}
       >
         <SearchTools />
       </div>

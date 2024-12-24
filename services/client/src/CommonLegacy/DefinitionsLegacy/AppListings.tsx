@@ -60,7 +60,7 @@ export type AppGroup = {
   list: string[];
 };
 
-export const VerseLedgerVersion = '0.4.9';
+export const VerseLedgerVersion = '0.5.0';
 export const useMasterAppList = () => {
   const news = !useHasFeatureFlag('F-news');
   const wiki = !useHasFeatureFlag('F-wiki');
