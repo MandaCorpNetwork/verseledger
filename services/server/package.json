@@ -59,7 +59,7 @@
     "lodash": "4.17.21",
     "morgan": "1.10.0",
     "ms": "2.1.3",
-    "mysql2": "3.11.5",
+    "mysql2": "3.12.0",
     "node-gzip": "1.1.2",
     "pally.gg": "0.2.1",
     "reflect-metadata": "0.2.2",
