@@ -1,7 +1,7 @@
 import { DataDisplayToggle } from '@Common/Components/Functional/Applcation/Buttons/DataDisplayToggle';
 import { Box } from '@mui/material';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
-import { useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 /**
  * Contract Display for Contracts within The Contract Manager App
@@ -13,6 +13,16 @@ import { useMemo } from 'react';
  */
 export const ContractList: React.FC = () => {
   const themeExtend = useDynamicTheme();
+
+  /** Temporary State for DataDisplay
+   * Waiting for Local DB with UserSettings
+   */
+  const [listView, setListView] = useState<0 | 1>(0);
+
+  /** Temporary Handler to switch DataDisplay */
+  const handleListView = useCallback((value: 0 | 1) => {
+    setListView(value);
+  }, []);
 
   const layout = useMemo(() => {
     const container = themeExtend.layout('ContractManager.ContractListContainer');
@@ -36,7 +46,7 @@ export const ContractList: React.FC = () => {
         ...layout.container,
       }}
     >
-      <DataDisplayToggle />
+      <DataDisplayToggle view={listView} onChange={handleListView} />
     </Box>
   );
 };
