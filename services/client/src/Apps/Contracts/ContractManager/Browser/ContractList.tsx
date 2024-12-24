@@ -1,8 +1,10 @@
 import { DataDisplayToggle } from '@Common/Components/Functional/Applcation/Buttons/DataDisplayToggle';
+import { TableView } from '@mui/icons-material';
 import { Box } from '@mui/material';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
+import { CardView } from './CardView';
 import { ContractManagerDataAnchor } from './DataAnchor';
 
 /**
@@ -14,6 +16,7 @@ import { ContractManagerDataAnchor } from './DataAnchor';
  */
 export const ContractList: React.FC = () => {
   const themeExtend = useDynamicTheme();
+  const ref = useRef<HTMLDivElement>(null);
 
   /** Temporary State for DataDisplay
    * Waiting for Local DB with UserSettings
@@ -36,6 +39,7 @@ export const ContractList: React.FC = () => {
       data-testid="ContractManager-Browser__ContractList_Container"
       aria-label="Contract Selection List"
       id="ContractManager_ContractList_Container"
+      ref={ref}
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -50,10 +54,13 @@ export const ContractList: React.FC = () => {
       <DataDisplayToggle
         view={listView}
         onChange={handleListView}
+        disabled={1}
         sx={{
           alignSelf: 'flex-start',
         }}
       />
+      {listView === 0 && <CardView scrollRef={ref} />}
+      {listView === 1 && <TableView />}
       <ContractManagerDataAnchor />
     </Box>
   );

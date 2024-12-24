@@ -115,30 +115,6 @@ export const ContractList: React.FC = () => {
           ) : null;
         })}
       </Box>
-      {/* <Box
-        data-testid="ContractManager-ContractList__Pagination_Wrapper"
-        sx={{
-          position: 'sticky',
-          bottom: '0',
-          p: '.2em',
-          display: pageCount > 1 ? 'flex' : 'none',
-          borderRadius: '5px',
-          borderLeft: '2px solid',
-          borderRight: '2px solid',
-          borderColor: 'secondary.main',
-          boxShadow: '0 0px 10px 5px rgba(24,252,252,0.25)',
-          backgroundImage:
-            'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
-        }}
-      >
-        <Pagination
-          page={page}
-          onChange={handleChangePage}
-          count={pageCount}
-          variant="outlined"
-          color="secondary"
-        />
-      </Box> */}
     </Box>
   );
 };
