@@ -1,5 +1,5 @@
 import { api } from 'encore.dev/api';
-import { VLDB } from '../vl-database/vl-database';
+import { UserDB } from './user-database';
 import { user } from '~encore/clients';
 import { createId, IDPrefix } from '../utils/createId';
 import { Topic } from 'encore.dev/pubsub';
@@ -48,7 +48,7 @@ export const getUser = api(
   { expose: true, method: 'GET', path: '/users/:user_id' },
   async (params: GetUserCMD): Promise<User> => {
     const row =
-      await VLDB.queryRow`SELECT * FROM users WHERE id = ${params.user_id}`;
+      await UserDB.queryRow`SELECT * FROM users WHERE id = ${params.user_id}`;
     return row as User;
   },
 );
@@ -72,7 +72,7 @@ interface UserAuthAttempt {
 export const getUserByAuth = api(
   {},
   async (params: GetUserByAuthCMD): Promise<UserAuthAttempt> => {
-    const userAuth = (await VLDB.queryRow`
+    const userAuth = (await UserDB.queryRow`
     SELECT
       *
     FROM
@@ -83,7 +83,7 @@ export const getUserByAuth = api(
       type = ${params.type}
     `) as UserAuthEntry;
     if (userAuth == null) return { success: false };
-    const user = await VLDB.queryRow`
+    const user = await UserDB.queryRow`
   SELECT
     *
   FROM
@@ -100,13 +100,13 @@ export const createUser = api(
   async (params: CreateUserCMD): Promise<User> => {
     const newId = createId(IDPrefix.User);
     const tempHandle = createId(IDPrefix.User);
-    const newUser = (await VLDB.queryRow`
+    const newUser = (await UserDB.queryRow`
     INSERT INTO users
       (id, handle, display_name, pfp)
     VALUES (${newId}, ${tempHandle}, 'Unverified User', 'https://cdn.robertsspaceindustries.com/static/spectrum/images/member-avatar-default.jpg')
     RETURNING *
     `) as User;
-    await VLDB.exec`
+    await UserDB.exec`
     INSERT INTO user_auth
       (user_id, type, identifier)
     VALUES

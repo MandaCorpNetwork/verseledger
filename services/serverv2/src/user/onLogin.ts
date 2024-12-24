@@ -1,10 +1,10 @@
 import { Subscription } from 'encore.dev/pubsub';
 import { userLogin } from './user';
-import { VLDB } from '../vl-database/vl-database';
+import { UserDB } from './user-database';
 
 const _ = new Subscription(userLogin, 'update-last-login', {
   handler: async (event) => {
-    await VLDB.exec`
+    await UserDB.exec`
     UPDATE
       users
     SET

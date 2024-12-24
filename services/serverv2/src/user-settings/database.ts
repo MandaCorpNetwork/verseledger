@@ -1,8 +1,8 @@
 import { SQLDatabase } from 'encore.dev/storage/sqldb';
 
 // Create SQLDatabase instance with migrations configuration
-const VLDB = new SQLDatabase('vl-database', {
+const UserSettingsDB = new SQLDatabase('user-settings-database', {
   migrations: './migrations',
 });
 
-export { VLDB };
+export { UserSettingsDB };

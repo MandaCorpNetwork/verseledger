@@ -3,8 +3,9 @@ import { authHandler } from 'encore.dev/auth';
 import jwt from 'jsonwebtoken';
 import { secret } from 'encore.dev/config';
 import { auth, user } from '~encore/clients';
-import { AuthDB } from '../auth-database/database';
+import { AuthDB } from './database';
 import { userLogin } from '../user/user';
+
 interface AuthParams {
   authHeader?: Header<'Authorization'>;
   apiKey?: Header<'X-API-Key'>;
@@ -59,10 +60,19 @@ export const JWTAuthHandler = authHandler<AuthParams, AuthData>(
     if (bearer == null) throw APIError.unauthenticated('missing credentials');
     let token = bearer;
     if (bearer.startsWith('Bearer ')) token = bearer.slice('Bearer '.length);
-    const userAuth = jwt.verify(
-      token,
-      Buffer.from(AUTH_SECRET(), 'base64'),
-    ) as AuthData;
+    let userAuth: AuthData | null = null;
+    try {
+      userAuth = jwt.verify(
+        token,
+        Buffer.from(AUTH_SECRET(), 'base64'),
+      ) as AuthData;
+    } catch (_e) {
+      // Do Nothing
+    }
+    if (userAuth == null)
+      throw APIError.unauthenticated(
+        'The request does not have valid authentication credentials for the operation.',
+      );
     userAuth.userID = userAuth.id;
     const row = await AuthDB.queryRow`
     UPDATE
@@ -79,7 +89,10 @@ export const JWTAuthHandler = authHandler<AuthParams, AuthData>(
       expires_at >= ${new Date(Date.now())}
     RETURNING t.*
     `;
-    if (row == null) throw APIError.unauthenticated('invalid credentials');
+    if (row == null)
+      throw APIError.unauthenticated(
+        'The request does not have valid authentication credentials for the operation.',
+      );
     return userAuth;
   },
 );
@@ -166,6 +179,14 @@ export const login = api(
         throw APIError.unimplemented(`Login Method Not Available: ${service}`);
     }
   },
+);
+
+interface CreateTokenPairCMD {
+  userID: string;
+}
+export const createTokenPair = api(
+  {},
+  async (_params: CreateTokenPairCMD) => {},
 );
 
 //#endRegion
