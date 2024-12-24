@@ -1,11 +1,13 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { QueryNames } from '@Common/Definitions/Search/QueryNames';
+import { Pagination } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { selectCurrentUser } from '@Redux/Slices/Auth/auth.selectors';
 import { selectBidPagination } from '@Redux/Slices/Bids/bids.selector';
 import { fetchContracts } from '@Redux/Slices/Contracts/actions/get/fetchContracts.action';
 import { selectContractPagination } from '@Redux/Slices/Contracts/contracts.selectors';
 import { fetchContractBidsOfUser } from '@Redux/Slices/Users/Actions/fetchContractBidsByUser.action';
+import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
 import { useURLQuery } from '@Utils/Hooks/useURLQuery';
 import { enqueueSnackbar } from 'notistack';
 import type React from 'react';
@@ -21,6 +23,10 @@ import { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTyp
 /**
  * Anchor Component for Fetching Contracts Data.
  * @returns Pagination Component
+ * ___
+ * TODO:
+ * - Create Modular Pagination Component depending on the Data Display type
+ * - Create logic for determining the Pagination Style & Variants
  */
 export const ContractManagerDataAnchor: React.FC = () => {
   const { searchParams, setFilters } = useURLQuery();
@@ -29,6 +35,7 @@ export const ContractManagerDataAnchor: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const sound = useSoundEffect();
+  const extendTheme = useDynamicTheme();
 
   /** Memo for the currently set `Contract Browser List` */
   const currentTab = useMemo(() => {
@@ -267,5 +274,30 @@ export const ContractManagerDataAnchor: React.FC = () => {
       ? bidCount.pages
       : contractCount.pages;
 
-  return <></>;
+  const layout = useMemo(() => {
+    const pagination = extendTheme.layout('ContractManager.Pagination');
+
+    return pagination;
+  }, [extendTheme]);
+
+  return (
+    <Pagination
+      page={page}
+      onChange={handleChangePage}
+      count={pageCount}
+      variant="outlined"
+      color="secondary"
+      shape="rounded"
+      showFirstButton
+      showLastButton
+      size="small"
+      sx={{
+        display: 'flex',
+        position: 'sticky',
+        top: '100%',
+        bottom: 0,
+        ...layout,
+      }}
+    />
+  );
 };

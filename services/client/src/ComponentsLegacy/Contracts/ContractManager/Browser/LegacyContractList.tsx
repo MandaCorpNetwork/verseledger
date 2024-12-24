@@ -9,14 +9,10 @@ import React from 'react';
 import { ContractListDropdown } from './ContractListDropdown';
 import { ContractManagerCard } from './ContractManagerCard';
 
-type ContractListProps = {
-  currentTab: string;
-};
-
 /**
  * @deprecated
  */
-export const ContractList: React.FC<ContractListProps> = ({ currentTab }) => {
+export const ContractList: React.FC = () => {
   const sound = useSoundEffect();
   const [expandedArchetype, setExpandedArchetype] = React.useState<string | null>(null);
 
