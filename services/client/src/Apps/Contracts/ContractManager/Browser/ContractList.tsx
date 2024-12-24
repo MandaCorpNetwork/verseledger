@@ -7,7 +7,6 @@ import { useCallback, useMemo, useState } from 'react';
  * Contract Display for Contracts within The Contract Manager App
  * ___
  * TODO:
- * - Hook in the Data Display Toggle For DataDisplay View Variability (Using State For now)
  * - Create Two Seperate Views for the DataDisplay.
  * - Upon Dynamic Local Settings Setup, move Toggle to SearchTools Container
  */
@@ -46,7 +45,13 @@ export const ContractList: React.FC = () => {
         ...layout.container,
       }}
     >
-      <DataDisplayToggle view={listView} onChange={handleListView} />
+      <DataDisplayToggle
+        view={listView}
+        onChange={handleListView}
+        sx={{
+          alignSelf: 'flex-start',
+        }}
+      />
     </Box>
   );
 };

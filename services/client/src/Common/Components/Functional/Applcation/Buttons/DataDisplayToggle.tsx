@@ -83,6 +83,7 @@ export const DataDisplayToggle: React.FC<DataDisplayToggleProps> = ({
   const layout = useMemo(() => {
     const buttonGroup = extendTheme.layout('Buttons.DataDisplayGroup');
     const toggleButton = extendTheme.layout('Buttons.DataDisplayToggleButton');
+    const toggleIcon = extendTheme.layout('Buttons.DataDisplayToggleIcon');
 
     const buttonGroupOverwrite = {
       ...buttonGroup,
@@ -93,7 +94,7 @@ export const DataDisplayToggle: React.FC<DataDisplayToggleProps> = ({
       ...slotProps?.toggleButton?.sx,
     };
 
-    return { buttonGroupOverwrite, toggleButtonOverwrite };
+    return { buttonGroupOverwrite, toggleButtonOverwrite, toggleIcon };
   }, [extendTheme, slotProps?.toggleButton?.sx, sx]);
 
   const groupSize = slotProps?.root?.size ?? 'small';
@@ -121,7 +122,7 @@ export const DataDisplayToggle: React.FC<DataDisplayToggleProps> = ({
             ...layout.toggleButtonOverwrite,
           }}
         >
-          <SvgIcon component={CardIcon} />
+          <SvgIcon component={CardIcon} sx={{ ...layout.toggleIcon }} />
         </ToggleButton>
       </Tooltip>
       <Tooltip data-testid={`${testid}__TableView_Tooltip`} title="Table View" arrow>
@@ -135,7 +136,7 @@ export const DataDisplayToggle: React.FC<DataDisplayToggleProps> = ({
             ...layout.toggleButtonOverwrite,
           }}
         >
-          <SvgIcon component={TableIcon} />
+          <SvgIcon component={TableIcon} sx={{ ...layout.toggleIcon }} />
         </ToggleButton>
       </Tooltip>
     </ToggleButtonGroup>
