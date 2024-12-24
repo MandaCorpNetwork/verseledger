@@ -35,7 +35,7 @@ export const ContractList: React.FC = () => {
         ...layout.container,
       }}
     >
-      <DataDisplayToggle pageKey="contractManager-Browser" />
+      <DataDisplayToggle />
     </Box>
   );
 };

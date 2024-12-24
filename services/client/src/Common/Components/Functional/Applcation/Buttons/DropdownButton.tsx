@@ -1,3 +1,4 @@
+import { useSoundEffect } from '@Audio/AudioManager';
 import {
   ArrowDropDown,
   KeyboardArrowDown,
@@ -7,7 +8,6 @@ import {
 import { IconButton, SvgIcon, SxProps } from '@mui/material';
 import { Theme, useTheme } from '@mui/material/styles';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
-import { useSound } from '@Utils/useAudio';
 import type React from 'react';
 import { useCallback, useMemo } from 'react';
 
@@ -42,7 +42,7 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
   size = 'medium',
 }) => {
   const extendTheme = useDynamicTheme();
-  const sound = useSound();
+  const sound = useSoundEffect();
   const theme = useTheme();
 
   const layout = useMemo(() => {
