@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { DB } from '../vl-database/vl-database';
 import { assertPermission } from '../utils/permissions';
 import { secret } from 'encore.dev/config';
-
+import { auth } from "~encore/clients";
 // AuthParams specifies the incoming request information
 // the auth handler is interested in. In this case it only
 // cares about requests that contain the `Authorization` header.
@@ -97,3 +97,44 @@ export const gateway = new Gateway({
 export const test = api({ method: 'GET', path: '/', auth: true }, async () => {
   assertPermission(ApiPermission.USER);
 });
+const DISCORD_CLIENT_ID = secret('DISCORD_CLIENT_ID');
+const DISCORD_CLIENT_SECRET = secret('DISCORD_CLIENT_SECRET');
+interface LoginWithDiscordCMD {
+  code: string;
+}
+export const loginWithDiscord = api(
+  { method: 'POST', expose: false },
+  async (params: LoginWithDiscordCMD) => {
+    const { code } = params;
+  },
+);
+
+interface LoginWithServiceCMD {
+  service: string;
+
+  code: string;
+}
+
+/**
+ * Login with a given service
+ */
+export const loginWithService = api(
+  {
+    expose: true,
+    method: 'POST',
+    auth: false,
+    path: '/login/:service',
+  },
+  async (params: LoginWithServiceCMD) => {
+    const service = params.service;
+    switch (service) {
+      case 'discord': {
+        const login = await auth.loginWithDiscord({ code: params.code });
+        return { test: true }
+        break;
+      }
+      default:
+        throw APIError.unimplemented(`Login Method Not Available: ${service}`);
+    }
+  },
+);
