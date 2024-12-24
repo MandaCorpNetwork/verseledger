@@ -7,7 +7,7 @@
   "scripts": {
     "lint:check": "npx eslint ./src",
     "lint": "npx eslint . --fix && npx prettier . --write",
-    "dev": "encore run",
+    "dev": "encore run --watch --debug --color",
     "test": "vitest"
   },
   "devDependencies": {

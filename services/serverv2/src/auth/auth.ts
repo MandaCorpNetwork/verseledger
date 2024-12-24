@@ -1,21 +1,16 @@
 import { Header, Gateway, Query, APIError, api } from 'encore.dev/api';
 import { authHandler } from 'encore.dev/auth';
 import jwt from 'jsonwebtoken';
-import { DB } from '../vl-database/vl-database';
-import { assertPermission } from '../utils/permissions';
 import { secret } from 'encore.dev/config';
-import { auth } from "~encore/clients";
-// AuthParams specifies the incoming request information
-// the auth handler is interested in. In this case it only
-// cares about requests that contain the `Authorization` header.
+import { auth, user } from '~encore/clients';
+import { AuthDB } from '../auth-database/database';
+import { userLogin } from '../user/user';
 interface AuthParams {
   authHeader?: Header<'Authorization'>;
   apiKey?: Header<'X-API-Key'>;
   apiQuery?: Query<'api_key'>;
 }
 
-// The AuthData specifies the information about the authenticated user
-// that the auth handler makes available.
 interface AuthData {
   userID: string;
   jti: string;
@@ -66,46 +61,75 @@ export const JWTAuthHandler = authHandler<AuthParams, AuthData>(
     if (bearer.startsWith('Bearer ')) token = bearer.slice('Bearer '.length);
     const userAuth = jwt.verify(
       token,
-      Buffer.from(AUTH_SECRET(), 'base64')
+      Buffer.from(AUTH_SECRET(), 'base64'),
     ) as AuthData;
     userAuth.userID = userAuth.id;
-    const _row = await DB.queryRow`
-    SELECT
-      *
-    FROM
-      api_tokens
+    const row = await AuthDB.queryRow`
+    UPDATE
+      api_tokens t
+    SET
+      last_used_at = ${new Date(Date.now())}
     WHERE
-      user_id = ${userAuth.id}
-    AND
       token_id = ${userAuth.jti}
+    AND
+      user_id = ${userAuth.id}
     AND
       type = ${userAuth.type}
     AND
-      expiresAt >= ${Date.now()}
+      expires_at >= ${new Date(Date.now())}
+    RETURNING t.*
     `;
-    // TODO: Set up auth table
-    //if (_row == null) throw APIError.unauthenticated('invalid credentials');
+    if (row == null) throw APIError.unauthenticated('invalid credentials');
     return userAuth;
-  }
+  },
 );
 
-// Define the API Gateway that will execute the auth handler:
-export const gateway = new Gateway({
-  authHandler: JWTAuthHandler,
-});
+//#region Endpoints
 
-export const test = api({ method: 'GET', path: '/', auth: true }, async () => {
-  assertPermission(ApiPermission.USER);
-});
 const DISCORD_CLIENT_ID = secret('DISCORD_CLIENT_ID');
+const FRONTEND_HOST = secret('FRONTEND_HOST');
 const DISCORD_CLIENT_SECRET = secret('DISCORD_CLIENT_SECRET');
 interface LoginWithDiscordCMD {
   code: string;
 }
+interface DiscordUser {
+  id: string;
+  username: string;
+  avatar: string;
+}
+
 export const loginWithDiscord = api(
   { method: 'POST', expose: false },
-  async (params: LoginWithDiscordCMD) => {
+  async (params: LoginWithDiscordCMD): Promise<DiscordUser> => {
     const { code } = params;
+    const body = new URLSearchParams({
+      client_id: DISCORD_CLIENT_ID(),
+      client_secret: DISCORD_CLIENT_SECRET(),
+      grant_type: 'authorization_code',
+      code,
+      redirect_uri: `${FRONTEND_HOST()}/oauth/discord/callback`,
+      scope: 'identify',
+    });
+    const user = await fetch('https://discord.com/api/v10/oauth2/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body,
+    })
+      .then((res) => res.json())
+      .then((body) => {
+        const { token_type, access_token } = body as {
+          access_token: string;
+          token_type: string;
+        };
+        return fetch(`https://discord.com/api/v10/users/@me`, {
+          headers: { Authorization: `${token_type} ${access_token}` },
+        })
+          .then((r) => r.json())
+          .then((user) => {
+            return user as { id: string; username: string; avatar: string };
+          });
+      });
+    return user;
   },
 );
 
@@ -118,7 +142,7 @@ interface LoginWithServiceCMD {
 /**
  * Login with a given service
  */
-export const loginWithService = api(
+export const login = api(
   {
     expose: true,
     method: 'POST',
@@ -126,15 +150,27 @@ export const loginWithService = api(
     path: '/login/:service',
   },
   async (params: LoginWithServiceCMD) => {
-    const service = params.service;
+    const service = params.service.toUpperCase();
     switch (service) {
-      case 'discord': {
-        const login = await auth.loginWithDiscord({ code: params.code });
-        return { test: true }
-        break;
+      case 'DISCORD': {
+        const loginResp = await auth.loginWithDiscord({ code: params.code });
+        const login_user = await user.getOrCreateUser({
+          user_id: loginResp.id,
+          service,
+        });
+        console.log(login_user);
+        userLogin.publish({ userId: login_user.id });
+        return login_user;
       }
       default:
         throw APIError.unimplemented(`Login Method Not Available: ${service}`);
     }
   },
 );
+
+//#endRegion
+//#region Gateway
+// Define the API Gateway that will execute the auth handler:
+export const gateway = new Gateway({
+  authHandler: JWTAuthHandler,
+});
