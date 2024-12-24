@@ -66,7 +66,7 @@ export const JWTAuthHandler = authHandler<AuthParams, AuthData>(
     if (bearer.startsWith('Bearer ')) token = bearer.slice('Bearer '.length);
     const userAuth = jwt.verify(
       token,
-      Buffer.from(AUTH_SECRET(), 'base64'),
+      Buffer.from(AUTH_SECRET(), 'base64')
     ) as AuthData;
     userAuth.userID = userAuth.id;
     const _row = await DB.queryRow`
@@ -86,7 +86,7 @@ export const JWTAuthHandler = authHandler<AuthParams, AuthData>(
     // TODO: Set up auth table
     //if (_row == null) throw APIError.unauthenticated('invalid credentials');
     return userAuth;
-  },
+  }
 );
 
 // Define the API Gateway that will execute the auth handler:
