@@ -1,5 +1,5 @@
 import { ArchetypeListButton } from '@Common/Components/Functional/Contracts/ArchetypeListButton';
-import { List, ListItemButton, ListItemIcon, SvgIcon } from '@mui/material';
+import { List } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectContracts } from '@Redux/Slices/Contracts/contracts.selectors';
 import { groupContractsByArchetype } from '@Utils/Contracts/ContractTypeUtils';
@@ -20,7 +20,7 @@ export const CardView: React.FC = () => {
     <List>
       {Object.keys(groupedContracts).map((archetypeKey) => {
         const archetype = groupedContracts[archetypeKey].archetype;
-        const archetypeContracts = groupedContracts[archetypeKey].contracts;
+        // const archetypeContracts = groupedContracts[archetypeKey].contracts;
         return (
           <>
             <ArchetypeListButton key={archetype.archetype} archetype={archetype} />

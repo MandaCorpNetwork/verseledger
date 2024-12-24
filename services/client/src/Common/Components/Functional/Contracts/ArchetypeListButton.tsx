@@ -1,5 +1,5 @@
 import { ContractArchetypeTree } from '@Common/Definitions/Contracts/ContractArchetypes';
-import { ListItemButton, ListItemIcon, SvgIcon } from '@mui/material';
+import { ListItemButton, ListItemIcon, ListItemText, SvgIcon } from '@mui/material';
 import type React from 'react';
 
 type ListButtonProps = {
@@ -12,6 +12,7 @@ export const ArchetypeListButton: React.FC<ListButtonProps> = ({ archetype }) =>
       <ListItemIcon>
         <SvgIcon component={archetype.archetypeIcon} />
       </ListItemIcon>
+      <ListItemText primary={archetype.archetypeLabel} />
     </ListItemButton>
   );
 };
