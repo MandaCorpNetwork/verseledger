@@ -3,6 +3,8 @@ import { Box } from '@mui/material';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
 import { useCallback, useMemo, useState } from 'react';
 
+import { ContractManagerDataAnchor } from './DataAnchor';
+
 /**
  * Contract Display for Contracts within The Contract Manager App
  * ___
@@ -52,6 +54,7 @@ export const ContractList: React.FC = () => {
           alignSelf: 'flex-start',
         }}
       />
+      <ContractManagerDataAnchor />
     </Box>
   );
 };
