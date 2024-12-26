@@ -1,11 +1,12 @@
 import { ContractArchetypeTree } from '@Common/Definitions/Contracts/ContractArchetypes';
-import type { SvgIconComponent } from '@mui/icons-material';
+import { ArrowDropDown, type SvgIconComponent } from '@mui/icons-material';
 import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
   SvgIcon,
   type SxProps,
+  useTheme,
 } from '@mui/material';
 import type { Theme } from '@mui/material/styles';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
@@ -20,6 +21,7 @@ type ListButtonProps = {
   disabled?: boolean;
   sx?: SxProps<Theme>;
   count?: number;
+  open?: boolean;
   slotProps?: {
     itemIcon?: {
       sx?: SxProps<Theme>;
@@ -39,6 +41,10 @@ type ListButtonProps = {
  * ___
  * TODO:
  * - Fix Svg Icons being the wrong setup, try to simplify them
+ * - Setup the Styles for VerseOS
+ * - Setup the Styles for PirateOS
+ * - Extend Overwrite Props to the Dropdown Icon
+ * - Refactor the Text Styles for the Primary and Secondary Text as well
  */
 export const ArchetypeListButton: React.FC<ListButtonProps> = ({
   archetype,
@@ -49,8 +55,10 @@ export const ArchetypeListButton: React.FC<ListButtonProps> = ({
   sx,
   count,
   slotProps,
+  open,
 }) => {
   const extendTheme = useDynamicTheme();
+  const theme = useTheme();
 
   const layout = useMemo(() => {
     const listButton = extendTheme.layout('Contracts.ArchetypeListButton');
@@ -101,6 +109,23 @@ export const ArchetypeListButton: React.FC<ListButtonProps> = ({
         data-testid={`${testId}__Label`}
         aria-labelledby={testId}
         primary={archetype.archetypeLabel}
+        secondary={`${count ? count : 'No'} contracts`}
+        sx={{
+          display: 'flex',
+          alignItems: 'flex-end',
+          gap: '2em',
+          ...layout.listTextOverwrite,
+        }}
+      />
+      <SvgIcon
+        data-testid={`${testId}__Dropdown_Icon`}
+        component={ArrowDropDown}
+        sx={{
+          transform: open ? 'rotate(0deg)' : 'rotate(180deg)',
+          ...((theme.animations === 'high' || theme.animations === 'medium') && {
+            transition: 'transform 0.3s',
+          }),
+        }}
       />
     </ListItemButton>
   );

@@ -1,7 +1,7 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ArchetypeListButton } from '@Common/Components/Functional/Contracts/ArchetypeListButton';
 import { IContractArchetype } from '@Common/Definitions/Contracts/ContractTypes';
-import { Collapse, List, useTheme } from '@mui/material';
+import { Collapse, List } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectContracts } from '@Redux/Slices/Contracts/contracts.selectors';
 import { groupContractsByArchetype } from '@Utils/Contracts/ContractTypeUtils';
@@ -12,7 +12,6 @@ import { useCallback, useMemo, useState } from 'react';
  * Virtualized List of Contract Cards for the Contract Manager
  */
 export const CardView: React.FC = () => {
-  const theme = useTheme();
   const sound = useSoundEffect();
   const contracts = useAppSelector(selectContracts);
 
@@ -40,21 +39,31 @@ export const CardView: React.FC = () => {
   );
 
   return (
-    <List>
+    <List
+      data-testid="ContractManager-Browser-ContractList__CardView_List"
+      aria-label="Card Display List of Contracts"
+      sx={{
+        width: '100%',
+      }}
+    >
       {Object.keys(groupedContracts).map((archetypeKey) => {
         const archetype = groupedContracts[archetypeKey].archetype;
         const open = openLists.has(archetype.archetype);
-        // const archetypeContracts = groupedContracts[archetypeKey].contracts;
+        const archetypeContracts = groupedContracts[archetypeKey].contracts;
         return (
           <>
             <ArchetypeListButton
               key={archetype.archetype}
               archetype={archetype}
               onClick={() => toggleCollapse(archetype.archetype)}
+              open={open}
+              data-testid={`ContractManager-Browser-ContractList-CardView__${archetype.archetypeLabel}_DropdownButton`}
+              aria-label={`Button to Expand List of Contracts with a ${archetype.archetypeLabel} Archetype`}
+              count={archetypeContracts.length}
             />
             <Collapse in={open} unmountOnExit mountOnEnter>
               <List>
-                {groupedContracts[archetypeKey].contracts.map((contract) => (
+                {archetypeContracts.map((contract) => (
                   <></>
                 ))}
               </List>
