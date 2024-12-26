@@ -1,5 +1,6 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { ArchetypeListButton } from '@Common/Components/Functional/Contracts/ArchetypeListButton';
+import { ContractListButton } from '@Common/Components/Functional/Contracts/ContractListButton';
 import { IContractArchetype } from '@Common/Definitions/Contracts/ContractTypes';
 import { Collapse, List } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
@@ -64,7 +65,7 @@ export const CardView: React.FC = () => {
             <Collapse in={open} unmountOnExit mountOnEnter>
               <List>
                 {archetypeContracts.map((contract) => (
-                  <></>
+                  <ContractListButton key={contract.id} contract={contract} />
                 ))}
               </List>
             </Collapse>
