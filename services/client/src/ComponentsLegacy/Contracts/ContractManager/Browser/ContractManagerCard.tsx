@@ -1,6 +1,6 @@
 import { UserChip } from '@CommonLegacy/Components/Chips/UserChip';
 import { PayInput } from '@CommonLegacy/Components/Custom/PayInput';
-import { Industry } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
+import { Mining } from '@CommonLegacy/DefinitionsLegacy/CustomIcons';
 import { Box, ButtonBase, Tooltip, Typography, useTheme } from '@mui/material';
 import { useIsMobile } from '@Utils/isMobile';
 import React from 'react';
@@ -98,7 +98,7 @@ export const ContractManagerCard: React.FC<ContractManagerCardProps> = ({ contra
         </Typography>
         <Box sx={{ alignSelf: 'center' }}>
           <Tooltip title={`${contract.subtype}`} arrow>
-            <Industry fontSize="large" />
+            <Mining fontSize="large" />
           </Tooltip>
         </Box>
       </Box>

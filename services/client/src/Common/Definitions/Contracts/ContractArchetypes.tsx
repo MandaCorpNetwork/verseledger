@@ -11,7 +11,7 @@ import type { SvgIconComponent } from '@mui/icons-material';
 import {
   Exploration,
   Fleet,
-  Industry,
+  Mining,
   Logistics,
   Medical,
   ProxyIcon,
@@ -108,7 +108,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   {
     archetype: 'Industry',
     archetypeLabel: 'Industry',
-    archetypeIcon: Industry,
+    archetypeIcon: Mining,
     subtypes: [
       {
         label: 'Mining',
