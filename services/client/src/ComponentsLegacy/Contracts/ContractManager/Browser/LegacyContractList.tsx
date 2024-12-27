@@ -1,43 +1,26 @@
 import { useSoundEffect } from '@Audio/AudioManager';
 import { contractArchetypes } from '@Common/Definitions/Contracts/ContractArchetypes';
 import { ErrorOutline } from '@mui/icons-material';
-import { Box, Pagination } from '@mui/material';
+import { Box } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
-import { selectBidPagination } from '@Redux/Slices/Bids/bids.selector';
-import {
-  selectContractPagination,
-  selectContracts,
-} from '@Redux/Slices/Contracts/contracts.selectors';
+import { selectContracts } from '@Redux/Slices/Contracts/contracts.selectors';
 import React from 'react';
 
 import { ContractListDropdown } from './ContractListDropdown';
 import { ContractManagerCard } from './ContractManagerCard';
 
-type ContractListProps = {
-  currentTab: string;
-};
-
 /**
  * @deprecated
  */
-export const ContractList: React.FC<ContractListProps> = ({ currentTab }) => {
+export const ContractList: React.FC = () => {
   const sound = useSoundEffect();
   const [expandedArchetype, setExpandedArchetype] = React.useState<string | null>(null);
-  const [page, setPage] = React.useState(1);
 
   const handleExpandArchetype = React.useCallback(
     (value: string) => {
       if (!value) return;
       sound.playSound('open');
       setExpandedArchetype(value);
-    },
-    [sound],
-  );
-
-  const handleChangePage = React.useCallback(
-    (_event: React.ChangeEvent<unknown>, newPage: number) => {
-      sound.playSound('clickMain');
-      setPage(newPage);
     },
     [sound],
   );
@@ -83,17 +66,6 @@ export const ContractList: React.FC<ContractListProps> = ({ currentTab }) => {
     [contracts],
   );
 
-  const bidCount = useAppSelector(selectBidPagination);
-
-  const contractCount = useAppSelector(selectContractPagination);
-
-  const pageCount =
-    currentTab === 'employed' ||
-    currentTab === 'pending' ||
-    currentTab === 'offers' ||
-    currentTab === 'completed'
-      ? bidCount.pages
-      : contractCount.pages;
   return (
     <Box
       data-testid="ContractManager__ContractList_Container"
@@ -142,30 +114,6 @@ export const ContractList: React.FC<ContractListProps> = ({ currentTab }) => {
             </ContractListDropdown>
           ) : null;
         })}
-      </Box>
-      <Box
-        data-testid="ContractManager-ContractList__Pagination_Wrapper"
-        sx={{
-          position: 'sticky',
-          bottom: '0',
-          p: '.2em',
-          display: pageCount > 1 ? 'flex' : 'none',
-          borderRadius: '5px',
-          borderLeft: '2px solid',
-          borderRight: '2px solid',
-          borderColor: 'secondary.main',
-          boxShadow: '0 0px 10px 5px rgba(24,252,252,0.25)',
-          backgroundImage:
-            'linear-gradient(165deg, rgba(6,86,145,0.5), rgba(0,73,130,0.3))',
-        }}
-      >
-        <Pagination
-          page={page}
-          onChange={handleChangePage}
-          count={pageCount}
-          variant="outlined"
-          color="secondary"
-        />
       </Box>
     </Box>
   );

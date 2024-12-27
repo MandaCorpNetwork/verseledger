@@ -16,6 +16,10 @@ type SubtypeChipProps = {
   iconSize?: 'small' | 'medium' | 'large';
 };
 
+/**
+ * @deprecated
+ * ! Waiting for Refactoring of Other Uses
+ */
 export const SubtypeChip: React.FC<SubtypeChipProps> = (props) => {
   const {
     subtype,

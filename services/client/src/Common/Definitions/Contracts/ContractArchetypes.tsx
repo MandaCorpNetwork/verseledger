@@ -14,12 +14,19 @@ import {
   Industry,
   Logistics,
   Medical,
-  ProxyIcon as ProxyIcon,
+  MissileRearm,
+  ProxyIcon,
+  Refuel,
+  Repair,
   Rrr,
   Salvage,
   Security,
 } from '../../../CommonLegacy/DefinitionsLegacy/CustomIcons';
-import type { ContractSubtypeObj, IContractArchetype } from './ContractTypes';
+import type {
+  ContractSubtypeObj,
+  IContractArchetype,
+  IContractSubtype,
+} from './ContractTypes';
 
 export type ContractArchetypeTree = {
   archetype: IContractArchetype;
@@ -205,3 +212,41 @@ export const archetypeLoopButtons = [
   { title: 'Exploration', videoSource: RRRLoop, value: 'Exploration' },
   { title: 'Proxy', videoSource: ProxyLoop, value: 'Proxy' },
 ];
+
+type ContractSubtypeDetails = {
+  icon: SvgIconComponent;
+  archetype: IContractArchetype;
+  label: string;
+};
+
+export const contractSubtypes: Record<IContractSubtype, ContractSubtypeDetails> = {
+  Transport: { icon: Logistics, archetype: 'Logistics', label: 'Transport' },
+  Hauling: { icon: Logistics, archetype: 'Logistics', label: 'Hauling' },
+  Manage: { icon: Logistics, archetype: 'Logistics', label: 'Manage' },
+  Trauma: { icon: Medical, archetype: 'Medical', label: 'Trauma' },
+  'On-Call': { icon: Medical, archetype: 'Medical', label: 'On Call' },
+  Escort: { icon: Security, archetype: 'Security', label: 'Escort' },
+  Bounty: { icon: Security, archetype: 'Security', label: 'Bounty' },
+  QRF: { icon: Security, archetype: 'Security', label: 'Quick Reaction Force' },
+  'Asset-Protection': {
+    icon: Security,
+    archetype: 'Security',
+    label: 'Asset Protection',
+  },
+  Attache: { icon: Security, archetype: 'Security', label: 'Attache' },
+  Collection: { icon: Salvage, archetype: 'Salvage', label: 'Collection' },
+  Procurement: { icon: Salvage, archetype: 'Salvage', label: 'Procurement' },
+  Mining: { icon: Industry, archetype: 'Industry', label: 'Mining' },
+  Refining: { icon: Industry, archetype: 'Industry', label: 'Refining' },
+  Manufacturing: { icon: Industry, archetype: 'Industry', label: 'Manufacturing' },
+  Scouting: { icon: Industry, archetype: 'Industry', label: 'Scouting' },
+  Refuel: { icon: Refuel, archetype: 'RRR', label: 'Refuel' },
+  Rearm: { icon: MissileRearm, archetype: 'RRR', label: 'Rearm' },
+  Repair: { icon: Repair, archetype: 'RRR', label: 'Repair' },
+  Crewman: { icon: Fleet, archetype: 'Fleet', label: 'Crewman' },
+  Outsourcing: { icon: Fleet, archetype: 'Fleet', label: 'Outsourcing' },
+  Locate: { icon: Exploration, archetype: 'Exploration', label: 'Locate' },
+  Charting: { icon: Exploration, archetype: 'Exploration', label: 'Charting' },
+  Middleman: { icon: ProxyIcon, archetype: 'Proxy', label: 'Middleman' },
+  Redacted: { icon: ProxyIcon, archetype: 'Proxy', label: 'Other' },
+};

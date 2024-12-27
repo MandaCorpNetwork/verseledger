@@ -38,18 +38,6 @@ const FleetIconSVG = (
 
 const LogisticsIconSVG = (
   <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 50 50">
-    <defs>
-      <style>
-        {/* .cls-2 {
-        isolation: isolate;
-      } */}
-
-        {/* .cls-5 {
-        mix-blend-mode: multiply;
-        opacity: .5;
-      } */}
-      </style>
-    </defs>
     <g className="cls-2">
       <g id="Layer_1">
         <g>
