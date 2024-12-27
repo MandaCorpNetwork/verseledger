@@ -1,6 +1,6 @@
 import { Subscription } from 'encore.dev/pubsub';
 import { userLogin } from './user';
-import { UserDB } from './user-database';
+import { UserDB } from './user_database';
 
 const _ = new Subscription(userLogin, 'update-last-login', {
   handler: async (event) => {

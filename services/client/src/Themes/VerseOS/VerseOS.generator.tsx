@@ -81,6 +81,12 @@ export const generateVerseOSBase = (
       },
     },
     components: {
+      MuiChip: {
+        defaultProps: {
+          variant: 'outlined',
+          color: 'secondary',
+        },
+      },
       MuiLoadingButton: {
         defaultProps: {
           variant: 'outlined',

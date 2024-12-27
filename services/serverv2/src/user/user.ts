@@ -1,5 +1,5 @@
 import { api } from 'encore.dev/api';
-import { UserDB } from './user-database';
+import { UserDB } from './user_database';
 import { user } from '~encore/clients';
 import { createId, IDPrefix } from '../utils/createId';
 import { Topic } from 'encore.dev/pubsub';

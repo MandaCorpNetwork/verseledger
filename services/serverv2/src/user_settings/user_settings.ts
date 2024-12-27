@@ -21,7 +21,7 @@ interface UpdateUserSettingCMD {
 }
 export const updateUserSetting = api(
   { expose: true, auth: true, path: '/settings', method: 'PUT' },
-  async (params: UpdateUserSettingCMD) => {
+  async (_params: UpdateUserSettingCMD) => {
     const authRole = getAuthData()!;
     assertPermission(ApiPermission.USERSETTINGS_WRITE, authRole);
   },

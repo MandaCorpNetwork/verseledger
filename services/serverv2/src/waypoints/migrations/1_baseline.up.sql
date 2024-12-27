@@ -1,0 +1,5 @@
+CREATE TABLE waypoints (
+  id VARCHAR(26) PRIMARY KEY,
+  name VARCHAR(64) NOT NULL,
+  public BOOLEAN DEFAULT 'f'
+);

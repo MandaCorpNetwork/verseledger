@@ -1,6 +1,6 @@
 import { SQLDatabase } from 'encore.dev/storage/sqldb';
 
-export const AuthDB = new SQLDatabase('auth-database', {
+export const AuthDB = new SQLDatabase('auth_database', {
   migrations: './migrations',
 });
 
