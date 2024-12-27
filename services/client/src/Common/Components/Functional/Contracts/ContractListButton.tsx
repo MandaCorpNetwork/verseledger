@@ -1,4 +1,4 @@
-import { ListItemButton, ListItemText } from '@mui/material';
+import { Box, ListItemButton, ListItemText } from '@mui/material';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
 import { useNav } from '@Utils/Hooks/useNav';
 import { useIsMobile } from '@Utils/isMobile';
@@ -31,8 +31,6 @@ export const ContractListButton: React.FC<ListButtonProps> = ({
   const nav = useNav();
   const isMobile = useIsMobile();
 
-  const layout = useMemo(() => {}, []);
-
   const handleSelect = useCallback(
     (e: React.MouseEvent) => {
       if (isMobile) {
@@ -53,6 +51,15 @@ export const ContractListButton: React.FC<ListButtonProps> = ({
     [contract.id, nav],
   );
 
+  const layout = useMemo(() => {
+    const button = extendTheme.layout('Contracts.ContractListButton');
+    const left = extendTheme.layout('Contracts.ContractListButton.LeftBox');
+    const right = extendTheme.layout('Contracts.ContractListButton.RightBox');
+    const title = extendTheme.layout('Contracts.ContractListButton.Title');
+
+    return { button, left, right, title };
+  }, [extendTheme]);
+
   return (
     <ListItemButton
       data-testid={testId}
@@ -60,15 +67,65 @@ export const ContractListButton: React.FC<ListButtonProps> = ({
       selected={selectedContractId === contract.id}
       onClick={handleSelect}
       onAuxClick={handleAuxSelect}
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        mx: '5%',
+        ...layout.button,
+      }}
     >
-      <div>
-        <ListItemText primary={contract.title} />
-        <SubtypeChip value={contract.subtype} />
-      </div>
-      <div>
-        <UserChip user={contract.Owner} />
-        <PayDisplay structure={contract.payStructure} value={contract.defaultPay} />
-      </div>
+      <Box
+        data-testid={`${testId}__Left_Container`}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          gap: '0.5em',
+          ...layout.left,
+        }}
+      >
+        <ListItemText
+          data-testid={`${testId}__Title`}
+          primary={contract.title}
+          slotProps={{
+            primary: {
+              variant: 'h6',
+              sx: {
+                ...layout.title,
+              },
+            },
+          }}
+        />
+        <SubtypeChip
+          data-testid={`${testId}__${contract.subtype}_SubtypeChip`}
+          aria-label={`Clickable ${contract.subtype} Contract Subtype Chip to Display details on ${contract.subtype}`}
+          value={contract.subtype}
+        />
+      </Box>
+      <Box
+        data-testid={`${testId}__Right_Container`}
+        sx={{
+          display: 'inline-flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '0.5em',
+          ...layout.right,
+        }}
+      >
+        <UserChip
+          data-testid={`${testId}__UserChip`}
+          aria-label="Clickable User Chip for the Contract Owner"
+          size="small"
+          user={contract.Owner}
+        />
+        <PayDisplay
+          data-testid={`${testId}__DefaultPay_Display`}
+          aria-label="Display of Default Pay for the Contract"
+          structure={contract.payStructure}
+          value={contract.defaultPay}
+        />
+      </Box>
     </ListItemButton>
   );
 };

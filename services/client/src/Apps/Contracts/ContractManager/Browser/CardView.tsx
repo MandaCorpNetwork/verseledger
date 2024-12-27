@@ -69,6 +69,8 @@ export const CardView: React.FC = () => {
                   <ContractListButton
                     key={contract.id}
                     contract={contract as IContractWithOwner}
+                    data-testid={`ContractManager-Browser-ContractList-CardView-${archetype.archetypeLabel}-ContractSelections__${contract.id}_ListItemButton`}
+                    aria-label={`Selection Button for the Contract: ${contract.title}`}
                   />
                 ))}
               </List>
