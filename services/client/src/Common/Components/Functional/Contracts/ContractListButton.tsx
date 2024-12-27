@@ -5,10 +5,13 @@ import { useIsMobile } from '@Utils/isMobile';
 import type React from 'react';
 import { useCallback, useMemo } from 'react';
 import { useParams } from 'react-router';
-import { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
+import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
+
+import { UserChip } from '../Applcation/Chips/UserChip';
+import { SubtypeChip } from './SubtypeChip';
 
 type ListButtonProps = {
-  contract: IContract;
+  contract: IContractWithOwner;
   'data-testid'?: string;
   'aria-label'?: string;
 };
@@ -59,8 +62,11 @@ export const ContractListButton: React.FC<ListButtonProps> = ({
     >
       <div>
         <ListItemText primary={contract.title} />
+        <SubtypeChip value={contract.subtype} />
       </div>
-      <div></div>
+      <div>
+        <UserChip user={contract.Owner} />
+      </div>
     </ListItemButton>
   );
 };

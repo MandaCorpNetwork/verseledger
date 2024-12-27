@@ -81,6 +81,7 @@ export const SubtypeChip: React.FC<ChipProps> = (props) => {
         size={size}
         color={color}
         onClick={handleArchetypeOpen}
+        label={subtype.label}
         sx={{
           maxWidth: '120px',
           ...layout.chipOverwrite,
