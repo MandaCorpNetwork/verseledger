@@ -11,9 +11,9 @@ import type { SvgIconComponent } from '@mui/icons-material';
 import {
   Exploration,
   Fleet,
-  Industry,
   Logistics,
   Medical,
+  Mining,
   MissileRearm,
   ProxyIcon,
   Refuel,
@@ -115,7 +115,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   {
     archetype: 'Industry',
     archetypeLabel: 'Industry',
-    archetypeIcon: Industry,
+    archetypeIcon: Mining,
     subtypes: [
       {
         label: 'Mining',
@@ -236,10 +236,10 @@ export const contractSubtypes: Record<IContractSubtype, ContractSubtypeDetails> 
   Attache: { icon: Security, archetype: 'Security', label: 'Attache' },
   Collection: { icon: Salvage, archetype: 'Salvage', label: 'Collection' },
   Procurement: { icon: Salvage, archetype: 'Salvage', label: 'Procurement' },
-  Mining: { icon: Industry, archetype: 'Industry', label: 'Mining' },
-  Refining: { icon: Industry, archetype: 'Industry', label: 'Refining' },
-  Manufacturing: { icon: Industry, archetype: 'Industry', label: 'Manufacturing' },
-  Scouting: { icon: Industry, archetype: 'Industry', label: 'Scouting' },
+  Mining: { icon: Mining, archetype: 'Industry', label: 'Mining' },
+  Refining: { icon: Mining, archetype: 'Industry', label: 'Refining' },
+  Manufacturing: { icon: Mining, archetype: 'Industry', label: 'Manufacturing' },
+  Scouting: { icon: Mining, archetype: 'Industry', label: 'Scouting' },
   Refuel: { icon: Refuel, archetype: 'RRR', label: 'Refuel' },
   Rearm: { icon: MissileRearm, archetype: 'RRR', label: 'Rearm' },
   Repair: { icon: Repair, archetype: 'RRR', label: 'Repair' },
