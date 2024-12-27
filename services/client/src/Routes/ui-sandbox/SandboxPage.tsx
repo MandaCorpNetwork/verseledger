@@ -1,7 +1,7 @@
 import background from '@Assets/media/VLSandboxPic.jpg?url';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { VLViewport } from '@Common/Components/Core/Boxes/VLViewport';
-import { SandboxContent } from '@CommonLegacy/SandboxContent';
+import { SandboxContent } from '@Common/Components/Wrappers/SandboxContent';
 import { Box, Typography } from '@mui/material';
 
 //This is a Sandbox Area for Testing Certain Components that may not have a home.
