@@ -11,9 +11,9 @@ import type { SvgIconComponent } from '@mui/icons-material';
 import {
   Exploration,
   Fleet,
-  Mining,
   Logistics,
   Medical,
+  Mining,
   ProxyIcon,
   Rrr,
   Salvage,
