@@ -10,7 +10,6 @@ export const TYPES = {
   StompService: Symbol.for('StompService'),
   TestingMiddleware: Symbol.for('TestingMiddleware'),
   Logger: Symbol.for('Logger'),
-  PallyService: Symbol.for('PallyService'),
   ResourceEditorService: Symbol.for('ResourceEditorService'),
   RatingService: Symbol.for('RatingService'),
   ChatService: Symbol.for('ChatService'),

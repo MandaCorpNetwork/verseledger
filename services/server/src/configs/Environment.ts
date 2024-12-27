@@ -83,18 +83,6 @@ export const envConfig = {
     optional: false,
     default: null,
   },
-  PALLY_WS: {
-    type: 'string',
-    description: 'https://pally.gg/dashboard/settings/api-keys',
-    optional: true,
-    default: null,
-  },
-  PALLY_CHANNEL: {
-    type: 'string',
-    description: 'pally.gg channel',
-    optional: true,
-    default: null,
-  },
   VAPID_PUBLIC_KEY: {
     type: 'string',
     description: 'npx web-push generate-vapid-keys',

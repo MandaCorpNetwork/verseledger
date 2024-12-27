@@ -2,9 +2,12 @@ import { Header, Gateway, Query, APIError, api } from 'encore.dev/api';
 import { authHandler } from 'encore.dev/auth';
 import jwt from 'jsonwebtoken';
 import { secret } from 'encore.dev/config';
-import { auth, user } from '~encore/clients';
+import { auth, users } from '~encore/clients';
 import { AuthDB } from './database';
+import ms from 'ms';
 import { userLogin } from '../user/user';
+import { createId, IDPrefix } from '../utils/createId';
+import { ApiPermission } from './permissions';
 
 interface AuthParams {
   authHeader?: Header<'Authorization'>;
@@ -20,38 +23,6 @@ interface AuthData {
   type: 'access' | 'refresh' | 'api';
   roles: ApiPermission[];
 }
-export enum ApiPermission {
-  ADMIN = 'ADMIN',
-  VL_ADMIN = 'VLADMIN',
-  CHAT = 'CHAT',
-  CHAT_READ = 'CHAT_READ',
-  CHAT_WRITE = 'CHAT_WRITE',
-  NOTIFICATIONS = 'NOTIFICATIONS',
-  NOTIFICATIONS_READ = 'NOTIFICATIONS_READ',
-  NOTIFICATIONS_WRITE = 'NOTIFICATIONS_WRITE',
-  CONTRACT = 'CONTRACT',
-  CONTRACT_READ = 'CONTRACT_READ',
-  CONTRACT_WRITE = 'CONTRACT_WRITE',
-  BID = 'BID',
-  BID_READ = 'BID_READ',
-  BID_WRITE = 'BID_WRITE',
-  RATING = 'RATING',
-  RATING_READ = 'RATING_READ',
-  RATING_WRITE = 'RATING_WRITE',
-  USER = 'USER',
-  USER_READ = 'USER_READ',
-  USER_WRITE = 'USER_WRITE',
-  USERSETTINGS = 'USERSETTINGS',
-  USERSETTINGS_READ = 'USERSETTINGS_READ',
-  USERSETTINGS_WRITE = 'USERSETTINGS_WRITE',
-  ORGS = 'ORGS',
-  ORGS_READ = 'ORGS_READ',
-  ORGS_WRITE = 'ORGS_WRITE',
-  TOKEN = 'TOKEN',
-  TOKEN_READ = 'TOKEN_READ',
-  TOKEN_WRITE = 'TOKEN_WRITE',
-}
-
 const AUTH_SECRET = secret('AUTH_SECRET');
 // The auth handler itself.
 export const JWTAuthHandler = authHandler<AuthParams, AuthData>(
@@ -64,10 +35,11 @@ export const JWTAuthHandler = authHandler<AuthParams, AuthData>(
     try {
       userAuth = jwt.verify(
         token,
-        Buffer.from(AUTH_SECRET(), 'base64'),
+        Buffer.from(AUTH_SECRET().toString(), 'base64'),
+        { algorithms: ['HS512'] },
       ) as AuthData;
     } catch (_e) {
-      // Do Nothing
+      throw APIError.unauthenticated('Invalid Token');
     }
     if (userAuth == null)
       throw APIError.unauthenticated(
@@ -98,8 +70,8 @@ export const JWTAuthHandler = authHandler<AuthParams, AuthData>(
 );
 
 //#region Endpoints
-
 const DISCORD_CLIENT_ID = secret('DISCORD_CLIENT_ID');
+
 const FRONTEND_HOST = secret('FRONTEND_HOST');
 const DISCORD_CLIENT_SECRET = secret('DISCORD_CLIENT_SECRET');
 interface LoginWithDiscordCMD {
@@ -162,18 +134,17 @@ export const login = api(
     auth: false,
     path: '/login/:service',
   },
-  async (params: LoginWithServiceCMD) => {
+  async (params: LoginWithServiceCMD): Promise<VLTokenPair> => {
     const service = params.service.toUpperCase();
     switch (service) {
       case 'DISCORD': {
         const loginResp = await auth.loginWithDiscord({ code: params.code });
-        const login_user = await user.getOrCreateUser({
+        const login_user = await users.getOrCreate({
           user_id: loginResp.id,
           service,
         });
-        console.log(login_user);
         userLogin.publish({ userId: login_user.id });
-        return login_user;
+        return auth.createTokenPair({ userID: login_user.id });
       }
       default:
         throw APIError.unimplemented(`Login Method Not Available: ${service}`);
@@ -183,10 +154,98 @@ export const login = api(
 
 interface CreateTokenPairCMD {
   userID: string;
+  jwtid?: string;
+}
+interface CreateTokenCMD {
+  userID: string;
+  type: string;
+  expires?: Date | number | string;
+  roles?: string[];
+  jwtid?: string;
+  name?: string;
+}
+
+interface VLAuthToken {
+  token: string;
+  type: string;
+  expires: Date;
+}
+
+interface VLTokenPair {
+  access: VLAuthToken;
+  refresh: VLAuthToken;
 }
 export const createTokenPair = api(
   {},
-  async (_params: CreateTokenPairCMD) => {},
+  async (params: CreateTokenPairCMD): Promise<VLTokenPair> => {
+    const { jwtid = createId(IDPrefix.System), userID } = params;
+    const [access, refresh] = await Promise.all([
+      auth.createToken({
+        userID,
+        expires: '1h',
+        type: 'access',
+        roles: [ApiPermission.ADMIN],
+        jwtid,
+      }),
+      auth.createToken({
+        userID,
+        expires: '2d',
+        type: 'refresh',
+        roles: [ApiPermission.ADMIN],
+        jwtid,
+      }),
+    ]);
+    return {
+      access,
+      refresh,
+    };
+  },
+);
+
+export const createToken = api(
+  {},
+  async (params: CreateTokenCMD): Promise<VLAuthToken> => {
+    const {
+      name = 'USER TOKEN',
+      type = 'access',
+      userID,
+      expires = '1h',
+      roles,
+      jwtid = createId(IDPrefix.System),
+    } = params;
+
+    const expiresRange =
+      typeof expires === 'string' ? ms(expires) : new Date(expires).getTime();
+    const expiresAt = new Date(Date.now() + expiresRange);
+
+    const tokenRaw = jwt.sign(
+      { id: userID, type, roles },
+      Buffer.from(AUTH_SECRET().toString(), 'base64'),
+      {
+        algorithm: 'HS512',
+        jwtid,
+        audience: 'verseledger.net',
+        issuer: 'api.verseledger.net',
+        expiresIn: ms(expiresRange),
+        subject: userID,
+      },
+    );
+    const id = createId(IDPrefix.System);
+    await AuthDB.exec`
+    INSERT INTO api_tokens (id, user_id, token_id, type, name, expires_at, roles)
+    VALUES
+      (
+        ${id},
+        ${userID},
+        ${jwtid},
+        ${type},
+        ${name},
+        ${expiresAt},
+        ${roles ? JSON.stringify(roles) : JSON.stringify([])}
+      );`;
+
+    return { expires: expiresAt, token: tokenRaw, type };
+  },
 );
 
 //#endRegion

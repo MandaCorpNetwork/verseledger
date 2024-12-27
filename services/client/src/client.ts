@@ -32,7 +32,7 @@ export function PreviewEnv(pr: number | string): BaseURL {
 export default class Client {
     public readonly auth: auth.ServiceClient
     public readonly info: info.ServiceClient
-    public readonly user: user.ServiceClient
+    public readonly users: users.ServiceClient
     public readonly user_settings: user_settings.ServiceClient
     public readonly waypoints: waypoints.ServiceClient
 
@@ -47,7 +47,7 @@ export default class Client {
         const base = new BaseClient(target, options ?? {})
         this.auth = new auth.ServiceClient(base)
         this.info = new info.ServiceClient(base)
-        this.user = new user.ServiceClient(base)
+        this.users = new users.ServiceClient(base)
         this.user_settings = new user_settings.ServiceClient(base)
         this.waypoints = new waypoints.ServiceClient(base)
     }
@@ -86,6 +86,17 @@ export namespace auth {
         code: string
     }
 
+    export interface VLAuthToken {
+        token: string
+        type: string
+        expires: string
+    }
+
+    export interface VLTokenPair {
+        access: VLAuthToken
+        refresh: VLAuthToken
+    }
+
     export class ServiceClient {
         private baseClient: BaseClient
 
@@ -96,8 +107,10 @@ export namespace auth {
         /**
          * Login with a given service
          */
-        public async login(service: string, params: LoginWithServiceCMD): Promise<void> {
-            await this.baseClient.callAPI("POST", `/login/${encodeURIComponent(service)}`, JSON.stringify(params))
+        public async login(service: string, params: LoginWithServiceCMD): Promise<VLTokenPair> {
+            // Now make the actual call to the API
+            const resp = await this.baseClient.callAPI("POST", `/login/${encodeURIComponent(service)}`, JSON.stringify(params))
+            return await resp.json() as VLTokenPair
         }
     }
 }
@@ -111,7 +124,7 @@ export namespace info {
             this.baseClient = baseClient
         }
 
-        public async info(): Promise<encore.dev.AppMeta> {
+        public async get(): Promise<encore.dev.AppMeta> {
             // Now make the actual call to the API
             const resp = await this.baseClient.callAPI("GET", `/info`)
             return await resp.json() as encore.dev.AppMeta
@@ -119,20 +132,7 @@ export namespace info {
     }
 }
 
-export namespace user {
-    export interface User {
-        id: string
-        handle: string
-        "display_name": string
-        pfp: string
-        verified: boolean
-        "total_ratings": number
-        "weighted_rating": number
-        "display_rating": number
-        "created_at": string
-        "updated_at": string
-        "last_login": string
-    }
+export namespace users {
 
     export class ServiceClient {
         private baseClient: BaseClient
@@ -141,10 +141,10 @@ export namespace user {
             this.baseClient = baseClient
         }
 
-        public async getUser(user_id: string): Promise<User> {
+        public async get(user_id: string): Promise<user.User> {
             // Now make the actual call to the API
             const resp = await this.baseClient.callAPI("GET", `/users/${encodeURIComponent(user_id)}`)
-            return await resp.json() as User
+            return await resp.json() as user.User
         }
     }
 }
@@ -163,11 +163,11 @@ export namespace user_settings {
             this.baseClient = baseClient
         }
 
-        public async getUserSettings(): Promise<void> {
+        public async get(): Promise<void> {
             await this.baseClient.callAPI("GET", `/settings`)
         }
 
-        public async updateUserSetting(params: UpdateUserSettingCMD): Promise<void> {
+        public async update(params: UpdateUserSettingCMD): Promise<void> {
             await this.baseClient.callAPI("PUT", `/settings`, JSON.stringify(params))
         }
     }
@@ -262,6 +262,22 @@ export namespace encore.dev {
     }
 
     export type EnvironmentType = "production" | "development" | "ephemeral" | "test"
+}
+
+export namespace user {
+    export interface User {
+        id: string
+        handle: string
+        "display_name": string
+        pfp: string
+        verified: boolean
+        "total_ratings": number
+        "weighted_rating": number
+        "display_rating": number
+        "created_at": string
+        "updated_at": string
+        "last_login": string
+    }
 }
 
 

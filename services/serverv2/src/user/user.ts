@@ -1,6 +1,6 @@
 import { api } from 'encore.dev/api';
 import { UserDB } from './user_database';
-import { user } from '~encore/clients';
+import { users } from '~encore/clients';
 import { createId, IDPrefix } from '../utils/createId';
 import { Topic } from 'encore.dev/pubsub';
 
@@ -44,7 +44,7 @@ interface CreateUserCMD {
   service: string;
 }
 
-export const getUser = api(
+export const get = api(
   { expose: true, method: 'GET', path: '/users/:user_id' },
   async (params: GetUserCMD): Promise<User> => {
     const row =
@@ -69,7 +69,7 @@ interface UserAuthAttempt {
   user?: User;
 }
 
-export const getUserByAuth = api(
+export const getByAuth = api(
   {},
   async (params: GetUserByAuthCMD): Promise<UserAuthAttempt> => {
     const userAuth = (await UserDB.queryRow`
@@ -95,7 +95,7 @@ export const getUserByAuth = api(
   },
 );
 
-export const createUser = api(
+export const create = api(
   { expose: false, method: 'POST' },
   async (params: CreateUserCMD): Promise<User> => {
     const newId = createId(IDPrefix.User);
@@ -117,15 +117,15 @@ export const createUser = api(
   },
 );
 
-export const getOrCreateUser = api(
+export const getOrCreate = api(
   { expose: false },
   async (params: GetOrCreateUserCMD): Promise<User> => {
-    const existingUser = await user.getUserByAuth({
+    const existingUser = await users.getByAuth({
       identifier: params.user_id,
       type: params.service,
     });
     if (existingUser.success) return existingUser.user!;
-    const newUser = await user.createUser({
+    const newUser = await users.create({
       identifier: params.user_id,
       service: params.service,
     });

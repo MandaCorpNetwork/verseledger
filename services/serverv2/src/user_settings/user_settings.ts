@@ -1,10 +1,9 @@
 import { api } from 'encore.dev/api';
 import { getAuthData } from '~encore/auth';
-import { assertPermission } from '../auth/permissions';
-import { ApiPermission } from '../auth/auth';
+import { assertPermission, ApiPermission } from '../auth/permissions';
 import { UserSettingsDB } from './database';
 
-export const getUserSettings = api(
+export const get = api(
   { expose: true, auth: true, path: '/settings', method: 'GET' },
   async () => {
     const authRole = getAuthData()!;
@@ -19,7 +18,7 @@ interface UpdateUserSettingCMD {
   key: string;
   value: string;
 }
-export const updateUserSetting = api(
+export const update = api(
   { expose: true, auth: true, path: '/settings', method: 'PUT' },
   async (_params: UpdateUserSettingCMD) => {
     const authRole = getAuthData()!;

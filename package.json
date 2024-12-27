@@ -3,7 +3,10 @@
 	"version": "0.1.0",
 	"licence": "CC-BY-NC-ND-4.0",
 	"private": true,
-	"workspaces": ["services/*", "packages/*"],
+	"workspaces": [
+		"services/*",
+		"packages/*"
+	],
 	"scripts": {
 		"postinstall": "preconstruct dev && manypkg check",
 		"clean": "yarn manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules",
@@ -34,7 +37,9 @@
 		"concurrently": "9.1.0"
 	},
 	"preconstruct": {
-		"packages": ["packages/*"]
+		"packages": [
+			"packages/*"
+		]
 	},
 	"resolutions": {
 		"@types/mime": "3.0.4",

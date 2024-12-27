@@ -17,9 +17,6 @@ export class EnvService implements EnvironmentConfig {
   declare BACKEND_HOST: string;
   declare BROKER_HOST: string;
 
-  declare PALLY_WS: string;
-  declare PALLY_CHANNEL: string;
-
   declare VAPID_PUBLIC_KEY: string;
   declare VAPID_PRIVATE_KEY: string;
   declare VAPID_SUBJECT: string;

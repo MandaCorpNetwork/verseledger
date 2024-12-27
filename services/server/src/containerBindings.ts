@@ -11,7 +11,6 @@ import { VerifiedUserMiddleware } from '@V1/middleware/verified.middleware';
 import { TestingMiddleware } from '@V1/middleware/testing.middleware';
 import { NotificationService } from '@V1/models/notifications/notification.service';
 import { Logger } from './utils/Logger';
-import { PallyService } from '@V1/models/donation/pally.service';
 import { ResourceEditorService } from '@V1/services/resource_editor.service';
 import { RatingService } from '@V1/models/user_ratings/rating.service';
 import { UserSettingsService } from '@V1/models/user_settings/user_settings.service';
@@ -62,10 +61,6 @@ export const bindContainer = (container: Container) => {
     .to(StompService)
     .inSingletonScope();
   container.bind<Logger>(TYPES.Logger).to(Logger).inSingletonScope();
-  container
-    .bind<PallyService>(TYPES.PallyService)
-    .to(PallyService)
-    .inSingletonScope();
   container
     .bind<ResourceEditorService>(TYPES.ResourceEditorService)
     .to(ResourceEditorService)
