@@ -8,6 +8,7 @@ import { selectContracts } from '@Redux/Slices/Contracts/contracts.selectors';
 import { groupContractsByArchetype } from '@Utils/Contracts/ContractTypeUtils';
 import type React from 'react';
 import { useCallback, useMemo, useState } from 'react';
+import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 /**
  * Virtualized List of Contract Cards for the Contract Manager
@@ -65,7 +66,10 @@ export const CardView: React.FC = () => {
             <Collapse in={open} unmountOnExit mountOnEnter>
               <List>
                 {archetypeContracts.map((contract) => (
-                  <ContractListButton key={contract.id} contract={contract} />
+                  <ContractListButton
+                    key={contract.id}
+                    contract={contract as IContractWithOwner}
+                  />
                 ))}
               </List>
             </Collapse>

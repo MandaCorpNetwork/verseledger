@@ -8,6 +8,7 @@ import { useParams } from 'react-router';
 import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 import { UserChip } from '../Applcation/Chips/UserChip';
+import { PayDisplay } from '../Applcation/Displays/PayDisplay';
 import { SubtypeChip } from './SubtypeChip';
 
 type ListButtonProps = {
@@ -66,6 +67,7 @@ export const ContractListButton: React.FC<ListButtonProps> = ({
       </div>
       <div>
         <UserChip user={contract.Owner} />
+        <PayDisplay structure={contract.payStructure} value={contract.defaultPay} />
       </div>
     </ListItemButton>
   );
