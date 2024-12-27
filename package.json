@@ -34,7 +34,7 @@
 		"@changesets/cli": "2.27.11",
 		"@manypkg/cli": "0.23.0",
 		"@preconstruct/cli": "2.8.10",
-		"concurrently": "9.1.0"
+		"concurrently": "9.1.1"
 	},
 	"preconstruct": {
 		"packages": [
