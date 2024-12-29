@@ -40,11 +40,10 @@ type ListButtonProps = {
  * ListItem Button for the Dropdown View of Contracts in the List Format.
  * ___
  * TODO:
- * - Fix Svg Icons being the wrong setup, try to simplify them
- * - Setup the Styles for VerseOS
  * - Setup the Styles for PirateOS
+ * - Add Translations
+ * - Manage Formatted Text
  * - Extend Overwrite Props to the Dropdown Icon
- * - Refactor the Text Styles for the Primary and Secondary Text as well
  */
 export const ArchetypeListButton: React.FC<ListButtonProps> = ({
   archetype,
@@ -88,6 +87,7 @@ export const ArchetypeListButton: React.FC<ListButtonProps> = ({
       id={testId}
       onClick={onClick}
       disabled={disabled}
+      selected={open}
       sx={{
         ...layout.listButtonOverwrite,
       }}
@@ -109,12 +109,24 @@ export const ArchetypeListButton: React.FC<ListButtonProps> = ({
         data-testid={`${testId}__Label`}
         aria-labelledby={testId}
         primary={archetype.archetypeLabel}
-        secondary={`${count ? count : 'No'} contracts`}
+        secondary={`${count ? count : 'No'} Contract${count === 1 ? '' : 's'}`}
         sx={{
           display: 'flex',
           alignItems: 'flex-end',
-          gap: '2em',
+          gap: '1em',
           ...layout.listTextOverwrite,
+        }}
+        slotProps={{
+          primary: {
+            variant: 'h5',
+          },
+          secondary: {
+            variant: 'caption',
+            color: 'info',
+            sx: {
+              mb: '3px',
+            },
+          },
         }}
       />
       <SvgIcon

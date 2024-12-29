@@ -5,7 +5,7 @@ import { useIsMobile } from '@Utils/isMobile';
 import React, { Suspense } from 'react';
 import { useParams } from 'react-router';
 
-import { ContractManagerBrowser } from './Browser/ContractManagerBrowser';
+import { ContractManagerBrowser } from '../../../Apps/Contracts/ContractManager/Browser/ContractManagerBrowser';
 import { ContractorInfo } from './ContractDisplay/tools/ContractorInfo';
 const SelectedContract = React.lazy(async () => {
   const module = await import('./ContractDisplay/SelectedContract');
