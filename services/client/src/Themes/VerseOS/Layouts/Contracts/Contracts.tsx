@@ -78,5 +78,15 @@ export const verseOSContractsComponents: ThemeStyledComponents = {
     borderColor: theme.palette.action.disabled,
     background: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.5)}, ${alpha(theme.palette.primary.dark, 0.5)})`,
     color: 'text.secondary',
+    transition: 'background 0.3s ease, border-color 0.2s ease, text-shadow 0.3s ease',
+    '&.Mui-selected': {
+      borderColor: theme.palette.success.main,
+      background: `linear-gradient(135deg, ${alpha(theme.palette.success.main, 0.5)}, ${alpha(theme.palette.success.dark, 0.5)})`,
+      textShadow: `0 1px 8px ${theme.palette.background.paper}`,
+      '&.MuiTouchRipple-child': {
+        bgcolor: theme.palette.primary.dark,
+        color: theme.palette.secondary.light,
+      },
+    },
   }),
 };

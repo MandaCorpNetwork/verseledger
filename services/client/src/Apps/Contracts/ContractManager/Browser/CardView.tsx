@@ -2,12 +2,13 @@ import { useSoundEffect } from '@Audio/AudioManager';
 import { ArchetypeListButton } from '@Common/Components/Functional/Contracts/ArchetypeListButton';
 import { ContractListButton } from '@Common/Components/Functional/Contracts/ContractListButton';
 import { IContractArchetype } from '@Common/Definitions/Contracts/ContractTypes';
-import { Collapse, List } from '@mui/material';
+import { Collapse, List, Typography } from '@mui/material';
 import { useAppSelector } from '@Redux/hooks';
 import { selectContracts } from '@Redux/Slices/Contracts/contracts.selectors';
 import { groupContractsByArchetype } from '@Utils/Contracts/ContractTypeUtils';
 import type React from 'react';
 import { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSchema';
 
 /**
@@ -16,6 +17,7 @@ import { IContractWithOwner } from 'vl-shared/src/schemas/contracts/ContractSche
 export const CardView: React.FC = () => {
   const sound = useSoundEffect();
   const contracts = useAppSelector(selectContracts);
+  const { t } = useTranslation();
 
   const [openLists, setOpenLists] = useState<Set<IContractArchetype>>(new Set());
 
@@ -48,6 +50,16 @@ export const CardView: React.FC = () => {
         width: '100%',
       }}
     >
+      {contracts.length < 1 && (
+        <Typography
+          variant="h4"
+          align="center"
+          color="textDisabled"
+          sx={{ textShadow: '0 2px 8px rgb(0,0,0)', mt: '10%' }}
+        >
+          {t('@CONTRACTS.NONE')}
+        </Typography>
+      )}
       {Object.keys(groupedContracts).map((archetypeKey) => {
         const archetype = groupedContracts[archetypeKey].archetype;
         const open = openLists.has(archetype.archetype);
@@ -64,7 +76,13 @@ export const CardView: React.FC = () => {
               count={archetypeContracts.length}
             />
             <Collapse in={open} unmountOnExit mountOnEnter>
-              <List>
+              <List
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.5em',
+                }}
+              >
                 {archetypeContracts.map((contract) => (
                   <ContractListButton
                     key={contract.id}

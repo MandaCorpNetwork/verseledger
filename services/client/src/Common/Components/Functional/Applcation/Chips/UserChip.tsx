@@ -76,10 +76,20 @@ export const UserChip: React.FC<UserChipProps> = (props) => {
         aria-label={ariaLabel}
         color={color}
         size={size}
-        onClick={handlePlayerCardOpen}
+        onClick={(e) => {
+          e.stopPropagation();
+          handlePlayerCardOpen();
+        }}
         label={user.displayName}
         avatar={<Avatar src={user.pfp} sx={{ ...layout.avatarOverwrite }} />}
-        onDelete={onDelete ? handleDeleteUser : undefined}
+        onDelete={
+          onDelete
+            ? (e) => {
+                e.stopPropogation();
+                handleDeleteUser();
+              }
+            : undefined
+        }
         sx={{
           maxWidth: '150px',
           ...layout.chipOverwrite,
