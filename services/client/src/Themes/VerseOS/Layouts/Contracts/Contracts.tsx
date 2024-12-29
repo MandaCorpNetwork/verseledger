@@ -69,4 +69,14 @@ export const verseOSContractsComponents: ThemeStyledComponents = {
     fontSize: '1.8em',
     color: theme.palette.secondary.main,
   }),
+  'Contracts.ContractListButton': (theme: Theme): SxProps<Theme> => ({
+    px: { xs: '.5em', md: '1em' },
+    py: '.5em',
+    borderLeft: '3px solid',
+    borderRight: '3px solid',
+    borderRadius: '10px',
+    borderColor: theme.palette.action.disabled,
+    background: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.5)}, ${alpha(theme.palette.primary.dark, 0.5)})`,
+    color: 'text.secondary',
+  }),
 };
