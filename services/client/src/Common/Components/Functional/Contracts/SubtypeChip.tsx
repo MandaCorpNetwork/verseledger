@@ -7,6 +7,7 @@ import { openPopup } from '@Redux/Slices/Popups/popups.actions';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
 import type React from 'react';
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTypeSchema';
 
 type ChipProps = {
@@ -40,6 +41,7 @@ export const SubtypeChip: React.FC<ChipProps> = (props) => {
 
   const dispatch = useAppDispatch();
   const extendTheme = useDynamicTheme();
+  const { t } = useTranslation();
 
   const subtype = contractSubtypes[value];
 
@@ -65,7 +67,7 @@ export const SubtypeChip: React.FC<ChipProps> = (props) => {
   }, [extendTheme, slotProps?.icon?.sx, sx]);
 
   return (
-    <Tooltip data-testid={`${testId}__Tooltip`} title={subtype.label}>
+    <Tooltip data-testid={`${testId}__Tooltip`} title={t(subtype.label)}>
       <Chip
         data-testid={testId}
         aria-label={ariaLabel}
@@ -81,7 +83,7 @@ export const SubtypeChip: React.FC<ChipProps> = (props) => {
         size={size}
         color={color}
         onClick={handleArchetypeOpen}
-        label={subtype.label}
+        label={t(subtype.label)}
         sx={{
           maxWidth: '120px',
           ...layout.chipOverwrite,
