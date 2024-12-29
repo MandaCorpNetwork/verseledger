@@ -210,7 +210,7 @@ export const useMasterAppList = () => {
         path: '/apps/contracts',
         icon: Contracts,
         versionLabel: 'Contract Manager',
-        version: '3.0.9',
+        version: '3.1.1',
         severityCode: 1,
       },
       {

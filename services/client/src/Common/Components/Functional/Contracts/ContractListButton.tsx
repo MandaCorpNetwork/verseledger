@@ -19,6 +19,10 @@ type ListButtonProps = {
 
 /**
  * ListItemButton for Contracts in a List Format
+ * ___
+ * TODO:
+ * - Refine Styles for Verse OS
+ * - Start Styles for Pirate OS
  */
 export const ContractListButton: React.FC<ListButtonProps> = ({
   contract,
@@ -36,9 +40,8 @@ export const ContractListButton: React.FC<ListButtonProps> = ({
       if (isMobile) {
         nav(`/contracts/${contract.id}`, 'internal', true).onClick(e);
       } else {
-        const { search, pathname } = window.location;
-        const cleanedPathname = pathname.replace(/\/[^/]+$/, '');
-        nav(`${cleanedPathname}/${contract.id}${search}`, 'internal', false).onClick(e);
+        const { search } = window.location;
+        nav(`/apps/contracts/${contract.id}${search}`, 'internal', false).onClick(e);
       }
     },
     [contract.id, isMobile, nav],

@@ -2,7 +2,7 @@ import { BrowserTabs } from '@Apps/Contracts/ContractManager/Browser/BrowserTabs
 import { ContractList } from '@Apps/Contracts/ContractManager/Browser/ContractList';
 import { SearchTools } from '@Apps/Contracts/ContractManager/Browser/SearchTools';
 import { FeatureContainer } from '@Common/Components/Core/Boxes/FeatureContainer';
-import React from 'react';
+import React, { Suspense } from 'react';
 
 export const ContractManagerBrowser: React.FC = () => {
   return (
@@ -19,7 +19,9 @@ export const ContractManagerBrowser: React.FC = () => {
       >
         <SearchTools />
       </div>
-      <ContractList />
+      <Suspense>
+        <ContractList />
+      </Suspense>
     </FeatureContainer>
   );
 };

@@ -109,5 +109,48 @@
     "WIKI": {
       "LABEL": "Wiki"
     }
+  },
+  "@CONTRACTS": {
+    "SINGLE": "Contract",
+    "PLURAL": "Contracts",
+    "NONE": "No Contracts",
+    "ARCHETYPES": {
+      "LOGISTICS": "Logistics",
+      "MEDICAL": "Medical",
+      "SECURITY": "Security",
+      "SALVAGE": "Salvage",
+      "INDUSTRY": "Industry",
+      "RRR": "Support Services",
+      "FLEET": "Fleet",
+      "EXPLORATION": "Exploration",
+      "PROXY": "Other"
+    },
+    "SUBTYPES": {
+      "TRANSPORT": "Transportation",
+      "HAULING": "Hauling",
+      "MANAGE": "Cargo Management",
+      "TRAUMA": "Trauma",
+      "ONCALL": "On Call",
+      "ESCORT": "Escort",
+      "BOUNTY": "Bounty",
+      "QRF": "Quick Reaction Force",
+      "ASSETPROTECT": "Asset Protection",
+      "ATTACHE": "Attache",
+      "COLLECTION": "Collection",
+      "PROCUREMENT": "Procurement",
+      "MINING": "Mining",
+      "REFINING": "Refining",
+      "MANUFACTURING": "Manufacturing",
+      "SCOUTING": "Scouting",
+      "REFUEL": "Refuel",
+      "REARM": "Rearm",
+      "REPAIR": "Repair",
+      "CREWMAN": "Crewman",
+      "OUTSOURCING": "Outsourcing",
+      "LOCATE": "Locating",
+      "CHARTING": "Charting",
+      "MIDDLEMAN": "Middleman",
+      "REDACTED": "Redacted"
+    }
   }
 }

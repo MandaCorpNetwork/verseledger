@@ -38,7 +38,7 @@ export type ContractArchetypeTree = {
 export const contractArchetypes: ContractArchetypeTree[] = [
   {
     archetype: 'Logistics',
-    archetypeLabel: 'Logistics',
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.LOGISTICS',
     archetypeIcon: Logistics,
     subtypes: [
       {
@@ -57,7 +57,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Medical',
-    archetypeLabel: 'Medical',
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.MEDICAL',
     archetypeIcon: Medical,
     subtypes: [
       {
@@ -72,7 +72,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Security',
-    archetypeLabel: 'Security',
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.SECURITY',
     archetypeIcon: Security,
     subtypes: [
       {
@@ -99,7 +99,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Salvage',
-    archetypeLabel: 'Salvage',
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.SALVAGE',
     archetypeIcon: Salvage,
     subtypes: [
       {
@@ -114,8 +114,8 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Industry',
-    archetypeLabel: 'Industry',
     archetypeIcon: Mining,
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.INDUSTRY',
     subtypes: [
       {
         label: 'Mining',
@@ -137,7 +137,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'RRR',
-    archetypeLabel: 'Rearm Refuel Repair',
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.RRR',
     archetypeIcon: Rrr,
     subtypes: [
       {
@@ -156,7 +156,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Fleet',
-    archetypeLabel: 'Fleet',
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.FLEET',
     archetypeIcon: Fleet,
     subtypes: [
       {
@@ -171,7 +171,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Exploration',
-    archetypeLabel: 'Exploration',
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.EXPLORATION',
     archetypeIcon: Exploration,
     subtypes: [
       {
@@ -186,7 +186,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Proxy',
-    archetypeLabel: 'Other',
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.PROXY',
     archetypeIcon: ProxyIcon,
     subtypes: [
       {
@@ -220,33 +220,89 @@ type ContractSubtypeDetails = {
 };
 
 export const contractSubtypes: Record<IContractSubtype, ContractSubtypeDetails> = {
-  Transport: { icon: Logistics, archetype: 'Logistics', label: 'Transport' },
-  Hauling: { icon: Logistics, archetype: 'Logistics', label: 'Hauling' },
-  Manage: { icon: Logistics, archetype: 'Logistics', label: 'Manage' },
-  Trauma: { icon: Medical, archetype: 'Medical', label: 'Trauma' },
-  'On-Call': { icon: Medical, archetype: 'Medical', label: 'On Call' },
-  Escort: { icon: Security, archetype: 'Security', label: 'Escort' },
-  Bounty: { icon: Security, archetype: 'Security', label: 'Bounty' },
-  QRF: { icon: Security, archetype: 'Security', label: 'Quick Reaction Force' },
+  Transport: {
+    icon: Logistics,
+    archetype: 'Logistics',
+    label: '@CONTRACTS.SUBTYPES.TRANSPORT',
+  },
+  Hauling: {
+    icon: Logistics,
+    archetype: 'Logistics',
+    label: '@CONTRACTS.SUBTYPES.HAULING',
+  },
+  Manage: {
+    icon: Logistics,
+    archetype: 'Logistics',
+    label: '@CONTRACTS.SUBTYPES.MANAGE',
+  },
+  Trauma: { icon: Medical, archetype: 'Medical', label: '@CONTRACTS.SUBTYPES.TRAUMA' },
+  'On-Call': { icon: Medical, archetype: 'Medical', label: '@CONTRACTS.SUBTYPES.ONCALL' },
+  Escort: { icon: Security, archetype: 'Security', label: '@CONTRACTS.SUBTYPES.ESCORT' },
+  Bounty: { icon: Security, archetype: 'Security', label: '@CONTRACTS.SUBTYPES.BOUNTY' },
+  QRF: { icon: Security, archetype: 'Security', label: '@CONTRACTS.SUBTYPES.QRF' },
   'Asset-Protection': {
     icon: Security,
     archetype: 'Security',
-    label: 'Asset Protection',
+    label: '@CONTRACTS.SUBTYPES.ASSETPROTECT',
   },
-  Attache: { icon: Security, archetype: 'Security', label: 'Attache' },
-  Collection: { icon: Salvage, archetype: 'Salvage', label: 'Collection' },
-  Procurement: { icon: Salvage, archetype: 'Salvage', label: 'Procurement' },
-  Mining: { icon: Mining, archetype: 'Industry', label: 'Mining' },
-  Refining: { icon: Mining, archetype: 'Industry', label: 'Refining' },
-  Manufacturing: { icon: Mining, archetype: 'Industry', label: 'Manufacturing' },
-  Scouting: { icon: Mining, archetype: 'Industry', label: 'Scouting' },
-  Refuel: { icon: Refuel, archetype: 'RRR', label: 'Refuel' },
-  Rearm: { icon: MissileRearm, archetype: 'RRR', label: 'Rearm' },
-  Repair: { icon: Repair, archetype: 'RRR', label: 'Repair' },
-  Crewman: { icon: Fleet, archetype: 'Fleet', label: 'Crewman' },
-  Outsourcing: { icon: Fleet, archetype: 'Fleet', label: 'Outsourcing' },
-  Locate: { icon: Exploration, archetype: 'Exploration', label: 'Locate' },
-  Charting: { icon: Exploration, archetype: 'Exploration', label: 'Charting' },
-  Middleman: { icon: ProxyIcon, archetype: 'Proxy', label: 'Middleman' },
-  Redacted: { icon: ProxyIcon, archetype: 'Proxy', label: 'Other' },
+  Attache: {
+    icon: Security,
+    archetype: 'Security',
+    label: '@CONTRACTS.SUBTYPES.ATTACHE',
+  },
+  Collection: {
+    icon: Salvage,
+    archetype: 'Salvage',
+    label: '@CONTRACTS.SUBTYPES.COLLECTION',
+  },
+  Procurement: {
+    icon: Salvage,
+    archetype: 'Salvage',
+    label: '@CONTRACTS.SUBTYPES.PROCUREMENT',
+  },
+  Mining: { icon: Mining, archetype: 'Industry', label: '@CONTRACTS.SUBTYPES.MINING' },
+  Refining: {
+    icon: Mining,
+    archetype: 'Industry',
+    label: '@CONTRACTS.SUBTYPES.REFINING',
+  },
+  Manufacturing: {
+    icon: Mining,
+    archetype: 'Industry',
+    label: '@CONTRACTS.SUBTYPES.MANUFACTURING',
+  },
+  Scouting: {
+    icon: Mining,
+    archetype: 'Industry',
+    label: '@CONTRACTS.SUBTYPES.SCOUTING',
+  },
+  Refuel: { icon: Refuel, archetype: 'RRR', label: '@CONTRACTS.SUBTYPES.REFUEL' },
+  Rearm: { icon: MissileRearm, archetype: 'RRR', label: '@CONTRACTS.SUBTYPES.REARM' },
+  Repair: { icon: Repair, archetype: 'RRR', label: '@CONTRACTS.SUBTYPES.REPAIR' },
+  Crewman: { icon: Fleet, archetype: 'Fleet', label: '@CONTRACTS.SUBTYPES.CREWMAN' },
+  Outsourcing: {
+    icon: Fleet,
+    archetype: 'Fleet',
+    label: '@CONTRACTS.SUBTYPES.OUTSOURCING',
+  },
+  Locate: {
+    icon: Exploration,
+    archetype: 'Exploration',
+    label: '@CONTRACTS.SUBTYPES.LOCATE',
+  },
+  Charting: {
+    icon: Exploration,
+    archetype: 'Exploration',
+    label: '@CONTRACTS.SUBTYPES.CHARTING',
+  },
+  Middleman: {
+    icon: ProxyIcon,
+    archetype: 'Proxy',
+    label: '@CONTRACTS.SUBTYPES.MIDDLEMAN',
+  },
+  Redacted: {
+    icon: ProxyIcon,
+    archetype: 'Proxy',
+    label: '@CONTRACTS.SUBTYPES.REDACTED',
+  },
 };

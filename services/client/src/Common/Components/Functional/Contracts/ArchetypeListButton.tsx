@@ -11,7 +11,8 @@ import {
 import type { Theme } from '@mui/material/styles';
 import { useDynamicTheme } from '@Utils/Hooks/useDynamicTheme';
 import type React from 'react';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type ListButtonProps = {
   archetype: ContractArchetypeTree;
@@ -40,11 +41,10 @@ type ListButtonProps = {
  * ListItem Button for the Dropdown View of Contracts in the List Format.
  * ___
  * TODO:
- * - Fix Svg Icons being the wrong setup, try to simplify them
- * - Setup the Styles for VerseOS
  * - Setup the Styles for PirateOS
+ * - Add Translations
+ * - Manage Formatted Text
  * - Extend Overwrite Props to the Dropdown Icon
- * - Refactor the Text Styles for the Primary and Secondary Text as well
  */
 export const ArchetypeListButton: React.FC<ListButtonProps> = ({
   archetype,
@@ -59,11 +59,13 @@ export const ArchetypeListButton: React.FC<ListButtonProps> = ({
 }) => {
   const extendTheme = useDynamicTheme();
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const layout = useMemo(() => {
     const listButton = extendTheme.layout('Contracts.ArchetypeListButton');
     const listIcon = extendTheme.layout('Contracts.ArchetypeListIcon');
     const listText = extendTheme.layout('Contracts.ArchetypeListText');
+    const dropIcon = extendTheme.layout('Contracts.ArchetypeListDropIcon');
 
     const listButtonOverwrite = {
       ...listButton,
@@ -77,9 +79,39 @@ export const ArchetypeListButton: React.FC<ListButtonProps> = ({
       ...listText,
       ...slotProps?.itemText?.sx,
     };
+    const dropIconOverwrite = {
+      ...dropIcon,
+      ...slotProps?.endIcon?.sx,
+    };
 
-    return { listButtonOverwrite, listIconOverwrite, listTextOverwrite };
-  }, [extendTheme, slotProps?.itemIcon?.sx, slotProps?.itemText?.sx, sx]);
+    return {
+      listButtonOverwrite,
+      listIconOverwrite,
+      listTextOverwrite,
+      dropIconOverwrite,
+    };
+  }, [
+    extendTheme,
+    slotProps?.endIcon?.sx,
+    slotProps?.itemIcon?.sx,
+    slotProps?.itemText?.sx,
+    sx,
+  ]);
+
+  const DropIcon = useMemo(() => {
+    if (slotProps?.endIcon?.component) {
+      return slotProps.endIcon.component;
+    }
+    return ArrowDropDown;
+  }, [slotProps?.endIcon?.component]);
+
+  const getCount = useCallback(() => {
+    if (!count) return t('@CONTRACTS.NONE');
+    const contractLabel = count > 1 ? '@CONTRACTS.PLURAL' : '@CONTRACTS.SINGLE';
+    return `${count} ${t(contractLabel)}`;
+  }, [count, t]);
+
+  const countLabel = getCount();
 
   return (
     <ListItemButton
@@ -88,6 +120,7 @@ export const ArchetypeListButton: React.FC<ListButtonProps> = ({
       id={testId}
       onClick={onClick}
       disabled={disabled}
+      selected={open}
       sx={{
         ...layout.listButtonOverwrite,
       }}
@@ -108,23 +141,36 @@ export const ArchetypeListButton: React.FC<ListButtonProps> = ({
       <ListItemText
         data-testid={`${testId}__Label`}
         aria-labelledby={testId}
-        primary={archetype.archetypeLabel}
-        secondary={`${count ? count : 'No'} contracts`}
+        primary={t(archetype.archetypeLabel)}
+        secondary={countLabel}
         sx={{
           display: 'flex',
           alignItems: 'flex-end',
-          gap: '2em',
+          gap: '1em',
           ...layout.listTextOverwrite,
+        }}
+        slotProps={{
+          primary: {
+            variant: 'h5',
+          },
+          secondary: {
+            variant: 'caption',
+            color: 'info',
+            sx: {
+              mb: '3px',
+            },
+          },
         }}
       />
       <SvgIcon
         data-testid={`${testId}__Dropdown_Icon`}
-        component={ArrowDropDown}
+        component={DropIcon}
         sx={{
           transform: open ? 'rotate(0deg)' : 'rotate(180deg)',
           ...((theme.animations === 'high' || theme.animations === 'medium') && {
             transition: 'transform 0.3s',
           }),
+          ...layout.dropIconOverwrite,
         }}
       />
     </ListItemButton>

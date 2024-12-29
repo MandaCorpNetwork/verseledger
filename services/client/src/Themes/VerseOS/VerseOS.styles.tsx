@@ -1,6 +1,7 @@
 import type { ThemeStyledComponents } from '@Common/Definitions/Themes/themeTypes';
 
-import { verseOSContractManager } from './Layouts/ContractManager';
+import { verseOSContractManager } from './Layouts/Contracts/ContractManager';
+import { verseOSContractsComponents } from './Layouts/Contracts/Contracts';
 import { verseOSButtons } from './Styles/Buttons';
 import { verseOSCoreBoxes } from './Styles/CoreBoxes';
 import { verseOSMenus } from './Styles/Menus';
@@ -9,5 +10,6 @@ export const verseOSStyles: ThemeStyledComponents = {
   ...verseOSCoreBoxes,
   ...verseOSMenus,
   ...verseOSButtons,
+  ...verseOSContractsComponents,
   ...verseOSContractManager,
 };
