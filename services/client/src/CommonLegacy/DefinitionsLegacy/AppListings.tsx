@@ -141,7 +141,7 @@ export const useMasterAppList = () => {
         disabled: explore,
         icon: Exploration,
         versionLabel: 'Explorer Tool',
-        version: '0.2',
+        version: '1.0.0',
         severityCode: 9,
       },
       {

@@ -1,19 +1,17 @@
+import { DashLocationExplorer } from '@Apps/User/Dashboard/Tools/LocationsExplorer';
 import { useSoundEffect } from '@Audio/AudioManager';
 import { useRadioController } from '@Audio/AudioProvider';
 import FeatureContainer from '@Common/Components/Core/Boxes/FeatureContainer';
 import { LoadingWheel } from '@CommonLegacy/LoadingObject/LoadingWheel';
-import { PowerSettingsNew, Sync } from '@mui/icons-material';
-import { Badge, Box, Button, IconButton, Tooltip, Typography } from '@mui/material';
+import { PowerSettingsNew } from '@mui/icons-material';
+import { Badge, Box, Button, IconButton, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { selectUserLocation } from '@Redux/Slices/Auth/auth.selectors';
 import { markAllRead } from '@Redux/Slices/Notifications/actions/markAllRead.action';
 import { selectNotificationsUnreadCount } from '@Redux/Slices/Notifications/notifications.selectors';
 import { closeWidget, openWidget } from '@Redux/Slices/Widgets/widgets.actions';
 import { WIDGET_RADIO } from '@Widgets/Radio/Radio';
 import React, { Suspense } from 'react';
-import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 
-import { LocationExplorerTool } from './LocationExplorerTool';
 import { RadioStationApp } from './RadioStationApp';
 
 //TODO: Need to Rework the Loading Logic for the Notification Tool
@@ -34,21 +32,6 @@ export const DashboardApp: React.FC<unknown> = () => {
       sound.playSound('open');
       dispatch(openWidget(WIDGET_RADIO));
     }
-  };
-
-  const currentLocation = useAppSelector(selectUserLocation);
-
-  const [selectedLocation, setSelectedLocation] = React.useState<ILocation | null>(
-    currentLocation,
-  );
-
-  React.useEffect(() => {
-    setSelectedLocation(currentLocation);
-  }, [currentLocation]);
-
-  const handleResetLocation = () => {
-    sound.playSound('loading');
-    setSelectedLocation(currentLocation);
   };
 
   const unreadCount = useAppSelector(selectNotificationsUnreadCount);
@@ -177,35 +160,7 @@ export const DashboardApp: React.FC<unknown> = () => {
           height: { xs: 'auto', md: '100%' },
         }}
       >
-        <FeatureContainer
-          data-id="LocationExplorerToolContainer"
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            p: '.5em',
-            mx: { xs: '0', md: '1em' },
-            my: { xs: '.5em', md: '1em' },
-            width: '100%',
-            height: { xs: 'auto', md: '45%' },
-          }}
-        >
-          <Box data-id="LocationExplorerToolTitle" sx={{ height: '10%', p: '.5em' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography variant="h6">Location Explorer</Typography>
-              <Tooltip title="Reset Selected Location">
-                <IconButton sx={{ ml: 'auto' }} onClick={handleResetLocation}>
-                  <Sync />
-                </IconButton>
-              </Tooltip>
-            </Box>
-          </Box>
-          <Box data-id="LocationExplorerToolContent" sx={{ height: '90%' }}>
-            <LocationExplorerTool
-              selectedLocation={selectedLocation}
-              setSelectedLocation={setSelectedLocation}
-            />
-          </Box>
-        </FeatureContainer>
+        <DashLocationExplorer />
         <FeatureContainer
           data-id="ShipStatusToolContainer"
           sx={{
