@@ -65,4 +65,8 @@ export const verseOSContractsComponents: ThemeStyledComponents = {
       filter: `drop-shadow(2px 1px 6px ${theme.palette.secondary.dark})`,
     }),
   }),
+  'Contracts.ArchetypeListDropIcon': (theme: Theme): SxProps<Theme> => ({
+    fontSize: '1.8em',
+    color: theme.palette.secondary.main,
+  }),
 };

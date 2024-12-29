@@ -38,7 +38,7 @@ export type ContractArchetypeTree = {
 export const contractArchetypes: ContractArchetypeTree[] = [
   {
     archetype: 'Logistics',
-    archetypeLabel: 'Logistics',
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.LOGISTICS',
     archetypeIcon: Logistics,
     subtypes: [
       {
@@ -57,7 +57,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Medical',
-    archetypeLabel: 'Medical',
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.MEDICAL',
     archetypeIcon: Medical,
     subtypes: [
       {
@@ -72,7 +72,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Security',
-    archetypeLabel: 'Security',
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.SECURITY',
     archetypeIcon: Security,
     subtypes: [
       {
@@ -99,7 +99,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Salvage',
-    archetypeLabel: 'Salvage',
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.SALVAGE',
     archetypeIcon: Salvage,
     subtypes: [
       {
@@ -114,8 +114,8 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Industry',
-    archetypeLabel: 'Industry',
     archetypeIcon: Mining,
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.INDUSTRY',
     subtypes: [
       {
         label: 'Mining',
@@ -137,7 +137,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'RRR',
-    archetypeLabel: 'Rearm Refuel Repair',
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.RRR',
     archetypeIcon: Rrr,
     subtypes: [
       {
@@ -156,7 +156,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Fleet',
-    archetypeLabel: 'Fleet',
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.FLEET',
     archetypeIcon: Fleet,
     subtypes: [
       {
@@ -171,7 +171,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Exploration',
-    archetypeLabel: 'Exploration',
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.EXPLORATION',
     archetypeIcon: Exploration,
     subtypes: [
       {
@@ -186,7 +186,7 @@ export const contractArchetypes: ContractArchetypeTree[] = [
   },
   {
     archetype: 'Proxy',
-    archetypeLabel: 'Other',
+    archetypeLabel: '@CONTRACTS.ARCHETYPES.PROXY',
     archetypeIcon: ProxyIcon,
     subtypes: [
       {
