@@ -56,7 +56,7 @@ export const JWTAuthHandler = authHandler<AuthParams, AuthData>(
     AND
       user_id = ${userAuth.id}
     AND
-      type = ${userAuth.type}
+      token_type = ${userAuth.type}
     AND
       expires_at >= ${new Date(Date.now())}
     RETURNING t.*
@@ -132,12 +132,12 @@ export const login = api(
     expose: true,
     method: 'POST',
     auth: false,
-    path: '/login/:service',
+    path: '/api/v2/auth/login/:service',
   },
   async (params: LoginWithServiceCMD): Promise<VLTokenPair> => {
-    const service = params.service.toUpperCase();
+    const service = params.service.toLocaleLowerCase();
     switch (service) {
-      case 'DISCORD': {
+      case 'discord': {
         const loginResp = await auth.loginWithDiscord({ code: params.code });
         const login_user = await users.getOrCreate({
           user_id: loginResp.id,
@@ -146,9 +146,36 @@ export const login = api(
         userLogin.publish({ userId: login_user.id });
         return auth.createTokenPair({ userID: login_user.id });
       }
+      case 'google':
       default:
         throw APIError.unimplemented(`Login Method Not Available: ${service}`);
     }
+  },
+);
+
+interface LoginMethod {
+  type: string;
+  redirect: string;
+}
+
+interface ServiceMethods {
+  methods: LoginMethod[];
+}
+
+export const getServices = api(
+  { expose: true, method: 'GET', auth: false, path: '/api/v2/auth/services' },
+  async (): Promise<ServiceMethods> => {
+    const methods = [
+      {
+        type: 'discord',
+        redirect: `https://discord.com/oauth2/authorize?client_id=${encodeURIComponent(
+          DISCORD_CLIENT_ID(),
+        )}&response_type=code&redirect_uri=${encodeURIComponent(
+          FRONTEND_HOST(),
+        )}%2Foauth%2Fdiscord%2Fcallback&scope=openid`,
+      },
+    ];
+    return { methods };
   },
 );
 
@@ -158,16 +185,16 @@ interface CreateTokenPairCMD {
 }
 interface CreateTokenCMD {
   userID: string;
-  type: string;
+  token_type: string;
   expires?: Date | number | string;
   roles?: string[];
   jwtid?: string;
-  name?: string;
+  token_name?: string;
 }
 
 interface VLAuthToken {
   token: string;
-  type: string;
+  token_type: string;
   expires: Date;
 }
 
@@ -183,14 +210,14 @@ export const createTokenPair = api(
       auth.createToken({
         userID,
         expires: '1h',
-        type: 'access',
+        token_type: 'access',
         roles: [ApiPermission.ADMIN],
         jwtid,
       }),
       auth.createToken({
         userID,
         expires: '2d',
-        type: 'refresh',
+        token_type: 'refresh',
         roles: [ApiPermission.ADMIN],
         jwtid,
       }),
@@ -206,8 +233,8 @@ export const createToken = api(
   {},
   async (params: CreateTokenCMD): Promise<VLAuthToken> => {
     const {
-      name = 'USER TOKEN',
-      type = 'access',
+      token_name = 'USER TOKEN',
+      token_type = 'access',
       userID,
       expires = '1h',
       roles,
@@ -219,7 +246,7 @@ export const createToken = api(
     const expiresAt = new Date(Date.now() + expiresRange);
 
     const tokenRaw = jwt.sign(
-      { id: userID, type, roles },
+      { id: userID, type: token_type, roles },
       Buffer.from(AUTH_SECRET().toString(), 'base64'),
       {
         algorithm: 'HS512',
@@ -232,19 +259,19 @@ export const createToken = api(
     );
     const id = createId(IDPrefix.System);
     await AuthDB.exec`
-    INSERT INTO api_tokens (id, user_id, token_id, type, name, expires_at, roles)
+    INSERT INTO api_tokens (id, user_id, token_id, token_type, token_name, expires_at, roles)
     VALUES
       (
         ${id},
         ${userID},
         ${jwtid},
-        ${type},
-        ${name},
+        ${token_type},
+        ${token_name},
         ${expiresAt},
         ${roles ? JSON.stringify(roles) : JSON.stringify([])}
       );`;
 
-    return { expires: expiresAt, token: tokenRaw, type };
+    return { expires: expiresAt, token: tokenRaw, token_type };
   },
 );
 

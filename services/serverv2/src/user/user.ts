@@ -1,6 +1,6 @@
 import { api } from 'encore.dev/api';
 import { UserDB } from './user_database';
-import { users } from '~encore/clients';
+import { auth, users } from '~encore/clients';
 import { createId, IDPrefix } from '../utils/createId';
 import { Topic } from 'encore.dev/pubsub';
 
@@ -45,8 +45,9 @@ interface CreateUserCMD {
 }
 
 export const get = api(
-  { expose: true, method: 'GET', path: '/users/:user_id' },
+  { expose: true, method: 'GET', path: '/api/v2/users/:user_id' },
   async (params: GetUserCMD): Promise<User> => {
+    if (params.user_id === '@me') return auth.whoami();
     const row =
       await UserDB.queryRow`SELECT * FROM users WHERE id = ${params.user_id}`;
     return row as User;

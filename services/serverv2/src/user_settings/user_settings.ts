@@ -4,7 +4,7 @@ import { assertPermission, ApiPermission } from '../auth/permissions';
 import { UserSettingsDB } from './database';
 
 export const get = api(
-  { expose: true, auth: true, path: '/settings', method: 'GET' },
+  { expose: true, auth: true, path: '/api/v2/settings', method: 'GET' },
   async () => {
     const authRole = getAuthData()!;
     assertPermission(ApiPermission.USERSETTINGS_READ, authRole);
@@ -19,7 +19,7 @@ interface UpdateUserSettingCMD {
   value: string;
 }
 export const update = api(
-  { expose: true, auth: true, path: '/settings', method: 'PUT' },
+  { expose: true, auth: true, path: '/api/v2/settings', method: 'PUT' },
   async (_params: UpdateUserSettingCMD) => {
     const authRole = getAuthData()!;
     assertPermission(ApiPermission.USERSETTINGS_WRITE, authRole);

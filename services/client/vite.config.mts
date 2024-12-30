@@ -9,7 +9,7 @@ const PWA_OPTIONS: Partial<VitePWAOptions> = {
   workbox: { maximumFileSizeToCacheInBytes: 5000000, globPatterns: ['**/*'] },
   includeManifestIcons: true,
   includeAssets: ['**/*'],
-  injectManifest: { maximumFileSizeToCacheInBytes: 5000000 },
+  injectManifest: { maximumFileSizeToCacheInBytes: 10_000_000 },
   strategies: 'injectManifest',
   injectRegister: 'auto',
   registerType: 'autoUpdate',
