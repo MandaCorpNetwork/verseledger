@@ -35,10 +35,6 @@ export interface User {
 interface GetUserCMD {
   user_id: string;
 }
-interface GetOrCreateUserCMD {
-  user_id: string;
-  service: string;
-}
 interface CreateUserCMD {
   identifier: string;
   service: string;
@@ -118,6 +114,10 @@ export const create = api(
   },
 );
 
+interface GetOrCreateUserCMD {
+  user_id: string;
+  service: string;
+}
 export const getOrCreate = api(
   { expose: false },
   async (params: GetOrCreateUserCMD): Promise<User> => {
