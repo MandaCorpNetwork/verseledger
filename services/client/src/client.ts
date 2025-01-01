@@ -32,10 +32,10 @@ export function PreviewEnv(pr: number | string): BaseURL {
 export default class Client {
     public readonly auth: auth.ServiceClient
     public readonly info: info.ServiceClient
-    public readonly website: website.ServiceClient
     public readonly users: users.ServiceClient
     public readonly user_settings: user_settings.ServiceClient
     public readonly waypoints: waypoints.ServiceClient
+    public readonly website: website.ServiceClient
 
 
     /**
@@ -48,10 +48,10 @@ export default class Client {
         const base = new BaseClient(target, options ?? {})
         this.auth = new auth.ServiceClient(base)
         this.info = new info.ServiceClient(base)
-        this.website = new website.ServiceClient(base)
         this.users = new users.ServiceClient(base)
         this.user_settings = new user_settings.ServiceClient(base)
         this.waypoints = new waypoints.ServiceClient(base)
+        this.website = new website.ServiceClient(base)
     }
 }
 
@@ -99,7 +99,7 @@ export namespace auth {
 
     export interface VLAuthToken {
         token: string
-        type: string
+        "token_type": string
         expires: string
     }
 
@@ -129,6 +129,12 @@ export namespace auth {
             const resp = await this.baseClient.callAPI("POST", `/api/v2/auth/login/${encodeURIComponent(service)}`, JSON.stringify(params))
             return await resp.json() as VLTokenPair
         }
+
+        public async whoami(): Promise<user.User> {
+            // Now make the actual call to the API
+            const resp = await this.baseClient.callAPI("POST", `/auth.whoami`)
+            return await resp.json() as user.User
+        }
     }
 }
 
@@ -145,21 +151,6 @@ export namespace info {
             // Now make the actual call to the API
             const resp = await this.baseClient.callAPI("GET", `/api/v2/info`)
             return await resp.json() as encore.dev.AppMeta
-        }
-    }
-}
-
-export namespace website {
-
-    export class ServiceClient {
-        private baseClient: BaseClient
-
-        constructor(baseClient: BaseClient) {
-            this.baseClient = baseClient
-        }
-
-        public async getFile(path: string[]): Promise<void> {
-            await this.baseClient.callAPI("HEAD", `/${path.map(encodeURIComponent).join("/")}`)
         }
     }
 }
@@ -216,6 +207,21 @@ export namespace waypoints {
 
         public async listPublic(): Promise<void> {
             await this.baseClient.callAPI("GET", `/waypoints/public`)
+        }
+    }
+}
+
+export namespace website {
+
+    export class ServiceClient {
+        private baseClient: BaseClient
+
+        constructor(baseClient: BaseClient) {
+            this.baseClient = baseClient
+        }
+
+        public async getFile(path: string[]): Promise<void> {
+            await this.baseClient.callAPI("HEAD", `/${path.map(encodeURIComponent).join("/")}`)
         }
     }
 }

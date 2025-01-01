@@ -4,5 +4,5 @@ export const getFile = api.static({
   expose: true,
   path: '/!path',
   dir: './build',
-  notFound: './build/index.html'
-})
+  notFound: './build/index.html',
+});
