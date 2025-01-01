@@ -20,3 +20,4 @@ crownTasks.md
 services/client/src/assets/Workspace/*
 .secrets.*
 SandboxContent.tsx
+.yarn/install-state.gz

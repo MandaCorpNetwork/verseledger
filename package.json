@@ -34,7 +34,7 @@
 		"@changesets/cli": "2.27.11",
 		"@manypkg/cli": "0.23.0",
 		"@preconstruct/cli": "2.8.10",
-		"concurrently": "9.1.1"
+		"concurrently": "9.1.2"
 	},
 	"preconstruct": {
 		"packages": [
@@ -43,6 +43,8 @@
 	},
 	"resolutions": {
 		"@types/mime": "3.0.4",
-		"express": "4.21.2"
-	}
+		"express": "4.21.2",
+		"chalk": "4.1.2"
+	},
+	"packageManager": "yarn@4.6.0"
 }

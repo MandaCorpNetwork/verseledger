@@ -9,10 +9,7 @@ export const listPublic = api(
   },
   async () => {
     const waypoints_raw = WaypointDatabase.query`SELECT * FROM waypoints WHERE public = 't'`;
-    const waypoints = [];
-    for await (const waypoint of waypoints_raw) {
-      waypoints.push(waypoint);
-    }
+    const waypoints = await Array.fromAsync(waypoints_raw);
     return waypoints;
   },
 );

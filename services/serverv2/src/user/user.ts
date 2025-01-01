@@ -146,11 +146,8 @@ export const find = api<FindUsersCMD, DTO<User[]>>(
     const { query } = params;
     if (query == null || query.trim() === '')
       throw APIError.invalidArgument("Invalid 'query'");
-    const usersGen = UserDB.query`SELECT * FROM users WHERE handle ILIKE ${'%' + query + '%'} OR display_name ILIKE ${'%' + query + '%'} LIMIT 10`;
-    const data: User[] = [];
-    for await (const user of usersGen) {
-      data.push(user as User);
-    }
+    const usersGen = UserDB.query`SELECT * FROM users WHERE handle ILIKE ${'%' + query + '%'} OR display_name ILIKE ${'%' + query + '%'} LIMIT 99999`;
+    const data = (await Array.fromAsync(usersGen)) as User[];
     return { data };
   },
 );
