@@ -15,11 +15,8 @@ CREATE TABLE users (
 CREATE TABLE user_auth (
   id int check (id > 0) NOT NULL GENERATED ALWAYS AS IDENTITY,
   user_id varchar(32) NOT NULL,
-  type varchar(30) check (
-    type in (
-      'DISCORD',
-      'GOOGLE'
-    )
+  token_type varchar(30) check (
+    token_type in ('DISCORD', 'GOOGLE')
   ) NOT NULL,
   identifier varchar(32) NOT NULL,
   created_at timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,

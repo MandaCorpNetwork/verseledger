@@ -8,6 +8,7 @@ import ms from 'ms';
 import { userLogin } from '../user/user';
 import { createId, IDPrefix } from '../utils/createId';
 import { ApiPermission } from './permissions';
+import { DTO } from '../utils/JSAPI';
 
 interface AuthParams {
   authHeader?: Header<'Authorization'>;
@@ -134,7 +135,7 @@ export const login = api(
     auth: false,
     path: '/api/v2/auth/login/:service',
   },
-  async (params: LoginWithServiceCMD): Promise<VLTokenPair> => {
+  async (params: LoginWithServiceCMD): Promise<DTO<VLTokenPair>> => {
     const service = params.service.toLocaleLowerCase();
     switch (service) {
       case 'discord': {
@@ -144,7 +145,7 @@ export const login = api(
           service,
         });
         userLogin.publish({ userId: login_user.id });
-        return auth.createTokenPair({ userID: login_user.id });
+        return { data: await auth.createTokenPair({ userID: login_user.id }) };
       }
       case 'google':
       default:
@@ -158,13 +159,9 @@ interface LoginMethod {
   redirect: string;
 }
 
-interface ServiceMethods {
-  methods: LoginMethod[];
-}
-
 export const getServices = api(
   { expose: true, method: 'GET', auth: false, path: '/api/v2/auth/services' },
-  async (): Promise<ServiceMethods> => {
+  async (): Promise<DTO<LoginMethod[]>> => {
     const methods = [
       {
         type: 'discord',
@@ -175,7 +172,7 @@ export const getServices = api(
         )}%2Foauth%2Fdiscord%2Fcallback&scope=openid`,
       },
     ];
-    return { methods };
+    return { data: methods };
   },
 );
 

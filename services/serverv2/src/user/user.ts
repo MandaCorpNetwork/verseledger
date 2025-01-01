@@ -1,8 +1,9 @@
-import { api } from 'encore.dev/api';
+import { api, APIError, Query } from 'encore.dev/api';
 import { UserDB } from './user_database';
 import { auth, users } from '~encore/clients';
 import { createId, IDPrefix } from '../utils/createId';
 import { Topic } from 'encore.dev/pubsub';
+import { DTO } from '../utils/JSAPI';
 
 export interface NewUserEvent {
   userId: string;
@@ -40,13 +41,14 @@ interface CreateUserCMD {
   service: string;
 }
 
-export const get = api(
+export const get = api<GetUserCMD, DTO<User>>(
   { expose: true, method: 'GET', path: '/api/v2/users/:user_id' },
-  async (params: GetUserCMD): Promise<User> => {
+  async (params): Promise<DTO<User>> => {
     if (params.user_id === '@me') return auth.whoami();
     const row =
       await UserDB.queryRow`SELECT * FROM users WHERE id = ${params.user_id}`;
-    return row as User;
+    if (row == null) throw APIError.notFound('User not found');
+    return { data: row as User };
   },
 );
 
@@ -66,9 +68,9 @@ interface UserAuthAttempt {
   user?: User;
 }
 
-export const getByAuth = api(
+export const getByAuth = api<GetUserByAuthCMD, UserAuthAttempt>(
   {},
-  async (params: GetUserByAuthCMD): Promise<UserAuthAttempt> => {
+  async (params) => {
     const userAuth = (await UserDB.queryRow`
     SELECT
       *
@@ -92,9 +94,9 @@ export const getByAuth = api(
   },
 );
 
-export const create = api(
+export const create = api<CreateUserCMD, User>(
   { expose: false, method: 'POST' },
-  async (params: CreateUserCMD): Promise<User> => {
+  async (params) => {
     const newId = createId(IDPrefix.User);
     const tempHandle = createId(IDPrefix.User);
     const newUser = (await UserDB.queryRow`
@@ -105,9 +107,9 @@ export const create = api(
     `) as User;
     await UserDB.exec`
     INSERT INTO user_auth
-      (user_id, type, identifier)
+      (user_id, token_type, identifier)
     VALUES
-      (${newUser.id}, ${params.service}, ${params.identifier})
+      (${newUser.id}, ${params.service.toUpperCase()}, ${params.identifier})
     `;
     await userSignup.publish({ userId: newId });
     return newUser;
@@ -118,9 +120,9 @@ interface GetOrCreateUserCMD {
   user_id: string;
   service: string;
 }
-export const getOrCreate = api(
+export const getOrCreate = api<GetOrCreateUserCMD, User>(
   { expose: false },
-  async (params: GetOrCreateUserCMD): Promise<User> => {
+  async (params) => {
     const existingUser = await users.getByAuth({
       identifier: params.user_id,
       type: params.service,
@@ -131,5 +133,24 @@ export const getOrCreate = api(
       service: params.service,
     });
     return newUser;
+  },
+);
+
+interface FindUsersCMD {
+  // Term to Search
+  query?: Query<string>;
+}
+export const find = api<FindUsersCMD, DTO<User[]>>(
+  { method: 'GET', expose: true, path: '/api/v2/users' },
+  async (params) => {
+    const { query } = params;
+    if (query == null || query.trim() === '')
+      throw APIError.invalidArgument("Invalid 'query'");
+    const usersGen = UserDB.query`SELECT * FROM users WHERE handle ILIKE ${'%' + query + '%'} OR display_name ILIKE ${'%' + query + '%'} LIMIT 10`;
+    const data: User[] = [];
+    for await (const user of usersGen) {
+      data.push(user as User);
+    }
+    return { data };
   },
 );

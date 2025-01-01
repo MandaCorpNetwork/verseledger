@@ -3,7 +3,7 @@ CREATE TABLE api_tokens (
   user_id varchar(26) NOT NULL,
   token_id varchar(26) NOT NULL,
   token_type varchar(30) check (
-    type in (
+    token_type in (
       'access',
       'refresh',
       'api'
