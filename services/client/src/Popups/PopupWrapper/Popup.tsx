@@ -44,6 +44,9 @@ type VLPopupProps = PropsWithChildren<{
   sx?: object;
 }>;
 
+/**
+ * @deprecated
+ */
 const VLPopupComponent: React.FC<VLPopupProps> = (props) => {
   const {
     children,

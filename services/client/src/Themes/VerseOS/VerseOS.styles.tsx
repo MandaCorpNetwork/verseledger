@@ -5,6 +5,7 @@ import { verseOSContractsComponents } from './Layouts/Contracts/Contracts';
 import { verseOSButtons } from './Styles/Buttons';
 import { verseOSCoreBoxes } from './Styles/CoreBoxes';
 import { verseOSMenus } from './Styles/Menus';
+import { verseOSPopup } from './Styles/Popup';
 
 export const verseOSStyles: ThemeStyledComponents = {
   ...verseOSCoreBoxes,
@@ -12,4 +13,5 @@ export const verseOSStyles: ThemeStyledComponents = {
   ...verseOSButtons,
   ...verseOSContractsComponents,
   ...verseOSContractManager,
+  ...verseOSPopup,
 };
