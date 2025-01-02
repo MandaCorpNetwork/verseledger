@@ -163,7 +163,7 @@
       "REDACTED": "Redacted"
     }
   },
-  "LOCATIONS": {
+  "@LOCATIONS": {
     "CURRENTLOCATION": "Current Location",
     "DISTANCE": {
       "TM": {
@@ -182,6 +182,11 @@
         "SYMBOL": "km",
         "LABEL": "Kilometers"
       }
+    }
+  },
+  "@POPUPS": {
+    "TITLES": {
+      "UPDATES": "Update Verse Ledger"
     }
   }
 }
