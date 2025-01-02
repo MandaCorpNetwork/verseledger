@@ -53,7 +53,17 @@
       "LABEL": "Settings"
     },
     "EXPLORE": {
-      "LABEL": "Explore"
+      "LABEL": "Explore",
+      "FEATURES": {
+        "EXPLOREMAP": "Explorer Map",
+        "SEARCH": "Search Locations"
+      },
+      "CONTROLS": {
+        "SETMYLOCATION": "Set Location",
+        "ADDLOCATION": "Add Location",
+        "SHARELOCATION": "Share Location",
+        "SELLLOCATION": "Sell Data"
+      }
     },
     "ROUTES": {
       "LABEL": "Routes"
@@ -151,6 +161,27 @@
       "CHARTING": "Charting",
       "MIDDLEMAN": "Middleman",
       "REDACTED": "Redacted"
+    }
+  },
+  "LOCATIONS": {
+    "CURRENTLOCATION": "Current Location",
+    "DISTANCE": {
+      "TM": {
+        "SYMBOL": "TM",
+        "LABEL": "Terra Meters"
+      },
+      "GM": {
+        "SYMBOL": "GM",
+        "LABEL": "Giga Meters"
+      },
+      "MM": {
+        "SYMBOL": "MM",
+        "LABEL": "Mega Meters"
+      },
+      "KM": {
+        "SYMBOL": "km",
+        "LABEL": "Kilometers"
+      }
     }
   }
 }

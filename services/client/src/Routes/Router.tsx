@@ -1,9 +1,9 @@
 import { ServiceHubApp } from '@Apps/Contracts/ServiceHub/ServiceHubApp';
+import { ExploreApp } from '@Apps/Locations/Explore/ExploreApp';
 import { AppDockRenderer } from '@CommonLegacy/AppDockV3/AppDockContainerV2';
 import { LoginCheck } from '@CommonLegacy/Components/App/TempLoginCheck';
 import { ContractManagerApp } from '@ComponentsLegacy/Contracts/ContractManager/ContractManagerApp';
 import { ContractLedgerApp } from '@ComponentsLegacy/Contracts/Ledger/ContractLedgerApp';
-import { ExploreApp } from '@ComponentsLegacy/Locations/Explore/ExploreApp';
 import { InventoryApp } from '@ComponentsLegacy/Locations/Inventory/InventoryApp';
 import { RouteApp } from '@ComponentsLegacy/Locations/Routes/RouteApp';
 import { OrgDash } from '@ComponentsLegacy/Orgs/Dash/OrgDash';
