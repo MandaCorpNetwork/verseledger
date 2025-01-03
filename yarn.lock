@@ -5348,9 +5348,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:1.93.0":
-  version: 1.93.0
-  resolution: "@tanstack/react-router@npm:1.93.0"
+"@tanstack/react-router@npm:1.94.1":
+  version: 1.94.1
+  resolution: "@tanstack/react-router@npm:1.94.1"
   dependencies:
     "@tanstack/history": "npm:1.90.0"
     "@tanstack/react-store": "npm:^0.7.0"
@@ -5360,7 +5360,7 @@ __metadata:
   peerDependencies:
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/87f6de8ef50256b903a3c02e5e207e43b862b1fa0b1ed2ee4bb23b9db7648b1cb3090a9b39a8899334f02fe0419a59caa7d5ff710f858d9636561c71de38e214
+  checksum: 10c0/deba321cea90ec23dd8da77f525bd577cde0d181f1de2bdc49ac2093b6c7417719c34d7ff39d9f9f9dddb209642c407ce149de72bbeadddcd440fcf2ec5ae8b4
   languageName: node
   linkType: hard
 
@@ -5401,40 +5401,40 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-devtools@npm:1.93.0":
-  version: 1.93.0
-  resolution: "@tanstack/router-devtools@npm:1.93.0"
+"@tanstack/router-devtools@npm:1.94.1":
+  version: 1.94.1
+  resolution: "@tanstack/router-devtools@npm:1.94.1"
   dependencies:
     clsx: "npm:^2.1.1"
     goober: "npm:^2.1.16"
   peerDependencies:
-    "@tanstack/react-router": ^1.93.0
+    "@tanstack/react-router": ^1.94.1
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/a0506c212614b8d1890b90f8d802a46f2e8138c15a146456e01d095c57ef59a109a26b9966a171ea72e35d8a4834cd12719aca69b57ccb344659a5425a23207e
+  checksum: 10c0/20c103b30a0086ed184bc4047b14b8baf01c5571e5f149fa40bdb983da096c08d2b308c6a73728d8f320ce9d938ccad6a447082a71320eb56e352619f671643b
   languageName: node
   linkType: hard
 
-"@tanstack/router-generator@npm:^1.93.0":
-  version: 1.93.0
-  resolution: "@tanstack/router-generator@npm:1.93.0"
+"@tanstack/router-generator@npm:^1.94.1":
+  version: 1.94.1
+  resolution: "@tanstack/router-generator@npm:1.94.1"
   dependencies:
     "@tanstack/virtual-file-routes": "npm:^1.87.6"
     prettier: "npm:^3.4.2"
     tsx: "npm:^4.19.2"
     zod: "npm:^3.23.8"
   peerDependencies:
-    "@tanstack/react-router": ^1.93.0
+    "@tanstack/react-router": ^1.94.1
   peerDependenciesMeta:
     "@tanstack/react-router":
       optional: true
-  checksum: 10c0/2a5a1c8e83a6d6c983194a183581849dac96817bc44bfa9f78b546d58e5c3fa51c011880481fe5a251bdc6b9338aab8102226aeb847c2159e224a28c6e62b536
+  checksum: 10c0/d2c3a67b30b04428ed9de0a79437ed5c9a7c299dc2dbae4d1eac3914ec31e0b73888966431811b5275e3e2f7606c7501035339e98113b9453cdfbaccd72c1e5b
   languageName: node
   linkType: hard
 
-"@tanstack/router-plugin@npm:1.93.0":
-  version: 1.93.0
-  resolution: "@tanstack/router-plugin@npm:1.93.0"
+"@tanstack/router-plugin@npm:1.94.1":
+  version: 1.94.1
+  resolution: "@tanstack/router-plugin@npm:1.94.1"
   dependencies:
     "@babel/core": "npm:^7.26.0"
     "@babel/generator": "npm:^7.26.3"
@@ -5444,7 +5444,7 @@ __metadata:
     "@babel/template": "npm:^7.25.9"
     "@babel/traverse": "npm:^7.26.4"
     "@babel/types": "npm:^7.26.3"
-    "@tanstack/router-generator": "npm:^1.93.0"
+    "@tanstack/router-generator": "npm:^1.94.1"
     "@tanstack/virtual-file-routes": "npm:^1.87.6"
     "@types/babel__core": "npm:^7.20.5"
     "@types/babel__generator": "npm:^7.6.8"
@@ -5465,7 +5465,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/9f2eeb6bd6ef602ac9c518f0a1230d616c4a18043db3ac4bdd25145ed260e8d7bd2b56aeac9fe0ca95fe9846c626d0c52cd0f0ede717dfa8c4d997acae789932
+  checksum: 10c0/239c11457b8dd1184a2985a05218c2aa0dd806c0ece82d0c1d7b93cd60b3004222f34beda2f87b2963f9a882ee5b0f13ddaae0fbd2a1eaf0fdceb8f10041649a
   languageName: node
   linkType: hard
 
@@ -8173,11 +8173,11 @@ __metadata:
     "@scalar/api-reference-react": "npm:0.4.8"
     "@tanstack/react-form": "npm:0.41.0"
     "@tanstack/react-ranger": "npm:0.0.4"
-    "@tanstack/react-router": "npm:1.93.0"
+    "@tanstack/react-router": "npm:1.94.1"
     "@tanstack/react-table": "npm:8.20.6"
     "@tanstack/react-virtual": "npm:3.11.2"
-    "@tanstack/router-devtools": "npm:1.93.0"
-    "@tanstack/router-plugin": "npm:1.93.0"
+    "@tanstack/router-devtools": "npm:1.94.1"
+    "@tanstack/router-plugin": "npm:1.94.1"
     "@testing-library/dom": "npm:10.4.0"
     "@testing-library/react": "npm:16.1.0"
     "@trivago/prettier-plugin-sort-imports": "npm:5.2.1"
