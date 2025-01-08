@@ -4,7 +4,7 @@
 	"licence": "CC-BY-NC-ND-4.0",
 	"private": true,
 	"workspaces": [
-		"services/*",
+		"apps/*",
 		"packages/*"
 	],
 	"scripts": {
@@ -34,7 +34,11 @@
 		"@changesets/cli": "2.27.11",
 		"@manypkg/cli": "0.23.0",
 		"@preconstruct/cli": "2.8.10",
-		"concurrently": "9.1.2"
+		"concurrently": "9.1.2",
+		"eslint": "9.17.0",
+		"prettier": "3.4.2",
+		"turbo": "2.3.3",
+		"typescript": "5.7.2"
 	},
 	"preconstruct": {
 		"packages": [

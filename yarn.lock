@@ -8155,9 +8155,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"client@workspace:services/client":
+"client@workspace:apps/client":
   version: 0.0.0-use.local
-  resolution: "client@workspace:services/client"
+  resolution: "client@workspace:apps/client"
   dependencies:
     "@biomejs/biome": "npm:1.9.4"
     "@emotion/react": "npm:11.14.0"
@@ -17060,9 +17060,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"server@workspace:services/server":
+"server@workspace:apps/server":
   version: 0.0.0-use.local
-  resolution: "server@workspace:services/server"
+  resolution: "server@workspace:apps/server"
   dependencies:
     "@biomejs/biome": "npm:1.9.4"
     "@bombitmanbomb/utils": "npm:3.2.1"
@@ -17125,9 +17125,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"serverv2@workspace:services/serverv2":
+"serverv2@workspace:apps/serverv2":
   version: 0.0.0-use.local
-  resolution: "serverv2@workspace:services/serverv2"
+  resolution: "serverv2@workspace:apps/serverv2"
   dependencies:
     "@paralleldrive/cuid2": "npm:2.2.2"
     "@types/busboy": "npm:1.5.4"
@@ -18528,10 +18528,81 @@ __metadata:
   languageName: node
   linkType: hard
 
+"turbo-darwin-64@npm:2.3.3":
+  version: 2.3.3
+  resolution: "turbo-darwin-64@npm:2.3.3"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"turbo-darwin-arm64@npm:2.3.3":
+  version: 2.3.3
+  resolution: "turbo-darwin-arm64@npm:2.3.3"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"turbo-linux-64@npm:2.3.3":
+  version: 2.3.3
+  resolution: "turbo-linux-64@npm:2.3.3"
+  conditions: os=linux & cpu=x64
+  languageName: node
+  linkType: hard
+
+"turbo-linux-arm64@npm:2.3.3":
+  version: 2.3.3
+  resolution: "turbo-linux-arm64@npm:2.3.3"
+  conditions: os=linux & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "turbo-stream@npm:2.4.0":
   version: 2.4.0
   resolution: "turbo-stream@npm:2.4.0"
   checksum: 10c0/e68b2569f1f16e6e9633d090c6024b2ae9f0e97bfeacb572451ca3732e120ebbb546f3bc4afc717c46cb57b5aea6104e04ef497f9912eef6a7641e809518e98a
+  languageName: node
+  linkType: hard
+
+"turbo-windows-64@npm:2.3.3":
+  version: 2.3.3
+  resolution: "turbo-windows-64@npm:2.3.3"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"turbo-windows-arm64@npm:2.3.3":
+  version: 2.3.3
+  resolution: "turbo-windows-arm64@npm:2.3.3"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"turbo@npm:2.3.3":
+  version: 2.3.3
+  resolution: "turbo@npm:2.3.3"
+  dependencies:
+    turbo-darwin-64: "npm:2.3.3"
+    turbo-darwin-arm64: "npm:2.3.3"
+    turbo-linux-64: "npm:2.3.3"
+    turbo-linux-arm64: "npm:2.3.3"
+    turbo-windows-64: "npm:2.3.3"
+    turbo-windows-arm64: "npm:2.3.3"
+  dependenciesMeta:
+    turbo-darwin-64:
+      optional: true
+    turbo-darwin-arm64:
+      optional: true
+    turbo-linux-64:
+      optional: true
+    turbo-linux-arm64:
+      optional: true
+    turbo-windows-64:
+      optional: true
+    turbo-windows-arm64:
+      optional: true
+  bin:
+    turbo: bin/turbo
+  checksum: 10c0/9aab52fb868a2b6246f41fe2343dec56c70252a9cb7729a3ea183458cfa728c1445d1b98882dd43542f0ffd46524e8ba7776fe0925e31a86904b113222778fa5
   languageName: node
   linkType: hard
 
@@ -19065,6 +19136,10 @@ __metadata:
     "@manypkg/cli": "npm:0.23.0"
     "@preconstruct/cli": "npm:2.8.10"
     concurrently: "npm:9.1.2"
+    eslint: "npm:9.17.0"
+    prettier: "npm:3.4.2"
+    turbo: "npm:2.3.3"
+    typescript: "npm:5.7.2"
   languageName: unknown
   linkType: soft
 

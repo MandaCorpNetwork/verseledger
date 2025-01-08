@@ -21,3 +21,8 @@ services/client/src/assets/Workspace/*
 .secrets.*
 SandboxContent.tsx
 .yarn/install-state.gz
+.DS_Store
+.turbo
+dist-ssr
+*.local
+.cache

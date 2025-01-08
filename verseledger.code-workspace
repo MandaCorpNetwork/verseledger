@@ -6,15 +6,15 @@
     },
     {
       "name": "Client",
-      "path": "services/client",
+      "path": "apps/client",
     },
     {
       "name": "Server",
-      "path": "services/server",
+      "path": "apps/server",
     },
     {
       "name": "Server 2.0",
-      "path": "services/serverv2",
+      "path": "apps/serverv2",
     },
     {
       "name": "VLShared",
