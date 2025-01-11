@@ -4281,9 +4281,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-three/postprocessing@npm:2.16.5":
-  version: 2.16.5
-  resolution: "@react-three/postprocessing@npm:2.16.5"
+"@react-three/postprocessing@npm:2.16.6":
+  version: 2.16.6
+  resolution: "@react-three/postprocessing@npm:2.16.6"
   dependencies:
     buffer: "npm:^6.0.3"
     maath: "npm:^0.6.0"
@@ -4294,7 +4294,7 @@ __metadata:
     "@react-three/fiber": ">=8.0"
     react: ">=18.0"
     three: ">= 0.138.0"
-  checksum: 10c0/75e2005a7055ce864a3379d40fdb0dfabba7592d214e581a0853b81bddeeba6d1504aa1a6455e1221e048163053563480ece67bb40ea3d57b6a60c0853dd0f9f
+  checksum: 10c0/4ff110b244b110f5fb397215a5f7a19a3b5efc57f500ae34a01011876e4dcb1675d1c45cfa100463f6d2cbe5a61e7d865ff80ed706602affd073526f0d3b0120
   languageName: node
   linkType: hard
 
@@ -8177,7 +8177,7 @@ __metadata:
     "@playwright/test": "npm:1.49.1"
     "@react-three/drei": "npm:9.120.5"
     "@react-three/fiber": "npm:8.17.10"
-    "@react-three/postprocessing": "npm:2.16.5"
+    "@react-three/postprocessing": "npm:2.16.6"
     "@reduxjs/toolkit": "npm:2.5.0"
     "@scalar/api-reference-react": "npm:0.4.8"
     "@tanstack/react-form": "npm:0.41.0"
