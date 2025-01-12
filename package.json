@@ -52,7 +52,7 @@
     ]
   },
   "resolutions": {
-    "@types/mime": "4.0.0",
+    "@types/mime": "3.0.4",
     "express": "4.21.2",
     "chalk": "4.1.2"
   },
