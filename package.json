@@ -50,7 +50,7 @@
   "resolutions": {
     "@types/mime": "3.0.4",
     "express": "4.21.2",
-    "chalk": "4.1.2"
+    "chalk": "5.4.1"
   },
   "packageManager": "yarn@1.22.22"
 }
