@@ -17,7 +17,7 @@
     "@mui/x-data-grid": "7.23.5",
     "@mui/x-date-pickers": "7.23.3",
     "@react-three/drei": "9.120.8",
-    "@react-three/fiber": "8.17.10",
+    "@react-three/fiber": "8.17.12",
     "@react-three/postprocessing": "2.16.6",
     "@reduxjs/toolkit": "2.5.0",
     "@scalar/api-reference-react": "0.4.11",
