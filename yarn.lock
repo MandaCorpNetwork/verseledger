@@ -5781,12 +5781,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/form-core@npm:0.41.0":
-  version: 0.41.0
-  resolution: "@tanstack/form-core@npm:0.41.0"
+"@tanstack/form-core@npm:0.41.1":
+  version: 0.41.1
+  resolution: "@tanstack/form-core@npm:0.41.1"
   dependencies:
     "@tanstack/store": "npm:^0.7.0"
-  checksum: 10c0/421b36a4285d74a45cfaa31f84179d7b291b694e08080e0c249a14a8c87f2406bf5286b8605da8b5fc2406c526d3ebb5d4f9295d99804501807842c6f2e20ac6
+  checksum: 10c0/90a4ff653c1919ad5752d1081f1a82386579040e9be1aab7060bf450e214b9952be81e228310e32a60a87018aa9a60bca06f21fbfca95b2abc09d0f4ab0ba8dc
   languageName: node
   linkType: hard
 
@@ -5804,12 +5804,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-form@npm:0.41.0":
-  version: 0.41.0
-  resolution: "@tanstack/react-form@npm:0.41.0"
+"@tanstack/react-form@npm:0.41.1":
+  version: 0.41.1
+  resolution: "@tanstack/react-form@npm:0.41.1"
   dependencies:
     "@remix-run/node": "npm:^2.15.0"
-    "@tanstack/form-core": "npm:0.41.0"
+    "@tanstack/form-core": "npm:0.41.1"
     "@tanstack/react-store": "npm:^0.7.0"
     decode-formdata: "npm:^0.8.0"
   peerDependencies:
@@ -5818,7 +5818,7 @@ __metadata:
   peerDependenciesMeta:
     "@tanstack/start":
       optional: true
-  checksum: 10c0/3a46b40f09aca8f016921fd45b5c51873a3858dce074bbaa76883ccdfac6abb6700ff3f7a7ab8cd432107106185ff098a513178c3f16745af30179953a139700
+  checksum: 10c0/2ceefb0b6e9e8f7d16c8d6e734281872aefa8838fed525cf9196a985323ab47ef2cfa24cee2b337baf4f94f0a3b22ea06a6c07f1e0ee9a0561e5aebd1be1d6e4
   languageName: node
   linkType: hard
 
@@ -8840,7 +8840,7 @@ __metadata:
     "@react-three/postprocessing": "npm:2.16.6"
     "@reduxjs/toolkit": "npm:2.5.0"
     "@scalar/api-reference-react": "npm:0.4.11"
-    "@tanstack/react-form": "npm:0.41.0"
+    "@tanstack/react-form": "npm:0.41.1"
     "@tanstack/react-ranger": "npm:0.0.4"
     "@tanstack/react-router": "npm:1.95.3"
     "@tanstack/react-table": "npm:8.20.6"
