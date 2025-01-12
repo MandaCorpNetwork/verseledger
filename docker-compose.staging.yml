@@ -19,7 +19,7 @@ services:
       - '3532'
   vl-db:
     container_name: vl-db
-    image: mysql:8.4
+    image: mysql:9.1
     command: --mysql-native-password=ON
     environment:
       MYSQL_DATABASE: 'verseledger-app'
