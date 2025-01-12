@@ -4200,9 +4200,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-three/drei@npm:9.120.5":
-  version: 9.120.5
-  resolution: "@react-three/drei@npm:9.120.5"
+"@react-three/drei@npm:9.120.8":
+  version: 9.120.8
+  resolution: "@react-three/drei@npm:9.120.8"
   dependencies:
     "@babel/runtime": "npm:^7.26.0"
     "@mediapipe/tasks-vision": "npm:0.10.17"
@@ -4221,7 +4221,7 @@ __metadata:
     stats.js: "npm:^0.17.0"
     suspend-react: "npm:^0.1.3"
     three-mesh-bvh: "npm:^0.7.8"
-    three-stdlib: "npm:^2.34.0"
+    three-stdlib: "npm:^2.35.6"
     troika-three-text: "npm:^0.52.0"
     tunnel-rat: "npm:^0.1.2"
     utility-types: "npm:^3.11.0"
@@ -4235,7 +4235,7 @@ __metadata:
   peerDependenciesMeta:
     react-dom:
       optional: true
-  checksum: 10c0/24f4cdb9841b492d5254571f1f64841ec6025079a69034a3acff3bb185cd834032ef63d837d84d026ebdbc348d3e42854a6922f1d14d6d650a0459b236d72d7a
+  checksum: 10c0/57cb5e8c50e84763663814b6a85a1ad819a2871e158e8e6c1bd41036ecf6f2f197ab30cc120caf1da05b08a512cd8c3c821d66eaef18e7755e46298d8eaddad3
   languageName: node
   linkType: hard
 
@@ -8175,7 +8175,7 @@ __metadata:
     "@mui/x-data-grid": "npm:7.23.5"
     "@mui/x-date-pickers": "npm:7.23.3"
     "@playwright/test": "npm:1.49.1"
-    "@react-three/drei": "npm:9.120.5"
+    "@react-three/drei": "npm:9.120.8"
     "@react-three/fiber": "npm:8.17.10"
     "@react-three/postprocessing": "npm:2.16.5"
     "@reduxjs/toolkit": "npm:2.5.0"
@@ -18156,7 +18156,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three-stdlib@npm:^2.23.4, three-stdlib@npm:^2.34.0":
+"three-stdlib@npm:^2.23.4":
   version: 2.35.2
   resolution: "three-stdlib@npm:2.35.2"
   dependencies:
@@ -18169,6 +18169,22 @@ __metadata:
   peerDependencies:
     three: ">=0.128.0"
   checksum: 10c0/b8326ea66106a98329e5cd937606d3214a566d28975563a73e37d2932ae8911bcb3883557016bbd8461aa7606df994c7faf2bf498469fb948c87fa35d0533802
+  languageName: node
+  linkType: hard
+
+"three-stdlib@npm:^2.35.6":
+  version: 2.35.7
+  resolution: "three-stdlib@npm:2.35.7"
+  dependencies:
+    "@types/draco3d": "npm:^1.4.0"
+    "@types/offscreencanvas": "npm:^2019.6.4"
+    "@types/webxr": "npm:^0.5.2"
+    draco3d: "npm:^1.4.1"
+    fflate: "npm:^0.6.9"
+    potpack: "npm:^1.0.1"
+  peerDependencies:
+    three: ">=0.128.0"
+  checksum: 10c0/c224bf9ba5b1d3e9aa062fb7ed98414753ccab73bc6ad57c1382447f770ed5afa3c6596c279e5305e3dbb4325de2b1bfc1f0b7d96f1dcd3498a6d8c840b466cb
   languageName: node
   linkType: hard
 
