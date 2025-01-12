@@ -2,21 +2,15 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "test": {
-      "outputs": [
-        "{projectRoot}/TESTOUTPUT"
-      ],
+      "outputs": ["{projectRoot}/TESTOUTPUT"],
       "cache": true
     },
     "lint": {
-      "outputs": [
-        "{projectRoot}/LINTOUTPUT"
-      ],
+      "outputs": ["{projectRoot}/LINTOUTPUT"],
       "cache": true
     },
     "build": {
-      "outputs": [
-        "{projectRoot}/BUILDOUTPUT"
-      ],
+      "outputs": ["{projectRoot}/BUILDOUTPUT"],
       "cache": true
     }
   },
@@ -40,5 +34,9 @@
       }
     }
   ],
-  "nxCloudId": "6783331baf0e0efc66ea3181"
+  "nxCloudId": "6783331baf0e0efc66ea3181",
+  "namedInputs": {
+    "sharedGlobals": ["{workspaceRoot}/.github/workflows/nx-ci.yml"],
+    "default": ["sharedGlobals"]
+  }
 }
