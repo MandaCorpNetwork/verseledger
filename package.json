@@ -5,7 +5,7 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "libs/*"
   ],
   "scripts": {
     "postinstall": "preconstruct dev && manypkg check",
@@ -21,7 +21,7 @@
     "cypress": "yarn manypkg run client cypress run --browser chrome",
     "cypress:develop": "yarn manypkg run client cypress open --browser chrome",
     "dev": "concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client dev\" \"manypkg run server dev\"",
-    "dev2": "concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client dev\" \"manypkg run serverv2 dev\"",
+    "dev2": "concurrently -p \"[{name}]\" -n \"CLIENT,SERVER,ENCORE\" -c \"bgGreen.bold,bgBlue.bold,bgWhite.bold\" \"manypkg run client dev\" \"manypkg run server dev\" \"manypkg run serverv2 dev\"",
     "build": "yarn manypkg run client build",
     "start": "yarn db:migrate && concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client serve\" \"manypkg run server serve\"",
     "start:stg": "docker compose -f docker-compose.staging.yml up --build -d",
@@ -33,14 +33,10 @@
     "@babel/preset-typescript": "7.26.0",
     "@changesets/cli": "2.27.11",
     "@manypkg/cli": "0.23.0",
-    "@nx/eslint": "20.3.1",
-    "@nx/vite": "20.3.1",
-    "@nx/web": "20.3.1",
     "@preconstruct/cli": "2.8.10",
     "@vitest/ui": "^2.0.0",
     "concurrently": "9.1.2",
     "eslint": "9.18.0",
-    "nx": "20.3.1",
     "prettier": "3.4.2",
     "typescript": "5.7.3",
     "vite": "6.0.7",
@@ -48,7 +44,7 @@
   },
   "preconstruct": {
     "packages": [
-      "packages/*"
+      "libs/*"
     ]
   },
   "resolutions": {
@@ -56,5 +52,5 @@
     "express": "4.21.2",
     "chalk": "4.1.2"
   },
-  "packageManager": "yarn@4.6.0"
+  "packageManager": "yarn@1.22.0"
 }

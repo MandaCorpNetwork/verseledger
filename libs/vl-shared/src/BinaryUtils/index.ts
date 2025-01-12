@@ -1,0 +1,27 @@
+import { encodeValue } from './encoding';
+import { decodeType, decodeValue } from './decoding';
+import { compress as compressFunc } from './compress';
+import { decompress as decompressFunc } from './decompress';
+
+// eslint-disable-next-line
+export const encode = (json: any) => {
+  return encodeValue(Buffer.alloc(0), json);
+};
+
+// eslint-disable-next-line
+export const decode = (stream: Buffer): any => {
+  const type = decodeType(stream, 0);
+
+  return decodeValue(stream, type.value, type.offset).value;
+};
+
+// eslint-disable-next-line
+export const encodeCompressed = (json: any) => {
+  return compressFunc(encode(json));
+};
+export const decodeCompressed = (stream: Buffer) => {
+  return decompressFunc(decode(stream));
+};
+
+export const compress = compressFunc;
+export const decompress = decompressFunc;
