@@ -9413,10 +9413,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"encore.dev@npm:1.45.2":
-  version: 1.45.2
-  resolution: "encore.dev@npm:1.45.2"
-  checksum: 10c0/73701b1f2d2e2934c8ece18820942e0a8c4b8b6c0be681b1fa7613a4c67754d7f86fd4adbf2add4f51b42ea91d23a9983bc8290fee6dccbcb259b685dbd48e28
+"encore.dev@npm:1.45.6":
+  version: 1.45.6
+  resolution: "encore.dev@npm:1.45.6"
+  checksum: 10c0/a84e9a52fb494cdb26a0b2218444cec60c31a9c0c644bb6ce3d05b5e859c8f249ad08614b0fb151f14043c3cc8a5d7fda5f1d9b642ed89d499f2fa746cab58b4
   languageName: node
   linkType: hard
 
@@ -17133,7 +17133,7 @@ __metadata:
     "@types/busboy": "npm:1.5.4"
     "@types/node": "npm:22.10.5"
     busboy: "npm:1.6.0"
-    encore.dev: "npm:1.45.2"
+    encore.dev: "npm:1.45.6"
     eslint: "npm:9.17.0"
     fast-jwt: "npm:5.0.2"
     jsonwebtoken: "npm:9.0.2"
