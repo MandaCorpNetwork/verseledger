@@ -92,7 +92,7 @@
     "@tanstack/router-devtools": "1.97.3",
     "@tanstack/router-plugin": "1.97.3",
     "@testing-library/dom": "10.4.0",
-    "@testing-library/react": "16.1.0",
+    "@testing-library/react": "16.2.0",
     "@trivago/prettier-plugin-sort-imports": "5.2.1",
     "@types/color-convert": "2.0.4",
     "@types/howler": "2.2.12",
