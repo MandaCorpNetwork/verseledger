@@ -30,7 +30,7 @@
     "nodemon": "3.1.9",
     "prettier": "3.4.2",
     "typescript": "5.7.3",
-    "vitest": "2.1.8"
+    "vitest": "3.0.2"
   },
   "scripts": {
     "lint:check": "tsc --noEmit && npx eslint ./src",
