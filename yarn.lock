@@ -6683,10 +6683,10 @@ encodeurl@~2.0.0:
   resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-2.0.0.tgz#7b8ea898077d7e409d3ac45474ea38eaf0857a58"
   integrity sha512-Q0n9HRi4m6JuGIV1eFlmvJB7ZEVxu93IrMyiMsGC0lrMJMWzRgx6WGquyfQgZVb31vhGgXnfmPNNXmxnOkRBrg==
 
-encore.dev@1.45.6:
-  version "1.45.6"
-  resolved "https://registry.yarnpkg.com/encore.dev/-/encore.dev-1.45.6.tgz#9c03de2031f5e80db6783be87dfbc453cbd0f8eb"
-  integrity sha512-j9jQt7ts+1u36NRowLjQoMq3cCeMGcZuBlkMwQ9aXOaA7DNIBT2aCIX6h6Zn4XHeSvO5iXoKlykGmkjfiVmlgQ==
+encore.dev@1.45.7:
+  version "1.45.7"
+  resolved "https://registry.yarnpkg.com/encore.dev/-/encore.dev-1.45.7.tgz#0f8ee5e227e4d8bfb320c942344f61e74ede8e4e"
+  integrity sha512-09FS4Bc1Ij4QJvlFx/wuUaZuIdfq1vW5tO159GC8Ul6/JAT59efVLRnmNYHs9tFKok01+0wTP0bcBqSvh6o+Nw==
 
 end-of-stream@^1.1.0:
   version "1.4.4"
