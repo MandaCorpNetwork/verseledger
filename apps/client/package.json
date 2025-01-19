@@ -18,7 +18,7 @@
     "@mui/x-date-pickers": "7.24.0",
     "@react-three/drei": "9.120.8",
     "@react-three/fiber": "8.17.12",
-    "@react-three/postprocessing": "2.16.6",
+    "@react-three/postprocessing": "2.19.0",
     "@reduxjs/toolkit": "2.5.0",
     "@scalar/api-reference-react": "0.4.14",
     "@tanstack/react-form": "0.41.1",
