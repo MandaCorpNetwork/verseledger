@@ -145,7 +145,7 @@ export const login = api(
           service,
         });
         userLogin.publish({ userId: login_user.id });
-        return { data: await auth.createTokenPair({ userID: login_user.id }) };
+        return { data: await auth.createTokenPair({ user_id: login_user.id }) };
       }
       case 'google':
       default:
@@ -177,11 +177,11 @@ export const getServices = api(
 );
 
 interface CreateTokenPairCMD {
-  userID: string;
+  user_id: string;
   jwtid?: string;
 }
 interface CreateTokenCMD {
-  userID: string;
+  user_id: string;
   token_type: string;
   expires?: Date | number | string;
   roles?: string[];
@@ -202,17 +202,17 @@ interface VLTokenPair {
 export const createTokenPair = api(
   {},
   async (params: CreateTokenPairCMD): Promise<VLTokenPair> => {
-    const { jwtid = createId(IDPrefix.System), userID } = params;
+    const { jwtid = createId(IDPrefix.System), user_id } = params;
     const [access, refresh] = await Promise.all([
       auth.createToken({
-        userID,
+        user_id: user_id,
         expires: '1h',
         token_type: 'access',
         roles: [ApiPermission.ADMIN],
         jwtid,
       }),
       auth.createToken({
-        userID,
+        user_id: user_id,
         expires: '2d',
         token_type: 'refresh',
         roles: [ApiPermission.ADMIN],
@@ -232,7 +232,7 @@ export const createToken = api(
     const {
       token_name = 'USER TOKEN',
       token_type = 'access',
-      userID,
+      user_id,
       expires = '1h',
       roles,
       jwtid = createId(IDPrefix.System),
@@ -243,7 +243,7 @@ export const createToken = api(
     const expiresAt = new Date(Date.now() + expiresRange);
 
     const tokenRaw = jwt.sign(
-      { id: userID, type: token_type, roles },
+      { id: user_id, type: token_type, roles },
       Buffer.from(AUTH_SECRET().toString(), 'base64'),
       {
         algorithm: 'HS512',
@@ -251,7 +251,7 @@ export const createToken = api(
         audience: 'verseledger.net',
         issuer: 'api.verseledger.net',
         expiresIn: ms(expiresRange),
-        subject: userID,
+        subject: user_id,
       },
     );
     const id = createId(IDPrefix.System);
@@ -260,7 +260,7 @@ export const createToken = api(
     VALUES
       (
         ${id},
-        ${userID},
+        ${user_id},
         ${jwtid},
         ${token_type},
         ${token_name},

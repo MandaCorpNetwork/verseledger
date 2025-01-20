@@ -79,7 +79,7 @@ export const getByAuth = api<GetUserByAuthCMD, UserAuthAttempt>(
     WHERE
       identifier = ${params.identifier}
     AND
-      type = ${params.type}
+      token_type = ${params.type}
     `) as UserAuthEntry;
     if (userAuth == null) return { success: false };
     const user = await UserDB.queryRow`

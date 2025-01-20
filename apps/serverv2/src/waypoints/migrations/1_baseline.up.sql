@@ -1,5 +1,10 @@
 CREATE TABLE waypoints (
   id VARCHAR(26) PRIMARY KEY,
+  owner_id VARCHAR(26) PRIMARY KEY,
+  parent_id VARCHAR(26) NULL,
   name VARCHAR(64) NOT NULL,
-  public BOOLEAN DEFAULT 'f'
+  category VARCHAR(64) NULL,
+  x DOUBLE DEFAULT 0,
+  y DOUBLE DEFAULT 0,
+  z DOUBLE DEFAULT 0
 );
