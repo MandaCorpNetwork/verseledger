@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "busboy": "1.6.0",
-    "encore.dev": "1.45.7",
+    "encore.dev": "1.46.0",
     "fast-jwt": "5.0.5",
     "jsonwebtoken": "9.0.2",
     "ms": "2.1.3"
