@@ -3189,25 +3189,25 @@
   resolved "https://registry.yarnpkg.com/@rtsao/scc/-/scc-1.1.0.tgz#927dd2fae9bc3361403ac2c7a00c32ddce9ad7e8"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@scalar/api-client@2.2.35":
-  version "2.2.35"
-  resolved "https://registry.yarnpkg.com/@scalar/api-client/-/api-client-2.2.35.tgz#b420b583ac962ced2e49ac05bd76f7843d840cf6"
-  integrity sha512-+kv4KhXrnE7ZxWqU2aQ7ZG8ZAjCSGn97HoL7mTh88Si0MG8ACC7fa6V3TEOftEXfbM9Hs1mhsf5xMUD+CVIU9w==
+"@scalar/api-client@2.2.37":
+  version "2.2.37"
+  resolved "https://registry.yarnpkg.com/@scalar/api-client/-/api-client-2.2.37.tgz#7061cea0eb91ec3fe8d0076c1267e4b2749409fc"
+  integrity sha512-2BB9TWT1b132DBY4FM2AAaYMpqxOF4/u1Goc3X9SjzzEZz5gSPvW9j/2OaZQ9E7xwlGjoB2WZxFmHxfqeF1E2g==
   dependencies:
     "@headlessui/tailwindcss" "^0.2.0"
     "@headlessui/vue" "^1.7.20"
-    "@scalar/components" "0.13.15"
+    "@scalar/components" "0.13.16"
     "@scalar/draggable" "0.1.8"
     "@scalar/icons" "0.1.2"
-    "@scalar/import" "0.2.18"
-    "@scalar/oas-utils" "0.2.98"
+    "@scalar/import" "0.2.19"
+    "@scalar/oas-utils" "0.2.99"
     "@scalar/object-utils" "1.1.12"
     "@scalar/openapi-parser" "0.10.4"
     "@scalar/openapi-types" "0.1.6"
-    "@scalar/postman-to-openapi" "0.1.21"
+    "@scalar/postman-to-openapi" "0.1.22"
     "@scalar/themes" "0.9.61"
     "@scalar/types" "0.0.27"
-    "@scalar/use-codemirror" "0.11.60"
+    "@scalar/use-codemirror" "0.11.61"
     "@scalar/use-hooks" "0.1.15"
     "@scalar/use-toasts" "0.7.8"
     "@scalar/use-tooltip" "1.0.5"
@@ -3215,7 +3215,6 @@
     "@vueuse/integrations" "^11.2.0"
     focus-trap "^7"
     fuse.js "^7.0.0"
-    js-cookie "^3.0.5"
     microdiff "^1.4.0"
     nanoid "^5.0.7"
     pretty-bytes "^6.1.1"
@@ -3227,24 +3226,24 @@
     yaml "^2.4.5"
     zod "^3.23.8"
 
-"@scalar/api-reference-react@0.4.15":
-  version "0.4.15"
-  resolved "https://registry.yarnpkg.com/@scalar/api-reference-react/-/api-reference-react-0.4.15.tgz#818c1d0501a05539a76400f606ca440552fe4098"
-  integrity sha512-LXGre8Wv0OHxG8SZTuQ/rg4vjth75h+hdxFsFymocmw8a2swGVvEFHeWxKPXMRqOH5es17N26naet1yFex4Zow==
+"@scalar/api-reference-react@0.4.17":
+  version "0.4.17"
+  resolved "https://registry.yarnpkg.com/@scalar/api-reference-react/-/api-reference-react-0.4.17.tgz#fc2adb74f5ace2259e294ff6467df875a99004f8"
+  integrity sha512-MkdsA+YphKCh/nj+xGU9rnMRw3ekLk1doBoayWgFAzCUVB8z4yMgnISS/AR5+Ydz3YjeJdYFPxOKjjA5couLiQ==
   dependencies:
-    "@scalar/api-reference" "1.25.106"
+    "@scalar/api-reference" "1.25.108"
 
-"@scalar/api-reference@1.25.106":
-  version "1.25.106"
-  resolved "https://registry.yarnpkg.com/@scalar/api-reference/-/api-reference-1.25.106.tgz#33479e2b67fe9173e3a57ad03f6325814c07d797"
-  integrity sha512-mOmBGwBDSUN4OTtHmPObCY3x4/K1IP6S2MuT79t7QKX+/42H6EOyhgp79yG/MG4ZbPqhGaU5p5u7lhgHTZFznQ==
+"@scalar/api-reference@1.25.108":
+  version "1.25.108"
+  resolved "https://registry.yarnpkg.com/@scalar/api-reference/-/api-reference-1.25.108.tgz#8e0d49dc32ae7c3051c1b6fb3d5a04687d7cd1c6"
+  integrity sha512-jJqFCrK5XfEURkRUGzIu21B/Q+NBaszK3b8QBTVZi/l02qwuRAn0SZiZOnK/CXzPeCDMgvy+tib0TEg1q7kDKw==
   dependencies:
     "@floating-ui/vue" "^1.0.2"
     "@headlessui/vue" "^1.7.20"
-    "@scalar/api-client" "2.2.35"
+    "@scalar/api-client" "2.2.37"
     "@scalar/code-highlight" "0.0.20"
-    "@scalar/components" "0.13.15"
-    "@scalar/oas-utils" "0.2.98"
+    "@scalar/components" "0.13.16"
+    "@scalar/oas-utils" "0.2.99"
     "@scalar/openapi-parser" "0.10.4"
     "@scalar/openapi-types" "0.1.6"
     "@scalar/snippetz" "0.2.10"
@@ -3282,10 +3281,10 @@
     unified "^11.0.4"
     unist-util-visit "^5.0.0"
 
-"@scalar/components@0.13.15":
-  version "0.13.15"
-  resolved "https://registry.yarnpkg.com/@scalar/components/-/components-0.13.15.tgz#9cb2b32e1bc7df4c42354d591f7748395fcdf810"
-  integrity sha512-xmMTWqy8JCgBNALIkawvrA2atBDEC3heYVPWvm4KQYd5A24KFYJYaLvFz4JrSXfbuMrMpwBMS1QAwrjriTrNpQ==
+"@scalar/components@0.13.16":
+  version "0.13.16"
+  resolved "https://registry.yarnpkg.com/@scalar/components/-/components-0.13.16.tgz#7347a3b97539de2b78286fac65e39b19e328844f"
+  integrity sha512-axBzsIanKLH0CeXmS27J70Fk1Y+vyHd9gBQXgFJD0CDW24E+LxtASEqZSZyHD4RpDv1XhwzE//+mEROWmOooWQ==
   dependencies:
     "@floating-ui/utils" "^0.2.2"
     "@floating-ui/vue" "^1.0.2"
@@ -3315,19 +3314,19 @@
   dependencies:
     vue "^3.5.12"
 
-"@scalar/import@0.2.18":
-  version "0.2.18"
-  resolved "https://registry.yarnpkg.com/@scalar/import/-/import-0.2.18.tgz#764fc0388f2f543ff76697be87c2c6864e5cbf2a"
-  integrity sha512-5dVlJEBStCGODpwjNr4C0Ec8ZG/oTCsaQdFjojl+LuQYletycYUZfUgs+7goAopMaMvlzDLujRmargZ578V8Hw==
+"@scalar/import@0.2.19":
+  version "0.2.19"
+  resolved "https://registry.yarnpkg.com/@scalar/import/-/import-0.2.19.tgz#5825d2fbc09e8ff3254acec67629d5ed5a25eca4"
+  integrity sha512-t1THp69F0n0O2zfidPMrNBgGRXNvq6I9842Rbvg2Jv0/NwmRDLfpC36PV33RG74F6a3MZs9d7iWwyCQF3ohYpA==
   dependencies:
-    "@scalar/oas-utils" "0.2.98"
+    "@scalar/oas-utils" "0.2.99"
     "@scalar/openapi-parser" "0.10.4"
     yaml "^2.4.5"
 
-"@scalar/oas-utils@0.2.98":
-  version "0.2.98"
-  resolved "https://registry.yarnpkg.com/@scalar/oas-utils/-/oas-utils-0.2.98.tgz#e54307676dcc3beb60973892a214e99048e83522"
-  integrity sha512-0qY/rjq7O8IBU7LDus/nLqh6TpjEqZBqaQq3MEvfqpl74RNm1kn+sU6RVVnBkEYpdrzNz4xkjpFTkgrsw6zXrA==
+"@scalar/oas-utils@0.2.99":
+  version "0.2.99"
+  resolved "https://registry.yarnpkg.com/@scalar/oas-utils/-/oas-utils-0.2.99.tgz#b9478a96333886ae7115cc48e85c4b5c8c09356c"
+  integrity sha512-WnCAC7NuADkXtGkEwcBOLe96BvIKyV1zzIployZEho8XjfWz1t9Q2yNTdPTeLRx3xnXPfr/ENiDz8AvbQO/7Og==
   dependencies:
     "@hyperjump/json-schema" "^1.9.6"
     "@scalar/object-utils" "1.1.12"
@@ -3366,12 +3365,12 @@
   resolved "https://registry.yarnpkg.com/@scalar/openapi-types/-/openapi-types-0.1.6.tgz#c0b71fe89c67c7a8ed8b847f683cf7d4d6c9d5e3"
   integrity sha512-V+KnESyVJqorJzEN0QFlu3tAImCHjnvPov6QcQvjfY7s0+CjrI3rRO3oVIRlXURTQrQGrnhxvK0SkXGAZ+dxvw==
 
-"@scalar/postman-to-openapi@0.1.21":
-  version "0.1.21"
-  resolved "https://registry.yarnpkg.com/@scalar/postman-to-openapi/-/postman-to-openapi-0.1.21.tgz#a62f1bf35c58783092a4e063732c5a8f159b1683"
-  integrity sha512-vq02QIjfl1QBlMox+DpfR3l5hEQ7gLrrq1ZsOgAOswQjowA8eLo2L+GPtpaCJPKcJ51jKpXJJdSUvReUSgSMMw==
+"@scalar/postman-to-openapi@0.1.22":
+  version "0.1.22"
+  resolved "https://registry.yarnpkg.com/@scalar/postman-to-openapi/-/postman-to-openapi-0.1.22.tgz#9a076f95ee93cf92823d9787b713406202add036"
+  integrity sha512-F9bcYQvNI4iBElBbDuERvguU851g/6ihft1anAsofGYbSDScoNC845Cbu38rJp/uIKLD+j22HPooox6lsO2M+Q==
   dependencies:
-    "@scalar/oas-utils" "0.2.98"
+    "@scalar/oas-utils" "0.2.99"
     "@scalar/openapi-types" "0.1.6"
 
 "@scalar/snippetz@0.2.10":
@@ -3396,10 +3395,10 @@
     "@scalar/openapi-types" "0.1.6"
     "@unhead/schema" "^1.11.11"
 
-"@scalar/use-codemirror@0.11.60":
-  version "0.11.60"
-  resolved "https://registry.yarnpkg.com/@scalar/use-codemirror/-/use-codemirror-0.11.60.tgz#9650050befbd0e140ffb9267ed355e8f8a26ce95"
-  integrity sha512-fVP5i7EDvsPTAY96ZKTvN+N2P9O0Id1kXoEShV7/IlXlP+1u8MiaBo935L1nZ06gssZsAtY5lGCursbUHtZqbw==
+"@scalar/use-codemirror@0.11.61":
+  version "0.11.61"
+  resolved "https://registry.yarnpkg.com/@scalar/use-codemirror/-/use-codemirror-0.11.61.tgz#95c571b482d1494f0b13f174d801fc0da72f2641"
+  integrity sha512-NPd1s1wXyc2sxYg6mB9nPjjjQfKU2IYTjv/lTaCrlMyz3MUCJyCY5FDTzsa8S4u5DGGgc42mcMO3RV4FpJE1SA==
   dependencies:
     "@codemirror/autocomplete" "^6.18.3"
     "@codemirror/commands" "^6.7.1"
@@ -3416,7 +3415,7 @@
     "@lezer/highlight" "^1.2.1"
     "@lezer/lr" "^1.4.2"
     "@replit/codemirror-css-color-picker" "^6.3.0"
-    "@scalar/components" "0.13.15"
+    "@scalar/components" "0.13.16"
     codemirror "^6.0.0"
     style-mod "^4.1.2"
     vue "^3.5.12"
@@ -9049,11 +9048,6 @@ jju@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/jju/-/jju-1.4.0.tgz#a3abe2718af241a2b2904f84a625970f389ae32a"
   integrity sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==
-
-js-cookie@^3.0.5:
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-3.0.5.tgz#0b7e2fd0c01552c58ba86e0841f94dc2557dcdbc"
-  integrity sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
