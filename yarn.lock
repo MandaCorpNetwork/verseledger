@@ -4423,10 +4423,10 @@
     "@types/express" "*"
     "@types/serve-static" "*"
 
-"@types/swagger-ui-react@4.18.3":
-  version "4.18.3"
-  resolved "https://registry.yarnpkg.com/@types/swagger-ui-react/-/swagger-ui-react-4.18.3.tgz#4f6fd3f9fa47d0a6684d2aecf1511c645bf8c71f"
-  integrity sha512-Mo/R7IjDVwtiFPs84pWvh5pI9iyNGBjmfielxqbOh2Jv+8WVSDVe8Nu25kb5BOuV2xmGS3o33jr6nwDJMBcX+Q==
+"@types/swagger-ui-react@4.19.0":
+  version "4.19.0"
+  resolved "https://registry.yarnpkg.com/@types/swagger-ui-react/-/swagger-ui-react-4.19.0.tgz#9c118e612ca87e51479a818d96e3eb94fbb3342f"
+  integrity sha512-uScp1xkLZJej0bt3/lO4U11ywWEBnI5CFCR0tqp+5Rvxl1Mj1v6VkGED0W70jJwqlBvbD+/a6bDiK8rjepCr8g==
   dependencies:
     "@types/react" "*"
 
