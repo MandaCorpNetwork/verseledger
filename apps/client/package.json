@@ -19,7 +19,7 @@
     "@react-three/drei": "9.121.3",
     "@react-three/fiber": "8.17.12",
     "@react-three/postprocessing": "2.19.1",
-    "@reduxjs/toolkit": "2.5.0",
+    "@reduxjs/toolkit": "2.5.1",
     "@scalar/api-reference-react": "0.4.17",
     "@tanstack/react-form": "0.41.3",
     "@tanstack/react-ranger": "0.0.4",
