@@ -34,7 +34,7 @@
     "date-fns": "3.6.0",
     "dayjs": "1.11.13",
     "howler": "2.2.4",
-    "i18next": "24.2.1",
+    "i18next": "24.2.2",
     "i18next-browser-languagedetector": "8.0.2",
     "i18next-http-backend": "2.7.3",
     "jwt-decode": "4.0.0",
