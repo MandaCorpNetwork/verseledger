@@ -9,7 +9,6 @@ import { userLogin } from '../user/user';
 import { createId, IDPrefix } from '../utils/createId';
 import { ApiPermission } from './permissions';
 import { DTO } from '../utils/JSAPI';
-
 interface AuthParams {
   authHeader?: Header<'Authorization'>;
   apiKey?: Header<'X-API-Key'>;

@@ -9,6 +9,8 @@ CREATE TABLE api_tokens (
       'api'
     )
   ) NOT NULL,
+  token_location text NULL,
+  token_browser text NULL,
   token_name varchar(32) NOT NULL DEFAULT 'USER TOKEN',
   expires_at timestamp(0) NOT NULL,
   created_at timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
