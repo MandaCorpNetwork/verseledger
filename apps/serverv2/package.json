@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "busboy": "1.6.0",
-    "encore.dev": "1.46.2",
+    "encore.dev": "1.46.3",
     "fast-jwt": "5.0.5",
     "geoip-lite": "1.4.10",
     "jsonwebtoken": "9.0.2",
