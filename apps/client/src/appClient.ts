@@ -1,6 +1,5 @@
 import { AuthUtil } from '@Utils/AuthUtil';
-
-import Client, { Local } from './client';
+import { Client, Local } from '@verseledger-local/client';
 
 export const appClient = new Client(Local, {
   auth: () => {

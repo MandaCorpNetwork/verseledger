@@ -1,7 +1,7 @@
 {
   "name": "verseledger",
   "version": "0.1.0",
-  "licence": "CC-BY-NC-ND-4.0",
+  "license": "CC-BY-NC-ND-4.0",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -13,7 +13,7 @@
     "test": "yarn test:server && yarn test:client",
     "test:client": "yarn manypkg run client test",
     "test:server": "yarn manypkg run server test",
-    "lint": "yarn manypkg run server lint && yarn manypkg run serverv2 lint && yarn manypkg run vl-shared lint && manypkg run client lint",
+    "lint": "yarn manypkg exec yarn lint",
     "lint:fix": "yarn lint",
     "lint:check": "yarn manypkg run server lint:check && yarn manypkg run vl-shared lint:check && manypkg run client lint:check",
     "db:reset": "cd scripts && setup-local-db.bat",

@@ -9,7 +9,7 @@
     "lint": "npx eslint . --fix && npx prettier . --write",
     "dev": "encore run --watch --debug --color",
     "test": "vitest",
-    "gen": "encore gen client --env=local -o ../client/src/client.ts"
+    "gen": "encore gen client --env=local -o ../../libs/@verseledger-client/src/client.ts"
   },
   "devDependencies": {
     "@paralleldrive/cuid2": "2.2.2",

@@ -17,8 +17,12 @@
       "path": "apps/serverv2",
     },
     {
-      "name": "VLShared",
-      "path": "packages/vl-shared",
+      "name": "vl-shared",
+      "path": "libs/vl-shared",
+    },
+    {
+      "name": "@verseledter/client",
+      "path": "libs/@verseledger-client"
     },
   ],
   "extensions": {
