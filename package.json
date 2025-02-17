@@ -21,7 +21,7 @@
     "cypress": "yarn manypkg run client cypress run --browser chrome",
     "cypress:develop": "yarn manypkg run client cypress open --browser chrome",
     "dev": "concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client dev\" \"manypkg run server dev\"",
-    "dev2": "concurrently -p \"[{name}]\" -n \"CLIENT,SERVER,ENCORE\" -c \"bgGreen.bold,bgBlue.bold,bgWhite.bold\" \"manypkg run client dev\" \"manypkg run server dev\" \"manypkg run serverv2 dev\"",
+    "dev2": "concurrently -p \"[{name}]\" -n \"CLIENT,SERVER,ENCORE,DAEMON\" -c \"bgGreen.bold,bgBlue.bold,bgWhite.bold,bgGray.bold\" \"manypkg run client dev\" \"manypkg run server dev\" \"manypkg run serverv2 dev\" \"encore daemon -f\"",
     "build": "yarn manypkg run client build",
     "start": "yarn db:migrate && concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgGreen.bold,bgBlue.bold\" \"manypkg run client serve\" \"manypkg run server serve\"",
     "start:stg": "docker compose -f docker-compose.staging.yml up --build -d",
