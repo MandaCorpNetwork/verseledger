@@ -36,7 +36,7 @@
     "@preconstruct/cli": "2.8.10",
     "@vitest/ui": "^3.0.0",
     "concurrently": "9.1.2",
-    "eslint": "9.19.0",
+    "eslint": "9.20.1",
     "prettier": "3.5.1",
     "typescript": "5.7.3",
     "vite": "6.1.0",
