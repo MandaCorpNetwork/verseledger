@@ -4005,14 +4005,14 @@
   dependencies:
     "@tanstack/ranger" "0.0.3"
 
-"@tanstack/react-router@1.102.1":
-  version "1.102.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.102.1.tgz#0abfaa48ec32a5460a91b77f8d3e2162194c6acf"
-  integrity sha512-TG/L2cZUBpN1QgB7fiR56ZSZSy6aDjzf9xCHbeQw+0kRHrrLgRtAifGhlbW/4wjgOJb+YL7cynN2sUMPtklkLA==
+"@tanstack/react-router@1.106.0":
+  version "1.106.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.106.0.tgz#0e7bbaacc66ac4ec40f1c717df64b664c5d92dde"
+  integrity sha512-Bpu/FVsv8xxIh++cw7BqYMAWJCjTAkAPMoE7p9t06oT5jixdM6JhyMjK9kC5XN8BuqOPysK9WGcFKZqqyCpitw==
   dependencies:
     "@tanstack/history" "1.99.13"
     "@tanstack/react-store" "^0.7.0"
-    "@tanstack/router-core" "^1.102.0"
+    "@tanstack/router-core" "^1.104.1"
     jsesc "^3.1.0"
     tiny-invariant "^1.3.3"
     tiny-warning "^1.0.3"
@@ -4039,36 +4039,36 @@
   dependencies:
     "@tanstack/virtual-core" "3.13.0"
 
-"@tanstack/router-core@^1.102.0":
-  version "1.102.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-core/-/router-core-1.102.0.tgz#dd56df7327ea104429284775d37d1f5cc14149e4"
-  integrity sha512-ltem2wy/ngT8Vx3DM+gEBPNGETcK8oZYnl4CLgtB0i30SWoykXvD+tpznoPxaQkaz0hkHRSTKr3Qs2USolG0Cg==
+"@tanstack/router-core@^1.104.1":
+  version "1.104.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-core/-/router-core-1.104.1.tgz#fddbf94eee52f8149faccbcc652c3d45327c21be"
+  integrity sha512-8nP/V5paP+S/17rlw+B2F12R2bB9PixU/+qnD2QdCjK1ajnG4qA0pVN3VSTQe2oCKND6GPZpm2ikmQWumwss9Q==
   dependencies:
     "@tanstack/history" "1.99.13"
     "@tanstack/store" "^0.7.0"
 
-"@tanstack/router-devtools@1.102.1":
-  version "1.102.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools/-/router-devtools-1.102.1.tgz#64fa62dafeb1654db5e997455d6af6b9c4609f9d"
-  integrity sha512-EwOq/ZZem0W5p6B819Isf8JxTnlmJlZ90IHLd7S8N6WvFiFKqlvwxwYYcubVXAn/cmIxgGCuY6cPn2MHwkJnPw==
+"@tanstack/router-devtools@1.106.0":
+  version "1.106.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools/-/router-devtools-1.106.0.tgz#468ded5ca73b822437a57ed43ecf3dc7549bcbcf"
+  integrity sha512-XjtmK5v5XkFJtR8tsH7DN7tTW92VYJEBNKej4JGhOWRwOVYyoua9pfqTGL1NAhal/swwmRGuBsZwB6Zg7UQFyA==
   dependencies:
     clsx "^2.1.1"
     goober "^2.1.16"
 
-"@tanstack/router-generator@^1.102.2":
-  version "1.102.2"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-generator/-/router-generator-1.102.2.tgz#af3e2d2dcdca571e8b52798ef60b11edd5cf258f"
-  integrity sha512-nZjEQDqKCNBGDWfOFYe4++5YorBJJPSCzjCQtTzGoOrTuugA8Y/R1+k87eBz/AH3qdZFvBNqL3ipozbBbNpe1A==
+"@tanstack/router-generator@^1.106.0":
+  version "1.106.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-generator/-/router-generator-1.106.0.tgz#b9d2499a29c40c84b282cb8c7bd927e0c156c2db"
+  integrity sha512-Q8nosyio6x7h8RbH+xJlGwWY9ht6w8Qa9fBZbFRsW+Ux9HMDesUU7C7o0cwRdYnZqDBXg5lYd8l5cZoI37+GYA==
   dependencies:
     "@tanstack/virtual-file-routes" "^1.99.0"
     prettier "^3.5.0"
     tsx "^4.19.2"
     zod "^3.24.1"
 
-"@tanstack/router-plugin@1.102.2":
-  version "1.102.2"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-plugin/-/router-plugin-1.102.2.tgz#410d14e6d265d065b0546c0dbe21284eabc6d006"
-  integrity sha512-JuTCnMLogBmj5v/LKqxO9Smt61AKhR+5l1v1JHF5X/9nWA1HMXj4vrnrVWwh0mZVYQff1Ecuwos/gA4tlSVAWw==
+"@tanstack/router-plugin@1.106.0":
+  version "1.106.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-plugin/-/router-plugin-1.106.0.tgz#348c04c4b31bfcf848ed3cee0fa1dec32322a098"
+  integrity sha512-1owlc0Sof+Dx+L6CI6B1r4KV6lXm5ZgK5SpywU7EO2afBX0FSJXYq6h8nqaaOQau7VqdgqtG/xjSgOGHmWqVzw==
   dependencies:
     "@babel/core" "^7.26.8"
     "@babel/plugin-syntax-jsx" "^7.25.9"
@@ -4076,7 +4076,7 @@
     "@babel/template" "^7.26.8"
     "@babel/traverse" "^7.26.8"
     "@babel/types" "^7.26.8"
-    "@tanstack/router-generator" "^1.102.2"
+    "@tanstack/router-generator" "^1.106.0"
     "@tanstack/router-utils" "^1.102.2"
     "@tanstack/virtual-file-routes" "^1.99.0"
     "@types/babel__core" "^7.20.5"
