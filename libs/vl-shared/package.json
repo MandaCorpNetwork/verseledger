@@ -9,7 +9,7 @@
     "lint:check": "tsc --noEmit && npx eslint ./src"
   },
   "dependencies": {
-    "@typescript-eslint/parser": "8.24.0",
+    "@typescript-eslint/parser": "8.24.1",
     "zod": "3.24.2"
   },
   "preconstruct": {
