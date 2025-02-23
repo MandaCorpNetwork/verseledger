@@ -21,7 +21,7 @@
     "@react-three/fiber": "8.18.0",
     "@react-three/postprocessing": "3.0.4",
     "@reduxjs/toolkit": "2.5.1",
-    "@scalar/api-reference-react": "0.4.28",
+    "@scalar/api-reference-react": "0.4.31",
     "@tanstack/react-form": "0.43.2",
     "@tanstack/react-ranger": "0.0.4",
     "@tanstack/react-router": "1.109.2",
