@@ -15,7 +15,7 @@
     "@paralleldrive/cuid2": "2.2.2",
     "@types/busboy": "1.5.4",
     "@types/geoip-lite": "1.4.4",
-    "@types/node": "22.13.4",
+    "@types/node": "22.13.5",
     "eslint": "9.20.1",
     "prettier": "3.5.1",
     "typescript": "5.7.3",
