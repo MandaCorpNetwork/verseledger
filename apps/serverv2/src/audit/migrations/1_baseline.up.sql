@@ -1,4 +1,0 @@
-CREATE TABLE audit (
-  id VARCHAR(26) NOT NULL,
-  token VARCHAR(26) NOT NULL
-);

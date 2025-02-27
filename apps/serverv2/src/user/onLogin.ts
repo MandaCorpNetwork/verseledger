@@ -1,10 +1,10 @@
 import { Subscription } from 'encore.dev/pubsub';
 import { userLogin } from './user';
-import { UserDB } from './user_database';
+import { Database } from '../database/database';
 
 const _ = new Subscription(userLogin, 'update-last-login', {
   handler: async (event) => {
-    await UserDB.exec`
+    await Database.exec`
     UPDATE
       users
     SET

@@ -1,9 +1,9 @@
 import { api, APIError, Query } from 'encore.dev/api';
-import { UserDB } from './user_database';
 import { auth, users } from '~encore/clients';
 import { createId, IDPrefix } from '../utils/createId';
 import { Topic } from 'encore.dev/pubsub';
 import { DTO } from '../utils/JSAPI';
+import { Database } from '../database/database';
 
 export interface NewUserEvent {
   userId: string;
@@ -46,7 +46,7 @@ export const get = api<GetUserCMD, DTO<User>>(
   async (params): Promise<DTO<User>> => {
     if (params.user_id === '@me') return auth.whoami();
     const row =
-      await UserDB.queryRow`SELECT * FROM users WHERE id = ${params.user_id}`;
+      await Database.queryRow`SELECT * FROM users WHERE id = ${params.user_id}`;
     if (row == null) throw APIError.notFound('User not found');
     return { data: row as User };
   },
@@ -71,7 +71,7 @@ interface UserAuthAttempt {
 export const getByAuth = api<GetUserByAuthCMD, UserAuthAttempt>(
   {},
   async (params) => {
-    const userAuth = (await UserDB.queryRow`
+    const userAuth = (await Database.queryRow`
     SELECT
       *
     FROM
@@ -82,7 +82,7 @@ export const getByAuth = api<GetUserByAuthCMD, UserAuthAttempt>(
       token_type = ${params.type}
     `) as UserAuthEntry;
     if (userAuth == null) return { success: false };
-    const user = await UserDB.queryRow`
+    const user = await Database.queryRow`
   SELECT
     *
   FROM
@@ -99,13 +99,13 @@ export const create = api<CreateUserCMD, User>(
   async (params) => {
     const newId = createId(IDPrefix.User);
     const tempHandle = createId(IDPrefix.User);
-    const newUser = (await UserDB.queryRow`
+    const newUser = (await Database.queryRow`
     INSERT INTO users
       (id, handle, display_name, pfp)
     VALUES (${newId}, ${tempHandle}, 'Unverified User', 'https://cdn.robertsspaceindustries.com/static/spectrum/images/member-avatar-default.jpg')
     RETURNING *
     `) as User;
-    await UserDB.exec`
+    await Database.exec`
     INSERT INTO user_auth
       (user_id, token_type, identifier)
     VALUES
@@ -146,7 +146,7 @@ export const find = api<FindUsersCMD, DTO<User[]>>(
     const { query } = params;
     if (query == null || query.trim() === '')
       throw APIError.invalidArgument("Invalid 'query'");
-    const usersGen = UserDB.query`SELECT * FROM users WHERE handle ILIKE ${'%' + query + '%'} OR display_name ILIKE ${'%' + query + '%'} LIMIT 99999`;
+    const usersGen = Database.query`SELECT * FROM users WHERE handle ILIKE ${'%' + query + '%'} OR display_name ILIKE ${'%' + query + '%'} LIMIT 99999`;
     const data = (await Array.fromAsync(usersGen)) as User[];
     return { data };
   },

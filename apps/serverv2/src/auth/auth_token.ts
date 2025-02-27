@@ -1,9 +1,3 @@
-import { SQLDatabase } from 'encore.dev/storage/sqldb';
-
-export const AuthDB = new SQLDatabase('auth_database', {
-  migrations: './migrations',
-});
-
 export interface AuthToken {
   id: string;
   user_id: string;

@@ -1,8 +1,8 @@
 import { api } from 'encore.dev/api';
-import { WaypointDatabase } from './database';
 import { VerseID } from '../utils/IDType';
 import { MaxLen } from 'encore.dev/validate';
 import { DTO } from '../utils/JSAPI';
+import { Database } from '../database/database';
 
 export interface Waypoint {
   id: VerseID;
@@ -35,7 +35,7 @@ export const listPublic = api<void, DTO<Waypoint[]>>(
     path: '/waypoints/public',
   },
   async () => {
-    const waypoints_raw = WaypointDatabase.query`SELECT * FROM waypoints WHERE public = 't'`;
+    const waypoints_raw = Database.query`SELECT * FROM waypoints WHERE public = 't'`;
     const waypoints = (await Array.fromAsync(waypoints_raw)) as Waypoint[];
     return { data: waypoints };
   },

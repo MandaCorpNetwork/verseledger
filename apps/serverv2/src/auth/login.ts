@@ -3,12 +3,12 @@ import { authHandler } from 'encore.dev/auth';
 import jwt from 'jsonwebtoken';
 import { secret } from 'encore.dev/config';
 import { auth, users } from '~encore/clients';
-import { AuthDB } from './database';
 import ms from 'ms';
 import { userLogin } from '../user/user';
 import { createId, IDPrefix } from '../utils/createId';
 import { ApiPermission } from './permissions';
 import { DTO } from '../utils/JSAPI';
+import { Database } from '../database/database';
 interface AuthParams {
   authHeader?: Header<'Authorization'>;
   apiKey?: Header<'X-API-Key'>;
@@ -46,7 +46,7 @@ export const JWTAuthHandler = authHandler<AuthParams, AuthData>(
         'The request does not have valid authentication credentials for the operation.',
       );
     userAuth.userID = userAuth.id;
-    const row = await AuthDB.queryRow`
+    const row = await Database.queryRow`
     UPDATE
       api_tokens t
     SET
@@ -254,7 +254,7 @@ export const createToken = api(
       },
     );
     const id = createId(IDPrefix.System);
-    await AuthDB.exec`
+    await Database.exec`
     INSERT INTO api_tokens (id, user_id, token_id, token_type, token_name, expires_at, roles)
     VALUES
       (
