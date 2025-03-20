@@ -2,6 +2,7 @@ import { getHostname } from './getHostname';
 
 export const siteMode = (() => {
   const hostname = getHostname;
+  console.log(hostname);
   switch (hostname) {
     case 'localhost':
       return 'LOCAL';
