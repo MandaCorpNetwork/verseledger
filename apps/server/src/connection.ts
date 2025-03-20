@@ -9,13 +9,13 @@ export const setupModels = (env: {
   MYSQL_HOST: string;
   MYSQL_PORT: number;
 }) => {
-  return new Sequelize({
+  const connection = new Sequelize({
     database: env.MYSQL_DATABASE,
     dialect: 'mysql',
     username: env.MYSQL_USER,
     password: env.MYSQL_PASSWORD,
     host: env.MYSQL_HOST,
-    port: Number(env.MYSQL_PORT),
+    port: env.MYSQL_HOST === 'null' ? undefined : Number(env.MYSQL_HOST),
     models: [`${__dirname}/**/*.model.ts`],
     modelMatch(a, b) {
       Logger.info(`Loading ${chalk.yellow(b)} from ${chalk.grey(a)}`);
@@ -26,4 +26,5 @@ export const setupModels = (env: {
       Logger.withType(chalk.bold.bgGreen('[$SQL]'), sql);
     },
   });
+  return connection;
 };

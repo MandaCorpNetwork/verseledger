@@ -35,11 +35,14 @@ export const createServer = () => {
     AuthProvider,
   );
   server.setConfig((app) => {
-    app.use(
-      cors({
-        origin: [env.FRONTEND_HOST, env.BACKEND_HOST, env.BROKER_HOST],
-      }),
-    );
+    const ALLOWED_HOSTS = [
+      env.FRONTEND_HOST,
+      env.BACKEND_HOST,
+      env.BROKER_HOST,
+      'https://1160393986440179823.discordsays.com',
+    ];
+    console.log('ALLOWING HOSTS: ', ALLOWED_HOSTS);
+    app.use(cors({ origin: ALLOWED_HOSTS }));
     app.use((req, _res, next) => {
       const method = methodToColor(req.method);
       const type = chalk.bold.bgMagenta('[$NET]');
@@ -81,10 +84,7 @@ export const createServer = () => {
           schemes: ['https', 'http'],
           consumes: [swagger.SwaggerDefinitionConstant.Consume.JSON],
           produces: [swagger.SwaggerDefinitionConstant.Produce.JSON],
-          info: {
-            title: 'VerseLedger API',
-            version: '1.0',
-          },
+          info: { title: 'VerseLedger API', version: '1.0' },
           models: {
             ContractArray: {
               properties: { TODO: { type: 'string', required: true } },
