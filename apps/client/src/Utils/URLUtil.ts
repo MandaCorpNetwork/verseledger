@@ -3,7 +3,6 @@ import { siteMode } from './siteMode';
 export class URLUtil {
   static readonly siteMode = siteMode;
   public static get messageBroker() {
-    console.log(URLUtil.siteMode);
     switch (URLUtil.siteMode) {
       case 'LOCAL':
         return 'ws://localhost:61616/ws';
@@ -16,7 +15,6 @@ export class URLUtil {
     }
   }
   public static get frontendHost() {
-    console.log(URLUtil.siteMode);
     switch (URLUtil.siteMode) {
       case 'LOCAL':
         return 'http://localhost:3000';
@@ -29,7 +27,6 @@ export class URLUtil {
     }
   }
   public static get backendHost() {
-    console.log(URLUtil.siteMode);
     switch (URLUtil.siteMode) {
       case 'LOCAL':
         return 'http://localhost:3030';

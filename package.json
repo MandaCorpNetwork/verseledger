@@ -8,6 +8,7 @@
     "libs/*"
   ],
   "scripts": {
+    "postinstall": "preconstruct dev && manypkg check",
     "clean": "yarn manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules",
     "test": "yarn test:server && yarn test:client",
     "test:client": "yarn manypkg run client test",

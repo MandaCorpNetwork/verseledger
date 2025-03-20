@@ -63,7 +63,6 @@
     "zustand": "5.0.3"
   },
   "scripts": {
-    "postinstall": "playwright install --with-deps",
     "dev": "vite --host",
     "test": "vitest run",
     "playwright:test": "playwright test",
