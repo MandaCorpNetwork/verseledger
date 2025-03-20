@@ -13,6 +13,7 @@ import { OrgPage } from '@ComponentsLegacy/Orgs/Page/OrgPage';
 import { ShipTuning } from '@ComponentsLegacy/Ships/Tuning/Tuning';
 import { DashboardApp } from '@ComponentsLegacy/User/Dashboard/DashboardApp';
 import { VerseMarketPage } from '@ComponentsLegacy/VerseMarket/VerseMarketPage';
+import { DiscordActivityUtility } from '@Utils/discordActivityUtility';
 import { DiscordLoginUtility } from '@Utils/discordLoginUtility';
 import { GoogleLoginUtility } from '@Utils/GoogleLoginUtility';
 import { Outlet, type RouteObject } from 'react-router';
@@ -47,6 +48,7 @@ export const routingInfo: RouteObject[] = [
         <Outlet />
         <PopupManager />
         <WidgetManager />
+        <DiscordActivityUtility />
       </>
     ),
     errorElement: <ErrorPage />,
