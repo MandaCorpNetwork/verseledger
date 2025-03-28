@@ -17,6 +17,8 @@ export const DiscordActivityUtility = () => {
 
       await discordSdk.ready();
 
+      await discordSdk.commands.encourageHardwareAcceleration();
+
       console.log('DISCORD SDK READY');
       const { code } = await discordSdk.commands.authorize({
         client_id: '1160393986440179823',
