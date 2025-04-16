@@ -103,7 +103,7 @@ export class AuthController extends BaseHttpController {
       env.DISCORD_CLIENT_ID && env.DISCORD_CLIENT_SECRET
         ? {
             type: 'discord',
-            redirect: `https://discord.com/oauth2/authorize?client_id=1160393986440179823&response_type=code&redirect_uri=${encodeURIComponent(env.FRONTEND_HOST)}%2Foauth%2Fdiscord%2Fcallback&scope=openid`,
+            redirect: `https://discord.com/oauth2/authorize?client_id=1160393986440179823&response_type=code&redirect_uri=${encodeURIComponent(env.FRONTEND_HOST)}%2Foauth%2Fdiscord%2Fcallback&scope=identify+openid`,
           }
         : undefined,
       env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET
@@ -203,7 +203,7 @@ export class AuthController extends BaseHttpController {
       grant_type: 'authorization_code',
       code: reqBody.code,
       redirect_uri: `${env.FRONTEND_HOST}/oauth/discord/callback`,
-      scope: 'identify',
+      scope: 'identify+openid',
     });
     const user = await fetch('https://discord.com/api/v10/oauth2/token', {
       method: 'POST',
@@ -216,7 +216,6 @@ export class AuthController extends BaseHttpController {
           access_token: string;
           token_type: string;
         };
-        Logger.info('ACCESS_TOKEN', access_token);
         return fetch(`https://discord.com/api/v10/users/@me`, {
           headers: { Authorization: `${token_type} ${access_token}` },
         })
