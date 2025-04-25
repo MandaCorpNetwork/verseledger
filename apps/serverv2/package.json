@@ -25,7 +25,7 @@
     "busboy": "1.6.0",
     "discord.js": "^14.18.0",
     "encore.dev": "1.46.4",
-    "fast-jwt": "5.0.5",
+    "fast-jwt": "5.0.6",
     "geoip-lite": "1.4.10",
     "jsonwebtoken": "9.0.2",
     "ms": "2.1.3"
