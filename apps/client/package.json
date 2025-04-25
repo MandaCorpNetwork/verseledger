@@ -89,7 +89,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@eslint/compat": "1.2.8",
-    "@eslint/eslintrc": "3.3.0",
+    "@eslint/eslintrc": "3.3.1",
     "@eslint/js": "9.21.0",
     "@playwright/test": "1.50.1",
     "@tanstack/router-devtools": "1.117.1",
