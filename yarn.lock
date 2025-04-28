@@ -4313,10 +4313,10 @@
     tsx "^4.19.2"
     zod "^3.24.2"
 
-"@tanstack/router-plugin@1.117.1":
-  version "1.117.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-plugin/-/router-plugin-1.117.1.tgz#cef86e4906376684a3a248456af11a65a07c2a1e"
-  integrity sha512-kOqM5Nm2QNK234wud5eTaXf6QsdMeQE65uif+lAzNGER48sK2Mb0ExSuZCii1U7AqRl5Kt/pV2iou5BjFp8XsA==
+"@tanstack/router-plugin@1.117.2":
+  version "1.117.2"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-plugin/-/router-plugin-1.117.2.tgz#82415e64134ebd69ebe5007ad78569e0725481c5"
+  integrity sha512-QgiFW4HVnxYbMz8AUg+IZdPBqZx7u02D4j71uw6q+aWEDU5qYLB0RzdtBRvvb2cB7ZSzXLGbtDqiMN5mHcww2w==
   dependencies:
     "@babel/core" "^7.26.8"
     "@babel/plugin-syntax-jsx" "^7.25.9"
