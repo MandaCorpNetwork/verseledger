@@ -10,17 +10,17 @@ Pre-requisits:
 
 ```bash
 # NPM
-$ npm i
+$ yarn
 ```
 
 # How to Start
 
 ```bash
-$ npm run dev
+$ yarn dev
 ```
 
 # Testing
 
 ```bash
-$ npm run test
+$ yarn test
 ```
