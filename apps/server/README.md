@@ -26,7 +26,7 @@ Pre-requisits:
 
 ```bash
 # NPM
-$ npm i
+$ yarn
 ```
 
 # How to Start
@@ -36,7 +36,7 @@ $ docker-compose --profile local up --build -d
 ```
 
 ```bash
-$ npm run dev
+$ yarn dev
 ```
 
 # ENV
@@ -91,7 +91,7 @@ password: verseledger-password
 ## Configure DB
 
 ```bash
-$ npm run db:reset
+$ yarn db:reset
 ```
 
 > [!NOTE]
@@ -122,13 +122,13 @@ The naming convention is `V${version}__${MigrationName}.sql`.
 Run all migration scripts with
 
 ```bash
-$ npm run db:migrate
+$ yarn db:migrate
 ```
 
 # Testing
 
 ```bash
-$ npm run test
+$ yarn test
 ```
 
 # Package Documentation
