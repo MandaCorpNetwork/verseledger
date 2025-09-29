@@ -4,9 +4,9 @@ Fill This Out
 
 ## Services
 
-[Frontend Readme](/services/client/README.md)
+[Frontend Readme](/apps/client/README.md)
 
-[Backend Readme](/services/server/README.md)
+[Backend Readme](/apps/server/README.md)
 
 ## Packages
 
