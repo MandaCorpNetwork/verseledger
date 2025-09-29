@@ -29,6 +29,7 @@ import ErrorPage from './ErrorPage';
 import { Home } from './Index/Home/Home';
 import { LicensePage } from './License/LicensePage';
 import { NotFoundPage } from './NotFound/NotFound';
+import OSAPage from './OnlineSafetyActBanner';
 import { OrgLedgerPage } from './OrgLedger/OrgLedgerPage';
 import { SecureRoute } from './SecureRoute';
 import { UserSettings } from './Settings/UserSettings';
@@ -38,6 +39,7 @@ import { UserPage } from './User/UserPage';
 import { VerseNewsPage } from './VerseNews/VerseNews';
 
 export const routingInfo: RouteObject[] = [
+  { path: '/osa', element: <OSAPage /> },
   {
     path: '/',
     //element: <LegacyLandingPage/>,

@@ -2,7 +2,7 @@
   "name": "@verseledger-local/client",
   "version": "1.0.0",
   "author": "bombitmanbomb",
-  "license": "CC-BY-NC-ND-4.0",
+  "license": "FSL-1.1-ALv2",
   "main": "dist/verseledger-local-client.cjs.js",
   "types": "dist/verseledger-local-client.cjs.d.ts",
   "private": false,

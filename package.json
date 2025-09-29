@@ -1,7 +1,7 @@
 {
   "name": "verseledger",
   "version": "0.1.0",
-  "license": "CC-BY-NC-ND-4.0",
+  "license": "FSL-1.1-ALv2",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -39,7 +39,7 @@
     "eslint": "9.21.0",
     "prettier": "3.5.2",
     "typescript": "5.7.3",
-    "vite": "6.2.6",
+    "vite": "6.3.3",
     "vitest": "3.1.2"
   },
   "preconstruct": {
