@@ -63,7 +63,7 @@
     "mysql2": "3.12.0",
     "node-gzip": "1.1.2",
     "reflect-metadata": "0.2.2",
-    "sequelize": "6.37.5",
+    "sequelize": "6.37.7",
     "sequelize-typescript": "2.1.6",
     "swagger-express-ts": "1.1.0",
     "swagger-jsdoc": "6.2.8",
