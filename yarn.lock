@@ -7226,10 +7226,10 @@ encodeurl@~2.0.0:
   resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-2.0.0.tgz#7b8ea898077d7e409d3ac45474ea38eaf0857a58"
   integrity sha512-Q0n9HRi4m6JuGIV1eFlmvJB7ZEVxu93IrMyiMsGC0lrMJMWzRgx6WGquyfQgZVb31vhGgXnfmPNNXmxnOkRBrg==
 
-encore.dev@1.46.4:
-  version "1.46.4"
-  resolved "https://registry.yarnpkg.com/encore.dev/-/encore.dev-1.46.4.tgz#68d2ba2b7aa1cf53a96c71ec4bb099bc3372b5f4"
-  integrity sha512-kw4HA5UjAs/GUby1VzXPi5HOXIK/dqZCMifeanTJgBQPXToT/WzdZOlUh4UQRlU6sqG7AVs7hmDzgXst83lmPw==
+encore.dev@1.50.0:
+  version "1.50.0"
+  resolved "https://registry.yarnpkg.com/encore.dev/-/encore.dev-1.50.0.tgz#4c50fd667cbfb1986f32ad14c3e9c4bf4f9b98b6"
+  integrity sha512-ruPe2xEWOt6LXn5bGK7HArPyjcjgIyKenoXE6dVoOGMnzFfykiZ8/5r2Rc9dn01WhrvgSn2sfDIhooKdxZ+dkA==
 
 end-of-stream@^1.1.0:
   version "1.4.4"
