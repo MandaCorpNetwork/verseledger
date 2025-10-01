@@ -7185,10 +7185,10 @@ collapse-white-space@^2.0.0:
   resolved "https://registry.yarnpkg.com/collapse-white-space/-/collapse-white-space-2.1.0.tgz#640257174f9f42c740b40f3b55ee752924feefca"
   integrity sha512-loKTxY1zCOuG4j9f6EPnuyyYkf58RnhhWTvRoZEokgB+WbdXehfjFviyOVYkqzEWz1Q5kRiZdBYS5SwxbQYwzw==
 
-color-convert@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-3.0.1.tgz#c0d327fd53cb93dfac3ba60fb04f2f8069638d6f"
-  integrity sha512-5kQah2eolfQV7HCrxtsBBArPfT5dwaKYMCXeMQsdRO7ihTO/cuNLGjd50ITCDn+ZU/YbS0Go64SjP9154eopxg==
+color-convert@3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-3.1.2.tgz#cef9e0fd4cb90b07c14697b3fa70af9d7f4870f1"
+  integrity sha512-UNqkvCDXstVck3kdowtOTWROIJQwafjOfXSmddoDrXo4cewMKmusCeF22Q24zvjR8nwWib/3S/dfyzPItPEiJg==
   dependencies:
     color-name "^2.0.0"
 
