@@ -10,7 +10,7 @@
     "@swc/cli": "0.7.3",
     "@swc/core": "1.11.22",
     "@swc/types": "0.1.21",
-    "@types/cors": "2.8.17",
+    "@types/cors": "2.8.19",
     "@types/express": "5.0.0",
     "@types/jsonwebtoken": "9.0.9",
     "@types/mime": "4.0.0",
