@@ -124,7 +124,7 @@
     "prettier": "3.6.2",
     "rollup": "^4.32.1",
     "sass": "1.87.0",
-    "typescript": "5.7.3",
+    "typescript": "5.9.3",
     "vite": "6.3.6",
     "vite-plugin-node-polyfills": "0.23.0",
     "vite-plugin-pwa": "0.21.2",
