@@ -16,7 +16,7 @@
     "@types/busboy": "1.5.4",
     "@types/geoip-lite": "1.4.4",
     "@types/node": "24.5.2",
-    "eslint": "9.21.0",
+    "eslint": "9.36.0",
     "prettier": "3.6.2",
     "typescript": "5.7.3",
     "vitest": "3.1.2"
