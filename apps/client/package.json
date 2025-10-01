@@ -7,7 +7,7 @@
   "dependencies": {
     "@discord/embedded-app-sdk": "1.9.0",
     "@emotion/react": "11.14.0",
-    "@emotion/styled": "11.14.0",
+    "@emotion/styled": "11.14.1",
     "@hyperjump/browser": "1.2.0",
     "@mdx-js/react": "3.1.0",
     "@mdx-js/rollup": "3.1.0",
