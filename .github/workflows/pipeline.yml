@@ -5,7 +5,7 @@ jobs:
   eslint:
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
@@ -17,7 +17,7 @@ jobs:
     needs:
       - eslint
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
           node-version: '22.x'

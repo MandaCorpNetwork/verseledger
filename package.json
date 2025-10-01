@@ -31,16 +31,16 @@
     "@babel/core": "7.28.4",
     "@babel/preset-env": "7.28.3",
     "@babel/preset-typescript": "7.27.1",
-    "@changesets/cli": "2.28.1",
-    "@manypkg/cli": "0.23.0",
+    "@changesets/cli": "2.29.7",
+    "@manypkg/cli": "0.25.1",
     "@preconstruct/cli": "2.8.12",
-    "@vitest/ui": "^3.0.0",
-    "concurrently": "9.1.2",
-    "eslint": "9.21.0",
+    "@vitest/ui": "^3.2.4",
+    "concurrently": "9.2.1",
+    "eslint": "9.36.0",
     "prettier": "3.6.2",
-    "typescript": "5.7.3",
-    "vite": "6.3.6",
-    "vitest": "3.1.2"
+    "typescript": "5.9.3",
+    "vite": "7.1.7",
+    "vitest": "3.2.4"
   },
   "preconstruct": {
     "packages": [
@@ -52,5 +52,5 @@
     "express": "4.21.2",
     "chalk": "4.1.2"
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "yarn@4.10.3"
 }
