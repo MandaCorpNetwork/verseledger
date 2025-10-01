@@ -2193,10 +2193,10 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@discord/embedded-app-sdk@1.9.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@discord/embedded-app-sdk/-/embedded-app-sdk-1.9.0.tgz#2f660923f1fc474402a3a4ff3a376b5575815e3c"
-  integrity sha512-aesQGKyhQgcxuY4/iJoylFfFaynZeU70Y5nqDtFNQ6Hs11LH+Xly7CfD6AhkTNssIyLljEkxG5ZYLU6Bj6n1kw==
+"@discord/embedded-app-sdk@2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@discord/embedded-app-sdk/-/embedded-app-sdk-2.4.0.tgz#3e030599c0e80c283c0f6c5e0561851ce7650f9e"
+  integrity sha512-kIIS79tuVKvu9YC6GIuvBSfUqNa6511UqafD4i3qGjWSRqVulioYuRzZ+M9D9/KZ2wuu0nQ5IWIYlnh1bsy2tg==
   dependencies:
     "@types/lodash.transform" "^4.6.6"
     "@types/uuid" "^10.0.0"
@@ -2204,7 +2204,7 @@
     decimal.js-light "^2.5.0"
     eventemitter3 "^5.0.0"
     lodash.transform "^4.6.0"
-    uuid "^10.0.0"
+    uuid "^11.0.0"
     zod "^3.9.8"
 
 "@discordjs/builders@^1.11.2":
@@ -14821,10 +14821,10 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==
 
-uuid@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-10.0.0.tgz#5a95aa454e6e002725c79055fd42aaba30ca6294"
-  integrity sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==
+uuid@^11.0.0:
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-11.1.0.tgz#9549028be1753bb934fc96e2bca09bb4105ae912"
+  integrity sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==
 
 uuid@^8.3.2:
   version "8.3.2"
