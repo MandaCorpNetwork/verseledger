@@ -4700,7 +4700,12 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-5.6.0.tgz#41dd6093d34652cddb5d5bdeee04eafc33826668"
   integrity sha512-TV7t8GKYaJWsn00tFDqBw8+Uqmr8A0fRU1tvTQhyZzGv0sJCGRQL3JGMI3ucuKo3XIZdUP+Lx7/gh2t3lewy7g==
 
-"@stomp/stompjs@7.0.0", "@stomp/stompjs@^7.0.0":
+"@stomp/stompjs@7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@stomp/stompjs/-/stompjs-7.2.0.tgz#ff0b8b14b24a9c61bc062a02dedba0edb9d77dc8"
+  integrity sha512-+Waf/wdSxgRmXHWg7HXUt51YNK/Cp2pMhW+OELwX5fzbO6pd+O2bLrWqGmyFNC/RyeUQIMGESP7oE3L1dXXm0Q==
+
+"@stomp/stompjs@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@stomp/stompjs/-/stompjs-7.0.0.tgz#46b5c454a9dc8262e0b20f3b3dbacaa113993077"
   integrity sha512-fGdq4wPDnSV/KyOsjq4P+zLc8MFWC3lMmP5FBgLWKPJTYcuCbAIrnRGjB7q2jHZdYCOD5vxLuFoKIYLy5/u8Pw==
