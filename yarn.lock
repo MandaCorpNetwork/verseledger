@@ -3846,16 +3846,16 @@
     "@react-spring/shared" "~9.7.5"
     "@react-spring/types" "~9.7.5"
 
-"@react-three/drei@10.0.7":
-  version "10.0.7"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-10.0.7.tgz#6114f9d1387ebf8268c237246615d69ec59d0b90"
-  integrity sha512-BeDUanZI0R8Lh/KI8VHYP1g0CoMe1lVvXWWwmhJNjYnmM8D8MEYbkhXOEyIFj9Dzr666j+ku2hLHt3C6av/qvw==
+"@react-three/drei@10.7.6":
+  version "10.7.6"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-10.7.6.tgz#2b00683dfb95a2b5c7fe462701aac89ddd71c7dd"
+  integrity sha512-ZSFwRlRaa4zjtB7yHO6Q9xQGuyDCzE7whXBhum92JslcMRC3aouivp0rAzszcVymIoJx6PXmibyP+xr+zKdwLg==
   dependencies:
     "@babel/runtime" "^7.26.0"
     "@mediapipe/tasks-vision" "0.10.17"
     "@monogrid/gainmap-js" "^3.0.6"
     "@use-gesture/react" "^10.3.1"
-    camera-controls "^2.9.0"
+    camera-controls "^3.1.0"
     cross-env "^7.0.3"
     detect-gpu "^5.0.56"
     glsl-noise "^0.0.0"
@@ -6995,10 +6995,10 @@ callsites@^3.0.0:
   resolved "https://registry.yarnpkg.com/callsites/-/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"
   integrity sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
 
-camera-controls@^2.9.0:
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/camera-controls/-/camera-controls-2.9.0.tgz#c3f67e702c2b68ae87418ca047c867e6494be2e8"
-  integrity sha512-TpCujnP0vqPppTXXJRYpvIy0xq9Tro6jQf2iYUxlDpPCNxkvE/XGaTuwIxnhINOkVP/ob2CRYXtY3iVYXeMEzA==
+camera-controls@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/camera-controls/-/camera-controls-3.1.0.tgz#06735c0022020a941e813492499e3c110a890b0a"
+  integrity sha512-w5oULNpijgTRH0ARFJJ0R5ct1nUM3R3WP7/b8A6j9uTGpRfnsypc/RBMPQV8JQDPayUe37p/TZZY1PcUr4czOQ==
 
 caniuse-lite@^1.0.30001688:
   version "1.0.30001692"
