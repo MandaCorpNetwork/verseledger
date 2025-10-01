@@ -3023,22 +3023,22 @@
   resolved "https://registry.yarnpkg.com/@lukeed/ms/-/ms-2.0.2.tgz#07f09e59a74c52f4d88c6db5c1054e819538e2a8"
   integrity sha512-9I2Zn6+NJLfaGoz9jN3lpwDgAYvfGeNYdbAIjJOqzs4Tpc+VU3Jqq4IofSUBKajiDS8k9fZIg18/z13mpk1bsA==
 
-"@manypkg/cli@0.23.0":
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/@manypkg/cli/-/cli-0.23.0.tgz#abc6915c59160f1556f081b96857adba55f3f68b"
-  integrity sha512-9N0GuhUZhrDbOS2rer1/ZWaO8RvPOUI+kKTwlq74iQXomL+725E9Vfvl9U64FYwnLkQCxCmPZ9nBs/u8JwFnSw==
+"@manypkg/cli@0.25.1":
+  version "0.25.1"
+  resolved "https://registry.yarnpkg.com/@manypkg/cli/-/cli-0.25.1.tgz#fdafb679ee26697589cd2e19e0d9387c4dbe59da"
+  integrity sha512-lag906FyiNxzZjsRErkUD5/to174I2JzPk5bZubuJp6loMKKJn73zrtqeU7nHlVkHBg3tgXDTJj22HxUDxLRXw==
   dependencies:
-    "@manypkg/get-packages" "^2.2.1"
-    detect-indent "^6.0.0"
+    "@manypkg/get-packages" "^3.1.0"
+    detect-indent "^7.0.1"
     normalize-path "^3.0.0"
-    p-limit "^2.2.1"
+    p-limit "^6.2.0"
     package-json "^10.0.1"
-    parse-github-url "^1.0.2"
-    picocolors "^1.1.0"
+    parse-github-url "^1.0.3"
+    picocolors "^1.1.1"
     sembear "^0.7.0"
-    semver "^7.6.3"
-    tinyexec "^0.3.1"
-    validate-npm-package-name "^5.0.1"
+    semver "^7.7.1"
+    tinyexec "^1.0.1"
+    validate-npm-package-name "^6.0.0"
 
 "@manypkg/find-root@^1.1.0":
   version "1.1.0"
@@ -3050,12 +3050,12 @@
     find-up "^4.1.0"
     fs-extra "^8.1.0"
 
-"@manypkg/find-root@^2.2.2":
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/@manypkg/find-root/-/find-root-2.2.3.tgz#3e9be5dff4a008c228649a34e2af65288ff13c26"
-  integrity sha512-jtEZKczWTueJYHjGpxU3KJQ08Gsrf4r6Q2GjmPp/RGk5leeYAA1eyDADSAF+KVCsQ6EwZd/FMcOFCoMhtqdCtQ==
+"@manypkg/find-root@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@manypkg/find-root/-/find-root-3.1.0.tgz#dde5798a08fb2d0e05ee8ba3b745134532cc7b74"
+  integrity sha512-BcSqCyKhBVZ5YkSzOiheMCV41kqAFptW6xGqYSTjkVTl9XQpr+pqHhwgGCOHQtjDCv7Is6EFyA14Sm5GVbVABA==
   dependencies:
-    "@manypkg/tools" "^1.1.2"
+    "@manypkg/tools" "^2.1.0"
 
 "@manypkg/get-packages@^1.1.3":
   version "1.1.3"
@@ -3069,22 +3069,22 @@
     globby "^11.0.0"
     read-yaml-file "^1.1.0"
 
-"@manypkg/get-packages@^2.2.1":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@manypkg/get-packages/-/get-packages-2.2.2.tgz#6eb16fc1ccf8c903aff5cde4e535c7574e965b0d"
-  integrity sha512-3+Zd8kLZmsyJFmWTBtY0MAuCErI7yKB2cjMBlujvSVKZ2R/BMXi0kjCXu2dtRlSq/ML86t1FkumT0yreQ3n8OQ==
+"@manypkg/get-packages@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@manypkg/get-packages/-/get-packages-3.1.0.tgz#c97510b6386cab9c4a59e4a7fc2757753ef18865"
+  integrity sha512-0TbBVyvPrP7xGYBI/cP8UP+yl/z+HtbTttAD7FMAJgn/kXOTwh5/60TsqP9ZYY710forNfyV0N8P/IE/ujGZJg==
   dependencies:
-    "@manypkg/find-root" "^2.2.2"
-    "@manypkg/tools" "^1.1.1"
+    "@manypkg/find-root" "^3.1.0"
+    "@manypkg/tools" "^2.1.0"
 
-"@manypkg/tools@^1.1.1", "@manypkg/tools@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@manypkg/tools/-/tools-1.1.2.tgz#15d0abb66aa04cee83e7fe75839d56ddfdd5196f"
-  integrity sha512-3lBouSuF7CqlseLB+FKES0K4FQ02JrbEoRtJhxnsyB1s5v4AP03gsoohN8jp7DcOImhaR9scYdztq3/sLfk/qQ==
+"@manypkg/tools@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@manypkg/tools/-/tools-2.1.0.tgz#e5a67b2ddb7cc34d304a0e5d23e8633008eebf20"
+  integrity sha512-0FOIepYR4ugPYaHwK7hDeHDkfPOBVvayt9QpvRbi2LT/h2b0GaE/gM9Gag7fsnyYyNaTZ2IGyOuVg07IYepvYQ==
   dependencies:
-    fast-glob "^3.3.2"
     jju "^1.4.0"
     js-yaml "^4.1.0"
+    tinyglobby "^0.2.13"
 
 "@marijn/find-cluster-break@^1.0.0":
   version "1.0.2"
@@ -7839,6 +7839,11 @@ detect-indent@^6.0.0:
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-6.1.0.tgz#592485ebbbf6b3b1ab2be175c8393d04ca0d57e6"
   integrity sha512-reYkTUJAZb9gUuZ2RvVCNhVHdg62RHnJ7WJl8ftMi4diZ6NWlciOzQN88pUhSELEwflJht4oQDv0F0BMlwaYtA==
 
+detect-indent@^7.0.1:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-7.0.2.tgz#16c516bf75d4b2f759f68214554996d467c8d648"
+  integrity sha512-y+8xyqdGLL+6sh0tVeHcfP/QDd8gUgbasolJJpY7NgeQGSZ739bDtSiaiDgtoicy+mtYB81dKLxO9xRhCyIB3A==
+
 detect-libc@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
@@ -12133,7 +12138,7 @@ p-filter@^2.1.0:
   dependencies:
     p-map "^2.0.0"
 
-p-limit@^2.2.0, p-limit@^2.2.1:
+p-limit@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/p-limit/-/p-limit-2.3.0.tgz#3dd33c647a214fdfffd835933eb086da0dc21db1"
   integrity sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w==
@@ -12146,6 +12151,13 @@ p-limit@^3.0.2:
   integrity sha512-TYOanM3wGwNGsZN2cVTYPArw454xnXj5qmWF1bEoAc4+cU/ol7GVh7odevjp1FNHduHc3KZMcFduxU5Xc6uJRQ==
   dependencies:
     yocto-queue "^0.1.0"
+
+p-limit@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/p-limit/-/p-limit-6.2.0.tgz#c254d22ba6aeef441a3564c5e6c2f2da59268a0f"
+  integrity sha512-kuUqqHNUqoIWp/c467RI4X6mmyuojY5jGutNU0wVTmEOOfcuwLqyMVoAi9MKi2Ak+5i9+nhmrK4ufZE8069kHA==
+  dependencies:
+    yocto-queue "^1.1.1"
 
 p-locate@^4.1.0:
   version "4.1.0"
@@ -12235,7 +12247,7 @@ parse-entities@^4.0.0:
     is-decimal "^2.0.0"
     is-hexadecimal "^2.0.0"
 
-parse-github-url@^1.0.2:
+parse-github-url@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/parse-github-url/-/parse-github-url-1.0.3.tgz#2ab55642c8685b63fbe2a196f5abe4ae9bd68abc"
   integrity sha512-tfalY5/4SqGaV/GIGzWyHnFjlpTPTNpENR9Ea2lLldSJ8EWXMsvacWucqY3m3I4YPtas15IxTLQVQ5NSYXPrww==
@@ -13431,10 +13443,15 @@ semver@^6.3.1:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.1.tgz#556d2ef8689146e46dcea4bfdd095f3434dffcb4"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
 
-semver@^7.3.4, semver@^7.3.5, semver@^7.3.8, semver@^7.5.3, semver@^7.5.4, semver@^7.6.0, semver@^7.6.3:
+semver@^7.3.4, semver@^7.3.5, semver@^7.3.8, semver@^7.5.3, semver@^7.5.4, semver@^7.6.0:
   version "7.6.3"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.6.3.tgz#980f7b5550bc175fb4dc09403085627f9eb33143"
   integrity sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==
+
+semver@^7.7.1:
+  version "7.7.2"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.2.tgz#67d99fdcd35cec21e6f8b87a7fd515a33f982b58"
+  integrity sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==
 
 send@0.19.0:
   version "0.19.0"
@@ -14254,10 +14271,15 @@ tinybench@^2.9.0:
   resolved "https://registry.yarnpkg.com/tinybench/-/tinybench-2.9.0.tgz#103c9f8ba6d7237a47ab6dd1dcff77251863426b"
   integrity sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==
 
-tinyexec@^0.3.1, tinyexec@^0.3.2:
+tinyexec@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/tinyexec/-/tinyexec-0.3.2.tgz#941794e657a85e496577995c6eef66f53f42b3d2"
   integrity sha512-KQQR9yN7R5+OSwaK0XQoj22pwHoTlgYqmUscPYoknOoWCWfj/5/ABTMRi69FrKU5ffPVh5QcFikpWJI/P1ocHA==
+
+tinyexec@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/tinyexec/-/tinyexec-1.0.1.tgz#70c31ab7abbb4aea0a24f55d120e5990bfa1e0b1"
+  integrity sha512-5uC6DDlmeqiOwCPmK9jMSdOuZTh8bU39Ys6yidB+UTt5hfZUPGAypSgFRiEp+jbi9qH40BLDvy85jIU88wKSqw==
 
 tinyglobby@^0.2.10:
   version "0.2.10"
@@ -14841,10 +14863,10 @@ v8-compile-cache@^2.1.1:
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.4.0.tgz#cdada8bec61e15865f05d097c5f4fd30e94dc128"
   integrity sha512-ocyWc3bAHBB/guyqJQVI5o4BZkPhznPYUG2ea80Gond/BgNWpap8TOmLSeeQG7bnh2KMISxskdADG59j7zruhw==
 
-validate-npm-package-name@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/validate-npm-package-name/-/validate-npm-package-name-5.0.1.tgz#a316573e9b49f3ccd90dbb6eb52b3f06c6d604e8"
-  integrity sha512-OljLrQ9SQdOUqTaQxqL5dEfZWrXExyyWsozYlAWFawPVNuD83igl7uJD2RTkNMbniIYgt8l81eCJGIdQF7avLQ==
+validate-npm-package-name@^6.0.0:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/validate-npm-package-name/-/validate-npm-package-name-6.0.2.tgz#4e8d2c4d939975a73dd1b7a65e8f08d44c85df96"
+  integrity sha512-IUoow1YUtvoBBC06dXs8bR8B9vuA3aJfmQNKMoaPG/OFsPmoQvw8xh+6Ye25Gx9DQhoEom3Pcu9MKHerm/NpUQ==
 
 validator@^13.7.0, validator@^13.9.0:
   version "13.12.0"
@@ -15452,6 +15474,11 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
+yocto-queue@^1.1.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-1.2.1.tgz#36d7c4739f775b3cbc28e6136e21aa057adec418"
+  integrity sha512-AyeEbWOu/TAXdxlV9wmGcR0+yh2j3vYPGOECcIj2S7MkrLyC7ne+oye2BKTItt0ii2PHk4cDy+95+LshzbXnGg==
 
 z-schema@^5.0.1:
   version "5.0.6"
