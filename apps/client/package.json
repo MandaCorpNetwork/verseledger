@@ -129,7 +129,7 @@
     "vite-plugin-node-polyfills": "0.23.0",
     "vite-plugin-pwa": "0.21.2",
     "vite-tsconfig-paths": "5.1.4",
-    "vitest": "3.1.2",
+    "vitest": "3.2.4",
     "workbox-build": "7.3.0",
     "workbox-core": "7.3.0",
     "workbox-precaching": "7.3.0",
