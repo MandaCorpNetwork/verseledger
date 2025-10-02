@@ -12560,9 +12560,9 @@ __metadata:
   linkType: hard
 
 "encore.dev@npm:^1.50.0":
-  version: 1.50.0
-  resolution: "encore.dev@npm:1.50.0"
-  checksum: 10c0/2dc1a6a4b266522abae2c11e2d8e64caf119e0d22e715d8dc01846e7afcf2e6bd2701d1a8c182035f1bb6a74eb7b1f0143ef4dee540f85e8934f7b6260c192b4
+  version: 1.50.4
+  resolution: "encore.dev@npm:1.50.4"
+  checksum: 10c0/57a8d09660a85afeb7cdecfe22a4035b97ee90087a9b8feff2de7e5da77722f0c5442cbb6c17a5aee61336eb775579d1ae9508800660543aa7aa1a94ed400f6a
   languageName: node
   linkType: hard
 
