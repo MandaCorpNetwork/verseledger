@@ -6,7 +6,7 @@ export function _getCallerFile(stackPoint = 1) {
 
   const stack = err.stack as unknown as NodeJS.CallSite[];
 
-  Error.prepareStackTrace = undefined;
+  // Error.prepareStackTrace = undefined;
   const filePath = stack[stackPoint].getFileName();
   return path.basename(filePath as string);
 }

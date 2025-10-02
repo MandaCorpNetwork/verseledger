@@ -1,0 +1,27 @@
+{
+  "name": "serverv3",
+  "version": "1.0.0",
+  "main": "dist/src/main",
+  "scripts": {
+    "build": "nest build",
+    "lint:check": "tsc --noEmit && npx eslint ./src",
+    "lint": "tsc --noEmit && npx eslint ./src --fix && npx prettier ./src --write",
+    "test": "exit 0",
+    "dev": "nest start --watch",
+    "serve": "",
+    "clean": ""
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.3",
+    "@nestjs/core": "^11.0.3",
+    "@nestjs/platform-express": "^11.0.3",
+    "@nestjs/platform-fastify": "^11.1.6",
+    "reflect-metadata": "^0.2.2"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/schematics": "^11.0.0",
+    "@types/node": "24.6.1",
+    "typescript": "5.9.3"
+  }
+}
