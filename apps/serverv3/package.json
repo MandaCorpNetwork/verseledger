@@ -13,15 +13,32 @@
   },
   "dependencies": {
     "@nestjs/common": "11.1.8",
+    "@nestjs/config": "4.0.2",
     "@nestjs/core": "11.1.8",
+    "@nestjs/cqrs": "11.0.3",
+    "@nestjs/jwt": "11.0.1",
     "@nestjs/platform-express": "11.1.8",
     "@nestjs/platform-fastify": "11.1.8",
-    "reflect-metadata": "0.2.2"
+    "@nestjs/platform-socket.io": "11.1.8",
+    "@nestjs/schedule": "6.0.1",
+    "@nestjs/swagger": "11.2.1",
+    "@nestjs/throttler": "6.4.0",
+    "@nestjs/typeorm": "11.0.0",
+    "@nestjs/websockets": "11.1.8",
+    "@paralleldrive/cuid2": "3.1.0",
+    "class-transformer": "0.5.1",
+    "class-validator": "0.14.2",
+    "necord": "6.11.2",
+    "pg": "8.16.3",
+    "reflect-metadata": "0.2.2",
+    "rxjs": "7.8.2",
+    "typeorm": "0.3.27"
   },
   "devDependencies": {
     "@nestjs/cli": "11.0.10",
     "@nestjs/schematics": "11.0.9",
     "@types/node": "24.10.0",
+    "@types/pg": "8.15.6",
     "typescript": "5.9.3"
   }
 }

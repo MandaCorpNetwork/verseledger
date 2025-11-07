@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@bombitmanbomb/utils": "3.2.1",
-    "@paralleldrive/cuid2": "3.0.4",
+    "@paralleldrive/cuid2": "3.1.0",
     "@stomp/stompjs": "7.2.1",
     "axios": "1.13.2",
     "bson": "6.10.4",
@@ -52,7 +52,7 @@
     "csv-parse": "6.1.0",
     "discord.js": "14.24.2",
     "dotenv": "17.2.3",
-    "express": "4.21.2",
+    "express": "5.1.0",
     "googleapis": "165.0.0",
     "inversify": "6.2.2",
     "inversify-express-utils": "6.5.0",
