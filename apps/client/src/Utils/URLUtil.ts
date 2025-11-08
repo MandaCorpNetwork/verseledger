@@ -9,7 +9,7 @@ export class URLUtil {
       case 'LIVE':
         return 'wss://ws.verseledger.net/ws';
       case 'STAGING':
-        return 'wss://ws.stg.verseledger.net/ws';
+        return 'wss://ws-stg.verseledger.net/ws';
       default:
         throw new Error('Unknown Hostname');
     }
@@ -33,7 +33,7 @@ export class URLUtil {
       case 'LIVE':
         return 'https://api.verseledger.net';
       case 'STAGING':
-        return 'https://api.stg.verseledger.net';
+        return 'https://api-stg.verseledger.net';
       default:
         throw new Error('Unknown Hostname');
     }

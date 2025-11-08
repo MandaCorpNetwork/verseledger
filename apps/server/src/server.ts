@@ -36,11 +36,12 @@ export const createServer = () => {
   );
   server.setConfig((app) => {
     const ALLOWED_HOSTS = [
+      ...((env.ALLOWED_HOSTS??'').split(',') ?? []),
       env.FRONTEND_HOST,
       env.BACKEND_HOST,
       env.BROKER_HOST,
       'https://1160393986440179823.discordsays.com',
-    ];
+    ].filter((a) => a != null && a != '');
     console.log('ALLOWING HOSTS: ', ALLOWED_HOSTS);
     app.use(cors({ origin: ALLOWED_HOSTS }));
     app.use((req, _res, next) => {

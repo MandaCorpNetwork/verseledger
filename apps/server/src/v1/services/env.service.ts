@@ -13,6 +13,8 @@ export class EnvService implements EnvironmentConfig {
   declare GOOGLE_CLIENT_ID: string;
   declare GOOGLE_CLIENT_SECRET: string;
 
+  declare ALLOWED_HOSTS: string;
+
   declare FRONTEND_HOST: string;
   declare BACKEND_HOST: string;
   declare BROKER_HOST: string;

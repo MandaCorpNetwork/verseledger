@@ -23,6 +23,12 @@ export const envConfig = {
     optional: true,
     default: null,
   },
+  ALLOWED_HOSTS: {
+    type: 'string',
+    description: '',
+    optional: true,
+    default: '',
+  },
   FRONTEND_HOST: {
     type: 'string',
     description: '',
