@@ -15,7 +15,7 @@ export const LoginPopup: React.FC = () => {
   useEffect(() => {
     dispatch(getLoginMethods()).then((response) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      setLoginMethods((response.payload as any).data);
+      setLoginMethods((response.payload as any)?.data ?? []);
     });
   }, [dispatch]);
 
@@ -27,8 +27,14 @@ export const LoginPopup: React.FC = () => {
       <div
         style={{ padding: '1em', display: 'flex', flexDirection: 'column', gap: '1em' }}
       >
-        {' '}
-        {loginMethods != null ? (
+        {loginMethods == null ? (
+          <LoadingWheel />
+        ) : loginMethods.length == 0 ? (
+          <>
+            <Typography>No Login Methods Configured</Typography>
+            <Typography>Contact the System Administrator</Typography>
+          </>
+        ) : (
           loginMethods.map((method) => {
             return (
               <Button
@@ -41,8 +47,6 @@ export const LoginPopup: React.FC = () => {
               </Button>
             );
           })
-        ) : (
-          <LoadingWheel />
         )}
         <Typography variant="tip" px="1em">
           We do not store any of your personal information.

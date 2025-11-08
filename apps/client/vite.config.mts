@@ -89,6 +89,8 @@ export default defineConfig({
   ],
   server: {
     port: 3000,
+    allowedHosts: ['localhost:3000', 'stg.verseledger.net'],
+    cors: { origin: '*' },
   },
   preview: {
     port: 3000,
