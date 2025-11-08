@@ -13,20 +13,8 @@
       "path": "apps/server",
     },
     {
-      "name": "Server 2.0",
-      "path": "apps/serverv2",
-    },
-    {
-      "name": "Server 3.0",
-      "path": "apps/serverv3",
-    },
-    {
       "name": "vl-shared",
       "path": "libs/vl-shared",
-    },
-    {
-      "name": "@verseledter/client",
-      "path": "libs/@verseledger-client"
     },
   ],
   "extensions": {
