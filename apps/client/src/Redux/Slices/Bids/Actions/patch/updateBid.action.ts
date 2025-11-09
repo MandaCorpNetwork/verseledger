@@ -8,7 +8,7 @@ import type { IContractBid } from 'vl-shared/src/schemas/contracts/ContractBidSc
 import { bidsActions } from '../../bids.reducer';
 
 export const updateBid = createAsyncThunk(
-  '/v1/contracts/${contractId}/bids/${bidId}',
+  '/contracts/${contractId}/bids/${bidId}',
   async (
     {
       contractId,
@@ -23,7 +23,7 @@ export const updateBid = createAsyncThunk(
   ) => {
     try {
       const response = await NetworkService.PATCH<IContractBid, Partial<IContractBid>>(
-        `/v1/contracts/${contractId}/bids/${bidId}`,
+        `/contracts/${contractId}/bids/${bidId}`,
         bidData,
         AuthUtil.getAccessHeader(),
       );

@@ -5,13 +5,13 @@ import type { IOrganizationWithMembers } from 'vl-shared/src/schemas/orgs/Organi
 
 import { orgActions } from '../../orgs.reducer';
 
-export const FETCH_ORG = 'GET /v1/orgs/:orgId';
+export const FETCH_ORG = 'GET /orgs/:orgId';
 
 export const fetchOrg = createAsyncThunk(
   FETCH_ORG,
   async (orgId: string, { dispatch }) => {
     const response = await NetworkService.GET(
-      `/v1/organizations/${orgId}`,
+      `/organizations/${orgId}`,
       AuthUtil.getAccessHeader(),
     );
     const data = response.data;

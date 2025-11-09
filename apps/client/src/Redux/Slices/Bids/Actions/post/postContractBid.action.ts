@@ -5,13 +5,13 @@ import { AuthUtil } from '@Utils/AuthUtil';
 
 import { bidsActions } from '../../bids.reducer';
 
-export const POST_CONTRACT_BID = 'POST /v1/contracts/:contractId/bids';
+export const POST_CONTRACT_BID = 'POST /contracts/:contractId/bids';
 
 export const postContractBid = createAsyncThunk(
   POST_CONTRACT_BID,
   async (contractId: string, { dispatch }) => {
     const response = await NetworkService.POST(
-      `/v1/contracts/${contractId}/bids`,
+      `/contracts/${contractId}/bids`,
       {},
       AuthUtil.getAccessHeader(),
     );

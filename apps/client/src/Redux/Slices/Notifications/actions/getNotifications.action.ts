@@ -5,11 +5,11 @@ import type { IDTOComplete, ITimestamped } from 'vl-shared/src/schemas/DTOSchema
 import type { INotificationDisplay } from 'vl-shared/src/schemas/NotificationSchema';
 
 export const fetchNotifications = createAsyncThunk(
-  'GET /v1/notifications',
+  'GET /notifications',
   async (unreadOnly?: boolean) => {
     const response = await NetworkService.GET<
       IDTOComplete<ITimestamped<INotificationDisplay>>[]
-    >(`/v1/notifications?unreadOnly=${unreadOnly ?? false}`, AuthUtil.getAccessHeader());
+    >(`/notifications?unreadOnly=${unreadOnly ?? false}`, AuthUtil.getAccessHeader());
     return response.data;
   },
 );

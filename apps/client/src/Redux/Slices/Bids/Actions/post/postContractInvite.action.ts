@@ -7,7 +7,7 @@ import type { IDTOComplete } from 'vl-shared/src/schemas/DTOSchema';
 
 import { contractActions } from '../../../Contracts/contracts.reducer';
 
-export const POST_CONTRACT_INVITE = 'POST /v1/contracts/:contractId/bids/invite';
+export const POST_CONTRACT_INVITE = 'POST /contracts/:contractId/bids/invite';
 
 //TODO: When Creating Contract Invites, should pass as an Array to handle in one call and then return back in an array
 
@@ -21,7 +21,7 @@ export const postContractInvite = createAsyncThunk(
       IDTOComplete<IContractBid>,
       { userId: string }
     >(
-      `/v1/contracts/${contractId}/bids/invite`,
+      `/contracts/${contractId}/bids/invite`,
       { userId: userId },
       AuthUtil.getAccessHeader(),
     );

@@ -14,7 +14,7 @@ export const postNewContract = createAsyncThunk(
   async (contractData: ICreateContractBody, { dispatch }) => {
     try {
       const response = await NetworkService.POST(
-        '/v1/contracts',
+        '/contracts',
         contractData,
         AuthUtil.getAccessHeader(),
       );

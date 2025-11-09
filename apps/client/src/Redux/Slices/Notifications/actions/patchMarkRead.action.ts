@@ -6,7 +6,7 @@ export const markRead = createAsyncThunk(
   `v1/notifications/:notificationId`,
   async (notificationId: string) => {
     const response = await NetworkService.PATCH(
-      `/v1/notifications/${notificationId}`,
+      `/notifications/${notificationId}`,
       { read: true },
       AuthUtil.getAccessHeader(),
     );

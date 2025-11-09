@@ -13,7 +13,7 @@ export const updateUserSettingsFlag = createAsyncThunk(
     const response = await NetworkService.PATCH<
       IDTO<IUserSettings>,
       IUpdateUserSettingsFlagsCMD
-    >('/v1/settings/@me/flags', settings, AuthUtil.getAccessHeader());
+    >('/settings/@me/flags', settings, AuthUtil.getAccessHeader());
     return response.data;
   },
 );

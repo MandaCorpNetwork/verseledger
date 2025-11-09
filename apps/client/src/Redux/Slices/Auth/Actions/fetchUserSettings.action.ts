@@ -7,7 +7,7 @@ import type { IUserSettings } from 'vl-shared/src/schemas/UserSettings';
 
 export const fetchUserSettings = createAsyncThunk('auth/fetchUserSettings', async () => {
   const response = await NetworkService.GET<IDTO<IUserSettings>>(
-    '/v1/settings/@me',
+    '/settings/@me',
     AuthUtil.getAccessHeader(),
   );
   Logger.info(`User Settings Fetched`, response.data);

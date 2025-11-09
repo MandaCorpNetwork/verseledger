@@ -16,7 +16,7 @@ export const postNewContractRating = createAsyncThunk<
   try {
     Logger.info('RatingData Post Attempt: ', ratingData);
     const response = await NetworkService.POST(
-      '/v1/ratings/contract',
+      '/ratings/contract',
       ratingData,
       AuthUtil.getAccessHeader(),
     );

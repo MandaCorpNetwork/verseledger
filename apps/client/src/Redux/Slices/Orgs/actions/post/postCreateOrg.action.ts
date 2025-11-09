@@ -9,7 +9,7 @@ export const postCreateOrg = createAsyncThunk(
   POST_CREATE_ORG,
   async (orgData: ICreateOrganizationCMD) => {
     const response = await NetworkService.POST(
-      '/v1/organizations',
+      '/organizations',
       orgData,
       AuthUtil.getAccessHeader(),
     );

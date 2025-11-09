@@ -9,11 +9,11 @@ import type { IOrgSearchCMD } from 'vl-shared/src/schemas/orgs/OrgSearchCMD';
 import { orgActions } from '../../orgs.reducer';
 
 export const fetchOrgs = createAsyncThunk(
-  '/v1/orgs/search',
+  '/orgs/search',
   async (params: IOrgSearchCMD, { dispatch }) => {
     try {
       const response = await NetworkService.POST(
-        `/v1/organizations/search`,
+        `/organizations/search`,
         params,
         AuthUtil.getAccessHeader(),
       );

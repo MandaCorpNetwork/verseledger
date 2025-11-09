@@ -6,10 +6,10 @@ import type { ILocation } from 'vl-shared/src/schemas/LocationSchema';
 import { locationsActions } from '../locations.reducer';
 
 export const fetchLocations = createAsyncThunk(
-  '/v1/locations/all',
+  '/locations/all',
   async (_, { dispatch }) => {
     const response = await NetworkService.GET<ILocation[]>(
-      '/v1/locations',
+      '/locations',
       AuthUtil.getAccessHeader(),
     );
     dispatch(locationsActions.addLocations(response.data));

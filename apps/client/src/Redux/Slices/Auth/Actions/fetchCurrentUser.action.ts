@@ -6,13 +6,13 @@ import { AuthUtil } from '@Utils/AuthUtil';
 import type { IOrganizationMemberWithOrg } from 'vl-shared/src/schemas/orgs/OrganizationSchema';
 import type { IUser } from 'vl-shared/src/schemas/UserSchema';
 
-export const FETCH_CURRENT_USER = 'GET /v1/users/@me';
+export const FETCH_CURRENT_USER = 'GET /users/@me';
 
 export const fetchCurrentUser = createAsyncThunk(
   FETCH_CURRENT_USER,
   async (_, { dispatch }) => {
     const response = await NetworkService.GET(
-      '/v1/users/@me',
+      '/users/@me',
       AuthUtil.getAccessHeader(),
     );
     const data = response.data;

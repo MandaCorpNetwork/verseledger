@@ -18,7 +18,7 @@ export const updateContract = createAsyncThunk(
     { dispatch },
   ) => {
     const response = await NetworkService.PATCH<IContract, Partial<IContract>>(
-      `/v1/contracts/${contractId}`,
+      `/contracts/${contractId}`,
       contractRaw,
       AuthUtil.getAccessHeader(),
     );

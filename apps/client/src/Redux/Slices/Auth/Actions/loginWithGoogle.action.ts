@@ -3,7 +3,7 @@ import { URLUtil } from '@Utils/URLUtil';
 import axios from 'axios';
 
 export const loginWithGoogle = createAsyncThunk('POST_google', async (code: string) => {
-  const response = await axios.post(`${URLUtil.backendHost}/v1/auth/google`, {
+  const response = await axios.post(`${URLUtil.backendHost}/auth/google`, {
     code,
   });
   return response;

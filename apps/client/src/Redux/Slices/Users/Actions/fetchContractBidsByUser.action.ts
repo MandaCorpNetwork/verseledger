@@ -8,11 +8,11 @@ import type { IUserBidSearch } from 'vl-shared/src/schemas/contracts/ContractSea
 import type { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
 
 export const fetchContractBidsOfUser = createAsyncThunk(
-  'GET /v1/users/userId/bids',
+  'GET /users/userId/bids',
   async (params: IUserBidSearch) => {
     try {
       const response = await NetworkService.GET(
-        `/v1/users/@me/bids?${composeQuery({ search: params })}`,
+        `/users/@me/bids?${composeQuery({ search: params })}`,
         AuthUtil.getAccessHeader(),
       );
       return response.data as IPaginatedData<IContractBid>;

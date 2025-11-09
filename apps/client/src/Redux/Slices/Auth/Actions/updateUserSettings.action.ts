@@ -13,7 +13,7 @@ export const updateUserSettings = createAsyncThunk(
     const response = await NetworkService.PATCH<
       IDTO<IUserSettings>,
       IUpdateUserSettingsCMD
-    >('/v1/settings/@me', settings, AuthUtil.getAccessHeader());
+    >('/settings/@me', settings, AuthUtil.getAccessHeader());
     return response.data;
   },
 );

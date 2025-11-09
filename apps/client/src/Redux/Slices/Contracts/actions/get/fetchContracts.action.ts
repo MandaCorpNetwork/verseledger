@@ -12,12 +12,12 @@ import type { IPaginatedData } from 'vl-shared/src/schemas/IPaginatedData';
 import { contractActions } from '../../contracts.reducer';
 
 export const fetchContracts = createAsyncThunk(
-  '/v1/contracts/search',
+  '/contracts/search',
   async (params: IContractSearch, { dispatch }) => {
     try {
       const response = await NetworkService.GET<
         IDTOComplete<IPaginatedData<IContractWithOwner>>
-      >(`/v1/contracts?${composeQuery({ search: params })}`, AuthUtil.getAccessHeader());
+      >(`/contracts?${composeQuery({ search: params })}`, AuthUtil.getAccessHeader());
       const contracts = response.data.data;
 
       const userSet = new Set();
