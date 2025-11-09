@@ -7,8 +7,8 @@ import { User } from "./entities/user/user.entity";
 import { ApiToken } from "./entities/auth/api_token.entity";
 import { UserAuth } from "./entities/auth/user_auth.entity";
 import { UserRating } from "./entities/user/user_rating.entity";
-import { AuthModule } from "./services/auth/auth.module";
-import { ScheduleModule } from '@nestjs/schedule';
+import { AuthModule } from "./modules/auth/auth.module";
+import { ScheduleModule } from "@nestjs/schedule";
 
 @Module({
   imports: [
@@ -28,7 +28,7 @@ import { ScheduleModule } from '@nestjs/schedule';
         username: configService.get<string>("database.username"),
         password: configService.get<string>("database.password"),
         entities: [User, ApiToken, UserAuth, UserRating],
-        synchronize: process.env.NODE_ENV !== "production",
+        synchronize: process.env["NODE_ENV"] !== "production",
       }),
       inject: [ConfigService],
     }),

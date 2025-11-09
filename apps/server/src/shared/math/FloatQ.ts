@@ -1,5 +1,5 @@
-import { Float3 } from './Float3';
-import { MathX } from './MathX';
+import { Float3 } from "./Float3";
+import { MathX } from "./MathX";
 
 export class FloatQ {
   public readonly x: number;
@@ -24,7 +24,9 @@ export class FloatQ {
   }
 
   public get sqrMagnitude() {
-    return this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w;
+    return (
+      this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w
+    );
   }
 
   public get magnitude() {
@@ -70,7 +72,9 @@ export class FloatQ {
 
   public get isValid() {
     const sqrMagnitude = this.sqrMagnitude;
-    return sqrMagnitude > 0.89999997615814209 && sqrMagnitude < 1.1000000238418579;
+    return (
+      sqrMagnitude > 0.89999997615814209 && sqrMagnitude < 1.1000000238418579
+    );
   }
 
   public get isNaN() {
@@ -173,15 +177,25 @@ export class FloatQ {
 
   public static euler(x: number, y: number, z: number): FloatQ;
   public static euler(rotation: Float3): FloatQ;
-  public static euler(rotation: number | Float3, y?: number, z?: number): FloatQ {
-    if (!(rotation instanceof Float3)) return FloatQ.euler(new Float3(rotation, y, z));
+  public static euler(
+    rotation: number | Float3,
+    y?: number,
+    z?: number,
+  ): FloatQ {
+    if (!(rotation instanceof Float3))
+      return FloatQ.euler(new Float3(rotation, y, z));
     return FloatQ.eulerRad(rotation.multiply(Math.PI / 180));
   }
 
   public static eulerRad(x: number, y: number, z: number): FloatQ;
   public static eulerRad(rotation: Float3): FloatQ;
-  public static eulerRad(rotation: number | Float3, y?: number, z?: number): FloatQ {
-    if (!(rotation instanceof Float3)) return FloatQ.eulerRad(new Float3(rotation, y, z));
+  public static eulerRad(
+    rotation: number | Float3,
+    y?: number,
+    z?: number,
+  ): FloatQ {
+    if (!(rotation instanceof Float3))
+      return FloatQ.eulerRad(new Float3(rotation, y, z));
     const r = rotation.multiply(0.5);
 
     const num1 = Math.sin(r.x);
@@ -200,8 +214,12 @@ export class FloatQ {
 
   public static fromToRotation(from: FloatQ, to: FloatQ): FloatQ;
   public static fromToRotation(from: Float3, to: Float3): FloatQ;
-  public static fromToRotation(from: FloatQ | Float3, to: FloatQ | Float3): FloatQ {
-    if (from instanceof FloatQ && to instanceof FloatQ) return to.multiply(from.inverted);
+  public static fromToRotation(
+    from: FloatQ | Float3,
+    to: FloatQ | Float3,
+  ): FloatQ {
+    if (from instanceof FloatQ && to instanceof FloatQ)
+      return to.multiply(from.inverted);
     if (from instanceof Float3 && to instanceof Float3) {
       const num = MathX.dot(from, to);
       if (!from.equals(to)) {
@@ -226,7 +244,7 @@ export class FloatQ {
       }
       return FloatQ.Identity();
     }
-    throw new Error('Invalid Input');
+    throw new Error("Invalid Input");
   }
 
   public setComponent(value: number, index: number) {
@@ -240,7 +258,7 @@ export class FloatQ {
       case 3:
         return new FloatQ(this.x, this.y, this.z, value);
       default:
-        throw new Error('Invalid vector element index');
+        throw new Error("Invalid vector element index");
     }
   }
 
@@ -263,7 +281,10 @@ export class FloatQ {
 
   public equals(other: FloatQ) {
     return (
-      this.x == other.x && this.y == other.y && this.z == other.z && this.w == other.w
+      this.x == other.x &&
+      this.y == other.y &&
+      this.z == other.z &&
+      this.w == other.w
     );
   }
 
@@ -317,7 +338,12 @@ export class FloatQ {
   public divide(other: FloatQ): FloatQ;
   public divide(other: number): FloatQ;
   public divide(x: number, y: number, z: number, w: number): FloatQ;
-  public divide(x: number | FloatQ, y?: number, z?: number, w?: number): FloatQ {
+  public divide(
+    x: number | FloatQ,
+    y?: number,
+    z?: number,
+    w?: number,
+  ): FloatQ {
     if (x instanceof FloatQ) return this.divide(x.x, x.y, x.z, x.w);
     if (y == null || z == null || w == null) return this.divide(x, x, x, x);
     return new FloatQ(this.x / x, this.y / y, this.z / z, this.w / w);
@@ -335,7 +361,12 @@ export class FloatQ {
   public subtract(other: FloatQ): FloatQ;
   public subtract(other: number): FloatQ;
   public subtract(x: number, y: number, z: number, w: number): FloatQ;
-  public subtract(x: number | FloatQ, y?: number, z?: number, w?: number): FloatQ {
+  public subtract(
+    x: number | FloatQ,
+    y?: number,
+    z?: number,
+    w?: number,
+  ): FloatQ {
     if (x instanceof FloatQ) return this.subtract(x.x, x.y, x.z, x.w);
     if (y == null || z == null || w == null) return this.subtract(x, x, x, x);
     return new FloatQ(this.x - x, this.y - y, this.z - z, this.w - w);

@@ -41,7 +41,9 @@ export class Float3 {
   }
   public get isInfinity() {
     return (
-      !Number.isFinite(this.x) || !Number.isFinite(this.y) || !Number.isFinite(this.z)
+      !Number.isFinite(this.x) ||
+      !Number.isFinite(this.y) ||
+      !Number.isFinite(this.z)
     );
   }
 
@@ -67,7 +69,9 @@ export class Float3 {
   }
 
   public get normalized(): Float3 {
-    return Float3.equals(Float3.Zero(), this) ? this : this.multiply(1 / this.magnitude);
+    return Float3.equals(Float3.Zero(), this)
+      ? this
+      : this.multiply(1 / this.magnitude);
   }
 
   public setComponent(value: number, index: number) {
@@ -79,7 +83,7 @@ export class Float3 {
       case 2:
         return new Float3(this.x, this.y, value);
       default:
-        throw new Error('Invalid vector element index');
+        throw new Error("Invalid vector element index");
     }
   }
 

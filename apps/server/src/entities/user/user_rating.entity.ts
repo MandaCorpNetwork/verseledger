@@ -1,7 +1,7 @@
 import { Column, Entity } from "typeorm";
-import { Min, Max, IsInt, IsEnum } from "class-validator";
-import { EntityBase } from "../entitybase.entity";
-import { IRatingType, RatingTypeSchema } from "../schemas/UserRating";
+import { IsEnum, IsInt, Max, Min } from "class-validator";
+import { EntityBase } from "#/entities/entitybase.entity";
+import { IRatingType, RatingTypeSchema } from "#/entities/schemas/UserRating";
 
 @Entity()
 export class UserRating extends EntityBase {

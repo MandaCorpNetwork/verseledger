@@ -1,8 +1,8 @@
 import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne } from "typeorm";
-import { EntityBase } from "../entitybase.entity";
+import { EntityBase } from "#/entities/entitybase.entity";
 import { createId } from "@paralleldrive/cuid2";
-import { User } from "../user/user.entity";
-import { ApiPermission } from 'vl-shared/src/enum/ApiPermission';
+import { User } from "#/entities/user/user.entity";
+import { ApiPermission } from "vl-shared/src/enum/ApiPermission";
 
 @Entity()
 export class ApiToken extends EntityBase {

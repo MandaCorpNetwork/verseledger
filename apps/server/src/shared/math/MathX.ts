@@ -1,6 +1,6 @@
-import { Float2 } from './Float2';
-import { Float3 } from './Float3';
-import { FloatQ } from './FloatQ';
+import { Float2 } from "./Float2";
+import { Float3 } from "./Float3";
+import { FloatQ } from "./FloatQ";
 
 export class MathX {
   public static abs(value: Float3): Float3;
@@ -8,7 +8,11 @@ export class MathX {
   public static abs(value: number): number;
   public static abs(value: Float3 | FloatQ | number) {
     if (value instanceof Float3)
-      return new Float3(Math.abs(value.x), Math.abs(value.y), Math.abs(value.z));
+      return new Float3(
+        Math.abs(value.x),
+        Math.abs(value.y),
+        Math.abs(value.z),
+      );
     if (value instanceof FloatQ)
       return new FloatQ(
         Math.abs(value.x),
@@ -58,7 +62,11 @@ export class MathX {
     return b1.multiply(MathX.dot(a, b1));
   }
 
-  public static angleAroundAxis(rotation: FloatQ, axis: Float3, comparisonAxis?: Float3) {
+  public static angleAroundAxis(
+    rotation: FloatQ,
+    axis: Float3,
+    comparisonAxis?: Float3,
+  ) {
     let ortho0: Float3, ortho1: Float3;
     if (comparisonAxis != null) {
       ortho0 = comparisonAxis;
@@ -137,7 +145,9 @@ export class MathX {
 
   public static distanceSqr(a: Float3, b: Float3) {
     return (
-      (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y) + (a.z - b.z) * (a.z - b.z)
+      (a.x - b.x) * (a.x - b.x) +
+      (a.y - b.y) * (a.y - b.y) +
+      (a.z - b.z) * (a.z - b.z)
     );
   }
 

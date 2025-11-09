@@ -24,7 +24,9 @@ export class Float2 {
   }
 
   public approximately(v: Float2, tolerance: number) {
-    return Math.abs(this.x - v.x) < tolerance && Math.abs(this.y - v.y) < tolerance;
+    return (
+      Math.abs(this.x - v.x) < tolerance && Math.abs(this.y - v.y) < tolerance
+    );
   }
 
   public get sqrMagnitude() {
@@ -36,7 +38,9 @@ export class Float2 {
   }
 
   public get normalized(): Float2 {
-    return Float2.equals(Float2.Zero(), this) ? this : this.multiply(1 / this.magnitude);
+    return Float2.equals(Float2.Zero(), this)
+      ? this
+      : this.multiply(1 / this.magnitude);
   }
 
   public setComponent(value: number, index: number) {
@@ -46,7 +50,7 @@ export class Float2 {
       case 1:
         return new Float2(this.x, value);
       default:
-        throw new Error('Invalid vector element index');
+        throw new Error("Invalid vector element index");
     }
   }
 

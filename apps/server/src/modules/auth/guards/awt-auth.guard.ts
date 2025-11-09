@@ -4,16 +4,10 @@ import {
   UnauthorizedException,
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { InjectRepository } from "@nestjs/typeorm";
 import { Request } from "express";
-import { ApiToken } from "src/entities/auth/api_token.entity";
-import { Repository } from "typeorm";
 
 export class JwtAuthGuard implements CanActivate {
-  constructor(
-    private readonly jwtService: JwtService,
-    @InjectRepository(ApiToken) apiTokenRepository: Repository<ApiToken>,
-  ) {}
+  constructor(private readonly jwtService: JwtService) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const token = this.extractFromHeader(request);
@@ -24,7 +18,7 @@ export class JwtAuthGuard implements CanActivate {
         secret: process.env.AUTH_SECRET,
       });
       request.user = payload;
-    } catch (error) {
+    } catch (_error) {
       throw new UnauthorizedException("Token is Invalid");
     }
 

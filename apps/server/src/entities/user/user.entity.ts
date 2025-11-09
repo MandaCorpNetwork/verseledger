@@ -1,5 +1,5 @@
 import { Column, Entity } from "typeorm";
-import { EntityBase } from "../entitybase.entity";
+import { EntityBase } from "#/entities/entitybase.entity";
 import { createId } from "@paralleldrive/cuid2";
 import { IsBoolean, IsInt, IsNumber, IsString } from "class-validator";
 

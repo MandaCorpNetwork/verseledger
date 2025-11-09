@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
-import { EntityBase } from "../entitybase.entity";
-import { User } from "../user/user.entity";
+import { EntityBase } from "#/entities/entitybase.entity";
+import { User } from "#/entities/user/user.entity";
 
 @Entity()
 export class UserAuth extends EntityBase {
