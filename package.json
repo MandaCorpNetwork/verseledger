@@ -31,13 +31,13 @@
     "@changesets/cli": "2.29.7",
     "@manypkg/cli": "0.25.1",
     "@preconstruct/cli": "2.8.12",
-    "@vitest/ui": "4.0.7",
+    "@vitest/ui": "4.0.8",
     "concurrently": "9.2.1",
     "eslint": "9.39.1",
     "prettier": "3.6.2",
     "typescript": "5.9.3",
-    "vite": "7.2.1",
-    "vitest": "4.0.7"
+    "vite": "7.2.2",
+    "vitest": "4.0.8"
   },
   "preconstruct": {
     "packages": [
@@ -46,7 +46,7 @@
   },
   "resolutions": {
     "@types/mime": "3.0.4",
-    "express": "4.21.2",
+    "express": "5.1.0",
     "chalk": "4.1.2"
   },
   "packageManager": "yarn@4.10.3"

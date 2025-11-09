@@ -1,0 +1,33 @@
+import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { EntityBase } from "../entitybase.entity";
+import { createId } from "@paralleldrive/cuid2";
+import { User } from "../user/user.entity";
+import { ApiPermission } from 'vl-shared/src/enum/ApiPermission';
+
+@Entity()
+export class ApiToken extends EntityBase {
+  @ManyToOne(() => User, (user) => user.id)
+  @JoinColumn({ name: "user_id" })
+  user: User;
+
+  @BeforeInsert()
+  generateId(): void {
+    this.id ??= createId();
+    this.token_id ??= createId();
+  }
+
+  @Column()
+  token_id: string;
+
+  @Column()
+  type: "access" | "refresh" | "api";
+
+  @Column({ length: 32, default: "USER TOKEN" })
+  name: string;
+
+  @Column("json")
+  roles: ApiPermission[];
+
+  @Column("datetime")
+  expiresAt: Date;
+}
