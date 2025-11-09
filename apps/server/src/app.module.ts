@@ -1,14 +1,16 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import appConfig from "./config/app.config";
-import databaseConfig from "./config/database.config";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { User } from "./entities/user/user.entity";
-import { ApiToken } from "./entities/auth/api_token.entity";
-import { UserAuth } from "./entities/auth/user_auth.entity";
-import { UserRating } from "./entities/user/user_rating.entity";
-import { AuthModule } from "./modules/auth/auth.module";
 import { ScheduleModule } from "@nestjs/schedule";
+import { TypeOrmModule } from "@nestjs/typeorm";
+
+import appConfig from "#/config/app.config";
+import databaseConfig from "#/config/database.config";
+import loginConfig from "#/config/login.config";
+import { ApiToken } from "#/entities/auth/api_token.entity";
+import { UserAuth } from "#/entities/auth/user_auth.entity";
+import { User } from "#/entities/user/user.entity";
+import { UserRating } from "#/entities/user/user_rating.entity";
+import { AuthModule } from "#/modules/auth/auth.module";
 
 @Module({
   imports: [
@@ -16,7 +18,7 @@ import { ScheduleModule } from "@nestjs/schedule";
       envFilePath: [".env"],
       cache: true,
       isGlobal: true,
-      load: [appConfig, databaseConfig],
+      load: [appConfig, databaseConfig, loginConfig],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

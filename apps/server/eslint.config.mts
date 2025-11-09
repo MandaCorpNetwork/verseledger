@@ -25,6 +25,26 @@ export default defineConfig([
           destructuredArrayIgnorePattern: "^_",
         },
       ],
+      "import/order": [
+        "error",
+        {
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
+          "newlines-between": "always",
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            "parent",
+            "sibling",
+            "index",
+            "object",
+            "type",
+          ],
+        },
+      ],
     },
     settings: {
       "import/parsers": {

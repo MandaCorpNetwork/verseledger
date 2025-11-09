@@ -1,11 +1,13 @@
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { InjectRepository } from "@nestjs/typeorm";
-import { ApiToken } from "src/entities/auth/api_token.entity";
-import { Repository } from "typeorm";
-import { CreateApiTokenDTO } from "./dto/create-api-token.dto";
-import { createId } from "@paralleldrive/cuid2";
 import { Cron } from "@nestjs/schedule";
+import { InjectRepository } from "@nestjs/typeorm";
+import { createId } from "@paralleldrive/cuid2";
+import { Repository } from "typeorm";
+
+import { ApiToken } from "#/entities/auth/api_token.entity";
+
+import { CreateApiTokenDTO } from "./dto/create-api-token.dto";
 
 @Injectable()
 export class AuthService {
@@ -28,11 +30,12 @@ export class AuthService {
   async revokeAPiToken(id: string) {
     const token = await this.apiTokenRepository.findOne({ where: { id } });
     if (!token) throw new NotFoundException(`API Token "${id}" not found`);
+    this.logger.debug(`Revoking token ${id}`);
     await this.apiTokenRepository.delete(id);
     return { message: "API Token revokes successfully" };
   }
 
-  @Cron("0 */30 * * * *", { name: "destroy_expired_tokens" })
+  @Cron("0 */15 * * * *", { name: "destroy_expired_tokens" })
   async revokeExpiredTokens() {
     this.logger.debug("Clearing expired tokens...");
     const now = Date.now();
@@ -41,6 +44,17 @@ export class AuthService {
       .where("token.expiresAt >= :now", { now })
       .execute();
 
-    this.logger.debug(`Cleared ${cleared.length} tokens.`);
+    this.logger.debug(`Revoked ${cleared.length} tokens.`);
+  }
+
+  public async getApiTokens(owner_id: string) {
+    return await this.apiTokenRepository.find({ where: { user_id: owner_id } });
+  }
+
+  public getLoginMethods() {
+    const loginMethods: Array<{ type: string; redirect: string }> = [];
+    // TODO: Implement login methods retrieval logic
+
+    return loginMethods;
   }
 }

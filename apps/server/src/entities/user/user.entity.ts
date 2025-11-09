@@ -1,7 +1,8 @@
-import { Column, Entity } from "typeorm";
-import { EntityBase } from "#/entities/entitybase.entity";
 import { createId } from "@paralleldrive/cuid2";
 import { IsBoolean, IsInt, IsNumber, IsString } from "class-validator";
+import { Column, Entity } from "typeorm";
+
+import { EntityBase } from "#/entities/entitybase.entity";
 
 @Entity()
 export class User extends EntityBase {

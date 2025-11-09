@@ -1,11 +1,13 @@
 import { Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { ApiToken } from "src/entities/auth/api_token.entity";
-import { JwtAuthGuard } from "./guards/awt-auth.guard";
-import { AuthService } from "./auth.service";
-import { UserAuth } from "src/entities/auth/user_auth.entity";
+
+import { ApiToken } from "#/entities/auth/api_token.entity";
+import { UserAuth } from "#/entities/auth/user_auth.entity";
+
 import { AuthController } from "./auth.controller";
+import { AuthService } from "./auth.service";
+import { JwtAuthGuard } from "./guards/awt-auth.guard";
 
 @Module({
   imports: [

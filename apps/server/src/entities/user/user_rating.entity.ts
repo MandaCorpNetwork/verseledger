@@ -1,5 +1,6 @@
-import { Column, Entity } from "typeorm";
 import { IsEnum, IsInt, Max, Min } from "class-validator";
+import { Column, Entity } from "typeorm";
+
 import { EntityBase } from "#/entities/entitybase.entity";
 import { IRatingType, RatingTypeSchema } from "#/entities/schemas/UserRating";
 

@@ -21,6 +21,7 @@
     "@nestjs/platform-fastify": "11.1.8",
     "@nestjs/platform-socket.io": "11.1.8",
     "@nestjs/schedule": "6.0.1",
+    "@nestjs/serve-static": "5.0.4",
     "@nestjs/swagger": "11.2.1",
     "@nestjs/throttler": "6.4.0",
     "@nestjs/typeorm": "11.0.0",
@@ -35,8 +36,7 @@
     "reflect-metadata": "0.2.2",
     "rxjs": "7.8.2",
     "sqlite3": "5.1.7",
-    "typeorm": "0.3.27",
-    "vl-shared": "1.0.0"
+    "typeorm": "0.3.27"
   },
   "devDependencies": {
     "@eslint/js": "9.39.1",
