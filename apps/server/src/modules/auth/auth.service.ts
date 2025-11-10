@@ -4,10 +4,16 @@ import { JwtService } from "@nestjs/jwt";
 import { Cron } from "@nestjs/schedule";
 import { InjectRepository } from "@nestjs/typeorm";
 import { createId } from "@paralleldrive/cuid2";
+import { plainToInstance } from "class-transformer";
+import { validate } from "class-validator";
+import ms, { StringValue } from "ms";
 import { Repository } from "typeorm";
 
 import { ApiToken } from "#/entities/auth/api_token.entity";
+import { ApiPermission } from "#/entities/schemas/ApiPermission";
+import { ApiTokenType } from "#/entities/schemas/ApiTokenType";
 
+import { InvaliTokenPropsError } from "./auth.error";
 import { CreateApiTokenDTO } from "./dto/create-api-token.dto";
 import { LoginType } from "./dto/login-method.dto";
 
@@ -22,12 +28,62 @@ export class AuthService {
 
   private readonly logger = new Logger(AuthService.name);
 
-  async createApiToken(tokenProps: CreateApiTokenDTO) {
-    const tokenId = createId();
-    return this.apiTokenRepository.create({
-      id: tokenId,
-      ...tokenProps,
+  async createApiToken(
+    user_id: string,
+    expiresAt: Date | StringValue = "1h",
+    type: ApiTokenType = ApiTokenType.ACCESS,
+    name: string = "USER TOKEN",
+    roles: ApiPermission[] = [ApiPermission.ADMIN],
+    jwtid: string = createId(),
+  ) {
+    const tokenProps = plainToInstance(CreateApiTokenDTO, {
+      expiresAt,
+      name,
+      roles,
     });
+    const e = await validate(tokenProps);
+    if (e.length > 0) {
+      throw new InvaliTokenPropsError();
+    }
+    const token = await this.jwtService.signAsync(tokenProps.toJson(), {
+      secret: this.configService.get<string>("app.auth_secret"),
+      algorithm: "HS512",
+      jwtid,
+      audience: "verseledger.net",
+      issuer: "api.verseledger.net",
+      expiresIn: ms((tokenProps.expiresAt as Date).getTime() - Date.now()),
+      subject: user_id,
+    });
+    const newToken = this.apiTokenRepository.create({
+      id: jwtid,
+      ...tokenProps,
+      type,
+      user: { id: user_id },
+    });
+    await this.apiTokenRepository.save(newToken);
+    return { token, meta: newToken };
+  }
+
+  async createTokenPair(user_id: string, jwtid: string = createId()) {
+    const [access, refresh] = await Promise.all([
+      this.createApiToken(
+        user_id,
+        "1h",
+        ApiTokenType.ACCESS,
+        undefined,
+        [ApiPermission.ADMIN],
+        jwtid,
+      ),
+      this.createApiToken(
+        user_id,
+        "2d",
+        ApiTokenType.REFRESH,
+        undefined,
+        [ApiPermission.ADMIN],
+        jwtid,
+      ),
+    ]);
+    return { access, refresh };
   }
 
   async revokeAPiToken(id: string) {

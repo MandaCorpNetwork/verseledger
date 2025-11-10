@@ -13,7 +13,7 @@ import {
 } from "@nestjs/common";
 import { ApiServiceUnavailableResponse } from "@nestjs/swagger";
 
-import { MissingLoginMethod } from "./auth.error";
+import { MissingLoginMethodError } from "./auth.error";
 import { AuthService } from "./auth.service";
 import { LoginMethodDTO, LoginType } from "./dto/login-method.dto";
 import { LoginDTO } from "./dto/login.dto";
@@ -57,7 +57,7 @@ export class AuthController {
         try {
           return await this.authService.loginWithDiscord(body.code);
         } catch (error) {
-          if (error instanceof MissingLoginMethod)
+          if (error instanceof MissingLoginMethodError)
             throw new ServiceUnavailableException(
               `Unable to retrieve Discord login information at this time`,
             );
@@ -68,7 +68,7 @@ export class AuthController {
         try {
           return await this.authService.loginWithGoogle(body.code);
         } catch (error) {
-          if (error instanceof MissingLoginMethod)
+          if (error instanceof MissingLoginMethodError)
             throw new ServiceUnavailableException(
               `Unable to retrieve Google login information at this time`,
             );

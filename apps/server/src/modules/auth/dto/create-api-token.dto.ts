@@ -20,11 +20,19 @@ export class CreateApiTokenDTO {
   @Transform(transformStringOrDurattionToDate)
   @Type(() => Date)
   @IsDate()
-  expires: Date | StringValue;
+  expiresAt: Date | StringValue;
 
   @ApiProperty({
     description: "The permissions granted to the API token",
   })
   @IsEnum(ApiPermission, { each: true })
   roles: ApiPermission[];
+
+  toJson() {
+    return {
+      name: this.name,
+      expiresAt: this.expiresAt as Date,
+      roles: this.roles,
+    };
+  }
 }
