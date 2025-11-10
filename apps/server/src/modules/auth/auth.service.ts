@@ -57,9 +57,9 @@ export class AuthService {
     const newToken = this.apiTokenRepository.create({
       id: jwtid,
       ...tokenProps,
-      type,
-      user: { id: user_id },
     });
+    newToken.user_id = user_id;
+    newToken.type = type;
     await this.apiTokenRepository.save(newToken);
     return { token, meta: newToken };
   }
