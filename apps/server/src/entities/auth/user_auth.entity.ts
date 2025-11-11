@@ -8,6 +8,7 @@ export class UserAuth extends EntityBase {
   @ManyToOne(() => User, (user) => user.id)
   @JoinColumn({ name: "user_id" })
   user: User;
+  declare user_id: string;
 
   @Column()
   type: "DISCORD" | "GOOGLE";

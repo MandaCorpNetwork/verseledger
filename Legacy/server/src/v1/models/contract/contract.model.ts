@@ -40,7 +40,7 @@ import type { IContractStatus } from 'vl-shared/src/schemas/contracts/ContractSt
 import type { IContractSubType } from 'vl-shared/src/schemas/contracts/ContractSubTypeSchema';
 import type { IContract } from 'vl-shared/src/schemas/contracts/ContractSchema';
 import { UserRating } from '@V1/models/user_ratings/user_ratings.model';
-import { UserSettings } from '@V1/models/user_settings/user_settings.model';
+import { UserSettings } from '@V1/models/user_settings/user_setting.model';
 import { OrganizationMember } from '../organization/organization_member.model';
 @Scopes(() => ({
   bids: {

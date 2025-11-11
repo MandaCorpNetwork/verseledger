@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { UserSettings } from './user_settings.model';
+import { UserSettings } from './user_setting.model';
 
 @injectable()
 export class UserSettingsRepository {

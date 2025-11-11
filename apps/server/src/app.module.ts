@@ -10,6 +10,7 @@ import { ApiToken } from "#/entities/auth/api_token.entity";
 import { UserAuth } from "#/entities/auth/user_auth.entity";
 import { User } from "#/entities/user/user.entity";
 import { UserRating } from "#/entities/user/user_rating.entity";
+import { UserSetting } from "#/entities/user/user_setting.entity";
 import { AuthModule } from "#/modules/auth/auth.module";
 
 @Module({
@@ -29,8 +30,18 @@ import { AuthModule } from "#/modules/auth/auth.module";
         port: configService.get<number>("database.port"),
         username: configService.get<string>("database.username"),
         password: configService.get<string>("database.password"),
-        entities: [User, ApiToken, UserAuth, UserRating],
         synchronize: process.env["NODE_ENV"] !== "production",
+        entities: [User, ApiToken, UserAuth, UserRating, UserSetting],
+        logger: "advanced-console",
+        // logging: [
+        //   "error",
+        //   "info",
+        //   "log",
+        //   "migration",
+        //   "query",
+        //   "schema",
+        //   "warn",
+        // ],
       }),
       inject: [ConfigService],
     }),

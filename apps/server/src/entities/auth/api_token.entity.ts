@@ -1,6 +1,13 @@
 import { ApiHideProperty } from "@nestjs/swagger";
 import { createId } from "@paralleldrive/cuid2";
-import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from "typeorm";
 
 import { EntityBase } from "#/entities/entitybase.entity";
 import { ApiPermission } from "#/entities/schemas/ApiPermission";
@@ -22,7 +29,7 @@ export class ApiToken extends EntityBase {
     this.token_id ??= createId();
   }
 
-  @Column()
+  @PrimaryColumn()
   token_id: string;
 
   @Column()
