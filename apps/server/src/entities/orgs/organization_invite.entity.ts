@@ -9,9 +9,6 @@ import { Organization } from "./organization.entity";
 
 @Entity()
 export class OrganizationInvite extends EntityBase {
-  /* ------------------------------------------------------------------
-     Core fields
-     ------------------------------------------------------------------ */
   @Column({ type: "varchar", length: 36 })
   organization_id!: string;
 
@@ -30,9 +27,6 @@ export class OrganizationInvite extends EntityBase {
   @Column({ type: "text", nullable: true })
   application_response?: string;
 
-  /* ------------------------------------------------------------------
-     Relations
-     ------------------------------------------------------------------ */
   @ManyToOne(() => User)
   @JoinColumn({ name: "user_id" })
   User?: User;

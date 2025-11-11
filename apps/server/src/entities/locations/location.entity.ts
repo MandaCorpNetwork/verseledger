@@ -1,4 +1,3 @@
-// Legacy/server/src/v1/models/location/location.model.ts
 import { Entity, Column, ManyToMany, JoinTable } from "typeorm";
 
 import { Contract } from "../contracts/contract.entity";
@@ -6,9 +5,6 @@ import { EntityBase } from "../entitybase.entity";
 
 @Entity()
 export class Location extends EntityBase {
-  /* ------------------------------------------------------------------
-     Core columns
-     ------------------------------------------------------------------ */
   @Column({ type: "varchar", length: 128 })
   version!: string;
 
@@ -42,9 +38,6 @@ export class Location extends EntityBase {
   @Column({ type: "boolean" })
   QT!: boolean;
 
-  /* ------------------------------------------------------------------
-     Relations
-     ------------------------------------------------------------------ */
   @ManyToMany(() => Contract, (contract) => contract.Locations)
   @JoinTable({
     name: "contract_location", // join table name

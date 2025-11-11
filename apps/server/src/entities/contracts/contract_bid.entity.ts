@@ -9,9 +9,6 @@ import { Contract } from "./contract.entity";
 
 @Entity()
 export class ContractBid extends EntityBase {
-  /* ------------------------------------------------------------------
-     Core fields
-     ------------------------------------------------------------------ */
   @Column({ type: "varchar", length: 36 })
   contract_id!: string;
 
@@ -24,9 +21,6 @@ export class ContractBid extends EntityBase {
   @Column()
   status!: IContractBidStatus;
 
-  /* ------------------------------------------------------------------
-     Relations
-     ------------------------------------------------------------------ */
   @ManyToOne(() => User)
   @JoinColumn({ name: "user_id" })
   User?: User;

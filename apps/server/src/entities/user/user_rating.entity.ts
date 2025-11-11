@@ -1,5 +1,4 @@
-// Legacy/server/src/v1/models/user_ratings/user_ratings.model.ts
-import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, Column, ManyToOne, JoinColumn, Check } from "typeorm";
 
 import { IRatingType } from "#/shared/schemas/UserRatingsSchema";
 
@@ -9,7 +8,7 @@ import { EntityBase } from "../entitybase.entity";
 import { User } from "./user.entity";
 
 @Entity()
-// @Check(`"rating_value" >= 1 AND "rating_value" <= 5`)
+@Check(`"rating_value" >= 1 AND "rating_value" <= 5`)
 export class UserRating extends EntityBase {
   @Column()
   submitter_id!: string;
@@ -31,10 +30,6 @@ export class UserRating extends EntityBase {
     nullable: true,
   })
   comment?: string | null;
-
-  /* ------------------------------------------------------------------
-   * Relations
-   * ------------------------------------------------------------------ */
 
   @ManyToOne(() => User)
   @JoinColumn({ name: "submitter_id" })

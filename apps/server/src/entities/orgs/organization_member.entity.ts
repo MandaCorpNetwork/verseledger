@@ -1,4 +1,3 @@
-// Legacy/server/src/v1/models/organization/organization_member.model.ts
 import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
 
 import { EntityBase } from "../entitybase.entity";
@@ -23,10 +22,6 @@ export class OrganizationMember extends EntityBase {
 
   @Column({ type: "boolean", default: false })
   primary!: boolean;
-
-  /* ------------------------------------------------------------------
-   * Relations
-   * ------------------------------------------------------------------ */
 
   @ManyToOne(() => User)
   @JoinColumn({ name: "user_id" })

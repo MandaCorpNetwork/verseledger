@@ -1,4 +1,3 @@
-// Legacy/server/src/v1/models/contract/contract.model.ts
 import {
   Entity,
   Column,
@@ -7,6 +6,7 @@ import {
   ManyToMany,
   JoinTable,
   JoinColumn,
+  Check,
 } from "typeorm";
 
 import { IContractPayStructure } from "#/shared/schemas/contracts/ContractPayStructureSchema";
@@ -22,7 +22,7 @@ import { UserRating } from "../user/user_rating.entity";
 import { ContractBid } from "./contract_bid.entity";
 
 @Entity()
-// @Check(`"ratingLimit" >= 0`)
+@Check(`"ratingLimit" >= 0`)
 export class Contract extends EntityBase {
   @Column({ type: "varchar", length: 32 })
   title!: string;
@@ -32,10 +32,6 @@ export class Contract extends EntityBase {
 
   @Column({ type: "text" })
   briefing!: string;
-
-  /* ------------------------------------------------------------------
-   * Owner handling (user or organization)
-   * ------------------------------------------------------------------ */
 
   get ownerType() {
     if (this.owner_org_id != null) return "organization";
@@ -67,10 +63,6 @@ export class Contract extends EntityBase {
   @JoinColumn({ name: "owner_user_id" })
   OwnerUser?: User;
 
-  /* ------------------------------------------------------------------
-   * Dates & flags
-   * ------------------------------------------------------------------ */
-
   @Column({ type: "datetime", nullable: true })
   bidDate?: Date;
 
@@ -82,10 +74,6 @@ export class Contract extends EntityBase {
 
   @Column({ type: "boolean", default: false })
   isEmergency!: boolean;
-
-  /* ------------------------------------------------------------------
-   * Compensation & rating limits
-   * ------------------------------------------------------------------ */
 
   @Column({ type: "float" })
   ratingLimit!: number;
@@ -105,16 +93,8 @@ export class Contract extends EntityBase {
   @Column({ type: "double" })
   defaultPay!: number;
 
-  /* ------------------------------------------------------------------
-   * Status enum
-   * ------------------------------------------------------------------ */
-
   @Column()
   status!: IContractStatus;
-
-  /* ------------------------------------------------------------------
-   * Relations
-   * ------------------------------------------------------------------ */
 
   @OneToMany(() => ContractBid, (bid) => bid.contract_id, {
     cascade: true,
