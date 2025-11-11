@@ -13,6 +13,15 @@ import { UserRating } from "#/entities/user/user_rating.entity";
 import { UserSetting } from "#/entities/user/user_setting.entity";
 import { AuthModule } from "#/modules/auth/auth.module";
 
+import { Contract } from "./entities/contracts/contract.entity";
+import { ContractBid } from "./entities/contracts/contract_bid.entity";
+import { ContractLocation } from "./entities/locations/contract_location.entity";
+import { Location } from "./entities/locations/location.entity";
+import { Organization } from "./entities/orgs/organization.entity";
+import { OrganizationInvite } from "./entities/orgs/organization_invite.entity";
+import { OrganizationMember } from "./entities/orgs/organization_member.entity";
+import { OrganizationRank } from "./entities/orgs/organization_rank.entity";
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -31,7 +40,21 @@ import { AuthModule } from "#/modules/auth/auth.module";
         username: configService.get<string>("database.username"),
         password: configService.get<string>("database.password"),
         synchronize: process.env["NODE_ENV"] !== "production",
-        entities: [User, ApiToken, UserAuth, UserRating, UserSetting],
+        entities: [
+          ApiToken,
+          UserAuth,
+          ContractBid,
+          Contract,
+          ContractLocation,
+          Location,
+          OrganizationInvite,
+          OrganizationMember,
+          OrganizationRank,
+          Organization,
+          UserRating,
+          UserSetting,
+          User,
+        ],
         logger: "advanced-console",
         // logging: [
         //   "error",

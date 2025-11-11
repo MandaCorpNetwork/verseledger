@@ -1,4 +1,4 @@
-import { ApiPermission } from "#/entities/schemas/ApiPermission";
+import { ApiPermission } from "#/shared/schemas/ApiPermission";
 
 export type VLToken = {
   jti: string;

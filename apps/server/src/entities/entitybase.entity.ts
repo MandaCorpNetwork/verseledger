@@ -2,12 +2,12 @@ import { createId } from "@paralleldrive/cuid2";
 import {
   BeforeInsert,
   CreateDateColumn,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 
 export abstract class EntityBase {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryColumn()
   id: string;
 
   @BeforeInsert()

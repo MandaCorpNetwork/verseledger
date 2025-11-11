@@ -1,0 +1,37 @@
+import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
+
+import { IContractBidStatus } from "#/shared/schemas/contracts/ContractBidStatusSchema";
+
+import { EntityBase } from "../entitybase.entity";
+import { User } from "../user/user.entity";
+
+import { Contract } from "./contract.entity";
+
+@Entity()
+export class ContractBid extends EntityBase {
+  /* ------------------------------------------------------------------
+     Core fields
+     ------------------------------------------------------------------ */
+  @Column({ type: "varchar", length: 36 })
+  contract_id!: string;
+
+  @Column({ type: "varchar", length: 36 })
+  user_id!: string;
+
+  @Column({ type: "double precision" })
+  amount!: number;
+
+  @Column()
+  status!: IContractBidStatus;
+
+  /* ------------------------------------------------------------------
+     Relations
+     ------------------------------------------------------------------ */
+  @ManyToOne(() => User)
+  @JoinColumn({ name: "user_id" })
+  User?: User;
+
+  @ManyToOne(() => Contract)
+  @JoinColumn({ name: "contract_id" })
+  Contract?: Contract;
+}

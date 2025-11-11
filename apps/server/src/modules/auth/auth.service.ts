@@ -10,8 +10,8 @@ import ms, { StringValue } from "ms";
 import { Repository } from "typeorm";
 
 import { ApiToken } from "#/entities/auth/api_token.entity";
-import { ApiPermission } from "#/entities/schemas/ApiPermission";
-import { ApiTokenType } from "#/entities/schemas/ApiTokenType";
+import { ApiPermission } from "#/shared/schemas/ApiPermission";
+import { ApiTokenType } from "#/shared/schemas/ApiTokenType";
 
 import { InvaliTokenPropsError } from "./auth.error";
 import { CreateApiTokenDTO } from "./dto/create-api-token.dto";

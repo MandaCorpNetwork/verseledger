@@ -10,10 +10,10 @@ import {
 } from "typeorm";
 
 import { EntityBase } from "#/entities/entitybase.entity";
-import { ApiPermission } from "#/entities/schemas/ApiPermission";
-import { User } from "#/entities/user/user.entity";
+import { ApiPermission } from "#/shared/schemas/ApiPermission";
+import { ApiTokenType } from "#/shared/schemas/ApiTokenType";
 
-import { ApiTokenType } from "../schemas/ApiTokenType";
+import { User } from "../user/user.entity";
 
 @Entity()
 export class ApiToken extends EntityBase {
@@ -24,7 +24,7 @@ export class ApiToken extends EntityBase {
   declare user_id: string;
 
   @BeforeInsert()
-  generateId(): void {
+  override generateId(): void {
     this.id ??= createId();
     this.token_id ??= createId();
   }

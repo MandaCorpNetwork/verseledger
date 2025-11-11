@@ -1,8 +1,4 @@
-import { ApiHideProperty } from "@nestjs/swagger";
-import { IsEnum } from "class-validator";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
-
-import { UserSettingKey } from "#/shared/enum/UserSettingKey";
+import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
 
 import { EntityBase } from "../entitybase.entity";
 
@@ -10,16 +6,24 @@ import { User } from "./user.entity";
 
 @Entity()
 export class UserSetting extends EntityBase {
-  @ManyToOne(() => User, (user) => user.id)
+  @Column({
+    name: "user_id",
+  })
+  user_id!: string;
+
+  @Column({
+    type: "varchar",
+    length: 128,
+  })
+  key!: string;
+
+  @Column({
+    type: "varchar",
+    length: 255,
+  })
+  value!: string;
+
+  @ManyToOne(() => User, (user) => user.id, { nullable: false })
   @JoinColumn({ name: "user_id" })
-  @ApiHideProperty()
-  user: User;
-  declare user_id: string;
-
-  @PrimaryColumn()
-  @IsEnum(UserSettingKey)
-  key: UserSettingKey;
-
-  @Column()
-  value: string;
+  User!: User;
 }

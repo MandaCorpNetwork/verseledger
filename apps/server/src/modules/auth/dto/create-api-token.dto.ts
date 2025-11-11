@@ -3,7 +3,7 @@ import { Transform, Type } from "class-transformer";
 import { IsDate, IsEnum, IsString } from "class-validator";
 import { StringValue } from "ms";
 
-import { ApiPermission } from "#/entities/schemas/ApiPermission";
+import { ApiPermission } from "#/shared/schemas/ApiPermission";
 import { transformStringOrDurattionToDate } from "#/utils/transformStringOrDurationToDate";
 
 @ApiSchema()
