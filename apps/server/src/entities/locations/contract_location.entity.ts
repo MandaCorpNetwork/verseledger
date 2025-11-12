@@ -7,13 +7,13 @@ import { Location } from "./location.entity";
 
 @Entity()
 export class ContractLocation extends EntityBase {
-  @Column({ type: "varchar", length: 32 })
+  @Column()
   tag!: string;
 
-  @Column({ type: "varchar", length: 36 })
+  @Column()
   contract_id!: string;
 
-  @Column({ type: "varchar", length: 36 })
+  @Column()
   location_id!: string;
 
   @ManyToOne(() => Contract, (contract) => contract.Locations)

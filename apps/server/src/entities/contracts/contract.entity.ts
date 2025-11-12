@@ -24,10 +24,10 @@ import { ContractBid } from "./contract_bid.entity";
 @Entity()
 @Check(`"ratingLimit" >= 0`)
 export class Contract extends EntityBase {
-  @Column({ type: "varchar", length: 32 })
+  @Column()
   title!: string;
 
-  @Column({ type: "varchar", length: 32 })
+  @Column()
   subtype!: IContractSubType;
 
   @Column({ type: "text" })

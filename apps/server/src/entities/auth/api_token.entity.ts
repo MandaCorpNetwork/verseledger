@@ -24,8 +24,8 @@ export class ApiToken extends EntityBase {
   declare user_id: string;
 
   @BeforeInsert()
-  override generateId(): void {
-    this.id ??= createId();
+  generateId(): void {
+    super.generateId();
     this.token_id ??= createId();
   }
 

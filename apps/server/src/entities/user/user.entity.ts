@@ -1,14 +1,20 @@
 import { createId } from "@paralleldrive/cuid2";
 import { IsBoolean, IsInt, IsNumber, IsString } from "class-validator";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, BeforeInsert } from "typeorm";
 
 import { EntityBase } from "#/entities/entitybase.entity";
 
 @Entity()
 export class User extends EntityBase {
-  @Column({ default: createId(), length: 32 })
+  @Column({ length: 32 })
   @IsString()
   handle: string;
+
+  @BeforeInsert()
+  generateId() {
+    super.generateId();
+    this.handle ??= createId();
+  }
 
   @Column({ length: 32 })
   @IsString()

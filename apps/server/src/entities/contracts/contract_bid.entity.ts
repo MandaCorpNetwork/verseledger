@@ -9,10 +9,10 @@ import { Contract } from "./contract.entity";
 
 @Entity()
 export class ContractBid extends EntityBase {
-  @Column({ type: "varchar", length: 36 })
+  @Column()
   contract_id!: string;
 
-  @Column({ type: "varchar", length: 36 })
+  @Column()
   user_id!: string;
 
   @Column({ type: "double precision" })

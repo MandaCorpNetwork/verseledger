@@ -9,13 +9,13 @@ import { Organization } from "./organization.entity";
 
 @Entity()
 export class OrganizationInvite extends EntityBase {
-  @Column({ type: "varchar", length: 36 })
+  @Column()
   organization_id!: string;
 
-  @Column({ type: "varchar", length: 36 })
+  @Column()
   user_id!: string;
 
-  @Column({ type: "varchar", length: 36 })
+  @Column()
   application_handler!: string;
 
   @Column()
