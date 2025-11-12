@@ -1,7 +1,7 @@
 import { Entity, Column, ManyToOne, OneToMany, JoinColumn } from "typeorm";
 
-import { EntityBase } from "../entitybase.entity";
-import { User } from "../user/user.entity";
+import { EntityBase } from "#/modules/entitybase.entity";
+import { User } from "#/modules/user/entities/user.entity";
 
 import { OrganizationInvite } from "./organization_invite.entity";
 import { OrganizationMember } from "./organization_member.entity";

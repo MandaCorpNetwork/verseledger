@@ -1,7 +1,8 @@
 import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
 
-import { Contract } from "../contracts/contract.entity";
-import { EntityBase } from "../entitybase.entity";
+import { EntityBase } from "#/modules/entitybase.entity";
+
+import { Contract } from "../../contract/entities/contract.entity";
 
 import { Location } from "./location.entity";
 

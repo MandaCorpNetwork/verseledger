@@ -1,6 +1,6 @@
 import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
 
-import { EntityBase } from "../entitybase.entity";
+import { EntityBase } from "#/modules/entitybase.entity";
 
 import { Organization } from "./organization.entity";
 

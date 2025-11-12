@@ -9,7 +9,7 @@ import { validate } from "class-validator";
 import ms, { StringValue } from "ms";
 import { Repository } from "typeorm";
 
-import { ApiToken } from "#/entities/auth/api_token.entity";
+import { ApiToken } from "#/modules/auth/entities/api_token.entity";
 import { ApiPermission } from "#/shared/schemas/ApiPermission";
 import { ApiTokenType } from "#/shared/schemas/ApiTokenType";
 

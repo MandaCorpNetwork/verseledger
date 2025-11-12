@@ -1,9 +1,8 @@
 import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
 
+import { EntityBase } from "#/modules/entitybase.entity";
+import { User } from "#/modules/user/entities/user.entity";
 import { IOrganizationInviteStatus } from "#/shared/schemas/orgs/OrganizationInviteSchema";
-
-import { EntityBase } from "../entitybase.entity";
-import { User } from "../user/user.entity";
 
 import { Organization } from "./organization.entity";
 

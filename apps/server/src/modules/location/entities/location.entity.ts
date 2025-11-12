@@ -1,7 +1,7 @@
 import { Entity, Column, ManyToMany, JoinTable } from "typeorm";
 
-import { Contract } from "../contracts/contract.entity";
-import { EntityBase } from "../entitybase.entity";
+import { Contract } from "#/modules/contract/entities/contract.entity";
+import { EntityBase } from "#/modules/entitybase.entity";
 
 @Entity()
 export class Location extends EntityBase {

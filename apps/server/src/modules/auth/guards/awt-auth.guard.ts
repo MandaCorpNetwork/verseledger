@@ -8,7 +8,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Request } from "express";
 import { Repository } from "typeorm";
 
-import { ApiToken } from "#/entities/auth/api_token.entity";
+import { ApiToken } from "#/modules/auth/entities/api_token.entity";
 
 import type { VLToken } from "#/modules/auth/vl-token";
 

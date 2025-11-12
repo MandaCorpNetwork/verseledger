@@ -3,7 +3,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
-import { UserRating } from "./user_rating.entity";
+import { UserRating } from "#/modules/user/entities/user_rating.entity";
 
 @Injectable()
 export class UserRatingService {

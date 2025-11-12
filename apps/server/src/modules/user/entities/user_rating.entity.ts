@@ -1,9 +1,8 @@
 import { Entity, Column, ManyToOne, JoinColumn, Check } from "typeorm";
 
+import { Contract } from "#/modules/contract/entities/contract.entity";
+import { EntityBase } from "#/modules/entitybase.entity";
 import { IRatingType } from "#/shared/schemas/UserRatingsSchema";
-
-import { Contract } from "../contracts/contract.entity";
-import { EntityBase } from "../entitybase.entity";
 
 import { User } from "./user.entity";
 

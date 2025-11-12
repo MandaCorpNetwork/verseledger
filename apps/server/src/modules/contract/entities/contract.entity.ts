@@ -9,15 +9,15 @@ import {
   Check,
 } from "typeorm";
 
+import { EntityBase } from "#/modules/entitybase.entity";
 import { IContractPayStructure } from "#/shared/schemas/contracts/ContractPayStructureSchema";
 import { IContractStatus } from "#/shared/schemas/contracts/ContractStatusSchema";
 import { IContractSubType } from "#/shared/schemas/contracts/ContractSubTypeSchema";
 
-import { EntityBase } from "../entitybase.entity";
-import { Location } from "../locations/location.entity";
-import { Organization } from "../orgs/organization.entity";
-import { User } from "../user/user.entity";
-import { UserRating } from "../user/user_rating.entity";
+import { Location } from "../../location/entities/location.entity";
+import { Organization } from "../../org/entities/organization.entity";
+import { User } from "../../user/entities/user.entity";
+import { UserRating } from "../../user/entities/user_rating.entity";
 
 import { ContractBid } from "./contract_bid.entity";
 

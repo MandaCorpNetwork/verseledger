@@ -9,11 +9,10 @@ import {
   PrimaryColumn,
 } from "typeorm";
 
-import { EntityBase } from "#/entities/entitybase.entity";
+import { EntityBase } from "#/modules/entitybase.entity";
+import { User } from "#/modules/user/entities/user.entity";
 import { ApiPermission } from "#/shared/schemas/ApiPermission";
 import { ApiTokenType } from "#/shared/schemas/ApiTokenType";
-
-import { User } from "../user/user.entity";
 
 @Entity()
 export class ApiToken extends EntityBase {

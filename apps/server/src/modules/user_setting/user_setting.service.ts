@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
 
-import { UserSetting } from "#/entities/user/user_setting.entity";
+import { UserSetting } from "#/modules/user/entities/user_setting.entity";
 import { UserSettingKey } from "#/shared/enum/UserSettingKey";
 
 import { UserSettingsDTO } from "./dto/user_settings.dto";

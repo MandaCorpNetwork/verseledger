@@ -2,8 +2,8 @@ import { Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
-import { ApiToken } from "#/entities/auth/api_token.entity";
-import { UserAuth } from "#/entities/auth/user_auth.entity";
+import { ApiToken } from "#/modules/auth/entities/api_token.entity";
+import { UserAuth } from "#/modules/auth/entities/user_auth.entity";
 
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";

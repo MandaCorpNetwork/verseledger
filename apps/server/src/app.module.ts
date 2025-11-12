@@ -6,21 +6,21 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import appConfig from "#/config/app.config";
 import databaseConfig from "#/config/database.config";
 import loginConfig from "#/config/login.config";
-import { ApiToken } from "#/entities/auth/api_token.entity";
-import { UserAuth } from "#/entities/auth/user_auth.entity";
-import { User } from "#/entities/user/user.entity";
-import { UserRating } from "#/entities/user/user_rating.entity";
-import { UserSetting } from "#/entities/user/user_setting.entity";
 import { AuthModule } from "#/modules/auth/auth.module";
+import { ApiToken } from "#/modules/auth/entities/api_token.entity";
+import { UserAuth } from "#/modules/auth/entities/user_auth.entity";
+import { User } from "#/modules/user/entities/user.entity";
+import { UserRating } from "#/modules/user/entities/user_rating.entity";
+import { UserSetting } from "#/modules/user/entities/user_setting.entity";
 
-import { Contract } from "./entities/contracts/contract.entity";
-import { ContractBid } from "./entities/contracts/contract_bid.entity";
-import { ContractLocation } from "./entities/locations/contract_location.entity";
-import { Location } from "./entities/locations/location.entity";
-import { Organization } from "./entities/orgs/organization.entity";
-import { OrganizationInvite } from "./entities/orgs/organization_invite.entity";
-import { OrganizationMember } from "./entities/orgs/organization_member.entity";
-import { OrganizationRank } from "./entities/orgs/organization_rank.entity";
+import { Contract } from "./modules/contract/entities/contract.entity";
+import { ContractBid } from "./modules/contract/entities/contract_bid.entity";
+import { ContractLocation } from "./modules/location/entities/contract_location.entity";
+import { Location } from "./modules/location/entities/location.entity";
+import { Organization } from "./modules/org/entities/organization.entity";
+import { OrganizationInvite } from "./modules/org/entities/organization_invite.entity";
+import { OrganizationMember } from "./modules/org/entities/organization_member.entity";
+import { OrganizationRank } from "./modules/org/entities/organization_rank.entity";
 
 @Module({
   imports: [
