@@ -9,18 +9,19 @@ import loginConfig from "#/config/login.config";
 import { AuthModule } from "#/modules/auth/auth.module";
 import { ApiToken } from "#/modules/auth/entities/api_token.entity";
 import { UserAuth } from "#/modules/auth/entities/user_auth.entity";
+import { Contract } from "#/modules/contract/entities/contract.entity";
+import { ContractBid } from "#/modules/contract/entities/contract_bid.entity";
+import { ContractLocation } from "#/modules/location/entities/contract_location.entity";
+import { Location } from "#/modules/location/entities/location.entity";
+import { LocationModule } from "#/modules/location/location.module";
+import { Organization } from "#/modules/org/entities/organization.entity";
+import { OrganizationInvite } from "#/modules/org/entities/organization_invite.entity";
+import { OrganizationMember } from "#/modules/org/entities/organization_member.entity";
+import { OrganizationRank } from "#/modules/org/entities/organization_rank.entity";
 import { User } from "#/modules/user/entities/user.entity";
 import { UserRating } from "#/modules/user/entities/user_rating.entity";
 import { UserSetting } from "#/modules/user/entities/user_setting.entity";
-
-import { Contract } from "./modules/contract/entities/contract.entity";
-import { ContractBid } from "./modules/contract/entities/contract_bid.entity";
-import { ContractLocation } from "./modules/location/entities/contract_location.entity";
-import { Location } from "./modules/location/entities/location.entity";
-import { Organization } from "./modules/org/entities/organization.entity";
-import { OrganizationInvite } from "./modules/org/entities/organization_invite.entity";
-import { OrganizationMember } from "./modules/org/entities/organization_member.entity";
-import { OrganizationRank } from "./modules/org/entities/organization_rank.entity";
+import { UserSettingModule } from "#/modules/user_setting/user_setting.module";
 
 @Module({
   imports: [
@@ -70,6 +71,8 @@ import { OrganizationRank } from "./modules/org/entities/organization_rank.entit
     }),
     ScheduleModule.forRoot(),
     AuthModule,
+    LocationModule,
+    UserSettingModule,
   ],
 })
 export class AppModule {}
