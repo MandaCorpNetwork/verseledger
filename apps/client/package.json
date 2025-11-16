@@ -24,7 +24,7 @@
     "@react-three/postprocessing": "3.0.4",
     "@reduxjs/toolkit": "2.10.1",
     "@scalar/api-reference-react": "0.8.5",
-    "@tanstack/react-form": "0.48.2",
+    "@tanstack/react-form": "1.25.0",
     "@tanstack/react-ranger": "0.0.4",
     "@tanstack/react-router": "1.134.18",
     "@tanstack/react-table": "8.21.3",
