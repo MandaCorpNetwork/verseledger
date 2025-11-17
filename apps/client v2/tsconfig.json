@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "useDefineForClassFields": true,
+    "lib": ["es2022", "DOM", "DOM.Iterable", "WebWorker"],
+    "module": "esnext",
+    "skipLibCheck": true,
+
+    /* Bundler */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linter */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "verbatimModuleSyntax": true,
+
+    /* Pathing */
+    "baseUrl": "./src",
+    "paths": {
+      "@Assets/*": ["./Assets/*"],
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["src", "tsconfig.json", "tsconfig.node.json"],
+  "exclude": [],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

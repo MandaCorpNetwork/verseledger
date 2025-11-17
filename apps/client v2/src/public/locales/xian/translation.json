@@ -1,0 +1,37 @@
+{
+  "@APP": {
+    "HOME": {
+      "LABEL": "xyo"
+    },
+    "SHIP": {
+      "LABEL": "san"
+    },
+    "FLEET": {
+      "LABEL": "unsan"
+    },
+    "SETTINGS": {
+      "LABEL": "t.o yu.n’i"
+    },
+    "EXPLORE": {
+      "LABEL": "ngyaixue’a"
+    },
+    "ROUTES": {
+      "LABEL": "s.oa"
+    },
+    "INVENTORY": {
+      "LABEL": "arai"
+    },
+    "CONTRACTS": {
+      "LABEL": "tōso.’e"
+    },
+    "MARKET": {
+      "LABEL": "huikon"
+    },
+    "ORGS": {
+      "LABEL": "chao"
+    },
+    "LEDGER": {
+      "LABEL": "unoa"
+    }
+  }
+}

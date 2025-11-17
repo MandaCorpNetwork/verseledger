@@ -9,6 +9,10 @@
       "path": "apps/client",
     },
     {
+      "name": "ClientV2",
+      "path": "apps/client v2"
+    },
+    {
       "name": "Server",
       "path": "apps/server",
     },

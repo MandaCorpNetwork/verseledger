@@ -1,0 +1,192 @@
+{
+  "@ERROR": {
+    "UNEXPLAINED": "Sorry, an error has occurred."
+  },
+  "@UI": {
+    "SUBMIT": "Submit",
+    "CONFIRM": "Confirm",
+    "CANCEL": "Cancel"
+  },
+  "@STATUS": {
+    "CONTRACT": {
+      "COMPLETED": "Completed",
+      "CANCELED": "Canceled",
+      "INPROGRESS": "In Progress",
+      "PENDING": "Pending",
+      "BIDDING": "Bidding"
+    }
+  },
+  "@NOTIFICATION": {
+    "MARK_READ": "Mark Read",
+    "MARK_ALL_READ": "Mark all Read",
+    "DISMISS": "Dismiss",
+    "DISMISS_ALL": "Dismiss All",
+    "OVERVIEW": "Overview",
+    "MESSAGES": {
+      "VERIFY_RSI": "Please verify your RSI account.",
+      "NEW_CONTRACT_RATING": "Recieved new rating on: {{contractTitle}}",
+      "CONTRACT_COMPLETED": "{{contractTitle}} has been {{contractStatus}}. Please Submit Ratings",
+      "CONTRACT_RATING_PENDING": "Awaiting Rating Submission for {{contractTitle}}",
+      "CONTRACT_UPDATED": "{{contractTitle}} has been updated.",
+      "BID_PENDING_OFFER": "{{name}} sent an offer on {{contractTitle}}",
+      "BID_PENDING": "New Bid from {{name}} on {{contractTitle}}",
+      "BID_DECLINED_OFFER": "{{name}} declined Offer on {{contractTitle}}",
+      "BID_DECLINED": "Invite declined by {{name}} on {{contractTitle}}",
+      "BID_ACCEPTED": "{{name}} is now Active on {{contractTitle}}",
+      "BID_WITHDRAWN": "{{name}} has Withdrawn from {{contractTitle}}",
+      "BID_INVITED_OFFER": "Recieved an Offer from {{name}} for {{contractTitle}}",
+      "BID_INVITED": "{{name}} has Invited you to {{contractTitle}}",
+      "BID_REJECTED_OFFER": "Offer Rejected for {{contractTitle}}",
+      "BID_REJECTED": "Bid Rejected for {{contractTitle}}",
+      "BID_EXPIRED": "Bid has Expired for {{contractTitle}}",
+      "BID_DISMISSED": "You have been Dismissed from {{contractTitle}}"
+    }
+  },
+  "@APP": {
+    "HOME": {
+      "LABEL": "Home"
+    },
+    "PROFILE": {
+      "LABEL": "Profile"
+    },
+    "SETTINGS": {
+      "LABEL": "Settings"
+    },
+    "EXPLORE": {
+      "LABEL": "Explore",
+      "FEATURES": {
+        "EXPLOREMAP": "Explorer Map",
+        "SEARCH": "Search Locations"
+      },
+      "CONTROLS": {
+        "SETMYLOCATION": "Set Location",
+        "ADDLOCATION": "Add Location",
+        "SHARELOCATION": "Share Location",
+        "SELLLOCATION": "Sell Data"
+      }
+    },
+    "ROUTES": {
+      "LABEL": "Routes"
+    },
+    "INVENTORY": {
+      "LABEL": "Inventory"
+    },
+    "SHIP": {
+      "LABEL": "Ship"
+    },
+    "FLEET": {
+      "LABEL": "Fleet"
+    },
+    "BUILDER": {
+      "LABEL": "Builder"
+    },
+    "TUNING": {
+      "LABEL": "Tuning"
+    },
+    "CONTRACTS": {
+      "LABEL": "Contracts"
+    },
+    "SERVICES": {
+      "LABEL": "Services"
+    },
+    "LEDGER": {
+      "LABEL": "Ledger"
+    },
+    "ORDERS": {
+      "LABEL": "Orders"
+    },
+    "MARKET": {
+      "LABEL": "Market"
+    },
+    "ORGS": {
+      "LABEL": "Org"
+    },
+    "NEWS": {
+      "LABEL": "News"
+    },
+    "RELATIONS": {
+      "LABEL": "Relations"
+    },
+    "MANAGEMENT": {
+      "LABEL": "Manage"
+    },
+    "PAYROLL": {
+      "LABEL": "Payroll"
+    },
+    "FINDER": {
+      "LABEL": "Finder"
+    },
+    "WIKI": {
+      "LABEL": "Wiki"
+    }
+  },
+  "@CONTRACTS": {
+    "SINGLE": "Contract",
+    "PLURAL": "Contracts",
+    "NONE": "No Contracts",
+    "ARCHETYPES": {
+      "LOGISTICS": "Logistics",
+      "MEDICAL": "Medical",
+      "SECURITY": "Security",
+      "SALVAGE": "Salvage",
+      "INDUSTRY": "Industry",
+      "RRR": "Support Services",
+      "FLEET": "Fleet",
+      "EXPLORATION": "Exploration",
+      "PROXY": "Other"
+    },
+    "SUBTYPES": {
+      "TRANSPORT": "Transportation",
+      "HAULING": "Hauling",
+      "MANAGE": "Cargo Management",
+      "TRAUMA": "Trauma",
+      "ONCALL": "On Call",
+      "ESCORT": "Escort",
+      "BOUNTY": "Bounty",
+      "QRF": "Quick Reaction Force",
+      "ASSETPROTECT": "Asset Protection",
+      "ATTACHE": "Attache",
+      "COLLECTION": "Collection",
+      "PROCUREMENT": "Procurement",
+      "MINING": "Mining",
+      "REFINING": "Refining",
+      "MANUFACTURING": "Manufacturing",
+      "SCOUTING": "Scouting",
+      "REFUEL": "Refuel",
+      "REARM": "Rearm",
+      "REPAIR": "Repair",
+      "CREWMAN": "Crewman",
+      "OUTSOURCING": "Outsourcing",
+      "LOCATE": "Locating",
+      "CHARTING": "Charting",
+      "MIDDLEMAN": "Middleman",
+      "REDACTED": "Redacted"
+    }
+  },
+  "@LOCATIONS": {
+    "CURRENTLOCATION": "Current Location",
+    "DISTANCE": {
+      "TM": {
+        "SYMBOL": "TM",
+        "LABEL": "Terra Meters"
+      },
+      "GM": {
+        "SYMBOL": "GM",
+        "LABEL": "Giga Meters"
+      },
+      "MM": {
+        "SYMBOL": "MM",
+        "LABEL": "Mega Meters"
+      },
+      "KM": {
+        "SYMBOL": "km",
+        "LABEL": "Kilometers"
+      }
+    }
+  },
+  "@POPUPS": {
+    "TITLES": {
+      "UPDATES": "Update Verse Ledger"
+    }
+  }
+}
