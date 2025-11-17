@@ -1,0 +1,313 @@
+@font-face {
+  font-family: 'DigiGraphic';
+  src: url('../Fonts/DigiGraphics.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Anita';
+  src: url('../Fonts/Anita.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Alenia';
+  src: url('../Fonts/Alenia.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ochoa';
+  src: url('../Fonts/Banu.otf') format('opentype');
+  font-weight: 50;
+  font-style: normal;
+  -moz-font-feature-settings: 'ccmp', 'liga';
+  -webkit-font-feature-settings: 'ccmp', 'liga';
+  font-feature-settings: 'ccmp', 'liga';
+  text-rendering: optimizeLegibility;
+}
+
+@font-face {
+  font-family: 'xiinthlea';
+  src: url('../Fonts/Xian.otf') format('opentype');
+  font-weight: 50;
+  font-style: normal;
+  -moz-font-feature-settings: 'ccmp', 'liga';
+  -webkit-font-feature-settings: 'ccmp', 'liga';
+  font-feature-settings: 'ccmp', 'liga';
+  text-rendering: optimizeLegibility;
+}
+
+@font-face {
+  font-family: 'cigOptical';
+  src: url('../Fonts/CIGOpticalRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Aldrich';
+  src: url('../Fonts/Aldrichregular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Electrolize';
+  src: url('../Fonts/ElectrolizeRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.saira-semi-condensed-thin {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.saira-semi-condensed-extralight {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.saira-semi-condensed-light {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.saira-semi-condensed-regular {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.saira-semi-condensed-medium {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.saira-semi-condensed-semibold {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.saira-semi-condensed-bold {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.saira-semi-condensed-extrabold {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.saira-semi-condensed-black {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.jura-normal {
+  font-family: 'Jura', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.jura-bold {
+  font-family: 'Jura', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.jura-extrabold {
+  font-family: 'Jura', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.ochoa-normal {
+  font-family: 'Banu', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  -moz-font-feature-settings: 'ccmp', 'liga';
+  -webkit-font-feature-settings: 'ccmp', 'liga';
+  font-feature-settings: 'ccmp', 'liga';
+  text-rendering: optimizeLegibility;
+}
+
+.ochoa-bold {
+  font-family: 'Banu', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  -moz-font-feature-settings: 'ccmp', 'liga';
+  -webkit-font-feature-settings: 'ccmp', 'liga';
+  font-feature-settings: 'ccmp', 'liga';
+  text-rendering: optimizeLegibility;
+}
+
+.ochoa-extrabold {
+  font-family: 'xiinthlea', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  -moz-font-feature-settings: 'ccmp', 'liga';
+  -webkit-font-feature-settings: 'ccmp', 'liga';
+  font-feature-settings: 'ccmp', 'liga';
+  text-rendering: optimizeLegibility;
+}
+
+.xiinthlea-normal {
+  font-family: 'xiinthlea', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  -moz-font-feature-settings: 'ccmp', 'liga';
+  -webkit-font-feature-settings: 'ccmp', 'liga';
+  font-feature-settings: 'ccmp', 'liga';
+  text-rendering: optimizeLegibility;
+}
+
+.xiinthlea-bold {
+  font-family: 'xiinthlea', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  -moz-font-feature-settings: 'ccmp', 'liga';
+  -webkit-font-feature-settings: 'ccmp', 'liga';
+  font-feature-settings: 'ccmp', 'liga';
+  text-rendering: optimizeLegibility;
+}
+
+.xiinthlea-extrabold {
+  font-family: 'xiinthlea', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  -moz-font-feature-settings: 'ccmp', 'liga';
+  -webkit-font-feature-settings: 'ccmp', 'liga';
+  font-feature-settings: 'ccmp', 'liga';
+  text-rendering: optimizeLegibility;
+}
+
+.exo-normal {
+  font-family: 'Exo', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.exo-bold {
+  font-family: 'Exo', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.exo-extrabold {
+  font-family: 'Exo', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.doto-normal {
+  font-family: 'Doto', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: 'ROND' 0;
+}
+
+.doto-bold {
+  font-family: 'Doto', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings: 'ROND' 0;
+}
+
+.roboto-thin {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.roboto-light {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.roboto-regular {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-medium {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.roboto-bold {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.roboto-black {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.roboto-thin-italic {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.roboto-light-italic {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.roboto-regular-italic {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.roboto-medium-italic {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.roboto-bold-italic {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.roboto-black-italic {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
