@@ -1,9 +1,9 @@
-import { VLToken } from "#/modules/auth/vl-token";
+import { ApiToken } from "../entities/api_token.entity";
 
 declare global {
   declare namespace Express {
     interface Request {
-      token?: VLToken;
+      token?: ApiToken;
     }
   }
 }

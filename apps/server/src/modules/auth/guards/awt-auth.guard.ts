@@ -32,7 +32,7 @@ export class JwtAuthGuard implements CanActivate {
         id: payload.jti,
       });
       if (!apiToken) throw new UnauthorizedException("Token is Invalid");
-      request.token = payload;
+      request.token = apiToken;
     } catch (_error) {
       throw new UnauthorizedException("Token is Invalid");
     }
