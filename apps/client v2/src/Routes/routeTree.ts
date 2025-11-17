@@ -1,5 +1,6 @@
+import { indexRoute } from ".";
 import { rootRoute } from "./root";
 
 export const routeTree = rootRoute.addChildren([
-  
+  indexRoute
 ])
