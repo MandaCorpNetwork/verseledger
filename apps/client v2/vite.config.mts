@@ -1,3 +1,10 @@
+import mdx from '@mdx-js/rollup';
+import react from '@vitejs/plugin-react-swc';
+import { defineConfig } from 'vite';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import { VitePWA, type VitePWAOptions } from 'vite-plugin-pwa';
+import tsconfigPaths from 'vite-tsconfig-paths';
+
 const PWA_OPTIONS: Partial<VitePWAOptions> = {
   workbox: { maximumFileSizeToCacheInBytes: 5000000, globPatterns: ['**/*'] },
   includeManifestIcons: true,

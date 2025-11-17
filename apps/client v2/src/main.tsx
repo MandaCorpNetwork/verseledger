@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 import './main.css';
-import './i18n';
+// import './i18n';
 
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
