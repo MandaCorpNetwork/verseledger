@@ -1,9 +1,10 @@
+import '@mui/material/styles';
 declare module '@mui/material/styles' {
   interface Palette {
-    tertiary: PalletteColor;
+    tertiary: PaletteColor;
     glow?: string;
   }
-  interface PalletOptions {
+  interface PaletteOptions {
     tertiary?: PaletteColorOptions;
     glow?: string;
   }
