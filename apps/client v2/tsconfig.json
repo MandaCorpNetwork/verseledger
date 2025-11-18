@@ -25,14 +25,25 @@
     /* Pathing */
     "baseUrl": "./src",
     "paths": {
+      "@Apps/*": ["./Apps/*"],
       "@Assets/*": ["./Assets/*"],
-      "@Common/*": ["./Common/*"],
-      "@Components/*": ["./Common/Components/*"],
-      "@Types/*": ["./Common/Definitions/Types/*"],
+      "@Components/*": ["./Components/*"],
+      "@Types/*": ["./Definitions/Types/*"],
+      "@Maps/*": ["./Definitions/Maps/*"],
+      "@OS/*": ["./OS/*"],
+      "@Routes/*": ["./Routes/*"],
+      "@Store/*": ["./Store/*"],
+      "@Utils/*": ["./Utils/*"],
       "@/*": ["./*"]
     }
   },
-  "include": ["src", "tsconfig.json", "tsconfig.node.json"],
+  "include": [
+    "src",
+    "tsconfig.json",
+    "tsconfig.node.json",
+    "../client/src/i18n.ts",
+    "src/Components"
+  ],
   "exclude": [],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,14 +1,16 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router';
-import { Box } from '@mui/material';
-import type { ReactNode } from 'react';
+import { createRootRouteWithContext } from '@tanstack/react-router';
+import type { QueryClient } from '@tanstack/react-query';
+import { AppShell } from '@/AppShell';
 
-type BaseWrapProps = {
-  children: ReactNode;
-};
-const BaseWrap: React.FC<BaseWrapProps> = ({ children }) => {
-  return <Box>{children}</Box>;
-};
+interface RouterContext {
+  queryClient: QueryClient;
+}
 
-export const rootRoute = createRootRoute({
-  component: () => <BaseWrap><Outlet /></BaseWrap>,
+/**
+ * Root Route intended to Only return the AppShell component
+ * Intakes the Query Client for ApiCalls and passed in here as well.
+ */
+
+export const rootRoute = createRootRouteWithContext<RouterContext>()({
+  component: () => <AppShell></AppShell>,
 });

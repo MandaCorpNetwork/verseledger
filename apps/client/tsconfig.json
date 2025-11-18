@@ -47,7 +47,8 @@
     "src",
     "tsconfig.json",
     "tsconfig.node.json",
-    "src/Common/Components/Core/Boxes/.tsx"
+    "src/Common/Components/Core/Boxes/.tsx",
+    "src/i18n.ts"
   ],
   "exclude": ["cypress", "cypress.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]

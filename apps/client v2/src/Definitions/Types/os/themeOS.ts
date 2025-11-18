@@ -1,0 +1,1 @@
+export type ThemeOS = 'verseOS' | 'pirateOS' | 'refineryOS' | 'vlTerminal' | 'hexOS';

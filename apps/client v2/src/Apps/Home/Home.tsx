@@ -1,4 +1,4 @@
-import { BackdropVideo } from '@Common/Components/Core/Media/BackdropVideo';
+import { BackdropVideo } from '@Components/Core/Media/BackdropVideo';
 import { Box } from '@mui/material';
 
 export const Home: React.FC<unknown> = () => {
