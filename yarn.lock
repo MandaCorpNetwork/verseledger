@@ -6939,6 +6939,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@openfeature/ofrep-core@npm:1.1.0":
+  version: 1.1.0
+  resolution: "@openfeature/ofrep-core@npm:1.1.0"
+  peerDependencies:
+    "@openfeature/core": ^1.6.0
+  checksum: 10c0/2ac86ff98aba395fb5d0990d0d9e6b00046a70d8e201f4dd4b80e1c6add9d009d93148a2d4dbe51fad1eb414a2a0905de7efb7810e3b5ccee3e0638c44a47fc4
+  languageName: node
+  linkType: hard
+
 "@openfeature/react-sdk@npm:1.0.2":
   version: 1.0.2
   resolution: "@openfeature/react-sdk@npm:1.0.2"
@@ -24706,6 +24715,7 @@ __metadata:
     "@nestjs/websockets": "npm:11.1.9"
     "@openfeature/core": "npm:1.9.1"
     "@openfeature/nestjs-sdk": "npm:0.2.5"
+    "@openfeature/ofrep-core": "npm:1.1.0"
     "@openfeature/server-sdk": "npm:1.20.0"
     "@paralleldrive/cuid2": "npm:3.0.4"
     "@types/express": "npm:5.0.5"

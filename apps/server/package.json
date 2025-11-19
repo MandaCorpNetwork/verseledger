@@ -28,6 +28,7 @@
     "@nestjs/websockets": "11.1.9",
     "@openfeature/core": "1.9.1",
     "@openfeature/nestjs-sdk": "0.2.5",
+    "@openfeature/ofrep-core": "1.1.0",
     "@openfeature/server-sdk": "1.20.0",
     "@paralleldrive/cuid2": "3.0.4",
     "class-transformer": "0.5.1",
