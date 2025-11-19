@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ScheduleModule } from "@nestjs/schedule";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { OpenFeatureModule, InMemoryProvider } from "@openfeature/nestjs-sdk";
 
 import appConfig from "#/config/app.config";
 import databaseConfig from "#/config/database.config";
@@ -68,6 +69,9 @@ import { UserSettingModule } from "#/modules/user_setting/user_setting.module";
         // ],
       }),
       inject: [ConfigService],
+    }),
+    OpenFeatureModule.forRoot({
+      defaultProvider: new InMemoryProvider(),
     }),
     ScheduleModule.forRoot(),
     AuthModule,
