@@ -34,7 +34,7 @@ export const useMasterAppList = () => {
         id: 'verse-news',
         label: '@APP.NEWS.LABEL',
         path: '/verse-news',
-        disabled: true,
+        disabled: false,
         icon: NewspaperTwoTone,
         versionLabel: 'Verse News',
         version: '0.X',

@@ -1,11 +1,10 @@
-import type { SvgIconProps } from "@mui/material";
-import type { ThemeVariant } from "../themes/themeTypes";
+import type { SvgIconProps } from '@mui/material';
+import type { ThemeVariant } from '../themes/themeTypes';
+import type { AppListing } from '@Types/apps';
 
-export type AppButtonV3Props = {
-  label: string;
-  icon: React.ComponentType<SvgIconProps>;
-  path: string;
-  disabled?: boolean;
-  variant: ThemeVariant;
-  'data-testid'?: string;
-}
+export type AppButtonProps = {
+  app: AppListing;
+  children: React.ReactNode;
+  onClick?: () => void;
+  size?: 'small' | 'medium' | 'large';
+};
