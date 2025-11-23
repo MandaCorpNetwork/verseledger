@@ -1,6 +1,9 @@
+import { join } from "node:path";
+
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ScheduleModule } from "@nestjs/schedule";
+import { ServeStaticModule } from "@nestjs/serve-static";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { OpenFeatureModule, InMemoryProvider } from "@openfeature/nestjs-sdk";
 
@@ -74,6 +77,10 @@ import { UserSettingModule } from "#/modules/user_setting/user_setting.module";
       defaultProvider: new InMemoryProvider(),
     }),
     ScheduleModule.forRoot(),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, "..", "..", "..", "client/build"),
+      exclude: ["/api/{*path}"],
+    }),
     AuthModule,
     LocationModule,
     UserSettingModule,
