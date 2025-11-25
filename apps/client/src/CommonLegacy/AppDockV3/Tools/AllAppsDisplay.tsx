@@ -2,7 +2,7 @@ import { useSoundEffect } from '@Audio/AudioManager';
 import { AppButtonV2 } from '@CommonLegacy/Components/Buttons/AppButtonV2';
 import { useMasterAppList } from '@CommonLegacy/DefinitionsLegacy/AppListings';
 import { Close } from '@mui/icons-material';
-import { Box, Grid2, IconButton, Tooltip, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Tooltip, Typography } from '@mui/material';
 import { useAppDispatch } from '@Redux/hooks';
 import { closePopup } from '@Redux/Slices/Popups/popups.actions';
 import React from 'react';
@@ -87,7 +87,7 @@ export const AllAppsDisplay: React.FC = () => {
           </IconButton>
         </Tooltip>
       </div>
-      <Grid2
+      <Grid
         container
         columnGap={{ xs: 2, md: 4 }}
         rowGap={{ xs: 2, md: 4 }}
@@ -119,7 +119,7 @@ export const AllAppsDisplay: React.FC = () => {
             return a.disabled ? 1 : -1;
           })
           .map((app) => (
-            <Grid2
+            <Grid
               key={app.id}
               size={{ xs: 4, md: 1 }}
               sx={{
@@ -134,9 +134,9 @@ export const AllAppsDisplay: React.FC = () => {
                 icon={app.icon}
                 disabled={app.disabled ?? false}
               />
-            </Grid2>
+            </Grid>
           ))}
-      </Grid2>
+      </Grid>
     </Box>
   );
 };
