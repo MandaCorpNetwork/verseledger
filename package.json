@@ -47,7 +47,7 @@
   },
   "resolutions": {
     "@types/mime": "3.0.4",
-    "express": "5.1.0",
+    "express": "5.2.0",
     "chalk": "4.1.2"
   },
   "packageManager": "yarn@4.12.0"
