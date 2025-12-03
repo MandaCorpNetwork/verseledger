@@ -45,7 +45,7 @@
     "@paralleldrive/cuid2": "3.1.0",
     "@stomp/stompjs": "7.2.1",
     "axios": "1.13.2",
-    "bson": "6.10.4",
+    "bson": "7.0.0",
     "chalk": "4.1.2",
     "colors": "1.4.0",
     "cors": "2.8.5",
