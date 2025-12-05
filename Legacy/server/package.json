@@ -54,7 +54,7 @@
     "dotenv": "17.2.3",
     "express": "5.1.0",
     "googleapis": "165.0.0",
-    "inversify": "6.2.2",
+    "inversify": "7.10.6",
     "inversify-express-utils": "6.5.0",
     "jsonwebtoken": "9.0.2",
     "lodash": "4.17.21",
