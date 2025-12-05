@@ -9,8 +9,8 @@
     "lint:check": "tsc --noEmit && npx eslint ./src"
   },
   "dependencies": {
-    "@typescript-eslint/parser": "8.47.0",
-    "zod": "4.1.12"
+    "@typescript-eslint/parser": "8.48.1",
+    "zod": "4.1.13"
   },
   "preconstruct": {
     "entrypoints": [
@@ -18,7 +18,7 @@
     ]
   },
   "devDependencies": {
-    "@eslint/eslintrc": "3.3.1",
+    "@eslint/eslintrc": "3.3.3",
     "@eslint/js": "9.39.1",
     "globals": "16.5.0"
   }
