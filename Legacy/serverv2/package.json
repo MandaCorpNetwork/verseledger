@@ -19,7 +19,7 @@
     "eslint": "9.39.1",
     "prettier": "3.6.2",
     "typescript": "5.9.3",
-    "vitest": "4.0.7"
+    "vitest": "4.1.0"
   },
   "dependencies": {
     "busboy": "1.6.0",
