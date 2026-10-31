@@ -71,7 +71,7 @@
     "vl-shared": "1.0.0",
     "web-push": "3.6.7",
     "ws": "8.18.3",
-    "zod": "4.1.12"
+    "zod": "4.6.6"
   },
   "trustedDependencies": [
     "@swc/core",
