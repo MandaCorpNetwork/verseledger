@@ -25,7 +25,7 @@
     "docker:local": "docker compose --profile local up"
   },
   "devDependencies": {
-    "@babel/core": "7.28.5",
+    "@babel/core": "7.29.6",
     "@babel/preset-env": "7.28.5",
     "@babel/preset-typescript": "7.28.5",
     "@changesets/cli": "2.29.8",
