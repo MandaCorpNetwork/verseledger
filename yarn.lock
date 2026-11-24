@@ -10687,7 +10687,7 @@ __metadata:
     eslint-plugin-simple-import-sort: "npm:12.1.1"
     globals: "npm:16.5.0"
     howler: "npm:2.2.4"
-    i18next: "npm:25.7.1"
+    i18next: "npm:26.3.4"
     i18next-browser-languagedetector: "npm:8.2.0"
     i18next-http-backend: "npm:3.0.2"
     jwt-decode: "npm:4.0.0"
@@ -10796,7 +10796,7 @@ __metadata:
     eslint-plugin-simple-import-sort: "npm:12.1.1"
     globals: "npm:16.5.0"
     howler: "npm:2.2.4"
-    i18next: "npm:25.7.1"
+    i18next: "npm:26.3.4"
     i18next-browser-languagedetector: "npm:8.2.0"
     i18next-http-backend: "npm:3.0.2"
     jwt-decode: "npm:4.0.0"
@@ -15010,17 +15010,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:25.7.1":
-  version: 25.7.1
-  resolution: "i18next@npm:25.7.1"
-  dependencies:
-    "@babel/runtime": "npm:^7.28.4"
+"i18next@npm:26.3.4":
+  version: 26.3.4
+  resolution: "i18next@npm:26.3.4"
   peerDependencies:
-    typescript: ^5
+    typescript: ^5 || ^6
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/864052056a42f59f9a7a97b2ca18d7aead805457f4355d7df2f1ea2986820ab1ee5a56e43906f53b7d93079e47ba6da33d7767d84216a39857d20b923790c502
+  checksum: 10c0/09b2e578660b1cdcb284ed00e1f1c8559871fa66cbf85e58f9b78bf782e3b575341f0668ca7230fc80d30104bec42f8ac3ac221096d0f6e6bfbf18255dcccc94
   languageName: node
   linkType: hard
 
